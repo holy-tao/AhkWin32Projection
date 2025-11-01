@@ -49,7 +49,9 @@ class IWMSecureChannel extends IWMAuthorizer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_addsignature
      */
     WMSC_AddSignature(pbCertSig, cbCertSig) {
-        result := ComCall(7, this, "char*", pbCertSig, "uint", cbCertSig, "HRESULT")
+        pbCertSigMarshal := pbCertSig is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbCertSigMarshal, pbCertSig, "uint", cbCertSig, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class IWMSecureChannel extends IWMAuthorizer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_getvalidcertificate
      */
     WMSC_GetValidCertificate(ppbCertificate, pdwSignature) {
-        result := ComCall(11, this, "ptr*", ppbCertificate, "uint*", pdwSignature, "HRESULT")
+        pdwSignatureMarshal := pdwSignature is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr*", ppbCertificate, pdwSignatureMarshal, pdwSignature, "HRESULT")
         return result
     }
 
@@ -105,7 +109,9 @@ class IWMSecureChannel extends IWMAuthorizer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_encrypt
      */
     WMSC_Encrypt(pbData, cbData) {
-        result := ComCall(12, this, "char*", pbData, "uint", cbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(12, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -117,7 +123,9 @@ class IWMSecureChannel extends IWMAuthorizer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_decrypt
      */
     WMSC_Decrypt(pbData, cbData) {
-        result := ComCall(13, this, "char*", pbData, "uint", cbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -149,7 +157,9 @@ class IWMSecureChannel extends IWMAuthorizer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_setshareddata
      */
     WMSC_SetSharedData(dwCertIndex, pbSharedData) {
-        result := ComCall(16, this, "uint", dwCertIndex, "char*", pbSharedData, "HRESULT")
+        pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(16, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, "HRESULT")
         return result
     }
 }

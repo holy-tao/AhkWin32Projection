@@ -128,7 +128,9 @@ class IXAudio2SourceVoice extends IXAudio2Voice{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-getfrequencyratio
      */
     GetFrequencyRatio(pRatio) {
-        ComCall(27, this, "float*", pRatio)
+        pRatioMarshal := pRatio is VarRef ? "float*" : "ptr"
+
+        ComCall(27, this, pRatioMarshal, pRatio)
     }
 
     /**

@@ -55,7 +55,9 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ExternalPort(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {HRESULT} 
      */
     get_InternalPort(pVal) {
-        result := ComCall(11, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -115,7 +119,9 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LeaseDuration(pVal) {
-        result := ComCall(15, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -126,7 +132,9 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {HRESULT} 
      */
     RenewLease(lLeaseDurationDesired, pLeaseDurationReturned) {
-        result := ComCall(16, this, "int", lLeaseDurationDesired, "int*", pLeaseDurationReturned, "HRESULT")
+        pLeaseDurationReturnedMarshal := pLeaseDurationReturned is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "int", lLeaseDurationDesired, pLeaseDurationReturnedMarshal, pLeaseDurationReturned, "HRESULT")
         return result
     }
 

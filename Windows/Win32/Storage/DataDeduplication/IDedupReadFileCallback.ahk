@@ -50,7 +50,10 @@ class IDedupReadFileCallback extends IUnknown{
     ReadBackupFile(FileFullPath, FileOffset, SizeToRead, FileBuffer, ReturnedSize, Flags) {
         FileFullPath := FileFullPath is String ? BSTR.Alloc(FileFullPath).Value : FileFullPath
 
-        result := ComCall(3, this, "ptr", FileFullPath, "int64", FileOffset, "uint", SizeToRead, "char*", FileBuffer, "uint*", ReturnedSize, "uint", Flags, "HRESULT")
+        FileBufferMarshal := FileBuffer is VarRef ? "char*" : "ptr"
+        ReturnedSizeMarshal := ReturnedSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", FileFullPath, "int64", FileOffset, "uint", SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -64,7 +67,9 @@ class IDedupReadFileCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nf-ddpbackup-idedupreadfilecallback-ordercontainersrestore
      */
     OrderContainersRestore(NumberOfContainers, ContainerPaths, ReadPlanEntries, ReadPlan) {
-        result := ComCall(4, this, "uint", NumberOfContainers, "ptr", ContainerPaths, "uint*", ReadPlanEntries, "ptr*", ReadPlan, "HRESULT")
+        ReadPlanEntriesMarshal := ReadPlanEntries is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", NumberOfContainers, "ptr", ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, "ptr*", ReadPlan, "HRESULT")
         return result
     }
 

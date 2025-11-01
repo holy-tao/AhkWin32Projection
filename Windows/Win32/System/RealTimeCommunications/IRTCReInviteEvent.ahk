@@ -68,7 +68,9 @@ class IRTCReInviteEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(pState) {
-        result := ComCall(10, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 

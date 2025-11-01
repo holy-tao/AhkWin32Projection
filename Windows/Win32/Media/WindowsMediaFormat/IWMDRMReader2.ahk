@@ -50,7 +50,10 @@ class IWMDRMReader2 extends IWMDRMReader{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader2-getplayoutputlevels
      */
     GetPlayOutputLevels(pPlayOPL, pcbLength, pdwMinAppComplianceLevel) {
-        result := ComCall(12, this, "ptr", pPlayOPL, "uint*", pcbLength, "uint*", pdwMinAppComplianceLevel, "HRESULT")
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+        pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pPlayOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
         return result
     }
 
@@ -63,7 +66,10 @@ class IWMDRMReader2 extends IWMDRMReader{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader2-getcopyoutputlevels
      */
     GetCopyOutputLevels(pCopyOPL, pcbLength, pdwMinAppComplianceLevel) {
-        result := ComCall(13, this, "ptr", pCopyOPL, "uint*", pcbLength, "uint*", pdwMinAppComplianceLevel, "HRESULT")
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+        pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pCopyOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
         return result
     }
 

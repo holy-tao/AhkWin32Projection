@@ -54,7 +54,9 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_reason
      */
     get_Reason(pReason) {
-        result := ComCall(8, this, "int*", pReason, "HRESULT")
+        pReasonMarshal := pReason is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pReasonMarshal, pReason, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_code
      */
     get_Code(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,9 @@ class IAMPhysicalPinInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamphysicalpininfo-getphysicaltype
      */
     GetPhysicalType(pType, ppszType) {
-        result := ComCall(3, this, "int*", pType, "ptr", ppszType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pTypeMarshal, pType, "ptr", ppszType, "HRESULT")
         return result
     }
 }

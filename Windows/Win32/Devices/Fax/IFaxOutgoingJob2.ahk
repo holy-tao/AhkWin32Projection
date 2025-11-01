@@ -63,7 +63,9 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_scheduletype
      */
     get_ScheduleType(pScheduleType) {
-        result := ComCall(40, this, "int*", pScheduleType, "HRESULT")
+        pScheduleTypeMarshal := pScheduleType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, pScheduleTypeMarshal, pScheduleType, "HRESULT")
         return result
     }
 }

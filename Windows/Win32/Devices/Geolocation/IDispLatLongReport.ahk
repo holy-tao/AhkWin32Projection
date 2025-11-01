@@ -40,7 +40,9 @@ class IDispLatLongReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Latitude(pVal) {
-        result := ComCall(7, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IDispLatLongReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Longitude(pVal) {
-        result := ComCall(8, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IDispLatLongReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ErrorRadius(pVal) {
-        result := ComCall(9, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IDispLatLongReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Altitude(pVal) {
-        result := ComCall(10, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -80,7 +88,9 @@ class IDispLatLongReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AltitudeError(pVal) {
-        result := ComCall(11, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -90,7 +100,9 @@ class IDispLatLongReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Timestamp(pVal) {
-        result := ComCall(12, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 }

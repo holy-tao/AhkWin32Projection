@@ -50,7 +50,9 @@ class ICspAlgorithms extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_count
      */
     get_Count(pVal) {
-        result := ComCall(8, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -119,7 +121,9 @@ class ICspAlgorithms extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_indexbyobjectid
      */
     get_IndexByObjectId(pObjectId, pIndex) {
-        result := ComCall(14, this, "ptr", pObjectId, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pObjectId, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 }

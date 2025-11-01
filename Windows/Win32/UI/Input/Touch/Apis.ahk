@@ -118,7 +118,9 @@ class Touch {
     static IsTouchWindow(hwnd, pulFlags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\IsTouchWindow", "ptr", hwnd, "uint*", pulFlags, "int")
+        pulFlagsMarshal := pulFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\IsTouchWindow", "ptr", hwnd, pulFlagsMarshal, pulFlags, "int")
         return result
     }
 
@@ -245,9 +247,11 @@ class Touch {
     static GetGestureConfig(hwnd, dwReserved, dwFlags, pcIDs, pGestureConfig, cbSize) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
+        pcIDsMarshal := pcIDs is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetGestureConfig", "ptr", hwnd, "uint", dwReserved, "uint", dwFlags, "uint*", pcIDs, "ptr", pGestureConfig, "uint", cbSize, "int")
+        result := DllCall("USER32.dll\GetGestureConfig", "ptr", hwnd, "uint", dwReserved, "uint", dwFlags, pcIDsMarshal, pcIDs, "ptr", pGestureConfig, "uint", cbSize, "int")
         if(A_LastError)
             throw OSError()
 

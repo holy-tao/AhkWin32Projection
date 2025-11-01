@@ -73,7 +73,9 @@ class IEnumWIA_FORMAT_INFO extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_format_info-next
      */
     Next(celt, rgelt, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", rgelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -116,7 +118,9 @@ class IEnumWIA_FORMAT_INFO extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwia_format_info-getcount
      */
     GetCount(pcelt) {
-        result := ComCall(7, this, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 }

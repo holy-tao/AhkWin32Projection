@@ -34,7 +34,9 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     GetGrammarId(pullGrammarId) {
-        result := ComCall(11, this, "uint*", pullGrammarId, "HRESULT")
+        pullGrammarIdMarshal := pullGrammarId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pullGrammarIdMarshal, pullGrammarId, "HRESULT")
         return result
     }
 
@@ -116,7 +118,9 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     LoadCmdFromProprietaryGrammar(rguidParam, pszStringParam, pvDataPrarm, cbDataSize, Options) {
         pszStringParam := pszStringParam is String ? StrPtr(pszStringParam) : pszStringParam
 
-        result := ComCall(17, this, "ptr", rguidParam, "ptr", pszStringParam, "ptr", pvDataPrarm, "uint", cbDataSize, "int", Options, "HRESULT")
+        pvDataPrarmMarshal := pvDataPrarm is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(17, this, "ptr", rguidParam, "ptr", pszStringParam, pvDataPrarmMarshal, pvDataPrarm, "uint", cbDataSize, "int", Options, "HRESULT")
         return result
     }
 
@@ -130,7 +134,9 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     SetRuleState(pszName, pReserved, NewState) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(18, this, "ptr", pszName, "ptr", pReserved, "int", NewState, "HRESULT")
+        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(18, this, "ptr", pszName, pReservedMarshal, pReserved, "int", NewState, "HRESULT")
         return result
     }
 
@@ -210,7 +216,9 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     IsPronounceable(pszWord, pWordPronounceable) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        result := ComCall(25, this, "ptr", pszWord, "int*", pWordPronounceable, "HRESULT")
+        pWordPronounceableMarshal := pWordPronounceable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "ptr", pszWord, pWordPronounceableMarshal, pWordPronounceable, "HRESULT")
         return result
     }
 
@@ -241,7 +249,9 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     GetGrammarState(peGrammarState) {
-        result := ComCall(28, this, "int*", peGrammarState, "HRESULT")
+        peGrammarStateMarshal := peGrammarState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, peGrammarStateMarshal, peGrammarState, "HRESULT")
         return result
     }
 }

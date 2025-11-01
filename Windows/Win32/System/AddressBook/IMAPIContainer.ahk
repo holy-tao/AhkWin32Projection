@@ -61,7 +61,9 @@ class IMAPIContainer extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-openentry
      */
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, lppUnk) {
-        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, "uint*", lpulObjType, "ptr*", lppUnk, "HRESULT")
+        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", lppUnk, "HRESULT")
         return result
     }
 
@@ -88,7 +90,9 @@ class IMAPIContainer extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-getsearchcriteria
      */
     GetSearchCriteria(ulFlags, lppRestriction, lppContainerList, lpulSearchState) {
-        result := ComCall(18, this, "uint", ulFlags, "ptr*", lppRestriction, "ptr*", lppContainerList, "uint*", lpulSearchState, "HRESULT")
+        lpulSearchStateMarshal := lpulSearchState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "uint", ulFlags, "ptr*", lppRestriction, "ptr*", lppContainerList, lpulSearchStateMarshal, lpulSearchState, "HRESULT")
         return result
     }
 }

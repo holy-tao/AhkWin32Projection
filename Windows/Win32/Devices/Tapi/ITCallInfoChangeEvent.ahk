@@ -48,7 +48,9 @@ class ITCallInfoChangeEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_cause
      */
     get_Cause(pCIC) {
-        result := ComCall(8, this, "int*", pCIC, "HRESULT")
+        pCICMarshal := pCIC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pCICMarshal, pCIC, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITCallInfoChangeEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfochangeevent-get_callbackinstance
      */
     get_CallbackInstance(plCallbackInstance) {
-        result := ComCall(9, this, "int*", plCallbackInstance, "HRESULT")
+        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
         return result
     }
 }

@@ -59,7 +59,9 @@ class ITDigitsGatheredEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitsgatheredevent-get_gathertermination
      */
     get_GatherTermination(pGatherTermination) {
-        result := ComCall(9, this, "int*", pGatherTermination, "HRESULT")
+        pGatherTerminationMarshal := pGatherTermination is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pGatherTerminationMarshal, pGatherTermination, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ITDigitsGatheredEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitsgatheredevent-get_tickcount
      */
     get_TickCount(plTickCount) {
-        result := ComCall(10, this, "int*", plTickCount, "HRESULT")
+        plTickCountMarshal := plTickCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plTickCountMarshal, plTickCount, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ITDigitsGatheredEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitsgatheredevent-get_callbackinstance
      */
     get_CallbackInstance(plCallbackInstance) {
-        result := ComCall(11, this, "int*", plCallbackInstance, "HRESULT")
+        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
         return result
     }
 }

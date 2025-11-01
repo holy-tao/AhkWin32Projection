@@ -49,7 +49,10 @@ class IDWriteFontFallback extends IUnknown{
     MapCharacters(analysisSource, textPosition, textLength, baseFontCollection, baseFamilyName, baseWeight, baseStyle, baseStretch, mappedLength, mappedFont, scale) {
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
-        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "int", baseWeight, "int", baseStyle, "int", baseStretch, "uint*", mappedLength, "ptr*", mappedFont, "float*", scale, "HRESULT")
+        mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
+        scaleMarshal := scale is VarRef ? "float*" : "ptr"
+
+        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "int", baseWeight, "int", baseStyle, "int", baseStretch, mappedLengthMarshal, mappedLength, "ptr*", mappedFont, scaleMarshal, scale, "HRESULT")
         return result
     }
 }

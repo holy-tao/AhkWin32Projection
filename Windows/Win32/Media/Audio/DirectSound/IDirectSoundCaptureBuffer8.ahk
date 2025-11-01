@@ -48,7 +48,9 @@ class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer{
      * @returns {HRESULT} 
      */
     GetFXStatus(dwEffectsCount, pdwFXStatus) {
-        result := ComCall(13, this, "uint", dwEffectsCount, "uint*", pdwFXStatus, "HRESULT")
+        pdwFXStatusMarshal := pdwFXStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwEffectsCount, pdwFXStatusMarshal, pdwFXStatus, "HRESULT")
         return result
     }
 }

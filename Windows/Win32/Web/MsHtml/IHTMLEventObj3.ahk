@@ -104,7 +104,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_imeCompositionChange(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_imeNotifyCommand(p) {
-        result := ComCall(15, this, "ptr*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -124,7 +128,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_imeNotifyData(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -134,7 +140,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_imeRequest(p) {
-        result := ComCall(17, this, "ptr*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -144,7 +152,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_imeRequestData(p) {
-        result := ComCall(18, this, "ptr*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -154,7 +164,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_keyboardLayout(p) {
-        result := ComCall(19, this, "ptr*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -164,7 +176,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_behaviorCookie(p) {
-        result := ComCall(20, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -174,7 +188,9 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_behaviorPart(p) {
-        result := ComCall(21, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pMarshal, p, "HRESULT")
         return result
     }
 

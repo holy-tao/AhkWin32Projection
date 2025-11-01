@@ -44,7 +44,9 @@ class ICondition extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getconditiontype
      */
     GetConditionType(pNodeType) {
-        result := ComCall(8, this, "int*", pNodeType, "HRESULT")
+        pNodeTypeMarshal := pNodeType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pNodeTypeMarshal, pNodeType, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class ICondition extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getcomparisoninfo
      */
     GetComparisonInfo(ppszPropertyName, pcop, ppropvar) {
-        result := ComCall(10, this, "ptr", ppszPropertyName, "int*", pcop, "ptr", ppropvar, "HRESULT")
+        pcopMarshal := pcop is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", ppszPropertyName, pcopMarshal, pcop, "ptr", ppropvar, "HRESULT")
         return result
     }
 

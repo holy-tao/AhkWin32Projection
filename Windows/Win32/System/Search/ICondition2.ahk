@@ -55,7 +55,9 @@ class ICondition2 extends ICondition{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition2-getleafconditioninfo
      */
     GetLeafConditionInfo(ppropkey, pcop, ppropvar) {
-        result := ComCall(16, this, "ptr", ppropkey, "int*", pcop, "ptr", ppropvar, "HRESULT")
+        pcopMarshal := pcop is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", ppropkey, pcopMarshal, pcop, "ptr", ppropvar, "HRESULT")
         return result
     }
 }

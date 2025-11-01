@@ -42,7 +42,9 @@ class IWMHeaderInfo2 extends IWMHeaderInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfocount
      */
     GetCodecInfoCount(pcCodecInfos) {
-        result := ComCall(15, this, "uint*", pcCodecInfos, "HRESULT")
+        pcCodecInfosMarshal := pcCodecInfos is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pcCodecInfosMarshal, pcCodecInfos, "HRESULT")
         return result
     }
 
@@ -63,7 +65,13 @@ class IWMHeaderInfo2 extends IWMHeaderInfo{
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(16, this, "uint", wIndex, "ushort*", pcchName, "ptr", pwszName, "ushort*", pcchDescription, "ptr", pwszDescription, "int*", pCodecType, "ushort*", pcbCodecInfo, "char*", pbCodecInfo, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
+        pcchDescriptionMarshal := pcchDescription is VarRef ? "ushort*" : "ptr"
+        pCodecTypeMarshal := pCodecType is VarRef ? "int*" : "ptr"
+        pcbCodecInfoMarshal := pcbCodecInfo is VarRef ? "ushort*" : "ptr"
+        pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(16, this, "uint", wIndex, pcchNameMarshal, pcchName, "ptr", pwszName, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pCodecTypeMarshal, pCodecType, pcbCodecInfoMarshal, pcbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
     }
 }

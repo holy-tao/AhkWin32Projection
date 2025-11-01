@@ -51,7 +51,9 @@ class IMSMQCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(pCount) {
-        result := ComCall(8, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

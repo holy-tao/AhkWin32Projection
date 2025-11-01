@@ -38,7 +38,9 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iimagelist-imagelistseticon
      */
     ImageListSetIcon(pIcon, nLoc) {
-        result := ComCall(3, this, "ptr*", pIcon, "int", nLoc, "HRESULT")
+        pIconMarshal := pIcon is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pIconMarshal, pIcon, "int", nLoc, "HRESULT")
         return result
     }
 
@@ -52,7 +54,10 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iimagelist-imagelistsetstrip
      */
     ImageListSetStrip(pBMapSm, pBMapLg, nStartLoc, cMask) {
-        result := ComCall(4, this, "ptr*", pBMapSm, "ptr*", pBMapLg, "int", nStartLoc, "uint", cMask, "HRESULT")
+        pBMapSmMarshal := pBMapSm is VarRef ? "ptr*" : "ptr"
+        pBMapLgMarshal := pBMapLg is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, "int", nStartLoc, "uint", cMask, "HRESULT")
         return result
     }
 }

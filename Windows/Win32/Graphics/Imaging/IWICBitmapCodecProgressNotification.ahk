@@ -44,7 +44,9 @@ class IWICBitmapCodecProgressNotification extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecprogressnotification-registerprogressnotification
      */
     RegisterProgressNotification(pfnProgressNotification, pvData, dwProgressFlags) {
-        result := ComCall(3, this, "ptr", pfnProgressNotification, "ptr", pvData, "uint", dwProgressFlags, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", pfnProgressNotification, pvDataMarshal, pvData, "uint", dwProgressFlags, "HRESULT")
         return result
     }
 }

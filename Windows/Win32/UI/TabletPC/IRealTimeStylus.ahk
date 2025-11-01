@@ -167,7 +167,9 @@ class IRealTimeStylus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylussyncplugincount
      */
     GetStylusSyncPluginCount(pcPlugins) {
-        result := ComCall(13, this, "uint*", pcPlugins, "HRESULT")
+        pcPluginsMarshal := pcPlugins is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pcPluginsMarshal, pcPlugins, "HRESULT")
         return result
     }
 
@@ -224,7 +226,9 @@ class IRealTimeStylus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusasyncplugincount
      */
     GetStylusAsyncPluginCount(pcPlugins) {
-        result := ComCall(18, this, "uint*", pcPlugins, "HRESULT")
+        pcPluginsMarshal := pcPlugins is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, pcPluginsMarshal, pcPlugins, "HRESULT")
         return result
     }
 
@@ -259,7 +263,9 @@ class IRealTimeStylus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-addcustomstylusdatatoqueue
      */
     AddCustomStylusDataToQueue(sq, pGuidId, cbData, pbData) {
-        result := ComCall(21, this, "int", sq, "ptr", pGuidId, "uint", cbData, "char*", pbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(21, this, "int", sq, "ptr", pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 
@@ -314,7 +320,9 @@ class IRealTimeStylus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-gettabletcontextidfromtablet
      */
     GetTabletContextIdFromTablet(piTablet, ptcid) {
-        result := ComCall(26, this, "ptr", piTablet, "uint*", ptcid, "HRESULT")
+        ptcidMarshal := ptcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "ptr", piTablet, ptcidMarshal, ptcid, "HRESULT")
         return result
     }
 
@@ -338,7 +346,9 @@ class IRealTimeStylus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getalltabletcontextids
      */
     GetAllTabletContextIds(pcTcidCount, ppTcids) {
-        result := ComCall(28, this, "uint*", pcTcidCount, "ptr*", ppTcids, "HRESULT")
+        pcTcidCountMarshal := pcTcidCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, pcTcidCountMarshal, pcTcidCount, "ptr*", ppTcids, "HRESULT")
         return result
     }
 
@@ -385,7 +395,9 @@ class IRealTimeStylus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getdesiredpacketdescription
      */
     GetDesiredPacketDescription(pcProperties, ppPropertyGuids) {
-        result := ComCall(32, this, "uint*", pcProperties, "ptr*", ppPropertyGuids, "HRESULT")
+        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, pcPropertiesMarshal, pcProperties, "ptr*", ppPropertyGuids, "HRESULT")
         return result
     }
 
@@ -400,7 +412,11 @@ class IRealTimeStylus extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getpacketdescriptiondata
      */
     GetPacketDescriptionData(tcid, pfInkToDeviceScaleX, pfInkToDeviceScaleY, pcPacketProperties, ppPacketProperties) {
-        result := ComCall(33, this, "uint", tcid, "float*", pfInkToDeviceScaleX, "float*", pfInkToDeviceScaleY, "uint*", pcPacketProperties, "ptr*", ppPacketProperties, "HRESULT")
+        pfInkToDeviceScaleXMarshal := pfInkToDeviceScaleX is VarRef ? "float*" : "ptr"
+        pfInkToDeviceScaleYMarshal := pfInkToDeviceScaleY is VarRef ? "float*" : "ptr"
+        pcPacketPropertiesMarshal := pcPacketProperties is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "uint", tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, "ptr*", ppPacketProperties, "HRESULT")
         return result
     }
 }

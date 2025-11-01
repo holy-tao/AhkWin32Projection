@@ -60,7 +60,9 @@ class IInkLineInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinklineinfo-getinkextent
      */
     GetInkExtent(pim, pnWidth) {
-        result := ComCall(5, this, "ptr", pim, "uint*", pnWidth, "HRESULT")
+        pnWidthMarshal := pnWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pim, pnWidthMarshal, pnWidth, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IInkLineInfo extends IUnknown{
     GetCandidate(nCandidateNum, pwcRecogWord, pcwcRecogWord, dwFlags) {
         pwcRecogWord := pwcRecogWord is String ? StrPtr(pwcRecogWord) : pwcRecogWord
 
-        result := ComCall(6, this, "uint", nCandidateNum, "ptr", pwcRecogWord, "uint*", pcwcRecogWord, "uint", dwFlags, "HRESULT")
+        pcwcRecogWordMarshal := pcwcRecogWord is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", nCandidateNum, "ptr", pwcRecogWord, pcwcRecogWordMarshal, pcwcRecogWord, "uint", dwFlags, "HRESULT")
         return result
     }
 

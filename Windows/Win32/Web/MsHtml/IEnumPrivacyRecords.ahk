@@ -43,7 +43,9 @@ class IEnumPrivacyRecords extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSize(pSize) {
-        result := ComCall(4, this, "uint*", pSize, "HRESULT")
+        pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pSizeMarshal, pSize, "HRESULT")
         return result
     }
 
@@ -66,7 +68,10 @@ class IEnumPrivacyRecords extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(pbstrUrl, pbstrPolicyRef, pdwReserved, pdwPrivacyFlags) {
-        result := ComCall(6, this, "ptr", pbstrUrl, "ptr", pbstrPolicyRef, "int*", pdwReserved, "uint*", pdwPrivacyFlags, "HRESULT")
+        pdwReservedMarshal := pdwReserved is VarRef ? "int*" : "ptr"
+        pdwPrivacyFlagsMarshal := pdwPrivacyFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pbstrUrl, "ptr", pbstrPolicyRef, pdwReservedMarshal, pdwReserved, pdwPrivacyFlagsMarshal, pdwPrivacyFlags, "HRESULT")
         return result
     }
 }

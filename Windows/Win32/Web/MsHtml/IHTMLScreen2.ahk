@@ -34,7 +34,9 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_logicalXDPI(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_logicalYDPI(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_deviceXDPI(p) {
-        result := ComCall(9, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_deviceYDPI(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 }

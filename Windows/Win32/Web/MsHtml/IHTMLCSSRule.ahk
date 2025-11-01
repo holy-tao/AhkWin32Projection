@@ -41,7 +41,9 @@ class IHTMLCSSRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_type(p) {
-        result := ComCall(7, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 

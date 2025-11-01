@@ -46,7 +46,9 @@ class ID3D11VideoContext3 extends ID3D11VideoContext2{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext3-decoderbeginframe1
      */
     DecoderBeginFrame1(pDecoder, pView, ContentKeySize, pContentKey, NumComponentHistograms, pHistogramOffsets, ppHistogramBuffers) {
-        result := ComCall(83, this, "ptr", pDecoder, "ptr", pView, "uint", ContentKeySize, "ptr", pContentKey, "uint", NumComponentHistograms, "uint*", pHistogramOffsets, "ptr*", ppHistogramBuffers, "HRESULT")
+        pHistogramOffsetsMarshal := pHistogramOffsets is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(83, this, "ptr", pDecoder, "ptr", pView, "uint", ContentKeySize, "ptr", pContentKey, "uint", NumComponentHistograms, pHistogramOffsetsMarshal, pHistogramOffsets, "ptr*", ppHistogramBuffers, "HRESULT")
         return result
     }
 

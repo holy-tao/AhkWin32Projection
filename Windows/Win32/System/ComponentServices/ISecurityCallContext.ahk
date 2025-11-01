@@ -44,7 +44,9 @@ class ISecurityCallContext extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-get_count
      */
     get_Count(plCount) {
-        result := ComCall(7, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

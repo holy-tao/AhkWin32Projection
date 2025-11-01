@@ -91,7 +91,9 @@ class ISdoDictionaryOld extends IDispatch{
     GetAttributeID(bstrAttributeName, pId) {
         bstrAttributeName := bstrAttributeName is String ? BSTR.Alloc(bstrAttributeName).Value : bstrAttributeName
 
-        result := ComCall(11, this, "ptr", bstrAttributeName, "uint*", pId, "HRESULT")
+        pIdMarshal := pId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", bstrAttributeName, pIdMarshal, pId, "HRESULT")
         return result
     }
 }

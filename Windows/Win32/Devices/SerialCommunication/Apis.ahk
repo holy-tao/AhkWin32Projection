@@ -563,7 +563,9 @@ class SerialCommunication {
     static ComDBGetCurrentPortUsage(HComDB, Buffer, BufferSize, ReportType, MaxPortsReported) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
 
-        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer, "uint", BufferSize, "uint", ReportType, "uint*", MaxPortsReported, "int")
+        MaxPortsReportedMarshal := MaxPortsReported is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer, "uint", BufferSize, "uint", ReportType, MaxPortsReportedMarshal, MaxPortsReported, "int")
         return result
     }
 
@@ -650,7 +652,9 @@ class SerialCommunication {
     static ComDBClaimNextFreePort(HComDB, ComNumber) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
 
-        result := DllCall("MSPORTS.dll\ComDBClaimNextFreePort", "ptr", HComDB, "uint*", ComNumber, "int")
+        ComNumberMarshal := ComNumber is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MSPORTS.dll\ComDBClaimNextFreePort", "ptr", HComDB, ComNumberMarshal, ComNumber, "int")
         return result
     }
 

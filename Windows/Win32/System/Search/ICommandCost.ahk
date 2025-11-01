@@ -38,7 +38,9 @@ class ICommandCost extends IUnknown{
     GetAccumulatedCost(pwszRowsetName, pcCostLimits, prgCostLimits) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(3, this, "ptr", pwszRowsetName, "uint*", pcCostLimits, "ptr*", prgCostLimits, "HRESULT")
+        pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr*", prgCostLimits, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class ICommandCost extends IUnknown{
     GetCostEstimate(pwszRowsetName, pcCostEstimates, prgCostEstimates) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(4, this, "ptr", pwszRowsetName, "uint*", pcCostEstimates, "ptr", prgCostEstimates, "HRESULT")
+        pcCostEstimatesMarshal := pcCostEstimates is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszRowsetName, pcCostEstimatesMarshal, pcCostEstimates, "ptr", prgCostEstimates, "HRESULT")
         return result
     }
 
@@ -66,7 +70,9 @@ class ICommandCost extends IUnknown{
     GetCostGoals(pwszRowsetName, pcCostGoals, prgCostGoals) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(5, this, "ptr", pwszRowsetName, "uint*", pcCostGoals, "ptr", prgCostGoals, "HRESULT")
+        pcCostGoalsMarshal := pcCostGoals is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwszRowsetName, pcCostGoalsMarshal, pcCostGoals, "ptr", prgCostGoals, "HRESULT")
         return result
     }
 
@@ -80,7 +86,9 @@ class ICommandCost extends IUnknown{
     GetCostLimits(pwszRowsetName, pcCostLimits, prgCostLimits) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(6, this, "ptr", pwszRowsetName, "uint*", pcCostLimits, "ptr", prgCostLimits, "HRESULT")
+        pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr", prgCostLimits, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class IWTSVirtualChannel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write
      */
     Write(cbSize, pBuffer, pReserved) {
-        result := ComCall(3, this, "uint", cbSize, "char*", pBuffer, "ptr", pReserved, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", cbSize, pBufferMarshal, pBuffer, "ptr", pReserved, "HRESULT")
         return result
     }
 

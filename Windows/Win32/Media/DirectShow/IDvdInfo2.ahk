@@ -37,7 +37,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentdomain
      */
     GetCurrentDomain(pDomain) {
-        result := ComCall(3, this, "int*", pDomain, "HRESULT")
+        pDomainMarshal := pDomain is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pDomainMarshal, pDomain, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-gettotaltitletime
      */
     GetTotalTitleTime(pTotalTime, ulTimeCodeFlags) {
-        result := ComCall(5, this, "ptr", pTotalTime, "uint*", ulTimeCodeFlags, "HRESULT")
+        ulTimeCodeFlagsMarshal := ulTimeCodeFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pTotalTime, ulTimeCodeFlagsMarshal, ulTimeCodeFlags, "HRESULT")
         return result
     }
 
@@ -72,7 +76,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentbutton
      */
     GetCurrentButton(pulButtonsAvailable, pulCurrentButton) {
-        result := ComCall(6, this, "uint*", pulButtonsAvailable, "uint*", pulCurrentButton, "HRESULT")
+        pulButtonsAvailableMarshal := pulButtonsAvailable is VarRef ? "uint*" : "ptr"
+        pulCurrentButtonMarshal := pulCurrentButton is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulButtonsAvailableMarshal, pulButtonsAvailable, pulCurrentButtonMarshal, pulCurrentButton, "HRESULT")
         return result
     }
 
@@ -84,7 +91,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentangle
      */
     GetCurrentAngle(pulAnglesAvailable, pulCurrentAngle) {
-        result := ComCall(7, this, "uint*", pulAnglesAvailable, "uint*", pulCurrentAngle, "HRESULT")
+        pulAnglesAvailableMarshal := pulAnglesAvailable is VarRef ? "uint*" : "ptr"
+        pulCurrentAngleMarshal := pulCurrentAngle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulAnglesAvailableMarshal, pulAnglesAvailable, pulCurrentAngleMarshal, pulCurrentAngle, "HRESULT")
         return result
     }
 
@@ -96,7 +106,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentaudio
      */
     GetCurrentAudio(pulStreamsAvailable, pulCurrentStream) {
-        result := ComCall(8, this, "uint*", pulStreamsAvailable, "uint*", pulCurrentStream, "HRESULT")
+        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : "ptr"
+        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, "HRESULT")
         return result
     }
 
@@ -109,7 +122,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentsubpicture
      */
     GetCurrentSubpicture(pulStreamsAvailable, pulCurrentStream, pbIsDisabled) {
-        result := ComCall(9, this, "uint*", pulStreamsAvailable, "uint*", pulCurrentStream, "ptr", pbIsDisabled, "HRESULT")
+        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : "ptr"
+        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, "ptr", pbIsDisabled, "HRESULT")
         return result
     }
 
@@ -120,7 +136,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentuops
      */
     GetCurrentUOPS(pulUOPs) {
-        result := ComCall(10, this, "uint*", pulUOPs, "HRESULT")
+        pulUOPsMarshal := pulUOPs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pulUOPsMarshal, pulUOPs, "HRESULT")
         return result
     }
 
@@ -154,7 +172,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getaudiolanguage
      */
     GetAudioLanguage(ulStream, pLanguage) {
-        result := ComCall(13, this, "uint", ulStream, "uint*", pLanguage, "HRESULT")
+        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", ulStream, pLanguageMarshal, pLanguage, "HRESULT")
         return result
     }
 
@@ -166,7 +186,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getsubpicturelanguage
      */
     GetSubpictureLanguage(ulStream, pLanguage) {
-        result := ComCall(14, this, "uint", ulStream, "uint*", pLanguage, "HRESULT")
+        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", ulStream, pLanguageMarshal, pLanguage, "HRESULT")
         return result
     }
 
@@ -251,7 +273,12 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdvolumeinfo
      */
     GetDVDVolumeInfo(pulNumOfVolumes, pulVolume, pSide, pulNumOfTitles) {
-        result := ComCall(21, this, "uint*", pulNumOfVolumes, "uint*", pulVolume, "int*", pSide, "uint*", pulNumOfTitles, "HRESULT")
+        pulNumOfVolumesMarshal := pulNumOfVolumes is VarRef ? "uint*" : "ptr"
+        pulVolumeMarshal := pulVolume is VarRef ? "uint*" : "ptr"
+        pSideMarshal := pSide is VarRef ? "int*" : "ptr"
+        pulNumOfTitlesMarshal := pulNumOfTitles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pulNumOfVolumesMarshal, pulNumOfVolumes, pulVolumeMarshal, pulVolume, pSideMarshal, pSide, pulNumOfTitlesMarshal, pulNumOfTitles, "HRESULT")
         return result
     }
 
@@ -262,7 +289,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdtextnumberoflanguages
      */
     GetDVDTextNumberOfLanguages(pulNumOfLangs) {
-        result := ComCall(22, this, "uint*", pulNumOfLangs, "HRESULT")
+        pulNumOfLangsMarshal := pulNumOfLangs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pulNumOfLangsMarshal, pulNumOfLangs, "HRESULT")
         return result
     }
 
@@ -276,7 +305,11 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdtextlanguageinfo
      */
     GetDVDTextLanguageInfo(ulLangIndex, pulNumOfStrings, pLangCode, pbCharacterSet) {
-        result := ComCall(23, this, "uint", ulLangIndex, "uint*", pulNumOfStrings, "uint*", pLangCode, "int*", pbCharacterSet, "HRESULT")
+        pulNumOfStringsMarshal := pulNumOfStrings is VarRef ? "uint*" : "ptr"
+        pLangCodeMarshal := pLangCode is VarRef ? "uint*" : "ptr"
+        pbCharacterSetMarshal := pbCharacterSet is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, "uint", ulLangIndex, pulNumOfStringsMarshal, pulNumOfStrings, pLangCodeMarshal, pLangCode, pbCharacterSetMarshal, pbCharacterSet, "HRESULT")
         return result
     }
 
@@ -292,7 +325,11 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdtextstringasnative
      */
     GetDVDTextStringAsNative(ulLangIndex, ulStringIndex, pbBuffer, ulMaxBufferSize, pulActualSize, pType) {
-        result := ComCall(24, this, "uint", ulLangIndex, "uint", ulStringIndex, "char*", pbBuffer, "uint", ulMaxBufferSize, "uint*", pulActualSize, "int*", pType, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "uint", ulLangIndex, "uint", ulStringIndex, pbBufferMarshal, pbBuffer, "uint", ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -310,7 +347,10 @@ class IDvdInfo2 extends IUnknown{
     GetDVDTextStringAsUnicode(ulLangIndex, ulStringIndex, pchwBuffer, ulMaxBufferSize, pulActualSize, pType) {
         pchwBuffer := pchwBuffer is String ? StrPtr(pchwBuffer) : pchwBuffer
 
-        result := ComCall(25, this, "uint", ulLangIndex, "uint", ulStringIndex, "ptr", pchwBuffer, "uint", ulMaxBufferSize, "uint*", pulActualSize, "int*", pType, "HRESULT")
+        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "uint", ulLangIndex, "uint", ulStringIndex, "ptr", pchwBuffer, "uint", ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -322,7 +362,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getplayerparentallevel
      */
     GetPlayerParentalLevel(pulParentalLevel, pbCountryCode) {
-        result := ComCall(26, this, "uint*", pulParentalLevel, "char*", pbCountryCode, "HRESULT")
+        pulParentalLevelMarshal := pulParentalLevel is VarRef ? "uint*" : "ptr"
+        pbCountryCodeMarshal := pbCountryCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(26, this, pulParentalLevelMarshal, pulParentalLevel, pbCountryCodeMarshal, pbCountryCode, "HRESULT")
         return result
     }
 
@@ -334,7 +377,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getnumberofchapters
      */
     GetNumberOfChapters(ulTitle, pulNumOfChapters) {
-        result := ComCall(27, this, "uint", ulTitle, "uint*", pulNumOfChapters, "HRESULT")
+        pulNumOfChaptersMarshal := pulNumOfChapters is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, "uint", ulTitle, pulNumOfChaptersMarshal, pulNumOfChapters, "HRESULT")
         return result
     }
 
@@ -346,7 +391,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-gettitleparentallevels
      */
     GetTitleParentalLevels(ulTitle, pulParentalLevels) {
-        result := ComCall(28, this, "uint", ulTitle, "uint*", pulParentalLevels, "HRESULT")
+        pulParentalLevelsMarshal := pulParentalLevels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, "uint", ulTitle, pulParentalLevelsMarshal, pulParentalLevels, "HRESULT")
         return result
     }
 
@@ -361,7 +408,9 @@ class IDvdInfo2 extends IUnknown{
     GetDVDDirectory(pszwPath, ulMaxSize, pulActualSize) {
         pszwPath := pszwPath is String ? StrPtr(pszwPath) : pszwPath
 
-        result := ComCall(29, this, "ptr", pszwPath, "uint", ulMaxSize, "uint*", pulActualSize, "HRESULT")
+        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "ptr", pszwPath, "uint", ulMaxSize, pulActualSizeMarshal, pulActualSize, "HRESULT")
         return result
     }
 
@@ -387,7 +436,9 @@ class IDvdInfo2 extends IUnknown{
     GetDiscID(pszwPath, pullDiscID) {
         pszwPath := pszwPath is String ? StrPtr(pszwPath) : pszwPath
 
-        result := ComCall(31, this, "ptr", pszwPath, "uint*", pullDiscID, "HRESULT")
+        pullDiscIDMarshal := pullDiscID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "ptr", pszwPath, pullDiscIDMarshal, pullDiscID, "HRESULT")
         return result
     }
 
@@ -411,7 +462,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getmenulanguages
      */
     GetMenuLanguages(pLanguages, ulMaxLanguages, pulActualLanguages) {
-        result := ComCall(33, this, "uint*", pLanguages, "uint", ulMaxLanguages, "uint*", pulActualLanguages, "HRESULT")
+        pLanguagesMarshal := pLanguages is VarRef ? "uint*" : "ptr"
+        pulActualLanguagesMarshal := pulActualLanguages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pLanguagesMarshal, pLanguages, "uint", ulMaxLanguages, pulActualLanguagesMarshal, pulActualLanguages, "HRESULT")
         return result
     }
 
@@ -423,7 +477,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getbuttonatposition
      */
     GetButtonAtPosition(point, pulButtonIndex) {
-        result := ComCall(34, this, "ptr", point, "uint*", pulButtonIndex, "HRESULT")
+        pulButtonIndexMarshal := pulButtonIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, "ptr", point, pulButtonIndexMarshal, pulButtonIndex, "HRESULT")
         return result
     }
 
@@ -446,7 +502,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdefaultmenulanguage
      */
     GetDefaultMenuLanguage(pLanguage) {
-        result := ComCall(36, this, "uint*", pLanguage, "HRESULT")
+        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, pLanguageMarshal, pLanguage, "HRESULT")
         return result
     }
 
@@ -458,7 +516,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdefaultaudiolanguage
      */
     GetDefaultAudioLanguage(pLanguage, pAudioExtension) {
-        result := ComCall(37, this, "uint*", pLanguage, "int*", pAudioExtension, "HRESULT")
+        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
+        pAudioExtensionMarshal := pAudioExtension is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, pLanguageMarshal, pLanguage, pAudioExtensionMarshal, pAudioExtension, "HRESULT")
         return result
     }
 
@@ -470,7 +531,10 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdefaultsubpicturelanguage
      */
     GetDefaultSubpictureLanguage(pLanguage, pSubpictureExtension) {
-        result := ComCall(38, this, "uint*", pLanguage, "int*", pSubpictureExtension, "HRESULT")
+        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
+        pSubpictureExtensionMarshal := pSubpictureExtension is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pLanguageMarshal, pLanguage, pSubpictureExtensionMarshal, pSubpictureExtension, "HRESULT")
         return result
     }
 

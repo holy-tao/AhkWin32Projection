@@ -45,7 +45,9 @@ class ISchemaStringCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(length) {
-        result := ComCall(8, this, "int*", length, "HRESULT")
+        lengthMarshal := length is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, lengthMarshal, length, "HRESULT")
         return result
     }
 

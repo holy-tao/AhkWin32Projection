@@ -37,7 +37,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -71,7 +77,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex, pulVal) {
-        result := ComCall(6, this, "char", bRecordIndex, "uint*", pulVal, "HRESULT")
+        pulValMarshal := pulVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "char", bRecordIndex, pulValMarshal, pulVal, "HRESULT")
         return result
     }
 
@@ -83,7 +91,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordsubtitlingtype
      */
     GetRecordSubtitlingType(bRecordIndex, pbVal) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -95,7 +105,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordcompositionpageid
      */
     GetRecordCompositionPageID(bRecordIndex, pwVal) {
-        result := ComCall(8, this, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -107,7 +119,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordancillarypageid
      */
     GetRecordAncillaryPageID(bRecordIndex, pwVal) {
-        result := ComCall(9, this, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 }

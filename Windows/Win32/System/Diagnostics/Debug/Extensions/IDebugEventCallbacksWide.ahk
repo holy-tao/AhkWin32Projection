@@ -34,7 +34,9 @@ class IDebugEventCallbacksWide extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInterestMask(Mask) {
-        result := ComCall(3, this, "uint*", Mask, "HRESULT")
+        MaskMarshal := Mask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, MaskMarshal, Mask, "HRESULT")
         return result
     }
 

@@ -51,7 +51,9 @@ class ICertEncodeAltName extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getnamecount
      */
     GetNameCount(pNameCount) {
-        result := ComCall(8, this, "int*", pNameCount, "HRESULT")
+        pNameCountMarshal := pNameCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pNameCountMarshal, pNameCount, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ICertEncodeAltName extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getnamechoice
      */
     GetNameChoice(NameIndex, pNameChoice) {
-        result := ComCall(9, this, "int", NameIndex, "int*", pNameChoice, "HRESULT")
+        pNameChoiceMarshal := pNameChoice is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", NameIndex, pNameChoiceMarshal, pNameChoice, "HRESULT")
         return result
     }
 

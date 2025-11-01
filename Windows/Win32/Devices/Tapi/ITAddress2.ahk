@@ -121,7 +121,9 @@ class ITAddress2 extends ITAddress{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-devicespecific
      */
     DeviceSpecific(pCall, pParams, dwSize) {
-        result := ComCall(29, this, "ptr", pCall, "char*", pParams, "uint", dwSize, "HRESULT")
+        pParamsMarshal := pParams is VarRef ? "char*" : "ptr"
+
+        result := ComCall(29, this, "ptr", pCall, pParamsMarshal, pParams, "uint", dwSize, "HRESULT")
         return result
     }
 
@@ -146,7 +148,9 @@ class ITAddress2 extends ITAddress{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-negotiateextversion
      */
     NegotiateExtVersion(lLowVersion, lHighVersion, plExtVersion) {
-        result := ComCall(31, this, "int", lLowVersion, "int", lHighVersion, "int*", plExtVersion, "HRESULT")
+        plExtVersionMarshal := plExtVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, "int", lLowVersion, "int", lHighVersion, plExtVersionMarshal, plExtVersion, "HRESULT")
         return result
     }
 }

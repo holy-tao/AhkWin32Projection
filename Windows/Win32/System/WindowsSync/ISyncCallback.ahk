@@ -73,7 +73,9 @@ class ISyncCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onfullenumerationneeded
      */
     OnFullEnumerationNeeded(pFullEnumerationAction) {
-        result := ComCall(6, this, "int*", pFullEnumerationAction, "HRESULT")
+        pFullEnumerationActionMarshal := pFullEnumerationAction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pFullEnumerationActionMarshal, pFullEnumerationAction, "HRESULT")
         return result
     }
 

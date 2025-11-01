@@ -36,7 +36,9 @@ class IKsPinPipe extends IUnknown{
      * @returns {HRESULT} 
      */
     KsGetPinFramingCache(FramingEx, FramingProp, Option) {
-        result := ComCall(3, this, "ptr*", FramingEx, "int*", FramingProp, "int", Option, "HRESULT")
+        FramingPropMarshal := FramingProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", FramingEx, FramingPropMarshal, FramingProp, "int", Option, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IKsPinPipe extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetPinFramingCache(FramingEx, FramingProp, Option) {
-        result := ComCall(4, this, "ptr", FramingEx, "int*", FramingProp, "int", Option, "HRESULT")
+        FramingPropMarshal := FramingProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", FramingEx, FramingPropMarshal, FramingProp, "int", Option, "HRESULT")
         return result
     }
 

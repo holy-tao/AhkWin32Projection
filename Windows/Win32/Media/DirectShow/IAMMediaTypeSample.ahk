@@ -38,7 +38,9 @@ class IAMMediaTypeSample extends IStreamSample{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setpointer
      */
     SetPointer(pBuffer, lSize) {
-        result := ComCall(8, this, "char*", pBuffer, "int", lSize, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pBufferMarshal, pBuffer, "int", lSize, "HRESULT")
         return result
     }
 
@@ -71,7 +73,10 @@ class IAMMediaTypeSample extends IStreamSample{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-gettime
      */
     GetTime(pTimeStart, pTimeEnd) {
-        result := ComCall(11, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(11, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -83,7 +88,10 @@ class IAMMediaTypeSample extends IStreamSample{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-settime
      */
     SetTime(pTimeStart, pTimeEnd) {
-        result := ComCall(12, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(12, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -201,7 +209,10 @@ class IAMMediaTypeSample extends IStreamSample{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-getmediatime
      */
     GetMediaTime(pTimeStart, pTimeEnd) {
-        result := ComCall(23, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(23, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -213,7 +224,10 @@ class IAMMediaTypeSample extends IStreamSample{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setmediatime
      */
     SetMediaTime(pTimeStart, pTimeEnd) {
-        result := ComCall(24, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(24, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 }

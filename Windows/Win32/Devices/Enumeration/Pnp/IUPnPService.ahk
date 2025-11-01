@@ -107,7 +107,9 @@ class IUPnPService extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-get_lasttransportstatus
      */
     get_LastTransportStatus(plValue) {
-        result := ComCall(12, this, "int*", plValue, "HRESULT")
+        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plValueMarshal, plValue, "HRESULT")
         return result
     }
 }

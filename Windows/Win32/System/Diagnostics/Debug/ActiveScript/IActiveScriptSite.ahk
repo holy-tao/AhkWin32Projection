@@ -34,7 +34,9 @@ class IActiveScriptSite extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLCID(plcid) {
-        result := ComCall(3, this, "uint*", plcid, "HRESULT")
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, plcidMarshal, plcid, "HRESULT")
         return result
     }
 

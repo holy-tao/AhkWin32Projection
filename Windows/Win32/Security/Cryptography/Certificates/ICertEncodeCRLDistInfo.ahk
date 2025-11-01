@@ -51,7 +51,9 @@ class ICertEncodeCRLDistInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-getdistpointcount
      */
     GetDistPointCount(pDistPointCount) {
-        result := ComCall(8, this, "int*", pDistPointCount, "HRESULT")
+        pDistPointCountMarshal := pDistPointCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pDistPointCountMarshal, pDistPointCount, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ICertEncodeCRLDistInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-getnamecount
      */
     GetNameCount(DistPointIndex, pNameCount) {
-        result := ComCall(9, this, "int", DistPointIndex, "int*", pNameCount, "HRESULT")
+        pNameCountMarshal := pNameCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", DistPointIndex, pNameCountMarshal, pNameCount, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class ICertEncodeCRLDistInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-getnamechoice
      */
     GetNameChoice(DistPointIndex, NameIndex, pNameChoice) {
-        result := ComCall(10, this, "int", DistPointIndex, "int", NameIndex, "int*", pNameChoice, "HRESULT")
+        pNameChoiceMarshal := pNameChoice is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", DistPointIndex, "int", NameIndex, pNameChoiceMarshal, pNameChoice, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class ITCallingCard extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_permanentcardid
      */
     get_PermanentCardID(plCardID) {
-        result := ComCall(7, this, "int*", plCardID, "HRESULT")
+        plCardIDMarshal := plCardID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plCardIDMarshal, plCardID, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ITCallingCard extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_numberofdigits
      */
     get_NumberOfDigits(plDigits) {
-        result := ComCall(8, this, "int*", plDigits, "HRESULT")
+        plDigitsMarshal := plDigits is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plDigitsMarshal, plDigits, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class ITCallingCard extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_options
      */
     get_Options(plOptions) {
-        result := ComCall(9, this, "int*", plOptions, "HRESULT")
+        plOptionsMarshal := plOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plOptionsMarshal, plOptions, "HRESULT")
         return result
     }
 

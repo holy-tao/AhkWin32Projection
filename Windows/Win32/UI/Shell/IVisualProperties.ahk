@@ -86,7 +86,9 @@ class IVisualProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getitemheight
      */
     GetItemHeight(cyItemInPixels) {
-        result := ComCall(7, this, "int*", cyItemInPixels, "HRESULT")
+        cyItemInPixelsMarshal := cyItemInPixels is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, cyItemInPixelsMarshal, cyItemInPixels, "HRESULT")
         return result
     }
 

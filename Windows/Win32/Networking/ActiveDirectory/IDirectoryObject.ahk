@@ -51,7 +51,9 @@ class IDirectoryObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectattributes
      */
     GetObjectAttributes(pAttributeNames, dwNumberAttributes, ppAttributeEntries, pdwNumAttributesReturned) {
-        result := ComCall(4, this, "ptr", pAttributeNames, "uint", dwNumberAttributes, "ptr*", ppAttributeEntries, "uint*", pdwNumAttributesReturned, "HRESULT")
+        pdwNumAttributesReturnedMarshal := pdwNumAttributesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pAttributeNames, "uint", dwNumberAttributes, "ptr*", ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IDirectoryObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-setobjectattributes
      */
     SetObjectAttributes(pAttributeEntries, dwNumAttributes, pdwNumAttributesModified) {
-        result := ComCall(5, this, "ptr", pAttributeEntries, "uint", dwNumAttributes, "uint*", pdwNumAttributesModified, "HRESULT")
+        pdwNumAttributesModifiedMarshal := pdwNumAttributesModified is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pAttributeEntries, "uint", dwNumAttributes, pdwNumAttributesModifiedMarshal, pdwNumAttributesModified, "HRESULT")
         return result
     }
 

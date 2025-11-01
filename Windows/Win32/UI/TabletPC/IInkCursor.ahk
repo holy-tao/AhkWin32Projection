@@ -61,7 +61,9 @@ class IInkCursor extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_id
      */
     get_Id(Id) {
-        result := ComCall(8, this, "int*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, IdMarshal, Id, "HRESULT")
         return result
     }
 

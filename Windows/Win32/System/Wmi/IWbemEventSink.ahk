@@ -45,7 +45,9 @@ class IWbemEventSink extends IWbemObjectSink{
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-setsinksecurity
      */
     SetSinkSecurity(lSDLength, pSD) {
-        result := ComCall(5, this, "int", lSDLength, "char*", pSD, "HRESULT")
+        pSDMarshal := pSD is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "int", lSDLength, pSDMarshal, pSD, "HRESULT")
         return result
     }
 

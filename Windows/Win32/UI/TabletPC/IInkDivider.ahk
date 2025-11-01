@@ -81,7 +81,9 @@ class IInkDivider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-get_lineheight
      */
     get_LineHeight(LineHeight) {
-        result := ComCall(11, this, "int*", LineHeight, "HRESULT")
+        LineHeightMarshal := LineHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, LineHeightMarshal, LineHeight, "HRESULT")
         return result
     }
 

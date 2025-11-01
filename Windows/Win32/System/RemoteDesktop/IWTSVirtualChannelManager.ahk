@@ -40,6 +40,8 @@ class IWTSVirtualChannelManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelmanager-createlistener
      */
     CreateListener(pszChannelName, uFlags, pListenerCallback, ppListener) {
+        pszChannelName := pszChannelName is String ? StrPtr(pszChannelName) : pszChannelName
+
         result := ComCall(3, this, "ptr", pszChannelName, "uint", uFlags, "ptr", pListenerCallback, "ptr*", ppListener, "HRESULT")
         return result
     }

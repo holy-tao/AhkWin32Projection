@@ -49,7 +49,9 @@ class IAccessibleHostingElementProviders extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getobjectidforprovider
      */
     GetObjectIdForProvider(pProvider, pidObject) {
-        result := ComCall(4, this, "ptr", pProvider, "int*", pidObject, "HRESULT")
+        pidObjectMarshal := pidObject is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pProvider, pidObjectMarshal, pidObject, "HRESULT")
         return result
     }
 }

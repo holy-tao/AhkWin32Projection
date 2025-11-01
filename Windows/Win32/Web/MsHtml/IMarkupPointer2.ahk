@@ -44,7 +44,9 @@ class IMarkupPointer2 extends IMarkupPointer{
      * @returns {HRESULT} 
      */
     GetMarkupPosition(plMP) {
-        result := ComCall(25, this, "int*", plMP, "HRESULT")
+        plMPMarshal := plMP is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, plMPMarshal, plMP, "HRESULT")
         return result
     }
 

@@ -48,7 +48,9 @@ class IWMPLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_type
      */
     get_type(pwmplt) {
-        result := ComCall(4, this, "int*", pwmplt, "HRESULT")
+        pwmpltMarshal := pwmplt is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pwmpltMarshal, pwmplt, "HRESULT")
         return result
     }
 

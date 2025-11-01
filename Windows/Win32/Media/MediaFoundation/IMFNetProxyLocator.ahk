@@ -77,7 +77,9 @@ class IMFNetProxyLocator extends IUnknown{
     GetCurrentProxy(pszStr, pcchStr) {
         pszStr := pszStr is String ? StrPtr(pszStr) : pszStr
 
-        result := ComCall(6, this, "ptr", pszStr, "uint*", pcchStr, "HRESULT")
+        pcchStrMarshal := pcchStr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszStr, pcchStrMarshal, pcchStr, "HRESULT")
         return result
     }
 

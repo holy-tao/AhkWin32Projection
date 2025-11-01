@@ -46,7 +46,10 @@ class ISniffStream extends IUnknown{
      * @returns {HRESULT} 
      */
     Peek(pBuffer, nBytes, pnBytesRead) {
-        result := ComCall(4, this, "ptr", pBuffer, "uint", nBytes, "uint*", pnBytesRead, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pnBytesReadMarshal := pnBytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pBufferMarshal, pBuffer, "uint", nBytes, pnBytesReadMarshal, pnBytesRead, "HRESULT")
         return result
     }
 }

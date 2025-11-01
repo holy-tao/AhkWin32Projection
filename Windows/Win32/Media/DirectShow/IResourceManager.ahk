@@ -41,7 +41,9 @@ class IResourceManager extends IUnknown{
     Register(pName, cResource, plToken) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(3, this, "ptr", pName, "int", cResource, "int*", plToken, "HRESULT")
+        plTokenMarshal := plToken is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pName, "int", cResource, plTokenMarshal, plToken, "HRESULT")
         return result
     }
 
@@ -57,7 +59,10 @@ class IResourceManager extends IUnknown{
     RegisterGroup(pName, cResource, palTokens, plToken) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(4, this, "ptr", pName, "int", cResource, "int*", palTokens, "int*", plToken, "HRESULT")
+        palTokensMarshal := palTokens is VarRef ? "int*" : "ptr"
+        plTokenMarshal := plToken is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pName, "int", cResource, palTokensMarshal, palTokens, plTokenMarshal, plToken, "HRESULT")
         return result
     }
 

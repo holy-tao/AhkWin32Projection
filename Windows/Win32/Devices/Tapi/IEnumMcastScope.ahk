@@ -39,7 +39,9 @@ class IEnumMcastScope extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-ienummcastscope-next
      */
     Next(celt, ppScopes, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppScopes, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppScopes, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

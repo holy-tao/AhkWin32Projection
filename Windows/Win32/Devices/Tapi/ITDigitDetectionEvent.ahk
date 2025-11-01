@@ -48,7 +48,9 @@ class ITDigitDetectionEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_digit
      */
     get_Digit(pucDigit) {
-        result := ComCall(8, this, "char*", pucDigit, "HRESULT")
+        pucDigitMarshal := pucDigit is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pucDigitMarshal, pucDigit, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITDigitDetectionEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_digitmode
      */
     get_DigitMode(pDigitMode) {
-        result := ComCall(9, this, "int*", pDigitMode, "HRESULT")
+        pDigitModeMarshal := pDigitMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pDigitModeMarshal, pDigitMode, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class ITDigitDetectionEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_tickcount
      */
     get_TickCount(plTickCount) {
-        result := ComCall(10, this, "int*", plTickCount, "HRESULT")
+        plTickCountMarshal := plTickCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plTickCountMarshal, plTickCount, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class ITDigitDetectionEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_callbackinstance
      */
     get_CallbackInstance(plCallbackInstance) {
-        result := ComCall(11, this, "int*", plCallbackInstance, "HRESULT")
+        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
         return result
     }
 }

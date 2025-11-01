@@ -60,7 +60,9 @@ class IFsrmCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get_count
      */
     get_Count(count) {
-        result := ComCall(9, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IFsrmCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get_state
      */
     get_State(state) {
-        result := ComCall(10, this, "int*", state, "HRESULT")
+        stateMarshal := state is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, stateMarshal, state, "HRESULT")
         return result
     }
 

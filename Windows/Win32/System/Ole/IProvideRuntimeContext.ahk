@@ -35,7 +35,9 @@ class IProvideRuntimeContext extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentSourceContext(pdwContext, pfExecutingGlobalCode) {
-        result := ComCall(3, this, "ptr*", pdwContext, "ptr", pfExecutingGlobalCode, "HRESULT")
+        pdwContextMarshal := pdwContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pdwContextMarshal, pdwContext, "ptr", pfExecutingGlobalCode, "HRESULT")
         return result
     }
 }

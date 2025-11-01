@@ -202,7 +202,9 @@ class IRTCClientPresence2 extends IRTCClientPresence{
      * @returns {HRESULT} 
      */
     GetLocalPresenceInfo(penStatus, pbstrNotes) {
-        result := ComCall(34, this, "int*", penStatus, "ptr", pbstrNotes, "HRESULT")
+        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, penStatusMarshal, penStatus, "ptr", pbstrNotes, "HRESULT")
         return result
     }
 

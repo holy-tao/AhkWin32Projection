@@ -125,7 +125,9 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ThisUpdate(pValue) {
-        result := ComCall(15, this, "double*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -145,7 +147,9 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     get_NextUpdate(pValue) {
-        result := ComCall(17, this, "double*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(17, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -239,7 +243,9 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CAVersion(pValue) {
-        result := ComCall(26, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

@@ -84,7 +84,10 @@ class IConsoleNameSpace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getchilditem
      */
     GetChildItem(item, pItemChild, pCookie) {
-        result := ComCall(7, this, "ptr", item, "ptr*", pItemChild, "ptr*", pCookie, "HRESULT")
+        pItemChildMarshal := pItemChild is VarRef ? "ptr*" : "ptr"
+        pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", item, pItemChildMarshal, pItemChild, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 
@@ -97,7 +100,10 @@ class IConsoleNameSpace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getnextitem
      */
     GetNextItem(item, pItemNext, pCookie) {
-        result := ComCall(8, this, "ptr", item, "ptr*", pItemNext, "ptr*", pCookie, "HRESULT")
+        pItemNextMarshal := pItemNext is VarRef ? "ptr*" : "ptr"
+        pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", item, pItemNextMarshal, pItemNext, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 
@@ -110,7 +116,10 @@ class IConsoleNameSpace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getparentitem
      */
     GetParentItem(item, pItemParent, pCookie) {
-        result := ComCall(9, this, "ptr", item, "ptr*", pItemParent, "ptr*", pCookie, "HRESULT")
+        pItemParentMarshal := pItemParent is VarRef ? "ptr*" : "ptr"
+        pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", item, pItemParentMarshal, pItemParent, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 }

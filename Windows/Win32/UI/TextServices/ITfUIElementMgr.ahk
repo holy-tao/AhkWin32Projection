@@ -43,7 +43,9 @@ class ITfUIElementMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-beginuielement
      */
     BeginUIElement(pElement, pbShow, pdwUIElementId) {
-        result := ComCall(3, this, "ptr", pElement, "ptr", pbShow, "uint*", pdwUIElementId, "HRESULT")
+        pdwUIElementIdMarshal := pdwUIElementId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pElement, "ptr", pbShow, pdwUIElementIdMarshal, pdwUIElementId, "HRESULT")
         return result
     }
 

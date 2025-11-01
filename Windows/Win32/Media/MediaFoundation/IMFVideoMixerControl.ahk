@@ -50,7 +50,9 @@ class IMFVideoMixerControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-getstreamzorder
      */
     GetStreamZOrder(dwStreamID, pdwZ) {
-        result := ComCall(4, this, "uint", dwStreamID, "uint*", pdwZ, "HRESULT")
+        pdwZMarshal := pdwZ is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwStreamID, pdwZMarshal, pdwZ, "HRESULT")
         return result
     }
 

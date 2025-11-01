@@ -49,7 +49,9 @@ class IScrollableContextMenu extends IUnknown{
      * @returns {HRESULT} 
      */
     ShowModal(x, y, cmdID) {
-        result := ComCall(4, this, "int", x, "int", y, "uint*", cmdID, "HRESULT")
+        cmdIDMarshal := cmdID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", x, "int", y, cmdIDMarshal, cmdID, "HRESULT")
         return result
     }
 }

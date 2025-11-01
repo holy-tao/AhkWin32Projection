@@ -70,7 +70,9 @@ class IContextState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-getmytransactionvote
      */
     GetMyTransactionVote(ptxVote) {
-        result := ComCall(6, this, "int*", ptxVote, "HRESULT")
+        ptxVoteMarshal := ptxVote is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, ptxVoteMarshal, ptxVote, "HRESULT")
         return result
     }
 }

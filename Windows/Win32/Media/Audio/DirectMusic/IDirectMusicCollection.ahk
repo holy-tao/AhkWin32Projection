@@ -50,7 +50,9 @@ class IDirectMusicCollection extends IUnknown{
     EnumInstrument(dwIndex, pdwPatch, pwszName, dwNameLen) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(4, this, "uint", dwIndex, "uint*", pdwPatch, "ptr", pwszName, "uint", dwNameLen, "HRESULT")
+        pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwIndex, pdwPatchMarshal, pdwPatch, "ptr", pwszName, "uint", dwNameLen, "HRESULT")
         return result
     }
 }

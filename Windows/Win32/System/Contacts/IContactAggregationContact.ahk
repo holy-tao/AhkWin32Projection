@@ -135,7 +135,9 @@ class IContactAggregationContact extends IUnknown{
      * @returns {HRESULT} 
      */
     get_NetworkSourceId(pNetworkSourceId) {
-        result := ComCall(13, this, "uint*", pNetworkSourceId, "HRESULT")
+        pNetworkSourceIdMarshal := pNetworkSourceId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pNetworkSourceIdMarshal, pNetworkSourceId, "HRESULT")
         return result
     }
 

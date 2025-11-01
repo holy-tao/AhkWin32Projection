@@ -48,7 +48,9 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_start
      */
     get_Start(lStart) {
-        result := ComCall(34, this, "int*", lStart, "HRESULT")
+        lStartMarshal := lStart is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, lStartMarshal, lStart, "HRESULT")
         return result
     }
 
@@ -72,7 +74,11 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-currentratings
      */
     CurrentRatings(pEnSystem, pEnRating, pBfEnAttr) {
-        result := ComCall(36, this, "int*", pEnSystem, "int*", pEnRating, "int*", pBfEnAttr, "HRESULT")
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
+        pEnRatingMarshal := pEnRating is VarRef ? "int*" : "ptr"
+        pBfEnAttrMarshal := pBfEnAttr is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pEnSystemMarshal, pEnSystem, pEnRatingMarshal, pEnRating, pBfEnAttrMarshal, pBfEnAttr, "HRESULT")
         return result
     }
 

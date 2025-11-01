@@ -68,7 +68,9 @@ class IWMPEffects extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getcapabilities
      */
     GetCapabilities(pdwCapabilities) {
-        result := ComCall(5, this, "uint*", pdwCapabilities, "HRESULT")
+        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwCapabilitiesMarshal, pdwCapabilities, "HRESULT")
         return result
     }
 
@@ -102,7 +104,9 @@ class IWMPEffects extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getpresetcount
      */
     GetPresetCount(pnPresetCount) {
-        result := ComCall(8, this, "int*", pnPresetCount, "HRESULT")
+        pnPresetCountMarshal := pnPresetCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pnPresetCountMarshal, pnPresetCount, "HRESULT")
         return result
     }
 
@@ -124,7 +128,9 @@ class IWMPEffects extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getcurrentpreset
      */
     GetCurrentPreset(pnPreset) {
-        result := ComCall(10, this, "int*", pnPreset, "HRESULT")
+        pnPresetMarshal := pnPreset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pnPresetMarshal, pnPreset, "HRESULT")
         return result
     }
 

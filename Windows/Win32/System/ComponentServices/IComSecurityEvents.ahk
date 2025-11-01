@@ -46,7 +46,10 @@ class IComSecurityEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticate
      */
     OnAuthenticate(pInfo, guidActivity, ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "uint", ObjectID, "ptr", guidIID, "uint", iMeth, "uint", cbByteOrig, "char*", pSidOriginalUser, "uint", cbByteCur, "char*", pSidCurrentUser, "int", bCurrentUserInpersonatingInProc, "HRESULT")
+        pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
+        pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "uint", ObjectID, "ptr", guidIID, "uint", iMeth, "uint", cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, "uint", cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, "int", bCurrentUserInpersonatingInProc, "HRESULT")
         return result
     }
 
@@ -66,7 +69,10 @@ class IComSecurityEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticatefail
      */
     OnAuthenticateFail(pInfo, guidActivity, ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidActivity, "uint", ObjectID, "ptr", guidIID, "uint", iMeth, "uint", cbByteOrig, "char*", pSidOriginalUser, "uint", cbByteCur, "char*", pSidCurrentUser, "int", bCurrentUserInpersonatingInProc, "HRESULT")
+        pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
+        pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pInfo, "ptr", guidActivity, "uint", ObjectID, "ptr", guidIID, "uint", iMeth, "uint", cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, "uint", cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, "int", bCurrentUserInpersonatingInProc, "HRESULT")
         return result
     }
 }

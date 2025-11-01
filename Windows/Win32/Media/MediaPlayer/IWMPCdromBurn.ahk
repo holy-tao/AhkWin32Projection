@@ -90,7 +90,9 @@ class IWMPCdromBurn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_burnformat
      */
     get_burnFormat(pwmpbf) {
-        result := ComCall(7, this, "int*", pwmpbf, "HRESULT")
+        pwmpbfMarshal := pwmpbf is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pwmpbfMarshal, pwmpbf, "HRESULT")
         return result
     }
 
@@ -144,7 +146,9 @@ class IWMPCdromBurn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_burnstate
      */
     get_burnState(pwmpbs) {
-        result := ComCall(12, this, "int*", pwmpbs, "HRESULT")
+        pwmpbsMarshal := pwmpbs is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pwmpbsMarshal, pwmpbs, "HRESULT")
         return result
     }
 
@@ -155,7 +159,9 @@ class IWMPCdromBurn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_burnprogress
      */
     get_burnProgress(plProgress) {
-        result := ComCall(13, this, "int*", plProgress, "HRESULT")
+        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plProgressMarshal, plProgress, "HRESULT")
         return result
     }
 

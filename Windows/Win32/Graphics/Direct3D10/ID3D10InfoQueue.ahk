@@ -107,7 +107,9 @@ class ID3D10InfoQueue extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmessage
      */
     GetMessage(MessageIndex, pMessage, pMessageByteLength) {
-        result := ComCall(5, this, "uint", MessageIndex, "ptr", pMessage, "ptr*", pMessageByteLength, "HRESULT")
+        pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", MessageIndex, "ptr", pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
         return result
     }
 
@@ -190,7 +192,9 @@ class ID3D10InfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getstoragefilter
      */
     GetStorageFilter(pFilter, pFilterByteLength) {
-        result := ComCall(13, this, "ptr", pFilter, "ptr*", pFilterByteLength, "HRESULT")
+        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -272,7 +276,9 @@ class ID3D10InfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-getretrievalfilter
      */
     GetRetrievalFilter(pFilter, pFilterByteLength) {
-        result := ComCall(21, this, "ptr", pFilter, "ptr*", pFilterByteLength, "HRESULT")
+        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(21, this, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -345,6 +351,8 @@ class ID3D10InfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-addmessage
      */
     AddMessage(Category, Severity, ID, pDescription) {
+        pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
+
         result := ComCall(28, this, "int", Category, "int", Severity, "int", ID, "ptr", pDescription, "HRESULT")
         return result
     }
@@ -357,6 +365,8 @@ class ID3D10InfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-addapplicationmessage
      */
     AddApplicationMessage(Severity, pDescription) {
+        pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
+
         result := ComCall(29, this, "int", Severity, "ptr", pDescription, "HRESULT")
         return result
     }

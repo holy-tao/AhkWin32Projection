@@ -80,7 +80,9 @@ class IFsrmPropertyDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_type
      */
     get_Type(type) {
-        result := ComCall(14, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, typeMarshal, type, "HRESULT")
         return result
     }
 

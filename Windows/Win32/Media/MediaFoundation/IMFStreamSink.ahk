@@ -48,7 +48,9 @@ class IMFStreamSink extends IMFMediaEventGenerator{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-getidentifier
      */
     GetIdentifier(pdwIdentifier) {
-        result := ComCall(8, this, "uint*", pdwIdentifier, "HRESULT")
+        pdwIdentifierMarshal := pdwIdentifier is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwIdentifierMarshal, pdwIdentifier, "HRESULT")
         return result
     }
 

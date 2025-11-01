@@ -72,7 +72,9 @@ class IUIAutomation6 extends IUIAutomation5{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
      */
     get_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions) {
-        result := ComCall(73, this, "int*", connectionRecoveryBehaviorOptions, "HRESULT")
+        connectionRecoveryBehaviorOptionsMarshal := connectionRecoveryBehaviorOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(73, this, connectionRecoveryBehaviorOptionsMarshal, connectionRecoveryBehaviorOptions, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IUIAutomation6 extends IUIAutomation5{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
      */
     get_CoalesceEvents(coalesceEventsOptions) {
-        result := ComCall(75, this, "int*", coalesceEventsOptions, "HRESULT")
+        coalesceEventsOptionsMarshal := coalesceEventsOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(75, this, coalesceEventsOptionsMarshal, coalesceEventsOptions, "HRESULT")
         return result
     }
 

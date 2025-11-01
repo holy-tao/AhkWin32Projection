@@ -134,7 +134,9 @@ class IPackageDebugSettings extends IUnknown{
     EnumerateBackgroundTasks(packageFullName, taskCount, taskIds, taskNames) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := ComCall(9, this, "ptr", packageFullName, "uint*", taskCount, "ptr*", taskIds, "ptr*", taskNames, "HRESULT")
+        taskCountMarshal := taskCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", packageFullName, taskCountMarshal, taskCount, "ptr*", taskIds, "ptr*", taskNames, "HRESULT")
         return result
     }
 
@@ -212,7 +214,9 @@ class IPackageDebugSettings extends IUnknown{
     GetPackageExecutionState(packageFullName, packageExecutionState) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := ComCall(15, this, "ptr", packageFullName, "int*", packageExecutionState, "HRESULT")
+        packageExecutionStateMarshal := packageExecutionState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "ptr", packageFullName, packageExecutionStateMarshal, packageExecutionState, "HRESULT")
         return result
     }
 
@@ -227,7 +231,9 @@ class IPackageDebugSettings extends IUnknown{
     RegisterForPackageStateChanges(packageFullName, pPackageExecutionStateChangeNotification, pdwCookie) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := ComCall(16, this, "ptr", packageFullName, "ptr", pPackageExecutionStateChangeNotification, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", packageFullName, "ptr", pPackageExecutionStateChangeNotification, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

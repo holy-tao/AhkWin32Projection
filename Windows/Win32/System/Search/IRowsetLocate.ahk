@@ -39,7 +39,11 @@ class IRowsetLocate extends IRowset{
      * @returns {HRESULT} 
      */
     Compare(hReserved, cbBookmark1, pBookmark1, cbBookmark2, pBookmark2, pComparison) {
-        result := ComCall(8, this, "ptr", hReserved, "ptr", cbBookmark1, "char*", pBookmark1, "ptr", cbBookmark2, "char*", pBookmark2, "uint*", pComparison, "HRESULT")
+        pBookmark1Marshal := pBookmark1 is VarRef ? "char*" : "ptr"
+        pBookmark2Marshal := pBookmark2 is VarRef ? "char*" : "ptr"
+        pComparisonMarshal := pComparison is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", hReserved, "ptr", cbBookmark1, pBookmark1Marshal, pBookmark1, "ptr", cbBookmark2, pBookmark2Marshal, pBookmark2, pComparisonMarshal, pComparison, "HRESULT")
         return result
     }
 
@@ -56,7 +60,10 @@ class IRowsetLocate extends IRowset{
      * @returns {HRESULT} 
      */
     GetRowsAt(hReserved1, hReserved2, cbBookmark, pBookmark, lRowsOffset, cRows, pcRowsObtained, prghRows) {
-        result := ComCall(9, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", cbBookmark, "char*", pBookmark, "ptr", lRowsOffset, "ptr", cRows, "ptr*", pcRowsObtained, "ptr*", prghRows, "HRESULT")
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", prghRows, "HRESULT")
         return result
     }
 
@@ -71,7 +78,11 @@ class IRowsetLocate extends IRowset{
      * @returns {HRESULT} 
      */
     GetRowsByBookmark(hReserved, cRows, rgcbBookmarks, rgpBookmarks, rghRows, rgRowStatus) {
-        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, "ptr*", rgcbBookmarks, "ptr*", rgpBookmarks, "ptr*", rghRows, "uint*", rgRowStatus, "HRESULT")
+        rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rgcbBookmarksMarshal, rgcbBookmarks, "ptr*", rgpBookmarks, rghRowsMarshal, rghRows, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
@@ -86,7 +97,11 @@ class IRowsetLocate extends IRowset{
      * @returns {HRESULT} 
      */
     Hash(hReserved, cBookmarks, rgcbBookmarks, rgpBookmarks, rgHashedValues, rgBookmarkStatus) {
-        result := ComCall(11, this, "ptr", hReserved, "ptr", cBookmarks, "ptr*", rgcbBookmarks, "ptr*", rgpBookmarks, "ptr*", rgHashedValues, "uint*", rgBookmarkStatus, "HRESULT")
+        rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : "ptr"
+        rgHashedValuesMarshal := rgHashedValues is VarRef ? "ptr*" : "ptr"
+        rgBookmarkStatusMarshal := rgBookmarkStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", hReserved, "ptr", cBookmarks, rgcbBookmarksMarshal, rgcbBookmarks, "ptr*", rgpBookmarks, rgHashedValuesMarshal, rgHashedValues, rgBookmarkStatusMarshal, rgBookmarkStatus, "HRESULT")
         return result
     }
 }

@@ -51,7 +51,10 @@ class AsyncIPipeLong extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_Pull(buf, pcReturned) {
-        result := ComCall(4, this, "int*", buf, "uint*", pcReturned, "HRESULT")
+        bufMarshal := buf is VarRef ? "int*" : "ptr"
+        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, bufMarshal, buf, pcReturnedMarshal, pcReturned, "HRESULT")
         return result
     }
 
@@ -62,7 +65,9 @@ class AsyncIPipeLong extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_Push(buf, cSent) {
-        result := ComCall(5, this, "int*", buf, "uint", cSent, "HRESULT")
+        bufMarshal := buf is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, bufMarshal, buf, "uint", cSent, "HRESULT")
         return result
     }
 

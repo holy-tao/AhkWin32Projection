@@ -109,9 +109,11 @@ class Compression {
     static Compress(CompressorHandle, UncompressedData, UncompressedDataSize, CompressedBuffer, CompressedBufferSize, CompressedDataSize) {
         CompressorHandle := CompressorHandle is Win32Handle ? NumGet(CompressorHandle, "ptr") : CompressorHandle
 
+        CompressedDataSizeMarshal := CompressedDataSize is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\Compress", "ptr", CompressorHandle, "ptr", UncompressedData, "ptr", UncompressedDataSize, "ptr", CompressedBuffer, "ptr", CompressedBufferSize, "ptr*", CompressedDataSize, "int")
+        result := DllCall("Cabinet.dll\Compress", "ptr", CompressorHandle, "ptr", UncompressedData, "ptr", UncompressedDataSize, "ptr", CompressedBuffer, "ptr", CompressedBufferSize, CompressedDataSizeMarshal, CompressedDataSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -234,9 +236,11 @@ class Compression {
     static Decompress(DecompressorHandle, CompressedData, CompressedDataSize, UncompressedBuffer, UncompressedBufferSize, UncompressedDataSize) {
         DecompressorHandle := DecompressorHandle is Win32Handle ? NumGet(DecompressorHandle, "ptr") : DecompressorHandle
 
+        UncompressedDataSizeMarshal := UncompressedDataSize is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\Decompress", "ptr", DecompressorHandle, "ptr", CompressedData, "ptr", CompressedDataSize, "ptr", UncompressedBuffer, "ptr", UncompressedBufferSize, "ptr*", UncompressedDataSize, "int")
+        result := DllCall("Cabinet.dll\Decompress", "ptr", DecompressorHandle, "ptr", CompressedData, "ptr", CompressedDataSize, "ptr", UncompressedBuffer, "ptr", UncompressedBufferSize, UncompressedDataSizeMarshal, UncompressedDataSize, "int")
         if(A_LastError)
             throw OSError()
 

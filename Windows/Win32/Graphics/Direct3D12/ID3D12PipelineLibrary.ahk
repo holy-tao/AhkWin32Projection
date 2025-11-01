@@ -99,7 +99,9 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-serialize
      */
     Serialize(pData, DataSizeInBytes) {
-        result := ComCall(12, this, "ptr", pData, "ptr", DataSizeInBytes, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, pDataMarshal, pData, "ptr", DataSizeInBytes, "HRESULT")
         return result
     }
 }

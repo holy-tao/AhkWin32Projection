@@ -47,7 +47,10 @@ class IVBFormat extends IUnknown{
     Format(vData, bstrFormat, lpBuffer, cb, lcid, sFirstDayOfWeek, sFirstWeekOfYear, rcb) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
-        result := ComCall(3, this, "ptr", vData, "ptr", bstrFormat, "ptr", lpBuffer, "ushort", cb, "int", lcid, "short", sFirstDayOfWeek, "ushort", sFirstWeekOfYear, "ushort*", rcb, "HRESULT")
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        rcbMarshal := rcb is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "ptr", vData, "ptr", bstrFormat, lpBufferMarshal, lpBuffer, "ushort", cb, "int", lcid, "short", sFirstDayOfWeek, "ushort", sFirstWeekOfYear, rcbMarshal, rcb, "HRESULT")
         return result
     }
 }

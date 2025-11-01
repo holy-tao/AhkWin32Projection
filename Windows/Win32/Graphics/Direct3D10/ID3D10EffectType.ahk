@@ -73,6 +73,8 @@ class ID3D10EffectType extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembertypebyname
      */
     GetMemberTypeByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(3, this, "ptr", Name, "ptr")
         return result
     }
@@ -84,6 +86,8 @@ class ID3D10EffectType extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembertypebysemantic
      */
     GetMemberTypeBySemantic(Semantic) {
+        Semantic := Semantic is String ? StrPtr(Semantic) : Semantic
+
         result := ComCall(4, this, "ptr", Semantic, "ptr")
         return result
     }

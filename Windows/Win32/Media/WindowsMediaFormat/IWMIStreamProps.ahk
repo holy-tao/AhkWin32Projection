@@ -42,7 +42,11 @@ class IWMIStreamProps extends IUnknown{
     GetProperty(pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "ptr", pszName, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 }

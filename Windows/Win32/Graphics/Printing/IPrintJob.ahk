@@ -44,7 +44,9 @@ class IPrintJob extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Id(pulID) {
-        result := ComCall(4, this, "uint*", pulID, "HRESULT")
+        pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulIDMarshal, pulID, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IPrintJob extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PrintedPages(pulPages) {
-        result := ComCall(5, this, "uint*", pulPages, "HRESULT")
+        pulPagesMarshal := pulPages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulPagesMarshal, pulPages, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IPrintJob extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TotalPages(pulPages) {
-        result := ComCall(6, this, "uint*", pulPages, "HRESULT")
+        pulPagesMarshal := pulPages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulPagesMarshal, pulPages, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class IPrintJob extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Status(pStatus) {
-        result := ComCall(7, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -84,7 +92,9 @@ class IPrintJob extends IUnknown{
      * @returns {HRESULT} 
      */
     get_SubmissionTime(pSubmissionTime) {
-        result := ComCall(8, this, "double*", pSubmissionTime, "HRESULT")
+        pSubmissionTimeMarshal := pSubmissionTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pSubmissionTimeMarshal, pSubmissionTime, "HRESULT")
         return result
     }
 

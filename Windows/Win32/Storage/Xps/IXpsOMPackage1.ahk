@@ -45,7 +45,9 @@ class IXpsOMPackage1 extends IXpsOMPackage{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-getdocumenttype
      */
     GetDocumentType(documentType) {
-        result := ComCall(13, this, "int*", documentType, "HRESULT")
+        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, documentTypeMarshal, documentType, "HRESULT")
         return result
     }
 

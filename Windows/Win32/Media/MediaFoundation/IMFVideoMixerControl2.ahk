@@ -48,7 +48,9 @@ class IMFVideoMixerControl2 extends IMFVideoMixerControl{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol2-getmixingprefs
      */
     GetMixingPrefs(pdwMixFlags) {
-        result := ComCall(8, this, "uint*", pdwMixFlags, "HRESULT")
+        pdwMixFlagsMarshal := pdwMixFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwMixFlagsMarshal, pdwMixFlags, "HRESULT")
         return result
     }
 }

@@ -71,7 +71,9 @@ class IComponent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_desclangid
      */
     get_DescLangID(LangID) {
-        result := ComCall(9, this, "int*", LangID, "HRESULT")
+        LangIDMarshal := LangID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, LangIDMarshal, LangID, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class IComponent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_status
      */
     get_Status(Status) {
-        result := ComCall(11, this, "int*", Status, "HRESULT")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, StatusMarshal, Status, "HRESULT")
         return result
     }
 

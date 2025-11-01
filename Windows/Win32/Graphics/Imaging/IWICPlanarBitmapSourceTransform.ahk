@@ -44,7 +44,10 @@ class IWICPlanarBitmapSourceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-doessupporttransform
      */
     DoesSupportTransform(puiWidth, puiHeight, dstTransform, dstPlanarOptions, pguidDstFormats, pPlaneDescriptions, cPlanes, pfIsSupported) {
-        result := ComCall(3, this, "uint*", puiWidth, "uint*", puiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pguidDstFormats, "ptr", pPlaneDescriptions, "uint", cPlanes, "ptr", pfIsSupported, "HRESULT")
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pguidDstFormats, "ptr", pPlaneDescriptions, "uint", cPlanes, "ptr", pfIsSupported, "HRESULT")
         return result
     }
 

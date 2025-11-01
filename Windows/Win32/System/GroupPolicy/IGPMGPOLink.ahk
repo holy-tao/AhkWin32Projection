@@ -102,7 +102,9 @@ class IGPMGPOLink extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SOMLinkOrder(lVal) {
-        result := ComCall(13, this, "int*", lVal, "HRESULT")
+        lValMarshal := lVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, lValMarshal, lVal, "HRESULT")
         return result
     }
 

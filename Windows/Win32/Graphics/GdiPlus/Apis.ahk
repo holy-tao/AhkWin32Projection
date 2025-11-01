@@ -1543,7 +1543,9 @@ class GdiPlus {
      * @returns {String} Nothing - always returns an empty string
      */
     static GdipFree(ptr) {
-        DllCall("gdiplus.dll\GdipFree", "ptr", ptr)
+        ptrMarshal := ptr is VarRef ? "ptr" : "ptr"
+
+        DllCall("gdiplus.dll\GdipFree", ptrMarshal, ptr)
     }
 
     /**
@@ -1566,7 +1568,9 @@ class GdiPlus {
      * @since windows5.1.2600
      */
     static GdiplusStartup(token, input, output) {
-        result := DllCall("gdiplus.dll\GdiplusStartup", "ptr*", token, "ptr", input, "ptr", output, "int")
+        tokenMarshal := token is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdiplusStartup", tokenMarshal, token, "ptr", input, "ptr", output, "int")
         return result
     }
 
@@ -1619,7 +1623,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetEffectParameterSize(effect, size) {
-        result := DllCall("gdiplus.dll\GdipGetEffectParameterSize", "ptr", effect, "uint*", size, "int")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetEffectParameterSize", "ptr", effect, sizeMarshal, size, "int")
         return result
     }
 
@@ -1631,7 +1637,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetEffectParameters(effect, params, size) {
-        result := DllCall("gdiplus.dll\GdipSetEffectParameters", "ptr", effect, "ptr", params, "uint", size, "int")
+        paramsMarshal := params is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetEffectParameters", "ptr", effect, paramsMarshal, params, "uint", size, "int")
         return result
     }
 
@@ -1643,7 +1651,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetEffectParameters(effect, size, params) {
-        result := DllCall("gdiplus.dll\GdipGetEffectParameters", "ptr", effect, "uint*", size, "ptr", params, "int")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+        paramsMarshal := params is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetEffectParameters", "ptr", effect, sizeMarshal, size, paramsMarshal, params, "int")
         return result
     }
 
@@ -1668,7 +1679,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreatePath2(param0, param1, param2, param3, path) {
-        result := DllCall("gdiplus.dll\GdipCreatePath2", "ptr", param0, "char*", param1, "int", param2, "int", param3, "ptr*", path, "int")
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipCreatePath2", "ptr", param0, param1Marshal, param1, "int", param2, "int", param3, "ptr*", path, "int")
         return result
     }
 
@@ -1682,7 +1695,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreatePath2I(param0, param1, param2, param3, path) {
-        result := DllCall("gdiplus.dll\GdipCreatePath2I", "ptr", param0, "char*", param1, "int", param2, "int", param3, "ptr*", path, "int")
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipCreatePath2I", "ptr", param0, param1Marshal, param1, "int", param2, "int", param3, "ptr*", path, "int")
         return result
     }
 
@@ -1724,7 +1739,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPointCount(path, count) {
-        result := DllCall("gdiplus.dll\GdipGetPointCount", "ptr", path, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPointCount", "ptr", path, countMarshal, count, "int")
         return result
     }
 
@@ -1771,7 +1788,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathFillMode(path, fillmode) {
-        result := DllCall("gdiplus.dll\GdipGetPathFillMode", "ptr", path, "int*", fillmode, "int")
+        fillmodeMarshal := fillmode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathFillMode", "ptr", path, fillmodeMarshal, fillmode, "int")
         return result
     }
 
@@ -2510,7 +2529,11 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterNextSubpath(iterator, resultCount, startIndex, endIndex, isClosed) {
-        result := DllCall("gdiplus.dll\GdipPathIterNextSubpath", "ptr", iterator, "int*", resultCount, "int*", startIndex, "int*", endIndex, "ptr", isClosed, "int")
+        resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
+        startIndexMarshal := startIndex is VarRef ? "int*" : "ptr"
+        endIndexMarshal := endIndex is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterNextSubpath", "ptr", iterator, resultCountMarshal, resultCount, startIndexMarshal, startIndex, endIndexMarshal, endIndex, "ptr", isClosed, "int")
         return result
     }
 
@@ -2523,7 +2546,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterNextSubpathPath(iterator, resultCount, path, isClosed) {
-        result := DllCall("gdiplus.dll\GdipPathIterNextSubpathPath", "ptr", iterator, "int*", resultCount, "ptr", path, "ptr", isClosed, "int")
+        resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterNextSubpathPath", "ptr", iterator, resultCountMarshal, resultCount, "ptr", path, "ptr", isClosed, "int")
         return result
     }
 
@@ -2537,7 +2562,12 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterNextPathType(iterator, resultCount, pathType, startIndex, endIndex) {
-        result := DllCall("gdiplus.dll\GdipPathIterNextPathType", "ptr", iterator, "int*", resultCount, "char*", pathType, "int*", startIndex, "int*", endIndex, "int")
+        resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
+        pathTypeMarshal := pathType is VarRef ? "char*" : "ptr"
+        startIndexMarshal := startIndex is VarRef ? "int*" : "ptr"
+        endIndexMarshal := endIndex is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterNextPathType", "ptr", iterator, resultCountMarshal, resultCount, pathTypeMarshal, pathType, startIndexMarshal, startIndex, endIndexMarshal, endIndex, "int")
         return result
     }
 
@@ -2550,7 +2580,11 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterNextMarker(iterator, resultCount, startIndex, endIndex) {
-        result := DllCall("gdiplus.dll\GdipPathIterNextMarker", "ptr", iterator, "int*", resultCount, "int*", startIndex, "int*", endIndex, "int")
+        resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
+        startIndexMarshal := startIndex is VarRef ? "int*" : "ptr"
+        endIndexMarshal := endIndex is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterNextMarker", "ptr", iterator, resultCountMarshal, resultCount, startIndexMarshal, startIndex, endIndexMarshal, endIndex, "int")
         return result
     }
 
@@ -2562,7 +2596,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterNextMarkerPath(iterator, resultCount, path) {
-        result := DllCall("gdiplus.dll\GdipPathIterNextMarkerPath", "ptr", iterator, "int*", resultCount, "ptr", path, "int")
+        resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterNextMarkerPath", "ptr", iterator, resultCountMarshal, resultCount, "ptr", path, "int")
         return result
     }
 
@@ -2573,7 +2609,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterGetCount(iterator, count) {
-        result := DllCall("gdiplus.dll\GdipPathIterGetCount", "ptr", iterator, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterGetCount", "ptr", iterator, countMarshal, count, "int")
         return result
     }
 
@@ -2584,7 +2622,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterGetSubpathCount(iterator, count) {
-        result := DllCall("gdiplus.dll\GdipPathIterGetSubpathCount", "ptr", iterator, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterGetSubpathCount", "ptr", iterator, countMarshal, count, "int")
         return result
     }
 
@@ -2630,7 +2670,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterEnumerate(iterator, resultCount, points, types, count) {
-        result := DllCall("gdiplus.dll\GdipPathIterEnumerate", "ptr", iterator, "int*", resultCount, "ptr", points, "char*", types, "int", count, "int")
+        resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
+        typesMarshal := types is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterEnumerate", "ptr", iterator, resultCountMarshal, resultCount, "ptr", points, typesMarshal, types, "int", count, "int")
         return result
     }
 
@@ -2645,7 +2688,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPathIterCopyData(iterator, resultCount, points, types, startIndex, endIndex) {
-        result := DllCall("gdiplus.dll\GdipPathIterCopyData", "ptr", iterator, "int*", resultCount, "ptr", points, "char*", types, "int", startIndex, "int", endIndex, "int")
+        resultCountMarshal := resultCount is VarRef ? "int*" : "ptr"
+        typesMarshal := types is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPathIterCopyData", "ptr", iterator, resultCountMarshal, resultCount, "ptr", points, typesMarshal, types, "int", startIndex, "int", endIndex, "int")
         return result
     }
 
@@ -2864,7 +2910,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetMatrixElements(matrix, matrixOut) {
-        result := DllCall("gdiplus.dll\GdipGetMatrixElements", "ptr", matrix, "float*", matrixOut, "int")
+        matrixOutMarshal := matrixOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetMatrixElements", "ptr", matrix, matrixOutMarshal, matrixOut, "int")
         return result
     }
 
@@ -2953,7 +3001,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateRegionRgnData(regionData, size, region) {
-        result := DllCall("gdiplus.dll\GdipCreateRegionRgnData", "char*", regionData, "int", size, "ptr*", region, "int")
+        regionDataMarshal := regionData is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipCreateRegionRgnData", regionDataMarshal, regionData, "int", size, "ptr*", region, "int")
         return result
     }
 
@@ -3174,7 +3224,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetRegionDataSize(region, bufferSize) {
-        result := DllCall("gdiplus.dll\GdipGetRegionDataSize", "ptr", region, "uint*", bufferSize, "int")
+        bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetRegionDataSize", "ptr", region, bufferSizeMarshal, bufferSize, "int")
         return result
     }
 
@@ -3187,7 +3239,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetRegionData(region, buffer, bufferSize, sizeFilled) {
-        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", region, "char*", buffer, "uint", bufferSize, "uint*", sizeFilled, "int")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+        sizeFilledMarshal := sizeFilled is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", region, bufferMarshal, buffer, "uint", bufferSize, sizeFilledMarshal, sizeFilled, "int")
         return result
     }
 
@@ -3259,7 +3314,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetRegionScansCount(region, count, matrix) {
-        result := DllCall("gdiplus.dll\GdipGetRegionScansCount", "ptr", region, "uint*", count, "ptr", matrix, "int")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetRegionScansCount", "ptr", region, countMarshal, count, "ptr", matrix, "int")
         return result
     }
 
@@ -3272,7 +3329,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetRegionScans(region, rects, count, matrix) {
-        result := DllCall("gdiplus.dll\GdipGetRegionScans", "ptr", region, "ptr", rects, "int*", count, "ptr", matrix, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetRegionScans", "ptr", region, "ptr", rects, countMarshal, count, "ptr", matrix, "int")
         return result
     }
 
@@ -3285,7 +3344,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetRegionScansI(region, rects, count, matrix) {
-        result := DllCall("gdiplus.dll\GdipGetRegionScansI", "ptr", region, "ptr", rects, "int*", count, "ptr", matrix, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetRegionScansI", "ptr", region, "ptr", rects, countMarshal, count, "ptr", matrix, "int")
         return result
     }
 
@@ -3317,7 +3378,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetBrushType(brush, type) {
-        result := DllCall("gdiplus.dll\GdipGetBrushType", "ptr", brush, "int*", type, "int")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetBrushType", "ptr", brush, typeMarshal, type, "int")
         return result
     }
 
@@ -3341,7 +3404,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetHatchStyle(brush, hatchstyle) {
-        result := DllCall("gdiplus.dll\GdipGetHatchStyle", "ptr", brush, "int*", hatchstyle, "int")
+        hatchstyleMarshal := hatchstyle is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetHatchStyle", "ptr", brush, hatchstyleMarshal, hatchstyle, "int")
         return result
     }
 
@@ -3352,7 +3417,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetHatchForegroundColor(brush, forecol) {
-        result := DllCall("gdiplus.dll\GdipGetHatchForegroundColor", "ptr", brush, "uint*", forecol, "int")
+        forecolMarshal := forecol is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetHatchForegroundColor", "ptr", brush, forecolMarshal, forecol, "int")
         return result
     }
 
@@ -3363,7 +3430,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetHatchBackgroundColor(brush, backcol) {
-        result := DllCall("gdiplus.dll\GdipGetHatchBackgroundColor", "ptr", brush, "uint*", backcol, "int")
+        backcolMarshal := backcol is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetHatchBackgroundColor", "ptr", brush, backcolMarshal, backcol, "int")
         return result
     }
 
@@ -3543,7 +3612,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetTextureWrapMode(brush, wrapmode) {
-        result := DllCall("gdiplus.dll\GdipGetTextureWrapMode", "ptr", brush, "int*", wrapmode, "int")
+        wrapmodeMarshal := wrapmode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetTextureWrapMode", "ptr", brush, wrapmodeMarshal, wrapmode, "int")
         return result
     }
 
@@ -3587,7 +3658,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetSolidFillColor(brush, color) {
-        result := DllCall("gdiplus.dll\GdipGetSolidFillColor", "ptr", brush, "uint*", color, "int")
+        colorMarshal := color is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetSolidFillColor", "ptr", brush, colorMarshal, color, "int")
         return result
     }
 
@@ -3702,7 +3775,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetLineColors(brush, colors) {
-        result := DllCall("gdiplus.dll\GdipGetLineColors", "ptr", brush, "uint*", colors, "int")
+        colorsMarshal := colors is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetLineColors", "ptr", brush, colorsMarshal, colors, "int")
         return result
     }
 
@@ -3757,7 +3832,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetLineBlendCount(brush, count) {
-        result := DllCall("gdiplus.dll\GdipGetLineBlendCount", "ptr", brush, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetLineBlendCount", "ptr", brush, countMarshal, count, "int")
         return result
     }
 
@@ -3770,7 +3847,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetLineBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipGetLineBlend", "ptr", brush, "float*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "float*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetLineBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -3783,7 +3863,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetLineBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipSetLineBlend", "ptr", brush, "float*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "float*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetLineBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -3794,7 +3877,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetLinePresetBlendCount(brush, count) {
-        result := DllCall("gdiplus.dll\GdipGetLinePresetBlendCount", "ptr", brush, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetLinePresetBlendCount", "ptr", brush, countMarshal, count, "int")
         return result
     }
 
@@ -3807,7 +3892,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetLinePresetBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipGetLinePresetBlend", "ptr", brush, "uint*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "uint*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetLinePresetBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -3820,7 +3908,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetLinePresetBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipSetLinePresetBlend", "ptr", brush, "uint*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "uint*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetLinePresetBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -3866,7 +3957,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetLineWrapMode(brush, wrapmode) {
-        result := DllCall("gdiplus.dll\GdipGetLineWrapMode", "ptr", brush, "int*", wrapmode, "int")
+        wrapmodeMarshal := wrapmode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetLineWrapMode", "ptr", brush, wrapmodeMarshal, wrapmode, "int")
         return result
     }
 
@@ -3996,7 +4089,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientCenterColor(brush, colors) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientCenterColor", "ptr", brush, "uint*", colors, "int")
+        colorsMarshal := colors is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientCenterColor", "ptr", brush, colorsMarshal, colors, "int")
         return result
     }
 
@@ -4019,7 +4114,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientSurroundColorsWithCount(brush, color, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientSurroundColorsWithCount", "ptr", brush, "uint*", color, "int*", count, "int")
+        colorMarshal := color is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientSurroundColorsWithCount", "ptr", brush, colorMarshal, color, countMarshal, count, "int")
         return result
     }
 
@@ -4031,7 +4129,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetPathGradientSurroundColorsWithCount(brush, color, count) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientSurroundColorsWithCount", "ptr", brush, "uint*", color, "int*", count, "int")
+        colorMarshal := color is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetPathGradientSurroundColorsWithCount", "ptr", brush, colorMarshal, color, countMarshal, count, "int")
         return result
     }
 
@@ -4130,7 +4231,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientPointCount(brush, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientPointCount", "ptr", brush, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientPointCount", "ptr", brush, countMarshal, count, "int")
         return result
     }
 
@@ -4141,7 +4244,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientSurroundColorCount(brush, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientSurroundColorCount", "ptr", brush, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientSurroundColorCount", "ptr", brush, countMarshal, count, "int")
         return result
     }
 
@@ -4174,7 +4279,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientBlendCount(brush, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientBlendCount", "ptr", brush, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientBlendCount", "ptr", brush, countMarshal, count, "int")
         return result
     }
 
@@ -4187,7 +4294,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientBlend", "ptr", brush, "float*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "float*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -4200,7 +4310,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetPathGradientBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientBlend", "ptr", brush, "float*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "float*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetPathGradientBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -4211,7 +4324,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientPresetBlendCount(brush, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientPresetBlendCount", "ptr", brush, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientPresetBlendCount", "ptr", brush, countMarshal, count, "int")
         return result
     }
 
@@ -4224,7 +4339,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientPresetBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientPresetBlend", "ptr", brush, "uint*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "uint*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientPresetBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -4237,7 +4355,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetPathGradientPresetBlend(brush, blend, positions, count) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientPresetBlend", "ptr", brush, "uint*", blend, "float*", positions, "int", count, "int")
+        blendMarshal := blend is VarRef ? "uint*" : "ptr"
+        positionsMarshal := positions is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetPathGradientPresetBlend", "ptr", brush, blendMarshal, blend, positionsMarshal, positions, "int", count, "int")
         return result
     }
 
@@ -4272,7 +4393,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientWrapMode(brush, wrapmode) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientWrapMode", "ptr", brush, "int*", wrapmode, "int")
+        wrapmodeMarshal := wrapmode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientWrapMode", "ptr", brush, wrapmodeMarshal, wrapmode, "int")
         return result
     }
 
@@ -4377,7 +4500,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPathGradientFocusScales(brush, xScale, yScale) {
-        result := DllCall("gdiplus.dll\GdipGetPathGradientFocusScales", "ptr", brush, "float*", xScale, "float*", yScale, "int")
+        xScaleMarshal := xScale is VarRef ? "float*" : "ptr"
+        yScaleMarshal := yScale is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPathGradientFocusScales", "ptr", brush, xScaleMarshal, xScale, yScaleMarshal, yScale, "int")
         return result
     }
 
@@ -4458,7 +4584,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenWidth(pen, width) {
-        result := DllCall("gdiplus.dll\GdipGetPenWidth", "ptr", pen, "float*", width, "int")
+        widthMarshal := width is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenWidth", "ptr", pen, widthMarshal, width, "int")
         return result
     }
 
@@ -4480,7 +4608,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenUnit(pen, unit) {
-        result := DllCall("gdiplus.dll\GdipGetPenUnit", "ptr", pen, "int*", unit, "int")
+        unitMarshal := unit is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenUnit", "ptr", pen, unitMarshal, unit, "int")
         return result
     }
 
@@ -4537,7 +4667,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenStartCap(pen, startCap) {
-        result := DllCall("gdiplus.dll\GdipGetPenStartCap", "ptr", pen, "int*", startCap, "int")
+        startCapMarshal := startCap is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenStartCap", "ptr", pen, startCapMarshal, startCap, "int")
         return result
     }
 
@@ -4548,7 +4680,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenEndCap(pen, endCap) {
-        result := DllCall("gdiplus.dll\GdipGetPenEndCap", "ptr", pen, "int*", endCap, "int")
+        endCapMarshal := endCap is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenEndCap", "ptr", pen, endCapMarshal, endCap, "int")
         return result
     }
 
@@ -4559,7 +4693,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenDashCap197819(pen, dashCap) {
-        result := DllCall("gdiplus.dll\GdipGetPenDashCap197819", "ptr", pen, "int*", dashCap, "int")
+        dashCapMarshal := dashCap is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenDashCap197819", "ptr", pen, dashCapMarshal, dashCap, "int")
         return result
     }
 
@@ -4581,7 +4717,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenLineJoin(pen, lineJoin) {
-        result := DllCall("gdiplus.dll\GdipGetPenLineJoin", "ptr", pen, "int*", lineJoin, "int")
+        lineJoinMarshal := lineJoin is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenLineJoin", "ptr", pen, lineJoinMarshal, lineJoin, "int")
         return result
     }
 
@@ -4647,7 +4785,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenMiterLimit(pen, miterLimit) {
-        result := DllCall("gdiplus.dll\GdipGetPenMiterLimit", "ptr", pen, "float*", miterLimit, "int")
+        miterLimitMarshal := miterLimit is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenMiterLimit", "ptr", pen, miterLimitMarshal, miterLimit, "int")
         return result
     }
 
@@ -4669,7 +4809,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenMode(pen, penMode) {
-        result := DllCall("gdiplus.dll\GdipGetPenMode", "ptr", pen, "int*", penMode, "int")
+        penModeMarshal := penMode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenMode", "ptr", pen, penModeMarshal, penMode, "int")
         return result
     }
 
@@ -4773,7 +4915,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenColor(pen, argb) {
-        result := DllCall("gdiplus.dll\GdipGetPenColor", "ptr", pen, "uint*", argb, "int")
+        argbMarshal := argb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenColor", "ptr", pen, argbMarshal, argb, "int")
         return result
     }
 
@@ -4806,7 +4950,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenFillType(pen, type) {
-        result := DllCall("gdiplus.dll\GdipGetPenFillType", "ptr", pen, "int*", type, "int")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenFillType", "ptr", pen, typeMarshal, type, "int")
         return result
     }
 
@@ -4817,7 +4963,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenDashStyle(pen, dashstyle) {
-        result := DllCall("gdiplus.dll\GdipGetPenDashStyle", "ptr", pen, "int*", dashstyle, "int")
+        dashstyleMarshal := dashstyle is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenDashStyle", "ptr", pen, dashstyleMarshal, dashstyle, "int")
         return result
     }
 
@@ -4839,7 +4987,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenDashOffset(pen, offset) {
-        result := DllCall("gdiplus.dll\GdipGetPenDashOffset", "ptr", pen, "float*", offset, "int")
+        offsetMarshal := offset is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenDashOffset", "ptr", pen, offsetMarshal, offset, "int")
         return result
     }
 
@@ -4861,7 +5011,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenDashCount(pen, count) {
-        result := DllCall("gdiplus.dll\GdipGetPenDashCount", "ptr", pen, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenDashCount", "ptr", pen, countMarshal, count, "int")
         return result
     }
 
@@ -4873,7 +5025,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetPenDashArray(pen, dash, count) {
-        result := DllCall("gdiplus.dll\GdipSetPenDashArray", "ptr", pen, "float*", dash, "int", count, "int")
+        dashMarshal := dash is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetPenDashArray", "ptr", pen, dashMarshal, dash, "int", count, "int")
         return result
     }
 
@@ -4885,7 +5039,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenDashArray(pen, dash, count) {
-        result := DllCall("gdiplus.dll\GdipGetPenDashArray", "ptr", pen, "float*", dash, "int", count, "int")
+        dashMarshal := dash is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenDashArray", "ptr", pen, dashMarshal, dash, "int", count, "int")
         return result
     }
 
@@ -4896,7 +5052,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenCompoundCount(pen, count) {
-        result := DllCall("gdiplus.dll\GdipGetPenCompoundCount", "ptr", pen, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenCompoundCount", "ptr", pen, countMarshal, count, "int")
         return result
     }
 
@@ -4908,7 +5066,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetPenCompoundArray(pen, dash, count) {
-        result := DllCall("gdiplus.dll\GdipSetPenCompoundArray", "ptr", pen, "float*", dash, "int", count, "int")
+        dashMarshal := dash is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetPenCompoundArray", "ptr", pen, dashMarshal, dash, "int", count, "int")
         return result
     }
 
@@ -4920,7 +5080,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPenCompoundArray(pen, dash, count) {
-        result := DllCall("gdiplus.dll\GdipGetPenCompoundArray", "ptr", pen, "float*", dash, "int", count, "int")
+        dashMarshal := dash is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPenCompoundArray", "ptr", pen, dashMarshal, dash, "int", count, "int")
         return result
     }
 
@@ -4966,7 +5128,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCustomLineCapType(customCap, capType) {
-        result := DllCall("gdiplus.dll\GdipGetCustomLineCapType", "ptr", customCap, "int*", capType, "int")
+        capTypeMarshal := capType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCustomLineCapType", "ptr", customCap, capTypeMarshal, capType, "int")
         return result
     }
 
@@ -4990,7 +5154,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCustomLineCapStrokeCaps(customCap, startCap, endCap) {
-        result := DllCall("gdiplus.dll\GdipGetCustomLineCapStrokeCaps", "ptr", customCap, "int*", startCap, "int*", endCap, "int")
+        startCapMarshal := startCap is VarRef ? "int*" : "ptr"
+        endCapMarshal := endCap is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCustomLineCapStrokeCaps", "ptr", customCap, startCapMarshal, startCap, endCapMarshal, endCap, "int")
         return result
     }
 
@@ -5012,7 +5179,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCustomLineCapStrokeJoin(customCap, lineJoin) {
-        result := DllCall("gdiplus.dll\GdipGetCustomLineCapStrokeJoin", "ptr", customCap, "int*", lineJoin, "int")
+        lineJoinMarshal := lineJoin is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCustomLineCapStrokeJoin", "ptr", customCap, lineJoinMarshal, lineJoin, "int")
         return result
     }
 
@@ -5034,7 +5203,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCustomLineCapBaseCap(customCap, baseCap) {
-        result := DllCall("gdiplus.dll\GdipGetCustomLineCapBaseCap", "ptr", customCap, "int*", baseCap, "int")
+        baseCapMarshal := baseCap is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCustomLineCapBaseCap", "ptr", customCap, baseCapMarshal, baseCap, "int")
         return result
     }
 
@@ -5056,7 +5227,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCustomLineCapBaseInset(customCap, inset) {
-        result := DllCall("gdiplus.dll\GdipGetCustomLineCapBaseInset", "ptr", customCap, "float*", inset, "int")
+        insetMarshal := inset is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCustomLineCapBaseInset", "ptr", customCap, insetMarshal, inset, "int")
         return result
     }
 
@@ -5078,7 +5251,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCustomLineCapWidthScale(customCap, widthScale) {
-        result := DllCall("gdiplus.dll\GdipGetCustomLineCapWidthScale", "ptr", customCap, "float*", widthScale, "int")
+        widthScaleMarshal := widthScale is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCustomLineCapWidthScale", "ptr", customCap, widthScaleMarshal, widthScale, "int")
         return result
     }
 
@@ -5113,7 +5288,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetAdjustableArrowCapHeight(cap, height) {
-        result := DllCall("gdiplus.dll\GdipGetAdjustableArrowCapHeight", "ptr", cap, "float*", height, "int")
+        heightMarshal := height is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetAdjustableArrowCapHeight", "ptr", cap, heightMarshal, height, "int")
         return result
     }
 
@@ -5135,7 +5312,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetAdjustableArrowCapWidth(cap, width) {
-        result := DllCall("gdiplus.dll\GdipGetAdjustableArrowCapWidth", "ptr", cap, "float*", width, "int")
+        widthMarshal := width is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetAdjustableArrowCapWidth", "ptr", cap, widthMarshal, width, "int")
         return result
     }
 
@@ -5157,7 +5336,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetAdjustableArrowCapMiddleInset(cap, middleInset) {
-        result := DllCall("gdiplus.dll\GdipGetAdjustableArrowCapMiddleInset", "ptr", cap, "float*", middleInset, "int")
+        middleInsetMarshal := middleInset is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetAdjustableArrowCapMiddleInset", "ptr", cap, middleInsetMarshal, middleInset, "int")
         return result
     }
 
@@ -5322,7 +5503,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageBounds(image, srcRect, srcUnit) {
-        result := DllCall("gdiplus.dll\GdipGetImageBounds", "ptr", image, "ptr", srcRect, "int*", srcUnit, "int")
+        srcUnitMarshal := srcUnit is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageBounds", "ptr", image, "ptr", srcRect, srcUnitMarshal, srcUnit, "int")
         return result
     }
 
@@ -5334,7 +5517,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageDimension(image, width, height) {
-        result := DllCall("gdiplus.dll\GdipGetImageDimension", "ptr", image, "float*", width, "float*", height, "int")
+        widthMarshal := width is VarRef ? "float*" : "ptr"
+        heightMarshal := height is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageDimension", "ptr", image, widthMarshal, width, heightMarshal, height, "int")
         return result
     }
 
@@ -5345,7 +5531,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageType(image, type) {
-        result := DllCall("gdiplus.dll\GdipGetImageType", "ptr", image, "int*", type, "int")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageType", "ptr", image, typeMarshal, type, "int")
         return result
     }
 
@@ -5356,7 +5544,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageWidth(image, width) {
-        result := DllCall("gdiplus.dll\GdipGetImageWidth", "ptr", image, "uint*", width, "int")
+        widthMarshal := width is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageWidth", "ptr", image, widthMarshal, width, "int")
         return result
     }
 
@@ -5367,7 +5557,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageHeight(image, height) {
-        result := DllCall("gdiplus.dll\GdipGetImageHeight", "ptr", image, "uint*", height, "int")
+        heightMarshal := height is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageHeight", "ptr", image, heightMarshal, height, "int")
         return result
     }
 
@@ -5378,7 +5570,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageHorizontalResolution(image, resolution) {
-        result := DllCall("gdiplus.dll\GdipGetImageHorizontalResolution", "ptr", image, "float*", resolution, "int")
+        resolutionMarshal := resolution is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageHorizontalResolution", "ptr", image, resolutionMarshal, resolution, "int")
         return result
     }
 
@@ -5389,7 +5583,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageVerticalResolution(image, resolution) {
-        result := DllCall("gdiplus.dll\GdipGetImageVerticalResolution", "ptr", image, "float*", resolution, "int")
+        resolutionMarshal := resolution is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageVerticalResolution", "ptr", image, resolutionMarshal, resolution, "int")
         return result
     }
 
@@ -5400,7 +5596,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageFlags(image, flags) {
-        result := DllCall("gdiplus.dll\GdipGetImageFlags", "ptr", image, "uint*", flags, "int")
+        flagsMarshal := flags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageFlags", "ptr", image, flagsMarshal, flags, "int")
         return result
     }
 
@@ -5422,7 +5620,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImagePixelFormat(image, format) {
-        result := DllCall("gdiplus.dll\GdipGetImagePixelFormat", "ptr", image, "int*", format, "int")
+        formatMarshal := format is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImagePixelFormat", "ptr", image, formatMarshal, format, "int")
         return result
     }
 
@@ -5437,7 +5637,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageThumbnail(image, thumbWidth, thumbHeight, thumbImage, callback, callbackData) {
-        result := DllCall("gdiplus.dll\GdipGetImageThumbnail", "ptr", image, "uint", thumbWidth, "uint", thumbHeight, "ptr*", thumbImage, "ptr", callback, "ptr", callbackData, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageThumbnail", "ptr", image, "uint", thumbWidth, "uint", thumbHeight, "ptr*", thumbImage, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
@@ -5449,7 +5651,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetEncoderParameterListSize(image, clsidEncoder, size) {
-        result := DllCall("gdiplus.dll\GdipGetEncoderParameterListSize", "ptr", image, "ptr", clsidEncoder, "uint*", size, "int")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetEncoderParameterListSize", "ptr", image, "ptr", clsidEncoder, sizeMarshal, size, "int")
         return result
     }
 
@@ -5473,7 +5677,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipImageGetFrameDimensionsCount(image, count) {
-        result := DllCall("gdiplus.dll\GdipImageGetFrameDimensionsCount", "ptr", image, "uint*", count, "int")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipImageGetFrameDimensionsCount", "ptr", image, countMarshal, count, "int")
         return result
     }
 
@@ -5497,7 +5703,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipImageGetFrameCount(image, dimensionID, count) {
-        result := DllCall("gdiplus.dll\GdipImageGetFrameCount", "ptr", image, "ptr", dimensionID, "uint*", count, "int")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipImageGetFrameCount", "ptr", image, "ptr", dimensionID, countMarshal, count, "int")
         return result
     }
 
@@ -5554,7 +5762,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImagePaletteSize(image, size) {
-        result := DllCall("gdiplus.dll\GdipGetImagePaletteSize", "ptr", image, "int*", size, "int")
+        sizeMarshal := size is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImagePaletteSize", "ptr", image, sizeMarshal, size, "int")
         return result
     }
 
@@ -5565,7 +5775,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPropertyCount(image, numOfProperty) {
-        result := DllCall("gdiplus.dll\GdipGetPropertyCount", "ptr", image, "uint*", numOfProperty, "int")
+        numOfPropertyMarshal := numOfProperty is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPropertyCount", "ptr", image, numOfPropertyMarshal, numOfProperty, "int")
         return result
     }
 
@@ -5577,7 +5789,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPropertyIdList(image, numOfProperty, list) {
-        result := DllCall("gdiplus.dll\GdipGetPropertyIdList", "ptr", image, "uint", numOfProperty, "uint*", list, "int")
+        listMarshal := list is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPropertyIdList", "ptr", image, "uint", numOfProperty, listMarshal, list, "int")
         return result
     }
 
@@ -5589,7 +5803,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPropertyItemSize(image, propId, size) {
-        result := DllCall("gdiplus.dll\GdipGetPropertyItemSize", "ptr", image, "uint", propId, "uint*", size, "int")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPropertyItemSize", "ptr", image, "uint", propId, sizeMarshal, size, "int")
         return result
     }
 
@@ -5614,7 +5830,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPropertySize(image, totalBufferSize, numProperties) {
-        result := DllCall("gdiplus.dll\GdipGetPropertySize", "ptr", image, "uint*", totalBufferSize, "uint*", numProperties, "int")
+        totalBufferSizeMarshal := totalBufferSize is VarRef ? "uint*" : "ptr"
+        numPropertiesMarshal := numProperties is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPropertySize", "ptr", image, totalBufferSizeMarshal, totalBufferSize, numPropertiesMarshal, numProperties, "int")
         return result
     }
 
@@ -5755,7 +5974,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateBitmapFromScan0(width, height, stride, format, scan0, bitmap) {
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromScan0", "int", width, "int", height, "int", stride, "int", format, "char*", scan0, "ptr*", bitmap, "int")
+        scan0Marshal := scan0 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromScan0", "int", width, "int", height, "int", stride, "int", format, scan0Marshal, scan0, "ptr*", bitmap, "int")
         return result
     }
 
@@ -5791,7 +6012,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateBitmapFromGdiDib(gdiBitmapInfo, gdiBitmapData, bitmap) {
-        result := DllCall("gdiplus.dll\GdipCreateBitmapFromGdiDib", "ptr", gdiBitmapInfo, "ptr", gdiBitmapData, "ptr*", bitmap, "int")
+        gdiBitmapDataMarshal := gdiBitmapData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipCreateBitmapFromGdiDib", "ptr", gdiBitmapInfo, gdiBitmapDataMarshal, gdiBitmapData, "ptr*", bitmap, "int")
         return result
     }
 
@@ -5854,8 +6077,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateBitmapFromResource(hInstance, lpBitmapName, bitmap) {
-        lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
 
         result := DllCall("gdiplus.dll\GdipCreateBitmapFromResource", "ptr", hInstance, "ptr", lpBitmapName, "ptr*", bitmap, "int")
         return result
@@ -5927,7 +6150,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBitmapGetPixel(bitmap, x, y, color) {
-        result := DllCall("gdiplus.dll\GdipBitmapGetPixel", "ptr", bitmap, "int", x, "int", y, "uint*", color, "int")
+        colorMarshal := color is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBitmapGetPixel", "ptr", bitmap, "int", x, "int", y, colorMarshal, color, "int")
         return result
     }
 
@@ -6006,7 +6231,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBitmapApplyEffect(bitmap, effect, roi, useAuxData, auxData, auxDataSize) {
-        result := DllCall("gdiplus.dll\GdipBitmapApplyEffect", "ptr", bitmap, "ptr", effect, "ptr", roi, "int", useAuxData, "ptr*", auxData, "int*", auxDataSize, "int")
+        auxDataSizeMarshal := auxDataSize is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBitmapApplyEffect", "ptr", bitmap, "ptr", effect, "ptr", roi, "int", useAuxData, "ptr*", auxData, auxDataSizeMarshal, auxDataSize, "int")
         return result
     }
 
@@ -6024,7 +6251,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBitmapCreateApplyEffect(inputBitmaps, numInputs, effect, roi, outputRect, outputBitmap, useAuxData, auxData, auxDataSize) {
-        result := DllCall("gdiplus.dll\GdipBitmapCreateApplyEffect", "ptr*", inputBitmaps, "int", numInputs, "ptr", effect, "ptr", roi, "ptr", outputRect, "ptr*", outputBitmap, "int", useAuxData, "ptr*", auxData, "int*", auxDataSize, "int")
+        auxDataSizeMarshal := auxDataSize is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBitmapCreateApplyEffect", "ptr*", inputBitmaps, "int", numInputs, "ptr", effect, "ptr", roi, "ptr", outputRect, "ptr*", outputBitmap, "int", useAuxData, "ptr*", auxData, auxDataSizeMarshal, auxDataSize, "int")
         return result
     }
 
@@ -6040,7 +6269,12 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBitmapGetHistogram(bitmap, format, NumberOfEntries, channel0, channel1, channel2, channel3) {
-        result := DllCall("gdiplus.dll\GdipBitmapGetHistogram", "ptr", bitmap, "int", format, "uint", NumberOfEntries, "uint*", channel0, "uint*", channel1, "uint*", channel2, "uint*", channel3, "int")
+        channel0Marshal := channel0 is VarRef ? "uint*" : "ptr"
+        channel1Marshal := channel1 is VarRef ? "uint*" : "ptr"
+        channel2Marshal := channel2 is VarRef ? "uint*" : "ptr"
+        channel3Marshal := channel3 is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBitmapGetHistogram", "ptr", bitmap, "int", format, "uint", NumberOfEntries, channel0Marshal, channel0, channel1Marshal, channel1, channel2Marshal, channel2, channel3Marshal, channel3, "int")
         return result
     }
 
@@ -6051,7 +6285,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBitmapGetHistogramSize(format, NumberOfEntries) {
-        result := DllCall("gdiplus.dll\GdipBitmapGetHistogramSize", "int", format, "uint*", NumberOfEntries, "int")
+        NumberOfEntriesMarshal := NumberOfEntries is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBitmapGetHistogramSize", "int", format, NumberOfEntriesMarshal, NumberOfEntries, "int")
         return result
     }
 
@@ -6371,7 +6607,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCompositingMode(graphics, compositingMode) {
-        result := DllCall("gdiplus.dll\GdipGetCompositingMode", "ptr", graphics, "int*", compositingMode, "int")
+        compositingModeMarshal := compositingMode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCompositingMode", "ptr", graphics, compositingModeMarshal, compositingMode, "int")
         return result
     }
 
@@ -6395,7 +6633,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetRenderingOrigin(graphics, x, y) {
-        result := DllCall("gdiplus.dll\GdipGetRenderingOrigin", "ptr", graphics, "int*", x, "int*", y, "int")
+        xMarshal := x is VarRef ? "int*" : "ptr"
+        yMarshal := y is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetRenderingOrigin", "ptr", graphics, xMarshal, x, yMarshal, y, "int")
         return result
     }
 
@@ -6417,7 +6658,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCompositingQuality(graphics, compositingQuality) {
-        result := DllCall("gdiplus.dll\GdipGetCompositingQuality", "ptr", graphics, "int*", compositingQuality, "int")
+        compositingQualityMarshal := compositingQuality is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCompositingQuality", "ptr", graphics, compositingQualityMarshal, compositingQuality, "int")
         return result
     }
 
@@ -6439,7 +6682,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetSmoothingMode(graphics, smoothingMode) {
-        result := DllCall("gdiplus.dll\GdipGetSmoothingMode", "ptr", graphics, "int*", smoothingMode, "int")
+        smoothingModeMarshal := smoothingMode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetSmoothingMode", "ptr", graphics, smoothingModeMarshal, smoothingMode, "int")
         return result
     }
 
@@ -6461,7 +6706,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPixelOffsetMode(graphics, pixelOffsetMode) {
-        result := DllCall("gdiplus.dll\GdipGetPixelOffsetMode", "ptr", graphics, "int*", pixelOffsetMode, "int")
+        pixelOffsetModeMarshal := pixelOffsetMode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPixelOffsetMode", "ptr", graphics, pixelOffsetModeMarshal, pixelOffsetMode, "int")
         return result
     }
 
@@ -6483,7 +6730,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetTextRenderingHint(graphics, mode) {
-        result := DllCall("gdiplus.dll\GdipGetTextRenderingHint", "ptr", graphics, "int*", mode, "int")
+        modeMarshal := mode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetTextRenderingHint", "ptr", graphics, modeMarshal, mode, "int")
         return result
     }
 
@@ -6505,7 +6754,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetTextContrast(graphics, contrast) {
-        result := DllCall("gdiplus.dll\GdipGetTextContrast", "ptr", graphics, "uint*", contrast, "int")
+        contrastMarshal := contrast is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetTextContrast", "ptr", graphics, contrastMarshal, contrast, "int")
         return result
     }
 
@@ -6527,7 +6778,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetInterpolationMode(graphics, interpolationMode) {
-        result := DllCall("gdiplus.dll\GdipGetInterpolationMode", "ptr", graphics, "int*", interpolationMode, "int")
+        interpolationModeMarshal := interpolationMode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetInterpolationMode", "ptr", graphics, interpolationModeMarshal, interpolationMode, "int")
         return result
     }
 
@@ -6630,7 +6883,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPageUnit(graphics, unit) {
-        result := DllCall("gdiplus.dll\GdipGetPageUnit", "ptr", graphics, "int*", unit, "int")
+        unitMarshal := unit is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPageUnit", "ptr", graphics, unitMarshal, unit, "int")
         return result
     }
 
@@ -6641,7 +6896,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetPageScale(graphics, scale) {
-        result := DllCall("gdiplus.dll\GdipGetPageScale", "ptr", graphics, "float*", scale, "int")
+        scaleMarshal := scale is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetPageScale", "ptr", graphics, scaleMarshal, scale, "int")
         return result
     }
 
@@ -6674,7 +6931,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetDpiX(graphics, dpi) {
-        result := DllCall("gdiplus.dll\GdipGetDpiX", "ptr", graphics, "float*", dpi, "int")
+        dpiMarshal := dpi is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetDpiX", "ptr", graphics, dpiMarshal, dpi, "int")
         return result
     }
 
@@ -6685,7 +6944,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetDpiY(graphics, dpi) {
-        result := DllCall("gdiplus.dll\GdipGetDpiY", "ptr", graphics, "float*", dpi, "int")
+        dpiMarshal := dpi is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetDpiY", "ptr", graphics, dpiMarshal, dpi, "int")
         return result
     }
 
@@ -6724,7 +6985,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetNearestColor(graphics, argb) {
-        result := DllCall("gdiplus.dll\GdipGetNearestColor", "ptr", graphics, "uint*", argb, "int")
+        argbMarshal := argb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetNearestColor", "ptr", graphics, argbMarshal, argb, "int")
         return result
     }
 
@@ -7607,7 +7870,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipDrawImageRectRect(graphics, image, dstx, dsty, dstwidth, dstheight, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
-        result := DllCall("gdiplus.dll\GdipDrawImageRectRect", "ptr", graphics, "ptr", image, "float", dstx, "float", dsty, "float", dstwidth, "float", dstheight, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, "ptr", callbackData, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipDrawImageRectRect", "ptr", graphics, "ptr", image, "float", dstx, "float", dsty, "float", dstwidth, "float", dstheight, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
@@ -7630,7 +7895,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipDrawImageRectRectI(graphics, image, dstx, dsty, dstwidth, dstheight, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
-        result := DllCall("gdiplus.dll\GdipDrawImageRectRectI", "ptr", graphics, "ptr", image, "int", dstx, "int", dsty, "int", dstwidth, "int", dstheight, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, "ptr", callbackData, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipDrawImageRectRectI", "ptr", graphics, "ptr", image, "int", dstx, "int", dsty, "int", dstwidth, "int", dstheight, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
@@ -7651,7 +7918,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipDrawImagePointsRect(graphics, image, points, count, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
-        result := DllCall("gdiplus.dll\GdipDrawImagePointsRect", "ptr", graphics, "ptr", image, "ptr", points, "int", count, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, "ptr", callbackData, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipDrawImagePointsRect", "ptr", graphics, "ptr", image, "ptr", points, "int", count, "float", srcx, "float", srcy, "float", srcwidth, "float", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
@@ -7672,7 +7941,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipDrawImagePointsRectI(graphics, image, points, count, srcx, srcy, srcwidth, srcheight, srcUnit, imageAttributes, callback, callbackData) {
-        result := DllCall("gdiplus.dll\GdipDrawImagePointsRectI", "ptr", graphics, "ptr", image, "ptr", points, "int", count, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, "ptr", callbackData, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipDrawImagePointsRectI", "ptr", graphics, "ptr", image, "ptr", points, "int", count, "int", srcx, "int", srcy, "int", srcwidth, "int", srcheight, "int", srcUnit, "ptr", imageAttributes, "ptr", callback, callbackDataMarshal, callbackData, "int")
         return result
     }
 
@@ -7687,7 +7958,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileDestPoint(graphics, metafile, destPoint, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoint", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoint", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7702,7 +7975,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileDestPointI(graphics, metafile, destPoint, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointI", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointI", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7717,7 +7992,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileDestRect(graphics, metafile, destRect, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRect", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRect", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7732,7 +8009,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileDestRectI(graphics, metafile, destRect, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRectI", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestRectI", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7748,7 +8027,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileDestPoints(graphics, metafile, destPoints, count, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoints", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPoints", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7764,7 +8045,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileDestPointsI(graphics, metafile, destPoints, count, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointsI", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileDestPointsI", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7781,7 +8064,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileSrcRectDestPoint(graphics, metafile, destPoint, srcRect, srcUnit, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoint", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoint", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7798,7 +8083,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileSrcRectDestPointI(graphics, metafile, destPoint, srcRect, srcUnit, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointI", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointI", "ptr", graphics, "ptr", metafile, "ptr", destPoint, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7815,7 +8102,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileSrcRectDestRect(graphics, metafile, destRect, srcRect, srcUnit, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRect", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRect", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7832,7 +8121,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileSrcRectDestRectI(graphics, metafile, destRect, srcRect, srcUnit, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRectI", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestRectI", "ptr", graphics, "ptr", metafile, "ptr", destRect, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7850,7 +8141,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileSrcRectDestPoints(graphics, metafile, destPoints, count, srcRect, srcUnit, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoints", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPoints", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7868,7 +8161,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipEnumerateMetafileSrcRectDestPointsI(graphics, metafile, destPoints, count, srcRect, srcUnit, callback, callbackData, imageAttributes) {
-        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointsI", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, "ptr", callbackData, "ptr", imageAttributes, "int")
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEnumerateMetafileSrcRectDestPointsI", "ptr", graphics, "ptr", metafile, "ptr", destPoints, "int", count, "ptr", srcRect, "int", srcUnit, "ptr", callback, callbackDataMarshal, callbackData, "ptr", imageAttributes, "int")
         return result
     }
 
@@ -7882,7 +8177,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPlayMetafileRecord(metafile, recordType, flags, dataSize, data) {
-        result := DllCall("gdiplus.dll\GdipPlayMetafileRecord", "ptr", metafile, "int", recordType, "uint", flags, "uint", dataSize, "char*", data, "int")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPlayMetafileRecord", "ptr", metafile, "int", recordType, "uint", flags, "uint", dataSize, dataMarshal, data, "int")
         return result
     }
 
@@ -8140,7 +8437,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSaveGraphics(graphics, state) {
-        result := DllCall("gdiplus.dll\GdipSaveGraphics", "ptr", graphics, "uint*", state, "int")
+        stateMarshal := state is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSaveGraphics", "ptr", graphics, stateMarshal, state, "int")
         return result
     }
 
@@ -8165,7 +8464,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBeginContainer(graphics, dstrect, srcrect, unit, state) {
-        result := DllCall("gdiplus.dll\GdipBeginContainer", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", unit, "uint*", state, "int")
+        stateMarshal := state is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBeginContainer", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", unit, stateMarshal, state, "int")
         return result
     }
 
@@ -8179,7 +8480,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBeginContainerI(graphics, dstrect, srcrect, unit, state) {
-        result := DllCall("gdiplus.dll\GdipBeginContainerI", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", unit, "uint*", state, "int")
+        stateMarshal := state is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBeginContainerI", "ptr", graphics, "ptr", dstrect, "ptr", srcrect, "int", unit, stateMarshal, state, "int")
         return result
     }
 
@@ -8190,7 +8493,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBeginContainer2(graphics, state) {
-        result := DllCall("gdiplus.dll\GdipBeginContainer2", "ptr", graphics, "uint*", state, "int")
+        stateMarshal := state is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipBeginContainer2", "ptr", graphics, stateMarshal, state, "int")
         return result
     }
 
@@ -8370,8 +8675,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafile(referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafile", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8388,8 +8693,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileI(referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileI", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8408,8 +8713,8 @@ class GdiPlus {
      */
     static GdipRecordMetafileFileName(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileFileName", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8428,8 +8733,8 @@ class GdiPlus {
      */
     static GdipRecordMetafileFileNameI(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileFileNameI", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8447,8 +8752,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileStream(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileStream", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8466,8 +8771,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileStreamI(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileStreamI", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8491,7 +8796,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetMetafileDownLevelRasterizationLimit(metafile, metafileRasterizationLimitDpi) {
-        result := DllCall("gdiplus.dll\GdipGetMetafileDownLevelRasterizationLimit", "ptr", metafile, "uint*", metafileRasterizationLimitDpi, "int")
+        metafileRasterizationLimitDpiMarshal := metafileRasterizationLimitDpi is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetMetafileDownLevelRasterizationLimit", "ptr", metafile, metafileRasterizationLimitDpiMarshal, metafileRasterizationLimitDpi, "int")
         return result
     }
 
@@ -8502,7 +8809,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageDecodersSize(numDecoders, size) {
-        result := DllCall("gdiplus.dll\GdipGetImageDecodersSize", "uint*", numDecoders, "uint*", size, "int")
+        numDecodersMarshal := numDecoders is VarRef ? "uint*" : "ptr"
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageDecodersSize", numDecodersMarshal, numDecoders, sizeMarshal, size, "int")
         return result
     }
 
@@ -8525,7 +8835,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetImageEncodersSize(numEncoders, size) {
-        result := DllCall("gdiplus.dll\GdipGetImageEncodersSize", "uint*", numEncoders, "uint*", size, "int")
+        numEncodersMarshal := numEncoders is VarRef ? "uint*" : "ptr"
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetImageEncodersSize", numEncodersMarshal, numEncoders, sizeMarshal, size, "int")
         return result
     }
 
@@ -8549,7 +8862,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipComment(graphics, sizeData, data) {
-        result := DllCall("gdiplus.dll\GdipComment", "ptr", graphics, "uint", sizeData, "char*", data, "int")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipComment", "ptr", graphics, "uint", sizeData, dataMarshal, data, "int")
         return result
     }
 
@@ -8652,7 +8967,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetEmHeight(family, style, EmHeight) {
-        result := DllCall("gdiplus.dll\GdipGetEmHeight", "ptr", family, "int", style, "ushort*", EmHeight, "int")
+        EmHeightMarshal := EmHeight is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetEmHeight", "ptr", family, "int", style, EmHeightMarshal, EmHeight, "int")
         return result
     }
 
@@ -8664,7 +8981,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCellAscent(family, style, CellAscent) {
-        result := DllCall("gdiplus.dll\GdipGetCellAscent", "ptr", family, "int", style, "ushort*", CellAscent, "int")
+        CellAscentMarshal := CellAscent is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCellAscent", "ptr", family, "int", style, CellAscentMarshal, CellAscent, "int")
         return result
     }
 
@@ -8676,7 +8995,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetCellDescent(family, style, CellDescent) {
-        result := DllCall("gdiplus.dll\GdipGetCellDescent", "ptr", family, "int", style, "ushort*", CellDescent, "int")
+        CellDescentMarshal := CellDescent is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetCellDescent", "ptr", family, "int", style, CellDescentMarshal, CellDescent, "int")
         return result
     }
 
@@ -8688,7 +9009,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetLineSpacing(family, style, LineSpacing) {
-        result := DllCall("gdiplus.dll\GdipGetLineSpacing", "ptr", family, "int", style, "ushort*", LineSpacing, "int")
+        LineSpacingMarshal := LineSpacing is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetLineSpacing", "ptr", family, "int", style, LineSpacingMarshal, LineSpacing, "int")
         return result
     }
 
@@ -8786,7 +9109,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFontStyle(font, style) {
-        result := DllCall("gdiplus.dll\GdipGetFontStyle", "ptr", font, "int*", style, "int")
+        styleMarshal := style is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetFontStyle", "ptr", font, styleMarshal, style, "int")
         return result
     }
 
@@ -8797,7 +9122,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFontSize(font, size) {
-        result := DllCall("gdiplus.dll\GdipGetFontSize", "ptr", font, "float*", size, "int")
+        sizeMarshal := size is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetFontSize", "ptr", font, sizeMarshal, size, "int")
         return result
     }
 
@@ -8808,7 +9135,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFontUnit(font, unit) {
-        result := DllCall("gdiplus.dll\GdipGetFontUnit", "ptr", font, "int*", unit, "int")
+        unitMarshal := unit is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetFontUnit", "ptr", font, unitMarshal, unit, "int")
         return result
     }
 
@@ -8820,7 +9149,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFontHeight(font, graphics, height) {
-        result := DllCall("gdiplus.dll\GdipGetFontHeight", "ptr", font, "ptr", graphics, "float*", height, "int")
+        heightMarshal := height is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetFontHeight", "ptr", font, "ptr", graphics, heightMarshal, height, "int")
         return result
     }
 
@@ -8832,7 +9163,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFontHeightGivenDPI(font, dpi, height) {
-        result := DllCall("gdiplus.dll\GdipGetFontHeightGivenDPI", "ptr", font, "float", dpi, "float*", height, "int")
+        heightMarshal := height is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetFontHeightGivenDPI", "ptr", font, "float", dpi, heightMarshal, height, "int")
         return result
     }
 
@@ -8897,7 +9230,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFontCollectionFamilyCount(fontCollection, numFound) {
-        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyCount", "ptr", fontCollection, "int*", numFound, "int")
+        numFoundMarshal := numFound is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyCount", "ptr", fontCollection, numFoundMarshal, numFound, "int")
         return result
     }
 
@@ -8910,7 +9245,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetFontCollectionFamilyList(fontCollection, numSought, gpfamilies, numFound) {
-        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyList", "ptr", fontCollection, "int", numSought, "ptr*", gpfamilies, "int*", numFound, "int")
+        numFoundMarshal := numFound is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetFontCollectionFamilyList", "ptr", fontCollection, "int", numSought, "ptr*", gpfamilies, numFoundMarshal, numFound, "int")
         return result
     }
 
@@ -8935,7 +9272,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipPrivateAddMemoryFont(fontCollection, memory, length) {
-        result := DllCall("gdiplus.dll\GdipPrivateAddMemoryFont", "ptr", fontCollection, "ptr", memory, "int", length, "int")
+        memoryMarshal := memory is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipPrivateAddMemoryFont", "ptr", fontCollection, memoryMarshal, memory, "int", length, "int")
         return result
     }
 
@@ -8973,7 +9312,10 @@ class GdiPlus {
     static GdipMeasureString(graphics, string, length, font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
         string := string is String ? StrPtr(string) : string
 
-        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, "int*", codepointsFitted, "int*", linesFilled, "int")
+        codepointsFittedMarshal := codepointsFitted is VarRef ? "int*" : "ptr"
+        linesFilledMarshal := linesFilled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, codepointsFittedMarshal, codepointsFitted, linesFilledMarshal, linesFilled, "int")
         return result
     }
 
@@ -9009,7 +9351,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipDrawDriverString(graphics, text, length, font, brush, positions, flags, matrix) {
-        result := DllCall("gdiplus.dll\GdipDrawDriverString", "ptr", graphics, "ushort*", text, "int", length, "ptr", font, "ptr", brush, "ptr", positions, "int", flags, "ptr", matrix, "int")
+        textMarshal := text is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipDrawDriverString", "ptr", graphics, textMarshal, text, "int", length, "ptr", font, "ptr", brush, "ptr", positions, "int", flags, "ptr", matrix, "int")
         return result
     }
 
@@ -9026,7 +9370,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipMeasureDriverString(graphics, text, length, font, positions, flags, matrix, boundingBox) {
-        result := DllCall("gdiplus.dll\GdipMeasureDriverString", "ptr", graphics, "ushort*", text, "int", length, "ptr", font, "ptr", positions, "int", flags, "ptr", matrix, "ptr", boundingBox, "int")
+        textMarshal := text is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipMeasureDriverString", "ptr", graphics, textMarshal, text, "int", length, "ptr", font, "ptr", positions, "int", flags, "ptr", matrix, "ptr", boundingBox, "int")
         return result
     }
 
@@ -9101,7 +9447,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatFlags(format, flags) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatFlags", "ptr", format, "int*", flags, "int")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatFlags", "ptr", format, flagsMarshal, flags, "int")
         return result
     }
 
@@ -9123,7 +9471,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatAlign(format, align) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatAlign", "ptr", format, "int*", align, "int")
+        alignMarshal := align is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatAlign", "ptr", format, alignMarshal, align, "int")
         return result
     }
 
@@ -9145,7 +9495,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatLineAlign(format, align) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatLineAlign", "ptr", format, "int*", align, "int")
+        alignMarshal := align is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatLineAlign", "ptr", format, alignMarshal, align, "int")
         return result
     }
 
@@ -9167,7 +9519,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatTrimming(format, trimming) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatTrimming", "ptr", format, "int*", trimming, "int")
+        trimmingMarshal := trimming is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatTrimming", "ptr", format, trimmingMarshal, trimming, "int")
         return result
     }
 
@@ -9189,7 +9543,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatHotkeyPrefix(format, hotkeyPrefix) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatHotkeyPrefix", "ptr", format, "int*", hotkeyPrefix, "int")
+        hotkeyPrefixMarshal := hotkeyPrefix is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatHotkeyPrefix", "ptr", format, hotkeyPrefixMarshal, hotkeyPrefix, "int")
         return result
     }
 
@@ -9202,7 +9558,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetStringFormatTabStops(format, firstTabOffset, count, tabStops) {
-        result := DllCall("gdiplus.dll\GdipSetStringFormatTabStops", "ptr", format, "float", firstTabOffset, "int", count, "float*", tabStops, "int")
+        tabStopsMarshal := tabStops is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipSetStringFormatTabStops", "ptr", format, "float", firstTabOffset, "int", count, tabStopsMarshal, tabStops, "int")
         return result
     }
 
@@ -9215,7 +9573,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatTabStops(format, count, firstTabOffset, tabStops) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatTabStops", "ptr", format, "int", count, "float*", firstTabOffset, "float*", tabStops, "int")
+        firstTabOffsetMarshal := firstTabOffset is VarRef ? "float*" : "ptr"
+        tabStopsMarshal := tabStops is VarRef ? "float*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatTabStops", "ptr", format, "int", count, firstTabOffsetMarshal, firstTabOffset, tabStopsMarshal, tabStops, "int")
         return result
     }
 
@@ -9226,7 +9587,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatTabStopCount(format, count) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatTabStopCount", "ptr", format, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatTabStopCount", "ptr", format, countMarshal, count, "int")
         return result
     }
 
@@ -9250,7 +9613,10 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatDigitSubstitution(format, language, substitute) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatDigitSubstitution", "ptr", format, "ushort*", language, "int*", substitute, "int")
+        languageMarshal := language is VarRef ? "ushort*" : "ptr"
+        substituteMarshal := substitute is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatDigitSubstitution", "ptr", format, languageMarshal, language, substituteMarshal, substitute, "int")
         return result
     }
 
@@ -9261,7 +9627,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipGetStringFormatMeasurableCharacterRangeCount(format, count) {
-        result := DllCall("gdiplus.dll\GdipGetStringFormatMeasurableCharacterRangeCount", "ptr", format, "int*", count, "int")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipGetStringFormatMeasurableCharacterRangeCount", "ptr", format, countMarshal, count, "int")
         return result
     }
 
@@ -9324,7 +9692,9 @@ class GdiPlus {
     static GdipEmfToWmfBits(hemf, cbData16, pData16, iMapMode, eFlags) {
         hemf := hemf is Win32Handle ? NumGet(hemf, "ptr") : hemf
 
-        result := DllCall("gdiplus.dll\GdipEmfToWmfBits", "ptr", hemf, "uint", cbData16, "char*", pData16, "int", iMapMode, "int", eFlags, "uint")
+        pData16Marshal := pData16 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipEmfToWmfBits", "ptr", hemf, "uint", cbData16, pData16Marshal, pData16, "int", iMapMode, "int", eFlags, "uint")
         return result
     }
 
@@ -9346,7 +9716,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipTestControl(control, param1) {
-        result := DllCall("gdiplus.dll\GdipTestControl", "int", control, "ptr", param1, "int")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipTestControl", "int", control, param1Marshal, param1, "int")
         return result
     }
 
@@ -9356,7 +9728,9 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdiplusNotificationHook(token) {
-        result := DllCall("gdiplus.dll\GdiplusNotificationHook", "ptr*", token, "int")
+        tokenMarshal := token is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdiplusNotificationHook", tokenMarshal, token, "int")
         return result
     }
 
@@ -9382,7 +9756,9 @@ class GdiPlus {
     static GdipConvertToEmfPlus(refGraphics, metafile, conversionFailureFlag, emfType, description, out_metafile) {
         description := description is String ? StrPtr(description) : description
 
-        result := DllCall("gdiplus.dll\GdipConvertToEmfPlus", "ptr", refGraphics, "ptr", metafile, "int*", conversionFailureFlag, "int", emfType, "ptr", description, "ptr*", out_metafile, "int")
+        conversionFailureFlagMarshal := conversionFailureFlag is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipConvertToEmfPlus", "ptr", refGraphics, "ptr", metafile, conversionFailureFlagMarshal, conversionFailureFlag, "int", emfType, "ptr", description, "ptr*", out_metafile, "int")
         return result
     }
 
@@ -9401,7 +9777,9 @@ class GdiPlus {
         filename := filename is String ? StrPtr(filename) : filename
         description := description is String ? StrPtr(description) : description
 
-        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToFile", "ptr", refGraphics, "ptr", metafile, "int*", conversionFailureFlag, "ptr", filename, "int", emfType, "ptr", description, "ptr*", out_metafile, "int")
+        conversionFailureFlagMarshal := conversionFailureFlag is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToFile", "ptr", refGraphics, "ptr", metafile, conversionFailureFlagMarshal, conversionFailureFlag, "ptr", filename, "int", emfType, "ptr", description, "ptr*", out_metafile, "int")
         return result
     }
 
@@ -9419,7 +9797,9 @@ class GdiPlus {
     static GdipConvertToEmfPlusToStream(refGraphics, metafile, conversionFailureFlag, stream, emfType, description, out_metafile) {
         description := description is String ? StrPtr(description) : description
 
-        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToStream", "ptr", refGraphics, "ptr", metafile, "int*", conversionFailureFlag, "ptr", stream, "int", emfType, "ptr", description, "ptr*", out_metafile, "int")
+        conversionFailureFlagMarshal := conversionFailureFlag is VarRef ? "int*" : "ptr"
+
+        result := DllCall("gdiplus.dll\GdipConvertToEmfPlusToStream", "ptr", refGraphics, "ptr", metafile, conversionFailureFlagMarshal, conversionFailureFlag, "ptr", stream, "int", emfType, "ptr", description, "ptr*", out_metafile, "int")
         return result
     }
 

@@ -44,7 +44,9 @@ class IVMRSurfaceAllocator9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-initializedevice
      */
     InitializeDevice(dwUserID, lpAllocInfo, lpNumBuffers) {
-        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, "uint*", lpNumBuffers, "HRESULT")
+        lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "HRESULT")
         return result
     }
 

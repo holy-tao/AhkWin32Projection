@@ -92,7 +92,10 @@ class IDWriteFontFace2 extends IDWriteFontFace1{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontface2-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingParams, renderingMode, gridFitMode) {
-        result := ComCall(34, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, "int*", renderingMode, "int*", gridFitMode, "HRESULT")
+        renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
+        gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,10 @@ class IChangeUnitException extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getitemid
      */
     GetItemId(pbItemId, pcbIdSize) {
-        result := ComCall(3, this, "char*", pbItemId, "uint*", pcbIdSize, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 
@@ -50,7 +53,10 @@ class IChangeUnitException extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
-        result := ComCall(4, this, "char*", pbChangeUnitId, "uint*", pcbIdSize, "HRESULT")
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 

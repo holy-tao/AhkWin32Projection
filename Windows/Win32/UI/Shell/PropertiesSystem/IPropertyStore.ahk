@@ -37,7 +37,9 @@ class IPropertyStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystore-getcount
      */
     GetCount(cProps) {
-        result := ComCall(3, this, "uint*", cProps, "HRESULT")
+        cPropsMarshal := cProps is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, cPropsMarshal, cProps, "HRESULT")
         return result
     }
 

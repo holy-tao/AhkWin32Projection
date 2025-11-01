@@ -41,7 +41,9 @@ class IHardwareAudioEngineBase extends IUnknown{
     GetAvailableOffloadConnectorCount(_pwstrDeviceId, _uConnectorId, _pAvailableConnectorInstanceCount) {
         _pwstrDeviceId := _pwstrDeviceId is String ? StrPtr(_pwstrDeviceId) : _pwstrDeviceId
 
-        result := ComCall(3, this, "ptr", _pwstrDeviceId, "uint", _uConnectorId, "uint*", _pAvailableConnectorInstanceCount, "HRESULT")
+        _pAvailableConnectorInstanceCountMarshal := _pAvailableConnectorInstanceCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", _pwstrDeviceId, "uint", _uConnectorId, _pAvailableConnectorInstanceCountMarshal, _pAvailableConnectorInstanceCount, "HRESULT")
         return result
     }
 

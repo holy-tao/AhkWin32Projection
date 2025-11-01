@@ -39,7 +39,9 @@ class IEnumDialableAddrs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-next
      */
     Next(celt, ppElements, pcFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", ppElements, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", ppElements, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

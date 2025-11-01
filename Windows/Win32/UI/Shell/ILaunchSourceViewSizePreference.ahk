@@ -54,7 +54,9 @@ class ILaunchSourceViewSizePreference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewsizepreference
      */
     GetSourceViewSizePreference(sourceSizeAfterLaunch) {
-        result := ComCall(4, this, "int*", sourceSizeAfterLaunch, "HRESULT")
+        sourceSizeAfterLaunchMarshal := sourceSizeAfterLaunch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, sourceSizeAfterLaunchMarshal, sourceSizeAfterLaunch, "HRESULT")
         return result
     }
 }

@@ -39,7 +39,9 @@ class IWMDMEnumDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumdevice-next
      */
     Next(celt, ppDevice, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppDevice, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppDevice, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IWMDMEnumDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumdevice-skip
      */
     Skip(celt, pceltFetched) {
-        result := ComCall(4, this, "uint", celt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", celt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

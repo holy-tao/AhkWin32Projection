@@ -103,7 +103,9 @@ class ITfDocumentMgr extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createcontext
      */
     CreateContext(tidOwner, dwFlags, punk, ppic, pecTextStore) {
-        result := ComCall(3, this, "uint", tidOwner, "uint", dwFlags, "ptr", punk, "ptr*", ppic, "uint*", pecTextStore, "HRESULT")
+        pecTextStoreMarshal := pecTextStore is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", tidOwner, "uint", dwFlags, "ptr", punk, "ptr*", ppic, pecTextStoreMarshal, pecTextStore, "HRESULT")
         return result
     }
 

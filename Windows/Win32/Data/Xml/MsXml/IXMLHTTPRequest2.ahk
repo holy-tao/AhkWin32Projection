@@ -105,7 +105,9 @@ class IXMLHTTPRequest2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-setcookie
      */
     SetCookie(pCookie, pdwCookieState) {
-        result := ComCall(6, this, "ptr", pCookie, "uint*", pdwCookieState, "HRESULT")
+        pdwCookieStateMarshal := pdwCookieState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pCookie, pdwCookieStateMarshal, pdwCookieState, "HRESULT")
         return result
     }
 
@@ -172,7 +174,9 @@ class IXMLHTTPRequest2 extends IUnknown{
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, "uint", dwFlags, "uint*", pcCookies, "ptr*", ppCookies, "HRESULT")
+        pcCookiesMarshal := pcCookies is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, "uint", dwFlags, pcCookiesMarshal, pcCookies, "ptr*", ppCookies, "HRESULT")
         return result
     }
 

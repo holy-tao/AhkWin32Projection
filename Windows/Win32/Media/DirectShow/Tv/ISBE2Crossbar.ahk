@@ -65,7 +65,9 @@ class ISBE2Crossbar extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-setoutputprofile
      */
     SetOutputProfile(pProfile, pcOutputPins, ppOutputPins) {
-        result := ComCall(5, this, "ptr", pProfile, "uint*", pcOutputPins, "ptr*", ppOutputPins, "HRESULT")
+        pcOutputPinsMarshal := pcOutputPins is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pProfile, pcOutputPinsMarshal, pcOutputPins, "ptr*", ppOutputPins, "HRESULT")
         return result
     }
 

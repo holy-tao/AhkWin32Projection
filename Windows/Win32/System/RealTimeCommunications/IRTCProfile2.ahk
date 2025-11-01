@@ -57,7 +57,9 @@ class IRTCProfile2 extends IRTCProfile{
      * @returns {HRESULT} 
      */
     get_AllowedAuth(plAllowedAuth) {
-        result := ComCall(23, this, "int*", plAllowedAuth, "HRESULT")
+        plAllowedAuthMarshal := plAllowedAuth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, plAllowedAuthMarshal, plAllowedAuth, "HRESULT")
         return result
     }
 

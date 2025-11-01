@@ -40,7 +40,9 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
     GetName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(8, this, "ptr", pwszName, "ushort*", pcchName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getrecordcount
      */
     GetRecordCount(pwRecordCount) {
-        result := ComCall(10, this, "ushort*", pwRecordCount, "HRESULT")
+        pwRecordCountMarshal := pwRecordCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, pwRecordCountMarshal, pwRecordCount, "HRESULT")
         return result
     }
 
@@ -100,7 +104,9 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
     GetRecordName(wRecordNumber, pwszRecordName, pcchRecordName) {
         pwszRecordName := pwszRecordName is String ? StrPtr(pwszRecordName) : pwszRecordName
 
-        result := ComCall(13, this, "ushort", wRecordNumber, "ptr", pwszRecordName, "ushort*", pcchRecordName, "HRESULT")
+        pcchRecordNameMarshal := pcchRecordName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(13, this, "ushort", wRecordNumber, "ptr", pwszRecordName, pcchRecordNameMarshal, pcchRecordName, "HRESULT")
         return result
     }
 
@@ -127,7 +133,10 @@ class IWMMutualExclusion2 extends IWMMutualExclusion{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getstreamsforrecord
      */
     GetStreamsForRecord(wRecordNumber, pwStreamNumArray, pcStreams) {
-        result := ComCall(15, this, "ushort", wRecordNumber, "ushort*", pwStreamNumArray, "ushort*", pcStreams, "HRESULT")
+        pwStreamNumArrayMarshal := pwStreamNumArray is VarRef ? "ushort*" : "ptr"
+        pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(15, this, "ushort", wRecordNumber, pwStreamNumArrayMarshal, pwStreamNumArray, pcStreamsMarshal, pcStreams, "HRESULT")
         return result
     }
 

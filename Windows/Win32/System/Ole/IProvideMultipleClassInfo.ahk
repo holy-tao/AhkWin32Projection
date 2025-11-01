@@ -37,7 +37,9 @@ class IProvideMultipleClassInfo extends IProvideClassInfo2{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovidemultipleclassinfo-getmultitypeinfocount
      */
     GetMultiTypeInfoCount(pcti) {
-        result := ComCall(5, this, "uint*", pcti, "HRESULT")
+        pctiMarshal := pcti is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pctiMarshal, pcti, "HRESULT")
         return result
     }
 
@@ -54,7 +56,10 @@ class IProvideMultipleClassInfo extends IProvideClassInfo2{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovidemultipleclassinfo-getinfoofindex
      */
     GetInfoOfIndex(iti, dwFlags, pptiCoClass, pdwTIFlags, pcdispidReserved, piidPrimary, piidSource) {
-        result := ComCall(6, this, "uint", iti, "uint", dwFlags, "ptr*", pptiCoClass, "uint*", pdwTIFlags, "uint*", pcdispidReserved, "ptr", piidPrimary, "ptr", piidSource, "HRESULT")
+        pdwTIFlagsMarshal := pdwTIFlags is VarRef ? "uint*" : "ptr"
+        pcdispidReservedMarshal := pcdispidReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", iti, "uint", dwFlags, "ptr*", pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, "ptr", piidPrimary, "ptr", piidSource, "HRESULT")
         return result
     }
 }

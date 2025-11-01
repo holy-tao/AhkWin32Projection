@@ -48,7 +48,9 @@ class IWscProduct extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productstate
      */
     get_ProductState(pVal) {
-        result := ComCall(8, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IWscProduct extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_signaturestatus
      */
     get_SignatureStatus(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

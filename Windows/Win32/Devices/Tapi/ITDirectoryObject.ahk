@@ -38,7 +38,9 @@ class ITDirectoryObject extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_objecttype
      */
     get_ObjectType(pObjectType) {
-        result := ComCall(7, this, "int*", pObjectType, "HRESULT")
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pObjectTypeMarshal, pObjectType, "HRESULT")
         return result
     }
 

@@ -35,7 +35,9 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     FindGroup(pGroupKey, pGroupVersion) {
-        result := ComCall(4, this, "ptr", pGroupKey, "uint*", pGroupVersion, "HRESULT")
+        pGroupVersionMarshal := pGroupVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pGroupKey, pGroupVersionMarshal, pGroupVersion, "HRESULT")
         return result
     }
 
@@ -48,7 +50,10 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     FindGroupValueKeys(pGroupKey, pExpectedGroupVersion, CallbackFunc, pContext) {
-        result := ComCall(5, this, "ptr", pGroupKey, "uint*", pExpectedGroupVersion, "ptr", CallbackFunc, "ptr", pContext, "HRESULT")
+        pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "ptr", pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -62,7 +67,10 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     FindGroupValues(pGroupKey, pExpectedGroupVersion, ValueTypeFlags, CallbackFunc, pContext) {
-        result := ComCall(6, this, "ptr", pGroupKey, "uint*", pExpectedGroupVersion, "int", ValueTypeFlags, "ptr", CallbackFunc, "ptr", pContext, "HRESULT")
+        pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, "int", ValueTypeFlags, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -76,7 +84,9 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     FindValue(pValueKey, pTypedValues, NumTypedValues, pCallbackFunc, pContext) {
-        result := ComCall(7, this, "ptr", pValueKey, "ptr", pTypedValues, "uint", NumTypedValues, "ptr", pCallbackFunc, "ptr", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", pValueKey, "ptr", pTypedValues, "uint", NumTypedValues, "ptr", pCallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 

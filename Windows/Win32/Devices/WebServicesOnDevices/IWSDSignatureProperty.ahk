@@ -65,7 +65,9 @@ class IWSDSignatureProperty extends IUnknown{
      * @returns {HRESULT} 
      */
     GetKeyInfo(pbKeyInfo, pdwKeyInfoSize) {
-        result := ComCall(5, this, "ptr", pbKeyInfo, "uint*", pdwKeyInfoSize, "HRESULT")
+        pdwKeyInfoSizeMarshal := pdwKeyInfoSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pbKeyInfo, pdwKeyInfoSizeMarshal, pdwKeyInfoSize, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class IWSDSignatureProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignature
      */
     GetSignature(pbSignature, pdwSignatureSize) {
-        result := ComCall(6, this, "ptr", pbSignature, "uint*", pdwSignatureSize, "HRESULT")
+        pdwSignatureSizeMarshal := pdwSignatureSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pbSignature, pdwSignatureSizeMarshal, pdwSignatureSize, "HRESULT")
         return result
     }
 
@@ -89,7 +93,9 @@ class IWSDSignatureProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignedinfohash
      */
     GetSignedInfoHash(pbSignedInfoHash, pdwHashSize) {
-        result := ComCall(7, this, "ptr", pbSignedInfoHash, "uint*", pdwHashSize, "HRESULT")
+        pdwHashSizeMarshal := pdwHashSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pbSignedInfoHash, pdwHashSizeMarshal, pdwHashSize, "HRESULT")
         return result
     }
 }

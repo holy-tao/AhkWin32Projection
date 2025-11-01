@@ -45,7 +45,10 @@ class ISyncFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     Serialize(pbSyncFilter, pcbSyncFilter) {
-        result := ComCall(4, this, "char*", pbSyncFilter, "uint*", pcbSyncFilter, "HRESULT")
+        pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : "ptr"
+        pcbSyncFilterMarshal := pcbSyncFilter is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbSyncFilterMarshal, pbSyncFilter, pcbSyncFilterMarshal, pcbSyncFilter, "HRESULT")
         return result
     }
 }

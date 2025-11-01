@@ -48,7 +48,9 @@ class IElementBehaviorLayout extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLayoutInfo(plLayoutInfo) {
-        result := ComCall(4, this, "int*", plLayoutInfo, "HRESULT")
+        plLayoutInfoMarshal := plLayoutInfo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plLayoutInfoMarshal, plLayoutInfo, "HRESULT")
         return result
     }
 

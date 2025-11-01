@@ -51,7 +51,9 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_size(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -143,7 +145,9 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_selectedIndex(p) {
-        result := ComCall(17, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -246,7 +250,9 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(27, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pMarshal, p, "HRESULT")
         return result
     }
 

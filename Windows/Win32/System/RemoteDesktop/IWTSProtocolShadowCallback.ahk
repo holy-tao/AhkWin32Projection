@@ -60,7 +60,12 @@ class IWTSProtocolShadowCallback extends IUnknown{
         pTargetServerName := pTargetServerName is String ? StrPtr(pTargetServerName) : pTargetServerName
         pClientName := pClientName is String ? StrPtr(pClientName) : pClientName
 
-        result := ComCall(4, this, "ptr", pTargetServerName, "uint", TargetSessionId, "char*", pParam1, "uint", Param1Size, "char*", pParam2, "uint", Param2Size, "char*", pParam3, "uint", Param3Size, "char*", pParam4, "uint", Param4Size, "ptr", pClientName, "HRESULT")
+        pParam1Marshal := pParam1 is VarRef ? "char*" : "ptr"
+        pParam2Marshal := pParam2 is VarRef ? "char*" : "ptr"
+        pParam3Marshal := pParam3 is VarRef ? "char*" : "ptr"
+        pParam4Marshal := pParam4 is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pTargetServerName, "uint", TargetSessionId, pParam1Marshal, pParam1, "uint", Param1Size, pParam2Marshal, pParam2, "uint", Param2Size, pParam3Marshal, pParam3, "uint", Param3Size, pParam4Marshal, pParam4, "uint", Param4Size, "ptr", pClientName, "HRESULT")
         return result
     }
 }

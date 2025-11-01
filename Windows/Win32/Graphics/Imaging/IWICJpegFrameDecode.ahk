@@ -140,7 +140,10 @@ class IWICJpegFrameDecode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-copyscan
      */
     CopyScan(scanIndex, scanOffset, cbScanData, pbScanData, pcbScanDataActual) {
-        result := ComCall(11, this, "uint", scanIndex, "uint", scanOffset, "uint", cbScanData, "char*", pbScanData, "uint*", pcbScanDataActual, "HRESULT")
+        pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"
+        pcbScanDataActualMarshal := pcbScanDataActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", scanIndex, "uint", scanOffset, "uint", cbScanData, pbScanDataMarshal, pbScanData, pcbScanDataActualMarshal, pcbScanDataActual, "HRESULT")
         return result
     }
 
@@ -153,7 +156,10 @@ class IWICJpegFrameDecode extends IUnknown{
      * @returns {HRESULT} 
      */
     CopyMinimalStream(streamOffset, cbStreamData, pbStreamData, pcbStreamDataActual) {
-        result := ComCall(12, this, "uint", streamOffset, "uint", cbStreamData, "char*", pbStreamData, "uint*", pcbStreamDataActual, "HRESULT")
+        pbStreamDataMarshal := pbStreamData is VarRef ? "char*" : "ptr"
+        pcbStreamDataActualMarshal := pcbStreamDataActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", streamOffset, "uint", cbStreamData, pbStreamDataMarshal, pbStreamData, pcbStreamDataActualMarshal, pcbStreamDataActual, "HRESULT")
         return result
     }
 }

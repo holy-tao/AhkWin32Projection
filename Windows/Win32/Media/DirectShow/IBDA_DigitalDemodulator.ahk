@@ -42,7 +42,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_modulationtype
      */
     put_ModulationType(pModulationType) {
-        result := ComCall(3, this, "int*", pModulationType, "HRESULT")
+        pModulationTypeMarshal := pModulationType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pModulationTypeMarshal, pModulationType, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_modulationtype
      */
     get_ModulationType(pModulationType) {
-        result := ComCall(4, this, "int*", pModulationType, "HRESULT")
+        pModulationTypeMarshal := pModulationType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pModulationTypeMarshal, pModulationType, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecmethod
      */
     put_InnerFECMethod(pFECMethod) {
-        result := ComCall(5, this, "int*", pFECMethod, "HRESULT")
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
     }
 
@@ -75,7 +81,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecmethod
      */
     get_InnerFECMethod(pFECMethod) {
-        result := ComCall(6, this, "int*", pFECMethod, "HRESULT")
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
     }
 
@@ -86,7 +94,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecrate
      */
     put_InnerFECRate(pFECRate) {
-        result := ComCall(7, this, "int*", pFECRate, "HRESULT")
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
     }
 
@@ -97,7 +107,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecrate
      */
     get_InnerFECRate(pFECRate) {
-        result := ComCall(8, this, "int*", pFECRate, "HRESULT")
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
     }
 
@@ -108,7 +120,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecmethod
      */
     put_OuterFECMethod(pFECMethod) {
-        result := ComCall(9, this, "int*", pFECMethod, "HRESULT")
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
     }
 
@@ -119,7 +133,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecmethod
      */
     get_OuterFECMethod(pFECMethod) {
-        result := ComCall(10, this, "int*", pFECMethod, "HRESULT")
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
     }
 
@@ -130,7 +146,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecrate
      */
     put_OuterFECRate(pFECRate) {
-        result := ComCall(11, this, "int*", pFECRate, "HRESULT")
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
     }
 
@@ -141,7 +159,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecrate
      */
     get_OuterFECRate(pFECRate) {
-        result := ComCall(12, this, "int*", pFECRate, "HRESULT")
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
     }
 
@@ -152,7 +172,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_symbolrate
      */
     put_SymbolRate(pSymbolRate) {
-        result := ComCall(13, this, "uint*", pSymbolRate, "HRESULT")
+        pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pSymbolRateMarshal, pSymbolRate, "HRESULT")
         return result
     }
 
@@ -163,7 +185,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_symbolrate
      */
     get_SymbolRate(pSymbolRate) {
-        result := ComCall(14, this, "uint*", pSymbolRate, "HRESULT")
+        pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pSymbolRateMarshal, pSymbolRate, "HRESULT")
         return result
     }
 
@@ -174,7 +198,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_spectralinversion
      */
     put_SpectralInversion(pSpectralInversion) {
-        result := ComCall(15, this, "int*", pSpectralInversion, "HRESULT")
+        pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pSpectralInversionMarshal, pSpectralInversion, "HRESULT")
         return result
     }
 
@@ -185,7 +211,9 @@ class IBDA_DigitalDemodulator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_spectralinversion
      */
     get_SpectralInversion(pSpectralInversion) {
-        result := ComCall(16, this, "int*", pSpectralInversion, "HRESULT")
+        pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pSpectralInversionMarshal, pSpectralInversion, "HRESULT")
         return result
     }
 }

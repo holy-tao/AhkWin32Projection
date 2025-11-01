@@ -172,7 +172,9 @@ class IX509Enrollment extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_parentwindow
      */
     get_ParentWindow(pValue) {
-        result := ComCall(17, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -205,7 +207,9 @@ class IX509Enrollment extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_enrollmentcontext
      */
     get_EnrollmentContext(pValue) {
-        result := ComCall(20, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -299,7 +303,9 @@ class IX509Enrollment extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_requestid
      */
     get_RequestId(pValue) {
-        result := ComCall(28, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

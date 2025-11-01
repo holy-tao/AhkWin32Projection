@@ -34,7 +34,9 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFilterCount(pdwFilterCount) {
-        result := ComCall(3, this, "uint*", pdwFilterCount, "HRESULT")
+        pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwFilterCountMarshal, pdwFilterCount, "HRESULT")
         return result
     }
 

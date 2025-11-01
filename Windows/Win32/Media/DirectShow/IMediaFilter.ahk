@@ -69,7 +69,9 @@ class IMediaFilter extends IPersist{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediafilter-getstate
      */
     GetState(dwMilliSecsTimeout, State) {
-        result := ComCall(7, this, "uint", dwMilliSecsTimeout, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwMilliSecsTimeout, StateMarshal, State, "HRESULT")
         return result
     }
 

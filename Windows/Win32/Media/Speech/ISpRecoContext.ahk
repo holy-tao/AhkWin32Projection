@@ -65,7 +65,9 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetMaxAlternates(pcAlternates) {
-        result := ComCall(16, this, "uint*", pcAlternates, "HRESULT")
+        pcAlternatesMarshal := pcAlternates is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pcAlternatesMarshal, pcAlternates, "HRESULT")
         return result
     }
 
@@ -99,7 +101,9 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetAudioOptions(pOptions, pAudioFormatId, ppCoMemWFEX) {
-        result := ComCall(19, this, "int*", pOptions, "ptr", pAudioFormatId, "ptr*", ppCoMemWFEX, "HRESULT")
+        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pOptionsMarshal, pOptions, "ptr", pAudioFormatId, "ptr*", ppCoMemWFEX, "HRESULT")
         return result
     }
 
@@ -196,7 +200,9 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetVoicePurgeEvent(pullEventInterest) {
-        result := ComCall(28, this, "uint*", pullEventInterest, "HRESULT")
+        pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, pullEventInterestMarshal, pullEventInterest, "HRESULT")
         return result
     }
 
@@ -216,7 +222,9 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetContextState(peContextState) {
-        result := ComCall(30, this, "int*", peContextState, "HRESULT")
+        peContextStateMarshal := peContextState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, peContextStateMarshal, peContextState, "HRESULT")
         return result
     }
 }

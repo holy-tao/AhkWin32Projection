@@ -115,7 +115,9 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpropertyflags
      */
     GetPropertyFlags(pValue) {
-        result := ComCall(19, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -126,7 +128,9 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-geturlflags
      */
     GetUrlFlags(pValue) {
-        result := ComCall(20, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -137,7 +141,9 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getauthentication
      */
     GetAuthentication(pValue) {
-        result := ComCall(21, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -148,7 +154,9 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverauthentication
      */
     GetEnrollmentServerAuthentication(pValue) {
-        result := ComCall(22, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

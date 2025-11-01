@@ -34,7 +34,9 @@ class IKsJackDescription3 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetJackCount(pcJacks) {
-        result := ComCall(3, this, "uint*", pcJacks, "HRESULT")
+        pcJacksMarshal := pcJacks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcJacksMarshal, pcJacks, "HRESULT")
         return result
     }
 

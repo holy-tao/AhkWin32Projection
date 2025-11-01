@@ -45,7 +45,9 @@ class IDWriteTextAnalysisSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-gettextatposition
      */
     GetTextAtPosition(textPosition, textString, textLength) {
-        result := ComCall(3, this, "uint", textPosition, "ptr*", textString, "uint*", textLength, "HRESULT")
+        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", textPosition, "ptr*", textString, textLengthMarshal, textLength, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IDWriteTextAnalysisSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-gettextbeforeposition
      */
     GetTextBeforePosition(textPosition, textString, textLength) {
-        result := ComCall(4, this, "uint", textPosition, "ptr*", textString, "uint*", textLength, "HRESULT")
+        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", textPosition, "ptr*", textString, textLengthMarshal, textLength, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IDWriteTextAnalysisSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-getlocalename
      */
     GetLocaleName(textPosition, textLength, localeName) {
-        result := ComCall(6, this, "uint", textPosition, "uint*", textLength, "ptr*", localeName, "HRESULT")
+        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", textPosition, textLengthMarshal, textLength, "ptr*", localeName, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IDWriteTextAnalysisSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-getnumbersubstitution
      */
     GetNumberSubstitution(textPosition, textLength, numberSubstitution) {
-        result := ComCall(7, this, "uint", textPosition, "uint*", textLength, "ptr*", numberSubstitution, "HRESULT")
+        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", textPosition, textLengthMarshal, textLength, "ptr*", numberSubstitution, "HRESULT")
         return result
     }
 }

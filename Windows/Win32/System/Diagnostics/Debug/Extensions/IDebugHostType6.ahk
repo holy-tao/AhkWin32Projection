@@ -36,7 +36,9 @@ class IDebugHostType6 extends IDebugHostType5{
      * @returns {HRESULT} 
      */
     GetTaggedUnionTag(pTagType, pTagOffset, pTagMask) {
-        result := ComCall(39, this, "ptr*", pTagType, "uint*", pTagOffset, "ptr", pTagMask, "HRESULT")
+        pTagOffsetMarshal := pTagOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, "ptr*", pTagType, pTagOffsetMarshal, pTagOffset, "ptr", pTagMask, "HRESULT")
         return result
     }
 

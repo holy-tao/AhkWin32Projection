@@ -54,7 +54,9 @@ class IPartBase extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPartCompression(pCompression) {
-        result := ComCall(5, this, "int*", pCompression, "HRESULT")
+        pCompressionMarshal := pCompression is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pCompressionMarshal, pCompression, "HRESULT")
         return result
     }
 

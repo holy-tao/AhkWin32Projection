@@ -60,7 +60,9 @@ class IVdsAsync extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-querystatus
      */
     QueryStatus(pHrResult, pulPercentCompleted) {
-        result := ComCall(5, this, "ptr", pHrResult, "uint*", pulPercentCompleted, "HRESULT")
+        pulPercentCompletedMarshal := pulPercentCompleted is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pHrResult, pulPercentCompletedMarshal, pulPercentCompleted, "HRESULT")
         return result
     }
 }

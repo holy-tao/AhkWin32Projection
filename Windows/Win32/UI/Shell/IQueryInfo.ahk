@@ -59,7 +59,9 @@ class IQueryInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iqueryinfo-getinfoflags
      */
     GetInfoFlags(pdwFlags) {
-        result := ComCall(4, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

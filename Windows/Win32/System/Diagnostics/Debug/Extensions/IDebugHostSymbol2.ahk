@@ -34,7 +34,9 @@ class IDebugHostSymbol2 extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetLanguage(pKind) {
-        result := ComCall(10, this, "int*", pKind, "HRESULT")
+        pKindMarshal := pKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pKindMarshal, pKind, "HRESULT")
         return result
     }
 }

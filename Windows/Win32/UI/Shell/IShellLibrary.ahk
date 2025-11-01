@@ -253,7 +253,9 @@ class IShellLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getoptions
      */
     GetOptions(plofOptions) {
-        result := ComCall(11, this, "int*", plofOptions, "HRESULT")
+        plofOptionsMarshal := plofOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plofOptionsMarshal, plofOptions, "HRESULT")
         return result
     }
 

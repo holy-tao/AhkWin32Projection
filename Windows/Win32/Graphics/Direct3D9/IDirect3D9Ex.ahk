@@ -80,7 +80,9 @@ class IDirect3D9Ex extends IDirect3D9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadapterdisplaymodeex
      */
     GetAdapterDisplayModeEx(Adapter, pMode, pRotation) {
-        result := ComCall(19, this, "uint", Adapter, "ptr", pMode, "int*", pRotation, "HRESULT")
+        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "uint", Adapter, "ptr", pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 

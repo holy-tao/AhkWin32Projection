@@ -38,7 +38,9 @@ class IAMVideoAccelerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getvideoacceleratorguids
      */
     GetVideoAcceleratorGUIDs(pdwNumGuidsSupported, pGuidsSupported) {
-        result := ComCall(3, this, "uint*", pdwNumGuidsSupported, "ptr", pGuidsSupported, "HRESULT")
+        pdwNumGuidsSupportedMarshal := pdwNumGuidsSupported is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwNumGuidsSupportedMarshal, pdwNumGuidsSupported, "ptr", pGuidsSupported, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IAMVideoAccelerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getuncompformatssupported
      */
     GetUncompFormatsSupported(pGuid, pdwNumFormatsSupported, pFormatsSupported) {
-        result := ComCall(4, this, "ptr", pGuid, "uint*", pdwNumFormatsSupported, "ptr", pFormatsSupported, "HRESULT")
+        pdwNumFormatsSupportedMarshal := pdwNumFormatsSupported is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pGuid, pdwNumFormatsSupportedMarshal, pdwNumFormatsSupported, "ptr", pFormatsSupported, "HRESULT")
         return result
     }
 
@@ -78,7 +82,9 @@ class IAMVideoAccelerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getcompbufferinfo
      */
     GetCompBufferInfo(pGuid, pamvaUncompDataInfo, pdwNumTypesCompBuffers, pamvaCompBufferInfo) {
-        result := ComCall(6, this, "ptr", pGuid, "ptr", pamvaUncompDataInfo, "uint*", pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
+        pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pGuid, "ptr", pamvaUncompDataInfo, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
         return result
     }
 
@@ -90,7 +96,9 @@ class IAMVideoAccelerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalcompbufferinfo
      */
     GetInternalCompBufferInfo(pdwNumTypesCompBuffers, pamvaCompBufferInfo) {
-        result := ComCall(7, this, "uint*", pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
+        pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
         return result
     }
 
@@ -127,7 +135,9 @@ class IAMVideoAccelerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer
      */
     GetBuffer(dwTypeIndex, dwBufferIndex, bReadOnly, ppBuffer, lpStride) {
-        result := ComCall(10, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "int", bReadOnly, "ptr*", ppBuffer, "int*", lpStride, "HRESULT")
+        lpStrideMarshal := lpStride is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "int", bReadOnly, "ptr*", ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
         return result
     }
 
@@ -156,7 +166,10 @@ class IAMVideoAccelerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-execute
      */
     Execute(dwFunction, lpPrivateInputData, cbPrivateInputData, lpPrivateOutputDat, cbPrivateOutputData, dwNumBuffers, pamvaBufferInfo) {
-        result := ComCall(12, this, "uint", dwFunction, "ptr", lpPrivateInputData, "uint", cbPrivateInputData, "ptr", lpPrivateOutputDat, "uint", cbPrivateOutputData, "uint", dwNumBuffers, "ptr", pamvaBufferInfo, "HRESULT")
+        lpPrivateInputDataMarshal := lpPrivateInputData is VarRef ? "ptr" : "ptr"
+        lpPrivateOutputDatMarshal := lpPrivateOutputDat is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, "uint", dwFunction, lpPrivateInputDataMarshal, lpPrivateInputData, "uint", cbPrivateInputData, lpPrivateOutputDatMarshal, lpPrivateOutputDat, "uint", cbPrivateOutputData, "uint", dwNumBuffers, "ptr", pamvaBufferInfo, "HRESULT")
         return result
     }
 

@@ -55,7 +55,9 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
      * @returns {HRESULT} 
      */
     get_SelectionType(pSelectionType) {
-        result := ComCall(13, this, "int*", pSelectionType, "HRESULT")
+        pSelectionTypeMarshal := pSelectionType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pSelectionTypeMarshal, pSelectionType, "HRESULT")
         return result
     }
 

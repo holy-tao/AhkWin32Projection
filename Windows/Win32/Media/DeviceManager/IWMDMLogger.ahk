@@ -66,6 +66,8 @@ class IWMDMLogger extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-getlogfilename
      */
     GetLogFileName(pszFilename, nMaxChars) {
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
+
         result := ComCall(5, this, "ptr", pszFilename, "uint", nMaxChars, "HRESULT")
         return result
     }
@@ -77,6 +79,8 @@ class IWMDMLogger extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-setlogfilename
      */
     SetLogFileName(pszFilename) {
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
+
         result := ComCall(6, this, "ptr", pszFilename, "HRESULT")
         return result
     }
@@ -90,6 +94,9 @@ class IWMDMLogger extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-logstring
      */
     LogString(dwFlags, pszSrcName, pszLog) {
+        pszSrcName := pszSrcName is String ? StrPtr(pszSrcName) : pszSrcName
+        pszLog := pszLog is String ? StrPtr(pszLog) : pszLog
+
         result := ComCall(7, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLog, "HRESULT")
         return result
     }
@@ -104,6 +111,9 @@ class IWMDMLogger extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-logdword
      */
     LogDword(dwFlags, pszSrcName, pszLogFormat, dwLog) {
+        pszSrcName := pszSrcName is String ? StrPtr(pszSrcName) : pszSrcName
+        pszLogFormat := pszLogFormat is String ? StrPtr(pszLogFormat) : pszLogFormat
+
         result := ComCall(8, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLogFormat, "uint", dwLog, "HRESULT")
         return result
     }
@@ -126,7 +136,10 @@ class IWMDMLogger extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-getsizeparams
      */
     GetSizeParams(pdwMaxSize, pdwShrinkToSize) {
-        result := ComCall(10, this, "uint*", pdwMaxSize, "uint*", pdwShrinkToSize, "HRESULT")
+        pdwMaxSizeMarshal := pdwMaxSize is VarRef ? "uint*" : "ptr"
+        pdwShrinkToSizeMarshal := pdwShrinkToSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwMaxSizeMarshal, pdwMaxSize, pdwShrinkToSizeMarshal, pdwShrinkToSize, "HRESULT")
         return result
     }
 

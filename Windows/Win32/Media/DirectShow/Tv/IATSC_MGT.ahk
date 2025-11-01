@@ -59,7 +59,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getprotocolversion
      */
     GetProtocolVersion(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getcountofrecords
      */
     GetCountOfRecords(pdwVal) {
-        result := ComCall(6, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -93,7 +99,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getrecordtype
      */
     GetRecordType(dwRecordIndex, pwVal) {
-        result := ComCall(7, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -105,7 +113,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getrecordtypepid
      */
     GetRecordTypePid(dwRecordIndex, ppidVal) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "ushort*", ppidVal, "HRESULT")
+        ppidValMarshal := ppidVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwRecordIndex, ppidValMarshal, ppidVal, "HRESULT")
         return result
     }
 
@@ -117,7 +127,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getrecordversionnumber
      */
     GetRecordVersionNumber(dwRecordIndex, pbVal) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -129,7 +141,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -156,7 +170,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 
@@ -167,7 +183,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(13, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -192,7 +210,9 @@ class IATSC_MGT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(15, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 }

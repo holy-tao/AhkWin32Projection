@@ -53,8 +53,8 @@ class EnterpriseData {
      * @since windows10.0.10240
      */
     static SrpSetTokenEnterpriseId(tokenHandle, enterpriseId) {
-        enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
+        enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
 
         result := DllCall("srpapi.dll\SrpSetTokenEnterpriseId", "ptr", tokenHandle, "ptr", enterpriseId, "int")
         if(result != 0)
@@ -78,7 +78,10 @@ class EnterpriseData {
     static SrpGetEnterpriseIds(tokenHandle, numberOfBytes, enterpriseIds, enterpriseIdCount) {
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
 
-        result := DllCall("srpapi.dll\SrpGetEnterpriseIds", "ptr", tokenHandle, "uint*", numberOfBytes, "ptr", enterpriseIds, "uint*", enterpriseIdCount, "int")
+        numberOfBytesMarshal := numberOfBytes is VarRef ? "uint*" : "ptr"
+        enterpriseIdCountMarshal := enterpriseIdCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("srpapi.dll\SrpGetEnterpriseIds", "ptr", tokenHandle, numberOfBytesMarshal, numberOfBytes, "ptr", enterpriseIds, enterpriseIdCountMarshal, enterpriseIdCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -131,7 +134,9 @@ class EnterpriseData {
     static SrpGetEnterprisePolicy(tokenHandle, policyFlags) {
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
 
-        result := DllCall("srpapi.dll\SrpGetEnterprisePolicy", "ptr", tokenHandle, "int*", policyFlags, "int")
+        policyFlagsMarshal := policyFlags is VarRef ? "int*" : "ptr"
+
+        result := DllCall("srpapi.dll\SrpGetEnterprisePolicy", "ptr", tokenHandle, policyFlagsMarshal, policyFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -149,7 +154,9 @@ class EnterpriseData {
     static SrpIsTokenService(TokenHandle, IsTokenService) {
         TokenHandle := TokenHandle is Win32Handle ? NumGet(TokenHandle, "ptr") : TokenHandle
 
-        result := DllCall("srpapi.dll\SrpIsTokenService", "ptr", TokenHandle, "char*", IsTokenService, "int")
+        IsTokenServiceMarshal := IsTokenService is VarRef ? "char*" : "ptr"
+
+        result := DllCall("srpapi.dll\SrpIsTokenService", "ptr", TokenHandle, IsTokenServiceMarshal, IsTokenService, "int")
         return result
     }
 
@@ -188,7 +195,9 @@ class EnterpriseData {
      * @returns {HRESULT} 
      */
     static SrpHostingInitialize(Version, Type, pvData, cbData) {
-        result := DllCall("srpapi.dll\SrpHostingInitialize", "int", Version, "int", Type, "ptr", pvData, "uint", cbData, "int")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("srpapi.dll\SrpHostingInitialize", "int", Version, "int", Type, pvDataMarshal, pvData, "uint", cbData, "int")
         if(result != 0)
             throw OSError(result)
 

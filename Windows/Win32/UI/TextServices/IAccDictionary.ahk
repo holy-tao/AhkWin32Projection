@@ -47,7 +47,9 @@ class IAccDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getlocalizedstring
      */
     GetLocalizedString(Term, lcid, pResult, plcid) {
-        result := ComCall(3, this, "ptr", Term, "uint", lcid, "ptr", pResult, "uint*", plcid, "HRESULT")
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", Term, "uint", lcid, "ptr", pResult, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -100,7 +102,9 @@ class IAccDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-convertvaluetostring
      */
     ConvertValueToString(Term, lcid, varValue, pbstrResult, plcid) {
-        result := ComCall(7, this, "ptr", Term, "uint", lcid, "ptr", varValue, "ptr", pbstrResult, "uint*", plcid, "HRESULT")
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", Term, "uint", lcid, "ptr", varValue, "ptr", pbstrResult, plcidMarshal, plcid, "HRESULT")
         return result
     }
 }

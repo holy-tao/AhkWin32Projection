@@ -100,7 +100,9 @@ class IShellItemArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getattributes
      */
     GetAttributes(AttribFlags, sfgaoMask, psfgaoAttribs) {
-        result := ComCall(6, this, "int", AttribFlags, "uint", sfgaoMask, "uint*", psfgaoAttribs, "HRESULT")
+        psfgaoAttribsMarshal := psfgaoAttribs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "int", AttribFlags, "uint", sfgaoMask, psfgaoAttribsMarshal, psfgaoAttribs, "HRESULT")
         return result
     }
 
@@ -111,7 +113,9 @@ class IShellItemArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getcount
      */
     GetCount(pdwNumItems) {
-        result := ComCall(7, this, "uint*", pdwNumItems, "HRESULT")
+        pdwNumItemsMarshal := pdwNumItems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwNumItemsMarshal, pdwNumItems, "HRESULT")
         return result
     }
 

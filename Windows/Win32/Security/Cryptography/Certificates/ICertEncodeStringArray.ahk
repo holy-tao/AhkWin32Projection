@@ -51,7 +51,9 @@ class ICertEncodeStringArray extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getstringtype
      */
     GetStringType(pStringType) {
-        result := ComCall(8, this, "int*", pStringType, "HRESULT")
+        pStringTypeMarshal := pStringType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pStringTypeMarshal, pStringType, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class ICertEncodeStringArray extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getcount
      */
     GetCount(pCount) {
-        result := ComCall(9, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

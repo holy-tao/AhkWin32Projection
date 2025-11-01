@@ -55,7 +55,9 @@ class IAppDomainHelper extends IDispatch{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pUnkAD, __MIDL__IAppDomainHelper0000, pPool) {
-        result := ComCall(7, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0000, "ptr", pPool, "HRESULT")
+        pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0000, pPoolMarshal, pPool, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IAppDomainHelper extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iappdomainhelper-docallback
      */
     DoCallback(pUnkAD, __MIDL__IAppDomainHelper0001, pPool) {
-        result := ComCall(8, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0001, "ptr", pPool, "HRESULT")
+        pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0001, pPoolMarshal, pPool, "HRESULT")
         return result
     }
 }

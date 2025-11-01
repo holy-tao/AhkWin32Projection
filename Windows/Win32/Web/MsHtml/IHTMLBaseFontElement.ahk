@@ -93,7 +93,9 @@ class IHTMLBaseFontElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_size(p) {
-        result := ComCall(12, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 }

@@ -31,7 +31,9 @@ class IVssWriterComponents extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponentcount
      */
     GetComponentCount(pcComponents) {
-        result := ComCall(0, this, "uint*", pcComponents, "HRESULT")
+        pcComponentsMarshal := pcComponents is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(0, this, pcComponentsMarshal, pcComponents, "HRESULT")
         return result
     }
 

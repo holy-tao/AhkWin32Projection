@@ -94,7 +94,9 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFragment(pcchFragment, ppwzFragment) {
-        result := ComCall(8, this, "uint*", pcchFragment, "ptr", ppwzFragment, "HRESULT")
+        pcchFragmentMarshal := pcchFragment is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcchFragmentMarshal, pcchFragment, "ptr", ppwzFragment, "HRESULT")
         return result
     }
 
@@ -105,7 +107,9 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHost(pcchHost, ppwzHost) {
-        result := ComCall(9, this, "uint*", pcchHost, "ptr", ppwzHost, "HRESULT")
+        pcchHostMarshal := pcchHost is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pcchHostMarshal, pcchHost, "ptr", ppwzHost, "HRESULT")
         return result
     }
 
@@ -116,7 +120,9 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPassword(pcchPassword, ppwzPassword) {
-        result := ComCall(10, this, "uint*", pcchPassword, "ptr", ppwzPassword, "HRESULT")
+        pcchPasswordMarshal := pcchPassword is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcchPasswordMarshal, pcchPassword, "ptr", ppwzPassword, "HRESULT")
         return result
     }
 
@@ -128,7 +134,9 @@ class IUriBuilder extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
     GetPath(pcchPath, ppwzPath) {
-        result := ComCall(11, this, "uint*", pcchPath, "ptr", ppwzPath, "HRESULT")
+        pcchPathMarshal := pcchPath is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pcchPathMarshal, pcchPath, "ptr", ppwzPath, "HRESULT")
         return result
     }
 
@@ -139,7 +147,9 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPort(pfHasPort, pdwPort) {
-        result := ComCall(12, this, "ptr", pfHasPort, "uint*", pdwPort, "HRESULT")
+        pdwPortMarshal := pdwPort is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pfHasPort, pdwPortMarshal, pdwPort, "HRESULT")
         return result
     }
 
@@ -150,7 +160,9 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetQuery(pcchQuery, ppwzQuery) {
-        result := ComCall(13, this, "uint*", pcchQuery, "ptr", ppwzQuery, "HRESULT")
+        pcchQueryMarshal := pcchQuery is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pcchQueryMarshal, pcchQuery, "ptr", ppwzQuery, "HRESULT")
         return result
     }
 
@@ -161,7 +173,9 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSchemeName(pcchSchemeName, ppwzSchemeName) {
-        result := ComCall(14, this, "uint*", pcchSchemeName, "ptr", ppwzSchemeName, "HRESULT")
+        pcchSchemeNameMarshal := pcchSchemeName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pcchSchemeNameMarshal, pcchSchemeName, "ptr", ppwzSchemeName, "HRESULT")
         return result
     }
 
@@ -172,7 +186,9 @@ class IUriBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetUserName(pcchUserName, ppwzUserName) {
-        result := ComCall(15, this, "uint*", pcchUserName, "ptr", ppwzUserName, "HRESULT")
+        pcchUserNameMarshal := pcchUserName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pcchUserNameMarshal, pcchUserName, "ptr", ppwzUserName, "HRESULT")
         return result
     }
 

@@ -71,7 +71,9 @@ class IMSVidCtl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_backcolor
      */
     get_BackColor(backcolor) {
-        result := ComCall(9, this, "uint*", backcolor, "HRESULT")
+        backcolorMarshal := backcolor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, backcolorMarshal, backcolor, "HRESULT")
         return result
     }
 
@@ -158,7 +160,9 @@ class IMSVidCtl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_displaysize
      */
     get_DisplaySize(CurrentValue) {
-        result := ComCall(17, this, "int*", CurrentValue, "HRESULT")
+        CurrentValueMarshal := CurrentValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, CurrentValueMarshal, CurrentValue, "HRESULT")
         return result
     }
 
@@ -202,7 +206,9 @@ class IMSVidCtl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_colorkey
      */
     get_ColorKey(CurrentValue) {
-        result := ComCall(21, this, "uint*", CurrentValue, "HRESULT")
+        CurrentValueMarshal := CurrentValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, CurrentValueMarshal, CurrentValue, "HRESULT")
         return result
     }
 
@@ -419,7 +425,9 @@ class IMSVidCtl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_state
      */
     get_State(lState) {
-        result := ComCall(40, this, "int*", lState, "HRESULT")
+        lStateMarshal := lState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, lStateMarshal, lState, "HRESULT")
         return result
     }
 

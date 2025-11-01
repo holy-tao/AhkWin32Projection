@@ -51,7 +51,9 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     QueryStatusWB(cmdID, pcmdf) {
-        result := ComCall(53, this, "int", cmdID, "int*", pcmdf, "HRESULT")
+        pcmdfMarshal := pcmdf is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, "int", cmdID, pcmdfMarshal, pcmdf, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     get_ReadyState(plReadyState) {
-        result := ComCall(56, this, "int*", plReadyState, "HRESULT")
+        plReadyStateMarshal := plReadyState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(56, this, plReadyStateMarshal, plReadyState, "HRESULT")
         return result
     }
 

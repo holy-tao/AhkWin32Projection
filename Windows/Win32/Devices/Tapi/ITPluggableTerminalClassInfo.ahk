@@ -92,7 +92,9 @@ class ITPluggableTerminalClassInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_direction
      */
     get_Direction(pDirection) {
-        result := ComCall(12, this, "int*", pDirection, "HRESULT")
+        pDirectionMarshal := pDirection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pDirectionMarshal, pDirection, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class ITPluggableTerminalClassInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_mediatypes
      */
     get_MediaTypes(pMediaTypes) {
-        result := ComCall(13, this, "int*", pMediaTypes, "HRESULT")
+        pMediaTypesMarshal := pMediaTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pMediaTypesMarshal, pMediaTypes, "HRESULT")
         return result
     }
 }

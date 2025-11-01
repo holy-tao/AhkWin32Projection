@@ -37,7 +37,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getcasystemid
      */
     GetCASystemId(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getcaunitid
      */
     GetCAUnitId(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(7, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -93,7 +103,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getrecordcomponenttag
      */
     GetRecordComponentTag(bRecordIndex, pbVal) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -104,7 +116,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getcontractverificationinfolength
      */
     GetContractVerificationInfoLength(pbVal) {
-        result := ComCall(9, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -116,7 +130,9 @@ class IIsdbCAContractInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcacontractinformationdescriptor-getcontractverificationinfo
      */
     GetContractVerificationInfo(bBufLength, pbBuf) {
-        result := ComCall(10, this, "char", bBufLength, "char*", pbBuf, "HRESULT")
+        pbBufMarshal := pbBuf is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "char", bBufLength, pbBufMarshal, pbBuf, "HRESULT")
         return result
     }
 

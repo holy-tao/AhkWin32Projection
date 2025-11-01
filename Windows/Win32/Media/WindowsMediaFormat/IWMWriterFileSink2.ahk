@@ -70,7 +70,9 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-getfileduration
      */
     GetFileDuration(pcnsDuration) {
-        result := ComCall(12, this, "uint*", pcnsDuration, "HRESULT")
+        pcnsDurationMarshal := pcnsDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pcnsDurationMarshal, pcnsDuration, "HRESULT")
         return result
     }
 
@@ -95,7 +97,9 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
     GetFileSize(pcbFile) {
-        result := ComCall(13, this, "uint*", pcbFile, "HRESULT")
+        pcbFileMarshal := pcbFile is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pcbFileMarshal, pcbFile, "HRESULT")
         return result
     }
 

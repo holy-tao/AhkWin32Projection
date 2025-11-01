@@ -140,7 +140,9 @@ class IPMDeploymentManager extends IUnknown{
      * @returns {HRESULT} 
      */
     BeginUpdateLicense(productID, offerID, pbLicense, cbLicense) {
-        result := ComCall(13, this, "ptr", productID, "ptr", offerID, "char*", pbLicense, "uint", cbLicense, "HRESULT")
+        pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "ptr", productID, "ptr", offerID, pbLicenseMarshal, pbLicense, "uint", cbLicense, "HRESULT")
         return result
     }
 
@@ -162,7 +164,13 @@ class IPMDeploymentManager extends IUnknown{
     GetLicenseChallenge(PackagePath, ppbChallenge, pcbChallenge, ppbKID, pcbKID, ppbDeviceID, pcbDeviceID, ppbSaltValue, pcbSaltValue, ppbKGVValue, pcbKGVValue) {
         PackagePath := PackagePath is String ? BSTR.Alloc(PackagePath).Value : PackagePath
 
-        result := ComCall(14, this, "ptr", PackagePath, "ptr*", ppbChallenge, "uint*", pcbChallenge, "ptr*", ppbKID, "uint*", pcbKID, "ptr*", ppbDeviceID, "uint*", pcbDeviceID, "ptr*", ppbSaltValue, "uint*", pcbSaltValue, "ptr*", ppbKGVValue, "uint*", pcbKGVValue, "HRESULT")
+        pcbChallengeMarshal := pcbChallenge is VarRef ? "uint*" : "ptr"
+        pcbKIDMarshal := pcbKID is VarRef ? "uint*" : "ptr"
+        pcbDeviceIDMarshal := pcbDeviceID is VarRef ? "uint*" : "ptr"
+        pcbSaltValueMarshal := pcbSaltValue is VarRef ? "uint*" : "ptr"
+        pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", PackagePath, "ptr*", ppbChallenge, pcbChallengeMarshal, pcbChallenge, "ptr*", ppbKID, pcbKIDMarshal, pcbKID, "ptr*", ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, "ptr*", ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, "ptr*", ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
         return result
     }
 
@@ -174,7 +182,9 @@ class IPMDeploymentManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLicenseChallengeByProductID(ProductID, ppbChallenge, pcbLicense) {
-        result := ComCall(15, this, "ptr", ProductID, "ptr*", ppbChallenge, "uint*", pcbLicense, "HRESULT")
+        pcbLicenseMarshal := pcbLicense is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", ProductID, "ptr*", ppbChallenge, pcbLicenseMarshal, pcbLicense, "HRESULT")
         return result
     }
 
@@ -194,7 +204,13 @@ class IPMDeploymentManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLicenseChallengeByProductID2(ProductID, ppbChallenge, pcbLicense, ppbKID, pcbKID, ppbDeviceID, pcbDeviceID, ppbSaltValue, pcbSaltValue, ppbKGVValue, pcbKGVValue) {
-        result := ComCall(16, this, "ptr", ProductID, "ptr*", ppbChallenge, "uint*", pcbLicense, "ptr*", ppbKID, "uint*", pcbKID, "ptr*", ppbDeviceID, "uint*", pcbDeviceID, "ptr*", ppbSaltValue, "uint*", pcbSaltValue, "ptr*", ppbKGVValue, "uint*", pcbKGVValue, "HRESULT")
+        pcbLicenseMarshal := pcbLicense is VarRef ? "uint*" : "ptr"
+        pcbKIDMarshal := pcbKID is VarRef ? "uint*" : "ptr"
+        pcbDeviceIDMarshal := pcbDeviceID is VarRef ? "uint*" : "ptr"
+        pcbSaltValueMarshal := pcbSaltValue is VarRef ? "uint*" : "ptr"
+        pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", ProductID, "ptr*", ppbChallenge, pcbLicenseMarshal, pcbLicense, "ptr*", ppbKID, pcbKIDMarshal, pcbKID, "ptr*", ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, "ptr*", ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, "ptr*", ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
         return result
     }
 
@@ -291,7 +307,9 @@ class IPMDeploymentManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetApplicationsNeedMaintenance(RequiredMaintenanceOperations, pcApplications) {
-        result := ComCall(25, this, "uint", RequiredMaintenanceOperations, "uint*", pcApplications, "HRESULT")
+        pcApplicationsMarshal := pcApplications is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "uint", RequiredMaintenanceOperations, pcApplicationsMarshal, pcApplications, "HRESULT")
         return result
     }
 
@@ -413,7 +431,10 @@ class IPMDeploymentManager extends IUnknown{
      * @returns {HRESULT} 
      */
     AddLicenseForAppx(productID, pbLicense, cbLicense, pbPlayReadyHeader, cbPlayReadyHeader) {
-        result := ComCall(36, this, "ptr", productID, "char*", pbLicense, "uint", cbLicense, "char*", pbPlayReadyHeader, "uint", cbPlayReadyHeader, "HRESULT")
+        pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
+        pbPlayReadyHeaderMarshal := pbPlayReadyHeader is VarRef ? "char*" : "ptr"
+
+        result := ComCall(36, this, "ptr", productID, pbLicenseMarshal, pbLicense, "uint", cbLicense, pbPlayReadyHeaderMarshal, pbPlayReadyHeader, "uint", cbPlayReadyHeader, "HRESULT")
         return result
     }
 

@@ -49,7 +49,9 @@ class IAudioMediaType extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-isequal
      */
     IsEqual(pIAudioType, pdwFlags) {
-        result := ComCall(4, this, "ptr", pIAudioType, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pIAudioType, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

@@ -43,7 +43,9 @@ class IInspectable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-getiids
      */
     GetIids(iidCount, iids) {
-        result := ComCall(3, this, "uint*", iidCount, "ptr*", iids, "HRESULT")
+        iidCountMarshal := iidCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, iidCountMarshal, iidCount, "ptr*", iids, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IInspectable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-gettrustlevel
      */
     GetTrustLevel(trustLevel) {
-        result := ComCall(5, this, "int*", trustLevel, "HRESULT")
+        trustLevelMarshal := trustLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, trustLevelMarshal, trustLevel, "HRESULT")
         return result
     }
 }

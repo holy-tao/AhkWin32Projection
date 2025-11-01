@@ -37,7 +37,9 @@ class IMFSpatialAudioSample extends IMFSample{
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getobjectcount
      */
     GetObjectCount(pdwObjectCount) {
-        result := ComCall(47, this, "uint*", pdwObjectCount, "HRESULT")
+        pdwObjectCountMarshal := pdwObjectCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(47, this, pdwObjectCountMarshal, pdwObjectCount, "HRESULT")
         return result
     }
 

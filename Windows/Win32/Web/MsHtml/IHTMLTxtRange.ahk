@@ -146,7 +146,9 @@ class IHTMLTxtRange extends IDispatch{
     move(Unit, Count, ActualCount) {
         Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
 
-        result := ComCall(17, this, "ptr", Unit, "int", Count, "int*", ActualCount, "HRESULT")
+        ActualCountMarshal := ActualCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "ptr", Unit, "int", Count, ActualCountMarshal, ActualCount, "HRESULT")
         return result
     }
 
@@ -160,7 +162,9 @@ class IHTMLTxtRange extends IDispatch{
     moveStart(Unit, Count, ActualCount) {
         Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
 
-        result := ComCall(18, this, "ptr", Unit, "int", Count, "int*", ActualCount, "HRESULT")
+        ActualCountMarshal := ActualCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, "ptr", Unit, "int", Count, ActualCountMarshal, ActualCount, "HRESULT")
         return result
     }
 
@@ -174,7 +178,9 @@ class IHTMLTxtRange extends IDispatch{
     moveEnd(Unit, Count, ActualCount) {
         Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
 
-        result := ComCall(19, this, "ptr", Unit, "int", Count, "int*", ActualCount, "HRESULT")
+        ActualCountMarshal := ActualCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "ptr", Unit, "int", Count, ActualCountMarshal, ActualCount, "HRESULT")
         return result
     }
 
@@ -322,7 +328,9 @@ class IHTMLTxtRange extends IDispatch{
     compareEndPoints(how, SourceRange, ret) {
         how := how is String ? BSTR.Alloc(how).Value : how
 
-        result := ComCall(24, this, "ptr", how, "ptr", SourceRange, "int*", ret, "HRESULT")
+        retMarshal := ret is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "ptr", how, "ptr", SourceRange, retMarshal, ret, "HRESULT")
         return result
     }
 

@@ -57,7 +57,9 @@ class ISyncMgrEventStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-geteventcount
      */
     GetEventCount(pcEvents) {
-        result := ComCall(4, this, "uint*", pcEvents, "HRESULT")
+        pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcEventsMarshal, pcEvents, "HRESULT")
         return result
     }
 

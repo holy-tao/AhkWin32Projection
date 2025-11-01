@@ -43,7 +43,13 @@ class IServerSecurity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iserversecurity-queryblanket
      */
     QueryBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
-        result := ComCall(3, this, "uint*", pAuthnSvc, "uint*", pAuthzSvc, "ptr*", pServerPrincName, "uint*", pAuthnLevel, "uint*", pImpLevel, "ptr*", pPrivs, "uint*", pCapabilities, "HRESULT")
+        pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
+        pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
+        pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
+        pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
+        pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr*", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, "ptr*", pPrivs, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
     }
 

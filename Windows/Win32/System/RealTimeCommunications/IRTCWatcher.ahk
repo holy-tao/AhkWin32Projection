@@ -34,7 +34,9 @@ class IRTCWatcher extends IRTCPresenceContact{
      * @returns {HRESULT} 
      */
     get_State(penState) {
-        result := ComCall(11, this, "int*", penState, "HRESULT")
+        penStateMarshal := penState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, penStateMarshal, penState, "HRESULT")
         return result
     }
 

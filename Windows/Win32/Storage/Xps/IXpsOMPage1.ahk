@@ -45,7 +45,9 @@ class IXpsOMPage1 extends IXpsOMPage{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompage1-getdocumenttype
      */
     GetDocumentType(documentType) {
-        result := ComCall(27, this, "int*", documentType, "HRESULT")
+        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, documentTypeMarshal, documentType, "HRESULT")
         return result
     }
 

@@ -57,7 +57,9 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
      * @returns {HRESULT} 
      */
     GetObjectIDFromHandle(handle, pObject) {
-        result := ComCall(110, this, "ptr*", handle, "ptr*", pObject, "HRESULT")
+        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(110, this, "ptr*", handle, pObjectMarshal, pObject, "HRESULT")
         return result
     }
 }

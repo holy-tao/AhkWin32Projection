@@ -56,7 +56,9 @@ class IKnownFolderManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-folderidtocsidl
      */
     FolderIdToCsidl(rfid, pnCsidl) {
-        result := ComCall(4, this, "ptr", rfid, "int*", pnCsidl, "HRESULT")
+        pnCsidlMarshal := pnCsidl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", rfid, pnCsidlMarshal, pnCsidl, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IKnownFolderManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderids
      */
     GetFolderIds(ppKFId, pCount) {
-        result := ComCall(5, this, "ptr*", ppKFId, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", ppKFId, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

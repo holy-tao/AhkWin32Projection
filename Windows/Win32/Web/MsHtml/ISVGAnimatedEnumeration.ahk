@@ -50,7 +50,9 @@ class ISVGAnimatedEnumeration extends IDispatch{
      * @returns {HRESULT} 
      */
     get_baseVal(p) {
-        result := ComCall(8, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ISVGAnimatedEnumeration extends IDispatch{
      * @returns {HRESULT} 
      */
     get_animVal(p) {
-        result := ComCall(10, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 }

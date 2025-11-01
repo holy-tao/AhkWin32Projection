@@ -37,7 +37,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getcarettype
      */
     GetCaretType(pValue) {
-        result := ComCall(26, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteastasianflags
      */
     GetEastAsianFlags(pFlags) {
-        result := ComCall(33, this, "int*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -147,7 +151,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getnotificationmode
      */
     GetNotificationMode(pValue) {
-        result := ComCall(36, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -191,7 +197,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-gettypographyoptions
      */
     GetTypographyOptions(pOptions) {
-        result := ComCall(40, this, "int*", pOptions, "HRESULT")
+        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, pOptionsMarshal, pOptions, "HRESULT")
         return result
     }
 
@@ -204,7 +212,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pValue) {
-        result := ComCall(41, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -217,7 +227,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
      */
     GetWindow(pHwnd) {
-        result := ComCall(42, this, "int64*", pHwnd, "HRESULT")
+        pHwndMarshal := pHwnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(42, this, pHwndMarshal, pHwnd, "HRESULT")
         return result
     }
 
@@ -240,7 +252,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-checktextlimit
      */
     CheckTextLimit(cch, pcch) {
-        result := ComCall(44, this, "int", cch, "int*", pcch, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, "int", cch, pcchMarshal, pcch, "HRESULT")
         return result
     }
 
@@ -270,7 +284,12 @@ class ITextDocument2 extends ITextDocument{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getclientrect
      */
     GetClientRect(Type, pLeft, pTop, pRight, pBottom) {
-        result := ComCall(46, this, "int", Type, "int*", pLeft, "int*", pTop, "int*", pRight, "int*", pBottom, "HRESULT")
+        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
+        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
+        pRightMarshal := pRight is VarRef ? "int*" : "ptr"
+        pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, "int", Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, "HRESULT")
         return result
     }
 
@@ -282,7 +301,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteffectcolor
      */
     GetEffectColor(Index, pValue) {
-        result := ComCall(47, this, "int", Index, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, "int", Index, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -293,7 +314,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getimmcontext
      */
     GetImmContext(pContext) {
-        result := ComCall(48, this, "int64*", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(48, this, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -311,7 +334,10 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getpreferredfont
      */
     GetPreferredFont(cp, CharRep, Options, curCharRep, curFontSize, pbstr, pPitchAndFamily, pNewFontSize) {
-        result := ComCall(49, this, "int", cp, "int", CharRep, "int", Options, "int", curCharRep, "int", curFontSize, "ptr", pbstr, "int*", pPitchAndFamily, "int*", pNewFontSize, "HRESULT")
+        pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
+        pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(49, this, "int", cp, "int", CharRep, "int", Options, "int", curCharRep, "int", curFontSize, "ptr", pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
         return result
     }
 
@@ -323,7 +349,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getproperty
      */
     GetProperty(Type, pValue) {
-        result := ComCall(50, this, "int", Type, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, "int", Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -474,7 +502,9 @@ class ITextDocument2 extends ITextDocument{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getmathproperties
      */
     GetMathProperties(pOptions) {
-        result := ComCall(63, this, "int*", pOptions, "HRESULT")
+        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(63, this, pOptionsMarshal, pOptions, "HRESULT")
         return result
     }
 

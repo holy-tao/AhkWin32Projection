@@ -37,7 +37,9 @@ class IWindowsParentalControlsCore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getvisibility
      */
     GetVisibility(peVisibility) {
-        result := ComCall(3, this, "int*", peVisibility, "HRESULT")
+        peVisibilityMarshal := peVisibility is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, peVisibilityMarshal, peVisibility, "HRESULT")
         return result
     }
 

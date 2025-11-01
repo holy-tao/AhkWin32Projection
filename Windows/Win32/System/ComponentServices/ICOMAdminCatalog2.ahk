@@ -345,7 +345,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     IsSafeToDelete(bstrDllName, pCOMAdminInUse) {
         bstrDllName := bstrDllName is String ? BSTR.Alloc(bstrDllName).Value : bstrDllName
 
-        result := ComCall(55, this, "ptr", bstrDllName, "int*", pCOMAdminInUse, "HRESULT")
+        pCOMAdminInUseMarshal := pCOMAdminInUse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(55, this, "ptr", bstrDllName, pCOMAdminInUseMarshal, pCOMAdminInUse, "HRESULT")
         return result
     }
 
@@ -467,7 +469,9 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     GetComponentVersionCount(bstrCLSIDOrProgID, plVersionCount) {
         bstrCLSIDOrProgID := bstrCLSIDOrProgID is String ? BSTR.Alloc(bstrCLSIDOrProgID).Value : bstrCLSIDOrProgID
 
-        result := ComCall(63, this, "ptr", bstrCLSIDOrProgID, "int*", plVersionCount, "HRESULT")
+        plVersionCountMarshal := plVersionCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(63, this, "ptr", bstrCLSIDOrProgID, plVersionCountMarshal, plVersionCount, "HRESULT")
         return result
     }
 }

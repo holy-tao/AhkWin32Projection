@@ -30,12 +30,14 @@ class Isolation {
      * @since windows8.0
      */
     static GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, ObjectPath, ReturnLength) {
-        ObjectPath := ObjectPath is String ? StrPtr(ObjectPath) : ObjectPath
         Token := Token is Win32Handle ? NumGet(Token, "ptr") : Token
+        ObjectPath := ObjectPath is String ? StrPtr(ObjectPath) : ObjectPath
+
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, "uint*", ReturnLength, "int")
+        result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, ReturnLengthMarshal, ReturnLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -50,7 +52,9 @@ class Isolation {
      * @deprecated
      */
     static IsProcessInWDAGContainer(Reserved, isProcessInWDAGContainer) {
-        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", "ptr", Reserved, "ptr", isProcessInWDAGContainer, "int")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", ReservedMarshal, Reserved, "ptr", isProcessInWDAGContainer, "int")
         if(result != 0)
             throw OSError(result)
 

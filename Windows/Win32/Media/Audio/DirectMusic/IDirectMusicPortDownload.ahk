@@ -57,7 +57,9 @@ class IDirectMusicPortDownload extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDLId(pdwStartDLId, dwCount) {
-        result := ComCall(5, this, "uint*", pdwStartDLId, "uint", dwCount, "HRESULT")
+        pdwStartDLIdMarshal := pdwStartDLId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwStartDLIdMarshal, pdwStartDLId, "uint", dwCount, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IDirectMusicPortDownload extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAppend(pdwAppend) {
-        result := ComCall(6, this, "uint*", pdwAppend, "HRESULT")
+        pdwAppendMarshal := pdwAppend is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwAppendMarshal, pdwAppend, "HRESULT")
         return result
     }
 

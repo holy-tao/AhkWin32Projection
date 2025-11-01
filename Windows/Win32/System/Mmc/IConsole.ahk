@@ -232,7 +232,9 @@ class IConsole extends IUnknown{
         lpszText := lpszText is String ? StrPtr(lpszText) : lpszText
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-        result := ComCall(9, this, "ptr", lpszText, "ptr", lpszTitle, "uint", fuStyle, "int*", piRetval, "HRESULT")
+        piRetvalMarshal := piRetval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", lpszText, "ptr", lpszTitle, "uint", fuStyle, piRetvalMarshal, piRetval, "HRESULT")
         return result
     }
 

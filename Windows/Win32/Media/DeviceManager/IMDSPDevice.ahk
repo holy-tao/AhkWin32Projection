@@ -67,7 +67,9 @@ class IMDSPDevice extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pdwVersion) {
-        result := ComCall(5, this, "uint*", pdwVersion, "HRESULT")
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class IMDSPDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-gettype
      */
     GetType(pdwType) {
-        result := ComCall(6, this, "uint*", pdwType, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwTypeMarshal, pdwType, "HRESULT")
         return result
     }
 
@@ -90,7 +94,9 @@ class IMDSPDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getserialnumber
      */
     GetSerialNumber(pSerialNumber, abMac) {
-        result := ComCall(7, this, "ptr", pSerialNumber, "char*", abMac, "HRESULT")
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pSerialNumber, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -102,7 +108,10 @@ class IMDSPDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getpowersource
      */
     GetPowerSource(pdwPowerSource, pdwPercentRemaining) {
-        result := ComCall(8, this, "uint*", pdwPowerSource, "uint*", pdwPercentRemaining, "HRESULT")
+        pdwPowerSourceMarshal := pdwPowerSource is VarRef ? "uint*" : "ptr"
+        pdwPercentRemainingMarshal := pdwPercentRemaining is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwPowerSourceMarshal, pdwPowerSource, pdwPercentRemainingMarshal, pdwPercentRemaining, "HRESULT")
         return result
     }
 
@@ -113,7 +122,9 @@ class IMDSPDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getstatus
      */
     GetStatus(pdwStatus) {
-        result := ComCall(9, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -124,7 +135,9 @@ class IMDSPDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getdeviceicon
      */
     GetDeviceIcon(hIcon) {
-        result := ComCall(10, this, "uint*", hIcon, "HRESULT")
+        hIconMarshal := hIcon is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, hIconMarshal, hIcon, "HRESULT")
         return result
     }
 
@@ -149,7 +162,10 @@ class IMDSPDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getformatsupport
      */
     GetFormatSupport(pFormatEx, pnFormatCount, pppwszMimeType, pnMimeTypeCount) {
-        result := ComCall(12, this, "ptr*", pFormatEx, "uint*", pnFormatCount, "ptr*", pppwszMimeType, "uint*", pnMimeTypeCount, "HRESULT")
+        pnFormatCountMarshal := pnFormatCount is VarRef ? "uint*" : "ptr"
+        pnMimeTypeCountMarshal := pnMimeTypeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr*", pFormatEx, pnFormatCountMarshal, pnFormatCount, "ptr*", pppwszMimeType, pnMimeTypeCountMarshal, pnMimeTypeCount, "HRESULT")
         return result
     }
 

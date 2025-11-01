@@ -37,7 +37,9 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AccessMask(retval) {
-        result := ComCall(7, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AceType(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AceFlags(retval) {
-        result := ComCall(11, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -97,7 +103,9 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Flags(retval) {
-        result := ComCall(13, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

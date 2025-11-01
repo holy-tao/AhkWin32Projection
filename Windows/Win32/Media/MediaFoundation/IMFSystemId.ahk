@@ -38,7 +38,9 @@ class IMFSystemId extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-getdata
      */
     GetData(size, data) {
-        result := ComCall(3, this, "uint*", size, "ptr*", data, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, sizeMarshal, size, "ptr*", data, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IMFSystemId extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-setup
      */
     Setup(stage, cbIn, pbIn, pcbOut, ppbOut) {
-        result := ComCall(4, this, "uint", stage, "uint", cbIn, "ptr", pbIn, "uint*", pcbOut, "ptr*", ppbOut, "HRESULT")
+        pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", stage, "uint", cbIn, "ptr", pbIn, pcbOutMarshal, pcbOut, "ptr*", ppbOut, "HRESULT")
         return result
     }
 }

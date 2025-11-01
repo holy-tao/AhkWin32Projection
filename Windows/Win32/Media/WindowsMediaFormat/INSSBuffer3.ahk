@@ -39,7 +39,9 @@ class INSSBuffer3 extends INSSBuffer2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer3-setproperty
      */
     SetProperty(guidBufferProperty, pvBufferProperty, dwBufferPropertySize) {
-        result := ComCall(10, this, "ptr", guidBufferProperty, "ptr", pvBufferProperty, "uint", dwBufferPropertySize, "HRESULT")
+        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "ptr", guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, "uint", dwBufferPropertySize, "HRESULT")
         return result
     }
 
@@ -52,7 +54,10 @@ class INSSBuffer3 extends INSSBuffer2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer3-getproperty
      */
     GetProperty(guidBufferProperty, pvBufferProperty, pdwBufferPropertySize) {
-        result := ComCall(11, this, "ptr", guidBufferProperty, "ptr", pvBufferProperty, "uint*", pdwBufferPropertySize, "HRESULT")
+        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
+        pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
         return result
     }
 }

@@ -52,7 +52,9 @@ class IBDA_UserActivityService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-getuseractivityinterval
      */
     GetUserActivityInterval(pdwActivityInterval) {
-        result := ComCall(4, this, "uint*", pdwActivityInterval, "HRESULT")
+        pdwActivityIntervalMarshal := pdwActivityInterval is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwActivityIntervalMarshal, pdwActivityInterval, "HRESULT")
         return result
     }
 

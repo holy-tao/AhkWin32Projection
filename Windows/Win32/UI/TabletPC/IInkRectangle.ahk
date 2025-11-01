@@ -37,7 +37,9 @@ class IInkRectangle extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_top
      */
     get_Top(Units) {
-        result := ComCall(7, this, "int*", Units, "HRESULT")
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, UnitsMarshal, Units, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IInkRectangle extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_left
      */
     get_Left(Units) {
-        result := ComCall(9, this, "int*", Units, "HRESULT")
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, UnitsMarshal, Units, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IInkRectangle extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_bottom
      */
     get_Bottom(Units) {
-        result := ComCall(11, this, "int*", Units, "HRESULT")
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, UnitsMarshal, Units, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class IInkRectangle extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-get_right
      */
     get_Right(Units) {
-        result := ComCall(13, this, "int*", Units, "HRESULT")
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, UnitsMarshal, Units, "HRESULT")
         return result
     }
 
@@ -150,7 +158,12 @@ class IInkRectangle extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-getrectangle
      */
     GetRectangle(Top, Left, Bottom, Right) {
-        result := ComCall(17, this, "int*", Top, "int*", Left, "int*", Bottom, "int*", Right, "HRESULT")
+        TopMarshal := Top is VarRef ? "int*" : "ptr"
+        LeftMarshal := Left is VarRef ? "int*" : "ptr"
+        BottomMarshal := Bottom is VarRef ? "int*" : "ptr"
+        RightMarshal := Right is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, TopMarshal, Top, LeftMarshal, Left, BottomMarshal, Bottom, RightMarshal, Right, "HRESULT")
         return result
     }
 

@@ -60,7 +60,9 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
      * @returns {HRESULT} 
      */
     GetSubscriptionRunState(dwNumCookies, pCookies, pdwRunState) {
-        result := ComCall(13, this, "uint", dwNumCookies, "ptr", pCookies, "uint*", pdwRunState, "HRESULT")
+        pdwRunStateMarshal := pdwRunState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwNumCookies, "ptr", pCookies, pdwRunStateMarshal, pdwRunState, "HRESULT")
         return result
     }
 

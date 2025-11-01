@@ -42,7 +42,9 @@ class IAzNameResolver extends IDispatch{
     NameFromSid(bstrSid, pSidType, pbstrName) {
         bstrSid := bstrSid is String ? BSTR.Alloc(bstrSid).Value : bstrSid
 
-        result := ComCall(7, this, "ptr", bstrSid, "int*", pSidType, "ptr", pbstrName, "HRESULT")
+        pSidTypeMarshal := pSidType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", bstrSid, pSidTypeMarshal, pSidType, "ptr", pbstrName, "HRESULT")
         return result
     }
 

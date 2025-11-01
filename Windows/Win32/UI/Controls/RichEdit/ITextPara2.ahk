@@ -70,7 +70,9 @@ class ITextPara2 extends ITextPara{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getfontalignment
      */
     GetFontAlignment(pValue) {
-        result := ComCall(58, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class ITextPara2 extends ITextPara{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-gethangingpunctuation
      */
     GetHangingPunctuation(pValue) {
-        result := ComCall(60, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(60, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class ITextPara2 extends ITextPara{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getsnaptogrid
      */
     GetSnapToGrid(pValue) {
-        result := ComCall(62, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(62, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -136,7 +142,9 @@ class ITextPara2 extends ITextPara{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-gettrimpunctuationatstart
      */
     GetTrimPunctuationAtStart(pValue) {
-        result := ComCall(64, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -159,7 +167,10 @@ class ITextPara2 extends ITextPara{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-geteffects
      */
     GetEffects(pValue, pMask) {
-        result := ComCall(66, this, "int*", pValue, "int*", pMask, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pMaskMarshal := pMask is VarRef ? "int*" : "ptr"
+
+        result := ComCall(66, this, pValueMarshal, pValue, pMaskMarshal, pMask, "HRESULT")
         return result
     }
 
@@ -171,7 +182,9 @@ class ITextPara2 extends ITextPara{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getproperty
      */
     GetProperty(Type, pValue) {
-        result := ComCall(67, this, "int", Type, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(67, this, "int", Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -183,7 +196,9 @@ class ITextPara2 extends ITextPara{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-isequal2
      */
     IsEqual2(pPara, pB) {
-        result := ComCall(68, this, "ptr", pPara, "int*", pB, "HRESULT")
+        pBMarshal := pB is VarRef ? "int*" : "ptr"
+
+        result := ComCall(68, this, "ptr", pPara, pBMarshal, pB, "HRESULT")
         return result
     }
 

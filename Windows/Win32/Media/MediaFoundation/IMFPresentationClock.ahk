@@ -66,7 +66,9 @@ class IMFPresentationClock extends IMFClock{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationclock-gettime
      */
     GetTime(phnsClockTime) {
-        result := ComCall(10, this, "int64*", phnsClockTime, "HRESULT")
+        phnsClockTimeMarshal := phnsClockTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(10, this, phnsClockTimeMarshal, phnsClockTime, "HRESULT")
         return result
     }
 

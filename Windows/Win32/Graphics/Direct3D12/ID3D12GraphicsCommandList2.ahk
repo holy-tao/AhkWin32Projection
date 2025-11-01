@@ -39,6 +39,8 @@ class ID3D12GraphicsCommandList2 extends ID3D12GraphicsCommandList1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist2-writebufferimmediate
      */
     WriteBufferImmediate(Count, pParams, pModes) {
-        ComCall(66, this, "uint", Count, "ptr", pParams, "int*", pModes)
+        pModesMarshal := pModes is VarRef ? "int*" : "ptr"
+
+        ComCall(66, this, "uint", Count, "ptr", pParams, pModesMarshal, pModes)
     }
 }

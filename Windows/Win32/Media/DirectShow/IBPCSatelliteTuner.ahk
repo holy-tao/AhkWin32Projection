@@ -38,7 +38,10 @@ class IBPCSatelliteTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibpcsatellitetuner-get_defaultsubchanneltypes
      */
     get_DefaultSubChannelTypes(plDefaultVideoType, plDefaultAudioType) {
-        result := ComCall(18, this, "int*", plDefaultVideoType, "int*", plDefaultAudioType, "HRESULT")
+        plDefaultVideoTypeMarshal := plDefaultVideoType is VarRef ? "int*" : "ptr"
+        plDefaultAudioTypeMarshal := plDefaultAudioType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, plDefaultVideoTypeMarshal, plDefaultVideoType, plDefaultAudioTypeMarshal, plDefaultAudioType, "HRESULT")
         return result
     }
 

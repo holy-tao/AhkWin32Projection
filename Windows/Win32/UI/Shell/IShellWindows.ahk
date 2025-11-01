@@ -69,7 +69,9 @@ class IShellWindows extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-get_count
      */
     get_Count(Count) {
-        result := ComCall(7, this, "int*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
         return result
     }
 
@@ -106,7 +108,9 @@ class IShellWindows extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-register
      */
     Register(pid, hwnd, swClass, plCookie) {
-        result := ComCall(10, this, "ptr", pid, "int", hwnd, "int", swClass, "int*", plCookie, "HRESULT")
+        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pid, "int", hwnd, "int", swClass, plCookieMarshal, plCookie, "HRESULT")
         return result
     }
 
@@ -121,7 +125,9 @@ class IShellWindows extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-registerpending
      */
     RegisterPending(lThreadId, pvarloc, pvarlocRoot, swClass, plCookie) {
-        result := ComCall(11, this, "int", lThreadId, "ptr", pvarloc, "ptr", pvarlocRoot, "int", swClass, "int*", plCookie, "HRESULT")
+        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", lThreadId, "ptr", pvarloc, "ptr", pvarlocRoot, "int", swClass, plCookieMarshal, plCookie, "HRESULT")
         return result
     }
 
@@ -172,7 +178,9 @@ class IShellWindows extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-findwindowsw
      */
     FindWindowSW(pvarLoc, pvarLocRoot, swClass, phwnd, swfwOptions, ppdispOut) {
-        result := ComCall(15, this, "ptr", pvarLoc, "ptr", pvarLocRoot, "int", swClass, "int*", phwnd, "int", swfwOptions, "ptr*", ppdispOut, "HRESULT")
+        phwndMarshal := phwnd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pvarLoc, "ptr", pvarLocRoot, "int", swClass, phwndMarshal, phwnd, "int", swfwOptions, "ptr*", ppdispOut, "HRESULT")
         return result
     }
 

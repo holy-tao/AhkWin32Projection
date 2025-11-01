@@ -59,7 +59,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getoriginalserviceid
      */
     GetOriginalServiceId(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-gettransportstreamid
      */
     GetTransportStreamId(pwVal) {
-        result := ComCall(6, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getoriginalnetworkid
      */
     GetOriginalNetworkId(pwVal) {
-        result := ComCall(7, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -103,7 +111,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getcountofrecords
      */
     GetCountOfRecords(pdwVal) {
-        result := ComCall(8, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -115,7 +125,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getrecorddescriptionid
      */
     GetRecordDescriptionId(dwRecordIndex, pwVal) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -127,7 +139,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -154,7 +168,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 
@@ -165,7 +181,9 @@ class IISDB_LDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getversionhash
      */
     GetVersionHash(pdwVersionHash) {
-        result := ComCall(13, this, "uint*", pdwVersionHash, "HRESULT")
+        pdwVersionHashMarshal := pdwVersionHash is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwVersionHashMarshal, pdwVersionHash, "HRESULT")
         return result
     }
 }

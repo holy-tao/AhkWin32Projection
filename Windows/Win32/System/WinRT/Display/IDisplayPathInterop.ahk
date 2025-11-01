@@ -46,7 +46,9 @@ class IDisplayPathInterop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaypathinterop-getsourceid
      */
     GetSourceId(pSourceId) {
-        result := ComCall(4, this, "uint*", pSourceId, "HRESULT")
+        pSourceIdMarshal := pSourceId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pSourceIdMarshal, pSourceId, "HRESULT")
         return result
     }
 }

@@ -37,7 +37,9 @@ class IWMReaderNetworkConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getbufferingtime
      */
     GetBufferingTime(pcnsBufferingTime) {
-        result := ComCall(3, this, "uint*", pcnsBufferingTime, "HRESULT")
+        pcnsBufferingTimeMarshal := pcnsBufferingTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcnsBufferingTimeMarshal, pcnsBufferingTime, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IWMReaderNetworkConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getudpportranges
      */
     GetUDPPortRanges(pRangeArray, pcRanges) {
-        result := ComCall(5, this, "ptr", pRangeArray, "uint*", pcRanges, "HRESULT")
+        pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pRangeArray, pcRangesMarshal, pcRanges, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IWMReaderNetworkConfig extends IUnknown{
     GetProxySettings(pwszProtocol, pProxySetting) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        result := ComCall(7, this, "ptr", pwszProtocol, "int*", pProxySetting, "HRESULT")
+        pProxySettingMarshal := pProxySetting is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pwszProtocol, pProxySettingMarshal, pProxySetting, "HRESULT")
         return result
     }
 
@@ -116,7 +122,9 @@ class IWMReaderNetworkConfig extends IUnknown{
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
         pwszHostName := pwszHostName is String ? StrPtr(pwszHostName) : pwszHostName
 
-        result := ComCall(9, this, "ptr", pwszProtocol, "ptr", pwszHostName, "uint*", pcchHostName, "HRESULT")
+        pcchHostNameMarshal := pcchHostName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pwszProtocol, "ptr", pwszHostName, pcchHostNameMarshal, pcchHostName, "HRESULT")
         return result
     }
 
@@ -145,7 +153,9 @@ class IWMReaderNetworkConfig extends IUnknown{
     GetProxyPort(pwszProtocol, pdwPort) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        result := ComCall(11, this, "ptr", pwszProtocol, "uint*", pdwPort, "HRESULT")
+        pdwPortMarshal := pdwPort is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pwszProtocol, pdwPortMarshal, pdwPort, "HRESULT")
         return result
     }
 
@@ -175,7 +185,9 @@ class IWMReaderNetworkConfig extends IUnknown{
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
         pwszExceptionList := pwszExceptionList is String ? StrPtr(pwszExceptionList) : pwszExceptionList
 
-        result := ComCall(13, this, "ptr", pwszProtocol, "ptr", pwszExceptionList, "uint*", pcchExceptionList, "HRESULT")
+        pcchExceptionListMarshal := pcchExceptionList is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pwszProtocol, "ptr", pwszExceptionList, pcchExceptionListMarshal, pcchExceptionList, "HRESULT")
         return result
     }
 
@@ -349,7 +361,9 @@ class IWMReaderNetworkConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getconnectionbandwidth
      */
     GetConnectionBandwidth(pdwConnectionBandwidth) {
-        result := ComCall(28, this, "uint*", pdwConnectionBandwidth, "HRESULT")
+        pdwConnectionBandwidthMarshal := pdwConnectionBandwidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, pdwConnectionBandwidthMarshal, pdwConnectionBandwidth, "HRESULT")
         return result
     }
 
@@ -371,7 +385,9 @@ class IWMReaderNetworkConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getnumprotocolssupported
      */
     GetNumProtocolsSupported(pcProtocols) {
-        result := ComCall(30, this, "uint*", pcProtocols, "HRESULT")
+        pcProtocolsMarshal := pcProtocols is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, pcProtocolsMarshal, pcProtocols, "HRESULT")
         return result
     }
 
@@ -386,7 +402,9 @@ class IWMReaderNetworkConfig extends IUnknown{
     GetSupportedProtocolName(dwProtocolNum, pwszProtocolName, pcchProtocolName) {
         pwszProtocolName := pwszProtocolName is String ? StrPtr(pwszProtocolName) : pwszProtocolName
 
-        result := ComCall(31, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, "uint*", pcchProtocolName, "HRESULT")
+        pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
         return result
     }
 
@@ -414,7 +432,9 @@ class IWMReaderNetworkConfig extends IUnknown{
     GetLoggingUrl(dwIndex, pwszUrl, pcchUrl) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(33, this, "uint", dwIndex, "ptr", pwszUrl, "uint*", pcchUrl, "HRESULT")
+        pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "uint", dwIndex, "ptr", pwszUrl, pcchUrlMarshal, pcchUrl, "HRESULT")
         return result
     }
 
@@ -425,7 +445,9 @@ class IWMReaderNetworkConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getloggingurlcount
      */
     GetLoggingUrlCount(pdwUrlCount) {
-        result := ComCall(34, this, "uint*", pdwUrlCount, "HRESULT")
+        pdwUrlCountMarshal := pdwUrlCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, pdwUrlCountMarshal, pdwUrlCount, "HRESULT")
         return result
     }
 

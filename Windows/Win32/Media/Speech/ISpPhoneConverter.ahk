@@ -43,7 +43,9 @@ class ISpPhoneConverter extends ISpObjectWithToken{
     PhoneToId(pszPhone, pId) {
         pszPhone := pszPhone is String ? StrPtr(pszPhone) : pszPhone
 
-        result := ComCall(5, this, "ptr", pszPhone, "ushort*", pId, "HRESULT")
+        pIdMarshal := pId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszPhone, pIdMarshal, pId, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class ISpPhoneConverter extends ISpObjectWithToken{
     IdToPhone(pId, pszPhone) {
         pszPhone := pszPhone is String ? StrPtr(pszPhone) : pszPhone
 
-        result := ComCall(6, this, "ushort*", pId, "ptr", pszPhone, "HRESULT")
+        pIdMarshal := pId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pIdMarshal, pId, "ptr", pszPhone, "HRESULT")
         return result
     }
 }

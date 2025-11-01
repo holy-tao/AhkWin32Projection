@@ -77,7 +77,9 @@ class IFsiNamedStreams extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get_count
      */
     get_Count(count) {
-        result := ComCall(9, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, countMarshal, count, "HRESULT")
         return result
     }
 

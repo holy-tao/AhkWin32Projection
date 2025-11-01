@@ -52,7 +52,11 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings
      */
     UpdateTileMappings(pResource, NumResourceRegions, pResourceRegionStartCoordinates, pResourceRegionSizes, pHeap, NumRanges, pRangeFlags, pHeapRangeStartOffsets, pRangeTileCounts, Flags) {
-        ComCall(8, this, "ptr", pResource, "uint", NumResourceRegions, "ptr", pResourceRegionStartCoordinates, "ptr", pResourceRegionSizes, "ptr", pHeap, "uint", NumRanges, "int*", pRangeFlags, "uint*", pHeapRangeStartOffsets, "uint*", pRangeTileCounts, "int", Flags)
+        pRangeFlagsMarshal := pRangeFlags is VarRef ? "int*" : "ptr"
+        pHeapRangeStartOffsetsMarshal := pHeapRangeStartOffsets is VarRef ? "uint*" : "ptr"
+        pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
+
+        ComCall(8, this, "ptr", pResource, "uint", NumResourceRegions, "ptr", pResourceRegionStartCoordinates, "ptr", pResourceRegionSizes, "ptr", pHeap, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pHeapRangeStartOffsetsMarshal, pHeapRangeStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, "int", Flags)
     }
 
     /**
@@ -145,7 +149,9 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-gettimestampfrequency
      */
     GetTimestampFrequency(pFrequency) {
-        result := ComCall(16, this, "uint*", pFrequency, "HRESULT")
+        pFrequencyMarshal := pFrequency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pFrequencyMarshal, pFrequency, "HRESULT")
         return result
     }
 
@@ -157,7 +163,10 @@ class ID3D12CommandQueue extends ID3D12Pageable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration
      */
     GetClockCalibration(pGpuTimestamp, pCpuTimestamp) {
-        result := ComCall(17, this, "uint*", pGpuTimestamp, "uint*", pCpuTimestamp, "HRESULT")
+        pGpuTimestampMarshal := pGpuTimestamp is VarRef ? "uint*" : "ptr"
+        pCpuTimestampMarshal := pCpuTimestamp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pGpuTimestampMarshal, pGpuTimestamp, pCpuTimestampMarshal, pCpuTimestamp, "HRESULT")
         return result
     }
 

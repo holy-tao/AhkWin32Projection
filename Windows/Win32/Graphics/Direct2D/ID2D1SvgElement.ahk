@@ -247,7 +247,9 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributenamelength
      */
     GetSpecifiedAttributeNameLength(index, nameLength, inherited) {
-        result := ComCall(22, this, "uint", index, "uint*", nameLength, "ptr", inherited, "HRESULT")
+        nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", index, nameLengthMarshal, nameLength, "ptr", inherited, "HRESULT")
         return result
     }
 
@@ -407,7 +409,9 @@ class ID2D1SvgElement extends ID2D1Resource{
     GetAttributeValueLength(name, type, valueLength) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(33, this, "ptr", name, "int", type, "uint*", valueLength, "HRESULT")
+        valueLengthMarshal := valueLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "ptr", name, "int", type, valueLengthMarshal, valueLength, "HRESULT")
         return result
     }
 }

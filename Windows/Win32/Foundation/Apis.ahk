@@ -34992,9 +34992,11 @@ class Foundation {
     static GetHandleInformation(hObject, lpdwFlags) {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, "uint*", lpdwFlags, "int")
+        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, lpdwFlagsMarshal, lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 

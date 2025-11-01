@@ -67,7 +67,9 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszCaption := wszCaption is String ? StrPtr(wszCaption) : wszCaption
 
-        result := ComCall(4, this, "int", ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, "char*", pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
+        pbIconMarshal := pbIcon is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "int", ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
         return result
     }
 

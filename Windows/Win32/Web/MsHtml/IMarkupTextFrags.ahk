@@ -35,7 +35,9 @@ class IMarkupTextFrags extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTextFragCount(pcFrags) {
-        result := ComCall(3, this, "int*", pcFrags, "HRESULT")
+        pcFragsMarshal := pcFrags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pcFragsMarshal, pcFrags, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class IMarkupTextFrags extends IUnknown{
      * @returns {HRESULT} 
      */
     FindTextFragFromMarkupPointer(pPointerFind, piFrag, pfFragFound) {
-        result := ComCall(7, this, "ptr", pPointerFind, "int*", piFrag, "ptr", pfFragFound, "HRESULT")
+        piFragMarshal := piFrag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pPointerFind, piFragMarshal, piFrag, "ptr", pfFragFound, "HRESULT")
         return result
     }
 }

@@ -46,7 +46,9 @@ class IFeed2 extends IFeed{
      * @returns {HRESULT} 
      */
     get_LastItemDownloadTime(lastItemDownloadTime) {
-        result := ComCall(52, this, "double*", lastItemDownloadTime, "HRESULT")
+        lastItemDownloadTimeMarshal := lastItemDownloadTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(52, this, lastItemDownloadTimeMarshal, lastItemDownloadTime, "HRESULT")
         return result
     }
 

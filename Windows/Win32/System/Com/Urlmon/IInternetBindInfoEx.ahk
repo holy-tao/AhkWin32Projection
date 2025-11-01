@@ -37,7 +37,11 @@ class IInternetBindInfoEx extends IInternetBindInfo{
      * @returns {HRESULT} 
      */
     GetBindInfoEx(grfBINDF, pbindinfo, grfBINDF2, pdwReserved) {
-        result := ComCall(5, this, "uint*", grfBINDF, "ptr", pbindinfo, "uint*", grfBINDF2, "uint*", pdwReserved, "HRESULT")
+        grfBINDFMarshal := grfBINDF is VarRef ? "uint*" : "ptr"
+        grfBINDF2Marshal := grfBINDF2 is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, grfBINDFMarshal, grfBINDF, "ptr", pbindinfo, grfBINDF2Marshal, grfBINDF2, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 }

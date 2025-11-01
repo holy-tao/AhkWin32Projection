@@ -34,7 +34,9 @@ class IPrepareInfo2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPrepareInfoSize(pcbPrepInfo) {
-        result := ComCall(3, this, "uint*", pcbPrepInfo, "HRESULT")
+        pcbPrepInfoMarshal := pcbPrepInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcbPrepInfoMarshal, pcbPrepInfo, "HRESULT")
         return result
     }
 
@@ -45,7 +47,9 @@ class IPrepareInfo2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPrepareInfo(cbPrepareInfo, pPrepInfo) {
-        result := ComCall(4, this, "uint", cbPrepareInfo, "char*", pPrepInfo, "HRESULT")
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", cbPrepareInfo, pPrepInfoMarshal, pPrepInfo, "HRESULT")
         return result
     }
 }

@@ -51,7 +51,10 @@ class IMixerOCX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getaspectratio
      */
     GetAspectRatio(pdwPictAspectRatioX, pdwPictAspectRatioY) {
-        result := ComCall(4, this, "uint*", pdwPictAspectRatioX, "uint*", pdwPictAspectRatioY, "HRESULT")
+        pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : "ptr"
+        pdwPictAspectRatioYMarshal := pdwPictAspectRatioY is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwPictAspectRatioXMarshal, pdwPictAspectRatioX, pdwPictAspectRatioYMarshal, pdwPictAspectRatioY, "HRESULT")
         return result
     }
 
@@ -63,7 +66,10 @@ class IMixerOCX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getvideosize
      */
     GetVideoSize(pdwVideoWidth, pdwVideoHeight) {
-        result := ComCall(5, this, "uint*", pdwVideoWidth, "uint*", pdwVideoHeight, "HRESULT")
+        pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : "ptr"
+        pdwVideoHeightMarshal := pdwVideoHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwVideoWidthMarshal, pdwVideoWidth, pdwVideoHeightMarshal, pdwVideoHeight, "HRESULT")
         return result
     }
 

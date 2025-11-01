@@ -138,7 +138,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype
      */
     get_OperationType(operationType) {
-        result := ComCall(18, this, "int*", operationType, "HRESULT")
+        operationTypeMarshal := operationType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, operationTypeMarshal, operationType, "HRESULT")
         return result
     }
 
@@ -206,7 +208,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_logging
      */
     get_Logging(loggingFlags) {
-        result := ComCall(24, this, "int*", loggingFlags, "HRESULT")
+        loggingFlagsMarshal := loggingFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, loggingFlagsMarshal, loggingFlags, "HRESULT")
         return result
     }
 
@@ -296,7 +300,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilecreated
      */
     get_DaysSinceFileCreated(daysSinceCreation) {
-        result := ComCall(32, this, "int*", daysSinceCreation, "HRESULT")
+        daysSinceCreationMarshal := daysSinceCreation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, daysSinceCreationMarshal, daysSinceCreation, "HRESULT")
         return result
     }
 
@@ -318,7 +324,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastaccessed
      */
     get_DaysSinceFileLastAccessed(daysSinceAccess) {
-        result := ComCall(34, this, "int*", daysSinceAccess, "HRESULT")
+        daysSinceAccessMarshal := daysSinceAccess is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, daysSinceAccessMarshal, daysSinceAccess, "HRESULT")
         return result
     }
 
@@ -340,7 +348,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastmodified
      */
     get_DaysSinceFileLastModified(daysSinceModify) {
-        result := ComCall(36, this, "int*", daysSinceModify, "HRESULT")
+        daysSinceModifyMarshal := daysSinceModify is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, daysSinceModifyMarshal, daysSinceModify, "HRESULT")
         return result
     }
 
@@ -373,7 +383,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_fromdate
      */
     get_FromDate(fromDate) {
-        result := ComCall(39, this, "double*", fromDate, "HRESULT")
+        fromDateMarshal := fromDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(39, this, fromDateMarshal, fromDate, "HRESULT")
         return result
     }
 
@@ -441,7 +453,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_runningstatus
      */
     get_RunningStatus(runningStatus) {
-        result := ComCall(45, this, "int*", runningStatus, "HRESULT")
+        runningStatusMarshal := runningStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, runningStatusMarshal, runningStatus, "HRESULT")
         return result
     }
 
@@ -474,7 +488,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastrun
      */
     get_LastRun(lastRun) {
-        result := ComCall(48, this, "double*", lastRun, "HRESULT")
+        lastRunMarshal := lastRun is VarRef ? "double*" : "ptr"
+
+        result := ComCall(48, this, lastRunMarshal, lastRun, "HRESULT")
         return result
     }
 

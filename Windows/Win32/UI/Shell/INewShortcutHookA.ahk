@@ -53,6 +53,7 @@ class INewShortcutHookA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthooka-setreferent
      */
     SetReferent(pcszReferent, hwnd) {
+        pcszReferent := pcszReferent is String ? StrPtr(pcszReferent) : pcszReferent
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := ComCall(3, this, "ptr", pcszReferent, "ptr", hwnd, "HRESULT")
@@ -67,6 +68,8 @@ class INewShortcutHookA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthooka-getreferent
      */
     GetReferent(pszReferent, cchReferent) {
+        pszReferent := pszReferent is String ? StrPtr(pszReferent) : pszReferent
+
         result := ComCall(4, this, "ptr", pszReferent, "int", cchReferent, "HRESULT")
         return result
     }
@@ -78,6 +81,8 @@ class INewShortcutHookA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthooka-setfolder
      */
     SetFolder(pcszFolder) {
+        pcszFolder := pcszFolder is String ? StrPtr(pcszFolder) : pcszFolder
+
         result := ComCall(5, this, "ptr", pcszFolder, "HRESULT")
         return result
     }
@@ -90,6 +95,8 @@ class INewShortcutHookA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthooka-getfolder
      */
     GetFolder(pszFolder, cchFolder) {
+        pszFolder := pszFolder is String ? StrPtr(pszFolder) : pszFolder
+
         result := ComCall(6, this, "ptr", pszFolder, "int", cchFolder, "HRESULT")
         return result
     }
@@ -102,6 +109,8 @@ class INewShortcutHookA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthooka-getname
      */
     GetName(pszName, cchName) {
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+
         result := ComCall(7, this, "ptr", pszName, "int", cchName, "HRESULT")
         return result
     }
@@ -114,6 +123,8 @@ class INewShortcutHookA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthooka-getextension
      */
     GetExtension(pszExtension, cchExtension) {
+        pszExtension := pszExtension is String ? StrPtr(pszExtension) : pszExtension
+
         result := ComCall(8, this, "ptr", pszExtension, "int", cchExtension, "HRESULT")
         return result
     }

@@ -62,7 +62,10 @@ class IWMDRMTranscryptor extends IUnknown{
     Initialize(bstrFileName, pbLicenseRequestMsg, cbLicenseRequestMsg, ppLicenseResponseMsg, pCallback, pvContext) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
 
-        result := ComCall(3, this, "ptr", bstrFileName, "char*", pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, "ptr*", ppLicenseResponseMsg, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", bstrFileName, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, "ptr*", ppLicenseResponseMsg, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -85,7 +88,10 @@ class IWMDRMTranscryptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-read
      */
     Read(pbData, pcbData) {
-        result := ComCall(5, this, "char*", pbData, "uint*", pcbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 

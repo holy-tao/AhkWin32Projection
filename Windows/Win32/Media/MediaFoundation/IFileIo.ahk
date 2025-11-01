@@ -59,7 +59,9 @@ class IFileIo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLength(pqwLength) {
-        result := ComCall(4, this, "uint*", pqwLength, "HRESULT")
+        pqwLengthMarshal := pqwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pqwLengthMarshal, pqwLength, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IFileIo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentPosition(pqwPosition) {
-        result := ComCall(6, this, "uint*", pqwPosition, "HRESULT")
+        pqwPositionMarshal := pqwPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pqwPositionMarshal, pqwPosition, "HRESULT")
         return result
     }
 
@@ -111,7 +115,10 @@ class IFileIo extends IUnknown{
      * @returns {HRESULT} 
      */
     Read(pbt, ul, pulRead) {
-        result := ComCall(9, this, "char*", pbt, "uint", ul, "uint*", pulRead, "HRESULT")
+        pbtMarshal := pbt is VarRef ? "char*" : "ptr"
+        pulReadMarshal := pulRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pbtMarshal, pbt, "uint", ul, pulReadMarshal, pulRead, "HRESULT")
         return result
     }
 
@@ -123,7 +130,10 @@ class IFileIo extends IUnknown{
      * @returns {HRESULT} 
      */
     Write(pbt, ul, pulWritten) {
-        result := ComCall(10, this, "char*", pbt, "uint", ul, "uint*", pulWritten, "HRESULT")
+        pbtMarshal := pbt is VarRef ? "char*" : "ptr"
+        pulWrittenMarshal := pulWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pbtMarshal, pbt, "uint", ul, pulWrittenMarshal, pulWritten, "HRESULT")
         return result
     }
 
@@ -136,7 +146,9 @@ class IFileIo extends IUnknown{
      * @returns {HRESULT} 
      */
     Seek(eSeekOrigin, qwSeekOffset, dwSeekFlags, pqwCurrentPosition) {
-        result := ComCall(11, this, "int", eSeekOrigin, "uint", qwSeekOffset, "uint", dwSeekFlags, "uint*", pqwCurrentPosition, "HRESULT")
+        pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "int", eSeekOrigin, "uint", qwSeekOffset, "uint", dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
         return result
     }
 

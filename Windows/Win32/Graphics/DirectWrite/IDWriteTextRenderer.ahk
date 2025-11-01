@@ -43,7 +43,9 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawglyphrun
      */
     DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, measuringMode, glyphRun, glyphRunDescription, clientDrawingEffect) {
-        result := ComCall(6, this, "ptr", clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawunderline
      */
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, underline, clientDrawingEffect) {
-        result := ComCall(7, this, "ptr", clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "ptr", underline, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "ptr", underline, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -73,7 +77,9 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawstrikethrough
      */
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, strikethrough, clientDrawingEffect) {
-        result := ComCall(8, this, "ptr", clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "ptr", strikethrough, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "ptr", strikethrough, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -90,7 +96,9 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawinlineobject
      */
     DrawInlineObject(clientDrawingContext, originX, originY, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
-        result := ComCall(9, this, "ptr", clientDrawingContext, "float", originX, "float", originY, "ptr", inlineObject, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, "ptr", inlineObject, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 }

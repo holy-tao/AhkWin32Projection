@@ -42,7 +42,11 @@ class IWMDRMEditor extends IUnknown{
     GetDRMProperty(pwstrName, pdwType, pValue, pcbLength) {
         pwstrName := pwstrName is String ? StrPtr(pwstrName) : pwstrName
 
-        result := ComCall(3, this, "ptr", pwstrName, "int*", pdwType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwstrName, pdwTypeMarshal, pdwType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 }

@@ -41,7 +41,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_guardinterval
      */
     put_GuardInterval(pGuardInterval) {
-        result := ComCall(17, this, "int*", pGuardInterval, "HRESULT")
+        pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pGuardIntervalMarshal, pGuardInterval, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_guardinterval
      */
     get_GuardInterval(pGuardInterval) {
-        result := ComCall(18, this, "int*", pGuardInterval, "HRESULT")
+        pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pGuardIntervalMarshal, pGuardInterval, "HRESULT")
         return result
     }
 
@@ -63,7 +67,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_transmissionmode
      */
     put_TransmissionMode(pTransmissionMode) {
-        result := ComCall(19, this, "int*", pTransmissionMode, "HRESULT")
+        pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pTransmissionModeMarshal, pTransmissionMode, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_transmissionmode
      */
     get_TransmissionMode(pTransmissionMode) {
-        result := ComCall(20, this, "int*", pTransmissionMode, "HRESULT")
+        pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pTransmissionModeMarshal, pTransmissionMode, "HRESULT")
         return result
     }
 
@@ -85,7 +93,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_rolloff
      */
     put_RollOff(pRollOff) {
-        result := ComCall(21, this, "int*", pRollOff, "HRESULT")
+        pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pRollOffMarshal, pRollOff, "HRESULT")
         return result
     }
 
@@ -96,7 +106,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_rolloff
      */
     get_RollOff(pRollOff) {
-        result := ComCall(22, this, "int*", pRollOff, "HRESULT")
+        pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pRollOffMarshal, pRollOff, "HRESULT")
         return result
     }
 
@@ -107,7 +119,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_pilot
      */
     put_Pilot(pPilot) {
-        result := ComCall(23, this, "int*", pPilot, "HRESULT")
+        pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pPilotMarshal, pPilot, "HRESULT")
         return result
     }
 
@@ -118,7 +132,9 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_pilot
      */
     get_Pilot(pPilot) {
-        result := ComCall(24, this, "int*", pPilot, "HRESULT")
+        pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pPilotMarshal, pPilot, "HRESULT")
         return result
     }
 }

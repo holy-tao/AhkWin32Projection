@@ -42,7 +42,9 @@ class IUIAutomation4 extends IUIAutomation3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler
      */
     AddChangesEventHandler(element, scope, changeTypes, changesCount, pCacheRequest, handler) {
-        result := ComCall(66, this, "ptr", element, "int", scope, "int*", changeTypes, "int", changesCount, "ptr", pCacheRequest, "ptr", handler, "HRESULT")
+        changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(66, this, "ptr", element, "int", scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", pCacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 

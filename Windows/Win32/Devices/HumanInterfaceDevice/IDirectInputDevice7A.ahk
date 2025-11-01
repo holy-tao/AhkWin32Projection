@@ -38,7 +38,11 @@ class IDirectInputDevice7A extends IDirectInputDevice2A{
      * @returns {HRESULT} 
      */
     EnumEffectsInFile(param0, param1, param2, param3) {
-        result := ComCall(27, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "HRESULT")
+        param0 := param0 is String ? StrPtr(param0) : param0
+
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(27, this, "ptr", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -51,6 +55,8 @@ class IDirectInputDevice7A extends IDirectInputDevice2A{
      * @returns {HRESULT} 
      */
     WriteEffectToFile(param0, param1, param2, param3) {
+        param0 := param0 is String ? StrPtr(param0) : param0
+
         result := ComCall(28, this, "ptr", param0, "uint", param1, "ptr", param2, "uint", param3, "HRESULT")
         return result
     }

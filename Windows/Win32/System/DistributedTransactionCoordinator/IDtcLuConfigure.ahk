@@ -35,7 +35,9 @@ class IDtcLuConfigure extends IUnknown{
      * @returns {HRESULT} 
      */
     Add(pucLuPair, cbLuPair) {
-        result := ComCall(3, this, "char*", pucLuPair, "uint", cbLuPair, "HRESULT")
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class IDtcLuConfigure extends IUnknown{
      * @returns {HRESULT} 
      */
     Delete(pucLuPair, cbLuPair) {
-        result := ComCall(4, this, "char*", pucLuPair, "uint", cbLuPair, "HRESULT")
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "HRESULT")
         return result
     }
 }

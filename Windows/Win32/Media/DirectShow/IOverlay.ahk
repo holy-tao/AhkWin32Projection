@@ -38,7 +38,9 @@ class IOverlay extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getpalette
      */
     GetPalette(pdwColors, ppPalette) {
-        result := ComCall(3, this, "uint*", pdwColors, "ptr*", ppPalette, "HRESULT")
+        pdwColorsMarshal := pdwColors is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwColorsMarshal, pdwColors, "ptr*", ppPalette, "HRESULT")
         return result
     }
 

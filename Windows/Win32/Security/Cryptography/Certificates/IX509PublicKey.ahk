@@ -90,7 +90,9 @@ class IX509PublicKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509publickey-get_length
      */
     get_Length(pValue) {
-        result := ComCall(10, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

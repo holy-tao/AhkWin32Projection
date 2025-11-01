@@ -37,7 +37,9 @@ class IWMPContentContainerList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-gettransactiontype
      */
     GetTransactionType(pwmptt) {
-        result := ComCall(3, this, "int*", pwmptt, "HRESULT")
+        pwmpttMarshal := pwmptt is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pwmpttMarshal, pwmptt, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWMPContentContainerList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainercount
      */
     GetContainerCount(pcContainer) {
-        result := ComCall(4, this, "uint*", pcContainer, "HRESULT")
+        pcContainerMarshal := pcContainer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcContainerMarshal, pcContainer, "HRESULT")
         return result
     }
 

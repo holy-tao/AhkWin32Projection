@@ -45,7 +45,9 @@ class IRemoteDebugApplication110 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentDebuggerOptions(pCurrentOptions) {
-        result := ComCall(4, this, "int*", pCurrentOptions, "HRESULT")
+        pCurrentOptionsMarshal := pCurrentOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pCurrentOptionsMarshal, pCurrentOptions, "HRESULT")
         return result
     }
 

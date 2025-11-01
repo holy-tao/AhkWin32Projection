@@ -85,7 +85,9 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     get_errorLine(p) {
-        result := ComCall(12, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -105,7 +107,9 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     get_errorCharacter(p) {
-        result := ComCall(14, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -125,7 +129,9 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     get_errorCode(p) {
-        result := ComCall(16, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -271,7 +277,9 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     choosecolordlg(initColor, rgbColor) {
-        result := ComCall(29, this, "ptr", initColor, "int*", rgbColor, "HRESULT")
+        rgbColorMarshal := rgbColor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, "ptr", initColor, rgbColorMarshal, rgbColor, "HRESULT")
         return result
     }
 
@@ -304,7 +312,9 @@ class IHTMLOptionsHolder extends IDispatch{
     getCharset(fontName, charset) {
         fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
 
-        result := ComCall(32, this, "ptr", fontName, "int*", charset, "HRESULT")
+        charsetMarshal := charset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, "ptr", fontName, charsetMarshal, charset, "HRESULT")
         return result
     }
 

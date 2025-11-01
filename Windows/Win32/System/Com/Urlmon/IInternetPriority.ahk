@@ -44,7 +44,9 @@ class IInternetPriority extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPriority(pnPriority) {
-        result := ComCall(4, this, "int*", pnPriority, "HRESULT")
+        pnPriorityMarshal := pnPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pnPriorityMarshal, pnPriority, "HRESULT")
         return result
     }
 }

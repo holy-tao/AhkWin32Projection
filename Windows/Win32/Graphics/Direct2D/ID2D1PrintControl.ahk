@@ -41,7 +41,10 @@ class ID2D1PrintControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1printcontrol-addpage
      */
     AddPage(commandList, pageSize, pagePrintTicketStream, tag1, tag2) {
-        result := ComCall(3, this, "ptr", commandList, "ptr", pageSize, "ptr", pagePrintTicketStream, "uint*", tag1, "uint*", tag2, "HRESULT")
+        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
+        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", commandList, "ptr", pageSize, "ptr", pagePrintTicketStream, tag1Marshal, tag1, tag2Marshal, tag2, "HRESULT")
         return result
     }
 

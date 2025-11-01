@@ -204,7 +204,9 @@ class IOmNavigator extends IDispatch{
      * @returns {HRESULT} 
      */
     get_connectionSpeed(p) {
-        result := ComCall(24, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pMarshal, p, "HRESULT")
         return result
     }
 

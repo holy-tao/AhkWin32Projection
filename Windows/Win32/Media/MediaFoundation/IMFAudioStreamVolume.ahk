@@ -58,7 +58,9 @@ class IMFAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getchannelcount
      */
     GetChannelCount(pdwCount) {
-        result := ComCall(3, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IMFAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getchannelvolume
      */
     GetChannelVolume(dwIndex, pfLevel) {
-        result := ComCall(5, this, "uint", dwIndex, "float*", pfLevel, "HRESULT")
+        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwIndex, pfLevelMarshal, pfLevel, "HRESULT")
         return result
     }
 
@@ -94,7 +98,9 @@ class IMFAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-setallvolumes
      */
     SetAllVolumes(dwCount, pfVolumes) {
-        result := ComCall(6, this, "uint", dwCount, "float*", pfVolumes, "HRESULT")
+        pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
         return result
     }
 
@@ -106,7 +112,9 @@ class IMFAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getallvolumes
      */
     GetAllVolumes(dwCount, pfVolumes) {
-        result := ComCall(7, this, "uint", dwCount, "float*", pfVolumes, "HRESULT")
+        pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
         return result
     }
 }

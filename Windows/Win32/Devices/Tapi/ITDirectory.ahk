@@ -38,7 +38,9 @@ class ITDirectory extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_directorytype
      */
     get_DirectoryType(pDirectoryType) {
-        result := ComCall(7, this, "int*", pDirectoryType, "HRESULT")
+        pDirectoryTypeMarshal := pDirectoryType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pDirectoryTypeMarshal, pDirectoryType, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class ITDirectory extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_defaultobjectttl
      */
     get_DefaultObjectTTL(pTTL) {
-        result := ComCall(10, this, "int*", pTTL, "HRESULT")
+        pTTLMarshal := pTTL is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pTTLMarshal, pTTL, "HRESULT")
         return result
     }
 

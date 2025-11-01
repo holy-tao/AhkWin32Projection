@@ -54,7 +54,9 @@ class ISpeechRecognizerStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CurrentStreamNumber(StreamNumber) {
-        result := ComCall(9, this, "int*", StreamNumber, "HRESULT")
+        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, StreamNumberMarshal, StreamNumber, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class ISpeechRecognizerStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_NumberOfActiveRules(NumberOfActiveRules) {
-        result := ComCall(10, this, "int*", NumberOfActiveRules, "HRESULT")
+        NumberOfActiveRulesMarshal := NumberOfActiveRules is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, NumberOfActiveRulesMarshal, NumberOfActiveRules, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class IMFSecureChannel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsecurechannel-getcertificate
      */
     GetCertificate(ppCert, pcbCert) {
-        result := ComCall(3, this, "ptr*", ppCert, "uint*", pcbCert, "HRESULT")
+        pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", ppCert, pcbCertMarshal, pcbCert, "HRESULT")
         return result
     }
 

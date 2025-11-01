@@ -36,7 +36,9 @@ class ISpEventSource2 extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetEventsEx(ulCount, pEventArray, pulFetched) {
-        result := ComCall(13, this, "uint", ulCount, "ptr", pEventArray, "uint*", pulFetched, "HRESULT")
+        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", ulCount, "ptr", pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 }

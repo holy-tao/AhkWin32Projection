@@ -67,7 +67,9 @@ class IContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icontext-getproperty
      */
     GetProperty(rGuid, pFlags, ppUnk) {
-        result := ComCall(5, this, "ptr", rGuid, "uint*", pFlags, "ptr*", ppUnk, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", rGuid, pFlagsMarshal, pFlags, "ptr*", ppUnk, "HRESULT")
         return result
     }
 

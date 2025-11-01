@@ -37,7 +37,9 @@ class ITRequestEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_registrationinstance
      */
     get_RegistrationInstance(plRegistrationInstance) {
-        result := ComCall(7, this, "int*", plRegistrationInstance, "HRESULT")
+        plRegistrationInstanceMarshal := plRegistrationInstance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plRegistrationInstanceMarshal, plRegistrationInstance, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ITRequestEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_requestmode
      */
     get_RequestMode(plRequestMode) {
-        result := ComCall(8, this, "int*", plRequestMode, "HRESULT")
+        plRequestModeMarshal := plRequestMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plRequestModeMarshal, plRequestMode, "HRESULT")
         return result
     }
 

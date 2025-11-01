@@ -93,7 +93,9 @@ class ISyncMgrConflictStore extends IUnknown{
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(6, this, "ptr", pszHandlerID, "ptr", pszItemID, "uint*", pnConflicts, "HRESULT")
+        pnConflictsMarshal := pnConflicts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszHandlerID, "ptr", pszItemID, pnConflictsMarshal, pnConflicts, "HRESULT")
         return result
     }
 }

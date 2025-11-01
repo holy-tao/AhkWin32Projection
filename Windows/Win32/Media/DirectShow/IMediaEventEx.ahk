@@ -61,7 +61,9 @@ class IMediaEventEx extends IMediaEvent{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaeventex-getnotifyflags
      */
     GetNotifyFlags(lplNoNotifyFlags) {
-        result := ComCall(15, this, "int*", lplNoNotifyFlags, "HRESULT")
+        lplNoNotifyFlagsMarshal := lplNoNotifyFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, lplNoNotifyFlagsMarshal, lplNoNotifyFlags, "HRESULT")
         return result
     }
 }

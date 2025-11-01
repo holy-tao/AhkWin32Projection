@@ -155,7 +155,9 @@ class FolderItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ModifyDate(pdt) {
-        result := ComCall(18, this, "double*", pdt, "HRESULT")
+        pdtMarshal := pdt is VarRef ? "double*" : "ptr"
+
+        result := ComCall(18, this, pdtMarshal, pdt, "HRESULT")
         return result
     }
 
@@ -175,7 +177,9 @@ class FolderItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Size(pul) {
-        result := ComCall(20, this, "int*", pul, "HRESULT")
+        pulMarshal := pul is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pulMarshal, pul, "HRESULT")
         return result
     }
 

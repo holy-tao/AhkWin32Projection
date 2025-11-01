@@ -177,7 +177,9 @@ class IHTMLInputTextElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_size(p) {
-        result := ComCall(20, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -197,7 +199,9 @@ class IHTMLInputTextElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_maxLength(p) {
-        result := ComCall(22, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pMarshal, p, "HRESULT")
         return result
     }
 

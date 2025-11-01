@@ -37,7 +37,9 @@ class IGraphVersion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphversion-queryversion
      */
     QueryVersion(pVersion) {
-        result := ComCall(3, this, "int*", pVersion, "HRESULT")
+        pVersionMarshal := pVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pVersionMarshal, pVersion, "HRESULT")
         return result
     }
 }

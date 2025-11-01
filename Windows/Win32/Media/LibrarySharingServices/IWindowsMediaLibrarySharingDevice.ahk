@@ -53,7 +53,9 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_authorization
      */
     get_Authorization(authorization) {
-        result := ComCall(8, this, "int*", authorization, "HRESULT")
+        authorizationMarshal := authorization is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, authorizationMarshal, authorization, "HRESULT")
         return result
     }
 

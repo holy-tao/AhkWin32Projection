@@ -47,7 +47,10 @@ class IDWriteFontFallback1 extends IDWriteFontFallback{
     MapCharacters(analysisSource, textPosition, textLength, baseFontCollection, baseFamilyName, fontAxisValues, fontAxisValueCount, mappedLength, scale, mappedFontFace) {
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
-        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, "uint*", mappedLength, "float*", scale, "ptr*", mappedFontFace, "HRESULT")
+        mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
+        scaleMarshal := scale is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, mappedLengthMarshal, mappedLength, scaleMarshal, scale, "ptr*", mappedFontFace, "HRESULT")
         return result
     }
 }

@@ -64,7 +64,9 @@ class IMbnPinManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanager-getpinstate
      */
     GetPinState(requestID) {
-        result := ComCall(5, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 }

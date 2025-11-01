@@ -40,7 +40,9 @@ class IMFSensorProcessActivity extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
      */
     GetProcessId(pPID) {
-        result := ComCall(3, this, "uint*", pPID, "HRESULT")
+        pPIDMarshal := pPID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pPIDMarshal, pPID, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IMFSensorProcessActivity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprocessactivity-getstreamingmode
      */
     GetStreamingMode(pMode) {
-        result := ComCall(5, this, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 

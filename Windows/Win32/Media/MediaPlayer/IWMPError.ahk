@@ -47,7 +47,9 @@ class IWMPError extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_errorcount
      */
     get_errorCount(plNumErrors) {
-        result := ComCall(8, this, "int*", plNumErrors, "HRESULT")
+        plNumErrorsMarshal := plNumErrors is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plNumErrorsMarshal, plNumErrors, "HRESULT")
         return result
     }
 

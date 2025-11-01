@@ -44,7 +44,9 @@ class IEnumSyncProviderInfos extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-ienumsyncproviderinfos-next
      */
     Next(cInstances, ppSyncProviderInfo, pcFetched) {
-        result := ComCall(3, this, "uint", cInstances, "ptr*", ppSyncProviderInfo, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cInstances, "ptr*", ppSyncProviderInfo, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

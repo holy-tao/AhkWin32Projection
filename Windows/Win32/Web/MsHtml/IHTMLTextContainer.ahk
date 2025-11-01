@@ -44,7 +44,9 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollHeight(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollWidth(p) {
-        result := ComCall(9, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollTop(p) {
-        result := ComCall(11, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollLeft(p) {
-        result := ComCall(13, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pMarshal, p, "HRESULT")
         return result
     }
 

@@ -34,7 +34,9 @@ class IDebugStackFrame110 extends IDebugStackFrame{
      * @returns {HRESULT} 
      */
     GetStackFrameType(pStackFrameKind) {
-        result := ComCall(8, this, "int*", pStackFrameKind, "HRESULT")
+        pStackFrameKindMarshal := pStackFrameKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pStackFrameKindMarshal, pStackFrameKind, "HRESULT")
         return result
     }
 

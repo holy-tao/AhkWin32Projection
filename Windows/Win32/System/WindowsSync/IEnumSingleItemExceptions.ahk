@@ -39,7 +39,9 @@ class IEnumSingleItemExceptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-next
      */
     Next(cExceptions, ppSingleItemException, pcFetched) {
-        result := ComCall(3, this, "uint", cExceptions, "ptr*", ppSingleItemException, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cExceptions, "ptr*", ppSingleItemException, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

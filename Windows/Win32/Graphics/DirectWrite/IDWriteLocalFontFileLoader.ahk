@@ -39,7 +39,9 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey
      */
     GetFilePathLengthFromKey(fontFileReferenceKey, fontFileReferenceKeySize, filePathLength) {
-        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "uint*", filePathLength, "HRESULT")
+        filePathLengthMarshal := filePathLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, filePathLengthMarshal, filePathLength, "HRESULT")
         return result
     }
 

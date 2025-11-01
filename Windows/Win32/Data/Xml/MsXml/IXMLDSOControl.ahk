@@ -80,7 +80,9 @@ class IXMLDSOControl extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyState(state) {
-        result := ComCall(11, this, "int*", state, "HRESULT")
+        stateMarshal := state is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, stateMarshal, state, "HRESULT")
         return result
     }
 }

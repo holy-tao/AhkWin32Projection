@@ -37,7 +37,9 @@ class IMDSPDeviceControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevicecontrol-getdcstatus
      */
     GetDCStatus(pdwStatus) {
-        result := ComCall(3, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IMDSPDeviceControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevicecontrol-getcapabilities
      */
     GetCapabilities(pdwCapabilitiesMask) {
-        result := ComCall(4, this, "uint*", pdwCapabilitiesMask, "HRESULT")
+        pdwCapabilitiesMaskMarshal := pdwCapabilitiesMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwCapabilitiesMaskMarshal, pdwCapabilitiesMask, "HRESULT")
         return result
     }
 

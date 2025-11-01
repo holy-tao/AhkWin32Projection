@@ -41,7 +41,9 @@ class IWICEnumMetadataItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-next
      */
     Next(celt, rgeltSchema, rgeltId, rgeltValue, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", rgeltSchema, "ptr", rgeltId, "ptr", rgeltValue, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", rgeltSchema, "ptr", rgeltId, "ptr", rgeltValue, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

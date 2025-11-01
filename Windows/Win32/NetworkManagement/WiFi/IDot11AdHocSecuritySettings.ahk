@@ -37,7 +37,9 @@ class IDot11AdHocSecuritySettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
      */
     GetDot11AuthAlgorithm(pAuth) {
-        result := ComCall(3, this, "int*", pAuth, "HRESULT")
+        pAuthMarshal := pAuth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pAuthMarshal, pAuth, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDot11AdHocSecuritySettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
      */
     GetDot11CipherAlgorithm(pCipher) {
-        result := ComCall(4, this, "int*", pCipher, "HRESULT")
+        pCipherMarshal := pCipher is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pCipherMarshal, pCipher, "HRESULT")
         return result
     }
 }

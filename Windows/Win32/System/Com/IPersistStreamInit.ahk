@@ -70,7 +70,9 @@ class IPersistStreamInit extends IPersist{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipersiststreaminit-getsizemax
      */
     GetSizeMax(pCbSize) {
-        result := ComCall(7, this, "uint*", pCbSize, "HRESULT")
+        pCbSizeMarshal := pCbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pCbSizeMarshal, pCbSize, "HRESULT")
         return result
     }
 

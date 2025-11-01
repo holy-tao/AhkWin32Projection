@@ -51,7 +51,9 @@ class IHTMLTableCol extends IDispatch{
      * @returns {HRESULT} 
      */
     get_span(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 

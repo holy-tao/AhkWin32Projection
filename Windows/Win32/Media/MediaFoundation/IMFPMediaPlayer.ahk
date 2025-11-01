@@ -124,7 +124,9 @@ class IMFPMediaPlayer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getrate
      */
     GetRate(pflRate) {
-        result := ComCall(11, this, "float*", pflRate, "HRESULT")
+        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, pflRateMarshal, pflRate, "HRESULT")
         return result
     }
 
@@ -137,7 +139,10 @@ class IMFPMediaPlayer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getsupportedrates
      */
     GetSupportedRates(fForwardDirection, pflSlowestRate, pflFastestRate) {
-        result := ComCall(12, this, "int", fForwardDirection, "float*", pflSlowestRate, "float*", pflFastestRate, "HRESULT")
+        pflSlowestRateMarshal := pflSlowestRate is VarRef ? "float*" : "ptr"
+        pflFastestRateMarshal := pflFastestRate is VarRef ? "float*" : "ptr"
+
+        result := ComCall(12, this, "int", fForwardDirection, pflSlowestRateMarshal, pflSlowestRate, pflFastestRateMarshal, pflFastestRate, "HRESULT")
         return result
     }
 
@@ -148,7 +153,9 @@ class IMFPMediaPlayer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getstate
      */
     GetState(peState) {
-        result := ComCall(13, this, "int*", peState, "HRESULT")
+        peStateMarshal := peState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, peStateMarshal, peState, "HRESULT")
         return result
     }
 
@@ -221,7 +228,9 @@ class IMFPMediaPlayer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getvolume
      */
     GetVolume(pflVolume) {
-        result := ComCall(19, this, "float*", pflVolume, "HRESULT")
+        pflVolumeMarshal := pflVolume is VarRef ? "float*" : "ptr"
+
+        result := ComCall(19, this, pflVolumeMarshal, pflVolume, "HRESULT")
         return result
     }
 
@@ -243,7 +252,9 @@ class IMFPMediaPlayer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getbalance
      */
     GetBalance(pflBalance) {
-        result := ComCall(21, this, "float*", pflBalance, "HRESULT")
+        pflBalanceMarshal := pflBalance is VarRef ? "float*" : "ptr"
+
+        result := ComCall(21, this, pflBalanceMarshal, pflBalance, "HRESULT")
         return result
     }
 
@@ -344,7 +355,9 @@ class IMFPMediaPlayer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getaspectratiomode
      */
     GetAspectRatioMode(pdwAspectRatioMode) {
-        result := ComCall(30, this, "uint*", pdwAspectRatioMode, "HRESULT")
+        pdwAspectRatioModeMarshal := pdwAspectRatioMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, pdwAspectRatioModeMarshal, pdwAspectRatioMode, "HRESULT")
         return result
     }
 

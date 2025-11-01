@@ -67,7 +67,9 @@ class IFileDialog extends IModalWindow{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getfiletypeindex
      */
     GetFileTypeIndex(piFileType) {
-        result := ComCall(6, this, "uint*", piFileType, "HRESULT")
+        piFileTypeMarshal := piFileType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, piFileTypeMarshal, piFileType, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IFileDialog extends IModalWindow{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-advise
      */
     Advise(pfde, pdwCookie) {
-        result := ComCall(7, this, "ptr", pfde, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pfde, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -112,7 +116,9 @@ class IFileDialog extends IModalWindow{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getoptions
      */
     GetOptions(pfos) {
-        result := ComCall(10, this, "uint*", pfos, "HRESULT")
+        pfosMarshal := pfos is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pfosMarshal, pfos, "HRESULT")
         return result
     }
 

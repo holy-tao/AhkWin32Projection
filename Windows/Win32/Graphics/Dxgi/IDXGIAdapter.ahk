@@ -79,7 +79,9 @@ class IDXGIAdapter extends IDXGIObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-checkinterfacesupport
      */
     CheckInterfaceSupport(InterfaceName, pUMDVersion) {
-        result := ComCall(9, this, "ptr", InterfaceName, "int64*", pUMDVersion, "HRESULT")
+        pUMDVersionMarshal := pUMDVersion is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(9, this, "ptr", InterfaceName, pUMDVersionMarshal, pUMDVersion, "HRESULT")
         return result
     }
 }

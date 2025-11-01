@@ -63,7 +63,9 @@ class ICorProfilerFunctionEnum extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pcelt) {
-        result := ComCall(6, this, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class ICorProfilerFunctionEnum extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, ids, pceltFetched) {
-        result := ComCall(7, this, "uint", celt, "ptr", ids, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", celt, "ptr", ids, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 }

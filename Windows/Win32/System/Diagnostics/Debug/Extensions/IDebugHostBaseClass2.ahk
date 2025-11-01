@@ -34,7 +34,9 @@ class IDebugHostBaseClass2 extends IDebugHostBaseClass{
      * @returns {HRESULT} 
      */
     IsVirtual(pIsVirtual) {
-        result := ComCall(11, this, "int*", pIsVirtual, "HRESULT")
+        pIsVirtualMarshal := pIsVirtual is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pIsVirtualMarshal, pIsVirtual, "HRESULT")
         return result
     }
 
@@ -47,7 +49,12 @@ class IDebugHostBaseClass2 extends IDebugHostBaseClass{
      * @returns {HRESULT} 
      */
     GetVirtualBaseOffsetLocation(pTableOffset, pSlotOffset, pSlotSize, pSlotIsSigned) {
-        result := ComCall(12, this, "int64*", pTableOffset, "int64*", pSlotOffset, "uint*", pSlotSize, "int*", pSlotIsSigned, "HRESULT")
+        pTableOffsetMarshal := pTableOffset is VarRef ? "int64*" : "ptr"
+        pSlotOffsetMarshal := pSlotOffset is VarRef ? "int64*" : "ptr"
+        pSlotSizeMarshal := pSlotSize is VarRef ? "uint*" : "ptr"
+        pSlotIsSignedMarshal := pSlotIsSigned is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pTableOffsetMarshal, pTableOffset, pSlotOffsetMarshal, pSlotOffset, pSlotSizeMarshal, pSlotSize, pSlotIsSignedMarshal, pSlotIsSigned, "HRESULT")
         return result
     }
 }

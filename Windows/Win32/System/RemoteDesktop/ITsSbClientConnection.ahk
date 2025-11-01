@@ -176,7 +176,9 @@ class ITsSbClientConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_rdfarmtype
      */
     get_RdFarmType(pRdFarmType) {
-        result := ComCall(15, this, "int*", pRdFarmType, "HRESULT")
+        pRdFarmTypeMarshal := pRdFarmType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pRdFarmTypeMarshal, pRdFarmType, "HRESULT")
         return result
     }
 

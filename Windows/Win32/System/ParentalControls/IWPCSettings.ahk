@@ -59,7 +59,9 @@ class IWPCSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcsettings-getrestrictions
      */
     GetRestrictions(pdwRestrictions) {
-        result := ComCall(5, this, "int*", pdwRestrictions, "HRESULT")
+        pdwRestrictionsMarshal := pdwRestrictions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pdwRestrictionsMarshal, pdwRestrictions, "HRESULT")
         return result
     }
 }

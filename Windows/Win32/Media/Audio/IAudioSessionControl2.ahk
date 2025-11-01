@@ -75,7 +75,9 @@ class IAudioSessionControl2 extends IAudioSessionControl{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
      */
     GetProcessId(pRetVal) {
-        result := ComCall(14, this, "uint*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

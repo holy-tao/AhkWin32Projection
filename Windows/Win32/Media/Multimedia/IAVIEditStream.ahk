@@ -39,7 +39,10 @@ class IAVIEditStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-cut
      */
     Cut(plStart, plLength, ppResult) {
-        result := ComCall(3, this, "int*", plStart, "int*", plLength, "ptr*", ppResult, "HRESULT")
+        plStartMarshal := plStart is VarRef ? "int*" : "ptr"
+        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "HRESULT")
         return result
     }
 
@@ -52,7 +55,10 @@ class IAVIEditStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-copy
      */
     Copy(plStart, plLength, ppResult) {
-        result := ComCall(4, this, "int*", plStart, "int*", plLength, "ptr*", ppResult, "HRESULT")
+        plStartMarshal := plStart is VarRef ? "int*" : "ptr"
+        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "HRESULT")
         return result
     }
 
@@ -67,7 +73,10 @@ class IAVIEditStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-paste
      */
     Paste(plPos, plLength, pstream, lStart, lEnd) {
-        result := ComCall(5, this, "int*", plPos, "int*", plLength, "ptr", pstream, "int", lStart, "int", lEnd, "HRESULT")
+        plPosMarshal := plPos is VarRef ? "int*" : "ptr"
+        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, "int", lStart, "int", lEnd, "HRESULT")
         return result
     }
 

@@ -98,7 +98,9 @@ class IContactAggregationAggregate extends IUnknown{
      * @returns {HRESULT} 
      */
     get_FavoriteOrder(pFavoriteOrder) {
-        result := ComCall(9, this, "uint*", pFavoriteOrder, "HRESULT")
+        pFavoriteOrderMarshal := pFavoriteOrder is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pFavoriteOrderMarshal, pFavoriteOrder, "HRESULT")
         return result
     }
 

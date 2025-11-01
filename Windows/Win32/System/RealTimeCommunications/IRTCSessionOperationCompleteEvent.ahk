@@ -44,7 +44,9 @@ class IRTCSessionOperationCompleteEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Cookie(plCookie) {
-        result := ComCall(8, this, "ptr*", plCookie, "HRESULT")
+        plCookieMarshal := plCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, plCookieMarshal, plCookie, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IRTCSessionOperationCompleteEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_StatusCode(plStatusCode) {
-        result := ComCall(9, this, "int*", plStatusCode, "HRESULT")
+        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
         return result
     }
 

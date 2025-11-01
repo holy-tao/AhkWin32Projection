@@ -73,7 +73,9 @@ class IProvisioningProfileWireless extends IUnknown{
         bstrXMLWirelessConfigProfile := bstrXMLWirelessConfigProfile is String ? BSTR.Alloc(bstrXMLWirelessConfigProfile).Value : bstrXMLWirelessConfigProfile
         bstrXMLConnectionConfigProfile := bstrXMLConnectionConfigProfile is String ? BSTR.Alloc(bstrXMLConnectionConfigProfile).Value : bstrXMLConnectionConfigProfile
 
-        result := ComCall(3, this, "ptr", bstrXMLWirelessConfigProfile, "ptr", bstrXMLConnectionConfigProfile, "ptr", pAdapterInstanceGuid, "uint*", pulStatus, "HRESULT")
+        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", bstrXMLWirelessConfigProfile, "ptr", bstrXMLConnectionConfigProfile, "ptr", pAdapterInstanceGuid, pulStatusMarshal, pulStatus, "HRESULT")
         return result
     }
 }

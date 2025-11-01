@@ -69,7 +69,9 @@ class IRDPSRAPISharingSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_colordepth
      */
     get_ColorDepth(pColorDepth) {
-        result := ComCall(10, this, "int*", pColorDepth, "HRESULT")
+        pColorDepthMarshal := pColorDepth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pColorDepthMarshal, pColorDepth, "HRESULT")
         return result
     }
 
@@ -185,7 +187,12 @@ class IRDPSRAPISharingSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-getdesktopsharedrect
      */
     GetDesktopSharedRect(pleft, ptop, pright, pbottom) {
-        result := ComCall(20, this, "int*", pleft, "int*", ptop, "int*", pright, "int*", pbottom, "HRESULT")
+        pleftMarshal := pleft is VarRef ? "int*" : "ptr"
+        ptopMarshal := ptop is VarRef ? "int*" : "ptr"
+        prightMarshal := pright is VarRef ? "int*" : "ptr"
+        pbottomMarshal := pbottom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pleftMarshal, pleft, ptopMarshal, ptop, prightMarshal, pright, pbottomMarshal, pbottom, "HRESULT")
         return result
     }
 }

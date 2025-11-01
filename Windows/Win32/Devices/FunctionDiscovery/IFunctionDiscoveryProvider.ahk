@@ -50,7 +50,9 @@ class IFunctionDiscoveryProvider extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pIFunctionDiscoveryProviderFactory, pIFunctionDiscoveryNotification, lcidUserDefault, pdwStgAccessCapabilities) {
-        result := ComCall(3, this, "ptr", pIFunctionDiscoveryProviderFactory, "ptr", pIFunctionDiscoveryNotification, "uint", lcidUserDefault, "uint*", pdwStgAccessCapabilities, "HRESULT")
+        pdwStgAccessCapabilitiesMarshal := pdwStgAccessCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pIFunctionDiscoveryProviderFactory, "ptr", pIFunctionDiscoveryNotification, "uint", lcidUserDefault, pdwStgAccessCapabilitiesMarshal, pdwStgAccessCapabilities, "HRESULT")
         return result
     }
 

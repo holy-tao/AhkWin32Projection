@@ -115,7 +115,9 @@ class IXMLElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_type(plType) {
-        result := ComCall(14, this, "int*", plType, "HRESULT")
+        plTypeMarshal := plType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plTypeMarshal, plType, "HRESULT")
         return result
     }
 

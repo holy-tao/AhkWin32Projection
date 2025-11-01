@@ -69,7 +69,9 @@ class ITCallHub extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_numcalls
      */
     get_NumCalls(plCalls) {
-        result := ComCall(10, this, "int*", plCalls, "HRESULT")
+        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plCallsMarshal, plCalls, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class ITCallHub extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhub-get_state
      */
     get_State(pState) {
-        result := ComCall(11, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

@@ -44,7 +44,9 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     get_left(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     get_top(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     get_right(p) {
-        result := ComCall(12, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -104,7 +110,9 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     get_bottom(p) {
-        result := ComCall(14, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 }

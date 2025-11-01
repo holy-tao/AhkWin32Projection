@@ -57,7 +57,9 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfprotectedenvironmentaccess-readgrl
      */
     ReadGRL(outputLength, output) {
-        result := ComCall(4, this, "uint*", outputLength, "ptr*", output, "HRESULT")
+        outputLengthMarshal := outputLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, outputLengthMarshal, outputLength, "ptr*", output, "HRESULT")
         return result
     }
 }

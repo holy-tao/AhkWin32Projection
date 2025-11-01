@@ -271,7 +271,9 @@ class Pnp {
         pszEnumeratorName := pszEnumeratorName is String ? StrPtr(pszEnumeratorName) : pszEnumeratorName
         pszParentDeviceInstance := pszParentDeviceInstance is String ? StrPtr(pszParentDeviceInstance) : pszParentDeviceInstance
 
-        result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, "ptr", pCreateInfo, "uint", cPropertyCount, "ptr", pProperties, "ptr", pCallback, "ptr", pContext, "ptr", phSwDevice, "int")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, "ptr", pCreateInfo, "uint", cPropertyCount, "ptr", pProperties, "ptr", pCallback, pContextMarshal, pContext, "ptr", phSwDevice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -387,7 +389,9 @@ class Pnp {
     static SwDeviceGetLifetime(hSwDevice, pLifetime) {
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
 
-        result := DllCall("CFGMGR32.dll\SwDeviceGetLifetime", "ptr", hSwDevice, "int*", pLifetime, "int")
+        pLifetimeMarshal := pLifetime is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CFGMGR32.dll\SwDeviceGetLifetime", "ptr", hSwDevice, pLifetimeMarshal, pLifetime, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -429,8 +433,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfaceRegister(hSwDevice, pInterfaceClassGuid, pszReferenceString, cPropertyCount, pProperties, fEnabled, ppszDeviceInterfaceId) {
-        pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+        pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "int", fEnabled, "ptr", ppszDeviceInterfaceId, "int")
         if(result != 0)
@@ -447,7 +451,9 @@ class Pnp {
      * @since windows8.0
      */
     static SwMemFree(pMem) {
-        DllCall("CFGMGR32.dll\SwMemFree", "ptr", pMem)
+        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+
+        DllCall("CFGMGR32.dll\SwMemFree", pMemMarshal, pMem)
     }
 
     /**
@@ -460,8 +466,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfaceSetState(hSwDevice, pszDeviceInterfaceId, fEnabled) {
-        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "int", fEnabled, "int")
         if(result != 0)
@@ -481,8 +487,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfacePropertySet(hSwDevice, pszDeviceInterfaceId, cPropertyCount, pProperties) {
-        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "uint", cPropertyCount, "ptr", pProperties, "int")
         if(result != 0)

@@ -38,7 +38,9 @@ class IWMPControls3 extends IWMPControls2{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_audiolanguagecount
      */
     get_audioLanguageCount(plCount) {
-        result := ComCall(24, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IWMPControls3 extends IWMPControls2{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getaudiolanguageid
      */
     getAudioLanguageID(lIndex, plLangID) {
-        result := ComCall(25, this, "int", lIndex, "int*", plLangID, "HRESULT")
+        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "int", lIndex, plLangIDMarshal, plLangID, "HRESULT")
         return result
     }
 
@@ -73,7 +77,9 @@ class IWMPControls3 extends IWMPControls2{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguage
      */
     get_currentAudioLanguage(plLangID) {
-        result := ComCall(27, this, "int*", plLangID, "HRESULT")
+        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, plLangIDMarshal, plLangID, "HRESULT")
         return result
     }
 
@@ -95,7 +101,9 @@ class IWMPControls3 extends IWMPControls2{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguageindex
      */
     get_currentAudioLanguageIndex(plIndex) {
-        result := ComCall(29, this, "int*", plIndex, "HRESULT")
+        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, plIndexMarshal, plIndex, "HRESULT")
         return result
     }
 

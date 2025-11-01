@@ -61,7 +61,11 @@ class IDTFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-getcurrrating
      */
     GetCurrRating(pEnSystem, pEnRating, plbfEnAttr) {
-        result := ComCall(4, this, "int*", pEnSystem, "int*", pEnRating, "int*", plbfEnAttr, "HRESULT")
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
+        pEnRatingMarshal := pEnRating is VarRef ? "int*" : "ptr"
+        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pEnSystemMarshal, pEnSystem, pEnRatingMarshal, pEnRating, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IDTFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockedratingattributes
      */
     get_BlockedRatingAttributes(enSystem, enLevel, plbfEnAttr) {
-        result := ComCall(5, this, "int", enSystem, "int", enLevel, "int*", plbfEnAttr, "HRESULT")
+        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", enSystem, "int", enLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
     }
 
@@ -120,7 +126,9 @@ class IDTFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockunrateddelay
      */
     get_BlockUnRatedDelay(pmsecsDelayBeforeBlock) {
-        result := ComCall(9, this, "int*", pmsecsDelayBeforeBlock, "HRESULT")
+        pmsecsDelayBeforeBlockMarshal := pmsecsDelayBeforeBlock is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pmsecsDelayBeforeBlockMarshal, pmsecsDelayBeforeBlock, "HRESULT")
         return result
     }
 

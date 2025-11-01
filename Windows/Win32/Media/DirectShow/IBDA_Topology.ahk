@@ -44,7 +44,10 @@ class IBDA_Topology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodetypes
      */
     GetNodeTypes(pulcNodeTypes, ulcNodeTypesMax, rgulNodeTypes) {
-        result := ComCall(3, this, "uint*", pulcNodeTypes, "uint", ulcNodeTypesMax, "uint*", rgulNodeTypes, "HRESULT")
+        pulcNodeTypesMarshal := pulcNodeTypes is VarRef ? "uint*" : "ptr"
+        rgulNodeTypesMarshal := rgulNodeTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulcNodeTypesMarshal, pulcNodeTypes, "uint", ulcNodeTypesMax, rgulNodeTypesMarshal, rgulNodeTypes, "HRESULT")
         return result
     }
 
@@ -57,7 +60,9 @@ class IBDA_Topology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodedescriptors
      */
     GetNodeDescriptors(ulcNodeDescriptors, ulcNodeDescriptorsMax, rgNodeDescriptors) {
-        result := ComCall(4, this, "uint*", ulcNodeDescriptors, "uint", ulcNodeDescriptorsMax, "ptr", rgNodeDescriptors, "HRESULT")
+        ulcNodeDescriptorsMarshal := ulcNodeDescriptors is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, ulcNodeDescriptorsMarshal, ulcNodeDescriptors, "uint", ulcNodeDescriptorsMax, "ptr", rgNodeDescriptors, "HRESULT")
         return result
     }
 
@@ -71,7 +76,9 @@ class IBDA_Topology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodeinterfaces
      */
     GetNodeInterfaces(ulNodeType, pulcInterfaces, ulcInterfacesMax, rgguidInterfaces) {
-        result := ComCall(5, this, "uint", ulNodeType, "uint*", pulcInterfaces, "uint", ulcInterfacesMax, "ptr", rgguidInterfaces, "HRESULT")
+        pulcInterfacesMarshal := pulcInterfaces is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulNodeType, pulcInterfacesMarshal, pulcInterfaces, "uint", ulcInterfacesMax, "ptr", rgguidInterfaces, "HRESULT")
         return result
     }
 
@@ -84,7 +91,10 @@ class IBDA_Topology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getpintypes
      */
     GetPinTypes(pulcPinTypes, ulcPinTypesMax, rgulPinTypes) {
-        result := ComCall(6, this, "uint*", pulcPinTypes, "uint", ulcPinTypesMax, "uint*", rgulPinTypes, "HRESULT")
+        pulcPinTypesMarshal := pulcPinTypes is VarRef ? "uint*" : "ptr"
+        rgulPinTypesMarshal := rgulPinTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulcPinTypesMarshal, pulcPinTypes, "uint", ulcPinTypesMax, rgulPinTypesMarshal, rgulPinTypes, "HRESULT")
         return result
     }
 
@@ -97,7 +107,9 @@ class IBDA_Topology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-gettemplateconnections
      */
     GetTemplateConnections(pulcConnections, ulcConnectionsMax, rgConnections) {
-        result := ComCall(7, this, "uint*", pulcConnections, "uint", ulcConnectionsMax, "ptr", rgConnections, "HRESULT")
+        pulcConnectionsMarshal := pulcConnections is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulcConnectionsMarshal, pulcConnections, "uint", ulcConnectionsMax, "ptr", rgConnections, "HRESULT")
         return result
     }
 
@@ -109,7 +121,9 @@ class IBDA_Topology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-createpin
      */
     CreatePin(ulPinType, pulPinId) {
-        result := ComCall(8, this, "uint", ulPinType, "uint*", pulPinId, "HRESULT")
+        pulPinIdMarshal := pulPinId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", ulPinType, pulPinIdMarshal, pulPinId, "HRESULT")
         return result
     }
 

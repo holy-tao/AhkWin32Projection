@@ -34,7 +34,9 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_ImageableSizeWidthInMicrons(pulImageableSizeWidth) {
-        result := ComCall(10, this, "uint*", pulImageableSizeWidth, "HRESULT")
+        pulImageableSizeWidthMarshal := pulImageableSizeWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pulImageableSizeWidthMarshal, pulImageableSizeWidth, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_ImageableSizeHeightInMicrons(pulImageableSizeHeight) {
-        result := ComCall(11, this, "uint*", pulImageableSizeHeight, "HRESULT")
+        pulImageableSizeHeightMarshal := pulImageableSizeHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pulImageableSizeHeightMarshal, pulImageableSizeHeight, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_OriginWidthInMicrons(pulOriginWidth) {
-        result := ComCall(12, this, "uint*", pulOriginWidth, "HRESULT")
+        pulOriginWidthMarshal := pulOriginWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pulOriginWidthMarshal, pulOriginWidth, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_OriginHeightInMicrons(pulOriginHeight) {
-        result := ComCall(13, this, "uint*", pulOriginHeight, "HRESULT")
+        pulOriginHeightMarshal := pulOriginHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pulOriginHeightMarshal, pulOriginHeight, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_ExtentWidthInMicrons(pulExtentWidth) {
-        result := ComCall(14, this, "uint*", pulExtentWidth, "HRESULT")
+        pulExtentWidthMarshal := pulExtentWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pulExtentWidthMarshal, pulExtentWidth, "HRESULT")
         return result
     }
 
@@ -84,7 +94,9 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_ExtentHeightInMicrons(pulExtentHeight) {
-        result := ComCall(15, this, "uint*", pulExtentHeight, "HRESULT")
+        pulExtentHeightMarshal := pulExtentHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pulExtentHeightMarshal, pulExtentHeight, "HRESULT")
         return result
     }
 }

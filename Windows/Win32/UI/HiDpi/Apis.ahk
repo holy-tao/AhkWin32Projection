@@ -48,8 +48,8 @@ class HiDpi {
      * @since windows10.0.15063
      */
     static OpenThemeDataForDpi(hwnd, pszClassList, dpi) {
-        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UxTheme.dll\OpenThemeDataForDpi", "ptr", hwnd, "ptr", pszClassList, "uint", dpi, "ptr")
         return HTHEME({Value: result}, True)
@@ -224,9 +224,11 @@ class HiDpi {
      * @since windows10.0.14393
      */
     static SystemParametersInfoForDpi(uiAction, uiParam, pvParam, fWinIni, dpi) {
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SystemParametersInfoForDpi", "uint", uiAction, "uint", uiParam, "ptr", pvParam, "uint", fWinIni, "uint", dpi, "int")
+        result := DllCall("USER32.dll\SystemParametersInfoForDpi", "uint", uiAction, "uint", uiParam, pvParamMarshal, pvParam, "uint", fWinIni, "uint", dpi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -564,7 +566,9 @@ class HiDpi {
     static GetProcessDpiAwareness(hprocess, value) {
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", "ptr", hprocess, "int*", value, "int")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", "ptr", hprocess, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -613,7 +617,10 @@ class HiDpi {
     static GetDpiForMonitor(hmonitor, dpiType, dpiX, dpiY) {
         hmonitor := hmonitor is Win32Handle ? NumGet(hmonitor, "ptr") : hmonitor
 
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetDpiForMonitor", "ptr", hmonitor, "int", dpiType, "uint*", dpiX, "uint*", dpiY, "int")
+        dpiXMarshal := dpiX is VarRef ? "uint*" : "ptr"
+        dpiYMarshal := dpiY is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetDpiForMonitor", "ptr", hmonitor, "int", dpiType, dpiXMarshal, dpiX, dpiYMarshal, dpiY, "int")
         if(result != 0)
             throw OSError(result)
 

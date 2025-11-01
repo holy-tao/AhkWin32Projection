@@ -165,7 +165,9 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     get_rowIndex(p) {
-        result := ComCall(19, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -175,7 +177,9 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     get_sectionRowIndex(p) {
-        result := ComCall(20, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pMarshal, p, "HRESULT")
         return result
     }
 

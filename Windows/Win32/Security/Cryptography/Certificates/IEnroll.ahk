@@ -220,7 +220,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystoreflags
      */
     get_MyStoreFlags(pdwFlags) {
-        result := ComCall(18, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -290,7 +292,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castoreflags
      */
     get_CAStoreFlags(pdwFlags) {
-        result := ComCall(24, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -360,7 +364,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstoreflags
      */
     get_RootStoreFlags(pdwFlags) {
-        result := ComCall(30, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -430,7 +436,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststoreflags
      */
     get_RequestStoreFlags(pdwFlags) {
-        result := ComCall(36, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -500,7 +508,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providertype
      */
     get_ProviderType(pdwType) {
-        result := ComCall(42, this, "int*", pdwType, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, pdwTypeMarshal, pdwType, "HRESULT")
         return result
     }
 
@@ -522,7 +532,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_keyspec
      */
     get_KeySpec(pdw) {
-        result := ComCall(44, this, "int*", pdw, "HRESULT")
+        pdwMarshal := pdw is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, pdwMarshal, pdw, "HRESULT")
         return result
     }
 
@@ -544,7 +556,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providerflags
      */
     get_ProviderFlags(pdwFlags) {
-        result := ComCall(46, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -588,7 +602,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_genkeyflags
      */
     get_GenKeyFlags(pdwFlags) {
-        result := ComCall(50, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

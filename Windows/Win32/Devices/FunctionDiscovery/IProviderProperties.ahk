@@ -47,7 +47,9 @@ class IProviderProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getcount
      */
     GetCount(pIFunctionInstance, iProviderInstanceContext, pdwCount) {
-        result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 

@@ -45,7 +45,9 @@ class ISpEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventInterest(pullEventInterest) {
-        result := ComCall(4, this, "uint*", pullEventInterest, "HRESULT")
+        pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pullEventInterestMarshal, pullEventInterest, "HRESULT")
         return result
     }
 }

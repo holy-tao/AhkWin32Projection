@@ -40,7 +40,9 @@ class IWMInputMediaProps extends IWMMediaProps{
     GetConnectionName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(6, this, "ptr", pwszName, "ushort*", pcchName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IWMInputMediaProps extends IWMMediaProps{
     GetGroupName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(7, this, "ptr", pwszName, "ushort*", pcchName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 }

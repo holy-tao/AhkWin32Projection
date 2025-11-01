@@ -70,7 +70,9 @@ class IInkRecognizer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_capabilities
      */
     get_Capabilities(CapabilitiesFlags) {
-        result := ComCall(9, this, "int*", CapabilitiesFlags, "HRESULT")
+        CapabilitiesFlagsMarshal := CapabilitiesFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, CapabilitiesFlagsMarshal, CapabilitiesFlags, "HRESULT")
         return result
     }
 

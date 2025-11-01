@@ -39,7 +39,10 @@ class IWSDOutboundAttachment extends IWSDAttachment{
      * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-iwsdoutboundattachment-write
      */
     Write(pBuffer, dwBytesToWrite, pdwNumberOfBytesWritten) {
-        result := ComCall(3, this, "char*", pBuffer, "uint", dwBytesToWrite, "uint*", pdwNumberOfBytesWritten, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pdwNumberOfBytesWrittenMarshal := pdwNumberOfBytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwBytesToWrite, pdwNumberOfBytesWrittenMarshal, pdwNumberOfBytesWritten, "HRESULT")
         return result
     }
 

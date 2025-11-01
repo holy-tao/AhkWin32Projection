@@ -48,7 +48,9 @@ class IActionEnumerator extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNext(keyName, actionName, actionDescription, actionIsDefault, actionMethod, metadta) {
-        result := ComCall(4, this, "ptr", keyName, "ptr", actionName, "ptr", actionDescription, "int*", actionIsDefault, "ptr*", actionMethod, "ptr*", metadta, "HRESULT")
+        actionIsDefaultMarshal := actionIsDefault is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", keyName, "ptr", actionName, "ptr", actionDescription, actionIsDefaultMarshal, actionIsDefault, "ptr*", actionMethod, "ptr*", metadta, "HRESULT")
         return result
     }
 }

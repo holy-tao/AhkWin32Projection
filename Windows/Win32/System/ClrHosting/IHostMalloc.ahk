@@ -50,7 +50,9 @@ class IHostMalloc extends IUnknown{
      * @returns {HRESULT} 
      */
     DebugAlloc(cbSize, eCriticalLevel, pszFileName, iLineNo, ppMem) {
-        result := ComCall(4, this, "ptr", cbSize, "int", eCriticalLevel, "char*", pszFileName, "int", iLineNo, "ptr*", ppMem, "HRESULT")
+        pszFileNameMarshal := pszFileName is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", cbSize, "int", eCriticalLevel, pszFileNameMarshal, pszFileName, "int", iLineNo, "ptr*", ppMem, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IHostMalloc extends IUnknown{
      * @returns {HRESULT} 
      */
     Free(pMem) {
-        result := ComCall(5, this, "ptr", pMem, "HRESULT")
+        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pMemMarshal, pMem, "HRESULT")
         return result
     }
 }

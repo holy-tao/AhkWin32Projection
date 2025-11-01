@@ -52,7 +52,9 @@ class IShellUIHelper3 extends IShellUIHelper2{
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
         Verb := Verb is String ? BSTR.Alloc(Verb).Value : Verb
 
-        result := ComCall(37, this, "ptr", URL, "ptr", Verb, "uint*", pdwResult, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "ptr", URL, "ptr", Verb, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 

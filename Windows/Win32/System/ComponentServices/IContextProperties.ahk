@@ -38,7 +38,9 @@ class IContextProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-count
      */
     Count(plCount) {
-        result := ComCall(3, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

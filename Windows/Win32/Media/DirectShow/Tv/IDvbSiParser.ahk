@@ -88,7 +88,9 @@ class IDvbSiParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getpmt
      */
     GetPMT(pid, pwProgramNumber, ppPMT) {
-        result := ComCall(6, this, "ushort", pid, "ushort*", pwProgramNumber, "ptr*", ppPMT, "HRESULT")
+        pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", ppPMT, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class IDvbSiParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getnit
      */
     GetNIT(tableId, pwNetworkId, ppNIT) {
-        result := ComCall(8, this, "char", tableId, "ushort*", pwNetworkId, "ptr*", ppNIT, "HRESULT")
+        pwNetworkIdMarshal := pwNetworkId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "char", tableId, pwNetworkIdMarshal, pwNetworkId, "ptr*", ppNIT, "HRESULT")
         return result
     }
 
@@ -125,7 +129,9 @@ class IDvbSiParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getsdt
      */
     GetSDT(tableId, pwTransportStreamId, ppSDT) {
-        result := ComCall(9, this, "char", tableId, "ushort*", pwTransportStreamId, "ptr*", ppSDT, "HRESULT")
+        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "char", tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", ppSDT, "HRESULT")
         return result
     }
 
@@ -138,7 +144,9 @@ class IDvbSiParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-geteit
      */
     GetEIT(tableId, pwServiceId, ppEIT) {
-        result := ComCall(10, this, "char", tableId, "ushort*", pwServiceId, "ptr*", ppEIT, "HRESULT")
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, "char", tableId, pwServiceIdMarshal, pwServiceId, "ptr*", ppEIT, "HRESULT")
         return result
     }
 
@@ -150,7 +158,9 @@ class IDvbSiParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getbat
      */
     GetBAT(pwBouquetId, ppBAT) {
-        result := ComCall(11, this, "ushort*", pwBouquetId, "ptr*", ppBAT, "HRESULT")
+        pwBouquetIdMarshal := pwBouquetId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pwBouquetIdMarshal, pwBouquetId, "ptr*", ppBAT, "HRESULT")
         return result
     }
 

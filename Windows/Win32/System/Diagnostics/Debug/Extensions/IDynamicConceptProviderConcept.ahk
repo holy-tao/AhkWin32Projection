@@ -38,7 +38,9 @@ class IDynamicConceptProviderConcept extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConcept(contextObject, conceptId, conceptInterface, conceptMetadata, hasConcept) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr", conceptId, "ptr*", conceptInterface, "ptr*", conceptMetadata, "int*", hasConcept, "HRESULT")
+        hasConceptMarshal := hasConcept is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", contextObject, "ptr", conceptId, "ptr*", conceptInterface, "ptr*", conceptMetadata, hasConceptMarshal, hasConcept, "HRESULT")
         return result
     }
 

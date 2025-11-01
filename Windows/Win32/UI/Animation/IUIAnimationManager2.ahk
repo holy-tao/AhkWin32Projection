@@ -45,7 +45,9 @@ class IUIAnimationManager2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-createanimationvectorvariable
      */
     CreateAnimationVectorVariable(initialValue, cDimension, variable) {
-        result := ComCall(3, this, "double*", initialValue, "uint", cDimension, "ptr*", variable, "HRESULT")
+        initialValueMarshal := initialValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(3, this, initialValueMarshal, initialValue, "uint", cDimension, "ptr*", variable, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IUIAnimationManager2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-update
      */
     Update(timeNow, updateResult) {
-        result := ComCall(9, this, "double", timeNow, "int*", updateResult, "HRESULT")
+        updateResultMarshal := updateResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "double", timeNow, updateResultMarshal, updateResult, "HRESULT")
         return result
     }
 
@@ -151,7 +155,9 @@ class IUIAnimationManager2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-estimatenexteventtime
      */
     EstimateNextEventTime(seconds) {
-        result := ComCall(12, this, "double*", seconds, "HRESULT")
+        secondsMarshal := seconds is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, secondsMarshal, seconds, "HRESULT")
         return result
     }
 
@@ -162,7 +168,9 @@ class IUIAnimationManager2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getstatus
      */
     GetStatus(status) {
-        result := ComCall(13, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, statusMarshal, status, "HRESULT")
         return result
     }
 

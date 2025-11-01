@@ -44,7 +44,9 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ActiveOffset(ActiveOffset) {
-        result := ComCall(8, this, "int*", ActiveOffset, "HRESULT")
+        ActiveOffsetMarshal := ActiveOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, ActiveOffsetMarshal, ActiveOffset, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ActiveLength(ActiveLength) {
-        result := ComCall(10, this, "int*", ActiveLength, "HRESULT")
+        ActiveLengthMarshal := ActiveLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, ActiveLengthMarshal, ActiveLength, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SelectionOffset(SelectionOffset) {
-        result := ComCall(12, this, "int*", SelectionOffset, "HRESULT")
+        SelectionOffsetMarshal := SelectionOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, SelectionOffsetMarshal, SelectionOffset, "HRESULT")
         return result
     }
 
@@ -104,7 +110,9 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SelectionLength(SelectionLength) {
-        result := ComCall(14, this, "int*", SelectionLength, "HRESULT")
+        SelectionLengthMarshal := SelectionLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, SelectionLengthMarshal, SelectionLength, "HRESULT")
         return result
     }
 }

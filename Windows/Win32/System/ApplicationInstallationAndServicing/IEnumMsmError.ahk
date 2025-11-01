@@ -36,7 +36,9 @@ class IEnumMsmError extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(cFetch, rgmsmErrors, pcFetched) {
-        result := ComCall(3, this, "uint", cFetch, "ptr*", rgmsmErrors, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cFetch, "ptr*", rgmsmErrors, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

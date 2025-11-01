@@ -37,7 +37,9 @@ class IUpdate5 extends IUpdate4{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autoselection
      */
     get_AutoSelection(retval) {
-        result := ComCall(58, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IUpdate5 extends IUpdate4{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autodownload
      */
     get_AutoDownload(retval) {
-        result := ComCall(59, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(59, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

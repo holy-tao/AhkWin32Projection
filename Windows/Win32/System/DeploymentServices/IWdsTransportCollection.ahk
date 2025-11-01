@@ -43,7 +43,9 @@ class IWdsTransportCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_count
      */
     get_Count(pulCount) {
-        result := ComCall(7, this, "uint*", pulCount, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 

@@ -44,7 +44,9 @@ class IAzClientContext3 extends IAzClientContext2{
         bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(26, this, "ptr", bstrObjectName, "ptr", bstrScopeName, "int", lOperation, "uint*", plResult, "HRESULT")
+        plResultMarshal := plResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "ptr", bstrObjectName, "ptr", bstrScopeName, "int", lOperation, plResultMarshal, plResult, "HRESULT")
         return result
     }
 

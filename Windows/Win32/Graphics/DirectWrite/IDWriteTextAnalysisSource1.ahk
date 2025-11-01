@@ -40,7 +40,11 @@ class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissource1-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation(textPosition, textLength, glyphOrientation, bidiLevel) {
-        result := ComCall(8, this, "uint", textPosition, "uint*", textLength, "int*", glyphOrientation, "char*", bidiLevel, "HRESULT")
+        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+        glyphOrientationMarshal := glyphOrientation is VarRef ? "int*" : "ptr"
+        bidiLevelMarshal := bidiLevel is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "uint", textPosition, textLengthMarshal, textLength, glyphOrientationMarshal, glyphOrientation, bidiLevelMarshal, bidiLevel, "HRESULT")
         return result
     }
 }

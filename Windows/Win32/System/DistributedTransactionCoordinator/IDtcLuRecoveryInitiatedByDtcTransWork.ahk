@@ -35,7 +35,10 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLogNameSizes(pcbOurLogName, pcbRemoteLogName) {
-        result := ComCall(3, this, "uint*", pcbOurLogName, "uint*", pcbRemoteLogName, "HRESULT")
+        pcbOurLogNameMarshal := pcbOurLogName is VarRef ? "uint*" : "ptr"
+        pcbRemoteLogNameMarshal := pcbRemoteLogName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcbOurLogNameMarshal, pcbOurLogName, pcbRemoteLogNameMarshal, pcbRemoteLogName, "HRESULT")
         return result
     }
 
@@ -48,7 +51,12 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOurXln(pXln, pOurLogName, pRemoteLogName, pdwProtocol) {
-        result := ComCall(4, this, "int*", pXln, "char*", pOurLogName, "char*", pRemoteLogName, "uint*", pdwProtocol, "HRESULT")
+        pXlnMarshal := pXln is VarRef ? "int*" : "ptr"
+        pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : "ptr"
+        pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
+        pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pXlnMarshal, pXln, pOurLogNameMarshal, pOurLogName, pRemoteLogNameMarshal, pRemoteLogName, pdwProtocolMarshal, pdwProtocol, "HRESULT")
         return result
     }
 
@@ -72,7 +80,10 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleTheirXlnResponse(Xln, pRemoteLogName, cbRemoteLogName, dwProtocol, pConfirmation) {
-        result := ComCall(6, this, "int", Xln, "char*", pRemoteLogName, "uint", cbRemoteLogName, "uint", dwProtocol, "int*", pConfirmation, "HRESULT")
+        pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
+        pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, "uint", dwProtocol, pConfirmationMarshal, pConfirmation, "HRESULT")
         return result
     }
 
@@ -102,7 +113,9 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOurTransIdSize(pcbOurTransId) {
-        result := ComCall(9, this, "uint*", pcbOurTransId, "HRESULT")
+        pcbOurTransIdMarshal := pcbOurTransId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pcbOurTransIdMarshal, pcbOurTransId, "HRESULT")
         return result
     }
 
@@ -113,7 +126,10 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOurCompareStates(pOurTransId, pCompareState) {
-        result := ComCall(10, this, "char*", pOurTransId, "int*", pCompareState, "HRESULT")
+        pOurTransIdMarshal := pOurTransId is VarRef ? "char*" : "ptr"
+        pCompareStateMarshal := pCompareState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pOurTransIdMarshal, pOurTransId, pCompareStateMarshal, pCompareState, "HRESULT")
         return result
     }
 
@@ -124,7 +140,9 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleTheirCompareStatesResponse(CompareState, pConfirmation) {
-        result := ComCall(11, this, "int", CompareState, "int*", pConfirmation, "HRESULT")
+        pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", CompareState, pConfirmationMarshal, pConfirmation, "HRESULT")
         return result
     }
 
@@ -153,7 +171,9 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRecoverySeqNum(plRecoverySeqNum) {
-        result := ComCall(14, this, "int*", plRecoverySeqNum, "HRESULT")
+        plRecoverySeqNumMarshal := plRecoverySeqNum is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plRecoverySeqNumMarshal, plRecoverySeqNum, "HRESULT")
         return result
     }
 

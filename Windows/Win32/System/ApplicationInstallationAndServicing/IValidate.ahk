@@ -84,7 +84,9 @@ class IValidate extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evalcom2/nf-evalcom2-ivalidate-setdisplay
      */
     SetDisplay(pDisplayFunction, pContext) {
-        result := ComCall(7, this, "ptr", pDisplayFunction, "ptr", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", pDisplayFunction, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class IValidate extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evalcom2/nf-evalcom2-ivalidate-setstatus
      */
     SetStatus(pStatusFunction, pContext) {
-        result := ComCall(8, this, "ptr", pStatusFunction, "ptr", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "ptr", pStatusFunction, pContextMarshal, pContext, "HRESULT")
         return result
     }
 

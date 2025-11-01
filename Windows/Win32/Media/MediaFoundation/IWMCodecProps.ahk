@@ -43,7 +43,11 @@ class IWMCodecProps extends IUnknown{
     GetFormatProp(pmt, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "ptr", pmt, "ptr", pszName, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pmt, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -60,7 +64,11 @@ class IWMCodecProps extends IUnknown{
     GetCodecProp(dwFormat, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(4, this, "uint", dwFormat, "ptr", pszName, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwFormat, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 }

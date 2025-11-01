@@ -37,7 +37,9 @@ class IMFASFStreamPrioritization extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstreamcount
      */
     GetStreamCount(pdwStreamCount) {
-        result := ComCall(3, this, "uint*", pdwStreamCount, "HRESULT")
+        pdwStreamCountMarshal := pdwStreamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwStreamCountMarshal, pdwStreamCount, "HRESULT")
         return result
     }
 
@@ -50,7 +52,10 @@ class IMFASFStreamPrioritization extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstream
      */
     GetStream(dwStreamIndex, pwStreamNumber, pwStreamFlags) {
-        result := ComCall(4, this, "uint", dwStreamIndex, "ushort*", pwStreamNumber, "ushort*", pwStreamFlags, "HRESULT")
+        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
+        pwStreamFlagsMarshal := pwStreamFlags is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, pwStreamFlagsMarshal, pwStreamFlags, "HRESULT")
         return result
     }
 

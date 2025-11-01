@@ -359,7 +359,9 @@ class Wmi {
      * @since windows8.0
      */
     static MI_Application_InitializeV1(flags, applicationID, extendedError, application) {
-        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, "ushort*", applicationID, "ptr*", extendedError, "ptr", application, "CDecl int")
+        applicationIDMarshal := applicationID is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, applicationIDMarshal, applicationID, "ptr*", extendedError, "ptr", application, "CDecl int")
         return result
     }
 

@@ -70,7 +70,9 @@ class IXDSCodec extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-get_ccsubstreamservice
      */
     get_CCSubstreamService(pSubstreamMask) {
-        result := ComCall(5, this, "int*", pSubstreamMask, "HRESULT")
+        pSubstreamMaskMarshal := pSubstreamMask is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pSubstreamMaskMarshal, pSubstreamMask, "HRESULT")
         return result
     }
 
@@ -85,7 +87,13 @@ class IXDSCodec extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcontentadvisoryrating
      */
     GetContentAdvisoryRating(pRat, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
-        result := ComCall(6, this, "int*", pRat, "int*", pPktSeqID, "int*", pCallSeqID, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pRatMarshal := pRat is VarRef ? "int*" : "ptr"
+        pPktSeqIDMarshal := pPktSeqID is VarRef ? "int*" : "ptr"
+        pCallSeqIDMarshal := pCallSeqID is VarRef ? "int*" : "ptr"
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(6, this, pRatMarshal, pRat, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -102,7 +110,14 @@ class IXDSCodec extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getxdspacket
      */
     GetXDSPacket(pXDSClassPkt, pXDSTypePkt, pBstrXDSPkt, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
-        result := ComCall(7, this, "int*", pXDSClassPkt, "int*", pXDSTypePkt, "ptr", pBstrXDSPkt, "int*", pPktSeqID, "int*", pCallSeqID, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pXDSClassPktMarshal := pXDSClassPkt is VarRef ? "int*" : "ptr"
+        pXDSTypePktMarshal := pXDSTypePkt is VarRef ? "int*" : "ptr"
+        pPktSeqIDMarshal := pPktSeqID is VarRef ? "int*" : "ptr"
+        pCallSeqIDMarshal := pCallSeqID is VarRef ? "int*" : "ptr"
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, pXDSClassPktMarshal, pXDSClassPkt, pXDSTypePktMarshal, pXDSTypePkt, "ptr", pBstrXDSPkt, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -114,7 +129,10 @@ class IXDSCodec extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(protType, lpDateTime) {
-        result := ComCall(8, this, "int*", protType, "int*", lpDateTime, "HRESULT")
+        protTypeMarshal := protType is VarRef ? "int*" : "ptr"
+        lpDateTimeMarshal := lpDateTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, protTypeMarshal, protType, lpDateTimeMarshal, lpDateTime, "HRESULT")
         return result
     }
 

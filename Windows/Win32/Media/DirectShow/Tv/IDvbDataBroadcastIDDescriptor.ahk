@@ -37,7 +37,9 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getdatabroadcastid
      */
     GetDataBroadcastID(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -71,7 +77,10 @@ class IDvbDataBroadcastIDDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getidselectorbytes
      */
     GetIDSelectorBytes(pbLen, pbVal) {
-        result := ComCall(6, this, "char*", pbLen, "char*", pbVal, "HRESULT")
+        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbLenMarshal, pbLen, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

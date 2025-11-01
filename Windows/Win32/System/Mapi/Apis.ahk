@@ -322,7 +322,9 @@ class Mapi {
      * @see https://docs.microsoft.com/windows/win32/api//mapi/nf-mapi-mapifreebuffer
      */
     static MAPIFreeBuffer(pv) {
-        result := DllCall("MAPI32.dll\MAPIFreeBuffer", "ptr", pv, "uint")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\MAPIFreeBuffer", pvMarshal, pv, "uint")
         return result
     }
 

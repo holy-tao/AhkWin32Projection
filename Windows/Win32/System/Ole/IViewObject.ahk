@@ -49,7 +49,9 @@ class IViewObject extends IUnknown{
         hdcTargetDev := hdcTargetDev is Win32Handle ? NumGet(hdcTargetDev, "ptr") : hdcTargetDev
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
 
-        result := ComCall(3, this, "uint", dwDrawAspect, "int", lindex, "ptr", pvAspect, "ptr", ptd, "ptr", hdcTargetDev, "ptr", hdcDraw, "ptr", lprcBounds, "ptr", lprcWBounds, "ptr", pfnContinue, "ptr", dwContinue, "HRESULT")
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcTargetDev, "ptr", hdcDraw, "ptr", lprcBounds, "ptr", lprcWBounds, "ptr", pfnContinue, "ptr", dwContinue, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IViewObject extends IUnknown{
     GetColorSet(dwDrawAspect, lindex, pvAspect, ptd, hicTargetDev, ppColorSet) {
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
-        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, "ptr", pvAspect, "ptr", ptd, "ptr", hicTargetDev, "ptr*", ppColorSet, "HRESULT")
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hicTargetDev, "ptr*", ppColorSet, "HRESULT")
         return result
     }
 
@@ -81,7 +85,10 @@ class IViewObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-freeze
      */
     Freeze(dwDrawAspect, lindex, pvAspect, pdwFreeze) {
-        result := ComCall(5, this, "uint", dwDrawAspect, "int", lindex, "ptr", pvAspect, "uint*", pdwFreeze, "HRESULT")
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        pdwFreezeMarshal := pdwFreeze is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, pdwFreezeMarshal, pdwFreeze, "HRESULT")
         return result
     }
 
@@ -118,7 +125,10 @@ class IViewObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-getadvise
      */
     GetAdvise(pAspects, pAdvf, ppAdvSink) {
-        result := ComCall(8, this, "uint*", pAspects, "uint*", pAdvf, "ptr*", ppAdvSink, "HRESULT")
+        pAspectsMarshal := pAspects is VarRef ? "uint*" : "ptr"
+        pAdvfMarshal := pAdvf is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pAspectsMarshal, pAspects, pAdvfMarshal, pAdvf, "ptr*", ppAdvSink, "HRESULT")
         return result
     }
 }

@@ -34,7 +34,9 @@ class ISideShowCapabilitiesCollection extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(out_pdwCount) {
-        result := ComCall(3, this, "uint*", out_pdwCount, "HRESULT")
+        out_pdwCountMarshal := out_pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, out_pdwCountMarshal, out_pdwCount, "HRESULT")
         return result
     }
 

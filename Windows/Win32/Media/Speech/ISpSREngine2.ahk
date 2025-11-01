@@ -38,7 +38,11 @@ class ISpSREngine2 extends ISpSREngine{
      * @returns {HRESULT} 
      */
     PrivateCallImmediate(pvEngineContext, pInCallFrame, ulInCallFrameSize, ppvCoMemResponse, pulResponseSize) {
-        result := ComCall(32, this, "ptr", pvEngineContext, "ptr", pInCallFrame, "uint", ulInCallFrameSize, "ptr*", ppvCoMemResponse, "uint*", pulResponseSize, "HRESULT")
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+        pInCallFrameMarshal := pInCallFrame is VarRef ? "ptr" : "ptr"
+        pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, "ptr*", ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
         return result
     }
 
@@ -56,7 +60,9 @@ class ISpSREngine2 extends ISpSREngine{
         pAdaptationData := pAdaptationData is String ? StrPtr(pAdaptationData) : pAdaptationData
         pTopicName := pTopicName is String ? StrPtr(pTopicName) : pTopicName
 
-        result := ComCall(33, this, "ptr", pvEngineContext, "ptr", pAdaptationData, "uint", cch, "ptr", pTopicName, "int", eSettings, "int", eRelevance, "HRESULT")
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(33, this, pvEngineContextMarshal, pvEngineContext, "ptr", pAdaptationData, "uint", cch, "ptr", pTopicName, "int", eSettings, "int", eRelevance, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class ISpSREngine2 extends ISpSREngine{
     SetGrammarPrefix(pvEngineGrammar, pszPrefix, fIsPrefixRequired) {
         pszPrefix := pszPrefix is String ? StrPtr(pszPrefix) : pszPrefix
 
-        result := ComCall(34, this, "ptr", pvEngineGrammar, "ptr", pszPrefix, "int", fIsPrefixRequired, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(34, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszPrefix, "int", fIsPrefixRequired, "HRESULT")
         return result
     }
 
@@ -84,7 +92,9 @@ class ISpSREngine2 extends ISpSREngine{
     SetRulePriority(hRule, pvClientRuleContext, nRulePriority) {
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
 
-        result := ComCall(35, this, "ptr", hRule, "ptr", pvClientRuleContext, "int", nRulePriority, "HRESULT")
+        pvClientRuleContextMarshal := pvClientRuleContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(35, this, "ptr", hRule, pvClientRuleContextMarshal, pvClientRuleContext, "int", nRulePriority, "HRESULT")
         return result
     }
 
@@ -106,7 +116,9 @@ class ISpSREngine2 extends ISpSREngine{
      * @returns {HRESULT} 
      */
     SetSLMWeight(pvEngineGrammar, flWeight) {
-        result := ComCall(37, this, "ptr", pvEngineGrammar, "float", flWeight, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(37, this, pvEngineGrammarMarshal, pvEngineGrammar, "float", flWeight, "HRESULT")
         return result
     }
 
@@ -120,7 +132,9 @@ class ISpSREngine2 extends ISpSREngine{
     SetRuleWeight(hRule, pvClientRuleContext, flWeight) {
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
 
-        result := ComCall(38, this, "ptr", hRule, "ptr", pvClientRuleContext, "float", flWeight, "HRESULT")
+        pvClientRuleContextMarshal := pvClientRuleContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(38, this, "ptr", hRule, pvClientRuleContextMarshal, pvClientRuleContext, "float", flWeight, "HRESULT")
         return result
     }
 
@@ -152,7 +166,9 @@ class ISpSREngine2 extends ISpSREngine{
      * @returns {HRESULT} 
      */
     OnLoadCFG(pvEngineGrammar, pGrammarData, ulGrammarID) {
-        result := ComCall(41, this, "ptr", pvEngineGrammar, "ptr", pGrammarData, "uint", ulGrammarID, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(41, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pGrammarData, "uint", ulGrammarID, "HRESULT")
         return result
     }
 
@@ -163,7 +179,9 @@ class ISpSREngine2 extends ISpSREngine{
      * @returns {HRESULT} 
      */
     OnUnloadCFG(pvEngineGrammar, ulGrammarID) {
-        result := ComCall(42, this, "ptr", pvEngineGrammar, "uint", ulGrammarID, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(42, this, pvEngineGrammarMarshal, pvEngineGrammar, "uint", ulGrammarID, "HRESULT")
         return result
     }
 }

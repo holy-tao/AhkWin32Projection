@@ -37,7 +37,9 @@ class IRedbookDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-gettotalaudiotracks
      */
     GetTotalAudioTracks(pnTracks) {
-        result := ComCall(3, this, "int*", pnTracks, "HRESULT")
+        pnTracksMarshal := pnTracks is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pnTracksMarshal, pnTracks, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IRedbookDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-gettotalaudioblocks
      */
     GetTotalAudioBlocks(pnBlocks) {
-        result := ComCall(4, this, "int*", pnBlocks, "HRESULT")
+        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pnBlocksMarshal, pnBlocks, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IRedbookDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-getusedaudioblocks
      */
     GetUsedAudioBlocks(pnBlocks) {
-        result := ComCall(5, this, "int*", pnBlocks, "HRESULT")
+        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pnBlocksMarshal, pnBlocks, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IRedbookDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-getavailableaudiotrackblocks
      */
     GetAvailableAudioTrackBlocks(pnBlocks) {
-        result := ComCall(6, this, "int*", pnBlocks, "HRESULT")
+        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pnBlocksMarshal, pnBlocks, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IRedbookDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-getaudioblocksize
      */
     GetAudioBlockSize(pnBlockBytes) {
-        result := ComCall(7, this, "int*", pnBlockBytes, "HRESULT")
+        pnBlockBytesMarshal := pnBlockBytes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pnBlockBytesMarshal, pnBlockBytes, "HRESULT")
         return result
     }
 
@@ -104,7 +114,9 @@ class IRedbookDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-addaudiotrackblocks
      */
     AddAudioTrackBlocks(pby, cb) {
-        result := ComCall(9, this, "char*", pby, "int", cb, "HRESULT")
+        pbyMarshal := pby is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbyMarshal, pby, "int", cb, "HRESULT")
         return result
     }
 

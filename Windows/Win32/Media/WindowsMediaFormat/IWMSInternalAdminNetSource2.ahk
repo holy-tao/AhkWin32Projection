@@ -69,7 +69,9 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(4, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "int*", pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, "ptr", pfConfirmedGood, "HRESULT")
+        pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, pdwUrlPolicyMarshal, pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, "ptr", pfConfirmedGood, "HRESULT")
         return result
     }
 
@@ -106,7 +108,10 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
         bstrHost := bstrHost is String ? BSTR.Alloc(bstrHost).Value : bstrHost
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(6, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, "ptr", pfProxyEnabled, "ptr", pbstrProxyServer, "uint*", pdwProxyPort, "uint*", pdwProxyContext, "HRESULT")
+        pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
+        pdwProxyContextMarshal := pdwProxyContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, "ptr", pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pdwProxyContextMarshal, pdwProxyContext, "HRESULT")
         return result
     }
 }

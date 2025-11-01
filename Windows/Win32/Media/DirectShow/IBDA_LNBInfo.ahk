@@ -53,7 +53,9 @@ class IBDA_LNBInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_lnbinfo-get_localoscilatorfrequencylowband
      */
     get_LocalOscilatorFrequencyLowBand(pulLOFLow) {
-        result := ComCall(4, this, "uint*", pulLOFLow, "HRESULT")
+        pulLOFLowMarshal := pulLOFLow is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulLOFLowMarshal, pulLOFLow, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IBDA_LNBInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_lnbinfo-get_localoscilatorfrequencyhighband
      */
     get_LocalOscilatorFrequencyHighBand(pulLOFHigh) {
-        result := ComCall(6, this, "uint*", pulLOFHigh, "HRESULT")
+        pulLOFHighMarshal := pulLOFHigh is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulLOFHighMarshal, pulLOFHigh, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class IBDA_LNBInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_lnbinfo-get_highlowswitchfrequency
      */
     get_HighLowSwitchFrequency(pulSwitchFrequency) {
-        result := ComCall(8, this, "uint*", pulSwitchFrequency, "HRESULT")
+        pulSwitchFrequencyMarshal := pulSwitchFrequency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulSwitchFrequencyMarshal, pulSwitchFrequency, "HRESULT")
         return result
     }
 }

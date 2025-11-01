@@ -37,7 +37,9 @@ class IMILBitmapEffectOutputConnector extends IMILBitmapEffectConnector{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnector-getnumberconnections
      */
     GetNumberConnections(puiNumberConnections) {
-        result := ComCall(9, this, "uint*", puiNumberConnections, "HRESULT")
+        puiNumberConnectionsMarshal := puiNumberConnections is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, puiNumberConnectionsMarshal, puiNumberConnections, "HRESULT")
         return result
     }
 

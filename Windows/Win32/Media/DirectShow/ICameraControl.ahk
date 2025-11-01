@@ -38,7 +38,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_exposure
      */
     get_Exposure(pValue, pFlags) {
-        result := ComCall(3, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -65,7 +68,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_exposure
      */
     getRange_Exposure(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(5, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -77,7 +86,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_focus
      */
     get_Focus(pValue, pFlags) {
-        result := ComCall(6, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -104,7 +116,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_focus
      */
     getRange_Focus(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(8, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -116,7 +134,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_iris
      */
     get_Iris(pValue, pFlags) {
-        result := ComCall(9, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -143,7 +164,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_iris
      */
     getRange_Iris(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(11, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -155,7 +182,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_zoom
      */
     get_Zoom(pValue, pFlags) {
-        result := ComCall(12, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -182,7 +212,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_zoom
      */
     getRange_Zoom(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(14, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -195,7 +231,11 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_focallengths
      */
     get_FocalLengths(plOcularFocalLength, plObjectiveFocalLengthMin, plObjectiveFocalLengthMax) {
-        result := ComCall(15, this, "int*", plOcularFocalLength, "int*", plObjectiveFocalLengthMin, "int*", plObjectiveFocalLengthMax, "HRESULT")
+        plOcularFocalLengthMarshal := plOcularFocalLength is VarRef ? "int*" : "ptr"
+        plObjectiveFocalLengthMinMarshal := plObjectiveFocalLengthMin is VarRef ? "int*" : "ptr"
+        plObjectiveFocalLengthMaxMarshal := plObjectiveFocalLengthMax is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plOcularFocalLengthMarshal, plOcularFocalLength, plObjectiveFocalLengthMinMarshal, plObjectiveFocalLengthMin, plObjectiveFocalLengthMaxMarshal, plObjectiveFocalLengthMax, "HRESULT")
         return result
     }
 
@@ -207,7 +247,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_pan
      */
     get_Pan(pValue, pFlags) {
-        result := ComCall(16, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -234,7 +277,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_pan
      */
     getRange_Pan(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(18, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -246,7 +295,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_tilt
      */
     get_Tilt(pValue, pFlags) {
-        result := ComCall(19, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -273,7 +325,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_tilt
      */
     getRange_Tilt(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(21, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -286,7 +344,11 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_pantilt
      */
     get_PanTilt(pPanValue, pTiltValue, pFlags) {
-        result := ComCall(22, this, "int*", pPanValue, "int*", pTiltValue, "int*", pFlags, "HRESULT")
+        pPanValueMarshal := pPanValue is VarRef ? "int*" : "ptr"
+        pTiltValueMarshal := pTiltValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pPanValueMarshal, pPanValue, pTiltValueMarshal, pTiltValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -311,7 +373,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_roll
      */
     get_Roll(pValue, pFlags) {
-        result := ComCall(24, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -338,7 +403,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_roll
      */
     getRange_Roll(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(26, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -350,7 +421,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_exposurerelative
      */
     get_ExposureRelative(pValue, pFlags) {
-        result := ComCall(27, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -377,7 +451,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_exposurerelative
      */
     getRange_ExposureRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(29, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -389,7 +469,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_focusrelative
      */
     get_FocusRelative(pValue, pFlags) {
-        result := ComCall(30, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -416,7 +499,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_focusrelative
      */
     getRange_FocusRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(32, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -428,7 +517,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_irisrelative
      */
     get_IrisRelative(pValue, pFlags) {
-        result := ComCall(33, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -455,7 +547,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_irisrelative
      */
     getRange_IrisRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(35, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -467,7 +565,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_zoomrelative
      */
     get_ZoomRelative(pValue, pFlags) {
-        result := ComCall(36, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -494,7 +595,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_zoomrelative
      */
     getRange_ZoomRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(38, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -506,7 +613,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_panrelative
      */
     get_PanRelative(pValue, pFlags) {
-        result := ComCall(39, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -530,7 +640,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_tiltrelative
      */
     get_TiltRelative(pValue, pFlags) {
-        result := ComCall(41, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -557,7 +670,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_tiltrelative
      */
     getRange_TiltRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(43, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -570,7 +689,11 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_pantiltrelative
      */
     get_PanTiltRelative(pPanValue, pTiltValue, pFlags) {
-        result := ComCall(44, this, "int*", pPanValue, "int*", pTiltValue, "int*", pFlags, "HRESULT")
+        pPanValueMarshal := pPanValue is VarRef ? "int*" : "ptr"
+        pTiltValueMarshal := pTiltValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, pPanValueMarshal, pPanValue, pTiltValueMarshal, pTiltValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -598,7 +721,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_panrelative
      */
     getRange_PanRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(46, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -610,7 +739,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_rollrelative
      */
     get_RollRelative(pValue, pFlags) {
-        result := ComCall(47, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -637,7 +769,13 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_rollrelative
      */
     getRange_RollRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        result := ComCall(49, this, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlag, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(49, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
     }
 
@@ -649,7 +787,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_scanmode
      */
     get_ScanMode(pValue, pFlags) {
-        result := ComCall(50, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -673,7 +814,10 @@ class ICameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_privacymode
      */
     get_PrivacyMode(pValue, pFlags) {
-        result := ComCall(52, this, "int*", pValue, "int*", pFlags, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

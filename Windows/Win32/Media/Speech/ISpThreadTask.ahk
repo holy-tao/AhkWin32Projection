@@ -31,7 +31,9 @@ class ISpThreadTask extends Win32ComInterface{
     InitThread(pvTaskData, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(0, this, "ptr", pvTaskData, "ptr", hwnd, "HRESULT")
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, "ptr", hwnd, "HRESULT")
         return result
     }
 
@@ -49,7 +51,10 @@ class ISpThreadTask extends Win32ComInterface{
         hNotifyEvent := hNotifyEvent is Win32Handle ? NumGet(hNotifyEvent, "ptr") : hNotifyEvent
         hwndWorker := hwndWorker is Win32Handle ? NumGet(hwndWorker, "ptr") : hwndWorker
 
-        result := ComCall(1, this, "ptr", pvTaskData, "ptr", hExitThreadEvent, "ptr", hNotifyEvent, "ptr", hwndWorker, "int*", pfContinueProcessing, "HRESULT")
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+        pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : "ptr"
+
+        result := ComCall(1, this, pvTaskDataMarshal, pvTaskData, "ptr", hExitThreadEvent, "ptr", hNotifyEvent, "ptr", hwndWorker, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
         return result
     }
 
@@ -65,7 +70,9 @@ class ISpThreadTask extends Win32ComInterface{
     WindowMessage(pvTaskData, hWnd, Msg, wParam, lParam) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(2, this, "ptr", pvTaskData, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 }

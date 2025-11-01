@@ -40,7 +40,10 @@ class IInterval extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iinterval-getlimits
      */
     GetLimits(pilkLower, ppropvarLower, pilkUpper, ppropvarUpper) {
-        result := ComCall(3, this, "int*", pilkLower, "ptr", ppropvarLower, "int*", pilkUpper, "ptr", ppropvarUpper, "HRESULT")
+        pilkLowerMarshal := pilkLower is VarRef ? "int*" : "ptr"
+        pilkUpperMarshal := pilkUpper is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pilkLowerMarshal, pilkLower, "ptr", ppropvarLower, pilkUpperMarshal, pilkUpper, "ptr", ppropvarUpper, "HRESULT")
         return result
     }
 }

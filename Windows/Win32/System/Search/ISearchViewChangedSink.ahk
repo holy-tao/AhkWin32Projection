@@ -39,7 +39,9 @@ class ISearchViewChangedSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchviewchangedsink-onchange
      */
     OnChange(pdwDocID, pChange, pfInView) {
-        result := ComCall(3, this, "int*", pdwDocID, "ptr", pChange, "ptr", pfInView, "HRESULT")
+        pdwDocIDMarshal := pdwDocID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pdwDocIDMarshal, pdwDocID, "ptr", pChange, "ptr", pfInView, "HRESULT")
         return result
     }
 }

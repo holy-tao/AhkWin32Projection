@@ -42,7 +42,9 @@ class IPrintDialogServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-iprintdialogservices-getcurrentdevmode
      */
     GetCurrentDevMode(pDevMode, pcbSize) {
-        result := ComCall(3, this, "ptr", pDevMode, "uint*", pcbSize, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pDevMode, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IPrintDialogServices extends IUnknown{
     GetCurrentPrinterName(pPrinterName, pcchSize) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
-        result := ComCall(4, this, "ptr", pPrinterName, "uint*", pcchSize, "HRESULT")
+        pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pPrinterName, pcchSizeMarshal, pcchSize, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IPrintDialogServices extends IUnknown{
     GetCurrentPortName(pPortName, pcchSize) {
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
-        result := ComCall(5, this, "ptr", pPortName, "uint*", pcchSize, "HRESULT")
+        pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pPortName, pcchSizeMarshal, pcchSize, "HRESULT")
         return result
     }
 }

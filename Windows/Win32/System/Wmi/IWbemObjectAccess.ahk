@@ -58,7 +58,10 @@ class IWbemObjectAccess extends IWbemClassObject{
     GetPropertyHandle(wszPropertyName, pType, plHandle) {
         wszPropertyName := wszPropertyName is String ? StrPtr(wszPropertyName) : wszPropertyName
 
-        result := ComCall(27, this, "ptr", wszPropertyName, "int*", pType, "int*", plHandle, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        plHandleMarshal := plHandle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, "ptr", wszPropertyName, pTypeMarshal, pType, plHandleMarshal, plHandle, "HRESULT")
         return result
     }
 
@@ -71,7 +74,9 @@ class IWbemObjectAccess extends IWbemClassObject{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-writepropertyvalue
      */
     WritePropertyValue(lHandle, lNumBytes, aData) {
-        result := ComCall(28, this, "int", lHandle, "int", lNumBytes, "char*", aData, "HRESULT")
+        aDataMarshal := aData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(28, this, "int", lHandle, "int", lNumBytes, aDataMarshal, aData, "HRESULT")
         return result
     }
 
@@ -85,7 +90,10 @@ class IWbemObjectAccess extends IWbemClassObject{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readpropertyvalue
      */
     ReadPropertyValue(lHandle, lBufferSize, plNumBytes, aData) {
-        result := ComCall(29, this, "int", lHandle, "int", lBufferSize, "int*", plNumBytes, "char*", aData, "HRESULT")
+        plNumBytesMarshal := plNumBytes is VarRef ? "int*" : "ptr"
+        aDataMarshal := aData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(29, this, "int", lHandle, "int", lBufferSize, plNumBytesMarshal, plNumBytes, aDataMarshal, aData, "HRESULT")
         return result
     }
 
@@ -97,7 +105,9 @@ class IWbemObjectAccess extends IWbemClassObject{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readdword
      */
     ReadDWORD(lHandle, pdw) {
-        result := ComCall(30, this, "int", lHandle, "uint*", pdw, "HRESULT")
+        pdwMarshal := pdw is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "int", lHandle, pdwMarshal, pdw, "HRESULT")
         return result
     }
 
@@ -121,7 +131,9 @@ class IWbemObjectAccess extends IWbemClassObject{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readqword
      */
     ReadQWORD(lHandle, pqw) {
-        result := ComCall(32, this, "int", lHandle, "uint*", pqw, "HRESULT")
+        pqwMarshal := pqw is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, "int", lHandle, pqwMarshal, pqw, "HRESULT")
         return result
     }
 
@@ -146,7 +158,9 @@ class IWbemObjectAccess extends IWbemClassObject{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-getpropertyinfobyhandle
      */
     GetPropertyInfoByHandle(lHandle, pstrName, pType) {
-        result := ComCall(34, this, "int", lHandle, "ptr", pstrName, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, "int", lHandle, "ptr", pstrName, pTypeMarshal, pType, "HRESULT")
         return result
     }
 

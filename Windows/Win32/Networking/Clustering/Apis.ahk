@@ -3272,7 +3272,9 @@ class Clustering {
     static GetNodeClusterState(lpszNodeName, pdwClusterState) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-        result := DllCall("CLUSAPI.dll\GetNodeClusterState", "ptr", lpszNodeName, "uint*", pdwClusterState, "uint")
+        pdwClusterStateMarshal := pdwClusterState is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetNodeClusterState", "ptr", lpszNodeName, pdwClusterStateMarshal, pdwClusterState, "uint")
         return result
     }
 
@@ -3360,9 +3362,11 @@ class Clustering {
     static OpenClusterEx(lpszClusterName, DesiredAccess, GrantedAccess) {
         lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
+        GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterEx", "ptr", lpszClusterName, "uint", DesiredAccess, "uint*", GrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterEx", "ptr", lpszClusterName, "uint", DesiredAccess, GrantedAccessMarshal, GrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3460,7 +3464,9 @@ class Clustering {
     static GetClusterInformation(hCluster, lpszClusterName, lpcchClusterName, lpClusterInfo) {
         lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
-        result := DllCall("CLUSAPI.dll\GetClusterInformation", "ptr", hCluster, "ptr", lpszClusterName, "uint*", lpcchClusterName, "ptr", lpClusterInfo, "uint")
+        lpcchClusterNameMarshal := lpcchClusterName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterInformation", "ptr", hCluster, "ptr", lpszClusterName, lpcchClusterNameMarshal, lpcchClusterName, "ptr", lpClusterInfo, "uint")
         return result
     }
 
@@ -3501,7 +3507,11 @@ class Clustering {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        result := DllCall("CLUSAPI.dll\GetClusterQuorumResource", "ptr", hCluster, "ptr", lpszResourceName, "uint*", lpcchResourceName, "ptr", lpszDeviceName, "uint*", lpcchDeviceName, "uint*", lpdwMaxQuorumLogSize, "uint")
+        lpcchResourceNameMarshal := lpcchResourceName is VarRef ? "uint*" : "ptr"
+        lpcchDeviceNameMarshal := lpcchDeviceName is VarRef ? "uint*" : "ptr"
+        lpdwMaxQuorumLogSizeMarshal := lpdwMaxQuorumLogSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterQuorumResource", "ptr", hCluster, "ptr", lpszResourceName, lpcchResourceNameMarshal, lpcchResourceName, "ptr", lpszDeviceName, lpcchDeviceNameMarshal, lpcchDeviceName, lpdwMaxQuorumLogSizeMarshal, lpdwMaxQuorumLogSize, "uint")
         return result
     }
 
@@ -3787,7 +3797,9 @@ class Clustering {
         lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
         lpszNewPassword := lpszNewPassword is String ? StrPtr(lpszNewPassword) : lpszNewPassword
 
-        result := DllCall("CLUSAPI.dll\SetClusterServiceAccountPassword", "ptr", lpszClusterName, "ptr", lpszNewPassword, "uint", dwFlags, "ptr", lpReturnStatusBuffer, "uint*", lpcbReturnStatusBufferSize, "uint")
+        lpcbReturnStatusBufferSizeMarshal := lpcbReturnStatusBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\SetClusterServiceAccountPassword", "ptr", lpszClusterName, "ptr", lpszNewPassword, "uint", dwFlags, "ptr", lpReturnStatusBuffer, lpcbReturnStatusBufferSizeMarshal, lpcbReturnStatusBufferSize, "uint")
         return result
     }
 
@@ -3926,7 +3938,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterControl(hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterControl", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterControl", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -3946,7 +3960,9 @@ class Clustering {
     static ClusterControlEx(hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterControlEx", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterControlEx", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -3961,7 +3977,9 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusterUpgradeFunctionalLevel(hCluster, perform, pfnProgressCallback, pvCallbackArg) {
-        result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", "ptr", hCluster, "int", perform, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "uint")
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", "ptr", hCluster, "int", perform, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
         return result
     }
 
@@ -4133,7 +4151,14 @@ class Clustering {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         lpszType := lpszType is String ? StrPtr(lpszType) : lpszType
 
-        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", hChange, "ptr*", lpdwNotifyKey, "ptr", pFilterAndType, "ptr", buffer, "uint*", lpbBufferSize, "ptr", lpszObjectId, "uint*", lpcchObjectId, "ptr", lpszParentId, "uint*", lpcchParentId, "ptr", lpszName, "uint*", lpcchName, "ptr", lpszType, "uint*", lpcchType, "uint", dwMilliseconds, "uint")
+        lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : "ptr"
+        lpbBufferSizeMarshal := lpbBufferSize is VarRef ? "uint*" : "ptr"
+        lpcchObjectIdMarshal := lpcchObjectId is VarRef ? "uint*" : "ptr"
+        lpcchParentIdMarshal := lpcchParentId is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+        lpcchTypeMarshal := lpcchType is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, "ptr", pFilterAndType, "ptr", buffer, lpbBufferSizeMarshal, lpbBufferSize, "ptr", lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, "ptr", lpszParentId, lpcchParentIdMarshal, lpcchParentId, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpszType, lpcchTypeMarshal, lpcchType, "uint", dwMilliseconds, "uint")
         return result
     }
 
@@ -4275,7 +4300,11 @@ class Clustering {
     static GetClusterNotify(hChange, lpdwNotifyKey, lpdwFilterType, lpszName, lpcchName, dwMilliseconds) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\GetClusterNotify", "ptr", hChange, "ptr*", lpdwNotifyKey, "uint*", lpdwFilterType, "ptr", lpszName, "uint*", lpcchName, "uint", dwMilliseconds, "uint")
+        lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : "ptr"
+        lpdwFilterTypeMarshal := lpdwFilterType is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterNotify", "ptr", hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, lpdwFilterTypeMarshal, lpdwFilterType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint", dwMilliseconds, "uint")
         return result
     }
 
@@ -4395,7 +4424,10 @@ class Clustering {
     static ClusterEnum(hEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterEnum", "ptr", hEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterEnum", "ptr", hEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -4428,9 +4460,11 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterOpenEnumEx(hCluster, dwType, pOptions) {
+        pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterOpenEnumEx", "ptr", hCluster, "uint", dwType, "ptr", pOptions, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterOpenEnumEx", "ptr", hCluster, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4503,7 +4537,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterEnumEx(hClusterEnum, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterEnumEx", "ptr", hClusterEnum, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
+        cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterEnumEx", "ptr", hClusterEnum, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
         return result
     }
 
@@ -4815,7 +4851,9 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusterGroupSetControl(hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -4835,7 +4873,9 @@ class Clustering {
     static ClusterGroupSetControlEx(hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -5131,7 +5171,9 @@ class Clustering {
     static ClusterGroupSetEnum(hGroupSetEnum, dwIndex, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetEnum", "ptr", hGroupSetEnum, "uint", dwIndex, "ptr", lpszName, "uint*", lpcchName, "uint")
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetEnum", "ptr", hGroupSetEnum, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -5280,7 +5322,9 @@ class Clustering {
     static ClusterAffinityRuleControl(hCluster, affinityRuleName, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
         affinityRuleName := affinityRuleName is String ? StrPtr(affinityRuleName) : affinityRuleName
 
-        result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", "ptr", hCluster, "ptr", affinityRuleName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", "ptr", hCluster, "ptr", affinityRuleName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -5378,9 +5422,11 @@ class Clustering {
     static OpenClusterNodeEx(hCluster, lpszNodeName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5589,7 +5635,9 @@ class Clustering {
     static GetClusterNodeId(hNode, lpszNodeId, lpcchName) {
         lpszNodeId := lpszNodeId is String ? StrPtr(lpszNodeId) : lpszNodeId
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeId", "ptr", hNode, "ptr", lpszNodeId, "uint*", lpcchName, "uint")
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterNodeId", "ptr", hNode, "ptr", lpszNodeId, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -5749,7 +5797,9 @@ class Clustering {
     static ClusterNetInterfaceEnum(hNetInterfaceEnum, dwIndex, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceEnum", "ptr", hNetInterfaceEnum, "uint", dwIndex, "ptr", lpszName, "uint*", lpcchName, "uint")
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceEnum", "ptr", hNetInterfaceEnum, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -5807,9 +5857,11 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNodeOpenEnumEx(hNode, dwType, pOptions) {
+        pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnumEx", "ptr", hNode, "uint", dwType, "ptr", pOptions, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnumEx", "ptr", hNode, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5879,7 +5931,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNodeEnumEx(hNodeEnum, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeEnumEx", "ptr", hNodeEnum, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
+        cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNodeEnumEx", "ptr", hNodeEnum, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
         return result
     }
 
@@ -5992,7 +6046,10 @@ class Clustering {
     static ClusterNodeEnum(hNodeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeEnum", "ptr", hNodeEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNodeEnum", "ptr", hNodeEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -6180,9 +6237,11 @@ class Clustering {
     static OpenClusterGroupEx(hCluster, lpszGroupName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6357,7 +6416,9 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterGroupEnumEx(hGroupEnumEx, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupEnumEx", "ptr", hGroupEnumEx, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
+        cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterGroupEnumEx", "ptr", hGroupEnumEx, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
         return result
     }
 
@@ -6484,7 +6545,9 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterResourceEnumEx(hResourceEnumEx, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceEnumEx", "ptr", hResourceEnumEx, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
+        cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceEnumEx", "ptr", hResourceEnumEx, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
         return result
     }
 
@@ -6605,7 +6668,9 @@ class Clustering {
     static OfflineClusterGroupEx2(hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", "ptr", hGroup, "uint", dwOfflineFlags, "char*", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
+        lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", "ptr", hGroup, "uint", dwOfflineFlags, lpInBufferMarshal, lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -6946,9 +7011,11 @@ class Clustering {
     static GetClusterGroupState(hGroup, lpszNodeName, lpcchNodeName) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
+        lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, "uint*", lpcchNodeName, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7304,7 +7371,10 @@ class Clustering {
     static ClusterGroupEnum(hGroupEnum, dwIndex, lpdwType, lpszResourceName, lpcchName) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupEnum", "ptr", hGroupEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszResourceName, "uint*", lpcchName, "uint")
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterGroupEnum", "ptr", hGroupEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszResourceName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -7462,9 +7532,11 @@ class Clustering {
     static OpenClusterResourceEx(hCluster, lpszResourceName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7730,9 +7802,12 @@ class Clustering {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
+        lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : "ptr"
+        lpcchGroupNameMarshal := lpcchGroupName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, "uint*", lpcchNodeName, "ptr", lpszGroupName, "uint*", lpcchGroupName, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "ptr", lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8157,7 +8232,9 @@ class Clustering {
     static GetClusterResourceDependencyExpression(hResource, lpszDependencyExpression, lpcchDependencyExpression) {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", "ptr", hResource, "ptr", lpszDependencyExpression, "uint*", lpcchDependencyExpression, "uint")
+        lpcchDependencyExpressionMarshal := lpcchDependencyExpression is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", "ptr", hResource, "ptr", lpszDependencyExpression, lpcchDependencyExpressionMarshal, lpcchDependencyExpression, "uint")
         return result
     }
 
@@ -8617,7 +8694,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterResourceControl(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceControl", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceControl", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -8725,7 +8804,9 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusterResourceControlAsUser(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -8883,7 +8964,9 @@ class Clustering {
     static ClusterResourceTypeControl(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -8966,7 +9049,9 @@ class Clustering {
     static ClusterResourceTypeControlAsUser(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -9101,7 +9186,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterGroupControl(hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupControl", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterGroupControl", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -9121,7 +9208,9 @@ class Clustering {
     static ClusterResourceControlEx(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9141,7 +9230,9 @@ class Clustering {
     static ClusterResourceControlAsUserEx(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9163,7 +9254,9 @@ class Clustering {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9185,7 +9278,9 @@ class Clustering {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9205,7 +9300,9 @@ class Clustering {
     static ClusterGroupControlEx(hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9336,7 +9433,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNodeControl(hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeControl", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNodeControl", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -9356,7 +9455,9 @@ class Clustering {
     static ClusterNodeControlEx(hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9379,9 +9480,11 @@ class Clustering {
     static GetClusterResourceNetworkName(hResource, lpBuffer, nSize) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, "uint*", nSize, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9506,7 +9609,10 @@ class Clustering {
     static ClusterResourceEnum(hResEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceEnum", "ptr", hResEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceEnum", "ptr", hResEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -9720,7 +9826,10 @@ class Clustering {
     static ClusterResourceTypeEnum(hResTypeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeEnum", "ptr", hResTypeEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeEnum", "ptr", hResTypeEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -9825,9 +9934,11 @@ class Clustering {
     static OpenClusterNetworkEx(hCluster, lpszNetworkName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
 
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10006,7 +10117,10 @@ class Clustering {
     static ClusterNetworkEnum(hNetworkEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkEnum", "ptr", hNetworkEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNetworkEnum", "ptr", hNetworkEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -10181,7 +10295,9 @@ class Clustering {
     static GetClusterNetworkId(hNetwork, lpszNetworkId, lpcchName) {
         lpszNetworkId := lpszNetworkId is String ? StrPtr(lpszNetworkId) : lpszNetworkId
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkId", "ptr", hNetwork, "ptr", lpszNetworkId, "uint*", lpcchName, "uint")
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkId", "ptr", hNetwork, "ptr", lpszNetworkId, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -10312,7 +10428,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNetworkControl(hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterNetworkControl", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNetworkControl", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -10332,7 +10450,9 @@ class Clustering {
     static ClusterNetworkControlEx(hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -10422,9 +10542,11 @@ class Clustering {
     static OpenClusterNetInterfaceEx(hCluster, lpszInterfaceName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10468,7 +10590,9 @@ class Clustering {
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
         lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterface", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, "uint*", lpcchInterfaceName, "uint")
+        lpcchInterfaceNameMarshal := lpcchInterfaceName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterface", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, lpcchInterfaceNameMarshal, lpcchInterfaceName, "uint")
         return result
     }
 
@@ -10757,7 +10881,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNetInterfaceControl(hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -10777,7 +10903,9 @@ class Clustering {
     static ClusterNetInterfaceControlEx(hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -10944,10 +11072,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegCreateKey(hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
-        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", "ptr", hKey, "ptr", lpszSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "int")
+        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", "ptr", hKey, "ptr", lpszSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "int")
         return result
     }
 
@@ -10964,11 +11094,13 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegCreateKeyEx(hKey, lpSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", "ptr", hKey, "ptr", lpSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "ptr", lpszReason, "int")
+        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", "ptr", hKey, "ptr", lpSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", lpszReason, "int")
         return result
     }
 
@@ -10993,8 +11125,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegOpenKey(hKey, lpszSubKey, samDesired, phkResult) {
-        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegOpenKey", "ptr", hKey, "ptr", lpszSubKey, "uint", samDesired, "ptr", phkResult, "int")
         return result
@@ -11015,8 +11147,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegDeleteKey(hKey, lpszSubKey) {
-        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteKey", "ptr", hKey, "ptr", lpszSubKey, "int")
         return result
@@ -11030,9 +11162,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegDeleteKeyEx(hKey, lpSubKey, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteKeyEx", "ptr", hKey, "ptr", lpSubKey, "ptr", lpszReason, "int")
         return result
@@ -11133,10 +11265,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegEnumKey(hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
-        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", "ptr", hKey, "uint", dwIndex, "ptr", lpszName, "uint*", lpcchName, "ptr", lpftLastWriteTime, "int")
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", "ptr", hKey, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpftLastWriteTime, "int")
         return result
     }
 
@@ -11160,12 +11294,14 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegSetValue(hKey, lpszValueName, dwType, lpData, cbData) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
+
+        lpDataMarshal := lpData is VarRef ? "char*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, "char*", lpData, "uint", cbData, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11184,8 +11320,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegDeleteValue(hKey, lpszValueName) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteValue", "ptr", hKey, "ptr", lpszValueName, "uint")
         return result
@@ -11202,11 +11338,13 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegSetValueEx(hKey, lpszValueName, dwType, lpData, cbData, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, "char*", lpData, "uint", cbData, "ptr", lpszReason, "uint")
+        lpDataMarshal := lpData is VarRef ? "char*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -11218,9 +11356,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegDeleteValueEx(hKey, lpszValueName, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteValueEx", "ptr", hKey, "ptr", lpszValueName, "ptr", lpszReason, "uint")
         return result
@@ -11278,10 +11416,13 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegQueryValue(hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", "ptr", hKey, "ptr", lpszValueName, "uint*", lpdwValueType, "ptr", lpData, "uint*", lpcbData, "int")
+        lpdwValueTypeMarshal := lpdwValueType is VarRef ? "uint*" : "ptr"
+        lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", "ptr", hKey, "ptr", lpszValueName, lpdwValueTypeMarshal, lpdwValueType, "ptr", lpData, lpcbDataMarshal, lpcbData, "int")
         return result
     }
 
@@ -11369,10 +11510,14 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegEnumValue(hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", "ptr", hKey, "uint", dwIndex, "ptr", lpszValueName, "uint*", lpcchValueName, "uint*", lpdwType, "ptr", lpData, "uint*", lpcbData, "uint")
+        lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+        lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", "ptr", hKey, "uint", dwIndex, "ptr", lpszValueName, lpcchValueNameMarshal, lpcchValueName, lpdwTypeMarshal, lpdwType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
@@ -11396,7 +11541,14 @@ class Clustering {
     static ClusterRegQueryInfoKey(hKey, lpcSubKeys, lpcchMaxSubKeyLen, lpcValues, lpcchMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegQueryInfoKey", "ptr", hKey, "uint*", lpcSubKeys, "uint*", lpcchMaxSubKeyLen, "uint*", lpcValues, "uint*", lpcchMaxValueNameLen, "uint*", lpcbMaxValueLen, "uint*", lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "int")
+        lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : "ptr"
+        lpcchMaxSubKeyLenMarshal := lpcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
+        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
+        lpcchMaxValueNameLenMarshal := lpcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
+        lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
+        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegQueryInfoKey", "ptr", hKey, lpcSubKeysMarshal, lpcSubKeys, lpcchMaxSubKeyLenMarshal, lpcchMaxSubKeyLen, lpcValuesMarshal, lpcValues, lpcchMaxValueNameLenMarshal, lpcchMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "int")
         return result
     }
 
@@ -11416,7 +11568,9 @@ class Clustering {
     static ClusterRegGetKeySecurity(hKey, RequestedInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegGetKeySecurity", "ptr", hKey, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint*", lpcbSecurityDescriptor, "int")
+        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegGetKeySecurity", "ptr", hKey, "uint", RequestedInformation, "ptr", pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "int")
         return result
     }
 
@@ -11452,9 +11606,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegSetKeySecurityEx(hKey, SecurityInformation, pSecurityDescriptor, lpszReason) {
-        lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+        lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurityEx", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "ptr", lpszReason, "int")
         return result
@@ -11705,7 +11859,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegCloseBatch(hRegBatch, bCommit, failedCommandNumber) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatch", "ptr", hRegBatch, "int", bCommit, "int*", failedCommandNumber, "int")
+        failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatch", "ptr", hRegBatch, "int", bCommit, failedCommandNumberMarshal, failedCommandNumber, "int")
         return result
     }
 
@@ -11757,7 +11913,9 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterRegCloseBatchEx(hRegBatch, flags, failedCommandNumber) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatchEx", "ptr", hRegBatch, "uint", flags, "int*", failedCommandNumber, "int")
+        failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatchEx", "ptr", hRegBatch, "uint", flags, failedCommandNumberMarshal, failedCommandNumber, "int")
         return result
     }
 
@@ -12349,9 +12507,11 @@ class Clustering {
      * @since windowsserver2008
      */
     static CreateCluster(pConfig, pfnProgressCallback, pvCallbackArg) {
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CreateCluster", "ptr", pConfig, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateCluster", "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12369,7 +12529,9 @@ class Clustering {
      * @since windowsserver2016
      */
     static CreateClusterNameAccount(hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
-        result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", "ptr", hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "uint")
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", "ptr", hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
         return result
     }
 
@@ -12393,7 +12555,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static RepairClusterNameAccount(hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
-        result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", "ptr", hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "uint")
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", "ptr", hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
         return result
     }
 
@@ -12405,7 +12569,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromNodelist(cNodes, ppszNodeNames, pCNOResType) {
-        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, "int*", pCNOResType, "uint")
+        pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, pCNOResTypeMarshal, pCNOResType, "uint")
         return result
     }
 
@@ -12416,7 +12582,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromCluster(hCluster, pCNOResType) {
-        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromCluster", "ptr", hCluster, "int*", pCNOResType, "uint")
+        pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromCluster", "ptr", hCluster, pCNOResTypeMarshal, pCNOResType, "uint")
         return result
     }
 
@@ -12428,7 +12596,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromNodelist(cNodes, ppszNodeNames, pCloudType) {
-        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, "int*", pCloudType, "uint")
+        pCloudTypeMarshal := pCloudType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, pCloudTypeMarshal, pCloudType, "uint")
         return result
     }
 
@@ -12439,7 +12609,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromCluster(hCluster, pCloudType) {
-        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromCluster", "ptr", hCluster, "int*", pCloudType, "uint")
+        pCloudTypeMarshal := pCloudType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromCluster", "ptr", hCluster, pCloudTypeMarshal, pCloudType, "uint")
         return result
     }
 
@@ -12452,7 +12624,9 @@ class Clustering {
     static GetNodeCloudTypeDW(ppszNodeName, NodeCloudType) {
         ppszNodeName := ppszNodeName is String ? StrPtr(ppszNodeName) : ppszNodeName
 
-        result := DllCall("CLUSAPI.dll\GetNodeCloudTypeDW", "ptr", ppszNodeName, "uint*", NodeCloudType, "uint")
+        NodeCloudTypeMarshal := NodeCloudType is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\GetNodeCloudTypeDW", "ptr", ppszNodeName, NodeCloudTypeMarshal, NodeCloudType, "uint")
         return result
     }
 
@@ -12492,9 +12666,11 @@ class Clustering {
     static AddClusterNode(hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\AddClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "ptr")
+        result := DllCall("CLUSAPI.dll\AddClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12516,7 +12692,9 @@ class Clustering {
         lpszClusterStorageNodeDescription := lpszClusterStorageNodeDescription is String ? StrPtr(lpszClusterStorageNodeDescription) : lpszClusterStorageNodeDescription
         lpszClusterStorageNodeLocation := lpszClusterStorageNodeLocation is String ? StrPtr(lpszClusterStorageNodeLocation) : lpszClusterStorageNodeLocation
 
-        result := DllCall("CLUSAPI.dll\AddClusterStorageNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "ptr", lpszClusterStorageNodeDescription, "ptr", lpszClusterStorageNodeLocation, "uint")
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\AddClusterStorageNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr", lpszClusterStorageNodeDescription, "ptr", lpszClusterStorageNodeLocation, "uint")
         return result
     }
 
@@ -12532,7 +12710,9 @@ class Clustering {
     static AddClusterNodeEx(hCluster, lpszNodeName, dwFlags, pfnProgressCallback, pvCallbackArg) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-        result := DllCall("CLUSAPI.dll\AddClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwFlags, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "ptr")
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\AddClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwFlags, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
         return result
     }
 
@@ -12567,7 +12747,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static DestroyCluster(hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
-        result := DllCall("CLUSAPI.dll\DestroyCluster", "ptr", hCluster, "ptr", pfnProgressCallback, "ptr", pvCallbackArg, "int", fdeleteVirtualComputerObjects, "uint")
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CLUSAPI.dll\DestroyCluster", "ptr", hCluster, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "int", fdeleteVirtualComputerObjects, "uint")
         return result
     }
 
@@ -12928,7 +13110,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilEnumProperties(pPropertyTable, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilEnumProperties", "ptr", pPropertyTable, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilEnumProperties", "ptr", pPropertyTable, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -12989,7 +13174,10 @@ class Clustering {
     static ResUtilEnumPrivateProperties(hkeyClusterKey, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumPrivateProperties", "ptr", hkeyClusterKey, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilEnumPrivateProperties", "ptr", hkeyClusterKey, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -13051,7 +13239,10 @@ class Clustering {
     static ResUtilGetProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilGetProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -13113,7 +13304,10 @@ class Clustering {
     static ResUtilGetAllProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilGetAllProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetAllProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -13174,7 +13368,10 @@ class Clustering {
     static ResUtilGetPrivateProperties(hkeyClusterKey, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilGetPrivateProperties", "ptr", hkeyClusterKey, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetPrivateProperties", "ptr", hkeyClusterKey, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -13223,7 +13420,10 @@ class Clustering {
     static ResUtilGetPropertySize(hkeyClusterKey, pPropertyTableItem, pcbOutPropertyListSize, pnPropertyCount) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilGetPropertySize", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, "uint*", pcbOutPropertyListSize, "uint*", pnPropertyCount, "uint")
+        pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : "ptr"
+        pnPropertyCountMarshal := pnPropertyCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetPropertySize", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pnPropertyCountMarshal, pnPropertyCount, "uint")
         return result
     }
 
@@ -13261,7 +13461,9 @@ class Clustering {
     static ResUtilGetProperty(hkeyClusterKey, pPropertyTableItem, pOutPropertyItem, pcbOutPropertyItemSize) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilGetProperty", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, "ptr", pOutPropertyItem, "uint*", pcbOutPropertyItemSize, "uint")
+        pcbOutPropertyItemSizeMarshal := pcbOutPropertyItemSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetProperty", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, "ptr", pOutPropertyItem, pcbOutPropertyItemSizeMarshal, pcbOutPropertyItemSize, "uint")
         return result
     }
 
@@ -13322,7 +13524,9 @@ class Clustering {
     static ResUtilVerifyPropertyTable(pPropertyTable, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, pOutParams) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("RESUTILS.dll\ResUtilVerifyPropertyTable", "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "char*", pOutParams, "uint")
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilVerifyPropertyTable", "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, pOutParamsMarshal, pOutParams, "uint")
         return result
     }
 
@@ -13407,7 +13611,9 @@ class Clustering {
 
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTable", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "char*", pOutParams, "uint")
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTable", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, pOutParamsMarshal, pOutParams, "uint")
         return result
     }
 
@@ -13482,7 +13688,11 @@ class Clustering {
     static ResUtilSetPropertyTableEx(hkeyClusterKey, pPropertyTable, Reserved, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTableEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, "char*", pOutParams, "uint")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : "ptr"
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTableEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, ReservedMarshal, Reserved, "int", bAllowUnknownProperties, pInPropertyListMarshal, pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, pOutParamsMarshal, pOutParams, "uint")
         return result
     }
 
@@ -13534,7 +13744,12 @@ class Clustering {
     static ResUtilSetPropertyParameterBlock(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, pOutParams) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "char*", pInParams, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "char*", pOutParams, "uint")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+        pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : "ptr"
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, ReservedMarshal, Reserved, pInParamsMarshal, pInParams, pInPropertyListMarshal, pInPropertyList, "uint", cbInPropertyListSize, pOutParamsMarshal, pOutParams, "uint")
         return result
     }
 
@@ -13587,7 +13802,12 @@ class Clustering {
     static ResUtilSetPropertyParameterBlockEx(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlockEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "char*", pInParams, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, "char*", pOutParams, "uint")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+        pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : "ptr"
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlockEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, ReservedMarshal, Reserved, pInParamsMarshal, pInParams, pInPropertyListMarshal, pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, pOutParamsMarshal, pOutParams, "uint")
         return result
     }
 
@@ -13657,7 +13877,9 @@ class Clustering {
     static ResUtilGetPropertiesToParameterBlock(hkeyClusterKey, pPropertyTable, pOutParams, bCheckForRequiredProperties, pszNameOfPropInError) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilGetPropertiesToParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "char*", pOutParams, "int", bCheckForRequiredProperties, "ptr", pszNameOfPropInError, "uint")
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetPropertiesToParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, pOutParamsMarshal, pOutParams, "int", bCheckForRequiredProperties, "ptr", pszNameOfPropInError, "uint")
         return result
     }
 
@@ -13718,7 +13940,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilPropertyListFromParameterBlock(pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pInParams, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilPropertyListFromParameterBlock", "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint*", pcbOutPropertyListSize, "char*", pInParams, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : "ptr"
+        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilPropertyListFromParameterBlock", "ptr", pPropertyTable, "ptr", pOutPropertyList, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pInParamsMarshal, pInParams, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -13735,7 +13962,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilDupParameterBlock(pOutParams, pInParams, pPropertyTable) {
-        result := DllCall("RESUTILS.dll\ResUtilDupParameterBlock", "char*", pOutParams, "char*", pInParams, "ptr", pPropertyTable, "uint")
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilDupParameterBlock", pOutParamsMarshal, pOutParams, pInParamsMarshal, pInParams, "ptr", pPropertyTable, "uint")
         return result
     }
 
@@ -13760,7 +13990,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilFreeParameterBlock(pOutParams, pInParams, pPropertyTable) {
-        DllCall("RESUTILS.dll\ResUtilFreeParameterBlock", "char*", pOutParams, "char*", pInParams, "ptr", pPropertyTable)
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+
+        DllCall("RESUTILS.dll\ResUtilFreeParameterBlock", pOutParamsMarshal, pOutParams, pInParamsMarshal, pInParams, "ptr", pPropertyTable)
     }
 
     /**
@@ -13799,7 +14032,11 @@ class Clustering {
     static ResUtilAddUnknownProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilAddUnknownProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", pcbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pOutPropertyListMarshal := pOutPropertyList is VarRef ? "ptr" : "ptr"
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilAddUnknownProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, pOutPropertyListMarshal, pOutPropertyList, "uint", pcbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -13943,10 +14180,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetBinaryValue(hkeyClusterKey, pszValueName, ppbOutValue, pcbOutValueSize) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr*", ppbOutValue, "uint*", pcbOutValueSize, "uint")
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr*", ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "uint")
         return result
     }
 
@@ -13963,8 +14202,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetSzValue(hkeyClusterKey, pszValueName) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         A_LastError := 0
 
@@ -14007,10 +14246,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetDwordValue(hkeyClusterKey, pszValueName, pdwOutValue, dwDefaultValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint*", pdwOutValue, "uint", dwDefaultValue, "uint")
+        pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, pdwOutValueMarshal, pdwOutValue, "uint", dwDefaultValue, "uint")
         return result
     }
 
@@ -14025,10 +14266,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetQwordValue(hkeyClusterKey, pszValueName, pqwOutValue, qwDefaultValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint*", pqwOutValue, "uint", qwDefaultValue, "uint")
+        pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, pqwOutValueMarshal, pqwOutValue, "uint", qwDefaultValue, "uint")
         return result
     }
 
@@ -14066,10 +14309,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetBinaryValue(hkeyClusterKey, pszValueName, pbNewValue, cbNewValueSize, ppbOutValue, pcbOutValueSize) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pbNewValue, "uint", cbNewValueSize, "ptr", ppbOutValue, "uint*", pcbOutValueSize, "uint")
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pbNewValue, "uint", cbNewValueSize, "ptr", ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "uint")
         return result
     }
 
@@ -14105,9 +14350,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
+        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
-        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
         result := DllCall("RESUTILS.dll\ResUtilSetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
         return result
@@ -14145,9 +14390,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetExpandSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
+        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
-        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
         result := DllCall("RESUTILS.dll\ResUtilSetExpandSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
         return result
@@ -14187,10 +14432,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetMultiSzValue(hkeyClusterKey, pszValueName, pszNewValue, cbNewValueSize, ppszOutValue, pcbOutValueSize) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "uint", cbNewValueSize, "ptr", ppszOutValue, "uint*", pcbOutValueSize, "uint")
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "uint", cbNewValueSize, "ptr", ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "uint")
         return result
     }
 
@@ -14208,10 +14455,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetDwordValue(hkeyClusterKey, pszValueName, dwNewValue, pdwOutValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", dwNewValue, "uint*", pdwOutValue, "uint")
+        pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", dwNewValue, pdwOutValueMarshal, pdwOutValue, "uint")
         return result
     }
 
@@ -14226,10 +14475,12 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetQwordValue(hkeyClusterKey, pszValueName, qwNewValue, pqwOutValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", qwNewValue, "uint*", pqwOutValue, "uint")
+        pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilSetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", qwNewValue, pqwOutValueMarshal, pqwOutValue, "uint")
         return result
     }
 
@@ -14246,8 +14497,8 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilSetValueEx(hkeyClusterKey, valueName, valueType, valueData, valueSize, flags) {
-        valueName := valueName is String ? StrPtr(valueName) : valueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        valueName := valueName is String ? StrPtr(valueName) : valueName
 
         result := DllCall("RESUTILS.dll\ResUtilSetValueEx", "ptr", hkeyClusterKey, "ptr", valueName, "uint", valueType, "ptr", valueData, "uint", valueSize, "uint", flags, "uint")
         return result
@@ -14292,7 +14543,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetBinaryProperty(ppbOutValue, pcbOutValueSize, pValueStruct, pbOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", "ptr*", ppbOutValue, "uint*", pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", "ptr*", ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14335,7 +14589,9 @@ class Clustering {
     static ResUtilGetSzProperty(ppszOutValue, pValueStruct, pszOldValue, ppPropertyList, pcbPropertyListSize) {
         pszOldValue := pszOldValue is String ? StrPtr(pszOldValue) : pszOldValue
 
-        result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", "ptr", ppszOutValue, "ptr", pValueStruct, "ptr", pszOldValue, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", "ptr", ppszOutValue, "ptr", pValueStruct, "ptr", pszOldValue, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14378,7 +14634,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetMultiSzProperty(ppszOutValue, pcbOutValueSize, pValueStruct, pszOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", "ptr", ppszOutValue, "uint*", pcbOutValueSize, "ptr", pValueStruct, "ptr", pszOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", "ptr", ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "ptr", pValueStruct, "ptr", pszOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14422,7 +14681,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetDwordProperty(pdwOutValue, pValueStruct, dwOldValue, dwMinimum, dwMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", "uint*", pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, "ptr*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", pdwOutValueMarshal, pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, "ptr*", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14440,7 +14702,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetLongProperty(plOutValue, pValueStruct, lOldValue, lMinimum, lMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", "int*", plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, "ptr*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        plOutValueMarshal := plOutValue is VarRef ? "int*" : "ptr"
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", plOutValueMarshal, plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, "ptr*", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14458,7 +14723,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetFileTimeProperty(pftOutValue, pValueStruct, ftOldValue, ftMinimum, ftMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, "ptr*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, "ptr*", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14490,7 +14757,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilFreeEnvironment(lpEnvironment) {
-        result := DllCall("RESUTILS.dll\ResUtilFreeEnvironment", "ptr", lpEnvironment, "uint")
+        lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFreeEnvironment", lpEnvironmentMarshal, lpEnvironment, "uint")
         return result
     }
 
@@ -14802,7 +15071,9 @@ class Clustering {
     static ResUtilFindDwordProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pdwPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindDwordProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "uint*", pdwPropertyValue, "uint")
+        pdwPropertyValueMarshal := pdwPropertyValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindDwordProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, pdwPropertyValueMarshal, pdwPropertyValue, "uint")
         return result
     }
 
@@ -14863,7 +15134,9 @@ class Clustering {
     static ResUtilFindBinaryProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pbPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr*", pbPropertyValue, "uint*", pcbPropertyValueSize, "uint")
+        pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr*", pbPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, "uint")
         return result
     }
 
@@ -14924,7 +15197,9 @@ class Clustering {
     static ResUtilFindMultiSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindMultiSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint*", pcbPropertyValueSize, "uint")
+        pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindMultiSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, "uint")
         return result
     }
 
@@ -14973,7 +15248,9 @@ class Clustering {
     static ResUtilFindLongProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindLongProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "int*", plPropertyValue, "uint")
+        plPropertyValueMarshal := plPropertyValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindLongProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, plPropertyValueMarshal, plPropertyValue, "uint")
         return result
     }
 
@@ -14994,7 +15271,9 @@ class Clustering {
     static ResUtilFindULargeIntegerProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindULargeIntegerProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "uint*", plPropertyValue, "uint")
+        plPropertyValueMarshal := plPropertyValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilFindULargeIntegerProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, plPropertyValueMarshal, plPropertyValue, "uint")
         return result
     }
 
@@ -15029,7 +15308,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusWorkerCreate(lpWorker, lpStartAddress, lpParameter) {
-        result := DllCall("RESUTILS.dll\ClusWorkerCreate", "ptr", lpWorker, "ptr", lpStartAddress, "ptr", lpParameter, "uint")
+        lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ClusWorkerCreate", "ptr", lpWorker, "ptr", lpStartAddress, lpParameterMarshal, lpParameter, "uint")
         return result
     }
 
@@ -15267,7 +15548,9 @@ class Clustering {
     static ResUtilEnumResources(hSelf, lpszResTypeName, pResCallBack, pParameter) {
         lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumResources", "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, "ptr", pParameter, "uint")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilEnumResources", "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -15304,7 +15587,9 @@ class Clustering {
     static ResUtilEnumResourcesEx(hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter) {
         lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, "ptr", pParameter, "uint")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -15320,8 +15605,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependency(hSelf, lpszResourceType) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -15371,8 +15656,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependencyByName(hCluster, hSelf, lpszResourceType, bRecurse) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -15509,7 +15794,11 @@ class Clustering {
         pszSubnetMask := pszSubnetMask is String ? StrPtr(pszSubnetMask) : pszSubnetMask
         pszNetwork := pszNetwork is String ? StrPtr(pszNetwork) : pszNetwork
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependentIPAddressProps", "ptr", hResource, "ptr", pszAddress, "uint*", pcchAddress, "ptr", pszSubnetMask, "uint*", pcchSubnetMask, "ptr", pszNetwork, "uint*", pcchNetwork, "uint")
+        pcchAddressMarshal := pcchAddress is VarRef ? "uint*" : "ptr"
+        pcchSubnetMaskMarshal := pcchSubnetMask is VarRef ? "uint*" : "ptr"
+        pcchNetworkMarshal := pcchNetwork is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependentIPAddressProps", "ptr", hResource, "ptr", pszAddress, pcchAddressMarshal, pcchAddress, "ptr", pszSubnetMask, pcchSubnetMaskMarshal, pcchSubnetMask, "ptr", pszNetwork, pcchNetworkMarshal, pcchNetwork, "uint")
         return result
     }
 
@@ -15573,9 +15862,11 @@ class Clustering {
     static ResUtilFindDependentDiskResourceDriveLetter(hCluster, hResource, pszDriveLetter, pcchDriveLetter) {
         pszDriveLetter := pszDriveLetter is String ? StrPtr(pszDriveLetter) : pszDriveLetter
 
+        pcchDriveLetterMarshal := pcchDriveLetter is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", hCluster, "ptr", hResource, "ptr", pszDriveLetter, "uint*", pcchDriveLetter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", hCluster, "ptr", hResource, "ptr", pszDriveLetter, pcchDriveLetterMarshal, pcchDriveLetter, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -15614,7 +15905,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilTerminateServiceProcessFromResDll(dwServicePid, bOffline, pdwResourceState, pfnLogEvent, hResourceHandle) {
-        result := DllCall("RESUTILS.dll\ResUtilTerminateServiceProcessFromResDll", "uint", dwServicePid, "int", bOffline, "uint*", pdwResourceState, "ptr", pfnLogEvent, "ptr", hResourceHandle, "uint")
+        pdwResourceStateMarshal := pdwResourceState is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilTerminateServiceProcessFromResDll", "uint", dwServicePid, "int", bOffline, pdwResourceStateMarshal, pdwResourceState, "ptr", pfnLogEvent, "ptr", hResourceHandle, "uint")
         return result
     }
 
@@ -15635,7 +15928,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetPropertyFormats(pPropertyTable, pOutPropertyFormatList, cbPropertyFormatListSize, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilGetPropertyFormats", "ptr", pPropertyTable, "ptr", pOutPropertyFormatList, "uint", cbPropertyFormatListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetPropertyFormats", "ptr", pPropertyTable, "ptr", pOutPropertyFormatList, "uint", cbPropertyFormatListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, "uint")
         return result
     }
 
@@ -15678,7 +15974,9 @@ class Clustering {
     static ResUtilGetResourceName(hResource, pszResourceName, pcchResourceNameInOut) {
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceName", "ptr", hResource, "ptr", pszResourceName, "uint*", pcchResourceNameInOut, "uint")
+        pcchResourceNameInOutMarshal := pcchResourceNameInOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceName", "ptr", hResource, "ptr", pszResourceName, pcchResourceNameInOutMarshal, pcchResourceNameInOut, "uint")
         return result
     }
 
@@ -15852,7 +16150,10 @@ class Clustering {
         lpszVolumePathName := lpszVolumePathName is String ? StrPtr(lpszVolumePathName) : lpszVolumePathName
         lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
-        result := DllCall("RESUTILS.dll\ClusterPrepareSharedVolumeForBackup", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint*", lpcchVolumePathName, "ptr", lpszVolumeName, "uint*", lpcchVolumeName, "uint")
+        lpcchVolumePathNameMarshal := lpcchVolumePathName is VarRef ? "uint*" : "ptr"
+        lpcchVolumeNameMarshal := lpcchVolumeName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ClusterPrepareSharedVolumeForBackup", "ptr", lpszFileName, "ptr", lpszVolumePathName, lpcchVolumePathNameMarshal, lpcchVolumePathName, "ptr", lpszVolumeName, lpcchVolumeNameMarshal, lpcchVolumeName, "uint")
         return result
     }
 
@@ -15932,7 +16233,9 @@ class Clustering {
     static ResUtilEnumResourcesEx2(hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter, dwDesiredAccess) {
         lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx2", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, "ptr", pParameter, "uint", dwDesiredAccess, "uint")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx2", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint", dwDesiredAccess, "uint")
         return result
     }
 
@@ -15950,8 +16253,8 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilGetResourceDependencyEx(hSelf, lpszResourceType, dwDesiredAccess) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -16002,8 +16305,8 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilGetResourceDependencyByNameEx(hCluster, hSelf, lpszResourceType, bRecurse, dwDesiredAccess) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -16099,7 +16402,9 @@ class Clustering {
     static OpenClusterCryptProvider(lpszResource, lpszProvider, dwType, dwFlags) {
         lpszResource := lpszResource is String ? StrPtr(lpszResource) : lpszResource
 
-        result := DllCall("RESUTILS.dll\OpenClusterCryptProvider", "ptr", lpszResource, "char*", lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
+        lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\OpenClusterCryptProvider", "ptr", lpszResource, lpszProviderMarshal, lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -16116,7 +16421,9 @@ class Clustering {
         lpszResource := lpszResource is String ? StrPtr(lpszResource) : lpszResource
         lpszKeyname := lpszKeyname is String ? StrPtr(lpszKeyname) : lpszKeyname
 
-        result := DllCall("RESUTILS.dll\OpenClusterCryptProviderEx", "ptr", lpszResource, "ptr", lpszKeyname, "char*", lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
+        lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\OpenClusterCryptProviderEx", "ptr", lpszResource, "ptr", lpszKeyname, lpszProviderMarshal, lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -16144,7 +16451,10 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterEncrypt(hClusCryptProvider, pData, cbData, ppData, pcbData) {
-        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, "char*", pData, "uint", cbData, "ptr*", ppData, "uint*", pcbData, "uint")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, pDataMarshal, pData, "uint", cbData, "ptr*", ppData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -16160,7 +16470,10 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterDecrypt(hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
-        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, "char*", pCryptInput, "uint", cbCryptInput, "ptr*", ppCryptOutput, "uint*", pcbCryptOutput, "uint")
+        pCryptInputMarshal := pCryptInput is VarRef ? "char*" : "ptr"
+        pcbCryptOutputMarshal := pcbCryptOutput is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, pCryptInputMarshal, pCryptInput, "uint", cbCryptInput, "ptr*", ppCryptOutput, pcbCryptOutputMarshal, pcbCryptOutput, "uint")
         return result
     }
 
@@ -16172,7 +16485,9 @@ class Clustering {
      * @since windowsserver2012
      */
     static FreeClusterCrypt(pCryptInfo) {
-        result := DllCall("RESUTILS.dll\FreeClusterCrypt", "ptr", pCryptInfo, "uint")
+        pCryptInfoMarshal := pCryptInfo is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\FreeClusterCrypt", pCryptInfoMarshal, pCryptInfo, "uint")
         return result
     }
 
@@ -16184,7 +16499,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilVerifyShutdownSafe(flags, reason, pResult) {
-        result := DllCall("RESUTILS.dll\ResUtilVerifyShutdownSafe", "uint", flags, "uint", reason, "uint*", pResult, "uint")
+        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilVerifyShutdownSafe", "uint", flags, "uint", reason, pResultMarshal, pResult, "uint")
         return result
     }
 
@@ -16222,8 +16539,8 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilsDeleteKeyTree(key, keyName, treatNoKeyAsError) {
-        keyName := keyName is String ? StrPtr(keyName) : keyName
         key := key is Win32Handle ? NumGet(key, "ptr") : key
+        keyName := keyName is String ? StrPtr(keyName) : keyName
 
         result := DllCall("RESUTILS.dll\ResUtilsDeleteKeyTree", "ptr", key, "ptr", keyName, "int", treatNoKeyAsError, "uint")
         return result
@@ -16250,7 +16567,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilEnumGroups(hCluster, hSelf, pResCallBack, pParameter) {
-        result := DllCall("RESUTILS.dll\ResUtilEnumGroups", "ptr", hCluster, "ptr", hSelf, "ptr", pResCallBack, "ptr", pParameter, "uint")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilEnumGroups", "ptr", hCluster, "ptr", hSelf, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -16264,7 +16583,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilEnumGroupsEx(hCluster, hSelf, groupType, pResCallBack, pParameter) {
-        result := DllCall("RESUTILS.dll\ResUtilEnumGroupsEx", "ptr", hCluster, "ptr", hSelf, "int", groupType, "ptr", pResCallBack, "ptr", pParameter, "uint")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilEnumGroupsEx", "ptr", hCluster, "ptr", hSelf, "int", groupType, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -16286,7 +16607,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilGetClusterGroupType(hGroup, groupType) {
-        result := DllCall("RESUTILS.dll\ResUtilGetClusterGroupType", "ptr", hGroup, "int*", groupType, "uint")
+        groupTypeMarshal := groupType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilGetClusterGroupType", "ptr", hGroup, groupTypeMarshal, groupType, "uint")
         return result
     }
 
@@ -16309,7 +16632,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilResourceDepEnum(hSelf, enumType, pResCallBack, pParameter) {
-        result := DllCall("RESUTILS.dll\ResUtilResourceDepEnum", "ptr", hSelf, "uint", enumType, "ptr", pResCallBack, "ptr", pParameter, "uint")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilResourceDepEnum", "ptr", hSelf, "uint", enumType, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -16343,7 +16668,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilNodeEnum(hCluster, pNodeCallBack, pParameter) {
-        result := DllCall("RESUTILS.dll\ResUtilNodeEnum", "ptr", hCluster, "ptr", pNodeCallBack, "ptr", pParameter, "uint")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ResUtilNodeEnum", "ptr", hCluster, "ptr", pNodeCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -16452,7 +16779,10 @@ class Clustering {
      * @returns {Integer} 
      */
     static QueryAppInstanceVersion(AppInstanceId, InstanceVersionHigh, InstanceVersionLow, VersionStatus) {
-        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, "uint*", InstanceVersionHigh, "uint*", InstanceVersionLow, "ptr", VersionStatus, "uint")
+        InstanceVersionHighMarshal := InstanceVersionHigh is VarRef ? "uint*" : "ptr"
+        InstanceVersionLowMarshal := InstanceVersionLow is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, InstanceVersionHighMarshal, InstanceVersionHigh, InstanceVersionLowMarshal, InstanceVersionLow, "ptr", VersionStatus, "uint")
         return result
     }
 

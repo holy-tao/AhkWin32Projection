@@ -37,7 +37,9 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -71,7 +77,9 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex, ulVal) {
-        result := ComCall(6, this, "char", bRecordIndex, "uint*", ulVal, "HRESULT")
+        ulValMarshal := ulVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "char", bRecordIndex, ulValMarshal, ulVal, "HRESULT")
         return result
     }
 

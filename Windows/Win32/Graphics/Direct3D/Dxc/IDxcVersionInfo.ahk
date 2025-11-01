@@ -38,7 +38,10 @@ class IDxcVersionInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pMajor, pMinor) {
-        result := ComCall(3, this, "uint*", pMajor, "uint*", pMinor, "HRESULT")
+        pMajorMarshal := pMajor is VarRef ? "uint*" : "ptr"
+        pMinorMarshal := pMinor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pMajorMarshal, pMajor, pMinorMarshal, pMinor, "HRESULT")
         return result
     }
 
@@ -48,7 +51,9 @@ class IDxcVersionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFlags(pFlags) {
-        result := ComCall(4, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 }

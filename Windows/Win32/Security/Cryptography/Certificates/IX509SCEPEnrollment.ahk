@@ -125,7 +125,9 @@ class IX509SCEPEnrollment extends IDispatch{
     ProcessResponseMessage(strResponse, Encoding, pDisposition) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        result := ComCall(12, this, "ptr", strResponse, "int", Encoding, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", strResponse, "int", Encoding, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -149,7 +151,9 @@ class IX509SCEPEnrollment extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_failinfo
      */
     get_FailInfo(pValue) {
-        result := ComCall(14, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

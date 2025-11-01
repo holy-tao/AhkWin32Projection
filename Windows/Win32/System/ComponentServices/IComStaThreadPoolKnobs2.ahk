@@ -34,7 +34,9 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     GetMaxCPULoad(pdwLoad) {
-        result := ComCall(14, this, "uint*", pdwLoad, "HRESULT")
+        pdwLoadMarshal := pdwLoad is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwLoadMarshal, pdwLoad, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     GetMaxCSR(pdwCSR) {
-        result := ComCall(20, this, "uint*", pdwCSR, "HRESULT")
+        pdwCSRMarshal := pdwCSR is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwCSRMarshal, pdwCSR, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     GetWaitTimeForThreadCleanup(pdwThreadCleanupWaitTime) {
-        result := ComCall(22, this, "uint*", pdwThreadCleanupWaitTime, "HRESULT")
+        pdwThreadCleanupWaitTimeMarshal := pdwThreadCleanupWaitTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pdwThreadCleanupWaitTimeMarshal, pdwThreadCleanupWaitTime, "HRESULT")
         return result
     }
 

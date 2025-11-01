@@ -79,7 +79,9 @@ class IFsiDirectoryItem extends IFsiItem{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_count
      */
     get_Count(Count) {
-        result := ComCall(21, this, "int*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, CountMarshal, Count, "HRESULT")
         return result
     }
 

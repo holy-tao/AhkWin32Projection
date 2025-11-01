@@ -65,7 +65,9 @@ class IXMLDOMNode extends IDispatch{
      * @returns {HRESULT} 
      */
     get_nodeType(type) {
-        result := ComCall(10, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, typeMarshal, type, "HRESULT")
         return result
     }
 

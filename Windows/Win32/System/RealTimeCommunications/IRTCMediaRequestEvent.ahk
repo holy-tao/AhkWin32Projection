@@ -44,7 +44,9 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ProposedMedia(plMediaTypes) {
-        result := ComCall(8, this, "int*", plMediaTypes, "HRESULT")
+        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CurrentMedia(plMediaTypes) {
-        result := ComCall(9, this, "int*", plMediaTypes, "HRESULT")
+        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
         return result
     }
 
@@ -75,7 +79,9 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RemotePreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        result := ComCall(11, this, "int", enSecurityType, "int*", penSecurityLevel, "HRESULT")
+        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(pState) {
-        result := ComCall(13, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

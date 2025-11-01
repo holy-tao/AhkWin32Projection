@@ -113,7 +113,9 @@ class IXpsOMFontResource extends IXpsOMResource{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresource-getembeddingoption
      */
     GetEmbeddingOption(embeddingOption) {
-        result := ComCall(7, this, "int*", embeddingOption, "HRESULT")
+        embeddingOptionMarshal := embeddingOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, embeddingOptionMarshal, embeddingOption, "HRESULT")
         return result
     }
 }

@@ -55,7 +55,9 @@ class IVMRDeinterlaceControl9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getnumberofdeinterlacemodes
      */
     GetNumberOfDeinterlaceModes(lpVideoDescription, lpdwNumDeinterlaceModes, lpDeinterlaceModes) {
-        result := ComCall(3, this, "ptr", lpVideoDescription, "uint*", lpdwNumDeinterlaceModes, "ptr", lpDeinterlaceModes, "HRESULT")
+        lpdwNumDeinterlaceModesMarshal := lpdwNumDeinterlaceModes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", lpVideoDescription, lpdwNumDeinterlaceModesMarshal, lpdwNumDeinterlaceModes, "ptr", lpDeinterlaceModes, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class IVMRDeinterlaceControl9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getdeinterlaceprefs
      */
     GetDeinterlacePrefs(lpdwDeinterlacePrefs) {
-        result := ComCall(7, this, "uint*", lpdwDeinterlacePrefs, "HRESULT")
+        lpdwDeinterlacePrefsMarshal := lpdwDeinterlacePrefs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, lpdwDeinterlacePrefsMarshal, lpdwDeinterlacePrefs, "HRESULT")
         return result
     }
 

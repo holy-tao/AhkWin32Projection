@@ -81,7 +81,9 @@ class IVdsVolumeMF extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-queryaccesspaths
      */
     QueryAccessPaths(pwszPathArray, plNumberOfAccessPaths) {
-        result := ComCall(6, this, "ptr*", pwszPathArray, "int*", plNumberOfAccessPaths, "HRESULT")
+        plNumberOfAccessPathsMarshal := plNumberOfAccessPaths is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", pwszPathArray, plNumberOfAccessPathsMarshal, plNumberOfAccessPaths, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class IVdsVolumeMF extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-queryreparsepoints
      */
     QueryReparsePoints(ppReparsePointProps, plNumberOfReparsePointProps) {
-        result := ComCall(7, this, "ptr*", ppReparsePointProps, "int*", plNumberOfReparsePointProps, "HRESULT")
+        plNumberOfReparsePointPropsMarshal := plNumberOfReparsePointProps is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr*", ppReparsePointProps, plNumberOfReparsePointPropsMarshal, plNumberOfReparsePointProps, "HRESULT")
         return result
     }
 

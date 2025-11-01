@@ -123,7 +123,9 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getparametervalues
      */
     GetParameterValues(Api, Values, ValuesCount) {
-        result := ComCall(6, this, "ptr", Api, "ptr*", Values, "uint*", ValuesCount, "HRESULT")
+        ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", Api, "ptr*", Values, ValuesCountMarshal, ValuesCount, "HRESULT")
         return result
     }
 
@@ -206,7 +208,9 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setvaluewithnotify
      */
     SetValueWithNotify(Api, Value, ChangedParam, ChangedParamCount) {
-        result := ComCall(13, this, "ptr", Api, "ptr", Value, "ptr*", ChangedParam, "uint*", ChangedParamCount, "HRESULT")
+        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", Api, "ptr", Value, "ptr*", ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
     }
 
@@ -218,7 +222,9 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setalldefaultswithnotify
      */
     SetAllDefaultsWithNotify(ChangedParam, ChangedParamCount) {
-        result := ComCall(14, this, "ptr*", ChangedParam, "uint*", ChangedParamCount, "HRESULT")
+        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr*", ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
     }
 
@@ -253,7 +259,9 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setallsettingswithnotify
      */
     SetAllSettingsWithNotify(__MIDL__ICodecAPI0002, ChangedParam, ChangedParamCount) {
-        result := ComCall(17, this, "ptr", __MIDL__ICodecAPI0002, "ptr*", ChangedParam, "uint*", ChangedParamCount, "HRESULT")
+        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "ptr", __MIDL__ICodecAPI0002, "ptr*", ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
     }
 }

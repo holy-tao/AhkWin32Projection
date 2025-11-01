@@ -45,7 +45,9 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * @returns {HRESULT} 
      */
     GetApplicationDesc(CallbackFunc, pContext) {
-        result := ComCall(4, this, "ptr", CallbackFunc, "ptr", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * @returns {HRESULT} 
      */
     StorePipelineStateDesc(pKey, KeySize, Version, pDesc) {
-        result := ComCall(5, this, "ptr", pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, "HRESULT")
+        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, "HRESULT")
         return result
     }
 
@@ -71,7 +75,10 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * @returns {HRESULT} 
      */
     FindPipelineStateDesc(pKey, KeySize, CallbackFunc, pContext) {
-        result := ComCall(6, this, "ptr", pKey, "uint", KeySize, "ptr", CallbackFunc, "ptr", pContext, "HRESULT")
+        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, pKeyMarshal, pKey, "uint", KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -86,7 +93,10 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * @returns {HRESULT} 
      */
     StoreStateObjectDesc(pKey, KeySize, Version, pDesc, pStateObjectToGrowFromKey, StateObjectToGrowFromKeySize) {
-        result := ComCall(7, this, "ptr", pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, "ptr", pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "HRESULT")
+        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
+        pStateObjectToGrowFromKeyMarshal := pStateObjectToGrowFromKey is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "HRESULT")
         return result
     }
 
@@ -99,7 +109,10 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * @returns {HRESULT} 
      */
     FindStateObjectDesc(pKey, KeySize, CallbackFunc, pContext) {
-        result := ComCall(8, this, "ptr", pKey, "uint", KeySize, "ptr", CallbackFunc, "ptr", pContext, "HRESULT")
+        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, pKeyMarshal, pKey, "uint", KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -111,7 +124,10 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * @returns {HRESULT} 
      */
     FindObjectVersion(pKey, KeySize, pVersion) {
-        result := ComCall(9, this, "ptr", pKey, "uint", KeySize, "uint*", pVersion, "HRESULT")
+        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
+        pVersionMarshal := pVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pKeyMarshal, pKey, "uint", KeySize, pVersionMarshal, pVersion, "HRESULT")
         return result
     }
 }

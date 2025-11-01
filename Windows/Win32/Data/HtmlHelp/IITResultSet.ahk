@@ -49,7 +49,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     SetColumnHeap(lColumnIndex, lpvHeap, pfnColHeapFree) {
-        result := ComCall(4, this, "int", lColumnIndex, "ptr", lpvHeap, "ptr", pfnColHeapFree, "HRESULT")
+        lpvHeapMarshal := lpvHeap is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "int", lColumnIndex, lpvHeapMarshal, lpvHeap, "ptr", pfnColHeapFree, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IITResultSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
     Add2(PropID, lpvDefaultData, cbData, Priority) {
-        result := ComCall(8, this, "uint", PropID, "ptr", lpvDefaultData, "uint", cbData, "int", Priority, "HRESULT")
+        lpvDefaultDataMarshal := lpvDefaultData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", PropID, lpvDefaultDataMarshal, lpvDefaultData, "uint", cbData, "int", Priority, "HRESULT")
         return result
     }
 
@@ -112,7 +116,9 @@ class IITResultSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
     Add3(lpvHdr) {
-        result := ComCall(9, this, "ptr", lpvHdr, "HRESULT")
+        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, lpvHdrMarshal, lpvHdr, "HRESULT")
         return result
     }
 
@@ -123,7 +129,10 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     Append(lpvHdr, lpvData) {
-        result := ComCall(10, this, "ptr", lpvHdr, "ptr", lpvData, "HRESULT")
+        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, lpvHdrMarshal, lpvHdr, lpvDataMarshal, lpvData, "HRESULT")
         return result
     }
 
@@ -136,7 +145,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     Set(lRowIndex, lColumnIndex, lpvData, cbData) {
-        result := ComCall(11, this, "int", lRowIndex, "int", lColumnIndex, "ptr", lpvData, "uint", cbData, "HRESULT")
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, "int", lRowIndex, "int", lColumnIndex, lpvDataMarshal, lpvData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -174,7 +185,10 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     Set3(lRowIndex, lpvHdr, lpvData) {
-        result := ComCall(14, this, "int", lRowIndex, "ptr", lpvHdr, "ptr", lpvData, "HRESULT")
+        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(14, this, "int", lRowIndex, lpvHdrMarshal, lpvHdr, lpvDataMarshal, lpvData, "HRESULT")
         return result
     }
 
@@ -197,7 +211,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     AppendRows(pResSrc, lRowSrcFirst, cSrcRows, lRowFirstDest) {
-        result := ComCall(16, this, "ptr", pResSrc, "int", lRowSrcFirst, "int", cSrcRows, "int*", lRowFirstDest, "HRESULT")
+        lRowFirstDestMarshal := lRowFirstDest is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", pResSrc, "int", lRowSrcFirst, "int", cSrcRows, lRowFirstDestMarshal, lRowFirstDest, "HRESULT")
         return result
     }
 
@@ -220,7 +236,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     GetKeyProp(KeyPropID) {
-        result := ComCall(18, this, "uint*", KeyPropID, "HRESULT")
+        KeyPropIDMarshal := KeyPropID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, KeyPropIDMarshal, KeyPropID, "HRESULT")
         return result
     }
 
@@ -231,7 +249,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColumnPriority(lColumnIndex, ColumnPriority) {
-        result := ComCall(19, this, "int", lColumnIndex, "int*", ColumnPriority, "HRESULT")
+        ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "int", lColumnIndex, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
         return result
     }
 
@@ -242,7 +262,9 @@ class IITResultSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-getrowcount
      */
     GetRowCount(lNumberOfRows) {
-        result := ComCall(20, this, "int*", lNumberOfRows, "HRESULT")
+        lNumberOfRowsMarshal := lNumberOfRows is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, lNumberOfRowsMarshal, lNumberOfRows, "HRESULT")
         return result
     }
 
@@ -252,7 +274,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColumnCount(lNumberOfColumns) {
-        result := ComCall(21, this, "int*", lNumberOfColumns, "HRESULT")
+        lNumberOfColumnsMarshal := lNumberOfColumns is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, lNumberOfColumnsMarshal, lNumberOfColumns, "HRESULT")
         return result
     }
 
@@ -267,7 +291,12 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColumn(lColumnIndex, PropID, dwType, lpvDefaultValue, cbSize, ColumnPriority) {
-        result := ComCall(22, this, "int", lColumnIndex, "uint*", PropID, "uint*", dwType, "ptr*", lpvDefaultValue, "uint*", cbSize, "int*", ColumnPriority, "HRESULT")
+        PropIDMarshal := PropID is VarRef ? "uint*" : "ptr"
+        dwTypeMarshal := dwType is VarRef ? "uint*" : "ptr"
+        cbSizeMarshal := cbSize is VarRef ? "uint*" : "ptr"
+        ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "int", lColumnIndex, PropIDMarshal, PropID, dwTypeMarshal, dwType, "ptr*", lpvDefaultValue, cbSizeMarshal, cbSize, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
         return result
     }
 
@@ -278,7 +307,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColumn1(lColumnIndex, PropID) {
-        result := ComCall(23, this, "int", lColumnIndex, "uint*", PropID, "HRESULT")
+        PropIDMarshal := PropID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "int", lColumnIndex, PropIDMarshal, PropID, "HRESULT")
         return result
     }
 
@@ -289,7 +320,9 @@ class IITResultSet extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColumnFromPropID(PropID, lColumnIndex) {
-        result := ComCall(24, this, "uint", PropID, "int*", lColumnIndex, "HRESULT")
+        lColumnIndexMarshal := lColumnIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "uint", PropID, lColumnIndexMarshal, lColumnIndex, "HRESULT")
         return result
     }
 

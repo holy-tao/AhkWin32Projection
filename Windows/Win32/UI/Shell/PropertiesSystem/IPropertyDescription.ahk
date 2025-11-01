@@ -69,7 +69,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getpropertytype
      */
     GetPropertyType(pvartype) {
-        result := ComCall(5, this, "ushort*", pvartype, "HRESULT")
+        pvartypeMarshal := pvartype is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pvartypeMarshal, pvartype, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-gettypeflags
      */
     GetTypeFlags(mask, ppdtFlags) {
-        result := ComCall(8, this, "uint", mask, "uint*", ppdtFlags, "HRESULT")
+        ppdtFlagsMarshal := ppdtFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", mask, ppdtFlagsMarshal, ppdtFlags, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getviewflags
      */
     GetViewFlags(ppdvFlags) {
-        result := ComCall(9, this, "int*", ppdvFlags, "HRESULT")
+        ppdvFlagsMarshal := ppdvFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, ppdvFlagsMarshal, ppdvFlags, "HRESULT")
         return result
     }
 
@@ -125,7 +131,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getdefaultcolumnwidth
      */
     GetDefaultColumnWidth(pcxChars) {
-        result := ComCall(10, this, "uint*", pcxChars, "HRESULT")
+        pcxCharsMarshal := pcxChars is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcxCharsMarshal, pcxChars, "HRESULT")
         return result
     }
 
@@ -136,7 +144,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getdisplaytype
      */
     GetDisplayType(pdisplaytype) {
-        result := ComCall(11, this, "int*", pdisplaytype, "HRESULT")
+        pdisplaytypeMarshal := pdisplaytype is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pdisplaytypeMarshal, pdisplaytype, "HRESULT")
         return result
     }
 
@@ -147,7 +157,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getcolumnstate
      */
     GetColumnState(pcsFlags) {
-        result := ComCall(12, this, "uint*", pcsFlags, "HRESULT")
+        pcsFlagsMarshal := pcsFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pcsFlagsMarshal, pcsFlags, "HRESULT")
         return result
     }
 
@@ -158,7 +170,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getgroupingrange
      */
     GetGroupingRange(pgr) {
-        result := ComCall(13, this, "int*", pgr, "HRESULT")
+        pgrMarshal := pgr is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pgrMarshal, pgr, "HRESULT")
         return result
     }
 
@@ -169,7 +183,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getrelativedescriptiontype
      */
     GetRelativeDescriptionType(prdt) {
-        result := ComCall(14, this, "int*", prdt, "HRESULT")
+        prdtMarshal := prdt is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, prdtMarshal, prdt, "HRESULT")
         return result
     }
 
@@ -194,7 +210,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getsortdescription
      */
     GetSortDescription(psd) {
-        result := ComCall(16, this, "int*", psd, "HRESULT")
+        psdMarshal := psd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, psdMarshal, psd, "HRESULT")
         return result
     }
 
@@ -217,7 +235,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getaggregationtype
      */
     GetAggregationType(paggtype) {
-        result := ComCall(18, this, "int*", paggtype, "HRESULT")
+        paggtypeMarshal := paggtype is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, paggtypeMarshal, paggtype, "HRESULT")
         return result
     }
 
@@ -229,7 +249,10 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getconditiontype
      */
     GetConditionType(pcontype, popDefault) {
-        result := ComCall(19, this, "int*", pcontype, "int*", popDefault, "HRESULT")
+        pcontypeMarshal := pcontype is VarRef ? "int*" : "ptr"
+        popDefaultMarshal := popDefault is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pcontypeMarshal, pcontype, popDefaultMarshal, popDefault, "HRESULT")
         return result
     }
 

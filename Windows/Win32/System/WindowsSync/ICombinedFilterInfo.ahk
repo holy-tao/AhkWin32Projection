@@ -34,7 +34,9 @@ class ICombinedFilterInfo extends ISyncFilterInfo{
      * @returns {HRESULT} 
      */
     GetFilterCount(pdwFilterCount) {
-        result := ComCall(4, this, "uint*", pdwFilterCount, "HRESULT")
+        pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwFilterCountMarshal, pdwFilterCount, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class ICombinedFilterInfo extends ISyncFilterInfo{
      * @returns {HRESULT} 
      */
     GetFilterCombinationType(pFilterCombinationType) {
-        result := ComCall(6, this, "int*", pFilterCombinationType, "HRESULT")
+        pFilterCombinationTypeMarshal := pFilterCombinationType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pFilterCombinationTypeMarshal, pFilterCombinationType, "HRESULT")
         return result
     }
 }

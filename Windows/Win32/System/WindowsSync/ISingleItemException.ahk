@@ -38,7 +38,10 @@ class ISingleItemException extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isingleitemexception-getitemid
      */
     GetItemId(pbItemId, pcbIdSize) {
-        result := ComCall(3, this, "char*", pbItemId, "uint*", pcbIdSize, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 

@@ -72,7 +72,9 @@ class ITMultiTrackTerminal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_mediatypesinuse
      */
     get_MediaTypesInUse(plMediaTypesInUse) {
-        result := ComCall(10, this, "int*", plMediaTypesInUse, "HRESULT")
+        plMediaTypesInUseMarshal := plMediaTypesInUse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plMediaTypesInUseMarshal, plMediaTypesInUse, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class ITMultiTrackTerminal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_directionsinuse
      */
     get_DirectionsInUse(plDirectionsInUsed) {
-        result := ComCall(11, this, "int*", plDirectionsInUsed, "HRESULT")
+        plDirectionsInUsedMarshal := plDirectionsInUsed is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plDirectionsInUsedMarshal, plDirectionsInUsed, "HRESULT")
         return result
     }
 

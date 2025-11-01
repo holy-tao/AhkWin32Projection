@@ -60,7 +60,9 @@ class IUpdateDownloadContentCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontentcollection-get_count
      */
     get_Count(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

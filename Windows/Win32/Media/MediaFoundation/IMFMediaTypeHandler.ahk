@@ -67,7 +67,9 @@ class IMFMediaTypeHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediatypehandler-getmediatypecount
      */
     GetMediaTypeCount(pdwTypeCount) {
-        result := ComCall(4, this, "uint*", pdwTypeCount, "HRESULT")
+        pdwTypeCountMarshal := pdwTypeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwTypeCountMarshal, pdwTypeCount, "HRESULT")
         return result
     }
 

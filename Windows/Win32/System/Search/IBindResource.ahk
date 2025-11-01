@@ -44,7 +44,9 @@ class IBindResource extends IUnknown{
     Bind(pUnkOuter, pwszURL, dwBindURLFlags, rguid, riid, pAuthenticate, pImplSession, pdwBindStatus, ppUnk) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pwszURL, "uint", dwBindURLFlags, "ptr", rguid, "ptr", riid, "ptr", pAuthenticate, "ptr", pImplSession, "uint*", pdwBindStatus, "ptr*", ppUnk, "HRESULT")
+        pdwBindStatusMarshal := pdwBindStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pwszURL, "uint", dwBindURLFlags, "ptr", rguid, "ptr", riid, "ptr", pAuthenticate, "ptr", pImplSession, pdwBindStatusMarshal, pdwBindStatus, "ptr*", ppUnk, "HRESULT")
         return result
     }
 }

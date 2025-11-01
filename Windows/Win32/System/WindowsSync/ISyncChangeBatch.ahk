@@ -71,7 +71,10 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatch-addloggedconflict
      */
     AddLoggedConflict(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, pConflictKnowledge, ppChangeBuilder) {
-        result := ComCall(19, this, "char*", pbOwnerReplicaId, "char*", pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", ppChangeBuilder, "HRESULT")
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", ppChangeBuilder, "HRESULT")
         return result
     }
 }

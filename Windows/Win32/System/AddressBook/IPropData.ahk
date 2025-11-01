@@ -44,7 +44,9 @@ class IPropData extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdata-hrsetpropaccess
      */
     HrSetPropAccess(lpPropTagArray, rgulAccess) {
-        result := ComCall(15, this, "ptr", lpPropTagArray, "uint*", rgulAccess, "HRESULT")
+        rgulAccessMarshal := rgulAccess is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", lpPropTagArray, rgulAccessMarshal, rgulAccess, "HRESULT")
         return result
     }
 

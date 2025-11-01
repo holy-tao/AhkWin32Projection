@@ -46,7 +46,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     get_StorageSize(plMaxStore) {
-        result := ComCall(4, this, "int*", plMaxStore, "HRESULT")
+        plMaxStoreMarshal := plMaxStore is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plMaxStoreMarshal, plMaxStore, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PayloadSize(plRetVal) {
-        result := ComCall(5, this, "int*", plRetVal, "HRESULT")
+        plRetValMarshal := plRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plRetValMarshal, plRetVal, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PayloadOffset(plRetVal) {
-        result := ComCall(7, this, "int*", plRetVal, "HRESULT")
+        plRetValMarshal := plRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plRetValMarshal, plRetVal, "HRESULT")
         return result
     }
 
@@ -96,7 +102,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Flags(plFlags) {
-        result := ComCall(9, this, "int*", plFlags, "HRESULT")
+        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plFlagsMarshal, plFlags, "HRESULT")
         return result
     }
 

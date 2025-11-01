@@ -46,7 +46,9 @@ class IEnumInputContext extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(ulCount, rgInputContext, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr", rgInputContext, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr", rgInputContext, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

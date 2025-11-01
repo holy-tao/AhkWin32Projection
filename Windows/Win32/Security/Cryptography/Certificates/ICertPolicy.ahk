@@ -119,7 +119,9 @@ class ICertPolicy extends IDispatch{
     VerifyRequest(strConfig, Context, bNewRequest, Flags, pDisposition) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(8, this, "ptr", strConfig, "int", Context, "int", bNewRequest, "int", Flags, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", strConfig, "int", Context, "int", bNewRequest, "int", Flags, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 

@@ -21,7 +21,9 @@ class LicenseProtection {
     static RegisterLicenseKeyWithExpiration(licenseKey, validityInDays, status) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
 
-        result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, "uint", validityInDays, "int*", status, "int")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, "uint", validityInDays, statusMarshal, status, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -39,7 +41,9 @@ class LicenseProtection {
     static ValidateLicenseKeyProtection(licenseKey, notValidBefore, notValidAfter, status) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
 
-        result := DllCall("licenseprotection.dll\ValidateLicenseKeyProtection", "ptr", licenseKey, "ptr", notValidBefore, "ptr", notValidAfter, "int*", status, "int")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := DllCall("licenseprotection.dll\ValidateLicenseKeyProtection", "ptr", licenseKey, "ptr", notValidBefore, "ptr", notValidAfter, statusMarshal, status, "int")
         if(result != 0)
             throw OSError(result)
 

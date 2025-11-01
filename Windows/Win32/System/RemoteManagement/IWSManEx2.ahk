@@ -37,7 +37,9 @@ class IWSManEx2 extends IWSManEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex2-sessionflaguseclientcertificate
      */
     SessionFlagUseClientCertificate(flags) {
-        result := ComCall(31, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 }

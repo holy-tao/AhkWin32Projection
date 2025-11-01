@@ -41,7 +41,9 @@ class ITSGAuthenticationEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser
      */
     AuthenticateUser(mainSessionId, cookieData, numCookieBytes, context, pSink) {
-        result := ComCall(3, this, "ptr", mainSessionId, "char*", cookieData, "uint", numCookieBytes, "ptr", context, "ptr", pSink, "HRESULT")
+        cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", mainSessionId, cookieDataMarshal, cookieData, "uint", numCookieBytes, "ptr", context, "ptr", pSink, "HRESULT")
         return result
     }
 

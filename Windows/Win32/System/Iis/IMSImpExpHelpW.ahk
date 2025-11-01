@@ -42,7 +42,9 @@ class IMSImpExpHelpW extends IUnknown{
         pszKeyType := pszKeyType is String ? StrPtr(pszKeyType) : pszKeyType
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(3, this, "ptr", pszFileName, "ptr", pszKeyType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", pdwMDRequiredBufferSize, "HRESULT")
+        pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszFileName, "ptr", pszKeyType, "uint", dwMDBufferSize, "ptr", pszBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
         return result
     }
 }

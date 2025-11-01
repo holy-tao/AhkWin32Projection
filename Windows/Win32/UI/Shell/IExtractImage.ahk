@@ -54,7 +54,10 @@ class IExtractImage extends IUnknown{
     GetLocation(pszPathBuffer, cch, pdwPriority, prgSize, dwRecClrDepth, pdwFlags) {
         pszPathBuffer := pszPathBuffer is String ? StrPtr(pszPathBuffer) : pszPathBuffer
 
-        result := ComCall(3, this, "ptr", pszPathBuffer, "uint", cch, "uint*", pdwPriority, "ptr", prgSize, "uint", dwRecClrDepth, "uint*", pdwFlags, "HRESULT")
+        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszPathBuffer, "uint", cch, pdwPriorityMarshal, pdwPriority, "ptr", prgSize, "uint", dwRecClrDepth, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

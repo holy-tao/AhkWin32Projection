@@ -468,7 +468,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_tabIndex(p) {
-        result := ComCall(49, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(49, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -598,7 +600,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientHeight(p) {
-        result := ComCall(62, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(62, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -608,7 +612,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientWidth(p) {
-        result := ComCall(63, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(63, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -618,7 +624,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientTop(p) {
-        result := ComCall(64, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -628,7 +636,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientLeft(p) {
-        result := ComCall(65, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(65, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -787,7 +797,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollHeight(p) {
-        result := ComCall(80, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(80, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -797,7 +809,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollWidth(p) {
-        result := ComCall(81, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(81, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -817,7 +831,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollTop(p) {
-        result := ComCall(83, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(83, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -837,7 +853,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollLeft(p) {
-        result := ComCall(85, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(85, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -956,7 +974,9 @@ class IHTMLElement2 extends IDispatch{
     addBehavior(bstrUrl, pvarFactory, pCookie) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(95, this, "ptr", bstrUrl, "ptr", pvarFactory, "int*", pCookie, "HRESULT")
+        pCookieMarshal := pCookie is VarRef ? "int*" : "ptr"
+
+        result := ComCall(95, this, "ptr", bstrUrl, "ptr", pvarFactory, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 
@@ -1039,7 +1059,9 @@ class IHTMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyStateValue(p) {
-        result := ComCall(103, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(103, this, pMarshal, p, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getstreamcount
      */
     GetStreamCount(pcStreams) {
-        result := ComCall(3, this, "uint*", pcStreams, "HRESULT")
+        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcStreamsMarshal, pcStreams, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputcount
      */
     GetOutputCount(pcOutputs) {
-        result := ComCall(4, this, "uint*", pcOutputs, "HRESULT")
+        pcOutputsMarshal := pcOutputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcOutputsMarshal, pcOutputs, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputstreamcount
      */
     GetOutputStreamCount(dwOutputNum, pcStreams) {
-        result := ComCall(5, this, "uint", dwOutputNum, "uint*", pcStreams, "HRESULT")
+        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwOutputNum, pcStreamsMarshal, pcStreams, "HRESULT")
         return result
     }
 
@@ -72,7 +78,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputstreamnumbers
      */
     GetOutputStreamNumbers(dwOutputNum, rgwStreamNumbers) {
-        result := ComCall(6, this, "uint", dwOutputNum, "ushort*", rgwStreamNumbers, "HRESULT")
+        rgwStreamNumbersMarshal := rgwStreamNumbers is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwOutputNum, rgwStreamNumbersMarshal, rgwStreamNumbers, "HRESULT")
         return result
     }
 
@@ -84,7 +92,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputfromstream
      */
     GetOutputFromStream(wStreamNum, pdwOutput) {
-        result := ComCall(7, this, "ushort", wStreamNum, "uint*", pdwOutput, "HRESULT")
+        pdwOutputMarshal := pdwOutput is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ushort", wStreamNum, pdwOutputMarshal, pdwOutput, "HRESULT")
         return result
     }
 
@@ -96,7 +106,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputoverride
      */
     GetOutputOverride(dwOutputNum, pSelection) {
-        result := ComCall(8, this, "uint", dwOutputNum, "int*", pSelection, "HRESULT")
+        pSelectionMarshal := pSelection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwOutputNum, pSelectionMarshal, pSelection, "HRESULT")
         return result
     }
 
@@ -120,7 +132,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputmutexcount
      */
     GetOutputMutexCount(dwOutputNum, pcMutexes) {
-        result := ComCall(10, this, "uint", dwOutputNum, "uint*", pcMutexes, "HRESULT")
+        pcMutexesMarshal := pcMutexes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwOutputNum, pcMutexesMarshal, pcMutexes, "HRESULT")
         return result
     }
 
@@ -157,7 +171,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getbandwidthstepcount
      */
     GetBandwidthStepCount(pcStepCount) {
-        result := ComCall(13, this, "uint*", pcStepCount, "HRESULT")
+        pcStepCountMarshal := pcStepCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pcStepCountMarshal, pcStepCount, "HRESULT")
         return result
     }
 
@@ -171,7 +187,11 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getbandwidthstep
      */
     GetBandwidthStep(dwStepNum, pdwBitrate, rgwStreamNumbers, rgSelections) {
-        result := ComCall(14, this, "uint", dwStepNum, "uint*", pdwBitrate, "ushort*", rgwStreamNumbers, "int*", rgSelections, "HRESULT")
+        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : "ptr"
+        rgwStreamNumbersMarshal := rgwStreamNumbers is VarRef ? "ushort*" : "ptr"
+        rgSelectionsMarshal := rgSelections is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "uint", dwStepNum, pdwBitrateMarshal, pdwBitrate, rgwStreamNumbersMarshal, rgwStreamNumbers, rgSelectionsMarshal, rgSelections, "HRESULT")
         return result
     }
 
@@ -183,7 +203,9 @@ class IMFASFStreamSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-bitratetostepnumber
      */
     BitrateToStepNumber(dwBitrate, pdwStepNum) {
-        result := ComCall(15, this, "uint", dwBitrate, "uint*", pdwStepNum, "HRESULT")
+        pdwStepNumMarshal := pdwStepNum is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwBitrate, pdwStepNumMarshal, pdwStepNum, "HRESULT")
         return result
     }
 

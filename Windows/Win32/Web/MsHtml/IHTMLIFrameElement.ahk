@@ -45,7 +45,9 @@ class IHTMLIFrameElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_vspace(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IHTMLIFrameElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_hspace(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 

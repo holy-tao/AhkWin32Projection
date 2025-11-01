@@ -43,7 +43,9 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex
      */
     GetAttributeCountEx(wStreamNum, pcAttributes) {
-        result := ComCall(17, this, "ushort", wStreamNum, "ushort*", pcAttributes, "HRESULT")
+        pcAttributesMarshal := pcAttributes is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(17, this, "ushort", wStreamNum, pcAttributesMarshal, pcAttributes, "HRESULT")
         return result
     }
 
@@ -60,7 +62,11 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
     GetAttributeIndices(wStreamNum, pwszName, pwLangIndex, pwIndices, pwCount) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(18, this, "ushort", wStreamNum, "ptr", pwszName, "ushort*", pwLangIndex, "ushort*", pwIndices, "ushort*", pwCount, "HRESULT")
+        pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : "ptr"
+        pwIndicesMarshal := pwIndices is VarRef ? "ushort*" : "ptr"
+        pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(18, this, "ushort", wStreamNum, "ptr", pwszName, pwLangIndexMarshal, pwLangIndex, pwIndicesMarshal, pwIndices, pwCountMarshal, pwCount, "HRESULT")
         return result
     }
 
@@ -80,7 +86,13 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
     GetAttributeByIndexEx(wStreamNum, wIndex, pwszName, pwNameLen, pType, pwLangIndex, pValue, pdwDataLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(19, this, "ushort", wStreamNum, "ushort", wIndex, "ptr", pwszName, "ushort*", pwNameLen, "int*", pType, "ushort*", pwLangIndex, "char*", pValue, "uint*", pdwDataLength, "HRESULT")
+        pwNameLenMarshal := pwNameLen is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwDataLengthMarshal := pdwDataLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ushort", wStreamNum, "ushort", wIndex, "ptr", pwszName, pwNameLenMarshal, pwNameLen, pTypeMarshal, pType, pwLangIndexMarshal, pwLangIndex, pValueMarshal, pValue, pdwDataLengthMarshal, pdwDataLength, "HRESULT")
         return result
     }
 
@@ -96,7 +108,9 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-modifyattribute
      */
     ModifyAttribute(wStreamNum, wIndex, Type, wLangIndex, pValue, dwLength) {
-        result := ComCall(20, this, "ushort", wStreamNum, "ushort", wIndex, "int", Type, "ushort", wLangIndex, "char*", pValue, "uint", dwLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(20, this, "ushort", wStreamNum, "ushort", wIndex, "int", Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
         return result
     }
 
@@ -115,7 +129,10 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
     AddAttribute(wStreamNum, pszName, pwIndex, Type, wLangIndex, pValue, dwLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(21, this, "ushort", wStreamNum, "ptr", pszName, "ushort*", pwIndex, "int", Type, "ushort", wLangIndex, "char*", pValue, "uint", dwLength, "HRESULT")
+        pwIndexMarshal := pwIndex is VarRef ? "ushort*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(21, this, "ushort", wStreamNum, "ptr", pszName, pwIndexMarshal, pwIndex, "int", Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
         return result
     }
 
@@ -145,7 +162,9 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(23, this, "ptr", pwszName, "ptr", pwszDescription, "int", codecType, "ushort", cbCodecInfo, "char*", pbCodecInfo, "HRESULT")
+        pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(23, this, "ptr", pwszName, "ptr", pwszDescription, "int", codecType, "ushort", cbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
     }
 }

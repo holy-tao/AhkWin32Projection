@@ -41,7 +41,9 @@ class IMbnRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregisterstate
      */
     GetRegisterState(registerState) {
-        result := ComCall(3, this, "int*", registerState, "HRESULT")
+        registerStateMarshal := registerState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, registerStateMarshal, registerState, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IMbnRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregistermode
      */
     GetRegisterMode(registerMode) {
-        result := ComCall(4, this, "int*", registerMode, "HRESULT")
+        registerModeMarshal := registerMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, registerModeMarshal, registerMode, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IMbnRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getavailabledataclasses
      */
     GetAvailableDataClasses(availableDataClasses) {
-        result := ComCall(8, this, "uint*", availableDataClasses, "HRESULT")
+        availableDataClassesMarshal := availableDataClasses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, availableDataClassesMarshal, availableDataClasses, "HRESULT")
         return result
     }
 
@@ -107,7 +113,9 @@ class IMbnRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getcurrentdataclass
      */
     GetCurrentDataClass(currentDataClass) {
-        result := ComCall(9, this, "uint*", currentDataClass, "HRESULT")
+        currentDataClassMarshal := currentDataClass is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, currentDataClassMarshal, currentDataClass, "HRESULT")
         return result
     }
 
@@ -118,7 +126,9 @@ class IMbnRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregistrationnetworkerror
      */
     GetRegistrationNetworkError(registrationNetworkError) {
-        result := ComCall(10, this, "uint*", registrationNetworkError, "HRESULT")
+        registrationNetworkErrorMarshal := registrationNetworkError is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, registrationNetworkErrorMarshal, registrationNetworkError, "HRESULT")
         return result
     }
 
@@ -129,7 +139,9 @@ class IMbnRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getpacketattachnetworkerror
      */
     GetPacketAttachNetworkError(packetAttachNetworkError) {
-        result := ComCall(11, this, "uint*", packetAttachNetworkError, "HRESULT")
+        packetAttachNetworkErrorMarshal := packetAttachNetworkError is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, packetAttachNetworkErrorMarshal, packetAttachNetworkError, "HRESULT")
         return result
     }
 
@@ -145,7 +157,9 @@ class IMbnRegistration extends IUnknown{
     SetRegisterMode(registerMode, providerID, dataClass, requestID) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
 
-        result := ComCall(12, this, "int", registerMode, "ptr", providerID, "uint", dataClass, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "int", registerMode, "ptr", providerID, "uint", dataClass, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 }

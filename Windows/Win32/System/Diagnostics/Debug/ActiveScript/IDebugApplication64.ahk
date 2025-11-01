@@ -77,7 +77,9 @@ class IDebugApplication64 extends IRemoteDebugApplication{
      * @returns {HRESULT} 
      */
     HandleBreakPoint(br, pbra) {
-        result := ComCall(18, this, "int", br, "int*", pbra, "HRESULT")
+        pbraMarshal := pbra is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, "int", br, pbraMarshal, pbra, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ class IDebugApplication64 extends IRemoteDebugApplication{
      * @returns {HRESULT} 
      */
     GetBreakFlags(pabf, pprdatSteppingThread) {
-        result := ComCall(20, this, "uint*", pabf, "ptr*", pprdatSteppingThread, "HRESULT")
+        pabfMarshal := pabf is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pabfMarshal, pabf, "ptr*", pprdatSteppingThread, "HRESULT")
         return result
     }
 
@@ -130,7 +134,9 @@ class IDebugApplication64 extends IRemoteDebugApplication{
      * @returns {HRESULT} 
      */
     AddStackFrameSniffer(pdsfs, pdwCookie) {
-        result := ComCall(23, this, "ptr", pdsfs, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "ptr", pdsfs, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -197,7 +203,10 @@ class IDebugApplication64 extends IRemoteDebugApplication{
      * @returns {HRESULT} 
      */
     HandleRuntimeError(pErrorDebug, pScriptSite, pbra, perra, pfCallOnScriptError) {
-        result := ComCall(29, this, "ptr", pErrorDebug, "ptr", pScriptSite, "int*", pbra, "int*", perra, "ptr", pfCallOnScriptError, "HRESULT")
+        pbraMarshal := pbra is VarRef ? "int*" : "ptr"
+        perraMarshal := perra is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, "ptr", pErrorDebug, "ptr", pScriptSite, pbraMarshal, pbra, perraMarshal, perra, "ptr", pfCallOnScriptError, "HRESULT")
         return result
     }
 
@@ -226,7 +235,9 @@ class IDebugApplication64 extends IRemoteDebugApplication{
      * @returns {HRESULT} 
      */
     AddGlobalExpressionContextProvider(pdsfs, pdwCookie) {
-        result := ComCall(32, this, "ptr", pdsfs, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, "ptr", pdsfs, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

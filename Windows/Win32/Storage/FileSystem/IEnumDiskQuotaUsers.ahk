@@ -39,7 +39,9 @@ class IEnumDiskQuotaUsers extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-ienumdiskquotausers-next
      */
     Next(cUsers, rgUsers, pcUsersFetched) {
-        result := ComCall(3, this, "uint", cUsers, "ptr*", rgUsers, "uint*", pcUsersFetched, "HRESULT")
+        pcUsersFetchedMarshal := pcUsersFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cUsers, "ptr*", rgUsers, pcUsersFetchedMarshal, pcUsersFetched, "HRESULT")
         return result
     }
 

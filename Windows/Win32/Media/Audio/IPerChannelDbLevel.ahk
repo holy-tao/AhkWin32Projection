@@ -37,7 +37,9 @@ class IPerChannelDbLevel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getchannelcount
      */
     GetChannelCount(pcChannels) {
-        result := ComCall(3, this, "uint*", pcChannels, "HRESULT")
+        pcChannelsMarshal := pcChannels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcChannelsMarshal, pcChannels, "HRESULT")
         return result
     }
 
@@ -51,7 +53,11 @@ class IPerChannelDbLevel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevelrange
      */
     GetLevelRange(nChannel, pfMinLevelDB, pfMaxLevelDB, pfStepping) {
-        result := ComCall(4, this, "uint", nChannel, "float*", pfMinLevelDB, "float*", pfMaxLevelDB, "float*", pfStepping, "HRESULT")
+        pfMinLevelDBMarshal := pfMinLevelDB is VarRef ? "float*" : "ptr"
+        pfMaxLevelDBMarshal := pfMaxLevelDB is VarRef ? "float*" : "ptr"
+        pfSteppingMarshal := pfStepping is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, "uint", nChannel, pfMinLevelDBMarshal, pfMinLevelDB, pfMaxLevelDBMarshal, pfMaxLevelDB, pfSteppingMarshal, pfStepping, "HRESULT")
         return result
     }
 
@@ -63,7 +69,9 @@ class IPerChannelDbLevel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevel
      */
     GetLevel(nChannel, pfLevelDB) {
-        result := ComCall(5, this, "uint", nChannel, "float*", pfLevelDB, "HRESULT")
+        pfLevelDBMarshal := pfLevelDB is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "uint", nChannel, pfLevelDBMarshal, pfLevelDB, "HRESULT")
         return result
     }
 
@@ -101,7 +109,9 @@ class IPerChannelDbLevel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setlevelallchannels
      */
     SetLevelAllChannels(aLevelsDB, cChannels, pguidEventContext) {
-        result := ComCall(8, this, "float*", aLevelsDB, "uint", cChannels, "ptr", pguidEventContext, "HRESULT")
+        aLevelsDBMarshal := aLevelsDB is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, aLevelsDBMarshal, aLevelsDB, "uint", cChannels, "ptr", pguidEventContext, "HRESULT")
         return result
     }
 }

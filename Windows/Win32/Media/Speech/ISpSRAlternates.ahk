@@ -36,7 +36,9 @@ class ISpSRAlternates extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAlternates(pAltRequest, ppAlts, pcAlts) {
-        result := ComCall(3, this, "ptr", pAltRequest, "ptr*", ppAlts, "uint*", pcAlts, "HRESULT")
+        pcAltsMarshal := pcAlts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pAltRequest, "ptr*", ppAlts, pcAltsMarshal, pcAlts, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class ISpSRAlternates extends IUnknown{
      * @returns {HRESULT} 
      */
     Commit(pAltRequest, pAlt, ppvResultExtra, pcbResultExtra) {
-        result := ComCall(4, this, "ptr", pAltRequest, "ptr", pAlt, "ptr*", ppvResultExtra, "uint*", pcbResultExtra, "HRESULT")
+        pcbResultExtraMarshal := pcbResultExtra is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pAltRequest, "ptr", pAlt, "ptr*", ppvResultExtra, pcbResultExtraMarshal, pcbResultExtra, "HRESULT")
         return result
     }
 }

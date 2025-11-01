@@ -37,7 +37,9 @@ class ITMediaSupport extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-get_mediatypes
      */
     get_MediaTypes(plMediaTypes) {
-        result := ComCall(7, this, "int*", plMediaTypes, "HRESULT")
+        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
         return result
     }
 

@@ -40,7 +40,10 @@ class ISceSvcAttachmentData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-getdata
      */
     GetData(scesvcHandle, sceType, ppvData, psceEnumHandle) {
-        result := ComCall(3, this, "ptr", scesvcHandle, "int", sceType, "ptr*", ppvData, "uint*", psceEnumHandle, "HRESULT")
+        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"
+        psceEnumHandleMarshal := psceEnumHandle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, scesvcHandleMarshal, scesvcHandle, "int", sceType, "ptr*", ppvData, psceEnumHandleMarshal, psceEnumHandle, "HRESULT")
         return result
     }
 
@@ -64,7 +67,10 @@ class ISceSvcAttachmentData extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(lpServiceName, lpTemplateName, lpSceSvcPersistInfo, pscesvcHandle) {
-        result := ComCall(4, this, "char*", lpServiceName, "char*", lpTemplateName, "ptr", lpSceSvcPersistInfo, "ptr*", pscesvcHandle, "HRESULT")
+        lpServiceNameMarshal := lpServiceName is VarRef ? "char*" : "ptr"
+        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, lpServiceNameMarshal, lpServiceName, lpTemplateNameMarshal, lpTemplateName, "ptr", lpSceSvcPersistInfo, "ptr*", pscesvcHandle, "HRESULT")
         return result
     }
 
@@ -75,7 +81,9 @@ class ISceSvcAttachmentData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-freebuffer
      */
     FreeBuffer(pvData) {
-        result := ComCall(5, this, "ptr", pvData, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pvDataMarshal, pvData, "HRESULT")
         return result
     }
 
@@ -93,7 +101,9 @@ class ISceSvcAttachmentData extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//handleapi/nf-handleapi-closehandle
      */
     CloseHandle(scesvcHandle) {
-        result := ComCall(6, this, "ptr", scesvcHandle, "HRESULT")
+        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, scesvcHandleMarshal, scesvcHandle, "HRESULT")
         return result
     }
 }

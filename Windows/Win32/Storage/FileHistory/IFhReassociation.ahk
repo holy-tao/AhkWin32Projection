@@ -47,7 +47,9 @@ class IFhReassociation extends IUnknown{
     ValidateTarget(TargetUrl, ValidationResult) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
 
-        result := ComCall(3, this, "ptr", TargetUrl, "int*", ValidationResult, "HRESULT")
+        ValidationResultMarshal := ValidationResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", TargetUrl, ValidationResultMarshal, ValidationResult, "HRESULT")
         return result
     }
 

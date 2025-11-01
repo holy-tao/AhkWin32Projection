@@ -108,7 +108,9 @@ class IOpcDigitalSignatureManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-validate
      */
     Validate(signature, certificate, validationResult) {
-        result := ComCall(8, this, "ptr", signature, "ptr", certificate, "int*", validationResult, "HRESULT")
+        validationResultMarshal := validationResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", signature, "ptr", certificate, validationResultMarshal, validationResult, "HRESULT")
         return result
     }
 
@@ -135,7 +137,9 @@ class IOpcDigitalSignatureManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-replacesignaturexml
      */
     ReplaceSignatureXml(signaturePartName, newSignatureXml, count, digitalSignature) {
-        result := ComCall(10, this, "ptr", signaturePartName, "char*", newSignatureXml, "uint", count, "ptr*", digitalSignature, "HRESULT")
+        newSignatureXmlMarshal := newSignatureXml is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "ptr", signaturePartName, newSignatureXmlMarshal, newSignatureXml, "uint", count, "ptr*", digitalSignature, "HRESULT")
         return result
     }
 }

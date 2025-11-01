@@ -52,7 +52,9 @@ class IDirect3D9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-registersoftwaredevice
      */
     RegisterSoftwareDevice(pInitializeFunction) {
-        result := ComCall(3, this, "ptr", pInitializeFunction, "HRESULT")
+        pInitializeFunctionMarshal := pInitializeFunction is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pInitializeFunctionMarshal, pInitializeFunction, "HRESULT")
         return result
     }
 
@@ -160,7 +162,9 @@ class IDirect3D9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdevicemultisampletype
      */
     CheckDeviceMultiSampleType(Adapter, DeviceType, SurfaceFormat, Windowed, MultiSampleType, pQualityLevels) {
-        result := ComCall(11, this, "uint", Adapter, "int", DeviceType, "uint", SurfaceFormat, "int", Windowed, "int", MultiSampleType, "uint*", pQualityLevels, "HRESULT")
+        pQualityLevelsMarshal := pQualityLevels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", Adapter, "int", DeviceType, "uint", SurfaceFormat, "int", Windowed, "int", MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
         return result
     }
 

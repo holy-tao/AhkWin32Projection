@@ -166,7 +166,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_playcount
      */
     get_playCount(plCount) {
-        result := ComCall(18, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -188,7 +190,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_rate
      */
     get_rate(pdRate) {
-        result := ComCall(20, this, "double*", pdRate, "HRESULT")
+        pdRateMarshal := pdRate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(20, this, pdRateMarshal, pdRate, "HRESULT")
         return result
     }
 
@@ -210,7 +214,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_balance
      */
     get_balance(plBalance) {
-        result := ComCall(22, this, "int*", plBalance, "HRESULT")
+        plBalanceMarshal := plBalance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, plBalanceMarshal, plBalance, "HRESULT")
         return result
     }
 
@@ -232,7 +238,9 @@ class IWMPSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_volume
      */
     get_volume(plVolume) {
-        result := ComCall(24, this, "int*", plVolume, "HRESULT")
+        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, plVolumeMarshal, plVolume, "HRESULT")
         return result
     }
 

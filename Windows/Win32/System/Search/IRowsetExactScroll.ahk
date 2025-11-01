@@ -38,7 +38,11 @@ class IRowsetExactScroll extends IRowsetScroll{
      * @returns {HRESULT} 
      */
     GetExactPosition(hChapter, cbBookmark, pBookmark, pulPosition, pcRows) {
-        result := ComCall(14, this, "ptr", hChapter, "ptr", cbBookmark, "char*", pBookmark, "ptr*", pulPosition, "ptr*", pcRows, "HRESULT")
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
+        pulPositionMarshal := pulPosition is VarRef ? "ptr*" : "ptr"
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 }

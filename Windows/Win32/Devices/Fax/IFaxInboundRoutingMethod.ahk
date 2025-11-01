@@ -102,7 +102,9 @@ class IFaxInboundRoutingMethod extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_priority
      */
     get_Priority(plPriority) {
-        result := ComCall(12, this, "int*", plPriority, "HRESULT")
+        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plPriorityMarshal, plPriority, "HRESULT")
         return result
     }
 

@@ -41,7 +41,9 @@ class IWMReader extends IUnknown{
     Open(pwszURL, pCallback, pvContext) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IWMReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputcount
      */
     GetOutputCount(pcOutputs) {
-        result := ComCall(5, this, "uint*", pcOutputs, "HRESULT")
+        pcOutputsMarshal := pcOutputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pcOutputsMarshal, pcOutputs, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IWMReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputformatcount
      */
     GetOutputFormatCount(dwOutputNumber, pcFormats) {
-        result := ComCall(8, this, "uint", dwOutputNumber, "uint*", pcFormats, "HRESULT")
+        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwOutputNumber, pcFormatsMarshal, pcFormats, "HRESULT")
         return result
     }
 
@@ -125,7 +131,9 @@ class IWMReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-start
      */
     Start(cnsStart, cnsDuration, fRate, pvContext) {
-        result := ComCall(10, this, "uint", cnsStart, "uint", cnsDuration, "float", fRate, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "uint", cnsStart, "uint", cnsDuration, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

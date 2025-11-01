@@ -113,7 +113,9 @@ class IXpsOMGradientStop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getoffset
      */
     GetOffset(offset) {
-        result := ComCall(4, this, "float*", offset, "HRESULT")
+        offsetMarshal := offset is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, offsetMarshal, offset, "HRESULT")
         return result
     }
 

@@ -45,7 +45,10 @@ class IRichChunk extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-irichchunk-getdata
      */
     GetData(pFirstPos, pLength, ppsz, pValue) {
-        result := ComCall(3, this, "uint*", pFirstPos, "uint*", pLength, "ptr", ppsz, "ptr", pValue, "HRESULT")
+        pFirstPosMarshal := pFirstPos is VarRef ? "uint*" : "ptr"
+        pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pFirstPosMarshal, pFirstPos, pLengthMarshal, pLength, "ptr", ppsz, "ptr", pValue, "HRESULT")
         return result
     }
 }

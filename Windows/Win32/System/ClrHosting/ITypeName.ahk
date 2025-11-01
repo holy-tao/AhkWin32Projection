@@ -34,7 +34,9 @@ class ITypeName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNameCount(pCount) {
-        result := ComCall(3, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class ITypeName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNames(count, rgbszNames, pCount) {
-        result := ComCall(4, this, "uint", count, "ptr", rgbszNames, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", count, "ptr", rgbszNames, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -56,7 +60,9 @@ class ITypeName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTypeArgumentCount(pCount) {
-        result := ComCall(5, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -68,7 +74,9 @@ class ITypeName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTypeArguments(count, rgpArguments, pCount) {
-        result := ComCall(6, this, "uint", count, "ptr*", rgpArguments, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", count, "ptr*", rgpArguments, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -78,7 +86,9 @@ class ITypeName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetModifierLength(pCount) {
-        result := ComCall(7, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -90,7 +100,10 @@ class ITypeName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetModifiers(count, rgModifiers, pCount) {
-        result := ComCall(8, this, "uint", count, "uint*", rgModifiers, "uint*", pCount, "HRESULT")
+        rgModifiersMarshal := rgModifiers is VarRef ? "uint*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", count, rgModifiersMarshal, rgModifiers, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

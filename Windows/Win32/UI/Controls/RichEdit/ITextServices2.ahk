@@ -43,7 +43,11 @@ class ITextServices2 extends ITextServices{
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
-        result := ComCall(21, this, "uint", dwAspect, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", ptd, "uint", dwMode, "ptr", psizelExtent, "int*", pwidth, "int*", pheight, "int*", pascent, "HRESULT")
+        pwidthMarshal := pwidth is VarRef ? "int*" : "ptr"
+        pheightMarshal := pheight is VarRef ? "int*" : "ptr"
+        pascentMarshal := pascent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, "uint", dwAspect, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", ptd, "uint", dwMode, "ptr", psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, pascentMarshal, pascent, "HRESULT")
         return result
     }
 

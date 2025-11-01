@@ -59,7 +59,9 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ReplicaType(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ReplicaNumber(retval) {
-        result := ComCall(11, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -99,7 +103,9 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(retval) {
-        result := ComCall(13, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

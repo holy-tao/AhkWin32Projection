@@ -59,7 +59,9 @@ class IUIAutomationElement2 extends IUIAutomationElement{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentlivesetting
      */
     get_CurrentLiveSetting(retVal) {
-        result := ComCall(87, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(87, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IUIAutomationElement2 extends IUIAutomationElement{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedlivesetting
      */
     get_CachedLiveSetting(retVal) {
-        result := ComCall(88, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(88, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

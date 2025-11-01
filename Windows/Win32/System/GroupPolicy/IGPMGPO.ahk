@@ -95,7 +95,9 @@ class IGPMGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CreationTime(pDate) {
-        result := ComCall(12, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -105,7 +107,9 @@ class IGPMGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ModificationTime(pDate) {
-        result := ComCall(13, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -115,7 +119,9 @@ class IGPMGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UserDSVersionNumber(pVal) {
-        result := ComCall(14, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -125,7 +131,9 @@ class IGPMGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ComputerDSVersionNumber(pVal) {
-        result := ComCall(15, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -135,7 +143,9 @@ class IGPMGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UserSysvolVersionNumber(pVal) {
-        result := ComCall(16, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -145,7 +155,9 @@ class IGPMGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ComputerSysvolVersionNumber(pVal) {
-        result := ComCall(17, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

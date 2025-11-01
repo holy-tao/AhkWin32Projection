@@ -40,7 +40,9 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Value(pdblValue) {
-        result := ComCall(3, this, "double*", pdblValue, "HRESULT")
+        pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(3, this, pdblValueMarshal, pdblValue, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Color(pColor) {
-        result := ComCall(5, this, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -80,7 +84,9 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Width(piValue) {
-        result := ComCall(7, this, "int*", piValue, "HRESULT")
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, piValueMarshal, piValue, "HRESULT")
         return result
     }
 
@@ -100,7 +106,9 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     get_LineStyle(piValue) {
-        result := ComCall(9, this, "int*", piValue, "HRESULT")
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, piValueMarshal, piValue, "HRESULT")
         return result
     }
 
@@ -120,7 +128,9 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ScaleFactor(piValue) {
-        result := ComCall(11, this, "int*", piValue, "HRESULT")
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, piValueMarshal, piValue, "HRESULT")
         return result
     }
 
@@ -141,7 +151,10 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetValue(Value, Status) {
-        result := ComCall(13, this, "double*", Value, "int*", Status, "HRESULT")
+        ValueMarshal := Value is VarRef ? "double*" : "ptr"
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, ValueMarshal, Value, StatusMarshal, Status, "HRESULT")
         return result
     }
 
@@ -154,7 +167,12 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatistics(Max, Min, Avg, Status) {
-        result := ComCall(14, this, "double*", Max, "double*", Min, "double*", Avg, "int*", Status, "HRESULT")
+        MaxMarshal := Max is VarRef ? "double*" : "ptr"
+        MinMarshal := Min is VarRef ? "double*" : "ptr"
+        AvgMarshal := Avg is VarRef ? "double*" : "ptr"
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, MaxMarshal, Max, MinMarshal, Min, AvgMarshal, Avg, StatusMarshal, Status, "HRESULT")
         return result
     }
 }

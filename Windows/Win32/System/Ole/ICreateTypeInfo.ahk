@@ -97,7 +97,9 @@ class ICreateTypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-addreftypeinfo
      */
     AddRefTypeInfo(pTInfo, phRefType) {
-        result := ComCall(8, this, "ptr", pTInfo, "uint*", phRefType, "HRESULT")
+        phRefTypeMarshal := phRefType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pTInfo, phRefTypeMarshal, phRefType, "HRESULT")
         return result
     }
 

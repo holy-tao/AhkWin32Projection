@@ -38,7 +38,11 @@ class IRowsetScroll extends IRowsetLocate{
      * @returns {HRESULT} 
      */
     GetApproximatePosition(hReserved, cbBookmark, pBookmark, pulPosition, pcRows) {
-        result := ComCall(12, this, "ptr", hReserved, "ptr", cbBookmark, "char*", pBookmark, "ptr*", pulPosition, "ptr*", pcRows, "HRESULT")
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
+        pulPositionMarshal := pulPosition is VarRef ? "ptr*" : "ptr"
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", hReserved, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IRowsetScroll extends IRowsetLocate{
      * @returns {HRESULT} 
      */
     GetRowsAtRatio(hReserved1, hReserved2, ulNumerator, ulDenominator, cRows, pcRowsObtained, prghRows) {
-        result := ComCall(13, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", ulNumerator, "ptr", ulDenominator, "ptr", cRows, "ptr*", pcRowsObtained, "ptr*", prghRows, "HRESULT")
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", ulNumerator, "ptr", ulDenominator, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", prghRows, "HRESULT")
         return result
     }
 }

@@ -61,7 +61,9 @@ class IDBDataSourceAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCreationProperties(cPropertyIDSets, rgPropertyIDSets, pcPropertyInfoSets, prgPropertyInfoSets, ppDescBuffer) {
-        result := ComCall(5, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, "uint*", pcPropertyInfoSets, "ptr*", prgPropertyInfoSets, "ptr*", ppDescBuffer, "HRESULT")
+        pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, "ptr*", prgPropertyInfoSets, "ptr*", ppDescBuffer, "HRESULT")
         return result
     }
 

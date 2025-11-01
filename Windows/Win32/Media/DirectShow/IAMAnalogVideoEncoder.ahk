@@ -37,7 +37,9 @@ class IAMAnalogVideoEncoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_availabletvformats
      */
     get_AvailableTVFormats(lAnalogVideoStandard) {
-        result := ComCall(3, this, "int*", lAnalogVideoStandard, "HRESULT")
+        lAnalogVideoStandardMarshal := lAnalogVideoStandard is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, lAnalogVideoStandardMarshal, lAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IAMAnalogVideoEncoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_tvformat
      */
     get_TVFormat(plAnalogVideoStandard) {
-        result := ComCall(5, this, "int*", plAnalogVideoStandard, "HRESULT")
+        plAnalogVideoStandardMarshal := plAnalogVideoStandard is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plAnalogVideoStandardMarshal, plAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IAMAnalogVideoEncoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_copyprotection
      */
     get_CopyProtection(lVideoCopyProtection) {
-        result := ComCall(7, this, "int*", lVideoCopyProtection, "HRESULT")
+        lVideoCopyProtectionMarshal := lVideoCopyProtection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, lVideoCopyProtectionMarshal, lVideoCopyProtection, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class IAMAnalogVideoEncoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-get_ccenable
      */
     get_CCEnable(lCCEnable) {
-        result := ComCall(9, this, "int*", lCCEnable, "HRESULT")
+        lCCEnableMarshal := lCCEnable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, lCCEnableMarshal, lCCEnable, "HRESULT")
         return result
     }
 }

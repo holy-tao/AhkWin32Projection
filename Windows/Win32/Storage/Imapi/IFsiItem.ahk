@@ -59,7 +59,9 @@ class IFsiItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_creationtime
      */
     get_CreationTime(pVal) {
-        result := ComCall(9, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IFsiItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_lastaccessedtime
      */
     get_LastAccessedTime(pVal) {
-        result := ComCall(11, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -103,7 +107,9 @@ class IFsiItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_lastmodifiedtime
      */
     get_LastModifiedTime(pVal) {
-        result := ComCall(13, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

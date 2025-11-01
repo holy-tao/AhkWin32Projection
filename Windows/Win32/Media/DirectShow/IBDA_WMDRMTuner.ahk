@@ -43,7 +43,12 @@ class IBDA_WMDRMTuner extends IUnknown{
     PurchaseEntitlement(ulDialogRequest, bstrLanguage, ulPurchaseTokenLen, pbPurchaseToken, pulDescrambleStatus, pulCaptureTokenLen, pbCaptureToken) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulPurchaseTokenLen, "char*", pbPurchaseToken, "uint*", pulDescrambleStatus, "uint*", pulCaptureTokenLen, "char*", pbCaptureToken, "HRESULT")
+        pbPurchaseTokenMarshal := pbPurchaseToken is VarRef ? "char*" : "ptr"
+        pulDescrambleStatusMarshal := pulDescrambleStatus is VarRef ? "uint*" : "ptr"
+        pulCaptureTokenLenMarshal := pulCaptureTokenLen is VarRef ? "uint*" : "ptr"
+        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, pulDescrambleStatusMarshal, pulDescrambleStatus, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return result
     }
 
@@ -54,7 +59,9 @@ class IBDA_WMDRMTuner extends IUnknown{
      * @returns {HRESULT} 
      */
     CancelCaptureToken(ulCaptureTokenLen, pbCaptureToken) {
-        result := ComCall(4, this, "uint", ulCaptureTokenLen, "char*", pbCaptureToken, "HRESULT")
+        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return result
     }
 
@@ -97,7 +104,10 @@ class IBDA_WMDRMTuner extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStartCodeProfile(pulStartCodeProfileLen, pbStartCodeProfile) {
-        result := ComCall(8, this, "uint*", pulStartCodeProfileLen, "char*", pbStartCodeProfile, "HRESULT")
+        pulStartCodeProfileLenMarshal := pulStartCodeProfileLen is VarRef ? "uint*" : "ptr"
+        pbStartCodeProfileMarshal := pbStartCodeProfile is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pulStartCodeProfileLenMarshal, pulStartCodeProfileLen, pbStartCodeProfileMarshal, pbStartCodeProfile, "HRESULT")
         return result
     }
 }

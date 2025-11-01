@@ -41,7 +41,9 @@ class ISettingsIdentity extends IUnknown{
     GetAttribute(Reserved, Name, Value) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(3, this, "ptr", Reserved, "ptr", Name, "ptr", Value, "HRESULT")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, ReservedMarshal, Reserved, "ptr", Name, "ptr", Value, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class ISettingsIdentity extends IUnknown{
         Name := Name is String ? StrPtr(Name) : Name
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(4, this, "ptr", Reserved, "ptr", Name, "ptr", Value, "HRESULT")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, ReservedMarshal, Reserved, "ptr", Name, "ptr", Value, "HRESULT")
         return result
     }
 
@@ -68,7 +72,9 @@ class ISettingsIdentity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-getflags
      */
     GetFlags(Flags) {
-        result := ComCall(5, this, "uint*", Flags, "HRESULT")
+        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 

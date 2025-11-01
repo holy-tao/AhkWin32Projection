@@ -34,7 +34,9 @@ class IKsPinFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     KsPinFactory(PinFactory) {
-        result := ComCall(3, this, "uint*", PinFactory, "HRESULT")
+        PinFactoryMarshal := PinFactory is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, PinFactoryMarshal, PinFactory, "HRESULT")
         return result
     }
 }

@@ -59,7 +59,9 @@ class PrintTicket {
     static PTQuerySchemaVersionSupport(pszPrinterName, pMaxVersion) {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-        result := DllCall("prntvpt.dll\PTQuerySchemaVersionSupport", "ptr", pszPrinterName, "uint*", pMaxVersion, "int")
+        pMaxVersionMarshal := pMaxVersion is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("prntvpt.dll\PTQuerySchemaVersionSupport", "ptr", pszPrinterName, pMaxVersionMarshal, pMaxVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -103,7 +105,9 @@ class PrintTicket {
     static PTOpenProviderEx(pszPrinterName, dwMaxVersion, dwPrefVersion, phProvider, pUsedVersion) {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-        result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, "uint", dwMaxVersion, "uint", dwPrefVersion, "ptr", phProvider, "uint*", pUsedVersion, "int")
+        pUsedVersionMarshal := pUsedVersion is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, "uint", dwMaxVersion, "uint", dwPrefVersion, "ptr", phProvider, pUsedVersionMarshal, pUsedVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -141,7 +145,9 @@ class PrintTicket {
      * @since windows5.1.2600
      */
     static PTReleaseMemory(pBuffer) {
-        result := DllCall("prntvpt.dll\PTReleaseMemory", "ptr", pBuffer, "int")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("prntvpt.dll\PTReleaseMemory", pBufferMarshal, pBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -210,8 +216,8 @@ class PrintTicket {
      * @since windows10.0.15063
      */
     static PTGetPrintDeviceResources(hProvider, pszLocaleName, pPrintTicket, pDeviceResources, pbstrErrorMessage) {
-        pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+        pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
         result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "int")
         if(result != 0)
@@ -280,7 +286,9 @@ class PrintTicket {
     static PTConvertPrintTicketToDevMode(hProvider, pPrintTicket, baseDevmodeType, scope, pcbDevmode, ppDevmode, pbstrErrorMessage) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, "uint*", pcbDevmode, "ptr*", ppDevmode, "ptr", pbstrErrorMessage, "int")
+        pcbDevmodeMarshal := pcbDevmode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, pcbDevmodeMarshal, pcbDevmode, "ptr*", ppDevmode, "ptr", pbstrErrorMessage, "int")
         if(result != 0)
             throw OSError(result)
 

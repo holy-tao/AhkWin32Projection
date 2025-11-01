@@ -48,7 +48,9 @@ class ISyncMgrSynchronizeInvoke extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateitems
      */
     UpdateItems(dwInvokeFlags, clsid, cbCookie, pCookie) {
-        result := ComCall(3, this, "uint", dwInvokeFlags, "ptr", clsid, "uint", cbCookie, "char*", pCookie, "HRESULT")
+        pCookieMarshal := pCookie is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwInvokeFlags, "ptr", clsid, "uint", cbCookie, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 

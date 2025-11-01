@@ -42,7 +42,9 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshaderconstantbuffer
      */
     SetComputeShaderConstantBuffer(buffer, bufferCount) {
-        result := ComCall(7, this, "char*", buffer, "uint", bufferCount, "HRESULT")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, bufferMarshal, buffer, "uint", bufferCount, "HRESULT")
         return result
     }
 

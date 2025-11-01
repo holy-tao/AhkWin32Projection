@@ -844,9 +844,11 @@ class StationsAndDesktops {
     static GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded) {
         hObj := hObj is Win32Handle ? NumGet(hObj, "ptr") : hObj
 
+        lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "uint*", lpnLengthNeeded, "int")
+        result := DllCall("USER32.dll\GetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -874,9 +876,11 @@ class StationsAndDesktops {
     static GetUserObjectInformationW(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded) {
         hObj := hObj is Win32Handle ? NumGet(hObj, "ptr") : hObj
 
+        lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "uint*", lpnLengthNeeded, "int")
+        result := DllCall("USER32.dll\GetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1045,9 +1049,11 @@ class StationsAndDesktops {
      * @since windows5.1.2600
      */
     static BroadcastSystemMessageExA(flags, lpInfo, Msg, wParam, lParam, pbsmInfo) {
+        lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageExA", "uint", flags, "uint*", lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageExA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1090,9 +1096,11 @@ class StationsAndDesktops {
      * @since windows5.1.2600
      */
     static BroadcastSystemMessageExW(flags, lpInfo, Msg, wParam, lParam, pbsmInfo) {
+        lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageExW", "uint", flags, "uint*", lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageExW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1130,7 +1138,9 @@ class StationsAndDesktops {
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-broadcastsystemmessagea
      */
     static BroadcastSystemMessageA(flags, lpInfo, Msg, wParam, lParam) {
-        result := DllCall("USER32.dll\BroadcastSystemMessageA", "uint", flags, "uint*", lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\BroadcastSystemMessageA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
         return result
     }
 
@@ -1167,9 +1177,11 @@ class StationsAndDesktops {
      * @since windows5.0
      */
     static BroadcastSystemMessageW(flags, lpInfo, Msg, wParam, lParam) {
+        lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageW", "uint", flags, "uint*", lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 

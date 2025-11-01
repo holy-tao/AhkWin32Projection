@@ -37,7 +37,9 @@ class IProviderPropertyConstraintCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-getcount
      */
     GetCount(pdwCount) {
-        result := ComCall(3, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IProviderPropertyConstraintCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-get
      */
     Get(Key, pPropVar, pdwPropertyConstraint) {
-        result := ComCall(4, this, "ptr", Key, "ptr", pPropVar, "uint*", pdwPropertyConstraint, "HRESULT")
+        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", Key, "ptr", pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IProviderPropertyConstraintCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-item
      */
     Item(dwIndex, pKey, pPropVar, pdwPropertyConstraint) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr", pKey, "ptr", pPropVar, "uint*", pdwPropertyConstraint, "HRESULT")
+        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwIndex, "ptr", pKey, "ptr", pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
     }
 
@@ -77,7 +83,9 @@ class IProviderPropertyConstraintCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-next
      */
     Next(pKey, pPropVar, pdwPropertyConstraint) {
-        result := ComCall(6, this, "ptr", pKey, "ptr", pPropVar, "uint*", pdwPropertyConstraint, "HRESULT")
+        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pKey, "ptr", pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
     }
 

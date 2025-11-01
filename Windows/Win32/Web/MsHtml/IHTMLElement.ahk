@@ -466,7 +466,9 @@ class IHTMLElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_sourceIndex(p) {
-        result := ComCall(48, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -508,7 +510,9 @@ class IHTMLElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetLeft(p) {
-        result := ComCall(52, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -518,7 +522,9 @@ class IHTMLElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetTop(p) {
-        result := ComCall(53, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -528,7 +534,9 @@ class IHTMLElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetWidth(p) {
-        result := ComCall(54, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -538,7 +546,9 @@ class IHTMLElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetHeight(p) {
-        result := ComCall(55, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(55, this, pMarshal, p, "HRESULT")
         return result
     }
 

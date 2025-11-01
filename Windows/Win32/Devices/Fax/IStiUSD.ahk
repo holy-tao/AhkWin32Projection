@@ -106,7 +106,9 @@ class IStiUSD extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
      */
     Escape(EscapeFunction, lpInData, cbInDataSize, pOutData, cbOutDataSize, pdwActualData) {
-        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", cbOutDataSize, "uint*", pdwActualData, "HRESULT")
+        pdwActualDataMarshal := pdwActualData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", cbOutDataSize, pdwActualDataMarshal, pdwActualData, "HRESULT")
         return result
     }
 
@@ -119,7 +121,9 @@ class IStiUSD extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError(pdwLastDeviceError) {
-        result := ComCall(9, this, "uint*", pdwLastDeviceError, "HRESULT")
+        pdwLastDeviceErrorMarshal := pdwLastDeviceError is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwLastDeviceErrorMarshal, pdwLastDeviceError, "HRESULT")
         return result
     }
 
@@ -149,7 +153,9 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        result := ComCall(12, this, "ptr", lpBuffer, "uint*", lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
         return result
     }
 
@@ -173,7 +179,9 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        result := ComCall(14, this, "ptr", lpBuffer, "uint*", lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
         return result
     }
 

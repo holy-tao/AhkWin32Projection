@@ -70,7 +70,9 @@ class ITableData extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrqueryrow
      */
     HrQueryRow(lpsPropValue, lppSRow, lpuliRow) {
-        result := ComCall(6, this, "ptr", lpsPropValue, "ptr*", lppSRow, "uint*", lpuliRow, "HRESULT")
+        lpuliRowMarshal := lpuliRow is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", lpsPropValue, "ptr*", lppSRow, lpuliRowMarshal, lpuliRow, "HRESULT")
         return result
     }
 
@@ -132,7 +134,9 @@ class ITableData extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrdeleterows
      */
     HrDeleteRows(ulFlags, lprowsetToDelete, cRowsDeleted) {
-        result := ComCall(11, this, "uint", ulFlags, "ptr", lprowsetToDelete, "uint*", cRowsDeleted, "HRESULT")
+        cRowsDeletedMarshal := cRowsDeleted is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", ulFlags, "ptr", lprowsetToDelete, cRowsDeletedMarshal, cRowsDeleted, "HRESULT")
         return result
     }
 }

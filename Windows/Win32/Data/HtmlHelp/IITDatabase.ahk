@@ -64,7 +64,9 @@ class IITDatabase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-createobject
      */
     CreateObject(rclsid, pdwObjInstance) {
-        result := ComCall(5, this, "ptr", rclsid, "uint*", pdwObjInstance, "HRESULT")
+        pdwObjInstanceMarshal := pdwObjInstance is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", rclsid, pdwObjInstanceMarshal, pdwObjInstance, "HRESULT")
         return result
     }
 

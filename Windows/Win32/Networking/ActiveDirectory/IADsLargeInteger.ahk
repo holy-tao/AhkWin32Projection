@@ -42,7 +42,9 @@ class IADsLargeInteger extends IDispatch{
      * @returns {HRESULT} 
      */
     get_HighPart(retval) {
-        result := ComCall(7, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IADsLargeInteger extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LowPart(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

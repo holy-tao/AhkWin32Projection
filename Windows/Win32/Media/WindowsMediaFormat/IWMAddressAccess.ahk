@@ -38,7 +38,9 @@ class IWMAddressAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentrycount
      */
     GetAccessEntryCount(aeType, pcEntries) {
-        result := ComCall(3, this, "int", aeType, "uint*", pcEntries, "HRESULT")
+        pcEntriesMarshal := pcEntries is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "int", aeType, pcEntriesMarshal, pcEntries, "HRESULT")
         return result
     }
 

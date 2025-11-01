@@ -52,7 +52,9 @@ class IMPEG2StreamIdMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2streamidmap-unmapstreamid
      */
     UnmapStreamId(culStreamId, pulStreamId) {
-        result := ComCall(4, this, "uint", culStreamId, "uint*", pulStreamId, "HRESULT")
+        pulStreamIdMarshal := pulStreamId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", culStreamId, pulStreamIdMarshal, pulStreamId, "HRESULT")
         return result
     }
 

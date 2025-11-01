@@ -70,7 +70,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_pages
      */
     get_Pages(plPages) {
-        result := ComCall(9, this, "int*", plPages, "HRESULT")
+        plPagesMarshal := plPages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plPagesMarshal, plPages, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_size
      */
     get_Size(plSize) {
-        result := ComCall(10, this, "int*", plSize, "HRESULT")
+        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plSizeMarshal, plSize, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_originalscheduledtime
      */
     get_OriginalScheduledTime(pdateOriginalScheduledTime) {
-        result := ComCall(13, this, "double*", pdateOriginalScheduledTime, "HRESULT")
+        pdateOriginalScheduledTimeMarshal := pdateOriginalScheduledTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pdateOriginalScheduledTimeMarshal, pdateOriginalScheduledTime, "HRESULT")
         return result
     }
 
@@ -125,7 +131,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_submissiontime
      */
     get_SubmissionTime(pdateSubmissionTime) {
-        result := ComCall(14, this, "double*", pdateSubmissionTime, "HRESULT")
+        pdateSubmissionTimeMarshal := pdateSubmissionTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, pdateSubmissionTimeMarshal, pdateSubmissionTime, "HRESULT")
         return result
     }
 
@@ -136,7 +144,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_receipttype
      */
     get_ReceiptType(pReceiptType) {
-        result := ComCall(15, this, "int*", pReceiptType, "HRESULT")
+        pReceiptTypeMarshal := pReceiptType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pReceiptTypeMarshal, pReceiptType, "HRESULT")
         return result
     }
 
@@ -147,7 +157,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_priority
      */
     get_Priority(pPriority) {
-        result := ComCall(16, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 
@@ -180,7 +192,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_currentpage
      */
     get_CurrentPage(plCurrentPage) {
-        result := ComCall(19, this, "int*", plCurrentPage, "HRESULT")
+        plCurrentPageMarshal := plCurrentPage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plCurrentPageMarshal, plCurrentPage, "HRESULT")
         return result
     }
 
@@ -191,7 +205,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_deviceid
      */
     get_DeviceId(plDeviceId) {
-        result := ComCall(20, this, "int*", plDeviceId, "HRESULT")
+        plDeviceIdMarshal := plDeviceId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plDeviceIdMarshal, plDeviceId, "HRESULT")
         return result
     }
 
@@ -202,7 +218,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_status
      */
     get_Status(pStatus) {
-        result := ComCall(21, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -213,7 +231,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_extendedstatuscode
      */
     get_ExtendedStatusCode(pExtendedStatusCode) {
-        result := ComCall(22, this, "int*", pExtendedStatusCode, "HRESULT")
+        pExtendedStatusCodeMarshal := pExtendedStatusCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pExtendedStatusCodeMarshal, pExtendedStatusCode, "HRESULT")
         return result
     }
 
@@ -235,7 +255,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_availableoperations
      */
     get_AvailableOperations(pAvailableOperations) {
-        result := ComCall(24, this, "int*", pAvailableOperations, "HRESULT")
+        pAvailableOperationsMarshal := pAvailableOperations is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pAvailableOperationsMarshal, pAvailableOperations, "HRESULT")
         return result
     }
 
@@ -246,7 +268,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_retries
      */
     get_Retries(plRetries) {
-        result := ComCall(25, this, "int*", plRetries, "HRESULT")
+        plRetriesMarshal := plRetries is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, plRetriesMarshal, plRetries, "HRESULT")
         return result
     }
 
@@ -257,7 +281,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_scheduledtime
      */
     get_ScheduledTime(pdateScheduledTime) {
-        result := ComCall(26, this, "double*", pdateScheduledTime, "HRESULT")
+        pdateScheduledTimeMarshal := pdateScheduledTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(26, this, pdateScheduledTimeMarshal, pdateScheduledTime, "HRESULT")
         return result
     }
 
@@ -268,7 +294,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_transmissionstart
      */
     get_TransmissionStart(pdateTransmissionStart) {
-        result := ComCall(27, this, "double*", pdateTransmissionStart, "HRESULT")
+        pdateTransmissionStartMarshal := pdateTransmissionStart is VarRef ? "double*" : "ptr"
+
+        result := ComCall(27, this, pdateTransmissionStartMarshal, pdateTransmissionStart, "HRESULT")
         return result
     }
 
@@ -279,7 +307,9 @@ class IFaxOutgoingJob extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingjob-get_transmissionend
      */
     get_TransmissionEnd(pdateTransmissionEnd) {
-        result := ComCall(28, this, "double*", pdateTransmissionEnd, "HRESULT")
+        pdateTransmissionEndMarshal := pdateTransmissionEnd is VarRef ? "double*" : "ptr"
+
+        result := ComCall(28, this, pdateTransmissionEndMarshal, pdateTransmissionEnd, "HRESULT")
         return result
     }
 

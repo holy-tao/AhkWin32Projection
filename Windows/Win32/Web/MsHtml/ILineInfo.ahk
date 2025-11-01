@@ -34,7 +34,9 @@ class ILineInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_x(p) {
-        result := ComCall(3, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ILineInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_baseLine(p) {
-        result := ComCall(4, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class ILineInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_textDescent(p) {
-        result := ComCall(5, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class ILineInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_textHeight(p) {
-        result := ComCall(6, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class ILineInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_lineDirection(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 }

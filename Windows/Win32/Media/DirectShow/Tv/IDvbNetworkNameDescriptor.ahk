@@ -37,7 +37,9 @@ class IDvbNetworkNameDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbNetworkNameDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 

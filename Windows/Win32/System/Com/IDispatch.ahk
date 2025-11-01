@@ -37,7 +37,9 @@ class IDispatch extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-gettypeinfocount
      */
     GetTypeInfoCount(pctinfo) {
-        result := ComCall(3, this, "uint*", pctinfo, "HRESULT")
+        pctinfoMarshal := pctinfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pctinfoMarshal, pctinfo, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IDispatch extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-getidsofnames
      */
     GetIDsOfNames(riid, rgszNames, cNames, lcid, rgDispId) {
-        result := ComCall(5, this, "ptr", riid, "ptr", rgszNames, "uint", cNames, "uint", lcid, "int*", rgDispId, "HRESULT")
+        rgDispIdMarshal := rgDispId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", riid, "ptr", rgszNames, "uint", cNames, "uint", lcid, rgDispIdMarshal, rgDispId, "HRESULT")
         return result
     }
 
@@ -83,7 +87,9 @@ class IDispatch extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-invoke
      */
     Invoke(dispIdMember, riid, lcid, wFlags, pDispParams, pVarResult, pExcepInfo, puArgErr) {
-        result := ComCall(6, this, "int", dispIdMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pDispParams, "ptr", pVarResult, "ptr", pExcepInfo, "uint*", puArgErr, "HRESULT")
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "int", dispIdMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pDispParams, "ptr", pVarResult, "ptr", pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 }

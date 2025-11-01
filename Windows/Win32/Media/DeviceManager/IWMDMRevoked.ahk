@@ -39,7 +39,10 @@ class IWMDMRevoked extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmrevoked-getrevocationurl
      */
     GetRevocationURL(ppwszRevocationURL, pdwBufferLen, pdwRevokedBitFlag) {
-        result := ComCall(3, this, "ptr", ppwszRevocationURL, "uint*", pdwBufferLen, "uint*", pdwRevokedBitFlag, "HRESULT")
+        pdwBufferLenMarshal := pdwBufferLen is VarRef ? "uint*" : "ptr"
+        pdwRevokedBitFlagMarshal := pdwRevokedBitFlag is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ppwszRevocationURL, pdwBufferLenMarshal, pdwBufferLen, pdwRevokedBitFlagMarshal, pdwRevokedBitFlag, "HRESULT")
         return result
     }
 }

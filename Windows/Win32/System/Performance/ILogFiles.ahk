@@ -41,7 +41,9 @@ class ILogFiles extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(pLong) {
-        result := ComCall(7, this, "int*", pLong, "HRESULT")
+        pLongMarshal := pLong is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pLongMarshal, pLong, "HRESULT")
         return result
     }
 

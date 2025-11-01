@@ -41,7 +41,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Class(plClass) {
-        result := ComCall(7, this, "int*", plClass, "HRESULT")
+        plClassMarshal := plClass is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plClassMarshal, plClass, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PrivLevel(plPrivLevel) {
-        result := ComCall(8, this, "int*", plPrivLevel, "HRESULT")
+        plPrivLevelMarshal := plPrivLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plPrivLevelMarshal, plPrivLevel, "HRESULT")
         return result
     }
 
@@ -71,7 +75,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AuthLevel(plAuthLevel) {
-        result := ComCall(10, this, "int*", plAuthLevel, "HRESULT")
+        plAuthLevelMarshal := plAuthLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plAuthLevelMarshal, plAuthLevel, "HRESULT")
         return result
     }
 
@@ -91,7 +97,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_IsAuthenticated(pisAuthenticated) {
-        result := ComCall(12, this, "short*", pisAuthenticated, "HRESULT")
+        pisAuthenticatedMarshal := pisAuthenticated is VarRef ? "short*" : "ptr"
+
+        result := ComCall(12, this, pisAuthenticatedMarshal, pisAuthenticated, "HRESULT")
         return result
     }
 
@@ -101,7 +109,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Delivery(plDelivery) {
-        result := ComCall(13, this, "int*", plDelivery, "HRESULT")
+        plDeliveryMarshal := plDelivery is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plDeliveryMarshal, plDelivery, "HRESULT")
         return result
     }
 
@@ -121,7 +131,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Trace(plTrace) {
-        result := ComCall(15, this, "int*", plTrace, "HRESULT")
+        plTraceMarshal := plTrace is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plTraceMarshal, plTrace, "HRESULT")
         return result
     }
 
@@ -141,7 +153,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Priority(plPriority) {
-        result := ComCall(17, this, "int*", plPriority, "HRESULT")
+        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plPriorityMarshal, plPriority, "HRESULT")
         return result
     }
 
@@ -161,7 +175,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Journal(plJournal) {
-        result := ComCall(19, this, "int*", plJournal, "HRESULT")
+        plJournalMarshal := plJournal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plJournalMarshal, plJournal, "HRESULT")
         return result
     }
 
@@ -201,7 +217,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AppSpecific(plAppSpecific) {
-        result := ComCall(23, this, "int*", plAppSpecific, "HRESULT")
+        plAppSpecificMarshal := plAppSpecific is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, plAppSpecificMarshal, plAppSpecific, "HRESULT")
         return result
     }
 
@@ -231,7 +249,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BodyLength(pcbBody) {
-        result := ComCall(26, this, "int*", pcbBody, "HRESULT")
+        pcbBodyMarshal := pcbBody is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pcbBodyMarshal, pcbBody, "HRESULT")
         return result
     }
 
@@ -311,7 +331,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Ack(plAck) {
-        result := ComCall(34, this, "int*", plAck, "HRESULT")
+        plAckMarshal := plAck is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, plAckMarshal, plAck, "HRESULT")
         return result
     }
 
@@ -353,7 +375,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MaxTimeToReachQueue(plMaxTimeToReachQueue) {
-        result := ComCall(38, this, "int*", plMaxTimeToReachQueue, "HRESULT")
+        plMaxTimeToReachQueueMarshal := plMaxTimeToReachQueue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, plMaxTimeToReachQueueMarshal, plMaxTimeToReachQueue, "HRESULT")
         return result
     }
 
@@ -373,7 +397,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MaxTimeToReceive(plMaxTimeToReceive) {
-        result := ComCall(40, this, "int*", plMaxTimeToReceive, "HRESULT")
+        plMaxTimeToReceiveMarshal := plMaxTimeToReceive is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, plMaxTimeToReceiveMarshal, plMaxTimeToReceive, "HRESULT")
         return result
     }
 
@@ -393,7 +419,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_HashAlgorithm(plHashAlg) {
-        result := ComCall(42, this, "int*", plHashAlg, "HRESULT")
+        plHashAlgMarshal := plHashAlg is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, plHashAlgMarshal, plHashAlg, "HRESULT")
         return result
     }
 
@@ -413,7 +441,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EncryptAlgorithm(plEncryptAlg) {
-        result := ComCall(44, this, "int*", plEncryptAlg, "HRESULT")
+        plEncryptAlgMarshal := plEncryptAlg is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, plEncryptAlgMarshal, plEncryptAlg, "HRESULT")
         return result
     }
 
@@ -493,7 +523,9 @@ class IMSMQMessage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SenderIdType(plSenderIdType) {
-        result := ComCall(52, this, "int*", plSenderIdType, "HRESULT")
+        plSenderIdTypeMarshal := plSenderIdType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, plSenderIdTypeMarshal, plSenderIdType, "HRESULT")
         return result
     }
 

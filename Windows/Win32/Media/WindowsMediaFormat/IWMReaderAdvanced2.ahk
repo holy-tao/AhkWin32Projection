@@ -48,7 +48,9 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getplaymode
      */
     GetPlayMode(pMode) {
-        result := ComCall(24, this, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 
@@ -60,7 +62,10 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getbufferprogress
      */
     GetBufferProgress(pdwPercent, pcnsBuffering) {
-        result := ComCall(25, this, "uint*", pdwPercent, "uint*", pcnsBuffering, "HRESULT")
+        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : "ptr"
+        pcnsBufferingMarshal := pcnsBuffering is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, pdwPercentMarshal, pdwPercent, pcnsBufferingMarshal, pcnsBuffering, "HRESULT")
         return result
     }
 
@@ -73,7 +78,11 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getdownloadprogress
      */
     GetDownloadProgress(pdwPercent, pqwBytesDownloaded, pcnsDownload) {
-        result := ComCall(26, this, "uint*", pdwPercent, "uint*", pqwBytesDownloaded, "uint*", pcnsDownload, "HRESULT")
+        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : "ptr"
+        pqwBytesDownloadedMarshal := pqwBytesDownloaded is VarRef ? "uint*" : "ptr"
+        pcnsDownloadMarshal := pcnsDownload is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, pdwPercentMarshal, pdwPercent, pqwBytesDownloadedMarshal, pqwBytesDownloaded, pcnsDownloadMarshal, pcnsDownload, "HRESULT")
         return result
     }
 
@@ -84,7 +93,9 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getsaveasprogress
      */
     GetSaveAsProgress(pdwPercent) {
-        result := ComCall(27, this, "uint*", pdwPercent, "HRESULT")
+        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, pdwPercentMarshal, pdwPercent, "HRESULT")
         return result
     }
 
@@ -111,7 +122,9 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
     GetProtocolName(pwszProtocol, pcchProtocol) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        result := ComCall(29, this, "ptr", pwszProtocol, "uint*", pcchProtocol, "HRESULT")
+        pcchProtocolMarshal := pcchProtocol is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "ptr", pwszProtocol, pcchProtocolMarshal, pcchProtocol, "HRESULT")
         return result
     }
 
@@ -125,7 +138,9 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-startatmarker
      */
     StartAtMarker(wMarkerIndex, cnsDuration, fRate, pvContext) {
-        result := ComCall(30, this, "ushort", wMarkerIndex, "uint", cnsDuration, "float", fRate, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(30, this, "ushort", wMarkerIndex, "uint", cnsDuration, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -142,7 +157,11 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
     GetOutputSetting(dwOutputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(31, this, "uint", dwOutputNum, "ptr", pszName, "int*", pType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(31, this, "uint", dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -159,7 +178,9 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
     SetOutputSetting(dwOutputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(32, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, "char*", pValue, "ushort", cbLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(32, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -217,7 +238,9 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-openstream
      */
     OpenStream(pStream, pCallback, pvContext) {
-        result := ComCall(37, this, "ptr", pStream, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(37, this, "ptr", pStream, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

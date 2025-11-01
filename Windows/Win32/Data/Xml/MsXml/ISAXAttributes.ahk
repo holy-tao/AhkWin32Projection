@@ -34,7 +34,9 @@ class ISAXAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     getLength(pnLength) {
-        result := ComCall(3, this, "int*", pnLength, "HRESULT")
+        pnLengthMarshal := pnLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pnLengthMarshal, pnLength, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class ISAXAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     getURI(nIndex, ppwchUri, pcchUri) {
-        result := ComCall(4, this, "int", nIndex, "ptr*", ppwchUri, "int*", pcchUri, "HRESULT")
+        pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", nIndex, "ptr*", ppwchUri, pcchUriMarshal, pcchUri, "HRESULT")
         return result
     }
 
@@ -58,7 +62,9 @@ class ISAXAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     getLocalName(nIndex, ppwchLocalName, pcchLocalName) {
-        result := ComCall(5, this, "int", nIndex, "ptr*", ppwchLocalName, "int*", pcchLocalName, "HRESULT")
+        pcchLocalNameMarshal := pcchLocalName is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", nIndex, "ptr*", ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class ISAXAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     getQName(nIndex, ppwchQName, pcchQName) {
-        result := ComCall(6, this, "int", nIndex, "ptr*", ppwchQName, "int*", pcchQName, "HRESULT")
+        pcchQNameMarshal := pcchQName is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", nIndex, "ptr*", ppwchQName, pcchQNameMarshal, pcchQName, "HRESULT")
         return result
     }
 
@@ -86,7 +94,11 @@ class ISAXAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     getName(nIndex, ppwchUri, pcchUri, ppwchLocalName, pcchLocalName, ppwchQName, pcchQName) {
-        result := ComCall(7, this, "int", nIndex, "ptr*", ppwchUri, "int*", pcchUri, "ptr*", ppwchLocalName, "int*", pcchLocalName, "ptr*", ppwchQName, "int*", pcchQName, "HRESULT")
+        pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
+        pcchLocalNameMarshal := pcchLocalName is VarRef ? "int*" : "ptr"
+        pcchQNameMarshal := pcchQName is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", nIndex, "ptr*", ppwchUri, pcchUriMarshal, pcchUri, "ptr*", ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, "ptr*", ppwchQName, pcchQNameMarshal, pcchQName, "HRESULT")
         return result
     }
 
@@ -103,7 +115,9 @@ class ISAXAttributes extends IUnknown{
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
 
-        result := ComCall(8, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "int*", pnIndex, "HRESULT")
+        pnIndexMarshal := pnIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, pnIndexMarshal, pnIndex, "HRESULT")
         return result
     }
 
@@ -117,7 +131,9 @@ class ISAXAttributes extends IUnknown{
     getIndexFromQName(pwchQName, cchQName, pnIndex) {
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(9, this, "ptr", pwchQName, "int", cchQName, "int*", pnIndex, "HRESULT")
+        pnIndexMarshal := pnIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pwchQName, "int", cchQName, pnIndexMarshal, pnIndex, "HRESULT")
         return result
     }
 
@@ -129,7 +145,9 @@ class ISAXAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     getType(nIndex, ppwchType, pcchType) {
-        result := ComCall(10, this, "int", nIndex, "ptr*", ppwchType, "int*", pcchType, "HRESULT")
+        pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", nIndex, "ptr*", ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
         return result
     }
 
@@ -147,7 +165,9 @@ class ISAXAttributes extends IUnknown{
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
 
-        result := ComCall(11, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr*", ppwchType, "int*", pcchType, "HRESULT")
+        pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr*", ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
         return result
     }
 
@@ -162,7 +182,9 @@ class ISAXAttributes extends IUnknown{
     getTypeFromQName(pwchQName, cchQName, ppwchType, pcchType) {
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(12, this, "ptr", pwchQName, "int", cchQName, "ptr*", ppwchType, "int*", pcchType, "HRESULT")
+        pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pwchQName, "int", cchQName, "ptr*", ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
         return result
     }
 
@@ -174,7 +196,9 @@ class ISAXAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     getValue(nIndex, ppwchValue, pcchValue) {
-        result := ComCall(13, this, "int", nIndex, "ptr*", ppwchValue, "int*", pcchValue, "HRESULT")
+        pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "int", nIndex, "ptr*", ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -192,7 +216,9 @@ class ISAXAttributes extends IUnknown{
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
 
-        result := ComCall(14, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr*", ppwchValue, "int*", pcchValue, "HRESULT")
+        pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr*", ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -207,7 +233,9 @@ class ISAXAttributes extends IUnknown{
     getValueFromQName(pwchQName, cchQName, ppwchValue, pcchValue) {
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(15, this, "ptr", pwchQName, "int", cchQName, "ptr*", ppwchValue, "int*", pcchValue, "HRESULT")
+        pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pwchQName, "int", cchQName, "ptr*", ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 }

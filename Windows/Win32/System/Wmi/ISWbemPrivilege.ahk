@@ -80,7 +80,9 @@ class ISWbemPrivilege extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Identifier(iPrivilege) {
-        result := ComCall(11, this, "int*", iPrivilege, "HRESULT")
+        iPrivilegeMarshal := iPrivilege is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, iPrivilegeMarshal, iPrivilege, "HRESULT")
         return result
     }
 }

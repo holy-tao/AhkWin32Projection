@@ -39,7 +39,9 @@ class IAudioProcessingObjectNotifications2 extends IAudioProcessingObjectNotific
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudioprocessingobjectnotifications2-getaponotificationregistrationinfo2
      */
     GetApoNotificationRegistrationInfo2(maxApoNotificationTypeSupported, apoNotifications, count) {
-        result := ComCall(5, this, "int", maxApoNotificationTypeSupported, "ptr*", apoNotifications, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", maxApoNotificationTypeSupported, "ptr*", apoNotifications, countMarshal, count, "HRESULT")
         return result
     }
 }

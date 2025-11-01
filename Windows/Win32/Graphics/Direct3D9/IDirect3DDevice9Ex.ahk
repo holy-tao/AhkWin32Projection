@@ -80,7 +80,10 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-setconvolutionmonokernel
      */
     SetConvolutionMonoKernel(width, height, rows, columns) {
-        result := ComCall(119, this, "uint", width, "uint", height, "float*", rows, "float*", columns, "HRESULT")
+        rowsMarshal := rows is VarRef ? "float*" : "ptr"
+        columnsMarshal := columns is VarRef ? "float*" : "ptr"
+
+        result := ComCall(119, this, "uint", width, "uint", height, rowsMarshal, rows, columnsMarshal, columns, "HRESULT")
         return result
     }
 
@@ -126,7 +129,9 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-getgputhreadpriority
      */
     GetGPUThreadPriority(pPriority) {
-        result := ComCall(122, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(122, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 
@@ -182,7 +187,9 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-getmaximumframelatency
      */
     GetMaximumFrameLatency(pMaxLatency) {
-        result := ComCall(127, this, "uint*", pMaxLatency, "HRESULT")
+        pMaxLatencyMarshal := pMaxLatency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(127, this, pMaxLatencyMarshal, pMaxLatency, "HRESULT")
         return result
     }
 
@@ -275,7 +282,9 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-getdisplaymodeex
      */
     GetDisplayModeEx(iSwapChain, pMode, pRotation) {
-        result := ComCall(133, this, "uint", iSwapChain, "ptr", pMode, "int*", pRotation, "HRESULT")
+        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(133, this, "uint", iSwapChain, "ptr", pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 }

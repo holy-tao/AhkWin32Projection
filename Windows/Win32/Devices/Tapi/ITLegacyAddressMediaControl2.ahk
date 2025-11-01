@@ -61,7 +61,10 @@ class ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaControl{
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        result := ComCall(7, this, "ptr", hwndOwner, "ptr", pDeviceClass, "uint", dwSizeIn, "char*", pDeviceConfigIn, "uint*", pdwSizeOut, "ptr*", ppDeviceConfigOut, "HRESULT")
+        pDeviceConfigInMarshal := pDeviceConfigIn is VarRef ? "char*" : "ptr"
+        pdwSizeOutMarshal := pdwSizeOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hwndOwner, "ptr", pDeviceClass, "uint", dwSizeIn, pDeviceConfigInMarshal, pDeviceConfigIn, pdwSizeOutMarshal, pdwSizeOut, "ptr*", ppDeviceConfigOut, "HRESULT")
         return result
     }
 }

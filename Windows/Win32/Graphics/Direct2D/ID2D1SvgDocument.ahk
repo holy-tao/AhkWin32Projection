@@ -163,7 +163,10 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpathdata
      */
     CreatePathData(segmentData, segmentDataCount, commands, commandsCount, pathData) {
-        result := ComCall(14, this, "float*", segmentData, "uint", segmentDataCount, "int*", commands, "uint", commandsCount, "ptr*", pathData, "HRESULT")
+        segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
+        commandsMarshal := commands is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, segmentDataMarshal, segmentData, "uint", segmentDataCount, commandsMarshal, commands, "uint", commandsCount, "ptr*", pathData, "HRESULT")
         return result
     }
 }

@@ -149,7 +149,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getcurrentfolderflags
      */
     GetCurrentFolderFlags(pdwFlags) {
-        result := ComCall(25, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -160,7 +162,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getsortcolumncount
      */
     GetSortColumnCount(pcColumns) {
-        result := ComCall(26, this, "int*", pcColumns, "HRESULT")
+        pcColumnsMarshal := pcColumns is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pcColumnsMarshal, pcColumns, "HRESULT")
         return result
     }
 
@@ -210,7 +214,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getvisibleitem
      */
     GetVisibleItem(iStart, fPrevious, piItem) {
-        result := ComCall(30, this, "int", iStart, "int", fPrevious, "int*", piItem, "HRESULT")
+        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, "int", iStart, "int", fPrevious, piItemMarshal, piItem, "HRESULT")
         return result
     }
 
@@ -222,7 +228,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselecteditem
      */
     GetSelectedItem(iStart, piItem) {
-        result := ComCall(31, this, "int", iStart, "int*", piItem, "HRESULT")
+        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, "int", iStart, piItemMarshal, piItem, "HRESULT")
         return result
     }
 
@@ -246,7 +254,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselectionstate
      */
     GetSelectionState(pidl, pdwFlags) {
-        result := ComCall(33, this, "ptr", pidl, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "ptr", pidl, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -257,6 +267,8 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-invokeverbonselection
      */
     InvokeVerbOnSelection(pszVerb) {
+        pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
+
         result := ComCall(34, this, "ptr", pszVerb, "HRESULT")
         return result
     }
@@ -281,7 +293,10 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getviewmodeandiconsize
      */
     GetViewModeAndIconSize(puViewMode, piImageSize) {
-        result := ComCall(36, this, "int*", puViewMode, "int*", piImageSize, "HRESULT")
+        puViewModeMarshal := puViewMode is VarRef ? "int*" : "ptr"
+        piImageSizeMarshal := piImageSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, puViewModeMarshal, puViewMode, piImageSizeMarshal, piImageSize, "HRESULT")
         return result
     }
 
@@ -303,7 +318,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupsubsetcount
      */
     GetGroupSubsetCount(pcVisibleRows) {
-        result := ComCall(38, this, "uint*", pcVisibleRows, "HRESULT")
+        pcVisibleRowsMarshal := pcVisibleRows is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(38, this, pcVisibleRowsMarshal, pcVisibleRows, "HRESULT")
         return result
     }
 

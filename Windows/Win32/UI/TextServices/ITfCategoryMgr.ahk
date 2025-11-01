@@ -167,7 +167,9 @@ class ITfCategoryMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguiddword
      */
     GetGUIDDWORD(rguid, pdw) {
-        result := ComCall(13, this, "ptr", rguid, "uint*", pdw, "HRESULT")
+        pdwMarshal := pdw is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", rguid, pdwMarshal, pdw, "HRESULT")
         return result
     }
 
@@ -179,7 +181,9 @@ class ITfCategoryMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguid
      */
     RegisterGUID(rguid, pguidatom) {
-        result := ComCall(14, this, "ptr", rguid, "uint*", pguidatom, "HRESULT")
+        pguidatomMarshal := pguidatom is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", rguid, pguidatomMarshal, pguidatom, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IAccessor extends IUnknown{
     AddRefAccessor(hAccessor, pcRefCount) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(3, this, "ptr", hAccessor, "uint*", pcRefCount, "HRESULT")
+        pcRefCountMarshal := pcRefCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hAccessor, pcRefCountMarshal, pcRefCount, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IAccessor extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateAccessor(dwAccessorFlags, cBindings, rgBindings, cbRowSize, phAccessor, rgStatus) {
-        result := ComCall(4, this, "uint", dwAccessorFlags, "ptr", cBindings, "ptr", rgBindings, "ptr", cbRowSize, "ptr", phAccessor, "uint*", rgStatus, "HRESULT")
+        rgStatusMarshal := rgStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwAccessorFlags, "ptr", cBindings, "ptr", rgBindings, "ptr", cbRowSize, "ptr", phAccessor, rgStatusMarshal, rgStatus, "HRESULT")
         return result
     }
 
@@ -67,7 +71,10 @@ class IAccessor extends IUnknown{
     GetBindings(hAccessor, pdwAccessorFlags, pcBindings, prgBindings) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(5, this, "ptr", hAccessor, "uint*", pdwAccessorFlags, "ptr*", pcBindings, "ptr*", prgBindings, "HRESULT")
+        pdwAccessorFlagsMarshal := pdwAccessorFlags is VarRef ? "uint*" : "ptr"
+        pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hAccessor, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, "ptr*", prgBindings, "HRESULT")
         return result
     }
 
@@ -80,7 +87,9 @@ class IAccessor extends IUnknown{
     ReleaseAccessor(hAccessor, pcRefCount) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(6, this, "ptr", hAccessor, "uint*", pcRefCount, "HRESULT")
+        pcRefCountMarshal := pcRefCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", hAccessor, pcRefCountMarshal, pcRefCount, "HRESULT")
         return result
     }
 }

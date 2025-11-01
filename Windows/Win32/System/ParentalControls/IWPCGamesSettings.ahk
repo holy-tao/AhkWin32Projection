@@ -38,7 +38,9 @@ class IWPCGamesSettings extends IWPCSettings{
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcgamessettings-isblocked
      */
     IsBlocked(guidAppID, pdwReasons) {
-        result := ComCall(6, this, "ptr", guidAppID, "uint*", pdwReasons, "HRESULT")
+        pdwReasonsMarshal := pdwReasons is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", guidAppID, pdwReasonsMarshal, pdwReasons, "HRESULT")
         return result
     }
 }

@@ -54,7 +54,9 @@ class IImgErrorInfo extends IErrorInfo{
      * @returns {HRESULT} 
      */
     GetUserParameterCount(pcUserParams) {
-        result := ComCall(10, this, "uint*", pcUserParams, "HRESULT")
+        pcUserParamsMarshal := pcUserParams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcUserParamsMarshal, pcUserParams, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IImgErrorInfo extends IErrorInfo{
      * @returns {HRESULT} 
      */
     GetExceptionId(pExceptionId) {
-        result := ComCall(13, this, "uint*", pExceptionId, "HRESULT")
+        pExceptionIdMarshal := pExceptionId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pExceptionIdMarshal, pExceptionId, "HRESULT")
         return result
     }
 

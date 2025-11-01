@@ -46,7 +46,9 @@ class IGenericDescriptor2 extends IGenericDescriptor{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pbDesc, wCount) {
-        result := ComCall(7, this, "char*", pbDesc, "ushort", wCount, "HRESULT")
+        pbDescMarshal := pbDesc is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbDescMarshal, pbDesc, "ushort", wCount, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IGenericDescriptor2 extends IGenericDescriptor{
      * @returns {HRESULT} 
      */
     GetLength(pwVal) {
-        result := ComCall(8, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 }

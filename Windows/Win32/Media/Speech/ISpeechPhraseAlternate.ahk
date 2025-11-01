@@ -44,7 +44,9 @@ class ISpeechPhraseAlternate extends IDispatch{
      * @returns {HRESULT} 
      */
     get_StartElementInResult(StartElement) {
-        result := ComCall(8, this, "int*", StartElement, "HRESULT")
+        StartElementMarshal := StartElement is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, StartElementMarshal, StartElement, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISpeechPhraseAlternate extends IDispatch{
      * @returns {HRESULT} 
      */
     get_NumberOfElementsInResult(NumberOfElements) {
-        result := ComCall(9, this, "int*", NumberOfElements, "HRESULT")
+        NumberOfElementsMarshal := NumberOfElements is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, NumberOfElementsMarshal, NumberOfElements, "HRESULT")
         return result
     }
 

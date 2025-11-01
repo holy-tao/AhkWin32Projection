@@ -131,7 +131,9 @@ class WebDav {
         Url := Url is String ? StrPtr(Url) : Url
         UncPath := UncPath is String ? StrPtr(UncPath) : UncPath
 
-        result := DllCall("NETAPI32.dll\DavGetUNCFromHTTPPath", "ptr", Url, "ptr", UncPath, "uint*", lpSize, "uint")
+        lpSizeMarshal := lpSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DavGetUNCFromHTTPPath", "ptr", Url, "ptr", UncPath, lpSizeMarshal, lpSize, "uint")
         return result
     }
 
@@ -177,7 +179,9 @@ class WebDav {
         UncPath := UncPath is String ? StrPtr(UncPath) : UncPath
         Url := Url is String ? StrPtr(Url) : Url
 
-        result := DllCall("NETAPI32.dll\DavGetHTTPFromUNCPath", "ptr", UncPath, "ptr", Url, "uint*", lpSize, "uint")
+        lpSizeMarshal := lpSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DavGetHTTPFromUNCPath", "ptr", UncPath, "ptr", Url, lpSizeMarshal, lpSize, "uint")
         return result
     }
 
@@ -230,7 +234,9 @@ class WebDav {
     static DavGetTheLockOwnerOfTheFile(FileName, LockOwnerName, LockOwnerNameLengthInBytes) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("davclnt.dll\DavGetTheLockOwnerOfTheFile", "ptr", FileName, "ptr", LockOwnerName, "uint*", LockOwnerNameLengthInBytes, "uint")
+        LockOwnerNameLengthInBytesMarshal := LockOwnerNameLengthInBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\DavGetTheLockOwnerOfTheFile", "ptr", FileName, "ptr", LockOwnerName, LockOwnerNameLengthInBytesMarshal, LockOwnerNameLengthInBytes, "uint")
         return result
     }
 
@@ -278,10 +284,13 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavGetExtendedError(hFile, ExtError, ExtErrorString, cChSize) {
-        ExtErrorString := ExtErrorString is String ? StrPtr(ExtErrorString) : ExtErrorString
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        ExtErrorString := ExtErrorString is String ? StrPtr(ExtErrorString) : ExtErrorString
 
-        result := DllCall("NETAPI32.dll\DavGetExtendedError", "ptr", hFile, "uint*", ExtError, "ptr", ExtErrorString, "uint*", cChSize, "uint")
+        ExtErrorMarshal := ExtError is VarRef ? "uint*" : "ptr"
+        cChSizeMarshal := cChSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DavGetExtendedError", "ptr", hFile, ExtErrorMarshal, ExtError, "ptr", ExtErrorString, cChSizeMarshal, cChSize, "uint")
         return result
     }
 

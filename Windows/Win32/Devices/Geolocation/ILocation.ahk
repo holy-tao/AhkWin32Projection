@@ -84,7 +84,9 @@ class ILocation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreportstatus
      */
     GetReportStatus(reportType, pStatus) {
-        result := ComCall(6, this, "ptr", reportType, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", reportType, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class ILocation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreportinterval
      */
     GetReportInterval(reportType, pMilliseconds) {
-        result := ComCall(7, this, "ptr", reportType, "uint*", pMilliseconds, "HRESULT")
+        pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", reportType, pMillisecondsMarshal, pMilliseconds, "HRESULT")
         return result
     }
 
@@ -120,7 +124,9 @@ class ILocation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getdesiredaccuracy
      */
     GetDesiredAccuracy(reportType, pDesiredAccuracy) {
-        result := ComCall(9, this, "ptr", reportType, "int*", pDesiredAccuracy, "HRESULT")
+        pDesiredAccuracyMarshal := pDesiredAccuracy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", reportType, pDesiredAccuracyMarshal, pDesiredAccuracy, "HRESULT")
         return result
     }
 

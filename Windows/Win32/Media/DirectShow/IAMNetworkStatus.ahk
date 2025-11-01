@@ -43,7 +43,9 @@ class IAMNetworkStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_receivedpackets
      */
     get_ReceivedPackets(pReceivedPackets) {
-        result := ComCall(7, this, "int*", pReceivedPackets, "HRESULT")
+        pReceivedPacketsMarshal := pReceivedPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pReceivedPacketsMarshal, pReceivedPackets, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IAMNetworkStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_recoveredpackets
      */
     get_RecoveredPackets(pRecoveredPackets) {
-        result := ComCall(8, this, "int*", pRecoveredPackets, "HRESULT")
+        pRecoveredPacketsMarshal := pRecoveredPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pRecoveredPacketsMarshal, pRecoveredPackets, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IAMNetworkStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_lostpackets
      */
     get_LostPackets(pLostPackets) {
-        result := ComCall(9, this, "int*", pLostPackets, "HRESULT")
+        pLostPacketsMarshal := pLostPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pLostPacketsMarshal, pLostPackets, "HRESULT")
         return result
     }
 
@@ -76,7 +82,9 @@ class IAMNetworkStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_receptionquality
      */
     get_ReceptionQuality(pReceptionQuality) {
-        result := ComCall(10, this, "int*", pReceptionQuality, "HRESULT")
+        pReceptionQualityMarshal := pReceptionQuality is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pReceptionQualityMarshal, pReceptionQuality, "HRESULT")
         return result
     }
 
@@ -87,7 +95,9 @@ class IAMNetworkStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingcount
      */
     get_BufferingCount(pBufferingCount) {
-        result := ComCall(11, this, "int*", pBufferingCount, "HRESULT")
+        pBufferingCountMarshal := pBufferingCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pBufferingCountMarshal, pBufferingCount, "HRESULT")
         return result
     }
 
@@ -109,7 +119,9 @@ class IAMNetworkStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingprogress
      */
     get_BufferingProgress(pBufferingProgress) {
-        result := ComCall(13, this, "int*", pBufferingProgress, "HRESULT")
+        pBufferingProgressMarshal := pBufferingProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pBufferingProgressMarshal, pBufferingProgress, "HRESULT")
         return result
     }
 }

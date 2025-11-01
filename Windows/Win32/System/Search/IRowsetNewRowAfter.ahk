@@ -41,7 +41,11 @@ class IRowsetNewRowAfter extends IUnknown{
     SetNewDataAfter(hChapter, cbbmPrevious, pbmPrevious, hAccessor, pData, phRow) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(3, this, "ptr", hChapter, "uint", cbbmPrevious, "char*", pbmPrevious, "ptr", hAccessor, "char*", pData, "ptr*", phRow, "HRESULT")
+        pbmPreviousMarshal := pbmPrevious is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        phRowMarshal := phRow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hChapter, "uint", cbbmPrevious, pbmPreviousMarshal, pbmPrevious, "ptr", hAccessor, pDataMarshal, pData, phRowMarshal, phRow, "HRESULT")
         return result
     }
 }

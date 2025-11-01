@@ -319,7 +319,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontfamilynamelength
      */
     GetFontFamilyNameLength(currentPosition, nameLength, textRange) {
-        result := ComCall(45, this, "uint", currentPosition, "uint*", nameLength, "ptr", textRange, "HRESULT")
+        nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(45, this, "uint", currentPosition, nameLengthMarshal, nameLength, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -348,7 +350,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontweight
      */
     GetFontWeight(currentPosition, fontWeight, textRange) {
-        result := ComCall(47, this, "uint", currentPosition, "int*", fontWeight, "ptr", textRange, "HRESULT")
+        fontWeightMarshal := fontWeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, "uint", currentPosition, fontWeightMarshal, fontWeight, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -361,7 +365,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontstyle
      */
     GetFontStyle(currentPosition, fontStyle, textRange) {
-        result := ComCall(48, this, "uint", currentPosition, "int*", fontStyle, "ptr", textRange, "HRESULT")
+        fontStyleMarshal := fontStyle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, "uint", currentPosition, fontStyleMarshal, fontStyle, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -374,7 +380,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontstretch
      */
     GetFontStretch(currentPosition, fontStretch, textRange) {
-        result := ComCall(49, this, "uint", currentPosition, "int*", fontStretch, "ptr", textRange, "HRESULT")
+        fontStretchMarshal := fontStretch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(49, this, "uint", currentPosition, fontStretchMarshal, fontStretch, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -387,7 +395,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontsize
      */
     GetFontSize(currentPosition, fontSize, textRange) {
-        result := ComCall(50, this, "uint", currentPosition, "float*", fontSize, "ptr", textRange, "HRESULT")
+        fontSizeMarshal := fontSize is VarRef ? "float*" : "ptr"
+
+        result := ComCall(50, this, "uint", currentPosition, fontSizeMarshal, fontSize, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -465,7 +475,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getlocalenamelength
      */
     GetLocaleNameLength(currentPosition, nameLength, textRange) {
-        result := ComCall(56, this, "uint", currentPosition, "uint*", nameLength, "ptr", textRange, "HRESULT")
+        nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(56, this, "uint", currentPosition, nameLengthMarshal, nameLength, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -495,7 +507,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw
      */
     Draw(clientDrawingContext, renderer, originX, originY) {
-        result := ComCall(58, this, "ptr", clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(58, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, "HRESULT")
         return result
     }
 
@@ -508,7 +522,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getlinemetrics
      */
     GetLineMetrics(lineMetrics, maxLineCount, actualLineCount) {
-        result := ComCall(59, this, "ptr", lineMetrics, "uint", maxLineCount, "uint*", actualLineCount, "HRESULT")
+        actualLineCountMarshal := actualLineCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(59, this, "ptr", lineMetrics, "uint", maxLineCount, actualLineCountMarshal, actualLineCount, "HRESULT")
         return result
     }
 
@@ -543,7 +559,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getclustermetrics
      */
     GetClusterMetrics(clusterMetrics, maxClusterCount, actualClusterCount) {
-        result := ComCall(62, this, "ptr", clusterMetrics, "uint", maxClusterCount, "uint*", actualClusterCount, "HRESULT")
+        actualClusterCountMarshal := actualClusterCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(62, this, "ptr", clusterMetrics, "uint", maxClusterCount, actualClusterCountMarshal, actualClusterCount, "HRESULT")
         return result
     }
 
@@ -554,7 +572,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout-determineminwidth
      */
     DetermineMinWidth(minWidth) {
-        result := ComCall(63, this, "float*", minWidth, "HRESULT")
+        minWidthMarshal := minWidth is VarRef ? "float*" : "ptr"
+
+        result := ComCall(63, this, minWidthMarshal, minWidth, "HRESULT")
         return result
     }
 
@@ -584,7 +604,10 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-hittesttextposition
      */
     HitTestTextPosition(textPosition, isTrailingHit, pointX, pointY, hitTestMetrics) {
-        result := ComCall(65, this, "uint", textPosition, "int", isTrailingHit, "float*", pointX, "float*", pointY, "ptr", hitTestMetrics, "HRESULT")
+        pointXMarshal := pointX is VarRef ? "float*" : "ptr"
+        pointYMarshal := pointY is VarRef ? "float*" : "ptr"
+
+        result := ComCall(65, this, "uint", textPosition, "int", isTrailingHit, pointXMarshal, pointX, pointYMarshal, pointY, "ptr", hitTestMetrics, "HRESULT")
         return result
     }
 
@@ -601,7 +624,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-hittesttextrange
      */
     HitTestTextRange(textPosition, textLength, originX, originY, hitTestMetrics, maxHitTestMetricsCount, actualHitTestMetricsCount) {
-        result := ComCall(66, this, "uint", textPosition, "uint", textLength, "float", originX, "float", originY, "ptr", hitTestMetrics, "uint", maxHitTestMetricsCount, "uint*", actualHitTestMetricsCount, "HRESULT")
+        actualHitTestMetricsCountMarshal := actualHitTestMetricsCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(66, this, "uint", textPosition, "uint", textLength, "float", originX, "float", originY, "ptr", hitTestMetrics, "uint", maxHitTestMetricsCount, actualHitTestMetricsCountMarshal, actualHitTestMetricsCount, "HRESULT")
         return result
     }
 }

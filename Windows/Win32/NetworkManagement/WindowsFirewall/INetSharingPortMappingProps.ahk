@@ -48,7 +48,9 @@ class INetSharingPortMappingProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_ipprotocol
      */
     get_IPProtocol(pucIPProt) {
-        result := ComCall(8, this, "char*", pucIPProt, "HRESULT")
+        pucIPProtMarshal := pucIPProt is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pucIPProtMarshal, pucIPProt, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class INetSharingPortMappingProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_externalport
      */
     get_ExternalPort(pusPort) {
-        result := ComCall(9, this, "int*", pusPort, "HRESULT")
+        pusPortMarshal := pusPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pusPortMarshal, pusPort, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class INetSharingPortMappingProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_internalport
      */
     get_InternalPort(pusPort) {
-        result := ComCall(10, this, "int*", pusPort, "HRESULT")
+        pusPortMarshal := pusPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pusPortMarshal, pusPort, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class INetSharingPortMappingProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_options
      */
     get_Options(pdwOptions) {
-        result := ComCall(11, this, "int*", pdwOptions, "HRESULT")
+        pdwOptionsMarshal := pdwOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pdwOptionsMarshal, pdwOptions, "HRESULT")
         return result
     }
 

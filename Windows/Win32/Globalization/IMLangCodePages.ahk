@@ -35,7 +35,9 @@ class IMLangCodePages extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCharCodePages(chSrc, pdwCodePages) {
-        result := ComCall(3, this, "char", chSrc, "uint*", pdwCodePages, "HRESULT")
+        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "char", chSrc, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
         return result
     }
 
@@ -51,7 +53,10 @@ class IMLangCodePages extends IUnknown{
     GetStrCodePages(pszSrc, cchSrc, dwPriorityCodePages, pdwCodePages, pcchCodePages) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := ComCall(4, this, "ptr", pszSrc, "int", cchSrc, "uint", dwPriorityCodePages, "uint*", pdwCodePages, "int*", pcchCodePages, "HRESULT")
+        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
+        pcchCodePagesMarshal := pcchCodePages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszSrc, "int", cchSrc, "uint", dwPriorityCodePages, pdwCodePagesMarshal, pdwCodePages, pcchCodePagesMarshal, pcchCodePages, "HRESULT")
         return result
     }
 
@@ -62,7 +67,9 @@ class IMLangCodePages extends IUnknown{
      * @returns {HRESULT} 
      */
     CodePageToCodePages(uCodePage, pdwCodePages) {
-        result := ComCall(5, this, "uint", uCodePage, "uint*", pdwCodePages, "HRESULT")
+        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", uCodePage, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
         return result
     }
 
@@ -74,7 +81,9 @@ class IMLangCodePages extends IUnknown{
      * @returns {HRESULT} 
      */
     CodePagesToCodePage(dwCodePages, uDefaultCodePage, puCodePage) {
-        result := ComCall(6, this, "uint", dwCodePages, "uint", uDefaultCodePage, "uint*", puCodePage, "HRESULT")
+        puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwCodePages, "uint", uDefaultCodePage, puCodePageMarshal, puCodePage, "HRESULT")
         return result
     }
 }

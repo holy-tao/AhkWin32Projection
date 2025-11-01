@@ -87,7 +87,9 @@ class IXpsOMGeometry extends IXpsOMShareable{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-getfillrule
      */
     GetFillRule(fillRule) {
-        result := ComCall(6, this, "int*", fillRule, "HRESULT")
+        fillRuleMarshal := fillRule is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, fillRuleMarshal, fillRule, "HRESULT")
         return result
     }
 

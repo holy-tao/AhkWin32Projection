@@ -37,7 +37,9 @@ class IWMPStringCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpstringcollection-get_count
      */
     get_count(plCount) {
-        result := ComCall(7, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

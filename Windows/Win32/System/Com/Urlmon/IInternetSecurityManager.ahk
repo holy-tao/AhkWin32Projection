@@ -58,7 +58,9 @@ class IInternetSecurityManager extends IUnknown{
     MapUrlToZone(pwszUrl, pdwZone, dwFlags) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(5, this, "ptr", pwszUrl, "uint*", pdwZone, "uint", dwFlags, "HRESULT")
+        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwszUrl, pdwZoneMarshal, pdwZone, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -73,7 +75,10 @@ class IInternetSecurityManager extends IUnknown{
     GetSecurityId(pwszUrl, pbSecurityId, pcbSecurityId, dwReserved) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(6, this, "ptr", pwszUrl, "char*", pbSecurityId, "uint*", pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
+        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszUrl, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
         return result
     }
 
@@ -92,7 +97,10 @@ class IInternetSecurityManager extends IUnknown{
     ProcessUrlAction(pwszUrl, dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(7, this, "ptr", pwszUrl, "uint", dwAction, "char*", pPolicy, "uint", cbPolicy, "char*", pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pwszUrl, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -110,7 +118,10 @@ class IInternetSecurityManager extends IUnknown{
     QueryCustomPolicy(pwszUrl, guidKey, ppPolicy, pcbPolicy, pContext, cbContext, dwReserved) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(8, this, "ptr", pwszUrl, "ptr", guidKey, "ptr*", ppPolicy, "uint*", pcbPolicy, "char*", pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
+        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pwszUrl, "ptr", guidKey, "ptr*", ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
         return result
     }
 

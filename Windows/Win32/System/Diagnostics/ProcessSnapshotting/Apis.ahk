@@ -245,7 +245,9 @@ class ProcessSnapshotting {
         SnapshotHandle := SnapshotHandle is Win32Handle ? NumGet(SnapshotHandle, "ptr") : SnapshotHandle
         WalkMarkerHandle := WalkMarkerHandle is Win32Handle ? NumGet(WalkMarkerHandle, "ptr") : WalkMarkerHandle
 
-        result := DllCall("KERNEL32.dll\PssWalkSnapshot", "ptr", SnapshotHandle, "int", InformationClass, "ptr", WalkMarkerHandle, "ptr", Buffer, "uint", BufferLength, "uint")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\PssWalkSnapshot", "ptr", SnapshotHandle, "int", InformationClass, "ptr", WalkMarkerHandle, BufferMarshal, Buffer, "uint", BufferLength, "uint")
         return result
     }
 
@@ -353,7 +355,9 @@ class ProcessSnapshotting {
     static PssWalkMarkerGetPosition(WalkMarkerHandle, Position) {
         WalkMarkerHandle := WalkMarkerHandle is Win32Handle ? NumGet(WalkMarkerHandle, "ptr") : WalkMarkerHandle
 
-        result := DllCall("KERNEL32.dll\PssWalkMarkerGetPosition", "ptr", WalkMarkerHandle, "ptr*", Position, "uint")
+        PositionMarshal := Position is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\PssWalkMarkerGetPosition", "ptr", WalkMarkerHandle, PositionMarshal, Position, "uint")
         return result
     }
 

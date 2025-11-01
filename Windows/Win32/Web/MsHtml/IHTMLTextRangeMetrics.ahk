@@ -34,7 +34,9 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetTop(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetLeft(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {HRESULT} 
      */
     get_boundingTop(p) {
-        result := ComCall(9, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {HRESULT} 
      */
     get_boundingLeft(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {HRESULT} 
      */
     get_boundingWidth(p) {
-        result := ComCall(11, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -84,7 +94,9 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {HRESULT} 
      */
     get_boundingHeight(p) {
-        result := ComCall(12, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 }

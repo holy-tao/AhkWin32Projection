@@ -81,7 +81,9 @@ class IDOMMutationEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_attrChange(p) {
-        result := ComCall(11, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 

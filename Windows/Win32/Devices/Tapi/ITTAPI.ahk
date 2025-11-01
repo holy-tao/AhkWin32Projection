@@ -95,7 +95,9 @@ class ITTAPI extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications
      */
     RegisterCallNotifications(pAddress, fMonitor, fOwner, lMediaTypes, lCallbackInstance, plRegister) {
-        result := ComCall(11, this, "ptr", pAddress, "short", fMonitor, "short", fOwner, "int", lMediaTypes, "int", lCallbackInstance, "int*", plRegister, "HRESULT")
+        plRegisterMarshal := plRegister is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pAddress, "short", fMonitor, "short", fOwner, "int", lMediaTypes, "int", lCallbackInstance, plRegisterMarshal, plRegister, "HRESULT")
         return result
     }
 
@@ -226,7 +228,9 @@ class ITTAPI extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-get_eventfilter
      */
     get_EventFilter(plFilterMask) {
-        result := ComCall(22, this, "int*", plFilterMask, "HRESULT")
+        plFilterMaskMarshal := plFilterMask is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, plFilterMaskMarshal, plFilterMask, "HRESULT")
         return result
     }
 }

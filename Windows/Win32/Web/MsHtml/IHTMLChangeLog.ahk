@@ -36,7 +36,10 @@ class IHTMLChangeLog extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNextChange(pbBuffer, nBufferSize, pnRecordLength) {
-        result := ComCall(3, this, "char*", pbBuffer, "int", nBufferSize, "int*", pnRecordLength, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pnRecordLengthMarshal := pnRecordLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pbBufferMarshal, pbBuffer, "int", nBufferSize, pnRecordLengthMarshal, pnRecordLength, "HRESULT")
         return result
     }
 }

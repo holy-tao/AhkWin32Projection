@@ -212,7 +212,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getchar
      */
     GetChar(pChar) {
-        result := ComCall(9, this, "int*", pChar, "HRESULT")
+        pCharMarshal := pChar is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCharMarshal, pChar, "HRESULT")
         return result
     }
 
@@ -267,7 +269,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getstart
      */
     GetStart(pcpFirst) {
-        result := ComCall(14, this, "int*", pcpFirst, "HRESULT")
+        pcpFirstMarshal := pcpFirst is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pcpFirstMarshal, pcpFirst, "HRESULT")
         return result
     }
 
@@ -289,7 +293,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getend
      */
     GetEnd(pcpLim) {
-        result := ComCall(16, this, "int*", pcpLim, "HRESULT")
+        pcpLimMarshal := pcpLim is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pcpLimMarshal, pcpLim, "HRESULT")
         return result
     }
 
@@ -355,7 +361,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getstorylength
      */
     GetStoryLength(pCount) {
-        result := ComCall(22, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -366,7 +374,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getstorytype
      */
     GetStoryType(pValue) {
-        result := ComCall(23, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -389,7 +399,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-expand
      */
     Expand(Unit, pDelta) {
-        result := ComCall(25, this, "int", Unit, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "int", Unit, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -401,7 +413,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getindex
      */
     GetIndex(Unit, pIndex) {
-        result := ComCall(26, this, "int", Unit, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, "int", Unit, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 
@@ -438,7 +452,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-inrange
      */
     InRange(pRange, pValue) {
-        result := ComCall(29, this, "ptr", pRange, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, "ptr", pRange, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -450,7 +466,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-instory
      */
     InStory(pRange, pValue) {
-        result := ComCall(30, this, "ptr", pRange, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, "ptr", pRange, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -462,7 +480,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-isequal
      */
     IsEqual(pRange, pValue) {
-        result := ComCall(31, this, "ptr", pRange, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, "ptr", pRange, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -485,7 +505,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-startof
      */
     StartOf(Unit, Extend, pDelta) {
-        result := ComCall(33, this, "int", Unit, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, "int", Unit, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -498,7 +520,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-endof
      */
     EndOf(Unit, Extend, pDelta) {
-        result := ComCall(34, this, "int", Unit, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, "int", Unit, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -511,7 +535,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-move
      */
     Move(Unit, Count, pDelta) {
-        result := ComCall(35, this, "int", Unit, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, "int", Unit, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -524,7 +550,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestart
      */
     MoveStart(Unit, Count, pDelta) {
-        result := ComCall(36, this, "int", Unit, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, "int", Unit, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -537,7 +565,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveend
      */
     MoveEnd(Unit, Count, pDelta) {
-        result := ComCall(37, this, "int", Unit, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, "int", Unit, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -550,7 +580,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movewhile
      */
     MoveWhile(Cset, Count, pDelta) {
-        result := ComCall(38, this, "ptr", Cset, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, "ptr", Cset, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -563,7 +595,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestartwhile
      */
     MoveStartWhile(Cset, Count, pDelta) {
-        result := ComCall(39, this, "ptr", Cset, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, "ptr", Cset, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -576,7 +610,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveendwhile
      */
     MoveEndWhile(Cset, Count, pDelta) {
-        result := ComCall(40, this, "ptr", Cset, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, "ptr", Cset, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -589,7 +625,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveuntil
      */
     MoveUntil(Cset, Count, pDelta) {
-        result := ComCall(41, this, "ptr", Cset, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, "ptr", Cset, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -602,7 +640,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestartuntil
      */
     MoveStartUntil(Cset, Count, pDelta) {
-        result := ComCall(42, this, "ptr", Cset, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, "ptr", Cset, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -615,7 +655,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveenduntil
      */
     MoveEndUntil(Cset, Count, pDelta) {
-        result := ComCall(43, this, "ptr", Cset, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, "ptr", Cset, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -631,7 +673,9 @@ class ITextRange extends IDispatch{
     FindText(bstr, Count, Flags, pLength) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
 
-        result := ComCall(44, this, "ptr", bstr, "int", Count, "int", Flags, "int*", pLength, "HRESULT")
+        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, "ptr", bstr, "int", Count, "int", Flags, pLengthMarshal, pLength, "HRESULT")
         return result
     }
 
@@ -647,7 +691,9 @@ class ITextRange extends IDispatch{
     FindTextStart(bstr, Count, Flags, pLength) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
 
-        result := ComCall(45, this, "ptr", bstr, "int", Count, "int", Flags, "int*", pLength, "HRESULT")
+        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, "ptr", bstr, "int", Count, "int", Flags, pLengthMarshal, pLength, "HRESULT")
         return result
     }
 
@@ -663,7 +709,9 @@ class ITextRange extends IDispatch{
     FindTextEnd(bstr, Count, Flags, pLength) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
 
-        result := ComCall(46, this, "ptr", bstr, "int", Count, "int", Flags, "int*", pLength, "HRESULT")
+        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, "ptr", bstr, "int", Count, "int", Flags, pLengthMarshal, pLength, "HRESULT")
         return result
     }
 
@@ -676,7 +724,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-delete
      */
     Delete(Unit, Count, pDelta) {
-        result := ComCall(47, this, "int", Unit, "int", Count, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, "int", Unit, "int", Count, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -723,7 +773,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-canpaste
      */
     CanPaste(pVar, Format, pValue) {
-        result := ComCall(51, this, "ptr", pVar, "int", Format, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(51, this, "ptr", pVar, "int", Format, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -734,7 +786,9 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-canedit
      */
     CanEdit(pValue) {
-        result := ComCall(52, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -758,7 +812,10 @@ class ITextRange extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getpoint
      */
     GetPoint(Type, px, py) {
-        result := ComCall(54, this, "int", Type, "int*", px, "int*", py, "HRESULT")
+        pxMarshal := px is VarRef ? "int*" : "ptr"
+        pyMarshal := py is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, "int", Type, pxMarshal, px, pyMarshal, py, "HRESULT")
         return result
     }
 

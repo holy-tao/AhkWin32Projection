@@ -42,7 +42,9 @@ class IStreamBufferSink3 extends IStreamBufferSink2{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambuffersink3-setavailablefilter
      */
     SetAvailableFilter(prtMin) {
-        result := ComCall(7, this, "int64*", prtMin, "HRESULT")
+        prtMinMarshal := prtMin is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, prtMinMarshal, prtMin, "HRESULT")
         return result
     }
 }

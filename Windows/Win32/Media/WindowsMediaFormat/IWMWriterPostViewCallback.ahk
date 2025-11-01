@@ -42,7 +42,9 @@ class IWMWriterPostViewCallback extends IWMStatusCallback{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-onpostviewsample
      */
     OnPostViewSample(wStreamNumber, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
-        result := ComCall(4, this, "ushort", wStreamNumber, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ushort", wStreamNumber, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IWMWriterPostViewCallback extends IWMStatusCallback{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-allocateforpostview
      */
     AllocateForPostView(wStreamNum, cbBuffer, ppBuffer, pvContext) {
-        result := ComCall(5, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

@@ -54,7 +54,9 @@ class IFsrmAccessDeniedRemediationClient extends IDispatch{
         windowTitle := windowTitle is String ? BSTR.Alloc(windowTitle).Value : windowTitle
         windowMessage := windowMessage is String ? BSTR.Alloc(windowMessage).Value : windowMessage
 
-        result := ComCall(7, this, "ptr", parentWnd, "ptr", accessPath, "int", errorType, "int", flags, "ptr", windowTitle, "ptr", windowMessage, "int*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", parentWnd, "ptr", accessPath, "int", errorType, "int", flags, "ptr", windowTitle, "ptr", windowMessage, resultMarshal, result, "HRESULT")
         return result
     }
 }

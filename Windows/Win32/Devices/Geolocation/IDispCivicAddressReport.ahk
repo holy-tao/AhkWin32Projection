@@ -100,7 +100,9 @@ class IDispCivicAddressReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DetailLevel(pDetailLevel) {
-        result := ComCall(13, this, "uint*", pDetailLevel, "HRESULT")
+        pDetailLevelMarshal := pDetailLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pDetailLevelMarshal, pDetailLevel, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class IDispCivicAddressReport extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Timestamp(pVal) {
-        result := ComCall(14, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 }

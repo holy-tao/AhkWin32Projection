@@ -42,7 +42,9 @@ class ICCSubStreamFiltering extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-iccsubstreamfiltering-get_substreamtypes
      */
     get_SubstreamTypes(pTypes) {
-        result := ComCall(3, this, "int*", pTypes, "HRESULT")
+        pTypesMarshal := pTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pTypesMarshal, pTypes, "HRESULT")
         return result
     }
 

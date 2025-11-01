@@ -39,7 +39,9 @@ class IExtendContextMenu extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendcontextmenu-addmenuitems
      */
     AddMenuItems(piDataObject, piCallback, pInsertionAllowed) {
-        result := ComCall(3, this, "ptr", piDataObject, "ptr", piCallback, "int*", pInsertionAllowed, "HRESULT")
+        pInsertionAllowedMarshal := pInsertionAllowed is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", piDataObject, "ptr", piCallback, pInsertionAllowedMarshal, pInsertionAllowed, "HRESULT")
         return result
     }
 

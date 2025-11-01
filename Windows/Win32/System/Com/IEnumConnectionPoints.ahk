@@ -57,7 +57,9 @@ class IEnumConnectionPoints extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnectionpoints-next
      */
     Next(cConnections, ppCP, pcFetched) {
-        result := ComCall(3, this, "uint", cConnections, "ptr*", ppCP, "uint*", pcFetched, "int")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cConnections, "ptr*", ppCP, pcFetchedMarshal, pcFetched, "int")
         return result
     }
 

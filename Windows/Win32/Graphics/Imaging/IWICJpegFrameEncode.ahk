@@ -91,7 +91,9 @@ class IWICJpegFrameEncode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-writescan
      */
     WriteScan(cbScanData, pbScanData) {
-        result := ComCall(6, this, "uint", cbScanData, "char*", pbScanData, "HRESULT")
+        pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "uint", cbScanData, pbScanDataMarshal, pbScanData, "HRESULT")
         return result
     }
 }

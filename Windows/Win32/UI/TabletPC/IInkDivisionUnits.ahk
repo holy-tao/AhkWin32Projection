@@ -46,7 +46,9 @@ class IInkDivisionUnits extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionunits-get_count
      */
     get_Count(Count) {
-        result := ComCall(7, this, "int*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
         return result
     }
 

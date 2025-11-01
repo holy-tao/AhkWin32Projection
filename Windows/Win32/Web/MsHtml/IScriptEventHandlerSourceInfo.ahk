@@ -37,7 +37,11 @@ class IScriptEventHandlerSourceInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceInfo(pbstrFunctionName, line, column, cchLength) {
-        result := ComCall(3, this, "ptr", pbstrFunctionName, "uint*", line, "uint*", column, "uint*", cchLength, "HRESULT")
+        lineMarshal := line is VarRef ? "uint*" : "ptr"
+        columnMarshal := column is VarRef ? "uint*" : "ptr"
+        cchLengthMarshal := cchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pbstrFunctionName, lineMarshal, line, columnMarshal, column, cchLengthMarshal, cchLength, "HRESULT")
         return result
     }
 }

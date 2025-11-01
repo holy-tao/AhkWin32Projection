@@ -56,7 +56,9 @@ class IMultiInterfaceEventControl extends IUnknown{
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
         optionalCriteria := optionalCriteria is String ? BSTR.Alloc(optionalCriteria).Value : optionalCriteria
 
-        result := ComCall(4, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", optionalCriteria, "int*", optionalErrorIndex, "ptr*", ppCollection, "HRESULT")
+        optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", ppCollection, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IMultiInterfaceEventControl extends IUnknown{
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
         bstrCriteria := bstrCriteria is String ? BSTR.Alloc(bstrCriteria).Value : bstrCriteria
 
-        result := ComCall(5, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", bstrCriteria, "int*", errorIndex, "HRESULT")
+        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", bstrCriteria, errorIndexMarshal, errorIndex, "HRESULT")
         return result
     }
 

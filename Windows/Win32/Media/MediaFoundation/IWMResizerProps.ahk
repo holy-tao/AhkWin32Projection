@@ -98,7 +98,16 @@ class IWMResizerProps extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-getfullcropregion
      */
     GetFullCropRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc, lClipOriXDst, lClipOriYDst, lClipWidthDst, lClipHeightDst) {
-        result := ComCall(7, this, "int*", lClipOriXSrc, "int*", lClipOriYSrc, "int*", lClipWidthSrc, "int*", lClipHeightSrc, "int*", lClipOriXDst, "int*", lClipOriYDst, "int*", lClipWidthDst, "int*", lClipHeightDst, "HRESULT")
+        lClipOriXSrcMarshal := lClipOriXSrc is VarRef ? "int*" : "ptr"
+        lClipOriYSrcMarshal := lClipOriYSrc is VarRef ? "int*" : "ptr"
+        lClipWidthSrcMarshal := lClipWidthSrc is VarRef ? "int*" : "ptr"
+        lClipHeightSrcMarshal := lClipHeightSrc is VarRef ? "int*" : "ptr"
+        lClipOriXDstMarshal := lClipOriXDst is VarRef ? "int*" : "ptr"
+        lClipOriYDstMarshal := lClipOriYDst is VarRef ? "int*" : "ptr"
+        lClipWidthDstMarshal := lClipWidthDst is VarRef ? "int*" : "ptr"
+        lClipHeightDstMarshal := lClipHeightDst is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, lClipOriXSrcMarshal, lClipOriXSrc, lClipOriYSrcMarshal, lClipOriYSrc, lClipWidthSrcMarshal, lClipWidthSrc, lClipHeightSrcMarshal, lClipHeightSrc, lClipOriXDstMarshal, lClipOriXDst, lClipOriYDstMarshal, lClipOriYDst, lClipWidthDstMarshal, lClipWidthDst, lClipHeightDstMarshal, lClipHeightDst, "HRESULT")
         return result
     }
 }

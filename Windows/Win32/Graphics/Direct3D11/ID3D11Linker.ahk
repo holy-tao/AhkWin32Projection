@@ -52,6 +52,9 @@ class ID3D11Linker extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11linker-link
      */
     Link(pEntry, pEntryName, pTargetName, uFlags, ppShaderBlob, ppErrorBuffer) {
+        pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
+        pTargetName := pTargetName is String ? StrPtr(pTargetName) : pTargetName
+
         result := ComCall(3, this, "ptr", pEntry, "ptr", pEntryName, "ptr", pTargetName, "uint", uFlags, "ptr*", ppShaderBlob, "ptr*", ppErrorBuffer, "HRESULT")
         return result
     }

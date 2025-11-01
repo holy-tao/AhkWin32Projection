@@ -34,7 +34,9 @@ class IWscProduct3 extends IWscProduct2{
      * @returns {HRESULT} 
      */
     get_AntivirusDaysUntilExpired(pdwDays) {
-        result := ComCall(20, this, "uint*", pdwDays, "HRESULT")
+        pdwDaysMarshal := pdwDays is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwDaysMarshal, pdwDays, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IWMResamplerProps extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-setuserchannelmtx
      */
     SetUserChannelMtx(userChannelMtx) {
-        result := ComCall(4, this, "float*", userChannelMtx, "HRESULT")
+        userChannelMtxMarshal := userChannelMtx is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, userChannelMtxMarshal, userChannelMtx, "HRESULT")
         return result
     }
 }

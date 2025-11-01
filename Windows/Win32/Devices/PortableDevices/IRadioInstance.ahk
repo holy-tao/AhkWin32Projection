@@ -65,7 +65,9 @@ class IRadioInstance extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRadioState(pRadioState) {
-        result := ComCall(6, this, "int*", pRadioState, "HRESULT")
+        pRadioStateMarshal := pRadioState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pRadioStateMarshal, pRadioState, "HRESULT")
         return result
     }
 

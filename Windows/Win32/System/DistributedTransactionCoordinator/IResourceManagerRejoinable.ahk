@@ -37,7 +37,10 @@ class IResourceManagerRejoinable extends IResourceManager2{
      * @returns {HRESULT} 
      */
     Rejoin(pPrepInfo, cbPrepInfo, lTimeout, pXactStat) {
-        result := ComCall(9, this, "char*", pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, "int*", pXactStat, "HRESULT")
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+        pXactStatMarshal := pXactStat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, pXactStatMarshal, pXactStat, "HRESULT")
         return result
     }
 }

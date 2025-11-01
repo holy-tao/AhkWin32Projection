@@ -39,7 +39,9 @@ class IWMProfile extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pdwVersion) {
-        result := ComCall(3, this, "int*", pdwVersion, "HRESULT")
+        pdwVersionMarshal := pdwVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IWMProfile extends IUnknown{
     GetName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(4, this, "ptr", pwszName, "uint*", pcchName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -80,7 +84,9 @@ class IWMProfile extends IUnknown{
     GetDescription(pwszDescription, pcchDescription) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(6, this, "ptr", pwszDescription, "uint*", pcchDescription, "HRESULT")
+        pcchDescriptionMarshal := pcchDescription is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszDescription, pcchDescriptionMarshal, pcchDescription, "HRESULT")
         return result
     }
 
@@ -104,7 +110,9 @@ class IWMProfile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getstreamcount
      */
     GetStreamCount(pcStreams) {
-        result := ComCall(8, this, "uint*", pcStreams, "HRESULT")
+        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcStreamsMarshal, pcStreams, "HRESULT")
         return result
     }
 
@@ -195,7 +203,9 @@ class IWMProfile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getmutualexclusioncount
      */
     GetMutualExclusionCount(pcME) {
-        result := ComCall(16, this, "uint*", pcME, "HRESULT")
+        pcMEMarshal := pcME is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pcMEMarshal, pcME, "HRESULT")
         return result
     }
 

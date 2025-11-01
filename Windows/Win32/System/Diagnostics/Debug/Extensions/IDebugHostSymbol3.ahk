@@ -35,7 +35,9 @@ class IDebugHostSymbol3 extends IDebugHostSymbol2{
      * @returns {HRESULT} 
      */
     GetCompilerInformation(pCompilerId, pCompilerString) {
-        result := ComCall(11, this, "int*", pCompilerId, "ptr", pCompilerString, "HRESULT")
+        pCompilerIdMarshal := pCompilerId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pCompilerIdMarshal, pCompilerId, "ptr", pCompilerString, "HRESULT")
         return result
     }
 }

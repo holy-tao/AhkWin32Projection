@@ -69,7 +69,10 @@ class IDXGISwapChainMedia extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-checkpresentdurationsupport
      */
     CheckPresentDurationSupport(DesiredPresentDuration, pClosestSmallerPresentDuration, pClosestLargerPresentDuration) {
-        result := ComCall(5, this, "uint", DesiredPresentDuration, "uint*", pClosestSmallerPresentDuration, "uint*", pClosestLargerPresentDuration, "HRESULT")
+        pClosestSmallerPresentDurationMarshal := pClosestSmallerPresentDuration is VarRef ? "uint*" : "ptr"
+        pClosestLargerPresentDurationMarshal := pClosestLargerPresentDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", DesiredPresentDuration, pClosestSmallerPresentDurationMarshal, pClosestSmallerPresentDuration, pClosestLargerPresentDurationMarshal, pClosestLargerPresentDuration, "HRESULT")
         return result
     }
 }

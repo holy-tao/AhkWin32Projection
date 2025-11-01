@@ -137,7 +137,9 @@ class _Application extends IDispatch{
      * @returns {HRESULT} 
      */
     get_VersionMajor(VersionMajor) {
-        result := ComCall(17, this, "int*", VersionMajor, "HRESULT")
+        VersionMajorMarshal := VersionMajor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, VersionMajorMarshal, VersionMajor, "HRESULT")
         return result
     }
 
@@ -147,7 +149,9 @@ class _Application extends IDispatch{
      * @returns {HRESULT} 
      */
     get_VersionMinor(VersionMinor) {
-        result := ComCall(18, this, "int*", VersionMinor, "HRESULT")
+        VersionMinorMarshal := VersionMinor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, VersionMinorMarshal, VersionMinor, "HRESULT")
         return result
     }
 }

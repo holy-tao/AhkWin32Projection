@@ -35,7 +35,9 @@ class ICLRAppDomainResourceMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentAllocated(dwAppDomainId, pBytesAllocated) {
-        result := ComCall(3, this, "uint", dwAppDomainId, "uint*", pBytesAllocated, "HRESULT")
+        pBytesAllocatedMarshal := pBytesAllocated is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwAppDomainId, pBytesAllocatedMarshal, pBytesAllocated, "HRESULT")
         return result
     }
 
@@ -47,7 +49,10 @@ class ICLRAppDomainResourceMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentSurvived(dwAppDomainId, pAppDomainBytesSurvived, pTotalBytesSurvived) {
-        result := ComCall(4, this, "uint", dwAppDomainId, "uint*", pAppDomainBytesSurvived, "uint*", pTotalBytesSurvived, "HRESULT")
+        pAppDomainBytesSurvivedMarshal := pAppDomainBytesSurvived is VarRef ? "uint*" : "ptr"
+        pTotalBytesSurvivedMarshal := pTotalBytesSurvived is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwAppDomainId, pAppDomainBytesSurvivedMarshal, pAppDomainBytesSurvived, pTotalBytesSurvivedMarshal, pTotalBytesSurvived, "HRESULT")
         return result
     }
 
@@ -58,7 +63,9 @@ class ICLRAppDomainResourceMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentCpuTime(dwAppDomainId, pMilliseconds) {
-        result := ComCall(5, this, "uint", dwAppDomainId, "uint*", pMilliseconds, "HRESULT")
+        pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwAppDomainId, pMillisecondsMarshal, pMilliseconds, "HRESULT")
         return result
     }
 }

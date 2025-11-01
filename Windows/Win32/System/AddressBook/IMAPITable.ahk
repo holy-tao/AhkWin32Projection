@@ -49,7 +49,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-advise
      */
     Advise(ulEventMask, lpAdviseSink, lpulConnection) {
-        result := ComCall(4, this, "uint", ulEventMask, "ptr", lpAdviseSink, "uint*", lpulConnection, "HRESULT")
+        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
     }
 
@@ -72,7 +74,10 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getstatus
      */
     GetStatus(lpulTableStatus, lpulTableType) {
-        result := ComCall(6, this, "uint*", lpulTableStatus, "uint*", lpulTableType, "HRESULT")
+        lpulTableStatusMarshal := lpulTableStatus is VarRef ? "uint*" : "ptr"
+        lpulTableTypeMarshal := lpulTableType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, lpulTableStatusMarshal, lpulTableStatus, lpulTableTypeMarshal, lpulTableType, "HRESULT")
         return result
     }
 
@@ -108,7 +113,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getrowcount
      */
     GetRowCount(ulFlags, lpulCount) {
-        result := ComCall(9, this, "uint", ulFlags, "uint*", lpulCount, "HRESULT")
+        lpulCountMarshal := lpulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", ulFlags, lpulCountMarshal, lpulCount, "HRESULT")
         return result
     }
 
@@ -121,7 +128,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-seekrow
      */
     SeekRow(bkOrigin, lRowCount, lplRowsSought) {
-        result := ComCall(10, this, "uint", bkOrigin, "int", lRowCount, "int*", lplRowsSought, "HRESULT")
+        lplRowsSoughtMarshal := lplRowsSought is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "uint", bkOrigin, "int", lRowCount, lplRowsSoughtMarshal, lplRowsSought, "HRESULT")
         return result
     }
 
@@ -146,7 +155,11 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-queryposition
      */
     QueryPosition(lpulRow, lpulNumerator, lpulDenominator) {
-        result := ComCall(12, this, "uint*", lpulRow, "uint*", lpulNumerator, "uint*", lpulDenominator, "HRESULT")
+        lpulRowMarshal := lpulRow is VarRef ? "uint*" : "ptr"
+        lpulNumeratorMarshal := lpulNumerator is VarRef ? "uint*" : "ptr"
+        lpulDenominatorMarshal := lpulDenominator is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, lpulRowMarshal, lpulRow, lpulNumeratorMarshal, lpulNumerator, lpulDenominatorMarshal, lpulDenominator, "HRESULT")
         return result
     }
 
@@ -182,7 +195,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-createbookmark
      */
     CreateBookmark(lpbkPosition) {
-        result := ComCall(15, this, "uint*", lpbkPosition, "HRESULT")
+        lpbkPositionMarshal := lpbkPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, lpbkPositionMarshal, lpbkPosition, "HRESULT")
         return result
     }
 
@@ -255,7 +270,10 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-expandrow
      */
     ExpandRow(cbInstanceKey, pbInstanceKey, ulRowCount, ulFlags, lppRows, lpulMoreRows) {
-        result := ComCall(21, this, "uint", cbInstanceKey, "char*", pbInstanceKey, "uint", ulRowCount, "uint", ulFlags, "ptr*", lppRows, "uint*", lpulMoreRows, "HRESULT")
+        pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : "ptr"
+        lpulMoreRowsMarshal := lpulMoreRows is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, "uint", ulRowCount, "uint", ulFlags, "ptr*", lppRows, lpulMoreRowsMarshal, lpulMoreRows, "HRESULT")
         return result
     }
 
@@ -269,7 +287,10 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-collapserow
      */
     CollapseRow(cbInstanceKey, pbInstanceKey, ulFlags, lpulRowCount) {
-        result := ComCall(22, this, "uint", cbInstanceKey, "char*", pbInstanceKey, "uint", ulFlags, "uint*", lpulRowCount, "HRESULT")
+        pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : "ptr"
+        lpulRowCountMarshal := lpulRowCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, "uint", ulFlags, lpulRowCountMarshal, lpulRowCount, "HRESULT")
         return result
     }
 
@@ -282,7 +303,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-waitforcompletion
      */
     WaitForCompletion(ulFlags, ulTimeout, lpulTableStatus) {
-        result := ComCall(23, this, "uint", ulFlags, "uint", ulTimeout, "uint*", lpulTableStatus, "HRESULT")
+        lpulTableStatusMarshal := lpulTableStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "uint", ulFlags, "uint", ulTimeout, lpulTableStatusMarshal, lpulTableStatus, "HRESULT")
         return result
     }
 
@@ -297,7 +320,10 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getcollapsestate
      */
     GetCollapseState(ulFlags, cbInstanceKey, lpbInstanceKey, lpcbCollapseState, lppbCollapseState) {
-        result := ComCall(24, this, "uint", ulFlags, "uint", cbInstanceKey, "char*", lpbInstanceKey, "uint*", lpcbCollapseState, "ptr*", lppbCollapseState, "HRESULT")
+        lpbInstanceKeyMarshal := lpbInstanceKey is VarRef ? "char*" : "ptr"
+        lpcbCollapseStateMarshal := lpcbCollapseState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "uint", ulFlags, "uint", cbInstanceKey, lpbInstanceKeyMarshal, lpbInstanceKey, lpcbCollapseStateMarshal, lpcbCollapseState, "ptr*", lppbCollapseState, "HRESULT")
         return result
     }
 
@@ -311,7 +337,10 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-setcollapsestate
      */
     SetCollapseState(ulFlags, cbCollapseState, pbCollapseState, lpbkLocation) {
-        result := ComCall(25, this, "uint", ulFlags, "uint", cbCollapseState, "char*", pbCollapseState, "uint*", lpbkLocation, "HRESULT")
+        pbCollapseStateMarshal := pbCollapseState is VarRef ? "char*" : "ptr"
+        lpbkLocationMarshal := lpbkLocation is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "uint", ulFlags, "uint", cbCollapseState, pbCollapseStateMarshal, pbCollapseState, lpbkLocationMarshal, lpbkLocation, "HRESULT")
         return result
     }
 }

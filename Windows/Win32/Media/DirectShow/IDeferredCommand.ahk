@@ -47,7 +47,9 @@ class IDeferredCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-confidence
      */
     Confidence(pConfidence) {
-        result := ComCall(4, this, "int*", pConfidence, "HRESULT")
+        pConfidenceMarshal := pConfidence is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pConfidenceMarshal, pConfidence, "HRESULT")
         return result
     }
 

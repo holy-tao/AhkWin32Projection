@@ -48,7 +48,9 @@ class IMSVidRect extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_top
      */
     get_Top(TopVal) {
-        result := ComCall(7, this, "int*", TopVal, "HRESULT")
+        TopValMarshal := TopVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, TopValMarshal, TopVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IMSVidRect extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_left
      */
     get_Left(LeftVal) {
-        result := ComCall(9, this, "int*", LeftVal, "HRESULT")
+        LeftValMarshal := LeftVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, LeftValMarshal, LeftVal, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IMSVidRect extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_width
      */
     get_Width(WidthVal) {
-        result := ComCall(11, this, "int*", WidthVal, "HRESULT")
+        WidthValMarshal := WidthVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, WidthValMarshal, WidthVal, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class IMSVidRect extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_height
      */
     get_Height(HeightVal) {
-        result := ComCall(13, this, "int*", HeightVal, "HRESULT")
+        HeightValMarshal := HeightVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, HeightValMarshal, HeightVal, "HRESULT")
         return result
     }
 

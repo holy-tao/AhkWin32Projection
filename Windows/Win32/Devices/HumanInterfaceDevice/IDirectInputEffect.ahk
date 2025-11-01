@@ -111,7 +111,9 @@ class IDirectInputEffect extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEffectStatus(param0) {
-        result := ComCall(9, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

@@ -54,7 +54,9 @@ class IBandSite extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-enumbands
      */
     EnumBands(uBand, pdwBandID) {
-        result := ComCall(4, this, "uint", uBand, "uint*", pdwBandID, "HRESULT")
+        pdwBandIDMarshal := pdwBandID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", uBand, pdwBandIDMarshal, pdwBandID, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IBandSite extends IUnknown{
     QueryBand(dwBandID, ppstb, pdwState, pszName, cchName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "uint", dwBandID, "ptr*", ppstb, "uint*", pdwState, "ptr", pszName, "int", cchName, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwBandID, "ptr*", ppstb, pdwStateMarshal, pdwState, "ptr", pszName, "int", cchName, "HRESULT")
         return result
     }
 

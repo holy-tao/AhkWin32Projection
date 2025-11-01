@@ -37,7 +37,9 @@ class IWMProfileManagerLanguage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-getuserlanguageid
      */
     GetUserLanguageID(wLangID) {
-        result := ComCall(3, this, "ushort*", wLangID, "HRESULT")
+        wLangIDMarshal := wLangID is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, wLangIDMarshal, wLangID, "HRESULT")
         return result
     }
 

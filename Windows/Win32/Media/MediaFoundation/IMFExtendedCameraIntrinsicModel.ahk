@@ -54,7 +54,9 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDistortionModelType(pDistortionModelType) {
-        result := ComCall(5, this, "int*", pDistortionModelType, "HRESULT")
+        pDistortionModelTypeMarshal := pDistortionModelType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pDistortionModelTypeMarshal, pDistortionModelType, "HRESULT")
         return result
     }
 }

@@ -4195,7 +4195,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glaretexturesresident
      */
     static glAreTexturesResident(n, textures, residences) {
-        result := DllCall("OPENGL32.dll\glAreTexturesResident", "int", n, "uint*", textures, "char*", residences, "char")
+        texturesMarshal := textures is VarRef ? "uint*" : "ptr"
+        residencesMarshal := residences is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OPENGL32.dll\glAreTexturesResident", "int", n, texturesMarshal, textures, residencesMarshal, residences, "char")
         return result
     }
 
@@ -4243,7 +4246,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glbitmap
      */
     static glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap) {
-        DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, "char*", bitmap)
+        bitmapMarshal := bitmap is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, bitmapMarshal, bitmap)
     }
 
     /**
@@ -4276,7 +4281,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcalllists
      */
     static glCallLists(n, type, lists) {
-        DllCall("OPENGL32.dll\glCallLists", "int", n, "uint", type, "ptr", lists)
+        listsMarshal := lists is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glCallLists", "int", n, "uint", type, listsMarshal, lists)
     }
 
     /**
@@ -4353,7 +4360,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glclipplane
      */
     static glClipPlane(plane, equation) {
-        DllCall("OPENGL32.dll\glClipPlane", "uint", plane, "double*", equation)
+        equationMarshal := equation is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glClipPlane", "uint", plane, equationMarshal, equation)
     }
 
     /**
@@ -4375,7 +4384,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3bv
      */
     static glColor3bv(v) {
-        DllCall("OPENGL32.dll\glColor3bv", "char*", v)
+        vMarshal := v is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3bv", vMarshal, v)
     }
 
     /**
@@ -4397,7 +4408,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3dv
      */
     static glColor3dv(v) {
-        DllCall("OPENGL32.dll\glColor3dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3dv", vMarshal, v)
     }
 
     /**
@@ -4419,7 +4432,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3fv
      */
     static glColor3fv(v) {
-        DllCall("OPENGL32.dll\glColor3fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3fv", vMarshal, v)
     }
 
     /**
@@ -4441,7 +4456,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3iv
      */
     static glColor3iv(v) {
-        DllCall("OPENGL32.dll\glColor3iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3iv", vMarshal, v)
     }
 
     /**
@@ -4463,7 +4480,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3sv
      */
     static glColor3sv(v) {
-        DllCall("OPENGL32.dll\glColor3sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3sv", vMarshal, v)
     }
 
     /**
@@ -4485,7 +4504,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ubv
      */
     static glColor3ubv(v) {
-        DllCall("OPENGL32.dll\glColor3ubv", "char*", v)
+        vMarshal := v is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3ubv", vMarshal, v)
     }
 
     /**
@@ -4507,7 +4528,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3uiv
      */
     static glColor3uiv(v) {
-        DllCall("OPENGL32.dll\glColor3uiv", "uint*", v)
+        vMarshal := v is VarRef ? "uint*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3uiv", vMarshal, v)
     }
 
     /**
@@ -4529,7 +4552,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3usv
      */
     static glColor3usv(v) {
-        DllCall("OPENGL32.dll\glColor3usv", "ushort*", v)
+        vMarshal := v is VarRef ? "ushort*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor3usv", vMarshal, v)
     }
 
     /**
@@ -4552,7 +4577,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4bv
      */
     static glColor4bv(v) {
-        DllCall("OPENGL32.dll\glColor4bv", "char*", v)
+        vMarshal := v is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4bv", vMarshal, v)
     }
 
     /**
@@ -4575,7 +4602,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4dv
      */
     static glColor4dv(v) {
-        DllCall("OPENGL32.dll\glColor4dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4dv", vMarshal, v)
     }
 
     /**
@@ -4598,7 +4627,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4fv
      */
     static glColor4fv(v) {
-        DllCall("OPENGL32.dll\glColor4fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4fv", vMarshal, v)
     }
 
     /**
@@ -4621,7 +4652,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4iv
      */
     static glColor4iv(v) {
-        DllCall("OPENGL32.dll\glColor4iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4iv", vMarshal, v)
     }
 
     /**
@@ -4644,7 +4677,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4sv
      */
     static glColor4sv(v) {
-        DllCall("OPENGL32.dll\glColor4sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4sv", vMarshal, v)
     }
 
     /**
@@ -4667,7 +4702,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ubv
      */
     static glColor4ubv(v) {
-        DllCall("OPENGL32.dll\glColor4ubv", "char*", v)
+        vMarshal := v is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4ubv", vMarshal, v)
     }
 
     /**
@@ -4690,7 +4727,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4uiv
      */
     static glColor4uiv(v) {
-        DllCall("OPENGL32.dll\glColor4uiv", "uint*", v)
+        vMarshal := v is VarRef ? "uint*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4uiv", vMarshal, v)
     }
 
     /**
@@ -4713,7 +4752,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4usv
      */
     static glColor4usv(v) {
-        DllCall("OPENGL32.dll\glColor4usv", "ushort*", v)
+        vMarshal := v is VarRef ? "ushort*" : "ptr"
+
+        DllCall("OPENGL32.dll\glColor4usv", vMarshal, v)
     }
 
     /**
@@ -4750,7 +4791,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolorpointer
      */
     static glColorPointer(size, type, stride, pointer) {
-        DllCall("OPENGL32.dll\glColorPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
+        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glColorPointer", "int", size, "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -4861,7 +4904,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldeletetextures
      */
     static glDeleteTextures(n, textures) {
-        DllCall("OPENGL32.dll\glDeleteTextures", "int", n, "uint*", textures)
+        texturesMarshal := textures is VarRef ? "uint*" : "ptr"
+
+        DllCall("OPENGL32.dll\glDeleteTextures", "int", n, texturesMarshal, textures)
     }
 
     /**
@@ -4947,7 +4992,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawelements
      */
     static glDrawElements(mode, count, type, indices) {
-        DllCall("OPENGL32.dll\glDrawElements", "uint", mode, "int", count, "uint", type, "ptr", indices)
+        indicesMarshal := indices is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glDrawElements", "uint", mode, "int", count, "uint", type, indicesMarshal, indices)
     }
 
     /**
@@ -4961,7 +5008,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawpixels
      */
     static glDrawPixels(width, height, format, type, pixels) {
-        DllCall("OPENGL32.dll\glDrawPixels", "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
+        pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glDrawPixels", "int", width, "int", height, "uint", format, "uint", type, pixelsMarshal, pixels)
     }
 
     /**
@@ -4982,7 +5031,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflagpointer
      */
     static glEdgeFlagPointer(stride, pointer) {
-        DllCall("OPENGL32.dll\glEdgeFlagPointer", "int", stride, "ptr", pointer)
+        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glEdgeFlagPointer", "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -4992,7 +5043,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflagv
      */
     static glEdgeFlagv(flag) {
-        DllCall("OPENGL32.dll\glEdgeFlagv", "char*", flag)
+        flagMarshal := flag is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glEdgeFlagv", flagMarshal, flag)
     }
 
     /**
@@ -5050,7 +5103,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1dv
      */
     static glEvalCoord1dv(u) {
-        DllCall("OPENGL32.dll\glEvalCoord1dv", "double*", u)
+        uMarshal := u is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glEvalCoord1dv", uMarshal, u)
     }
 
     /**
@@ -5070,7 +5125,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1fv
      */
     static glEvalCoord1fv(u) {
-        DllCall("OPENGL32.dll\glEvalCoord1fv", "float*", u)
+        uMarshal := u is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glEvalCoord1fv", uMarshal, u)
     }
 
     /**
@@ -5091,7 +5148,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2dv
      */
     static glEvalCoord2dv(u) {
-        DllCall("OPENGL32.dll\glEvalCoord2dv", "double*", u)
+        uMarshal := u is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glEvalCoord2dv", uMarshal, u)
     }
 
     /**
@@ -5112,7 +5171,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2fv
      */
     static glEvalCoord2fv(u) {
-        DllCall("OPENGL32.dll\glEvalCoord2fv", "float*", u)
+        uMarshal := u is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glEvalCoord2fv", uMarshal, u)
     }
 
     /**
@@ -5171,7 +5232,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfeedbackbuffer
      */
     static glFeedbackBuffer(size, type, buffer) {
-        DllCall("OPENGL32.dll\glFeedbackBuffer", "int", size, "uint", type, "float*", buffer)
+        bufferMarshal := buffer is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glFeedbackBuffer", "int", size, "uint", type, bufferMarshal, buffer)
     }
 
     /**
@@ -5211,7 +5274,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogfv
      */
     static glFogfv(pname, params) {
-        DllCall("OPENGL32.dll\glFogfv", "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glFogfv", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5233,7 +5298,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogiv
      */
     static glFogiv(pname, params) {
-        DllCall("OPENGL32.dll\glFogiv", "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glFogiv", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5280,7 +5347,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgentextures
      */
     static glGenTextures(n, textures) {
-        DllCall("OPENGL32.dll\glGenTextures", "int", n, "uint*", textures)
+        texturesMarshal := textures is VarRef ? "uint*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGenTextures", "int", n, texturesMarshal, textures)
     }
 
     /**
@@ -5291,7 +5360,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetbooleanv
      */
     static glGetBooleanv(pname, params) {
-        DllCall("OPENGL32.dll\glGetBooleanv", "uint", pname, "char*", params)
+        paramsMarshal := params is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetBooleanv", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5302,7 +5373,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetclipplane
      */
     static glGetClipPlane(plane, equation) {
-        DllCall("OPENGL32.dll\glGetClipPlane", "uint", plane, "double*", equation)
+        equationMarshal := equation is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetClipPlane", "uint", plane, equationMarshal, equation)
     }
 
     /**
@@ -5313,7 +5386,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetdoublev
      */
     static glGetDoublev(pname, params) {
-        DllCall("OPENGL32.dll\glGetDoublev", "uint", pname, "double*", params)
+        paramsMarshal := params is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetDoublev", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5334,7 +5409,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetfloatv
      */
     static glGetFloatv(pname, params) {
-        DllCall("OPENGL32.dll\glGetFloatv", "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetFloatv", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5345,7 +5422,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetintegerv
      */
     static glGetIntegerv(pname, params) {
-        DllCall("OPENGL32.dll\glGetIntegerv", "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetIntegerv", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5357,7 +5436,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetlightfv
      */
     static glGetLightfv(light, pname, params) {
-        DllCall("OPENGL32.dll\glGetLightfv", "uint", light, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetLightfv", "uint", light, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5369,7 +5450,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetlightiv
      */
     static glGetLightiv(light, pname, params) {
-        DllCall("OPENGL32.dll\glGetLightiv", "uint", light, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetLightiv", "uint", light, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5381,7 +5464,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapdv
      */
     static glGetMapdv(target, query, v) {
-        DllCall("OPENGL32.dll\glGetMapdv", "uint", target, "uint", query, "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetMapdv", "uint", target, "uint", query, vMarshal, v)
     }
 
     /**
@@ -5393,7 +5478,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapfv
      */
     static glGetMapfv(target, query, v) {
-        DllCall("OPENGL32.dll\glGetMapfv", "uint", target, "uint", query, "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetMapfv", "uint", target, "uint", query, vMarshal, v)
     }
 
     /**
@@ -5405,7 +5492,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapiv
      */
     static glGetMapiv(target, query, v) {
-        DllCall("OPENGL32.dll\glGetMapiv", "uint", target, "uint", query, "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetMapiv", "uint", target, "uint", query, vMarshal, v)
     }
 
     /**
@@ -5417,7 +5506,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmaterialfv
      */
     static glGetMaterialfv(face, pname, params) {
-        DllCall("OPENGL32.dll\glGetMaterialfv", "uint", face, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetMaterialfv", "uint", face, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5429,7 +5520,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmaterialiv
      */
     static glGetMaterialiv(face, pname, params) {
-        DllCall("OPENGL32.dll\glGetMaterialiv", "uint", face, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetMaterialiv", "uint", face, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5440,7 +5533,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapfv
      */
     static glGetPixelMapfv(map, values) {
-        DllCall("OPENGL32.dll\glGetPixelMapfv", "uint", map, "float*", values)
+        valuesMarshal := values is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetPixelMapfv", "uint", map, valuesMarshal, values)
     }
 
     /**
@@ -5451,7 +5546,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapuiv
      */
     static glGetPixelMapuiv(map, values) {
-        DllCall("OPENGL32.dll\glGetPixelMapuiv", "uint", map, "uint*", values)
+        valuesMarshal := values is VarRef ? "uint*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetPixelMapuiv", "uint", map, valuesMarshal, values)
     }
 
     /**
@@ -5462,7 +5559,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapusv
      */
     static glGetPixelMapusv(map, values) {
-        DllCall("OPENGL32.dll\glGetPixelMapusv", "uint", map, "ushort*", values)
+        valuesMarshal := values is VarRef ? "ushort*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetPixelMapusv", "uint", map, valuesMarshal, values)
     }
 
     /**
@@ -5483,7 +5582,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpolygonstipple
      */
     static glGetPolygonStipple(mask) {
-        DllCall("OPENGL32.dll\glGetPolygonStipple", "char*", mask)
+        maskMarshal := mask is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetPolygonStipple", maskMarshal, mask)
     }
 
     /**
@@ -5506,7 +5607,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexenvfv
      */
     static glGetTexEnvfv(target, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexEnvfv", "uint", target, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexEnvfv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5518,7 +5621,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexenviv
      */
     static glGetTexEnviv(target, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexEnviv", "uint", target, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexEnviv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5530,7 +5635,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgendv
      */
     static glGetTexGendv(coord, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexGendv", "uint", coord, "uint", pname, "double*", params)
+        paramsMarshal := params is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexGendv", "uint", coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5542,7 +5649,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgenfv
      */
     static glGetTexGenfv(coord, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexGenfv", "uint", coord, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexGenfv", "uint", coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5554,7 +5663,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgeniv
      */
     static glGetTexGeniv(coord, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexGeniv", "uint", coord, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexGeniv", "uint", coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5568,7 +5679,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetteximage
      */
     static glGetTexImage(target, level, format, type, pixels) {
-        DllCall("OPENGL32.dll\glGetTexImage", "uint", target, "int", level, "uint", format, "uint", type, "ptr", pixels)
+        pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexImage", "uint", target, "int", level, "uint", format, "uint", type, pixelsMarshal, pixels)
     }
 
     /**
@@ -5581,7 +5694,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexlevelparameterfv
      */
     static glGetTexLevelParameterfv(target, level, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexLevelParameterfv", "uint", target, "int", level, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexLevelParameterfv", "uint", target, "int", level, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5594,7 +5709,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexlevelparameteriv
      */
     static glGetTexLevelParameteriv(target, level, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexLevelParameteriv", "uint", target, "int", level, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexLevelParameteriv", "uint", target, "int", level, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5606,7 +5723,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexparameterfv
      */
     static glGetTexParameterfv(target, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexParameterfv", "uint", target, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexParameterfv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5618,7 +5737,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexparameteriv
      */
     static glGetTexParameteriv(target, pname, params) {
-        DllCall("OPENGL32.dll\glGetTexParameteriv", "uint", target, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetTexParameteriv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5651,7 +5772,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexpointer
      */
     static glIndexPointer(type, stride, pointer) {
-        DllCall("OPENGL32.dll\glIndexPointer", "uint", type, "int", stride, "ptr", pointer)
+        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glIndexPointer", "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -5671,7 +5794,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexdv
      */
     static glIndexdv(c) {
-        DllCall("OPENGL32.dll\glIndexdv", "double*", c)
+        cMarshal := c is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glIndexdv", cMarshal, c)
     }
 
     /**
@@ -5691,7 +5816,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexfv
      */
     static glIndexfv(c) {
-        DllCall("OPENGL32.dll\glIndexfv", "float*", c)
+        cMarshal := c is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glIndexfv", cMarshal, c)
     }
 
     /**
@@ -5711,7 +5838,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexiv
      */
     static glIndexiv(c) {
-        DllCall("OPENGL32.dll\glIndexiv", "int*", c)
+        cMarshal := c is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glIndexiv", cMarshal, c)
     }
 
     /**
@@ -5731,7 +5860,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexsv
      */
     static glIndexsv(c) {
-        DllCall("OPENGL32.dll\glIndexsv", "short*", c)
+        cMarshal := c is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glIndexsv", cMarshal, c)
     }
 
     /**
@@ -5749,7 +5880,9 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      */
     static glIndexubv(c) {
-        DllCall("OPENGL32.dll\glIndexubv", "char*", c)
+        cMarshal := c is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glIndexubv", cMarshal, c)
     }
 
     /**
@@ -5770,7 +5903,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glinterleavedarrays
      */
     static glInterleavedArrays(format, stride, pointer) {
-        DllCall("OPENGL32.dll\glInterleavedArrays", "uint", format, "int", stride, "ptr", pointer)
+        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glInterleavedArrays", "uint", format, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -5825,7 +5960,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodelfv
      */
     static glLightModelfv(pname, params) {
-        DllCall("OPENGL32.dll\glLightModelfv", "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glLightModelfv", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5847,7 +5984,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodeliv
      */
     static glLightModeliv(pname, params) {
-        DllCall("OPENGL32.dll\glLightModeliv", "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glLightModeliv", "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5871,7 +6010,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightfv
      */
     static glLightfv(light, pname, params) {
-        DllCall("OPENGL32.dll\glLightfv", "uint", light, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glLightfv", "uint", light, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5895,7 +6036,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightiv
      */
     static glLightiv(light, pname, params) {
-        DllCall("OPENGL32.dll\glLightiv", "uint", light, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glLightiv", "uint", light, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -5945,7 +6088,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadmatrixd
      */
     static glLoadMatrixd(m) {
-        DllCall("OPENGL32.dll\glLoadMatrixd", "double*", m)
+        mMarshal := m is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glLoadMatrixd", mMarshal, m)
     }
 
     /**
@@ -5955,7 +6100,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadmatrixf
      */
     static glLoadMatrixf(m) {
-        DllCall("OPENGL32.dll\glLoadMatrixf", "float*", m)
+        mMarshal := m is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glLoadMatrixf", mMarshal, m)
     }
 
     /**
@@ -5990,7 +6137,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1d
      */
     static glMap1d(target, u1, u2, stride, order, points) {
-        DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, "double*", points)
+        pointsMarshal := points is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, pointsMarshal, points)
     }
 
     /**
@@ -6005,7 +6154,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1f
      */
     static glMap1f(target, u1, u2, stride, order, points) {
-        DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, "float*", points)
+        pointsMarshal := points is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, pointsMarshal, points)
     }
 
     /**
@@ -6024,7 +6175,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2d
      */
     static glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
-        DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, "double*", points)
+        pointsMarshal := points is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, pointsMarshal, points)
     }
 
     /**
@@ -6043,7 +6196,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2f
      */
     static glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
-        DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, "float*", points)
+        pointsMarshal := points is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, pointsMarshal, points)
     }
 
     /**
@@ -6121,7 +6276,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialfv
      */
     static glMaterialfv(face, pname, params) {
-        DllCall("OPENGL32.dll\glMaterialfv", "uint", face, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMaterialfv", "uint", face, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -6145,7 +6302,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialiv
      */
     static glMaterialiv(face, pname, params) {
-        DllCall("OPENGL32.dll\glMaterialiv", "uint", face, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMaterialiv", "uint", face, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -6165,7 +6324,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmultmatrixd
      */
     static glMultMatrixd(m) {
-        DllCall("OPENGL32.dll\glMultMatrixd", "double*", m)
+        mMarshal := m is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMultMatrixd", mMarshal, m)
     }
 
     /**
@@ -6175,7 +6336,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmultmatrixf
      */
     static glMultMatrixf(m) {
-        DllCall("OPENGL32.dll\glMultMatrixf", "float*", m)
+        mMarshal := m is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glMultMatrixf", mMarshal, m)
     }
 
     /**
@@ -6208,7 +6371,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3bv
      */
     static glNormal3bv(v) {
-        DllCall("OPENGL32.dll\glNormal3bv", "char*", v)
+        vMarshal := v is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glNormal3bv", vMarshal, v)
     }
 
     /**
@@ -6230,7 +6395,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3dv
      */
     static glNormal3dv(v) {
-        DllCall("OPENGL32.dll\glNormal3dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glNormal3dv", vMarshal, v)
     }
 
     /**
@@ -6252,7 +6419,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3fv
      */
     static glNormal3fv(v) {
-        DllCall("OPENGL32.dll\glNormal3fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glNormal3fv", vMarshal, v)
     }
 
     /**
@@ -6274,7 +6443,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3iv
      */
     static glNormal3iv(v) {
-        DllCall("OPENGL32.dll\glNormal3iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glNormal3iv", vMarshal, v)
     }
 
     /**
@@ -6296,7 +6467,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3sv
      */
     static glNormal3sv(v) {
-        DllCall("OPENGL32.dll\glNormal3sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glNormal3sv", vMarshal, v)
     }
 
     /**
@@ -6308,7 +6481,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormalpointer
      */
     static glNormalPointer(type, stride, pointer) {
-        DllCall("OPENGL32.dll\glNormalPointer", "uint", type, "int", stride, "ptr", pointer)
+        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glNormalPointer", "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -6345,7 +6520,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapfv
      */
     static glPixelMapfv(map, mapsize, values) {
-        DllCall("OPENGL32.dll\glPixelMapfv", "uint", map, "int", mapsize, "float*", values)
+        valuesMarshal := values is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glPixelMapfv", "uint", map, "int", mapsize, valuesMarshal, values)
     }
 
     /**
@@ -6357,7 +6534,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapuiv
      */
     static glPixelMapuiv(map, mapsize, values) {
-        DllCall("OPENGL32.dll\glPixelMapuiv", "uint", map, "int", mapsize, "uint*", values)
+        valuesMarshal := values is VarRef ? "uint*" : "ptr"
+
+        DllCall("OPENGL32.dll\glPixelMapuiv", "uint", map, "int", mapsize, valuesMarshal, values)
     }
 
     /**
@@ -6369,7 +6548,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapusv
      */
     static glPixelMapusv(map, mapsize, values) {
-        DllCall("OPENGL32.dll\glPixelMapusv", "uint", map, "int", mapsize, "ushort*", values)
+        valuesMarshal := values is VarRef ? "ushort*" : "ptr"
+
+        DllCall("OPENGL32.dll\glPixelMapusv", "uint", map, "int", mapsize, valuesMarshal, values)
     }
 
     /**
@@ -6466,7 +6647,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonstipple
      */
     static glPolygonStipple(mask) {
-        DllCall("OPENGL32.dll\glPolygonStipple", "char*", mask)
+        maskMarshal := mask is VarRef ? "char*" : "ptr"
+
+        DllCall("OPENGL32.dll\glPolygonStipple", maskMarshal, mask)
     }
 
     /**
@@ -6514,7 +6697,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glprioritizetextures
      */
     static glPrioritizeTextures(n, textures, priorities) {
-        DllCall("OPENGL32.dll\glPrioritizeTextures", "int", n, "uint*", textures, "float*", priorities)
+        texturesMarshal := textures is VarRef ? "uint*" : "ptr"
+        prioritiesMarshal := priorities is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glPrioritizeTextures", "int", n, texturesMarshal, textures, prioritiesMarshal, priorities)
     }
 
     /**
@@ -6574,7 +6760,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2dv
      */
     static glRasterPos2dv(v) {
-        DllCall("OPENGL32.dll\glRasterPos2dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos2dv", vMarshal, v)
     }
 
     /**
@@ -6595,7 +6783,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2fv
      */
     static glRasterPos2fv(v) {
-        DllCall("OPENGL32.dll\glRasterPos2fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos2fv", vMarshal, v)
     }
 
     /**
@@ -6616,7 +6806,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2iv
      */
     static glRasterPos2iv(v) {
-        DllCall("OPENGL32.dll\glRasterPos2iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos2iv", vMarshal, v)
     }
 
     /**
@@ -6637,7 +6829,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2sv
      */
     static glRasterPos2sv(v) {
-        DllCall("OPENGL32.dll\glRasterPos2sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos2sv", vMarshal, v)
     }
 
     /**
@@ -6659,7 +6853,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3dv
      */
     static glRasterPos3dv(v) {
-        DllCall("OPENGL32.dll\glRasterPos3dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos3dv", vMarshal, v)
     }
 
     /**
@@ -6681,7 +6877,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3fv
      */
     static glRasterPos3fv(v) {
-        DllCall("OPENGL32.dll\glRasterPos3fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos3fv", vMarshal, v)
     }
 
     /**
@@ -6703,7 +6901,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3iv
      */
     static glRasterPos3iv(v) {
-        DllCall("OPENGL32.dll\glRasterPos3iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos3iv", vMarshal, v)
     }
 
     /**
@@ -6725,7 +6925,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3sv
      */
     static glRasterPos3sv(v) {
-        DllCall("OPENGL32.dll\glRasterPos3sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos3sv", vMarshal, v)
     }
 
     /**
@@ -6748,7 +6950,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4dv
      */
     static glRasterPos4dv(v) {
-        DllCall("OPENGL32.dll\glRasterPos4dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos4dv", vMarshal, v)
     }
 
     /**
@@ -6771,7 +6975,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4fv
      */
     static glRasterPos4fv(v) {
-        DllCall("OPENGL32.dll\glRasterPos4fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos4fv", vMarshal, v)
     }
 
     /**
@@ -6794,7 +7000,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4iv
      */
     static glRasterPos4iv(v) {
-        DllCall("OPENGL32.dll\glRasterPos4iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos4iv", vMarshal, v)
     }
 
     /**
@@ -6817,7 +7025,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4sv
      */
     static glRasterPos4sv(v) {
-        DllCall("OPENGL32.dll\glRasterPos4sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRasterPos4sv", vMarshal, v)
     }
 
     /**
@@ -6843,7 +7053,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glreadpixels
      */
     static glReadPixels(x, y, width, height, format, type, pixels) {
-        DllCall("OPENGL32.dll\glReadPixels", "int", x, "int", y, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
+        pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glReadPixels", "int", x, "int", y, "int", width, "int", height, "uint", format, "uint", type, pixelsMarshal, pixels)
     }
 
     /**
@@ -6867,7 +7079,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectdv
      */
     static glRectdv(v1, v2) {
-        DllCall("OPENGL32.dll\glRectdv", "double*", v1, "double*", v2)
+        v1Marshal := v1 is VarRef ? "double*" : "ptr"
+        v2Marshal := v2 is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRectdv", v1Marshal, v1, v2Marshal, v2)
     }
 
     /**
@@ -6891,7 +7106,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectfv
      */
     static glRectfv(v1, v2) {
-        DllCall("OPENGL32.dll\glRectfv", "float*", v1, "float*", v2)
+        v1Marshal := v1 is VarRef ? "float*" : "ptr"
+        v2Marshal := v2 is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRectfv", v1Marshal, v1, v2Marshal, v2)
     }
 
     /**
@@ -6915,7 +7133,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectiv
      */
     static glRectiv(v1, v2) {
-        DllCall("OPENGL32.dll\glRectiv", "int*", v1, "int*", v2)
+        v1Marshal := v1 is VarRef ? "int*" : "ptr"
+        v2Marshal := v2 is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRectiv", v1Marshal, v1, v2Marshal, v2)
     }
 
     /**
@@ -6939,7 +7160,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectsv
      */
     static glRectsv(v1, v2) {
-        DllCall("OPENGL32.dll\glRectsv", "short*", v1, "short*", v2)
+        v1Marshal := v1 is VarRef ? "short*" : "ptr"
+        v2Marshal := v2 is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glRectsv", v1Marshal, v1, v2Marshal, v2)
     }
 
     /**
@@ -7024,7 +7248,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glselectbuffer
      */
     static glSelectBuffer(size, buffer) {
-        DllCall("OPENGL32.dll\glSelectBuffer", "int", size, "uint*", buffer)
+        bufferMarshal := buffer is VarRef ? "uint*" : "ptr"
+
+        DllCall("OPENGL32.dll\glSelectBuffer", "int", size, bufferMarshal, buffer)
     }
 
     /**
@@ -7088,7 +7314,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1dv
      */
     static glTexCoord1dv(v) {
-        DllCall("OPENGL32.dll\glTexCoord1dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord1dv", vMarshal, v)
     }
 
     /**
@@ -7108,7 +7336,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1fv
      */
     static glTexCoord1fv(v) {
-        DllCall("OPENGL32.dll\glTexCoord1fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord1fv", vMarshal, v)
     }
 
     /**
@@ -7128,7 +7358,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1iv
      */
     static glTexCoord1iv(v) {
-        DllCall("OPENGL32.dll\glTexCoord1iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord1iv", vMarshal, v)
     }
 
     /**
@@ -7148,7 +7380,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1sv
      */
     static glTexCoord1sv(v) {
-        DllCall("OPENGL32.dll\glTexCoord1sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord1sv", vMarshal, v)
     }
 
     /**
@@ -7169,7 +7403,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2dv
      */
     static glTexCoord2dv(v) {
-        DllCall("OPENGL32.dll\glTexCoord2dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord2dv", vMarshal, v)
     }
 
     /**
@@ -7189,7 +7425,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2fv
      */
     static glTexCoord2fv(v) {
-        DllCall("OPENGL32.dll\glTexCoord2fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord2fv", vMarshal, v)
     }
 
     /**
@@ -7210,7 +7448,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2iv
      */
     static glTexCoord2iv(v) {
-        DllCall("OPENGL32.dll\glTexCoord2iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord2iv", vMarshal, v)
     }
 
     /**
@@ -7231,7 +7471,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2sv
      */
     static glTexCoord2sv(v) {
-        DllCall("OPENGL32.dll\glTexCoord2sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord2sv", vMarshal, v)
     }
 
     /**
@@ -7253,7 +7495,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3dv
      */
     static glTexCoord3dv(v) {
-        DllCall("OPENGL32.dll\glTexCoord3dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord3dv", vMarshal, v)
     }
 
     /**
@@ -7274,7 +7518,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3fv
      */
     static glTexCoord3fv(v) {
-        DllCall("OPENGL32.dll\glTexCoord3fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord3fv", vMarshal, v)
     }
 
     /**
@@ -7296,7 +7542,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3iv
      */
     static glTexCoord3iv(v) {
-        DllCall("OPENGL32.dll\glTexCoord3iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord3iv", vMarshal, v)
     }
 
     /**
@@ -7318,7 +7566,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3sv
      */
     static glTexCoord3sv(v) {
-        DllCall("OPENGL32.dll\glTexCoord3sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord3sv", vMarshal, v)
     }
 
     /**
@@ -7341,7 +7591,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4dv
      */
     static glTexCoord4dv(v) {
-        DllCall("OPENGL32.dll\glTexCoord4dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord4dv", vMarshal, v)
     }
 
     /**
@@ -7364,7 +7616,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4fv
      */
     static glTexCoord4fv(v) {
-        DllCall("OPENGL32.dll\glTexCoord4fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord4fv", vMarshal, v)
     }
 
     /**
@@ -7387,7 +7641,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4iv
      */
     static glTexCoord4iv(v) {
-        DllCall("OPENGL32.dll\glTexCoord4iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord4iv", vMarshal, v)
     }
 
     /**
@@ -7410,7 +7666,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4sv
      */
     static glTexCoord4sv(v) {
-        DllCall("OPENGL32.dll\glTexCoord4sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoord4sv", vMarshal, v)
     }
 
     /**
@@ -7423,7 +7681,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoordpointer
      */
     static glTexCoordPointer(size, type, stride, pointer) {
-        DllCall("OPENGL32.dll\glTexCoordPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
+        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexCoordPointer", "int", size, "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -7447,7 +7707,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvfv
      */
     static glTexEnvfv(target, pname, params) {
-        DllCall("OPENGL32.dll\glTexEnvfv", "uint", target, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexEnvfv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -7471,7 +7733,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenviv
      */
     static glTexEnviv(target, pname, params) {
-        DllCall("OPENGL32.dll\glTexEnviv", "uint", target, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexEnviv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -7495,7 +7759,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgendv
      */
     static glTexGendv(coord, pname, params) {
-        DllCall("OPENGL32.dll\glTexGendv", "uint", coord, "uint", pname, "double*", params)
+        paramsMarshal := params is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexGendv", "uint", coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -7519,7 +7785,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenfv
      */
     static glTexGenfv(coord, pname, params) {
-        DllCall("OPENGL32.dll\glTexGenfv", "uint", coord, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexGenfv", "uint", coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -7543,7 +7811,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeniv
      */
     static glTexGeniv(coord, pname, params) {
-        DllCall("OPENGL32.dll\glTexGeniv", "uint", coord, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexGeniv", "uint", coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -7560,7 +7830,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glteximage1d
      */
     static glTexImage1D(target, level, internalformat, width, border, format, type, pixels) {
-        DllCall("OPENGL32.dll\glTexImage1D", "uint", target, "int", level, "int", internalformat, "int", width, "int", border, "uint", format, "uint", type, "ptr", pixels)
+        pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexImage1D", "uint", target, "int", level, "int", internalformat, "int", width, "int", border, "uint", format, "uint", type, pixelsMarshal, pixels)
     }
 
     /**
@@ -7578,7 +7850,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glteximage2d
      */
     static glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels) {
-        DllCall("OPENGL32.dll\glTexImage2D", "uint", target, "int", level, "int", internalformat, "int", width, "int", height, "int", border, "uint", format, "uint", type, "ptr", pixels)
+        pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexImage2D", "uint", target, "int", level, "int", internalformat, "int", width, "int", height, "int", border, "uint", format, "uint", type, pixelsMarshal, pixels)
     }
 
     /**
@@ -7602,7 +7876,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameterfv
      */
     static glTexParameterfv(target, pname, params) {
-        DllCall("OPENGL32.dll\glTexParameterfv", "uint", target, "uint", pname, "float*", params)
+        paramsMarshal := params is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexParameterfv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -7626,7 +7902,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameteriv
      */
     static glTexParameteriv(target, pname, params) {
-        DllCall("OPENGL32.dll\glTexParameteriv", "uint", target, "uint", pname, "int*", params)
+        paramsMarshal := params is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexParameteriv", "uint", target, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -7642,7 +7920,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexsubimage1d
      */
     static glTexSubImage1D(target, level, xoffset, width, format, type, pixels) {
-        DllCall("OPENGL32.dll\glTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", width, "uint", format, "uint", type, "ptr", pixels)
+        pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", width, "uint", format, "uint", type, pixelsMarshal, pixels)
     }
 
     /**
@@ -7660,7 +7940,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexsubimage2d
      */
     static glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels) {
-        DllCall("OPENGL32.dll\glTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
+        pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", width, "int", height, "uint", format, "uint", type, pixelsMarshal, pixels)
     }
 
     /**
@@ -7705,7 +7987,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2dv
      */
     static glVertex2dv(v) {
-        DllCall("OPENGL32.dll\glVertex2dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex2dv", vMarshal, v)
     }
 
     /**
@@ -7726,7 +8010,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2fv
      */
     static glVertex2fv(v) {
-        DllCall("OPENGL32.dll\glVertex2fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex2fv", vMarshal, v)
     }
 
     /**
@@ -7747,7 +8033,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2iv
      */
     static glVertex2iv(v) {
-        DllCall("OPENGL32.dll\glVertex2iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex2iv", vMarshal, v)
     }
 
     /**
@@ -7768,7 +8056,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2sv
      */
     static glVertex2sv(v) {
-        DllCall("OPENGL32.dll\glVertex2sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex2sv", vMarshal, v)
     }
 
     /**
@@ -7790,7 +8080,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3dv
      */
     static glVertex3dv(v) {
-        DllCall("OPENGL32.dll\glVertex3dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex3dv", vMarshal, v)
     }
 
     /**
@@ -7812,7 +8104,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3fv
      */
     static glVertex3fv(v) {
-        DllCall("OPENGL32.dll\glVertex3fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex3fv", vMarshal, v)
     }
 
     /**
@@ -7834,7 +8128,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3iv
      */
     static glVertex3iv(v) {
-        DllCall("OPENGL32.dll\glVertex3iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex3iv", vMarshal, v)
     }
 
     /**
@@ -7856,7 +8152,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3sv
      */
     static glVertex3sv(v) {
-        DllCall("OPENGL32.dll\glVertex3sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex3sv", vMarshal, v)
     }
 
     /**
@@ -7879,7 +8177,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4dv
      */
     static glVertex4dv(v) {
-        DllCall("OPENGL32.dll\glVertex4dv", "double*", v)
+        vMarshal := v is VarRef ? "double*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex4dv", vMarshal, v)
     }
 
     /**
@@ -7902,7 +8202,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4fv
      */
     static glVertex4fv(v) {
-        DllCall("OPENGL32.dll\glVertex4fv", "float*", v)
+        vMarshal := v is VarRef ? "float*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex4fv", vMarshal, v)
     }
 
     /**
@@ -7925,7 +8227,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4iv
      */
     static glVertex4iv(v) {
-        DllCall("OPENGL32.dll\glVertex4iv", "int*", v)
+        vMarshal := v is VarRef ? "int*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex4iv", vMarshal, v)
     }
 
     /**
@@ -7948,7 +8252,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4sv
      */
     static glVertex4sv(v) {
-        DllCall("OPENGL32.dll\glVertex4sv", "short*", v)
+        vMarshal := v is VarRef ? "short*" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertex4sv", vMarshal, v)
     }
 
     /**
@@ -7961,7 +8267,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertexpointer
      */
     static glVertexPointer(size, type, stride, pointer) {
-        DllCall("OPENGL32.dll\glVertexPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
+        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+
+        DllCall("OPENGL32.dll\glVertexPointer", "int", size, "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -8046,7 +8354,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glupickmatrix
      */
     static gluPickMatrix(x, y, width, height, viewport) {
-        DllCall("GLU32.dll\gluPickMatrix", "double", x, "double", y, "double", width, "double", height, "int*", viewport)
+        viewportMarshal := viewport is VarRef ? "int*" : "ptr"
+
+        DllCall("GLU32.dll\gluPickMatrix", "double", x, "double", y, "double", width, "double", height, viewportMarshal, viewport)
     }
 
     /**
@@ -8082,7 +8392,14 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluproject
      */
     static gluProject(objx, objy, objz, modelMatrix, projMatrix, viewport, winx, winy, winz) {
-        result := DllCall("GLU32.dll\gluProject", "double", objx, "double", objy, "double", objz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", winx, "double*", winy, "double*", winz, "int")
+        modelMatrixMarshal := modelMatrix is VarRef ? "double*" : "ptr"
+        projMatrixMarshal := projMatrix is VarRef ? "double*" : "ptr"
+        viewportMarshal := viewport is VarRef ? "int*" : "ptr"
+        winxMarshal := winx is VarRef ? "double*" : "ptr"
+        winyMarshal := winy is VarRef ? "double*" : "ptr"
+        winzMarshal := winz is VarRef ? "double*" : "ptr"
+
+        result := DllCall("GLU32.dll\gluProject", "double", objx, "double", objy, "double", objz, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport, winxMarshal, winx, winyMarshal, winy, winzMarshal, winz, "int")
         return result
     }
 
@@ -8101,7 +8418,14 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluunproject
      */
     static gluUnProject(winx, winy, winz, modelMatrix, projMatrix, viewport, objx, objy, objz) {
-        result := DllCall("GLU32.dll\gluUnProject", "double", winx, "double", winy, "double", winz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", objx, "double*", objy, "double*", objz, "int")
+        modelMatrixMarshal := modelMatrix is VarRef ? "double*" : "ptr"
+        projMatrixMarshal := projMatrix is VarRef ? "double*" : "ptr"
+        viewportMarshal := viewport is VarRef ? "int*" : "ptr"
+        objxMarshal := objx is VarRef ? "double*" : "ptr"
+        objyMarshal := objy is VarRef ? "double*" : "ptr"
+        objzMarshal := objz is VarRef ? "double*" : "ptr"
+
+        result := DllCall("GLU32.dll\gluUnProject", "double", winx, "double", winy, "double", winz, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport, objxMarshal, objx, objyMarshal, objy, objzMarshal, objz, "int")
         return result
     }
 
@@ -8120,7 +8444,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluscaleimage
      */
     static gluScaleImage(format, widthin, heightin, typein, datain, widthout, heightout, typeout, dataout) {
-        result := DllCall("GLU32.dll\gluScaleImage", "uint", format, "int", widthin, "int", heightin, "uint", typein, "ptr", datain, "int", widthout, "int", heightout, "uint", typeout, "ptr", dataout, "int")
+        datainMarshal := datain is VarRef ? "ptr" : "ptr"
+        dataoutMarshal := dataout is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GLU32.dll\gluScaleImage", "uint", format, "int", widthin, "int", heightin, "uint", typein, datainMarshal, datain, "int", widthout, "int", heightout, "uint", typeout, dataoutMarshal, dataout, "int")
         return result
     }
 
@@ -8136,7 +8463,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild1dmipmaps
      */
     static gluBuild1DMipmaps(target, components, width, format, type, data) {
-        result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", components, "int", width, "uint", format, "uint", type, "ptr", data, "int")
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", components, "int", width, "uint", format, "uint", type, dataMarshal, data, "int")
         return result
     }
 
@@ -8153,7 +8482,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild2dmipmaps
      */
     static gluBuild2DMipmaps(target, components, width, height, format, type, data) {
-        result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", components, "int", width, "int", height, "uint", format, "uint", type, "ptr", data, "int")
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", components, "int", width, "int", height, "uint", format, "uint", type, dataMarshal, data, "int")
         return result
     }
 
@@ -8319,7 +8650,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessbeginpolygon
      */
     static gluTessBeginPolygon(tess, polygon_data) {
-        DllCall("GLU32.dll\gluTessBeginPolygon", "ptr", tess, "ptr", polygon_data)
+        polygon_dataMarshal := polygon_data is VarRef ? "ptr" : "ptr"
+
+        DllCall("GLU32.dll\gluTessBeginPolygon", "ptr", tess, polygon_dataMarshal, polygon_data)
     }
 
     /**
@@ -8341,7 +8674,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessvertex
      */
     static gluTessVertex(tess, coords, data) {
-        DllCall("GLU32.dll\gluTessVertex", "ptr", tess, "double*", coords, "ptr", data)
+        coordsMarshal := coords is VarRef ? "double*" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        DllCall("GLU32.dll\gluTessVertex", "ptr", tess, coordsMarshal, coords, dataMarshal, data)
     }
 
     /**
@@ -8410,7 +8746,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugettessproperty
      */
     static gluGetTessProperty(tess, which, value) {
-        DllCall("GLU32.dll\gluGetTessProperty", "ptr", tess, "uint", which, "double*", value)
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        DllCall("GLU32.dll\gluGetTessProperty", "ptr", tess, "uint", which, valueMarshal, value)
     }
 
     /**
@@ -8504,7 +8842,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glupwlcurve
      */
     static gluPwlCurve(nobj, count, array, stride, type) {
-        DllCall("GLU32.dll\gluPwlCurve", "ptr", nobj, "int", count, "float*", array, "int", stride, "uint", type)
+        arrayMarshal := array is VarRef ? "float*" : "ptr"
+
+        DllCall("GLU32.dll\gluPwlCurve", "ptr", nobj, "int", count, arrayMarshal, array, "int", stride, "uint", type)
     }
 
     /**
@@ -8520,7 +8860,10 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbscurve
      */
     static gluNurbsCurve(nobj, nknots, knot, stride, ctlarray, order, type) {
-        DllCall("GLU32.dll\gluNurbsCurve", "ptr", nobj, "int", nknots, "float*", knot, "int", stride, "float*", ctlarray, "int", order, "uint", type)
+        knotMarshal := knot is VarRef ? "float*" : "ptr"
+        ctlarrayMarshal := ctlarray is VarRef ? "float*" : "ptr"
+
+        DllCall("GLU32.dll\gluNurbsCurve", "ptr", nobj, "int", nknots, knotMarshal, knot, "int", stride, ctlarrayMarshal, ctlarray, "int", order, "uint", type)
     }
 
     /**
@@ -8540,7 +8883,11 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbssurface
      */
     static gluNurbsSurface(nobj, sknot_count, sknot, tknot_count, tknot, s_stride, t_stride, ctlarray, sorder, torder, type) {
-        DllCall("GLU32.dll\gluNurbsSurface", "ptr", nobj, "int", sknot_count, "float*", sknot, "int", tknot_count, "float*", tknot, "int", s_stride, "int", t_stride, "float*", ctlarray, "int", sorder, "int", torder, "uint", type)
+        sknotMarshal := sknot is VarRef ? "float*" : "ptr"
+        tknotMarshal := tknot is VarRef ? "float*" : "ptr"
+        ctlarrayMarshal := ctlarray is VarRef ? "float*" : "ptr"
+
+        DllCall("GLU32.dll\gluNurbsSurface", "ptr", nobj, "int", sknot_count, sknotMarshal, sknot, "int", tknot_count, tknotMarshal, tknot, "int", s_stride, "int", t_stride, ctlarrayMarshal, ctlarray, "int", sorder, "int", torder, "uint", type)
     }
 
     /**
@@ -8553,7 +8900,11 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gluloadsamplingmatrices
      */
     static gluLoadSamplingMatrices(nobj, modelMatrix, projMatrix, viewport) {
-        DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr", nobj, "float*", modelMatrix, "float*", projMatrix, "int*", viewport)
+        modelMatrixMarshal := modelMatrix is VarRef ? "float*" : "ptr"
+        projMatrixMarshal := projMatrix is VarRef ? "float*" : "ptr"
+        viewportMarshal := viewport is VarRef ? "int*" : "ptr"
+
+        DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr", nobj, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport)
     }
 
     /**
@@ -8577,7 +8928,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetnurbsproperty
      */
     static gluGetNurbsProperty(nobj, property, value) {
-        DllCall("GLU32.dll\gluGetNurbsProperty", "ptr", nobj, "uint", property, "float*", value)
+        valueMarshal := value is VarRef ? "float*" : "ptr"
+
+        DllCall("GLU32.dll\gluGetNurbsProperty", "ptr", nobj, "uint", property, valueMarshal, value)
     }
 
     /**

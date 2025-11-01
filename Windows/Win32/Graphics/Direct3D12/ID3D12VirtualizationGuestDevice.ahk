@@ -51,7 +51,9 @@ class ID3D12VirtualizationGuestDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12virtualizationguestdevice-createfencefd
      */
     CreateFenceFd(pFence, FenceValue, pFenceFd) {
-        result := ComCall(4, this, "ptr", pFence, "uint", FenceValue, "int*", pFenceFd, "HRESULT")
+        pFenceFdMarshal := pFenceFd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pFence, "uint", FenceValue, pFenceFdMarshal, pFenceFd, "HRESULT")
         return result
     }
 }

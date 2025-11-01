@@ -161,7 +161,9 @@ class IDXGISwapChain1 extends IDXGISwapChain{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getrotation
      */
     GetRotation(pRotation) {
-        result := ComCall(28, this, "int*", pRotation, "HRESULT")
+        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 }

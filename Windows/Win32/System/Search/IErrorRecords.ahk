@@ -125,7 +125,9 @@ class IErrorRecords extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRecordCount(pcRecords) {
-        result := ComCall(8, this, "uint*", pcRecords, "HRESULT")
+        pcRecordsMarshal := pcRecords is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcRecordsMarshal, pcRecords, "HRESULT")
         return result
     }
 }

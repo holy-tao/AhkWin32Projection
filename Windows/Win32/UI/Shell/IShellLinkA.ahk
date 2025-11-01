@@ -53,6 +53,8 @@ class IShellLinkA extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
     GetPath(pszFile, cch, pfd, fFlags) {
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+
         result := ComCall(3, this, "ptr", pszFile, "int", cch, "ptr", pfd, "uint", fFlags, "HRESULT")
         return result
     }
@@ -87,6 +89,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getdescription
      */
     GetDescription(pszName, cch) {
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+
         result := ComCall(6, this, "ptr", pszName, "int", cch, "HRESULT")
         return result
     }
@@ -98,6 +102,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setdescription
      */
     SetDescription(pszName) {
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+
         result := ComCall(7, this, "ptr", pszName, "HRESULT")
         return result
     }
@@ -110,6 +116,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getworkingdirectory
      */
     GetWorkingDirectory(pszDir, cch) {
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
+
         result := ComCall(8, this, "ptr", pszDir, "int", cch, "HRESULT")
         return result
     }
@@ -121,6 +129,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setworkingdirectory
      */
     SetWorkingDirectory(pszDir) {
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
+
         result := ComCall(9, this, "ptr", pszDir, "HRESULT")
         return result
     }
@@ -133,6 +143,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getarguments
      */
     GetArguments(pszArgs, cch) {
+        pszArgs := pszArgs is String ? StrPtr(pszArgs) : pszArgs
+
         result := ComCall(10, this, "ptr", pszArgs, "int", cch, "HRESULT")
         return result
     }
@@ -144,6 +156,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setarguments
      */
     SetArguments(pszArgs) {
+        pszArgs := pszArgs is String ? StrPtr(pszArgs) : pszArgs
+
         result := ComCall(11, this, "ptr", pszArgs, "HRESULT")
         return result
     }
@@ -155,7 +169,9 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-gethotkey
      */
     GetHotkey(pwHotkey) {
-        result := ComCall(12, this, "ushort*", pwHotkey, "HRESULT")
+        pwHotkeyMarshal := pwHotkey is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(12, this, pwHotkeyMarshal, pwHotkey, "HRESULT")
         return result
     }
 
@@ -177,7 +193,9 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getshowcmd
      */
     GetShowCmd(piShowCmd) {
-        result := ComCall(14, this, "int*", piShowCmd, "HRESULT")
+        piShowCmdMarshal := piShowCmd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, piShowCmdMarshal, piShowCmd, "HRESULT")
         return result
     }
 
@@ -201,7 +219,11 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-geticonlocation
      */
     GetIconLocation(pszIconPath, cch, piIcon) {
-        result := ComCall(16, this, "ptr", pszIconPath, "int", cch, "int*", piIcon, "HRESULT")
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
+
+        piIconMarshal := piIcon is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", pszIconPath, "int", cch, piIconMarshal, piIcon, "HRESULT")
         return result
     }
 
@@ -213,6 +235,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-seticonlocation
      */
     SetIconLocation(pszIconPath, iIcon) {
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
+
         result := ComCall(17, this, "ptr", pszIconPath, "int", iIcon, "HRESULT")
         return result
     }
@@ -225,6 +249,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setrelativepath
      */
     SetRelativePath(pszPathRel, dwReserved) {
+        pszPathRel := pszPathRel is String ? StrPtr(pszPathRel) : pszPathRel
+
         result := ComCall(18, this, "ptr", pszPathRel, "uint", dwReserved, "HRESULT")
         return result
     }
@@ -250,6 +276,8 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setpath
      */
     SetPath(pszFile) {
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+
         result := ComCall(20, this, "ptr", pszFile, "HRESULT")
         return result
     }

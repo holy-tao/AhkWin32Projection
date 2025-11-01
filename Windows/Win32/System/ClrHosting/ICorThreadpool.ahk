@@ -42,7 +42,9 @@ class ICorThreadpool extends IUnknown{
     CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, Context, timeout, executeOnlyOnce, result) {
         hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
 
-        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, "ptr", Context, "uint", timeout, "int", executeOnlyOnce, "ptr", result, "HRESULT")
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, ContextMarshal, Context, "uint", timeout, "int", executeOnlyOnce, "ptr", result, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ICorThreadpool extends IUnknown{
      * @returns {HRESULT} 
      */
     CorQueueUserWorkItem(Function, Context, executeOnlyOnce, result) {
-        result := ComCall(5, this, "ptr", Function, "ptr", Context, "int", executeOnlyOnce, "ptr", result, "HRESULT")
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "ptr", Function, ContextMarshal, Context, "int", executeOnlyOnce, "ptr", result, "HRESULT")
         return result
     }
 
@@ -85,7 +89,9 @@ class ICorThreadpool extends IUnknown{
      * @returns {HRESULT} 
      */
     CorCreateTimer(phNewTimer, Callback, Parameter, DueTime, Period, result) {
-        result := ComCall(6, this, "ptr", phNewTimer, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "ptr", result, "HRESULT")
+        ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, "ptr", result, "HRESULT")
         return result
     }
 
@@ -140,7 +146,9 @@ class ICorThreadpool extends IUnknown{
      * @returns {HRESULT} 
      */
     CorCallOrQueueUserWorkItem(Function, Context, result) {
-        result := ComCall(10, this, "ptr", Function, "ptr", Context, "ptr", result, "HRESULT")
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "ptr", Function, ContextMarshal, Context, "ptr", result, "HRESULT")
         return result
     }
 
@@ -162,7 +170,10 @@ class ICorThreadpool extends IUnknown{
      * @returns {HRESULT} 
      */
     CorGetMaxThreads(MaxWorkerThreads, MaxIOCompletionThreads) {
-        result := ComCall(12, this, "uint*", MaxWorkerThreads, "uint*", MaxIOCompletionThreads, "HRESULT")
+        MaxWorkerThreadsMarshal := MaxWorkerThreads is VarRef ? "uint*" : "ptr"
+        MaxIOCompletionThreadsMarshal := MaxIOCompletionThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, MaxWorkerThreadsMarshal, MaxWorkerThreads, MaxIOCompletionThreadsMarshal, MaxIOCompletionThreads, "HRESULT")
         return result
     }
 
@@ -173,7 +184,10 @@ class ICorThreadpool extends IUnknown{
      * @returns {HRESULT} 
      */
     CorGetAvailableThreads(AvailableWorkerThreads, AvailableIOCompletionThreads) {
-        result := ComCall(13, this, "uint*", AvailableWorkerThreads, "uint*", AvailableIOCompletionThreads, "HRESULT")
+        AvailableWorkerThreadsMarshal := AvailableWorkerThreads is VarRef ? "uint*" : "ptr"
+        AvailableIOCompletionThreadsMarshal := AvailableIOCompletionThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, AvailableWorkerThreadsMarshal, AvailableWorkerThreads, AvailableIOCompletionThreadsMarshal, AvailableIOCompletionThreads, "HRESULT")
         return result
     }
 }

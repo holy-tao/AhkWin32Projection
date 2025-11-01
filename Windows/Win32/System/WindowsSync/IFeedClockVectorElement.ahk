@@ -48,7 +48,9 @@ class IFeedClockVectorElement extends IClockVectorElement{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvectorelement-getflags
      */
     GetFlags(pbFlags) {
-        result := ComCall(6, this, "char*", pbFlags, "HRESULT")
+        pbFlagsMarshal := pbFlags is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbFlagsMarshal, pbFlags, "HRESULT")
         return result
     }
 }

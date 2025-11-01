@@ -40,7 +40,12 @@ class ID3DInclude extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3dinclude-open
      */
     Open(IncludeType, pFileName, pParentData, ppData, pBytes) {
-        result := ComCall(0, this, "int", IncludeType, "ptr", pFileName, "ptr", pParentData, "ptr*", ppData, "uint*", pBytes, "HRESULT")
+        pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
+
+        pParentDataMarshal := pParentData is VarRef ? "ptr" : "ptr"
+        pBytesMarshal := pBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(0, this, "int", IncludeType, "ptr", pFileName, pParentDataMarshal, pParentData, "ptr*", ppData, pBytesMarshal, pBytes, "HRESULT")
         return result
     }
 
@@ -51,7 +56,9 @@ class ID3DInclude extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3dinclude-close
      */
     Close(pData) {
-        result := ComCall(1, this, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(1, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 }

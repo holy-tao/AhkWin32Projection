@@ -37,7 +37,9 @@ class IWMStreamConfig2 extends IWMStreamConfig{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-gettransporttype
      */
     GetTransportType(pnTransportType) {
-        result := ComCall(14, this, "int*", pnTransportType, "HRESULT")
+        pnTransportTypeMarshal := pnTransportType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pnTransportTypeMarshal, pnTransportType, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IWMStreamConfig2 extends IWMStreamConfig{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-adddataunitextension
      */
     AddDataUnitExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
-        result := ComCall(16, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, "char*", pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(16, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
         return result
     }
 
@@ -73,7 +77,9 @@ class IWMStreamConfig2 extends IWMStreamConfig{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextensioncount
      */
     GetDataUnitExtensionCount(pcDataUnitExtensions) {
-        result := ComCall(17, this, "ushort*", pcDataUnitExtensions, "HRESULT")
+        pcDataUnitExtensionsMarshal := pcDataUnitExtensions is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(17, this, pcDataUnitExtensionsMarshal, pcDataUnitExtensions, "HRESULT")
         return result
     }
 
@@ -88,7 +94,11 @@ class IWMStreamConfig2 extends IWMStreamConfig{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextension
      */
     GetDataUnitExtension(wDataUnitExtensionNumber, pguidExtensionSystemID, pcbExtensionDataSize, pbExtensionSystemInfo, pcbExtensionSystemInfo) {
-        result := ComCall(18, this, "ushort", wDataUnitExtensionNumber, "ptr", pguidExtensionSystemID, "ushort*", pcbExtensionDataSize, "char*", pbExtensionSystemInfo, "uint*", pcbExtensionSystemInfo, "HRESULT")
+        pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : "ptr"
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
+        pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ushort", wDataUnitExtensionNumber, "ptr", pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IMpegAudioDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_frequencydivider
      */
     get_FrequencyDivider(pDivider) {
-        result := ComCall(3, this, "uint*", pDivider, "HRESULT")
+        pDividerMarshal := pDivider is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pDividerMarshal, pDivider, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IMpegAudioDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderaccuracy
      */
     get_DecoderAccuracy(pAccuracy) {
-        result := ComCall(5, this, "uint*", pAccuracy, "HRESULT")
+        pAccuracyMarshal := pAccuracy is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pAccuracyMarshal, pAccuracy, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IMpegAudioDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_stereo
      */
     get_Stereo(pStereo) {
-        result := ComCall(7, this, "uint*", pStereo, "HRESULT")
+        pStereoMarshal := pStereo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pStereoMarshal, pStereo, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class IMpegAudioDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_decoderwordsize
      */
     get_DecoderWordSize(pWordSize) {
-        result := ComCall(9, this, "uint*", pWordSize, "HRESULT")
+        pWordSizeMarshal := pWordSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pWordSizeMarshal, pWordSize, "HRESULT")
         return result
     }
 
@@ -125,7 +133,9 @@ class IMpegAudioDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_integerdecode
      */
     get_IntegerDecode(pIntDecode) {
-        result := ComCall(11, this, "uint*", pIntDecode, "HRESULT")
+        pIntDecodeMarshal := pIntDecode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pIntDecodeMarshal, pIntDecode, "HRESULT")
         return result
     }
 
@@ -147,7 +157,9 @@ class IMpegAudioDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_dualmode
      */
     get_DualMode(pIntDecode) {
-        result := ComCall(13, this, "uint*", pIntDecode, "HRESULT")
+        pIntDecodeMarshal := pIntDecode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pIntDecodeMarshal, pIntDecode, "HRESULT")
         return result
     }
 

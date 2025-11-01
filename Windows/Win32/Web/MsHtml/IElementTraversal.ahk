@@ -74,7 +74,9 @@ class IElementTraversal extends IDispatch{
      * @returns {HRESULT} 
      */
     get_childElementCount(p) {
-        result := ComCall(11, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 }

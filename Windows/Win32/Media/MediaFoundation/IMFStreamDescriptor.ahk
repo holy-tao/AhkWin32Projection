@@ -49,7 +49,9 @@ class IMFStreamDescriptor extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamdescriptor-getstreamidentifier
      */
     GetStreamIdentifier(pdwStreamIdentifier) {
-        result := ComCall(33, this, "uint*", pdwStreamIdentifier, "HRESULT")
+        pdwStreamIdentifierMarshal := pdwStreamIdentifier is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pdwStreamIdentifierMarshal, pdwStreamIdentifier, "HRESULT")
         return result
     }
 

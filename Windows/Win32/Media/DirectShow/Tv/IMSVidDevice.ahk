@@ -59,7 +59,9 @@ class IMSVidDevice extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_status
      */
     get_Status(Status) {
-        result := ComCall(8, this, "int*", Status, "HRESULT")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, StatusMarshal, Status, "HRESULT")
         return result
     }
 

@@ -34,7 +34,9 @@ class ISClusDisk extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Signature(plSignature) {
-        result := ComCall(7, this, "int*", plSignature, "HRESULT")
+        plSignatureMarshal := plSignature is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plSignatureMarshal, plSignature, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISClusDisk extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DiskNumber(plDiskNumber) {
-        result := ComCall(9, this, "int*", plDiskNumber, "HRESULT")
+        plDiskNumberMarshal := plDiskNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plDiskNumberMarshal, plDiskNumber, "HRESULT")
         return result
     }
 

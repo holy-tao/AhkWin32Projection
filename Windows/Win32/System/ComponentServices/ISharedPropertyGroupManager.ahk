@@ -50,7 +50,10 @@ class ISharedPropertyGroupManager extends IDispatch{
     CreatePropertyGroup(Name, dwIsoMode, dwRelMode, fExists, ppGroup) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(7, this, "ptr", Name, "int*", dwIsoMode, "int*", dwRelMode, "ptr", fExists, "ptr*", ppGroup, "HRESULT")
+        dwIsoModeMarshal := dwIsoMode is VarRef ? "int*" : "ptr"
+        dwRelModeMarshal := dwRelMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", Name, dwIsoModeMarshal, dwIsoMode, dwRelModeMarshal, dwRelMode, "ptr", fExists, "ptr*", ppGroup, "HRESULT")
         return result
     }
 

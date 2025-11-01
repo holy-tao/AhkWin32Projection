@@ -39,7 +39,9 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-next
      */
     Next(cObjects, pObjIDs, pcFetched) {
-        result := ComCall(3, this, "uint", cObjects, "ptr", pObjIDs, "uint*", pcFetched, "int")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cObjects, "ptr", pObjIDs, pcFetchedMarshal, pcFetched, "int")
         return result
     }
 

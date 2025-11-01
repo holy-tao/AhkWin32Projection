@@ -66,7 +66,9 @@ class ITextStoryRanges extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-getcount
      */
     GetCount(pCount) {
-        result := ComCall(9, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 }

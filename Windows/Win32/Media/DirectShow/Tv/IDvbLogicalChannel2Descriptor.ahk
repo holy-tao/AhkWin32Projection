@@ -37,7 +37,9 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getcountoflists
      */
     GetCountOfLists(pbVal) {
-        result := ComCall(9, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistid
      */
     GetListId(bListIndex, pbVal) {
-        result := ComCall(10, this, "char", bListIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "char", bListIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistcountrycode
      */
     GetListCountryCode(bListIndex, pszCode) {
-        result := ComCall(12, this, "char", bListIndex, "char*", pszCode, "HRESULT")
+        pszCodeMarshal := pszCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(12, this, "char", bListIndex, pszCodeMarshal, pszCode, "HRESULT")
         return result
     }
 
@@ -86,7 +92,9 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistcountofrecords
      */
     GetListCountOfRecords(bChannelListIndex, pbVal) {
-        result := ComCall(13, this, "char", bChannelListIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "char", bChannelListIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -99,7 +107,9 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordserviceid
      */
     GetListRecordServiceId(bListIndex, bRecordIndex, pwVal) {
-        result := ComCall(14, this, "char", bListIndex, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(14, this, "char", bListIndex, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -112,7 +122,9 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordlogicalchannelnumber
      */
     GetListRecordLogicalChannelNumber(bListIndex, bRecordIndex, pwVal) {
-        result := ComCall(15, this, "char", bListIndex, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(15, this, "char", bListIndex, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -125,7 +137,9 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordlogicalchannelandvisibility
      */
     GetListRecordLogicalChannelAndVisibility(bListIndex, bRecordIndex, pwVal) {
-        result := ComCall(16, this, "char", bListIndex, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(16, this, "char", bListIndex, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 }

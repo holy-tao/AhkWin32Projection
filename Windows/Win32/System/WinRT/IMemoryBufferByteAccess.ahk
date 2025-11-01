@@ -36,7 +36,9 @@ class IMemoryBufferByteAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/memorybuffer/nf-memorybuffer-imemorybufferbyteaccess-getbuffer
      */
     GetBuffer(value, capacity) {
-        result := ComCall(3, this, "ptr*", value, "uint*", capacity, "HRESULT")
+        capacityMarshal := capacity is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", value, capacityMarshal, capacity, "HRESULT")
         return result
     }
 }

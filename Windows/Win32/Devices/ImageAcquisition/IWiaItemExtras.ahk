@@ -84,7 +84,11 @@ class IWiaItemExtras extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
      */
     Escape(dwEscapeCode, lpInData, cbInDataSize, pOutData, dwOutDataSize, pdwActualDataSize) {
-        result := ComCall(4, this, "uint", dwEscapeCode, "char*", lpInData, "uint", cbInDataSize, "char*", pOutData, "uint", dwOutDataSize, "uint*", pdwActualDataSize, "HRESULT")
+        lpInDataMarshal := lpInData is VarRef ? "char*" : "ptr"
+        pOutDataMarshal := pOutData is VarRef ? "char*" : "ptr"
+        pdwActualDataSizeMarshal := pdwActualDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwEscapeCode, lpInDataMarshal, lpInData, "uint", cbInDataSize, pOutDataMarshal, pOutData, "uint", dwOutDataSize, pdwActualDataSizeMarshal, pdwActualDataSize, "HRESULT")
         return result
     }
 

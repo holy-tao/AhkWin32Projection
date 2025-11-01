@@ -45,7 +45,10 @@ class ITSGAuthorizeConnectionSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeconnectionsink-onconnectionauthorized
      */
     OnConnectionAuthorized(hrIn, mainSessionId, cbSoHResponse, pbSoHResponse, idleTimeout, sessionTimeout, sessionTimeoutAction, trustClass, policyAttributes) {
-        result := ComCall(3, this, "int", hrIn, "ptr", mainSessionId, "uint", cbSoHResponse, "char*", pbSoHResponse, "uint", idleTimeout, "uint", sessionTimeout, "int", sessionTimeoutAction, "int", trustClass, "uint*", policyAttributes, "HRESULT")
+        pbSoHResponseMarshal := pbSoHResponse is VarRef ? "char*" : "ptr"
+        policyAttributesMarshal := policyAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "int", hrIn, "ptr", mainSessionId, "uint", cbSoHResponse, pbSoHResponseMarshal, pbSoHResponse, "uint", idleTimeout, "uint", sessionTimeout, "int", sessionTimeoutAction, "int", trustClass, policyAttributesMarshal, policyAttributes, "HRESULT")
         return result
     }
 }

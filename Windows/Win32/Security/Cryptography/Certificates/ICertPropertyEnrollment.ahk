@@ -66,7 +66,9 @@ class ICertPropertyEnrollment extends ICertProperty{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_requestid
      */
     get_RequestId(pValue) {
-        result := ComCall(15, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

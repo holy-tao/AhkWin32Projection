@@ -67,7 +67,9 @@ class IBDA_DRIDRMService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_dridrmservice-getpairingstatus
      */
     GetPairingStatus(penumPairingStatus) {
-        result := ComCall(5, this, "int*", penumPairingStatus, "HRESULT")
+        penumPairingStatusMarshal := penumPairingStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, penumPairingStatusMarshal, penumPairingStatus, "HRESULT")
         return result
     }
 }

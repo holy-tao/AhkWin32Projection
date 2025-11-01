@@ -38,7 +38,9 @@ class IRowsetUpdate extends IRowsetChange{
     GetOriginalData(hRow, hAccessor, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(6, this, "ptr", hRow, "ptr", hAccessor, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IRowsetUpdate extends IRowsetChange{
      * @returns {HRESULT} 
      */
     GetPendingRows(hReserved, dwRowStatus, pcPendingRows, prgPendingRows, prgPendingStatus) {
-        result := ComCall(7, this, "ptr", hReserved, "uint", dwRowStatus, "ptr*", pcPendingRows, "ptr*", prgPendingRows, "ptr*", prgPendingStatus, "HRESULT")
+        pcPendingRowsMarshal := pcPendingRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hReserved, "uint", dwRowStatus, pcPendingRowsMarshal, pcPendingRows, "ptr*", prgPendingRows, "ptr*", prgPendingStatus, "HRESULT")
         return result
     }
 
@@ -65,7 +69,10 @@ class IRowsetUpdate extends IRowsetChange{
      * @returns {HRESULT} 
      */
     GetRowStatus(hReserved, cRows, rghRows, rgPendingStatus) {
-        result := ComCall(8, this, "ptr", hReserved, "ptr", cRows, "ptr*", rghRows, "uint*", rgPendingStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rgPendingStatusMarshal := rgPendingStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, rgPendingStatusMarshal, rgPendingStatus, "HRESULT")
         return result
     }
 
@@ -80,7 +87,10 @@ class IRowsetUpdate extends IRowsetChange{
      * @returns {HRESULT} 
      */
     Undo(hReserved, cRows, rghRows, pcRowsUndone, prgRowsUndone, prgRowStatus) {
-        result := ComCall(9, this, "ptr", hReserved, "ptr", cRows, "ptr*", rghRows, "ptr*", pcRowsUndone, "ptr*", prgRowsUndone, "ptr*", prgRowStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        pcRowsUndoneMarshal := pcRowsUndone is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, "ptr*", prgRowsUndone, "ptr*", prgRowStatus, "HRESULT")
         return result
     }
 
@@ -95,7 +105,10 @@ class IRowsetUpdate extends IRowsetChange{
      * @returns {HRESULT} 
      */
     Update(hReserved, cRows, rghRows, pcRows, prgRows, prgRowStatus) {
-        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, "ptr*", rghRows, "ptr*", pcRows, "ptr*", prgRows, "ptr*", prgRowStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, "ptr*", prgRows, "ptr*", prgRowStatus, "HRESULT")
         return result
     }
 }

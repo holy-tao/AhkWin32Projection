@@ -49,7 +49,9 @@ class IFaxActivity extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_incomingmessages
      */
     get_IncomingMessages(plIncomingMessages) {
-        result := ComCall(7, this, "int*", plIncomingMessages, "HRESULT")
+        plIncomingMessagesMarshal := plIncomingMessages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plIncomingMessagesMarshal, plIncomingMessages, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IFaxActivity extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_routingmessages
      */
     get_RoutingMessages(plRoutingMessages) {
-        result := ComCall(8, this, "int*", plRoutingMessages, "HRESULT")
+        plRoutingMessagesMarshal := plRoutingMessages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plRoutingMessagesMarshal, plRoutingMessages, "HRESULT")
         return result
     }
 
@@ -71,7 +75,9 @@ class IFaxActivity extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_outgoingmessages
      */
     get_OutgoingMessages(plOutgoingMessages) {
-        result := ComCall(9, this, "int*", plOutgoingMessages, "HRESULT")
+        plOutgoingMessagesMarshal := plOutgoingMessages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plOutgoingMessagesMarshal, plOutgoingMessages, "HRESULT")
         return result
     }
 
@@ -82,7 +88,9 @@ class IFaxActivity extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivity-get_queuedmessages
      */
     get_QueuedMessages(plQueuedMessages) {
-        result := ComCall(10, this, "int*", plQueuedMessages, "HRESULT")
+        plQueuedMessagesMarshal := plQueuedMessages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plQueuedMessagesMarshal, plQueuedMessages, "HRESULT")
         return result
     }
 

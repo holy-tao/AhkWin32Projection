@@ -70,7 +70,9 @@ class IUIAnimationInterpolator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getduration
      */
     GetDuration(duration) {
-        result := ComCall(5, this, "double*", duration, "HRESULT")
+        durationMarshal := duration is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, durationMarshal, duration, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IUIAnimationInterpolator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getfinalvalue
      */
     GetFinalValue(value) {
-        result := ComCall(6, this, "double*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class IUIAnimationInterpolator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevalue
      */
     InterpolateValue(offset, value) {
-        result := ComCall(7, this, "double", offset, "double*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, "double", offset, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -105,7 +111,9 @@ class IUIAnimationInterpolator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevelocity
      */
     InterpolateVelocity(offset, velocity) {
-        result := ComCall(8, this, "double", offset, "double*", velocity, "HRESULT")
+        velocityMarshal := velocity is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, "double", offset, velocityMarshal, velocity, "HRESULT")
         return result
     }
 
@@ -118,7 +126,11 @@ class IUIAnimationInterpolator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getdependencies
      */
     GetDependencies(initialValueDependencies, initialVelocityDependencies, durationDependencies) {
-        result := ComCall(9, this, "int*", initialValueDependencies, "int*", initialVelocityDependencies, "int*", durationDependencies, "HRESULT")
+        initialValueDependenciesMarshal := initialValueDependencies is VarRef ? "int*" : "ptr"
+        initialVelocityDependenciesMarshal := initialVelocityDependencies is VarRef ? "int*" : "ptr"
+        durationDependenciesMarshal := durationDependencies is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, initialValueDependenciesMarshal, initialValueDependencies, initialVelocityDependenciesMarshal, initialVelocityDependencies, durationDependenciesMarshal, durationDependencies, "HRESULT")
         return result
     }
 }

@@ -3069,7 +3069,9 @@ class Accessibility {
      * @since windows5.0
      */
     static AccessibleChildren(paccContainer, iChildStart, cChildren, rgvarChildren, pcObtained) {
-        result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, "ptr", rgvarChildren, "int*", pcObtained, "int")
+        pcObtainedMarshal := pcObtained is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, "ptr", rgvarChildren, pcObtainedMarshal, pcObtained, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3217,7 +3219,10 @@ class Accessibility {
      * @since windows5.0
      */
     static GetOleaccVersionInfo(pVer, pBuild) {
-        DllCall("OLEACC.dll\GetOleaccVersionInfo", "uint*", pVer, "uint*", pBuild)
+        pVerMarshal := pVer is VarRef ? "uint*" : "ptr"
+        pBuildMarshal := pBuild is VarRef ? "uint*" : "ptr"
+
+        DllCall("OLEACC.dll\GetOleaccVersionInfo", pVerMarshal, pVer, pBuildMarshal, pBuild)
     }
 
     /**
@@ -3278,8 +3283,8 @@ class Accessibility {
      * @since windows5.0
      */
     static CreateStdAccessibleProxyA(hwnd, pClassName, idObject, riid, ppvObject) {
-        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
@@ -3314,8 +3319,8 @@ class Accessibility {
      * @since windows5.0
      */
     static CreateStdAccessibleProxyW(hwnd, pClassName, idObject, riid, ppvObject) {
-        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
@@ -3975,7 +3980,9 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaRaiseStructureChangedEvent(pProvider, structureChangeType, pRuntimeId, cRuntimeIdLen) {
-        result := DllCall("UIAutomationCore.dll\UiaRaiseStructureChangedEvent", "ptr", pProvider, "int", structureChangeType, "int*", pRuntimeId, "int", cRuntimeIdLen, "int")
+        pRuntimeIdMarshal := pRuntimeId is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaRaiseStructureChangedEvent", "ptr", pProvider, "int", structureChangeType, pRuntimeIdMarshal, pRuntimeId, "int", cRuntimeIdLen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4135,7 +4142,9 @@ class Accessibility {
     static UiaAddEvent(hnode, eventId, pCallback, scope, pProperties, cProperties, pRequest, phEvent) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, "ptr*", pCallback, "int", scope, "int*", pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
+        pPropertiesMarshal := pProperties is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, "ptr*", pCallback, "int", scope, pPropertiesMarshal, pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4660,8 +4669,8 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static ValuePattern_SetValue(hobj, pVal) {
-        pVal := pVal is String ? StrPtr(pVal) : pVal
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
+        pVal := pVal is String ? StrPtr(pVal) : pVal
 
         result := DllCall("UIAutomationCore.dll\ValuePattern_SetValue", "ptr", hobj, "ptr", pVal, "int")
         if(result != 0)
@@ -4896,7 +4905,9 @@ class Accessibility {
     static TextPattern_get_SupportedTextSelection(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_get_SupportedTextSelection", "ptr", hobj, "int*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextPattern_get_SupportedTextSelection", "ptr", hobj, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4985,7 +4996,9 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         targetRange := targetRange is Win32Handle ? NumGet(targetRange, "ptr") : targetRange
 
-        result := DllCall("UIAutomationCore.dll\TextRange_CompareEndpoints", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, "int*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextRange_CompareEndpoints", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5225,7 +5238,9 @@ class Accessibility {
     static TextRange_Move(hobj, unit, count, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_Move", "ptr", hobj, "int", unit, "int", count, "int*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextRange_Move", "ptr", hobj, "int", unit, "int", count, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5261,7 +5276,9 @@ class Accessibility {
     static TextRange_MoveEndpointByUnit(hobj, endpoint, unit, count, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByUnit", "ptr", hobj, "int", endpoint, "int", unit, "int", count, "int*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByUnit", "ptr", hobj, "int", endpoint, "int", unit, "int", count, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5507,8 +5524,8 @@ class Accessibility {
      * @since windows6.1
      */
     static LegacyIAccessiblePattern_SetValue(hobj, szValue) {
-        szValue := szValue is String ? StrPtr(szValue) : szValue
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_SetValue", "ptr", hobj, "ptr", szValue, "int")
         if(result != 0)

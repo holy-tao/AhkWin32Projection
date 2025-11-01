@@ -50,7 +50,9 @@ class IDirectInputA extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumDevices(param0, param1, param2, param3) {
-        result := ComCall(4, this, "uint", param0, "ptr", param1, "ptr", param2, "uint", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 

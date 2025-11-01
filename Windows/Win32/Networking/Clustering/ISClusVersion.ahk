@@ -44,7 +44,9 @@ class ISClusVersion extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MajorVersion(pnMajorVersion) {
-        result := ComCall(8, this, "int*", pnMajorVersion, "HRESULT")
+        pnMajorVersionMarshal := pnMajorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pnMajorVersionMarshal, pnMajorVersion, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISClusVersion extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MinorVersion(pnMinorVersion) {
-        result := ComCall(9, this, "int*", pnMinorVersion, "HRESULT")
+        pnMinorVersionMarshal := pnMinorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pnMinorVersionMarshal, pnMinorVersion, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class ISClusVersion extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BuildNumber(pnBuildNumber) {
-        result := ComCall(10, this, "short*", pnBuildNumber, "HRESULT")
+        pnBuildNumberMarshal := pnBuildNumber is VarRef ? "short*" : "ptr"
+
+        result := ComCall(10, this, pnBuildNumberMarshal, pnBuildNumber, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class ISClusVersion extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ClusterHighestVersion(pnClusterHighestVersion) {
-        result := ComCall(13, this, "int*", pnClusterHighestVersion, "HRESULT")
+        pnClusterHighestVersionMarshal := pnClusterHighestVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pnClusterHighestVersionMarshal, pnClusterHighestVersion, "HRESULT")
         return result
     }
 
@@ -104,7 +112,9 @@ class ISClusVersion extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ClusterLowestVersion(pnClusterLowestVersion) {
-        result := ComCall(14, this, "int*", pnClusterLowestVersion, "HRESULT")
+        pnClusterLowestVersionMarshal := pnClusterLowestVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pnClusterLowestVersionMarshal, pnClusterLowestVersion, "HRESULT")
         return result
     }
 
@@ -114,7 +124,9 @@ class ISClusVersion extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Flags(pnFlags) {
-        result := ComCall(15, this, "int*", pnFlags, "HRESULT")
+        pnFlagsMarshal := pnFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pnFlagsMarshal, pnFlags, "HRESULT")
         return result
     }
 

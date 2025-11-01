@@ -124,7 +124,9 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     GetRecoState(pState) {
-        result := ComCall(16, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -171,7 +173,9 @@ class ISpRecognizer extends ISpProperties{
     IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, pfSupported) {
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        result := ComCall(20, this, "ptr", pszTypeOfUI, "ptr", pvExtraData, "uint", cbExtraData, "ptr", pfSupported, "HRESULT")
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", pfSupported, "HRESULT")
         return result
     }
 
@@ -189,7 +193,9 @@ class ISpRecognizer extends ISpProperties{
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        result := ComCall(21, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, "ptr", pvExtraData, "uint", cbExtraData, "HRESULT")
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(21, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
         return result
     }
 

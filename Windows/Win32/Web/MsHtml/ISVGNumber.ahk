@@ -50,7 +50,9 @@ class ISVGNumber extends IDispatch{
      * @returns {HRESULT} 
      */
     get_value(p) {
-        result := ComCall(8, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 }

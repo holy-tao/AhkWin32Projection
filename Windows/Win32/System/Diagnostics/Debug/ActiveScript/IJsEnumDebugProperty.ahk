@@ -36,7 +36,9 @@ class IJsEnumDebugProperty extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(count, ppDebugProperty, pActualCount) {
-        result := ComCall(3, this, "uint", count, "ptr*", ppDebugProperty, "uint*", pActualCount, "HRESULT")
+        pActualCountMarshal := pActualCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", count, "ptr*", ppDebugProperty, pActualCountMarshal, pActualCount, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class IJsEnumDebugProperty extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pCount) {
-        result := ComCall(4, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 }

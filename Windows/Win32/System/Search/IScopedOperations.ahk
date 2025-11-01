@@ -41,7 +41,9 @@ class IScopedOperations extends IBindResource{
      * @returns {HRESULT} 
      */
     Copy(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwCopyFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
-        result := ComCall(4, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwCopyFlags, "ptr", pAuthenticate, "uint*", rgdwStatus, "ptr", rgpwszNewURLs, "ptr*", ppStringsBuffer, "HRESULT")
+        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, "ptr*", ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IScopedOperations extends IBindResource{
      * @returns {HRESULT} 
      */
     Move(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwMoveFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
-        result := ComCall(5, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwMoveFlags, "ptr", pAuthenticate, "uint*", rgdwStatus, "ptr", rgpwszNewURLs, "ptr*", ppStringsBuffer, "HRESULT")
+        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, "ptr*", ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -71,7 +75,9 @@ class IScopedOperations extends IBindResource{
      * @returns {HRESULT} 
      */
     Delete(cRows, rgpwszURLs, dwDeleteFlags, rgdwStatus) {
-        result := ComCall(6, this, "ptr", cRows, "ptr", rgpwszURLs, "uint", dwDeleteFlags, "uint*", rgdwStatus, "HRESULT")
+        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", cRows, "ptr", rgpwszURLs, "uint", dwDeleteFlags, rgdwStatusMarshal, rgdwStatus, "HRESULT")
         return result
     }
 

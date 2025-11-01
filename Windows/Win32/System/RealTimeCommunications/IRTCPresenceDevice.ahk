@@ -34,7 +34,9 @@ class IRTCPresenceDevice extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Status(penStatus) {
-        result := ComCall(3, this, "int*", penStatus, "HRESULT")
+        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, penStatusMarshal, penStatus, "HRESULT")
         return result
     }
 

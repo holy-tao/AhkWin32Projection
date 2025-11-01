@@ -62,7 +62,9 @@ class IAzApplicationGroup extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_type
      */
     get_Type(plProp) {
-        result := ComCall(9, this, "int*", plProp, "HRESULT")
+        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plPropMarshal, plProp, "HRESULT")
         return result
     }
 

@@ -45,7 +45,10 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {HRESULT} 
      */
     ClientToWindow(pcx, pcy) {
-        result := ComCall(33, this, "int*", pcx, "int*", pcy, "HRESULT")
+        pcxMarshal := pcx is VarRef ? "int*" : "ptr"
+        pcyMarshal := pcy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pcxMarshal, pcx, pcyMarshal, pcy, "HRESULT")
         return result
     }
 
@@ -185,7 +188,9 @@ class IWebBrowserApp extends IWebBrowser{
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
      */
     get_ToolBar(Value) {
-        result := ComCall(46, this, "int*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, ValueMarshal, Value, "HRESULT")
         return result
     }
 

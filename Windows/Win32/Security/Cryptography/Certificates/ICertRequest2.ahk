@@ -44,7 +44,9 @@ class ICertRequest2 extends ICertRequest{
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(14, this, "ptr", strConfig, "int", RequestId, "ptr", strSerialNumber, "uint*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", strConfig, "int", RequestId, "ptr", strSerialNumber, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -90,7 +92,9 @@ class ICertRequest2 extends ICertRequest{
     GetCAPropertyFlags(strConfig, PropId, pPropFlags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(17, this, "ptr", strConfig, "int", PropId, "int*", pPropFlags, "HRESULT")
+        pPropFlagsMarshal := pPropFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "ptr", strConfig, "int", PropId, pPropFlagsMarshal, pPropFlags, "HRESULT")
         return result
     }
 

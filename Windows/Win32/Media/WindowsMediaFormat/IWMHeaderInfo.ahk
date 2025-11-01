@@ -69,7 +69,9 @@ class IWMHeaderInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributecount
      */
     GetAttributeCount(wStreamNum, pcAttributes) {
-        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", pcAttributes, "HRESULT")
+        pcAttributesMarshal := pcAttributes is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "ushort", wStreamNum, pcAttributesMarshal, pcAttributes, "HRESULT")
         return result
     }
 
@@ -88,7 +90,13 @@ class IWMHeaderInfo extends IUnknown{
     GetAttributeByIndex(wIndex, pwStreamNum, pwszName, pcchNameLen, pType, pValue, pcbLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(4, this, "ushort", wIndex, "ushort*", pwStreamNum, "ptr", pwszName, "ushort*", pcchNameLen, "int*", pType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
+        pcchNameLenMarshal := pcchNameLen is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "ushort", wIndex, pwStreamNumMarshal, pwStreamNum, "ptr", pwszName, pcchNameLenMarshal, pcchNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -105,7 +113,12 @@ class IWMHeaderInfo extends IUnknown{
     GetAttributeByName(pwStreamNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ushort*", pwStreamNum, "ptr", pszName, "int*", pType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwStreamNumMarshal, pwStreamNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -122,7 +135,9 @@ class IWMHeaderInfo extends IUnknown{
     SetAttribute(wStreamNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, "int", Type, "char*", pValue, "ushort", cbLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -133,7 +148,9 @@ class IWMHeaderInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getmarkercount
      */
     GetMarkerCount(pcMarkers) {
-        result := ComCall(7, this, "ushort*", pcMarkers, "HRESULT")
+        pcMarkersMarshal := pcMarkers is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pcMarkersMarshal, pcMarkers, "HRESULT")
         return result
     }
 
@@ -149,7 +166,10 @@ class IWMHeaderInfo extends IUnknown{
     GetMarker(wIndex, pwszMarkerName, pcchMarkerNameLen, pcnsMarkerTime) {
         pwszMarkerName := pwszMarkerName is String ? StrPtr(pwszMarkerName) : pwszMarkerName
 
-        result := ComCall(8, this, "ushort", wIndex, "ptr", pwszMarkerName, "ushort*", pcchMarkerNameLen, "uint*", pcnsMarkerTime, "HRESULT")
+        pcchMarkerNameLenMarshal := pcchMarkerNameLen is VarRef ? "ushort*" : "ptr"
+        pcnsMarkerTimeMarshal := pcnsMarkerTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ushort", wIndex, "ptr", pwszMarkerName, pcchMarkerNameLenMarshal, pcchMarkerNameLen, pcnsMarkerTimeMarshal, pcnsMarkerTime, "HRESULT")
         return result
     }
 
@@ -185,7 +205,9 @@ class IWMHeaderInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getscriptcount
      */
     GetScriptCount(pcScripts) {
-        result := ComCall(11, this, "ushort*", pcScripts, "HRESULT")
+        pcScriptsMarshal := pcScripts is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pcScriptsMarshal, pcScripts, "HRESULT")
         return result
     }
 
@@ -204,7 +226,11 @@ class IWMHeaderInfo extends IUnknown{
         pwszType := pwszType is String ? StrPtr(pwszType) : pwszType
         pwszCommand := pwszCommand is String ? StrPtr(pwszCommand) : pwszCommand
 
-        result := ComCall(12, this, "ushort", wIndex, "ptr", pwszType, "ushort*", pcchTypeLen, "ptr", pwszCommand, "ushort*", pcchCommandLen, "uint*", pcnsScriptTime, "HRESULT")
+        pcchTypeLenMarshal := pcchTypeLen is VarRef ? "ushort*" : "ptr"
+        pcchCommandLenMarshal := pcchCommandLen is VarRef ? "ushort*" : "ptr"
+        pcnsScriptTimeMarshal := pcnsScriptTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ushort", wIndex, "ptr", pwszType, pcchTypeLenMarshal, pcchTypeLen, "ptr", pwszCommand, pcchCommandLenMarshal, pcchCommandLen, pcnsScriptTimeMarshal, pcnsScriptTime, "HRESULT")
         return result
     }
 

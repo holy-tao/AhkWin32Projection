@@ -50,7 +50,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermGPOApply(pVal) {
-        result := ComCall(7, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermGPORead(pVal) {
-        result := ComCall(8, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermGPOEdit(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -80,7 +86,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermGPOEditSecurityAndDelete(pVal) {
-        result := ComCall(10, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -90,7 +98,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermGPOCustom(pVal) {
-        result := ComCall(11, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -100,7 +110,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermWMIFilterEdit(pVal) {
-        result := ComCall(12, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -110,7 +122,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermWMIFilterFullControl(pVal) {
-        result := ComCall(13, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -120,7 +134,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermWMIFilterCustom(pVal) {
-        result := ComCall(14, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -130,7 +146,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermSOMLink(pVal) {
-        result := ComCall(15, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -140,7 +158,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermSOMLogging(pVal) {
-        result := ComCall(16, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -150,7 +170,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermSOMPlanning(pVal) {
-        result := ComCall(17, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -160,7 +182,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermSOMGPOCreate(pVal) {
-        result := ComCall(18, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -170,7 +194,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermSOMWMICreate(pVal) {
-        result := ComCall(19, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -180,7 +206,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PermSOMWMIFullControl(pVal) {
-        result := ComCall(20, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -190,7 +218,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPOPermissions(pVal) {
-        result := ComCall(21, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -200,7 +230,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPOEffectivePermissions(pVal) {
-        result := ComCall(22, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -210,7 +242,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPODisplayName(pVal) {
-        result := ComCall(23, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -220,7 +254,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPOWMIFilter(pVal) {
-        result := ComCall(24, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -230,7 +266,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPOID(pVal) {
-        result := ComCall(25, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -240,7 +278,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPOComputerExtensions(pVal) {
-        result := ComCall(26, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -250,7 +290,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPOUserExtensions(pVal) {
-        result := ComCall(27, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -260,7 +302,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertySOMLinks(pVal) {
-        result := ComCall(28, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -270,7 +314,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyGPODomain(pVal) {
-        result := ComCall(29, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -280,7 +326,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchPropertyBackupMostRecent(pVal) {
-        result := ComCall(30, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -290,7 +338,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchOpEquals(pVal) {
-        result := ComCall(31, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -300,7 +350,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchOpContains(pVal) {
-        result := ComCall(32, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -310,7 +362,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchOpNotContains(pVal) {
-        result := ComCall(33, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -320,7 +374,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SearchOpNotEquals(pVal) {
-        result := ComCall(34, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -330,7 +386,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UsePDC(pVal) {
-        result := ComCall(35, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -340,7 +398,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UseAnyDC(pVal) {
-        result := ComCall(36, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -350,7 +410,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DoNotUseW2KDC(pVal) {
-        result := ComCall(37, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -360,7 +422,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SOMSite(pVal) {
-        result := ComCall(38, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -370,7 +434,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SOMDomain(pVal) {
-        result := ComCall(39, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -380,7 +446,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SOMOU(pVal) {
-        result := ComCall(40, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -395,7 +463,9 @@ class IGPMConstants extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmconstants-get_securityflags
      */
     get_SecurityFlags(vbOwner, vbGroup, vbDACL, vbSACL, pVal) {
-        result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -405,7 +475,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DoNotValidateDC(pVal) {
-        result := ComCall(42, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -415,7 +487,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ReportHTML(pVal) {
-        result := ComCall(43, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -425,7 +499,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ReportXML(pVal) {
-        result := ComCall(44, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -435,7 +511,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RSOPModeUnknown(pVal) {
-        result := ComCall(45, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -445,7 +523,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RSOPModePlanning(pVal) {
-        result := ComCall(46, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -455,7 +535,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RSOPModeLogging(pVal) {
-        result := ComCall(47, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -465,7 +547,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryTypeUser(pVal) {
-        result := ComCall(48, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -475,7 +559,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryTypeComputer(pVal) {
-        result := ComCall(49, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(49, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -485,7 +571,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryTypeLocalGroup(pVal) {
-        result := ComCall(50, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -495,7 +583,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryTypeGlobalGroup(pVal) {
-        result := ComCall(51, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(51, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -505,7 +595,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryTypeUniversalGroup(pVal) {
-        result := ComCall(52, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -515,7 +607,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryTypeUNCPath(pVal) {
-        result := ComCall(53, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -525,7 +619,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryTypeUnknown(pVal) {
-        result := ComCall(54, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -535,7 +631,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DestinationOptionSameAsSource(pVal) {
-        result := ComCall(55, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(55, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -545,7 +643,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DestinationOptionNone(pVal) {
-        result := ComCall(56, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(56, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -555,7 +655,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DestinationOptionByRelativeName(pVal) {
-        result := ComCall(57, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(57, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -565,7 +667,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DestinationOptionSet(pVal) {
-        result := ComCall(58, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -575,7 +679,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MigrationTableOnly(pVal) {
-        result := ComCall(59, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(59, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -585,7 +691,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ProcessSecurity(pVal) {
-        result := ComCall(60, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(60, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -595,7 +703,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RsopLoggingNoComputer(pVal) {
-        result := ComCall(61, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(61, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -605,7 +715,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RsopLoggingNoUser(pVal) {
-        result := ComCall(62, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(62, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -615,7 +727,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RsopPlanningAssumeSlowLink(pVal) {
-        result := ComCall(63, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(63, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -626,7 +740,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RsopPlanningLoopbackOption(vbMerge, pVal) {
-        result := ComCall(64, this, "short", vbMerge, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, "short", vbMerge, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -636,7 +752,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RsopPlanningAssumeUserWQLFilterTrue(pVal) {
-        result := ComCall(65, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(65, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -646,7 +764,9 @@ class IGPMConstants extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RsopPlanningAssumeCompWQLFilterTrue(pVal) {
-        result := ComCall(66, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(66, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 }

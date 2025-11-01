@@ -45,7 +45,9 @@ class ID3D12Device1 extends ID3D12Device{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary
      */
     CreatePipelineLibrary(pLibraryBlob, BlobLength, riid, ppPipelineLibrary) {
-        result := ComCall(44, this, "ptr", pLibraryBlob, "ptr", BlobLength, "ptr", riid, "ptr*", ppPipelineLibrary, "HRESULT")
+        pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, "ptr", riid, "ptr*", ppPipelineLibrary, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class ID3D12Device1 extends ID3D12Device{
     SetEventOnMultipleFenceCompletion(ppFences, pFenceValues, NumFences, Flags, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(45, this, "ptr*", ppFences, "uint*", pFenceValues, "uint", NumFences, "int", Flags, "ptr", hEvent, "HRESULT")
+        pFenceValuesMarshal := pFenceValues is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(45, this, "ptr*", ppFences, pFenceValuesMarshal, pFenceValues, "uint", NumFences, "int", Flags, "ptr", hEvent, "HRESULT")
         return result
     }
 
@@ -75,7 +79,9 @@ class ID3D12Device1 extends ID3D12Device{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-setresidencypriority
      */
     SetResidencyPriority(NumObjects, ppObjects, pPriorities) {
-        result := ComCall(46, this, "uint", NumObjects, "ptr*", ppObjects, "int*", pPriorities, "HRESULT")
+        pPrioritiesMarshal := pPriorities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, "uint", NumObjects, "ptr*", ppObjects, pPrioritiesMarshal, pPriorities, "HRESULT")
         return result
     }
 }

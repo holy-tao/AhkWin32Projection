@@ -47,7 +47,9 @@ class ICommand extends IUnknown{
      * @returns {HRESULT} 
      */
     Execute(pUnkOuter, riid, pParams, pcRowsAffected, ppRowset) {
-        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", riid, "ptr", pParams, "ptr*", pcRowsAffected, "ptr*", ppRowset, "HRESULT")
+        pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", riid, "ptr", pParams, pcRowsAffectedMarshal, pcRowsAffected, "ptr*", ppRowset, "HRESULT")
         return result
     }
 

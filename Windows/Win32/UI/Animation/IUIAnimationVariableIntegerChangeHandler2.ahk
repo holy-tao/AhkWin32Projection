@@ -41,7 +41,10 @@ class IUIAnimationVariableIntegerChangeHandler2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariableintegerchangehandler2-onintegervaluechanged
      */
     OnIntegerValueChanged(storyboard, variable, newValue, previousValue, cDimension) {
-        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, "int*", newValue, "int*", previousValue, "uint", cDimension, "HRESULT")
+        newValueMarshal := newValue is VarRef ? "int*" : "ptr"
+        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, newValueMarshal, newValue, previousValueMarshal, previousValue, "uint", cDimension, "HRESULT")
         return result
     }
 }

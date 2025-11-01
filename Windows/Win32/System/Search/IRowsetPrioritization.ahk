@@ -63,7 +63,10 @@ class IRowsetPrioritization extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-getscopepriority
      */
     GetScopePriority(priority, scopeStatisticsEventFrequency) {
-        result := ComCall(4, this, "int*", priority, "uint*", scopeStatisticsEventFrequency, "HRESULT")
+        priorityMarshal := priority is VarRef ? "int*" : "ptr"
+        scopeStatisticsEventFrequencyMarshal := scopeStatisticsEventFrequency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, priorityMarshal, priority, scopeStatisticsEventFrequencyMarshal, scopeStatisticsEventFrequency, "HRESULT")
         return result
     }
 
@@ -76,7 +79,11 @@ class IRowsetPrioritization extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-getscopestatistics
      */
     GetScopeStatistics(indexedDocumentCount, oustandingAddCount, oustandingModifyCount) {
-        result := ComCall(5, this, "uint*", indexedDocumentCount, "uint*", oustandingAddCount, "uint*", oustandingModifyCount, "HRESULT")
+        indexedDocumentCountMarshal := indexedDocumentCount is VarRef ? "uint*" : "ptr"
+        oustandingAddCountMarshal := oustandingAddCount is VarRef ? "uint*" : "ptr"
+        oustandingModifyCountMarshal := oustandingModifyCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, indexedDocumentCountMarshal, indexedDocumentCount, oustandingAddCountMarshal, oustandingAddCount, oustandingModifyCountMarshal, oustandingModifyCount, "HRESULT")
         return result
     }
 }

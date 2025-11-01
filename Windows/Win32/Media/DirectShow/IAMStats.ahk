@@ -81,7 +81,9 @@ class IAMStats extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-get_count
      */
     get_Count(plCount) {
-        result := ComCall(8, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -99,7 +101,14 @@ class IAMStats extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-getvaluebyindex
      */
     GetValueByIndex(lIndex, szName, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
-        result := ComCall(9, this, "int", lIndex, "ptr", szName, "int*", lCount, "double*", dLast, "double*", dAverage, "double*", dStdDev, "double*", dMin, "double*", dMax, "HRESULT")
+        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
+        dLastMarshal := dLast is VarRef ? "double*" : "ptr"
+        dAverageMarshal := dAverage is VarRef ? "double*" : "ptr"
+        dStdDevMarshal := dStdDev is VarRef ? "double*" : "ptr"
+        dMinMarshal := dMin is VarRef ? "double*" : "ptr"
+        dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, "int", lIndex, "ptr", szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
         return result
     }
 
@@ -119,7 +128,15 @@ class IAMStats extends IDispatch{
     GetValueByName(szName, lIndex, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
 
-        result := ComCall(10, this, "ptr", szName, "int*", lIndex, "int*", lCount, "double*", dLast, "double*", dAverage, "double*", dStdDev, "double*", dMin, "double*", dMax, "HRESULT")
+        lIndexMarshal := lIndex is VarRef ? "int*" : "ptr"
+        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
+        dLastMarshal := dLast is VarRef ? "double*" : "ptr"
+        dAverageMarshal := dAverage is VarRef ? "double*" : "ptr"
+        dStdDevMarshal := dStdDev is VarRef ? "double*" : "ptr"
+        dMinMarshal := dMin is VarRef ? "double*" : "ptr"
+        dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, "ptr", szName, lIndexMarshal, lIndex, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
         return result
     }
 
@@ -134,7 +151,9 @@ class IAMStats extends IDispatch{
     GetIndex(szName, lCreate, plIndex) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
 
-        result := ComCall(11, this, "ptr", szName, "int", lCreate, "int*", plIndex, "HRESULT")
+        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", szName, "int", lCreate, plIndexMarshal, plIndex, "HRESULT")
         return result
     }
 

@@ -73,7 +73,9 @@ class IEnumWiaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwiaitem-next
      */
     Next(celt, ppIWiaItem, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppIWiaItem, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppIWiaItem, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -116,7 +118,9 @@ class IEnumWiaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwiaitem-getcount
      */
     GetCount(celt) {
-        result := ComCall(7, this, "uint*", celt, "HRESULT")
+        celtMarshal := celt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, celtMarshal, celt, "HRESULT")
         return result
     }
 }

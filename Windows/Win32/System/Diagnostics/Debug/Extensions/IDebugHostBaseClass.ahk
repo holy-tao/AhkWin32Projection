@@ -34,7 +34,9 @@ class IDebugHostBaseClass extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetOffset(offset) {
-        result := ComCall(10, this, "uint*", offset, "HRESULT")
+        offsetMarshal := offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, offsetMarshal, offset, "HRESULT")
         return result
     }
 }

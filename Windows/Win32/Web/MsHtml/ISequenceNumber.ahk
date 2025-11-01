@@ -35,7 +35,9 @@ class ISequenceNumber extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSequenceNumber(nCurrent, pnNew) {
-        result := ComCall(3, this, "int", nCurrent, "int*", pnNew, "HRESULT")
+        pnNewMarshal := pnNew is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", nCurrent, pnNewMarshal, pnNew, "HRESULT")
         return result
     }
 }

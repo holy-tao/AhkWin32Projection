@@ -40,7 +40,9 @@ class ISWbemSecurity extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ImpersonationLevel(iImpersonationLevel) {
-        result := ComCall(7, this, "int*", iImpersonationLevel, "HRESULT")
+        iImpersonationLevelMarshal := iImpersonationLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, iImpersonationLevelMarshal, iImpersonationLevel, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ISWbemSecurity extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AuthenticationLevel(iAuthenticationLevel) {
-        result := ComCall(9, this, "int*", iAuthenticationLevel, "HRESULT")
+        iAuthenticationLevelMarshal := iAuthenticationLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, iAuthenticationLevelMarshal, iAuthenticationLevel, "HRESULT")
         return result
     }
 

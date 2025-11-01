@@ -39,7 +39,10 @@ class IROTData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irotdata-getcomparisondata
      */
     GetComparisonData(pbData, cbMax, pcbData) {
-        result := ComCall(3, this, "char*", pbData, "uint", cbMax, "uint*", pcbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbDataMarshal, pbData, "uint", cbMax, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 }

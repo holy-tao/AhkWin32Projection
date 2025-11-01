@@ -37,7 +37,9 @@ class ITfThreadMgr2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr2-activate
      */
     Activate(ptid) {
-        result := ComCall(3, this, "uint*", ptid, "HRESULT")
+        ptidMarshal := ptid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, ptidMarshal, ptid, "HRESULT")
         return result
     }
 
@@ -154,7 +156,9 @@ class ITfThreadMgr2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr2-activateex
      */
     ActivateEx(ptid, dwFlags) {
-        result := ComCall(13, this, "uint*", ptid, "uint", dwFlags, "HRESULT")
+        ptidMarshal := ptid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, ptidMarshal, ptid, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -165,7 +169,9 @@ class ITfThreadMgr2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr2-getactiveflags
      */
     GetActiveFlags(lpdwFlags) {
-        result := ComCall(14, this, "uint*", lpdwFlags, "HRESULT")
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, lpdwFlagsMarshal, lpdwFlags, "HRESULT")
         return result
     }
 

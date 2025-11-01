@@ -47,7 +47,9 @@ class IFunctionInstanceCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-getcount
      */
     GetCount(pdwCount) {
-        result := ComCall(3, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IFunctionInstanceCollection extends IUnknown{
     Get(pszInstanceIdentity, pdwIndex, ppIFunctionInstance) {
         pszInstanceIdentity := pszInstanceIdentity is String ? StrPtr(pszInstanceIdentity) : pszInstanceIdentity
 
-        result := ComCall(4, this, "ptr", pszInstanceIdentity, "uint*", pdwIndex, "ptr*", ppIFunctionInstance, "HRESULT")
+        pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszInstanceIdentity, pdwIndexMarshal, pdwIndex, "ptr*", ppIFunctionInstance, "HRESULT")
         return result
     }
 

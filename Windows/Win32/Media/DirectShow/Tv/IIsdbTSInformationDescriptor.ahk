@@ -37,7 +37,9 @@ class IIsdbTSInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbTSInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IIsdbTSInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getremotecontrolkeyid
      */
     GetRemoteControlKeyId(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -82,7 +88,9 @@ class IIsdbTSInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(7, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -94,7 +102,9 @@ class IIsdbTSInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordtransmissiontypeinfo
      */
     GetRecordTransmissionTypeInfo(bRecordIndex, pbVal) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -106,7 +116,9 @@ class IIsdbTSInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordnumberofservices
      */
     GetRecordNumberOfServices(bRecordIndex, pbVal) {
-        result := ComCall(9, this, "char", bRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -119,7 +131,9 @@ class IIsdbTSInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordserviceidbyindex
      */
     GetRecordServiceIdByIndex(bRecordIndex, bServiceIndex, pdwVal) {
-        result := ComCall(10, this, "char", bRecordIndex, "char", bServiceIndex, "ushort*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, "char", bRecordIndex, "char", bServiceIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 }

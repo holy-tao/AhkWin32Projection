@@ -72,7 +72,9 @@ class IWMWriter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-getinputcount
      */
     GetInputCount(pcInputs) {
-        result := ComCall(6, this, "uint*", pcInputs, "HRESULT")
+        pcInputsMarshal := pcInputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcInputsMarshal, pcInputs, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IWMWriter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-getinputformatcount
      */
     GetInputFormatCount(dwInputNumber, pcFormats) {
-        result := ComCall(9, this, "uint", dwInputNumber, "uint*", pcFormats, "HRESULT")
+        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwInputNumber, pcFormatsMarshal, pcFormats, "HRESULT")
         return result
     }
 

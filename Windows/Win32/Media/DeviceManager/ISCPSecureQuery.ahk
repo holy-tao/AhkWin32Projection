@@ -41,7 +41,13 @@ class ISCPSecureQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands
      */
     GetDataDemands(pfuFlags, pdwMinRightsData, pdwMinExamineData, pdwMinDecideData, abMac) {
-        result := ComCall(3, this, "uint*", pfuFlags, "uint*", pdwMinRightsData, "uint*", pdwMinExamineData, "uint*", pdwMinDecideData, "char*", abMac, "HRESULT")
+        pfuFlagsMarshal := pfuFlags is VarRef ? "uint*" : "ptr"
+        pdwMinRightsDataMarshal := pdwMinRightsData is VarRef ? "uint*" : "ptr"
+        pdwMinExamineDataMarshal := pdwMinExamineData is VarRef ? "uint*" : "ptr"
+        pdwMinDecideDataMarshal := pdwMinDecideData is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pfuFlagsMarshal, pfuFlags, pdwMinRightsDataMarshal, pdwMinRightsData, pdwMinExamineDataMarshal, pdwMinExamineData, pdwMinDecideDataMarshal, pdwMinDecideData, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -58,7 +64,10 @@ class ISCPSecureQuery extends IUnknown{
     ExamineData(fuFlags, pwszExtension, pData, dwSize, abMac) {
         pwszExtension := pwszExtension is String ? StrPtr(pwszExtension) : pwszExtension
 
-        result := ComCall(4, this, "uint", fuFlags, "ptr", pwszExtension, "char*", pData, "uint", dwSize, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", fuFlags, "ptr", pwszExtension, pDataMarshal, pData, "uint", dwSize, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -77,7 +86,11 @@ class ISCPSecureQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-makedecision
      */
     MakeDecision(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, ppExchange, abMac) {
-        result := ComCall(5, this, "uint", fuFlags, "char*", pData, "uint", dwSize, "uint", dwAppSec, "char*", pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr*", ppExchange, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr*", ppExchange, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -95,7 +108,12 @@ class ISCPSecureQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-getrights
      */
     GetRights(pData, dwSize, pbSPSessionKey, dwSessionKeyLen, pStgGlobals, ppRights, pnRightsCount, abMac) {
-        result := ComCall(6, this, "char*", pData, "uint", dwSize, "char*", pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, "ptr*", ppRights, "uint*", pnRightsCount, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
+        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, "ptr*", ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
     }
 }

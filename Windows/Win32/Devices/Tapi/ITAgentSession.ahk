@@ -81,7 +81,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_state
      */
     get_State(pSessionState) {
-        result := ComCall(11, this, "int*", pSessionState, "HRESULT")
+        pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pSessionStateMarshal, pSessionState, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_sessionstarttime
      */
     get_SessionStartTime(pdateSessionStart) {
-        result := ComCall(12, this, "double*", pdateSessionStart, "HRESULT")
+        pdateSessionStartMarshal := pdateSessionStart is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, pdateSessionStartMarshal, pdateSessionStart, "HRESULT")
         return result
     }
 
@@ -103,7 +107,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_sessionduration
      */
     get_SessionDuration(plDuration) {
-        result := ComCall(13, this, "int*", plDuration, "HRESULT")
+        plDurationMarshal := plDuration is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plDurationMarshal, plDuration, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_numberofcalls
      */
     get_NumberOfCalls(plCalls) {
-        result := ComCall(14, this, "int*", plCalls, "HRESULT")
+        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plCallsMarshal, plCalls, "HRESULT")
         return result
     }
 
@@ -125,7 +133,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_totaltalktime
      */
     get_TotalTalkTime(plTalkTime) {
-        result := ComCall(15, this, "int*", plTalkTime, "HRESULT")
+        plTalkTimeMarshal := plTalkTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plTalkTimeMarshal, plTalkTime, "HRESULT")
         return result
     }
 
@@ -136,7 +146,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_averagetalktime
      */
     get_AverageTalkTime(plTalkTime) {
-        result := ComCall(16, this, "int*", plTalkTime, "HRESULT")
+        plTalkTimeMarshal := plTalkTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plTalkTimeMarshal, plTalkTime, "HRESULT")
         return result
     }
 
@@ -147,7 +159,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_totalcalltime
      */
     get_TotalCallTime(plCallTime) {
-        result := ComCall(17, this, "int*", plCallTime, "HRESULT")
+        plCallTimeMarshal := plCallTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plCallTimeMarshal, plCallTime, "HRESULT")
         return result
     }
 
@@ -158,7 +172,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_averagecalltime
      */
     get_AverageCallTime(plCallTime) {
-        result := ComCall(18, this, "int*", plCallTime, "HRESULT")
+        plCallTimeMarshal := plCallTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, plCallTimeMarshal, plCallTime, "HRESULT")
         return result
     }
 
@@ -169,7 +185,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_totalwrapuptime
      */
     get_TotalWrapUpTime(plWrapUpTime) {
-        result := ComCall(19, this, "int*", plWrapUpTime, "HRESULT")
+        plWrapUpTimeMarshal := plWrapUpTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plWrapUpTimeMarshal, plWrapUpTime, "HRESULT")
         return result
     }
 
@@ -180,7 +198,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_averagewrapuptime
      */
     get_AverageWrapUpTime(plWrapUpTime) {
-        result := ComCall(20, this, "int*", plWrapUpTime, "HRESULT")
+        plWrapUpTimeMarshal := plWrapUpTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plWrapUpTimeMarshal, plWrapUpTime, "HRESULT")
         return result
     }
 
@@ -202,7 +222,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_longesttimetoanswer
      */
     get_LongestTimeToAnswer(plAnswerTime) {
-        result := ComCall(22, this, "int*", plAnswerTime, "HRESULT")
+        plAnswerTimeMarshal := plAnswerTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, plAnswerTimeMarshal, plAnswerTime, "HRESULT")
         return result
     }
 
@@ -213,7 +235,9 @@ class ITAgentSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentsession-get_averagetimetoanswer
      */
     get_AverageTimeToAnswer(plAnswerTime) {
-        result := ComCall(23, this, "int*", plAnswerTime, "HRESULT")
+        plAnswerTimeMarshal := plAnswerTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, plAnswerTimeMarshal, plAnswerTime, "HRESULT")
         return result
     }
 }

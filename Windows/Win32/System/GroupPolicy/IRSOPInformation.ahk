@@ -52,7 +52,9 @@ class IRSOPInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-irsopinformation-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(4, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

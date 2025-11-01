@@ -84,7 +84,9 @@ class IDesktopWallpaper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathcount
      */
     GetMonitorDevicePathCount(count) {
-        result := ComCall(6, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -142,7 +144,9 @@ class IDesktopWallpaper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getposition
      */
     GetPosition(position) {
-        result := ComCall(11, this, "int*", position, "HRESULT")
+        positionMarshal := position is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, positionMarshal, position, "HRESULT")
         return result
     }
 
@@ -188,7 +192,10 @@ class IDesktopWallpaper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getslideshowoptions
      */
     GetSlideshowOptions(options, slideshowTick) {
-        result := ComCall(15, this, "int*", options, "uint*", slideshowTick, "HRESULT")
+        optionsMarshal := options is VarRef ? "int*" : "ptr"
+        slideshowTickMarshal := slideshowTick is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, optionsMarshal, options, slideshowTickMarshal, slideshowTick, "HRESULT")
         return result
     }
 
@@ -213,7 +220,9 @@ class IDesktopWallpaper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getstatus
      */
     GetStatus(state) {
-        result := ComCall(17, this, "int*", state, "HRESULT")
+        stateMarshal := state is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, stateMarshal, state, "HRESULT")
         return result
     }
 

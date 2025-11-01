@@ -45,7 +45,9 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
      * @returns {HRESULT} 
      */
     get_Constrained(pSetting) {
-        result := ComCall(12, this, "int*", pSetting, "HRESULT")
+        pSettingMarshal := pSetting is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pSettingMarshal, pSetting, "HRESULT")
         return result
     }
 

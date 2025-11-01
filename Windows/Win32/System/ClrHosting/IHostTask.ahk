@@ -73,7 +73,9 @@ class IHostTask extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPriority(pPriority) {
-        result := ComCall(7, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 

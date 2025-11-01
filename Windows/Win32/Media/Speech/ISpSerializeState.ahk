@@ -36,7 +36,9 @@ class ISpSerializeState extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSerializedState(ppbData, pulSize, dwReserved) {
-        result := ComCall(3, this, "ptr*", ppbData, "uint*", pulSize, "uint", dwReserved, "HRESULT")
+        pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", ppbData, pulSizeMarshal, pulSize, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ISpSerializeState extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSerializedState(pbData, ulSize, dwReserved) {
-        result := ComCall(4, this, "char*", pbData, "uint", ulSize, "uint", dwReserved, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbDataMarshal, pbData, "uint", ulSize, "uint", dwReserved, "HRESULT")
         return result
     }
 }

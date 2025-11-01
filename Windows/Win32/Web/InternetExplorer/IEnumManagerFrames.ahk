@@ -36,7 +36,9 @@ class IEnumManagerFrames extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, ppWindows, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppWindows, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppWindows, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class IEnumManagerFrames extends IUnknown{
      * @returns {HRESULT} 
      */
     Count(pcelt) {
-        result := ComCall(4, this, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 

@@ -48,7 +48,9 @@ class ISpRecoResult extends ISpPhrase{
      * @returns {HRESULT} 
      */
     GetAlternates(ulStartElement, cElements, ulRequestCount, ppPhrases, pcPhrasesReturned) {
-        result := ComCall(8, this, "uint", ulStartElement, "uint", cElements, "uint", ulRequestCount, "ptr*", ppPhrases, "uint*", pcPhrasesReturned, "HRESULT")
+        pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", ulStartElement, "uint", cElements, "uint", ulRequestCount, "ptr*", ppPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class ISpRecoResult extends ISpPhrase{
      * @returns {HRESULT} 
      */
     SpeakAudio(ulStartElement, cElements, dwFlags, pulStreamNumber) {
-        result := ComCall(10, this, "uint", ulStartElement, "uint", cElements, "uint", dwFlags, "uint*", pulStreamNumber, "HRESULT")
+        pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", ulStartElement, "uint", cElements, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
         return result
     }
 

@@ -192,7 +192,9 @@ class IFsrmSetting extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
      */
     GetActionRunLimitInterval(actionType, delayTimeMinutes) {
-        result := ComCall(19, this, "int", actionType, "int*", delayTimeMinutes, "HRESULT")
+        delayTimeMinutesMarshal := delayTimeMinutes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "int", actionType, delayTimeMinutesMarshal, delayTimeMinutes, "HRESULT")
         return result
     }
 }

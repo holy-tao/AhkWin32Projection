@@ -225,7 +225,9 @@ class IVdsLun extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-querymaxlunextendsize
      */
     QueryMaxLunExtendSize(pDriveIdArray, lNumberOfDrives, pullMaxBytesToBeAdded) {
-        result := ComCall(19, this, "ptr", pDriveIdArray, "int", lNumberOfDrives, "uint*", pullMaxBytesToBeAdded, "HRESULT")
+        pullMaxBytesToBeAddedMarshal := pullMaxBytesToBeAdded is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", pDriveIdArray, "int", lNumberOfDrives, pullMaxBytesToBeAddedMarshal, pullMaxBytesToBeAdded, "HRESULT")
         return result
     }
 }

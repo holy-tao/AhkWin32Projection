@@ -38,7 +38,9 @@ class IWMCodecInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecinfocount
      */
     GetCodecInfoCount(guidType, pcCodecs) {
-        result := ComCall(3, this, "ptr", guidType, "uint*", pcCodecs, "HRESULT")
+        pcCodecsMarshal := pcCodecs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", guidType, pcCodecsMarshal, pcCodecs, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IWMCodecInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecformatcount
      */
     GetCodecFormatCount(guidType, dwCodecIndex, pcFormat) {
-        result := ComCall(4, this, "ptr", guidType, "uint", dwCodecIndex, "uint*", pcFormat, "HRESULT")
+        pcFormatMarshal := pcFormat is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", guidType, "uint", dwCodecIndex, pcFormatMarshal, pcFormat, "HRESULT")
         return result
     }
 

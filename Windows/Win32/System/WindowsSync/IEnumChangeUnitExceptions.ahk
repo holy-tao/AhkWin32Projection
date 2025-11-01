@@ -39,7 +39,9 @@ class IEnumChangeUnitExceptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-next
      */
     Next(cExceptions, ppChangeUnitException, pcFetched) {
-        result := ComCall(3, this, "uint", cExceptions, "ptr*", ppChangeUnitException, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cExceptions, "ptr*", ppChangeUnitException, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

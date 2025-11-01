@@ -60,7 +60,9 @@ class IAssocHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandler-geticonlocation
      */
     GetIconLocation(ppszPath, pIndex) {
-        result := ComCall(5, this, "ptr", ppszPath, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", ppszPath, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 

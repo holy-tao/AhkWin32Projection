@@ -70,7 +70,9 @@ class ISmimeCapability extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapability-get_bitcount
      */
     get_BitCount(pValue) {
-        result := ComCall(9, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

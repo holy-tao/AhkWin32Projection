@@ -42,7 +42,9 @@ class IWMCodecStrings extends IUnknown{
     GetName(pmt, cchLength, szName, pcchLength) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", pmt, "uint", cchLength, "ptr", szName, "uint*", pcchLength, "HRESULT")
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pmt, "uint", cchLength, "ptr", szName, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IWMCodecStrings extends IUnknown{
     GetDescription(pmt, cchLength, szDescription, pcchLength) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
-        result := ComCall(4, this, "ptr", pmt, "uint", cchLength, "ptr", szDescription, "uint*", pcchLength, "HRESULT")
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pmt, "uint", cchLength, "ptr", szDescription, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 }

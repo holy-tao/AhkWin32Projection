@@ -41,7 +41,9 @@ class IMbnPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pintype
      */
     get_PinType(PinType) {
-        result := ComCall(3, this, "int*", PinType, "HRESULT")
+        PinTypeMarshal := PinType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, PinTypeMarshal, PinType, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IMbnPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinformat
      */
     get_PinFormat(PinFormat) {
-        result := ComCall(4, this, "int*", PinFormat, "HRESULT")
+        PinFormatMarshal := PinFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, PinFormatMarshal, PinFormat, "HRESULT")
         return result
     }
 
@@ -63,7 +67,9 @@ class IMbnPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinlengthmin
      */
     get_PinLengthMin(PinLengthMin) {
-        result := ComCall(5, this, "uint*", PinLengthMin, "HRESULT")
+        PinLengthMinMarshal := PinLengthMin is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, PinLengthMinMarshal, PinLengthMin, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class IMbnPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinlengthmax
      */
     get_PinLengthMax(PinLengthMax) {
-        result := ComCall(6, this, "uint*", PinLengthMax, "HRESULT")
+        PinLengthMaxMarshal := PinLengthMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, PinLengthMaxMarshal, PinLengthMax, "HRESULT")
         return result
     }
 
@@ -85,7 +93,9 @@ class IMbnPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpin-get_pinmode
      */
     get_PinMode(PinMode) {
-        result := ComCall(7, this, "int*", PinMode, "HRESULT")
+        PinModeMarshal := PinMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, PinModeMarshal, PinMode, "HRESULT")
         return result
     }
 
@@ -99,7 +109,9 @@ class IMbnPin extends IUnknown{
     Enable(pin, requestID) {
         pin := pin is String ? StrPtr(pin) : pin
 
-        result := ComCall(8, this, "ptr", pin, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pin, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -113,7 +125,9 @@ class IMbnPin extends IUnknown{
     Disable(pin, requestID) {
         pin := pin is String ? StrPtr(pin) : pin
 
-        result := ComCall(9, this, "ptr", pin, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pin, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -127,7 +141,9 @@ class IMbnPin extends IUnknown{
     Enter(pin, requestID) {
         pin := pin is String ? StrPtr(pin) : pin
 
-        result := ComCall(10, this, "ptr", pin, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pin, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -143,7 +159,9 @@ class IMbnPin extends IUnknown{
         pin := pin is String ? StrPtr(pin) : pin
         newPin := newPin is String ? StrPtr(newPin) : newPin
 
-        result := ComCall(11, this, "ptr", pin, "ptr", newPin, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pin, "ptr", newPin, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -159,7 +177,9 @@ class IMbnPin extends IUnknown{
         puk := puk is String ? StrPtr(puk) : puk
         newPin := newPin is String ? StrPtr(newPin) : newPin
 
-        result := ComCall(12, this, "ptr", puk, "ptr", newPin, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", puk, "ptr", newPin, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 

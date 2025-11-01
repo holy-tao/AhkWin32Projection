@@ -45,7 +45,9 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_tabIndex(p) {
-        result := ComCall(8, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -175,7 +177,9 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientHeight(p) {
-        result := ComCall(21, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -185,7 +189,9 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientWidth(p) {
-        result := ComCall(22, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -195,7 +201,9 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientTop(p) {
-        result := ComCall(23, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -205,7 +213,9 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientLeft(p) {
-        result := ComCall(24, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pMarshal, p, "HRESULT")
         return result
     }
 }

@@ -40,7 +40,9 @@ class IWMDRMWriter extends IUnknown{
     GenerateKeySeed(pwszKeySeed, pcwchLength) {
         pwszKeySeed := pwszKeySeed is String ? StrPtr(pwszKeySeed) : pwszKeySeed
 
-        result := ComCall(3, this, "ptr", pwszKeySeed, "uint*", pcwchLength, "HRESULT")
+        pcwchLengthMarshal := pcwchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszKeySeed, pcwchLengthMarshal, pcwchLength, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IWMDRMWriter extends IUnknown{
     GenerateKeyID(pwszKeyID, pcwchLength) {
         pwszKeyID := pwszKeyID is String ? StrPtr(pwszKeyID) : pwszKeyID
 
-        result := ComCall(4, this, "ptr", pwszKeyID, "uint*", pcwchLength, "HRESULT")
+        pcwchLengthMarshal := pcwchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszKeyID, pcwchLengthMarshal, pcwchLength, "HRESULT")
         return result
     }
 
@@ -71,7 +75,10 @@ class IWMDRMWriter extends IUnknown{
         pwszPrivKey := pwszPrivKey is String ? StrPtr(pwszPrivKey) : pwszPrivKey
         pwszPubKey := pwszPubKey is String ? StrPtr(pwszPubKey) : pwszPubKey
 
-        result := ComCall(5, this, "ptr", pwszPrivKey, "uint*", pcwchPrivKeyLength, "ptr", pwszPubKey, "uint*", pcwchPubKeyLength, "HRESULT")
+        pcwchPrivKeyLengthMarshal := pcwchPrivKeyLength is VarRef ? "uint*" : "ptr"
+        pcwchPubKeyLengthMarshal := pcwchPubKeyLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwszPrivKey, pcwchPrivKeyLengthMarshal, pcwchPrivKeyLength, "ptr", pwszPubKey, pcwchPubKeyLengthMarshal, pcwchPubKeyLength, "HRESULT")
         return result
     }
 
@@ -88,7 +95,9 @@ class IWMDRMWriter extends IUnknown{
     SetDRMAttribute(wStreamNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, "int", Type, "char*", pValue, "ushort", cbLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 }

@@ -47,7 +47,9 @@ class IMFMediaSource extends IMFMediaEventGenerator{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasource-getcharacteristics
      */
     GetCharacteristics(pdwCharacteristics) {
-        result := ComCall(7, this, "uint*", pdwCharacteristics, "HRESULT")
+        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
         return result
     }
 

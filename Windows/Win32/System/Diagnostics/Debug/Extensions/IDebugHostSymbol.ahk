@@ -58,7 +58,9 @@ class IDebugHostSymbol extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolKind(kind) {
-        result := ComCall(5, this, "int*", kind, "HRESULT")
+        kindMarshal := kind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, kindMarshal, kind, "HRESULT")
         return result
     }
 
@@ -100,7 +102,9 @@ class IDebugHostSymbol extends IUnknown{
      * @returns {HRESULT} 
      */
     CompareAgainst(pComparisonSymbol, comparisonFlags, pMatches) {
-        result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, "int*", pMatches, "HRESULT")
+        pMatchesMarshal := pMatches is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, pMatchesMarshal, pMatches, "HRESULT")
         return result
     }
 }

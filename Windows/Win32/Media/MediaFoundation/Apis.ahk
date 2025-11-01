@@ -10560,7 +10560,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static DXVA2CreateDirect3DDeviceManager9(pResetToken, ppDeviceManager) {
-        result := DllCall("dxva2.dll\DXVA2CreateDirect3DDeviceManager9", "uint*", pResetToken, "ptr*", ppDeviceManager, "int")
+        pResetTokenMarshal := pResetToken is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dxva2.dll\DXVA2CreateDirect3DDeviceManager9", pResetTokenMarshal, pResetToken, "ptr*", ppDeviceManager, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10637,7 +10639,9 @@ class MediaFoundation {
     static OPMGetVideoOutputsFromHMONITOR(hMonitor, vos, pulNumVideoOutputs, pppOPMVideoOutputArray) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
-        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", hMonitor, "int", vos, "uint*", pulNumVideoOutputs, "ptr*", pppOPMVideoOutputArray, "int")
+        pulNumVideoOutputsMarshal := pulNumVideoOutputs is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", hMonitor, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, "ptr*", pppOPMVideoOutputArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10727,7 +10731,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static OPMGetVideoOutputsFromIDirect3DDevice9Object(pDirect3DDevice9, vos, pulNumVideoOutputs, pppOPMVideoOutputArray) {
-        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromIDirect3DDevice9Object", "ptr", pDirect3DDevice9, "int", vos, "uint*", pulNumVideoOutputs, "ptr*", pppOPMVideoOutputArray, "int")
+        pulNumVideoOutputsMarshal := pulNumVideoOutputs is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromIDirect3DDevice9Object", "ptr", pDirect3DDevice9, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, "ptr*", pppOPMVideoOutputArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11294,7 +11300,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFSerializePresentationDescriptor(pPD, pcbData, ppbData) {
-        result := DllCall("MFPlat.dll\MFSerializePresentationDescriptor", "ptr", pPD, "uint*", pcbData, "ptr*", ppbData, "int")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFSerializePresentationDescriptor", "ptr", pPD, pcbDataMarshal, pcbData, "ptr*", ppbData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11329,7 +11337,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFDeserializePresentationDescriptor(cbData, pbData, ppPD) {
-        result := DllCall("MFPlat.dll\MFDeserializePresentationDescriptor", "uint", cbData, "char*", pbData, "ptr*", ppPD, "int")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFDeserializePresentationDescriptor", "uint", cbData, pbDataMarshal, pbData, "ptr*", ppPD, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12509,7 +12519,9 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFEnumDeviceSources(pAttributes, pppSourceActivate, pcSourceActivate) {
-        result := DllCall("MF.dll\MFEnumDeviceSources", "ptr", pAttributes, "ptr*", pppSourceActivate, "uint*", pcSourceActivate, "int")
+        pcSourceActivateMarshal := pcSourceActivate is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MF.dll\MFEnumDeviceSources", "ptr", pAttributes, "ptr*", pppSourceActivate, pcSourceActivateMarshal, pcSourceActivate, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13922,7 +13934,9 @@ class MediaFoundation {
     static MFPutWaitingWorkItem(hEvent, Priority, pResult, pKey) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", "ptr", hEvent, "int", Priority, "ptr", pResult, "uint*", pKey, "int")
+        pKeyMarshal := pKey is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", "ptr", hEvent, "int", Priority, "ptr", pResult, pKeyMarshal, pKey, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13988,7 +14002,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFAllocateSerialWorkQueue(dwWorkQueue, pdwWorkQueue) {
-        result := DllCall("MFPlat.dll\MFAllocateSerialWorkQueue", "uint", dwWorkQueue, "uint*", pdwWorkQueue, "int")
+        pdwWorkQueueMarshal := pdwWorkQueue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFAllocateSerialWorkQueue", "uint", dwWorkQueue, pdwWorkQueueMarshal, pdwWorkQueue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14023,7 +14039,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFScheduleWorkItemEx(pResult, Timeout, pKey) {
-        result := DllCall("MFPlat.dll\MFScheduleWorkItemEx", "ptr", pResult, "int64", Timeout, "uint*", pKey, "int")
+        pKeyMarshal := pKey is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFScheduleWorkItemEx", "ptr", pResult, "int64", Timeout, pKeyMarshal, pKey, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14059,7 +14077,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFScheduleWorkItem(pCallback, pState, Timeout, pKey) {
-        result := DllCall("MFPlat.dll\MFScheduleWorkItem", "ptr", pCallback, "ptr", pState, "int64", Timeout, "uint*", pKey, "int")
+        pKeyMarshal := pKey is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFScheduleWorkItem", "ptr", pCallback, "ptr", pState, "int64", Timeout, pKeyMarshal, pKey, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14108,7 +14128,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFGetTimerPeriodicity(Periodicity) {
-        result := DllCall("MFPlat.dll\MFGetTimerPeriodicity", "uint*", Periodicity, "int")
+        PeriodicityMarshal := Periodicity is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFGetTimerPeriodicity", PeriodicityMarshal, Periodicity, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14143,7 +14165,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFAddPeriodicCallback(Callback, pContext, pdwKey) {
-        result := DllCall("MFPlat.dll\MFAddPeriodicCallback", "ptr", Callback, "ptr", pContext, "uint*", pdwKey, "int")
+        pdwKeyMarshal := pdwKey is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFAddPeriodicCallback", "ptr", Callback, "ptr", pContext, pdwKeyMarshal, pdwKey, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14280,7 +14304,9 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFAllocateWorkQueueEx(WorkQueueType, pdwWorkQueue) {
-        result := DllCall("MFPlat.dll\MFAllocateWorkQueueEx", "int", WorkQueueType, "uint*", pdwWorkQueue, "int")
+        pdwWorkQueueMarshal := pdwWorkQueue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFAllocateWorkQueueEx", "int", WorkQueueType, pdwWorkQueueMarshal, pdwWorkQueue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14338,7 +14364,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFAllocateWorkQueue(pdwWorkQueue) {
-        result := DllCall("MFPlat.dll\MFAllocateWorkQueue", "uint*", pdwWorkQueue, "int")
+        pdwWorkQueueMarshal := pdwWorkQueue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFAllocateWorkQueue", pdwWorkQueueMarshal, pdwWorkQueue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14481,7 +14509,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFEndRegisterWorkQueueWithMMCSS(pResult, pdwTaskId) {
-        result := DllCall("MFPlat.dll\MFEndRegisterWorkQueueWithMMCSS", "ptr", pResult, "uint*", pdwTaskId, "int")
+        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFEndRegisterWorkQueueWithMMCSS", "ptr", pResult, pdwTaskIdMarshal, pdwTaskId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14597,7 +14627,9 @@ class MediaFoundation {
     static MFGetWorkQueueMMCSSClass(dwWorkQueueId, pwszClass, pcchClass) {
         pwszClass := pwszClass is String ? StrPtr(pwszClass) : pwszClass
 
-        result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSClass", "uint", dwWorkQueueId, "ptr", pwszClass, "uint*", pcchClass, "int")
+        pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSClass", "uint", dwWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14631,7 +14663,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFGetWorkQueueMMCSSTaskId(dwWorkQueueId, pdwTaskId) {
-        result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSTaskId", "uint", dwWorkQueueId, "uint*", pdwTaskId, "int")
+        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSTaskId", "uint", dwWorkQueueId, pdwTaskIdMarshal, pdwTaskId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14650,7 +14684,9 @@ class MediaFoundation {
     static MFRegisterPlatformWithMMCSS(wszClass, pdwTaskId, lPriority) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := DllCall("MFPlat.dll\MFRegisterPlatformWithMMCSS", "ptr", wszClass, "uint*", pdwTaskId, "int", lPriority, "int")
+        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFRegisterPlatformWithMMCSS", "ptr", wszClass, pdwTaskIdMarshal, pdwTaskId, "int", lPriority, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14686,7 +14722,10 @@ class MediaFoundation {
     static MFLockSharedWorkQueue(wszClass, BasePriority, pdwTaskId, pID) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := DllCall("MFPlat.dll\MFLockSharedWorkQueue", "ptr", wszClass, "int", BasePriority, "uint*", pdwTaskId, "uint*", pID, "int")
+        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
+        pIDMarshal := pID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFLockSharedWorkQueue", "ptr", wszClass, "int", BasePriority, pdwTaskIdMarshal, pdwTaskId, pIDMarshal, pID, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14702,7 +14741,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFGetWorkQueueMMCSSPriority(dwWorkQueueId, lPriority) {
-        result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSPriority", "uint", dwWorkQueueId, "int*", lPriority, "int")
+        lPriorityMarshal := lPriority is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSPriority", "uint", dwWorkQueueId, lPriorityMarshal, lPriority, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15123,7 +15164,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFLockDXGIDeviceManager(pResetToken, ppManager) {
-        result := DllCall("MFPlat.dll\MFLockDXGIDeviceManager", "uint*", pResetToken, "ptr*", ppManager, "int")
+        pResetTokenMarshal := pResetToken is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFLockDXGIDeviceManager", pResetTokenMarshal, pResetToken, "ptr*", ppManager, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15277,7 +15320,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFCreateDXGIDeviceManager(resetToken, ppDeviceManager) {
-        result := DllCall("MFPlat.dll\MFCreateDXGIDeviceManager", "uint*", resetToken, "ptr*", ppDeviceManager, "int")
+        resetTokenMarshal := resetToken is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateDXGIDeviceManager", resetTokenMarshal, resetToken, "ptr*", ppDeviceManager, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15291,7 +15336,9 @@ class MediaFoundation {
      * @returns {HRESULT} 
      */
     static MFGetDXGIDeviceManageMode(pDeviceManager, mode) {
-        result := DllCall("MFPlat.DLL\MFGetDXGIDeviceManageMode", "ptr", pDeviceManager, "int*", mode, "int")
+        modeMarshal := mode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MFPlat.DLL\MFGetDXGIDeviceManageMode", "ptr", pDeviceManager, modeMarshal, mode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15655,7 +15702,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFGetAttributesAsBlobSize(pAttributes, pcbBufSize) {
-        result := DllCall("MFPlat.dll\MFGetAttributesAsBlobSize", "ptr", pAttributes, "uint*", pcbBufSize, "int")
+        pcbBufSizeMarshal := pcbBufSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFGetAttributesAsBlobSize", "ptr", pAttributes, pcbBufSizeMarshal, pcbBufSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16005,7 +16054,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFTEnum(guidCategory, Flags, pInputType, pOutputType, pAttributes, ppclsidMFT, pcMFTs) {
-        result := DllCall("MFPlat.dll\MFTEnum", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr*", ppclsidMFT, "uint*", pcMFTs, "int")
+        pcMFTsMarshal := pcMFTs is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFTEnum", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr*", ppclsidMFT, pcMFTsMarshal, pcMFTs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16029,7 +16080,9 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFTEnumEx(guidCategory, Flags, pInputType, pOutputType, pppMFTActivate, pnumMFTActivate) {
-        result := DllCall("MFPlat.dll\MFTEnumEx", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr*", pppMFTActivate, "uint*", pnumMFTActivate, "int")
+        pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFTEnumEx", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr*", pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16072,7 +16125,9 @@ class MediaFoundation {
      * @since windows10.0.10240
      */
     static MFTEnum2(guidCategory, Flags, pInputType, pOutputType, pAttributes, pppMFTActivate, pnumMFTActivate) {
-        result := DllCall("MFPlat.dll\MFTEnum2", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr*", pppMFTActivate, "uint*", pnumMFTActivate, "int")
+        pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFTEnum2", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr*", pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16095,7 +16150,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFTGetInfo(clsidMFT, pszName, ppInputTypes, pcInputTypes, ppOutputTypes, pcOutputTypes, ppAttributes) {
-        result := DllCall("MFPlat.dll\MFTGetInfo", "ptr", clsidMFT, "ptr", pszName, "ptr*", ppInputTypes, "uint*", pcInputTypes, "ptr*", ppOutputTypes, "uint*", pcOutputTypes, "ptr*", ppAttributes, "int")
+        pcInputTypesMarshal := pcInputTypes is VarRef ? "uint*" : "ptr"
+        pcOutputTypesMarshal := pcOutputTypes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFTGetInfo", "ptr", clsidMFT, "ptr", pszName, "ptr*", ppInputTypes, pcInputTypesMarshal, pcInputTypes, "ptr*", ppOutputTypes, pcOutputTypesMarshal, pcOutputTypes, "ptr*", ppAttributes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16133,7 +16191,9 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFGetMFTMerit(pMFT, cbVerifier, verifier, merit) {
-        result := DllCall("MFPlat.dll\MFGetMFTMerit", "ptr", pMFT, "uint", cbVerifier, "ptr", verifier, "uint*", merit, "int")
+        meritMarshal := merit is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFGetMFTMerit", "ptr", pMFT, "uint", cbVerifier, "ptr", verifier, meritMarshal, merit, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16451,7 +16511,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateMFVideoFormatFromMFMediaType(pMFType, ppMFVF, pcbSize) {
-        result := DllCall("MFPlat.dll\MFCreateMFVideoFormatFromMFMediaType", "ptr", pMFType, "ptr*", ppMFVF, "uint*", pcbSize, "int")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateMFVideoFormatFromMFMediaType", "ptr", pMFType, "ptr*", ppMFVF, pcbSizeMarshal, pcbSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16487,7 +16549,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateWaveFormatExFromMFMediaType(pMFType, ppWF, pcbSize, Flags) {
-        result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, "ptr*", ppWF, "uint*", pcbSize, "uint", Flags, "int")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, "ptr*", ppWF, pcbSizeMarshal, pcbSize, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16662,7 +16726,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCalculateBitmapImageSize(pBMIH, cbBufSize, pcbImageSize, pbKnown) {
-        result := DllCall("MFPlat.dll\MFCalculateBitmapImageSize", "ptr", pBMIH, "uint", cbBufSize, "uint*", pcbImageSize, "ptr", pbKnown, "int")
+        pcbImageSizeMarshal := pcbImageSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCalculateBitmapImageSize", "ptr", pBMIH, "uint", cbBufSize, pcbImageSizeMarshal, pcbImageSize, "ptr", pbKnown, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16698,7 +16764,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCalculateImageSize(guidSubtype, unWidth, unHeight, pcbImageSize) {
-        result := DllCall("MFPlat.dll\MFCalculateImageSize", "ptr", guidSubtype, "uint", unWidth, "uint", unHeight, "uint*", pcbImageSize, "int")
+        pcbImageSizeMarshal := pcbImageSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCalculateImageSize", "ptr", guidSubtype, "uint", unWidth, "uint", unHeight, pcbImageSizeMarshal, pcbImageSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16715,7 +16783,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFFrameRateToAverageTimePerFrame(unNumerator, unDenominator, punAverageTimePerFrame) {
-        result := DllCall("MFPlat.dll\MFFrameRateToAverageTimePerFrame", "uint", unNumerator, "uint", unDenominator, "uint*", punAverageTimePerFrame, "int")
+        punAverageTimePerFrameMarshal := punAverageTimePerFrame is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFFrameRateToAverageTimePerFrame", "uint", unNumerator, "uint", unDenominator, punAverageTimePerFrameMarshal, punAverageTimePerFrame, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16750,7 +16820,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFAverageTimePerFrameToFrameRate(unAverageTimePerFrame, punNumerator, punDenominator) {
-        result := DllCall("MFPlat.dll\MFAverageTimePerFrameToFrameRate", "uint", unAverageTimePerFrame, "uint*", punNumerator, "uint*", punDenominator, "int")
+        punNumeratorMarshal := punNumerator is VarRef ? "uint*" : "ptr"
+        punDenominatorMarshal := punDenominator is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFAverageTimePerFrameToFrameRate", "uint", unAverageTimePerFrame, punNumeratorMarshal, punNumerator, punDenominatorMarshal, punDenominator, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16993,7 +17066,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFGetStrideForBitmapInfoHeader(format, dwWidth, pStride) {
-        result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", "uint", format, "uint", dwWidth, "int*", pStride, "int")
+        pStrideMarshal := pStride is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", "uint", format, "uint", dwWidth, pStrideMarshal, pStride, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17126,7 +17201,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFGetPlaneSize(format, dwWidth, dwHeight, pdwPlaneSize) {
-        result := DllCall("EVR.dll\MFGetPlaneSize", "uint", format, "uint", dwWidth, "uint", dwHeight, "uint*", pdwPlaneSize, "int")
+        pdwPlaneSizeMarshal := pdwPlaneSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("EVR.dll\MFGetPlaneSize", "uint", format, "uint", dwWidth, "uint", dwHeight, pdwPlaneSizeMarshal, pdwPlaneSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17209,7 +17286,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateMediaTypeFromRepresentation(guidRepresentation, pvRepresentation, ppIMediaType) {
-        result := DllCall("MFPlat.dll\MFCreateMediaTypeFromRepresentation", "ptr", guidRepresentation, "ptr", pvRepresentation, "ptr*", ppIMediaType, "int")
+        pvRepresentationMarshal := pvRepresentation is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateMediaTypeFromRepresentation", "ptr", guidRepresentation, pvRepresentationMarshal, pvRepresentation, "ptr*", ppIMediaType, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17287,7 +17366,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFConvertColorInfoToDXVA(pdwToDXVA, pFromFormat) {
-        result := DllCall("MFPlat.dll\MFConvertColorInfoToDXVA", "uint*", pdwToDXVA, "ptr", pFromFormat, "int")
+        pdwToDXVAMarshal := pdwToDXVA is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFConvertColorInfoToDXVA", pdwToDXVAMarshal, pdwToDXVA, "ptr", pFromFormat, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17323,7 +17404,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCopyImage(pDest, lDestStride, pSrc, lSrcStride, dwWidthInBytes, dwLines) {
-        result := DllCall("MFPlat.dll\MFCopyImage", "char*", pDest, "int", lDestStride, "char*", pSrc, "int", lSrcStride, "uint", dwWidthInBytes, "uint", dwLines, "int")
+        pDestMarshal := pDest is VarRef ? "char*" : "ptr"
+        pSrcMarshal := pSrc is VarRef ? "char*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCopyImage", pDestMarshal, pDest, "int", lDestStride, pSrcMarshal, pSrc, "int", lSrcStride, "uint", dwWidthInBytes, "uint", dwLines, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17340,7 +17424,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFConvertFromFP16Array(pDest, pSrc, dwCount) {
-        result := DllCall("MFPlat.dll\MFConvertFromFP16Array", "float*", pDest, "ushort*", pSrc, "uint", dwCount, "int")
+        pDestMarshal := pDest is VarRef ? "float*" : "ptr"
+        pSrcMarshal := pSrc is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFConvertFromFP16Array", pDestMarshal, pDest, pSrcMarshal, pSrc, "uint", dwCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17357,7 +17444,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFConvertToFP16Array(pDest, pSrc, dwCount) {
-        result := DllCall("MFPlat.dll\MFConvertToFP16Array", "ushort*", pDest, "float*", pSrc, "uint", dwCount, "int")
+        pDestMarshal := pDest is VarRef ? "ushort*" : "ptr"
+        pSrcMarshal := pSrc is VarRef ? "float*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFConvertToFP16Array", pDestMarshal, pDest, pSrcMarshal, pSrc, "uint", dwCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17494,7 +17584,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFHeapFree(pv) {
-        DllCall("MFPlat.dll\MFHeapFree", "ptr", pv)
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        DllCall("MFPlat.dll\MFHeapFree", pvMarshal, pv)
     }
 
     /**
@@ -17557,7 +17649,9 @@ class MediaFoundation {
      * @since windows10.0.19041
      */
     static MFSplitSample(pSample, pOutputSamples, dwOutputSampleMaxCount, pdwOutputSampleCount) {
-        result := DllCall("MFPlat.dll\MFSplitSample", "ptr", pSample, "ptr*", pOutputSamples, "uint", dwOutputSampleMaxCount, "uint*", pdwOutputSampleCount, "int")
+        pdwOutputSampleCountMarshal := pdwOutputSampleCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFSplitSample", "ptr", pSample, "ptr*", pOutputSamples, "uint", dwOutputSampleMaxCount, pdwOutputSampleCountMarshal, pdwOutputSampleCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17996,7 +18090,9 @@ class MediaFoundation {
      * @returns {HRESULT} 
      */
     static OPMXboxGetHDCPStatus(pHDCPStatus) {
-        result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatus", "int*", pHDCPStatus, "int")
+        pHDCPStatusMarshal := pHDCPStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatus", pHDCPStatusMarshal, pHDCPStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18010,7 +18106,10 @@ class MediaFoundation {
      * @returns {HRESULT} 
      */
     static OPMXboxGetHDCPStatusAndType(pHDCPStatus, pHDCPType) {
-        result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatusAndType", "int*", pHDCPStatus, "int*", pHDCPType, "int")
+        pHDCPStatusMarshal := pHDCPStatus is VarRef ? "int*" : "ptr"
+        pHDCPTypeMarshal := pHDCPType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OPMXbox.dll\OPMXboxGetHDCPStatusAndType", pHDCPStatusMarshal, pHDCPStatus, pHDCPTypeMarshal, pHDCPType, "int")
         if(result != 0)
             throw OSError(result)
 

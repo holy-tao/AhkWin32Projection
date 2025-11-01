@@ -54,9 +54,11 @@ class EventLog {
     static EvtOpenSession(LoginClass, Login) {
         static Timeout := 0, Flags := 0 ;Reserved parameters must always be NULL
 
+        LoginMarshal := Login is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtOpenSession", "int", LoginClass, "ptr", Login, "uint", Timeout, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtOpenSession", "int", LoginClass, LoginMarshal, Login, "uint", Timeout, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -199,7 +201,9 @@ class EventLog {
     static EvtGetExtendedStatus(BufferSize, Buffer, BufferUsed) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "uint")
+        BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer, BufferUsedMarshal, BufferUsed, "uint")
         return result
     }
 
@@ -214,9 +218,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtQuery(Session, Path, Query, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         Path := Path is String ? StrPtr(Path) : Path
         Query := Query is String ? StrPtr(Query) : Query
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -271,9 +275,12 @@ class EventLog {
     static EvtNext(ResultSet, EventsSize, Events, Timeout, Flags, Returned) {
         ResultSet := ResultSet is Win32Handle ? NumGet(ResultSet, "ptr") : ResultSet
 
+        EventsMarshal := Events is VarRef ? "ptr*" : "ptr"
+        ReturnedMarshal := Returned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtNext", "ptr", ResultSet, "uint", EventsSize, "ptr*", Events, "uint", Timeout, "uint", Flags, "uint*", Returned, "int")
+        result := DllCall("wevtapi.dll\EvtNext", "ptr", ResultSet, "uint", EventsSize, EventsMarshal, Events, "uint", Timeout, "uint", Flags, ReturnedMarshal, Returned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -349,15 +356,17 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, Context, Callback, Flags) {
-        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
-        Query := Query is String ? StrPtr(Query) : Query
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         SignalEvent := SignalEvent is Win32Handle ? NumGet(SignalEvent, "ptr") : SignalEvent
+        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
+        Query := Query is String ? StrPtr(Query) : Query
         Bookmark := Bookmark is Win32Handle ? NumGet(Bookmark, "ptr") : Bookmark
+
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, "ptr", Context, "ptr", Callback, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, ContextMarshal, Context, "ptr", Callback, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -437,9 +446,12 @@ class EventLog {
         Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
         Fragment := Fragment is Win32Handle ? NumGet(Fragment, "ptr") : Fragment
 
+        BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
+        PropertyCountMarshal := PropertyCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtRender", "ptr", Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "uint*", PropertyCount, "int")
+        result := DllCall("wevtapi.dll\EvtRender", "ptr", Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -495,13 +507,15 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values, Flags, BufferSize, Buffer, BufferUsed) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
         PublisherMetadata := PublisherMetadata is Win32Handle ? NumGet(PublisherMetadata, "ptr") : PublisherMetadata
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer, BufferUsedMarshal, BufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -518,8 +532,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenLog(Session, Path, Flags) {
-        Path := Path is String ? StrPtr(Path) : Path
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
+        Path := Path is String ? StrPtr(Path) : Path
 
         A_LastError := 0
 
@@ -573,9 +587,11 @@ class EventLog {
     static EvtGetLogInfo(Log, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         Log := Log is Win32Handle ? NumGet(Log, "ptr") : Log
 
+        PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetLogInfo", "ptr", Log, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetLogInfo", "ptr", Log, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -622,9 +638,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtClearLog(Session, ChannelPath, TargetFilePath, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
         TargetFilePath := TargetFilePath is String ? StrPtr(TargetFilePath) : TargetFilePath
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -676,10 +692,10 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtExportLog(Session, Path, Query, TargetFilePath, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         Path := Path is String ? StrPtr(Path) : Path
         Query := Query is String ? StrPtr(Query) : Query
         TargetFilePath := TargetFilePath is String ? StrPtr(TargetFilePath) : TargetFilePath
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -730,8 +746,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtArchiveExportedLog(Session, LogFilePath, Locale, Flags) {
-        LogFilePath := LogFilePath is String ? StrPtr(LogFilePath) : LogFilePath
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
+        LogFilePath := LogFilePath is String ? StrPtr(LogFilePath) : LogFilePath
 
         A_LastError := 0
 
@@ -802,12 +818,14 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtNextChannelPath(ChannelEnum, ChannelPathBufferSize, ChannelPathBuffer, ChannelPathBufferUsed) {
-        ChannelPathBuffer := ChannelPathBuffer is String ? StrPtr(ChannelPathBuffer) : ChannelPathBuffer
         ChannelEnum := ChannelEnum is Win32Handle ? NumGet(ChannelEnum, "ptr") : ChannelEnum
+        ChannelPathBuffer := ChannelPathBuffer is String ? StrPtr(ChannelPathBuffer) : ChannelPathBuffer
+
+        ChannelPathBufferUsedMarshal := ChannelPathBufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtNextChannelPath", "ptr", ChannelEnum, "uint", ChannelPathBufferSize, "ptr", ChannelPathBuffer, "uint*", ChannelPathBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtNextChannelPath", "ptr", ChannelEnum, "uint", ChannelPathBufferSize, "ptr", ChannelPathBuffer, ChannelPathBufferUsedMarshal, ChannelPathBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -824,8 +842,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenChannelConfig(Session, ChannelPath, Flags) {
-        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
+        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
 
         A_LastError := 0
 
@@ -982,9 +1000,11 @@ class EventLog {
     static EvtGetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         ChannelConfig := ChannelConfig is Win32Handle ? NumGet(ChannelConfig, "ptr") : ChannelConfig
 
+        PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1051,12 +1071,14 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtNextPublisherId(PublisherEnum, PublisherIdBufferSize, PublisherIdBuffer, PublisherIdBufferUsed) {
-        PublisherIdBuffer := PublisherIdBuffer is String ? StrPtr(PublisherIdBuffer) : PublisherIdBuffer
         PublisherEnum := PublisherEnum is Win32Handle ? NumGet(PublisherEnum, "ptr") : PublisherEnum
+        PublisherIdBuffer := PublisherIdBuffer is String ? StrPtr(PublisherIdBuffer) : PublisherIdBuffer
+
+        PublisherIdBufferUsedMarshal := PublisherIdBufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtNextPublisherId", "ptr", PublisherEnum, "uint", PublisherIdBufferSize, "ptr", PublisherIdBuffer, "uint*", PublisherIdBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtNextPublisherId", "ptr", PublisherEnum, "uint", PublisherIdBufferSize, "ptr", PublisherIdBuffer, PublisherIdBufferUsedMarshal, PublisherIdBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1075,9 +1097,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenPublisherMetadata(Session, PublisherId, LogFilePath, Locale, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         PublisherId := PublisherId is String ? StrPtr(PublisherId) : PublisherId
         LogFilePath := LogFilePath is String ? StrPtr(LogFilePath) : LogFilePath
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -1132,9 +1154,11 @@ class EventLog {
     static EvtGetPublisherMetadataProperty(PublisherMetadata, PropertyId, Flags, PublisherMetadataPropertyBufferSize, PublisherMetadataPropertyBuffer, PublisherMetadataPropertyBufferUsed) {
         PublisherMetadata := PublisherMetadata is Win32Handle ? NumGet(PublisherMetadata, "ptr") : PublisherMetadata
 
+        PublisherMetadataPropertyBufferUsedMarshal := PublisherMetadataPropertyBufferUsed is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetPublisherMetadataProperty", "ptr", PublisherMetadata, "int", PropertyId, "uint", Flags, "uint", PublisherMetadataPropertyBufferSize, "ptr", PublisherMetadataPropertyBuffer, "uint*", PublisherMetadataPropertyBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetPublisherMetadataProperty", "ptr", PublisherMetadata, "int", PropertyId, "uint", Flags, "uint", PublisherMetadataPropertyBufferSize, "ptr", PublisherMetadataPropertyBuffer, PublisherMetadataPropertyBufferUsedMarshal, PublisherMetadataPropertyBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1225,9 +1249,11 @@ class EventLog {
     static EvtGetEventMetadataProperty(EventMetadata, PropertyId, Flags, EventMetadataPropertyBufferSize, EventMetadataPropertyBuffer, EventMetadataPropertyBufferUsed) {
         EventMetadata := EventMetadata is Win32Handle ? NumGet(EventMetadata, "ptr") : EventMetadata
 
+        EventMetadataPropertyBufferUsedMarshal := EventMetadataPropertyBufferUsed is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetEventMetadataProperty", "ptr", EventMetadata, "int", PropertyId, "uint", Flags, "uint", EventMetadataPropertyBufferSize, "ptr", EventMetadataPropertyBuffer, "uint*", EventMetadataPropertyBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetEventMetadataProperty", "ptr", EventMetadata, "int", PropertyId, "uint", Flags, "uint", EventMetadataPropertyBufferSize, "ptr", EventMetadataPropertyBuffer, EventMetadataPropertyBufferUsedMarshal, EventMetadataPropertyBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1272,9 +1298,11 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtGetObjectArraySize(ObjectArray, ObjectArraySize) {
+        ObjectArraySizeMarshal := ObjectArraySize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetObjectArraySize", "ptr", ObjectArray, "uint*", ObjectArraySize, "int")
+        result := DllCall("wevtapi.dll\EvtGetObjectArraySize", "ptr", ObjectArray, ObjectArraySizeMarshal, ObjectArraySize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1324,9 +1352,11 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
+        PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetObjectArrayProperty", "ptr", ObjectArray, "uint", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetObjectArrayProperty", "ptr", ObjectArray, "uint", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1376,9 +1406,11 @@ class EventLog {
     static EvtGetQueryInfo(QueryOrSubscription, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         QueryOrSubscription := QueryOrSubscription is Win32Handle ? NumGet(QueryOrSubscription, "ptr") : QueryOrSubscription
 
+        PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetQueryInfo", "ptr", QueryOrSubscription, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetQueryInfo", "ptr", QueryOrSubscription, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1497,9 +1529,11 @@ class EventLog {
     static EvtGetEventInfo(Event, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
+        PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetEventInfo", "ptr", Event, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetEventInfo", "ptr", Event, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1524,8 +1558,8 @@ class EventLog {
      * @since windows5.0
      */
     static ClearEventLogA(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -1554,8 +1588,8 @@ class EventLog {
      * @since windows5.0
      */
     static ClearEventLogW(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -1579,8 +1613,8 @@ class EventLog {
      * @since windows5.0
      */
     static BackupEventLogA(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -1604,8 +1638,8 @@ class EventLog {
      * @since windows5.0
      */
     static BackupEventLogW(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -1709,9 +1743,11 @@ class EventLog {
     static GetNumberOfEventLogRecords(hEventLog, NumberOfRecords) {
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
 
+        NumberOfRecordsMarshal := NumberOfRecords is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetNumberOfEventLogRecords", "ptr", hEventLog, "uint*", NumberOfRecords, "int")
+        result := DllCall("ADVAPI32.dll\GetNumberOfEventLogRecords", "ptr", hEventLog, NumberOfRecordsMarshal, NumberOfRecords, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1735,9 +1771,11 @@ class EventLog {
     static GetOldestEventLogRecord(hEventLog, OldestRecord) {
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
 
+        OldestRecordMarshal := OldestRecord is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetOldestEventLogRecord", "ptr", hEventLog, "uint*", OldestRecord, "int")
+        result := DllCall("ADVAPI32.dll\GetOldestEventLogRecord", "ptr", hEventLog, OldestRecordMarshal, OldestRecord, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1937,9 +1975,12 @@ class EventLog {
     static ReadEventLogA(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded) {
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
 
+        pnBytesReadMarshal := pnBytesRead is VarRef ? "uint*" : "ptr"
+        pnMinNumberOfBytesNeededMarshal := pnMinNumberOfBytesNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ReadEventLogA", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", pnBytesRead, "uint*", pnMinNumberOfBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\ReadEventLogA", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1973,9 +2014,12 @@ class EventLog {
     static ReadEventLogW(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded) {
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
 
+        pnBytesReadMarshal := pnBytesRead is VarRef ? "uint*" : "ptr"
+        pnMinNumberOfBytesNeededMarshal := pnMinNumberOfBytesNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ReadEventLogW", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", pnBytesRead, "uint*", pnMinNumberOfBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\ReadEventLogW", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2236,9 +2280,11 @@ class EventLog {
     static GetEventLogInformation(hEventLog, dwInfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
 
+        pcbBytesNeededMarshal := pcbBytesNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetEventLogInformation", "ptr", hEventLog, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\GetEventLogInformation", "ptr", hEventLog, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 

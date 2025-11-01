@@ -37,7 +37,9 @@ class IHlinkBrowseContext extends IUnknown{
      * @returns {HRESULT} 
      */
     Register(reserved, piunk, pimk, pdwRegister) {
-        result := ComCall(3, this, "uint", reserved, "ptr", piunk, "ptr", pimk, "uint*", pdwRegister, "HRESULT")
+        pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", reserved, "ptr", piunk, "ptr", pimk, pdwRegisterMarshal, pdwRegister, "HRESULT")
         return result
     }
 
@@ -116,7 +118,9 @@ class IHlinkBrowseContext extends IUnknown{
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(9, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint*", puHLID, "HRESULT")
+        puHLIDMarshal := puHLID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, puHLIDMarshal, puHLID, "HRESULT")
         return result
     }
 

@@ -45,7 +45,9 @@ class ICreateRow extends IUnknown{
     CreateRow(pUnkOuter, pwszURL, dwBindURLFlags, rguid, riid, pAuthenticate, pImplSession, pdwBindStatus, ppwszNewURL, ppUnk) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pwszURL, "uint", dwBindURLFlags, "ptr", rguid, "ptr", riid, "ptr", pAuthenticate, "ptr", pImplSession, "uint*", pdwBindStatus, "ptr", ppwszNewURL, "ptr*", ppUnk, "HRESULT")
+        pdwBindStatusMarshal := pdwBindStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pwszURL, "uint", dwBindURLFlags, "ptr", rguid, "ptr", riid, "ptr", pAuthenticate, "ptr", pImplSession, pdwBindStatusMarshal, pdwBindStatus, "ptr", ppwszNewURL, "ptr*", ppUnk, "HRESULT")
         return result
     }
 }

@@ -87,7 +87,11 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
      * @returns {HRESULT} 
      */
     MovedReferences2(cMovedObjectIDRanges, oldObjectIDRangeStart, newObjectIDRangeStart, cObjectIDRangeLength) {
-        result := ComCall(87, this, "uint", cMovedObjectIDRanges, "ptr*", oldObjectIDRangeStart, "ptr*", newObjectIDRangeStart, "ptr*", cObjectIDRangeLength, "HRESULT")
+        oldObjectIDRangeStartMarshal := oldObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
+        newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(87, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
@@ -99,7 +103,10 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
      * @returns {HRESULT} 
      */
     SurvivingReferences2(cSurvivingObjectIDRanges, objectIDRangeStart, cObjectIDRangeLength) {
-        result := ComCall(88, this, "uint", cSurvivingObjectIDRanges, "ptr*", objectIDRangeStart, "ptr*", cObjectIDRangeLength, "HRESULT")
+        objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(88, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 }

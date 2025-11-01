@@ -195,7 +195,9 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelUnitToMillimeterX(p) {
-        result := ComCall(22, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(22, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -215,7 +217,9 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelUnitToMillimeterY(p) {
-        result := ComCall(24, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(24, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -235,7 +239,9 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenPixelToMillimeterX(p) {
-        result := ComCall(26, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(26, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -255,7 +261,9 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenPixelToMillimeterY(p) {
-        result := ComCall(28, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(28, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -315,7 +323,9 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_currentScale(p) {
-        result := ComCall(34, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(34, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -346,7 +356,9 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     suspendRedraw(maxWaitMilliseconds, pResult) {
-        result := ComCall(37, this, "uint", maxWaitMilliseconds, "uint*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "uint", maxWaitMilliseconds, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -412,7 +424,9 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getCurrentTime(pResult) {
-        result := ComCall(44, this, "float*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
+
+        result := ComCall(44, this, pResultMarshal, pResult, "HRESULT")
         return result
     }
 

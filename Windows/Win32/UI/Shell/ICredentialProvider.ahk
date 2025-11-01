@@ -93,7 +93,9 @@ class ICredentialProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorcount
      */
     GetFieldDescriptorCount(pdwCount) {
-        result := ComCall(7, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -118,7 +120,10 @@ class ICredentialProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialcount
      */
     GetCredentialCount(pdwCount, pdwDefault, pbAutoLogonWithDefault) {
-        result := ComCall(9, this, "uint*", pdwCount, "uint*", pdwDefault, "ptr", pbAutoLogonWithDefault, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwDefaultMarshal := pdwDefault is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwCountMarshal, pdwCount, pdwDefaultMarshal, pdwDefault, "ptr", pbAutoLogonWithDefault, "HRESULT")
         return result
     }
 

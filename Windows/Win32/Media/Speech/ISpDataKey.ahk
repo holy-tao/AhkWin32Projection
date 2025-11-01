@@ -44,7 +44,9 @@ class ISpDataKey extends IUnknown{
     SetData(pszValueName, cbData, pData) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(3, this, "ptr", pszValueName, "uint", cbData, "char*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszValueName, "uint", cbData, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -58,7 +60,10 @@ class ISpDataKey extends IUnknown{
     GetData(pszValueName, pcbData, pData) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(4, this, "ptr", pszValueName, "uint*", pcbData, "char*", pData, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszValueName, pcbDataMarshal, pcbData, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -111,7 +116,9 @@ class ISpDataKey extends IUnknown{
     GetDWORD(pszValueName, pdwValue) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(8, this, "ptr", pszValueName, "uint*", pdwValue, "HRESULT")
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pszValueName, pdwValueMarshal, pdwValue, "HRESULT")
         return result
     }
 

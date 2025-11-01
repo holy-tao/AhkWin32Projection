@@ -87,7 +87,10 @@ class IMDSPStorage2 extends IMDSPStorage{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-getattributes2
      */
     GetAttributes2(pdwAttributes, pdwAttributesEx, pAudioFormat, pVideoFormat) {
-        result := ComCall(16, this, "uint*", pdwAttributes, "uint*", pdwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "HRESULT")
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
+        pdwAttributesExMarshal := pdwAttributesEx is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "HRESULT")
         return result
     }
 }

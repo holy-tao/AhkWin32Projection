@@ -71,7 +71,10 @@ class IShellFolder2 extends IShellFolder{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumn
      */
     GetDefaultColumn(dwRes, pSort, pDisplay) {
-        result := ComCall(15, this, "uint", dwRes, "uint*", pSort, "uint*", pDisplay, "HRESULT")
+        pSortMarshal := pSort is VarRef ? "uint*" : "ptr"
+        pDisplayMarshal := pDisplay is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwRes, pSortMarshal, pSort, pDisplayMarshal, pDisplay, "HRESULT")
         return result
     }
 
@@ -83,7 +86,9 @@ class IShellFolder2 extends IShellFolder{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumnstate
      */
     GetDefaultColumnState(iColumn, pcsFlags) {
-        result := ComCall(16, this, "uint", iColumn, "int*", pcsFlags, "HRESULT")
+        pcsFlagsMarshal := pcsFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "uint", iColumn, pcsFlagsMarshal, pcsFlags, "HRESULT")
         return result
     }
 

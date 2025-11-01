@@ -45,7 +45,9 @@ class IQueueCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iqueuecommand-invokeatstreamtime
      */
     InvokeAtStreamTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
-        result := ComCall(3, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, "short*", puArgErr, "HRESULT")
+        puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IQueueCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iqueuecommand-invokeatpresentationtime
      */
     InvokeAtPresentationTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
-        result := ComCall(4, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, "short*", puArgErr, "HRESULT")
+        puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 }

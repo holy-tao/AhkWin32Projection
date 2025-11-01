@@ -183,7 +183,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_mixerbitmapopacity
      */
     get_MixerBitmapOpacity(opacity) {
-        result := ComCall(28, this, "int*", opacity, "HRESULT")
+        opacityMarshal := opacity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, opacityMarshal, opacity, "HRESULT")
         return result
     }
 
@@ -218,7 +220,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_sourcesize
      */
     get_SourceSize(CurrentSize) {
-        result := ComCall(31, this, "int*", CurrentSize, "HRESULT")
+        CurrentSizeMarshal := CurrentSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, CurrentSizeMarshal, CurrentSize, "HRESULT")
         return result
     }
 
@@ -240,7 +244,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_overscan
      */
     get_OverScan(plPercent) {
-        result := ComCall(33, this, "int*", plPercent, "HRESULT")
+        plPercentMarshal := plPercent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, plPercentMarshal, plPercent, "HRESULT")
         return result
     }
 
@@ -350,7 +356,9 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_framespersecond
      */
     get_FramesPerSecond(pVal) {
-        result := ComCall(43, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

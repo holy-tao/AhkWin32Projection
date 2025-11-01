@@ -54,7 +54,10 @@ class IPipeLong extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipelong-pull
      */
     Pull(buf, cRequest, pcReturned) {
-        result := ComCall(3, this, "int*", buf, "uint", cRequest, "uint*", pcReturned, "HRESULT")
+        bufMarshal := buf is VarRef ? "int*" : "ptr"
+        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, bufMarshal, buf, "uint", cRequest, pcReturnedMarshal, pcReturned, "HRESULT")
         return result
     }
 
@@ -66,7 +69,9 @@ class IPipeLong extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipelong-push
      */
     Push(buf, cSent) {
-        result := ComCall(4, this, "int*", buf, "uint", cSent, "HRESULT")
+        bufMarshal := buf is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, bufMarshal, buf, "uint", cSent, "HRESULT")
         return result
     }
 }

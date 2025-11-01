@@ -34,7 +34,9 @@ class IBufferingTime extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBufferingTime(pdwMilliseconds) {
-        result := ComCall(3, this, "uint*", pdwMilliseconds, "HRESULT")
+        pdwMillisecondsMarshal := pdwMilliseconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwMillisecondsMarshal, pdwMilliseconds, "HRESULT")
         return result
     }
 

@@ -53,7 +53,9 @@ class IGuideDataProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_language
      */
     get_Language(idLang) {
-        result := ComCall(4, this, "int*", idLang, "HRESULT")
+        idLangMarshal := idLang is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, idLangMarshal, idLang, "HRESULT")
         return result
     }
 

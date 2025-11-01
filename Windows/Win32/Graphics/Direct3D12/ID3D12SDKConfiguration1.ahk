@@ -37,6 +37,8 @@ class ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration{
      * @returns {HRESULT} 
      */
     CreateDeviceFactory(SDKVersion, SDKPath, riid, ppvFactory) {
+        SDKPath := SDKPath is String ? StrPtr(SDKPath) : SDKPath
+
         result := ComCall(4, this, "uint", SDKVersion, "ptr", SDKPath, "ptr", riid, "ptr*", ppvFactory, "HRESULT")
         return result
     }

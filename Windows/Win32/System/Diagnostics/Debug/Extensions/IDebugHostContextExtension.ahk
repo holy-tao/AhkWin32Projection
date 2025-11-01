@@ -36,7 +36,9 @@ class IDebugHostContextExtension extends IUnknown{
      * @returns {HRESULT} 
      */
     AddExtensionData(blobId, dataSize, data) {
-        result := ComCall(3, this, "uint", blobId, "uint", dataSize, "ptr", data, "HRESULT")
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "HRESULT")
         return result
     }
 

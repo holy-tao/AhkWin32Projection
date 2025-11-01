@@ -35,7 +35,9 @@ class ITransactionExport extends IUnknown{
      * @returns {HRESULT} 
      */
     Export(punkTransaction, pcbTransactionCookie) {
-        result := ComCall(3, this, "ptr", punkTransaction, "uint*", pcbTransactionCookie, "HRESULT")
+        pcbTransactionCookieMarshal := pcbTransactionCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", punkTransaction, pcbTransactionCookieMarshal, pcbTransactionCookie, "HRESULT")
         return result
     }
 
@@ -48,7 +50,10 @@ class ITransactionExport extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTransactionCookie(punkTransaction, cbTransactionCookie, rgbTransactionCookie, pcbUsed) {
-        result := ComCall(4, this, "ptr", punkTransaction, "uint", cbTransactionCookie, "char*", rgbTransactionCookie, "uint*", pcbUsed, "HRESULT")
+        rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : "ptr"
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", punkTransaction, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, pcbUsedMarshal, pcbUsed, "HRESULT")
         return result
     }
 }

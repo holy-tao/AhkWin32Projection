@@ -71,7 +71,9 @@ class ITextServices extends IUnknown{
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
-        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, "ptr", pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcBounds, "ptr", lprcWBounds, "ptr", lprcUpdate, "ptr", pfnContinue, "uint", dwContinue, "int", lViewId, "HRESULT")
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcBounds, "ptr", lprcWBounds, "ptr", lprcUpdate, "ptr", pfnContinue, "uint", dwContinue, "int", lViewId, "HRESULT")
         return result
     }
 
@@ -86,7 +88,12 @@ class ITextServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgethscroll
      */
     TxGetHScroll(plMin, plMax, plPos, plPage, pfEnabled) {
-        result := ComCall(5, this, "int*", plMin, "int*", plMax, "int*", plPos, "int*", plPage, "ptr", pfEnabled, "HRESULT")
+        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
+        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
+        plPosMarshal := plPos is VarRef ? "int*" : "ptr"
+        plPageMarshal := plPage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, "ptr", pfEnabled, "HRESULT")
         return result
     }
 
@@ -101,7 +108,12 @@ class ITextServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetvscroll
      */
     TxGetVScroll(plMin, plMax, plPos, plPage, pfEnabled) {
-        result := ComCall(6, this, "int*", plMin, "int*", plMax, "int*", plPos, "int*", plPage, "ptr", pfEnabled, "HRESULT")
+        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
+        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
+        plPosMarshal := plPos is VarRef ? "int*" : "ptr"
+        plPageMarshal := plPage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, "ptr", pfEnabled, "HRESULT")
         return result
     }
 
@@ -123,7 +135,9 @@ class ITextServices extends IUnknown{
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
-        result := ComCall(7, this, "uint", dwDrawAspect, "int", lindex, "ptr", pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcClient, "int", x, "int", y, "HRESULT")
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcClient, "int", x, "int", y, "HRESULT")
         return result
     }
 
@@ -146,7 +160,10 @@ class ITextServices extends IUnknown{
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
-        result := ComCall(8, this, "uint", dwDrawAspect, "int", lindex, "ptr", pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcClient, "int", x, "int", y, "uint*", pHitResult, "HRESULT")
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcClient, "int", x, "int", y, pHitResultMarshal, pHitResult, "HRESULT")
         return result
     }
 
@@ -222,7 +239,9 @@ class ITextServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetcurtargetx
      */
     TxGetCurTargetX(param0) {
-        result := ComCall(15, this, "int*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -233,7 +252,9 @@ class ITextServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetbaselinepos
      */
     TxGetBaseLinePos(param0) {
-        result := ComCall(16, this, "int*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -254,7 +275,10 @@ class ITextServices extends IUnknown{
         hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
-        result := ComCall(17, this, "uint", dwAspect, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", ptd, "uint", dwMode, "ptr", psizelExtent, "int*", pwidth, "int*", pheight, "HRESULT")
+        pwidthMarshal := pwidth is VarRef ? "int*" : "ptr"
+        pheightMarshal := pheight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwAspect, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", ptd, "uint", dwMode, "ptr", psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, "HRESULT")
         return result
     }
 
@@ -289,7 +313,10 @@ class ITextServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetcachedsize
      */
     TxGetCachedSize(pdwWidth, pdwHeight) {
-        result := ComCall(20, this, "uint*", pdwWidth, "uint*", pdwHeight, "HRESULT")
+        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
+        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
         return result
     }
 }

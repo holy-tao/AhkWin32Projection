@@ -37,7 +37,9 @@ class IInkTablet2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet2-get_devicekind
      */
     get_DeviceKind(Kind) {
-        result := ComCall(7, this, "int*", Kind, "HRESULT")
+        KindMarshal := Kind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, KindMarshal, Kind, "HRESULT")
         return result
     }
 }

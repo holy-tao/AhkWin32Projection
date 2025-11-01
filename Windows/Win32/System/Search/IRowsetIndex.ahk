@@ -37,7 +37,10 @@ class IRowsetIndex extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIndexInfo(pcKeyColumns, prgIndexColumnDesc, pcIndexPropertySets, prgIndexPropertySets) {
-        result := ComCall(3, this, "ptr*", pcKeyColumns, "ptr*", prgIndexColumnDesc, "uint*", pcIndexPropertySets, "ptr*", prgIndexPropertySets, "HRESULT")
+        pcKeyColumnsMarshal := pcKeyColumns is VarRef ? "ptr*" : "ptr"
+        pcIndexPropertySetsMarshal := pcIndexPropertySets is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcKeyColumnsMarshal, pcKeyColumns, "ptr*", prgIndexColumnDesc, pcIndexPropertySetsMarshal, pcIndexPropertySets, "ptr*", prgIndexPropertySets, "HRESULT")
         return result
     }
 
@@ -52,7 +55,9 @@ class IRowsetIndex extends IUnknown{
     Seek(hAccessor, cKeyValues, pData, dwSeekOptions) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(4, this, "ptr", hAccessor, "ptr", cKeyValues, "ptr", pData, "uint", dwSeekOptions, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", hAccessor, "ptr", cKeyValues, pDataMarshal, pData, "uint", dwSeekOptions, "HRESULT")
         return result
     }
 
@@ -69,7 +74,10 @@ class IRowsetIndex extends IUnknown{
     SetRange(hAccessor, cStartKeyColumns, pStartData, cEndKeyColumns, pEndData, dwRangeOptions) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(5, this, "ptr", hAccessor, "ptr", cStartKeyColumns, "ptr", pStartData, "ptr", cEndKeyColumns, "ptr", pEndData, "uint", dwRangeOptions, "HRESULT")
+        pStartDataMarshal := pStartData is VarRef ? "ptr" : "ptr"
+        pEndDataMarshal := pEndData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "ptr", hAccessor, "ptr", cStartKeyColumns, pStartDataMarshal, pStartData, "ptr", cEndKeyColumns, pEndDataMarshal, pEndData, "uint", dwRangeOptions, "HRESULT")
         return result
     }
 }

@@ -43,7 +43,9 @@ class IVdsLunMpio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getpathinfo
      */
     GetPathInfo(ppPaths, plNumberOfPaths) {
-        result := ComCall(3, this, "ptr*", ppPaths, "int*", plNumberOfPaths, "HRESULT")
+        plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
         return result
     }
 
@@ -56,7 +58,10 @@ class IVdsLunMpio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getloadbalancepolicy
      */
     GetLoadBalancePolicy(pPolicy, ppPaths, plNumberOfPaths) {
-        result := ComCall(4, this, "int*", pPolicy, "ptr*", ppPaths, "int*", plNumberOfPaths, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
+        plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pPolicyMarshal, pPolicy, "ptr*", ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
         return result
     }
 
@@ -80,7 +85,9 @@ class IVdsLunMpio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getsupportedlbpolicies
      */
     GetSupportedLbPolicies(pulLbFlags) {
-        result := ComCall(6, this, "uint*", pulLbFlags, "HRESULT")
+        pulLbFlagsMarshal := pulLbFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulLbFlagsMarshal, pulLbFlags, "HRESULT")
         return result
     }
 }

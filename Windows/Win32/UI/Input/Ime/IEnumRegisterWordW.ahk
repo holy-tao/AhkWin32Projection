@@ -47,7 +47,9 @@ class IEnumRegisterWordW extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(ulCount, rgRegisterWord, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr", rgRegisterWord, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr", rgRegisterWord, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

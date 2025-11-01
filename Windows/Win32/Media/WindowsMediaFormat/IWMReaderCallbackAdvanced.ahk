@@ -42,7 +42,9 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamsample
      */
     OnStreamSample(wStreamNum, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
-        result := ComCall(3, this, "ushort", wStreamNum, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ushort", wStreamNum, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-ontime
      */
     OnTime(cnsCurrentTime, pvContext) {
-        result := ComCall(4, this, "uint", cnsCurrentTime, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", cnsCurrentTime, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -68,7 +72,11 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamselection
      */
     OnStreamSelection(wStreamCount, pStreamNumbers, pSelections, pvContext) {
-        result := ComCall(5, this, "ushort", wStreamCount, "ushort*", pStreamNumbers, "int*", pSelections, "ptr", pvContext, "HRESULT")
+        pStreamNumbersMarshal := pStreamNumbers is VarRef ? "ushort*" : "ptr"
+        pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "ushort", wStreamCount, pStreamNumbersMarshal, pStreamNumbers, pSelectionsMarshal, pSelections, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onoutputpropschanged
      */
     OnOutputPropsChanged(dwOutputNum, pMediaType, pvContext) {
-        result := ComCall(6, this, "uint", dwOutputNum, "ptr", pMediaType, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "uint", dwOutputNum, "ptr", pMediaType, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -95,7 +105,9 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforstream
      */
     AllocateForStream(wStreamNum, cbBuffer, ppBuffer, pvContext) {
-        result := ComCall(7, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -109,7 +121,9 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforoutput
      */
     AllocateForOutput(dwOutputNum, cbBuffer, ppBuffer, pvContext) {
-        result := ComCall(8, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", ppBuffer, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", ppBuffer, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

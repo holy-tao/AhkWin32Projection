@@ -88,6 +88,9 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-callfunction
      */
     CallFunction(pModuleInstanceNamespace, pModuleWithFunctionPrototype, pFunctionName, ppCallNode) {
+        pModuleInstanceNamespace := pModuleInstanceNamespace is String ? StrPtr(pModuleInstanceNamespace) : pModuleInstanceNamespace
+        pFunctionName := pFunctionName is String ? StrPtr(pFunctionName) : pFunctionName
+
         result := ComCall(6, this, "ptr", pModuleInstanceNamespace, "ptr", pModuleWithFunctionPrototype, "ptr", pFunctionName, "ptr*", ppCallNode, "HRESULT")
         return result
     }
@@ -118,6 +121,9 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-passvaluewithswizzle
      */
     PassValueWithSwizzle(pSrcNode, SrcParameterIndex, pSrcSwizzle, pDstNode, DstParameterIndex, pDstSwizzle) {
+        pSrcSwizzle := pSrcSwizzle is String ? StrPtr(pSrcSwizzle) : pSrcSwizzle
+        pDstSwizzle := pDstSwizzle is String ? StrPtr(pDstSwizzle) : pDstSwizzle
+
         result := ComCall(8, this, "ptr", pSrcNode, "int", SrcParameterIndex, "ptr", pSrcSwizzle, "ptr", pDstNode, "int", DstParameterIndex, "ptr", pDstSwizzle, "HRESULT")
         return result
     }

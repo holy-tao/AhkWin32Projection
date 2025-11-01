@@ -465,7 +465,10 @@ class Time {
      * @since windows8.0
      */
     static GetDynamicTimeZoneInformationEffectiveYears(lpTimeZoneInformation, FirstYear, LastYear) {
-        result := DllCall("ADVAPI32.dll\GetDynamicTimeZoneInformationEffectiveYears", "ptr", lpTimeZoneInformation, "uint*", FirstYear, "uint*", LastYear, "uint")
+        FirstYearMarshal := FirstYear is VarRef ? "uint*" : "ptr"
+        LastYearMarshal := LastYear is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetDynamicTimeZoneInformationEffectiveYears", "ptr", lpTimeZoneInformation, FirstYearMarshal, FirstYear, LastYearMarshal, LastYear, "uint")
         return result
     }
 

@@ -259,7 +259,9 @@ class IMFASFIndexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(4, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -292,7 +294,9 @@ class IMFASFIndexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexposition
      */
     GetIndexPosition(pIContentInfo, pcbIndexOffset) {
-        result := ComCall(6, this, "ptr", pIContentInfo, "uint*", pcbIndexOffset, "HRESULT")
+        pcbIndexOffsetMarshal := pcbIndexOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pIContentInfo, pcbIndexOffsetMarshal, pcbIndexOffset, "HRESULT")
         return result
     }
 
@@ -315,7 +319,9 @@ class IMFASFIndexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexbytestreamcount
      */
     GetIndexByteStreamCount(pcByteStreams) {
-        result := ComCall(8, this, "uint*", pcByteStreams, "HRESULT")
+        pcByteStreamsMarshal := pcByteStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcByteStreamsMarshal, pcByteStreams, "HRESULT")
         return result
     }
 
@@ -329,7 +335,10 @@ class IMFASFIndexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexstatus
      */
     GetIndexStatus(pIndexIdentifier, pfIsIndexed, pbIndexDescriptor, pcbIndexDescriptor) {
-        result := ComCall(9, this, "ptr", pIndexIdentifier, "ptr", pfIsIndexed, "char*", pbIndexDescriptor, "uint*", pcbIndexDescriptor, "HRESULT")
+        pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
+        pcbIndexDescriptorMarshal := pcbIndexDescriptor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pIndexIdentifier, "ptr", pfIsIndexed, pbIndexDescriptorMarshal, pbIndexDescriptor, pcbIndexDescriptorMarshal, pcbIndexDescriptor, "HRESULT")
         return result
     }
 
@@ -342,7 +351,9 @@ class IMFASFIndexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexstatus
      */
     SetIndexStatus(pbIndexDescriptor, cbIndexDescriptor, fGenerateIndex) {
-        result := ComCall(10, this, "char*", pbIndexDescriptor, "uint", cbIndexDescriptor, "int", fGenerateIndex, "HRESULT")
+        pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pbIndexDescriptorMarshal, pbIndexDescriptor, "uint", cbIndexDescriptor, "int", fGenerateIndex, "HRESULT")
         return result
     }
 
@@ -357,7 +368,11 @@ class IMFASFIndexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getseekpositionforvalue
      */
     GetSeekPositionForValue(pvarValue, pIndexIdentifier, pcbOffsetWithinData, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacket) {
-        result := ComCall(11, this, "ptr", pvarValue, "ptr", pIndexIdentifier, "uint*", pcbOffsetWithinData, "int64*", phnsApproxTime, "uint*", pdwPayloadNumberOfStreamWithinPacket, "HRESULT")
+        pcbOffsetWithinDataMarshal := pcbOffsetWithinData is VarRef ? "uint*" : "ptr"
+        phnsApproxTimeMarshal := phnsApproxTime is VarRef ? "int64*" : "ptr"
+        pdwPayloadNumberOfStreamWithinPacketMarshal := pdwPayloadNumberOfStreamWithinPacket is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pvarValue, "ptr", pIndexIdentifier, pcbOffsetWithinDataMarshal, pcbOffsetWithinData, phnsApproxTimeMarshal, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacketMarshal, pdwPayloadNumberOfStreamWithinPacket, "HRESULT")
         return result
     }
 
@@ -390,7 +405,9 @@ class IMFASFIndexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexwritespace
      */
     GetIndexWriteSpace(pcbIndexWriteSpace) {
-        result := ComCall(14, this, "uint*", pcbIndexWriteSpace, "HRESULT")
+        pcbIndexWriteSpaceMarshal := pcbIndexWriteSpace is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pcbIndexWriteSpaceMarshal, pcbIndexWriteSpace, "HRESULT")
         return result
     }
 

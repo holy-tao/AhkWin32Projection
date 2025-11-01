@@ -65,7 +65,9 @@ class IWICMetadataQueryReader extends IUnknown{
     GetLocation(cchMaxLength, wzNamespace, pcchActualLength) {
         wzNamespace := wzNamespace is String ? StrPtr(wzNamespace) : wzNamespace
 
-        result := ComCall(4, this, "uint", cchMaxLength, "ptr", wzNamespace, "uint*", pcchActualLength, "HRESULT")
+        pcchActualLengthMarshal := pcchActualLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", cchMaxLength, "ptr", wzNamespace, pcchActualLengthMarshal, pcchActualLength, "HRESULT")
         return result
     }
 

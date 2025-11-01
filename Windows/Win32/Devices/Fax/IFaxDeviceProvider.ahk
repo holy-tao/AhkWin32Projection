@@ -91,7 +91,9 @@ class IFaxDeviceProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_majorversion
      */
     get_MajorVersion(plMajorVersion) {
-        result := ComCall(11, this, "int*", plMajorVersion, "HRESULT")
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
         return result
     }
 
@@ -102,7 +104,9 @@ class IFaxDeviceProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_minorversion
      */
     get_MinorVersion(plMinorVersion) {
-        result := ComCall(12, this, "int*", plMinorVersion, "HRESULT")
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
     }
 
@@ -113,7 +117,9 @@ class IFaxDeviceProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_majorbuild
      */
     get_MajorBuild(plMajorBuild) {
-        result := ComCall(13, this, "int*", plMajorBuild, "HRESULT")
+        plMajorBuildMarshal := plMajorBuild is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plMajorBuildMarshal, plMajorBuild, "HRESULT")
         return result
     }
 
@@ -124,7 +130,9 @@ class IFaxDeviceProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_minorbuild
      */
     get_MinorBuild(plMinorBuild) {
-        result := ComCall(14, this, "int*", plMinorBuild, "HRESULT")
+        plMinorBuildMarshal := plMinorBuild is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plMinorBuildMarshal, plMinorBuild, "HRESULT")
         return result
     }
 
@@ -146,7 +154,9 @@ class IFaxDeviceProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_status
      */
     get_Status(pStatus) {
-        result := ComCall(16, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -157,7 +167,9 @@ class IFaxDeviceProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_initerrorcode
      */
     get_InitErrorCode(plInitErrorCode) {
-        result := ComCall(17, this, "int*", plInitErrorCode, "HRESULT")
+        plInitErrorCodeMarshal := plInitErrorCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plInitErrorCodeMarshal, plInitErrorCode, "HRESULT")
         return result
     }
 

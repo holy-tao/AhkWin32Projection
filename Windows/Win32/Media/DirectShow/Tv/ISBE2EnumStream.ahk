@@ -43,7 +43,9 @@ class ISBE2EnumStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2enumstream-next
      */
     Next(cRequest, pStreamDesc, pcReceived) {
-        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamDesc, "uint*", pcReceived, "HRESULT")
+        pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamDesc, pcReceivedMarshal, pcReceived, "HRESULT")
         return result
     }
 

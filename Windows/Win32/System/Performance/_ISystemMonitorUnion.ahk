@@ -41,7 +41,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Appearance(iAppearance) {
-        result := ComCall(3, this, "int*", iAppearance, "HRESULT")
+        iAppearanceMarshal := iAppearance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, iAppearanceMarshal, iAppearance, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BackColor(pColor) {
-        result := ComCall(5, this, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BorderStyle(iBorderStyle) {
-        result := ComCall(7, this, "int*", iBorderStyle, "HRESULT")
+        iBorderStyleMarshal := iBorderStyle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, iBorderStyleMarshal, iBorderStyle, "HRESULT")
         return result
     }
 
@@ -101,7 +107,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ForeColor(pColor) {
-        result := ComCall(9, this, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -261,7 +269,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_MaximumScale(piValue) {
-        result := ComCall(25, this, "int*", piValue, "HRESULT")
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, piValueMarshal, piValue, "HRESULT")
         return result
     }
 
@@ -281,7 +291,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_MinimumScale(piValue) {
-        result := ComCall(27, this, "int*", piValue, "HRESULT")
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, piValueMarshal, piValue, "HRESULT")
         return result
     }
 
@@ -301,7 +313,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_UpdateInterval(pfValue) {
-        result := ComCall(29, this, "float*", pfValue, "HRESULT")
+        pfValueMarshal := pfValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(29, this, pfValueMarshal, pfValue, "HRESULT")
         return result
     }
 
@@ -321,7 +335,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DisplayType(peDisplayType) {
-        result := ComCall(31, this, "int*", peDisplayType, "HRESULT")
+        peDisplayTypeMarshal := peDisplayType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, peDisplayTypeMarshal, peDisplayType, "HRESULT")
         return result
     }
 
@@ -465,7 +481,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BackColorCtl(pColor) {
-        result := ComCall(45, this, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(45, this, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -517,7 +535,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_LogViewStart(StartTime) {
-        result := ComCall(50, this, "double*", StartTime, "HRESULT")
+        StartTimeMarshal := StartTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(50, this, StartTimeMarshal, StartTime, "HRESULT")
         return result
     }
 
@@ -537,7 +557,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_LogViewStop(StopTime) {
-        result := ComCall(52, this, "double*", StopTime, "HRESULT")
+        StopTimeMarshal := StopTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(52, this, StopTimeMarshal, StopTime, "HRESULT")
         return result
     }
 
@@ -547,7 +569,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_GridColor(pColor) {
-        result := ComCall(53, this, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(53, this, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -567,7 +591,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TimeBarColor(pColor) {
-        result := ComCall(55, this, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(55, this, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -684,7 +710,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ReportValueType(peReportValueType) {
-        result := ComCall(67, this, "int*", peReportValueType, "HRESULT")
+        peReportValueTypeMarshal := peReportValueType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(67, this, peReportValueTypeMarshal, peReportValueType, "HRESULT")
         return result
     }
 
@@ -724,7 +752,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DisplayFilter(piValue) {
-        result := ComCall(71, this, "int*", piValue, "HRESULT")
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(71, this, piValueMarshal, piValue, "HRESULT")
         return result
     }
 
@@ -754,7 +784,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DataSourceType(peDataSourceType) {
-        result := ComCall(74, this, "int*", peDataSourceType, "HRESULT")
+        peDataSourceTypeMarshal := peDataSourceType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(74, this, peDataSourceTypeMarshal, peDataSourceType, "HRESULT")
         return result
     }
 
@@ -898,7 +930,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DataPointCount(piDataPointCount) {
-        result := ComCall(88, this, "int*", piDataPointCount, "HRESULT")
+        piDataPointCountMarshal := piDataPointCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(88, this, piDataPointCountMarshal, piDataPointCount, "HRESULT")
         return result
     }
 
@@ -954,7 +988,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_LogSourceStartTime(pDate) {
-        result := ComCall(93, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(93, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -964,7 +1000,9 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     get_LogSourceStopTime(pDate) {
-        result := ComCall(94, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(94, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -986,7 +1024,10 @@ class _ISystemMonitorUnion extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLogViewRange(StartTime, StopTime) {
-        result := ComCall(96, this, "double*", StartTime, "double*", StopTime, "HRESULT")
+        StartTimeMarshal := StartTime is VarRef ? "double*" : "ptr"
+        StopTimeMarshal := StopTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(96, this, StartTimeMarshal, StartTime, StopTimeMarshal, StopTime, "HRESULT")
         return result
     }
 

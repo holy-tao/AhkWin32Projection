@@ -86,7 +86,9 @@ class JobObjects {
      * @since windows10.0.10240
      */
     static FreeMemoryJobObject(Buffer) {
-        DllCall("KERNEL32.dll\FreeMemoryJobObject", "ptr", Buffer)
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        DllCall("KERNEL32.dll\FreeMemoryJobObject", BufferMarshal, Buffer)
     }
 
     /**
@@ -261,9 +263,11 @@ class JobObjects {
     static QueryInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInformation, cbJobObjectInformationLength, lpReturnLength) {
         hJob := hJob is Win32Handle ? NumGet(hJob, "ptr") : hJob
 
+        lpReturnLengthMarshal := lpReturnLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryInformationJobObject", "ptr", hJob, "int", JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, "uint*", lpReturnLength, "int")
+        result := DllCall("KERNEL32.dll\QueryInformationJobObject", "ptr", hJob, "int", JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, lpReturnLengthMarshal, lpReturnLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -286,12 +290,14 @@ class JobObjects {
      * @since windows10.0.10240
      */
     static QueryIoRateControlInformationJobObject(hJob, VolumeName, InfoBlocks, InfoBlockCount) {
-        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
         hJob := hJob is Win32Handle ? NumGet(hJob, "ptr") : hJob
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
+
+        InfoBlockCountMarshal := InfoBlockCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", "ptr", hJob, "ptr", VolumeName, "ptr*", InfoBlocks, "uint*", InfoBlockCount, "uint")
+        result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", "ptr", hJob, "ptr", VolumeName, "ptr*", InfoBlocks, InfoBlockCountMarshal, InfoBlockCount, "uint")
         if(A_LastError)
             throw OSError()
 

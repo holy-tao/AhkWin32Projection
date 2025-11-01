@@ -48,7 +48,9 @@ class IFaxDevice extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_id
      */
     get_Id(plId) {
-        result := ComCall(7, this, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -171,7 +173,9 @@ class IFaxDevice extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_receivemode
      */
     get_ReceiveMode(pReceiveMode) {
-        result := ComCall(18, this, "int*", pReceiveMode, "HRESULT")
+        pReceiveModeMarshal := pReceiveMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pReceiveModeMarshal, pReceiveMode, "HRESULT")
         return result
     }
 
@@ -193,7 +197,9 @@ class IFaxDevice extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_ringsbeforeanswer
      */
     get_RingsBeforeAnswer(plRingsBeforeAnswer) {
-        result := ComCall(20, this, "int*", plRingsBeforeAnswer, "HRESULT")
+        plRingsBeforeAnswerMarshal := plRingsBeforeAnswer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plRingsBeforeAnswerMarshal, plRingsBeforeAnswer, "HRESULT")
         return result
     }
 

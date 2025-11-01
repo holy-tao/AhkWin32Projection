@@ -43,7 +43,9 @@ class IBDA_IPSinkInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_multicastlist
      */
     get_MulticastList(pulcbAddresses, ppbAddressList) {
-        result := ComCall(3, this, "uint*", pulcbAddresses, "ptr*", ppbAddressList, "HRESULT")
+        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, "ptr*", ppbAddressList, "HRESULT")
         return result
     }
 

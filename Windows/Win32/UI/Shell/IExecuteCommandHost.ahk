@@ -45,7 +45,9 @@ class IExecuteCommandHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommandhost-getuimode
      */
     GetUIMode(pUIMode) {
-        result := ComCall(3, this, "int*", pUIMode, "HRESULT")
+        pUIModeMarshal := pUIMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pUIModeMarshal, pUIMode, "HRESULT")
         return result
     }
 }

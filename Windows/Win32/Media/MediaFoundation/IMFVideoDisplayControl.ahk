@@ -96,7 +96,9 @@ class IMFVideoDisplayControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getaspectratiomode
      */
     GetAspectRatioMode(pdwAspectRatioMode) {
-        result := ComCall(8, this, "uint*", pdwAspectRatioMode, "HRESULT")
+        pdwAspectRatioModeMarshal := pdwAspectRatioMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwAspectRatioModeMarshal, pdwAspectRatioMode, "HRESULT")
         return result
     }
 
@@ -144,7 +146,10 @@ class IMFVideoDisplayControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getcurrentimage
      */
     GetCurrentImage(pBih, pDib, pcbDib, pTimeStamp) {
-        result := ComCall(12, this, "ptr", pBih, "ptr*", pDib, "uint*", pcbDib, "int64*", pTimeStamp, "HRESULT")
+        pcbDibMarshal := pcbDib is VarRef ? "uint*" : "ptr"
+        pTimeStampMarshal := pTimeStamp is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pBih, "ptr*", pDib, pcbDibMarshal, pcbDib, pTimeStampMarshal, pTimeStamp, "HRESULT")
         return result
     }
 
@@ -188,7 +193,9 @@ class IMFVideoDisplayControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getrenderingprefs
      */
     GetRenderingPrefs(pdwRenderFlags) {
-        result := ComCall(16, this, "uint*", pdwRenderFlags, "HRESULT")
+        pdwRenderFlagsMarshal := pdwRenderFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pdwRenderFlagsMarshal, pdwRenderFlags, "HRESULT")
         return result
     }
 

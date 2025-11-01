@@ -160,7 +160,9 @@ class IXFeedsManager extends IUnknown{
      * @returns {HRESULT} 
      */
     BackgroundSyncStatus(pfbss) {
-        result := ComCall(13, this, "int*", pfbss, "HRESULT")
+        pfbssMarshal := pfbss is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pfbssMarshal, pfbss, "HRESULT")
         return result
     }
 
@@ -170,7 +172,9 @@ class IXFeedsManager extends IUnknown{
      * @returns {HRESULT} 
      */
     DefaultInterval(puiInterval) {
-        result := ComCall(14, this, "uint*", puiInterval, "HRESULT")
+        puiIntervalMarshal := puiInterval is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, puiIntervalMarshal, puiInterval, "HRESULT")
         return result
     }
 
@@ -210,7 +214,9 @@ class IXFeedsManager extends IUnknown{
      * @returns {HRESULT} 
      */
     ItemCountLimit(puiItemCountLimit) {
-        result := ComCall(18, this, "uint*", puiItemCountLimit, "HRESULT")
+        puiItemCountLimitMarshal := puiItemCountLimit is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, puiItemCountLimitMarshal, puiItemCountLimit, "HRESULT")
         return result
     }
 }

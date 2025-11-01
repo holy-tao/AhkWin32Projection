@@ -38,7 +38,9 @@ class IUnbufferedFileHandleProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-iunbufferedfilehandleprovider-openunbufferedfilehandle
      */
     OpenUnbufferedFileHandle(oplockBreakCallback, fileHandle) {
-        result := ComCall(3, this, "ptr", oplockBreakCallback, "ptr*", fileHandle, "HRESULT")
+        fileHandleMarshal := fileHandle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", oplockBreakCallback, fileHandleMarshal, fileHandle, "HRESULT")
         return result
     }
 

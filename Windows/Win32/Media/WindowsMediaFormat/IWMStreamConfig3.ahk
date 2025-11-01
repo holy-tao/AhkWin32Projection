@@ -40,7 +40,9 @@ class IWMStreamConfig3 extends IWMStreamConfig2{
     GetLanguage(pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        result := ComCall(20, this, "ptr", pwszLanguageString, "ushort*", pcchLanguageStringLength, "HRESULT")
+        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(20, this, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
         return result
     }
 

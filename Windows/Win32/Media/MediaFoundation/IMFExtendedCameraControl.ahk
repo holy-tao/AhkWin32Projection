@@ -148,7 +148,9 @@ class IMFExtendedCameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfextendedcameracontrol-lockpayload
      */
     LockPayload(ppPayload, pulPayload) {
-        result := ComCall(6, this, "ptr*", ppPayload, "uint*", pulPayload, "HRESULT")
+        pulPayloadMarshal := pulPayload is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", ppPayload, pulPayloadMarshal, pulPayload, "HRESULT")
         return result
     }
 

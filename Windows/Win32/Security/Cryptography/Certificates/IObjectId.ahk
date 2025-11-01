@@ -78,7 +78,9 @@ class IObjectId extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_name
      */
     get_Name(pValue) {
-        result := ComCall(10, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

@@ -67,7 +67,9 @@ class INameSpaceTreeControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-treeadvise
      */
     TreeAdvise(punk, pdwCookie) {
-        result := ComCall(4, this, "ptr", punk, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", punk, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -165,7 +167,9 @@ class INameSpaceTreeControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getitemstate
      */
     GetItemState(psi, nstcisMask, pnstcisFlags) {
-        result := ComCall(12, this, "ptr", psi, "uint", nstcisMask, "uint*", pnstcisFlags, "HRESULT")
+        pnstcisFlagsMarshal := pnstcisFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", psi, "uint", nstcisMask, pnstcisFlagsMarshal, pnstcisFlags, "HRESULT")
         return result
     }
 
@@ -188,7 +192,9 @@ class INameSpaceTreeControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getitemcustomstate
      */
     GetItemCustomState(psi, piStateNumber) {
-        result := ComCall(14, this, "ptr", psi, "int*", piStateNumber, "HRESULT")
+        piStateNumberMarshal := piStateNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", psi, piStateNumberMarshal, piStateNumber, "HRESULT")
         return result
     }
 

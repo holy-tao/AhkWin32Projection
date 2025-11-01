@@ -42,7 +42,9 @@ class DataSource extends IUnknown{
      * @returns {HRESULT} 
      */
     getDataMember(bstrDM, riid, ppunk) {
-        result := ComCall(3, this, "ushort*", bstrDM, "ptr", riid, "ptr*", ppunk, "HRESULT")
+        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, bstrDMMarshal, bstrDM, "ptr", riid, "ptr*", ppunk, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class DataSource extends IUnknown{
      * @returns {HRESULT} 
      */
     getDataMemberCount(plCount) {
-        result := ComCall(5, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

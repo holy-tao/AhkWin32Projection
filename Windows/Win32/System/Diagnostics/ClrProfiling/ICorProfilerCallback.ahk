@@ -522,7 +522,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     MovedReferences(cMovedObjectIDRanges, oldObjectIDRangeStart, newObjectIDRangeStart, cObjectIDRangeLength) {
-        result := ComCall(49, this, "uint", cMovedObjectIDRanges, "ptr*", oldObjectIDRangeStart, "ptr*", newObjectIDRangeStart, "uint*", cObjectIDRangeLength, "HRESULT")
+        oldObjectIDRangeStartMarshal := oldObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
+        newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(49, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
@@ -545,7 +549,10 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ObjectsAllocatedByClass(cClassCount, classIds, cObjects) {
-        result := ComCall(51, this, "uint", cClassCount, "ptr*", classIds, "uint*", cObjects, "HRESULT")
+        classIdsMarshal := classIds is VarRef ? "ptr*" : "ptr"
+        cObjectsMarshal := cObjects is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(51, this, "uint", cClassCount, classIdsMarshal, classIds, cObjectsMarshal, cObjects, "HRESULT")
         return result
     }
 
@@ -558,7 +565,9 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ObjectReferences(objectId, classId, cObjectRefs, objectRefIds) {
-        result := ComCall(52, this, "ptr", objectId, "ptr", classId, "uint", cObjectRefs, "ptr*", objectRefIds, "HRESULT")
+        objectRefIdsMarshal := objectRefIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(52, this, "ptr", objectId, "ptr", classId, "uint", cObjectRefs, objectRefIdsMarshal, objectRefIds, "HRESULT")
         return result
     }
 
@@ -569,7 +578,9 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RootReferences(cRootRefs, rootRefIds) {
-        result := ComCall(53, this, "uint", cRootRefs, "ptr*", rootRefIds, "HRESULT")
+        rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(53, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, "HRESULT")
         return result
     }
 
@@ -718,7 +729,9 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     COMClassicVTableCreated(wrappedClassId, implementedIID, pVTable, cSlots) {
-        result := ComCall(68, this, "ptr", wrappedClassId, "ptr", implementedIID, "ptr", pVTable, "uint", cSlots, "HRESULT")
+        pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(68, this, "ptr", wrappedClassId, "ptr", implementedIID, pVTableMarshal, pVTable, "uint", cSlots, "HRESULT")
         return result
     }
 
@@ -730,7 +743,9 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     COMClassicVTableDestroyed(wrappedClassId, implementedIID, pVTable) {
-        result := ComCall(69, this, "ptr", wrappedClassId, "ptr", implementedIID, "ptr", pVTable, "HRESULT")
+        pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(69, this, "ptr", wrappedClassId, "ptr", implementedIID, pVTableMarshal, pVTable, "HRESULT")
         return result
     }
 

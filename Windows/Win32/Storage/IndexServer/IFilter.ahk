@@ -45,7 +45,9 @@ class IFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/filter/nf-filter-ifilter-init
      */
     Init(grfFlags, cAttributes, aAttributes, pFlags) {
-        result := ComCall(3, this, "uint", grfFlags, "uint", cAttributes, "ptr", aAttributes, "uint*", pFlags, "int")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", grfFlags, "uint", cAttributes, "ptr", aAttributes, pFlagsMarshal, pFlags, "int")
         return result
     }
 
@@ -70,7 +72,9 @@ class IFilter extends IUnknown{
     GetText(pcwcBuffer, awcBuffer) {
         awcBuffer := awcBuffer is String ? StrPtr(awcBuffer) : awcBuffer
 
-        result := ComCall(5, this, "uint*", pcwcBuffer, "ptr", awcBuffer, "int")
+        pcwcBufferMarshal := pcwcBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pcwcBufferMarshal, pcwcBuffer, "ptr", awcBuffer, "int")
         return result
     }
 

@@ -45,7 +45,9 @@ class IRawEnumerator extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNext(name, kind, value) {
-        result := ComCall(4, this, "ptr", name, "int*", kind, "ptr*", value, "HRESULT")
+        kindMarshal := kind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", name, kindMarshal, kind, "ptr*", value, "HRESULT")
         return result
     }
 }

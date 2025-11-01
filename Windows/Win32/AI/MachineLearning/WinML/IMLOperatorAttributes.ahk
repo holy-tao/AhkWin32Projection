@@ -36,7 +36,11 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAttributeElementCount(name, type, elementCount) {
-        result := ComCall(3, this, "ptr", name, "uint", type, "uint*", elementCount, "HRESULT")
+        name := name is String ? StrPtr(name) : name
+
+        elementCountMarshal := elementCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", name, "uint", type, elementCountMarshal, elementCount, "HRESULT")
         return result
     }
 
@@ -50,7 +54,11 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAttribute(name, type, elementCount, elementByteSize, value) {
-        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, "ptr", value, "HRESULT")
+        name := name is String ? StrPtr(name) : name
+
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -62,7 +70,11 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStringAttributeElementLength(name, elementIndex, attributeElementByteSize) {
-        result := ComCall(5, this, "ptr", name, "uint", elementIndex, "uint*", attributeElementByteSize, "HRESULT")
+        name := name is String ? StrPtr(name) : name
+
+        attributeElementByteSizeMarshal := attributeElementByteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", name, "uint", elementIndex, attributeElementByteSizeMarshal, attributeElementByteSize, "HRESULT")
         return result
     }
 
@@ -75,6 +87,9 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStringAttributeElement(name, elementIndex, attributeElementByteSize, attributeElement) {
+        name := name is String ? StrPtr(name) : name
+        attributeElement := attributeElement is String ? StrPtr(attributeElement) : attributeElement
+
         result := ComCall(6, this, "ptr", name, "uint", elementIndex, "uint", attributeElementByteSize, "ptr", attributeElement, "HRESULT")
         return result
     }

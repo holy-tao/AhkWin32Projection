@@ -224,7 +224,9 @@ class INetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getdomaintype
      */
     GetDomainType(pNetworkType) {
-        result := ComCall(12, this, "int*", pNetworkType, "HRESULT")
+        pNetworkTypeMarshal := pNetworkType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pNetworkTypeMarshal, pNetworkType, "HRESULT")
         return result
     }
 
@@ -249,7 +251,12 @@ class INetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-gettimecreatedandconnected
      */
     GetTimeCreatedAndConnected(pdwLowDateTimeCreated, pdwHighDateTimeCreated, pdwLowDateTimeConnected, pdwHighDateTimeConnected) {
-        result := ComCall(14, this, "uint*", pdwLowDateTimeCreated, "uint*", pdwHighDateTimeCreated, "uint*", pdwLowDateTimeConnected, "uint*", pdwHighDateTimeConnected, "HRESULT")
+        pdwLowDateTimeCreatedMarshal := pdwLowDateTimeCreated is VarRef ? "uint*" : "ptr"
+        pdwHighDateTimeCreatedMarshal := pdwHighDateTimeCreated is VarRef ? "uint*" : "ptr"
+        pdwLowDateTimeConnectedMarshal := pdwLowDateTimeConnected is VarRef ? "uint*" : "ptr"
+        pdwHighDateTimeConnectedMarshal := pdwHighDateTimeConnected is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwLowDateTimeCreatedMarshal, pdwLowDateTimeCreated, pdwHighDateTimeCreatedMarshal, pdwHighDateTimeCreated, pdwLowDateTimeConnectedMarshal, pdwLowDateTimeConnected, pdwHighDateTimeConnectedMarshal, pdwHighDateTimeConnected, "HRESULT")
         return result
     }
 
@@ -282,7 +289,9 @@ class INetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getconnectivity
      */
     GetConnectivity(pConnectivity) {
-        result := ComCall(17, this, "int*", pConnectivity, "HRESULT")
+        pConnectivityMarshal := pConnectivity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pConnectivityMarshal, pConnectivity, "HRESULT")
         return result
     }
 
@@ -293,7 +302,9 @@ class INetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getcategory
      */
     GetCategory(pCategory) {
-        result := ComCall(18, this, "int*", pCategory, "HRESULT")
+        pCategoryMarshal := pCategory is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pCategoryMarshal, pCategory, "HRESULT")
         return result
     }
 

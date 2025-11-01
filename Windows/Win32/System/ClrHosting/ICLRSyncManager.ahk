@@ -46,7 +46,9 @@ class ICLRSyncManager extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateRWLockOwnerIterator(Cookie, pIterator) {
-        result := ComCall(4, this, "ptr", Cookie, "ptr*", pIterator, "HRESULT")
+        pIteratorMarshal := pIterator is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", Cookie, pIteratorMarshal, pIterator, "HRESULT")
         return result
     }
 

@@ -36,7 +36,9 @@ class IEnumMsmString extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(cFetch, rgbstrStrings, pcFetched) {
-        result := ComCall(3, this, "uint", cFetch, "ptr", rgbstrStrings, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cFetch, "ptr", rgbstrStrings, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

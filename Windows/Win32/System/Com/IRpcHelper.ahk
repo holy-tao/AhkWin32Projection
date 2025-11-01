@@ -34,7 +34,9 @@ class IRpcHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDCOMProtocolVersion(pComVersion) {
-        result := ComCall(3, this, "uint*", pComVersion, "HRESULT")
+        pComVersionMarshal := pComVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pComVersionMarshal, pComVersion, "HRESULT")
         return result
     }
 
@@ -45,7 +47,9 @@ class IRpcHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIIDFromOBJREF(pObjRef, piid) {
-        result := ComCall(4, this, "ptr", pObjRef, "ptr*", piid, "HRESULT")
+        pObjRefMarshal := pObjRef is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pObjRefMarshal, pObjRef, "ptr*", piid, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -82,7 +88,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getrecordserviceid
      */
     GetRecordServiceId(bRecordIndex, pwVal) {
-        result := ComCall(6, this, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -94,7 +102,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getrecordlogicalchannelnumber
      */
     GetRecordLogicalChannelNumber(bRecordIndex, pwVal) {
-        result := ComCall(7, this, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 }

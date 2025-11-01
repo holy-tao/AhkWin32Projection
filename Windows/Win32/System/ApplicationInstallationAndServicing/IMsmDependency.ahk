@@ -48,7 +48,9 @@ class IMsmDependency extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmdependency-get_language
      */
     get_Language(Language) {
-        result := ComCall(8, this, "short*", Language, "HRESULT")
+        LanguageMarshal := Language is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, LanguageMarshal, Language, "HRESULT")
         return result
     }
 

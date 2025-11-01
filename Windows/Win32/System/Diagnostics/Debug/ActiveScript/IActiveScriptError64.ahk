@@ -36,7 +36,11 @@ class IActiveScriptError64 extends IActiveScriptError{
      * @returns {HRESULT} 
      */
     GetSourcePosition64(pdwSourceContext, pulLineNumber, plCharacterPosition) {
-        result := ComCall(6, this, "uint*", pdwSourceContext, "uint*", pulLineNumber, "int*", plCharacterPosition, "HRESULT")
+        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : "ptr"
+        pulLineNumberMarshal := pulLineNumber is VarRef ? "uint*" : "ptr"
+        plCharacterPositionMarshal := plCharacterPosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pdwSourceContextMarshal, pdwSourceContext, pulLineNumberMarshal, pulLineNumber, plCharacterPositionMarshal, plCharacterPosition, "HRESULT")
         return result
     }
 }

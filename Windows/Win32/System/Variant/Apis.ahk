@@ -20,7 +20,9 @@ class Variant {
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_usersize
      */
     static VARIANT_UserSize(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\VARIANT_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VARIANT_UserSize", param0Marshal, param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -91,7 +93,10 @@ class Variant {
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_usermarshal
      */
     static VARIANT_UserMarshal(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -171,7 +176,10 @@ class Variant {
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userunmarshal
      */
     static VARIANT_UserUnmarshal(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -183,7 +191,9 @@ class Variant {
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userfree
      */
     static VARIANT_UserFree(param0, param1) {
-        DllCall("OLEAUT32.dll\VARIANT_UserFree", "uint*", param0, "ptr", param1)
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        DllCall("OLEAUT32.dll\VARIANT_UserFree", param0Marshal, param0, "ptr", param1)
     }
 
     /**
@@ -196,7 +206,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VARIANT_UserSize64(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\VARIANT_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VARIANT_UserSize64", param0Marshal, param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -268,7 +280,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VARIANT_UserMarshal64(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VARIANT_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -349,7 +364,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VARIANT_UserUnmarshal64(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VARIANT_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -362,7 +380,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VARIANT_UserFree64(param0, param1) {
-        DllCall("OLEAUT32.dll\VARIANT_UserFree64", "uint*", param0, "ptr", param1)
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        DllCall("OLEAUT32.dll\VARIANT_UserFree64", param0Marshal, param0, "ptr", param1)
     }
 
     /**
@@ -374,7 +394,9 @@ class Variant {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dosdatetimetovarianttime
      */
     static DosDateTimeToVariantTime(wDosDate, wDosTime, pvtime) {
-        result := DllCall("OLEAUT32.dll\DosDateTimeToVariantTime", "ushort", wDosDate, "ushort", wDosTime, "double*", pvtime, "int")
+        pvtimeMarshal := pvtime is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\DosDateTimeToVariantTime", "ushort", wDosDate, "ushort", wDosTime, pvtimeMarshal, pvtime, "int")
         return result
     }
 
@@ -387,7 +409,10 @@ class Variant {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varianttimetodosdatetime
      */
     static VariantTimeToDosDateTime(vtime, pwDosDate, pwDosTime) {
-        result := DllCall("OLEAUT32.dll\VariantTimeToDosDateTime", "double", vtime, "ushort*", pwDosDate, "ushort*", pwDosTime, "int")
+        pwDosDateMarshal := pwDosDate is VarRef ? "ushort*" : "ptr"
+        pwDosTimeMarshal := pwDosTime is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VariantTimeToDosDateTime", "double", vtime, pwDosDateMarshal, pwDosDate, pwDosTimeMarshal, pwDosTime, "int")
         return result
     }
 
@@ -399,7 +424,9 @@ class Variant {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-systemtimetovarianttime
      */
     static SystemTimeToVariantTime(lpSystemTime, pvtime) {
-        result := DllCall("OLEAUT32.dll\SystemTimeToVariantTime", "ptr", lpSystemTime, "double*", pvtime, "int")
+        pvtimeMarshal := pvtime is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SystemTimeToVariantTime", "ptr", lpSystemTime, pvtimeMarshal, pvtime, "int")
         return result
     }
 
@@ -1134,7 +1161,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromInt16Array(prgn, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromInt16Array", "short*", prgn, "uint", cElems, "ptr", pvar, "int")
+        prgnMarshal := prgn is VarRef ? "short*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromInt16Array", prgnMarshal, prgn, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1159,7 +1188,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromUInt16Array(prgn, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromUInt16Array", "ushort*", prgn, "uint", cElems, "ptr", pvar, "int")
+        prgnMarshal := prgn is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromUInt16Array", prgnMarshal, prgn, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1184,7 +1215,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromInt32Array(prgn, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromInt32Array", "int*", prgn, "uint", cElems, "ptr", pvar, "int")
+        prgnMarshal := prgn is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromInt32Array", prgnMarshal, prgn, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1209,7 +1242,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromUInt32Array(prgn, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromUInt32Array", "uint*", prgn, "uint", cElems, "ptr", pvar, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromUInt32Array", prgnMarshal, prgn, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1236,7 +1271,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromInt64Array(prgn, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromInt64Array", "int64*", prgn, "uint", cElems, "ptr", pvar, "int")
+        prgnMarshal := prgn is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromInt64Array", prgnMarshal, prgn, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1261,7 +1298,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromUInt64Array(prgn, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromUInt64Array", "uint*", prgn, "uint", cElems, "ptr", pvar, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromUInt64Array", prgnMarshal, prgn, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1286,7 +1325,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static InitVariantFromDoubleArray(prgn, cElems, pvar) {
-        result := DllCall("PROPSYS.dll\InitVariantFromDoubleArray", "double*", prgn, "uint", cElems, "ptr", pvar, "int")
+        prgnMarshal := prgn is VarRef ? "double*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitVariantFromDoubleArray", prgnMarshal, prgn, "uint", cElems, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1528,7 +1569,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt16(varIn, piRet) {
-        result := DllCall("PROPSYS.dll\VariantToInt16", "ptr", varIn, "short*", piRet, "int")
+        piRetMarshal := piRet is VarRef ? "short*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt16", "ptr", varIn, piRetMarshal, piRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1550,7 +1593,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt16(varIn, puiRet) {
-        result := DllCall("PROPSYS.dll\VariantToUInt16", "ptr", varIn, "ushort*", puiRet, "int")
+        puiRetMarshal := puiRet is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt16", "ptr", varIn, puiRetMarshal, puiRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1572,7 +1617,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt32(varIn, plRet) {
-        result := DllCall("PROPSYS.dll\VariantToInt32", "ptr", varIn, "int*", plRet, "int")
+        plRetMarshal := plRet is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt32", "ptr", varIn, plRetMarshal, plRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1594,7 +1641,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt32(varIn, pulRet) {
-        result := DllCall("PROPSYS.dll\VariantToUInt32", "ptr", varIn, "uint*", pulRet, "int")
+        pulRetMarshal := pulRet is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt32", "ptr", varIn, pulRetMarshal, pulRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1616,7 +1665,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt64(varIn, pllRet) {
-        result := DllCall("PROPSYS.dll\VariantToInt64", "ptr", varIn, "int64*", pllRet, "int")
+        pllRetMarshal := pllRet is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt64", "ptr", varIn, pllRetMarshal, pllRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1638,7 +1689,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt64(varIn, pullRet) {
-        result := DllCall("PROPSYS.dll\VariantToUInt64", "ptr", varIn, "uint*", pullRet, "int")
+        pullRetMarshal := pullRet is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt64", "ptr", varIn, pullRetMarshal, pullRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1660,7 +1713,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToDouble(varIn, pdblRet) {
-        result := DllCall("PROPSYS.dll\VariantToDouble", "ptr", varIn, "double*", pdblRet, "int")
+        pdblRetMarshal := pdblRet is VarRef ? "double*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToDouble", "ptr", varIn, pdblRetMarshal, pdblRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1821,7 +1876,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToDosDateTime(varIn, pwDate, pwTime) {
-        result := DllCall("PROPSYS.dll\VariantToDosDateTime", "ptr", varIn, "ushort*", pwDate, "ushort*", pwTime, "int")
+        pwDateMarshal := pwDate is VarRef ? "ushort*" : "ptr"
+        pwTimeMarshal := pwTime is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToDosDateTime", "ptr", varIn, pwDateMarshal, pwDate, pwTimeMarshal, pwTime, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1919,7 +1977,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToBooleanArray(var, prgf, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToBooleanArray", "ptr", var, "ptr", prgf, "uint", crgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToBooleanArray", "ptr", var, "ptr", prgf, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1947,7 +2007,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt16Array(var, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt16Array", "ptr", var, "short*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "short*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt16Array", "ptr", var, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1975,7 +2038,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt16Array(var, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt16Array", "ptr", var, "ushort*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "ushort*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt16Array", "ptr", var, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2003,7 +2069,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt32Array(var, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt32Array", "ptr", var, "int*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "int*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt32Array", "ptr", var, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2031,7 +2100,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt32Array(var, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt32Array", "ptr", var, "uint*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt32Array", "ptr", var, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2059,7 +2131,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt64Array(var, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt64Array", "ptr", var, "int64*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "int64*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt64Array", "ptr", var, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2087,7 +2162,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt64Array(var, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt64Array", "ptr", var, "uint*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt64Array", "ptr", var, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2144,7 +2222,10 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToDoubleArray(var, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToDoubleArray", "ptr", var, "double*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "double*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToDoubleArray", "ptr", var, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2172,7 +2253,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToStringArray(var, prgsz, crgsz, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToStringArray", "ptr", var, "ptr", prgsz, "uint", crgsz, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToStringArray", "ptr", var, "ptr", prgsz, "uint", crgsz, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2197,7 +2280,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToBooleanArrayAlloc(var, pprgf, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToBooleanArrayAlloc", "ptr", var, "ptr*", pprgf, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToBooleanArrayAlloc", "ptr", var, "ptr*", pprgf, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2222,7 +2307,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt16ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt16ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt16ArrayAlloc", "ptr", var, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2247,7 +2334,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt16ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt16ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt16ArrayAlloc", "ptr", var, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2272,7 +2361,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt32ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt32ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt32ArrayAlloc", "ptr", var, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2297,7 +2388,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt32ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt32ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt32ArrayAlloc", "ptr", var, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2322,7 +2415,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt64ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt64ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToInt64ArrayAlloc", "ptr", var, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2347,7 +2442,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt64ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt64ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToUInt64ArrayAlloc", "ptr", var, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2372,7 +2469,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToDoubleArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToDoubleArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToDoubleArrayAlloc", "ptr", var, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2397,7 +2496,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToStringArrayAlloc(var, pprgsz, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToStringArrayAlloc", "ptr", var, "ptr*", pprgsz, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantToStringArrayAlloc", "ptr", var, "ptr*", pprgsz, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2447,7 +2548,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantGetInt16Elem(var, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\VariantGetInt16Elem", "ptr", var, "uint", iElem, "short*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "short*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantGetInt16Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2472,7 +2575,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantGetUInt16Elem(var, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\VariantGetUInt16Elem", "ptr", var, "uint", iElem, "ushort*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantGetUInt16Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2497,7 +2602,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantGetInt32Elem(var, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\VariantGetInt32Elem", "ptr", var, "uint", iElem, "int*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantGetInt32Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2522,7 +2629,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantGetUInt32Elem(var, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\VariantGetUInt32Elem", "ptr", var, "uint", iElem, "uint*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantGetUInt32Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2547,7 +2656,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantGetInt64Elem(var, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\VariantGetInt64Elem", "ptr", var, "uint", iElem, "int64*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantGetInt64Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2572,7 +2683,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantGetUInt64Elem(var, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\VariantGetUInt64Elem", "ptr", var, "uint", iElem, "uint*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantGetUInt64Elem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2597,7 +2710,9 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantGetDoubleElem(var, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\VariantGetDoubleElem", "ptr", var, "uint", iElem, "double*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "double*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\VariantGetDoubleElem", "ptr", var, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 

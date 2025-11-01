@@ -53,7 +53,9 @@ class IVdsServiceUninstallDisk extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceuninstalldisk-uninstalldisks
      */
     UninstallDisks(pDiskIdArray, ulCount, bForce, pbReboot, pResults) {
-        result := ComCall(4, this, "ptr", pDiskIdArray, "uint", ulCount, "char", bForce, "char*", pbReboot, "ptr", pResults, "HRESULT")
+        pbRebootMarshal := pbReboot is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pDiskIdArray, "uint", ulCount, "char", bForce, pbRebootMarshal, pbReboot, "ptr", pResults, "HRESULT")
         return result
     }
 }

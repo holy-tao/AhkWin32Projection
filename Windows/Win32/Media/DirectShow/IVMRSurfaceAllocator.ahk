@@ -40,7 +40,9 @@ class IVMRSurfaceAllocator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-allocatesurface
      */
     AllocateSurface(dwUserID, lpAllocInfo, lpdwActualBuffers, lplpSurface) {
-        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, "uint*", lpdwActualBuffers, "ptr*", lplpSurface, "HRESULT")
+        lpdwActualBuffersMarshal := lpdwActualBuffers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, lpdwActualBuffersMarshal, lpdwActualBuffers, "ptr*", lplpSurface, "HRESULT")
         return result
     }
 

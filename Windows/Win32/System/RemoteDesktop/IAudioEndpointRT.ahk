@@ -43,7 +43,9 @@ class IAudioEndpointRT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointrt-getcurrentpadding
      */
     GetCurrentPadding(pPadding, pAeCurrentPosition) {
-        ComCall(3, this, "int64*", pPadding, "ptr", pAeCurrentPosition)
+        pPaddingMarshal := pPadding is VarRef ? "int64*" : "ptr"
+
+        ComCall(3, this, pPaddingMarshal, pPadding, "ptr", pAeCurrentPosition)
     }
 
     /**

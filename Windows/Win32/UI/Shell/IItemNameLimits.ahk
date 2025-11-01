@@ -52,7 +52,9 @@ class IItemNameLimits extends IUnknown{
     GetMaxLength(pszName, piMaxNameLen) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(4, this, "ptr", pszName, "int*", piMaxNameLen, "HRESULT")
+        piMaxNameLenMarshal := piMaxNameLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszName, piMaxNameLenMarshal, piMaxNameLen, "HRESULT")
         return result
     }
 }

@@ -37,7 +37,9 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
      * @returns {HRESULT} 
      */
     EventPipeStartSession(cProviderConfigs, pProviderConfigs, requestRundown, pSession) {
-        result := ComCall(101, this, "uint", cProviderConfigs, "ptr", pProviderConfigs, "int", requestRundown, "uint*", pSession, "HRESULT")
+        pSessionMarshal := pSession is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(101, this, "uint", cProviderConfigs, "ptr", pProviderConfigs, "int", requestRundown, pSessionMarshal, pSession, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
     EventPipeCreateProvider(providerName, pProvider) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        result := ComCall(104, this, "ptr", providerName, "ptr*", pProvider, "HRESULT")
+        pProviderMarshal := pProvider is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(104, this, "ptr", providerName, pProviderMarshal, pProvider, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
     EventPipeGetProviderInfo(provider, cchName, pcchName, providerName) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        result := ComCall(105, this, "ptr", provider, "uint", cchName, "uint*", pcchName, "ptr", providerName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(105, this, "ptr", provider, "uint", cchName, pcchNameMarshal, pcchName, "ptr", providerName, "HRESULT")
         return result
     }
 
@@ -108,7 +114,9 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
     EventPipeDefineEvent(provider, eventName, eventID, keywords, eventVersion, level, opcode, needStack, cParamDescs, pParamDescs, pEvent) {
         eventName := eventName is String ? StrPtr(eventName) : eventName
 
-        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, "int", needStack, "uint", cParamDescs, "ptr", pParamDescs, "ptr*", pEvent, "HRESULT")
+        pEventMarshal := pEvent is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, "int", needStack, "uint", cParamDescs, "ptr", pParamDescs, pEventMarshal, pEvent, "HRESULT")
         return result
     }
 

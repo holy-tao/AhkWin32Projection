@@ -36,7 +36,9 @@ class IRowSchemaChange extends IRowChange{
      * @returns {HRESULT} 
      */
     DeleteColumns(cColumns, rgColumnIDs, rgdwStatus) {
-        result := ComCall(4, this, "ptr", cColumns, "ptr", rgColumnIDs, "uint*", rgdwStatus, "HRESULT")
+        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", cColumns, "ptr", rgColumnIDs, rgdwStatusMarshal, rgdwStatus, "HRESULT")
         return result
     }
 

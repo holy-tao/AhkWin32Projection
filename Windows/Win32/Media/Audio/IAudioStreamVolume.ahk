@@ -37,7 +37,9 @@ class IAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-getchannelcount
      */
     GetChannelCount(pdwCount) {
-        result := ComCall(3, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class IAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-getchannelvolume
      */
     GetChannelVolume(dwIndex, pfLevel) {
-        result := ComCall(5, this, "uint", dwIndex, "float*", pfLevel, "HRESULT")
+        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwIndex, pfLevelMarshal, pfLevel, "HRESULT")
         return result
     }
 
@@ -73,7 +77,9 @@ class IAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-setallvolumes
      */
     SetAllVolumes(dwCount, pfVolumes) {
-        result := ComCall(6, this, "uint", dwCount, "float*", pfVolumes, "HRESULT")
+        pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
         return result
     }
 
@@ -85,7 +91,9 @@ class IAudioStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-getallvolumes
      */
     GetAllVolumes(dwCount, pfVolumes) {
-        result := ComCall(7, this, "uint", dwCount, "float*", pfVolumes, "HRESULT")
+        pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
         return result
     }
 }

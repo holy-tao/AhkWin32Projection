@@ -718,7 +718,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setclipplane
      */
     SetClipPlane(Index, pPlane) {
-        result := ComCall(55, this, "uint", Index, "float*", pPlane, "HRESULT")
+        pPlaneMarshal := pPlane is VarRef ? "float*" : "ptr"
+
+        result := ComCall(55, this, "uint", Index, pPlaneMarshal, pPlane, "HRESULT")
         return result
     }
 
@@ -730,7 +732,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getclipplane
      */
     GetClipPlane(Index, pPlane) {
-        result := ComCall(56, this, "uint", Index, "float*", pPlane, "HRESULT")
+        pPlaneMarshal := pPlane is VarRef ? "float*" : "ptr"
+
+        result := ComCall(56, this, "uint", Index, pPlaneMarshal, pPlane, "HRESULT")
         return result
     }
 
@@ -754,7 +758,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getrenderstate
      */
     GetRenderState(State, pValue) {
-        result := ComCall(58, this, "int", State, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(58, this, "int", State, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -846,7 +852,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-gettexturestagestate
      */
     GetTextureStageState(Stage, Type, pValue) {
-        result := ComCall(66, this, "uint", Stage, "int", Type, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(66, this, "uint", Stage, "int", Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -872,7 +880,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getsamplerstate
      */
     GetSamplerState(Sampler, Type, pValue) {
-        result := ComCall(68, this, "uint", Sampler, "int", Type, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(68, this, "uint", Sampler, "int", Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -896,7 +906,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-validatedevice
      */
     ValidateDevice(pNumPasses) {
-        result := ComCall(70, this, "uint*", pNumPasses, "HRESULT")
+        pNumPassesMarshal := pNumPasses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(70, this, pNumPassesMarshal, pNumPasses, "HRESULT")
         return result
     }
 
@@ -946,7 +958,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getcurrenttexturepalette
      */
     GetCurrentTexturePalette(PaletteNumber) {
-        result := ComCall(74, this, "uint*", PaletteNumber, "HRESULT")
+        PaletteNumberMarshal := PaletteNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(74, this, PaletteNumberMarshal, PaletteNumber, "HRESULT")
         return result
     }
 
@@ -1053,7 +1067,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawprimitiveup
      */
     DrawPrimitiveUP(PrimitiveType, PrimitiveCount, pVertexStreamZeroData, VertexStreamZeroStride) {
-        result := ComCall(83, this, "int", PrimitiveType, "uint", PrimitiveCount, "ptr", pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
+        pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(83, this, "int", PrimitiveType, "uint", PrimitiveCount, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
         return result
     }
 
@@ -1071,7 +1087,10 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawindexedprimitiveup
      */
     DrawIndexedPrimitiveUP(PrimitiveType, MinVertexIndex, NumVertices, PrimitiveCount, pIndexData, IndexDataFormat, pVertexStreamZeroData, VertexStreamZeroStride) {
-        result := ComCall(84, this, "int", PrimitiveType, "uint", MinVertexIndex, "uint", NumVertices, "uint", PrimitiveCount, "ptr", pIndexData, "uint", IndexDataFormat, "ptr", pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
+        pIndexDataMarshal := pIndexData is VarRef ? "ptr" : "ptr"
+        pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(84, this, "int", PrimitiveType, "uint", MinVertexIndex, "uint", NumVertices, "uint", PrimitiveCount, pIndexDataMarshal, pIndexData, "uint", IndexDataFormat, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
         return result
     }
 
@@ -1143,7 +1162,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getfvf
      */
     GetFVF(pFVF) {
-        result := ComCall(90, this, "uint*", pFVF, "HRESULT")
+        pFVFMarshal := pFVF is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(90, this, pFVFMarshal, pFVF, "HRESULT")
         return result
     }
 
@@ -1155,7 +1176,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexshader
      */
     CreateVertexShader(pFunction, ppShader) {
-        result := ComCall(91, this, "uint*", pFunction, "ptr*", ppShader, "HRESULT")
+        pFunctionMarshal := pFunction is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(91, this, pFunctionMarshal, pFunction, "ptr*", ppShader, "HRESULT")
         return result
     }
 
@@ -1190,7 +1213,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setvertexshaderconstantf
      */
     SetVertexShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        result := ComCall(94, this, "uint", StartRegister, "float*", pConstantData, "uint", Vector4fCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(94, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
         return result
     }
 
@@ -1203,7 +1228,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexshaderconstantf
      */
     GetVertexShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        result := ComCall(95, this, "uint", StartRegister, "float*", pConstantData, "uint", Vector4fCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(95, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
         return result
     }
 
@@ -1216,7 +1243,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setvertexshaderconstanti
      */
     SetVertexShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        result := ComCall(96, this, "uint", StartRegister, "int*", pConstantData, "uint", Vector4iCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(96, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
         return result
     }
 
@@ -1229,7 +1258,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexshaderconstanti
      */
     GetVertexShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        result := ComCall(97, this, "uint", StartRegister, "int*", pConstantData, "uint", Vector4iCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(97, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
         return result
     }
 
@@ -1283,7 +1314,10 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getstreamsource
      */
     GetStreamSource(StreamNumber, ppStreamData, pOffsetInBytes, pStride) {
-        result := ComCall(101, this, "uint", StreamNumber, "ptr*", ppStreamData, "uint*", pOffsetInBytes, "uint*", pStride, "HRESULT")
+        pOffsetInBytesMarshal := pOffsetInBytes is VarRef ? "uint*" : "ptr"
+        pStrideMarshal := pStride is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(101, this, "uint", StreamNumber, "ptr*", ppStreamData, pOffsetInBytesMarshal, pOffsetInBytes, pStrideMarshal, pStride, "HRESULT")
         return result
     }
 
@@ -1307,7 +1341,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getstreamsourcefreq
      */
     GetStreamSourceFreq(StreamNumber, pSetting) {
-        result := ComCall(103, this, "uint", StreamNumber, "uint*", pSetting, "HRESULT")
+        pSettingMarshal := pSetting is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(103, this, "uint", StreamNumber, pSettingMarshal, pSetting, "HRESULT")
         return result
     }
 
@@ -1341,7 +1377,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createpixelshader
      */
     CreatePixelShader(pFunction, ppShader) {
-        result := ComCall(106, this, "uint*", pFunction, "ptr*", ppShader, "HRESULT")
+        pFunctionMarshal := pFunction is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(106, this, pFunctionMarshal, pFunction, "ptr*", ppShader, "HRESULT")
         return result
     }
 
@@ -1376,7 +1414,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpixelshaderconstantf
      */
     SetPixelShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        result := ComCall(109, this, "uint", StartRegister, "float*", pConstantData, "uint", Vector4fCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(109, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
         return result
     }
 
@@ -1389,7 +1429,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpixelshaderconstantf
      */
     GetPixelShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        result := ComCall(110, this, "uint", StartRegister, "float*", pConstantData, "uint", Vector4fCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(110, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
         return result
     }
 
@@ -1402,7 +1444,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpixelshaderconstanti
      */
     SetPixelShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        result := ComCall(111, this, "uint", StartRegister, "int*", pConstantData, "uint", Vector4iCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(111, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
         return result
     }
 
@@ -1415,7 +1459,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpixelshaderconstanti
      */
     GetPixelShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        result := ComCall(112, this, "uint", StartRegister, "int*", pConstantData, "uint", Vector4iCount, "HRESULT")
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(112, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
         return result
     }
 
@@ -1454,7 +1500,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawrectpatch
      */
     DrawRectPatch(Handle, pNumSegs, pRectPatchInfo) {
-        result := ComCall(115, this, "uint", Handle, "float*", pNumSegs, "ptr", pRectPatchInfo, "HRESULT")
+        pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
+
+        result := ComCall(115, this, "uint", Handle, pNumSegsMarshal, pNumSegs, "ptr", pRectPatchInfo, "HRESULT")
         return result
     }
 
@@ -1467,7 +1515,9 @@ class IDirect3DDevice9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawtripatch
      */
     DrawTriPatch(Handle, pNumSegs, pTriPatchInfo) {
-        result := ComCall(116, this, "uint", Handle, "float*", pNumSegs, "ptr", pTriPatchInfo, "HRESULT")
+        pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
+
+        result := ComCall(116, this, "uint", Handle, pNumSegsMarshal, pNumSegs, "ptr", pTriPatchInfo, "HRESULT")
         return result
     }
 

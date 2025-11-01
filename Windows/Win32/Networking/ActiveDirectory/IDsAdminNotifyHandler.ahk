@@ -48,7 +48,9 @@ class IDsAdminNotifyHandler extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pExtraInfo, puEventFlags) {
-        result := ComCall(3, this, "ptr", pExtraInfo, "uint*", puEventFlags, "HRESULT")
+        puEventFlagsMarshal := puEventFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pExtraInfo, puEventFlagsMarshal, puEventFlags, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IDsAdminNotifyHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-begin
      */
     Begin(uEvent, pArg1, pArg2, puFlags, pBstr) {
-        result := ComCall(4, this, "uint", uEvent, "ptr", pArg1, "ptr", pArg2, "uint*", puFlags, "ptr", pBstr, "HRESULT")
+        puFlagsMarshal := puFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", uEvent, "ptr", pArg1, "ptr", pArg2, puFlagsMarshal, puFlags, "ptr", pBstr, "HRESULT")
         return result
     }
 

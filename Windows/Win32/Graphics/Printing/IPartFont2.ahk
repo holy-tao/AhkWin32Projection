@@ -34,7 +34,9 @@ class IPartFont2 extends IPartFont{
      * @returns {HRESULT} 
      */
     GetFontRestriction(pRestriction) {
-        result := ComCall(10, this, "int*", pRestriction, "HRESULT")
+        pRestrictionMarshal := pRestriction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pRestrictionMarshal, pRestriction, "HRESULT")
         return result
     }
 }

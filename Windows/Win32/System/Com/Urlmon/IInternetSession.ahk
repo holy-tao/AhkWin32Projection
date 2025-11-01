@@ -111,7 +111,9 @@ class IInternetSession extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSessionOption(dwOption, pBuffer, dwBufferLength, dwReserved) {
-        result := ComCall(8, this, "uint", dwOption, "ptr", pBuffer, "uint", dwBufferLength, "uint", dwReserved, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", dwOption, pBufferMarshal, pBuffer, "uint", dwBufferLength, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -124,7 +126,10 @@ class IInternetSession extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSessionOption(dwOption, pBuffer, pdwBufferLength, dwReserved) {
-        result := ComCall(9, this, "uint", dwOption, "ptr", pBuffer, "uint*", pdwBufferLength, "uint", dwReserved, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwOption, pBufferMarshal, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, "uint", dwReserved, "HRESULT")
         return result
     }
 }

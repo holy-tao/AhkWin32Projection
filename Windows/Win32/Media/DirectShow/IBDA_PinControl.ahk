@@ -42,7 +42,9 @@ class IBDA_PinControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpinid
      */
     GetPinID(pulPinID) {
-        result := ComCall(3, this, "uint*", pulPinID, "HRESULT")
+        pulPinIDMarshal := pulPinID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulPinIDMarshal, pulPinID, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IBDA_PinControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpintype
      */
     GetPinType(pulPinType) {
-        result := ComCall(4, this, "uint*", pulPinType, "HRESULT")
+        pulPinTypeMarshal := pulPinType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulPinTypeMarshal, pulPinType, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IBDA_PinControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-registrationcontext
      */
     RegistrationContext(pulRegistrationCtx) {
-        result := ComCall(5, this, "uint*", pulRegistrationCtx, "HRESULT")
+        pulRegistrationCtxMarshal := pulRegistrationCtx is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulRegistrationCtxMarshal, pulRegistrationCtx, "HRESULT")
         return result
     }
 }

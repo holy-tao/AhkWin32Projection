@@ -89,7 +89,9 @@ class IDWriteFontCollection extends IUnknown{
     FindFamilyName(familyName, index, exists) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(5, this, "ptr", familyName, "uint*", index, "ptr", exists, "HRESULT")
+        indexMarshal := index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", familyName, indexMarshal, index, "ptr", exists, "HRESULT")
         return result
     }
 

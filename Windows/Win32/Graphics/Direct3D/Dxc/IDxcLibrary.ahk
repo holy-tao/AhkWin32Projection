@@ -61,7 +61,9 @@ class IDxcLibrary extends IUnknown{
     CreateBlobFromFile(pFileName, codePage, pBlobEncoding) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := ComCall(5, this, "ptr", pFileName, "uint*", codePage, "ptr*", pBlobEncoding, "HRESULT")
+        codePageMarshal := codePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pFileName, codePageMarshal, codePage, "ptr*", pBlobEncoding, "HRESULT")
         return result
     }
 

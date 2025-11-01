@@ -42,6 +42,8 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-open
      */
     Open(pchDictPath, pshf) {
+        pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
+
         result := ComCall(3, this, "ptr", pchDictPath, "ptr", pshf, "HRESULT")
         return result
     }
@@ -66,7 +68,12 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getheader
      */
     GetHeader(pchDictPath, pshf, pjfmt, pulType) {
-        result := ComCall(5, this, "ptr", pchDictPath, "ptr", pshf, "int*", pjfmt, "uint*", pulType, "HRESULT")
+        pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
+
+        pjfmtMarshal := pjfmt is VarRef ? "int*" : "ptr"
+        pulTypeMarshal := pulType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pchDictPath, "ptr", pshf, pjfmtMarshal, pjfmt, pulTypeMarshal, pulType, "HRESULT")
         return result
     }
 
@@ -91,7 +98,9 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getpostable
      */
     GetPosTable(prgPosTbl, pcPosTbl) {
-        result := ComCall(7, this, "ptr*", prgPosTbl, "int*", pcPosTbl, "HRESULT")
+        pcPosTblMarshal := pcPosTbl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr*", prgPosTbl, pcPosTblMarshal, pcPosTbl, "HRESULT")
         return result
     }
 
@@ -114,7 +123,10 @@ class IFEDictionary extends IUnknown{
         pwchLast := pwchLast is String ? StrPtr(pwchLast) : pwchLast
         pwchDisplay := pwchDisplay is String ? StrPtr(pwchDisplay) : pwchDisplay
 
-        result := ComCall(8, this, "ptr", pwchFirst, "ptr", pwchLast, "ptr", pwchDisplay, "uint", ulPos, "uint", ulSelect, "uint", ulWordSrc, "char*", pchBuffer, "uint", cbBuffer, "uint*", pcWrd, "HRESULT")
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
+        pcWrdMarshal := pcWrd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pwchFirst, "ptr", pwchLast, "ptr", pwchDisplay, "uint", ulPos, "uint", ulSelect, "uint", ulWordSrc, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
         return result
     }
 
@@ -127,7 +139,10 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-nextwords
      */
     NextWords(pchBuffer, cbBuffer, pcWrd) {
-        result := ComCall(9, this, "char*", pchBuffer, "uint", cbBuffer, "uint*", pcWrd, "HRESULT")
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
+        pcWrdMarshal := pcWrd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
         return result
     }
 
@@ -139,6 +154,8 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-create
      */
     Create(pchDictPath, pshf) {
+        pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
+
         result := ComCall(10, this, "ptr", pchDictPath, "ptr", pshf, "HRESULT")
         return result
     }
@@ -219,7 +236,10 @@ class IFEDictionary extends IUnknown{
         pwchUkeReading := pwchUkeReading is String ? StrPtr(pwchUkeReading) : pwchUkeReading
         pwchUkeDisplay := pwchUkeDisplay is String ? StrPtr(pwchUkeDisplay) : pwchUkeDisplay
 
-        result := ComCall(16, this, "ptr", pwchKakariReading, "ptr", pwchKakariDisplay, "uint", ulKakariPos, "ptr", pwchUkeReading, "ptr", pwchUkeDisplay, "uint", ulUkePos, "int", jrel, "uint", ulWordSrc, "char*", pchBuffer, "uint", cbBuffer, "uint*", pcdp, "HRESULT")
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
+        pcdpMarshal := pcdp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", pwchKakariReading, "ptr", pwchKakariDisplay, "uint", ulKakariPos, "ptr", pwchUkeReading, "ptr", pwchUkeDisplay, "uint", ulUkePos, "int", jrel, "uint", ulWordSrc, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcdpMarshal, pcdp, "HRESULT")
         return result
     }
 
@@ -231,7 +251,10 @@ class IFEDictionary extends IUnknown{
      * @returns {HRESULT} 
      */
     NextDependencies(pchBuffer, cbBuffer, pcDp) {
-        result := ComCall(17, this, "char*", pchBuffer, "uint", cbBuffer, "uint*", pcDp, "HRESULT")
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
+        pcDpMarshal := pcDp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcDpMarshal, pcDp, "HRESULT")
         return result
     }
 
@@ -243,6 +266,8 @@ class IFEDictionary extends IUnknown{
      * @returns {HRESULT} 
      */
     ConvertFromOldMSIME(pchDic, pfnLog, reg) {
+        pchDic := pchDic is String ? StrPtr(pchDic) : pchDic
+
         result := ComCall(18, this, "ptr", pchDic, "ptr", pfnLog, "int", reg, "HRESULT")
         return result
     }

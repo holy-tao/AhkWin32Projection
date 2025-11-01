@@ -37,7 +37,9 @@ class IWPCWebSettings extends IWPCSettings{
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcwebsettings-getsettings
      */
     GetSettings(pdwSettings) {
-        result := ComCall(6, this, "int*", pdwSettings, "HRESULT")
+        pdwSettingsMarshal := pdwSettings is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pdwSettingsMarshal, pdwSettings, "HRESULT")
         return result
     }
 

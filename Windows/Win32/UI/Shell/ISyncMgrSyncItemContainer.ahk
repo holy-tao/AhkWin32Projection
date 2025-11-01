@@ -66,7 +66,9 @@ class ISyncMgrSyncItemContainer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemcount
      */
     GetSyncItemCount(pcItems) {
-        result := ComCall(5, this, "uint*", pcItems, "HRESULT")
+        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pcItemsMarshal, pcItems, "HRESULT")
         return result
     }
 }

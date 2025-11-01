@@ -47,7 +47,9 @@ class ITMSPAddress extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(hEvent) {
-        result := ComCall(3, this, "int*", hEvent, "HRESULT")
+        hEventMarshal := hEvent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, hEventMarshal, hEvent, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class ITMSPAddress extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-createmspcall
      */
     CreateMSPCall(hCall, dwReserved, dwMediaType, pOuterUnknown, ppStreamControl) {
-        result := ComCall(5, this, "int*", hCall, "uint", dwReserved, "uint", dwMediaType, "ptr", pOuterUnknown, "ptr*", ppStreamControl, "HRESULT")
+        hCallMarshal := hCall is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, hCallMarshal, hCall, "uint", dwReserved, "uint", dwMediaType, "ptr", pOuterUnknown, "ptr*", ppStreamControl, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class ITMSPAddress extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-receivetspdata
      */
     ReceiveTSPData(pMSPCall, pBuffer, dwSize) {
-        result := ComCall(7, this, "ptr", pMSPCall, "char*", pBuffer, "uint", dwSize, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pMSPCall, pBufferMarshal, pBuffer, "uint", dwSize, "HRESULT")
         return result
     }
 
@@ -108,7 +114,10 @@ class ITMSPAddress extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-getevent
      */
     GetEvent(pdwSize, pEventBuffer) {
-        result := ComCall(8, this, "uint*", pdwSize, "char*", pEventBuffer, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pEventBufferMarshal := pEventBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pdwSizeMarshal, pdwSize, pEventBufferMarshal, pEventBuffer, "HRESULT")
         return result
     }
 }

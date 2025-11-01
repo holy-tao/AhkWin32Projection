@@ -738,7 +738,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilMemFree(pMem) {
-        DllCall("snmpapi.dll\SnmpUtilMemFree", "ptr", pMem)
+        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+
+        DllCall("snmpapi.dll\SnmpUtilMemFree", pMemMarshal, pMem)
     }
 
     /**
@@ -766,7 +768,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilMemReAlloc(pMem, nBytes) {
-        result := DllCall("snmpapi.dll\SnmpUtilMemReAlloc", "ptr", pMem, "uint", nBytes, "ptr")
+        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("snmpapi.dll\SnmpUtilMemReAlloc", pMemMarshal, pMem, "uint", nBytes, "ptr")
         return result
     }
 
@@ -801,7 +805,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilIdsToA(Ids, IdLength) {
-        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", "uint*", Ids, "uint", IdLength, "char*")
+        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", IdsMarshal, Ids, "uint", IdLength, "char*")
         return result
     }
 
@@ -976,9 +982,14 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrCtl(session, dwCtlCode, lpvInBuffer, cbInBuffer, lpvOUTBuffer, cbOUTBuffer, lpcbBytesReturned) {
+        sessionMarshal := session is VarRef ? "ptr" : "ptr"
+        lpvInBufferMarshal := lpvInBuffer is VarRef ? "ptr" : "ptr"
+        lpvOUTBufferMarshal := lpvOUTBuffer is VarRef ? "ptr" : "ptr"
+        lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrCtl", "ptr", session, "uint", dwCtlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOUTBuffer, "uint", cbOUTBuffer, "uint*", lpcbBytesReturned, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrCtl", sessionMarshal, session, "uint", dwCtlCode, lpvInBufferMarshal, lpvInBuffer, "uint", cbInBuffer, lpvOUTBufferMarshal, lpvOUTBuffer, "uint", cbOUTBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -997,7 +1008,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrClose(session) {
-        result := DllCall("mgmtapi.dll\SnmpMgrClose", "ptr", session, "int")
+        sessionMarshal := session is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mgmtapi.dll\SnmpMgrClose", sessionMarshal, session, "int")
         return result
     }
 
@@ -1057,9 +1070,13 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrRequest(session, requestType, variableBindings, errorStatus, errorIndex) {
+        sessionMarshal := session is VarRef ? "ptr" : "ptr"
+        errorStatusMarshal := errorStatus is VarRef ? "uint*" : "ptr"
+        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrRequest", "ptr", session, "char", requestType, "ptr", variableBindings, "uint*", errorStatus, "int*", errorIndex, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrRequest", sessionMarshal, session, "char", requestType, "ptr", variableBindings, errorStatusMarshal, errorStatus, errorIndexMarshal, errorIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1220,7 +1237,11 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, timeStamp, variableBindings) {
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, "uint*", genericTrap, "int*", specificTrap, "uint*", timeStamp, "ptr", variableBindings, "int")
+        genericTrapMarshal := genericTrap is VarRef ? "uint*" : "ptr"
+        specificTrapMarshal := specificTrap is VarRef ? "int*" : "ptr"
+        timeStampMarshal := timeStamp is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, timeStampMarshal, timeStamp, "ptr", variableBindings, "int")
         return result
     }
 
@@ -1285,7 +1306,11 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, specificTrap, community, timeStamp, variableBindings) {
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, "uint*", genericTrap, "int*", specificTrap, "ptr", community, "uint*", timeStamp, "ptr", variableBindings, "int")
+        genericTrapMarshal := genericTrap is VarRef ? "uint*" : "ptr"
+        specificTrapMarshal := specificTrap is VarRef ? "int*" : "ptr"
+        timeStampMarshal := timeStamp is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, "ptr", community, timeStampMarshal, timeStamp, "ptr", variableBindings, "int")
         return result
     }
 
@@ -1343,7 +1368,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpGetTranslateMode(nTranslateMode) {
-        result := DllCall("wsnmp32.dll\SnmpGetTranslateMode", "uint*", nTranslateMode, "uint")
+        nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpGetTranslateMode", nTranslateModeMarshal, nTranslateMode, "uint")
         return result
     }
 
@@ -1469,7 +1496,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpGetRetransmitMode(nRetransmitMode) {
-        result := DllCall("wsnmp32.dll\SnmpGetRetransmitMode", "uint*", nRetransmitMode, "uint")
+        nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpGetRetransmitMode", nRetransmitModeMarshal, nRetransmitMode, "uint")
         return result
     }
 
@@ -1618,7 +1647,10 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpGetTimeout(hEntity, nPolicyTimeout, nActualTimeout) {
-        result := DllCall("wsnmp32.dll\SnmpGetTimeout", "ptr", hEntity, "uint*", nPolicyTimeout, "uint*", nActualTimeout, "uint")
+        nPolicyTimeoutMarshal := nPolicyTimeout is VarRef ? "uint*" : "ptr"
+        nActualTimeoutMarshal := nActualTimeout is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpGetTimeout", "ptr", hEntity, nPolicyTimeoutMarshal, nPolicyTimeout, nActualTimeoutMarshal, nActualTimeout, "uint")
         return result
     }
 
@@ -1773,7 +1805,10 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpGetRetry(hEntity, nPolicyRetry, nActualRetry) {
-        result := DllCall("wsnmp32.dll\SnmpGetRetry", "ptr", hEntity, "uint*", nPolicyRetry, "uint*", nActualRetry, "uint")
+        nPolicyRetryMarshal := nPolicyRetry is VarRef ? "uint*" : "ptr"
+        nActualRetryMarshal := nActualRetry is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpGetRetry", "ptr", hEntity, nPolicyRetryMarshal, nPolicyRetry, nActualRetryMarshal, nActualRetry, "uint")
         return result
     }
 
@@ -1979,7 +2014,13 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpStartup(nMajorVersion, nMinorVersion, nLevel, nTranslateMode, nRetransmitMode) {
-        result := DllCall("wsnmp32.dll\SnmpStartup", "uint*", nMajorVersion, "uint*", nMinorVersion, "uint*", nLevel, "uint*", nTranslateMode, "uint*", nRetransmitMode, "uint")
+        nMajorVersionMarshal := nMajorVersion is VarRef ? "uint*" : "ptr"
+        nMinorVersionMarshal := nMinorVersion is VarRef ? "uint*" : "ptr"
+        nLevelMarshal := nLevel is VarRef ? "uint*" : "ptr"
+        nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : "ptr"
+        nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpStartup", nMajorVersionMarshal, nMajorVersion, nMinorVersionMarshal, nMinorVersion, nLevelMarshal, nLevel, nTranslateModeMarshal, nTranslateMode, nRetransmitModeMarshal, nRetransmitMode, "uint")
         return result
     }
 
@@ -2574,7 +2615,12 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpRecvMsg(session, srcEntity, dstEntity, context, PDU) {
-        result := DllCall("wsnmp32.dll\SnmpRecvMsg", "ptr", session, "ptr*", srcEntity, "ptr*", dstEntity, "ptr*", context, "ptr*", PDU, "uint")
+        srcEntityMarshal := srcEntity is VarRef ? "ptr*" : "ptr"
+        dstEntityMarshal := dstEntity is VarRef ? "ptr*" : "ptr"
+        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+        PDUMarshal := PDU is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpRecvMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, contextMarshal, context, PDUMarshal, PDU, "uint")
         return result
     }
 
@@ -2856,7 +2902,9 @@ class Snmp {
     static SnmpCreateSession(hWnd, wMsg, fCallBack, lpClientData) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("wsnmp32.dll\SnmpCreateSession", "ptr", hWnd, "uint", wMsg, "ptr", fCallBack, "ptr", lpClientData, "ptr")
+        lpClientDataMarshal := lpClientData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpCreateSession", "ptr", hWnd, "uint", wMsg, "ptr", fCallBack, lpClientDataMarshal, lpClientData, "ptr")
         return result
     }
 
@@ -3154,7 +3202,13 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpStartupEx(nMajorVersion, nMinorVersion, nLevel, nTranslateMode, nRetransmitMode) {
-        result := DllCall("wsnmp32.dll\SnmpStartupEx", "uint*", nMajorVersion, "uint*", nMinorVersion, "uint*", nLevel, "uint*", nTranslateMode, "uint*", nRetransmitMode, "uint")
+        nMajorVersionMarshal := nMajorVersion is VarRef ? "uint*" : "ptr"
+        nMinorVersionMarshal := nMinorVersion is VarRef ? "uint*" : "ptr"
+        nLevelMarshal := nLevel is VarRef ? "uint*" : "ptr"
+        nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : "ptr"
+        nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpStartupEx", nMajorVersionMarshal, nMajorVersion, nMinorVersionMarshal, nMinorVersion, nLevelMarshal, nLevel, nTranslateModeMarshal, nTranslateMode, nRetransmitModeMarshal, nRetransmitMode, "uint")
         return result
     }
 
@@ -4006,7 +4060,13 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpGetPduData(PDU, PDU_type, request_id, error_status, error_index, varbindlist) {
-        result := DllCall("wsnmp32.dll\SnmpGetPduData", "ptr", PDU, "uint*", PDU_type, "int*", request_id, "uint*", error_status, "int*", error_index, "ptr*", varbindlist, "uint")
+        PDU_typeMarshal := PDU_type is VarRef ? "uint*" : "ptr"
+        request_idMarshal := request_id is VarRef ? "int*" : "ptr"
+        error_statusMarshal := error_status is VarRef ? "uint*" : "ptr"
+        error_indexMarshal := error_index is VarRef ? "int*" : "ptr"
+        varbindlistMarshal := varbindlist is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpGetPduData", "ptr", PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, error_statusMarshal, error_status, error_indexMarshal, error_index, varbindlistMarshal, varbindlist, "uint")
         return result
     }
 
@@ -4101,7 +4161,13 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpSetPduData(PDU, PDU_type, request_id, non_repeaters, max_repetitions, varbindlist) {
-        result := DllCall("wsnmp32.dll\SnmpSetPduData", "ptr", PDU, "int*", PDU_type, "int*", request_id, "int*", non_repeaters, "int*", max_repetitions, "ptr*", varbindlist, "uint")
+        PDU_typeMarshal := PDU_type is VarRef ? "int*" : "ptr"
+        request_idMarshal := request_id is VarRef ? "int*" : "ptr"
+        non_repeatersMarshal := non_repeaters is VarRef ? "int*" : "ptr"
+        max_repetitionsMarshal := max_repetitions is VarRef ? "int*" : "ptr"
+        varbindlistMarshal := varbindlist is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpSetPduData", "ptr", PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, non_repeatersMarshal, non_repeaters, max_repetitionsMarshal, max_repetitions, varbindlistMarshal, varbindlist, "uint")
         return result
     }
 
@@ -5408,7 +5474,9 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpOidCompare(xOID, yOID, maxlen, result) {
-        result := DllCall("wsnmp32.dll\SnmpOidCompare", "ptr", xOID, "ptr", yOID, "uint", maxlen, "int*", result, "uint")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpOidCompare", "ptr", xOID, "ptr", yOID, "uint", maxlen, resultMarshal, result, "uint")
         return result
     }
 
@@ -5646,7 +5714,12 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpDecodeMsg(session, srcEntity, dstEntity, context, pdu, msgBufDesc) {
-        result := DllCall("wsnmp32.dll\SnmpDecodeMsg", "ptr", session, "ptr*", srcEntity, "ptr*", dstEntity, "ptr*", context, "ptr*", pdu, "ptr", msgBufDesc, "uint")
+        srcEntityMarshal := srcEntity is VarRef ? "ptr*" : "ptr"
+        dstEntityMarshal := dstEntity is VarRef ? "ptr*" : "ptr"
+        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+        pduMarshal := pdu is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsnmp32.dll\SnmpDecodeMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, contextMarshal, context, pduMarshal, pdu, "ptr", msgBufDesc, "uint")
         return result
     }
 

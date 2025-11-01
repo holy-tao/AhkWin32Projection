@@ -42,7 +42,9 @@ class IMFTopologyServiceLookup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imftopologyservicelookup-lookupservice
      */
     LookupService(Type, dwIndex, guidService, riid, ppvObjects, pnObjects) {
-        result := ComCall(3, this, "int", Type, "uint", dwIndex, "ptr", guidService, "ptr", riid, "ptr*", ppvObjects, "uint*", pnObjects, "HRESULT")
+        pnObjectsMarshal := pnObjects is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "int", Type, "uint", dwIndex, "ptr", guidService, "ptr", riid, "ptr*", ppvObjects, pnObjectsMarshal, pnObjects, "HRESULT")
         return result
     }
 }

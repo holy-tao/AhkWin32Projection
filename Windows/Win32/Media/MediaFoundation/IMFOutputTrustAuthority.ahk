@@ -37,7 +37,9 @@ class IMFOutputTrustAuthority extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-getaction
      */
     GetAction(pAction) {
-        result := ComCall(3, this, "int*", pAction, "HRESULT")
+        pActionMarshal := pAction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pActionMarshal, pAction, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IMFOutputTrustAuthority extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-setpolicy
      */
     SetPolicy(ppPolicy, nPolicy, ppbTicket, pcbTicket) {
-        result := ComCall(4, this, "ptr*", ppPolicy, "uint", nPolicy, "ptr*", ppbTicket, "uint*", pcbTicket, "HRESULT")
+        pcbTicketMarshal := pcbTicket is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppPolicy, "uint", nPolicy, "ptr*", ppbTicket, pcbTicketMarshal, pcbTicket, "HRESULT")
         return result
     }
 }

@@ -53,7 +53,9 @@ class IMFSample extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampleflags
      */
     GetSampleFlags(pdwSampleFlags) {
-        result := ComCall(33, this, "uint*", pdwSampleFlags, "HRESULT")
+        pdwSampleFlagsMarshal := pdwSampleFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pdwSampleFlagsMarshal, pdwSampleFlags, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IMFSample extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampletime
      */
     GetSampleTime(phnsSampleTime) {
-        result := ComCall(35, this, "int64*", phnsSampleTime, "HRESULT")
+        phnsSampleTimeMarshal := phnsSampleTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(35, this, phnsSampleTimeMarshal, phnsSampleTime, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class IMFSample extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampleduration
      */
     GetSampleDuration(phnsSampleDuration) {
-        result := ComCall(37, this, "int64*", phnsSampleDuration, "HRESULT")
+        phnsSampleDurationMarshal := phnsSampleDuration is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(37, this, phnsSampleDurationMarshal, phnsSampleDuration, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IMFSample extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getbuffercount
      */
     GetBufferCount(pdwBufferCount) {
-        result := ComCall(39, this, "uint*", pdwBufferCount, "HRESULT")
+        pdwBufferCountMarshal := pdwBufferCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, pdwBufferCountMarshal, pdwBufferCount, "HRESULT")
         return result
     }
 
@@ -185,7 +193,9 @@ class IMFSample extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-gettotallength
      */
     GetTotalLength(pcbTotalLength) {
-        result := ComCall(45, this, "uint*", pcbTotalLength, "HRESULT")
+        pcbTotalLengthMarshal := pcbTotalLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(45, this, pcbTotalLengthMarshal, pcbTotalLength, "HRESULT")
         return result
     }
 

@@ -73,7 +73,9 @@ class ISharedBitmap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-getformat
      */
     GetFormat(pat) {
-        result := ComCall(5, this, "int*", pat, "HRESULT")
+        patMarshal := pat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, patMarshal, pat, "HRESULT")
         return result
     }
 

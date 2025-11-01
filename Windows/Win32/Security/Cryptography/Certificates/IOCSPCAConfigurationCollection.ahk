@@ -61,7 +61,9 @@ class IOCSPCAConfigurationCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get_count
      */
     get_Count(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

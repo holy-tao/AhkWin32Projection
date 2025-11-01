@@ -37,7 +37,9 @@ class ITCustomTone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_frequency
      */
     get_Frequency(plFrequency) {
-        result := ComCall(7, this, "int*", plFrequency, "HRESULT")
+        plFrequencyMarshal := plFrequency is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plFrequencyMarshal, plFrequency, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITCustomTone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_cadenceon
      */
     get_CadenceOn(plCadenceOn) {
-        result := ComCall(9, this, "int*", plCadenceOn, "HRESULT")
+        plCadenceOnMarshal := plCadenceOn is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCadenceOnMarshal, plCadenceOn, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ITCustomTone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_cadenceoff
      */
     get_CadenceOff(plCadenceOff) {
-        result := ComCall(11, this, "int*", plCadenceOff, "HRESULT")
+        plCadenceOffMarshal := plCadenceOff is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plCadenceOffMarshal, plCadenceOff, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class ITCustomTone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_volume
      */
     get_Volume(plVolume) {
-        result := ComCall(13, this, "int*", plVolume, "HRESULT")
+        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plVolumeMarshal, plVolume, "HRESULT")
         return result
     }
 

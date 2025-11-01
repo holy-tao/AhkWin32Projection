@@ -97,7 +97,9 @@ class IDirectDraw extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumDisplayModes(param0, param1, param2, param3) {
-        result := ComCall(8, this, "uint", param0, "ptr", param1, "ptr", param2, "ptr", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class IDirectDraw extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumSurfaces(param0, param1, param2, param3) {
-        result := ComCall(9, this, "uint", param0, "ptr", param1, "ptr", param2, "ptr", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -151,7 +155,10 @@ class IDirectDraw extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFourCCCodes(param0, param1) {
-        result := ComCall(13, this, "uint*", param0, "uint*", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -171,7 +178,9 @@ class IDirectDraw extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMonitorFrequency(param0) {
-        result := ComCall(15, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -181,7 +190,9 @@ class IDirectDraw extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScanLine(param0) {
-        result := ComCall(16, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

@@ -47,7 +47,11 @@ class IWMClientConnections2 extends IWMClientConnections{
         pwszPort := pwszPort is String ? StrPtr(pwszPort) : pwszPort
         pwszDNSName := pwszDNSName is String ? StrPtr(pwszDNSName) : pwszDNSName
 
-        result := ComCall(5, this, "uint", dwClientNum, "ptr", pwszNetworkAddress, "uint*", pcchNetworkAddress, "ptr", pwszPort, "uint*", pcchPort, "ptr", pwszDNSName, "uint*", pcchDNSName, "HRESULT")
+        pcchNetworkAddressMarshal := pcchNetworkAddress is VarRef ? "uint*" : "ptr"
+        pcchPortMarshal := pcchPort is VarRef ? "uint*" : "ptr"
+        pcchDNSNameMarshal := pcchDNSName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwClientNum, "ptr", pwszNetworkAddress, pcchNetworkAddressMarshal, pcchNetworkAddress, "ptr", pwszPort, pcchPortMarshal, pcchPort, "ptr", pwszDNSName, pcchDNSNameMarshal, pcchDNSName, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,9 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_propertydefinitionflags
      */
     get_PropertyDefinitionFlags(propertyDefinitionFlags) {
-        result := ComCall(22, this, "int*", propertyDefinitionFlags, "HRESULT")
+        propertyDefinitionFlagsMarshal := propertyDefinitionFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, propertyDefinitionFlagsMarshal, propertyDefinitionFlags, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_appliesto
      */
     get_AppliesTo(appliesTo) {
-        result := ComCall(25, this, "int*", appliesTo, "HRESULT")
+        appliesToMarshal := appliesTo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, appliesToMarshal, appliesTo, "HRESULT")
         return result
     }
 

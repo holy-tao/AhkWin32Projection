@@ -74,7 +74,9 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Cookie(plCookie) {
-        result := ComCall(11, this, "ptr*", plCookie, "HRESULT")
+        plCookieMarshal := plCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, plCookieMarshal, plCookie, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_StatusCode(plStatusCode) {
-        result := ComCall(12, this, "int*", plStatusCode, "HRESULT")
+        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
         return result
     }
 

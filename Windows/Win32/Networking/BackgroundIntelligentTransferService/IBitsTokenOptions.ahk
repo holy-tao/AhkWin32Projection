@@ -48,7 +48,9 @@ class IBitsTokenOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokenflags
      */
     GetHelperTokenFlags(pFlags) {
-        result := ComCall(4, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

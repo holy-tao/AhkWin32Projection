@@ -49,7 +49,9 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_GetCount(pdwProviders) {
-        result := ComCall(4, this, "uint*", pdwProviders, "HRESULT")
+        pdwProvidersMarshal := pdwProviders is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwProvidersMarshal, pdwProviders, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class AsyncIIdentityStore extends IUnknown{
     Begin_ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, "char*", pSid, "HRESULT")
+        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, "HRESULT")
         return result
     }
 
@@ -119,7 +123,10 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_ConvertToSid(pSid, pcbRequiredSid) {
-        result := ComCall(10, this, "char*", pSid, "ushort*", pcbRequiredSid, "HRESULT")
+        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+        pcbRequiredSidMarshal := pcbRequiredSid is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, pSidMarshal, pSid, pcbRequiredSidMarshal, pcbRequiredSid, "HRESULT")
         return result
     }
 

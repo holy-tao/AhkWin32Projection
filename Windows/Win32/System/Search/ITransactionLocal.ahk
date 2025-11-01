@@ -47,7 +47,9 @@ class ITransactionLocal extends ITransaction{
      * @returns {HRESULT} 
      */
     StartTransaction(isoLevel, isoFlags, pOtherOptions, pulTransactionLevel) {
-        result := ComCall(7, this, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "uint*", pulTransactionLevel, "HRESULT")
+        pulTransactionLevelMarshal := pulTransactionLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, pulTransactionLevelMarshal, pulTransactionLevel, "HRESULT")
         return result
     }
 }

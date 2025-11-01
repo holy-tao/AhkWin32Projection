@@ -75,7 +75,9 @@ class ITextHost2 extends ITextHost{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgeteastasianflags
      */
     TxGetEastAsianFlags(pFlags) {
-        result := ComCall(46, this, "int*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class ITextHost2 extends ITextHost{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgeteditstyle
      */
     TxGetEditStyle(dwItem, pdwData) {
-        result := ComCall(49, this, "uint", dwItem, "uint*", pdwData, "HRESULT")
+        pdwDataMarshal := pdwData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(49, this, "uint", dwItem, pdwDataMarshal, pdwData, "HRESULT")
         return result
     }
 
@@ -122,7 +126,10 @@ class ITextHost2 extends ITextHost{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgetwindowstyles
      */
     TxGetWindowStyles(pdwStyle, pdwExStyle) {
-        result := ComCall(50, this, "uint*", pdwStyle, "uint*", pdwExStyle, "HRESULT")
+        pdwStyleMarshal := pdwStyle is VarRef ? "uint*" : "ptr"
+        pdwExStyleMarshal := pdwExStyle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(50, this, pdwStyleMarshal, pdwStyle, pdwExStyleMarshal, pdwExStyle, "HRESULT")
         return result
     }
 
@@ -158,7 +165,9 @@ class ITextHost2 extends ITextHost{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgethorzextent
      */
     TxGetHorzExtent(plHorzExtent) {
-        result := ComCall(53, this, "int*", plHorzExtent, "HRESULT")
+        plHorzExtentMarshal := plHorzExtent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, plHorzExtentMarshal, plHorzExtent, "HRESULT")
         return result
     }
 }

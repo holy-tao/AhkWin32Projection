@@ -36,7 +36,9 @@ class IMsgStore extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-advise
      */
     Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink, lpulConnection) {
-        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, "uint*", lpulConnection, "HRESULT")
+        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IMsgStore extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-compareentryids
      */
     CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags, lpulResult) {
-        result := ComCall(16, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, "uint*", lpulResult, "HRESULT")
+        lpulResultMarshal := lpulResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
         return result
     }
 
@@ -79,7 +83,9 @@ class IMsgStore extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-openentry
      */
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, ppUnk) {
-        result := ComCall(17, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, "uint*", lpulObjType, "ptr*", ppUnk, "HRESULT")
+        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", ppUnk, "HRESULT")
         return result
     }
 
@@ -93,7 +99,9 @@ class IMsgStore extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-setreceivefolder
      */
     SetReceiveFolder(lpszMessageClass, ulFlags, cbEntryID, lpEntryID) {
-        result := ComCall(18, this, "char*", lpszMessageClass, "uint", ulFlags, "uint", cbEntryID, "ptr", lpEntryID, "HRESULT")
+        lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : "ptr"
+
+        result := ComCall(18, this, lpszMessageClassMarshal, lpszMessageClass, "uint", ulFlags, "uint", cbEntryID, "ptr", lpEntryID, "HRESULT")
         return result
     }
 
@@ -108,7 +116,10 @@ class IMsgStore extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-getreceivefolder
      */
     GetReceiveFolder(lpszMessageClass, ulFlags, lpcbEntryID, lppEntryID, lppszExplicitClass) {
-        result := ComCall(19, this, "char*", lpszMessageClass, "uint", ulFlags, "uint*", lpcbEntryID, "ptr*", lppEntryID, "ptr*", lppszExplicitClass, "HRESULT")
+        lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : "ptr"
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, lpszMessageClassMarshal, lpszMessageClass, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "ptr*", lppszExplicitClass, "HRESULT")
         return result
     }
 
@@ -131,7 +142,9 @@ class IMsgStore extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-storelogoff
      */
     StoreLogoff(lpulFlags) {
-        result := ComCall(21, this, "uint*", lpulFlags, "HRESULT")
+        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, lpulFlagsMarshal, lpulFlags, "HRESULT")
         return result
     }
 

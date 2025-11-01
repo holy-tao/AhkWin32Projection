@@ -54,7 +54,9 @@ class IBidiRequest extends IUnknown{
      * @returns {HRESULT} 
      */
     SetInputData(dwType, pData, uSize) {
-        result := ComCall(4, this, "uint", dwType, "char*", pData, "uint", uSize, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwType, pDataMarshal, pData, "uint", uSize, "HRESULT")
         return result
     }
 
@@ -78,7 +80,10 @@ class IBidiRequest extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputData(dwIndex, ppszSchema, pdwType, ppData, uSize) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr", ppszSchema, "uint*", pdwType, "ptr*", ppData, "uint*", uSize, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+        uSizeMarshal := uSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwIndex, "ptr", ppszSchema, pdwTypeMarshal, pdwType, "ptr*", ppData, uSizeMarshal, uSize, "HRESULT")
         return result
     }
 
@@ -88,7 +93,9 @@ class IBidiRequest extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEnumCount(pdwTotal) {
-        result := ComCall(7, this, "uint*", pdwTotal, "HRESULT")
+        pdwTotalMarshal := pdwTotal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwTotalMarshal, pdwTotal, "HRESULT")
         return result
     }
 }

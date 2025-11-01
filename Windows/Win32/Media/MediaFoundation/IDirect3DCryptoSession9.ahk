@@ -37,7 +37,9 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getcertificatesize
      */
     GetCertificateSize(pCertificateSize) {
-        result := ComCall(3, this, "uint*", pCertificateSize, "HRESULT")
+        pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCertificateSizeMarshal, pCertificateSize, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getcertificate
      */
     GetCertificate(CertifacteSize, ppCertificate) {
-        result := ComCall(4, this, "uint", CertifacteSize, "char*", ppCertificate, "HRESULT")
+        ppCertificateMarshal := ppCertificate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
         return result
     }
 
@@ -61,7 +65,9 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-negotiatekeyexchange
      */
     NegotiateKeyExchange(DataSize, pData) {
-        result := ComCall(5, this, "uint", DataSize, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "uint", DataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -75,7 +81,9 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-encryptionblt
      */
     EncryptionBlt(pSrcSurface, pDstSurface, DstSurfaceSize, pIV) {
-        result := ComCall(6, this, "ptr", pSrcSurface, "ptr", pDstSurface, "uint", DstSurfaceSize, "ptr", pIV, "HRESULT")
+        pIVMarshal := pIV is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", pSrcSurface, "ptr", pDstSurface, "uint", DstSurfaceSize, pIVMarshal, pIV, "HRESULT")
         return result
     }
 
@@ -91,7 +99,10 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-decryptionblt
      */
     DecryptionBlt(pSrcSurface, pDstSurface, SrcSurfaceSize, pEncryptedBlockInfo, pContentKey, pIV) {
-        result := ComCall(7, this, "ptr", pSrcSurface, "ptr", pDstSurface, "uint", SrcSurfaceSize, "ptr", pEncryptedBlockInfo, "ptr", pContentKey, "ptr", pIV, "HRESULT")
+        pContentKeyMarshal := pContentKey is VarRef ? "ptr" : "ptr"
+        pIVMarshal := pIV is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", pSrcSurface, "ptr", pDstSurface, "uint", SrcSurfaceSize, "ptr", pEncryptedBlockInfo, pContentKeyMarshal, pContentKey, pIVMarshal, pIV, "HRESULT")
         return result
     }
 
@@ -103,7 +114,9 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getsurfacepitch
      */
     GetSurfacePitch(pSrcSurface, pSurfacePitch) {
-        result := ComCall(8, this, "ptr", pSrcSurface, "uint*", pSurfacePitch, "HRESULT")
+        pSurfacePitchMarshal := pSurfacePitch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pSrcSurface, pSurfacePitchMarshal, pSurfacePitch, "HRESULT")
         return result
     }
 
@@ -115,7 +128,9 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-startsessionkeyrefresh
      */
     StartSessionKeyRefresh(pRandomNumber, RandomNumberSize) {
-        result := ComCall(9, this, "ptr", pRandomNumber, "uint", RandomNumberSize, "HRESULT")
+        pRandomNumberMarshal := pRandomNumber is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, pRandomNumberMarshal, pRandomNumber, "uint", RandomNumberSize, "HRESULT")
         return result
     }
 
@@ -137,7 +152,9 @@ class IDirect3DCryptoSession9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getencryptionbltkey
      */
     GetEncryptionBltKey(pReadbackKey, KeySize) {
-        result := ComCall(11, this, "ptr", pReadbackKey, "uint", KeySize, "HRESULT")
+        pReadbackKeyMarshal := pReadbackKey is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, pReadbackKeyMarshal, pReadbackKey, "uint", KeySize, "HRESULT")
         return result
     }
 }

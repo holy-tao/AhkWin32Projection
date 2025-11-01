@@ -37,7 +37,9 @@ class IMultisessionSequential2 extends IMultisessionSequential{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential2-get_writeunitsize
      */
     get_WriteUnitSize(value) {
-        result := ComCall(16, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

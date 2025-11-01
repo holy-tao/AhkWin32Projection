@@ -532,9 +532,11 @@ class Communication {
     static ClearCommError(hFile, lpErrors, lpStat) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        lpErrorsMarshal := lpErrors is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ClearCommError", "ptr", hFile, "uint*", lpErrors, "ptr", lpStat, "int")
+        result := DllCall("KERNEL32.dll\ClearCommError", "ptr", hFile, lpErrorsMarshal, lpErrors, "ptr", lpStat, "int")
         if(A_LastError)
             throw OSError()
 
@@ -607,9 +609,11 @@ class Communication {
     static GetCommConfig(hCommDev, lpCC, lpdwSize) {
         hCommDev := hCommDev is Win32Handle ? NumGet(hCommDev, "ptr") : hCommDev
 
+        lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommConfig", "ptr", hCommDev, "ptr", lpCC, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetCommConfig", "ptr", hCommDev, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -631,9 +635,11 @@ class Communication {
     static GetCommMask(hFile, lpEvtMask) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        lpEvtMaskMarshal := lpEvtMask is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommMask", "ptr", hFile, "uint*", lpEvtMask, "int")
+        result := DllCall("KERNEL32.dll\GetCommMask", "ptr", hFile, lpEvtMaskMarshal, lpEvtMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -683,9 +689,11 @@ class Communication {
     static GetCommModemStatus(hFile, lpModemStat) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        lpModemStatMarshal := lpModemStat is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommModemStatus", "ptr", hFile, "uint*", lpModemStat, "int")
+        result := DllCall("KERNEL32.dll\GetCommModemStatus", "ptr", hFile, lpModemStatMarshal, lpModemStat, "int")
         if(A_LastError)
             throw OSError()
 
@@ -942,9 +950,11 @@ class Communication {
     static WaitCommEvent(hFile, lpEvtMask, lpOverlapped) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        lpEvtMaskMarshal := lpEvtMask is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitCommEvent", "ptr", hFile, "uint*", lpEvtMask, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\WaitCommEvent", "ptr", hFile, lpEvtMaskMarshal, lpEvtMask, "ptr", lpOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1039,7 +1049,10 @@ class Communication {
      * @since windows10.0.17134
      */
     static GetCommPorts(lpPortNumbers, uPortNumbersCount, puPortNumbersFound) {
-        result := DllCall("api-ms-win-core-comm-l1-1-2.dll\GetCommPorts", "uint*", lpPortNumbers, "uint", uPortNumbersCount, "uint*", puPortNumbersFound, "uint")
+        lpPortNumbersMarshal := lpPortNumbers is VarRef ? "uint*" : "ptr"
+        puPortNumbersFoundMarshal := puPortNumbersFound is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-core-comm-l1-1-2.dll\GetCommPorts", lpPortNumbersMarshal, lpPortNumbers, "uint", uPortNumbersCount, puPortNumbersFoundMarshal, puPortNumbersFound, "uint")
         return result
     }
 
@@ -1285,9 +1298,11 @@ class Communication {
     static GetDefaultCommConfigA(lpszName, lpCC, lpdwSize) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
+        lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1310,9 +1325,11 @@ class Communication {
     static GetDefaultCommConfigW(lpszName, lpCC, lpdwSize) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
+        lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 

@@ -40,7 +40,12 @@ class IAMDevMemoryAllocator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-getinfo
      */
     GetInfo(pdwcbTotalFree, pdwcbLargestFree, pdwcbTotalMemory, pdwcbMinimumChunk) {
-        result := ComCall(3, this, "uint*", pdwcbTotalFree, "uint*", pdwcbLargestFree, "uint*", pdwcbTotalMemory, "uint*", pdwcbMinimumChunk, "HRESULT")
+        pdwcbTotalFreeMarshal := pdwcbTotalFree is VarRef ? "uint*" : "ptr"
+        pdwcbLargestFreeMarshal := pdwcbLargestFree is VarRef ? "uint*" : "ptr"
+        pdwcbTotalMemoryMarshal := pdwcbTotalMemory is VarRef ? "uint*" : "ptr"
+        pdwcbMinimumChunkMarshal := pdwcbMinimumChunk is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwcbTotalFreeMarshal, pdwcbTotalFree, pdwcbLargestFreeMarshal, pdwcbLargestFree, pdwcbTotalMemoryMarshal, pdwcbTotalMemory, pdwcbMinimumChunkMarshal, pdwcbMinimumChunk, "HRESULT")
         return result
     }
 
@@ -51,7 +56,9 @@ class IAMDevMemoryAllocator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-checkmemory
      */
     CheckMemory(pBuffer) {
-        result := ComCall(4, this, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -63,7 +70,9 @@ class IAMDevMemoryAllocator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-alloc
      */
     Alloc(ppBuffer, pdwcbBuffer) {
-        result := ComCall(5, this, "ptr*", ppBuffer, "uint*", pdwcbBuffer, "HRESULT")
+        pdwcbBufferMarshal := pdwcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", ppBuffer, pdwcbBufferMarshal, pdwcbBuffer, "HRESULT")
         return result
     }
 
@@ -74,7 +83,9 @@ class IAMDevMemoryAllocator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-free
      */
     Free(pBuffer) {
-        result := ComCall(6, this, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 

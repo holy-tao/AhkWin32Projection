@@ -39,7 +39,9 @@ class IEnumSTATDATA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienumstatdata-next
      */
     Next(celt, rgelt, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", rgelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

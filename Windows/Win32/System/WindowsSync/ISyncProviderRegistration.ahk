@@ -181,7 +181,9 @@ class ISyncProviderRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderstate
      */
     GetSyncProviderState(pguidInstanceId, pdwStateFlags) {
-        result := ComCall(14, this, "ptr", pguidInstanceId, "uint*", pdwStateFlags, "HRESULT")
+        pdwStateFlagsMarshal := pdwStateFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pguidInstanceId, pdwStateFlagsMarshal, pdwStateFlags, "HRESULT")
         return result
     }
 

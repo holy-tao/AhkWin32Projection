@@ -63,7 +63,9 @@ class IMFTopologyNode extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getnodetype
      */
     GetNodeType(pType) {
-        result := ComCall(35, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IMFTopologyNode extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-gettoponodeid
      */
     GetTopoNodeID(pID) {
-        result := ComCall(36, this, "uint*", pID, "HRESULT")
+        pIDMarshal := pID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, pIDMarshal, pID, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IMFTopologyNode extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getinputcount
      */
     GetInputCount(pcInputs) {
-        result := ComCall(38, this, "uint*", pcInputs, "HRESULT")
+        pcInputsMarshal := pcInputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(38, this, pcInputsMarshal, pcInputs, "HRESULT")
         return result
     }
 
@@ -107,7 +113,9 @@ class IMFTopologyNode extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getoutputcount
      */
     GetOutputCount(pcOutputs) {
-        result := ComCall(39, this, "uint*", pcOutputs, "HRESULT")
+        pcOutputsMarshal := pcOutputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, pcOutputsMarshal, pcOutputs, "HRESULT")
         return result
     }
 
@@ -144,7 +152,9 @@ class IMFTopologyNode extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getinput
      */
     GetInput(dwInputIndex, ppUpstreamNode, pdwOutputIndexOnUpstreamNode) {
-        result := ComCall(42, this, "uint", dwInputIndex, "ptr*", ppUpstreamNode, "uint*", pdwOutputIndexOnUpstreamNode, "HRESULT")
+        pdwOutputIndexOnUpstreamNodeMarshal := pdwOutputIndexOnUpstreamNode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(42, this, "uint", dwInputIndex, "ptr*", ppUpstreamNode, pdwOutputIndexOnUpstreamNodeMarshal, pdwOutputIndexOnUpstreamNode, "HRESULT")
         return result
     }
 
@@ -157,7 +167,9 @@ class IMFTopologyNode extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getoutput
      */
     GetOutput(dwOutputIndex, ppDownstreamNode, pdwInputIndexOnDownstreamNode) {
-        result := ComCall(43, this, "uint", dwOutputIndex, "ptr*", ppDownstreamNode, "uint*", pdwInputIndexOnDownstreamNode, "HRESULT")
+        pdwInputIndexOnDownstreamNodeMarshal := pdwInputIndexOnDownstreamNode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, "uint", dwOutputIndex, "ptr*", ppDownstreamNode, pdwInputIndexOnDownstreamNodeMarshal, pdwInputIndexOnDownstreamNode, "HRESULT")
         return result
     }
 

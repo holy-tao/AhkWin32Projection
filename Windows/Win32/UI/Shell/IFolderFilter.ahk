@@ -68,7 +68,9 @@ class IFolderFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags
      */
     GetEnumFlags(psf, pidlFolder, phwnd, pgrfFlags) {
-        result := ComCall(4, this, "ptr", psf, "ptr", pidlFolder, "ptr", phwnd, "uint*", pgrfFlags, "HRESULT")
+        pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", psf, "ptr", pidlFolder, "ptr", phwnd, pgrfFlagsMarshal, pgrfFlags, "HRESULT")
         return result
     }
 }

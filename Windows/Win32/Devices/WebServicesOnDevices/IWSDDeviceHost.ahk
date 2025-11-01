@@ -210,7 +210,9 @@ class IWSDDeviceHost extends IUnknown{
     SignalEvent(pszServiceId, pBody, pOperation) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
 
-        result := ComCall(14, this, "ptr", pszServiceId, "ptr", pBody, "ptr", pOperation, "HRESULT")
+        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(14, this, "ptr", pszServiceId, pBodyMarshal, pBody, "ptr", pOperation, "HRESULT")
         return result
     }
 }

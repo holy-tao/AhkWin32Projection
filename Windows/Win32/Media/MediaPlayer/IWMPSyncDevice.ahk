@@ -84,7 +84,9 @@ class IWMPSyncDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_partnershipindex
      */
     get_partnershipIndex(plIndex) {
-        result := ComCall(7, this, "int*", plIndex, "HRESULT")
+        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plIndexMarshal, plIndex, "HRESULT")
         return result
     }
 
@@ -106,7 +108,9 @@ class IWMPSyncDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_status
      */
     get_status(pwmpds) {
-        result := ComCall(9, this, "int*", pwmpds, "HRESULT")
+        pwmpdsMarshal := pwmpds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pwmpdsMarshal, pwmpds, "HRESULT")
         return result
     }
 
@@ -117,7 +121,9 @@ class IWMPSyncDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_syncstate
      */
     get_syncState(pwmpss) {
-        result := ComCall(10, this, "int*", pwmpss, "HRESULT")
+        pwmpssMarshal := pwmpss is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pwmpssMarshal, pwmpss, "HRESULT")
         return result
     }
 
@@ -128,7 +134,9 @@ class IWMPSyncDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_progress
      */
     get_progress(plProgress) {
-        result := ComCall(11, this, "int*", plProgress, "HRESULT")
+        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plProgressMarshal, plProgress, "HRESULT")
         return result
     }
 

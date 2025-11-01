@@ -41,7 +41,9 @@ class ICLRDebugging extends IUnknown{
      * @returns {HRESULT} 
      */
     OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ppProcess, pVersion, pdwFlags) {
-        result := ComCall(3, this, "uint", moduleBaseAddress, "ptr", pDataTarget, "ptr", pLibraryProvider, "ptr", pMaxDebuggerSupportedVersion, "ptr", riidProcess, "ptr*", ppProcess, "ptr", pVersion, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", moduleBaseAddress, "ptr", pDataTarget, "ptr", pLibraryProvider, "ptr", pMaxDebuggerSupportedVersion, "ptr", riidProcess, "ptr*", ppProcess, "ptr", pVersion, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

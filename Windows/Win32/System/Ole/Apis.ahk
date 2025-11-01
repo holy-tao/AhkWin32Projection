@@ -2571,7 +2571,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraycreateex
      */
     static SafeArrayCreateEx(vt, cDims, rgsabound, pvExtra) {
-        result := DllCall("OLEAUT32.dll\SafeArrayCreateEx", "ushort", vt, "uint", cDims, "ptr", rgsabound, "ptr", pvExtra, "ptr")
+        pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayCreateEx", "ushort", vt, "uint", cDims, "ptr", rgsabound, pvExtraMarshal, pvExtra, "ptr")
         return result
     }
 
@@ -2713,7 +2715,9 @@ class Ole {
      * @since windows5.1.2600
      */
     static SafeArrayReleaseData(pData) {
-        DllCall("OLEAUT32.dll\SafeArrayReleaseData", "ptr", pData)
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        DllCall("OLEAUT32.dll\SafeArrayReleaseData", pDataMarshal, pData)
     }
 
     /**
@@ -2977,7 +2981,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetubound
      */
     static SafeArrayGetUBound(psa, nDim, plUbound) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", "ptr", psa, "uint", nDim, "int*", plUbound, "int")
+        plUboundMarshal := plUbound is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", "ptr", psa, "uint", nDim, plUboundMarshal, plUbound, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3033,7 +3039,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetlbound
      */
     static SafeArrayGetLBound(psa, nDim, plLbound) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", "ptr", psa, "uint", nDim, "int*", plLbound, "int")
+        plLboundMarshal := plLbound is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", "ptr", psa, "uint", nDim, plLboundMarshal, plLbound, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3317,7 +3325,10 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetelement
      */
     static SafeArrayGetElement(psa, rgIndices, pv) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetElement", "ptr", psa, "int*", rgIndices, "ptr", pv, "int")
+        rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayGetElement", "ptr", psa, rgIndicesMarshal, rgIndices, pvMarshal, pv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3384,7 +3395,10 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayputelement
      */
     static SafeArrayPutElement(psa, rgIndices, pv) {
-        result := DllCall("OLEAUT32.dll\SafeArrayPutElement", "ptr", psa, "int*", rgIndices, "ptr", pv, "int")
+        rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayPutElement", "ptr", psa, rgIndicesMarshal, rgIndices, pvMarshal, pv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3495,7 +3509,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayptrofindex
      */
     static SafeArrayPtrOfIndex(psa, rgIndices, ppvData) {
-        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, "int*", rgIndices, "ptr*", ppvData, "int")
+        rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, rgIndicesMarshal, rgIndices, "ptr*", ppvData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3715,7 +3731,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetvartype
      */
     static SafeArrayGetVartype(psa, pvt) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetVartype", "ptr", psa, "ushort*", pvt, "int")
+        pvtMarshal := pvt is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayGetVartype", "ptr", psa, pvtMarshal, pvt, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3745,7 +3763,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraycreatevectorex
      */
     static SafeArrayCreateVectorEx(vt, lLbound, cElements, pvExtra) {
-        result := DllCall("OLEAUT32.dll\SafeArrayCreateVectorEx", "ushort", vt, "int", lLbound, "uint", cElements, "ptr", pvExtra, "ptr")
+        pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayCreateVectorEx", "ushort", vt, "int", lLbound, "uint", cElements, pvExtraMarshal, pvExtra, "ptr")
         return result
     }
 
@@ -3961,7 +3981,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi2
      */
     static VarUI1FromI2(sIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4051,7 +4073,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi4
      */
     static VarUI1FromI4(lIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4141,7 +4165,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi8
      */
     static VarUI1FromI8(i64In, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4231,7 +4257,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromr4
      */
     static VarUI1FromR4(fltIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4321,7 +4349,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromr8
      */
     static VarUI1FromR8(dblIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4411,7 +4441,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromcy
      */
     static VarUI1FromCy(cyIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromCy", "ptr", cyIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromCy", "ptr", cyIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4501,7 +4533,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromdate
      */
     static VarUI1FromDate(dateIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4612,7 +4646,9 @@ class Ole {
     static VarUI1FromStr(strIn, lcid, dwFlags, pbOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4703,7 +4739,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromdisp
      */
     static VarUI1FromDisp(pdispIn, lcid, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4793,7 +4831,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1frombool
      */
     static VarUI1FromBool(boolIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromBool", "short", boolIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromBool", "short", boolIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4883,7 +4923,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi1
      */
     static VarUI1FromI1(cIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI1", "char", cIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromI1", "char", cIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4973,7 +5015,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromui2
      */
     static VarUI1FromUI2(uiIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5063,7 +5107,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromui4
      */
     static VarUI1FromUI4(ulIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5153,7 +5199,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromui8
      */
     static VarUI1FromUI8(ui64In, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5243,7 +5291,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromdec
      */
     static VarUI1FromDec(pdecIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromDec", "ptr", pdecIn, "char*", pbOut, "int")
+        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI1FromDec", "ptr", pdecIn, pbOutMarshal, pbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5333,7 +5383,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui1
      */
     static VarI2FromUI1(bIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5423,7 +5475,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromi4
      */
     static VarI2FromI4(lIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5513,7 +5567,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromi8
      */
     static VarI2FromI8(i64In, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5603,7 +5659,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromr4
      */
     static VarI2FromR4(fltIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5693,7 +5751,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromr8
      */
     static VarI2FromR8(dblIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5783,7 +5843,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromcy
      */
     static VarI2FromCy(cyIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromCy", "ptr", cyIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromCy", "ptr", cyIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5873,7 +5935,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromdate
      */
     static VarI2FromDate(dateIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6004,7 +6068,9 @@ class Ole {
     static VarI2FromStr(strIn, lcid, dwFlags, psOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6095,7 +6161,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromdisp
      */
     static VarI2FromDisp(pdispIn, lcid, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6185,7 +6253,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2frombool
      */
     static VarI2FromBool(boolIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromBool", "short", boolIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromBool", "short", boolIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6275,7 +6345,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromi1
      */
     static VarI2FromI1(cIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromI1", "char", cIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromI1", "char", cIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6365,7 +6437,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui2
      */
     static VarI2FromUI2(uiIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6455,7 +6529,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui4
      */
     static VarI2FromUI4(ulIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6545,7 +6621,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui8
      */
     static VarI2FromUI8(ui64In, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6635,7 +6713,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromdec
      */
     static VarI2FromDec(pdecIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromDec", "ptr", pdecIn, "short*", psOut, "int")
+        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI2FromDec", "ptr", pdecIn, psOutMarshal, psOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6725,7 +6805,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui1
      */
     static VarI4FromUI1(bIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6815,7 +6897,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromi2
      */
     static VarI4FromI2(sIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6905,7 +6989,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromi8
      */
     static VarI4FromI8(i64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6995,7 +7081,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromr4
      */
     static VarI4FromR4(fltIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7085,7 +7173,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromr8
      */
     static VarI4FromR8(dblIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7175,7 +7265,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromcy
      */
     static VarI4FromCy(cyIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromCy", "ptr", cyIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromCy", "ptr", cyIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7265,7 +7357,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromdate
      */
     static VarI4FromDate(dateIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7396,7 +7490,9 @@ class Ole {
     static VarI4FromStr(strIn, lcid, dwFlags, plOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7487,7 +7583,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromdisp
      */
     static VarI4FromDisp(pdispIn, lcid, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7577,7 +7675,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4frombool
      */
     static VarI4FromBool(boolIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromBool", "short", boolIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromBool", "short", boolIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7667,7 +7767,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromi1
      */
     static VarI4FromI1(cIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromI1", "char", cIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromI1", "char", cIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7757,7 +7859,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui2
      */
     static VarI4FromUI2(uiIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7847,7 +7951,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui4
      */
     static VarI4FromUI4(ulIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7937,7 +8043,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui8
      */
     static VarI4FromUI8(ui64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8027,7 +8135,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromdec
      */
     static VarI4FromDec(pdecIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromDec", "ptr", pdecIn, "int*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI4FromDec", "ptr", pdecIn, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8117,7 +8227,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui1
      */
     static VarI8FromUI1(bIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8207,7 +8319,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromi2
      */
     static VarI8FromI2(sIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8297,7 +8411,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromr4
      */
     static VarI8FromR4(fltIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8387,7 +8503,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromr8
      */
     static VarI8FromR8(dblIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8477,7 +8595,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromcy
      */
     static VarI8FromCy(cyIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromCy", "ptr", cyIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromCy", "ptr", cyIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8567,7 +8687,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromdate
      */
     static VarI8FromDate(dateIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8678,7 +8800,9 @@ class Ole {
     static VarI8FromStr(strIn, lcid, dwFlags, pi64Out) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8769,7 +8893,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromdisp
      */
     static VarI8FromDisp(pdispIn, lcid, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8859,7 +8985,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8frombool
      */
     static VarI8FromBool(boolIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromBool", "short", boolIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromBool", "short", boolIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8949,7 +9077,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromi1
      */
     static VarI8FromI1(cIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromI1", "char", cIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromI1", "char", cIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9039,7 +9169,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui2
      */
     static VarI8FromUI2(uiIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9129,7 +9261,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui4
      */
     static VarI8FromUI4(ulIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9219,7 +9353,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui8
      */
     static VarI8FromUI8(ui64In, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9309,7 +9445,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromdec
      */
     static VarI8FromDec(pdecIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromDec", "ptr", pdecIn, "int64*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarI8FromDec", "ptr", pdecIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9399,7 +9537,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui1
      */
     static VarR4FromUI1(bIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9489,7 +9629,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi2
      */
     static VarR4FromI2(sIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9579,7 +9721,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi4
      */
     static VarR4FromI4(lIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9669,7 +9813,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi8
      */
     static VarR4FromI8(i64In, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9759,7 +9905,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromr8
      */
     static VarR4FromR8(dblIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9849,7 +9997,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromcy
      */
     static VarR4FromCy(cyIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromCy", "ptr", cyIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromCy", "ptr", cyIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9939,7 +10089,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromdate
      */
     static VarR4FromDate(dateIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10070,7 +10222,9 @@ class Ole {
     static VarR4FromStr(strIn, lcid, dwFlags, pfltOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10161,7 +10315,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromdisp
      */
     static VarR4FromDisp(pdispIn, lcid, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10251,7 +10407,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4frombool
      */
     static VarR4FromBool(boolIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromBool", "short", boolIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromBool", "short", boolIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10341,7 +10499,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi1
      */
     static VarR4FromI1(cIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI1", "char", cIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromI1", "char", cIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10431,7 +10591,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui2
      */
     static VarR4FromUI2(uiIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10521,7 +10683,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui4
      */
     static VarR4FromUI4(ulIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10611,7 +10775,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui8
      */
     static VarR4FromUI8(ui64In, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10701,7 +10867,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromdec
      */
     static VarR4FromDec(pdecIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromDec", "ptr", pdecIn, "float*", pfltOut, "int")
+        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR4FromDec", "ptr", pdecIn, pfltOutMarshal, pfltOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10791,7 +10959,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui1
      */
     static VarR8FromUI1(bIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10881,7 +11051,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromi2
      */
     static VarR8FromI2(sIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10971,7 +11143,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromi4
      */
     static VarR8FromI4(lIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11061,7 +11235,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromi8
      */
     static VarR8FromI8(i64In, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11151,7 +11327,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromr4
      */
     static VarR8FromR4(fltIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11241,7 +11419,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromcy
      */
     static VarR8FromCy(cyIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromCy", "ptr", cyIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromCy", "ptr", cyIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11331,7 +11511,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromdate
      */
     static VarR8FromDate(dateIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11462,7 +11644,9 @@ class Ole {
     static VarR8FromStr(strIn, lcid, dwFlags, pdblOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11553,7 +11737,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromdisp
      */
     static VarR8FromDisp(pdispIn, lcid, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11643,7 +11829,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8frombool
      */
     static VarR8FromBool(boolIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromBool", "short", boolIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromBool", "short", boolIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11733,7 +11921,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromi1
      */
     static VarR8FromI1(cIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI1", "char", cIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromI1", "char", cIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11823,7 +12013,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui2
      */
     static VarR8FromUI2(uiIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11913,7 +12105,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui4
      */
     static VarR8FromUI4(ulIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12003,7 +12197,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui8
      */
     static VarR8FromUI8(ui64In, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12093,7 +12289,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromdec
      */
     static VarR8FromDec(pdecIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromDec", "ptr", pdecIn, "double*", pdblOut, "int")
+        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8FromDec", "ptr", pdecIn, pdblOutMarshal, pdblOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12183,7 +12381,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui1
      */
     static VarDateFromUI1(bIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12273,7 +12473,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi2
      */
     static VarDateFromI2(sIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12363,7 +12565,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi4
      */
     static VarDateFromI4(lIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12453,7 +12657,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi8
      */
     static VarDateFromI8(i64In, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12543,7 +12749,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromr4
      */
     static VarDateFromR4(fltIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12633,7 +12841,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromr8
      */
     static VarDateFromR8(dblIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12723,7 +12933,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromcy
      */
     static VarDateFromCy(cyIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromCy", "ptr", cyIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromCy", "ptr", cyIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12865,7 +13077,9 @@ class Ole {
     static VarDateFromStr(strIn, lcid, dwFlags, pdateOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12956,7 +13170,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromdisp
      */
     static VarDateFromDisp(pdispIn, lcid, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13046,7 +13262,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefrombool
      */
     static VarDateFromBool(boolIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromBool", "short", boolIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromBool", "short", boolIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13136,7 +13354,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi1
      */
     static VarDateFromI1(cIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI1", "char", cIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromI1", "char", cIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13226,7 +13446,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui2
      */
     static VarDateFromUI2(uiIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13316,7 +13538,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui4
      */
     static VarDateFromUI4(ulIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13406,7 +13630,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui8
      */
     static VarDateFromUI8(ui64In, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13496,7 +13722,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromdec
      */
     static VarDateFromDec(pdecIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromDec", "ptr", pdecIn, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromDec", "ptr", pdecIn, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19382,7 +19610,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromui1
      */
     static VarUI2FromUI1(bIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19472,7 +19702,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi2
      */
     static VarUI2FromI2(uiIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19562,7 +19794,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi4
      */
     static VarUI2FromI4(lIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19652,7 +19886,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi8
      */
     static VarUI2FromI8(i64In, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19742,7 +19978,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromr4
      */
     static VarUI2FromR4(fltIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19832,7 +20070,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromr8
      */
     static VarUI2FromR8(dblIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromR8", "double", dblIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromR8", "double", dblIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19922,7 +20162,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromdate
      */
     static VarUI2FromDate(dateIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20012,7 +20254,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromcy
      */
     static VarUI2FromCy(cyIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromCy", "ptr", cyIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromCy", "ptr", cyIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20143,7 +20387,9 @@ class Ole {
     static VarUI2FromStr(strIn, lcid, dwFlags, puiOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20234,7 +20480,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromdisp
      */
     static VarUI2FromDisp(pdispIn, lcid, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20324,7 +20572,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2frombool
      */
     static VarUI2FromBool(boolIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromBool", "short", boolIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromBool", "short", boolIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20414,7 +20664,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi1
      */
     static VarUI2FromI1(cIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI1", "char", cIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromI1", "char", cIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20504,7 +20756,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromui4
      */
     static VarUI2FromUI4(ulIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20594,7 +20848,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromui8
      */
     static VarUI2FromUI8(i64In, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20684,7 +20940,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromdec
      */
     static VarUI2FromDec(pdecIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromDec", "ptr", pdecIn, "ushort*", puiOut, "int")
+        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI2FromDec", "ptr", pdecIn, puiOutMarshal, puiOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20774,7 +21032,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromui1
      */
     static VarUI4FromUI1(bIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20864,7 +21124,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi2
      */
     static VarUI4FromI2(uiIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20954,7 +21216,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi4
      */
     static VarUI4FromI4(lIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21044,7 +21308,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi8
      */
     static VarUI4FromI8(i64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, "uint*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21134,7 +21400,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromr4
      */
     static VarUI4FromR4(fltIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21224,7 +21492,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromr8
      */
     static VarUI4FromR8(dblIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21314,7 +21584,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromdate
      */
     static VarUI4FromDate(dateIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21404,7 +21676,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromcy
      */
     static VarUI4FromCy(cyIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromCy", "ptr", cyIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromCy", "ptr", cyIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21535,7 +21809,9 @@ class Ole {
     static VarUI4FromStr(strIn, lcid, dwFlags, pulOut) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21626,7 +21902,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromdisp
      */
     static VarUI4FromDisp(pdispIn, lcid, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21716,7 +21994,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4frombool
      */
     static VarUI4FromBool(boolIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromBool", "short", boolIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromBool", "short", boolIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21806,7 +22086,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi1
      */
     static VarUI4FromI1(cIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI1", "char", cIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromI1", "char", cIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21896,7 +22178,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromui2
      */
     static VarUI4FromUI2(uiIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -21986,7 +22270,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromui8
      */
     static VarUI4FromUI8(ui64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, "uint*", plOut, "int")
+        plOutMarshal := plOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, plOutMarshal, plOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22076,7 +22362,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromdec
      */
     static VarUI4FromDec(pdecIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromDec", "ptr", pdecIn, "uint*", pulOut, "int")
+        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI4FromDec", "ptr", pdecIn, pulOutMarshal, pulOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22166,7 +22454,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromui1
      */
     static VarUI8FromUI1(bIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22256,7 +22546,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromi2
      */
     static VarUI8FromI2(sIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22346,7 +22638,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromi8
      */
     static VarUI8FromI8(ui64In, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22436,7 +22730,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromr4
      */
     static VarUI8FromR4(fltIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22526,7 +22822,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromr8
      */
     static VarUI8FromR8(dblIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22616,7 +22914,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromcy
      */
     static VarUI8FromCy(cyIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromCy", "ptr", cyIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromCy", "ptr", cyIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22706,7 +23006,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromdate
      */
     static VarUI8FromDate(dateIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22817,7 +23119,9 @@ class Ole {
     static VarUI8FromStr(strIn, lcid, dwFlags, pi64Out) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22908,7 +23212,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromdisp
      */
     static VarUI8FromDisp(pdispIn, lcid, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -22998,7 +23304,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8frombool
      */
     static VarUI8FromBool(boolIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromBool", "short", boolIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromBool", "short", boolIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -23088,7 +23396,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromi1
      */
     static VarUI8FromI1(cIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromI1", "char", cIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromI1", "char", cIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -23178,7 +23488,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromui2
      */
     static VarUI8FromUI2(uiIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -23268,7 +23580,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromui4
      */
     static VarUI8FromUI4(ulIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -23358,7 +23672,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromdec
      */
     static VarUI8FromDec(pdecIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromDec", "ptr", pdecIn, "uint*", pi64Out, "int")
+        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarUI8FromDec", "ptr", pdecIn, pi64OutMarshal, pi64Out, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -24824,7 +25140,9 @@ class Ole {
     static VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs, rgbDig) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, "char*", rgbDig, "int")
+        rgbDigMarshal := rgbDig is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, rgbDigMarshal, rgbDig, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -24885,7 +25203,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varnumfromparsenum
      */
     static VarNumFromParseNum(pnumprs, rgbDig, dwVtBits, pvar) {
-        result := DllCall("OLEAUT32.dll\VarNumFromParseNum", "ptr", pnumprs, "char*", rgbDig, "uint", dwVtBits, "ptr", pvar, "int")
+        rgbDigMarshal := rgbDig is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarNumFromParseNum", "ptr", pnumprs, rgbDigMarshal, rgbDig, "uint", dwVtBits, "ptr", pvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26069,7 +26389,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8pow
      */
     static VarR8Pow(dblLeft, dblRight, pdblResult) {
-        result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, "double*", pdblResult, "int")
+        pdblResultMarshal := pdblResult is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, pdblResultMarshal, pdblResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26154,7 +26476,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8round
      */
     static VarR8Round(dblIn, cDecimals, pdblResult) {
-        result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, "double*", pdblResult, "int")
+        pdblResultMarshal := pdblResult is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, pdblResultMarshal, pdblResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26210,7 +26534,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromudate
      */
     static VarDateFromUdate(pudateIn, dwFlags, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUdate", "ptr", pudateIn, "uint", dwFlags, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromUdate", "ptr", pudateIn, "uint", dwFlags, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26267,7 +26593,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromudateex
      */
     static VarDateFromUdateEx(pudateIn, lcid, dwFlags, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", "ptr", pudateIn, "uint", lcid, "uint", dwFlags, "double*", pdateOut, "int")
+        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", "ptr", pudateIn, "uint", lcid, "uint", dwFlags, pdateOutMarshal, pdateOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27528,7 +27856,9 @@ class Ole {
     static VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, pbstrOut, lcid) {
         pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
-        result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, "char*", pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
+        pbTokCurMarshal := pbTokCur is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, pbTokCurMarshal, pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27739,7 +28069,10 @@ class Ole {
     static VarTokenizeFormatString(pstrFormat, rgbTok, cbTok, iFirstDay, iFirstWeek, lcid, pcbActual) {
         pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
-        result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, "char*", rgbTok, "int", cbTok, "int", iFirstDay, "int", iFirstWeek, "uint", lcid, "int*", pcbActual, "int")
+        rgbTokMarshal := rgbTok is VarRef ? "char*" : "ptr"
+        pcbActualMarshal := pcbActual is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, rgbTokMarshal, rgbTok, "int", cbTok, "int", iFirstDay, "int", iFirstWeek, "uint", lcid, pcbActualMarshal, pcbActual, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28784,7 +29117,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dispgetparam
      */
     static DispGetParam(pdispparams, position, vtTarg, pvarResult, puArgErr) {
-        result := DllCall("OLEAUT32.dll\DispGetParam", "ptr", pdispparams, "uint", position, "ushort", vtTarg, "ptr", pvarResult, "uint*", puArgErr, "int")
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\DispGetParam", "ptr", pdispparams, "uint", position, "ushort", vtTarg, "ptr", pvarResult, puArgErrMarshal, puArgErr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28844,7 +29179,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dispgetidsofnames
      */
     static DispGetIDsOfNames(ptinfo, rgszNames, cNames, rgdispid) {
-        result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, "ptr", rgszNames, "uint", cNames, "int*", rgdispid, "int")
+        rgdispidMarshal := rgdispid is VarRef ? "int*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, "ptr", rgszNames, "uint", cNames, rgdispidMarshal, rgdispid, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29064,7 +29401,10 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dispinvoke
      */
     static DispInvoke(_this, ptinfo, dispidMember, wFlags, pparams, pvarResult, pexcepinfo, puArgErr) {
-        result := DllCall("OLEAUT32.dll\DispInvoke", "ptr", _this, "ptr", ptinfo, "int", dispidMember, "ushort", wFlags, "ptr", pparams, "ptr", pvarResult, "ptr", pexcepinfo, "uint*", puArgErr, "int")
+        _thisMarshal := _this is VarRef ? "ptr" : "ptr"
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\DispInvoke", _thisMarshal, _this, "ptr", ptinfo, "int", dispidMember, "ushort", wFlags, "ptr", pparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29183,7 +29523,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createstddispatch
      */
     static CreateStdDispatch(punkOuter, pvThis, ptinfo, ppunkStdDisp) {
-        result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, "ptr", pvThis, "ptr", ptinfo, "ptr*", ppunkStdDisp, "int")
+        pvThisMarshal := pvThis is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, pvThisMarshal, pvThis, "ptr", ptinfo, "ptr*", ppunkStdDisp, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29204,7 +29546,10 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dispcallfunc
      */
     static DispCallFunc(pvInstance, oVft, cc, vtReturn, cActuals, prgvt, prgpvarg, pvargResult) {
-        result := DllCall("OLEAUT32.dll\DispCallFunc", "ptr", pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, "ushort*", prgvt, "ptr*", prgpvarg, "ptr", pvargResult, "int")
+        pvInstanceMarshal := pvInstance is VarRef ? "ptr" : "ptr"
+        prgvtMarshal := prgvt is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\DispCallFunc", pvInstanceMarshal, pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, prgvtMarshal, prgvt, "ptr*", prgpvarg, "ptr", pvargResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29221,7 +29566,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-registeractiveobject
      */
     static RegisterActiveObject(punk, rclsid, dwFlags, pdwRegister) {
-        result := DllCall("OLEAUT32.dll\RegisterActiveObject", "ptr", punk, "ptr", rclsid, "uint", dwFlags, "uint*", pdwRegister, "int")
+        pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\RegisterActiveObject", "ptr", punk, "ptr", rclsid, "uint", dwFlags, pdwRegisterMarshal, pdwRegister, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29717,7 +30064,10 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateEx(rclsid, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
+        rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29822,7 +30172,10 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
+        rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29939,7 +30292,10 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
+        rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30054,7 +30410,10 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkEx(pmkLinkSrc, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
+        rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30163,7 +30522,10 @@ class Ole {
     static OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
+        rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30318,7 +30680,10 @@ class Ole {
     static OleCreateFromFileEx(rclsid, lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
+        rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30780,7 +31145,9 @@ class Ole {
      * @since windows5.0
      */
     static DoDragDrop(pDataObj, pDropSource, dwOKEffects, pdwEffect) {
-        result := DllCall("OLE32.dll\DoDragDrop", "ptr", pDataObj, "ptr", pDropSource, "uint", dwOKEffects, "uint*", pdwEffect, "int")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLE32.dll\DoDragDrop", "ptr", pDataObj, "ptr", pDropSource, "uint", dwOKEffects, pdwEffectMarshal, pdwEffect, "int")
         return result
     }
 
@@ -31543,7 +31910,9 @@ class Ole {
     static IsAccelerator(hAccel, cAccelEntries, lpMsg, lpwCmd) {
         hAccel := hAccel is Win32Handle ? NumGet(hAccel, "ptr") : hAccel
 
-        result := DllCall("OLE32.dll\IsAccelerator", "ptr", hAccel, "int", cAccelEntries, "ptr", lpMsg, "ushort*", lpwCmd, "int")
+        lpwCmdMarshal := lpwCmd is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLE32.dll\IsAccelerator", "ptr", hAccel, "int", cAccelEntries, "ptr", lpMsg, lpwCmdMarshal, lpwCmd, "int")
         return result
     }
 
@@ -31591,9 +31960,9 @@ class Ole {
      * @since windows5.0
      */
     static OleMetafilePictFromIconAndLabel(hIcon, lpszLabel, lpszSourceFile, iIconIndex) {
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
         lpszLabel := lpszLabel is String ? StrPtr(lpszLabel) : lpszLabel
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         A_LastError := 0
 
@@ -31735,7 +32104,9 @@ class Ole {
      * @since windows5.0
      */
     static OleRegGetMiscStatus(clsid, dwAspect, pdwStatus) {
-        result := DllCall("OLE32.dll\OleRegGetMiscStatus", "ptr", clsid, "uint", dwAspect, "uint*", pdwStatus, "int")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleRegGetMiscStatus", "ptr", clsid, "uint", dwAspect, pdwStatusMarshal, pdwStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31890,7 +32261,9 @@ class Ole {
      * @returns {HRESULT} 
      */
     static OleConvertOLESTREAMToIStorage2(lpolestream, pstg, ptd, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
-        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", "ptr", lpolestream, "ptr", pstg, "ptr", ptd, "uint", opt, "ptr", pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
+        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", "ptr", lpolestream, "ptr", pstg, "ptr", ptd, "uint", opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32106,7 +32479,13 @@ class Ole {
      * @returns {HRESULT} 
      */
     static OleConvertOLESTREAMToIStorageEx2(polestm, pstg, pcfFormat, plwWidth, plHeight, pdwSize, pmedium, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
-        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", "ptr", polestm, "ptr", pstg, "ushort*", pcfFormat, "int*", plwWidth, "int*", plHeight, "uint*", pdwSize, "ptr", pmedium, "uint", opt, "ptr", pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
+        pcfFormatMarshal := pcfFormat is VarRef ? "ushort*" : "ptr"
+        plwWidthMarshal := plwWidth is VarRef ? "int*" : "ptr"
+        plHeightMarshal := plHeight is VarRef ? "int*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", "ptr", polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, "ptr", pmedium, "uint", opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32121,7 +32500,9 @@ class Ole {
      * @returns {Integer} 
      */
     static HRGN_UserSize(param0, param1, param2) {
-        result := DllCall("OLE32.dll\HRGN_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OLE32.dll\HRGN_UserSize", param0Marshal, param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -32133,7 +32514,10 @@ class Ole {
      * @returns {Pointer<Integer>} 
      */
     static HRGN_UserMarshal(param0, param1, param2) {
-        result := DllCall("OLE32.dll\HRGN_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLE32.dll\HRGN_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -32145,7 +32529,10 @@ class Ole {
      * @returns {Pointer<Integer>} 
      */
     static HRGN_UserUnmarshal(param0, param1, param2) {
-        result := DllCall("OLE32.dll\HRGN_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("OLE32.dll\HRGN_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -32156,7 +32543,9 @@ class Ole {
      * @returns {String} Nothing - always returns an empty string
      */
     static HRGN_UserFree(param0, param1) {
-        DllCall("OLE32.dll\HRGN_UserFree", "uint*", param0, "ptr", param1)
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        DllCall("OLE32.dll\HRGN_UserFree", param0Marshal, param0, "ptr", param1)
     }
 
     /**
@@ -32167,7 +32556,9 @@ class Ole {
      * @returns {Integer} 
      */
     static HRGN_UserSize64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserSize64", param0Marshal, param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -32179,7 +32570,10 @@ class Ole {
      * @returns {Pointer<Integer>} 
      */
     static HRGN_UserMarshal64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -32191,7 +32585,10 @@ class Ole {
      * @returns {Pointer<Integer>} 
      */
     static HRGN_UserUnmarshal64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
         return result
     }
 
@@ -32202,7 +32599,9 @@ class Ole {
      * @returns {String} Nothing - always returns an empty string
      */
     static HRGN_UserFree64(param0, param1) {
-        DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserFree64", "uint*", param0, "ptr", param1)
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserFree64", param0Marshal, param0, "ptr", param1)
     }
 
     /**
@@ -32252,8 +32651,8 @@ class Ole {
     static OleCreatePropertyFrame(hwndOwner, x, y, lpszCaption, cObjects, ppUnk, cPages, pPageClsID, lcid) {
         static dwReserved := 0, pvReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
 
         result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", "ptr", hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, "ptr*", ppUnk, "uint", cPages, "ptr", pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "int")
         if(result != 0)
@@ -39533,8 +39932,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIUpdateLinksW(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
-        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
         result := DllCall("oledlg.dll\OleUIUpdateLinksW", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result
@@ -39551,8 +39950,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIUpdateLinksA(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
-        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
         result := DllCall("oledlg.dll\OleUIUpdateLinksA", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result

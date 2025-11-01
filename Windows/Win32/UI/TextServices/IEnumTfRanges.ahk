@@ -50,7 +50,9 @@ class IEnumTfRanges extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfranges-next
      */
     Next(ulCount, ppRange, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", ppRange, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", ppRange, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

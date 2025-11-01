@@ -42,7 +42,9 @@ class IClockVectorElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvectorelement-getreplicakey
      */
     GetReplicaKey(pdwReplicaKey) {
-        result := ComCall(3, this, "uint*", pdwReplicaKey, "HRESULT")
+        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IClockVectorElement extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-gettickcount
      */
     GetTickCount(pullTickCount) {
-        result := ComCall(4, this, "uint*", pullTickCount, "HRESULT")
+        pullTickCountMarshal := pullTickCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pullTickCountMarshal, pullTickCount, "HRESULT")
         return result
     }
 }

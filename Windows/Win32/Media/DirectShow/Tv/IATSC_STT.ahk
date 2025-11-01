@@ -59,7 +59,9 @@ class IATSC_STT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_stt-getprotocolversion
      */
     GetProtocolVersion(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -87,7 +89,9 @@ class IATSC_STT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_stt-getgpsutcoffset
      */
     GetGpsUtcOffset(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IATSC_STT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_stt-getdaylightsavings
      */
     GetDaylightSavings(pwVal) {
-        result := ComCall(7, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -109,7 +115,9 @@ class IATSC_STT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_stt-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(8, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -134,7 +142,9 @@ class IATSC_STT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_stt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(10, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 }

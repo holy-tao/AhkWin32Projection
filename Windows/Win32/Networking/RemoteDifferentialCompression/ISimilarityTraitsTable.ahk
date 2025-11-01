@@ -48,7 +48,10 @@ class ISimilarityTraitsTable extends IUnknown{
     CreateTable(path, truncate, securityDescriptor, isNew) {
         path := path is String ? StrPtr(path) : path
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, "char*", securityDescriptor, "int*", isNew, "HRESULT")
+        securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
+        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, isNewMarshal, isNew, "HRESULT")
         return result
     }
 
@@ -61,7 +64,9 @@ class ISimilarityTraitsTable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-createtableindirect
      */
     CreateTableIndirect(mapping, truncate, isNew) {
-        result := ComCall(4, this, "ptr", mapping, "int", truncate, "int*", isNew, "HRESULT")
+        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", mapping, "int", truncate, isNewMarshal, isNew, "HRESULT")
         return result
     }
 
@@ -99,7 +104,9 @@ class ISimilarityTraitsTable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-findsimilarfileindex
      */
     FindSimilarFileIndex(similarityData, numberOfMatchesRequired, findSimilarFileIndexResults, resultsSize, resultsUsed) {
-        result := ComCall(7, this, "ptr", similarityData, "ushort", numberOfMatchesRequired, "ptr", findSimilarFileIndexResults, "uint", resultsSize, "uint*", resultsUsed, "HRESULT")
+        resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", similarityData, "ushort", numberOfMatchesRequired, "ptr", findSimilarFileIndexResults, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
         return result
     }
 
@@ -121,7 +128,9 @@ class ISimilarityTraitsTable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-getlastindex
      */
     GetLastIndex(fileIndex) {
-        result := ComCall(9, this, "uint*", fileIndex, "HRESULT")
+        fileIndexMarshal := fileIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, fileIndexMarshal, fileIndex, "HRESULT")
         return result
     }
 }

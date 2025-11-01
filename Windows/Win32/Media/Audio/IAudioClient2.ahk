@@ -63,7 +63,10 @@ class IAudioClient2 extends IAudioClient{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient2-getbuffersizelimits
      */
     GetBufferSizeLimits(pFormat, bEventDriven, phnsMinBufferDuration, phnsMaxBufferDuration) {
-        result := ComCall(17, this, "ptr", pFormat, "int", bEventDriven, "int64*", phnsMinBufferDuration, "int64*", phnsMaxBufferDuration, "HRESULT")
+        phnsMinBufferDurationMarshal := phnsMinBufferDuration is VarRef ? "int64*" : "ptr"
+        phnsMaxBufferDurationMarshal := phnsMaxBufferDuration is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(17, this, "ptr", pFormat, "int", bEventDriven, phnsMinBufferDurationMarshal, phnsMinBufferDuration, phnsMaxBufferDurationMarshal, phnsMaxBufferDuration, "HRESULT")
         return result
     }
 }

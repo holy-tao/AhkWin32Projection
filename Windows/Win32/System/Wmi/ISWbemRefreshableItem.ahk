@@ -40,7 +40,9 @@ class ISWbemRefreshableItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Index(iIndex) {
-        result := ComCall(7, this, "int*", iIndex, "HRESULT")
+        iIndexMarshal := iIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, iIndexMarshal, iIndex, "HRESULT")
         return result
     }
 

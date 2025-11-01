@@ -34,7 +34,9 @@ class ITransactionImportWhereabouts extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWhereaboutsSize(pcbWhereabouts) {
-        result := ComCall(3, this, "uint*", pcbWhereabouts, "HRESULT")
+        pcbWhereaboutsMarshal := pcbWhereabouts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcbWhereaboutsMarshal, pcbWhereabouts, "HRESULT")
         return result
     }
 
@@ -46,7 +48,10 @@ class ITransactionImportWhereabouts extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWhereabouts(cbWhereabouts, rgbWhereabouts, pcbUsed) {
-        result := ComCall(4, this, "uint", cbWhereabouts, "char*", rgbWhereabouts, "uint*", pcbUsed, "HRESULT")
+        rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, pcbUsedMarshal, pcbUsed, "HRESULT")
         return result
     }
 }

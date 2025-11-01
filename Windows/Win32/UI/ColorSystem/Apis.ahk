@@ -639,10 +639,12 @@ class ColorSystem {
      * @since windows5.0
      */
     static GetICMProfileA(hdc, pBufSize, pszFilename) {
-        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc, "uint*", pBufSize, "ptr", pszFilename, "int")
+        pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
         return result
     }
 
@@ -658,10 +660,12 @@ class ColorSystem {
      * @since windows5.0
      */
     static GetICMProfileW(hdc, pBufSize, pszFilename) {
-        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc, "uint*", pBufSize, "ptr", pszFilename, "int")
+        pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
         return result
     }
 
@@ -676,8 +680,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMProfileA(hdc, lpFileName) {
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GDI32.dll\SetICMProfileA", "ptr", hdc, "ptr", lpFileName, "int")
         return result
@@ -694,8 +698,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMProfileW(hdc, lpFileName) {
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GDI32.dll\SetICMProfileW", "ptr", hdc, "ptr", lpFileName, "int")
         return result
@@ -714,7 +718,9 @@ class ColorSystem {
     static GetDeviceGammaRamp(hdc, lpRamp) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetDeviceGammaRamp", "ptr", hdc, "ptr", lpRamp, "int")
+        lpRampMarshal := lpRamp is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GDI32.dll\GetDeviceGammaRamp", "ptr", hdc, lpRampMarshal, lpRamp, "int")
         return result
     }
 
@@ -731,7 +737,9 @@ class ColorSystem {
     static SetDeviceGammaRamp(hdc, lpRamp) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetDeviceGammaRamp", "ptr", hdc, "ptr", lpRamp, "int")
+        lpRampMarshal := lpRamp is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GDI32.dll\SetDeviceGammaRamp", "ptr", hdc, lpRampMarshal, lpRamp, "int")
         return result
     }
 
@@ -944,7 +952,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolorprofilefromhandle
      */
     static GetColorProfileFromHandle(hProfile, pProfile, pcbProfile) {
-        result := DllCall("mscms.dll\GetColorProfileFromHandle", "ptr", hProfile, "ptr", pProfile, "uint*", pcbProfile, "int")
+        pcbProfileMarshal := pcbProfile is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetColorProfileFromHandle", "ptr", hProfile, "ptr", pProfile, pcbProfileMarshal, pcbProfile, "int")
         return result
     }
 
@@ -1004,7 +1014,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcountcolorprofileelements
      */
     static GetCountColorProfileElements(hProfile, pnElementCount) {
-        result := DllCall("mscms.dll\GetCountColorProfileElements", "ptr", hProfile, "uint*", pnElementCount, "int")
+        pnElementCountMarshal := pnElementCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetCountColorProfileElements", "ptr", hProfile, pnElementCountMarshal, pnElementCount, "int")
         return result
     }
 
@@ -1033,7 +1045,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolorprofileelementtag
      */
     static GetColorProfileElementTag(hProfile, dwIndex, pTag) {
-        result := DllCall("mscms.dll\GetColorProfileElementTag", "ptr", hProfile, "uint", dwIndex, "uint*", pTag, "int")
+        pTagMarshal := pTag is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetColorProfileElementTag", "ptr", hProfile, "uint", dwIndex, pTagMarshal, pTag, "int")
         return result
     }
 
@@ -1066,7 +1080,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolorprofileelement
      */
     static GetColorProfileElement(hProfile, tag, dwOffset, pcbElement, pElement, pbReference) {
-        result := DllCall("mscms.dll\GetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, "uint*", pcbElement, "ptr", pElement, "ptr", pbReference, "int")
+        pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, pcbElementMarshal, pcbElement, "ptr", pElement, "ptr", pbReference, "int")
         return result
     }
 
@@ -1112,7 +1128,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setcolorprofileelement
      */
     static SetColorProfileElement(hProfile, tag, dwOffset, pcbElement, pElement) {
-        result := DllCall("mscms.dll\SetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, "uint*", pcbElement, "ptr", pElement, "int")
+        pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
+        pElementMarshal := pElement is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mscms.dll\SetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, pcbElementMarshal, pcbElement, pElementMarshal, pElement, "int")
         return result
     }
 
@@ -1145,7 +1164,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getps2colorspacearray
      */
     static GetPS2ColorSpaceArray(hProfile, dwIntent, dwCSAType, pPS2ColorSpaceArray, pcbPS2ColorSpaceArray, pbBinary) {
-        result := DllCall("mscms.dll\GetPS2ColorSpaceArray", "ptr", hProfile, "uint", dwIntent, "uint", dwCSAType, "ptr", pPS2ColorSpaceArray, "uint*", pcbPS2ColorSpaceArray, "ptr", pbBinary, "int")
+        pcbPS2ColorSpaceArrayMarshal := pcbPS2ColorSpaceArray is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetPS2ColorSpaceArray", "ptr", hProfile, "uint", dwIntent, "uint", dwCSAType, "ptr", pPS2ColorSpaceArray, pcbPS2ColorSpaceArrayMarshal, pcbPS2ColorSpaceArray, "ptr", pbBinary, "int")
         return result
     }
 
@@ -1171,7 +1192,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getps2colorrenderingintent
      */
     static GetPS2ColorRenderingIntent(hProfile, dwIntent, pBuffer, pcbPS2ColorRenderingIntent) {
-        result := DllCall("mscms.dll\GetPS2ColorRenderingIntent", "ptr", hProfile, "uint", dwIntent, "ptr", pBuffer, "uint*", pcbPS2ColorRenderingIntent, "int")
+        pcbPS2ColorRenderingIntentMarshal := pcbPS2ColorRenderingIntent is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetPS2ColorRenderingIntent", "ptr", hProfile, "uint", dwIntent, "ptr", pBuffer, pcbPS2ColorRenderingIntentMarshal, pcbPS2ColorRenderingIntent, "int")
         return result
     }
 
@@ -1195,7 +1218,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getps2colorrenderingdictionary
      */
     static GetPS2ColorRenderingDictionary(hProfile, dwIntent, pPS2ColorRenderingDictionary, pcbPS2ColorRenderingDictionary, pbBinary) {
-        result := DllCall("mscms.dll\GetPS2ColorRenderingDictionary", "ptr", hProfile, "uint", dwIntent, "ptr", pPS2ColorRenderingDictionary, "uint*", pcbPS2ColorRenderingDictionary, "ptr", pbBinary, "int")
+        pcbPS2ColorRenderingDictionaryMarshal := pcbPS2ColorRenderingDictionary is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetPS2ColorRenderingDictionary", "ptr", hProfile, "uint", dwIntent, "ptr", pPS2ColorRenderingDictionary, pcbPS2ColorRenderingDictionaryMarshal, pcbPS2ColorRenderingDictionary, "ptr", pbBinary, "int")
         return result
     }
 
@@ -1225,7 +1250,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-convertcolornametoindex
      */
     static ConvertColorNameToIndex(hProfile, paColorName, paIndex, dwCount) {
-        result := DllCall("mscms.dll\ConvertColorNameToIndex", "ptr", hProfile, "ptr*", paColorName, "uint*", paIndex, "uint", dwCount, "int")
+        paIndexMarshal := paIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\ConvertColorNameToIndex", "ptr", hProfile, "ptr*", paColorName, paIndexMarshal, paIndex, "uint", dwCount, "int")
         return result
     }
 
@@ -1241,7 +1268,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-convertindextocolorname
      */
     static ConvertIndexToColorName(hProfile, paIndex, paColorName, dwCount) {
-        result := DllCall("mscms.dll\ConvertIndexToColorName", "ptr", hProfile, "uint*", paIndex, "ptr*", paColorName, "uint", dwCount, "int")
+        paIndexMarshal := paIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\ConvertIndexToColorName", "ptr", hProfile, paIndexMarshal, paIndex, "ptr*", paColorName, "uint", dwCount, "int")
         return result
     }
 
@@ -1260,7 +1289,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-createdevicelinkprofile
      */
     static CreateDeviceLinkProfile(hProfile, nProfiles, padwIntent, nIntents, dwFlags, pProfileData, indexPreferredCMM) {
-        result := DllCall("mscms.dll\CreateDeviceLinkProfile", "ptr*", hProfile, "uint", nProfiles, "uint*", padwIntent, "uint", nIntents, "uint", dwFlags, "ptr*", pProfileData, "uint", indexPreferredCMM, "int")
+        hProfileMarshal := hProfile is VarRef ? "ptr*" : "ptr"
+        padwIntentMarshal := padwIntent is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\CreateDeviceLinkProfile", hProfileMarshal, hProfile, "uint", nProfiles, padwIntentMarshal, padwIntent, "uint", nIntents, "uint", dwFlags, "ptr*", pProfileData, "uint", indexPreferredCMM, "int")
         return result
     }
 
@@ -1310,7 +1342,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-createmultiprofiletransform
      */
     static CreateMultiProfileTransform(pahProfiles, nProfiles, padwIntent, nIntents, dwFlags, indexPreferredCMM) {
-        result := DllCall("mscms.dll\CreateMultiProfileTransform", "ptr*", pahProfiles, "uint", nProfiles, "uint*", padwIntent, "uint", nIntents, "uint", dwFlags, "uint", indexPreferredCMM, "ptr")
+        pahProfilesMarshal := pahProfiles is VarRef ? "ptr*" : "ptr"
+        padwIntentMarshal := padwIntent is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\CreateMultiProfileTransform", pahProfilesMarshal, pahProfiles, "uint", nProfiles, padwIntentMarshal, padwIntent, "uint", nIntents, "uint", dwFlags, "uint", indexPreferredCMM, "ptr")
         return result
     }
 
@@ -1349,7 +1384,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-translatebitmapbits
      */
     static TranslateBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwInputStride, pDestBits, bmOutput, dwOutputStride, pfnCallBack, ulCallbackData) {
-        result := DllCall("mscms.dll\TranslateBitmapBits", "ptr", hColorTransform, "ptr", pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, "ptr", pDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", pfnCallBack, "ptr", ulCallbackData, "int")
+        pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
+        pDestBitsMarshal := pDestBits is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mscms.dll\TranslateBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, pDestBitsMarshal, pDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", pfnCallBack, "ptr", ulCallbackData, "int")
         return result
     }
 
@@ -1370,7 +1408,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-checkbitmapbits
      */
     static CheckBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwStride, paResult, pfnCallback, lpCallbackData) {
-        result := DllCall("mscms.dll\CheckBitmapBits", "ptr", hColorTransform, "ptr", pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, "char*", paResult, "ptr", pfnCallback, "ptr", lpCallbackData, "int")
+        pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
+        paResultMarshal := paResult is VarRef ? "char*" : "ptr"
+
+        result := DllCall("mscms.dll\CheckBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, paResultMarshal, paResult, "ptr", pfnCallback, "ptr", lpCallbackData, "int")
         return result
     }
 
@@ -1405,7 +1446,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-checkcolors
      */
     static CheckColors(hColorTransform, paInputColors, nColors, ctInput, paResult) {
-        result := DllCall("mscms.dll\CheckColors", "ptr", hColorTransform, "ptr", paInputColors, "uint", nColors, "int", ctInput, "char*", paResult, "int")
+        paResultMarshal := paResult is VarRef ? "char*" : "ptr"
+
+        result := DllCall("mscms.dll\CheckColors", "ptr", hColorTransform, "ptr", paInputColors, "uint", nColors, "int", ctInput, paResultMarshal, paResult, "int")
         return result
     }
 
@@ -1520,7 +1563,9 @@ class ColorSystem {
     static GetColorDirectoryA(pMachineName, pBuffer, pdwSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("mscms.dll\GetColorDirectoryA", "ptr", pMachineName, "ptr", pBuffer, "uint*", pdwSize, "int")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetColorDirectoryA", "ptr", pMachineName, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "int")
         return result
     }
 
@@ -1538,7 +1583,9 @@ class ColorSystem {
     static GetColorDirectoryW(pMachineName, pBuffer, pdwSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("mscms.dll\GetColorDirectoryW", "ptr", pMachineName, "ptr", pBuffer, "uint*", pdwSize, "int")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetColorDirectoryW", "ptr", pMachineName, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "int")
         return result
     }
 
@@ -1627,7 +1674,10 @@ class ColorSystem {
     static EnumColorProfilesA(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("mscms.dll\EnumColorProfilesA", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, "uint*", pdwSizeOfEnumerationBuffer, "uint*", pnProfiles, "int")
+        pdwSizeOfEnumerationBufferMarshal := pdwSizeOfEnumerationBuffer is VarRef ? "uint*" : "ptr"
+        pnProfilesMarshal := pnProfiles is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\EnumColorProfilesA", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, pdwSizeOfEnumerationBufferMarshal, pdwSizeOfEnumerationBuffer, pnProfilesMarshal, pnProfiles, "int")
         return result
     }
 
@@ -1646,7 +1696,10 @@ class ColorSystem {
     static EnumColorProfilesW(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("mscms.dll\EnumColorProfilesW", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, "uint*", pdwSizeOfEnumerationBuffer, "uint*", pnProfiles, "int")
+        pdwSizeOfEnumerationBufferMarshal := pdwSizeOfEnumerationBuffer is VarRef ? "uint*" : "ptr"
+        pnProfilesMarshal := pnProfiles is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\EnumColorProfilesW", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, pdwSizeOfEnumerationBufferMarshal, pdwSizeOfEnumerationBuffer, pnProfilesMarshal, pnProfiles, "int")
         return result
     }
 
@@ -1700,7 +1753,9 @@ class ColorSystem {
     static GetStandardColorSpaceProfileA(pMachineName, dwSCS, pBuffer, pcbSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("mscms.dll\GetStandardColorSpaceProfileA", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, "uint*", pcbSize, "int")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetStandardColorSpaceProfileA", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, pcbSizeMarshal, pcbSize, "int")
         return result
     }
 
@@ -1718,7 +1773,9 @@ class ColorSystem {
     static GetStandardColorSpaceProfileW(pMachineName, dwSCS, pBuffer, pcbSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("mscms.dll\GetStandardColorSpaceProfileW", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, "uint*", pcbSize, "int")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\GetStandardColorSpaceProfileW", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, pcbSizeMarshal, pcbSize, "int")
         return result
     }
 
@@ -1875,7 +1932,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsenumcolorprofilessize
      */
     static WcsEnumColorProfilesSize(scope, pEnumRecord, pdwSize) {
-        result := DllCall("mscms.dll\WcsEnumColorProfilesSize", "int", scope, "ptr", pEnumRecord, "uint*", pdwSize, "int")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\WcsEnumColorProfilesSize", "int", scope, "ptr", pEnumRecord, pdwSizeMarshal, pdwSize, "int")
         return result
     }
 
@@ -1892,7 +1951,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsenumcolorprofiles
      */
     static WcsEnumColorProfiles(scope, pEnumRecord, pBuffer, dwSize, pnProfiles) {
-        result := DllCall("mscms.dll\WcsEnumColorProfiles", "int", scope, "ptr", pEnumRecord, "ptr", pBuffer, "uint", dwSize, "uint*", pnProfiles, "int")
+        pnProfilesMarshal := pnProfiles is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\WcsEnumColorProfiles", "int", scope, "ptr", pEnumRecord, "ptr", pBuffer, "uint", dwSize, pnProfilesMarshal, pnProfiles, "int")
         return result
     }
 
@@ -1912,7 +1973,9 @@ class ColorSystem {
     static WcsGetDefaultColorProfileSize(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, pcbProfileName) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("mscms.dll\WcsGetDefaultColorProfileSize", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, "uint*", pcbProfileName, "int")
+        pcbProfileNameMarshal := pcbProfileName is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\WcsGetDefaultColorProfileSize", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, pcbProfileNameMarshal, pcbProfileName, "int")
         return result
     }
 
@@ -1984,7 +2047,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsgetdefaultrenderingintent
      */
     static WcsGetDefaultRenderingIntent(scope, pdwRenderingIntent) {
-        result := DllCall("mscms.dll\WcsGetDefaultRenderingIntent", "int", scope, "uint*", pdwRenderingIntent, "int")
+        pdwRenderingIntentMarshal := pdwRenderingIntent is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\WcsGetDefaultRenderingIntent", "int", scope, pdwRenderingIntentMarshal, pdwRenderingIntent, "int")
         return result
     }
 
@@ -2059,7 +2124,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcscheckcolors
      */
     static WcsCheckColors(hColorTransform, nColors, nInputChannels, cdtInput, cbInput, pInputData, paResult) {
-        result := DllCall("mscms.dll\WcsCheckColors", "ptr", hColorTransform, "uint", nColors, "uint", nInputChannels, "int", cdtInput, "uint", cbInput, "ptr", pInputData, "char*", paResult, "int")
+        paResultMarshal := paResult is VarRef ? "char*" : "ptr"
+
+        result := DllCall("mscms.dll\WcsCheckColors", "ptr", hColorTransform, "uint", nColors, "uint", nInputChannels, "int", cdtInput, "uint", cbInput, "ptr", pInputData, paResultMarshal, paResult, "int")
         return result
     }
 
@@ -2076,7 +2143,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcheckcolors
      */
     static CMCheckColors(hcmTransform, lpaInputColors, nColors, ctInput, lpaResult) {
-        result := DllCall("ICM32.dll\CMCheckColors", "ptr", hcmTransform, "ptr", lpaInputColors, "uint", nColors, "int", ctInput, "char*", lpaResult, "int")
+        lpaResultMarshal := lpaResult is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCheckColors", "ptr", hcmTransform, "ptr", lpaInputColors, "uint", nColors, "int", ctInput, lpaResultMarshal, lpaResult, "int")
         return result
     }
 
@@ -2095,7 +2164,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcheckrgbs
      */
     static CMCheckRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpaResult, pfnCallback, ulCallbackData) {
-        result := DllCall("ICM32.dll\CMCheckRGBs", "ptr", hcmTransform, "ptr", lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, "char*", lpaResult, "ptr", pfnCallback, "ptr", ulCallbackData, "int")
+        lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
+        lpaResultMarshal := lpaResult is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCheckRGBs", "ptr", hcmTransform, lpSrcBitsMarshal, lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, lpaResultMarshal, lpaResult, "ptr", pfnCallback, "ptr", ulCallbackData, "int")
         return result
     }
 
@@ -2111,7 +2183,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmconvertcolornametoindex
      */
     static CMConvertColorNameToIndex(hProfile, paColorName, paIndex, dwCount) {
-        result := DllCall("ICM32.dll\CMConvertColorNameToIndex", "ptr", hProfile, "ptr*", paColorName, "uint*", paIndex, "uint", dwCount, "int")
+        paIndexMarshal := paIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMConvertColorNameToIndex", "ptr", hProfile, "ptr*", paColorName, paIndexMarshal, paIndex, "uint", dwCount, "int")
         return result
     }
 
@@ -2127,7 +2201,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmconvertindextocolorname
      */
     static CMConvertIndexToColorName(hProfile, paIndex, paColorName, dwCount) {
-        result := DllCall("ICM32.dll\CMConvertIndexToColorName", "ptr", hProfile, "uint*", paIndex, "ptr*", paColorName, "uint", dwCount, "int")
+        paIndexMarshal := paIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMConvertIndexToColorName", "ptr", hProfile, paIndexMarshal, paIndex, "ptr*", paColorName, "uint", dwCount, "int")
         return result
     }
 
@@ -2145,7 +2221,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcreatedevicelinkprofile
      */
     static CMCreateDeviceLinkProfile(pahProfiles, nProfiles, padwIntents, nIntents, dwFlags, lpProfileData) {
-        result := DllCall("ICM32.dll\CMCreateDeviceLinkProfile", "ptr*", pahProfiles, "uint", nProfiles, "uint*", padwIntents, "uint", nIntents, "uint", dwFlags, "ptr*", lpProfileData, "int")
+        pahProfilesMarshal := pahProfiles is VarRef ? "ptr*" : "ptr"
+        padwIntentsMarshal := padwIntents is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCreateDeviceLinkProfile", pahProfilesMarshal, pahProfiles, "uint", nProfiles, padwIntentsMarshal, padwIntents, "uint", nIntents, "uint", dwFlags, "ptr*", lpProfileData, "int")
         return result
     }
 
@@ -2162,7 +2241,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcreatemultiprofiletransform
      */
     static CMCreateMultiProfileTransform(pahProfiles, nProfiles, padwIntents, nIntents, dwFlags) {
-        result := DllCall("ICM32.dll\CMCreateMultiProfileTransform", "ptr*", pahProfiles, "uint", nProfiles, "uint*", padwIntents, "uint", nIntents, "uint", dwFlags, "ptr")
+        pahProfilesMarshal := pahProfiles is VarRef ? "ptr*" : "ptr"
+        padwIntentsMarshal := padwIntents is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCreateMultiProfileTransform", pahProfilesMarshal, pahProfiles, "uint", nProfiles, padwIntentsMarshal, padwIntents, "uint", nIntents, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -2193,7 +2275,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcreatetransform
      */
     static CMCreateTransform(lpColorSpace, lpDevCharacter, lpTargetDevCharacter) {
-        result := DllCall("ICM32.dll\CMCreateTransform", "ptr", lpColorSpace, "ptr", lpDevCharacter, "ptr", lpTargetDevCharacter, "ptr")
+        lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
+        lpTargetDevCharacterMarshal := lpTargetDevCharacter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCreateTransform", "ptr", lpColorSpace, lpDevCharacterMarshal, lpDevCharacter, lpTargetDevCharacterMarshal, lpTargetDevCharacter, "ptr")
         return result
     }
 
@@ -2206,7 +2291,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcreatetransformw
      */
     static CMCreateTransformW(lpColorSpace, lpDevCharacter, lpTargetDevCharacter) {
-        result := DllCall("ICM32.dll\CMCreateTransformW", "ptr", lpColorSpace, "ptr", lpDevCharacter, "ptr", lpTargetDevCharacter, "ptr")
+        lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
+        lpTargetDevCharacterMarshal := lpTargetDevCharacter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCreateTransformW", "ptr", lpColorSpace, lpDevCharacterMarshal, lpDevCharacter, lpTargetDevCharacterMarshal, lpTargetDevCharacter, "ptr")
         return result
     }
 
@@ -2222,7 +2310,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcreatetransformext
      */
     static CMCreateTransformExt(lpColorSpace, lpDevCharacter, lpTargetDevCharacter, dwFlags) {
-        result := DllCall("ICM32.dll\CMCreateTransformExt", "ptr", lpColorSpace, "ptr", lpDevCharacter, "ptr", lpTargetDevCharacter, "uint", dwFlags, "ptr")
+        lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
+        lpTargetDevCharacterMarshal := lpTargetDevCharacter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCreateTransformExt", "ptr", lpColorSpace, lpDevCharacterMarshal, lpDevCharacter, lpTargetDevCharacterMarshal, lpTargetDevCharacter, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -2303,7 +2394,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmtranslatergb
      */
     static CMTranslateRGB(hcmTransform, ColorRef, lpColorRef, dwFlags) {
-        result := DllCall("ICM32.dll\CMTranslateRGB", "ptr", hcmTransform, "uint", ColorRef, "uint*", lpColorRef, "uint", dwFlags, "int")
+        lpColorRefMarshal := lpColorRef is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMTranslateRGB", "ptr", hcmTransform, "uint", ColorRef, lpColorRefMarshal, lpColorRef, "uint", dwFlags, "int")
         return result
     }
 
@@ -2328,7 +2421,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmtranslatergbs
      */
     static CMTranslateRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpDestBits, bmOutput, dwTranslateDirection) {
-        result := DllCall("ICM32.dll\CMTranslateRGBs", "ptr", hcmTransform, "ptr", lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, "ptr", lpDestBits, "int", bmOutput, "uint", dwTranslateDirection, "int")
+        lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
+        lpDestBitsMarshal := lpDestBits is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ICM32.dll\CMTranslateRGBs", "ptr", hcmTransform, lpSrcBitsMarshal, lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, lpDestBitsMarshal, lpDestBits, "int", bmOutput, "uint", dwTranslateDirection, "int")
         return result
     }
 
@@ -2344,7 +2440,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcreatetransformextw
      */
     static CMCreateTransformExtW(lpColorSpace, lpDevCharacter, lpTargetDevCharacter, dwFlags) {
-        result := DllCall("ICM32.dll\CMCreateTransformExtW", "ptr", lpColorSpace, "ptr", lpDevCharacter, "ptr", lpTargetDevCharacter, "uint", dwFlags, "ptr")
+        lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
+        lpTargetDevCharacterMarshal := lpTargetDevCharacter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ICM32.dll\CMCreateTransformExtW", "ptr", lpColorSpace, lpDevCharacterMarshal, lpDevCharacter, lpTargetDevCharacterMarshal, lpTargetDevCharacter, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -2487,7 +2586,10 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmtranslatergbsext
      */
     static CMTranslateRGBsExt(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwInputStride, lpDestBits, bmOutput, dwOutputStride, lpfnCallback, ulCallbackData) {
-        result := DllCall("ICM32.dll\CMTranslateRGBsExt", "ptr", hcmTransform, "ptr", lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, "ptr", lpDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", lpfnCallback, "ptr", ulCallbackData, "int")
+        lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
+        lpDestBitsMarshal := lpDestBits is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ICM32.dll\CMTranslateRGBsExt", "ptr", hcmTransform, lpSrcBitsMarshal, lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, lpDestBitsMarshal, lpDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", lpfnCallback, "ptr", ulCallbackData, "int")
         return result
     }
 
@@ -2651,7 +2753,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofilegetdisplaylist
      */
     static ColorProfileGetDisplayList(scope, targetAdapterID, sourceID, profileList, profileCount) {
-        result := DllCall("mscms.dll\ColorProfileGetDisplayList", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "ptr*", profileList, "uint*", profileCount, "int")
+        profileCountMarshal := profileCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mscms.dll\ColorProfileGetDisplayList", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "ptr*", profileList, profileCountMarshal, profileCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2686,7 +2790,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofilegetdisplayuserscope
      */
     static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID, scope) {
-        result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", scope, "int")
+        scopeMarshal := scope is VarRef ? "int*" : "ptr"
+
+        result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, scopeMarshal, scope, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2703,7 +2809,9 @@ class ColorSystem {
      * @returns {HRESULT} 
      */
     static ColorProfileGetDeviceCapabilities(scope, targetAdapterID, sourceID, capsType, outputCapabilities) {
-        result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, "ptr", outputCapabilities, "int")
+        outputCapabilitiesMarshal := outputCapabilities is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, outputCapabilitiesMarshal, outputCapabilities, "int")
         if(result != 0)
             throw OSError(result)
 

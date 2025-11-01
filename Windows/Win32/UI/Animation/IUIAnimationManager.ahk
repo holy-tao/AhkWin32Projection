@@ -114,7 +114,9 @@ class IUIAnimationManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-update
      */
     Update(timeNow, updateResult) {
-        result := ComCall(8, this, "double", timeNow, "int*", updateResult, "HRESULT")
+        updateResultMarshal := updateResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "double", timeNow, updateResultMarshal, updateResult, "HRESULT")
         return result
     }
 
@@ -151,7 +153,9 @@ class IUIAnimationManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstatus
      */
     GetStatus(status) {
-        result := ComCall(11, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, statusMarshal, status, "HRESULT")
         return result
     }
 

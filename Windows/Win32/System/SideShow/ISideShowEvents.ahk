@@ -48,7 +48,9 @@ class ISideShowEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     ApplicationEvent(in_pICapabilities, in_dwEventId, in_dwEventSize, in_pbEventData) {
-        result := ComCall(4, this, "ptr", in_pICapabilities, "uint", in_dwEventId, "uint", in_dwEventSize, "char*", in_pbEventData, "HRESULT")
+        in_pbEventDataMarshal := in_pbEventData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", in_pICapabilities, "uint", in_dwEventId, "uint", in_dwEventSize, in_pbEventDataMarshal, in_pbEventData, "HRESULT")
         return result
     }
 

@@ -50,7 +50,9 @@ class IDirectInputDevice8A extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumobjects
      */
     EnumObjects(param0, param1, param2) {
-        result := ComCall(4, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceState(param0, param1) {
-        result := ComCall(9, this, "uint", param0, "ptr", param1, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "uint", param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceData(param0, param1, param2, param3) {
-        result := ComCall(10, this, "uint", param0, "ptr", param1, "uint*", param2, "uint", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -234,7 +240,9 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumEffects(param0, param1, param2) {
-        result := ComCall(19, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(19, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -255,7 +263,9 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     GetForceFeedbackState(param0) {
-        result := ComCall(21, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -277,7 +287,9 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumCreatedEffectObjects(param0, param1, param2) {
-        result := ComCall(23, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -312,7 +324,9 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     SendDeviceData(param0, param1, param2, param3) {
-        result := ComCall(26, this, "uint", param0, "ptr", param1, "uint*", param2, "uint", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -325,7 +339,11 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumEffectsInFile(param0, param1, param2, param3) {
-        result := ComCall(27, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "HRESULT")
+        param0 := param0 is String ? StrPtr(param0) : param0
+
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(27, this, "ptr", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -338,6 +356,8 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteEffectToFile(param0, param1, param2, param3) {
+        param0 := param0 is String ? StrPtr(param0) : param0
+
         result := ComCall(28, this, "ptr", param0, "uint", param1, "ptr", param2, "uint", param3, "HRESULT")
         return result
     }
@@ -350,6 +370,8 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     BuildActionMap(param0, param1, param2) {
+        param1 := param1 is String ? StrPtr(param1) : param1
+
         result := ComCall(29, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
         return result
     }
@@ -362,6 +384,8 @@ class IDirectInputDevice8A extends IUnknown{
      * @returns {HRESULT} 
      */
     SetActionMap(param0, param1, param2) {
+        param1 := param1 is String ? StrPtr(param1) : param1
+
         result := ComCall(30, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
         return result
     }

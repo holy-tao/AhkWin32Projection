@@ -46,7 +46,9 @@ class IDiscRecorder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-idiscrecorder
      */
     Init(pbyUniqueID, nulIDSize, nulDriveNumber) {
-        result := ComCall(3, this, "char*", pbyUniqueID, "uint", nulIDSize, "uint", nulDriveNumber, "HRESULT")
+        pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbyUniqueIDMarshal, pbyUniqueID, "uint", nulIDSize, "uint", nulDriveNumber, "HRESULT")
         return result
     }
 
@@ -59,7 +61,10 @@ class IDiscRecorder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderguid
      */
     GetRecorderGUID(pbyUniqueID, ulBufferSize, pulReturnSizeRequired) {
-        result := ComCall(4, this, "char*", pbyUniqueID, "uint", ulBufferSize, "uint*", pulReturnSizeRequired, "HRESULT")
+        pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
+        pulReturnSizeRequiredMarshal := pulReturnSizeRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbyUniqueIDMarshal, pbyUniqueID, "uint", ulBufferSize, pulReturnSizeRequiredMarshal, pulReturnSizeRequired, "HRESULT")
         return result
     }
 
@@ -70,7 +75,9 @@ class IDiscRecorder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecordertype
      */
     GetRecorderType(fTypeCode) {
-        result := ComCall(5, this, "int*", fTypeCode, "HRESULT")
+        fTypeCodeMarshal := fTypeCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, fTypeCodeMarshal, fTypeCode, "HRESULT")
         return result
     }
 
@@ -138,7 +145,9 @@ class IDiscRecorder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderstate
      */
     GetRecorderState(pulDevStateFlags) {
-        result := ComCall(11, this, "uint*", pulDevStateFlags, "HRESULT")
+        pulDevStateFlagsMarshal := pulDevStateFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pulDevStateFlagsMarshal, pulDevStateFlags, "HRESULT")
         return result
     }
 
@@ -160,7 +169,10 @@ class IDiscRecorder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-querymediatype
      */
     QueryMediaType(fMediaType, fMediaFlags) {
-        result := ComCall(13, this, "int*", fMediaType, "int*", fMediaFlags, "HRESULT")
+        fMediaTypeMarshal := fMediaType is VarRef ? "int*" : "ptr"
+        fMediaFlagsMarshal := fMediaFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, fMediaTypeMarshal, fMediaType, fMediaFlagsMarshal, fMediaFlags, "HRESULT")
         return result
     }
 
@@ -175,7 +187,13 @@ class IDiscRecorder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-querymediainfo
      */
     QueryMediaInfo(pbSessions, pbLastTrack, ulStartAddress, ulNextWritable, ulFreeBlocks) {
-        result := ComCall(14, this, "char*", pbSessions, "char*", pbLastTrack, "uint*", ulStartAddress, "uint*", ulNextWritable, "uint*", ulFreeBlocks, "HRESULT")
+        pbSessionsMarshal := pbSessions is VarRef ? "char*" : "ptr"
+        pbLastTrackMarshal := pbLastTrack is VarRef ? "char*" : "ptr"
+        ulStartAddressMarshal := ulStartAddress is VarRef ? "uint*" : "ptr"
+        ulNextWritableMarshal := ulNextWritable is VarRef ? "uint*" : "ptr"
+        ulFreeBlocksMarshal := ulFreeBlocks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pbSessionsMarshal, pbSessions, pbLastTrackMarshal, pbLastTrack, ulStartAddressMarshal, ulStartAddress, ulNextWritableMarshal, ulNextWritable, ulFreeBlocksMarshal, ulFreeBlocks, "HRESULT")
         return result
     }
 

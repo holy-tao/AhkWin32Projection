@@ -63,7 +63,9 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxcount
      */
     get_FileMaxCount(count) {
-        result := ComCall(32, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxrecursivedepth
      */
     get_FileMaxRecursiveDepth(depth) {
-        result := ComCall(34, this, "uint*", depth, "HRESULT")
+        depthMarshal := depth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, depthMarshal, depth, "HRESULT")
         return result
     }
 
@@ -107,7 +111,9 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_filemaxtotalsize
      */
     get_FileMaxTotalSize(size) {
-        result := ComCall(36, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, sizeMarshal, size, "HRESULT")
         return result
     }
 
@@ -217,7 +223,9 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_registrymaxrecursivedepth
      */
     get_RegistryMaxRecursiveDepth(depth) {
-        result := ComCall(46, this, "uint*", depth, "HRESULT")
+        depthMarshal := depth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(46, this, depthMarshal, depth, "HRESULT")
         return result
     }
 

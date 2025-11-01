@@ -29,7 +29,9 @@ class NonVolatile {
      * @returns {Integer} 
      */
     static RtlFreeNonVolatileToken(NvToken) {
-        result := DllCall("ntdll.dll\RtlFreeNonVolatileToken", "ptr", NvToken, "uint")
+        NvTokenMarshal := NvToken is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlFreeNonVolatileToken", NvTokenMarshal, NvToken, "uint")
         return result
     }
 
@@ -42,7 +44,9 @@ class NonVolatile {
      * @returns {Integer} 
      */
     static RtlFlushNonVolatileMemory(NvToken, NvBuffer, Size, Flags) {
-        result := DllCall("ntdll.dll\RtlFlushNonVolatileMemory", "ptr", NvToken, "ptr", NvBuffer, "ptr", Size, "uint", Flags, "uint")
+        NvTokenMarshal := NvToken is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlFlushNonVolatileMemory", NvTokenMarshal, NvToken, "ptr", NvBuffer, "ptr", Size, "uint", Flags, "uint")
         return result
     }
 
@@ -52,7 +56,9 @@ class NonVolatile {
      * @returns {Integer} 
      */
     static RtlDrainNonVolatileFlush(NvToken) {
-        result := DllCall("ntdll.dll\RtlDrainNonVolatileFlush", "ptr", NvToken, "uint")
+        NvTokenMarshal := NvToken is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlDrainNonVolatileFlush", NvTokenMarshal, NvToken, "uint")
         return result
     }
 
@@ -66,7 +72,9 @@ class NonVolatile {
      * @returns {Integer} 
      */
     static RtlWriteNonVolatileMemory(NvToken, NvDestination, Source, Size, Flags) {
-        result := DllCall("ntdll.dll\RtlWriteNonVolatileMemory", "ptr", NvToken, "ptr", NvDestination, "ptr", Source, "ptr", Size, "uint", Flags, "uint")
+        NvTokenMarshal := NvToken is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlWriteNonVolatileMemory", NvTokenMarshal, NvToken, "ptr", NvDestination, "ptr", Source, "ptr", Size, "uint", Flags, "uint")
         return result
     }
 
@@ -80,7 +88,9 @@ class NonVolatile {
      * @returns {Integer} 
      */
     static RtlFillNonVolatileMemory(NvToken, NvDestination, Size, Value, Flags) {
-        result := DllCall("ntdll.dll\RtlFillNonVolatileMemory", "ptr", NvToken, "ptr", NvDestination, "ptr", Size, "char", Value, "uint", Flags, "uint")
+        NvTokenMarshal := NvToken is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlFillNonVolatileMemory", NvTokenMarshal, NvToken, "ptr", NvDestination, "ptr", Size, "char", Value, "uint", Flags, "uint")
         return result
     }
 
@@ -93,7 +103,9 @@ class NonVolatile {
      * @returns {Integer} 
      */
     static RtlFlushNonVolatileMemoryRanges(NvToken, NvRanges, NumRanges, Flags) {
-        result := DllCall("ntdll.dll\RtlFlushNonVolatileMemoryRanges", "ptr", NvToken, "ptr", NvRanges, "ptr", NumRanges, "uint", Flags, "uint")
+        NvTokenMarshal := NvToken is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlFlushNonVolatileMemoryRanges", NvTokenMarshal, NvToken, "ptr", NvRanges, "ptr", NumRanges, "uint", Flags, "uint")
         return result
     }
 

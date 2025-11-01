@@ -57,7 +57,9 @@ class IDirectXVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-getcreationparameters
      */
     GetCreationParameters(pDeviceGuid, pVideoDesc, pConfig, pDecoderRenderTargets, pNumSurfaces) {
-        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", pDecoderRenderTargets, "uint*", pNumSurfaces, "HRESULT")
+        pNumSurfacesMarshal := pNumSurfaces is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", pDecoderRenderTargets, pNumSurfacesMarshal, pNumSurfaces, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IDirectXVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-getbuffer
      */
     GetBuffer(BufferType, ppBuffer, pBufferSize) {
-        result := ComCall(5, this, "uint", BufferType, "ptr*", ppBuffer, "uint*", pBufferSize, "HRESULT")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", BufferType, "ptr*", ppBuffer, pBufferSizeMarshal, pBufferSize, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class IDirectXVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-beginframe
      */
     BeginFrame(pRenderTarget, pvPVPData) {
-        result := ComCall(7, this, "ptr", pRenderTarget, "ptr", pvPVPData, "HRESULT")
+        pvPVPDataMarshal := pvPVPData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", pRenderTarget, pvPVPDataMarshal, pvPVPData, "HRESULT")
         return result
     }
 

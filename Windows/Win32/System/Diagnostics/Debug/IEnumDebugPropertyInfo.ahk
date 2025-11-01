@@ -36,7 +36,9 @@ class IEnumDebugPropertyInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, pi, pcEltsfetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", pi, "uint*", pcEltsfetched, "HRESULT")
+        pcEltsfetchedMarshal := pcEltsfetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", pi, pcEltsfetchedMarshal, pcEltsfetched, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IEnumDebugPropertyInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pcelt) {
-        result := ComCall(7, this, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 }

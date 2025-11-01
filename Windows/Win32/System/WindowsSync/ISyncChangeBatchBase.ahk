@@ -64,7 +64,9 @@ class ISyncChangeBatchBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getworkestimateforbatch
      */
     GetWorkEstimateForBatch(pdwWorkForBatch) {
-        result := ComCall(5, this, "uint*", pdwWorkForBatch, "HRESULT")
+        pdwWorkForBatchMarshal := pdwWorkForBatch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwWorkForBatchMarshal, pdwWorkForBatch, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class ISyncChangeBatchBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getremainingworkestimateforsession
      */
     GetRemainingWorkEstimateForSession(pdwRemainingWorkForSession) {
-        result := ComCall(6, this, "uint*", pdwRemainingWorkForSession, "HRESULT")
+        pdwRemainingWorkForSessionMarshal := pdwRemainingWorkForSession is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwRemainingWorkForSessionMarshal, pdwRemainingWorkForSession, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class ISyncChangeBatchBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-beginorderedgroup
      */
     BeginOrderedGroup(pbLowerBound) {
-        result := ComCall(7, this, "char*", pbLowerBound, "HRESULT")
+        pbLowerBoundMarshal := pbLowerBound is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbLowerBoundMarshal, pbLowerBound, "HRESULT")
         return result
     }
 
@@ -98,7 +104,9 @@ class ISyncChangeBatchBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-endorderedgroup
      */
     EndOrderedGroup(pbUpperBound, pMadeWithKnowledge) {
-        result := ComCall(8, this, "char*", pbUpperBound, "ptr", pMadeWithKnowledge, "HRESULT")
+        pbUpperBoundMarshal := pbUpperBound is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbUpperBoundMarshal, pbUpperBound, "ptr", pMadeWithKnowledge, "HRESULT")
         return result
     }
 
@@ -115,7 +123,10 @@ class ISyncChangeBatchBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-additemmetadatatogroup
      */
     AddItemMetadataToGroup(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, ppChangeBuilder) {
-        result := ComCall(9, this, "char*", pbOwnerReplicaId, "char*", pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr*", ppChangeBuilder, "HRESULT")
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr*", ppChangeBuilder, "HRESULT")
         return result
     }
 
@@ -192,7 +203,10 @@ class ISyncChangeBatchBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-serialize
      */
     Serialize(pbChangeBatch, pcbChangeBatch) {
-        result := ComCall(16, this, "char*", pbChangeBatch, "uint*", pcbChangeBatch, "HRESULT")
+        pbChangeBatchMarshal := pbChangeBatch is VarRef ? "char*" : "ptr"
+        pcbChangeBatchMarshal := pcbChangeBatch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pbChangeBatchMarshal, pbChangeBatch, pcbChangeBatchMarshal, pcbChangeBatch, "HRESULT")
         return result
     }
 }

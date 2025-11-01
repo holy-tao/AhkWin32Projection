@@ -36,7 +36,9 @@ class IEnumDebugCodeContexts extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, pscc, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", pscc, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", pscc, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

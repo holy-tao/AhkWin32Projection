@@ -45,7 +45,9 @@ class Multicast {
      * @since windows5.0
      */
     static McastApiStartup(Version) {
-        result := DllCall("dhcpcsvc.dll\McastApiStartup", "uint*", Version, "uint")
+        VersionMarshal := Version is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dhcpcsvc.dll\McastApiStartup", VersionMarshal, Version, "uint")
         return result
     }
 
@@ -116,7 +118,10 @@ class Multicast {
      * @since windows5.0
      */
     static McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCount) {
-        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "int", ReQuery, "ptr", pScopeList, "uint*", pScopeLen, "uint*", pScopeCount, "uint")
+        pScopeLenMarshal := pScopeLen is VarRef ? "uint*" : "ptr"
+        pScopeCountMarshal := pScopeCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "int", ReQuery, "ptr", pScopeList, pScopeLenMarshal, pScopeLen, pScopeCountMarshal, pScopeCount, "uint")
         return result
     }
 

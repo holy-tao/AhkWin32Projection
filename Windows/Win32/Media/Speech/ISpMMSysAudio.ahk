@@ -34,7 +34,9 @@ class ISpMMSysAudio extends ISpAudio{
      * @returns {HRESULT} 
      */
     GetDeviceId(puDeviceId) {
-        result := ComCall(26, this, "uint*", puDeviceId, "HRESULT")
+        puDeviceIdMarshal := puDeviceId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, puDeviceIdMarshal, puDeviceId, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class ISpMMSysAudio extends ISpAudio{
      * @returns {HRESULT} 
      */
     GetLineId(puLineId) {
-        result := ComCall(29, this, "uint*", puLineId, "HRESULT")
+        puLineIdMarshal := puLineId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, puLineIdMarshal, puLineId, "HRESULT")
         return result
     }
 

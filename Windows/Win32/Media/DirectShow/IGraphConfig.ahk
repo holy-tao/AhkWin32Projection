@@ -60,7 +60,9 @@ class IGraphConfig extends IUnknown{
     Reconfigure(pCallback, pvContext, dwFlags, hAbortEvent) {
         hAbortEvent := hAbortEvent is Win32Handle ? NumGet(hAbortEvent, "ptr") : hAbortEvent
 
-        result := ComCall(4, this, "ptr", pCallback, "ptr", pvContext, "uint", dwFlags, "ptr", hAbortEvent, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", pCallback, pvContextMarshal, pvContext, "uint", dwFlags, "ptr", hAbortEvent, "HRESULT")
         return result
     }
 
@@ -104,7 +106,9 @@ class IGraphConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-getstarttime
      */
     GetStartTime(prtStart) {
-        result := ComCall(8, this, "int64*", prtStart, "HRESULT")
+        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, prtStartMarshal, prtStart, "HRESULT")
         return result
     }
 
@@ -143,7 +147,9 @@ class IGraphConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-getfilterflags
      */
     GetFilterFlags(pFilter, pdwFlags) {
-        result := ComCall(11, this, "ptr", pFilter, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pFilter, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

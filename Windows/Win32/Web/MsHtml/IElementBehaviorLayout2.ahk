@@ -34,7 +34,9 @@ class IElementBehaviorLayout2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTextDescent(plDescent) {
-        result := ComCall(3, this, "int*", plDescent, "HRESULT")
+        plDescentMarshal := plDescent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plDescentMarshal, plDescent, "HRESULT")
         return result
     }
 }

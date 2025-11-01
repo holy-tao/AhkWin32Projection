@@ -35,7 +35,9 @@ class IDxcBlobEncoding extends IDxcBlob{
      * @returns {HRESULT} 
      */
     GetEncoding(pKnown, pCodePage) {
-        result := ComCall(5, this, "ptr", pKnown, "uint*", pCodePage, "HRESULT")
+        pCodePageMarshal := pCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pKnown, pCodePageMarshal, pCodePage, "HRESULT")
         return result
     }
 }

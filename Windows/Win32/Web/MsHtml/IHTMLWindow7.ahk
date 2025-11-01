@@ -89,7 +89,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_innerWidth(p) {
-        result := ComCall(12, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -99,7 +101,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_innerHeight(p) {
-        result := ComCall(13, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageXOffset(p) {
-        result := ComCall(14, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageYOffset(p) {
-        result := ComCall(15, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -129,7 +137,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenX(p) {
-        result := ComCall(16, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -139,7 +149,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenY(p) {
-        result := ComCall(17, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -149,7 +161,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_outerWidth(p) {
-        result := ComCall(18, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -159,7 +173,9 @@ class IHTMLWindow7 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_outerHeight(p) {
-        result := ComCall(19, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pMarshal, p, "HRESULT")
         return result
     }
 

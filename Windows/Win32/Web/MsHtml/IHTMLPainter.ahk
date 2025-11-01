@@ -40,7 +40,9 @@ class IHTMLPainter extends IUnknown{
     Draw(rcBounds, rcUpdate, lDrawFlags, hdc, pvDrawObject) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := ComCall(3, this, "ptr", rcBounds, "ptr", rcUpdate, "int", lDrawFlags, "ptr", hdc, "ptr", pvDrawObject, "HRESULT")
+        pvDrawObjectMarshal := pvDrawObject is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", rcBounds, "ptr", rcUpdate, "int", lDrawFlags, "ptr", hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IHTMLPainter extends IUnknown{
      * @returns {HRESULT} 
      */
     HitTestPoint(pt, pbHit, plPartID) {
-        result := ComCall(6, this, "ptr", pt, "ptr", pbHit, "int*", plPartID, "HRESULT")
+        plPartIDMarshal := plPartID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pt, "ptr", pbHit, plPartIDMarshal, plPartID, "HRESULT")
         return result
     }
 }

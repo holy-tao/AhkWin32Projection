@@ -39,7 +39,9 @@ class IMLangFontLink2 extends IMLangCodePages{
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
         hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
 
-        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, "uint*", pdwCodePages, "HRESULT")
+        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IMLangFontLink2 extends IMLangCodePages{
     GetFontUnicodeRanges(hDC, puiRanges, pUranges) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
-        result := ComCall(11, this, "ptr", hDC, "uint*", puiRanges, "ptr", pUranges, "HRESULT")
+        puiRangesMarshal := puiRanges is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", hDC, puiRangesMarshal, puiRanges, "ptr", pUranges, "HRESULT")
         return result
     }
 
@@ -105,7 +109,9 @@ class IMLangFontLink2 extends IMLangCodePages{
      * @returns {HRESULT} 
      */
     GetScriptFontInfo(sid, dwFlags, puiFonts, pScriptFont) {
-        result := ComCall(12, this, "char", sid, "uint", dwFlags, "uint*", puiFonts, "ptr", pScriptFont, "HRESULT")
+        puiFontsMarshal := puiFonts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "char", sid, "uint", dwFlags, puiFontsMarshal, puiFonts, "ptr", pScriptFont, "HRESULT")
         return result
     }
 
@@ -116,7 +122,9 @@ class IMLangFontLink2 extends IMLangCodePages{
      * @returns {HRESULT} 
      */
     CodePageToScriptID(uiCodePage, pSid) {
-        result := ComCall(13, this, "uint", uiCodePage, "char*", pSid, "HRESULT")
+        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "uint", uiCodePage, pSidMarshal, pSid, "HRESULT")
         return result
     }
 }

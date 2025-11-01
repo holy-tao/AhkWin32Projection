@@ -34,7 +34,9 @@ class IAMPlayList extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFlags(pdwFlags) {
-        result := ComCall(3, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IAMPlayList extends IUnknown{
      * @returns {HRESULT} 
      */
     GetItemCount(pdwItems) {
-        result := ComCall(4, this, "uint*", pdwItems, "HRESULT")
+        pdwItemsMarshal := pdwItems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwItemsMarshal, pdwItems, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IAMPlayList extends IUnknown{
     GetNamedEvent(pwszEventName, dwItemIndex, ppItem, pdwFlags) {
         pwszEventName := pwszEventName is String ? StrPtr(pwszEventName) : pwszEventName
 
-        result := ComCall(6, this, "ptr", pwszEventName, "uint", dwItemIndex, "ptr*", ppItem, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszEventName, "uint", dwItemIndex, "ptr*", ppItem, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -82,7 +88,11 @@ class IAMPlayList extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRepeatInfo(pdwRepeatCount, pdwRepeatStart, pdwRepeatEnd) {
-        result := ComCall(7, this, "uint*", pdwRepeatCount, "uint*", pdwRepeatStart, "uint*", pdwRepeatEnd, "HRESULT")
+        pdwRepeatCountMarshal := pdwRepeatCount is VarRef ? "uint*" : "ptr"
+        pdwRepeatStartMarshal := pdwRepeatStart is VarRef ? "uint*" : "ptr"
+        pdwRepeatEndMarshal := pdwRepeatEnd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwRepeatCountMarshal, pdwRepeatCount, pdwRepeatStartMarshal, pdwRepeatStart, pdwRepeatEndMarshal, pdwRepeatEnd, "HRESULT")
         return result
     }
 }

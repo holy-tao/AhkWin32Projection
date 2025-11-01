@@ -41,7 +41,9 @@ class IESCloseMmiEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesclosemmievent-getdialognumber
      */
     GetDialogNumber(pDialogNumber) {
-        result := ComCall(8, this, "uint*", pDialogNumber, "HRESULT")
+        pDialogNumberMarshal := pDialogNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pDialogNumberMarshal, pDialogNumber, "HRESULT")
         return result
     }
 }

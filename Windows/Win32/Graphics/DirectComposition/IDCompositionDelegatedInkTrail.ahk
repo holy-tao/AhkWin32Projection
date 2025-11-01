@@ -36,7 +36,9 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
      * @returns {HRESULT} 
      */
     AddTrailPoints(inkPoints, inkPointsCount, generationId) {
-        result := ComCall(3, this, "ptr", inkPoints, "uint", inkPointsCount, "uint*", generationId, "HRESULT")
+        generationIdMarshal := generationId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", inkPoints, "uint", inkPointsCount, generationIdMarshal, generationId, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
      * @returns {HRESULT} 
      */
     AddTrailPointsWithPrediction(inkPoints, inkPointsCount, predictedInkPoints, predictedInkPointsCount, generationId) {
-        result := ComCall(4, this, "ptr", inkPoints, "uint", inkPointsCount, "ptr", predictedInkPoints, "uint", predictedInkPointsCount, "uint*", generationId, "HRESULT")
+        generationIdMarshal := generationId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", inkPoints, "uint", inkPointsCount, "ptr", predictedInkPoints, "uint", predictedInkPointsCount, generationIdMarshal, generationId, "HRESULT")
         return result
     }
 

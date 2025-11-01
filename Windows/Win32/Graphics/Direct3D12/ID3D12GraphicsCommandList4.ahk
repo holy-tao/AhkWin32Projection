@@ -97,7 +97,9 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-emitraytracingaccelerationstructurepostbuildinfo
      */
     EmitRaytracingAccelerationStructurePostbuildInfo(pDesc, NumSourceAccelerationStructures, pSourceAccelerationStructureData) {
-        ComCall(73, this, "ptr", pDesc, "uint", NumSourceAccelerationStructures, "uint*", pSourceAccelerationStructureData)
+        pSourceAccelerationStructureDataMarshal := pSourceAccelerationStructureData is VarRef ? "uint*" : "ptr"
+
+        ComCall(73, this, "ptr", pDesc, "uint", NumSourceAccelerationStructures, pSourceAccelerationStructureDataMarshal, pSourceAccelerationStructureData)
     }
 
     /**

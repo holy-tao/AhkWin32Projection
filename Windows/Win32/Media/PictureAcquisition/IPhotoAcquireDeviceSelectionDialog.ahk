@@ -74,7 +74,9 @@ class IPhotoAcquireDeviceSelectionDialog extends IUnknown{
     DoModal(hWndParent, dwDeviceFlags, pbstrDeviceId, pnDeviceType) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
-        result := ComCall(5, this, "ptr", hWndParent, "uint", dwDeviceFlags, "ptr", pbstrDeviceId, "int*", pnDeviceType, "HRESULT")
+        pnDeviceTypeMarshal := pnDeviceType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hWndParent, "uint", dwDeviceFlags, "ptr", pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
         return result
     }
 }

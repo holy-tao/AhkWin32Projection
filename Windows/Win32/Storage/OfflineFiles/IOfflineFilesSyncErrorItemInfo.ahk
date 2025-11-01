@@ -37,7 +37,9 @@ class IOfflineFilesSyncErrorItemInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerroriteminfo-getfileattributes
      */
     GetFileAttributes(pdwAttributes) {
-        result := ComCall(3, this, "uint*", pdwAttributes, "HRESULT")
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwAttributesMarshal, pdwAttributes, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IOfflineFilesSyncErrorItemInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
     GetFileSize(pSize) {
-        result := ComCall(5, this, "int64*", pSize, "HRESULT")
+        pSizeMarshal := pSize is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, pSizeMarshal, pSize, "HRESULT")
         return result
     }
 }

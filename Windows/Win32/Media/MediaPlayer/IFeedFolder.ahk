@@ -208,7 +208,9 @@ class IFeedFolder extends IDispatch{
      * @returns {HRESULT} 
      */
     get_TotalUnreadItemCount(count) {
-        result := ComCall(22, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -218,7 +220,9 @@ class IFeedFolder extends IDispatch{
      * @returns {HRESULT} 
      */
     get_TotalItemCount(count) {
-        result := ComCall(23, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, countMarshal, count, "HRESULT")
         return result
     }
 

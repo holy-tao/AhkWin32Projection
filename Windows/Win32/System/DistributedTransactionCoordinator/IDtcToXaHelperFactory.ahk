@@ -37,6 +37,9 @@ class IDtcToXaHelperFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     Create(pszDSN, pszClientDllName, pguidRm, ppXaHelper) {
+        pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN
+        pszClientDllName := pszClientDllName is String ? StrPtr(pszClientDllName) : pszClientDllName
+
         result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDllName, "ptr", pguidRm, "ptr*", ppXaHelper, "HRESULT")
         return result
     }

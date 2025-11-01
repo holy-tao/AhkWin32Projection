@@ -34,7 +34,9 @@ class IAMPlayListItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFlags(pdwFlags) {
-        result := ComCall(3, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IAMPlayListItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceCount(pdwSources) {
-        result := ComCall(4, this, "uint*", pdwSources, "HRESULT")
+        pdwSourcesMarshal := pdwSources is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwSourcesMarshal, pdwSources, "HRESULT")
         return result
     }
 
@@ -66,7 +70,9 @@ class IAMPlayListItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceStart(dwSourceIndex, prtStart) {
-        result := ComCall(6, this, "uint", dwSourceIndex, "int64*", prtStart, "HRESULT")
+        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwSourceIndex, prtStartMarshal, prtStart, "HRESULT")
         return result
     }
 
@@ -77,7 +83,9 @@ class IAMPlayListItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceDuration(dwSourceIndex, prtDuration) {
-        result := ComCall(7, this, "uint", dwSourceIndex, "int64*", prtDuration, "HRESULT")
+        prtDurationMarshal := prtDuration is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwSourceIndex, prtDurationMarshal, prtDuration, "HRESULT")
         return result
     }
 
@@ -88,7 +96,9 @@ class IAMPlayListItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceStartMarker(dwSourceIndex, pdwMarker) {
-        result := ComCall(8, this, "uint", dwSourceIndex, "uint*", pdwMarker, "HRESULT")
+        pdwMarkerMarshal := pdwMarker is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwSourceIndex, pdwMarkerMarshal, pdwMarker, "HRESULT")
         return result
     }
 
@@ -99,7 +109,9 @@ class IAMPlayListItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceEndMarker(dwSourceIndex, pdwMarker) {
-        result := ComCall(9, this, "uint", dwSourceIndex, "uint*", pdwMarker, "HRESULT")
+        pdwMarkerMarshal := pdwMarker is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwSourceIndex, pdwMarkerMarshal, pdwMarker, "HRESULT")
         return result
     }
 
@@ -142,7 +154,9 @@ class IAMPlayListItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScanDuration(dwSourceIndex, prtScanDuration) {
-        result := ComCall(13, this, "uint", dwSourceIndex, "int64*", prtScanDuration, "HRESULT")
+        prtScanDurationMarshal := prtScanDuration is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwSourceIndex, prtScanDurationMarshal, prtScanDuration, "HRESULT")
         return result
     }
 }

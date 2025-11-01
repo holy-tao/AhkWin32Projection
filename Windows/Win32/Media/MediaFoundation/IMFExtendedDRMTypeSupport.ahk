@@ -43,7 +43,9 @@ class IMFExtendedDRMTypeSupport extends IUnknown{
         type := type is String ? BSTR.Alloc(type).Value : type
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(3, this, "ptr", type, "ptr", keySystem, "int*", pAnswer, "HRESULT")
+        pAnswerMarshal := pAnswer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", type, "ptr", keySystem, pAnswerMarshal, pAnswer, "HRESULT")
         return result
     }
 }

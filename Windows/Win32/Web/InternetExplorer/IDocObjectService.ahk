@@ -46,7 +46,9 @@ class IDocObjectService extends IUnknown{
         lpszFrameName := lpszFrameName is String ? StrPtr(lpszFrameName) : lpszFrameName
         lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
-        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, "uint", dwFlags, "ptr", lpszFrameName, "char*", pPostData, "uint", cbPostData, "ptr", lpszHeaders, "int", fPlayNavSound, "ptr", pfCancel, "HRESULT")
+        pPostDataMarshal := pPostData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, "uint", dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, "uint", cbPostData, "ptr", lpszHeaders, "int", fPlayNavSound, "ptr", pfCancel, "HRESULT")
         return result
     }
 

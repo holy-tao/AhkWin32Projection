@@ -39,7 +39,9 @@ class IStream extends ISequentialStream{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-seek
      */
     Seek(dlibMove, dwOrigin, plibNewPosition) {
-        result := ComCall(5, this, "int64", dlibMove, "uint", dwOrigin, "uint*", plibNewPosition, "HRESULT")
+        plibNewPositionMarshal := plibNewPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int64", dlibMove, "uint", dwOrigin, plibNewPositionMarshal, plibNewPosition, "HRESULT")
         return result
     }
 
@@ -64,7 +66,10 @@ class IStream extends ISequentialStream{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-copyto
      */
     CopyTo(pstm, cb, pcbRead, pcbWritten) {
-        result := ComCall(7, this, "ptr", pstm, "uint", cb, "uint*", pcbRead, "uint*", pcbWritten, "HRESULT")
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pstm, "uint", cb, pcbReadMarshal, pcbRead, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 

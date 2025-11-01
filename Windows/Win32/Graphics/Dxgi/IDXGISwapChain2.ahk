@@ -57,7 +57,10 @@ class IDXGISwapChain2 extends IDXGISwapChain1{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-getsourcesize
      */
     GetSourceSize(pWidth, pHeight) {
-        result := ComCall(30, this, "uint*", pWidth, "uint*", pHeight, "HRESULT")
+        pWidthMarshal := pWidth is VarRef ? "uint*" : "ptr"
+        pHeightMarshal := pHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
     }
 
@@ -79,7 +82,9 @@ class IDXGISwapChain2 extends IDXGISwapChain1{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-getmaximumframelatency
      */
     GetMaximumFrameLatency(pMaxLatency) {
-        result := ComCall(32, this, "uint*", pMaxLatency, "HRESULT")
+        pMaxLatencyMarshal := pMaxLatency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, pMaxLatencyMarshal, pMaxLatency, "HRESULT")
         return result
     }
 

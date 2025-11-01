@@ -43,7 +43,9 @@ class IAMExtendedSeeking extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities
      */
     get_ExSeekCapabilities(pExCapabilities) {
-        result := ComCall(7, this, "int*", pExCapabilities, "HRESULT")
+        pExCapabilitiesMarshal := pExCapabilities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pExCapabilitiesMarshal, pExCapabilities, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IAMExtendedSeeking extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_markercount
      */
     get_MarkerCount(pMarkerCount) {
-        result := ComCall(8, this, "int*", pMarkerCount, "HRESULT")
+        pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarkerCountMarshal, pMarkerCount, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IAMExtendedSeeking extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_currentmarker
      */
     get_CurrentMarker(pCurrentMarker) {
-        result := ComCall(9, this, "int*", pCurrentMarker, "HRESULT")
+        pCurrentMarkerMarshal := pCurrentMarker is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCurrentMarkerMarshal, pCurrentMarker, "HRESULT")
         return result
     }
 
@@ -77,7 +83,9 @@ class IAMExtendedSeeking extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkertime
      */
     GetMarkerTime(MarkerNum, pMarkerTime) {
-        result := ComCall(10, this, "int", MarkerNum, "double*", pMarkerTime, "HRESULT")
+        pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, "int", MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
         return result
     }
 
@@ -111,7 +119,9 @@ class IAMExtendedSeeking extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_playbackspeed
      */
     get_PlaybackSpeed(pSpeed) {
-        result := ComCall(13, this, "double*", pSpeed, "HRESULT")
+        pSpeedMarshal := pSpeed is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pSpeedMarshal, pSpeed, "HRESULT")
         return result
     }
 }

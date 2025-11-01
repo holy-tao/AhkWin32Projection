@@ -72,7 +72,9 @@ class IFaxInboundRoutingMethods extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get_count
      */
     get_Count(plCount) {
-        result := ComCall(9, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 }

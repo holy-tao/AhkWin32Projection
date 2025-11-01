@@ -39,7 +39,9 @@ class IGameStatisticsMgr extends IUnknown{
     GetGameStatistics(GDFBinaryPath, openType, pOpenResult, ppiStats) {
         GDFBinaryPath := GDFBinaryPath is String ? StrPtr(GDFBinaryPath) : GDFBinaryPath
 
-        result := ComCall(3, this, "ptr", GDFBinaryPath, "int", openType, "int*", pOpenResult, "ptr*", ppiStats, "HRESULT")
+        pOpenResultMarshal := pOpenResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", GDFBinaryPath, "int", openType, pOpenResultMarshal, pOpenResult, "ptr*", ppiStats, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class IEnumVdsObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ienumvdsobject-next
      */
     Next(celt, ppObjectArray, pcFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppObjectArray, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppObjectArray, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

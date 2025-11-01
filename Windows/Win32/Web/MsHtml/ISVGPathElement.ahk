@@ -60,7 +60,9 @@ class ISVGPathElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getTotalLength(pfltResult) {
-        result := ComCall(9, this, "float*", pfltResult, "HRESULT")
+        pfltResultMarshal := pfltResult is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, pfltResultMarshal, pfltResult, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class ISVGPathElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getPathSegAtLength(fltdistance, plResult) {
-        result := ComCall(11, this, "float", fltdistance, "int*", plResult, "HRESULT")
+        plResultMarshal := plResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "float", fltdistance, plResultMarshal, plResult, "HRESULT")
         return result
     }
 

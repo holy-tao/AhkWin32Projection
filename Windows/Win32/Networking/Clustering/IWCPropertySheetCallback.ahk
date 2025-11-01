@@ -46,7 +46,9 @@ class IWCPropertySheetCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcpropertysheetcallback-addpropertysheetpage
      */
     AddPropertySheetPage(hpage) {
-        result := ComCall(3, this, "int*", hpage, "HRESULT")
+        hpageMarshal := hpage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, hpageMarshal, hpage, "HRESULT")
         return result
     }
 }

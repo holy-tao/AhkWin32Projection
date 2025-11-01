@@ -38,7 +38,9 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawinfo-setpixelshaderconstantbuffer
      */
     SetPixelShaderConstantBuffer(buffer, bufferCount) {
-        result := ComCall(7, this, "char*", buffer, "uint", bufferCount, "HRESULT")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, bufferMarshal, buffer, "uint", bufferCount, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawinfo-setvertexshaderconstantbuffer
      */
     SetVertexShaderConstantBuffer(buffer, bufferCount) {
-        result := ComCall(9, this, "char*", buffer, "uint", bufferCount, "HRESULT")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, bufferMarshal, buffer, "uint", bufferCount, "HRESULT")
         return result
     }
 

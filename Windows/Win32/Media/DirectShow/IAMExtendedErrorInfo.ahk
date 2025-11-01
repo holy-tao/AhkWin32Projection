@@ -65,7 +65,9 @@ class IAMExtendedErrorInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendederrorinfo-get_errorcode
      */
     get_ErrorCode(pErrorCode) {
-        result := ComCall(9, this, "int*", pErrorCode, "HRESULT")
+        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pErrorCodeMarshal, pErrorCode, "HRESULT")
         return result
     }
 }

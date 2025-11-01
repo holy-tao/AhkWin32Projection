@@ -48,7 +48,9 @@ class IAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-getgravity
      */
     GetGravity(pgravity) {
-        result := ComCall(4, this, "int*", pgravity, "HRESULT")
+        pgravityMarshal := pgravity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pgravityMarshal, pgravity, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-compare
      */
     Compare(paWith, plResult) {
-        result := ComCall(6, this, "ptr", paWith, "int*", plResult, "HRESULT")
+        plResultMarshal := plResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", paWith, plResultMarshal, plResult, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-shift
      */
     Shift(dwFlags, cchReq, pcch, paHaltAnchor) {
-        result := ComCall(7, this, "uint", dwFlags, "int", cchReq, "int*", pcch, "ptr", paHaltAnchor, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwFlags, "int", cchReq, pcchMarshal, pcch, "ptr", paHaltAnchor, "HRESULT")
         return result
     }
 
@@ -132,7 +138,9 @@ class IAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-getchangehistory
      */
     GetChangeHistory(pdwHistory) {
-        result := ComCall(11, this, "uint*", pdwHistory, "HRESULT")
+        pdwHistoryMarshal := pdwHistory is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwHistoryMarshal, pdwHistory, "HRESULT")
         return result
     }
 

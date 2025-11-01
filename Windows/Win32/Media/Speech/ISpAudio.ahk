@@ -107,7 +107,9 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     GetVolumeLevel(pLevel) {
-        result := ComCall(22, this, "uint*", pLevel, "HRESULT")
+        pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pLevelMarshal, pLevel, "HRESULT")
         return result
     }
 
@@ -127,7 +129,9 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     GetBufferNotifySize(pcbSize) {
-        result := ComCall(24, this, "uint*", pcbSize, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 

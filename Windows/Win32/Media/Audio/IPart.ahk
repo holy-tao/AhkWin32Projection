@@ -48,7 +48,9 @@ class IPart extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getlocalid
      */
     GetLocalId(pnId) {
-        result := ComCall(4, this, "uint*", pnId, "HRESULT")
+        pnIdMarshal := pnId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pnIdMarshal, pnId, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IPart extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getparttype
      */
     GetPartType(pPartType) {
-        result := ComCall(6, this, "int*", pPartType, "HRESULT")
+        pPartTypeMarshal := pPartType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pPartTypeMarshal, pPartType, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IPart extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getcontrolinterfacecount
      */
     GetControlInterfaceCount(pCount) {
-        result := ComCall(8, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

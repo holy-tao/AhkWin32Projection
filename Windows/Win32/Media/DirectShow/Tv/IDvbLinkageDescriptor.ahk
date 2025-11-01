@@ -37,7 +37,9 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-gettsid
      */
     GetTSId(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-getonid
      */
     GetONId(pwVal) {
-        result := ComCall(6, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-getserviceid
      */
     GetServiceId(pwVal) {
-        result := ComCall(7, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -92,7 +102,9 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-getlinkagetype
      */
     GetLinkageType(pbVal) {
-        result := ComCall(8, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -103,7 +115,9 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-getprivatedatalength
      */
     GetPrivateDataLength(pbVal) {
-        result := ComCall(9, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -115,7 +129,10 @@ class IDvbLinkageDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-getprivatedata
      */
     GetPrivateData(pbLen, pbData) {
-        result := ComCall(10, this, "char*", pbLen, "char*", pbData, "HRESULT")
+        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pbLenMarshal, pbLen, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 }

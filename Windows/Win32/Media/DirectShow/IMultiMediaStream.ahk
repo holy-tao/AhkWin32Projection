@@ -38,7 +38,10 @@ class IMultiMediaStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getinformation
      */
     GetInformation(pdwFlags, pStreamType) {
-        result := ComCall(3, this, "int*", pdwFlags, "int*", pStreamType, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pStreamTypeMarshal := pStreamType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, pStreamTypeMarshal, pStreamType, "HRESULT")
         return result
     }
 
@@ -73,7 +76,9 @@ class IMultiMediaStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getstate
      */
     GetState(pCurrentState) {
-        result := ComCall(6, this, "int*", pCurrentState, "HRESULT")
+        pCurrentStateMarshal := pCurrentState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pCurrentStateMarshal, pCurrentState, "HRESULT")
         return result
     }
 
@@ -95,7 +100,9 @@ class IMultiMediaStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-gettime
      */
     GetTime(pCurrentTime) {
-        result := ComCall(8, this, "int64*", pCurrentTime, "HRESULT")
+        pCurrentTimeMarshal := pCurrentTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, pCurrentTimeMarshal, pCurrentTime, "HRESULT")
         return result
     }
 
@@ -106,7 +113,9 @@ class IMultiMediaStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getduration
      */
     GetDuration(pDuration) {
-        result := ComCall(9, this, "int64*", pDuration, "HRESULT")
+        pDurationMarshal := pDuration is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(9, this, pDurationMarshal, pDuration, "HRESULT")
         return result
     }
 

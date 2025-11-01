@@ -75,7 +75,9 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     get_TimeSubmitted(retval) {
-        result := ComCall(23, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(23, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     get_TotalPages(retval) {
-        result := ComCall(24, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -95,7 +99,9 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     get_Size(retval) {
-        result := ComCall(25, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -127,7 +133,9 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     get_Priority(retval) {
-        result := ComCall(28, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -147,7 +155,9 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     get_StartTime(retval) {
-        result := ComCall(30, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(30, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -167,7 +177,9 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     get_UntilTime(retval) {
-        result := ComCall(32, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(32, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

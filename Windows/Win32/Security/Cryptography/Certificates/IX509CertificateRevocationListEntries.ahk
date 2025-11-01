@@ -46,7 +46,9 @@ class IX509CertificateRevocationListEntries extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(pVal) {
-        result := ComCall(8, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -99,7 +101,9 @@ class IX509CertificateRevocationListEntries extends IDispatch{
     get_IndexBySerialNumber(Encoding, SerialNumber, pIndex) {
         SerialNumber := SerialNumber is String ? BSTR.Alloc(SerialNumber).Value : SerialNumber
 
-        result := ComCall(13, this, "int", Encoding, "ptr", SerialNumber, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "int", Encoding, "ptr", SerialNumber, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 

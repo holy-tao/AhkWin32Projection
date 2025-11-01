@@ -43,7 +43,10 @@ class ITranscodeImage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imagetranscode/nf-imagetranscode-itranscodeimage-transcodeimage
      */
     TranscodeImage(pShellItem, uiMaxWidth, uiMaxHeight, flags, pvImage, puiWidth, puiHeight) {
-        result := ComCall(3, this, "ptr", pShellItem, "uint", uiMaxWidth, "uint", uiMaxHeight, "uint", flags, "ptr", pvImage, "uint*", puiWidth, "uint*", puiHeight, "HRESULT")
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pShellItem, "uint", uiMaxWidth, "uint", uiMaxHeight, "uint", flags, "ptr", pvImage, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
     }
 }

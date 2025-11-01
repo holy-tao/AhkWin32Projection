@@ -53,7 +53,9 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Status(pVal) {
-        result := ComCall(9, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ReportInterval(pMilliseconds) {
-        result := ComCall(10, this, "uint*", pMilliseconds, "HRESULT")
+        pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pMillisecondsMarshal, pMilliseconds, "HRESULT")
         return result
     }
 
@@ -83,7 +87,9 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DesiredAccuracy(pDesiredAccuracy) {
-        result := ComCall(12, this, "uint*", pDesiredAccuracy, "HRESULT")
+        pDesiredAccuracyMarshal := pDesiredAccuracy is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pDesiredAccuracyMarshal, pDesiredAccuracy, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     RequestPermissions(hWnd) {
-        result := ComCall(14, this, "uint*", hWnd, "HRESULT")
+        hWndMarshal := hWnd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, hWndMarshal, hWnd, "HRESULT")
         return result
     }
 }

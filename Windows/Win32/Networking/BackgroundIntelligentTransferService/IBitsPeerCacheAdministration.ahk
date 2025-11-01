@@ -44,7 +44,9 @@ class IBitsPeerCacheAdministration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getmaximumcachesize
      */
     GetMaximumCacheSize(pBytes) {
-        result := ComCall(3, this, "uint*", pBytes, "HRESULT")
+        pBytesMarshal := pBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pBytesMarshal, pBytes, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IBitsPeerCacheAdministration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getmaximumcontentage
      */
     GetMaximumContentAge(pSeconds) {
-        result := ComCall(5, this, "uint*", pSeconds, "HRESULT")
+        pSecondsMarshal := pSeconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pSecondsMarshal, pSeconds, "HRESULT")
         return result
     }
 
@@ -88,7 +92,9 @@ class IBitsPeerCacheAdministration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getconfigurationflags
      */
     GetConfigurationFlags(pFlags) {
-        result := ComCall(7, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

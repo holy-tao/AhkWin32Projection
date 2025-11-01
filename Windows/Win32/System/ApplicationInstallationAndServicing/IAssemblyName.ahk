@@ -39,7 +39,9 @@ class IAssemblyName extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-setproperty
      */
     SetProperty(PropertyId, pvProperty, cbProperty) {
-        result := ComCall(3, this, "uint", PropertyId, "ptr", pvProperty, "uint", cbProperty, "HRESULT")
+        pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, "uint", cbProperty, "HRESULT")
         return result
     }
 
@@ -52,7 +54,10 @@ class IAssemblyName extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-getproperty
      */
     GetProperty(PropertyId, pvProperty, pcbProperty) {
-        result := ComCall(4, this, "uint", PropertyId, "ptr", pvProperty, "uint*", pcbProperty, "HRESULT")
+        pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
+        pcbPropertyMarshal := pcbProperty is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, pcbPropertyMarshal, pcbProperty, "HRESULT")
         return result
     }
 
@@ -77,7 +82,9 @@ class IAssemblyName extends IUnknown{
     GetDisplayName(szDisplayName, pccDisplayName, dwDisplayFlags) {
         szDisplayName := szDisplayName is String ? StrPtr(szDisplayName) : szDisplayName
 
-        result := ComCall(6, this, "ptr", szDisplayName, "uint*", pccDisplayName, "uint", dwDisplayFlags, "HRESULT")
+        pccDisplayNameMarshal := pccDisplayName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", szDisplayName, pccDisplayNameMarshal, pccDisplayName, "uint", dwDisplayFlags, "HRESULT")
         return result
     }
 
@@ -96,7 +103,9 @@ class IAssemblyName extends IUnknown{
     Reserved(refIID, pUnkReserved1, pUnkReserved2, szReserved, llReserved, pvReserved, cbReserved, ppReserved) {
         szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
 
-        result := ComCall(7, this, "ptr", refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, "int64", llReserved, "ptr", pvReserved, "uint", cbReserved, "ptr*", ppReserved, "HRESULT")
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, "int64", llReserved, pvReservedMarshal, pvReserved, "uint", cbReserved, "ptr*", ppReserved, "HRESULT")
         return result
     }
 
@@ -110,7 +119,9 @@ class IAssemblyName extends IUnknown{
     GetName(lpcwBuffer, pwzName) {
         pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
-        result := ComCall(8, this, "uint*", lpcwBuffer, "ptr", pwzName, "HRESULT")
+        lpcwBufferMarshal := lpcwBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, lpcwBufferMarshal, lpcwBuffer, "ptr", pwzName, "HRESULT")
         return result
     }
 
@@ -124,7 +135,10 @@ class IAssemblyName extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pdwVersionHi, pdwVersionLow) {
-        result := ComCall(9, this, "uint*", pdwVersionHi, "uint*", pdwVersionLow, "HRESULT")
+        pdwVersionHiMarshal := pdwVersionHi is VarRef ? "uint*" : "ptr"
+        pdwVersionLowMarshal := pdwVersionLow is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwVersionHiMarshal, pdwVersionHi, pdwVersionLowMarshal, pdwVersionLow, "HRESULT")
         return result
     }
 

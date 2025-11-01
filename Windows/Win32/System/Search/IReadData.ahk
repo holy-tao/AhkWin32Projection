@@ -45,7 +45,11 @@ class IReadData extends IUnknown{
     ReadData(hChapter, cbBookmark, pBookmark, lRowsOffset, hAccessor, cRows, pcRowsObtained, ppFixedData, pcbVariableTotal, ppVariableData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, "char*", pBookmark, "ptr", lRowsOffset, "ptr", hAccessor, "ptr", cRows, "ptr*", pcRowsObtained, "ptr*", ppFixedData, "ptr*", pcbVariableTotal, "ptr*", ppVariableData, "HRESULT")
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+        pcbVariableTotalMarshal := pcbVariableTotal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", hAccessor, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, "ptr*", ppVariableData, "HRESULT")
         return result
     }
 

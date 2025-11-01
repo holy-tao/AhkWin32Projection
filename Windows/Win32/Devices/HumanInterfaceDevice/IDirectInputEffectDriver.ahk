@@ -41,7 +41,9 @@ class IDirectInputEffectDriver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-deviceid
      */
     DeviceID(param0, param1, param2, param3, param4) {
-        result := ComCall(3, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "ptr", param4, "HRESULT")
+        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, param4Marshal, param4, "HRESULT")
         return result
     }
 
@@ -118,7 +120,9 @@ class IDirectInputEffectDriver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-downloadeffect
      */
     DownloadEffect(param0, param1, param2, param3, param4) {
-        result := ComCall(9, this, "uint", param0, "uint", param1, "uint*", param2, "ptr", param3, "uint", param4, "HRESULT")
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", param0, "uint", param1, param2Marshal, param2, "ptr", param3, "uint", param4, "HRESULT")
         return result
     }
 
@@ -169,7 +173,9 @@ class IDirectInputEffectDriver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-geteffectstatus
      */
     GetEffectStatus(param0, param1, param2) {
-        result := ComCall(13, this, "uint", param0, "uint", param1, "uint*", param2, "HRESULT")
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", param0, "uint", param1, param2Marshal, param2, "HRESULT")
         return result
     }
 }

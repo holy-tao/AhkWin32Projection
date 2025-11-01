@@ -71,7 +71,9 @@ class IX509CertificateRevocationListEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RevocationDate(pValue) {
-        result := ComCall(9, this, "double*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IX509CertificateRevocationListEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RevocationReason(pValue) {
-        result := ComCall(10, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

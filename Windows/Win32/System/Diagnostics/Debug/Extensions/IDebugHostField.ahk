@@ -34,7 +34,9 @@ class IDebugHostField extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetLocationKind(locationKind) {
-        result := ComCall(10, this, "int*", locationKind, "HRESULT")
+        locationKindMarshal := locationKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, locationKindMarshal, locationKind, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IDebugHostField extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetOffset(offset) {
-        result := ComCall(11, this, "uint*", offset, "HRESULT")
+        offsetMarshal := offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, offsetMarshal, offset, "HRESULT")
         return result
     }
 

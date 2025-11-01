@@ -133,7 +133,9 @@ class IVdsService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-queryfilesystemtypes
      */
     QueryFileSystemTypes(ppFileSystemTypeProps, plNumberOfFileSystems) {
-        result := ComCall(11, this, "ptr*", ppFileSystemTypeProps, "int*", plNumberOfFileSystems, "HRESULT")
+        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr*", ppFileSystemTypeProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
     }
 
@@ -175,7 +177,9 @@ class IVdsService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-advise
      */
     Advise(pSink, pdwCookie) {
-        result := ComCall(15, this, "ptr", pSink, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pSink, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

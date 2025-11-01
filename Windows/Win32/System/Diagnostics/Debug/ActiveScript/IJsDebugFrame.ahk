@@ -35,7 +35,10 @@ class IJsDebugFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStackRange(pStart, pEnd) {
-        result := ComCall(3, this, "uint*", pStart, "uint*", pEnd, "HRESULT")
+        pStartMarshal := pStart is VarRef ? "uint*" : "ptr"
+        pEndMarshal := pEnd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pStartMarshal, pStart, pEndMarshal, pEnd, "HRESULT")
         return result
     }
 
@@ -57,7 +60,11 @@ class IJsDebugFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDocumentPositionWithId(pDocumentId, pCharacterOffset, pStatementCharCount) {
-        result := ComCall(5, this, "uint*", pDocumentId, "uint*", pCharacterOffset, "uint*", pStatementCharCount, "HRESULT")
+        pDocumentIdMarshal := pDocumentId is VarRef ? "uint*" : "ptr"
+        pCharacterOffsetMarshal := pCharacterOffset is VarRef ? "uint*" : "ptr"
+        pStatementCharCountMarshal := pStatementCharCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pDocumentIdMarshal, pDocumentId, pCharacterOffsetMarshal, pCharacterOffset, pStatementCharCountMarshal, pStatementCharCount, "HRESULT")
         return result
     }
 
@@ -69,7 +76,10 @@ class IJsDebugFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDocumentPositionWithName(pDocumentName, pLine, pColumn) {
-        result := ComCall(6, this, "ptr", pDocumentName, "uint*", pLine, "uint*", pColumn, "HRESULT")
+        pLineMarshal := pLine is VarRef ? "uint*" : "ptr"
+        pColumnMarshal := pColumn is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pDocumentName, pLineMarshal, pLine, pColumnMarshal, pColumn, "HRESULT")
         return result
     }
 
@@ -89,7 +99,9 @@ class IJsDebugFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     GetReturnAddress(pReturnAddress) {
-        result := ComCall(8, this, "uint*", pReturnAddress, "HRESULT")
+        pReturnAddressMarshal := pReturnAddress is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pReturnAddressMarshal, pReturnAddress, "HRESULT")
         return result
     }
 

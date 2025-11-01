@@ -1139,7 +1139,9 @@ class WinTrust {
     static WinVerifyTrust(hwnd, pgActionID, pWVTData) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("WINTRUST.dll\WinVerifyTrust", "ptr", hwnd, "ptr", pgActionID, "ptr", pWVTData, "int")
+        pWVTDataMarshal := pWVTData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WINTRUST.dll\WinVerifyTrust", "ptr", hwnd, "ptr", pgActionID, pWVTDataMarshal, pWVTData, "int")
         return result
     }
 
@@ -1325,7 +1327,9 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WintrustGetRegPolicyFlags(pdwPolicyFlags) {
-        DllCall("WINTRUST.dll\WintrustGetRegPolicyFlags", "uint*", pdwPolicyFlags)
+        pdwPolicyFlagsMarshal := pdwPolicyFlags is VarRef ? "uint*" : "ptr"
+
+        DllCall("WINTRUST.dll\WintrustGetRegPolicyFlags", pdwPolicyFlagsMarshal, pdwPolicyFlags)
     }
 
     /**

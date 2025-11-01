@@ -61,7 +61,9 @@ class IMAPIProp extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getprops
      */
     GetProps(lpPropTagArray, ulFlags, lpcValues, lppPropArray) {
-        result := ComCall(5, this, "ptr", lpPropTagArray, "uint", ulFlags, "uint*", lpcValues, "ptr*", lppPropArray, "HRESULT")
+        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", lpPropTagArray, "uint", ulFlags, lpcValuesMarshal, lpcValues, "ptr*", lppPropArray, "HRESULT")
         return result
     }
 
@@ -132,7 +134,9 @@ class IMAPIProp extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-copyto
      */
     CopyTo(ciidExclude, rgiidExclude, lpExcludeProps, ulUIParam, lpProgress, lpInterface, lpDestObj, ulFlags, lppProblems) {
-        result := ComCall(10, this, "uint", ciidExclude, "ptr", rgiidExclude, "ptr", lpExcludeProps, "ptr", ulUIParam, "ptr", lpProgress, "ptr", lpInterface, "ptr", lpDestObj, "uint", ulFlags, "ptr*", lppProblems, "HRESULT")
+        lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "uint", ciidExclude, "ptr", rgiidExclude, "ptr", lpExcludeProps, "ptr", ulUIParam, "ptr", lpProgress, "ptr", lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, "ptr*", lppProblems, "HRESULT")
         return result
     }
 
@@ -149,7 +153,9 @@ class IMAPIProp extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-copyprops
      */
     CopyProps(lpIncludeProps, ulUIParam, lpProgress, lpInterface, lpDestObj, ulFlags, lppProblems) {
-        result := ComCall(11, this, "ptr", lpIncludeProps, "ptr", ulUIParam, "ptr", lpProgress, "ptr", lpInterface, "ptr", lpDestObj, "uint", ulFlags, "ptr*", lppProblems, "HRESULT")
+        lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, "ptr", lpIncludeProps, "ptr", ulUIParam, "ptr", lpProgress, "ptr", lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, "ptr*", lppProblems, "HRESULT")
         return result
     }
 
@@ -164,7 +170,9 @@ class IMAPIProp extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getnamesfromids
      */
     GetNamesFromIDs(lppPropTags, lpPropSetGuid, ulFlags, lpcPropNames, lpppPropNames) {
-        result := ComCall(12, this, "ptr*", lppPropTags, "ptr", lpPropSetGuid, "uint", ulFlags, "uint*", lpcPropNames, "ptr*", lpppPropNames, "HRESULT")
+        lpcPropNamesMarshal := lpcPropNames is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr*", lppPropTags, "ptr", lpPropSetGuid, "uint", ulFlags, lpcPropNamesMarshal, lpcPropNames, "ptr*", lpppPropNames, "HRESULT")
         return result
     }
 

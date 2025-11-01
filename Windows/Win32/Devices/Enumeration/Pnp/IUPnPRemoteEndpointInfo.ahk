@@ -47,7 +47,9 @@ class IUPnPRemoteEndpointInfo extends IUnknown{
     GetDwordValue(bstrValueName, pdwValue) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
-        result := ComCall(3, this, "ptr", bstrValueName, "uint*", pdwValue, "HRESULT")
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", bstrValueName, pdwValueMarshal, pdwValue, "HRESULT")
         return result
     }
 

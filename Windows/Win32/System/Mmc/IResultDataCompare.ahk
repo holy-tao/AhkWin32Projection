@@ -40,7 +40,9 @@ class IResultDataCompare extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdatacompare-compare
      */
     Compare(lUserParam, cookieA, cookieB, pnResult) {
-        result := ComCall(3, this, "ptr", lUserParam, "ptr", cookieA, "ptr", cookieB, "int*", pnResult, "HRESULT")
+        pnResultMarshal := pnResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", lUserParam, "ptr", cookieA, "ptr", cookieB, pnResultMarshal, pnResult, "HRESULT")
         return result
     }
 }

@@ -50,7 +50,9 @@ class IDirectInputDevice2W extends IDirectInputDeviceW{
      * @returns {HRESULT} 
      */
     EnumEffects(param0, param1, param2) {
-        result := ComCall(19, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(19, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IDirectInputDevice2W extends IDirectInputDeviceW{
      * @returns {HRESULT} 
      */
     GetForceFeedbackState(param0) {
-        result := ComCall(21, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class IDirectInputDevice2W extends IDirectInputDeviceW{
      * @returns {HRESULT} 
      */
     EnumCreatedEffectObjects(param0, param1, param2) {
-        result := ComCall(23, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -128,7 +134,9 @@ class IDirectInputDevice2W extends IDirectInputDeviceW{
      * @returns {HRESULT} 
      */
     SendDeviceData(param0, param1, param2, param3) {
-        result := ComCall(26, this, "uint", param0, "ptr", param1, "uint*", param2, "uint", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 }

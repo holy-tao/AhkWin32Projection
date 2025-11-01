@@ -37,7 +37,9 @@ class ITStaticAudioTerminal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstaticaudioterminal-get_waveid
      */
     get_WaveId(plWaveId) {
-        result := ComCall(7, this, "int*", plWaveId, "HRESULT")
+        plWaveIdMarshal := plWaveId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plWaveIdMarshal, plWaveId, "HRESULT")
         return result
     }
 }

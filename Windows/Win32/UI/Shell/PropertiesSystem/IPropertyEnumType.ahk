@@ -41,7 +41,9 @@ class IPropertyEnumType extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getenumtype
      */
     GetEnumType(penumtype) {
-        result := ComCall(3, this, "int*", penumtype, "HRESULT")
+        penumtypeMarshal := penumtype is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, penumtypeMarshal, penumtype, "HRESULT")
         return result
     }
 

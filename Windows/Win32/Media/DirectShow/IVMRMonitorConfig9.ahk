@@ -53,7 +53,9 @@ class IVMRMonitorConfig9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getmonitor
      */
     GetMonitor(puDev) {
-        result := ComCall(4, this, "uint*", puDev, "HRESULT")
+        puDevMarshal := puDev is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, puDevMarshal, puDev, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IVMRMonitorConfig9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getdefaultmonitor
      */
     GetDefaultMonitor(puDev) {
-        result := ComCall(6, this, "uint*", puDev, "HRESULT")
+        puDevMarshal := puDev is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, puDevMarshal, puDev, "HRESULT")
         return result
     }
 
@@ -88,7 +92,9 @@ class IVMRMonitorConfig9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getavailablemonitors
      */
     GetAvailableMonitors(pInfo, dwMaxInfoArraySize, pdwNumDevices) {
-        result := ComCall(7, this, "ptr", pInfo, "uint", dwMaxInfoArraySize, "uint*", pdwNumDevices, "HRESULT")
+        pdwNumDevicesMarshal := pdwNumDevices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pInfo, "uint", dwMaxInfoArraySize, pdwNumDevicesMarshal, pdwNumDevices, "HRESULT")
         return result
     }
 }

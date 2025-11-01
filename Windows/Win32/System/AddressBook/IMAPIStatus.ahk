@@ -58,7 +58,10 @@ class IMAPIStatus extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-changepassword
      */
     ChangePassword(lpOldPass, lpNewPass, ulFlags) {
-        result := ComCall(16, this, "char*", lpOldPass, "char*", lpNewPass, "uint", ulFlags, "HRESULT")
+        lpOldPassMarshal := lpOldPass is VarRef ? "char*" : "ptr"
+        lpNewPassMarshal := lpNewPass is VarRef ? "char*" : "ptr"
+
+        result := ComCall(16, this, lpOldPassMarshal, lpOldPass, lpNewPassMarshal, lpNewPass, "uint", ulFlags, "HRESULT")
         return result
     }
 

@@ -74,7 +74,9 @@ class ICLRTaskManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentTaskType(pTaskType) {
-        result := ComCall(7, this, "int*", pTaskType, "HRESULT")
+        pTaskTypeMarshal := pTaskType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pTaskTypeMarshal, pTaskType, "HRESULT")
         return result
     }
 }

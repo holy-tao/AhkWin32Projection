@@ -92,7 +92,9 @@ class IPortableDeviceContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesanddata
      */
     CreateObjectWithPropertiesAndData(pValues, ppData, pdwOptimalWriteBufferSize, ppszCookie) {
-        result := ComCall(7, this, "ptr", pValues, "ptr*", ppData, "uint*", pdwOptimalWriteBufferSize, "ptr", ppszCookie, "HRESULT")
+        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pValues, "ptr*", ppData, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "ptr", ppszCookie, "HRESULT")
         return result
     }
 

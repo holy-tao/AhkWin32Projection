@@ -43,7 +43,9 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_width
      */
     get_Width(plWidth) {
-        result := ComCall(7, this, "int*", plWidth, "HRESULT")
+        plWidthMarshal := plWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plWidthMarshal, plWidth, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_height
      */
     get_Height(plHeight) {
-        result := ComCall(8, this, "int*", plHeight, "HRESULT")
+        plHeightMarshal := plHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plHeightMarshal, plHeight, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_bpp
      */
     get_Bpp(plBpp) {
-        result := ComCall(9, this, "int*", plBpp, "HRESULT")
+        plBppMarshal := plBpp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plBppMarshal, plBpp, "HRESULT")
         return result
     }
 

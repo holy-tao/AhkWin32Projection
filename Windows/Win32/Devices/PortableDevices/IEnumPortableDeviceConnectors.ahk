@@ -39,7 +39,9 @@ class IEnumPortableDeviceConnectors extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-next
      */
     Next(cRequested, pConnectors, pcFetched) {
-        result := ComCall(3, this, "uint", cRequested, "ptr*", pConnectors, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cRequested, "ptr*", pConnectors, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

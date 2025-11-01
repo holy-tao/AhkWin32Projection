@@ -62,7 +62,11 @@ class IXDSToRat extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ixdstorat-parsexdsbytepair
      */
     ParseXDSBytePair(byte1, byte2, pEnSystem, pEnLevel, plBfEnAttributes) {
-        result := ComCall(8, this, "char", byte1, "char", byte2, "int*", pEnSystem, "int*", pEnLevel, "int*", plBfEnAttributes, "HRESULT")
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
+        pEnLevelMarshal := pEnLevel is VarRef ? "int*" : "ptr"
+        plBfEnAttributesMarshal := plBfEnAttributes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "char", byte1, "char", byte2, pEnSystemMarshal, pEnSystem, pEnLevelMarshal, pEnLevel, plBfEnAttributesMarshal, plBfEnAttributes, "HRESULT")
         return result
     }
 }

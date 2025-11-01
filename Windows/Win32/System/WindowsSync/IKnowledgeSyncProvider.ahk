@@ -57,7 +57,9 @@ class IKnowledgeSyncProvider extends ISyncProvider{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-getsyncbatchparameters
      */
     GetSyncBatchParameters(ppSyncKnowledge, pdwRequestedBatchSize) {
-        result := ComCall(5, this, "ptr*", ppSyncKnowledge, "uint*", pdwRequestedBatchSize, "HRESULT")
+        pdwRequestedBatchSizeMarshal := pdwRequestedBatchSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", ppSyncKnowledge, pdwRequestedBatchSizeMarshal, pdwRequestedBatchSize, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class IKnowledgeSyncProvider extends ISyncProvider{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-getfullenumerationchangebatch
      */
     GetFullEnumerationChangeBatch(dwBatchSize, pbLowerEnumerationBound, pSyncKnowledge, ppSyncChangeBatch, ppUnkDataRetriever) {
-        result := ComCall(7, this, "uint", dwBatchSize, "char*", pbLowerEnumerationBound, "ptr", pSyncKnowledge, "ptr*", ppSyncChangeBatch, "ptr*", ppUnkDataRetriever, "HRESULT")
+        pbLowerEnumerationBoundMarshal := pbLowerEnumerationBound is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwBatchSize, pbLowerEnumerationBoundMarshal, pbLowerEnumerationBound, "ptr", pSyncKnowledge, "ptr*", ppSyncChangeBatch, "ptr*", ppUnkDataRetriever, "HRESULT")
         return result
     }
 

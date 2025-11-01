@@ -37,7 +37,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstyleid
      */
     get_CurrentStyleId(retVal) {
-        result := ComCall(3, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentfillcolor
      */
     get_CurrentFillColor(retVal) {
-        result := ComCall(5, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -91,7 +95,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentfillpatterncolor
      */
     get_CurrentFillPatternColor(retVal) {
-        result := ComCall(8, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -113,7 +119,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentExtendedPropertiesAsArray(propertyArray, propertyCount) {
-        result := ComCall(10, this, "ptr*", propertyArray, "int*", propertyCount, "HRESULT")
+        propertyCountMarshal := propertyCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr*", propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
         return result
     }
 
@@ -124,7 +132,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstyleid
      */
     get_CachedStyleId(retVal) {
-        result := ComCall(11, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -146,7 +156,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedfillcolor
      */
     get_CachedFillColor(retVal) {
-        result := ComCall(13, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -178,7 +190,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedfillpatterncolor
      */
     get_CachedFillPatternColor(retVal) {
-        result := ComCall(16, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -200,7 +214,9 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCachedExtendedPropertiesAsArray(propertyArray, propertyCount) {
-        result := ComCall(18, this, "ptr*", propertyArray, "int*", propertyCount, "HRESULT")
+        propertyCountMarshal := propertyCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, "ptr*", propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
         return result
     }
 }

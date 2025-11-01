@@ -85,7 +85,9 @@ class IDataModelScript extends IUnknown{
      * @returns {HRESULT} 
      */
     IsInvocable(isInvocable) {
-        result := ComCall(8, this, "int*", isInvocable, "HRESULT")
+        isInvocableMarshal := isInvocable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, isInvocableMarshal, isInvocable, "HRESULT")
         return result
     }
 

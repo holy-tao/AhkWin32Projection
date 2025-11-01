@@ -35,7 +35,9 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestedCallbackTypes(pCallbackMask) {
-        result := ComCall(3, this, "uint*", pCallbackMask, "HRESULT")
+        pCallbackMaskMarshal := pCallbackMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCallbackMaskMarshal, pCallbackMask, "HRESULT")
         return result
     }
 

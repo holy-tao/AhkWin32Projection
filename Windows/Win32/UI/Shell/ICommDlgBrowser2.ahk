@@ -79,7 +79,9 @@ class ICommDlgBrowser2 extends ICommDlgBrowser{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-getviewflags
      */
     GetViewFlags(pdwFlags) {
-        result := ComCall(8, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

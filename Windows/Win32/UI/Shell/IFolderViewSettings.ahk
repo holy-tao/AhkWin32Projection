@@ -61,7 +61,9 @@ class IFolderViewSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getviewmode
      */
     GetViewMode(plvm) {
-        result := ComCall(5, this, "int*", plvm, "HRESULT")
+        plvmMarshal := plvm is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plvmMarshal, plvm, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IFolderViewSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-geticonsize
      */
     GetIconSize(puIconSize) {
-        result := ComCall(6, this, "uint*", puIconSize, "HRESULT")
+        puIconSizeMarshal := puIconSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, puIconSizeMarshal, puIconSize, "HRESULT")
         return result
     }
 
@@ -84,7 +88,10 @@ class IFolderViewSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getfolderflags
      */
     GetFolderFlags(pfolderMask, pfolderFlags) {
-        result := ComCall(7, this, "int*", pfolderMask, "int*", pfolderFlags, "HRESULT")
+        pfolderMaskMarshal := pfolderMask is VarRef ? "int*" : "ptr"
+        pfolderFlagsMarshal := pfolderFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pfolderMaskMarshal, pfolderMask, pfolderFlagsMarshal, pfolderFlags, "HRESULT")
         return result
     }
 
@@ -97,7 +104,9 @@ class IFolderViewSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getsortcolumns
      */
     GetSortColumns(rgSortColumns, cColumnsIn, pcColumnsOut) {
-        result := ComCall(8, this, "ptr", rgSortColumns, "uint", cColumnsIn, "uint*", pcColumnsOut, "HRESULT")
+        pcColumnsOutMarshal := pcColumnsOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", rgSortColumns, "uint", cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "HRESULT")
         return result
     }
 
@@ -108,7 +117,9 @@ class IFolderViewSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupsubsetcount
      */
     GetGroupSubsetCount(pcVisibleRows) {
-        result := ComCall(9, this, "uint*", pcVisibleRows, "HRESULT")
+        pcVisibleRowsMarshal := pcVisibleRows is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pcVisibleRowsMarshal, pcVisibleRows, "HRESULT")
         return result
     }
 }

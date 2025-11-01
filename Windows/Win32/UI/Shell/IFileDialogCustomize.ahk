@@ -181,7 +181,9 @@ class IFileDialogCustomize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolstate
      */
     GetControlState(dwIDCtl, pdwState) {
-        result := ComCall(13, this, "uint", dwIDCtl, "int*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwIDCtl, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 
@@ -294,7 +296,9 @@ class IFileDialogCustomize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolitemstate
      */
     GetControlItemState(dwIDCtl, dwIDItem, pdwState) {
-        result := ComCall(22, this, "uint", dwIDCtl, "uint", dwIDItem, "int*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "uint", dwIDCtl, "uint", dwIDItem, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 
@@ -319,7 +323,9 @@ class IFileDialogCustomize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getselectedcontrolitem
      */
     GetSelectedControlItem(dwIDCtl, pdwIDItem) {
-        result := ComCall(24, this, "uint", dwIDCtl, "uint*", pdwIDItem, "HRESULT")
+        pdwIDItemMarshal := pdwIDItem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "uint", dwIDCtl, pdwIDItemMarshal, pdwIDItem, "HRESULT")
         return result
     }
 

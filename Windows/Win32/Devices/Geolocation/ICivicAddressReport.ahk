@@ -113,7 +113,9 @@ class ICivicAddressReport extends ILocationReport{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getdetaillevel
      */
     GetDetailLevel(pDetailLevel) {
-        result := ComCall(12, this, "uint*", pDetailLevel, "HRESULT")
+        pDetailLevelMarshal := pDetailLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pDetailLevelMarshal, pDetailLevel, "HRESULT")
         return result
     }
 }

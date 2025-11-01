@@ -54,7 +54,9 @@ class IWdsTransportSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_id
      */
     get_Id(pulId) {
-        result := ComCall(8, this, "uint*", pulId, "HRESULT")
+        pulIdMarshal := pulId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulIdMarshal, pulId, "HRESULT")
         return result
     }
 
@@ -87,7 +89,9 @@ class IWdsTransportSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_transferrate
      */
     get_TransferRate(pulTransferRate) {
-        result := ComCall(11, this, "uint*", pulTransferRate, "HRESULT")
+        pulTransferRateMarshal := pulTransferRate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pulTransferRateMarshal, pulTransferRate, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IWdsTransportSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_masterclientid
      */
     get_MasterClientId(pulMasterClientId) {
-        result := ComCall(12, this, "uint*", pulMasterClientId, "HRESULT")
+        pulMasterClientIdMarshal := pulMasterClientId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pulMasterClientIdMarshal, pulMasterClientId, "HRESULT")
         return result
     }
 

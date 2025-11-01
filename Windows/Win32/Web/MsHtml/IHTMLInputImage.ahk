@@ -101,7 +101,9 @@ class IHTMLInputImage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_vspace(p) {
-        result := ComCall(13, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -121,7 +123,9 @@ class IHTMLInputImage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_hspace(p) {
-        result := ComCall(15, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -395,7 +399,9 @@ class IHTMLInputImage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(41, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -415,7 +421,9 @@ class IHTMLInputImage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(43, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, pMarshal, p, "HRESULT")
         return result
     }
 

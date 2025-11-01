@@ -59,7 +59,9 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {HRESULT} 
      */
     get_MSMQVersionMajor(psMSMQVersionMajor) {
-        result := ComCall(10, this, "short*", psMSMQVersionMajor, "HRESULT")
+        psMSMQVersionMajorMarshal := psMSMQVersionMajor is VarRef ? "short*" : "ptr"
+
+        result := ComCall(10, this, psMSMQVersionMajorMarshal, psMSMQVersionMajor, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {HRESULT} 
      */
     get_MSMQVersionMinor(psMSMQVersionMinor) {
-        result := ComCall(11, this, "short*", psMSMQVersionMinor, "HRESULT")
+        psMSMQVersionMinorMarshal := psMSMQVersionMinor is VarRef ? "short*" : "ptr"
+
+        result := ComCall(11, this, psMSMQVersionMinorMarshal, psMSMQVersionMinor, "HRESULT")
         return result
     }
 
@@ -79,7 +83,9 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {HRESULT} 
      */
     get_MSMQVersionBuild(psMSMQVersionBuild) {
-        result := ComCall(12, this, "short*", psMSMQVersionBuild, "HRESULT")
+        psMSMQVersionBuildMarshal := psMSMQVersionBuild is VarRef ? "short*" : "ptr"
+
+        result := ComCall(12, this, psMSMQVersionBuildMarshal, psMSMQVersionBuild, "HRESULT")
         return result
     }
 

@@ -41,7 +41,9 @@ class ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandList4{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate
      */
     RSSetShadingRate(baseShadingRate, combiners) {
-        ComCall(77, this, "int", baseShadingRate, "int*", combiners)
+        combinersMarshal := combiners is VarRef ? "int*" : "ptr"
+
+        ComCall(77, this, "int", baseShadingRate, combinersMarshal, combiners)
     }
 
     /**

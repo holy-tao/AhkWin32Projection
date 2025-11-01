@@ -38,7 +38,9 @@ class IBackgroundCopyFile2 extends IBackgroundCopyFile{
      * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nf-bits2_0-ibackgroundcopyfile2-getfileranges
      */
     GetFileRanges(RangeCount, Ranges) {
-        result := ComCall(6, this, "uint*", RangeCount, "ptr*", Ranges, "HRESULT")
+        RangeCountMarshal := RangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, RangeCountMarshal, RangeCount, "ptr*", Ranges, "HRESULT")
         return result
     }
 

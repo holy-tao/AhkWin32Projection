@@ -227,7 +227,9 @@ class IMoniker extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-hash
      */
     Hash(pdwHash) {
-        result := ComCall(14, this, "uint*", pdwHash, "HRESULT")
+        pdwHashMarshal := pdwHash is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwHashMarshal, pdwHash, "HRESULT")
         return result
     }
 
@@ -318,7 +320,9 @@ class IMoniker extends IPersistStream{
     ParseDisplayName(pbc, pmkToLeft, pszDisplayName, pchEaten, ppmkOut) {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        result := ComCall(21, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", ppmkOut, "HRESULT")
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pszDisplayName, pchEatenMarshal, pchEaten, "ptr*", ppmkOut, "HRESULT")
         return result
     }
 
@@ -329,7 +333,9 @@ class IMoniker extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-issystemmoniker
      */
     IsSystemMoniker(pdwMksys) {
-        result := ComCall(22, this, "uint*", pdwMksys, "HRESULT")
+        pdwMksysMarshal := pdwMksys is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pdwMksysMarshal, pdwMksys, "HRESULT")
         return result
     }
 }

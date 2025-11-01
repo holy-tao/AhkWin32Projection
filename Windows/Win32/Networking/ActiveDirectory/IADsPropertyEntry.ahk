@@ -68,7 +68,9 @@ class IADsPropertyEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ADsType(retval) {
-        result := ComCall(10, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -88,7 +90,9 @@ class IADsPropertyEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ControlCode(retval) {
-        result := ComCall(12, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

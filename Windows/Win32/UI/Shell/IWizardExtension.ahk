@@ -39,7 +39,9 @@ class IWizardExtension extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-addpages
      */
     AddPages(aPages, cPages, pnPagesAdded) {
-        result := ComCall(3, this, "ptr", aPages, "uint", cPages, "uint*", pnPagesAdded, "HRESULT")
+        pnPagesAddedMarshal := pnPagesAdded is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", aPages, "uint", cPages, pnPagesAddedMarshal, pnPagesAdded, "HRESULT")
         return result
     }
 

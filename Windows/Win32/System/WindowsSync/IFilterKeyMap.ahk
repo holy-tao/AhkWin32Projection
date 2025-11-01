@@ -34,7 +34,9 @@ class IFilterKeyMap extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pdwCount) {
-        result := ComCall(3, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -45,7 +47,9 @@ class IFilterKeyMap extends IUnknown{
      * @returns {HRESULT} 
      */
     AddFilter(pISyncFilter, pdwFilterKey) {
-        result := ComCall(4, this, "ptr", pISyncFilter, "uint*", pdwFilterKey, "HRESULT")
+        pdwFilterKeyMarshal := pdwFilterKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pISyncFilter, pdwFilterKeyMarshal, pdwFilterKey, "HRESULT")
         return result
     }
 
@@ -67,7 +71,10 @@ class IFilterKeyMap extends IUnknown{
      * @returns {HRESULT} 
      */
     Serialize(pbFilterKeyMap, pcbFilterKeyMap) {
-        result := ComCall(6, this, "char*", pbFilterKeyMap, "uint*", pcbFilterKeyMap, "HRESULT")
+        pbFilterKeyMapMarshal := pbFilterKeyMap is VarRef ? "char*" : "ptr"
+        pcbFilterKeyMapMarshal := pcbFilterKeyMap is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pbFilterKeyMapMarshal, pbFilterKeyMap, pcbFilterKeyMapMarshal, pcbFilterKeyMap, "HRESULT")
         return result
     }
 }

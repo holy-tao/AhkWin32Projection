@@ -59,7 +59,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(5, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -95,7 +99,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(7, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 
@@ -106,7 +112,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-getcountofrecords
      */
     GetCountOfRecords(pdwVal) {
-        result := ComCall(8, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -118,7 +126,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-getrecordserviceid
      */
     GetRecordServiceId(dwRecordIndex, pwVal) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -130,7 +140,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-getrecordrunningstatus
      */
     GetRecordRunningStatus(dwRecordIndex, pbVal) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -142,7 +154,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -169,7 +183,9 @@ class IDVB_SIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sit-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 

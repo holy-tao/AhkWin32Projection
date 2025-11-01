@@ -37,7 +37,9 @@ class IRecordInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordinit
      */
     RecordInit(pvNew) {
-        result := ComCall(3, this, "ptr", pvNew, "HRESULT")
+        pvNewMarshal := pvNew is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pvNewMarshal, pvNew, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IRecordInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordclear
      */
     RecordClear(pvExisting) {
-        result := ComCall(4, this, "ptr", pvExisting, "HRESULT")
+        pvExistingMarshal := pvExisting is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pvExistingMarshal, pvExisting, "HRESULT")
         return result
     }
 
@@ -60,7 +64,10 @@ class IRecordInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcopy
      */
     RecordCopy(pvExisting, pvNew) {
-        result := ComCall(5, this, "ptr", pvExisting, "ptr", pvNew, "HRESULT")
+        pvExistingMarshal := pvExisting is VarRef ? "ptr" : "ptr"
+        pvNewMarshal := pvNew is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pvExistingMarshal, pvExisting, pvNewMarshal, pvNew, "HRESULT")
         return result
     }
 
@@ -93,7 +100,9 @@ class IRecordInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getsize
      */
     GetSize(pcbSize) {
-        result := ComCall(8, this, "uint*", pcbSize, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -119,7 +128,9 @@ class IRecordInfo extends IUnknown{
     GetField(pvData, szFieldName, pvarField) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        result := ComCall(10, this, "ptr", pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
         return result
     }
 
@@ -135,7 +146,9 @@ class IRecordInfo extends IUnknown{
     GetFieldNoCopy(pvData, szFieldName, pvarField, ppvDataCArray) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        result := ComCall(11, this, "ptr", pvData, "ptr", szFieldName, "ptr", pvarField, "ptr*", ppvDataCArray, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "ptr*", ppvDataCArray, "HRESULT")
         return result
     }
 
@@ -151,7 +164,9 @@ class IRecordInfo extends IUnknown{
     PutField(wFlags, pvData, szFieldName, pvarField) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        result := ComCall(12, this, "uint", wFlags, "ptr", pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
         return result
     }
 
@@ -167,7 +182,9 @@ class IRecordInfo extends IUnknown{
     PutFieldNoCopy(wFlags, pvData, szFieldName, pvarField) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        result := ComCall(13, this, "uint", wFlags, "ptr", pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(13, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "HRESULT")
         return result
     }
 
@@ -179,7 +196,9 @@ class IRecordInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getfieldnames
      */
     GetFieldNames(pcNames, rgBstrNames) {
-        result := ComCall(14, this, "uint*", pcNames, "ptr", rgBstrNames, "HRESULT")
+        pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pcNamesMarshal, pcNames, "ptr", rgBstrNames, "HRESULT")
         return result
     }
 
@@ -212,7 +231,9 @@ class IRecordInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcreatecopy
      */
     RecordCreateCopy(pvSource, ppvDest) {
-        result := ComCall(17, this, "ptr", pvSource, "ptr*", ppvDest, "HRESULT")
+        pvSourceMarshal := pvSource is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(17, this, pvSourceMarshal, pvSource, "ptr*", ppvDest, "HRESULT")
         return result
     }
 
@@ -223,7 +244,9 @@ class IRecordInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recorddestroy
      */
     RecordDestroy(pvRecord) {
-        result := ComCall(18, this, "ptr", pvRecord, "HRESULT")
+        pvRecordMarshal := pvRecord is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(18, this, pvRecordMarshal, pvRecord, "HRESULT")
         return result
     }
 }

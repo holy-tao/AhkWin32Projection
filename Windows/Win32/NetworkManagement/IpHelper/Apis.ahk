@@ -2675,9 +2675,11 @@ class IpHelper {
         IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
+        ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, "ptr", ApcContext, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
+        result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2801,9 +2803,11 @@ class IpHelper {
         IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
+        ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, "ptr", ApcContext, "uint", SourceAddress, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
+        result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", SourceAddress, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2950,9 +2954,11 @@ class IpHelper {
         IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
+        ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, "ptr", ApcContext, "ptr", SourceAddress, "ptr", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
+        result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", SourceAddress, "ptr", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -3047,7 +3053,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetNumberOfInterfaces(pdwNumIf) {
-        result := DllCall("IPHLPAPI.dll\GetNumberOfInterfaces", "uint*", pdwNumIf, "uint")
+        pdwNumIfMarshal := pdwNumIf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetNumberOfInterfaces", pdwNumIfMarshal, pdwNumIf, "uint")
         return result
     }
 
@@ -3208,7 +3216,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIfTable(pIfTable, pdwSize, bOrder) {
-        result := DllCall("IPHLPAPI.dll\GetIfTable", "ptr", pIfTable, "uint*", pdwSize, "int", bOrder, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetIfTable", "ptr", pIfTable, pdwSizeMarshal, pdwSize, "int", bOrder, "uint")
         return result
     }
 
@@ -3287,7 +3297,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIpAddrTable(pIpAddrTable, pdwSize, bOrder) {
-        result := DllCall("IPHLPAPI.dll\GetIpAddrTable", "ptr", pIpAddrTable, "uint*", pdwSize, "int", bOrder, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetIpAddrTable", "ptr", pIpAddrTable, pdwSizeMarshal, pdwSize, "int", bOrder, "uint")
         return result
     }
 
@@ -3370,7 +3382,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIpNetTable(IpNetTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetIpNetTable", "ptr", IpNetTable, "uint*", SizePointer, "int", Order, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetIpNetTable", "ptr", IpNetTable, SizePointerMarshal, SizePointer, "int", Order, "uint")
         return result
     }
 
@@ -3464,7 +3478,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIpForwardTable(pIpForwardTable, pdwSize, bOrder) {
-        result := DllCall("IPHLPAPI.dll\GetIpForwardTable", "ptr", pIpForwardTable, "uint*", pdwSize, "int", bOrder, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetIpForwardTable", "ptr", pIpForwardTable, pdwSizeMarshal, pdwSize, "int", bOrder, "uint")
         return result
     }
 
@@ -3559,7 +3575,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetTcpTable(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcpTable", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetTcpTable", "ptr", TcpTable, SizePointerMarshal, SizePointer, "int", Order, "uint")
         return result
     }
 
@@ -3649,7 +3667,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetExtendedTcpTable(pTcpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
-        result := DllCall("IPHLPAPI.dll\GetExtendedTcpTable", "ptr", pTcpTable, "uint*", pdwSize, "int", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetExtendedTcpTable", "ptr", pTcpTable, pdwSizeMarshal, pdwSize, "int", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
         return result
     }
 
@@ -3747,7 +3767,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetOwnerModuleFromTcpEntry(pTcpEntry, Class, pBuffer, pdwSize) {
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", Class, "ptr", pBuffer, "uint*", pdwSize, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -3832,7 +3854,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetUdpTable(UdpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetUdpTable", "ptr", UdpTable, "uint*", SizePointer, "int", Order, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetUdpTable", "ptr", UdpTable, SizePointerMarshal, SizePointer, "int", Order, "uint")
         return result
     }
 
@@ -3919,7 +3943,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetExtendedUdpTable(pUdpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
-        result := DllCall("IPHLPAPI.dll\GetExtendedUdpTable", "ptr", pUdpTable, "uint*", pdwSize, "int", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetExtendedUdpTable", "ptr", pUdpTable, pdwSizeMarshal, pdwSize, "int", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
         return result
     }
 
@@ -3967,7 +3993,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetOwnerModuleFromUdpEntry(pUdpEntry, Class, pBuffer, pdwSize) {
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", Class, "ptr", pBuffer, "uint*", pdwSize, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -4054,7 +4082,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetTcpTable2(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcpTable2", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetTcpTable2", "ptr", TcpTable, SizePointerMarshal, SizePointer, "int", Order, "uint")
         return result
     }
 
@@ -4138,7 +4168,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetTcp6Table(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcp6Table", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetTcp6Table", "ptr", TcpTable, SizePointerMarshal, SizePointer, "int", Order, "uint")
         return result
     }
 
@@ -4224,7 +4256,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetTcp6Table2(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcp6Table2", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetTcp6Table2", "ptr", TcpTable, SizePointerMarshal, SizePointer, "int", Order, "uint")
         return result
     }
 
@@ -5145,7 +5179,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetOwnerModuleFromTcp6Entry(pTcpEntry, Class, pBuffer, pdwSize) {
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", Class, "ptr", pBuffer, "uint*", pdwSize, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -5227,7 +5263,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetUdp6Table(Udp6Table, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetUdp6Table", "ptr", Udp6Table, "uint*", SizePointer, "int", Order, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetUdp6Table", "ptr", Udp6Table, SizePointerMarshal, SizePointer, "int", Order, "uint")
         return result
     }
 
@@ -5275,7 +5313,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetOwnerModuleFromUdp6Entry(pUdpEntry, Class, pBuffer, pdwSize) {
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", Class, "ptr", pBuffer, "uint*", pdwSize, "uint")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -5289,7 +5329,10 @@ class IpHelper {
      * @returns {Integer} 
      */
     static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, Class, pBuffer, pdwSize) {
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, "uint*", pInfo, "int", Class, "ptr", pBuffer, "uint*", pdwSize, "uint")
+        pInfoMarshal := pInfo is VarRef ? "uint*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, "int", Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -6912,7 +6955,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetInterfaceInfo(pIfTable, dwOutBufLen) {
-        result := DllCall("IPHLPAPI.dll\GetInterfaceInfo", "ptr", pIfTable, "uint*", dwOutBufLen, "uint")
+        dwOutBufLenMarshal := dwOutBufLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetInterfaceInfo", "ptr", pIfTable, dwOutBufLenMarshal, dwOutBufLen, "uint")
         return result
     }
 
@@ -6928,7 +6973,9 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-getunidirectionaladapterinfo
      */
     static GetUniDirectionalAdapterInfo(pIPIfInfo, dwOutBufLen) {
-        result := DllCall("IPHLPAPI.dll\GetUniDirectionalAdapterInfo", "ptr", pIPIfInfo, "uint*", dwOutBufLen, "uint")
+        dwOutBufLenMarshal := dwOutBufLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetUniDirectionalAdapterInfo", "ptr", pIPIfInfo, dwOutBufLenMarshal, dwOutBufLen, "uint")
         return result
     }
 
@@ -6946,7 +6993,9 @@ class IpHelper {
     static NhpAllocateAndGetInterfaceInfoFromStack(ppTable, pdwCount, bOrder, hHeap, dwFlags) {
         hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
 
-        result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", "ptr*", ppTable, "uint*", pdwCount, "int", bOrder, "ptr", hHeap, "uint", dwFlags, "uint")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", "ptr*", ppTable, pdwCountMarshal, pdwCount, "int", bOrder, "ptr", hHeap, "uint", dwFlags, "uint")
         return result
     }
 
@@ -7013,7 +7062,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetBestInterface(dwDestAddr, pdwBestIfIndex) {
-        result := DllCall("IPHLPAPI.dll\GetBestInterface", "uint", dwDestAddr, "uint*", pdwBestIfIndex, "uint")
+        pdwBestIfIndexMarshal := pdwBestIfIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetBestInterface", "uint", dwDestAddr, pdwBestIfIndexMarshal, pdwBestIfIndex, "uint")
         return result
     }
 
@@ -7080,7 +7131,9 @@ class IpHelper {
      * @since windows5.1.2600
      */
     static GetBestInterfaceEx(pDestAddr, pdwBestIfIndex) {
-        result := DllCall("IPHLPAPI.dll\GetBestInterfaceEx", "ptr", pDestAddr, "uint*", pdwBestIfIndex, "uint")
+        pdwBestIfIndexMarshal := pdwBestIfIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetBestInterfaceEx", "ptr", pDestAddr, pdwBestIfIndexMarshal, pdwBestIfIndex, "uint")
         return result
     }
 
@@ -7282,7 +7335,9 @@ class IpHelper {
     static GetAdapterIndex(AdapterName, IfIndex) {
         AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
 
-        result := DllCall("IPHLPAPI.dll\GetAdapterIndex", "ptr", AdapterName, "uint*", IfIndex, "uint")
+        IfIndexMarshal := IfIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetAdapterIndex", "ptr", AdapterName, IfIndexMarshal, IfIndex, "uint")
         return result
     }
 
@@ -7386,7 +7441,10 @@ class IpHelper {
      * @since windows5.0
      */
     static AddIPAddress(Address, IpMask, IfIndex, NTEContext, NTEInstance) {
-        result := DllCall("IPHLPAPI.dll\AddIPAddress", "uint", Address, "uint", IpMask, "uint", IfIndex, "uint*", NTEContext, "uint*", NTEInstance, "uint")
+        NTEContextMarshal := NTEContext is VarRef ? "uint*" : "ptr"
+        NTEInstanceMarshal := NTEInstance is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\AddIPAddress", "uint", Address, "uint", IpMask, "uint", IfIndex, NTEContextMarshal, NTEContext, NTEInstanceMarshal, NTEInstance, "uint")
         return result
     }
 
@@ -7534,7 +7592,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetNetworkParams(pFixedInfo, pOutBufLen) {
-        result := DllCall("IPHLPAPI.dll\GetNetworkParams", "ptr", pFixedInfo, "uint*", pOutBufLen, "uint")
+        pOutBufLenMarshal := pOutBufLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetNetworkParams", "ptr", pFixedInfo, pOutBufLenMarshal, pOutBufLen, "uint")
         return result
     }
 
@@ -7625,7 +7685,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetAdaptersInfo(AdapterInfo, SizePointer) {
-        result := DllCall("IPHLPAPI.dll\GetAdaptersInfo", "ptr", AdapterInfo, "uint*", SizePointer, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetAdaptersInfo", "ptr", AdapterInfo, SizePointerMarshal, SizePointer, "uint")
         return result
     }
 
@@ -7729,7 +7791,9 @@ class IpHelper {
     static GetAdaptersAddresses(Family, Flags, AdapterAddresses, SizePointer) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("IPHLPAPI.dll\GetAdaptersAddresses", "uint", Family, "uint", Flags, "ptr", Reserved, "ptr", AdapterAddresses, "uint*", SizePointer, "uint")
+        SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetAdaptersAddresses", "uint", Family, "uint", Flags, "ptr", Reserved, "ptr", AdapterAddresses, SizePointerMarshal, SizePointer, "uint")
         return result
     }
 
@@ -7806,7 +7870,9 @@ class IpHelper {
      * @since windows5.0
      */
     static GetPerAdapterInfo(IfIndex, pPerAdapterInfo, pOutBufLen) {
-        result := DllCall("IPHLPAPI.dll\GetPerAdapterInfo", "uint", IfIndex, "ptr", pPerAdapterInfo, "uint*", pOutBufLen, "uint")
+        pOutBufLenMarshal := pOutBufLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetPerAdapterInfo", "uint", IfIndex, "ptr", pPerAdapterInfo, pOutBufLenMarshal, pOutBufLen, "uint")
         return result
     }
 
@@ -7881,7 +7947,9 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-registerinterfacetimestampconfigchange
      */
     static RegisterInterfaceTimestampConfigChange(Callback, CallerContext, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", "ptr", Callback, "ptr", CallerContext, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", "ptr", Callback, CallerContextMarshal, CallerContext, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -7932,7 +8000,9 @@ class IpHelper {
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-notifyiftimestampconfigchange
      */
     static NotifyIfTimestampConfigChange(CallerContext, Callback, NotificationHandle) {
-        result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", "ptr", CallerContext, "ptr", Callback, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", CallerContextMarshal, CallerContext, "ptr", Callback, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -8175,7 +8245,9 @@ class IpHelper {
      * @since windows5.0
      */
     static SendARP(DestIP, SrcIP, pMacAddr, PhyAddrLen) {
-        result := DllCall("IPHLPAPI.dll\SendARP", "uint", DestIP, "uint", SrcIP, "ptr", pMacAddr, "uint*", PhyAddrLen, "uint")
+        PhyAddrLenMarshal := PhyAddrLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\SendARP", "uint", DestIP, "uint", SrcIP, "ptr", pMacAddr, PhyAddrLenMarshal, PhyAddrLen, "uint")
         return result
     }
 
@@ -8193,9 +8265,12 @@ class IpHelper {
      * @since windows5.0
      */
     static GetRTTAndHopCount(DestIpAddress, HopCount, MaxHops, RTT) {
+        HopCountMarshal := HopCount is VarRef ? "uint*" : "ptr"
+        RTTMarshal := RTT is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, "uint*", HopCount, "uint", MaxHops, "uint*", RTT, "int")
+        result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, HopCountMarshal, HopCount, "uint", MaxHops, RTTMarshal, RTT, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8274,7 +8349,9 @@ class IpHelper {
      * @since windows5.0
      */
     static UnenableRouter(pOverlapped, lpdwEnableCount) {
-        result := DllCall("IPHLPAPI.dll\UnenableRouter", "ptr", pOverlapped, "uint*", lpdwEnableCount, "uint")
+        lpdwEnableCountMarshal := lpdwEnableCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\UnenableRouter", "ptr", pOverlapped, lpdwEnableCountMarshal, lpdwEnableCount, "uint")
         return result
     }
 
@@ -8436,7 +8513,9 @@ class IpHelper {
      * @since windows5.1.2600
      */
     static RestoreMediaSense(pOverlapped, lpdwEnableCount) {
-        result := DllCall("IPHLPAPI.dll\RestoreMediaSense", "ptr", pOverlapped, "uint*", lpdwEnableCount, "uint")
+        lpdwEnableCountMarshal := lpdwEnableCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\RestoreMediaSense", "ptr", pOverlapped, lpdwEnableCountMarshal, lpdwEnableCount, "uint")
         return result
     }
 
@@ -8454,7 +8533,9 @@ class IpHelper {
     static GetIpErrorString(ErrorCode, Buffer, Size) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer, "uint*", Size, "uint")
+        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer, SizeMarshal, Size, "uint")
         return result
     }
 
@@ -8487,7 +8568,9 @@ class IpHelper {
      * @since windows5.1.2600
      */
     static ResolveNeighbor(NetworkAddress, PhysicalAddress, PhysicalAddressLength) {
-        result := DllCall("IPHLPAPI.dll\ResolveNeighbor", "ptr", NetworkAddress, "ptr", PhysicalAddress, "uint*", PhysicalAddressLength, "uint")
+        PhysicalAddressLengthMarshal := PhysicalAddressLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\ResolveNeighbor", "ptr", NetworkAddress, "ptr", PhysicalAddress, PhysicalAddressLengthMarshal, PhysicalAddressLength, "uint")
         return result
     }
 
@@ -8557,7 +8640,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static CreatePersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
-        result := DllCall("IPHLPAPI.dll\CreatePersistentTcpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, "uint*", Token, "uint")
+        TokenMarshal := Token is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\CreatePersistentTcpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, "uint")
         return result
     }
 
@@ -8627,7 +8712,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static CreatePersistentUdpPortReservation(StartPort, NumberOfPorts, Token) {
-        result := DllCall("IPHLPAPI.dll\CreatePersistentUdpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, "uint*", Token, "uint")
+        TokenMarshal := Token is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\CreatePersistentUdpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, "uint")
         return result
     }
 
@@ -8818,7 +8905,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static LookupPersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
-        result := DllCall("IPHLPAPI.dll\LookupPersistentTcpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, "uint*", Token, "uint")
+        TokenMarshal := Token is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\LookupPersistentTcpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, "uint")
         return result
     }
 
@@ -8875,7 +8964,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static LookupPersistentUdpPortReservation(StartPort, NumberOfPorts, Token) {
-        result := DllCall("IPHLPAPI.dll\LookupPersistentUdpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, "uint*", Token, "uint")
+        TokenMarshal := Token is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\LookupPersistentUdpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, "uint")
         return result
     }
 
@@ -9218,7 +9309,10 @@ class IpHelper {
     static ParseNetworkString(NetworkString, Types, AddressInfo, PortNumber, PrefixLength) {
         NetworkString := NetworkString is String ? StrPtr(NetworkString) : NetworkString
 
-        result := DllCall("IPHLPAPI.dll\ParseNetworkString", "ptr", NetworkString, "uint", Types, "ptr", AddressInfo, "ushort*", PortNumber, "char*", PrefixLength, "uint")
+        PortNumberMarshal := PortNumber is VarRef ? "ushort*" : "ptr"
+        PrefixLengthMarshal := PrefixLength is VarRef ? "char*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\ParseNetworkString", "ptr", NetworkString, "uint", Types, "ptr", AddressInfo, PortNumberMarshal, PortNumber, PrefixLengthMarshal, PrefixLength, "uint")
         return result
     }
 
@@ -9941,7 +10035,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyIpInterfaceChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", "ushort", Family, "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", "ushort", Family, "ptr", Callback, CallerContextMarshal, CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -10623,7 +10719,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyUnicastIpAddressChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", "ushort", Family, "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", "ushort", Family, "ptr", Callback, CallerContextMarshal, CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -10747,7 +10845,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyStableUnicastIpAddressTable(Family, Table, CallerCallback, CallerContext, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", "ushort", Family, "ptr*", Table, "ptr", CallerCallback, "ptr", CallerContext, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", "ushort", Family, "ptr*", Table, "ptr", CallerCallback, CallerContextMarshal, CallerContext, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -11959,7 +12059,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyRouteChange2(AddressFamily, Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", "ushort", AddressFamily, "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", "ushort", AddressFamily, "ptr", Callback, CallerContextMarshal, CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -13060,7 +13162,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyTeredoPortChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", "ptr", Callback, CallerContextMarshal, CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -13126,7 +13230,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetTeredoPort(Port) {
-        result := DllCall("IPHLPAPI.dll\GetTeredoPort", "ushort*", Port, "uint")
+        PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetTeredoPort", PortMarshal, Port, "uint")
         return result
     }
 
@@ -13185,7 +13291,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static FreeMibTable(Memory) {
-        DllCall("IPHLPAPI.dll\FreeMibTable", "ptr", Memory)
+        MemoryMarshal := Memory is VarRef ? "ptr" : "ptr"
+
+        DllCall("IPHLPAPI.dll\FreeMibTable", MemoryMarshal, Memory)
     }
 
     /**
@@ -13258,7 +13366,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static CreateSortedAddressPairs(SourceAddressList, SourceAddressCount, DestinationAddressList, DestinationAddressCount, AddressSortOptions, SortedAddressPairList, SortedAddressPairCount) {
-        result := DllCall("IPHLPAPI.dll\CreateSortedAddressPairs", "ptr", SourceAddressList, "uint", SourceAddressCount, "ptr", DestinationAddressList, "uint", DestinationAddressCount, "uint", AddressSortOptions, "ptr*", SortedAddressPairList, "uint*", SortedAddressPairCount, "uint")
+        SortedAddressPairCountMarshal := SortedAddressPairCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\CreateSortedAddressPairs", "ptr", SourceAddressList, "uint", SourceAddressCount, "ptr", DestinationAddressList, "uint", DestinationAddressCount, "uint", AddressSortOptions, "ptr*", SortedAddressPairList, SortedAddressPairCountMarshal, SortedAddressPairCount, "uint")
         return result
     }
 
@@ -13269,7 +13379,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static ConvertCompartmentGuidToId(CompartmentGuid, CompartmentId) {
-        result := DllCall("IPHLPAPI.dll\ConvertCompartmentGuidToId", "ptr", CompartmentGuid, "uint*", CompartmentId, "uint")
+        CompartmentIdMarshal := CompartmentId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\ConvertCompartmentGuidToId", "ptr", CompartmentGuid, CompartmentIdMarshal, CompartmentId, "uint")
         return result
     }
 
@@ -13509,7 +13621,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToIndex(InterfaceLuid, InterfaceIndex) {
-        result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToIndex", "ptr", InterfaceLuid, "uint*", InterfaceIndex, "uint")
+        InterfaceIndexMarshal := InterfaceIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToIndex", "ptr", InterfaceLuid, InterfaceIndexMarshal, InterfaceIndex, "uint")
         return result
     }
 
@@ -13761,7 +13875,10 @@ class IpHelper {
      * @returns {String} Nothing - always returns an empty string
      */
     static GetCurrentThreadCompartmentScope(CompartmentScope, CompartmentId) {
-        DllCall("IPHLPAPI.dll\GetCurrentThreadCompartmentScope", "uint*", CompartmentScope, "uint*", CompartmentId)
+        CompartmentScopeMarshal := CompartmentScope is VarRef ? "uint*" : "ptr"
+        CompartmentIdMarshal := CompartmentId is VarRef ? "uint*" : "ptr"
+
+        DllCall("IPHLPAPI.dll\GetCurrentThreadCompartmentScope", CompartmentScopeMarshal, CompartmentScope, CompartmentIdMarshal, CompartmentId)
     }
 
     /**
@@ -13866,7 +13983,10 @@ class IpHelper {
     static GetNetworkInformation(NetworkGuid, CompartmentId, SiteId, NetworkName, Length) {
         NetworkName := NetworkName is String ? StrPtr(NetworkName) : NetworkName
 
-        result := DllCall("IPHLPAPI.dll\GetNetworkInformation", "ptr", NetworkGuid, "uint*", CompartmentId, "uint*", SiteId, "ptr", NetworkName, "uint", Length, "uint")
+        CompartmentIdMarshal := CompartmentId is VarRef ? "uint*" : "ptr"
+        SiteIdMarshal := SiteId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\GetNetworkInformation", "ptr", NetworkGuid, CompartmentIdMarshal, CompartmentId, SiteIdMarshal, SiteId, "ptr", NetworkName, "uint", Length, "uint")
         return result
     }
 
@@ -13913,7 +14033,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertLengthToIpv4Mask(MaskLength, Mask) {
-        result := DllCall("IPHLPAPI.dll\ConvertLengthToIpv4Mask", "uint", MaskLength, "uint*", Mask, "uint")
+        MaskMarshal := Mask is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\ConvertLengthToIpv4Mask", "uint", MaskLength, MaskMarshal, Mask, "uint")
         return result
     }
 
@@ -13945,7 +14067,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertIpv4MaskToLength(Mask, MaskLength) {
-        result := DllCall("IPHLPAPI.dll\ConvertIpv4MaskToLength", "uint", Mask, "char*", MaskLength, "uint")
+        MaskLengthMarshal := MaskLength is VarRef ? "char*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\ConvertIpv4MaskToLength", "uint", Mask, MaskLengthMarshal, MaskLength, "uint")
         return result
     }
 
@@ -14048,7 +14172,9 @@ class IpHelper {
      * @since windows10.0.19041
      */
     static NotifyNetworkConnectivityHintChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, CallerContextMarshal, CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -14133,7 +14259,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfDeleteInterface(pInterface) {
-        result := DllCall("IPHLPAPI.dll\PfDeleteInterface", "ptr", pInterface, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfDeleteInterface", pInterfaceMarshal, pInterface, "uint")
         return result
     }
 
@@ -14148,7 +14276,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfAddFiltersToInterface(ih, cInFilters, pfiltIn, cOutFilters, pfiltOut, pfHandle) {
-        result := DllCall("IPHLPAPI.dll\PfAddFiltersToInterface", "ptr", ih, "uint", cInFilters, "ptr", pfiltIn, "uint", cOutFilters, "ptr", pfiltOut, "ptr*", pfHandle, "uint")
+        ihMarshal := ih is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfAddFiltersToInterface", ihMarshal, ih, "uint", cInFilters, "ptr", pfiltIn, "uint", cOutFilters, "ptr", pfiltOut, "ptr*", pfHandle, "uint")
         return result
     }
 
@@ -14162,7 +14292,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfRemoveFiltersFromInterface(ih, cInFilters, pfiltIn, cOutFilters, pfiltOut) {
-        result := DllCall("IPHLPAPI.dll\PfRemoveFiltersFromInterface", "ptr", ih, "uint", cInFilters, "ptr", pfiltIn, "uint", cOutFilters, "ptr", pfiltOut, "uint")
+        ihMarshal := ih is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfRemoveFiltersFromInterface", ihMarshal, ih, "uint", cInFilters, "ptr", pfiltIn, "uint", cOutFilters, "ptr", pfiltOut, "uint")
         return result
     }
 
@@ -14174,7 +14306,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfRemoveFilterHandles(pInterface, cFilters, pvHandles) {
-        result := DllCall("IPHLPAPI.dll\PfRemoveFilterHandles", "ptr", pInterface, "uint", cFilters, "ptr*", pvHandles, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfRemoveFilterHandles", pInterfaceMarshal, pInterface, "uint", cFilters, "ptr*", pvHandles, "uint")
         return result
     }
 
@@ -14184,7 +14318,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfUnBindInterface(pInterface) {
-        result := DllCall("IPHLPAPI.dll\PfUnBindInterface", "ptr", pInterface, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfUnBindInterface", pInterfaceMarshal, pInterface, "uint")
         return result
     }
 
@@ -14197,7 +14333,10 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfBindInterfaceToIndex(pInterface, dwIndex, pfatLinkType, LinkIPAddress) {
-        result := DllCall("IPHLPAPI.dll\PfBindInterfaceToIndex", "ptr", pInterface, "uint", dwIndex, "int", pfatLinkType, "char*", LinkIPAddress, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+        LinkIPAddressMarshal := LinkIPAddress is VarRef ? "char*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfBindInterfaceToIndex", pInterfaceMarshal, pInterface, "uint", dwIndex, "int", pfatLinkType, LinkIPAddressMarshal, LinkIPAddress, "uint")
         return result
     }
 
@@ -14209,7 +14348,10 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfBindInterfaceToIPAddress(pInterface, pfatType, IPAddress) {
-        result := DllCall("IPHLPAPI.dll\PfBindInterfaceToIPAddress", "ptr", pInterface, "int", pfatType, "char*", IPAddress, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+        IPAddressMarshal := IPAddress is VarRef ? "char*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfBindInterfaceToIPAddress", pInterfaceMarshal, pInterface, "int", pfatType, IPAddressMarshal, IPAddress, "uint")
         return result
     }
 
@@ -14220,7 +14362,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfRebindFilters(pInterface, pLateBindInfo) {
-        result := DllCall("IPHLPAPI.dll\PfRebindFilters", "ptr", pInterface, "ptr", pLateBindInfo, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfRebindFilters", pInterfaceMarshal, pInterface, "ptr", pLateBindInfo, "uint")
         return result
     }
 
@@ -14231,7 +14375,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfAddGlobalFilterToInterface(pInterface, gfFilter) {
-        result := DllCall("IPHLPAPI.dll\PfAddGlobalFilterToInterface", "ptr", pInterface, "int", gfFilter, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfAddGlobalFilterToInterface", pInterfaceMarshal, pInterface, "int", gfFilter, "uint")
         return result
     }
 
@@ -14242,7 +14388,9 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfRemoveGlobalFilterFromInterface(pInterface, gfFilter) {
-        result := DllCall("IPHLPAPI.dll\PfRemoveGlobalFilterFromInterface", "ptr", pInterface, "int", gfFilter, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfRemoveGlobalFilterFromInterface", pInterfaceMarshal, pInterface, "int", gfFilter, "uint")
         return result
     }
 
@@ -14270,7 +14418,12 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfSetLogBuffer(pbBuffer, dwSize, dwThreshold, dwEntries, pdwLoggedEntries, pdwLostEntries, pdwSizeUsed) {
-        result := DllCall("IPHLPAPI.dll\PfSetLogBuffer", "char*", pbBuffer, "uint", dwSize, "uint", dwThreshold, "uint", dwEntries, "uint*", pdwLoggedEntries, "uint*", pdwLostEntries, "uint*", pdwSizeUsed, "uint")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pdwLoggedEntriesMarshal := pdwLoggedEntries is VarRef ? "uint*" : "ptr"
+        pdwLostEntriesMarshal := pdwLostEntries is VarRef ? "uint*" : "ptr"
+        pdwSizeUsedMarshal := pdwSizeUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfSetLogBuffer", pbBufferMarshal, pbBuffer, "uint", dwSize, "uint", dwThreshold, "uint", dwEntries, pdwLoggedEntriesMarshal, pdwLoggedEntries, pdwLostEntriesMarshal, pdwLostEntries, pdwSizeUsedMarshal, pdwSizeUsed, "uint")
         return result
     }
 
@@ -14292,7 +14445,10 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfGetInterfaceStatistics(pInterface, ppfStats, pdwBufferSize, fResetCounters) {
-        result := DllCall("IPHLPAPI.dll\PfGetInterfaceStatistics", "ptr", pInterface, "ptr", ppfStats, "uint*", pdwBufferSize, "int", fResetCounters, "uint")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfGetInterfaceStatistics", pInterfaceMarshal, pInterface, "ptr", ppfStats, pdwBufferSizeMarshal, pdwBufferSize, "int", fResetCounters, "uint")
         return result
     }
 
@@ -14306,7 +14462,12 @@ class IpHelper {
      * @returns {Integer} 
      */
     static PfTestPacket(pInInterface, pOutInterface, cBytes, pbPacket, ppAction) {
-        result := DllCall("IPHLPAPI.dll\PfTestPacket", "ptr", pInInterface, "ptr", pOutInterface, "uint", cBytes, "char*", pbPacket, "int*", ppAction, "uint")
+        pInInterfaceMarshal := pInInterface is VarRef ? "ptr" : "ptr"
+        pOutInterfaceMarshal := pOutInterface is VarRef ? "ptr" : "ptr"
+        pbPacketMarshal := pbPacket is VarRef ? "char*" : "ptr"
+        ppActionMarshal := ppAction is VarRef ? "int*" : "ptr"
+
+        result := DllCall("IPHLPAPI.dll\PfTestPacket", pInInterfaceMarshal, pInInterface, pOutInterfaceMarshal, pOutInterface, "uint", cBytes, pbPacketMarshal, pbPacket, ppActionMarshal, ppAction, "uint")
         return result
     }
 

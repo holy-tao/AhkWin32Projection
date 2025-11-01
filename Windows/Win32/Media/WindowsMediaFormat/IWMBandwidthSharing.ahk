@@ -60,7 +60,10 @@ class IWMBandwidthSharing extends IWMStreamList{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-getbandwidth
      */
     GetBandwidth(pdwBitrate, pmsBufferWindow) {
-        result := ComCall(8, this, "uint*", pdwBitrate, "uint*", pmsBufferWindow, "HRESULT")
+        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : "ptr"
+        pmsBufferWindowMarshal := pmsBufferWindow is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwBitrateMarshal, pdwBitrate, pmsBufferWindowMarshal, pmsBufferWindow, "HRESULT")
         return result
     }
 

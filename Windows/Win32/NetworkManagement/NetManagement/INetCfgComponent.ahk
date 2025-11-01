@@ -76,7 +76,9 @@ class INetCfgComponent extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCharacteristics(pdwCharacteristics) {
-        result := ComCall(7, this, "uint*", pdwCharacteristics, "HRESULT")
+        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
         return result
     }
 
@@ -126,7 +128,9 @@ class INetCfgComponent extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceStatus(pulStatus) {
-        result := ComCall(12, this, "uint*", pulStatus, "HRESULT")
+        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pulStatusMarshal, pulStatus, "HRESULT")
         return result
     }
 

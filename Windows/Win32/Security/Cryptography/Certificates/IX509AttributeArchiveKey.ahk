@@ -92,7 +92,9 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength
      */
     get_EncryptionStrength(pValue) {
-        result := ComCall(14, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

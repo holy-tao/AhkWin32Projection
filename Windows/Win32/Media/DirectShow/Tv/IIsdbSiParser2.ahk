@@ -39,7 +39,9 @@ class IIsdbSiParser2 extends IDvbSiParser2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getsdt
      */
     GetSDT(tableId, pwTransportStreamId, ppSDT) {
-        result := ComCall(19, this, "char", tableId, "ushort*", pwTransportStreamId, "ptr*", ppSDT, "HRESULT")
+        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(19, this, "char", tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", ppSDT, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IIsdbSiParser2 extends IDvbSiParser2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getbit
      */
     GetBIT(tableId, pwOriginalNetworkId, ppBIT) {
-        result := ComCall(20, this, "char", tableId, "ushort*", pwOriginalNetworkId, "ptr*", ppBIT, "HRESULT")
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(20, this, "char", tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", ppBIT, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IIsdbSiParser2 extends IDvbSiParser2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getnbit
      */
     GetNBIT(tableId, pwOriginalNetworkId, ppNBIT) {
-        result := ComCall(21, this, "char", tableId, "ushort*", pwOriginalNetworkId, "ptr*", ppNBIT, "HRESULT")
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(21, this, "char", tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", ppNBIT, "HRESULT")
         return result
     }
 
@@ -78,7 +84,9 @@ class IIsdbSiParser2 extends IDvbSiParser2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getldt
      */
     GetLDT(tableId, pwOriginalServiceId, ppLDT) {
-        result := ComCall(22, this, "char", tableId, "ushort*", pwOriginalServiceId, "ptr*", ppLDT, "HRESULT")
+        pwOriginalServiceIdMarshal := pwOriginalServiceId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(22, this, "char", tableId, pwOriginalServiceIdMarshal, pwOriginalServiceId, "ptr*", ppLDT, "HRESULT")
         return result
     }
 
@@ -91,7 +99,9 @@ class IIsdbSiParser2 extends IDvbSiParser2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getsdtt
      */
     GetSDTT(tableId, pwTableIdExt, ppSDTT) {
-        result := ComCall(23, this, "char", tableId, "ushort*", pwTableIdExt, "ptr*", ppSDTT, "HRESULT")
+        pwTableIdExtMarshal := pwTableIdExt is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(23, this, "char", tableId, pwTableIdExtMarshal, pwTableIdExt, "ptr*", ppSDTT, "HRESULT")
         return result
     }
 
@@ -105,7 +115,9 @@ class IIsdbSiParser2 extends IDvbSiParser2{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getcdt
      */
     GetCDT(tableId, bSectionNumber, pwDownloadDataId, ppCDT) {
-        result := ComCall(24, this, "char", tableId, "char", bSectionNumber, "ushort*", pwDownloadDataId, "ptr*", ppCDT, "HRESULT")
+        pwDownloadDataIdMarshal := pwDownloadDataId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(24, this, "char", tableId, "char", bSectionNumber, pwDownloadDataIdMarshal, pwDownloadDataId, "ptr*", ppCDT, "HRESULT")
         return result
     }
 

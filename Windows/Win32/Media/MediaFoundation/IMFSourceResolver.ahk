@@ -43,7 +43,9 @@ class IMFSourceResolver extends IUnknown{
     CreateObjectFromURL(pwszURL, dwFlags, pProps, pObjectType, ppObject) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "int*", pObjectType, "ptr*", ppObject, "HRESULT")
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, "ptr*", ppObject, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class IMFSourceResolver extends IUnknown{
     CreateObjectFromByteStream(pByteStream, pwszURL, dwFlags, pProps, pObjectType, ppObject) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(4, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "int*", pObjectType, "ptr*", ppObject, "HRESULT")
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, "ptr*", ppObject, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IMFSourceResolver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceresolver-endcreateobjectfromurl
      */
     EndCreateObjectFromURL(pResult, pObjectType, ppObject) {
-        result := ComCall(6, this, "ptr", pResult, "int*", pObjectType, "ptr*", ppObject, "HRESULT")
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, "ptr*", ppObject, "HRESULT")
         return result
     }
 
@@ -124,7 +130,9 @@ class IMFSourceResolver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceresolver-endcreateobjectfrombytestream
      */
     EndCreateObjectFromByteStream(pResult, pObjectType, ppObject) {
-        result := ComCall(8, this, "ptr", pResult, "int*", pObjectType, "ptr*", ppObject, "HRESULT")
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, "ptr*", ppObject, "HRESULT")
         return result
     }
 

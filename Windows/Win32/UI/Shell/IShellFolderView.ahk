@@ -100,7 +100,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-addobject
      */
     AddObject(pidl, puItem) {
-        result := ComCall(8, this, "ptr", pidl, "uint*", puItem, "HRESULT")
+        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pidl, puItemMarshal, puItem, "HRESULT")
         return result
     }
 
@@ -128,7 +130,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-removeobject
      */
     RemoveObject(pidl, puItem) {
-        result := ComCall(10, this, "ptr", pidl, "uint*", puItem, "HRESULT")
+        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pidl, puItemMarshal, puItem, "HRESULT")
         return result
     }
 
@@ -139,7 +143,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getobjectcount
      */
     GetObjectCount(puCount) {
-        result := ComCall(11, this, "uint*", puCount, "HRESULT")
+        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, puCountMarshal, puCount, "HRESULT")
         return result
     }
 
@@ -164,7 +170,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-updateobject
      */
     UpdateObject(pidlOld, pidlNew, puItem) {
-        result := ComCall(13, this, "ptr", pidlOld, "ptr", pidlNew, "uint*", puItem, "HRESULT")
+        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pidlOld, "ptr", pidlNew, puItemMarshal, puItem, "HRESULT")
         return result
     }
 
@@ -176,7 +184,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-refreshobject
      */
     RefreshObject(pidl, puItem) {
-        result := ComCall(14, this, "ptr", pidl, "uint*", puItem, "HRESULT")
+        puItemMarshal := puItem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pidl, puItemMarshal, puItem, "HRESULT")
         return result
     }
 
@@ -198,7 +208,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getselectedcount
      */
     GetSelectedCount(puSelected) {
-        result := ComCall(16, this, "uint*", puSelected, "HRESULT")
+        puSelectedMarshal := puSelected is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, puSelectedMarshal, puSelected, "HRESULT")
         return result
     }
 
@@ -210,7 +222,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getselectedobjects
      */
     GetSelectedObjects(pppidl, puItems) {
-        result := ComCall(17, this, "ptr*", pppidl, "uint*", puItems, "HRESULT")
+        puItemsMarshal := puItems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "ptr*", pppidl, puItemsMarshal, puItems, "HRESULT")
         return result
     }
 
@@ -344,7 +358,9 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-querysupport
      */
     QuerySupport(pdwSupport) {
-        result := ComCall(29, this, "uint*", pdwSupport, "HRESULT")
+        pdwSupportMarshal := pdwSupport is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, pdwSupportMarshal, pdwSupport, "HRESULT")
         return result
     }
 

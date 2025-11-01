@@ -36,7 +36,9 @@ class IADsMembers extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(plCount) {
-        result := ComCall(7, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

@@ -35,7 +35,9 @@ class IFtpPostprocessProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     HandlePostprocess(pPostProcessParameters, pFtpProcessStatus) {
-        result := ComCall(3, this, "ptr", pPostProcessParameters, "int*", pFtpProcessStatus, "HRESULT")
+        pFtpProcessStatusMarshal := pFtpProcessStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pPostProcessParameters, pFtpProcessStatusMarshal, pFtpProcessStatus, "HRESULT")
         return result
     }
 }

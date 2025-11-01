@@ -89,7 +89,10 @@ class ID3D11Device1 extends ID3D11Device{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createdevicecontextstate
      */
     CreateDeviceContextState(Flags, pFeatureLevels, FeatureLevels, SDKVersion, EmulatedInterface, pChosenFeatureLevel, ppContextState) {
-        result := ComCall(47, this, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", EmulatedInterface, "int*", pChosenFeatureLevel, "ptr*", ppContextState, "HRESULT")
+        pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
+        pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", EmulatedInterface, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "ptr*", ppContextState, "HRESULT")
         return result
     }
 

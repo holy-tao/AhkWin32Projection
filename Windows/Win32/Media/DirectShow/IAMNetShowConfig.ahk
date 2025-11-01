@@ -44,7 +44,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_bufferingtime
      */
     get_BufferingTime(pBufferingTime) {
-        result := ComCall(7, this, "double*", pBufferingTime, "HRESULT")
+        pBufferingTimeMarshal := pBufferingTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, pBufferingTimeMarshal, pBufferingTime, "HRESULT")
         return result
     }
 
@@ -88,7 +90,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_fixedudpport
      */
     get_FixedUDPPort(pFixedUDPPort) {
-        result := ComCall(11, this, "int*", pFixedUDPPort, "HRESULT")
+        pFixedUDPPortMarshal := pFixedUDPPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pFixedUDPPortMarshal, pFixedUDPPort, "HRESULT")
         return result
     }
 
@@ -178,7 +182,9 @@ class IAMNetShowConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_httpproxyport
      */
     get_HTTPProxyPort(pHTTPProxyPort) {
-        result := ComCall(19, this, "int*", pHTTPProxyPort, "HRESULT")
+        pHTTPProxyPortMarshal := pHTTPProxyPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pHTTPProxyPortMarshal, pHTTPProxyPort, "HRESULT")
         return result
     }
 

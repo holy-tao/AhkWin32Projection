@@ -56,7 +56,11 @@ class ID2D1ComputeTransform extends ID2D1Transform{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-calculatethreadgroups
      */
     CalculateThreadgroups(outputRect, dimensionX, dimensionY, dimensionZ) {
-        result := ComCall(8, this, "ptr", outputRect, "uint*", dimensionX, "uint*", dimensionY, "uint*", dimensionZ, "HRESULT")
+        dimensionXMarshal := dimensionX is VarRef ? "uint*" : "ptr"
+        dimensionYMarshal := dimensionY is VarRef ? "uint*" : "ptr"
+        dimensionZMarshal := dimensionZ is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", outputRect, dimensionXMarshal, dimensionX, dimensionYMarshal, dimensionY, dimensionZMarshal, dimensionZ, "HRESULT")
         return result
     }
 }

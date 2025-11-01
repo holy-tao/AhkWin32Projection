@@ -118,7 +118,9 @@ class IIdentityProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-advise
      */
     Advise(pIdentityAdvise, dwIdentityUpdateEvents, pdwCookie) {
-        result := ComCall(9, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

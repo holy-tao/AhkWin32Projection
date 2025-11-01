@@ -36,7 +36,9 @@ class IEnumRemoteDebugApplications extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, ppda, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppda, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppda, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

@@ -85,7 +85,9 @@ class IFeedItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PubDate(pubDate) {
-        result := ComCall(12, this, "double*", pubDate, "HRESULT")
+        pubDateMarshal := pubDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, pubDateMarshal, pubDate, "HRESULT")
         return result
     }
 
@@ -145,7 +147,9 @@ class IFeedItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LocalId(itemId) {
-        result := ComCall(18, this, "int*", itemId, "HRESULT")
+        itemIdMarshal := itemId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, itemIdMarshal, itemId, "HRESULT")
         return result
     }
 
@@ -184,7 +188,9 @@ class IFeedItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastDownloadTime(lastDownload) {
-        result := ComCall(22, this, "double*", lastDownload, "HRESULT")
+        lastDownloadMarshal := lastDownload is VarRef ? "double*" : "ptr"
+
+        result := ComCall(22, this, lastDownloadMarshal, lastDownload, "HRESULT")
         return result
     }
 
@@ -194,7 +200,9 @@ class IFeedItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Modified(modified) {
-        result := ComCall(23, this, "double*", modified, "HRESULT")
+        modifiedMarshal := modified is VarRef ? "double*" : "ptr"
+
+        result := ComCall(23, this, modifiedMarshal, modified, "HRESULT")
         return result
     }
 }

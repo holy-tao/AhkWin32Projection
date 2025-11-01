@@ -51,7 +51,9 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_videoWidth(p) {
-        result := ComCall(11, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -91,7 +97,9 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_videoHeight(p) {
-        result := ComCall(12, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 

@@ -43,7 +43,9 @@ class IRdcGeneratorFilterMaxParameters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-gethorizonsize
      */
     GetHorizonSize(horizonSize) {
-        result := ComCall(3, this, "uint*", horizonSize, "HRESULT")
+        horizonSizeMarshal := horizonSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, horizonSizeMarshal, horizonSize, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IRdcGeneratorFilterMaxParameters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-gethashwindowsize
      */
     GetHashWindowSize(hashWindowSize) {
-        result := ComCall(5, this, "uint*", hashWindowSize, "HRESULT")
+        hashWindowSizeMarshal := hashWindowSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, hashWindowSizeMarshal, hashWindowSize, "HRESULT")
         return result
     }
 

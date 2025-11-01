@@ -42,7 +42,9 @@ class IWMDMMetaData extends IUnknown{
     AddItem(Type, pwszTagName, pValue, iLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
 
-        result := ComCall(3, this, "int", Type, "ptr", pwszTagName, "char*", pValue, "uint", iLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "int", Type, "ptr", pwszTagName, pValueMarshal, pValue, "uint", iLength, "HRESULT")
         return result
     }
 
@@ -58,7 +60,10 @@ class IWMDMMetaData extends IUnknown{
     QueryByName(pwszTagName, pType, pValue, pcbLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
 
-        result := ComCall(4, this, "ptr", pwszTagName, "int*", pType, "ptr*", pValue, "uint*", pcbLength, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszTagName, pTypeMarshal, pType, "ptr*", pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -73,7 +78,10 @@ class IWMDMMetaData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex
      */
     QueryByIndex(iIndex, ppwszName, pType, ppValue, pcbLength) {
-        result := ComCall(5, this, "uint", iIndex, "ptr*", ppwszName, "int*", pType, "ptr*", ppValue, "uint*", pcbLength, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", iIndex, "ptr*", ppwszName, pTypeMarshal, pType, "ptr*", ppValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -84,7 +92,9 @@ class IWMDMMetaData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount
      */
     GetItemCount(iCount) {
-        result := ComCall(6, this, "uint*", iCount, "HRESULT")
+        iCountMarshal := iCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, iCountMarshal, iCount, "HRESULT")
         return result
     }
 }

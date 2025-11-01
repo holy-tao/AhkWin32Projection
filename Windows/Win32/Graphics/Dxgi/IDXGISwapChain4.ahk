@@ -39,7 +39,9 @@ class IDXGISwapChain4 extends IDXGISwapChain3{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgiswapchain4-sethdrmetadata
      */
     SetHDRMetaData(Type, Size, pMetaData) {
-        result := ComCall(40, this, "int", Type, "uint", Size, "ptr", pMetaData, "HRESULT")
+        pMetaDataMarshal := pMetaData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(40, this, "int", Type, "uint", Size, pMetaDataMarshal, pMetaData, "HRESULT")
         return result
     }
 }

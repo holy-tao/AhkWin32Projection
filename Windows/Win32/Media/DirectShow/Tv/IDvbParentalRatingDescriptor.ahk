@@ -37,7 +37,9 @@ class IDvbParentalRatingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbparentalratingdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbParentalRatingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbparentalratingdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbParentalRatingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbparentalratingdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -72,7 +78,10 @@ class IDvbParentalRatingDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbparentalratingdescriptor-getrecordrating
      */
     GetRecordRating(bRecordIndex, pszCountryCode, pbVal) {
-        result := ComCall(6, this, "char", bRecordIndex, "char*", pszCountryCode, "char*", pbVal, "HRESULT")
+        pszCountryCodeMarshal := pszCountryCode is VarRef ? "char*" : "ptr"
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "char", bRecordIndex, pszCountryCodeMarshal, pszCountryCode, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

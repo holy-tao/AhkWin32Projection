@@ -41,7 +41,9 @@ class IBDA_AUX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-querycapabilities
      */
     QueryCapabilities(pdwNumAuxInputsBSTR) {
-        result := ComCall(3, this, "uint*", pdwNumAuxInputsBSTR, "HRESULT")
+        pdwNumAuxInputsBSTRMarshal := pdwNumAuxInputsBSTR is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwNumAuxInputsBSTRMarshal, pdwNumAuxInputsBSTR, "HRESULT")
         return result
     }
 
@@ -57,7 +59,12 @@ class IBDA_AUX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-enumcapability
      */
     EnumCapability(dwIndex, dwInputID, pConnectorType, ConnTypeNum, NumVideoStds, AnalogStds) {
-        result := ComCall(4, this, "uint", dwIndex, "uint*", dwInputID, "ptr", pConnectorType, "uint*", ConnTypeNum, "uint*", NumVideoStds, "uint*", AnalogStds, "HRESULT")
+        dwInputIDMarshal := dwInputID is VarRef ? "uint*" : "ptr"
+        ConnTypeNumMarshal := ConnTypeNum is VarRef ? "uint*" : "ptr"
+        NumVideoStdsMarshal := NumVideoStds is VarRef ? "uint*" : "ptr"
+        AnalogStdsMarshal := AnalogStds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwIndex, dwInputIDMarshal, dwInputID, "ptr", pConnectorType, ConnTypeNumMarshal, ConnTypeNum, NumVideoStdsMarshal, NumVideoStds, AnalogStdsMarshal, AnalogStds, "HRESULT")
         return result
     }
 }

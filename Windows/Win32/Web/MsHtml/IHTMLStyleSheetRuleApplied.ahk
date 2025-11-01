@@ -34,7 +34,9 @@ class IHTMLStyleSheetRuleApplied extends IDispatch{
      * @returns {HRESULT} 
      */
     get_msSpecificity(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -45,7 +47,9 @@ class IHTMLStyleSheetRuleApplied extends IDispatch{
      * @returns {HRESULT} 
      */
     msGetSpecificity(index, p) {
-        result := ComCall(8, this, "int", index, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", index, pMarshal, p, "HRESULT")
         return result
     }
 }

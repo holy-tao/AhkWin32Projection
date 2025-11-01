@@ -49,7 +49,9 @@ class IHostSemaphore extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-releasesemaphore
      */
     ReleaseSemaphore(lReleaseCount, lpPreviousCount) {
-        result := ComCall(4, this, "int", lReleaseCount, "int*", lpPreviousCount, "HRESULT")
+        lpPreviousCountMarshal := lpPreviousCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", lReleaseCount, lpPreviousCountMarshal, lpPreviousCount, "HRESULT")
         return result
     }
 }

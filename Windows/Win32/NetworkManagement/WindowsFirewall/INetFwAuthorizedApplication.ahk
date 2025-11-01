@@ -101,7 +101,9 @@ class INetFwAuthorizedApplication extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_ipversion
      */
     get_IpVersion(ipVersion) {
-        result := ComCall(11, this, "int*", ipVersion, "HRESULT")
+        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, ipVersionMarshal, ipVersion, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class INetFwAuthorizedApplication extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_scope
      */
     get_Scope(scope) {
-        result := ComCall(13, this, "int*", scope, "HRESULT")
+        scopeMarshal := scope is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, scopeMarshal, scope, "HRESULT")
         return result
     }
 

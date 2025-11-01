@@ -35,7 +35,9 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {HRESULT} 
      */
     get_HardwareKeyUsage(pValue) {
-        result := ComCall(65, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(65, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {HRESULT} 
      */
     get_ParametersExportType(pValue) {
-        result := ComCall(73, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(73, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

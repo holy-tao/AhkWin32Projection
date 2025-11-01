@@ -197,7 +197,9 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {HRESULT} 
      */
     compareDocumentPosition(otherNode, flags) {
-        result := ComCall(22, this, "ptr", otherNode, "ushort*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(22, this, "ptr", otherNode, flagsMarshal, flags, "HRESULT")
         return result
     }
 

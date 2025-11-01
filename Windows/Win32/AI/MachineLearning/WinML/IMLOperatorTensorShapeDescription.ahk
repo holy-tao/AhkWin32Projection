@@ -35,7 +35,9 @@ class IMLOperatorTensorShapeDescription extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInputTensorDimensionCount(inputIndex, dimensionCount) {
-        result := ComCall(3, this, "uint", inputIndex, "uint*", dimensionCount, "HRESULT")
+        dimensionCountMarshal := dimensionCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", inputIndex, dimensionCountMarshal, dimensionCount, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IMLOperatorTensorShapeDescription extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInputTensorShape(inputIndex, dimensionCount, dimensions) {
-        result := ComCall(4, this, "uint", inputIndex, "uint", dimensionCount, "uint*", dimensions, "HRESULT")
+        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", inputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
         return result
     }
 
@@ -67,7 +71,9 @@ class IMLOperatorTensorShapeDescription extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputTensorDimensionCount(outputIndex, dimensionCount) {
-        result := ComCall(6, this, "uint", outputIndex, "uint*", dimensionCount, "HRESULT")
+        dimensionCountMarshal := dimensionCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", outputIndex, dimensionCountMarshal, dimensionCount, "HRESULT")
         return result
     }
 
@@ -79,7 +85,9 @@ class IMLOperatorTensorShapeDescription extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputTensorShape(outputIndex, dimensionCount, dimensions) {
-        result := ComCall(7, this, "uint", outputIndex, "uint", dimensionCount, "uint*", dimensions, "HRESULT")
+        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", outputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
         return result
     }
 }

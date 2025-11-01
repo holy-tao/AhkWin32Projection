@@ -53,7 +53,9 @@ class IMbnSms extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-setsmsconfiguration
      */
     SetSmsConfiguration(smsConfiguration, requestID) {
-        result := ComCall(4, this, "ptr", smsConfiguration, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", smsConfiguration, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IMbnSms extends IUnknown{
     SmsSendPdu(pduData, size, requestID) {
         pduData := pduData is String ? StrPtr(pduData) : pduData
 
-        result := ComCall(5, this, "ptr", pduData, "char", size, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pduData, "char", size, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IMbnSms extends IUnknown{
     SmsSendCdma(address, encoding, language, sizeInCharacters, message, requestID) {
         address := address is String ? StrPtr(address) : address
 
-        result := ComCall(6, this, "ptr", address, "int", encoding, "int", language, "uint", sizeInCharacters, "ptr", message, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", address, "int", encoding, "int", language, "uint", sizeInCharacters, "ptr", message, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -98,7 +104,9 @@ class IMbnSms extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendcdmapdu
      */
     SmsSendCdmaPdu(message, requestID) {
-        result := ComCall(7, this, "ptr", message, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", message, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -111,7 +119,9 @@ class IMbnSms extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smsread
      */
     SmsRead(smsFilter, smsFormat, requestID) {
-        result := ComCall(8, this, "ptr", smsFilter, "int", smsFormat, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", smsFilter, "int", smsFormat, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -123,7 +133,9 @@ class IMbnSms extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smsdelete
      */
     SmsDelete(smsFilter, requestID) {
-        result := ComCall(9, this, "ptr", smsFilter, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", smsFilter, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 

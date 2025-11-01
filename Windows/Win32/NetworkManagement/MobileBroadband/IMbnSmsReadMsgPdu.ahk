@@ -44,7 +44,9 @@ class IMbnSmsReadMsgPdu extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_index
      */
     get_Index(Index) {
-        result := ComCall(3, this, "uint*", Index, "HRESULT")
+        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, IndexMarshal, Index, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IMbnSmsReadMsgPdu extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_status
      */
     get_Status(Status) {
-        result := ComCall(4, this, "int*", Status, "HRESULT")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, StatusMarshal, Status, "HRESULT")
         return result
     }
 

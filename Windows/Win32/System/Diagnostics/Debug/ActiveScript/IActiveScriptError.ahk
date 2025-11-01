@@ -46,7 +46,11 @@ class IActiveScriptError extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourcePosition(pdwSourceContext, pulLineNumber, plCharacterPosition) {
-        result := ComCall(4, this, "uint*", pdwSourceContext, "uint*", pulLineNumber, "int*", plCharacterPosition, "HRESULT")
+        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : "ptr"
+        pulLineNumberMarshal := pulLineNumber is VarRef ? "uint*" : "ptr"
+        plCharacterPositionMarshal := plCharacterPosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pdwSourceContextMarshal, pdwSourceContext, pulLineNumberMarshal, pulLineNumber, plCharacterPositionMarshal, plCharacterPosition, "HRESULT")
         return result
     }
 

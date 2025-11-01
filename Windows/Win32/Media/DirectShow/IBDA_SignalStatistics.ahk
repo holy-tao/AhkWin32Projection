@@ -53,7 +53,9 @@ class IBDA_SignalStatistics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signalstrength
      */
     get_SignalStrength(plDbStrength) {
-        result := ComCall(4, this, "int*", plDbStrength, "HRESULT")
+        plDbStrengthMarshal := plDbStrength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plDbStrengthMarshal, plDbStrength, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IBDA_SignalStatistics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signalquality
      */
     get_SignalQuality(plPercentQuality) {
-        result := ComCall(6, this, "int*", plPercentQuality, "HRESULT")
+        plPercentQualityMarshal := plPercentQuality is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, plPercentQualityMarshal, plPercentQuality, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class IBDA_SignalStatistics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signalpresent
      */
     get_SignalPresent(pfPresent) {
-        result := ComCall(8, this, "char*", pfPresent, "HRESULT")
+        pfPresentMarshal := pfPresent is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pfPresentMarshal, pfPresent, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IBDA_SignalStatistics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signallocked
      */
     get_SignalLocked(pfLocked) {
-        result := ComCall(10, this, "char*", pfLocked, "HRESULT")
+        pfLockedMarshal := pfLocked is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pfLockedMarshal, pfLocked, "HRESULT")
         return result
     }
 
@@ -141,7 +149,9 @@ class IBDA_SignalStatistics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_sampletime
      */
     get_SampleTime(plmsSampleTime) {
-        result := ComCall(12, this, "int*", plmsSampleTime, "HRESULT")
+        plmsSampleTimeMarshal := plmsSampleTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plmsSampleTimeMarshal, plmsSampleTime, "HRESULT")
         return result
     }
 }

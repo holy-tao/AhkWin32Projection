@@ -37,7 +37,9 @@ class IWMWriterAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getsinkcount
      */
     GetSinkCount(pcSinks) {
-        result := ComCall(3, this, "uint*", pcSinks, "HRESULT")
+        pcSinksMarshal := pcSinks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcSinksMarshal, pcSinks, "HRESULT")
         return result
     }
 
@@ -120,7 +122,9 @@ class IWMWriterAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getwritertime
      */
     GetWriterTime(pcnsCurrentTime) {
-        result := ComCall(10, this, "uint*", pcnsCurrentTime, "HRESULT")
+        pcnsCurrentTimeMarshal := pcnsCurrentTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcnsCurrentTimeMarshal, pcnsCurrentTime, "HRESULT")
         return result
     }
 
@@ -154,7 +158,9 @@ class IWMWriterAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getsynctolerance
      */
     GetSyncTolerance(pmsWindow) {
-        result := ComCall(13, this, "uint*", pmsWindow, "HRESULT")
+        pmsWindowMarshal := pmsWindow is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pmsWindowMarshal, pmsWindow, "HRESULT")
         return result
     }
 }

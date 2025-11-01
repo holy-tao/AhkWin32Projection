@@ -135,7 +135,9 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(State) {
-        result := ComCall(17, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, StateMarshal, State, "HRESULT")
         return result
     }
 
@@ -226,7 +228,9 @@ class ISpeechRecognizer extends IDispatch{
     GetPropertyNumber(Name, Value, Supported) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(25, this, "ptr", Name, "int*", Value, "ptr", Supported, "HRESULT")
+        ValueMarshal := Value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "ptr", Name, ValueMarshal, Value, "ptr", Supported, "HRESULT")
         return result
     }
 

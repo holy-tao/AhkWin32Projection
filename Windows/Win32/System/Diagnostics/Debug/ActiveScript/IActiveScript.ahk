@@ -65,7 +65,9 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScriptState(pssState) {
-        result := ComCall(6, this, "int*", pssState, "HRESULT")
+        pssStateMarshal := pssState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pssStateMarshal, pssState, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentScriptThreadID(pstidThread) {
-        result := ComCall(11, this, "uint*", pstidThread, "HRESULT")
+        pstidThreadMarshal := pstidThread is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pstidThreadMarshal, pstidThread, "HRESULT")
         return result
     }
 
@@ -134,7 +138,9 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScriptThreadID(dwWin32ThreadId, pstidThread) {
-        result := ComCall(12, this, "uint", dwWin32ThreadId, "uint*", pstidThread, "HRESULT")
+        pstidThreadMarshal := pstidThread is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwWin32ThreadId, pstidThreadMarshal, pstidThread, "HRESULT")
         return result
     }
 
@@ -145,7 +151,9 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScriptThreadState(stidThread, pstsState) {
-        result := ComCall(13, this, "uint", stidThread, "int*", pstsState, "HRESULT")
+        pstsStateMarshal := pstsState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "uint", stidThread, pstsStateMarshal, pstsState, "HRESULT")
         return result
     }
 

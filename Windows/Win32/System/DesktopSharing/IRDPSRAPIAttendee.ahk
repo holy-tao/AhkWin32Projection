@@ -48,7 +48,9 @@ class IRDPSRAPIAttendee extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_id
      */
     get_Id(pId) {
-        result := ComCall(7, this, "int*", pId, "HRESULT")
+        pIdMarshal := pId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pIdMarshal, pId, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IRDPSRAPIAttendee extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_controllevel
      */
     get_ControlLevel(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -113,7 +117,9 @@ class IRDPSRAPIAttendee extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_flags
      */
     get_Flags(plFlags) {
-        result := ComCall(13, this, "int*", plFlags, "HRESULT")
+        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plFlagsMarshal, plFlags, "HRESULT")
         return result
     }
 

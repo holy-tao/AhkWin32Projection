@@ -39,7 +39,9 @@ class IPrintOemUI2 extends IPrintOemUI{
     QueryJobAttributes(hPrinter, pDevmode, dwLevel, lpAttributeInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(17, this, "ptr", hPrinter, "ptr", pDevmode, "uint", dwLevel, "char*", lpAttributeInfo, "HRESULT")
+        lpAttributeInfoMarshal := lpAttributeInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(17, this, "ptr", hPrinter, "ptr", pDevmode, "uint", dwLevel, lpAttributeInfoMarshal, lpAttributeInfo, "HRESULT")
         return result
     }
 
@@ -69,7 +71,11 @@ class IPrintOemUI2 extends IPrintOemUI{
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := ComCall(19, this, "ptr", hPrinter, "ptr", hdc, "int", iEsc, "uint", cbIn, "ptr", pvIn, "uint", cbOut, "ptr", pvOut, "int*", piResult, "HRESULT")
+        pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
+        pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
+        piResultMarshal := piResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "ptr", hPrinter, "ptr", hdc, "int", iEsc, "uint", cbIn, pvInMarshal, pvIn, "uint", cbOut, pvOutMarshal, pvOut, piResultMarshal, piResult, "HRESULT")
         return result
     }
 }

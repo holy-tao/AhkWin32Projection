@@ -43,7 +43,9 @@ class IBDA_IPSinkControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getmulticastlist
      */
     GetMulticastList(pulcbSize, pbBuffer) {
-        result := ComCall(3, this, "uint*", pulcbSize, "ptr*", pbBuffer, "HRESULT")
+        pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulcbSizeMarshal, pulcbSize, "ptr*", pbBuffer, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IBDA_IPSinkControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getadapteripaddress
      */
     GetAdapterIPAddress(pulcbSize, pbBuffer) {
-        result := ComCall(4, this, "uint*", pulcbSize, "ptr*", pbBuffer, "HRESULT")
+        pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulcbSizeMarshal, pulcbSize, "ptr*", pbBuffer, "HRESULT")
         return result
     }
 }

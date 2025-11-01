@@ -38,7 +38,10 @@ class IOfflineFilesConnectionInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate
      */
     GetConnectState(pConnectState, pOfflineReason) {
-        result := ComCall(3, this, "int*", pConnectState, "int*", pOfflineReason, "HRESULT")
+        pConnectStateMarshal := pConnectState is VarRef ? "int*" : "ptr"
+        pOfflineReasonMarshal := pOfflineReason is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pConnectStateMarshal, pConnectState, pOfflineReasonMarshal, pOfflineReason, "HRESULT")
         return result
     }
 

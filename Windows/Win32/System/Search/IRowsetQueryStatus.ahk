@@ -34,7 +34,9 @@ class IRowsetQueryStatus extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus(pdwStatus) {
-        result := ComCall(3, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -52,7 +54,16 @@ class IRowsetQueryStatus extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatusEx(pdwStatus, pcFilteredDocuments, pcDocumentsToFilter, pdwRatioFinishedDenominator, pdwRatioFinishedNumerator, cbBmk, pBmk, piRowBmk, pcRowsTotal) {
-        result := ComCall(4, this, "uint*", pdwStatus, "uint*", pcFilteredDocuments, "uint*", pcDocumentsToFilter, "ptr*", pdwRatioFinishedDenominator, "ptr*", pdwRatioFinishedNumerator, "ptr", cbBmk, "char*", pBmk, "ptr*", piRowBmk, "ptr*", pcRowsTotal, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        pcFilteredDocumentsMarshal := pcFilteredDocuments is VarRef ? "uint*" : "ptr"
+        pcDocumentsToFilterMarshal := pcDocumentsToFilter is VarRef ? "uint*" : "ptr"
+        pdwRatioFinishedDenominatorMarshal := pdwRatioFinishedDenominator is VarRef ? "ptr*" : "ptr"
+        pdwRatioFinishedNumeratorMarshal := pdwRatioFinishedNumerator is VarRef ? "ptr*" : "ptr"
+        pBmkMarshal := pBmk is VarRef ? "char*" : "ptr"
+        piRowBmkMarshal := piRowBmk is VarRef ? "ptr*" : "ptr"
+        pcRowsTotalMarshal := pcRowsTotal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pdwStatusMarshal, pdwStatus, pcFilteredDocumentsMarshal, pcFilteredDocuments, pcDocumentsToFilterMarshal, pcDocumentsToFilter, pdwRatioFinishedDenominatorMarshal, pdwRatioFinishedDenominator, pdwRatioFinishedNumeratorMarshal, pdwRatioFinishedNumerator, "ptr", cbBmk, pBmkMarshal, pBmk, piRowBmkMarshal, piRowBmk, pcRowsTotalMarshal, pcRowsTotal, "HRESULT")
         return result
     }
 }

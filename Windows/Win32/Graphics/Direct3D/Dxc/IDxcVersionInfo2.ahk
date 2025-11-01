@@ -35,7 +35,9 @@ class IDxcVersionInfo2 extends IDxcVersionInfo{
      * @returns {HRESULT} 
      */
     GetCommitInfo(pCommitCount, pCommitHash) {
-        result := ComCall(5, this, "uint*", pCommitCount, "ptr*", pCommitHash, "HRESULT")
+        pCommitCountMarshal := pCommitCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pCommitCountMarshal, pCommitCount, "ptr*", pCommitHash, "HRESULT")
         return result
     }
 }

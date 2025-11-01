@@ -48,7 +48,9 @@ class ID3D12GBVDiagnostics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGBVSubresourceState(pResource, Subresource, pData) {
-        result := ComCall(4, this, "ptr", pResource, "uint", Subresource, "int*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pResource, "uint", Subresource, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ID3D12GBVDiagnostics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGBVResourceUniformState(pResource, pData) {
-        result := ComCall(5, this, "ptr", pResource, "int*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pResource, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -72,7 +76,10 @@ class ID3D12GBVDiagnostics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGBVResourceInfo(pResource, pResourceDesc, pResourceHash, pSubresourceStatesByteOffset) {
-        result := ComCall(6, this, "ptr", pResource, "ptr", pResourceDesc, "uint*", pResourceHash, "uint*", pSubresourceStatesByteOffset, "HRESULT")
+        pResourceHashMarshal := pResourceHash is VarRef ? "uint*" : "ptr"
+        pSubresourceStatesByteOffsetMarshal := pSubresourceStatesByteOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pResource, "ptr", pResourceDesc, pResourceHashMarshal, pResourceHash, pSubresourceStatesByteOffsetMarshal, pSubresourceStatesByteOffset, "HRESULT")
         return result
     }
 

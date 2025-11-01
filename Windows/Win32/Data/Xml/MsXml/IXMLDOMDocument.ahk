@@ -231,7 +231,9 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     get_readyState(value) {
-        result := ComCall(59, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(59, this, valueMarshal, value, "HRESULT")
         return result
     }
 

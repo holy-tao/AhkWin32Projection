@@ -55,7 +55,9 @@ class IXpsOMDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getcount
      */
     GetCount(count) {
-        result := ComCall(4, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -95,7 +97,9 @@ class IXpsOMDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getindex
      */
     GetIndex(entry, index) {
-        result := ComCall(7, this, "ptr", entry, "uint*", index, "HRESULT")
+        indexMarshal := index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", entry, indexMarshal, index, "HRESULT")
         return result
     }
 

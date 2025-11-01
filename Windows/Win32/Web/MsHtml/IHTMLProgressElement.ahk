@@ -50,7 +50,9 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_value(p) {
-        result := ComCall(8, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_max(p) {
-        result := ComCall(10, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -80,7 +84,9 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_position(p) {
-        result := ComCall(11, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 

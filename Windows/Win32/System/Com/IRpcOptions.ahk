@@ -84,7 +84,9 @@ class IRpcOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcoptions-query
      */
     Query(pPrx, dwProperty, pdwValue) {
-        result := ComCall(4, this, "ptr", pPrx, "int", dwProperty, "ptr*", pdwValue, "HRESULT")
+        pdwValueMarshal := pdwValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pPrx, "int", dwProperty, pdwValueMarshal, pdwValue, "HRESULT")
         return result
     }
 }

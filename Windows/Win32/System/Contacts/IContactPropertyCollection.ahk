@@ -67,7 +67,9 @@ class IContactPropertyCollection extends IUnknown{
     GetPropertyName(pszPropertyName, cchPropertyName, pdwcchPropertyNameRequired) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "uint", cchPropertyName, "uint*", pdwcchPropertyNameRequired, "HRESULT")
+        pdwcchPropertyNameRequiredMarshal := pdwcchPropertyNameRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszPropertyName, "uint", cchPropertyName, pdwcchPropertyNameRequiredMarshal, pdwcchPropertyNameRequired, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class IContactPropertyCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertytype
      */
     GetPropertyType(pdwType) {
-        result := ComCall(6, this, "uint*", pdwType, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwTypeMarshal, pdwType, "HRESULT")
         return result
     }
 
@@ -89,7 +93,9 @@ class IContactPropertyCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertyversion
      */
     GetPropertyVersion(pdwVersion) {
-        result := ComCall(7, this, "uint*", pdwVersion, "HRESULT")
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
     }
 
@@ -115,7 +121,9 @@ class IContactPropertyCollection extends IUnknown{
     GetPropertyArrayElementID(pszArrayElementID, cchArrayElementID, pdwcchArrayElementIDRequired) {
         pszArrayElementID := pszArrayElementID is String ? StrPtr(pszArrayElementID) : pszArrayElementID
 
-        result := ComCall(9, this, "ptr", pszArrayElementID, "uint", cchArrayElementID, "uint*", pdwcchArrayElementIDRequired, "HRESULT")
+        pdwcchArrayElementIDRequiredMarshal := pdwcchArrayElementIDRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pszArrayElementID, "uint", cchArrayElementID, pdwcchArrayElementIDRequiredMarshal, pdwcchArrayElementIDRequired, "HRESULT")
         return result
     }
 }

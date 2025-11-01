@@ -42,7 +42,9 @@ class ITLegacyAddressMediaControl extends IUnknown{
     GetID(pDeviceClass, pdwSize, ppDeviceID) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        result := ComCall(3, this, "ptr", pDeviceClass, "uint*", pdwSize, "ptr*", ppDeviceID, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, "ptr*", ppDeviceID, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class ITLegacyAddressMediaControl extends IUnknown{
     GetDevConfig(pDeviceClass, pdwSize, ppDeviceConfig) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        result := ComCall(4, this, "ptr", pDeviceClass, "uint*", pdwSize, "ptr*", ppDeviceConfig, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, "ptr*", ppDeviceConfig, "HRESULT")
         return result
     }
 
@@ -72,7 +76,9 @@ class ITLegacyAddressMediaControl extends IUnknown{
     SetDevConfig(pDeviceClass, dwSize, pDeviceConfig) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        result := ComCall(5, this, "ptr", pDeviceClass, "uint", dwSize, "char*", pDeviceConfig, "HRESULT")
+        pDeviceConfigMarshal := pDeviceConfig is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pDeviceClass, "uint", dwSize, pDeviceConfigMarshal, pDeviceConfig, "HRESULT")
         return result
     }
 }

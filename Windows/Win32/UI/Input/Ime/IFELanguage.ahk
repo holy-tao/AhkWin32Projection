@@ -69,7 +69,9 @@ class IFELanguage extends IUnknown{
     GetJMorphResult(dwRequest, dwCMode, cwchInput, pwchInput, pfCInfo, ppResult) {
         pwchInput := pwchInput is String ? StrPtr(pwchInput) : pwchInput
 
-        result := ComCall(5, this, "uint", dwRequest, "uint", dwCMode, "int", cwchInput, "ptr", pwchInput, "uint*", pfCInfo, "ptr*", ppResult, "HRESULT")
+        pfCInfoMarshal := pfCInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwRequest, "uint", dwCMode, "int", cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, "ptr*", ppResult, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class IFELanguage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-getconversionmodecaps
      */
     GetConversionModeCaps(pdwCaps) {
-        result := ComCall(6, this, "uint*", pdwCaps, "HRESULT")
+        pdwCapsMarshal := pdwCaps is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwCapsMarshal, pdwCaps, "HRESULT")
         return result
     }
 

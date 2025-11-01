@@ -40,7 +40,10 @@ class IViewHelper extends IUnknown{
     GetConnectedIDs(wszAdaptorName, pulCount, pulID, ulFlags) {
         wszAdaptorName := wszAdaptorName is String ? StrPtr(wszAdaptorName) : wszAdaptorName
 
-        result := ComCall(3, this, "ptr", wszAdaptorName, "uint*", pulCount, "uint*", pulID, "uint", ulFlags, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+        pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", wszAdaptorName, pulCountMarshal, pulCount, pulIDMarshal, pulID, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -56,7 +59,10 @@ class IViewHelper extends IUnknown{
     GetActiveTopology(wszAdaptorName, ulSourceID, pulCount, pulTargetID) {
         wszAdaptorName := wszAdaptorName is String ? StrPtr(wszAdaptorName) : wszAdaptorName
 
-        result := ComCall(4, this, "ptr", wszAdaptorName, "uint", ulSourceID, "uint*", pulCount, "uint*", pulTargetID, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+        pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", wszAdaptorName, "uint", ulSourceID, pulCountMarshal, pulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
         return result
     }
 
@@ -72,7 +78,9 @@ class IViewHelper extends IUnknown{
     SetActiveTopology(wszAdaptorName, ulSourceID, ulCount, pulTargetID) {
         wszAdaptorName := wszAdaptorName is String ? StrPtr(wszAdaptorName) : wszAdaptorName
 
-        result := ComCall(5, this, "ptr", wszAdaptorName, "uint", ulSourceID, "uint", ulCount, "uint*", pulTargetID, "HRESULT")
+        pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", wszAdaptorName, "uint", ulSourceID, "uint", ulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
         return result
     }
 
@@ -94,7 +102,9 @@ class IViewHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/nf-cloneviewhelper-iviewhelper-setconfiguration
      */
     SetConfiguration(pIStream, pulStatus) {
-        result := ComCall(7, this, "ptr", pIStream, "uint*", pulStatus, "HRESULT")
+        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pIStream, pulStatusMarshal, pulStatus, "HRESULT")
         return result
     }
 

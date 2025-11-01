@@ -49,7 +49,9 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getiidandmethod
      */
     GetIIDAndMethod(pIID, piMethod) {
-        result := ComCall(4, this, "ptr", pIID, "uint*", piMethod, "HRESULT")
+        piMethodMarshal := piMethod is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pIID, piMethodMarshal, piMethod, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-setstacklocation
      */
     SetStackLocation(pvStack) {
-        ComCall(7, this, "ptr", pvStack)
+        pvStackMarshal := pvStack is VarRef ? "ptr" : "ptr"
+
+        ComCall(7, this, pvStackMarshal, pvStack)
     }
 
     /**
@@ -205,7 +209,9 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getmarshalsizemax
      */
     GetMarshalSizeMax(pmshlContext, mshlflags, pcbBufferNeeded) {
-        result := ComCall(17, this, "ptr", pmshlContext, "int", mshlflags, "uint*", pcbBufferNeeded, "HRESULT")
+        pcbBufferNeededMarshal := pcbBufferNeeded is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "ptr", pmshlContext, "int", mshlflags, pcbBufferNeededMarshal, pcbBufferNeeded, "HRESULT")
         return result
     }
 
@@ -222,7 +228,12 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-marshal
      */
     Marshal(pmshlContext, mshlflags, pBuffer, cbBuffer, pcbBufferUsed, pdataRep, prpcFlags) {
-        result := ComCall(18, this, "ptr", pmshlContext, "int", mshlflags, "ptr", pBuffer, "uint", cbBuffer, "uint*", pcbBufferUsed, "uint*", pdataRep, "uint*", prpcFlags, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pcbBufferUsedMarshal := pcbBufferUsed is VarRef ? "uint*" : "ptr"
+        pdataRepMarshal := pdataRep is VarRef ? "uint*" : "ptr"
+        prpcFlagsMarshal := prpcFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", pmshlContext, "int", mshlflags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
         return result
     }
 
@@ -237,7 +248,10 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-unmarshal
      */
     Unmarshal(pBuffer, cbBuffer, dataRep, pcontext, pcbUnmarshalled) {
-        result := ComCall(19, this, "ptr", pBuffer, "uint", cbBuffer, "uint", dataRep, "ptr", pcontext, "uint*", pcbUnmarshalled, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, "ptr", pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, "HRESULT")
         return result
     }
 
@@ -252,7 +266,9 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-releasemarshaldata
      */
     ReleaseMarshalData(pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
-        result := ComCall(20, this, "ptr", pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(20, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
         return result
     }
 
@@ -263,7 +279,9 @@ class ICallFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-invoke
      */
     Invoke(pvReceiver) {
-        result := ComCall(21, this, "ptr", pvReceiver, "HRESULT")
+        pvReceiverMarshal := pvReceiver is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(21, this, pvReceiverMarshal, pvReceiver, "HRESULT")
         return result
     }
 }

@@ -40,7 +40,12 @@ class IWinInetCacheHints extends IUnknown{
     SetCacheExtension(pwzExt, pszCacheFile, pcbCacheFile, pdwWinInetError, pdwReserved) {
         pwzExt := pwzExt is String ? StrPtr(pwzExt) : pwzExt
 
-        result := ComCall(3, this, "ptr", pwzExt, "ptr", pszCacheFile, "uint*", pcbCacheFile, "uint*", pdwWinInetError, "uint*", pdwReserved, "HRESULT")
+        pszCacheFileMarshal := pszCacheFile is VarRef ? "ptr" : "ptr"
+        pcbCacheFileMarshal := pcbCacheFile is VarRef ? "uint*" : "ptr"
+        pdwWinInetErrorMarshal := pdwWinInetError is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwzExt, pszCacheFileMarshal, pszCacheFile, pcbCacheFileMarshal, pcbCacheFile, pdwWinInetErrorMarshal, pdwWinInetError, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 }

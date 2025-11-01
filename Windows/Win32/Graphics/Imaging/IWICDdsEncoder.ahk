@@ -66,7 +66,11 @@ class IWICDdsEncoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsencoder-createnewframe
      */
     CreateNewFrame(ppIFrameEncode, pArrayIndex, pMipLevel, pSliceIndex) {
-        result := ComCall(5, this, "ptr*", ppIFrameEncode, "uint*", pArrayIndex, "uint*", pMipLevel, "uint*", pSliceIndex, "HRESULT")
+        pArrayIndexMarshal := pArrayIndex is VarRef ? "uint*" : "ptr"
+        pMipLevelMarshal := pMipLevel is VarRef ? "uint*" : "ptr"
+        pSliceIndexMarshal := pSliceIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", ppIFrameEncode, pArrayIndexMarshal, pArrayIndex, pMipLevelMarshal, pMipLevel, pSliceIndexMarshal, pSliceIndex, "HRESULT")
         return result
     }
 }

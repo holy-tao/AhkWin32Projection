@@ -46,7 +46,9 @@ class IDvdState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdstate-getdiscid
      */
     GetDiscID(pullUniqueID) {
-        result := ComCall(3, this, "uint*", pullUniqueID, "HRESULT")
+        pullUniqueIDMarshal := pullUniqueID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pullUniqueIDMarshal, pullUniqueID, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IDvdState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdstate-getparentallevel
      */
     GetParentalLevel(pulParentalLevel) {
-        result := ComCall(4, this, "uint*", pulParentalLevel, "HRESULT")
+        pulParentalLevelMarshal := pulParentalLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulParentalLevelMarshal, pulParentalLevel, "HRESULT")
         return result
     }
 }

@@ -40,7 +40,9 @@ class IGameStatistics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxCategoryLength(cch) {
-        result := ComCall(3, this, "uint*", cch, "HRESULT")
+        cchMarshal := cch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, cchMarshal, cch, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IGameStatistics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxNameLength(cch) {
-        result := ComCall(4, this, "uint*", cch, "HRESULT")
+        cchMarshal := cch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, cchMarshal, cch, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IGameStatistics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxValueLength(cch) {
-        result := ComCall(5, this, "uint*", cch, "HRESULT")
+        cchMarshal := cch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, cchMarshal, cch, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IGameStatistics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxCategories(pMax) {
-        result := ComCall(6, this, "ushort*", pMax, "HRESULT")
+        pMaxMarshal := pMax is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pMaxMarshal, pMax, "HRESULT")
         return result
     }
 
@@ -80,7 +88,9 @@ class IGameStatistics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxStatsPerCategory(pMax) {
-        result := ComCall(7, this, "ushort*", pMax, "HRESULT")
+        pMaxMarshal := pMax is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pMaxMarshal, pMax, "HRESULT")
         return result
     }
 
@@ -163,7 +173,9 @@ class IGameStatistics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLastPlayedCategory(pCategoryIndex) {
-        result := ComCall(14, this, "uint*", pCategoryIndex, "HRESULT")
+        pCategoryIndexMarshal := pCategoryIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pCategoryIndexMarshal, pCategoryIndex, "HRESULT")
         return result
     }
 }

@@ -37,7 +37,9 @@ class IAMTimecodeDisplay extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-gettcdisplayenable
      */
     GetTCDisplayEnable(pState) {
-        result := ComCall(3, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IAMTimecodeDisplay extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-gettcdisplay
      */
     GetTCDisplay(Param, pValue) {
-        result := ComCall(5, this, "int", Param, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", Param, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

@@ -144,7 +144,9 @@ class Document extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Mode(Mode) {
-        result := ComCall(17, this, "int*", Mode, "HRESULT")
+        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, ModeMarshal, Mode, "HRESULT")
         return result
     }
 

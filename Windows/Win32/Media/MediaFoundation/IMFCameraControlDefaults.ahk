@@ -61,7 +61,10 @@ class IMFCameraControlDefaults extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaults-lockcontroldata
      */
     LockControlData(control, controlSize, data, dataSize) {
-        result := ComCall(5, this, "ptr*", control, "uint*", controlSize, "ptr*", data, "uint*", dataSize, "HRESULT")
+        controlSizeMarshal := controlSize is VarRef ? "uint*" : "ptr"
+        dataSizeMarshal := dataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", control, controlSizeMarshal, controlSize, "ptr*", data, dataSizeMarshal, dataSize, "HRESULT")
         return result
     }
 

@@ -38,7 +38,10 @@ class IJsDebugDataTarget extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadMemory(address, flags, pBuffer, size, pBytesRead) {
-        result := ComCall(3, this, "uint", address, "int", flags, "char*", pBuffer, "uint", size, "uint*", pBytesRead, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", address, "int", flags, pBufferMarshal, pBuffer, "uint", size, pBytesReadMarshal, pBytesRead, "HRESULT")
         return result
     }
 
@@ -50,7 +53,9 @@ class IJsDebugDataTarget extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteMemory(address, pMemory, size) {
-        result := ComCall(4, this, "uint", address, "char*", pMemory, "uint", size, "HRESULT")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", address, pMemoryMarshal, pMemory, "uint", size, "HRESULT")
         return result
     }
 
@@ -64,7 +69,9 @@ class IJsDebugDataTarget extends IUnknown{
      * @returns {HRESULT} 
      */
     AllocateVirtualMemory(address, size, allocationType, pageProtection, pAllocatedAddress) {
-        result := ComCall(5, this, "uint", address, "uint", size, "uint", allocationType, "uint", pageProtection, "uint*", pAllocatedAddress, "HRESULT")
+        pAllocatedAddressMarshal := pAllocatedAddress is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", address, "uint", size, "uint", allocationType, "uint", pageProtection, pAllocatedAddressMarshal, pAllocatedAddress, "HRESULT")
         return result
     }
 
@@ -88,7 +95,9 @@ class IJsDebugDataTarget extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTlsValue(threadId, tlsIndex, pValue) {
-        result := ComCall(7, this, "uint", threadId, "uint", tlsIndex, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", threadId, "uint", tlsIndex, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -139,7 +148,9 @@ class IJsDebugDataTarget extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId, contextFlags, contextSize, pContext) {
-        result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, "ptr", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, pContextMarshal, pContext, "HRESULT")
         return result
     }
 }

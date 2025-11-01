@@ -94,7 +94,9 @@ class IConstraintConflict extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConstraintResolveActionForChange(pConstraintResolveAction) {
-        result := ComCall(9, this, "int*", pConstraintResolveAction, "HRESULT")
+        pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pConstraintResolveActionMarshal, pConstraintResolveAction, "HRESULT")
         return result
     }
 
@@ -115,7 +117,9 @@ class IConstraintConflict extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConstraintResolveActionForChangeUnit(pChangeUnit, pConstraintResolveAction) {
-        result := ComCall(11, this, "ptr", pChangeUnit, "int*", pConstraintResolveAction, "HRESULT")
+        pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pChangeUnit, pConstraintResolveActionMarshal, pConstraintResolveAction, "HRESULT")
         return result
     }
 
@@ -136,7 +140,9 @@ class IConstraintConflict extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConstraintConflictReason(pConstraintConflictReason) {
-        result := ComCall(13, this, "int*", pConstraintConflictReason, "HRESULT")
+        pConstraintConflictReasonMarshal := pConstraintConflictReason is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pConstraintConflictReasonMarshal, pConstraintConflictReason, "HRESULT")
         return result
     }
 

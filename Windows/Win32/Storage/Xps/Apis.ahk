@@ -496,7 +496,9 @@ class Xps {
     static Escape(hdc, iEscape, cjIn, pvIn, pvOut) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Escape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, "ptr", pvOut, "int")
+        pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GDI32.dll\Escape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, pvOutMarshal, pvOut, "int")
         return result
     }
 

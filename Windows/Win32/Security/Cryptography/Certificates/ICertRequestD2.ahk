@@ -47,7 +47,10 @@ class ICertRequestD2 extends ICertRequestD{
         pwszSerialNumber := pwszSerialNumber is String ? StrPtr(pwszSerialNumber) : pwszSerialNumber
         pwszAttributes := pwszAttributes is String ? StrPtr(pwszAttributes) : pwszAttributes
 
-        result := ComCall(6, this, "ptr", pwszAuthority, "uint", dwFlags, "ptr", pwszSerialNumber, "uint*", pdwRequestId, "uint*", pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbFullResponse, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "HRESULT")
+        pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
+        pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszAuthority, "uint", dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbFullResponse, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "HRESULT")
         return result
     }
 
@@ -77,7 +80,9 @@ class ICertRequestD2 extends ICertRequestD{
     GetCAPropertyInfo(pwszAuthority, pcProperty, pctbPropInfo) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
-        result := ComCall(8, this, "ptr", pwszAuthority, "int*", pcProperty, "ptr", pctbPropInfo, "HRESULT")
+        pcPropertyMarshal := pcProperty is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pwszAuthority, pcPropertyMarshal, pcProperty, "ptr", pctbPropInfo, "HRESULT")
         return result
     }
 

@@ -43,7 +43,10 @@ class IEAPProviderConfig3 extends IEAPProviderConfig2{
     ServerInvokeCertificateConfigUI(dwEapTypeId, uConnectionParam, hWnd, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut, uReserved) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(10, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, "char*", pConfigDataIn, "uint", dwSizeOfConfigDataIn, "ptr*", ppConfigDataOut, "uint*", pdwSizeOfConfigDataOut, "ptr", uReserved, "HRESULT")
+        pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : "ptr"
+        pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, "ptr*", ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "ptr", uReserved, "HRESULT")
         return result
     }
 }

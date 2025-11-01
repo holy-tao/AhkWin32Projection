@@ -64,7 +64,9 @@ class IADsFileService extends IADsService{
      * @returns {HRESULT} 
      */
     get_MaxUserCount(retval) {
-        result := ComCall(46, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

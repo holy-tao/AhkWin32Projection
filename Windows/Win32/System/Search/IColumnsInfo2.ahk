@@ -40,7 +40,9 @@ class IColumnsInfo2 extends IColumnsInfo{
      * @returns {HRESULT} 
      */
     GetRestrictedColumnInfo(cColumnIDMasks, rgColumnIDMasks, dwFlags, pcColumns, prgColumnIDs, prgColumnInfo, ppStringsBuffer) {
-        result := ComCall(5, this, "ptr", cColumnIDMasks, "ptr", rgColumnIDMasks, "uint", dwFlags, "ptr*", pcColumns, "ptr*", prgColumnIDs, "ptr*", prgColumnInfo, "ptr*", ppStringsBuffer, "HRESULT")
+        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", cColumnIDMasks, "ptr", rgColumnIDMasks, "uint", dwFlags, pcColumnsMarshal, pcColumns, "ptr*", prgColumnIDs, "ptr*", prgColumnInfo, "ptr*", ppStringsBuffer, "HRESULT")
         return result
     }
 }

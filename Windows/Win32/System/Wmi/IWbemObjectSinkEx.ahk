@@ -53,7 +53,9 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsinkex-writeerror
      */
     WriteError(pObjError, puReturned) {
-        result := ComCall(6, this, "ptr", pObjError, "char*", puReturned, "HRESULT")
+        puReturnedMarshal := puReturned is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pObjError, puReturnedMarshal, puReturned, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IWbemObjectSinkEx extends IWbemObjectSink{
     PromptUser(strMessage, uPromptType, puReturned) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
 
-        result := ComCall(7, this, "ptr", strMessage, "char", uPromptType, "char*", puReturned, "HRESULT")
+        puReturnedMarshal := puReturned is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", strMessage, "char", uPromptType, puReturnedMarshal, puReturned, "HRESULT")
         return result
     }
 

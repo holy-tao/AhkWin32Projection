@@ -59,7 +59,9 @@ class IFsrmQuotaBase extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotaflags
      */
     get_QuotaFlags(quotaFlags) {
-        result := ComCall(14, this, "int*", quotaFlags, "HRESULT")
+        quotaFlagsMarshal := quotaFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, quotaFlagsMarshal, quotaFlags, "HRESULT")
         return result
     }
 

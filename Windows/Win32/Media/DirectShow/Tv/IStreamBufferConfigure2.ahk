@@ -53,7 +53,9 @@ class IStreamBufferConfigure2 extends IStreamBufferConfigure{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure2-getmultiplexedpacketsize
      */
     GetMultiplexedPacketSize(pcbBytesPerPacket) {
-        result := ComCall(10, this, "uint*", pcbBytesPerPacket, "HRESULT")
+        pcbBytesPerPacketMarshal := pcbBytesPerPacket is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcbBytesPerPacketMarshal, pcbBytesPerPacket, "HRESULT")
         return result
     }
 
@@ -77,7 +79,10 @@ class IStreamBufferConfigure2 extends IStreamBufferConfigure{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure2-getfftransitionrates
      */
     GetFFTransitionRates(pdwMaxFullFrameRate, pdwMaxNonSkippingRate) {
-        result := ComCall(12, this, "uint*", pdwMaxFullFrameRate, "uint*", pdwMaxNonSkippingRate, "HRESULT")
+        pdwMaxFullFrameRateMarshal := pdwMaxFullFrameRate is VarRef ? "uint*" : "ptr"
+        pdwMaxNonSkippingRateMarshal := pdwMaxNonSkippingRate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwMaxFullFrameRateMarshal, pdwMaxFullFrameRate, pdwMaxNonSkippingRateMarshal, pdwMaxNonSkippingRate, "HRESULT")
         return result
     }
 }

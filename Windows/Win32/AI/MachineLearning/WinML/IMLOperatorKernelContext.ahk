@@ -48,7 +48,9 @@ class IMLOperatorKernelContext extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputTensor(outputIndex, dimensionCount, dimensionSizes, tensor) {
-        result := ComCall(4, this, "uint", outputIndex, "uint", dimensionCount, "uint*", dimensionSizes, "ptr*", tensor, "HRESULT")
+        dimensionSizesMarshal := dimensionSizes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", outputIndex, "uint", dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", tensor, "HRESULT")
         return result
     }
 

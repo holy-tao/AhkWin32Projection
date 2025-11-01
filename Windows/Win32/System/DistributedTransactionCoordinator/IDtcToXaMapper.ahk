@@ -36,7 +36,12 @@ class IDtcToXaMapper extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestNewResourceManager(pszDSN, pszClientDllName, pdwRMCookie) {
-        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDllName, "uint*", pdwRMCookie, "HRESULT")
+        pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN
+        pszClientDllName := pszClientDllName is String ? StrPtr(pszClientDllName) : pszClientDllName
+
+        pdwRMCookieMarshal := pdwRMCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDllName, pdwRMCookieMarshal, pdwRMCookie, "HRESULT")
         return result
     }
 
@@ -48,7 +53,9 @@ class IDtcToXaMapper extends IUnknown{
      * @returns {HRESULT} 
      */
     TranslateTridToXid(pdwITransaction, dwRMCookie, pXid) {
-        result := ComCall(4, this, "uint*", pdwITransaction, "uint", dwRMCookie, "ptr", pXid, "HRESULT")
+        pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwITransactionMarshal, pdwITransaction, "uint", dwRMCookie, "ptr", pXid, "HRESULT")
         return result
     }
 
@@ -59,7 +66,9 @@ class IDtcToXaMapper extends IUnknown{
      * @returns {HRESULT} 
      */
     EnlistResourceManager(dwRMCookie, pdwITransaction) {
-        result := ComCall(5, this, "uint", dwRMCookie, "uint*", pdwITransaction, "HRESULT")
+        pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwRMCookie, pdwITransactionMarshal, pdwITransaction, "HRESULT")
         return result
     }
 

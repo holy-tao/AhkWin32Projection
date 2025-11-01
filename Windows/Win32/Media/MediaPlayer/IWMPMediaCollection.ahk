@@ -166,7 +166,9 @@ class IWMPMediaCollection extends IDispatch{
     getMediaAtom(bstrItemName, plAtom) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(16, this, "ptr", bstrItemName, "int*", plAtom, "HRESULT")
+        plAtomMarshal := plAtom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", bstrItemName, plAtomMarshal, plAtom, "HRESULT")
         return result
     }
 

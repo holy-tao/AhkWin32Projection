@@ -103,7 +103,9 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_JobCopiesAllDocuments(pulJobCopiesAllDocuments) {
-        result := ComCall(16, this, "uint*", pulJobCopiesAllDocuments, "HRESULT")
+        pulJobCopiesAllDocumentsMarshal := pulJobCopiesAllDocuments is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pulJobCopiesAllDocumentsMarshal, pulJobCopiesAllDocuments, "HRESULT")
         return result
     }
 

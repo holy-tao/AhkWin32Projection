@@ -37,7 +37,9 @@ class IAppxFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getcompressionoption
      */
     GetCompressionOption(compressionOption) {
-        result := ComCall(3, this, "int*", compressionOption, "HRESULT")
+        compressionOptionMarshal := compressionOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, compressionOptionMarshal, compressionOption, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IAppxFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getsize
      */
     GetSize(size) {
-        result := ComCall(6, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, sizeMarshal, size, "HRESULT")
         return result
     }
 

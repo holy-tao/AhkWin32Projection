@@ -432,7 +432,10 @@ class DistributedFileSystem {
     static NetDfsEnum(DfsName, Level, PrefMaxLen, Buffer, EntriesRead, ResumeHandle) {
         DfsName := DfsName is String ? StrPtr(DfsName) : DfsName
 
-        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, "ptr*", Buffer, "uint*", EntriesRead, "uint*", ResumeHandle, "uint")
+        EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : "ptr"
+        ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, "ptr*", Buffer, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, "uint")
         return result
     }
 
@@ -544,7 +547,9 @@ class DistributedFileSystem {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "char*", Buffer, "uint")
+        BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, BufferMarshal, Buffer, "uint")
         return result
     }
 
@@ -642,7 +647,9 @@ class DistributedFileSystem {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "char*", Buffer, "uint")
+        BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, BufferMarshal, Buffer, "uint")
         return result
     }
 
@@ -799,7 +806,9 @@ class DistributedFileSystem {
     static NetDfsGetSecurity(DfsEntryPath, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
 
-        result := DllCall("NETAPI32.dll\NetDfsGetSecurity", "ptr", DfsEntryPath, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "uint*", lpcbSecurityDescriptor, "uint")
+        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsGetSecurity", "ptr", DfsEntryPath, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "uint")
         return result
     }
 
@@ -854,7 +863,9 @@ class DistributedFileSystem {
     static NetDfsGetStdContainerSecurity(MachineName, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
         MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetStdContainerSecurity", "ptr", MachineName, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "uint*", lpcbSecurityDescriptor, "uint")
+        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsGetStdContainerSecurity", "ptr", MachineName, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "uint")
         return result
     }
 
@@ -897,7 +908,9 @@ class DistributedFileSystem {
     static NetDfsGetFtContainerSecurity(DomainName, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetFtContainerSecurity", "ptr", DomainName, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "uint*", lpcbSecurityDescriptor, "uint")
+        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsGetFtContainerSecurity", "ptr", DomainName, "uint", SecurityInformation, "ptr", ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "uint")
         return result
     }
 

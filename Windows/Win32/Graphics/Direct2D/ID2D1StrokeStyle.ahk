@@ -129,6 +129,8 @@ class ID2D1StrokeStyle extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashes
      */
     GetDashes(dashes, dashesCount) {
-        ComCall(12, this, "float*", dashes, "uint", dashesCount)
+        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+
+        ComCall(12, this, dashesMarshal, dashes, "uint", dashesCount)
     }
 }

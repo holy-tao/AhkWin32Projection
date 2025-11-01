@@ -48,7 +48,9 @@ class IPBDA_Services extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(size, pBuffer) {
-        result := ComCall(3, this, "uint", size, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", size, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IPBDA_Services extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_services-getcountofrecords
      */
     GetCountOfRecords(pdwVal) {
-        result := ComCall(4, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -71,7 +75,9 @@ class IPBDA_Services extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_services-getrecordbyindex
      */
     GetRecordByIndex(dwRecordIndex, pul64ServiceIdx) {
-        result := ComCall(5, this, "uint", dwRecordIndex, "uint*", pul64ServiceIdx, "HRESULT")
+        pul64ServiceIdxMarshal := pul64ServiceIdx is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwRecordIndex, pul64ServiceIdxMarshal, pul64ServiceIdx, "HRESULT")
         return result
     }
 }

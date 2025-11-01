@@ -50,7 +50,9 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
     RedirectStatus(pszMessage, pResponse) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(4, this, "ptr", pszMessage, "int*", pResponse, "HRESULT")
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszMessage, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(5, this, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, "int*", pResponse, "HRESULT")
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(6, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, "int*", pResponse, "HRESULT")
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 }

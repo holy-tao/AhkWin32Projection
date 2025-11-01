@@ -38,7 +38,9 @@ class IVPBaseConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getconnectinfo
      */
     GetConnectInfo(pdwNumConnectInfo, pddVPConnectInfo) {
-        result := ComCall(3, this, "uint*", pdwNumConnectInfo, "ptr", pddVPConnectInfo, "HRESULT")
+        pdwNumConnectInfoMarshal := pdwNumConnectInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwNumConnectInfoMarshal, pdwNumConnectInfo, "ptr", pddVPConnectInfo, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IVPBaseConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getmaxpixelrate
      */
     GetMaxPixelRate(pamvpSize, pdwMaxPixelsPerSecond) {
-        result := ComCall(6, this, "ptr", pamvpSize, "uint*", pdwMaxPixelsPerSecond, "HRESULT")
+        pdwMaxPixelsPerSecondMarshal := pdwMaxPixelsPerSecond is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pamvpSize, pdwMaxPixelsPerSecondMarshal, pdwMaxPixelsPerSecond, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IVPBaseConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getvideoformats
      */
     GetVideoFormats(pdwNumFormats, pddPixelFormats) {
-        result := ComCall(8, this, "uint*", pdwNumFormats, "ptr", pddPixelFormats, "HRESULT")
+        pdwNumFormatsMarshal := pdwNumFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwNumFormatsMarshal, pdwNumFormats, "ptr", pddPixelFormats, "HRESULT")
         return result
     }
 
@@ -162,7 +168,9 @@ class IVPBaseConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-setddsurfacekernelhandles
      */
     SetDDSurfaceKernelHandles(cHandles, rgDDKernelHandles) {
-        result := ComCall(14, this, "uint", cHandles, "ptr*", rgDDKernelHandles, "HRESULT")
+        rgDDKernelHandlesMarshal := rgDDKernelHandles is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "uint", cHandles, rgDDKernelHandlesMarshal, rgDDKernelHandles, "HRESULT")
         return result
     }
 

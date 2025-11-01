@@ -73,7 +73,9 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_JobCopiesAllDocumentsMinValue(pulJobCopiesAllDocumentsMinValue) {
-        result := ComCall(13, this, "uint*", pulJobCopiesAllDocumentsMinValue, "HRESULT")
+        pulJobCopiesAllDocumentsMinValueMarshal := pulJobCopiesAllDocumentsMinValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pulJobCopiesAllDocumentsMinValueMarshal, pulJobCopiesAllDocumentsMinValue, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     get_JobCopiesAllDocumentsMaxValue(pulJobCopiesAllDocumentsMaxValue) {
-        result := ComCall(14, this, "uint*", pulJobCopiesAllDocumentsMaxValue, "HRESULT")
+        pulJobCopiesAllDocumentsMaxValueMarshal := pulJobCopiesAllDocumentsMaxValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pulJobCopiesAllDocumentsMaxValueMarshal, pulJobCopiesAllDocumentsMaxValue, "HRESULT")
         return result
     }
 

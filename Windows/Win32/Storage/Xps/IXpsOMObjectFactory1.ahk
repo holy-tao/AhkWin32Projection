@@ -48,7 +48,9 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
     GetDocumentTypeFromFile(filename, documentType) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(40, this, "ptr", filename, "int*", documentType, "HRESULT")
+        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, "ptr", filename, documentTypeMarshal, documentType, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromstream
      */
     GetDocumentTypeFromStream(xpsDocumentStream, documentType) {
-        result := ComCall(41, this, "ptr", xpsDocumentStream, "int*", documentType, "HRESULT")
+        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, "ptr", xpsDocumentStream, documentTypeMarshal, documentType, "HRESULT")
         return result
     }
 

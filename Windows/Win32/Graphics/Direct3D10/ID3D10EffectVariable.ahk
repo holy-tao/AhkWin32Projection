@@ -78,6 +78,8 @@ class ID3D10EffectVariable extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getannotationbyname
      */
     GetAnnotationByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(4, this, "ptr", Name, "ptr")
         return result
     }
@@ -100,6 +102,8 @@ class ID3D10EffectVariable extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbyname
      */
     GetMemberByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(6, this, "ptr", Name, "ptr")
         return result
     }
@@ -111,6 +115,8 @@ class ID3D10EffectVariable extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbysemantic
      */
     GetMemberBySemantic(Semantic) {
+        Semantic := Semantic is String ? StrPtr(Semantic) : Semantic
+
         result := ComCall(7, this, "ptr", Semantic, "ptr")
         return result
     }

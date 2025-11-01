@@ -202,7 +202,9 @@ class IRTCProfile extends IUnknown{
      * @returns {HRESULT} 
      */
     get_SessionCapabilities(plSupportedSessions) {
-        result := ComCall(19, this, "int*", plSupportedSessions, "HRESULT")
+        plSupportedSessionsMarshal := plSupportedSessions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plSupportedSessionsMarshal, plSupportedSessions, "HRESULT")
         return result
     }
 
@@ -212,7 +214,9 @@ class IRTCProfile extends IUnknown{
      * @returns {HRESULT} 
      */
     get_State(penState) {
-        result := ComCall(20, this, "int*", penState, "HRESULT")
+        penStateMarshal := penState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, penStateMarshal, penState, "HRESULT")
         return result
     }
 }

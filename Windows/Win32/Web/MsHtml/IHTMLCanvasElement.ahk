@@ -51,7 +51,9 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 

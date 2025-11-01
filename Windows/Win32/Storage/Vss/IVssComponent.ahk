@@ -49,7 +49,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getcomponenttype
      */
     GetComponentType(pct) {
-        result := ComCall(4, this, "int*", pct, "HRESULT")
+        pctMarshal := pct is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pctMarshal, pct, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupsucceeded
      */
     GetBackupSucceeded(pbSucceeded) {
-        result := ComCall(6, this, "int*", pbSucceeded, "HRESULT")
+        pbSucceededMarshal := pbSucceeded is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pbSucceededMarshal, pbSucceeded, "HRESULT")
         return result
     }
 
@@ -82,7 +86,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getalternatelocationmappingcount
      */
     GetAlternateLocationMappingCount(pcMappings) {
-        result := ComCall(7, this, "uint*", pcMappings, "HRESULT")
+        pcMappingsMarshal := pcMappings is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pcMappingsMarshal, pcMappings, "HRESULT")
         return result
     }
 
@@ -148,7 +154,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpartialfilecount
      */
     GetPartialFileCount(pcPartialFiles) {
-        result := ComCall(12, this, "uint*", pcPartialFiles, "HRESULT")
+        pcPartialFilesMarshal := pcPartialFiles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pcPartialFilesMarshal, pcPartialFiles, "HRESULT")
         return result
     }
 
@@ -174,7 +182,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-isselectedforrestore
      */
     IsSelectedForRestore(pbSelectedForRestore) {
-        result := ComCall(14, this, "int*", pbSelectedForRestore, "HRESULT")
+        pbSelectedForRestoreMarshal := pbSelectedForRestore is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pbSelectedForRestoreMarshal, pbSelectedForRestore, "HRESULT")
         return result
     }
 
@@ -185,7 +195,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getadditionalrestores
      */
     GetAdditionalRestores(pbAdditionalRestores) {
-        result := ComCall(15, this, "int*", pbAdditionalRestores, "HRESULT")
+        pbAdditionalRestoresMarshal := pbAdditionalRestores is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pbAdditionalRestoresMarshal, pbAdditionalRestores, "HRESULT")
         return result
     }
 
@@ -196,7 +208,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getnewtargetcount
      */
     GetNewTargetCount(pcNewTarget) {
-        result := ComCall(16, this, "uint*", pcNewTarget, "HRESULT")
+        pcNewTargetMarshal := pcNewTarget is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pcNewTargetMarshal, pcNewTarget, "HRESULT")
         return result
     }
 
@@ -242,7 +256,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtargetcount
      */
     GetDirectedTargetCount(pcDirectedTarget) {
-        result := ComCall(19, this, "uint*", pcDirectedTarget, "HRESULT")
+        pcDirectedTargetMarshal := pcDirectedTarget is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pcDirectedTargetMarshal, pcDirectedTarget, "HRESULT")
         return result
     }
 
@@ -305,7 +321,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoretarget
      */
     GetRestoreTarget(pTarget) {
-        result := ComCall(24, this, "int*", pTarget, "HRESULT")
+        pTargetMarshal := pTarget is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pTargetMarshal, pTarget, "HRESULT")
         return result
     }
 
@@ -421,7 +439,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponentcount
      */
     GetRestoreSubcomponentCount(pcRestoreSubcomponent) {
-        result := ComCall(34, this, "uint*", pcRestoreSubcomponent, "HRESULT")
+        pcRestoreSubcomponentMarshal := pcRestoreSubcomponent is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, pcRestoreSubcomponentMarshal, pcRestoreSubcomponent, "HRESULT")
         return result
     }
 
@@ -435,7 +455,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponent
      */
     GetRestoreSubcomponent(iComponent, pbstrLogicalPath, pbstrComponentName, pbRepair) {
-        result := ComCall(35, this, "uint", iComponent, "ptr", pbstrLogicalPath, "ptr", pbstrComponentName, "int*", pbRepair, "HRESULT")
+        pbRepairMarshal := pbRepair is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, "uint", iComponent, "ptr", pbstrLogicalPath, "ptr", pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
         return result
     }
 
@@ -446,7 +468,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getfilerestorestatus
      */
     GetFileRestoreStatus(pStatus) {
-        result := ComCall(36, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -492,7 +516,9 @@ class IVssComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfilescount
      */
     GetDifferencedFilesCount(pcDifferencedFiles) {
-        result := ComCall(39, this, "uint*", pcDifferencedFiles, "HRESULT")
+        pcDifferencedFilesMarshal := pcDifferencedFiles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, pcDifferencedFilesMarshal, pcDifferencedFiles, "HRESULT")
         return result
     }
 

@@ -63,6 +63,8 @@ class ID3D11ShaderReflectionType extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getmembertypebyname
      */
     GetMemberTypeByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(2, this, "ptr", Name, "ptr")
         return result
     }

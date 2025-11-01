@@ -40,7 +40,10 @@ class IMetaDataWinMDImport extends IUnknown{
     GetUntransformedTypeRefProps(tr, ptkResolutionScope, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "uint", tr, "uint*", ptkResolutionScope, "ptr", szName, "uint", cchName, "uint*", pchName, "HRESULT")
+        ptkResolutionScopeMarshal := ptkResolutionScope is VarRef ? "uint*" : "ptr"
+        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
         return result
     }
 }

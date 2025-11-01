@@ -108,7 +108,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-getflags
      */
     GetFlags(pFlags) {
-        result := ComCall(58, this, "int*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -204,7 +206,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-gettype
      */
     GetType(pType) {
-        result := ComCall(60, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(60, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -218,7 +222,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveleft
      */
     MoveLeft(Unit, Count, Extend, pDelta) {
-        result := ComCall(61, this, "int", Unit, "int", Count, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(61, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -232,7 +238,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveright
      */
     MoveRight(Unit, Count, Extend, pDelta) {
-        result := ComCall(62, this, "int", Unit, "int", Count, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(62, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -246,7 +254,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveup
      */
     MoveUp(Unit, Count, Extend, pDelta) {
-        result := ComCall(63, this, "int", Unit, "int", Count, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(63, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -260,7 +270,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-movedown
      */
     MoveDown(Unit, Count, Extend, pDelta) {
-        result := ComCall(64, this, "int", Unit, "int", Count, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -273,7 +285,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-homekey
      */
     HomeKey(Unit, Extend, pDelta) {
-        result := ComCall(65, this, "int", Unit, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(65, this, "int", Unit, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -286,7 +300,9 @@ class ITextSelection extends ITextRange{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-endkey
      */
     EndKey(Unit, Extend, pDelta) {
-        result := ComCall(66, this, "int", Unit, "int", Extend, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(66, this, "int", Unit, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 

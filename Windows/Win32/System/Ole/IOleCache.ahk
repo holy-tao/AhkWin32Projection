@@ -39,7 +39,9 @@ class IOleCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-cache
      */
     Cache(pformatetc, advf, pdwConnection) {
-        result := ComCall(3, this, "ptr", pformatetc, "uint", advf, "uint*", pdwConnection, "HRESULT")
+        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pformatetc, "uint", advf, pdwConnectionMarshal, pdwConnection, "HRESULT")
         return result
     }
 

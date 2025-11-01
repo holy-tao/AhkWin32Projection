@@ -71,7 +71,9 @@ class IWebApplicationHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationhost-advise
      */
     Advise(interfaceId, callback, cookie) {
-        result := ComCall(6, this, "ptr", interfaceId, "ptr", callback, "uint*", cookie, "HRESULT")
+        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", interfaceId, "ptr", callback, cookieMarshal, cookie, "HRESULT")
         return result
     }
 

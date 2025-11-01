@@ -49,7 +49,10 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedlowerbounditemid
      */
     GetClosedLowerBoundItemId(pbClosedLowerBoundItemId, pcbIdSize) {
-        result := ComCall(18, this, "char*", pbClosedLowerBoundItemId, "uint*", pcbIdSize, "HRESULT")
+        pbClosedLowerBoundItemIdMarshal := pbClosedLowerBoundItemId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, pbClosedLowerBoundItemIdMarshal, pbClosedLowerBoundItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 
@@ -61,7 +64,10 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedupperbounditemid
      */
     GetClosedUpperBoundItemId(pbClosedUpperBoundItemId, pcbIdSize) {
-        result := ComCall(19, this, "char*", pbClosedUpperBoundItemId, "uint*", pcbIdSize, "HRESULT")
+        pbClosedUpperBoundItemIdMarshal := pbClosedUpperBoundItemId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pbClosedUpperBoundItemIdMarshal, pbClosedUpperBoundItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 }

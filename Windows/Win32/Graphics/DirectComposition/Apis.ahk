@@ -180,7 +180,9 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetframeid
      */
     static DCompositionGetFrameId(frameIdType, frameId) {
-        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "uint*", frameId, "int")
+        frameIdMarshal := frameId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, frameIdMarshal, frameId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -198,7 +200,9 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetstatistics
      */
     static DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds, actualTargetIdCount) {
-        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "uint*", actualTargetIdCount, "int")
+        actualTargetIdCountMarshal := actualTargetIdCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, actualTargetIdCountMarshal, actualTargetIdCount, "int")
         if(result != 0)
             throw OSError(result)
 

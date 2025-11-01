@@ -201,7 +201,9 @@ class IDiscRecorder2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_legacydevicenumber
      */
     get_LegacyDeviceNumber(legacyDeviceNumber) {
-        result := ComCall(21, this, "int*", legacyDeviceNumber, "HRESULT")
+        legacyDeviceNumberMarshal := legacyDeviceNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, legacyDeviceNumberMarshal, legacyDeviceNumber, "HRESULT")
         return result
     }
 

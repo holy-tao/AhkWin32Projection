@@ -38,7 +38,9 @@ class IFsrmReport extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_type
      */
     get_Type(reportType) {
-        result := ComCall(7, this, "int*", reportType, "HRESULT")
+        reportTypeMarshal := reportType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, reportTypeMarshal, reportType, "HRESULT")
         return result
     }
 

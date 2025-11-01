@@ -37,7 +37,9 @@ class IRecoverableError extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getstage
      */
     GetStage(pStage) {
-        result := ComCall(3, this, "int*", pStage, "HRESULT")
+        pStageMarshal := pStage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pStageMarshal, pStage, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IRecoverableError extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getprovider
      */
     GetProvider(pProviderRole) {
-        result := ComCall(4, this, "int*", pProviderRole, "HRESULT")
+        pProviderRoleMarshal := pProviderRole is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pProviderRoleMarshal, pProviderRole, "HRESULT")
         return result
     }
 

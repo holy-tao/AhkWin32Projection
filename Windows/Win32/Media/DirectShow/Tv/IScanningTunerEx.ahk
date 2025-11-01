@@ -67,7 +67,9 @@ class IScanningTunerEx extends IScanningTuner{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-terminatecurrentscan
      */
     TerminateCurrentScan(pcurrentFreq) {
-        result := ComCall(20, this, "int*", pcurrentFreq, "HRESULT")
+        pcurrentFreqMarshal := pcurrentFreq is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pcurrentFreqMarshal, pcurrentFreq, "HRESULT")
         return result
     }
 
@@ -91,7 +93,10 @@ class IScanningTunerEx extends IScanningTuner{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-gettunerscanningcapability
      */
     GetTunerScanningCapability(HardwareAssistedScanning, NumStandardsSupported, BroadcastStandards) {
-        result := ComCall(22, this, "int*", HardwareAssistedScanning, "int*", NumStandardsSupported, "ptr", BroadcastStandards, "HRESULT")
+        HardwareAssistedScanningMarshal := HardwareAssistedScanning is VarRef ? "int*" : "ptr"
+        NumStandardsSupportedMarshal := NumStandardsSupported is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, HardwareAssistedScanningMarshal, HardwareAssistedScanning, NumStandardsSupportedMarshal, NumStandardsSupported, "ptr", BroadcastStandards, "HRESULT")
         return result
     }
 
@@ -105,7 +110,12 @@ class IScanningTunerEx extends IScanningTuner{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-gettunerstatus
      */
     GetTunerStatus(SecondsLeft, CurrentLockType, AutoDetect, CurrentFreq) {
-        result := ComCall(23, this, "int*", SecondsLeft, "int*", CurrentLockType, "int*", AutoDetect, "int*", CurrentFreq, "HRESULT")
+        SecondsLeftMarshal := SecondsLeft is VarRef ? "int*" : "ptr"
+        CurrentLockTypeMarshal := CurrentLockType is VarRef ? "int*" : "ptr"
+        AutoDetectMarshal := AutoDetect is VarRef ? "int*" : "ptr"
+        CurrentFreqMarshal := CurrentFreq is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, SecondsLeftMarshal, SecondsLeft, CurrentLockTypeMarshal, CurrentLockType, AutoDetectMarshal, AutoDetect, CurrentFreqMarshal, CurrentFreq, "HRESULT")
         return result
     }
 
@@ -118,7 +128,10 @@ class IScanningTunerEx extends IScanningTuner{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-getcurrenttunerstandardcapability
      */
     GetCurrentTunerStandardCapability(CurrentBroadcastStandard, SettlingTime, TvStandardsSupported) {
-        result := ComCall(24, this, "ptr", CurrentBroadcastStandard, "int*", SettlingTime, "int*", TvStandardsSupported, "HRESULT")
+        SettlingTimeMarshal := SettlingTime is VarRef ? "int*" : "ptr"
+        TvStandardsSupportedMarshal := TvStandardsSupported is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "ptr", CurrentBroadcastStandard, SettlingTimeMarshal, SettlingTime, TvStandardsSupportedMarshal, TvStandardsSupported, "HRESULT")
         return result
     }
 

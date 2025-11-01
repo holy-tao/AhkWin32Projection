@@ -49,7 +49,9 @@ class ISoftDistExt extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFirstCodeBase(szCodeBase, dwMaxSize) {
-        result := ComCall(4, this, "ptr", szCodeBase, "uint*", dwMaxSize, "HRESULT")
+        dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ISoftDistExt extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNextCodeBase(szCodeBase, dwMaxSize) {
-        result := ComCall(5, this, "ptr", szCodeBase, "uint*", dwMaxSize, "HRESULT")
+        dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
         return result
     }
 
@@ -73,7 +77,9 @@ class ISoftDistExt extends IUnknown{
      * @returns {HRESULT} 
      */
     AsyncInstallDistributionUnit(pbc, pvReserved, flags, lpcbh) {
-        result := ComCall(6, this, "ptr", pbc, "ptr", pvReserved, "uint", flags, "ptr", lpcbh, "HRESULT")
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", pbc, pvReservedMarshal, pvReserved, "uint", flags, "ptr", lpcbh, "HRESULT")
         return result
     }
 }

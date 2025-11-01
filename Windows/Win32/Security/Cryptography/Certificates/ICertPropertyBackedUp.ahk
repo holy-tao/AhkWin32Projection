@@ -81,7 +81,9 @@ class ICertPropertyBackedUp extends ICertProperty{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertybackedup-get_backeduptime
      */
     get_BackedUpTime(pDate) {
-        result := ComCall(17, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(17, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 }

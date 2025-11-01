@@ -152,7 +152,9 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getactivelanguageprofile
      */
     GetActiveLanguageProfile(rclsid, plangid, pguidProfile) {
-        result := ComCall(11, this, "ptr", rclsid, "ushort*", plangid, "ptr", pguidProfile, "HRESULT")
+        plangidMarshal := plangid is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, "ptr", rclsid, plangidMarshal, plangid, "ptr", pguidProfile, "HRESULT")
         return result
     }
 
@@ -177,7 +179,9 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getcurrentlanguage
      */
     GetCurrentLanguage(plangid) {
-        result := ComCall(13, this, "ushort*", plangid, "HRESULT")
+        plangidMarshal := plangid is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(13, this, plangidMarshal, plangid, "HRESULT")
         return result
     }
 
@@ -200,7 +204,9 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getlanguagelist
      */
     GetLanguageList(ppLangId, pulCount) {
-        result := ComCall(15, this, "ptr*", ppLangId, "uint*", pulCount, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr*", ppLangId, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 

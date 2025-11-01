@@ -55,7 +55,9 @@ class IITPropList extends IPersistStreamInit{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-set(propid_lpvoid_dword_dword)
      */
     Set1(PropID, lpvData, cbData, dwOperation) {
-        result := ComCall(10, this, "uint", PropID, "ptr", lpvData, "uint", cbData, "uint", dwOperation, "HRESULT")
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "uint", PropID, lpvDataMarshal, lpvData, "uint", cbData, "uint", dwOperation, "HRESULT")
         return result
     }
 
@@ -154,7 +156,9 @@ class IITPropList extends IPersistStreamInit{
      * @returns {HRESULT} 
      */
     GetPropCount(cProp) {
-        result := ComCall(19, this, "int*", cProp, "HRESULT")
+        cPropMarshal := cProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, cPropMarshal, cProp, "HRESULT")
         return result
     }
 
@@ -166,7 +170,9 @@ class IITPropList extends IPersistStreamInit{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-saveheader
      */
     SaveHeader(lpvData, dwHdrSize) {
-        result := ComCall(20, this, "ptr", lpvData, "uint", dwHdrSize, "HRESULT")
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(20, this, lpvDataMarshal, lpvData, "uint", dwHdrSize, "HRESULT")
         return result
     }
 
@@ -180,7 +186,10 @@ class IITPropList extends IPersistStreamInit{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-savedata
      */
     SaveData(lpvHeader, dwHdrSize, lpvData, dwBufSize) {
-        result := ComCall(21, this, "ptr", lpvHeader, "uint", dwHdrSize, "ptr", lpvData, "uint", dwBufSize, "HRESULT")
+        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(21, this, lpvHeaderMarshal, lpvHeader, "uint", dwHdrSize, lpvDataMarshal, lpvData, "uint", dwBufSize, "HRESULT")
         return result
     }
 
@@ -191,7 +200,9 @@ class IITPropList extends IPersistStreamInit{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getheadersize
      */
     GetHeaderSize(dwHdrSize) {
-        result := ComCall(22, this, "uint*", dwHdrSize, "HRESULT")
+        dwHdrSizeMarshal := dwHdrSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, dwHdrSizeMarshal, dwHdrSize, "HRESULT")
         return result
     }
 
@@ -204,7 +215,10 @@ class IITPropList extends IPersistStreamInit{
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getdatasize
      */
     GetDataSize(lpvHeader, dwHdrSize, dwDataSize) {
-        result := ComCall(23, this, "ptr", lpvHeader, "uint", dwHdrSize, "uint*", dwDataSize, "HRESULT")
+        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
+        dwDataSizeMarshal := dwDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, lpvHeaderMarshal, lpvHeader, "uint", dwHdrSize, dwDataSizeMarshal, dwDataSize, "HRESULT")
         return result
     }
 
@@ -216,7 +230,9 @@ class IITPropList extends IPersistStreamInit{
      * @returns {HRESULT} 
      */
     SaveDataToStream(lpvHeader, dwHdrSize, pStream) {
-        result := ComCall(24, this, "ptr", lpvHeader, "uint", dwHdrSize, "ptr", pStream, "HRESULT")
+        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(24, this, lpvHeaderMarshal, lpvHeader, "uint", dwHdrSize, "ptr", pStream, "HRESULT")
         return result
     }
 
@@ -227,7 +243,9 @@ class IITPropList extends IPersistStreamInit{
      * @returns {HRESULT} 
      */
     LoadFromMem(lpvData, dwBufSize) {
-        result := ComCall(25, this, "ptr", lpvData, "uint", dwBufSize, "HRESULT")
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(25, this, lpvDataMarshal, lpvData, "uint", dwBufSize, "HRESULT")
         return result
     }
 
@@ -238,7 +256,9 @@ class IITPropList extends IPersistStreamInit{
      * @returns {HRESULT} 
      */
     SaveToMem(lpvData, dwBufSize) {
-        result := ComCall(26, this, "ptr", lpvData, "uint", dwBufSize, "HRESULT")
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(26, this, lpvDataMarshal, lpvData, "uint", dwBufSize, "HRESULT")
         return result
     }
 }

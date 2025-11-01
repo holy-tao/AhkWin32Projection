@@ -104,7 +104,9 @@ class IRTCBuddy2 extends IRTCBuddy{
      * @returns {HRESULT} 
      */
     get_SubscriptionType(penSubscriptionType) {
-        result := ComCall(20, this, "int*", penSubscriptionType, "HRESULT")
+        penSubscriptionTypeMarshal := penSubscriptionType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, penSubscriptionTypeMarshal, penSubscriptionType, "HRESULT")
         return result
     }
 }

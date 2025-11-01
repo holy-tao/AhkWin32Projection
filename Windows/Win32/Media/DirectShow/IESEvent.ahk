@@ -47,7 +47,9 @@ class IESEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevent-geteventid
      */
     GetEventId(pdwEventId) {
-        result := ComCall(3, this, "uint*", pdwEventId, "HRESULT")
+        pdwEventIdMarshal := pdwEventId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwEventIdMarshal, pdwEventId, "HRESULT")
         return result
     }
 

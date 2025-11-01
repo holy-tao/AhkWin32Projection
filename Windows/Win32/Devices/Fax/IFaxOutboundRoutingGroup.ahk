@@ -58,7 +58,9 @@ class IFaxOutboundRoutingGroup extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_status
      */
     get_Status(pStatus) {
-        result := ComCall(8, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 

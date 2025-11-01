@@ -37,7 +37,9 @@ class IWSDTransportAddress extends IWSDAddress{
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-getport
      */
     GetPort(pwPort) {
-        result := ComCall(5, this, "ushort*", pwPort, "HRESULT")
+        pwPortMarshal := pwPort is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwPortMarshal, pwPort, "HRESULT")
         return result
     }
 

@@ -51,7 +51,10 @@ class IPipeByte extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipebyte-pull
      */
     Pull(buf, cRequest, pcReturned) {
-        result := ComCall(3, this, "char*", buf, "uint", cRequest, "uint*", pcReturned, "HRESULT")
+        bufMarshal := buf is VarRef ? "char*" : "ptr"
+        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, bufMarshal, buf, "uint", cRequest, pcReturnedMarshal, pcReturned, "HRESULT")
         return result
     }
 
@@ -63,7 +66,9 @@ class IPipeByte extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipebyte-push
      */
     Push(buf, cSent) {
-        result := ComCall(4, this, "char*", buf, "uint", cSent, "HRESULT")
+        bufMarshal := buf is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, bufMarshal, buf, "uint", cSent, "HRESULT")
         return result
     }
 }

@@ -60,7 +60,11 @@ class ISpTaskManager extends IUnknown{
     QueueTask(pTask, pvTaskData, hCompEvent, pdwGroupId, pTaskID) {
         hCompEvent := hCompEvent is Win32Handle ? NumGet(hCompEvent, "ptr") : hCompEvent
 
-        result := ComCall(5, this, "ptr", pTask, "ptr", pvTaskData, "ptr", hCompEvent, "uint*", pdwGroupId, "uint*", pTaskID, "HRESULT")
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+        pdwGroupIdMarshal := pdwGroupId is VarRef ? "uint*" : "ptr"
+        pTaskIDMarshal := pTaskID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, pdwGroupIdMarshal, pdwGroupId, pTaskIDMarshal, pTaskID, "HRESULT")
         return result
     }
 
@@ -75,7 +79,9 @@ class ISpTaskManager extends IUnknown{
     CreateReoccurringTask(pTask, pvTaskData, hCompEvent, ppTaskCtrl) {
         hCompEvent := hCompEvent is Win32Handle ? NumGet(hCompEvent, "ptr") : hCompEvent
 
-        result := ComCall(6, this, "ptr", pTask, "ptr", pvTaskData, "ptr", hCompEvent, "ptr*", ppTaskCtrl, "HRESULT")
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, "ptr*", ppTaskCtrl, "HRESULT")
         return result
     }
 
@@ -88,7 +94,9 @@ class ISpTaskManager extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateThreadControl(pTask, pvTaskData, nPriority, ppTaskCtrl) {
-        result := ComCall(7, this, "ptr", pTask, "ptr", pvTaskData, "int", nPriority, "ptr*", ppTaskCtrl, "HRESULT")
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "int", nPriority, "ptr*", ppTaskCtrl, "HRESULT")
         return result
     }
 

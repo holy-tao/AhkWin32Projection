@@ -52,7 +52,9 @@ class IAMPushSource extends IAMLatency{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-getpushsourceflags
      */
     GetPushSourceFlags(pFlags) {
-        result := ComCall(4, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IAMPushSource extends IAMLatency{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-getstreamoffset
      */
     GetStreamOffset(prtOffset) {
-        result := ComCall(7, this, "int64*", prtOffset, "HRESULT")
+        prtOffsetMarshal := prtOffset is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, prtOffsetMarshal, prtOffset, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IAMPushSource extends IAMLatency{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-getmaxstreamoffset
      */
     GetMaxStreamOffset(prtMaxOffset) {
-        result := ComCall(8, this, "int64*", prtMaxOffset, "HRESULT")
+        prtMaxOffsetMarshal := prtMaxOffset is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, prtMaxOffsetMarshal, prtMaxOffset, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class ITStream extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_mediatype
      */
     get_MediaType(plMediaType) {
-        result := ComCall(7, this, "int*", plMediaType, "HRESULT")
+        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plMediaTypeMarshal, plMediaType, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ITStream extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_direction
      */
     get_Direction(pTD) {
-        result := ComCall(8, this, "int*", pTD, "HRESULT")
+        pTDMarshal := pTD is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pTDMarshal, pTD, "HRESULT")
         return result
     }
 

@@ -68,7 +68,9 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbitmap
      */
     CreateBitmap(size, srcData, pitch, bitmapProperties, bitmap) {
-        result := ComCall(4, this, "ptr", size, "ptr", srcData, "uint", pitch, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
+        srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", size, srcDataMarshal, srcData, "uint", pitch, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
         return result
     }
 
@@ -95,7 +97,9 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsharedbitmap
      */
     CreateSharedBitmap(riid, data, bitmapProperties, bitmap) {
-        result := ComCall(6, this, "ptr", riid, "ptr", data, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, dataMarshal, data, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
         return result
     }
 
@@ -500,7 +504,10 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-gettags
      */
     GetTags(tag1, tag2) {
-        ComCall(39, this, "uint*", tag1, "uint*", tag2)
+        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
+        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+
+        ComCall(39, this, tag1Marshal, tag1, tag2Marshal, tag2)
     }
 
     /**
@@ -531,7 +538,10 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush
      */
     Flush(tag1, tag2) {
-        result := ComCall(42, this, "uint*", tag1, "uint*", tag2, "HRESULT")
+        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
+        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(42, this, tag1Marshal, tag1, tag2Marshal, tag2, "HRESULT")
         return result
     }
 
@@ -602,7 +612,10 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw
      */
     EndDraw(tag1, tag2) {
-        result := ComCall(49, this, "uint*", tag1, "uint*", tag2, "int")
+        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
+        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(49, this, tag1Marshal, tag1, tag2Marshal, tag2, "int")
         return result
     }
 
@@ -637,7 +650,10 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getdpi
      */
     GetDpi(dpiX, dpiY) {
-        ComCall(52, this, "float*", dpiX, "float*", dpiY)
+        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
+        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+
+        ComCall(52, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY)
     }
 
     /**

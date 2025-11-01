@@ -42,6 +42,8 @@ class IMemoryAllocator extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/Stg/imemoryallocator-free
      */
     Free(pv) {
-        ComCall(1, this, "ptr", pv)
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        ComCall(1, this, pvMarshal, pv)
     }
 }

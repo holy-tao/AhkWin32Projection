@@ -67,7 +67,9 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_folderflags
      */
     get_FolderFlags(pdwFlags) {
-        result := ComCall(21, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -124,7 +126,9 @@ class IShellFolderViewDual3 extends IShellFolderViewDual2{
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-get_iconsize
      */
     get_IconSize(piIconSize) {
-        result := ComCall(26, this, "int*", piIconSize, "HRESULT")
+        piIconSizeMarshal := piIconSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, piIconSizeMarshal, piIconSize, "HRESULT")
         return result
     }
 

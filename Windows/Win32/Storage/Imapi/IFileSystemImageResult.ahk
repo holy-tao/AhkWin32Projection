@@ -70,7 +70,9 @@ class IFileSystemImageResult extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_totalblocks
      */
     get_TotalBlocks(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IFileSystemImageResult extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_blocksize
      */
     get_BlockSize(pVal) {
-        result := ComCall(10, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

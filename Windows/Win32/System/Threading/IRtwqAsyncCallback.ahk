@@ -38,7 +38,10 @@ class IRtwqAsyncCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqasynccallback-getparameters
      */
     GetParameters(pdwFlags, pdwQueue) {
-        result := ComCall(3, this, "uint*", pdwFlags, "uint*", pdwQueue, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwQueueMarshal := pdwQueue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, pdwQueueMarshal, pdwQueue, "HRESULT")
         return result
     }
 

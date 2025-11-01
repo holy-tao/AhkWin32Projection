@@ -43,7 +43,9 @@ class IMPEG2_TIF_CONTROL extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-registertif
      */
     RegisterTIF(pUnkTIF, ppvRegistrationContext) {
-        result := ComCall(3, this, "ptr", pUnkTIF, "uint*", ppvRegistrationContext, "HRESULT")
+        ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkTIF, ppvRegistrationContextMarshal, ppvRegistrationContext, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IMPEG2_TIF_CONTROL extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-addpids
      */
     AddPIDs(ulcPIDs, pulPIDs) {
-        result := ComCall(5, this, "uint", ulcPIDs, "uint*", pulPIDs, "HRESULT")
+        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulcPIDs, pulPIDsMarshal, pulPIDs, "HRESULT")
         return result
     }
 
@@ -78,7 +82,9 @@ class IMPEG2_TIF_CONTROL extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-deletepids
      */
     DeletePIDs(ulcPIDs, pulPIDs) {
-        result := ComCall(6, this, "uint", ulcPIDs, "uint*", pulPIDs, "HRESULT")
+        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", ulcPIDs, pulPIDsMarshal, pulPIDs, "HRESULT")
         return result
     }
 
@@ -89,7 +95,9 @@ class IMPEG2_TIF_CONTROL extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-getpidcount
      */
     GetPIDCount(pulcPIDs) {
-        result := ComCall(7, this, "uint*", pulcPIDs, "HRESULT")
+        pulcPIDsMarshal := pulcPIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulcPIDsMarshal, pulcPIDs, "HRESULT")
         return result
     }
 
@@ -101,7 +109,10 @@ class IMPEG2_TIF_CONTROL extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-getpids
      */
     GetPIDs(pulcPIDs, pulPIDs) {
-        result := ComCall(8, this, "uint*", pulcPIDs, "uint*", pulPIDs, "HRESULT")
+        pulcPIDsMarshal := pulcPIDs is VarRef ? "uint*" : "ptr"
+        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulcPIDsMarshal, pulcPIDs, pulPIDsMarshal, pulPIDs, "HRESULT")
         return result
     }
 }

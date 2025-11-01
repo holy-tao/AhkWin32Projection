@@ -64,7 +64,9 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createinstantaneousvectortransition
      */
     CreateInstantaneousVectorTransition(finalValue, cDimension, transition) {
-        result := ComCall(4, this, "double*", finalValue, "uint", cDimension, "ptr*", transition, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, finalValueMarshal, finalValue, "uint", cDimension, "ptr*", transition, "HRESULT")
         return result
     }
 
@@ -105,7 +107,9 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-creatediscretevectortransition
      */
     CreateDiscreteVectorTransition(delay, finalValue, cDimension, hold, transition) {
-        result := ComCall(7, this, "double", delay, "double*", finalValue, "uint", cDimension, "double", hold, "ptr*", transition, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, "double", delay, finalValueMarshal, finalValue, "uint", cDimension, "double", hold, "ptr*", transition, "HRESULT")
         return result
     }
 
@@ -132,7 +136,9 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createlinearvectortransition
      */
     CreateLinearVectorTransition(duration, finalValue, cDimension, transition) {
-        result := ComCall(9, this, "double", duration, "double*", finalValue, "uint", cDimension, "ptr*", transition, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, "double", duration, finalValueMarshal, finalValue, "uint", cDimension, "ptr*", transition, "HRESULT")
         return result
     }
 
@@ -159,7 +165,9 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createlinearvectortransitionfromspeed
      */
     CreateLinearVectorTransitionFromSpeed(speed, finalValue, cDimension, transition) {
-        result := ComCall(11, this, "double", speed, "double*", finalValue, "uint", cDimension, "ptr*", transition, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, "double", speed, finalValueMarshal, finalValue, "uint", cDimension, "ptr*", transition, "HRESULT")
         return result
     }
 
@@ -244,7 +252,10 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createcubicvectortransition
      */
     CreateCubicVectorTransition(duration, finalValue, finalVelocity, cDimension, transition) {
-        result := ComCall(17, this, "double", duration, "double*", finalValue, "double*", finalVelocity, "uint", cDimension, "ptr*", transition, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+        finalVelocityMarshal := finalVelocity is VarRef ? "double*" : "ptr"
+
+        result := ComCall(17, this, "double", duration, finalValueMarshal, finalValue, finalVelocityMarshal, finalVelocity, "uint", cDimension, "ptr*", transition, "HRESULT")
         return result
     }
 
@@ -306,7 +317,9 @@ class IUIAnimationTransitionLibrary2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createcubicbezierlinearvectortransition
      */
     CreateCubicBezierLinearVectorTransition(duration, finalValue, cDimension, x1, y1, x2, y2, ppTransition) {
-        result := ComCall(21, this, "double", duration, "double*", finalValue, "uint", cDimension, "double", x1, "double", y1, "double", x2, "double", y2, "ptr*", ppTransition, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(21, this, "double", duration, finalValueMarshal, finalValue, "uint", cDimension, "double", x1, "double", y1, "double", x2, "double", y2, "ptr*", ppTransition, "HRESULT")
         return result
     }
 }

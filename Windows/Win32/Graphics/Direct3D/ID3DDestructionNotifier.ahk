@@ -39,7 +39,10 @@ class ID3DDestructionNotifier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3ddestructionotifier-registerdestructioncallback
      */
     RegisterDestructionCallback(callbackFn, pData, pCallbackID) {
-        result := ComCall(3, this, "ptr", callbackFn, "ptr", pData, "uint*", pCallbackID, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pCallbackIDMarshal := pCallbackID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", callbackFn, pDataMarshal, pData, pCallbackIDMarshal, pCallbackID, "HRESULT")
         return result
     }
 

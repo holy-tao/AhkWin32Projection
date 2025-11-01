@@ -44,7 +44,9 @@ class IEventSystem extends IDispatch{
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
         queryCriteria := queryCriteria is String ? BSTR.Alloc(queryCriteria).Value : queryCriteria
 
-        result := ComCall(7, this, "ptr", progID, "ptr", queryCriteria, "int*", errorIndex, "ptr*", ppInterface, "HRESULT")
+        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", progID, "ptr", queryCriteria, errorIndexMarshal, errorIndex, "ptr*", ppInterface, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IEventSystem extends IDispatch{
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
         queryCriteria := queryCriteria is String ? BSTR.Alloc(queryCriteria).Value : queryCriteria
 
-        result := ComCall(9, this, "ptr", progID, "ptr", queryCriteria, "int*", errorIndex, "HRESULT")
+        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", progID, "ptr", queryCriteria, errorIndexMarshal, errorIndex, "HRESULT")
         return result
     }
 

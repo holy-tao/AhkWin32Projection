@@ -151,7 +151,10 @@ class XboxController {
         pRenderDeviceId := pRenderDeviceId is String ? StrPtr(pRenderDeviceId) : pRenderDeviceId
         pCaptureDeviceId := pCaptureDeviceId is String ? StrPtr(pCaptureDeviceId) : pCaptureDeviceId
 
-        result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", "uint", dwUserIndex, "ptr", pRenderDeviceId, "uint*", pRenderCount, "ptr", pCaptureDeviceId, "uint*", pCaptureCount, "uint")
+        pRenderCountMarshal := pRenderCount is VarRef ? "uint*" : "ptr"
+        pCaptureCountMarshal := pCaptureCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", "uint", dwUserIndex, "ptr", pRenderDeviceId, pRenderCountMarshal, pRenderCount, "ptr", pCaptureDeviceId, pCaptureCountMarshal, pCaptureCount, "uint")
         return result
     }
 

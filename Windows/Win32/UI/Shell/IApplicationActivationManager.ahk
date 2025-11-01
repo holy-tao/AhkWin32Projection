@@ -58,7 +58,9 @@ class IApplicationActivationManager extends IUnknown{
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
         arguments := arguments is String ? StrPtr(arguments) : arguments
 
-        result := ComCall(3, this, "ptr", appUserModelId, "ptr", arguments, "int", options, "uint*", processId, "HRESULT")
+        processIdMarshal := processId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", appUserModelId, "ptr", arguments, "int", options, processIdMarshal, processId, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IApplicationActivationManager extends IUnknown{
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
         verb := verb is String ? StrPtr(verb) : verb
 
-        result := ComCall(4, this, "ptr", appUserModelId, "ptr", itemArray, "ptr", verb, "uint*", processId, "HRESULT")
+        processIdMarshal := processId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", appUserModelId, "ptr", itemArray, "ptr", verb, processIdMarshal, processId, "HRESULT")
         return result
     }
 
@@ -90,7 +94,9 @@ class IApplicationActivationManager extends IUnknown{
     ActivateForProtocol(appUserModelId, itemArray, processId) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
 
-        result := ComCall(5, this, "ptr", appUserModelId, "ptr", itemArray, "uint*", processId, "HRESULT")
+        processIdMarshal := processId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", appUserModelId, "ptr", itemArray, processIdMarshal, processId, "HRESULT")
         return result
     }
 }

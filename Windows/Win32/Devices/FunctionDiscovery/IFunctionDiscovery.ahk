@@ -82,7 +82,9 @@ class IFunctionDiscovery extends IUnknown{
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
 
-        result := ComCall(5, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr", pIFunctionDiscoveryNotification, "uint*", pfdqcQueryContext, "ptr*", ppIFunctionInstanceCollectionQuery, "HRESULT")
+        pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszCategory, "ptr", pszSubCategory, "int", fIncludeAllSubCategories, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", ppIFunctionInstanceCollectionQuery, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IFunctionDiscovery extends IUnknown{
     CreateInstanceQuery(pszFunctionInstanceIdentity, pIFunctionDiscoveryNotification, pfdqcQueryContext, ppIFunctionInstanceQuery) {
         pszFunctionInstanceIdentity := pszFunctionInstanceIdentity is String ? StrPtr(pszFunctionInstanceIdentity) : pszFunctionInstanceIdentity
 
-        result := ComCall(6, this, "ptr", pszFunctionInstanceIdentity, "ptr", pIFunctionDiscoveryNotification, "uint*", pfdqcQueryContext, "ptr*", ppIFunctionInstanceQuery, "HRESULT")
+        pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszFunctionInstanceIdentity, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", ppIFunctionInstanceQuery, "HRESULT")
         return result
     }
 

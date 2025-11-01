@@ -51,7 +51,9 @@ class IADesktopP2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetADObjectFlags(pdwFlags, dwMask) {
-        result := ComCall(4, this, "uint*", pdwFlags, "uint", dwMask, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "uint", dwMask, "HRESULT")
         return result
     }
 

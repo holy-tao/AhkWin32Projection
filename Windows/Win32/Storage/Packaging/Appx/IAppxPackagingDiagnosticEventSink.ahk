@@ -38,6 +38,7 @@ class IAppxPackagingDiagnosticEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     ReportContextChange(changeType, contextId, contextName, contextMessage, detailsMessage) {
+        contextName := contextName is String ? StrPtr(contextName) : contextName
         contextMessage := contextMessage is String ? StrPtr(contextMessage) : contextMessage
         detailsMessage := detailsMessage is String ? StrPtr(detailsMessage) : detailsMessage
 

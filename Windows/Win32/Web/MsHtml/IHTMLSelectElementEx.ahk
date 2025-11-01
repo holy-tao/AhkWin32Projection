@@ -54,7 +54,9 @@ class IHTMLSelectElementEx extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSelectExFlags(pFlags) {
-        result := ComCall(5, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

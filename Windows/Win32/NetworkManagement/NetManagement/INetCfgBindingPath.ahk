@@ -93,7 +93,9 @@ class INetCfgBindingPath extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDepth(pcInterfaces) {
-        result := ComCall(9, this, "uint*", pcInterfaces, "HRESULT")
+        pcInterfacesMarshal := pcInterfaces is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pcInterfacesMarshal, pcInterfaces, "HRESULT")
         return result
     }
 

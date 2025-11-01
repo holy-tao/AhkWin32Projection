@@ -49,7 +49,10 @@ class ISimilarity extends IUnknown{
     CreateTable(path, truncate, securityDescriptor, recordSize, isNew) {
         path := path is String ? StrPtr(path) : path
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, "char*", securityDescriptor, "uint", recordSize, "int*", isNew, "HRESULT")
+        securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
+        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "uint", recordSize, isNewMarshal, isNew, "HRESULT")
         return result
     }
 
@@ -64,7 +67,9 @@ class ISimilarity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-createtableindirect
      */
     CreateTableIndirect(mapping, fileIdFile, truncate, recordSize, isNew) {
-        result := ComCall(4, this, "ptr", mapping, "ptr", fileIdFile, "int", truncate, "uint", recordSize, "int*", isNew, "HRESULT")
+        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", mapping, "ptr", fileIdFile, "int", truncate, "uint", recordSize, isNewMarshal, isNew, "HRESULT")
         return result
     }
 
@@ -124,7 +129,9 @@ class ISimilarity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-getrecordcount
      */
     GetRecordCount(recordCount) {
-        result := ComCall(9, this, "uint*", recordCount, "HRESULT")
+        recordCountMarshal := recordCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, recordCountMarshal, recordCount, "HRESULT")
         return result
     }
 }

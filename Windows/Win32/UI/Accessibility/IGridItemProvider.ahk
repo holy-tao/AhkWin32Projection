@@ -46,7 +46,9 @@ class IGridItemProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_row
      */
     get_Row(pRetVal) {
-        result := ComCall(3, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IGridItemProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_column
      */
     get_Column(pRetVal) {
-        result := ComCall(4, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -68,7 +72,9 @@ class IGridItemProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_rowspan
      */
     get_RowSpan(pRetVal) {
-        result := ComCall(5, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -79,7 +85,9 @@ class IGridItemProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_columnspan
      */
     get_ColumnSpan(pRetVal) {
-        result := ComCall(6, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

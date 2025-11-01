@@ -47,7 +47,9 @@ class INetFwRemoteAdminSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_ipversion
      */
     get_IpVersion(ipVersion) {
-        result := ComCall(7, this, "int*", ipVersion, "HRESULT")
+        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, ipVersionMarshal, ipVersion, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class INetFwRemoteAdminSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_scope
      */
     get_Scope(scope) {
-        result := ComCall(9, this, "int*", scope, "HRESULT")
+        scopeMarshal := scope is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, scopeMarshal, scope, "HRESULT")
         return result
     }
 

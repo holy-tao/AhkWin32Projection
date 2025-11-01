@@ -61,7 +61,9 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-allocatemore
      */
     AllocateMore(cbSize, lpObject, lppBuffer) {
-        result := ComCall(5, this, "uint", cbSize, "ptr", lpObject, "ptr*", lppBuffer, "HRESULT")
+        lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "uint", cbSize, lpObjectMarshal, lpObject, "ptr*", lppBuffer, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-freebuffer
      */
     FreeBuffer(lpBuffer) {
-        result := ComCall(6, this, "ptr", lpBuffer, "HRESULT")
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
     }
 
@@ -83,6 +87,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-backup
      */
     Backup(lpFileName) {
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
         result := ComCall(7, this, "ptr", lpFileName, "HRESULT")
         return result
     }
@@ -94,6 +100,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-import
      */
     Import(lpWIP) {
+        lpWIP := lpWIP is String ? StrPtr(lpWIP) : lpWIP
+
         result := ComCall(8, this, "ptr", lpWIP, "HRESULT")
         return result
     }
@@ -122,6 +130,7 @@ class IWABObject extends IUnknown{
      */
     VCardDisplay(lpIAB, hWnd, lpszFileName) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := ComCall(10, this, "ptr", lpIAB, "ptr", hWnd, "ptr", lpszFileName, "HRESULT")
         return result
@@ -139,6 +148,7 @@ class IWABObject extends IUnknown{
      */
     LDAPUrl(lpIAB, hWnd, ulFlags, lpszURL, lppMailUser) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
         result := ComCall(11, this, "ptr", lpIAB, "ptr", hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", lppMailUser, "HRESULT")
         return result
@@ -154,6 +164,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-vcardcreate
      */
     VCardCreate(lpIAB, ulFlags, lpszVCard, lpMailUser) {
+        lpszVCard := lpszVCard is String ? StrPtr(lpszVCard) : lpszVCard
+
         result := ComCall(12, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr", lpMailUser, "HRESULT")
         return result
     }
@@ -168,6 +180,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-vcardretrieve
      */
     VCardRetrieve(lpIAB, ulFlags, lpszVCard, lppMailUser) {
+        lpszVCard := lpszVCard is String ? StrPtr(lpszVCard) : lpszVCard
+
         result := ComCall(13, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr*", lppMailUser, "HRESULT")
         return result
     }
@@ -185,7 +199,9 @@ class IWABObject extends IUnknown{
     GetMe(lpIAB, ulFlags, lpdwAction, lpsbEID, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, "uint*", lpdwAction, "ptr", lpsbEID, "ptr", hwnd, "HRESULT")
+        lpdwActionMarshal := lpdwAction is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, lpdwActionMarshal, lpdwAction, "ptr", lpsbEID, "ptr", hwnd, "HRESULT")
         return result
     }
 

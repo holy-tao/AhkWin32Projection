@@ -37,7 +37,9 @@ class IAudioEndpointOffloadStreamMeter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammeter-getmeterchannelcount
      */
     GetMeterChannelCount(pu32ChannelCount) {
-        result := ComCall(3, this, "uint*", pu32ChannelCount, "HRESULT")
+        pu32ChannelCountMarshal := pu32ChannelCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pu32ChannelCountMarshal, pu32ChannelCount, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IAudioEndpointOffloadStreamMeter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammeter-getmeteringdata
      */
     GetMeteringData(u32ChannelCount, pf32PeakValues) {
-        result := ComCall(4, this, "uint", u32ChannelCount, "float*", pf32PeakValues, "HRESULT")
+        pf32PeakValuesMarshal := pf32PeakValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, "uint", u32ChannelCount, pf32PeakValuesMarshal, pf32PeakValues, "HRESULT")
         return result
     }
 }

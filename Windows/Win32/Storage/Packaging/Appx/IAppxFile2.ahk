@@ -34,7 +34,9 @@ class IAppxFile2 extends IAppxFile{
      * @returns {HRESULT} 
      */
     GetBlockSize(blockSize) {
-        result := ComCall(8, this, "uint*", blockSize, "HRESULT")
+        blockSizeMarshal := blockSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, blockSizeMarshal, blockSize, "HRESULT")
         return result
     }
 }

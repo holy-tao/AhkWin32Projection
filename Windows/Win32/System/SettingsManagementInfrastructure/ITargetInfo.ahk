@@ -37,7 +37,9 @@ class ITargetInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetmode
      */
     GetTargetMode(TargetMode) {
-        result := ComCall(3, this, "int*", TargetMode, "HRESULT")
+        TargetModeMarshal := TargetMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, TargetModeMarshal, TargetMode, "HRESULT")
         return result
     }
 
@@ -289,7 +291,9 @@ class ITargetInfo extends IUnknown{
     SetWow64Context(InstallerModule, Wow64Context) {
         InstallerModule := InstallerModule is String ? StrPtr(InstallerModule) : InstallerModule
 
-        result := ComCall(18, this, "ptr", InstallerModule, "char*", Wow64Context, "HRESULT")
+        Wow64ContextMarshal := Wow64Context is VarRef ? "char*" : "ptr"
+
+        result := ComCall(18, this, "ptr", InstallerModule, Wow64ContextMarshal, Wow64Context, "HRESULT")
         return result
     }
 

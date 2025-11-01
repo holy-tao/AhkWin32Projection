@@ -93,7 +93,9 @@ class IContactAggregationServerPersonCollection extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Count(pCount) {
-        result := ComCall(8, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 }

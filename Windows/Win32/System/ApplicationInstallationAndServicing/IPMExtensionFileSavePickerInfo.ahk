@@ -35,7 +35,9 @@ class IPMExtensionFileSavePickerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AllFileTypes(pcTypes, ppTypes) {
-        result := ComCall(3, this, "uint*", pcTypes, "ptr*", ppTypes, "HRESULT")
+        pcTypesMarshal := pcTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcTypesMarshal, pcTypes, "ptr*", ppTypes, "HRESULT")
         return result
     }
 

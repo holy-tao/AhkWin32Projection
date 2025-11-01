@@ -48,7 +48,9 @@ class IStorageProviderCopyHook extends IUnknown{
         srcFile := srcFile is String ? StrPtr(srcFile) : srcFile
         destFile := destFile is String ? StrPtr(destFile) : destFile
 
-        result := ComCall(3, this, "ptr", hwnd, "uint", operation, "uint", flags, "ptr", srcFile, "uint", srcAttribs, "ptr", destFile, "uint", destAttribs, "uint*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hwnd, "uint", operation, "uint", flags, "ptr", srcFile, "uint", srcAttribs, "ptr", destFile, "uint", destAttribs, resultMarshal, result, "HRESULT")
         return result
     }
 }

@@ -59,7 +59,9 @@ class ITAddressTranslationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_currentcountrycode
      */
     get_CurrentCountryCode(CountryCode) {
-        result := ComCall(9, this, "int*", CountryCode, "HRESULT")
+        CountryCodeMarshal := CountryCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, CountryCodeMarshal, CountryCode, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ITAddressTranslationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_destinationcountrycode
      */
     get_DestinationCountryCode(CountryCode) {
-        result := ComCall(10, this, "int*", CountryCode, "HRESULT")
+        CountryCodeMarshal := CountryCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, CountryCodeMarshal, CountryCode, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ITAddressTranslationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresstranslationinfo-get_translationresults
      */
     get_TranslationResults(plResults) {
-        result := ComCall(11, this, "int*", plResults, "HRESULT")
+        plResultsMarshal := plResults is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plResultsMarshal, plResults, "HRESULT")
         return result
     }
 }

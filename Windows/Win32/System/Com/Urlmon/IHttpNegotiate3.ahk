@@ -35,7 +35,9 @@ class IHttpNegotiate3 extends IHttpNegotiate2{
      * @returns {HRESULT} 
      */
     GetSerializedClientCertContext(ppbCert, pcbCert) {
-        result := ComCall(6, this, "ptr*", ppbCert, "uint*", pcbCert, "HRESULT")
+        pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", ppbCert, pcbCertMarshal, pcbCert, "HRESULT")
         return result
     }
 }

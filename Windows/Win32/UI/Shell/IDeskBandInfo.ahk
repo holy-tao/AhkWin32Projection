@@ -39,7 +39,9 @@ class IDeskBandInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ideskbandinfo-getdefaultbandwidth
      */
     GetDefaultBandWidth(dwBandID, dwViewMode, pnWidth) {
-        result := ComCall(3, this, "uint", dwBandID, "uint", dwViewMode, "int*", pnWidth, "HRESULT")
+        pnWidthMarshal := pnWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwBandID, "uint", dwViewMode, pnWidthMarshal, pnWidth, "HRESULT")
         return result
     }
 }

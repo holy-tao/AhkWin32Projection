@@ -37,7 +37,9 @@ class IWMBackupRestoreProps extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbackuprestoreprops-getpropcount
      */
     GetPropCount(pcProps) {
-        result := ComCall(3, this, "ushort*", pcProps, "HRESULT")
+        pcPropsMarshal := pcProps is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, pcPropsMarshal, pcProps, "HRESULT")
         return result
     }
 
@@ -55,7 +57,12 @@ class IWMBackupRestoreProps extends IUnknown{
     GetPropByIndex(wIndex, pwszName, pcchNameLen, pType, pValue, pcbLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(4, this, "ushort", wIndex, "ptr", pwszName, "ushort*", pcchNameLen, "int*", pType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pcchNameLenMarshal := pcchNameLen is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "ushort", wIndex, "ptr", pwszName, pcchNameLenMarshal, pcchNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -71,7 +78,11 @@ class IWMBackupRestoreProps extends IUnknown{
     GetPropByName(pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ptr", pszName, "int*", pType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -87,7 +98,9 @@ class IWMBackupRestoreProps extends IUnknown{
     SetProp(pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "ptr", pszName, "int", Type, "char*", pValue, "ushort", cbLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 

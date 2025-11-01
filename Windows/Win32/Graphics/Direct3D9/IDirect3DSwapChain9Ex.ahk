@@ -49,7 +49,9 @@ class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9ex-getlastpresentcount
      */
     GetLastPresentCount(pLastPresentCount) {
-        result := ComCall(10, this, "uint*", pLastPresentCount, "HRESULT")
+        pLastPresentCountMarshal := pLastPresentCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pLastPresentCountMarshal, pLastPresentCount, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IDirect3DSwapChain9Ex extends IDirect3DSwapChain9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9ex-getdisplaymodeex
      */
     GetDisplayModeEx(pMode, pRotation) {
-        result := ComCall(12, this, "ptr", pMode, "int*", pRotation, "HRESULT")
+        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,9 @@ class IWMPFolderMonitorServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_count
      */
     get_count(plCount) {
-        result := ComCall(3, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IWMPFolderMonitorServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_scanstate
      */
     get_scanState(pwmpfss) {
-        result := ComCall(7, this, "int*", pwmpfss, "HRESULT")
+        pwmpfssMarshal := pwmpfss is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pwmpfssMarshal, pwmpfss, "HRESULT")
         return result
     }
 
@@ -107,7 +111,9 @@ class IWMPFolderMonitorServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_scannedfilescount
      */
     get_scannedFilesCount(plCount) {
-        result := ComCall(9, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -118,7 +124,9 @@ class IWMPFolderMonitorServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_addedfilescount
      */
     get_addedFilesCount(plCount) {
-        result := ComCall(10, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -129,7 +137,9 @@ class IWMPFolderMonitorServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_updateprogress
      */
     get_updateProgress(plProgress) {
-        result := ComCall(11, this, "int*", plProgress, "HRESULT")
+        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plProgressMarshal, plProgress, "HRESULT")
         return result
     }
 

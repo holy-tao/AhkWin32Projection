@@ -95,7 +95,9 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_maxConnectionsPerServer(p) {
-        result := ComCall(13, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pMarshal, p, "HRESULT")
         return result
     }
 

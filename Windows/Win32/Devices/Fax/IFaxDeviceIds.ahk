@@ -59,7 +59,9 @@ class IFaxDeviceIds extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-get_item
      */
     get_Item(lIndex, plDeviceId) {
-        result := ComCall(8, this, "int", lIndex, "int*", plDeviceId, "HRESULT")
+        plDeviceIdMarshal := plDeviceId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", lIndex, plDeviceIdMarshal, plDeviceId, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IFaxDeviceIds extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-get_count
      */
     get_Count(plCount) {
-        result := ComCall(9, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

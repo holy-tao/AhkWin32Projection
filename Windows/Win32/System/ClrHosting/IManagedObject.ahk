@@ -46,7 +46,10 @@ class IManagedObject extends IUnknown{
      * @returns {HRESULT} 
      */
     GetObjectIdentity(pBSTRGUID, AppDomainID, pCCW) {
-        result := ComCall(4, this, "ptr", pBSTRGUID, "int*", AppDomainID, "int*", pCCW, "HRESULT")
+        AppDomainIDMarshal := AppDomainID is VarRef ? "int*" : "ptr"
+        pCCWMarshal := pCCW is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pBSTRGUID, AppDomainIDMarshal, AppDomainID, pCCWMarshal, pCCW, "HRESULT")
         return result
     }
 }

@@ -54,7 +54,9 @@ class IFsrmAction extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_actiontype
      */
     get_ActionType(actionType) {
-        result := ComCall(8, this, "int*", actionType, "HRESULT")
+        actionTypeMarshal := actionType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, actionTypeMarshal, actionType, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IFsrmAction extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval
      */
     get_RunLimitInterval(minutes) {
-        result := ComCall(9, this, "int*", minutes, "HRESULT")
+        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, minutesMarshal, minutes, "HRESULT")
         return result
     }
 

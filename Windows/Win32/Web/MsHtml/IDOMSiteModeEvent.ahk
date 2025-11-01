@@ -40,7 +40,9 @@ class IDOMSiteModeEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_buttonID(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 

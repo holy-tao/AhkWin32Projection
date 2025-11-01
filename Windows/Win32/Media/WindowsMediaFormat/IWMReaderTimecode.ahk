@@ -38,7 +38,9 @@ class IWMReaderTimecode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangecount
      */
     GetTimecodeRangeCount(wStreamNum, pwRangeCount) {
-        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", pwRangeCount, "HRESULT")
+        pwRangeCountMarshal := pwRangeCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "ushort", wStreamNum, pwRangeCountMarshal, pwRangeCount, "HRESULT")
         return result
     }
 
@@ -52,7 +54,10 @@ class IWMReaderTimecode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangebounds
      */
     GetTimecodeRangeBounds(wStreamNum, wRangeNum, pStartTimecode, pEndTimecode) {
-        result := ComCall(4, this, "ushort", wStreamNum, "ushort", wRangeNum, "uint*", pStartTimecode, "uint*", pEndTimecode, "HRESULT")
+        pStartTimecodeMarshal := pStartTimecode is VarRef ? "uint*" : "ptr"
+        pEndTimecodeMarshal := pEndTimecode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ushort", wStreamNum, "ushort", wRangeNum, pStartTimecodeMarshal, pStartTimecode, pEndTimecodeMarshal, pEndTimecode, "HRESULT")
         return result
     }
 }

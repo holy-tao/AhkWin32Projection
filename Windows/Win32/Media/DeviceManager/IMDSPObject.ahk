@@ -50,7 +50,11 @@ class IMDSPObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-read
      */
     Read(pData, pdwSize, abMac) {
-        result := ComCall(4, this, "char*", pData, "uint*", pdwSize, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -63,7 +67,11 @@ class IMDSPObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-write
      */
     Write(pData, pdwSize, abMac) {
-        result := ComCall(5, this, "char*", pData, "uint*", pdwSize, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
         return result
     }
 

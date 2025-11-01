@@ -42,7 +42,9 @@ class IWMImageInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmimageinfo-getimagecount
      */
     GetImageCount(pcImages) {
-        result := ComCall(3, this, "uint*", pcImages, "HRESULT")
+        pcImagesMarshal := pcImages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcImagesMarshal, pcImages, "HRESULT")
         return result
     }
 
@@ -63,7 +65,13 @@ class IWMImageInfo extends IUnknown{
         pwszMIMEType := pwszMIMEType is String ? StrPtr(pwszMIMEType) : pwszMIMEType
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(4, this, "uint", wIndex, "ushort*", pcchMIMEType, "ptr", pwszMIMEType, "ushort*", pcchDescription, "ptr", pwszDescription, "ushort*", pImageType, "uint*", pcbImageData, "char*", pbImageData, "HRESULT")
+        pcchMIMETypeMarshal := pcchMIMEType is VarRef ? "ushort*" : "ptr"
+        pcchDescriptionMarshal := pcchDescription is VarRef ? "ushort*" : "ptr"
+        pImageTypeMarshal := pImageType is VarRef ? "ushort*" : "ptr"
+        pcbImageDataMarshal := pcbImageData is VarRef ? "uint*" : "ptr"
+        pbImageDataMarshal := pbImageData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", wIndex, pcchMIMETypeMarshal, pcchMIMEType, "ptr", pwszMIMEType, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pImageTypeMarshal, pImageType, pcbImageDataMarshal, pcbImageData, pbImageDataMarshal, pbImageData, "HRESULT")
         return result
     }
 }

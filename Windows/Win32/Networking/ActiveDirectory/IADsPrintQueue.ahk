@@ -205,7 +205,9 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     get_StartTime(retval) {
-        result := ComCall(32, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(32, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -225,7 +227,9 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     get_UntilTime(retval) {
-        result := ComCall(34, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(34, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -245,7 +249,9 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     get_DefaultJobPriority(retval) {
-        result := ComCall(36, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -265,7 +271,9 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     get_Priority(retval) {
-        result := ComCall(38, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

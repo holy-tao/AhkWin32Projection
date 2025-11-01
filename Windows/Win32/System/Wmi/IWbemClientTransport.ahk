@@ -52,7 +52,9 @@ class IWbemClientTransport extends IUnknown{
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
         strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
 
-        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, "char*", abBinaryAddress, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", ppNamespace, "HRESULT")
+        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", ppNamespace, "HRESULT")
         return result
     }
 }

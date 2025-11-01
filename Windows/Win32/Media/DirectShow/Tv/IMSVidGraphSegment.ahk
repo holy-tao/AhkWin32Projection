@@ -84,7 +84,9 @@ class IMSVidGraphSegment extends IPersist{
      * @returns {HRESULT} 
      */
     get_Type(pType) {
-        result := ComCall(9, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 

@@ -71,7 +71,9 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-getmode
      */
     GetMode(pdwFileSinkMode) {
-        result := ComCall(19, this, "uint*", pdwFileSinkMode, "HRESULT")
+        pdwFileSinkModeMarshal := pdwFileSinkMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pdwFileSinkModeMarshal, pdwFileSinkMode, "HRESULT")
         return result
     }
 

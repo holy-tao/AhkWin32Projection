@@ -37,7 +37,9 @@ class IWMCodecOutputTimestamp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecoutputtimestamp-getnextoutputtime
      */
     GetNextOutputTime(prtTime) {
-        result := ComCall(3, this, "int64*", prtTime, "HRESULT")
+        prtTimeMarshal := prtTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, prtTimeMarshal, prtTime, "HRESULT")
         return result
     }
 }

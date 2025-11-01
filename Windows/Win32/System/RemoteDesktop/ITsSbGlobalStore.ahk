@@ -77,7 +77,9 @@ class ITsSbGlobalStore extends IUnknown{
     EnumerateFarms(ProviderName, pdwCount, pVal) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
 
-        result := ComCall(5, this, "ptr", ProviderName, "uint*", pdwCount, "ptr*", pVal, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class ITsSbGlobalStore extends IUnknown{
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
         EnvName := EnvName is String ? BSTR.Alloc(EnvName).Value : EnvName
 
-        result := ComCall(6, this, "ptr", ProviderName, "ptr", FarmName, "ptr", EnvName, "uint*", pdwCount, "ptr*", pVal, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", ProviderName, "ptr", FarmName, "ptr", EnvName, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
         return result
     }
 
@@ -111,7 +115,9 @@ class ITsSbGlobalStore extends IUnknown{
     EnumerateEnvironmentsByProvider(ProviderName, pdwCount, ppVal) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
 
-        result := ComCall(7, this, "ptr", ProviderName, "uint*", pdwCount, "ptr*", ppVal, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, "ptr*", ppVal, "HRESULT")
         return result
     }
 
@@ -137,7 +143,10 @@ class ITsSbGlobalStore extends IUnknown{
         poolName := poolName is String ? BSTR.Alloc(poolName).Value : poolName
         initialProgram := initialProgram is String ? BSTR.Alloc(initialProgram).Value : initialProgram
 
-        result := ComCall(8, this, "ptr", ProviderName, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, "int*", pSessionState, "uint*", pdwCount, "ptr*", ppVal, "HRESULT")
+        pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", ProviderName, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", ppVal, "HRESULT")
         return result
     }
 

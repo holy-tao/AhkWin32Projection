@@ -338,7 +338,9 @@ class IXMLHTTPRequest extends IDispatch{
      * @returns {HRESULT} 
      */
     get_status(plStatus) {
-        result := ComCall(13, this, "int*", plStatus, "HRESULT")
+        plStatusMarshal := plStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plStatusMarshal, plStatus, "HRESULT")
         return result
     }
 
@@ -398,7 +400,9 @@ class IXMLHTTPRequest extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyState(plState) {
-        result := ComCall(19, this, "int*", plState, "HRESULT")
+        plStateMarshal := plState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plStateMarshal, plState, "HRESULT")
         return result
     }
 

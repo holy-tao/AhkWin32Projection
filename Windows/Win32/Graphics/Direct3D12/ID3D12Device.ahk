@@ -164,7 +164,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrootsignature
      */
     CreateRootSignature(nodeMask, pBlobWithRootSignature, blobLengthInBytes, riid, ppvRootSignature) {
-        result := ComCall(16, this, "uint", nodeMask, "ptr", pBlobWithRootSignature, "ptr", blobLengthInBytes, "ptr", riid, "ptr*", ppvRootSignature, "HRESULT")
+        pBlobWithRootSignatureMarshal := pBlobWithRootSignature is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, "ptr", riid, "ptr*", ppvRootSignature, "HRESULT")
         return result
     }
 
@@ -252,7 +254,10 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptors
      */
     CopyDescriptors(NumDestDescriptorRanges, pDestDescriptorRangeStarts, pDestDescriptorRangeSizes, NumSrcDescriptorRanges, pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizes, DescriptorHeapsType) {
-        ComCall(23, this, "uint", NumDestDescriptorRanges, "ptr", pDestDescriptorRangeStarts, "uint*", pDestDescriptorRangeSizes, "uint", NumSrcDescriptorRanges, "ptr", pSrcDescriptorRangeStarts, "uint*", pSrcDescriptorRangeSizes, "int", DescriptorHeapsType)
+        pDestDescriptorRangeSizesMarshal := pDestDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
+        pSrcDescriptorRangeSizesMarshal := pSrcDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
+
+        ComCall(23, this, "uint", NumDestDescriptorRanges, "ptr", pDestDescriptorRangeStarts, pDestDescriptorRangeSizesMarshal, pDestDescriptorRangeSizes, "uint", NumSrcDescriptorRanges, "ptr", pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizesMarshal, pSrcDescriptorRangeSizes, "int", DescriptorHeapsType)
     }
 
     /**
@@ -464,7 +469,11 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getcopyablefootprints
      */
     GetCopyableFootprints(pResourceDesc, FirstSubresource, NumSubresources, BaseOffset, pLayouts, pNumRows, pRowSizeInBytes, pTotalBytes) {
-        ComCall(38, this, "ptr", pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, "ptr", pLayouts, "uint*", pNumRows, "uint*", pRowSizeInBytes, "uint*", pTotalBytes)
+        pNumRowsMarshal := pNumRows is VarRef ? "uint*" : "ptr"
+        pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : "ptr"
+        pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : "ptr"
+
+        ComCall(38, this, "ptr", pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, "ptr", pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 
     /**
@@ -518,7 +527,10 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourcetiling
      */
     GetResourceTiling(pTiledResource, pNumTilesForEntireResource, pPackedMipDesc, pStandardTileShapeForNonPackedMips, pNumSubresourceTilings, FirstSubresourceTilingToGet, pSubresourceTilingsForNonPackedMips) {
-        ComCall(42, this, "ptr", pTiledResource, "uint*", pNumTilesForEntireResource, "ptr", pPackedMipDesc, "ptr", pStandardTileShapeForNonPackedMips, "uint*", pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, "ptr", pSubresourceTilingsForNonPackedMips)
+        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
+        pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
+
+        ComCall(42, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, "ptr", pPackedMipDesc, "ptr", pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, "ptr", pSubresourceTilingsForNonPackedMips)
     }
 
     /**

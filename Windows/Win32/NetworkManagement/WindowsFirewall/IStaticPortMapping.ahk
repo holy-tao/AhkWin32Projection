@@ -54,7 +54,9 @@ class IStaticPortMapping extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_externalport
      */
     get_ExternalPort(pVal) {
-        result := ComCall(8, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IStaticPortMapping extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_internalport
      */
     get_InternalPort(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

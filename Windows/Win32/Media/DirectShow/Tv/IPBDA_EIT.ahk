@@ -48,7 +48,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(size, pBuffer) {
-        result := ComCall(3, this, "uint", size, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", size, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-gettableid
      */
     GetTableId(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getversionnumber
      */
     GetVersionNumber(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getserviceidx
      */
     GetServiceIdx(plwVal) {
-        result := ComCall(6, this, "uint*", plwVal, "HRESULT")
+        plwValMarshal := plwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, plwValMarshal, plwVal, "HRESULT")
         return result
     }
 
@@ -92,7 +100,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords
      */
     GetCountOfRecords(pdwVal) {
-        result := ComCall(7, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -104,7 +114,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordeventid
      */
     GetRecordEventId(dwRecordIndex, plwVal) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "uint*", plwVal, "HRESULT")
+        plwValMarshal := plwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwRecordIndex, plwValMarshal, plwVal, "HRESULT")
         return result
     }
 
@@ -140,7 +152,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -167,7 +181,9 @@ class IPBDA_EIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 }

@@ -41,7 +41,9 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getcallersid
      */
     GetCallersId(pdwCallersId) {
-        result := ComCall(8, this, "uint*", pdwCallersId, "HRESULT")
+        pdwCallersIdMarshal := pdwCallersId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwCallersIdMarshal, pdwCallersId, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getdescrambledstatus
      */
     GetDescrambledStatus(pDescrambledStatus) {
-        result := ComCall(12, this, "uint*", pDescrambledStatus, "HRESULT")
+        pDescrambledStatusMarshal := pDescrambledStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pDescrambledStatusMarshal, pDescrambledStatus, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getrenewalresultcode
      */
     GetRenewalResultCode(pdwRenewalResultCode) {
-        result := ComCall(13, this, "uint*", pdwRenewalResultCode, "HRESULT")
+        pdwRenewalResultCodeMarshal := pdwRenewalResultCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwRenewalResultCodeMarshal, pdwRenewalResultCode, "HRESULT")
         return result
     }
 
@@ -107,7 +113,9 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getcasfailurecode
      */
     GetCASFailureCode(pdwCASFailureCode) {
-        result := ComCall(14, this, "uint*", pdwCASFailureCode, "HRESULT")
+        pdwCASFailureCodeMarshal := pdwCASFailureCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwCASFailureCodeMarshal, pdwCASFailureCode, "HRESULT")
         return result
     }
 
@@ -129,7 +137,9 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtokenlength
      */
     GetEntitlementTokenLength(pdwLength) {
-        result := ComCall(16, this, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -151,7 +161,9 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getexpirydate
      */
     GetExpiryDate(pqwExpiryDate) {
-        result := ComCall(18, this, "uint*", pqwExpiryDate, "HRESULT")
+        pqwExpiryDateMarshal := pqwExpiryDate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, pqwExpiryDateMarshal, pqwExpiryDate, "HRESULT")
         return result
     }
 }

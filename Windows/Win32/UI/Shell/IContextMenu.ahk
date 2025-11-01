@@ -92,6 +92,8 @@ class IContextMenu extends IUnknown{
     GetCommandString(idCmd, uType, pszName, cchMax) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+
         result := ComCall(5, this, "ptr", idCmd, "uint", uType, "uint*", pReserved, "ptr", pszName, "uint", cchMax, "HRESULT")
         return result
     }

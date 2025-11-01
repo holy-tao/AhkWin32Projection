@@ -51,7 +51,11 @@ class IWMProximityDetection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmproximitydetection-startdetection
      */
     StartDetection(pbRegistrationMsg, cbRegistrationMsg, pbLocalAddress, cbLocalAddress, dwExtraPortsAllowed, ppRegistrationResponseMsg, pCallback, pvContext) {
-        result := ComCall(3, this, "char*", pbRegistrationMsg, "uint", cbRegistrationMsg, "char*", pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", ppRegistrationResponseMsg, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pbRegistrationMsgMarshal := pbRegistrationMsg is VarRef ? "char*" : "ptr"
+        pbLocalAddressMarshal := pbLocalAddress is VarRef ? "char*" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, "uint", cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", ppRegistrationResponseMsg, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

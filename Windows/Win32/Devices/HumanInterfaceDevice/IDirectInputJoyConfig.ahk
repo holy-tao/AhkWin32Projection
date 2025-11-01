@@ -75,7 +75,9 @@ class IDirectInputJoyConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumTypes(param0, param1) {
-        result := ComCall(7, this, "ptr", param0, "ptr", param1, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", param0, param1Marshal, param1, "HRESULT")
         return result
     }
 

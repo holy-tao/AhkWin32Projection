@@ -55,7 +55,9 @@ class IKnownFolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getcategory
      */
     GetCategory(pCategory) {
-        result := ComCall(4, this, "int*", pCategory, "HRESULT")
+        pCategoryMarshal := pCategory is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pCategoryMarshal, pCategory, "HRESULT")
         return result
     }
 
@@ -128,7 +130,9 @@ class IKnownFolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getredirectioncapabilities
      */
     GetRedirectionCapabilities(pCapabilities) {
-        result := ComCall(10, this, "uint*", pCapabilities, "HRESULT")
+        pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
     }
 

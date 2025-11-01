@@ -34,7 +34,9 @@ class IOmHistory extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(7, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 

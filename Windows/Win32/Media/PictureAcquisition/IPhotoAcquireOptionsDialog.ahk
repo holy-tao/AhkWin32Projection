@@ -93,7 +93,9 @@ class IPhotoAcquireOptionsDialog extends IUnknown{
     DoModal(hWndParent, ppnReturnCode) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
-        result := ComCall(6, this, "ptr", hWndParent, "ptr*", ppnReturnCode, "HRESULT")
+        ppnReturnCodeMarshal := ppnReturnCode is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", hWndParent, ppnReturnCodeMarshal, ppnReturnCode, "HRESULT")
         return result
     }
 

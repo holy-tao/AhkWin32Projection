@@ -68,7 +68,9 @@ class IQuerySolution extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-getlexicaldata
      */
     GetLexicalData(ppszInputString, ppTokens, plcid, ppWordBreaker) {
-        result := ComCall(9, this, "ptr", ppszInputString, "ptr*", ppTokens, "uint*", plcid, "ptr*", ppWordBreaker, "HRESULT")
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", ppszInputString, "ptr*", ppTokens, plcidMarshal, plcid, "ptr*", ppWordBreaker, "HRESULT")
         return result
     }
 }

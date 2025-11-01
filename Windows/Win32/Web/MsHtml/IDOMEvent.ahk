@@ -81,7 +81,9 @@ class IDOMEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_eventPhase(p) {
-        result := ComCall(11, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IDOMEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_timeStamp(p) {
-        result := ComCall(13, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pMarshal, p, "HRESULT")
         return result
     }
 

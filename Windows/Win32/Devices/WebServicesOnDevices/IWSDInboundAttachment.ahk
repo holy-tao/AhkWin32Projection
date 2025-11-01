@@ -44,7 +44,10 @@ class IWSDInboundAttachment extends IWSDAttachment{
      * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-iwsdinboundattachment-read
      */
     Read(pBuffer, dwBytesToRead, pdwNumberOfBytesRead) {
-        result := ComCall(3, this, "char*", pBuffer, "uint", dwBytesToRead, "uint*", pdwNumberOfBytesRead, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pdwNumberOfBytesReadMarshal := pdwNumberOfBytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwBytesToRead, pdwNumberOfBytesReadMarshal, pdwNumberOfBytesRead, "HRESULT")
         return result
     }
 

@@ -59,7 +59,9 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletunerequest-get_majorchannel
      */
     get_MajorChannel(pMajorChannel) {
-        result := ComCall(16, this, "int*", pMajorChannel, "HRESULT")
+        pMajorChannelMarshal := pMajorChannel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pMajorChannelMarshal, pMajorChannel, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletunerequest-get_sourceid
      */
     get_SourceID(pSourceID) {
-        result := ComCall(18, this, "int*", pSourceID, "HRESULT")
+        pSourceIDMarshal := pSourceID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pSourceIDMarshal, pSourceID, "HRESULT")
         return result
     }
 

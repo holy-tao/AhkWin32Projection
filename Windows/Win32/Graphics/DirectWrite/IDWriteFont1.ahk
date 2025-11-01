@@ -132,7 +132,9 @@ class IDWriteFont1 extends IDWriteFont{
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getunicoderanges
      */
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
-        result := ComCall(16, this, "uint", maxRangeCount, "ptr", unicodeRanges, "uint*", actualRangeCount, "HRESULT")
+        actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", maxRangeCount, "ptr", unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 

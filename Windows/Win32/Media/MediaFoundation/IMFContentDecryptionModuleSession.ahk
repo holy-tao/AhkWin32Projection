@@ -53,7 +53,9 @@ class IMFContentDecryptionModuleSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getexpiration
      */
     GetExpiration(expiration) {
-        result := ComCall(4, this, "double*", expiration, "HRESULT")
+        expirationMarshal := expiration is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, expirationMarshal, expiration, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IMFContentDecryptionModuleSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses
      */
     GetKeyStatuses(keyStatuses, numKeyStatuses) {
-        result := ComCall(5, this, "ptr*", keyStatuses, "uint*", numKeyStatuses, "HRESULT")
+        numKeyStatusesMarshal := numKeyStatuses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", keyStatuses, numKeyStatusesMarshal, numKeyStatuses, "HRESULT")
         return result
     }
 
@@ -94,7 +98,9 @@ class IMFContentDecryptionModuleSession extends IUnknown{
     GenerateRequest(initDataType, initData, initDataSize) {
         initDataType := initDataType is String ? StrPtr(initDataType) : initDataType
 
-        result := ComCall(7, this, "ptr", initDataType, "char*", initData, "uint", initDataSize, "HRESULT")
+        initDataMarshal := initData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", initDataType, initDataMarshal, initData, "uint", initDataSize, "HRESULT")
         return result
     }
 
@@ -106,7 +112,9 @@ class IMFContentDecryptionModuleSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-update
      */
     Update(response, responseSize) {
-        result := ComCall(8, this, "char*", response, "uint", responseSize, "HRESULT")
+        responseMarshal := response is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, responseMarshal, response, "uint", responseSize, "HRESULT")
         return result
     }
 

@@ -54,7 +54,9 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter{
      * @returns {HRESULT} 
      */
     get_percentScale(p) {
-        result := ComCall(15, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 }

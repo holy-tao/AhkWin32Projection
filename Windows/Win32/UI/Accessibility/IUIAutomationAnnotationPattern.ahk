@@ -37,7 +37,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_currentannotationtypeid
      */
     get_CurrentAnnotationTypeId(retVal) {
-        result := ComCall(3, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IUIAutomationAnnotationPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationannotationpattern-get_cachedannotationtypeid
      */
     get_CachedAnnotationTypeId(retVal) {
-        result := ComCall(8, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

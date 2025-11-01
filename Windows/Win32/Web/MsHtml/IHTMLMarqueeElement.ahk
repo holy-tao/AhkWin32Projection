@@ -71,7 +71,9 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollDelay(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -135,7 +137,9 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollAmount(p) {
-        result := ComCall(16, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -155,7 +159,9 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_loop(p) {
-        result := ComCall(18, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -175,7 +181,9 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_vspace(p) {
-        result := ComCall(20, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -195,7 +203,9 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_hspace(p) {
-        result := ComCall(22, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pMarshal, p, "HRESULT")
         return result
     }
 

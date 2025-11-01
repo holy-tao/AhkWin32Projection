@@ -40,7 +40,9 @@ class IDirectDrawMediaStream extends IMediaStream{
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-getformat
      */
     GetFormat(pDDSDCurrent, ppDirectDrawPalette, pDDSDDesired, pdwFlags) {
-        result := ComCall(9, this, "ptr", pDDSDCurrent, "ptr*", ppDirectDrawPalette, "ptr", pDDSDDesired, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pDDSDCurrent, "ptr*", ppDirectDrawPalette, "ptr", pDDSDDesired, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -99,7 +101,9 @@ class IDirectDrawMediaStream extends IMediaStream{
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-gettimeperframe
      */
     GetTimePerFrame(pFrameTime) {
-        result := ComCall(14, this, "int64*", pFrameTime, "HRESULT")
+        pFrameTimeMarshal := pFrameTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(14, this, pFrameTimeMarshal, pFrameTime, "HRESULT")
         return result
     }
 }

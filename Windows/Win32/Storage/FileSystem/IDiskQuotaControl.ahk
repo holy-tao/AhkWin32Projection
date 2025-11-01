@@ -72,7 +72,9 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-getquotastate
      */
     GetQuotaState(pdwState) {
-        result := ComCall(7, this, "uint*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-getquotalogflags
      */
     GetQuotaLogFlags(pdwFlags) {
-        result := ComCall(9, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -116,7 +120,9 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotathreshold
      */
     GetDefaultQuotaThreshold(pllThreshold) {
-        result := ComCall(11, this, "int64*", pllThreshold, "HRESULT")
+        pllThresholdMarshal := pllThreshold is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(11, this, pllThresholdMarshal, pllThreshold, "HRESULT")
         return result
     }
 
@@ -152,7 +158,9 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotalimit
      */
     GetDefaultQuotaLimit(pllLimit) {
-        result := ComCall(14, this, "int64*", pllLimit, "HRESULT")
+        pllLimitMarshal := pllLimit is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(14, this, pllLimitMarshal, pllLimit, "HRESULT")
         return result
     }
 

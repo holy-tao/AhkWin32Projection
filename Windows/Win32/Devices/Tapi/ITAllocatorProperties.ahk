@@ -92,7 +92,9 @@ class ITAllocatorProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-getbuffersize
      */
     GetBufferSize(pBufferSize) {
-        result := ComCall(8, this, "uint*", pBufferSize, "HRESULT")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pBufferSizeMarshal, pBufferSize, "HRESULT")
         return result
     }
 }

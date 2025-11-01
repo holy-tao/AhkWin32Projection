@@ -53,7 +53,9 @@ class IErrorLookup extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHelpInfo(hrError, dwLookupID, lcid, pbstrHelpFile, pdwHelpContext) {
-        result := ComCall(4, this, "int", hrError, "uint", dwLookupID, "uint", lcid, "ptr", pbstrHelpFile, "uint*", pdwHelpContext, "HRESULT")
+        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", hrError, "uint", dwLookupID, "uint", lcid, "ptr", pbstrHelpFile, pdwHelpContextMarshal, pdwHelpContext, "HRESULT")
         return result
     }
 

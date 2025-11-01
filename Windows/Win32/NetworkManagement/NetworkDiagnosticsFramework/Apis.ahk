@@ -322,9 +322,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateWinSockIncident(sock, host, port, appId, userId, handle) {
+        sock := sock is Win32Handle ? NumGet(sock, "ptr") : sock
         host := host is String ? StrPtr(host) : host
         appId := appId is String ? StrPtr(appId) : appId
-        sock := sock is Win32Handle ? NumGet(sock, "ptr") : sock
 
         result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr*", handle, "int")
         if(result != 0)
@@ -983,7 +983,9 @@ class NetworkDiagnosticsFramework {
     static NdfExecuteDiagnosis(handle, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("NDFAPI.dll\NdfExecuteDiagnosis", "ptr", handle, "ptr", hwnd, "int")
+        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfExecuteDiagnosis", handleMarshal, handle, "ptr", hwnd, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1021,7 +1023,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCloseIncident(handle) {
-        result := DllCall("NDFAPI.dll\NdfCloseIncident", "ptr", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCloseIncident", handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1126,7 +1130,10 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
-        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", "ptr", Handle, "uint*", RootCauseCount, "ptr*", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        RootCauseCountMarshal := RootCauseCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", HandleMarshal, Handle, RootCauseCountMarshal, RootCauseCount, "ptr*", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1206,7 +1213,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfRepairIncident(Handle, RepairEx, dwWait) {
-        result := DllCall("NDFAPI.dll\NdfRepairIncident", "ptr", Handle, "ptr", RepairEx, "uint", dwWait, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfRepairIncident", HandleMarshal, Handle, "ptr", RepairEx, "uint", dwWait, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1247,7 +1256,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfCancelIncident(Handle) {
-        result := DllCall("NDFAPI.dll\NdfCancelIncident", "ptr", Handle, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCancelIncident", HandleMarshal, Handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1291,7 +1302,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfGetTraceFile(Handle, TraceFileLocation) {
-        result := DllCall("NDFAPI.dll\NdfGetTraceFile", "ptr", Handle, "ptr", TraceFileLocation, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfGetTraceFile", HandleMarshal, Handle, "ptr", TraceFileLocation, "int")
         if(result != 0)
             throw OSError(result)
 

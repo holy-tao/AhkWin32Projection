@@ -43,7 +43,9 @@ class IRdcSignatureReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsignaturereader-readheader
      */
     ReadHeader(rdc_ErrorCode) {
-        result := ComCall(3, this, "int*", rdc_ErrorCode, "HRESULT")
+        rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
         return result
     }
 

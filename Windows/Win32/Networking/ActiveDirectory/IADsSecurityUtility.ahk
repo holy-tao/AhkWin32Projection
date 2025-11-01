@@ -92,7 +92,9 @@ class IADsSecurityUtility extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-get_securitymask
      */
     get_SecurityMask(retval) {
-        result := ComCall(10, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -44,7 +44,9 @@ class IBanneredBar extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIconSize(piIcon) {
-        result := ComCall(4, this, "uint*", piIcon, "HRESULT")
+        piIconMarshal := piIcon is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, piIconMarshal, piIcon, "HRESULT")
         return result
     }
 

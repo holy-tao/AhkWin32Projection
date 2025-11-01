@@ -134,7 +134,9 @@ class ITaskService extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_highestversion
      */
     get_HighestVersion(pVersion) {
-        result := ComCall(15, this, "uint*", pVersion, "HRESULT")
+        pVersionMarshal := pVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pVersionMarshal, pVersion, "HRESULT")
         return result
     }
 }

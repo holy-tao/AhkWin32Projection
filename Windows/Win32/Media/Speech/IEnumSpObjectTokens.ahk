@@ -36,7 +36,9 @@ class IEnumSpObjectTokens extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, pelt, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", pelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", pelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class IEnumSpObjectTokens extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pCount) {
-        result := ComCall(8, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class ITsSbEnvironment extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_serverweight
      */
     get_ServerWeight(pVal) {
-        result := ComCall(4, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

@@ -58,7 +58,9 @@ class ICorRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     SwitchInLogicalThreadState(pFiberCookie) {
-        result := ComCall(5, this, "uint*", pFiberCookie, "HRESULT")
+        pFiberCookieMarshal := pFiberCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pFiberCookieMarshal, pFiberCookie, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class ICorRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     LocksHeldByLogicalThread(pCount) {
-        result := ComCall(7, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -164,7 +168,9 @@ class ICorRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     NextDomain(hEnum, pAppDomain) {
-        result := ComCall(15, this, "ptr", hEnum, "ptr*", pAppDomain, "HRESULT")
+        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(15, this, hEnumMarshal, hEnum, "ptr*", pAppDomain, "HRESULT")
         return result
     }
 
@@ -174,7 +180,9 @@ class ICorRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     CloseEnum(hEnum) {
-        result := ComCall(16, this, "ptr", hEnum, "HRESULT")
+        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(16, this, hEnumMarshal, hEnum, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class IEnumBitsPeers extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-next
      */
     Next(celt, rgelt, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IEnumBitsPeers extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-getcount
      */
     GetCount(puCount) {
-        result := ComCall(7, this, "uint*", puCount, "HRESULT")
+        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, puCountMarshal, puCount, "HRESULT")
         return result
     }
 }

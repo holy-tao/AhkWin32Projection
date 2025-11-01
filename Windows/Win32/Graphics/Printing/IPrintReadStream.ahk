@@ -36,7 +36,9 @@ class IPrintReadStream extends IUnknown{
      * @returns {HRESULT} 
      */
     Seek(dlibMove, dwOrigin, plibNewPosition) {
-        result := ComCall(3, this, "int64", dlibMove, "uint", dwOrigin, "uint*", plibNewPosition, "HRESULT")
+        plibNewPositionMarshal := plibNewPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "int64", dlibMove, "uint", dwOrigin, plibNewPositionMarshal, plibNewPosition, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IPrintReadStream extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadBytes(pvBuffer, cbRequested, pcbRead, pbEndOfFile) {
-        result := ComCall(4, this, "ptr", pvBuffer, "uint", cbRequested, "uint*", pcbRead, "ptr", pbEndOfFile, "HRESULT")
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pvBuffer, "uint", cbRequested, pcbReadMarshal, pcbRead, "ptr", pbEndOfFile, "HRESULT")
         return result
     }
 }

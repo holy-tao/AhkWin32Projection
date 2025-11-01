@@ -39,7 +39,9 @@ class IEnumOleDocumentViews extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ienumoledocumentviews-next
      */
     Next(cViews, rgpView, pcFetched) {
-        result := ComCall(3, this, "uint", cViews, "ptr*", rgpView, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cViews, "ptr*", rgpView, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

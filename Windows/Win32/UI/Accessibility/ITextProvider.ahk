@@ -99,7 +99,9 @@ class ITextProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-get_supportedtextselection
      */
     get_SupportedTextSelection(pRetVal) {
-        result := ComCall(8, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

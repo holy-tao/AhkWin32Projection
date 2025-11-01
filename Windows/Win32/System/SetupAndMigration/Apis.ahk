@@ -36,9 +36,11 @@ class SetupAndMigration {
      * @see https://docs.microsoft.com/windows/win32/api//oobenotification/nf-oobenotification-registerwaituntiloobecompleted
      */
     static RegisterWaitUntilOOBECompleted(OOBECompletedCallback, CallbackContext, WaitHandle) {
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RegisterWaitUntilOOBECompleted", "ptr", OOBECompletedCallback, "ptr", CallbackContext, "ptr*", WaitHandle, "int")
+        result := DllCall("KERNEL32.dll\RegisterWaitUntilOOBECompleted", "ptr", OOBECompletedCallback, CallbackContextMarshal, CallbackContext, "ptr*", WaitHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -52,9 +54,11 @@ class SetupAndMigration {
      * @see https://docs.microsoft.com/windows/win32/api//oobenotification/nf-oobenotification-unregisterwaituntiloobecompleted
      */
     static UnregisterWaitUntilOOBECompleted(WaitHandle) {
+        WaitHandleMarshal := WaitHandle is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnregisterWaitUntilOOBECompleted", "ptr", WaitHandle, "int")
+        result := DllCall("KERNEL32.dll\UnregisterWaitUntilOOBECompleted", WaitHandleMarshal, WaitHandle, "int")
         if(A_LastError)
             throw OSError()
 

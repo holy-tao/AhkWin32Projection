@@ -76,7 +76,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentchildid
      */
     get_CurrentChildId(pRetVal) {
-        result := ComCall(6, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -120,7 +122,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentrole
      */
     get_CurrentRole(pdwRole) {
-        result := ComCall(10, this, "uint*", pdwRole, "HRESULT")
+        pdwRoleMarshal := pdwRole is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwRoleMarshal, pdwRole, "HRESULT")
         return result
     }
 
@@ -131,7 +135,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentstate
      */
     get_CurrentState(pdwState) {
-        result := ComCall(11, this, "uint*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 
@@ -186,7 +192,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedchildid
      */
     get_CachedChildId(pRetVal) {
-        result := ComCall(16, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -230,7 +238,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedrole
      */
     get_CachedRole(pdwRole) {
-        result := ComCall(20, this, "uint*", pdwRole, "HRESULT")
+        pdwRoleMarshal := pdwRole is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwRoleMarshal, pdwRole, "HRESULT")
         return result
     }
 
@@ -241,7 +251,9 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedstate
      */
     get_CachedState(pdwState) {
-        result := ComCall(21, this, "uint*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 

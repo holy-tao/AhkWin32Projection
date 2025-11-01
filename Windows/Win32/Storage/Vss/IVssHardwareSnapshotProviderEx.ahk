@@ -37,7 +37,9 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-getprovidercapabilities
      */
     GetProviderCapabilities(pllOriginalCapabilityMask) {
-        result := ComCall(9, this, "uint*", pllOriginalCapabilityMask, "HRESULT")
+        pllOriginalCapabilityMaskMarshal := pllOriginalCapabilityMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pllOriginalCapabilityMaskMarshal, pllOriginalCapabilityMask, "HRESULT")
         return result
     }
 

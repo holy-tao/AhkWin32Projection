@@ -43,7 +43,11 @@ class ICLRHostBindingPolicyManager extends IUnknown{
         pwzSourceAssemblyIdentity := pwzSourceAssemblyIdentity is String ? StrPtr(pwzSourceAssemblyIdentity) : pwzSourceAssemblyIdentity
         pwzTargetAssemblyIdentity := pwzTargetAssemblyIdentity is String ? StrPtr(pwzTargetAssemblyIdentity) : pwzTargetAssemblyIdentity
 
-        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, "char*", pbApplicationPolicy, "uint", cbAppPolicySize, "uint", dwPolicyModifyFlags, "char*", pbNewApplicationPolicy, "uint*", pcbNewAppPolicySize, "HRESULT")
+        pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
+        pbNewApplicationPolicyMarshal := pbNewApplicationPolicy is VarRef ? "char*" : "ptr"
+        pcbNewAppPolicySizeMarshal := pcbNewAppPolicySize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "uint", dwPolicyModifyFlags, pbNewApplicationPolicyMarshal, pbNewApplicationPolicy, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "HRESULT")
         return result
     }
 
@@ -61,7 +65,11 @@ class ICLRHostBindingPolicyManager extends IUnknown{
         pwzReferenceIdentity := pwzReferenceIdentity is String ? StrPtr(pwzReferenceIdentity) : pwzReferenceIdentity
         pwzPostPolicyReferenceIdentity := pwzPostPolicyReferenceIdentity is String ? StrPtr(pwzPostPolicyReferenceIdentity) : pwzPostPolicyReferenceIdentity
 
-        result := ComCall(4, this, "ptr", pwzReferenceIdentity, "char*", pbApplicationPolicy, "uint", cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, "uint*", pcchPostPolicyReferenceIdentity, "uint*", pdwPoliciesApplied, "HRESULT")
+        pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
+        pcchPostPolicyReferenceIdentityMarshal := pcchPostPolicyReferenceIdentity is VarRef ? "uint*" : "ptr"
+        pdwPoliciesAppliedMarshal := pdwPoliciesApplied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, pdwPoliciesAppliedMarshal, pdwPoliciesApplied, "HRESULT")
         return result
     }
 }

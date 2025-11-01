@@ -36,7 +36,9 @@ class IEnumMsmDependency extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(cFetch, rgmsmDependencies, pcFetched) {
-        result := ComCall(3, this, "uint", cFetch, "ptr*", rgmsmDependencies, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cFetch, "ptr*", rgmsmDependencies, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

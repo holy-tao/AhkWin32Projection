@@ -38,7 +38,10 @@ class IMFMediaKeySession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-geterror
      */
     GetError(code, systemCode) {
-        result := ComCall(3, this, "ushort*", code, "uint*", systemCode, "HRESULT")
+        codeMarshal := code is VarRef ? "ushort*" : "ptr"
+        systemCodeMarshal := systemCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, codeMarshal, code, systemCodeMarshal, systemCode, "HRESULT")
         return result
     }
 

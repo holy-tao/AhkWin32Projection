@@ -40,7 +40,9 @@ class IDXGIFactory7 extends IDXGIFactory6{
     RegisterAdaptersChangedEvent(hEvent, pdwCookie) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(30, this, "ptr", hEvent, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

@@ -35,7 +35,9 @@ class IDedupIterateChunksHash32 extends IUnknown{
      * @returns {HRESULT} 
      */
     PushBuffer(pBuffer, ulBufferLength) {
-        result := ComCall(3, this, "char*", pBuffer, "uint", ulBufferLength, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", ulBufferLength, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IDedupIterateChunksHash32 extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(ulMaxChunks, pArrChunks, pulFetched) {
-        result := ComCall(4, this, "uint", ulMaxChunks, "ptr", pArrChunks, "uint*", pulFetched, "HRESULT")
+        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulMaxChunks, "ptr", pArrChunks, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 

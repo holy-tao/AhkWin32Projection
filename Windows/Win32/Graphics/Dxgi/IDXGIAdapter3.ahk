@@ -45,7 +45,9 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     RegisterHardwareContentProtectionTeardownStatusEvent(hEvent, pdwCookie) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(12, this, "ptr", hEvent, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -95,7 +97,9 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     RegisterVideoMemoryBudgetChangeNotificationEvent(hEvent, pdwCookie) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(16, this, "ptr", hEvent, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

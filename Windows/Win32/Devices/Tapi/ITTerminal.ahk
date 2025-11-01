@@ -48,7 +48,9 @@ class ITTerminal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_state
      */
     get_State(pTerminalState) {
-        result := ComCall(8, this, "int*", pTerminalState, "HRESULT")
+        pTerminalStateMarshal := pTerminalState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pTerminalStateMarshal, pTerminalState, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITTerminal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_terminaltype
      */
     get_TerminalType(pType) {
-        result := ComCall(9, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ITTerminal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_mediatype
      */
     get_MediaType(plMediaType) {
-        result := ComCall(11, this, "int*", plMediaType, "HRESULT")
+        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plMediaTypeMarshal, plMediaType, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class ITTerminal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_direction
      */
     get_Direction(pDirection) {
-        result := ComCall(12, this, "int*", pDirection, "HRESULT")
+        pDirectionMarshal := pDirection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pDirectionMarshal, pDirection, "HRESULT")
         return result
     }
 }

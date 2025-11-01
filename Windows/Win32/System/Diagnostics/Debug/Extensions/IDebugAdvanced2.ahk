@@ -68,7 +68,9 @@ class IDebugAdvanced2 extends IUnknown{
      * @returns {HRESULT} 
      */
     Request(Request, InBuffer, InBufferSize, OutBuffer, OutBufferSize, OutSize) {
-        result := ComCall(5, this, "uint", Request, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", OutSize, "HRESULT")
+        OutSizeMarshal := OutSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", Request, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, OutSizeMarshal, OutSize, "HRESULT")
         return result
     }
 
@@ -84,7 +86,11 @@ class IDebugAdvanced2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceFileInformation(Which, SourceFile, Arg64, Arg32, Buffer, BufferSize, InfoSize) {
-        result := ComCall(6, this, "uint", Which, "ptr", SourceFile, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", InfoSize, "HRESULT")
+        SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
+
+        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", Which, "ptr", SourceFile, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "HRESULT")
         return result
     }
 
@@ -103,7 +109,13 @@ class IDebugAdvanced2 extends IUnknown{
      * @returns {HRESULT} 
      */
     FindSourceFileAndToken(StartElement, ModAddr, File, Flags, FileToken, FileTokenSize, FoundElement, Buffer, BufferSize, FoundSize) {
-        result := ComCall(7, this, "uint", StartElement, "uint", ModAddr, "ptr", File, "uint", Flags, "ptr", FileToken, "uint", FileTokenSize, "uint*", FoundElement, "ptr", Buffer, "uint", BufferSize, "uint*", FoundSize, "HRESULT")
+        File := File is String ? StrPtr(File) : File
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
+        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", StartElement, "uint", ModAddr, "ptr", File, "uint", Flags, "ptr", FileToken, "uint", FileTokenSize, FoundElementMarshal, FoundElement, "ptr", Buffer, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
@@ -121,7 +133,12 @@ class IDebugAdvanced2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolInformation(Which, Arg64, Arg32, Buffer, BufferSize, InfoSize, StringBuffer, StringBufferSize, StringSize) {
-        result := ComCall(8, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, "uint*", StringSize, "HRESULT")
+        StringBuffer := StringBuffer is String ? StrPtr(StringBuffer) : StringBuffer
+
+        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
+        StringSizeMarshal := StringSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
         return result
     }
 
@@ -136,7 +153,9 @@ class IDebugAdvanced2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSystemObjectInformation(Which, Arg64, Arg32, Buffer, BufferSize, InfoSize) {
-        result := ComCall(9, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", InfoSize, "HRESULT")
+        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "HRESULT")
         return result
     }
 }

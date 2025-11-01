@@ -39,7 +39,9 @@ class ITfContextOwner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-getacpfrompoint
      */
     GetACPFromPoint(ptScreen, dwFlags, pacp) {
-        result := ComCall(3, this, "ptr", ptScreen, "uint", dwFlags, "int*", pacp, "HRESULT")
+        pacpMarshal := pacp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ptScreen, "uint", dwFlags, pacpMarshal, pacp, "HRESULT")
         return result
     }
 

@@ -47,7 +47,9 @@ class IMFContentDecryptionModuleSessionCallbacks extends IUnknown{
     KeyMessage(messageType, message, messageSize, destinationURL) {
         destinationURL := destinationURL is String ? StrPtr(destinationURL) : destinationURL
 
-        result := ComCall(3, this, "int", messageType, "char*", message, "uint", messageSize, "ptr", destinationURL, "HRESULT")
+        messageMarshal := message is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "int", messageType, messageMarshal, message, "uint", messageSize, "ptr", destinationURL, "HRESULT")
         return result
     }
 

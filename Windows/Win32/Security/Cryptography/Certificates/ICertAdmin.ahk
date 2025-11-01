@@ -43,7 +43,9 @@ class ICertAdmin extends IDispatch{
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(7, this, "ptr", strConfig, "ptr", strSerialNumber, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", strConfig, "ptr", strSerialNumber, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ICertAdmin extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin-getrevocationreason
      */
     GetRevocationReason(pReason) {
-        result := ComCall(8, this, "int*", pReason, "HRESULT")
+        pReasonMarshal := pReason is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pReasonMarshal, pReason, "HRESULT")
         return result
     }
 
@@ -135,7 +139,9 @@ class ICertAdmin extends IDispatch{
     ResubmitRequest(strConfig, RequestId, pDisposition) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(13, this, "ptr", strConfig, "int", RequestId, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "ptr", strConfig, "int", RequestId, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -181,7 +187,9 @@ class ICertAdmin extends IDispatch{
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(16, this, "ptr", strConfig, "ptr", strCertificate, "int", Flags, "int*", pRequestId, "HRESULT")
+        pRequestIdMarshal := pRequestId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", strConfig, "ptr", strCertificate, "int", Flags, pRequestIdMarshal, pRequestId, "HRESULT")
         return result
     }
 }

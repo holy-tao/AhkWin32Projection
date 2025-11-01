@@ -35,7 +35,9 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenLeft(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -45,7 +47,9 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenTop(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -85,7 +89,9 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {HRESULT} 
      */
     setTimeout(expression, msec, language, timerID) {
-        result := ComCall(11, this, "ptr", expression, "int", msec, "ptr", language, "int*", timerID, "HRESULT")
+        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
         return result
     }
 
@@ -98,7 +104,9 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {HRESULT} 
      */
     setInterval(expression, msec, language, timerID) {
-        result := ComCall(12, this, "ptr", expression, "int", msec, "ptr", language, "int*", timerID, "HRESULT")
+        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
         return result
     }
 

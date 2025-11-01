@@ -24,7 +24,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateContext(runtime, debugApplication, newContext) {
-        result := DllCall("chakra.dll\JsCreateContext", "ptr", runtime, "ptr", debugApplication, "ptr*", newContext, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateContext", runtimeMarshal, runtime, "ptr", debugApplication, "ptr*", newContext, "uint")
         return result
     }
 
@@ -57,7 +59,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCollectGarbage(runtime) {
-        result := DllCall("chakra.dll\JsCollectGarbage", "ptr", runtime, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCollectGarbage", runtimeMarshal, runtime, "uint")
         return result
     }
 
@@ -67,7 +71,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsDisposeRuntime(runtime) {
-        result := DllCall("chakra.dll\JsDisposeRuntime", "ptr", runtime, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsDisposeRuntime", runtimeMarshal, runtime, "uint")
         return result
     }
 
@@ -78,7 +84,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetRuntimeMemoryUsage(runtime, memoryUsage) {
-        result := DllCall("chakra.dll\JsGetRuntimeMemoryUsage", "ptr", runtime, "ptr*", memoryUsage, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+        memoryUsageMarshal := memoryUsage is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetRuntimeMemoryUsage", runtimeMarshal, runtime, memoryUsageMarshal, memoryUsage, "uint")
         return result
     }
 
@@ -89,7 +98,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetRuntimeMemoryLimit(runtime, memoryLimit) {
-        result := DllCall("chakra.dll\JsGetRuntimeMemoryLimit", "ptr", runtime, "ptr*", memoryLimit, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+        memoryLimitMarshal := memoryLimit is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetRuntimeMemoryLimit", runtimeMarshal, runtime, memoryLimitMarshal, memoryLimit, "uint")
         return result
     }
 
@@ -100,7 +112,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetRuntimeMemoryLimit(runtime, memoryLimit) {
-        result := DllCall("chakra.dll\JsSetRuntimeMemoryLimit", "ptr", runtime, "ptr", memoryLimit, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetRuntimeMemoryLimit", runtimeMarshal, runtime, "ptr", memoryLimit, "uint")
         return result
     }
 
@@ -112,7 +126,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetRuntimeMemoryAllocationCallback(runtime, callbackState, allocationCallback) {
-        result := DllCall("chakra.dll\JsSetRuntimeMemoryAllocationCallback", "ptr", runtime, "ptr", callbackState, "ptr", allocationCallback, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetRuntimeMemoryAllocationCallback", runtimeMarshal, runtime, callbackStateMarshal, callbackState, "ptr", allocationCallback, "uint")
         return result
     }
 
@@ -124,7 +141,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetRuntimeBeforeCollectCallback(runtime, callbackState, beforeCollectCallback) {
-        result := DllCall("chakra.dll\JsSetRuntimeBeforeCollectCallback", "ptr", runtime, "ptr", callbackState, "ptr", beforeCollectCallback, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetRuntimeBeforeCollectCallback", runtimeMarshal, runtime, callbackStateMarshal, callbackState, "ptr", beforeCollectCallback, "uint")
         return result
     }
 
@@ -135,7 +155,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsAddRef(ref, count) {
-        result := DllCall("chakra.dll\JsAddRef", "ptr", ref, "uint*", count, "uint")
+        refMarshal := ref is VarRef ? "ptr" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("chakra.dll\JsAddRef", refMarshal, ref, countMarshal, count, "uint")
         return result
     }
 
@@ -146,7 +169,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsRelease(ref, count) {
-        result := DllCall("chakra.dll\JsRelease", "ptr", ref, "uint*", count, "uint")
+        refMarshal := ref is VarRef ? "ptr" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("chakra.dll\JsRelease", refMarshal, ref, countMarshal, count, "uint")
         return result
     }
 
@@ -166,7 +192,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetCurrentContext(context) {
-        result := DllCall("chakra.dll\JsSetCurrentContext", "ptr", context, "uint")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetCurrentContext", contextMarshal, context, "uint")
         return result
     }
 
@@ -177,7 +205,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetRuntime(context, runtime) {
-        result := DllCall("chakra.dll\JsGetRuntime", "ptr", context, "ptr*", runtime, "uint")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetRuntime", contextMarshal, context, "ptr*", runtime, "uint")
         return result
     }
 
@@ -187,7 +217,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsIdle(nextIdleTick) {
-        result := DllCall("chakra.dll\JsIdle", "uint*", nextIdleTick, "uint")
+        nextIdleTickMarshal := nextIdleTick is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("chakra.dll\JsIdle", nextIdleTickMarshal, nextIdleTick, "uint")
         return result
     }
 
@@ -233,7 +265,10 @@ class Js {
     static JsSerializeScript(script, buffer, bufferSize) {
         script := script is String ? StrPtr(script) : script
 
-        result := DllCall("chakra.dll\JsSerializeScript", "ptr", script, "char*", buffer, "uint*", bufferSize, "uint")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+        bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("chakra.dll\JsSerializeScript", "ptr", script, bufferMarshal, buffer, bufferSizeMarshal, bufferSize, "uint")
         return result
     }
 
@@ -250,7 +285,9 @@ class Js {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        result := DllCall("chakra.dll\JsParseSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("chakra.dll\JsParseSerializedScript", "ptr", script, bufferMarshal, buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
         return result
     }
 
@@ -267,7 +304,9 @@ class Js {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        result := DllCall("chakra.dll\JsRunSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("chakra.dll\JsRunSerializedScript", "ptr", script, bufferMarshal, buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
         return result
     }
 
@@ -291,7 +330,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetPropertyNameFromId(propertyId, name) {
-        result := DllCall("chakra.dll\JsGetPropertyNameFromId", "ptr", propertyId, "ptr*", name, "uint")
+        propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetPropertyNameFromId", propertyIdMarshal, propertyId, "ptr*", name, "uint")
         return result
     }
 
@@ -353,7 +394,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsBooleanToBool(value, boolValue) {
-        result := DllCall("chakra.dll\JsBooleanToBool", "ptr", value, "int*", boolValue, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+        boolValueMarshal := boolValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsBooleanToBool", valueMarshal, value, boolValueMarshal, boolValue, "uint")
         return result
     }
 
@@ -364,7 +408,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsConvertValueToBoolean(value, booleanValue) {
-        result := DllCall("chakra.dll\JsConvertValueToBoolean", "ptr", value, "ptr*", booleanValue, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsConvertValueToBoolean", valueMarshal, value, "ptr*", booleanValue, "uint")
         return result
     }
 
@@ -375,7 +421,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetValueType(value, type) {
-        result := DllCall("chakra.dll\JsGetValueType", "ptr", value, "int*", type, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetValueType", valueMarshal, value, typeMarshal, type, "uint")
         return result
     }
 
@@ -408,7 +457,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsNumberToDouble(value, doubleValue) {
-        result := DllCall("chakra.dll\JsNumberToDouble", "ptr", value, "double*", doubleValue, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+        doubleValueMarshal := doubleValue is VarRef ? "double*" : "ptr"
+
+        result := DllCall("chakra.dll\JsNumberToDouble", valueMarshal, value, doubleValueMarshal, doubleValue, "uint")
         return result
     }
 
@@ -419,7 +471,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsConvertValueToNumber(value, numberValue) {
-        result := DllCall("chakra.dll\JsConvertValueToNumber", "ptr", value, "ptr*", numberValue, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsConvertValueToNumber", valueMarshal, value, "ptr*", numberValue, "uint")
         return result
     }
 
@@ -430,7 +484,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetStringLength(stringValue, length) {
-        result := DllCall("chakra.dll\JsGetStringLength", "ptr", stringValue, "int*", length, "uint")
+        stringValueMarshal := stringValue is VarRef ? "ptr" : "ptr"
+        lengthMarshal := length is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetStringLength", stringValueMarshal, stringValue, lengthMarshal, length, "uint")
         return result
     }
 
@@ -456,7 +513,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsStringToPointer(value, stringValue, stringLength) {
-        result := DllCall("chakra.dll\JsStringToPointer", "ptr", value, "ptr*", stringValue, "ptr*", stringLength, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+        stringLengthMarshal := stringLength is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("chakra.dll\JsStringToPointer", valueMarshal, value, "ptr*", stringValue, stringLengthMarshal, stringLength, "uint")
         return result
     }
 
@@ -467,7 +527,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsConvertValueToString(value, stringValue) {
-        result := DllCall("chakra.dll\JsConvertValueToString", "ptr", value, "ptr*", stringValue, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsConvertValueToString", valueMarshal, value, "ptr*", stringValue, "uint")
         return result
     }
 
@@ -489,7 +551,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsValueToVariant(object, variant) {
-        result := DllCall("chakra.dll\JsValueToVariant", "ptr", object, "ptr", variant, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsValueToVariant", objectMarshal, object, "ptr", variant, "uint")
         return result
     }
 
@@ -521,7 +585,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateExternalObject(data, finalizeCallback, object) {
-        result := DllCall("chakra.dll\JsCreateExternalObject", "ptr", data, "ptr", finalizeCallback, "ptr*", object, "uint")
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateExternalObject", dataMarshal, data, "ptr", finalizeCallback, "ptr*", object, "uint")
         return result
     }
 
@@ -532,7 +598,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsConvertValueToObject(value, object) {
-        result := DllCall("chakra.dll\JsConvertValueToObject", "ptr", value, "ptr*", object, "uint")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsConvertValueToObject", valueMarshal, value, "ptr*", object, "uint")
         return result
     }
 
@@ -543,7 +611,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetPrototype(object, prototypeObject) {
-        result := DllCall("chakra.dll\JsGetPrototype", "ptr", object, "ptr*", prototypeObject, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetPrototype", objectMarshal, object, "ptr*", prototypeObject, "uint")
         return result
     }
 
@@ -554,7 +624,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetPrototype(object, prototypeObject) {
-        result := DllCall("chakra.dll\JsSetPrototype", "ptr", object, "ptr", prototypeObject, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        prototypeObjectMarshal := prototypeObject is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetPrototype", objectMarshal, object, prototypeObjectMarshal, prototypeObject, "uint")
         return result
     }
 
@@ -565,7 +638,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetExtensionAllowed(object, value) {
-        result := DllCall("chakra.dll\JsGetExtensionAllowed", "ptr", object, "int*", value, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetExtensionAllowed", objectMarshal, object, valueMarshal, value, "uint")
         return result
     }
 
@@ -575,7 +651,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsPreventExtension(object) {
-        result := DllCall("chakra.dll\JsPreventExtension", "ptr", object, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsPreventExtension", objectMarshal, object, "uint")
         return result
     }
 
@@ -587,7 +665,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetProperty(object, propertyId, value) {
-        result := DllCall("chakra.dll\JsGetProperty", "ptr", object, "ptr", propertyId, "ptr*", value, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetProperty", objectMarshal, object, propertyIdMarshal, propertyId, "ptr*", value, "uint")
         return result
     }
 
@@ -599,7 +680,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetOwnPropertyDescriptor(object, propertyId, propertyDescriptor) {
-        result := DllCall("chakra.dll\JsGetOwnPropertyDescriptor", "ptr", object, "ptr", propertyId, "ptr*", propertyDescriptor, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetOwnPropertyDescriptor", objectMarshal, object, propertyIdMarshal, propertyId, "ptr*", propertyDescriptor, "uint")
         return result
     }
 
@@ -610,7 +694,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetOwnPropertyNames(object, propertyNames) {
-        result := DllCall("chakra.dll\JsGetOwnPropertyNames", "ptr", object, "ptr*", propertyNames, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetOwnPropertyNames", objectMarshal, object, "ptr*", propertyNames, "uint")
         return result
     }
 
@@ -623,7 +709,11 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetProperty(object, propertyId, value, useStrictRules) {
-        result := DllCall("chakra.dll\JsSetProperty", "ptr", object, "ptr", propertyId, "ptr", value, "char", useStrictRules, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetProperty", objectMarshal, object, propertyIdMarshal, propertyId, valueMarshal, value, "char", useStrictRules, "uint")
         return result
     }
 
@@ -635,7 +725,11 @@ class Js {
      * @returns {Integer} 
      */
     static JsHasProperty(object, propertyId, hasProperty) {
-        result := DllCall("chakra.dll\JsHasProperty", "ptr", object, "ptr", propertyId, "int*", hasProperty, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
+        hasPropertyMarshal := hasProperty is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsHasProperty", objectMarshal, object, propertyIdMarshal, propertyId, hasPropertyMarshal, hasProperty, "uint")
         return result
     }
 
@@ -648,7 +742,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsDeleteProperty(object, propertyId, useStrictRules, result) {
-        result := DllCall("chakra.dll\JsDeleteProperty", "ptr", object, "ptr", propertyId, "char", useStrictRules, "ptr*", result, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsDeleteProperty", objectMarshal, object, propertyIdMarshal, propertyId, "char", useStrictRules, "ptr*", result, "uint")
         return result
     }
 
@@ -661,7 +758,12 @@ class Js {
      * @returns {Integer} 
      */
     static JsDefineProperty(object, propertyId, propertyDescriptor, result) {
-        result := DllCall("chakra.dll\JsDefineProperty", "ptr", object, "ptr", propertyId, "ptr", propertyDescriptor, "int*", result, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
+        propertyDescriptorMarshal := propertyDescriptor is VarRef ? "ptr" : "ptr"
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsDefineProperty", objectMarshal, object, propertyIdMarshal, propertyId, propertyDescriptorMarshal, propertyDescriptor, resultMarshal, result, "uint")
         return result
     }
 
@@ -673,7 +775,11 @@ class Js {
      * @returns {Integer} 
      */
     static JsHasIndexedProperty(object, index, result) {
-        result := DllCall("chakra.dll\JsHasIndexedProperty", "ptr", object, "ptr", index, "int*", result, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        indexMarshal := index is VarRef ? "ptr" : "ptr"
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsHasIndexedProperty", objectMarshal, object, indexMarshal, index, resultMarshal, result, "uint")
         return result
     }
 
@@ -685,7 +791,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetIndexedProperty(object, index, result) {
-        result := DllCall("chakra.dll\JsGetIndexedProperty", "ptr", object, "ptr", index, "ptr*", result, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        indexMarshal := index is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetIndexedProperty", objectMarshal, object, indexMarshal, index, "ptr*", result, "uint")
         return result
     }
 
@@ -697,7 +806,11 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetIndexedProperty(object, index, value) {
-        result := DllCall("chakra.dll\JsSetIndexedProperty", "ptr", object, "ptr", index, "ptr", value, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        indexMarshal := index is VarRef ? "ptr" : "ptr"
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetIndexedProperty", objectMarshal, object, indexMarshal, index, valueMarshal, value, "uint")
         return result
     }
 
@@ -708,7 +821,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsDeleteIndexedProperty(object, index) {
-        result := DllCall("chakra.dll\JsDeleteIndexedProperty", "ptr", object, "ptr", index, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        indexMarshal := index is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsDeleteIndexedProperty", objectMarshal, object, indexMarshal, index, "uint")
         return result
     }
 
@@ -720,7 +836,11 @@ class Js {
      * @returns {Integer} 
      */
     static JsEquals(object1, object2, result) {
-        result := DllCall("chakra.dll\JsEquals", "ptr", object1, "ptr", object2, "int*", result, "uint")
+        object1Marshal := object1 is VarRef ? "ptr" : "ptr"
+        object2Marshal := object2 is VarRef ? "ptr" : "ptr"
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsEquals", object1Marshal, object1, object2Marshal, object2, resultMarshal, result, "uint")
         return result
     }
 
@@ -732,7 +852,11 @@ class Js {
      * @returns {Integer} 
      */
     static JsStrictEquals(object1, object2, result) {
-        result := DllCall("chakra.dll\JsStrictEquals", "ptr", object1, "ptr", object2, "int*", result, "uint")
+        object1Marshal := object1 is VarRef ? "ptr" : "ptr"
+        object2Marshal := object2 is VarRef ? "ptr" : "ptr"
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsStrictEquals", object1Marshal, object1, object2Marshal, object2, resultMarshal, result, "uint")
         return result
     }
 
@@ -743,7 +867,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsHasExternalData(object, value) {
-        result := DllCall("chakra.dll\JsHasExternalData", "ptr", object, "int*", value, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsHasExternalData", objectMarshal, object, valueMarshal, value, "uint")
         return result
     }
 
@@ -754,7 +881,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetExternalData(object, externalData) {
-        result := DllCall("chakra.dll\JsGetExternalData", "ptr", object, "ptr*", externalData, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsGetExternalData", objectMarshal, object, "ptr*", externalData, "uint")
         return result
     }
 
@@ -765,7 +894,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetExternalData(object, externalData) {
-        result := DllCall("chakra.dll\JsSetExternalData", "ptr", object, "ptr", externalData, "uint")
+        objectMarshal := object is VarRef ? "ptr" : "ptr"
+        externalDataMarshal := externalData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetExternalData", objectMarshal, object, externalDataMarshal, externalData, "uint")
         return result
     }
 
@@ -789,7 +921,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCallFunction(function, arguments, argumentCount, result) {
-        result := DllCall("chakra.dll\JsCallFunction", "ptr", function, "ptr*", arguments, "ushort", argumentCount, "ptr*", result, "uint")
+        functionMarshal := function is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCallFunction", functionMarshal, function, "ptr*", arguments, "ushort", argumentCount, "ptr*", result, "uint")
         return result
     }
 
@@ -802,7 +936,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsConstructObject(function, arguments, argumentCount, result) {
-        result := DllCall("chakra.dll\JsConstructObject", "ptr", function, "ptr*", arguments, "ushort", argumentCount, "ptr*", result, "uint")
+        functionMarshal := function is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsConstructObject", functionMarshal, function, "ptr*", arguments, "ushort", argumentCount, "ptr*", result, "uint")
         return result
     }
 
@@ -814,7 +950,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateFunction(nativeFunction, callbackState, function) {
-        result := DllCall("chakra.dll\JsCreateFunction", "ptr", nativeFunction, "ptr", callbackState, "ptr*", function, "uint")
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateFunction", "ptr", nativeFunction, callbackStateMarshal, callbackState, "ptr*", function, "uint")
         return result
     }
 
@@ -825,7 +963,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateError(message, error) {
-        result := DllCall("chakra.dll\JsCreateError", "ptr", message, "ptr*", error, "uint")
+        messageMarshal := message is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateError", messageMarshal, message, "ptr*", error, "uint")
         return result
     }
 
@@ -836,7 +976,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateRangeError(message, error) {
-        result := DllCall("chakra.dll\JsCreateRangeError", "ptr", message, "ptr*", error, "uint")
+        messageMarshal := message is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateRangeError", messageMarshal, message, "ptr*", error, "uint")
         return result
     }
 
@@ -847,7 +989,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateReferenceError(message, error) {
-        result := DllCall("chakra.dll\JsCreateReferenceError", "ptr", message, "ptr*", error, "uint")
+        messageMarshal := message is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateReferenceError", messageMarshal, message, "ptr*", error, "uint")
         return result
     }
 
@@ -858,7 +1002,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateSyntaxError(message, error) {
-        result := DllCall("chakra.dll\JsCreateSyntaxError", "ptr", message, "ptr*", error, "uint")
+        messageMarshal := message is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateSyntaxError", messageMarshal, message, "ptr*", error, "uint")
         return result
     }
 
@@ -869,7 +1015,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateTypeError(message, error) {
-        result := DllCall("chakra.dll\JsCreateTypeError", "ptr", message, "ptr*", error, "uint")
+        messageMarshal := message is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateTypeError", messageMarshal, message, "ptr*", error, "uint")
         return result
     }
 
@@ -880,7 +1028,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsCreateURIError(message, error) {
-        result := DllCall("chakra.dll\JsCreateURIError", "ptr", message, "ptr*", error, "uint")
+        messageMarshal := message is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsCreateURIError", messageMarshal, message, "ptr*", error, "uint")
         return result
     }
 
@@ -890,7 +1040,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsHasException(hasException) {
-        result := DllCall("chakra.dll\JsHasException", "int*", hasException, "uint")
+        hasExceptionMarshal := hasException is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsHasException", hasExceptionMarshal, hasException, "uint")
         return result
     }
 
@@ -910,7 +1062,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsSetException(exception) {
-        result := DllCall("chakra.dll\JsSetException", "ptr", exception, "uint")
+        exceptionMarshal := exception is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsSetException", exceptionMarshal, exception, "uint")
         return result
     }
 
@@ -920,7 +1074,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsDisableRuntimeExecution(runtime) {
-        result := DllCall("chakra.dll\JsDisableRuntimeExecution", "ptr", runtime, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsDisableRuntimeExecution", runtimeMarshal, runtime, "uint")
         return result
     }
 
@@ -930,7 +1086,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsEnableRuntimeExecution(runtime) {
-        result := DllCall("chakra.dll\JsEnableRuntimeExecution", "ptr", runtime, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("chakra.dll\JsEnableRuntimeExecution", runtimeMarshal, runtime, "uint")
         return result
     }
 
@@ -941,7 +1099,10 @@ class Js {
      * @returns {Integer} 
      */
     static JsIsRuntimeExecutionDisabled(runtime, isDisabled) {
-        result := DllCall("chakra.dll\JsIsRuntimeExecutionDisabled", "ptr", runtime, "int*", isDisabled, "uint")
+        runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
+        isDisabledMarshal := isDisabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsIsRuntimeExecutionDisabled", runtimeMarshal, runtime, isDisabledMarshal, isDisabled, "uint")
         return result
     }
 
@@ -983,7 +1144,9 @@ class Js {
      * @returns {Integer} 
      */
     static JsIsEnumeratingHeap(isEnumeratingHeap) {
-        result := DllCall("chakra.dll\JsIsEnumeratingHeap", "int*", isEnumeratingHeap, "uint")
+        isEnumeratingHeapMarshal := isEnumeratingHeap is VarRef ? "int*" : "ptr"
+
+        result := DllCall("chakra.dll\JsIsEnumeratingHeap", isEnumeratingHeapMarshal, isEnumeratingHeap, "uint")
         return result
     }
 

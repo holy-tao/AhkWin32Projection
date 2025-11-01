@@ -49,7 +49,9 @@ class IMalloc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-realloc
      */
     Realloc(pv, cb) {
-        result := ComCall(4, this, "ptr", pv, "ptr", cb, "ptr")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pvMarshal, pv, "ptr", cb, "ptr")
         return result
     }
 
@@ -60,7 +62,9 @@ class IMalloc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-free
      */
     Free(pv) {
-        ComCall(5, this, "ptr", pv)
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        ComCall(5, this, pvMarshal, pv)
     }
 
     /**
@@ -70,7 +74,9 @@ class IMalloc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-getsize
      */
     GetSize(pv) {
-        result := ComCall(6, this, "ptr", pv, "ptr")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, pvMarshal, pv, "ptr")
         return result
     }
 
@@ -81,7 +87,9 @@ class IMalloc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-didalloc
      */
     DidAlloc(pv) {
-        result := ComCall(7, this, "ptr", pv, "int")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, pvMarshal, pv, "int")
         return result
     }
 

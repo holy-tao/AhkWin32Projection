@@ -37,7 +37,9 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyid
      */
     get_PropertyId(propertyId) {
-        result := ComCall(3, this, "int*", propertyId, "HRESULT")
+        propertyIdMarshal := propertyId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, propertyIdMarshal, propertyId, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyconditionflags
      */
     get_PropertyConditionFlags(flags) {
-        result := ComCall(5, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 }

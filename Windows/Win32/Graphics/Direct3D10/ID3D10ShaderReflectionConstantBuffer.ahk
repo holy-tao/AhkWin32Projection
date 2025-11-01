@@ -63,6 +63,8 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getvariablebyname
      */
     GetVariableByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(2, this, "ptr", Name, "ptr")
         return result
     }

@@ -49,7 +49,10 @@ class IStemmerConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLocaleInfo(pdwCodePageID, plcid) {
-        result := ComCall(4, this, "uint*", pdwCodePageID, "uint*", plcid, "HRESULT")
+        pdwCodePageIDMarshal := pdwCodePageID is VarRef ? "uint*" : "ptr"
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwCodePageIDMarshal, pdwCodePageID, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -71,7 +74,10 @@ class IStemmerConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     GetControlInfo(pgrfStemFlags, pdwReserved) {
-        result := ComCall(6, this, "uint*", pgrfStemFlags, "uint*", pdwReserved, "HRESULT")
+        pgrfStemFlagsMarshal := pgrfStemFlags is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pgrfStemFlagsMarshal, pgrfStemFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 

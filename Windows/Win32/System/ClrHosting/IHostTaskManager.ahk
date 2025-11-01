@@ -47,7 +47,9 @@ class IHostTaskManager extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateTask(dwStackSize, pStartAddress, pParameter, ppTask) {
-        result := ComCall(4, this, "uint", dwStackSize, "ptr", pStartAddress, "ptr", pParameter, "ptr*", ppTask, "HRESULT")
+        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", dwStackSize, "ptr", pStartAddress, pParameterMarshal, pParameter, "ptr*", ppTask, "HRESULT")
         return result
     }
 
@@ -224,7 +226,9 @@ class IHostTaskManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStackGuarantee(pGuarantee) {
-        result := ComCall(19, this, "uint*", pGuarantee, "HRESULT")
+        pGuaranteeMarshal := pGuarantee is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pGuaranteeMarshal, pGuarantee, "HRESULT")
         return result
     }
 

@@ -48,7 +48,9 @@ class IConfigInterleaving extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-get_mode
      */
     get_Mode(pMode) {
-        result := ComCall(4, this, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 
@@ -60,7 +62,10 @@ class IConfigInterleaving extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-put_interleaving
      */
     put_Interleaving(prtInterleave, prtPreroll) {
-        result := ComCall(5, this, "int64*", prtInterleave, "int64*", prtPreroll, "HRESULT")
+        prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : "ptr"
+        prtPrerollMarshal := prtPreroll is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, prtInterleaveMarshal, prtInterleave, prtPrerollMarshal, prtPreroll, "HRESULT")
         return result
     }
 
@@ -72,7 +77,10 @@ class IConfigInterleaving extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-get_interleaving
      */
     get_Interleaving(prtInterleave, prtPreroll) {
-        result := ComCall(6, this, "int64*", prtInterleave, "int64*", prtPreroll, "HRESULT")
+        prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : "ptr"
+        prtPrerollMarshal := prtPreroll is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(6, this, prtInterleaveMarshal, prtInterleave, prtPrerollMarshal, prtPreroll, "HRESULT")
         return result
     }
 }

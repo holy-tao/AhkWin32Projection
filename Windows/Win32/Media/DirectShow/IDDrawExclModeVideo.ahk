@@ -98,7 +98,12 @@ class IDDrawExclModeVideo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-getnativevideoprops
      */
     GetNativeVideoProps(pdwVideoWidth, pdwVideoHeight, pdwPictAspectRatioX, pdwPictAspectRatioY) {
-        result := ComCall(8, this, "uint*", pdwVideoWidth, "uint*", pdwVideoHeight, "uint*", pdwPictAspectRatioX, "uint*", pdwPictAspectRatioY, "HRESULT")
+        pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : "ptr"
+        pdwVideoHeightMarshal := pdwVideoHeight is VarRef ? "uint*" : "ptr"
+        pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : "ptr"
+        pdwPictAspectRatioYMarshal := pdwPictAspectRatioY is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwVideoWidthMarshal, pdwVideoWidth, pdwVideoHeightMarshal, pdwVideoHeight, pdwPictAspectRatioXMarshal, pdwPictAspectRatioX, pdwPictAspectRatioYMarshal, pdwPictAspectRatioY, "HRESULT")
         return result
     }
 

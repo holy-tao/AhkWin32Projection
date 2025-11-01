@@ -44,7 +44,9 @@ class IWdsTransportNamespace extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_type
      */
     get_Type(pType) {
-        result := ComCall(7, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IWdsTransportNamespace extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_id
      */
     get_Id(pulId) {
-        result := ComCall(8, this, "uint*", pulId, "HRESULT")
+        pulIdMarshal := pulId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulIdMarshal, pulId, "HRESULT")
         return result
     }
 
@@ -208,7 +212,9 @@ class IWdsTransportNamespace extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstonetime
      */
     get_TombstoneTime(pTombstoneTime) {
-        result := ComCall(21, this, "double*", pTombstoneTime, "HRESULT")
+        pTombstoneTimeMarshal := pTombstoneTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(21, this, pTombstoneTimeMarshal, pTombstoneTime, "HRESULT")
         return result
     }
 

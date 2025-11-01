@@ -70,7 +70,9 @@ class IAzBizRuleInterfaces extends IDispatch{
     GetInterfaceValue(bstrInterfaceName, lInterfaceFlag, varInterface) {
         bstrInterfaceName := bstrInterfaceName is String ? BSTR.Alloc(bstrInterfaceName).Value : bstrInterfaceName
 
-        result := ComCall(9, this, "ptr", bstrInterfaceName, "int*", lInterfaceFlag, "ptr", varInterface, "HRESULT")
+        lInterfaceFlagMarshal := lInterfaceFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", bstrInterfaceName, lInterfaceFlagMarshal, lInterfaceFlag, "ptr", varInterface, "HRESULT")
         return result
     }
 
@@ -104,7 +106,9 @@ class IAzBizRuleInterfaces extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-get_count
      */
     get_Count(plCount) {
-        result := ComCall(12, this, "uint*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 }

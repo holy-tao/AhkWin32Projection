@@ -54,7 +54,9 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
      * @returns {HRESULT} 
      */
     put_PLPNumber(pPLPNumber) {
-        result := ComCall(27, this, "uint*", pPLPNumber, "HRESULT")
+        pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, pPLPNumberMarshal, pPLPNumber, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
      * @returns {HRESULT} 
      */
     get_PLPNumber(pPLPNumber) {
-        result := ComCall(28, this, "uint*", pPLPNumber, "HRESULT")
+        pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, pPLPNumberMarshal, pPLPNumber, "HRESULT")
         return result
     }
 }

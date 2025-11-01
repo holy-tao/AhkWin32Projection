@@ -37,7 +37,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getid
      */
     GetID(pulID) {
-        result := ComCall(3, this, "uint*", pulID, "HRESULT")
+        pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulIDMarshal, pulID, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getsidlength
      */
     GetSidLength(pdwLength) {
-        result := ComCall(5, this, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -80,7 +84,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getsid
      */
     GetSid(pbSidBuffer, cbSidBuffer) {
-        result := ComCall(6, this, "char*", pbSidBuffer, "uint", cbSidBuffer, "HRESULT")
+        pbSidBufferMarshal := pbSidBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbSidBufferMarshal, pbSidBuffer, "uint", cbSidBuffer, "HRESULT")
         return result
     }
 
@@ -91,7 +97,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotathreshold
      */
     GetQuotaThreshold(pllThreshold) {
-        result := ComCall(7, this, "int64*", pllThreshold, "HRESULT")
+        pllThresholdMarshal := pllThreshold is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, pllThresholdMarshal, pllThreshold, "HRESULT")
         return result
     }
 
@@ -116,7 +124,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotalimit
      */
     GetQuotaLimit(pllLimit) {
-        result := ComCall(9, this, "int64*", pllLimit, "HRESULT")
+        pllLimitMarshal := pllLimit is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(9, this, pllLimitMarshal, pllLimit, "HRESULT")
         return result
     }
 
@@ -141,7 +151,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotaused
      */
     GetQuotaUsed(pllUsed) {
-        result := ComCall(11, this, "int64*", pllUsed, "HRESULT")
+        pllUsedMarshal := pllUsed is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(11, this, pllUsedMarshal, pllUsed, "HRESULT")
         return result
     }
 
@@ -167,7 +179,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotainformation
      */
     GetQuotaInformation(pbQuotaInfo, cbQuotaInfo) {
-        result := ComCall(13, this, "ptr", pbQuotaInfo, "uint", cbQuotaInfo, "HRESULT")
+        pbQuotaInfoMarshal := pbQuotaInfo is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(13, this, pbQuotaInfoMarshal, pbQuotaInfo, "uint", cbQuotaInfo, "HRESULT")
         return result
     }
 
@@ -212,7 +226,9 @@ class IDiskQuotaUser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getaccountstatus
      */
     GetAccountStatus(pdwStatus) {
-        result := ComCall(17, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 }

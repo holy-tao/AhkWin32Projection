@@ -39,7 +39,9 @@ class IEnumPIDMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ienumpidmap-next
      */
     Next(cRequest, pPIDMap, pcReceived) {
-        result := ComCall(3, this, "uint", cRequest, "ptr", pPIDMap, "uint*", pcReceived, "int")
+        pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cRequest, "ptr", pPIDMap, pcReceivedMarshal, pcReceived, "int")
         return result
     }
 

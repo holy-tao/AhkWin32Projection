@@ -63,7 +63,10 @@ class IPrint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-getpageinfo
      */
     GetPageInfo(pnFirstPage, pcPages) {
-        result := ComCall(4, this, "int*", pnFirstPage, "int*", pcPages, "HRESULT")
+        pnFirstPageMarshal := pnFirstPage is VarRef ? "int*" : "ptr"
+        pcPagesMarshal := pcPages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pnFirstPageMarshal, pnFirstPage, pcPagesMarshal, pcPages, "HRESULT")
         return result
     }
 
@@ -81,7 +84,10 @@ class IPrint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-print
      */
     Print(grfFlags, pptd, ppPageSet, pstgmOptions, pcallback, nFirstPage, pcPagesPrinted, pnLastPage) {
-        result := ComCall(5, this, "uint", grfFlags, "ptr*", pptd, "ptr*", ppPageSet, "ptr", pstgmOptions, "ptr", pcallback, "int", nFirstPage, "int*", pcPagesPrinted, "int*", pnLastPage, "HRESULT")
+        pcPagesPrintedMarshal := pcPagesPrinted is VarRef ? "int*" : "ptr"
+        pnLastPageMarshal := pnLastPage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "uint", grfFlags, "ptr*", pptd, "ptr*", ppPageSet, "ptr", pstgmOptions, "ptr", pcallback, "int", nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
         return result
     }
 }

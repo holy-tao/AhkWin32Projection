@@ -35,7 +35,9 @@ class ICanvasPixelArrayData extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBufferPointer(ppBuffer, pBufferLength) {
-        result := ComCall(3, this, "ptr*", ppBuffer, "uint*", pBufferLength, "HRESULT")
+        pBufferLengthMarshal := pBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", ppBuffer, pBufferLengthMarshal, pBufferLength, "HRESULT")
         return result
     }
 }

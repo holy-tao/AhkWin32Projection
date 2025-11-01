@@ -59,7 +59,9 @@ class IFsrmFileScreenBase extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-get_filescreenflags
      */
     get_FileScreenFlags(fileScreenFlags) {
-        result := ComCall(14, this, "int*", fileScreenFlags, "HRESULT")
+        fileScreenFlagsMarshal := fileScreenFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, fileScreenFlagsMarshal, fileScreenFlags, "HRESULT")
         return result
     }
 

@@ -51,7 +51,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_MinPasswordLength(retval) {
-        result := ComCall(21, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_MinPasswordAge(retval) {
-        result := ComCall(23, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -91,7 +95,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_MaxPasswordAge(retval) {
-        result := ComCall(25, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -111,7 +117,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_MaxBadPasswordsAllowed(retval) {
-        result := ComCall(27, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -131,7 +139,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_PasswordHistoryLength(retval) {
-        result := ComCall(29, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -151,7 +161,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_PasswordAttributes(retval) {
-        result := ComCall(31, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -171,7 +183,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_AutoUnlockInterval(retval) {
-        result := ComCall(33, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -191,7 +205,9 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     get_LockoutObservationInterval(retval) {
-        result := ComCall(35, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

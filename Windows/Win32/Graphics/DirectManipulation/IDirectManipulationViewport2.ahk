@@ -48,7 +48,9 @@ class IDirectManipulationViewport2 extends IDirectManipulationViewport{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport2-addbehavior
      */
     AddBehavior(behavior, cookie) {
-        result := ComCall(31, this, "ptr", behavior, "uint*", cookie, "HRESULT")
+        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "ptr", behavior, cookieMarshal, cookie, "HRESULT")
         return result
     }
 

@@ -79,7 +79,9 @@ class ISpellCheckProvider extends IUnknown{
     GetOptionValue(optionId, value) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
 
-        result := ComCall(6, this, "ptr", optionId, "char*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "ptr", optionId, valueMarshal, value, "HRESULT")
         return result
     }
 

@@ -55,7 +55,9 @@ class IAccessibleEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getiaccessiblepair
      */
     GetIAccessiblePair(ppAcc, pidChild) {
-        result := ComCall(4, this, "ptr*", ppAcc, "int*", pidChild, "HRESULT")
+        pidChildMarshal := pidChild is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppAcc, pidChildMarshal, pidChild, "HRESULT")
         return result
     }
 

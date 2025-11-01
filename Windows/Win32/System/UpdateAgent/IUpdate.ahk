@@ -295,7 +295,9 @@ class IUpdate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_lastdeploymentchangetime
      */
     get_LastDeploymentChangeTime(retval) {
-        result := ComCall(30, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(30, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -350,7 +352,9 @@ class IUpdate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_recommendedcpuspeed
      */
     get_RecommendedCpuSpeed(retval) {
-        result := ComCall(35, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -361,7 +365,9 @@ class IUpdate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_recommendedharddiskspace
      */
     get_RecommendedHardDiskSpace(retval) {
-        result := ComCall(36, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -372,7 +378,9 @@ class IUpdate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_recommendedmemory
      */
     get_RecommendedMemory(retval) {
-        result := ComCall(37, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -427,7 +435,9 @@ class IUpdate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_type
      */
     get_Type(retval) {
-        result := ComCall(42, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -492,7 +502,9 @@ class IUpdate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deploymentaction
      */
     get_DeploymentAction(retval) {
-        result := ComCall(48, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -517,7 +529,9 @@ class IUpdate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_downloadpriority
      */
     get_DownloadPriority(retval) {
-        result := ComCall(50, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -56,7 +56,9 @@ class IWTSSBPlugin extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(PluginCapabilities) {
-        result := ComCall(3, this, "uint*", PluginCapabilities, "HRESULT")
+        PluginCapabilitiesMarshal := PluginCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, PluginCapabilitiesMarshal, PluginCapabilities, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class IWTSSBPlugin extends IUnknown{
         ApplicationType := ApplicationType is String ? StrPtr(ApplicationType) : ApplicationType
         FarmName := FarmName is String ? StrPtr(FarmName) : FarmName
 
-        result := ComCall(6, this, "ptr", UserName, "ptr", DomainName, "ptr", ApplicationType, "ptr", FarmName, "int*", pMachineId, "HRESULT")
+        pMachineIdMarshal := pMachineId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", UserName, "ptr", DomainName, "ptr", ApplicationType, "ptr", FarmName, pMachineIdMarshal, pMachineId, "HRESULT")
         return result
     }
 
@@ -133,7 +137,9 @@ class IWTSSBPlugin extends IUnknown{
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         ApplicationType := ApplicationType is String ? StrPtr(ApplicationType) : ApplicationType
 
-        result := ComCall(8, this, "ptr", UserName, "ptr", DomainName, "ptr", ApplicationType, "ptr", RedirectorInternalIP, "uint*", pSessionId, "ptr", pMachineConnectInfo, "HRESULT")
+        pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", UserName, "ptr", DomainName, "ptr", ApplicationType, "ptr", RedirectorInternalIP, pSessionIdMarshal, pSessionId, "ptr", pMachineConnectInfo, "HRESULT")
         return result
     }
 }

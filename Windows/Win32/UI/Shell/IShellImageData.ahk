@@ -169,7 +169,9 @@ class IShellImageData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getcurrentpage
      */
     GetCurrentPage(pnPage) {
-        result := ComCall(15, this, "uint*", pnPage, "HRESULT")
+        pnPageMarshal := pnPage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pnPageMarshal, pnPage, "HRESULT")
         return result
     }
 
@@ -180,7 +182,9 @@ class IShellImageData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getpagecount
      */
     GetPageCount(pcPages) {
-        result := ComCall(16, this, "uint*", pcPages, "HRESULT")
+        pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pcPagesMarshal, pcPages, "HRESULT")
         return result
     }
 
@@ -226,7 +230,9 @@ class IShellImageData extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
      */
     GetPixelFormat(pFormat) {
-        result := ComCall(20, this, "uint*", pFormat, "HRESULT")
+        pFormatMarshal := pFormat is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pFormatMarshal, pFormat, "HRESULT")
         return result
     }
 
@@ -237,7 +243,9 @@ class IShellImageData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getdelay
      */
     GetDelay(pdwDelay) {
-        result := ComCall(21, this, "uint*", pdwDelay, "HRESULT")
+        pdwDelayMarshal := pdwDelay is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pdwDelayMarshal, pdwDelay, "HRESULT")
         return result
     }
 
@@ -320,7 +328,10 @@ class IShellImageData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getresolution
      */
     GetResolution(puResolutionX, puResolutionY) {
-        result := ComCall(28, this, "uint*", puResolutionX, "uint*", puResolutionY, "HRESULT")
+        puResolutionXMarshal := puResolutionX is VarRef ? "uint*" : "ptr"
+        puResolutionYMarshal := puResolutionY is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, puResolutionXMarshal, puResolutionX, puResolutionYMarshal, puResolutionY, "HRESULT")
         return result
     }
 
@@ -366,7 +377,9 @@ class IShellImageData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-replaceframe
      */
     ReplaceFrame(pImg) {
-        result := ComCall(32, this, "char*", pImg, "HRESULT")
+        pImgMarshal := pImg is VarRef ? "char*" : "ptr"
+
+        result := ComCall(32, this, pImgMarshal, pImg, "HRESULT")
         return result
     }
 }

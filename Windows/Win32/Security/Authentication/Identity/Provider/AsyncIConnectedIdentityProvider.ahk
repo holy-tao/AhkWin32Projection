@@ -41,7 +41,9 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_ConnectIdentity(AuthBuffer, AuthBufferSize) {
-        result := ComCall(3, this, "char*", AuthBuffer, "uint", AuthBufferSize, "HRESULT")
+        AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, "uint", AuthBufferSize, "HRESULT")
         return result
     }
 
@@ -128,7 +130,9 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_GetAccountState(pState) {
-        result := ComCall(12, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

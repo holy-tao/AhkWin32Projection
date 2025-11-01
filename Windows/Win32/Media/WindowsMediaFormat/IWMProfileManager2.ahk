@@ -37,7 +37,9 @@ class IWMProfileManager2 extends IWMProfileManager{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager2-getsystemprofileversion
      */
     GetSystemProfileVersion(pdwVersion) {
-        result := ComCall(9, this, "int*", pdwVersion, "HRESULT")
+        pdwVersionMarshal := pdwVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
     }
 

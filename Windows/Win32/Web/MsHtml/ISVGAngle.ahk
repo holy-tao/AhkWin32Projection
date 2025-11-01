@@ -51,7 +51,9 @@ class ISVGAngle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_unitType(p) {
-        result := ComCall(8, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class ISVGAngle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_value(p) {
-        result := ComCall(10, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -91,7 +95,9 @@ class ISVGAngle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_valueInSpecifiedUnits(p) {
-        result := ComCall(12, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 

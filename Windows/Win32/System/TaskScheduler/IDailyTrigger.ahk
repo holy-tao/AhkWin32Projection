@@ -48,7 +48,9 @@ class IDailyTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-idailytrigger-get_daysinterval
      */
     get_DaysInterval(pDays) {
-        result := ComCall(20, this, "short*", pDays, "HRESULT")
+        pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
+
+        result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
     }
 

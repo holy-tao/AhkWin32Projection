@@ -43,7 +43,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_index
      */
     get_Index(Index) {
-        result := ComCall(3, this, "uint*", Index, "HRESULT")
+        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, IndexMarshal, Index, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_status
      */
     get_Status(Status) {
-        result := ComCall(4, this, "int*", Status, "HRESULT")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, StatusMarshal, Status, "HRESULT")
         return result
     }
 
@@ -87,7 +91,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_encodingid
      */
     get_EncodingID(EncodingID) {
-        result := ComCall(7, this, "int*", EncodingID, "HRESULT")
+        EncodingIDMarshal := EncodingID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, EncodingIDMarshal, EncodingID, "HRESULT")
         return result
     }
 
@@ -98,7 +104,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_languageid
      */
     get_LanguageID(LanguageID) {
-        result := ComCall(8, this, "int*", LanguageID, "HRESULT")
+        LanguageIDMarshal := LanguageID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, LanguageIDMarshal, LanguageID, "HRESULT")
         return result
     }
 
@@ -109,7 +117,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_sizeincharacters
      */
     get_SizeInCharacters(SizeInCharacters) {
-        result := ComCall(9, this, "uint*", SizeInCharacters, "HRESULT")
+        SizeInCharactersMarshal := SizeInCharacters is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, SizeInCharactersMarshal, SizeInCharacters, "HRESULT")
         return result
     }
 

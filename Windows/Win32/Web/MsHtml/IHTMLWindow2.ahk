@@ -100,7 +100,9 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
     setTimeout(expression, msec, language, timerID) {
         expression := expression is String ? BSTR.Alloc(expression).Value : expression
 
-        result := ComCall(14, this, "ptr", expression, "int", msec, "ptr", language, "int*", timerID, "HRESULT")
+        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
         return result
     }
 
@@ -635,7 +637,9 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
     setInterval(expression, msec, language, timerID) {
         expression := expression is String ? BSTR.Alloc(expression).Value : expression
 
-        result := ComCall(64, this, "ptr", expression, "int", msec, "ptr", language, "int*", timerID, "HRESULT")
+        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
         return result
     }
 

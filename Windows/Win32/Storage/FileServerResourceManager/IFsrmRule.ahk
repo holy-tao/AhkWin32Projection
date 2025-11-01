@@ -67,7 +67,9 @@ class IFsrmRule extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_ruletype
      */
     get_RuleType(ruleType) {
-        result := ComCall(14, this, "int*", ruleType, "HRESULT")
+        ruleTypeMarshal := ruleType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, ruleTypeMarshal, ruleType, "HRESULT")
         return result
     }
 
@@ -124,7 +126,9 @@ class IFsrmRule extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_ruleflags
      */
     get_RuleFlags(ruleFlags) {
-        result := ComCall(19, this, "int*", ruleFlags, "HRESULT")
+        ruleFlagsMarshal := ruleFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, ruleFlagsMarshal, ruleFlags, "HRESULT")
         return result
     }
 

@@ -40,7 +40,9 @@ class IMSMQQueue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Access(plAccess) {
-        result := ComCall(7, this, "int*", plAccess, "HRESULT")
+        plAccessMarshal := plAccess is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plAccessMarshal, plAccess, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IMSMQQueue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ShareMode(plShareMode) {
-        result := ComCall(8, this, "int*", plShareMode, "HRESULT")
+        plShareModeMarshal := plShareMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plShareModeMarshal, plShareMode, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IMSMQQueue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Handle(plHandle) {
-        result := ComCall(10, this, "int*", plHandle, "HRESULT")
+        plHandleMarshal := plHandle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plHandleMarshal, plHandle, "HRESULT")
         return result
     }
 
@@ -80,7 +86,9 @@ class IMSMQQueue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_IsOpen(pisOpen) {
-        result := ComCall(11, this, "short*", pisOpen, "HRESULT")
+        pisOpenMarshal := pisOpen is VarRef ? "short*" : "ptr"
+
+        result := ComCall(11, this, pisOpenMarshal, pisOpen, "HRESULT")
         return result
     }
 

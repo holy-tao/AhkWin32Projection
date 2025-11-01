@@ -570,7 +570,10 @@ class Direct2D {
      * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-d2d1sincos
      */
     static D2D1SinCos(angle, s, c) {
-        DllCall("d2d1.dll\D2D1SinCos", "float", angle, "float*", s, "float*", c)
+        sMarshal := s is VarRef ? "float*" : "ptr"
+        cMarshal := c is VarRef ? "float*" : "ptr"
+
+        DllCall("d2d1.dll\D2D1SinCos", "float", angle, sMarshal, s, cMarshal, c)
     }
 
     /**

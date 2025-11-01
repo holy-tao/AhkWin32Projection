@@ -56,7 +56,9 @@ class IPropertyPageSite extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-getlocaleid
      */
     GetLocaleID(pLocaleID) {
-        result := ComCall(4, this, "uint*", pLocaleID, "HRESULT")
+        pLocaleIDMarshal := pLocaleID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pLocaleIDMarshal, pLocaleID, "HRESULT")
         return result
     }
 

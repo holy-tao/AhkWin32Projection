@@ -37,7 +37,9 @@ class IIdentityStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-getcount
      */
     GetCount(pdwProviders) {
-        result := ComCall(3, this, "uint*", pdwProviders, "HRESULT")
+        pdwProvidersMarshal := pdwProviders is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwProvidersMarshal, pdwProviders, "HRESULT")
         return result
     }
 
@@ -81,7 +83,10 @@ class IIdentityStore extends IUnknown{
     ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid, pcbRequiredSid) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, "char*", pSid, "ushort*", pcbRequiredSid, "HRESULT")
+        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+        pcbRequiredSidMarshal := pcbRequiredSid is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, pcbRequiredSidMarshal, pcbRequiredSid, "HRESULT")
         return result
     }
 

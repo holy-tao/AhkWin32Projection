@@ -41,7 +41,10 @@ class ISCPSecureExchange3 extends ISCPSecureExchange2{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercontainerdataonclearchannel
      */
     TransferContainerDataOnClearChannel(pDevice, pData, dwSize, pProgressCallback, pfuReadyFlags) {
-        result := ComCall(7, this, "ptr", pDevice, "char*", pData, "uint", dwSize, "ptr", pProgressCallback, "uint*", pfuReadyFlags, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pfuReadyFlagsMarshal := pfuReadyFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, pfuReadyFlagsMarshal, pfuReadyFlags, "HRESULT")
         return result
     }
 
@@ -53,7 +56,10 @@ class ISCPSecureExchange3 extends ISCPSecureExchange2{
      * @returns {HRESULT} 
      */
     GetObjectDataOnClearChannel(pDevice, pData, pdwSize) {
-        result := ComCall(8, this, "ptr", pDevice, "char*", pData, "uint*", pdwSize, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pDevice, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 

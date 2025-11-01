@@ -116,7 +116,9 @@ class IUpdateSearcher extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection
      */
     get_ServerSelection(retval) {
-        result := ComCall(13, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -229,7 +231,9 @@ class IUpdateSearcher extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-gettotalhistorycount
      */
     GetTotalHistoryCount(retval) {
-        result := ComCall(22, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

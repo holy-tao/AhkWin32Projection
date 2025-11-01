@@ -44,7 +44,9 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-next
      */
     Next(cRequest, pStreamBufferAttribute, pcReceived) {
-        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamBufferAttribute, "uint*", pcReceived, "HRESULT")
+        pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamBufferAttribute, pcReceivedMarshal, pcReceived, "HRESULT")
         return result
     }
 

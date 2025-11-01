@@ -42,7 +42,10 @@ class IColumnMapper extends IUnknown{
     GetPropInfoFromName(wcsPropName, ppPropId, pPropType, puiWidth) {
         wcsPropName := wcsPropName is String ? StrPtr(wcsPropName) : wcsPropName
 
-        result := ComCall(3, this, "ptr", wcsPropName, "ptr*", ppPropId, "ushort*", pPropType, "uint*", puiWidth, "HRESULT")
+        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", wcsPropName, "ptr*", ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
     }
 
@@ -56,7 +59,10 @@ class IColumnMapper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromid
      */
     GetPropInfoFromId(pPropId, pwcsName, pPropType, puiWidth) {
-        result := ComCall(4, this, "ptr", pPropId, "ptr*", pwcsName, "ushort*", pPropType, "uint*", puiWidth, "HRESULT")
+        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pPropId, "ptr*", pwcsName, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
     }
 
@@ -71,7 +77,10 @@ class IColumnMapper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-enumpropinfo
      */
     EnumPropInfo(iEntry, pwcsName, ppPropId, pPropType, puiWidth) {
-        result := ComCall(5, this, "uint", iEntry, "ptr*", pwcsName, "ptr*", ppPropId, "ushort*", pPropType, "uint*", puiWidth, "HRESULT")
+        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", iEntry, "ptr*", pwcsName, "ptr*", ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
     }
 

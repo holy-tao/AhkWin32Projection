@@ -45,7 +45,10 @@ class IWICBitmapSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-getsize
      */
     GetSize(puiWidth, puiHeight) {
-        result := ComCall(3, this, "uint*", puiWidth, "uint*", puiHeight, "HRESULT")
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
     }
 
@@ -70,7 +73,10 @@ class IWICBitmapSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-getresolution
      */
     GetResolution(pDpiX, pDpiY) {
-        result := ComCall(5, this, "double*", pDpiX, "double*", pDpiY, "HRESULT")
+        pDpiXMarshal := pDpiX is VarRef ? "double*" : "ptr"
+        pDpiYMarshal := pDpiY is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, pDpiXMarshal, pDpiX, pDpiYMarshal, pDpiY, "HRESULT")
         return result
     }
 
@@ -95,7 +101,9 @@ class IWICBitmapSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels
      */
     CopyPixels(prc, cbStride, cbBufferSize, pbBuffer) {
-        result := ComCall(7, this, "ptr", prc, "uint", cbStride, "uint", cbBufferSize, "char*", pbBuffer, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", prc, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 }

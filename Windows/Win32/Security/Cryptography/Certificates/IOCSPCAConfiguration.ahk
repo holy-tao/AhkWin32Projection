@@ -84,7 +84,9 @@ class IOCSPCAConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingflags
      */
     get_SigningFlags(pVal) {
-        result := ComCall(11, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -128,7 +130,9 @@ class IOCSPCAConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_reminderduration
      */
     get_ReminderDuration(pVal) {
-        result := ComCall(15, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -150,7 +154,9 @@ class IOCSPCAConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_errorcode
      */
     get_ErrorCode(pVal) {
-        result := ComCall(17, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -172,7 +178,9 @@ class IOCSPCAConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_keyspec
      */
     get_KeySpec(pVal) {
-        result := ComCall(19, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

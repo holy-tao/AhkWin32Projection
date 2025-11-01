@@ -71,7 +71,9 @@ class IVdsStoragePool extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-querydriveextents
      */
     QueryDriveExtents(ppExtentArray, plNumberOfExtents) {
-        result := ComCall(6, this, "ptr*", ppExtentArray, "int*", plNumberOfExtents, "HRESULT")
+        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
         return result
     }
 

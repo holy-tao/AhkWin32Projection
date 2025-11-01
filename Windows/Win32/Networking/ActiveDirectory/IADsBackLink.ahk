@@ -37,7 +37,9 @@ class IADsBackLink extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RemoteID(retval) {
-        result := ComCall(7, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -88,7 +88,9 @@ class IMFContentDecryptionModule extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-setservercertificate
      */
     SetServerCertificate(certificate, certificateSize) {
-        result := ComCall(7, this, "char*", certificate, "uint", certificateSize, "HRESULT")
+        certificateMarshal := certificate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, certificateMarshal, certificate, "uint", certificateSize, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IMFContentDecryptionModule extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-createtrustedinput
      */
     CreateTrustedInput(contentInitData, contentInitDataSize, trustedInput) {
-        result := ComCall(8, this, "char*", contentInitData, "uint", contentInitDataSize, "ptr*", trustedInput, "HRESULT")
+        contentInitDataMarshal := contentInitData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, contentInitDataMarshal, contentInitData, "uint", contentInitDataSize, "ptr*", trustedInput, "HRESULT")
         return result
     }
 
@@ -113,7 +117,9 @@ class IMFContentDecryptionModule extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-getprotectionsystemids
      */
     GetProtectionSystemIds(systemIds, count) {
-        result := ComCall(9, this, "ptr*", systemIds, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr*", systemIds, countMarshal, count, "HRESULT")
         return result
     }
 }

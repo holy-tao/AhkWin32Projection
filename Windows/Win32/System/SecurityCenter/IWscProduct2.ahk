@@ -34,7 +34,9 @@ class IWscProduct2 extends IWscProduct{
      * @returns {HRESULT} 
      */
     get_AntivirusScanSubstatus(peStatus) {
-        result := ComCall(14, this, "int*", peStatus, "HRESULT")
+        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, peStatusMarshal, peStatus, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IWscProduct2 extends IWscProduct{
      * @returns {HRESULT} 
      */
     get_AntivirusSettingsSubstatus(peStatus) {
-        result := ComCall(15, this, "int*", peStatus, "HRESULT")
+        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, peStatusMarshal, peStatus, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IWscProduct2 extends IWscProduct{
      * @returns {HRESULT} 
      */
     get_AntivirusProtectionUpdateSubstatus(peStatus) {
-        result := ComCall(16, this, "int*", peStatus, "HRESULT")
+        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, peStatusMarshal, peStatus, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class IWscProduct2 extends IWscProduct{
      * @returns {HRESULT} 
      */
     get_FirewallDomainProfileSubstatus(peStatus) {
-        result := ComCall(17, this, "int*", peStatus, "HRESULT")
+        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, peStatusMarshal, peStatus, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class IWscProduct2 extends IWscProduct{
      * @returns {HRESULT} 
      */
     get_FirewallPrivateProfileSubstatus(peStatus) {
-        result := ComCall(18, this, "int*", peStatus, "HRESULT")
+        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, peStatusMarshal, peStatus, "HRESULT")
         return result
     }
 
@@ -84,7 +94,9 @@ class IWscProduct2 extends IWscProduct{
      * @returns {HRESULT} 
      */
     get_FirewallPublicProfileSubstatus(peStatus) {
-        result := ComCall(19, this, "int*", peStatus, "HRESULT")
+        peStatusMarshal := peStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, peStatusMarshal, peStatus, "HRESULT")
         return result
     }
 }

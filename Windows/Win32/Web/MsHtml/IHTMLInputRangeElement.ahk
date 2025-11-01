@@ -207,7 +207,9 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_valueAsNumber(p) {
-        result := ComCall(23, this, "double*", p, "HRESULT")
+        pMarshal := p is VarRef ? "double*" : "ptr"
+
+        result := ComCall(23, this, pMarshal, p, "HRESULT")
         return result
     }
 

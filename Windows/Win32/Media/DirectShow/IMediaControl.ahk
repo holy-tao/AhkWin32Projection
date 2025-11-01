@@ -69,7 +69,9 @@ class IMediaControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediacontrol-getstate
      */
     GetState(msTimeout, pfs) {
-        result := ComCall(10, this, "int", msTimeout, "int*", pfs, "HRESULT")
+        pfsMarshal := pfs is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", msTimeout, pfsMarshal, pfs, "HRESULT")
         return result
     }
 

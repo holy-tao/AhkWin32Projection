@@ -70,7 +70,9 @@ class ISettingsItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingtype
      */
     GetSettingType(Type) {
-        result := ComCall(6, this, "int*", Type, "HRESULT")
+        TypeMarshal := Type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, TypeMarshal, Type, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class ISettingsItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getdatatype
      */
     GetDataType(Type) {
-        result := ComCall(7, this, "int*", Type, "HRESULT")
+        TypeMarshal := Type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, TypeMarshal, Type, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class ISettingsItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalueraw
      */
     GetValueRaw(Data, DataSize) {
-        result := ComCall(8, this, "ptr*", Data, "uint*", DataSize, "HRESULT")
+        DataSizeMarshal := DataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr*", Data, DataSizeMarshal, DataSize, "HRESULT")
         return result
     }
 
@@ -106,7 +112,9 @@ class ISettingsItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-setvalueraw
      */
     SetValueRaw(DataType, Data, DataSize) {
-        result := ComCall(9, this, "int", DataType, "char*", Data, "uint", DataSize, "HRESULT")
+        DataMarshal := Data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "int", DataType, DataMarshal, Data, "uint", DataSize, "HRESULT")
         return result
     }
 
@@ -195,7 +203,9 @@ class ISettingsItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getlistkeyinformation
      */
     GetListKeyInformation(KeyName, DataType) {
-        result := ComCall(16, this, "ptr", KeyName, "int*", DataType, "HRESULT")
+        DataTypeMarshal := DataType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", KeyName, DataTypeMarshal, DataType, "HRESULT")
         return result
     }
 
@@ -267,7 +277,9 @@ class ISettingsItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestrictionfacets
      */
     GetRestrictionFacets(RestrictionFacets) {
-        result := ComCall(22, this, "int*", RestrictionFacets, "HRESULT")
+        RestrictionFacetsMarshal := RestrictionFacets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, RestrictionFacetsMarshal, RestrictionFacets, "HRESULT")
         return result
     }
 

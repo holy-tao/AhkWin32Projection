@@ -69,7 +69,9 @@ class IDVB_TOT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_tot-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(5, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IDVB_TOT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_tot-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(7, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 }

@@ -42,7 +42,9 @@ class ID3D11AuthenticatedChannel extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11authenticatedchannel-getcertificatesize
      */
     GetCertificateSize(pCertificateSize) {
-        result := ComCall(7, this, "uint*", pCertificateSize, "HRESULT")
+        pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pCertificateSizeMarshal, pCertificateSize, "HRESULT")
         return result
     }
 

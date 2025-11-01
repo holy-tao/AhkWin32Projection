@@ -947,7 +947,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsStartReaderCanonicalization(reader, writeCallback, writeCallbackState, properties, propertyCount, error) {
-        result := DllCall("webservices.dll\WsStartReaderCanonicalization", "ptr", reader, "ptr", writeCallback, "ptr", writeCallbackState, "ptr", properties, "uint", propertyCount, "ptr", error, "int")
+        writeCallbackStateMarshal := writeCallbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsStartReaderCanonicalization", "ptr", reader, "ptr", writeCallback, writeCallbackStateMarshal, writeCallbackState, "ptr", properties, "uint", propertyCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1052,7 +1054,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsStartWriterCanonicalization(writer, writeCallback, writeCallbackState, properties, propertyCount, error) {
-        result := DllCall("webservices.dll\WsStartWriterCanonicalization", "ptr", writer, "ptr", writeCallback, "ptr", writeCallbackState, "ptr", properties, "uint", propertyCount, "ptr", error, "int")
+        writeCallbackStateMarshal := writeCallbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsStartWriterCanonicalization", "ptr", writer, "ptr", writeCallback, writeCallbackStateMarshal, writeCallbackState, "ptr", properties, "uint", propertyCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1723,7 +1727,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsFindAttribute(reader, localName, ns, required, attributeIndex, error) {
-        result := DllCall("webservices.dll\WsFindAttribute", "ptr", reader, "ptr", localName, "ptr", ns, "int", required, "uint*", attributeIndex, "ptr", error, "int")
+        attributeIndexMarshal := attributeIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsFindAttribute", "ptr", reader, "ptr", localName, "ptr", ns, "int", required, attributeIndexMarshal, attributeIndex, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1823,7 +1829,9 @@ class WindowsWebServices {
     static WsReadChars(reader, chars, maxCharCount, actualCharCount, error) {
         chars := chars is String ? StrPtr(chars) : chars
 
-        result := DllCall("webservices.dll\WsReadChars", "ptr", reader, "ptr", chars, "uint", maxCharCount, "uint*", actualCharCount, "ptr", error, "int")
+        actualCharCountMarshal := actualCharCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsReadChars", "ptr", reader, "ptr", chars, "uint", maxCharCount, actualCharCountMarshal, actualCharCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1873,7 +1881,10 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsReadCharsUtf8(reader, bytes, maxByteCount, actualByteCount, error) {
-        result := DllCall("webservices.dll\WsReadCharsUtf8", "ptr", reader, "char*", bytes, "uint", maxByteCount, "uint*", actualByteCount, "ptr", error, "int")
+        bytesMarshal := bytes is VarRef ? "char*" : "ptr"
+        actualByteCountMarshal := actualByteCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsReadCharsUtf8", "ptr", reader, bytesMarshal, bytes, "uint", maxByteCount, actualByteCountMarshal, actualByteCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1923,7 +1934,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsReadBytes(reader, bytes, maxByteCount, actualByteCount, error) {
-        result := DllCall("webservices.dll\WsReadBytes", "ptr", reader, "ptr", bytes, "uint", maxByteCount, "uint*", actualByteCount, "ptr", error, "int")
+        actualByteCountMarshal := actualByteCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsReadBytes", "ptr", reader, "ptr", bytes, "uint", maxByteCount, actualByteCountMarshal, actualByteCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1978,7 +1991,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsReadArray(reader, localName, ns, valueType, array, arraySize, itemOffset, itemCount, actualItemCount, error) {
-        result := DllCall("webservices.dll\WsReadArray", "ptr", reader, "ptr", localName, "ptr", ns, "int", valueType, "ptr", array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, "uint*", actualItemCount, "ptr", error, "int")
+        actualItemCountMarshal := actualItemCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsReadArray", "ptr", reader, "ptr", localName, "ptr", ns, "int", valueType, "ptr", array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, actualItemCountMarshal, actualItemCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2911,7 +2926,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsWriteXmlBufferToBytes(writer, xmlBuffer, encoding, properties, propertyCount, heap, bytes, byteCount, error) {
-        result := DllCall("webservices.dll\WsWriteXmlBufferToBytes", "ptr", writer, "ptr", xmlBuffer, "ptr", encoding, "ptr", properties, "uint", propertyCount, "ptr", heap, "ptr*", bytes, "uint*", byteCount, "ptr", error, "int")
+        byteCountMarshal := byteCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsWriteXmlBufferToBytes", "ptr", writer, "ptr", xmlBuffer, "ptr", encoding, "ptr", properties, "uint", propertyCount, "ptr", heap, "ptr*", bytes, byteCountMarshal, byteCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3149,7 +3166,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsWriteCharsUtf8(writer, bytes, byteCount, error) {
-        result := DllCall("webservices.dll\WsWriteCharsUtf8", "ptr", writer, "char*", bytes, "uint", byteCount, "ptr", error, "int")
+        bytesMarshal := bytes is VarRef ? "char*" : "ptr"
+
+        result := DllCall("webservices.dll\WsWriteCharsUtf8", "ptr", writer, bytesMarshal, bytes, "uint", byteCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3254,7 +3273,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsPushBytes(writer, callback, callbackState, error) {
-        result := DllCall("webservices.dll\WsPushBytes", "ptr", writer, "ptr", callback, "ptr", callbackState, "ptr", error, "int")
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsPushBytes", "ptr", writer, "ptr", callback, callbackStateMarshal, callbackState, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3312,7 +3333,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsPullBytes(writer, callback, callbackState, error) {
-        result := DllCall("webservices.dll\WsPullBytes", "ptr", writer, "ptr", callback, "ptr", callbackState, "ptr", error, "int")
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsPullBytes", "ptr", writer, "ptr", callback, callbackStateMarshal, callbackState, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3768,7 +3791,9 @@ class WindowsWebServices {
     static WsTrimXmlWhitespace(chars, charCount, trimmedChars, trimmedCount, error) {
         chars := chars is String ? StrPtr(chars) : chars
 
-        result := DllCall("webservices.dll\WsTrimXmlWhitespace", "ptr", chars, "uint", charCount, "ptr*", trimmedChars, "uint*", trimmedCount, "ptr", error, "int")
+        trimmedCountMarshal := trimmedCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsTrimXmlWhitespace", "ptr", chars, "uint", charCount, "ptr*", trimmedChars, trimmedCountMarshal, trimmedCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3990,7 +4015,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsGetXmlAttribute(reader, localName, heap, valueChars, valueCharCount, error) {
-        result := DllCall("webservices.dll\WsGetXmlAttribute", "ptr", reader, "ptr", localName, "ptr", heap, "ptr*", valueChars, "uint*", valueCharCount, "ptr", error, "int")
+        valueCharCountMarshal := valueCharCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsGetXmlAttribute", "ptr", reader, "ptr", localName, "ptr", heap, "ptr*", valueChars, valueCharCountMarshal, valueCharCount, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4071,7 +4098,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsAsyncExecute(asyncState, operation, callbackModel, callbackState, asyncContext, error) {
-        result := DllCall("webservices.dll\WsAsyncExecute", "ptr", asyncState, "ptr", operation, "int", callbackModel, "ptr", callbackState, "ptr", asyncContext, "ptr", error, "int")
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsAsyncExecute", "ptr", asyncState, "ptr", operation, "int", callbackModel, callbackStateMarshal, callbackState, "ptr", asyncContext, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5387,7 +5416,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsReceiveMessage(channel, message, messageDescriptions, messageDescriptionCount, receiveOption, readBodyOption, heap, value, valueSize, index, asyncContext, error) {
-        result := DllCall("webservices.dll\WsReceiveMessage", "ptr", channel, "ptr", message, "ptr*", messageDescriptions, "uint", messageDescriptionCount, "int", receiveOption, "int", readBodyOption, "ptr", heap, "ptr", value, "uint", valueSize, "uint*", index, "ptr", asyncContext, "ptr", error, "int")
+        indexMarshal := index is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsReceiveMessage", "ptr", channel, "ptr", message, "ptr*", messageDescriptions, "uint", messageDescriptionCount, "int", receiveOption, "int", readBodyOption, "ptr", heap, "ptr", value, "uint", valueSize, indexMarshal, index, "ptr", asyncContext, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10423,7 +10454,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsGetHeaderAttributes(message, reader, headerAttributes, error) {
-        result := DllCall("webservices.dll\WsGetHeaderAttributes", "ptr", message, "ptr", reader, "uint*", headerAttributes, "ptr", error, "int")
+        headerAttributesMarshal := headerAttributes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsGetHeaderAttributes", "ptr", message, "ptr", reader, headerAttributesMarshal, headerAttributes, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10642,7 +10675,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsGetCustomHeader(message, customHeaderDescription, repeatingOption, headerIndex, readOption, heap, value, valueSize, headerAttributes, error) {
-        result := DllCall("webservices.dll\WsGetCustomHeader", "ptr", message, "ptr", customHeaderDescription, "int", repeatingOption, "uint", headerIndex, "int", readOption, "ptr", heap, "ptr", value, "uint", valueSize, "uint*", headerAttributes, "ptr", error, "int")
+        headerAttributesMarshal := headerAttributes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsGetCustomHeader", "ptr", message, "ptr", customHeaderDescription, "int", repeatingOption, "uint", headerIndex, "int", readOption, "ptr", heap, "ptr", value, "uint", valueSize, headerAttributesMarshal, headerAttributes, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11387,7 +11422,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsWriteEnvelopeStart(message, writer, doneCallback, doneCallbackState, error) {
-        result := DllCall("webservices.dll\WsWriteEnvelopeStart", "ptr", message, "ptr", writer, "ptr", doneCallback, "ptr", doneCallbackState, "ptr", error, "int")
+        doneCallbackStateMarshal := doneCallbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsWriteEnvelopeStart", "ptr", message, "ptr", writer, "ptr", doneCallback, doneCallbackStateMarshal, doneCallbackState, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11536,7 +11573,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsReadEnvelopeStart(message, reader, doneCallback, doneCallbackState, error) {
-        result := DllCall("webservices.dll\WsReadEnvelopeStart", "ptr", message, "ptr", reader, "ptr", doneCallback, "ptr", doneCallbackState, "ptr", error, "int")
+        doneCallbackStateMarshal := doneCallbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsReadEnvelopeStart", "ptr", message, "ptr", reader, "ptr", doneCallback, doneCallbackStateMarshal, doneCallbackState, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12680,7 +12719,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsReadType(reader, typeMapping, type, typeDescription, readOption, heap, value, valueSize, error) {
-        result := DllCall("webservices.dll\WsReadType", "ptr", reader, "int", typeMapping, "int", type, "ptr", typeDescription, "int", readOption, "ptr", heap, "ptr", value, "uint", valueSize, "ptr", error, "int")
+        typeDescriptionMarshal := typeDescription is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsReadType", "ptr", reader, "int", typeMapping, "int", type, typeDescriptionMarshal, typeDescription, "int", readOption, "ptr", heap, "ptr", value, "uint", valueSize, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12883,7 +12924,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsWriteType(writer, typeMapping, type, typeDescription, writeOption, value, valueSize, error) {
-        result := DllCall("webservices.dll\WsWriteType", "ptr", writer, "int", typeMapping, "int", type, "ptr", typeDescription, "int", writeOption, "ptr", value, "uint", valueSize, "ptr", error, "int")
+        typeDescriptionMarshal := typeDescription is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsWriteType", "ptr", writer, "int", typeMapping, "int", type, typeDescriptionMarshal, typeDescription, "int", writeOption, "ptr", value, "uint", valueSize, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12902,7 +12945,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsRegisterOperationForCancel(context, cancelCallback, freestateCallback, userState, error) {
-        result := DllCall("webservices.dll\WsRegisterOperationForCancel", "ptr", context, "ptr", cancelCallback, "ptr", freestateCallback, "ptr", userState, "ptr", error, "int")
+        userStateMarshal := userState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsRegisterOperationForCancel", "ptr", context, "ptr", cancelCallback, "ptr", freestateCallback, userStateMarshal, userState, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15168,7 +15213,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsGetPolicyAlternativeCount(policy, count, error) {
-        result := DllCall("webservices.dll\WsGetPolicyAlternativeCount", "ptr", policy, "uint*", count, "ptr", error, "int")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("webservices.dll\WsGetPolicyAlternativeCount", "ptr", policy, countMarshal, count, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15202,7 +15249,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsCreateServiceProxyFromTemplate(channelType, properties, propertyCount, templateType, templateValue, templateSize, templateDescription, templateDescriptionSize, serviceProxy, error) {
-        result := DllCall("webservices.dll\WsCreateServiceProxyFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "int", templateType, "ptr", templateValue, "uint", templateSize, "ptr", templateDescription, "uint", templateDescriptionSize, "ptr*", serviceProxy, "ptr", error, "int")
+        templateDescriptionMarshal := templateDescription is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsCreateServiceProxyFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "int", templateType, "ptr", templateValue, "uint", templateSize, templateDescriptionMarshal, templateDescription, "uint", templateDescriptionSize, "ptr*", serviceProxy, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15232,7 +15281,9 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsCreateServiceEndpointFromTemplate(channelType, properties, propertyCount, addressUrl, contract, authorizationCallback, heap, templateType, templateValue, templateSize, templateDescription, templateDescriptionSize, serviceEndpoint, error) {
-        result := DllCall("webservices.dll\WsCreateServiceEndpointFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "ptr", addressUrl, "ptr", contract, "ptr", authorizationCallback, "ptr", heap, "int", templateType, "ptr", templateValue, "uint", templateSize, "ptr", templateDescription, "uint", templateDescriptionSize, "ptr*", serviceEndpoint, "ptr", error, "int")
+        templateDescriptionMarshal := templateDescription is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("webservices.dll\WsCreateServiceEndpointFromTemplate", "int", channelType, "ptr", properties, "uint", propertyCount, "ptr", addressUrl, "ptr", contract, "ptr", authorizationCallback, "ptr", heap, "int", templateType, "ptr", templateValue, "uint", templateSize, templateDescriptionMarshal, templateDescription, "uint", templateDescriptionSize, "ptr*", serviceEndpoint, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15296,8 +15347,8 @@ class WindowsWebServices {
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatorgetassertion
      */
     static WebAuthNAuthenticatorGetAssertion(hWnd, pwszRpId, pWebAuthNClientData, pWebAuthNGetAssertionOptions, ppWebAuthNAssertion) {
-        pwszRpId := pwszRpId is String ? StrPtr(pwszRpId) : pwszRpId
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pwszRpId := pwszRpId is String ? StrPtr(pwszRpId) : pwszRpId
 
         result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", "ptr", hWnd, "ptr", pwszRpId, "ptr", pWebAuthNClientData, "ptr", pWebAuthNGetAssertionOptions, "ptr*", ppWebAuthNAssertion, "int")
         if(result != 0)

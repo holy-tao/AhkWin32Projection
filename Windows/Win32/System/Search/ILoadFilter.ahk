@@ -124,7 +124,9 @@ class ILoadFilter extends IUnknown{
     LoadIFilter(pwcsPath, pFilteredSources, pUnkOuter, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        result := ComCall(3, this, "ptr", pwcsPath, "ptr", pFilteredSources, "ptr", pUnkOuter, "int", fUseDefault, "ptr", pFilterClsid, "int*", SearchDecSize, "ptr*", pwcsSearchDesc, "ptr*", ppIFilt, "HRESULT")
+        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwcsPath, "ptr", pFilteredSources, "ptr", pUnkOuter, "int", fUseDefault, "ptr", pFilterClsid, SearchDecSizeMarshal, SearchDecSize, "ptr*", pwcsSearchDesc, "ptr*", ppIFilt, "HRESULT")
         return result
     }
 
@@ -144,7 +146,9 @@ class ILoadFilter extends IUnknown{
     LoadIFilterFromStorage(pStg, pUnkOuter, pwcsOverride, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
         pwcsOverride := pwcsOverride is String ? StrPtr(pwcsOverride) : pwcsOverride
 
-        result := ComCall(4, this, "ptr", pStg, "ptr", pUnkOuter, "ptr", pwcsOverride, "int", fUseDefault, "ptr", pFilterClsid, "int*", SearchDecSize, "ptr*", pwcsSearchDesc, "ptr*", ppIFilt, "HRESULT")
+        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pStg, "ptr", pUnkOuter, "ptr", pwcsOverride, "int", fUseDefault, "ptr", pFilterClsid, SearchDecSizeMarshal, SearchDecSize, "ptr*", pwcsSearchDesc, "ptr*", ppIFilt, "HRESULT")
         return result
     }
 
@@ -162,7 +166,9 @@ class ILoadFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/filtereg/nf-filtereg-iloadfilter-loadifilterfromstream
      */
     LoadIFilterFromStream(pStm, pFilteredSources, pUnkOuter, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
-        result := ComCall(5, this, "ptr", pStm, "ptr", pFilteredSources, "ptr", pUnkOuter, "int", fUseDefault, "ptr", pFilterClsid, "int*", SearchDecSize, "ptr*", pwcsSearchDesc, "ptr*", ppIFilt, "HRESULT")
+        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pStm, "ptr", pFilteredSources, "ptr", pUnkOuter, "int", fUseDefault, "ptr", pFilterClsid, SearchDecSizeMarshal, SearchDecSize, "ptr*", pwcsSearchDesc, "ptr*", ppIFilt, "HRESULT")
         return result
     }
 }

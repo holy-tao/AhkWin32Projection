@@ -48,7 +48,9 @@ class IImageInformation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_height
      */
     get_Height(retval) {
-        result := ComCall(8, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IImageInformation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_width
      */
     get_Width(retval) {
-        result := ComCall(10, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

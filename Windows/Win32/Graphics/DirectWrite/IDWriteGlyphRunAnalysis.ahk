@@ -76,7 +76,11 @@ class IDWriteGlyphRunAnalysis extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphablendparams
      */
     GetAlphaBlendParams(renderingParams, blendGamma, blendEnhancedContrast, blendClearTypeLevel) {
-        result := ComCall(5, this, "ptr", renderingParams, "float*", blendGamma, "float*", blendEnhancedContrast, "float*", blendClearTypeLevel, "HRESULT")
+        blendGammaMarshal := blendGamma is VarRef ? "float*" : "ptr"
+        blendEnhancedContrastMarshal := blendEnhancedContrast is VarRef ? "float*" : "ptr"
+        blendClearTypeLevelMarshal := blendClearTypeLevel is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "ptr", renderingParams, blendGammaMarshal, blendGamma, blendEnhancedContrastMarshal, blendEnhancedContrast, blendClearTypeLevelMarshal, blendClearTypeLevel, "HRESULT")
         return result
     }
 }

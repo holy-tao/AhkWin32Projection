@@ -37,7 +37,9 @@ class IMediaPosition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_duration
      */
     get_Duration(plength) {
-        result := ComCall(7, this, "double*", plength, "HRESULT")
+        plengthMarshal := plength is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, plengthMarshal, plength, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IMediaPosition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_currentposition
      */
     get_CurrentPosition(pllTime) {
-        result := ComCall(9, this, "double*", pllTime, "HRESULT")
+        pllTimeMarshal := pllTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, pllTimeMarshal, pllTime, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IMediaPosition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_stoptime
      */
     get_StopTime(pllTime) {
-        result := ComCall(10, this, "double*", pllTime, "HRESULT")
+        pllTimeMarshal := pllTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, pllTimeMarshal, pllTime, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IMediaPosition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_prerolltime
      */
     get_PrerollTime(pllTime) {
-        result := ComCall(12, this, "double*", pllTime, "HRESULT")
+        pllTimeMarshal := pllTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, pllTimeMarshal, pllTime, "HRESULT")
         return result
     }
 
@@ -125,7 +133,9 @@ class IMediaPosition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_rate
      */
     get_Rate(pdRate) {
-        result := ComCall(15, this, "double*", pdRate, "HRESULT")
+        pdRateMarshal := pdRate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, pdRateMarshal, pdRate, "HRESULT")
         return result
     }
 
@@ -136,7 +146,9 @@ class IMediaPosition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-canseekforward
      */
     CanSeekForward(pCanSeekForward) {
-        result := ComCall(16, this, "int*", pCanSeekForward, "HRESULT")
+        pCanSeekForwardMarshal := pCanSeekForward is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pCanSeekForwardMarshal, pCanSeekForward, "HRESULT")
         return result
     }
 
@@ -147,7 +159,9 @@ class IMediaPosition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-canseekbackward
      */
     CanSeekBackward(pCanSeekBackward) {
-        result := ComCall(17, this, "int*", pCanSeekBackward, "HRESULT")
+        pCanSeekBackwardMarshal := pCanSeekBackward is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pCanSeekBackwardMarshal, pCanSeekBackward, "HRESULT")
         return result
     }
 }

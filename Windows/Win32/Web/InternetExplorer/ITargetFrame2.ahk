@@ -108,7 +108,9 @@ class ITargetFrame2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFrameOptions(pdwFlags) {
-        result := ComCall(10, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -130,7 +132,10 @@ class ITargetFrame2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFrameMargins(pdwWidth, pdwHeight) {
-        result := ComCall(12, this, "uint*", pdwWidth, "uint*", pdwHeight, "HRESULT")
+        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
+        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
         return result
     }
 

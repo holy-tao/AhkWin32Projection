@@ -60,7 +60,9 @@ class IOleUndoUnit extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundounit-getunittype
      */
     GetUnitType(pClsid, plID) {
-        result := ComCall(5, this, "ptr", pClsid, "int*", plID, "HRESULT")
+        plIDMarshal := plID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pClsid, plIDMarshal, plID, "HRESULT")
         return result
     }
 

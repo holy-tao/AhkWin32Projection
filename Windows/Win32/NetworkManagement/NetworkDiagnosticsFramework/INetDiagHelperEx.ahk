@@ -40,7 +40,9 @@ class INetDiagHelperEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelperex-reconfirmlowhealth
      */
     ReconfirmLowHealth(celt, pResults, ppwszUpdatedDescription, pUpdatedStatus) {
-        result := ComCall(3, this, "uint", celt, "ptr", pResults, "ptr", ppwszUpdatedDescription, "int*", pUpdatedStatus, "HRESULT")
+        pUpdatedStatusMarshal := pUpdatedStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", pResults, "ptr", ppwszUpdatedDescription, pUpdatedStatusMarshal, pUpdatedStatus, "HRESULT")
         return result
     }
 

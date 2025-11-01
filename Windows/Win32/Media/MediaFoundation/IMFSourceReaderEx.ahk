@@ -39,7 +39,9 @@ class IMFSourceReaderEx extends IMFSourceReader{
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereaderex-setnativemediatype
      */
     SetNativeMediaType(dwStreamIndex, pMediaType, pdwStreamFlags) {
-        result := ComCall(13, this, "uint", dwStreamIndex, "ptr", pMediaType, "uint*", pdwStreamFlags, "HRESULT")
+        pdwStreamFlagsMarshal := pdwStreamFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwStreamIndex, "ptr", pMediaType, pdwStreamFlagsMarshal, pdwStreamFlags, "HRESULT")
         return result
     }
 

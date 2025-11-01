@@ -54,7 +54,10 @@ class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getlayout
      */
     GetLayout(pTKBLayoutType, pwPreferredLayoutId) {
-        result := ComCall(4, this, "int*", pTKBLayoutType, "ushort*", pwPreferredLayoutId, "HRESULT")
+        pTKBLayoutTypeMarshal := pTKBLayoutType is VarRef ? "int*" : "ptr"
+        pwPreferredLayoutIdMarshal := pwPreferredLayoutId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pTKBLayoutTypeMarshal, pTKBLayoutType, pwPreferredLayoutIdMarshal, pwPreferredLayoutId, "HRESULT")
         return result
     }
 }

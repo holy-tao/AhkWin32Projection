@@ -37,7 +37,9 @@ class IMFSensorDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdeviceid
      */
     GetDeviceId(pDeviceId) {
-        result := ComCall(3, this, "uint*", pDeviceId, "HRESULT")
+        pDeviceIdMarshal := pDeviceId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pDeviceIdMarshal, pDeviceId, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IMFSensorDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdevicetype
      */
     GetDeviceType(pType) {
-        result := ComCall(4, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IMFSensorDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getflags
      */
     GetFlags(pFlags) {
-        result := ComCall(5, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class IMFSensorDevice extends IUnknown{
     GetSymbolicLink(SymbolicLink, cchSymbolicLink, pcchWritten) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        result := ComCall(6, this, "ptr", SymbolicLink, "int", cchSymbolicLink, "int*", pcchWritten, "HRESULT")
+        pcchWrittenMarshal := pcchWritten is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", SymbolicLink, "int", cchSymbolicLink, pcchWrittenMarshal, pcchWritten, "HRESULT")
         return result
     }
 
@@ -97,7 +105,9 @@ class IMFSensorDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributescount
      */
     GetStreamAttributesCount(eType, pdwCount) {
-        result := ComCall(8, this, "int", eType, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "int", eType, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -132,7 +142,9 @@ class IMFSensorDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getsensordevicemode
      */
     GetSensorDeviceMode(peMode) {
-        result := ComCall(11, this, "int*", peMode, "HRESULT")
+        peModeMarshal := peMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, peModeMarshal, peMode, "HRESULT")
         return result
     }
 }

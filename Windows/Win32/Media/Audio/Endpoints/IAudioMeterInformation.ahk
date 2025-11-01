@@ -37,7 +37,9 @@ class IAudioMeterInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-getpeakvalue
      */
     GetPeakValue(pfPeak) {
-        result := ComCall(3, this, "float*", pfPeak, "HRESULT")
+        pfPeakMarshal := pfPeak is VarRef ? "float*" : "ptr"
+
+        result := ComCall(3, this, pfPeakMarshal, pfPeak, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IAudioMeterInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-getmeteringchannelcount
      */
     GetMeteringChannelCount(pnChannelCount) {
-        result := ComCall(4, this, "uint*", pnChannelCount, "HRESULT")
+        pnChannelCountMarshal := pnChannelCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pnChannelCountMarshal, pnChannelCount, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IAudioMeterInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-getchannelspeakvalues
      */
     GetChannelsPeakValues(u32ChannelCount, afPeakValues) {
-        result := ComCall(5, this, "uint", u32ChannelCount, "float*", afPeakValues, "HRESULT")
+        afPeakValuesMarshal := afPeakValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "uint", u32ChannelCount, afPeakValuesMarshal, afPeakValues, "HRESULT")
         return result
     }
 
@@ -71,7 +77,9 @@ class IAudioMeterInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-queryhardwaresupport
      */
     QueryHardwareSupport(pdwHardwareSupportMask) {
-        result := ComCall(6, this, "uint*", pdwHardwareSupportMask, "HRESULT")
+        pdwHardwareSupportMaskMarshal := pdwHardwareSupportMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwHardwareSupportMaskMarshal, pdwHardwareSupportMask, "HRESULT")
         return result
     }
 }

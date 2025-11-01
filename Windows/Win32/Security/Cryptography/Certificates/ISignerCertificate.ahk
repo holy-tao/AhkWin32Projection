@@ -109,7 +109,9 @@ class ISignerCertificate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_parentwindow
      */
     get_ParentWindow(pValue) {
-        result := ComCall(12, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

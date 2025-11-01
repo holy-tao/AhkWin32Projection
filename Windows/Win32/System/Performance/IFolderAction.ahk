@@ -44,7 +44,9 @@ class IFolderAction extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_age
      */
     get_Age(pulAge) {
-        result := ComCall(7, this, "uint*", pulAge, "HRESULT")
+        pulAgeMarshal := pulAge is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulAgeMarshal, pulAge, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IFolderAction extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_size
      */
     get_Size(pulAge) {
-        result := ComCall(9, this, "uint*", pulAge, "HRESULT")
+        pulAgeMarshal := pulAge is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pulAgeMarshal, pulAge, "HRESULT")
         return result
     }
 
@@ -88,7 +92,9 @@ class IFolderAction extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_actions
      */
     get_Actions(Steps) {
-        result := ComCall(11, this, "int*", Steps, "HRESULT")
+        StepsMarshal := Steps is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, StepsMarshal, Steps, "HRESULT")
         return result
     }
 

@@ -67,7 +67,9 @@ class IMbnDeviceServicesContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxcommandsize
      */
     get_MaxCommandSize(maxCommandSize) {
-        result := ComCall(5, this, "uint*", maxCommandSize, "HRESULT")
+        maxCommandSizeMarshal := maxCommandSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, maxCommandSizeMarshal, maxCommandSize, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class IMbnDeviceServicesContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxdatasize
      */
     get_MaxDataSize(maxDataSize) {
-        result := ComCall(6, this, "uint*", maxDataSize, "HRESULT")
+        maxDataSizeMarshal := maxDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, maxDataSizeMarshal, maxDataSize, "HRESULT")
         return result
     }
 }

@@ -121,7 +121,9 @@ class ICLRTask extends IUnknown{
      * @returns {HRESULT} 
      */
     LocksHeld(pLockCount) {
-        result := ComCall(12, this, "ptr*", pLockCount, "HRESULT")
+        pLockCountMarshal := pLockCount is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, pLockCountMarshal, pLockCount, "HRESULT")
         return result
     }
 

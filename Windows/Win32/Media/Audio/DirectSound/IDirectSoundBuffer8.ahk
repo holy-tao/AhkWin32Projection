@@ -36,7 +36,9 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * @returns {HRESULT} 
      */
     SetFX(dwEffectsCount, pDSFXDesc, pdwResultCodes) {
-        result := ComCall(21, this, "uint", dwEffectsCount, "ptr", pDSFXDesc, "uint*", pdwResultCodes, "HRESULT")
+        pdwResultCodesMarshal := pdwResultCodes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", dwEffectsCount, "ptr", pDSFXDesc, pdwResultCodesMarshal, pdwResultCodes, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * @returns {HRESULT} 
      */
     AcquireResources(dwFlags, dwEffectsCount, pdwResultCodes) {
-        result := ComCall(22, this, "uint", dwFlags, "uint", dwEffectsCount, "uint*", pdwResultCodes, "HRESULT")
+        pdwResultCodesMarshal := pdwResultCodes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", dwFlags, "uint", dwEffectsCount, pdwResultCodesMarshal, pdwResultCodes, "HRESULT")
         return result
     }
 

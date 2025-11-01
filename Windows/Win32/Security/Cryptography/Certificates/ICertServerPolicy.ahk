@@ -123,7 +123,9 @@ class ICertServerPolicy extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-getcertificateextensionflags
      */
     GetCertificateExtensionFlags(pExtFlags) {
-        result := ComCall(13, this, "int*", pExtFlags, "HRESULT")
+        pExtFlagsMarshal := pExtFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pExtFlagsMarshal, pExtFlags, "HRESULT")
         return result
     }
 

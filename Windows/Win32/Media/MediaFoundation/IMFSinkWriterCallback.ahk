@@ -60,7 +60,9 @@ class IMFSinkWriterCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onmarker
      */
     OnMarker(dwStreamIndex, pvContext) {
-        result := ComCall(4, this, "uint", dwStreamIndex, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

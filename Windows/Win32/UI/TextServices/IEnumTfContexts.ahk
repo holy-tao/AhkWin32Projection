@@ -50,7 +50,9 @@ class IEnumTfContexts extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfcontexts-next
      */
     Next(ulCount, rgContext, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", rgContext, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", rgContext, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

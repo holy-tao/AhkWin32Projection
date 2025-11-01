@@ -48,7 +48,9 @@ class IMemAllocatorCallbackTemp extends IMemAllocator{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocatorcallbacktemp-getfreecount
      */
     GetFreeCount(plBuffersFree) {
-        result := ComCall(10, this, "int*", plBuffersFree, "HRESULT")
+        plBuffersFreeMarshal := plBuffersFree is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plBuffersFreeMarshal, plBuffersFree, "HRESULT")
         return result
     }
 }

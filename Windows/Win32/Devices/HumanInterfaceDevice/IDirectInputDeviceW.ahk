@@ -50,7 +50,9 @@ class IDirectInputDeviceW extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumobjects
      */
     EnumObjects(param0, param1, param2) {
-        result := ComCall(4, this, "ptr", param0, "ptr", param1, "uint", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IDirectInputDeviceW extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceState(param0, param1) {
-        result := ComCall(9, this, "uint", param0, "ptr", param1, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "uint", param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IDirectInputDeviceW extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceData(param0, param1, param2, param3) {
-        result := ComCall(10, this, "uint", param0, "ptr", param1, "uint*", param2, "uint", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 

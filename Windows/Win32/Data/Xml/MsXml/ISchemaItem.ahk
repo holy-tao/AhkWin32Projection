@@ -74,7 +74,9 @@ class ISchemaItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_itemType(itemType) {
-        result := ComCall(11, this, "int*", itemType, "HRESULT")
+        itemTypeMarshal := itemType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, itemTypeMarshal, itemType, "HRESULT")
         return result
     }
 

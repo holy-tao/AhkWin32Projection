@@ -83,7 +83,10 @@ class IAzAuthorizationStore3 extends IAzAuthorizationStore2{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-getschemaversion
      */
     GetSchemaVersion(plMajorVersion, plMinorVersion) {
-        result := ComCall(64, this, "int*", plMajorVersion, "int*", plMinorVersion, "HRESULT")
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, plMajorVersionMarshal, plMajorVersion, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
     }
 }

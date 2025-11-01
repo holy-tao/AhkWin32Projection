@@ -37,7 +37,9 @@ class INewMenuClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewmenuclient-includeitems
      */
     IncludeItems(pflags) {
-        result := ComCall(3, this, "int*", pflags, "HRESULT")
+        pflagsMarshal := pflags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pflagsMarshal, pflags, "HRESULT")
         return result
     }
 

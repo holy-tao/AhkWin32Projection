@@ -37,7 +37,9 @@ class IDirectDrawSurfaceKernel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddkernel/nf-ddkernel-idirectdrawsurfacekernel-getkernelhandle
      */
     GetKernelHandle(param0) {
-        result := ComCall(3, this, "ptr*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

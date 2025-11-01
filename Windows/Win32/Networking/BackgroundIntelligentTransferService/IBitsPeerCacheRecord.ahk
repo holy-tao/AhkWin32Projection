@@ -73,7 +73,9 @@ class IBitsPeerCacheRecord extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
     GetFileSize(pVal) {
-        result := ComCall(5, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -117,7 +119,9 @@ class IBitsPeerCacheRecord extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getfileranges
      */
     GetFileRanges(pRangeCount, ppRanges) {
-        result := ComCall(9, this, "uint*", pRangeCount, "ptr*", ppRanges, "HRESULT")
+        pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pRangeCountMarshal, pRangeCount, "ptr*", ppRanges, "HRESULT")
         return result
     }
 }

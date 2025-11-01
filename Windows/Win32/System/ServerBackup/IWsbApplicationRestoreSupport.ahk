@@ -88,7 +88,9 @@ class IWsbApplicationRestoreSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-isrollforwardsupported
      */
     IsRollForwardSupported(pbRollForwardSupported) {
-        result := ComCall(6, this, "char*", pbRollForwardSupported, "HRESULT")
+        pbRollForwardSupportedMarshal := pbRollForwardSupported is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbRollForwardSupportedMarshal, pbRollForwardSupported, "HRESULT")
         return result
     }
 }

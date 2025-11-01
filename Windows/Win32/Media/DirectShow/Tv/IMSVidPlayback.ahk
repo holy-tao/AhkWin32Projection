@@ -128,7 +128,9 @@ class IMSVidPlayback extends IMSVidInputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_rate
      */
     get_Rate(plRate) {
-        result := ComCall(26, this, "double*", plRate, "HRESULT")
+        plRateMarshal := plRate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(26, this, plRateMarshal, plRate, "HRESULT")
         return result
     }
 
@@ -150,7 +152,9 @@ class IMSVidPlayback extends IMSVidInputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_currentposition
      */
     get_CurrentPosition(lPosition) {
-        result := ComCall(28, this, "int*", lPosition, "HRESULT")
+        lPositionMarshal := lPosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, lPositionMarshal, lPosition, "HRESULT")
         return result
     }
 
@@ -172,7 +176,9 @@ class IMSVidPlayback extends IMSVidInputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_positionmode
      */
     get_PositionMode(lPositionMode) {
-        result := ComCall(30, this, "int*", lPositionMode, "HRESULT")
+        lPositionModeMarshal := lPositionMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, lPositionModeMarshal, lPositionMode, "HRESULT")
         return result
     }
 
@@ -183,7 +189,9 @@ class IMSVidPlayback extends IMSVidInputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_length
      */
     get_Length(lLength) {
-        result := ComCall(31, this, "int*", lLength, "HRESULT")
+        lLengthMarshal := lLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, lLengthMarshal, lLength, "HRESULT")
         return result
     }
 }

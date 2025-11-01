@@ -37,7 +37,9 @@ class IInkDrawingAttributes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_color
      */
     get_Color(CurrentColor) {
-        result := ComCall(7, this, "int*", CurrentColor, "HRESULT")
+        CurrentColorMarshal := CurrentColor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, CurrentColorMarshal, CurrentColor, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IInkDrawingAttributes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_width
      */
     get_Width(CurrentWidth) {
-        result := ComCall(9, this, "float*", CurrentWidth, "HRESULT")
+        CurrentWidthMarshal := CurrentWidth is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, CurrentWidthMarshal, CurrentWidth, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IInkDrawingAttributes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_height
      */
     get_Height(CurrentHeight) {
-        result := ComCall(11, this, "float*", CurrentHeight, "HRESULT")
+        CurrentHeightMarshal := CurrentHeight is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, CurrentHeightMarshal, CurrentHeight, "HRESULT")
         return result
     }
 
@@ -169,7 +175,9 @@ class IInkDrawingAttributes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_transparency
      */
     get_Transparency(CurrentTransparency) {
-        result := ComCall(19, this, "int*", CurrentTransparency, "HRESULT")
+        CurrentTransparencyMarshal := CurrentTransparency is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, CurrentTransparencyMarshal, CurrentTransparency, "HRESULT")
         return result
     }
 
@@ -191,7 +199,9 @@ class IInkDrawingAttributes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_rasteroperation
      */
     get_RasterOperation(CurrentRasterOperation) {
-        result := ComCall(21, this, "int*", CurrentRasterOperation, "HRESULT")
+        CurrentRasterOperationMarshal := CurrentRasterOperation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, CurrentRasterOperationMarshal, CurrentRasterOperation, "HRESULT")
         return result
     }
 
@@ -213,7 +223,9 @@ class IInkDrawingAttributes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_pentip
      */
     get_PenTip(CurrentPenTip) {
-        result := ComCall(23, this, "int*", CurrentPenTip, "HRESULT")
+        CurrentPenTipMarshal := CurrentPenTip is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, CurrentPenTipMarshal, CurrentPenTip, "HRESULT")
         return result
     }
 

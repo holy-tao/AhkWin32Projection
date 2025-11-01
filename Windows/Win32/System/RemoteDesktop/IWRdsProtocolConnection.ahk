@@ -74,7 +74,10 @@ class IWRdsProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getclientmonitordata
      */
     GetClientMonitorData(pNumMonitors, pPrimaryMonitor) {
-        result := ComCall(6, this, "uint*", pNumMonitors, "uint*", pPrimaryMonitor, "HRESULT")
+        pNumMonitorsMarshal := pNumMonitors is VarRef ? "uint*" : "ptr"
+        pPrimaryMonitorMarshal := pPrimaryMonitor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pNumMonitorsMarshal, pNumMonitors, pPrimaryMonitorMarshal, pPrimaryMonitor, "HRESULT")
         return result
     }
 
@@ -185,7 +188,10 @@ class IWRdsProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-sessionarbitrationenumeration
      */
     SessionArbitrationEnumeration(hUserToken, bSingleSessionPerUserEnabled, pSessionIdArray, pdwSessionIdentifierCount) {
-        result := ComCall(15, this, "ptr", hUserToken, "int", bSingleSessionPerUserEnabled, "uint*", pSessionIdArray, "uint*", pdwSessionIdentifierCount, "HRESULT")
+        pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "uint*" : "ptr"
+        pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", hUserToken, "int", bSingleSessionPerUserEnabled, pSessionIdArrayMarshal, pSessionIdArray, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
         return result
     }
 
@@ -256,7 +262,9 @@ class IWRdsProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getlastinputtime
      */
     GetLastInputTime(pLastInputTime) {
-        result := ComCall(21, this, "uint*", pLastInputTime, "HRESULT")
+        pLastInputTimeMarshal := pLastInputTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pLastInputTimeMarshal, pLastInputTime, "HRESULT")
         return result
     }
 
@@ -281,7 +289,11 @@ class IWRdsProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-createvirtualchannel
      */
     CreateVirtualChannel(szEndpointName, bStatic, RequestedPriority, phChannel) {
-        result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, "ptr*", phChannel, "HRESULT")
+        szEndpointName := szEndpointName is String ? StrPtr(szEndpointName) : szEndpointName
+
+        phChannelMarshal := phChannel is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, phChannelMarshal, phChannel, "HRESULT")
         return result
     }
 

@@ -40,7 +40,9 @@ class ID2D1GdiMetafileSink1 extends ID2D1GdiMetafileSink{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gdimetafilesink1-processrecord
      */
     ProcessRecord(recordType, recordData, recordDataSize, flags) {
-        result := ComCall(4, this, "uint", recordType, "ptr", recordData, "uint", recordDataSize, "uint", flags, "HRESULT")
+        recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", recordType, recordDataMarshal, recordData, "uint", recordDataSize, "uint", flags, "HRESULT")
         return result
     }
 }

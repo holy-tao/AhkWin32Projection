@@ -38,7 +38,9 @@ class IMediaParams extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparams-getparam
      */
     GetParam(dwParamIndex, pValue) {
-        result := ComCall(3, this, "uint", dwParamIndex, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwParamIndex, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

@@ -69,7 +69,9 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Top(Top) {
-        result := ComCall(10, this, "int*", Top, "HRESULT")
+        TopMarshal := Top is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, TopMarshal, Top, "HRESULT")
         return result
     }
 
@@ -89,7 +91,9 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Bottom(Bottom) {
-        result := ComCall(12, this, "int*", Bottom, "HRESULT")
+        BottomMarshal := Bottom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, BottomMarshal, Bottom, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Left(Left) {
-        result := ComCall(14, this, "int*", Left, "HRESULT")
+        LeftMarshal := Left is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, LeftMarshal, Left, "HRESULT")
         return result
     }
 
@@ -129,7 +135,9 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Right(Right) {
-        result := ComCall(16, this, "int*", Right, "HRESULT")
+        RightMarshal := Right is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, RightMarshal, Right, "HRESULT")
         return result
     }
 

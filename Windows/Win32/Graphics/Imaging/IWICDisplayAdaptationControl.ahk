@@ -55,7 +55,9 @@ class IWICDisplayAdaptationControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDisplayMaxLuminance(pfLuminanceInNits) {
-        result := ComCall(5, this, "float*", pfLuminanceInNits, "HRESULT")
+        pfLuminanceInNitsMarshal := pfLuminanceInNits is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, pfLuminanceInNitsMarshal, pfLuminanceInNits, "HRESULT")
         return result
     }
 }

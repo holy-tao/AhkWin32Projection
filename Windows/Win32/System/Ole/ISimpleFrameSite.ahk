@@ -44,7 +44,9 @@ class ISimpleFrameSite extends IUnknown{
     PreMessageFilter(hWnd, msg, wp, lp, plResult, pdwCookie) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(3, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, "ptr", plResult, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, "ptr", plResult, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

@@ -219,7 +219,10 @@ class IInkDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-nearestpoint
      */
     NearestPoint(X, Y, PointOnStroke, DistanceFromPacket, Stroke) {
-        result := ComCall(22, this, "int", X, "int", Y, "float*", PointOnStroke, "float*", DistanceFromPacket, "ptr*", Stroke, "HRESULT")
+        PointOnStrokeMarshal := PointOnStroke is VarRef ? "float*" : "ptr"
+        DistanceFromPacketMarshal := DistanceFromPacket is VarRef ? "float*" : "ptr"
+
+        result := ComCall(22, this, "int", X, "int", Y, PointOnStrokeMarshal, PointOnStroke, DistanceFromPacketMarshal, DistanceFromPacket, "ptr*", Stroke, "HRESULT")
         return result
     }
 

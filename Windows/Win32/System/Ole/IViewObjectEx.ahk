@@ -49,7 +49,9 @@ class IViewObjectEx extends IViewObject2{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-getviewstatus
      */
     GetViewStatus(pdwStatus) {
-        result := ComCall(11, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IViewObjectEx extends IViewObject2{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitpoint
      */
     QueryHitPoint(dwAspect, pRectBounds, ptlLoc, lCloseHint, pHitResult) {
-        result := ComCall(12, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", ptlLoc, "int", lCloseHint, "uint*", pHitResult, "HRESULT")
+        pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", ptlLoc, "int", lCloseHint, pHitResultMarshal, pHitResult, "HRESULT")
         return result
     }
 
@@ -79,7 +83,9 @@ class IViewObjectEx extends IViewObject2{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitrect
      */
     QueryHitRect(dwAspect, pRectBounds, pRectLoc, lCloseHint, pHitResult) {
-        result := ComCall(13, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", pRectLoc, "int", lCloseHint, "uint*", pHitResult, "HRESULT")
+        pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", pRectLoc, "int", lCloseHint, pHitResultMarshal, pHitResult, "HRESULT")
         return result
     }
 

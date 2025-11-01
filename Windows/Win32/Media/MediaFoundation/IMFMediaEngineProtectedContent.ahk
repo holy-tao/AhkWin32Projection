@@ -53,7 +53,9 @@ class IMFMediaEngineProtectedContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-getrequiredprotections
      */
     GetRequiredProtections(pFrameProtectionFlags) {
-        result := ComCall(4, this, "uint*", pFrameProtectionFlags, "HRESULT")
+        pFrameProtectionFlagsMarshal := pFrameProtectionFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pFrameProtectionFlagsMarshal, pFrameProtectionFlags, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IMFMediaEngineProtectedContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-transfervideoframe
      */
     TransferVideoFrame(pDstSurf, pSrc, pDst, pBorderClr, pFrameProtectionFlags) {
-        result := ComCall(6, this, "ptr", pDstSurf, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "uint*", pFrameProtectionFlags, "HRESULT")
+        pFrameProtectionFlagsMarshal := pFrameProtectionFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pDstSurf, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, pFrameProtectionFlagsMarshal, pFrameProtectionFlags, "HRESULT")
         return result
     }
 

@@ -890,7 +890,9 @@ class InstallableFileSystems {
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filterfindfirst
      */
     static FilterFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpFilterFind) {
-        result := DllCall("FLTLIB.dll\FilterFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "ptr", lpFilterFind, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpFilterFind, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -951,7 +953,9 @@ class InstallableFileSystems {
     static FilterFindNext(hFilterFind, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned) {
         hFilterFind := hFilterFind is Win32Handle ? NumGet(hFilterFind, "ptr") : hFilterFind
 
-        result := DllCall("FLTLIB.dll\FilterFindNext", "ptr", hFilterFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterFindNext", "ptr", hFilterFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1025,7 +1029,9 @@ class InstallableFileSystems {
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filtervolumefindfirst
      */
     static FilterVolumeFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpVolumeFind) {
-        result := DllCall("FLTLIB.dll\FilterVolumeFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "ptr", lpVolumeFind, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterVolumeFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpVolumeFind, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1085,7 +1091,9 @@ class InstallableFileSystems {
     static FilterVolumeFindNext(hVolumeFind, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned) {
         hVolumeFind := hVolumeFind is Win32Handle ? NumGet(hVolumeFind, "ptr") : hVolumeFind
 
-        result := DllCall("FLTLIB.dll\FilterVolumeFindNext", "ptr", hVolumeFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterVolumeFindNext", "ptr", hVolumeFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1162,7 +1170,9 @@ class InstallableFileSystems {
     static FilterInstanceFindFirst(lpFilterName, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpFilterInstanceFind) {
         lpFilterName := lpFilterName is String ? StrPtr(lpFilterName) : lpFilterName
 
-        result := DllCall("FLTLIB.dll\FilterInstanceFindFirst", "ptr", lpFilterName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "ptr", lpFilterInstanceFind, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterInstanceFindFirst", "ptr", lpFilterName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpFilterInstanceFind, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1222,7 +1232,9 @@ class InstallableFileSystems {
     static FilterInstanceFindNext(hFilterInstanceFind, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned) {
         hFilterInstanceFind := hFilterInstanceFind is Win32Handle ? NumGet(hFilterInstanceFind, "ptr") : hFilterInstanceFind
 
-        result := DllCall("FLTLIB.dll\FilterInstanceFindNext", "ptr", hFilterInstanceFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterInstanceFindNext", "ptr", hFilterInstanceFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1320,7 +1332,9 @@ class InstallableFileSystems {
     static FilterVolumeInstanceFindFirst(lpVolumeName, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpVolumeInstanceFind) {
         lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
 
-        result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindFirst", "ptr", lpVolumeName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "ptr", lpVolumeInstanceFind, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindFirst", "ptr", lpVolumeName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpVolumeInstanceFind, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1380,7 +1394,9 @@ class InstallableFileSystems {
     static FilterVolumeInstanceFindNext(hVolumeInstanceFind, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned) {
         hVolumeInstanceFind := hVolumeInstanceFind is Win32Handle ? NumGet(hVolumeInstanceFind, "ptr") : hVolumeInstanceFind
 
-        result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindNext", "ptr", hVolumeInstanceFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindNext", "ptr", hVolumeInstanceFind, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1446,7 +1462,9 @@ class InstallableFileSystems {
     static FilterGetInformation(hFilter, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned) {
         hFilter := hFilter is Win32Handle ? NumGet(hFilter, "ptr") : hFilter
 
-        result := DllCall("FLTLIB.dll\FilterGetInformation", "ptr", hFilter, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterGetInformation", "ptr", hFilter, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1495,7 +1513,9 @@ class InstallableFileSystems {
     static FilterInstanceGetInformation(hInstance, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned) {
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
-        result := DllCall("FLTLIB.dll\FilterInstanceGetInformation", "ptr", hInstance, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", lpBytesReturned, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterInstanceGetInformation", "ptr", hInstance, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1554,7 +1574,9 @@ class InstallableFileSystems {
     static FilterSendMessage(hPort, lpInBuffer, dwInBufferSize, lpOutBuffer, dwOutBufferSize, lpBytesReturned) {
         hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
 
-        result := DllCall("FLTLIB.dll\FilterSendMessage", "ptr", hPort, "ptr", lpInBuffer, "uint", dwInBufferSize, "ptr", lpOutBuffer, "uint", dwOutBufferSize, "uint*", lpBytesReturned, "int")
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTLIB.dll\FilterSendMessage", "ptr", hPort, "ptr", lpInBuffer, "uint", dwInBufferSize, "ptr", lpOutBuffer, "uint", dwOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 

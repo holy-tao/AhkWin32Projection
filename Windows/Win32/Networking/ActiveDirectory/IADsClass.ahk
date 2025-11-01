@@ -319,7 +319,9 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     get_HelpFileContext(retval) {
-        result := ComCall(47, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

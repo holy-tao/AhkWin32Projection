@@ -54,7 +54,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_sessionstartblock
      */
     get_SessionStartBlock(pVal) {
-        result := ComCall(8, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_freemediablocks
      */
     get_FreeMediaBlocks(pVal) {
-        result := ComCall(10, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_usedblocks
      */
     get_UsedBlocks(pVal) {
-        result := ComCall(13, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -177,7 +183,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filecount
      */
     get_FileCount(pVal) {
-        result := ComCall(19, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -188,7 +196,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_directorycount
      */
     get_DirectoryCount(pVal) {
-        result := ComCall(20, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -223,7 +233,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_changepoint
      */
     get_ChangePoint(pVal) {
-        result := ComCall(23, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -278,7 +290,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemstocreate
      */
     get_FileSystemsToCreate(pVal) {
-        result := ComCall(28, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -300,7 +314,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_filesystemssupported
      */
     get_FileSystemsSupported(pVal) {
-        result := ComCall(30, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -322,7 +338,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_udfrevision
      */
     get_UDFRevision(pVal) {
-        result := ComCall(32, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -377,7 +395,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_iso9660interchangelevel
      */
     get_ISO9660InterchangeLevel(pVal) {
-        result := ComCall(37, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -413,7 +433,9 @@ class IFileSystemImage extends IDispatch{
     Exists(fullPath, itemType) {
         fullPath := fullPath is String ? BSTR.Alloc(fullPath).Value : fullPath
 
-        result := ComCall(40, this, "ptr", fullPath, "int*", itemType, "HRESULT")
+        itemTypeMarshal := itemType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, "ptr", fullPath, itemTypeMarshal, itemType, "HRESULT")
         return result
     }
 
@@ -436,7 +458,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-identifyfilesystemsondisc
      */
     IdentifyFileSystemsOnDisc(discRecorder, fileSystems) {
-        result := ComCall(42, this, "ptr", discRecorder, "int*", fileSystems, "HRESULT")
+        fileSystemsMarshal := fileSystems is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, "ptr", discRecorder, fileSystemsMarshal, fileSystems, "HRESULT")
         return result
     }
 
@@ -448,7 +472,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-getdefaultfilesystemforimport
      */
     GetDefaultFileSystemForImport(fileSystems, importDefault) {
-        result := ComCall(43, this, "int", fileSystems, "int*", importDefault, "HRESULT")
+        importDefaultMarshal := importDefault is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, "int", fileSystems, importDefaultMarshal, importDefault, "HRESULT")
         return result
     }
 
@@ -459,7 +485,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importfilesystem
      */
     ImportFileSystem(importedFileSystem) {
-        result := ComCall(44, this, "int*", importedFileSystem, "HRESULT")
+        importedFileSystemMarshal := importedFileSystem is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, importedFileSystemMarshal, importedFileSystem, "HRESULT")
         return result
     }
 

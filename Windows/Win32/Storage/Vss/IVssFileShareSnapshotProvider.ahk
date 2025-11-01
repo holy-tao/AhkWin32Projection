@@ -78,7 +78,9 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-deletesnapshots
      */
     DeleteSnapshots(SourceObjectId, eSourceObjectType, bForceDelete, plDeletedSnapshots, pNondeletedSnapshotID) {
-        result := ComCall(6, this, "ptr", SourceObjectId, "int", eSourceObjectType, "int", bForceDelete, "int*", plDeletedSnapshots, "ptr", pNondeletedSnapshotID, "HRESULT")
+        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", SourceObjectId, "int", eSourceObjectType, "int", bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, "ptr", pNondeletedSnapshotID, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, pwszSharePath, lNewContext, ProviderId) {
-        result := ComCall(7, this, "ptr", SnapshotSetId, "ptr", SnapshotId, "ushort*", pwszSharePath, "int", lNewContext, "ptr", ProviderId, "HRESULT")
+        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "ptr", SnapshotSetId, "ptr", SnapshotId, pwszSharePathMarshal, pwszSharePath, "int", lNewContext, "ptr", ProviderId, "HRESULT")
         return result
     }
 
@@ -105,7 +109,9 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsupported
      */
     IsPathSupported(pwszSharePath, pbSupportedByThisProvider) {
-        result := ComCall(8, this, "ushort*", pwszSharePath, "ptr", pbSupportedByThisProvider, "HRESULT")
+        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, "ptr", pbSupportedByThisProvider, "HRESULT")
         return result
     }
 
@@ -118,7 +124,10 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsnapshotted
      */
     IsPathSnapshotted(pwszSharePath, pbSnapshotsPresent, plSnapshotCompatibility) {
-        result := ComCall(9, this, "ushort*", pwszSharePath, "ptr", pbSnapshotsPresent, "int*", plSnapshotCompatibility, "HRESULT")
+        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
+        plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pwszSharePathMarshal, pwszSharePath, "ptr", pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
         return result
     }
 

@@ -341,7 +341,9 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsip_Context_Close(hContext) {
-        result := DllCall("tbs.dll\Tbsip_Context_Close", "ptr", hContext, "uint")
+        hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsip_Context_Close", hContextMarshal, hContext, "uint")
         return result
     }
 
@@ -466,7 +468,10 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsip_Submit_Command(hContext, Locality, Priority, pabCommand, cbCommand, pabResult, pcbResult) {
-        result := DllCall("tbs.dll\Tbsip_Submit_Command", "ptr", hContext, "uint", Locality, "uint", Priority, "ptr", pabCommand, "uint", cbCommand, "ptr", pabResult, "uint*", pcbResult, "uint")
+        hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsip_Submit_Command", hContextMarshal, hContext, "uint", Locality, "uint", Priority, "ptr", pabCommand, "uint", cbCommand, "ptr", pabResult, pcbResultMarshal, pcbResult, "uint")
         return result
     }
 
@@ -535,7 +540,9 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsip_Cancel_Commands(hContext) {
-        result := DllCall("tbs.dll\Tbsip_Cancel_Commands", "ptr", hContext, "uint")
+        hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsip_Cancel_Commands", hContextMarshal, hContext, "uint")
         return result
     }
 
@@ -626,7 +633,10 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Physical_Presence_Command(hContext, pabInput, cbInput, pabOutput, pcbOutput) {
-        result := DllCall("tbs.dll\Tbsi_Physical_Presence_Command", "ptr", hContext, "ptr", pabInput, "uint", cbInput, "ptr", pabOutput, "uint*", pcbOutput, "uint")
+        hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsi_Physical_Presence_Command", hContextMarshal, hContext, "ptr", pabInput, "uint", cbInput, "ptr", pabOutput, pcbOutputMarshal, pcbOutput, "uint")
         return result
     }
 
@@ -747,7 +757,10 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Get_TCG_Log(hContext, pOutputBuf, pOutputBufLen) {
-        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", "ptr", hContext, "ptr", pOutputBuf, "uint*", pOutputBufLen, "uint")
+        hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+        pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", hContextMarshal, hContext, "ptr", pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, "uint")
         return result
     }
 
@@ -948,7 +961,10 @@ class TpmBaseServices {
      * @since windows8.0
      */
     static Tbsi_Get_OwnerAuth(hContext, ownerauthType, pOutputBuf, pOutputBufLen) {
-        result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", "ptr", hContext, "uint", ownerauthType, "ptr", pOutputBuf, "uint*", pOutputBufLen, "uint")
+        hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+        pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", hContextMarshal, hContext, "uint", ownerauthType, "ptr", pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, "uint")
         return result
     }
 
@@ -1003,7 +1019,9 @@ class TpmBaseServices {
      * @returns {HRESULT} 
      */
     static GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
-        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, "uint*", pcbResult, "ptr", pfProtectedByTPM, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, pcbResultMarshal, pcbResult, "ptr", pfProtectedByTPM, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1021,7 +1039,9 @@ class TpmBaseServices {
     static GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedByTPM) {
         pszWindowsAIK := pszWindowsAIK is String ? StrPtr(pszWindowsAIK) : pszWindowsAIK
 
-        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, "uint*", pcchResult, "ptr", pfProtectedByTPM, "int")
+        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, pcchResultMarshal, pcchResult, "ptr", pfProtectedByTPM, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1204,7 +1224,9 @@ class TpmBaseServices {
      * @since windows10.0.17134
      */
     static Tbsi_Get_TCG_Log_Ex(logType, pbOutput, pcbOutput) {
-        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", "uint", logType, "ptr", pbOutput, "uint*", pcbOutput, "uint")
+        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", "uint", logType, "ptr", pbOutput, pcbOutputMarshal, pcbOutput, "uint")
         return result
     }
 

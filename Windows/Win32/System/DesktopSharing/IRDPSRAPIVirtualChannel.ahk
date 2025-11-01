@@ -76,7 +76,9 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_flags
      */
     get_Flags(plFlags) {
-        result := ComCall(10, this, "int*", plFlags, "HRESULT")
+        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plFlagsMarshal, plFlags, "HRESULT")
         return result
     }
 
@@ -87,7 +89,9 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_priority
      */
     get_Priority(pPriority) {
-        result := ComCall(11, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 }

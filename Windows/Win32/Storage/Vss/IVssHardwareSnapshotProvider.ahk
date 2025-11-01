@@ -54,7 +54,9 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-fillinluninfo
      */
     FillInLunInfo(wszDeviceName, pLunInfo, pbIsSupported) {
-        result := ComCall(4, this, "ushort*", wszDeviceName, "ptr", pLunInfo, "ptr", pbIsSupported, "HRESULT")
+        wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, wszDeviceNameMarshal, wszDeviceName, "ptr", pLunInfo, "ptr", pbIsSupported, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-onlunempty
      */
     OnLunEmpty(wszDeviceName, pInformation) {
-        result := ComCall(8, this, "ushort*", wszDeviceName, "ptr", pInformation, "HRESULT")
+        wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, wszDeviceNameMarshal, wszDeviceName, "ptr", pInformation, "HRESULT")
         return result
     }
 }

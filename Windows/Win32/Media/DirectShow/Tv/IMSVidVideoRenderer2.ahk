@@ -64,7 +64,9 @@ class IMSVidVideoRenderer2 extends IMSVidVideoRenderer{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer2-get_allocator_id
      */
     get_Allocator_ID(ID) {
-        result := ComCall(48, this, "int*", ID, "HRESULT")
+        IDMarshal := ID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, IDMarshal, ID, "HRESULT")
         return result
     }
 

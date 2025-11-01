@@ -134,9 +134,9 @@ class LibraryLoader {
      * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-findresourceexw
      */
     static FindResourceExW(hModule, lpType, lpName, wLanguage) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         result := DllCall("KERNEL32.dll\FindResourceExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
         return HRSRC({Value: result}, True)
@@ -214,8 +214,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleFileNameA(hModule, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
@@ -251,8 +251,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetModuleFileNameW(hModule, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
@@ -405,8 +405,8 @@ class LibraryLoader {
      * @since windows5.1.2600
      */
     static GetProcAddress(hModule, lpProcName) {
-        lpProcName := lpProcName is String ? StrPtr(lpProcName) : lpProcName
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpProcName := lpProcName is String ? StrPtr(lpProcName) : lpProcName
 
         A_LastError := 0
 
@@ -641,9 +641,11 @@ class LibraryLoader {
      * @since windows8.0
      */
     static RemoveDllDirectory(Cookie) {
+        CookieMarshal := Cookie is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RemoveDllDirectory", "ptr", Cookie, "int")
+        result := DllCall("KERNEL32.dll\RemoveDllDirectory", CookieMarshal, Cookie, "int")
         if(A_LastError)
             throw OSError()
 
@@ -757,9 +759,9 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceLanguagesExA(hModule, lpType, lpName, lpEnumFunc, lParam, dwFlags, LangId) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         A_LastError := 0
 
@@ -857,9 +859,9 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceLanguagesExW(hModule, lpType, lpName, lpEnumFunc, lParam, dwFlags, LangId) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         A_LastError := 0
 
@@ -939,8 +941,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceNamesExA(hModule, lpType, lpEnumFunc, lParam, dwFlags, LangId) {
-        lpType := lpType is String ? StrPtr(lpType) : lpType
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpType := lpType is String ? StrPtr(lpType) : lpType
 
         A_LastError := 0
 
@@ -1020,8 +1022,8 @@ class LibraryLoader {
      * @since windows6.0.6000
      */
     static EnumResourceNamesExW(hModule, lpType, lpEnumFunc, lParam, dwFlags, LangId) {
-        lpType := lpType is String ? StrPtr(lpType) : lpType
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpType := lpType is String ? StrPtr(lpType) : lpType
 
         A_LastError := 0
 
@@ -1207,9 +1209,9 @@ class LibraryLoader {
      * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-findresourcew
      */
     static FindResourceW(hModule, lpName, lpType) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpType := lpType is String ? StrPtr(lpType) : lpType
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         result := DllCall("KERNEL32.dll\FindResourceW", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
         return HRSRC({Value: result}, True)
@@ -1313,8 +1315,8 @@ class LibraryLoader {
      * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-enumresourcenamesw
      */
     static EnumResourceNamesW(hModule, lpType, lpEnumFunc, lParam) {
-        lpType := lpType is String ? StrPtr(lpType) : lpType
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpType := lpType is String ? StrPtr(lpType) : lpType
 
         result := DllCall("KERNEL32.dll\EnumResourceNamesW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
@@ -1343,8 +1345,8 @@ class LibraryLoader {
      * @since windows5.0
      */
     static EnumResourceNamesA(hModule, lpType, lpEnumFunc, lParam) {
-        lpType := lpType is String ? StrPtr(lpType) : lpType
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpType := lpType is String ? StrPtr(lpType) : lpType
 
         A_LastError := 0
 
@@ -1401,9 +1403,9 @@ class LibraryLoader {
     static QueryOptionalDelayLoadedAPI(hParentModule, lpDllName, lpProcName) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        hParentModule := hParentModule is Win32Handle ? NumGet(hParentModule, "ptr") : hParentModule
         lpDllName := lpDllName is String ? StrPtr(lpDllName) : lpDllName
         lpProcName := lpProcName is String ? StrPtr(lpProcName) : lpProcName
-        hParentModule := hParentModule is Win32Handle ? NumGet(hParentModule, "ptr") : hParentModule
 
         A_LastError := 0
 
@@ -1501,7 +1503,9 @@ class LibraryLoader {
     static LoadModule(lpModuleName, lpParameterBlock) {
         lpModuleName := lpModuleName is String ? StrPtr(lpModuleName) : lpModuleName
 
-        result := DllCall("KERNEL32.dll\LoadModule", "ptr", lpModuleName, "ptr", lpParameterBlock, "uint")
+        lpParameterBlockMarshal := lpParameterBlock is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\LoadModule", "ptr", lpModuleName, lpParameterBlockMarshal, lpParameterBlock, "uint")
         return result
     }
 
@@ -1527,9 +1531,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static FindResourceA(hModule, lpName, lpType) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpType := lpType is String ? StrPtr(lpType) : lpType
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         A_LastError := 0
 
@@ -1569,9 +1573,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static FindResourceExA(hModule, lpType, lpName, wLanguage) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         A_LastError := 0
 
@@ -1676,9 +1680,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static EnumResourceLanguagesA(hModule, lpType, lpName, lpEnumFunc, lParam) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         A_LastError := 0
 
@@ -1717,9 +1721,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static EnumResourceLanguagesW(hModule, lpType, lpName, lpEnumFunc, lParam) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         A_LastError := 0
 
@@ -1815,9 +1819,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static UpdateResourceA(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
+        hUpdate := hUpdate is Win32Handle ? NumGet(hUpdate, "ptr") : hUpdate
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hUpdate := hUpdate is Win32Handle ? NumGet(hUpdate, "ptr") : hUpdate
 
         A_LastError := 0
 
@@ -1861,9 +1865,9 @@ class LibraryLoader {
      * @since windows5.0
      */
     static UpdateResourceW(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
+        hUpdate := hUpdate is Win32Handle ? NumGet(hUpdate, "ptr") : hUpdate
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
-        hUpdate := hUpdate is Win32Handle ? NumGet(hUpdate, "ptr") : hUpdate
 
         A_LastError := 0
 

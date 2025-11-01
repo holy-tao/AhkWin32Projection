@@ -42,7 +42,9 @@ class IProvideWinSATAssessmentInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_score
      */
     get_Score(score) {
-        result := ComCall(7, this, "float*", score, "HRESULT")
+        scoreMarshal := score is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, scoreMarshal, score, "HRESULT")
         return result
     }
 

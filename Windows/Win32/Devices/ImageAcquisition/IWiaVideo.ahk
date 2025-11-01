@@ -221,7 +221,9 @@ class IWiaVideo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-getcurrentstate
      */
     GetCurrentState(pState) {
-        result := ComCall(15, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

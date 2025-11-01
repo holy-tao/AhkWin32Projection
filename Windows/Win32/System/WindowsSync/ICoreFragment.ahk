@@ -43,7 +43,10 @@ class ICoreFragment extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-nextcolumn
      */
     NextColumn(pChangeUnitId, pChangeUnitIdSize) {
-        result := ComCall(3, this, "char*", pChangeUnitId, "uint*", pChangeUnitIdSize, "HRESULT")
+        pChangeUnitIdMarshal := pChangeUnitId is VarRef ? "char*" : "ptr"
+        pChangeUnitIdSizeMarshal := pChangeUnitIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pChangeUnitIdMarshal, pChangeUnitId, pChangeUnitIdSizeMarshal, pChangeUnitIdSize, "HRESULT")
         return result
     }
 
@@ -56,7 +59,10 @@ class ICoreFragment extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-nextrange
      */
     NextRange(pItemId, pItemIdSize, piClockVector) {
-        result := ComCall(4, this, "char*", pItemId, "uint*", pItemIdSize, "ptr*", piClockVector, "HRESULT")
+        pItemIdMarshal := pItemId is VarRef ? "char*" : "ptr"
+        pItemIdSizeMarshal := pItemIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pItemIdMarshal, pItemId, pItemIdSizeMarshal, pItemIdSize, "ptr*", piClockVector, "HRESULT")
         return result
     }
 
@@ -77,7 +83,9 @@ class ICoreFragment extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-getcolumncount
      */
     GetColumnCount(pColumnCount) {
-        result := ComCall(6, this, "uint*", pColumnCount, "HRESULT")
+        pColumnCountMarshal := pColumnCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pColumnCountMarshal, pColumnCount, "HRESULT")
         return result
     }
 
@@ -88,7 +96,9 @@ class ICoreFragment extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-getrangecount
      */
     GetRangeCount(pRangeCount) {
-        result := ComCall(7, this, "uint*", pRangeCount, "HRESULT")
+        pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pRangeCountMarshal, pRangeCount, "HRESULT")
         return result
     }
 }

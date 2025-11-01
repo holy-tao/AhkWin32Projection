@@ -104,7 +104,9 @@ class IWMDRMReader extends IUnknown{
     SetDRMProperty(pwstrName, dwType, pValue, cbLength) {
         pwstrName := pwstrName is String ? StrPtr(pwstrName) : pwstrName
 
-        result := ComCall(9, this, "ptr", pwstrName, "int", dwType, "char*", pValue, "ushort", cbLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pwstrName, "int", dwType, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -120,7 +122,11 @@ class IWMDRMReader extends IUnknown{
     GetDRMProperty(pwstrName, pdwType, pValue, pcbLength) {
         pwstrName := pwstrName is String ? StrPtr(pwstrName) : pwstrName
 
-        result := ComCall(10, this, "ptr", pwstrName, "int*", pdwType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pwstrName, pdwTypeMarshal, pdwType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 }

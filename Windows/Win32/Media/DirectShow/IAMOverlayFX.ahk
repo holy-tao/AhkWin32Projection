@@ -37,7 +37,9 @@ class IAMOverlayFX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamoverlayfx-queryoverlayfxcaps
      */
     QueryOverlayFXCaps(lpdwOverlayFXCaps) {
-        result := ComCall(3, this, "uint*", lpdwOverlayFXCaps, "HRESULT")
+        lpdwOverlayFXCapsMarshal := lpdwOverlayFXCaps is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, lpdwOverlayFXCapsMarshal, lpdwOverlayFXCaps, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IAMOverlayFX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamoverlayfx-getoverlayfx
      */
     GetOverlayFX(lpdwOverlayFX) {
-        result := ComCall(5, this, "uint*", lpdwOverlayFX, "HRESULT")
+        lpdwOverlayFXMarshal := lpdwOverlayFX is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, lpdwOverlayFXMarshal, lpdwOverlayFX, "HRESULT")
         return result
     }
 }

@@ -54,7 +54,9 @@ class IStreamInterleave extends IStream{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(streams, interleaveSizes, streamCount) {
-        result := ComCall(14, this, "ptr*", streams, "uint*", interleaveSizes, "uint", streamCount, "HRESULT")
+        interleaveSizesMarshal := interleaveSizes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr*", streams, interleaveSizesMarshal, interleaveSizes, "uint", streamCount, "HRESULT")
         return result
     }
 }

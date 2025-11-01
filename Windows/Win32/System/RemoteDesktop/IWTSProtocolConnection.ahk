@@ -169,7 +169,10 @@ class IWTSProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-sessionarbitrationenumeration
      */
     SessionArbitrationEnumeration(hUserToken, bSingleSessionPerUserEnabled, pSessionIdArray, pdwSessionIdentifierCount) {
-        result := ComCall(14, this, "ptr", hUserToken, "int", bSingleSessionPerUserEnabled, "uint*", pSessionIdArray, "uint*", pdwSessionIdentifierCount, "HRESULT")
+        pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "uint*" : "ptr"
+        pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", hUserToken, "int", bSingleSessionPerUserEnabled, pSessionIdArrayMarshal, pSessionIdArray, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
         return result
     }
 
@@ -240,7 +243,9 @@ class IWTSProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-getlastinputtime
      */
     GetLastInputTime(pLastInputTime) {
-        result := ComCall(20, this, "uint*", pLastInputTime, "HRESULT")
+        pLastInputTimeMarshal := pLastInputTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pLastInputTimeMarshal, pLastInputTime, "HRESULT")
         return result
     }
 
@@ -277,7 +282,11 @@ class IWTSProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-createvirtualchannel
      */
     CreateVirtualChannel(szEndpointName, bStatic, RequestedPriority, phChannel) {
-        result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, "ptr*", phChannel, "HRESULT")
+        szEndpointName := szEndpointName is String ? StrPtr(szEndpointName) : szEndpointName
+
+        phChannelMarshal := phChannel is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, phChannelMarshal, phChannel, "HRESULT")
         return result
     }
 

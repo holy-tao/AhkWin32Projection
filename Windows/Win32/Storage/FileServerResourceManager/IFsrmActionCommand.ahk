@@ -86,7 +86,9 @@ class IFsrmActionCommand extends IFsrmAction{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_account
      */
     get_Account(account) {
-        result := ComCall(16, this, "int*", account, "HRESULT")
+        accountMarshal := account is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, accountMarshal, account, "HRESULT")
         return result
     }
 
@@ -154,7 +156,9 @@ class IFsrmActionCommand extends IFsrmAction{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_killtimeout
      */
     get_KillTimeOut(minutes) {
-        result := ComCall(22, this, "int*", minutes, "HRESULT")
+        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, minutesMarshal, minutes, "HRESULT")
         return result
     }
 

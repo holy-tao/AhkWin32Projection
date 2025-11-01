@@ -40,7 +40,9 @@ class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-getheader
      */
     GetHeader(guidContainerFormat, cbSize, pHeader, pcbActual) {
-        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pHeader, "uint*", pcbActual, "HRESULT")
+        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pHeader, pcbActualMarshal, pcbActual, "HRESULT")
         return result
     }
 

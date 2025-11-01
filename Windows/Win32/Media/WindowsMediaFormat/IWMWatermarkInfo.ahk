@@ -38,7 +38,9 @@ class IWMWatermarkInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwatermarkinfo-getwatermarkentrycount
      */
     GetWatermarkEntryCount(wmetType, pdwCount) {
-        result := ComCall(3, this, "int", wmetType, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "int", wmetType, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 

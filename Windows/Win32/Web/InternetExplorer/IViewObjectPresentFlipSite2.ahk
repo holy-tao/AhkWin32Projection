@@ -34,7 +34,9 @@ class IViewObjectPresentFlipSite2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRotationForCurrentOutput(pDxgiRotation) {
-        result := ComCall(3, this, "int*", pDxgiRotation, "HRESULT")
+        pDxgiRotationMarshal := pDxgiRotation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pDxgiRotationMarshal, pDxgiRotation, "HRESULT")
         return result
     }
 }

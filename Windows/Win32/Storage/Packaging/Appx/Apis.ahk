@@ -305,7 +305,9 @@ class Appx {
      * @since windows8.0
      */
     static GetCurrentPackageId(bufferLength, buffer) {
-        result := DllCall("KERNEL32.dll\GetCurrentPackageId", "uint*", bufferLength, "ptr", buffer, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetCurrentPackageId", bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
         return result
     }
 
@@ -355,7 +357,9 @@ class Appx {
     static GetCurrentPackageFullName(packageFullNameLength, packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("KERNEL32.dll\GetCurrentPackageFullName", "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
+        packageFullNameLengthMarshal := packageFullNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetCurrentPackageFullName", packageFullNameLengthMarshal, packageFullNameLength, "ptr", packageFullName, "uint")
         return result
     }
 
@@ -405,7 +409,9 @@ class Appx {
     static GetCurrentPackageFamilyName(packageFamilyNameLength, packageFamilyName) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("KERNEL32.dll\GetCurrentPackageFamilyName", "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
+        packageFamilyNameLengthMarshal := packageFamilyNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetCurrentPackageFamilyName", packageFamilyNameLengthMarshal, packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
     }
 
@@ -455,7 +461,9 @@ class Appx {
     static GetCurrentPackagePath(pathLength, path) {
         path := path is String ? StrPtr(path) : path
 
-        result := DllCall("KERNEL32.dll\GetCurrentPackagePath", "uint*", pathLength, "ptr", path, "uint")
+        pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetCurrentPackagePath", pathLengthMarshal, pathLength, "ptr", path, "uint")
         return result
     }
 
@@ -508,7 +516,9 @@ class Appx {
     static GetPackageId(hProcess, bufferLength, buffer) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\GetPackageId", "ptr", hProcess, "uint*", bufferLength, "ptr", buffer, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackageId", "ptr", hProcess, bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
         return result
     }
 
@@ -559,10 +569,12 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFullName(hProcess, packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("KERNEL32.dll\GetPackageFullName", "ptr", hProcess, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
+        packageFullNameLengthMarshal := packageFullNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackageFullName", "ptr", hProcess, packageFullNameLengthMarshal, packageFullNameLength, "ptr", packageFullName, "uint")
         return result
     }
 
@@ -608,10 +620,12 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFullNameFromToken(token, packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         token := token is Win32Handle ? NumGet(token, "ptr") : token
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFullNameFromToken", "ptr", token, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
+        packageFullNameLengthMarshal := packageFullNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFullNameFromToken", "ptr", token, packageFullNameLengthMarshal, packageFullNameLength, "ptr", packageFullName, "uint")
         return result
     }
 
@@ -662,10 +676,12 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFamilyName(hProcess, packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("KERNEL32.dll\GetPackageFamilyName", "ptr", hProcess, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
+        packageFamilyNameLengthMarshal := packageFamilyNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackageFamilyName", "ptr", hProcess, packageFamilyNameLengthMarshal, packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
     }
 
@@ -716,10 +732,12 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFamilyNameFromToken(token, packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
         token := token is Win32Handle ? NumGet(token, "ptr") : token
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFamilyNameFromToken", "ptr", token, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
+        packageFamilyNameLengthMarshal := packageFamilyNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFamilyNameFromToken", "ptr", token, packageFamilyNameLengthMarshal, packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
     }
 
@@ -763,7 +781,9 @@ class Appx {
 
         path := path is String ? StrPtr(path) : path
 
-        result := DllCall("KERNEL32.dll\GetPackagePath", "ptr", packageId, "uint", reserved, "uint*", pathLength, "ptr", path, "uint")
+        pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackagePath", "ptr", packageId, "uint", reserved, pathLengthMarshal, pathLength, "ptr", path, "uint")
         return result
     }
 
@@ -808,7 +828,9 @@ class Appx {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         path := path is String ? StrPtr(path) : path
 
-        result := DllCall("KERNEL32.dll\GetPackagePathByFullName", "ptr", packageFullName, "uint*", pathLength, "ptr", path, "uint")
+        pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackagePathByFullName", "ptr", packageFullName, pathLengthMarshal, pathLength, "ptr", path, "uint")
         return result
     }
 
@@ -853,7 +875,9 @@ class Appx {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         path := path is String ? StrPtr(path) : path
 
-        result := DllCall("KERNEL32.dll\GetStagedPackagePathByFullName", "ptr", packageFullName, "uint*", pathLength, "ptr", path, "uint")
+        pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetStagedPackagePathByFullName", "ptr", packageFullName, pathLengthMarshal, pathLength, "ptr", path, "uint")
         return result
     }
 
@@ -901,7 +925,9 @@ class Appx {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         path := path is String ? StrPtr(path) : path
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackagePathByFullName2", "ptr", packageFullName, "int", packagePathType, "uint*", pathLength, "ptr", path, "uint")
+        pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackagePathByFullName2", "ptr", packageFullName, "int", packagePathType, pathLengthMarshal, pathLength, "ptr", path, "uint")
         return result
     }
 
@@ -949,7 +975,9 @@ class Appx {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         path := path is String ? StrPtr(path) : path
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetStagedPackagePathByFullName2", "ptr", packageFullName, "int", packagePathType, "uint*", pathLength, "ptr", path, "uint")
+        pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetStagedPackagePathByFullName2", "ptr", packageFullName, "int", packagePathType, pathLengthMarshal, pathLength, "ptr", path, "uint")
         return result
     }
 
@@ -1006,7 +1034,10 @@ class Appx {
      * @since windows10.0.10240
      */
     static GetCurrentPackageInfo2(flags, packagePathType, bufferLength, buffer, count) {
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackageInfo2", "uint", flags, "int", packagePathType, "uint*", bufferLength, "ptr", buffer, "uint*", count, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackageInfo2", "uint", flags, "int", packagePathType, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
         return result
     }
 
@@ -1059,7 +1090,9 @@ class Appx {
     static GetCurrentPackagePath2(packagePathType, pathLength, path) {
         path := path is String ? StrPtr(path) : path
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackagePath2", "int", packagePathType, "uint*", pathLength, "ptr", path, "uint")
+        pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackagePath2", "int", packagePathType, pathLengthMarshal, pathLength, "ptr", path, "uint")
         return result
     }
 
@@ -1102,7 +1135,9 @@ class Appx {
     static GetCurrentApplicationUserModelId(applicationUserModelIdLength, applicationUserModelId) {
         applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
-        result := DllCall("KERNEL32.dll\GetCurrentApplicationUserModelId", "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
+        applicationUserModelIdLengthMarshal := applicationUserModelIdLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetCurrentApplicationUserModelId", applicationUserModelIdLengthMarshal, applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
     }
 
@@ -1144,10 +1179,12 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelid
      */
     static GetApplicationUserModelId(hProcess, applicationUserModelIdLength, applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
-        result := DllCall("KERNEL32.dll\GetApplicationUserModelId", "ptr", hProcess, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
+        applicationUserModelIdLengthMarshal := applicationUserModelIdLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetApplicationUserModelId", "ptr", hProcess, applicationUserModelIdLengthMarshal, applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
     }
 
@@ -1189,10 +1226,12 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelidfromtoken
      */
     static GetApplicationUserModelIdFromToken(token, applicationUserModelIdLength, applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
         token := token is Win32Handle ? NumGet(token, "ptr") : token
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetApplicationUserModelIdFromToken", "ptr", token, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
+        applicationUserModelIdLengthMarshal := applicationUserModelIdLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetApplicationUserModelIdFromToken", "ptr", token, applicationUserModelIdLengthMarshal, applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
     }
 
@@ -1306,7 +1345,9 @@ class Appx {
     static PackageIdFromFullName(packageFullName, flags, bufferLength, buffer) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("KERNEL32.dll\PackageIdFromFullName", "ptr", packageFullName, "uint", flags, "uint*", bufferLength, "ptr", buffer, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\PackageIdFromFullName", "ptr", packageFullName, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
         return result
     }
 
@@ -1348,7 +1389,9 @@ class Appx {
     static PackageFullNameFromId(packageId, packageFullNameLength, packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("KERNEL32.dll\PackageFullNameFromId", "ptr", packageId, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
+        packageFullNameLengthMarshal := packageFullNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\PackageFullNameFromId", "ptr", packageId, packageFullNameLengthMarshal, packageFullNameLength, "ptr", packageFullName, "uint")
         return result
     }
 
@@ -1390,7 +1433,9 @@ class Appx {
     static PackageFamilyNameFromId(packageId, packageFamilyNameLength, packageFamilyName) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("KERNEL32.dll\PackageFamilyNameFromId", "ptr", packageId, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
+        packageFamilyNameLengthMarshal := packageFamilyNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\PackageFamilyNameFromId", "ptr", packageId, packageFamilyNameLengthMarshal, packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
     }
 
@@ -1433,7 +1478,9 @@ class Appx {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("KERNEL32.dll\PackageFamilyNameFromFullName", "ptr", packageFullName, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
+        packageFamilyNameLengthMarshal := packageFamilyNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\PackageFamilyNameFromFullName", "ptr", packageFullName, packageFamilyNameLengthMarshal, packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
     }
 
@@ -1483,7 +1530,10 @@ class Appx {
         packageName := packageName is String ? StrPtr(packageName) : packageName
         packagePublisherId := packagePublisherId is String ? StrPtr(packagePublisherId) : packagePublisherId
 
-        result := DllCall("KERNEL32.dll\PackageNameAndPublisherIdFromFamilyName", "ptr", packageFamilyName, "uint*", packageNameLength, "ptr", packageName, "uint*", packagePublisherIdLength, "ptr", packagePublisherId, "uint")
+        packageNameLengthMarshal := packageNameLength is VarRef ? "uint*" : "ptr"
+        packagePublisherIdLengthMarshal := packagePublisherIdLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\PackageNameAndPublisherIdFromFamilyName", "ptr", packageFamilyName, packageNameLengthMarshal, packageNameLength, "ptr", packageName, packagePublisherIdLengthMarshal, packagePublisherIdLength, "ptr", packagePublisherId, "uint")
         return result
     }
 
@@ -1543,7 +1593,9 @@ class Appx {
         packageRelativeApplicationId := packageRelativeApplicationId is String ? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
         applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
-        result := DllCall("KERNEL32.dll\FormatApplicationUserModelId", "ptr", packageFamilyName, "ptr", packageRelativeApplicationId, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
+        applicationUserModelIdLengthMarshal := applicationUserModelIdLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\FormatApplicationUserModelId", "ptr", packageFamilyName, "ptr", packageRelativeApplicationId, applicationUserModelIdLengthMarshal, applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
     }
 
@@ -1608,7 +1660,10 @@ class Appx {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
         packageRelativeApplicationId := packageRelativeApplicationId is String ? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
 
-        result := DllCall("KERNEL32.dll\ParseApplicationUserModelId", "ptr", applicationUserModelId, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint*", packageRelativeApplicationIdLength, "ptr", packageRelativeApplicationId, "uint")
+        packageFamilyNameLengthMarshal := packageFamilyNameLength is VarRef ? "uint*" : "ptr"
+        packageRelativeApplicationIdLengthMarshal := packageRelativeApplicationIdLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\ParseApplicationUserModelId", "ptr", applicationUserModelId, packageFamilyNameLengthMarshal, packageFamilyNameLength, "ptr", packageFamilyName, packageRelativeApplicationIdLengthMarshal, packageRelativeApplicationIdLength, "ptr", packageRelativeApplicationId, "uint")
         return result
     }
 
@@ -1661,7 +1716,10 @@ class Appx {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
         buffer := buffer is String ? StrPtr(buffer) : buffer
 
-        result := DllCall("KERNEL32.dll\GetPackagesByPackageFamily", "ptr", packageFamilyName, "uint*", count, "ptr", packageFullNames, "uint*", bufferLength, "ptr", buffer, "uint")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackagesByPackageFamily", "ptr", packageFamilyName, countMarshal, count, "ptr", packageFullNames, bufferLengthMarshal, bufferLength, "ptr", buffer, "uint")
         return result
     }
 
@@ -1720,7 +1778,11 @@ class Appx {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
         buffer := buffer is String ? StrPtr(buffer) : buffer
 
-        result := DllCall("KERNEL32.dll\FindPackagesByPackageFamily", "ptr", packageFamilyName, "uint", packageFilters, "uint*", count, "ptr", packageFullNames, "uint*", bufferLength, "ptr", buffer, "uint*", packageProperties, "uint")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        packagePropertiesMarshal := packageProperties is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\FindPackagesByPackageFamily", "ptr", packageFamilyName, "uint", packageFilters, countMarshal, count, "ptr", packageFullNames, bufferLengthMarshal, bufferLength, "ptr", buffer, packagePropertiesMarshal, packageProperties, "uint")
         return result
     }
 
@@ -1759,7 +1821,9 @@ class Appx {
     static GetStagedPackageOrigin(packageFullName, origin) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetStagedPackageOrigin", "ptr", packageFullName, "int*", origin, "uint")
+        originMarshal := origin is VarRef ? "int*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetStagedPackageOrigin", "ptr", packageFullName, originMarshal, origin, "uint")
         return result
     }
 
@@ -1813,7 +1877,10 @@ class Appx {
      * @since windows8.0
      */
     static GetCurrentPackageInfo(flags, bufferLength, buffer, count) {
-        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo", "uint", flags, "uint*", bufferLength, "ptr", buffer, "uint*", count, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo", "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
         return result
     }
 
@@ -1932,7 +1999,10 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageInfo(packageInfoReference, flags, bufferLength, buffer, count) {
-        result := DllCall("KERNEL32.dll\GetPackageInfo", "ptr", packageInfoReference, "uint", flags, "uint*", bufferLength, "ptr", buffer, "uint*", count, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackageInfo", "ptr", packageInfoReference, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
         return result
     }
 
@@ -1977,7 +2047,10 @@ class Appx {
      * @since windows8.1
      */
     static GetPackageApplicationIds(packageInfoReference, bufferLength, buffer, count) {
-        result := DllCall("KERNEL32.dll\GetPackageApplicationIds", "ptr", packageInfoReference, "uint*", bufferLength, "ptr", buffer, "uint*", count, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetPackageApplicationIds", "ptr", packageInfoReference, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
         return result
     }
 
@@ -2026,7 +2099,10 @@ class Appx {
      * @since windows10.0.10240
      */
     static GetPackageInfo2(packageInfoReference, flags, packagePathType, bufferLength, buffer, count) {
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackageInfo2", "ptr", packageInfoReference, "uint", flags, "int", packagePathType, "uint*", bufferLength, "ptr", buffer, "uint*", count, "uint")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackageInfo2", "ptr", packageInfoReference, "uint", flags, "int", packagePathType, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "uint")
         return result
     }
 
@@ -2228,7 +2304,9 @@ class Appx {
      * @returns {HRESULT} 
      */
     static FindPackageDependency(findPackageDependencyCriteria, packageDependencyIdsCount, packageDependencyIds) {
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\FindPackageDependency", "ptr", findPackageDependencyCriteria, "uint*", packageDependencyIdsCount, "ptr*", packageDependencyIds, "int")
+        packageDependencyIdsCountMarshal := packageDependencyIdsCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\FindPackageDependency", "ptr", findPackageDependencyCriteria, packageDependencyIdsCountMarshal, packageDependencyIdsCount, "ptr*", packageDependencyIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2251,7 +2329,11 @@ class Appx {
     static GetPackageDependencyInformation(packageDependencyId, user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, lifetimeExpiration) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetPackageDependencyInformation", "ptr", packageDependencyId, "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int*", packageDependencyProcessorArchitectures, "int*", lifetimeKind, "ptr", lifetimeArtifact, "int*", options, "ptr", lifetimeExpiration, "int")
+        packageDependencyProcessorArchitecturesMarshal := packageDependencyProcessorArchitectures is VarRef ? "int*" : "ptr"
+        lifetimeKindMarshal := lifetimeKind is VarRef ? "int*" : "ptr"
+        optionsMarshal := options is VarRef ? "int*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetPackageDependencyInformation", "ptr", packageDependencyId, "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, packageDependencyProcessorArchitecturesMarshal, packageDependencyProcessorArchitectures, lifetimeKindMarshal, lifetimeKind, "ptr", lifetimeArtifact, optionsMarshal, options, "ptr", lifetimeExpiration, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2270,7 +2352,9 @@ class Appx {
     static GetProcessesUsingPackageDependency(packageDependencyId, user, scopeIsSystem, processIdsCount, processIds) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, "uint*", processIdsCount, "ptr*", processIds, "int")
+        processIdsCountMarshal := processIdsCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, processIdsCountMarshal, processIdsCount, "ptr*", processIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2291,7 +2375,9 @@ class Appx {
     static AppPolicyGetLifecycleManagement(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetLifecycleManagement", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetLifecycleManagement", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2309,7 +2395,9 @@ class Appx {
     static AppPolicyGetWindowingModel(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetWindowingModel", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetWindowingModel", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2327,7 +2415,9 @@ class Appx {
     static AppPolicyGetMediaFoundationCodecLoading(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetMediaFoundationCodecLoading", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetMediaFoundationCodecLoading", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2345,7 +2435,9 @@ class Appx {
     static AppPolicyGetClrCompat(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetClrCompat", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetClrCompat", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2363,7 +2455,9 @@ class Appx {
     static AppPolicyGetThreadInitializationType(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetThreadInitializationType", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetThreadInitializationType", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2381,7 +2475,9 @@ class Appx {
     static AppPolicyGetShowDeveloperDiagnostic(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetShowDeveloperDiagnostic", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetShowDeveloperDiagnostic", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2399,7 +2495,9 @@ class Appx {
     static AppPolicyGetProcessTerminationMethod(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetProcessTerminationMethod", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetProcessTerminationMethod", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2417,7 +2515,9 @@ class Appx {
     static AppPolicyGetCreateFileAccess(processToken, policy) {
         processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
 
-        result := DllCall("KERNEL32.dll\AppPolicyGetCreateFileAccess", "ptr", processToken, "int*", policy, "uint")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AppPolicyGetCreateFileAccess", "ptr", processToken, policyMarshal, policy, "uint")
         return result
     }
 
@@ -2444,7 +2544,9 @@ class Appx {
      * @returns {HRESULT} 
      */
     static ActivatePackageVirtualizationContext(context, cookie) {
-        result := DllCall("KERNEL32.dll\ActivatePackageVirtualizationContext", "ptr", context, "ptr*", cookie, "int")
+        cookieMarshal := cookie is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\ActivatePackageVirtualizationContext", "ptr", context, cookieMarshal, cookie, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2502,7 +2604,9 @@ class Appx {
     static GetProcessesInVirtualizationContext(packageFamilyName, count, processes) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("KERNEL32.dll\GetProcessesInVirtualizationContext", "ptr", packageFamilyName, "uint*", count, "ptr*", processes, "int")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetProcessesInVirtualizationContext", "ptr", packageFamilyName, countMarshal, count, "ptr*", processes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2520,7 +2624,10 @@ class Appx {
      * @see https://learn.microsoft.com/windows/win32/appxpkg/appmodel/nf-appmodel-getcurrentpackageinfo3
      */
     static GetCurrentPackageInfo3(flags, packageInfoType, bufferLength, buffer, count) {
-        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, "int", packageInfoType, "uint*", bufferLength, "ptr", buffer, "uint*", count, "int")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, "int", packageInfoType, bufferLengthMarshal, bufferLength, "ptr", buffer, countMarshal, count, "int")
         if(result != 0)
             throw OSError(result)
 

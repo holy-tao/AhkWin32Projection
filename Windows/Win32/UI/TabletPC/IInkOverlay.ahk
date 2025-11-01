@@ -42,7 +42,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_hwnd
      */
     get_hWnd(CurrentWindow) {
-        result := ComCall(7, this, "ptr*", CurrentWindow, "HRESULT")
+        CurrentWindowMarshal := CurrentWindow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, CurrentWindowMarshal, CurrentWindow, "HRESULT")
         return result
     }
 
@@ -182,7 +184,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_collectionmode
      */
     get_CollectionMode(Mode) {
-        result := ComCall(20, this, "int*", Mode, "HRESULT")
+        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, ModeMarshal, Mode, "HRESULT")
         return result
     }
 
@@ -280,7 +284,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_mousepointer
      */
     get_MousePointer(MousePointer) {
-        result := ComCall(29, this, "int*", MousePointer, "HRESULT")
+        MousePointerMarshal := MousePointer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, MousePointerMarshal, MousePointer, "HRESULT")
         return result
     }
 
@@ -302,7 +308,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_editingmode
      */
     get_EditingMode(EditingMode) {
-        result := ComCall(31, this, "int*", EditingMode, "HRESULT")
+        EditingModeMarshal := EditingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, EditingModeMarshal, EditingMode, "HRESULT")
         return result
     }
 
@@ -346,7 +354,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_erasermode
      */
     get_EraserMode(EraserMode) {
-        result := ComCall(35, this, "int*", EraserMode, "HRESULT")
+        EraserModeMarshal := EraserMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, EraserModeMarshal, EraserMode, "HRESULT")
         return result
     }
 
@@ -368,7 +378,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_eraserwidth
      */
     get_EraserWidth(EraserWidth) {
-        result := ComCall(37, this, "int*", EraserWidth, "HRESULT")
+        EraserWidthMarshal := EraserWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, EraserWidthMarshal, EraserWidth, "HRESULT")
         return result
     }
 
@@ -390,7 +402,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_attachmode
      */
     get_AttachMode(AttachMode) {
-        result := ComCall(39, this, "int*", AttachMode, "HRESULT")
+        AttachModeMarshal := AttachMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, AttachModeMarshal, AttachMode, "HRESULT")
         return result
     }
 
@@ -423,7 +437,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_marginx
      */
     get_MarginX(MarginX) {
-        result := ComCall(42, this, "int*", MarginX, "HRESULT")
+        MarginXMarshal := MarginX is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, MarginXMarshal, MarginX, "HRESULT")
         return result
     }
 
@@ -445,7 +461,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_marginy
      */
     get_MarginY(MarginY) {
-        result := ComCall(44, this, "int*", MarginY, "HRESULT")
+        MarginYMarshal := MarginY is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, MarginYMarshal, MarginY, "HRESULT")
         return result
     }
 
@@ -524,7 +542,9 @@ class IInkOverlay extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-hittestselection
      */
     HitTestSelection(x, y, SelArea) {
-        result := ComCall(51, this, "int", x, "int", y, "int*", SelArea, "HRESULT")
+        SelAreaMarshal := SelArea is VarRef ? "int*" : "ptr"
+
+        result := ComCall(51, this, "int", x, "int", y, SelAreaMarshal, SelArea, "HRESULT")
         return result
     }
 

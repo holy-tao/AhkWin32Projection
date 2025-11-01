@@ -37,7 +37,9 @@ class ITCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get_count
      */
     get_Count(lCount) {
-        result := ComCall(7, this, "int*", lCount, "HRESULT")
+        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, lCountMarshal, lCount, "HRESULT")
         return result
     }
 

@@ -56,7 +56,9 @@ class IAppxManifestPackageId extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getarchitecture
      */
     GetArchitecture(architecture) {
-        result := ComCall(4, this, "int*", architecture, "HRESULT")
+        architectureMarshal := architecture is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, architectureMarshal, architecture, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class IAppxManifestPackageId extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(packageVersion) {
-        result := ComCall(6, this, "uint*", packageVersion, "HRESULT")
+        packageVersionMarshal := packageVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, packageVersionMarshal, packageVersion, "HRESULT")
         return result
     }
 

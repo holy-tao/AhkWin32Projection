@@ -35,7 +35,9 @@ class IWrappedProtocol extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWrapperCode(pnCode, dwReserved) {
-        result := ComCall(3, this, "int*", pnCode, "ptr", dwReserved, "HRESULT")
+        pnCodeMarshal := pnCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pnCodeMarshal, pnCode, "ptr", dwReserved, "HRESULT")
         return result
     }
 }

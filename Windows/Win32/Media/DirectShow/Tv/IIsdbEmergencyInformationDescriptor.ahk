@@ -37,7 +37,9 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -71,7 +77,9 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getserviceid
      */
     GetServiceId(bRecordIndex, pwVal) {
-        result := ComCall(6, this, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -83,7 +91,9 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getstartendflag
      */
     GetStartEndFlag(bRecordIndex, pVal) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "char", bRecordIndex, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -95,7 +105,9 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getsignallevel
      */
     GetSignalLevel(bRecordIndex, pbVal) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -108,7 +120,9 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getareacode
      */
     GetAreaCode(bRecordIndex, ppwVal, pbNumAreaCodes) {
-        result := ComCall(9, this, "char", bRecordIndex, "ptr*", ppwVal, "char*", pbNumAreaCodes, "HRESULT")
+        pbNumAreaCodesMarshal := pbNumAreaCodes is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "char", bRecordIndex, "ptr*", ppwVal, pbNumAreaCodesMarshal, pbNumAreaCodes, "HRESULT")
         return result
     }
 }

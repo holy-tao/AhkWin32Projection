@@ -1705,7 +1705,9 @@ class Imaging {
     static WICMapGuidToShortName(guid, cchName, wzName, pcchActual) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", pcchActual, "int")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, pcchActualMarshal, pcchActual, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1765,7 +1767,9 @@ class Imaging {
         pwzSchema := pwzSchema is String ? StrPtr(pwzSchema) : pwzSchema
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", pcchActual, "int")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, pcchActualMarshal, pcchActual, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1846,7 +1850,9 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICGetMetadataContentSize(guidContainerFormat, pIWriter, pcbSize) {
-        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "uint*", pcbSize, "int")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, pcbSizeMarshal, pcbSize, "int")
         if(result != 0)
             throw OSError(result)
 

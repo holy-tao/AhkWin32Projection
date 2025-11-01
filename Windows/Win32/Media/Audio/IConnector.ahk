@@ -37,7 +37,9 @@ class IConnector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-gettype
      */
     GetType(pType) {
-        result := ComCall(3, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IConnector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-getdataflow
      */
     GetDataFlow(pFlow) {
-        result := ComCall(4, this, "int*", pFlow, "HRESULT")
+        pFlowMarshal := pFlow is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pFlowMarshal, pFlow, "HRESULT")
         return result
     }
 

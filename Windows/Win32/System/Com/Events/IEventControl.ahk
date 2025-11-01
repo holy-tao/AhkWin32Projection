@@ -80,7 +80,9 @@ class IEventControl extends IDispatch{
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
         optionalCriteria := optionalCriteria is String ? BSTR.Alloc(optionalCriteria).Value : optionalCriteria
 
-        result := ComCall(10, this, "ptr", methodName, "ptr", optionalCriteria, "int*", optionalErrorIndex, "ptr*", ppCollection, "HRESULT")
+        optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", methodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", ppCollection, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class IEventControl extends IDispatch{
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(11, this, "ptr", methodName, "ptr", criteria, "int*", errorIndex, "HRESULT")
+        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", methodName, "ptr", criteria, errorIndexMarshal, errorIndex, "HRESULT")
         return result
     }
 }

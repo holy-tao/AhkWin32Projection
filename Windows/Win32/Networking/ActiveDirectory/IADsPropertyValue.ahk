@@ -47,7 +47,9 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ADsType(retval) {
-        result := ComCall(8, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -177,7 +179,9 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Boolean(retval) {
-        result := ComCall(20, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -197,7 +201,9 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Integer(retval) {
-        result := ComCall(22, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -277,7 +283,9 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UTCTime(retval) {
-        result := ComCall(30, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(30, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

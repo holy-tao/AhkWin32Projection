@@ -37,7 +37,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getparameterversion
      */
     GetParameterVersion(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-getrecordnumberoftable
      */
     GetRecordNumberOfTable(pbVal) {
-        result := ComCall(7, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -93,7 +101,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettableid
      */
     GetTableId(bRecordIndex, pbVal) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -105,7 +115,9 @@ class IIsdbSIParameterDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionlength
      */
     GetTableDescriptionLength(bRecordIndex, pbVal) {
-        result := ComCall(9, this, "char", bRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -118,7 +130,10 @@ class IIsdbSIParameterDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionbytes
      */
     GetTableDescriptionBytes(bRecordIndex, pbBufferLength, pbBuffer) {
-        result := ComCall(10, this, "char", bRecordIndex, "char*", pbBufferLength, "char*", pbBuffer, "HRESULT")
+        pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "char", bRecordIndex, pbBufferLengthMarshal, pbBufferLength, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 }

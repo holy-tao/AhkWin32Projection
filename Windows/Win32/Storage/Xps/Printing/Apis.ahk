@@ -202,7 +202,9 @@ class Printing {
         progressEvent := progressEvent is Win32Handle ? NumGet(progressEvent, "ptr") : progressEvent
         completionEvent := completionEvent is Win32Handle ? NumGet(completionEvent, "ptr") : completionEvent
 
-        result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "char*", printablePagesOn, "uint", printablePagesOnCount, "ptr*", xpsPrintJob, "ptr*", documentStream, "ptr*", printTicketStream, "int")
+        printablePagesOnMarshal := printablePagesOn is VarRef ? "char*" : "ptr"
+
+        result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, printablePagesOnMarshal, printablePagesOn, "uint", printablePagesOnCount, "ptr*", xpsPrintJob, "ptr*", documentStream, "ptr*", printTicketStream, "int")
         if(result != 0)
             throw OSError(result)
 

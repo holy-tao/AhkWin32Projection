@@ -35,7 +35,9 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
      * @returns {HRESULT} 
      */
     CreateWatchRegion(dwWatchMode, phRegion) {
-        result := ComCall(6, this, "uint", dwWatchMode, "ptr*", phRegion, "HRESULT")
+        phRegionMarshal := phRegion is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwWatchMode, phRegionMarshal, phRegion, "HRESULT")
         return result
     }
 
@@ -71,7 +73,12 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
      * @returns {HRESULT} 
      */
     GetWatchRegionInfo(hRegion, pdwWatchMode, phChapter, pcbBookmark, ppBookmark, pcRows) {
-        result := ComCall(9, this, "ptr", hRegion, "uint*", pdwWatchMode, "ptr*", phChapter, "ptr*", pcbBookmark, "ptr*", ppBookmark, "ptr*", pcRows, "HRESULT")
+        pdwWatchModeMarshal := pdwWatchMode is VarRef ? "uint*" : "ptr"
+        phChapterMarshal := phChapter is VarRef ? "ptr*" : "ptr"
+        pcbBookmarkMarshal := pcbBookmark is VarRef ? "ptr*" : "ptr"
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", hRegion, pdwWatchModeMarshal, pdwWatchMode, phChapterMarshal, phChapter, pcbBookmarkMarshal, pcbBookmark, "ptr*", ppBookmark, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
@@ -82,7 +89,9 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
      * @returns {HRESULT} 
      */
     Refresh(pcChangesObtained, prgChanges) {
-        result := ComCall(10, this, "ptr*", pcChangesObtained, "ptr*", prgChanges, "HRESULT")
+        pcChangesObtainedMarshal := pcChangesObtained is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, pcChangesObtainedMarshal, pcChangesObtained, "ptr*", prgChanges, "HRESULT")
         return result
     }
 
@@ -96,7 +105,9 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
      * @returns {HRESULT} 
      */
     ShrinkWatchRegion(hRegion, hChapter, cbBookmark, pBookmark, cRows) {
-        result := ComCall(11, this, "ptr", hRegion, "ptr", hChapter, "ptr", cbBookmark, "char*", pBookmark, "ptr", cRows, "HRESULT")
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "ptr", hRegion, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", cRows, "HRESULT")
         return result
     }
 }

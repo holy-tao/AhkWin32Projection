@@ -37,7 +37,9 @@ class IComTrackingInfoCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-type
      */
     Type(pType) {
-        result := ComCall(3, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IComTrackingInfoCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-count
      */
     Count(pCount) {
-        result := ComCall(4, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

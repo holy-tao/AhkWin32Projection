@@ -106,7 +106,9 @@ class ID2D1Geometry extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-comparewithgeometry
      */
     CompareWithGeometry(inputGeometry, inputGeometryTransform, flatteningTolerance, relation) {
-        result := ComCall(8, this, "ptr", inputGeometry, "ptr", inputGeometryTransform, "float", flatteningTolerance, "int*", relation, "HRESULT")
+        relationMarshal := relation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", inputGeometry, "ptr", inputGeometryTransform, "float", flatteningTolerance, relationMarshal, relation, "HRESULT")
         return result
     }
 
@@ -174,7 +176,9 @@ class ID2D1Geometry extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computearea
      */
     ComputeArea(worldTransform, flatteningTolerance, area) {
-        result := ComCall(13, this, "ptr", worldTransform, "float", flatteningTolerance, "float*", area, "HRESULT")
+        areaMarshal := area is VarRef ? "float*" : "ptr"
+
+        result := ComCall(13, this, "ptr", worldTransform, "float", flatteningTolerance, areaMarshal, area, "HRESULT")
         return result
     }
 
@@ -187,7 +191,9 @@ class ID2D1Geometry extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computelength
      */
     ComputeLength(worldTransform, flatteningTolerance, length) {
-        result := ComCall(14, this, "ptr", worldTransform, "float", flatteningTolerance, "float*", length, "HRESULT")
+        lengthMarshal := length is VarRef ? "float*" : "ptr"
+
+        result := ComCall(14, this, "ptr", worldTransform, "float", flatteningTolerance, lengthMarshal, length, "HRESULT")
         return result
     }
 

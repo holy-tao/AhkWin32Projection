@@ -45,7 +45,9 @@ class IMonthlyTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-get_daysofmonth
      */
     get_DaysOfMonth(pDays) {
-        result := ComCall(20, this, "int*", pDays, "HRESULT")
+        pDaysMarshal := pDays is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IMonthlyTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-get_monthsofyear
      */
     get_MonthsOfYear(pMonths) {
-        result := ComCall(22, this, "short*", pMonths, "HRESULT")
+        pMonthsMarshal := pMonths is VarRef ? "short*" : "ptr"
+
+        result := ComCall(22, this, pMonthsMarshal, pMonths, "HRESULT")
         return result
     }
 

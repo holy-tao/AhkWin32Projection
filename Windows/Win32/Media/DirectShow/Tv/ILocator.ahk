@@ -48,7 +48,9 @@ class ILocator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_carrierfrequency
      */
     get_CarrierFrequency(Frequency) {
-        result := ComCall(7, this, "int*", Frequency, "HRESULT")
+        FrequencyMarshal := Frequency is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, FrequencyMarshal, Frequency, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ILocator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_innerfec
      */
     get_InnerFEC(FEC) {
-        result := ComCall(9, this, "int*", FEC, "HRESULT")
+        FECMarshal := FEC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, FECMarshal, FEC, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class ILocator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_innerfecrate
      */
     get_InnerFECRate(FEC) {
-        result := ComCall(11, this, "int*", FEC, "HRESULT")
+        FECMarshal := FEC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, FECMarshal, FEC, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class ILocator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_outerfec
      */
     get_OuterFEC(FEC) {
-        result := ComCall(13, this, "int*", FEC, "HRESULT")
+        FECMarshal := FEC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, FECMarshal, FEC, "HRESULT")
         return result
     }
 
@@ -136,7 +144,9 @@ class ILocator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_outerfecrate
      */
     get_OuterFECRate(FEC) {
-        result := ComCall(15, this, "int*", FEC, "HRESULT")
+        FECMarshal := FEC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, FECMarshal, FEC, "HRESULT")
         return result
     }
 
@@ -158,7 +168,9 @@ class ILocator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_modulation
      */
     get_Modulation(Modulation) {
-        result := ComCall(17, this, "int*", Modulation, "HRESULT")
+        ModulationMarshal := Modulation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, ModulationMarshal, Modulation, "HRESULT")
         return result
     }
 
@@ -180,7 +192,9 @@ class ILocator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-get_symbolrate
      */
     get_SymbolRate(Rate) {
-        result := ComCall(19, this, "int*", Rate, "HRESULT")
+        RateMarshal := Rate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, RateMarshal, Rate, "HRESULT")
         return result
     }
 

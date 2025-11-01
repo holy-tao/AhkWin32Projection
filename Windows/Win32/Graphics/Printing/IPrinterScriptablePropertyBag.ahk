@@ -64,7 +64,9 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     GetInt32(bstrName, pnValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "int*", pnValue, "HRESULT")
+        pnValueMarshal := pnValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", bstrName, pnValueMarshal, pnValue, "HRESULT")
         return result
     }
 

@@ -69,7 +69,9 @@ class IXMLHTTPRequest3 extends IXMLHTTPRequest2{
     SetClientCertificate(cbClientCertificateHash, pbClientCertificateHash, pwszPin) {
         pwszPin := pwszPin is String ? StrPtr(pwszPin) : pwszPin
 
-        result := ComCall(13, this, "uint", cbClientCertificateHash, "char*", pbClientCertificateHash, "ptr", pwszPin, "HRESULT")
+        pbClientCertificateHashMarshal := pbClientCertificateHash is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "uint", cbClientCertificateHash, pbClientCertificateHashMarshal, pbClientCertificateHash, "ptr", pwszPin, "HRESULT")
         return result
     }
 }

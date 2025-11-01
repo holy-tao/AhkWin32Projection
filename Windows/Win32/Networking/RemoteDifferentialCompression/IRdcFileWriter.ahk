@@ -39,7 +39,9 @@ class IRdcFileWriter extends IRdcFileReader{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilewriter-write
      */
     Write(offsetFileStart, bytesToWrite, buffer) {
-        result := ComCall(6, this, "uint", offsetFileStart, "uint", bytesToWrite, "char*", buffer, "HRESULT")
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "uint", offsetFileStart, "uint", bytesToWrite, bufferMarshal, buffer, "HRESULT")
         return result
     }
 

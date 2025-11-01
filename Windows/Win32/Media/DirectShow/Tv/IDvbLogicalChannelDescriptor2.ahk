@@ -37,7 +37,9 @@ class IDvbLogicalChannelDescriptor2 extends IDvbLogicalChannelDescriptor{
      * @returns {HRESULT} 
      */
     GetRecordLogicalChannelAndVisibility(bRecordIndex, pwVal) {
-        result := ComCall(8, this, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 }

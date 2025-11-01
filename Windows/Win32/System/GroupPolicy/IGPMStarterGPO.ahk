@@ -117,7 +117,9 @@ class IGPMStarterGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CreationTime(pVal) {
-        result := ComCall(13, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -137,7 +139,9 @@ class IGPMStarterGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ModifiedTime(pVal) {
-        result := ComCall(15, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -147,7 +151,9 @@ class IGPMStarterGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Type(pVal) {
-        result := ComCall(16, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -157,7 +163,9 @@ class IGPMStarterGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ComputerVersion(pVal) {
-        result := ComCall(17, this, "ushort*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -167,7 +175,9 @@ class IGPMStarterGPO extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UserVersion(pVal) {
-        result := ComCall(18, this, "ushort*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(18, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

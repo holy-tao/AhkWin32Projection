@@ -151,7 +151,9 @@ class IXpsOMVisual extends IXpsOMShareable{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacity
      */
     GetOpacity(opacity) {
-        result := ComCall(15, this, "float*", opacity, "HRESULT")
+        opacityMarshal := opacity is VarRef ? "float*" : "ptr"
+
+        result := ComCall(15, this, opacityMarshal, opacity, "HRESULT")
         return result
     }
 

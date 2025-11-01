@@ -44,7 +44,10 @@ class ICallUnmarshal extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallunmarshal-unmarshal
      */
     Unmarshal(iMethod, pBuffer, cbBuffer, fForceBufferCopy, dataRep, pcontext, pcbUnmarshalled, ppFrame) {
-        result := ComCall(3, this, "uint", iMethod, "ptr", pBuffer, "uint", cbBuffer, "int", fForceBufferCopy, "uint", dataRep, "ptr", pcontext, "uint*", pcbUnmarshalled, "ptr*", ppFrame, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "int", fForceBufferCopy, "uint", dataRep, "ptr", pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, "ptr*", ppFrame, "HRESULT")
         return result
     }
 
@@ -60,7 +63,9 @@ class ICallUnmarshal extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallunmarshal-releasemarshaldata
      */
     ReleaseMarshalData(iMethod, pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
-        result := ComCall(4, this, "uint", iMethod, "ptr", pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
         return result
     }
 }

@@ -36,7 +36,9 @@ class IRTCEnumGroups extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, ppElements, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

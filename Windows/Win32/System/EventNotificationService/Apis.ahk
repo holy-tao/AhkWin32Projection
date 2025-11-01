@@ -230,9 +230,11 @@ class EventNotificationService {
      * @since windows5.1.2600
      */
     static IsNetworkAlive(lpdwFlags) {
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SensApi.dll\IsNetworkAlive", "uint*", lpdwFlags, "int")
+        result := DllCall("SensApi.dll\IsNetworkAlive", lpdwFlagsMarshal, lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 

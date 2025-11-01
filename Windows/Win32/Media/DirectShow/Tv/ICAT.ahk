@@ -59,7 +59,9 @@ class ICAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ICAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(5, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -95,7 +99,9 @@ class ICAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(7, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 

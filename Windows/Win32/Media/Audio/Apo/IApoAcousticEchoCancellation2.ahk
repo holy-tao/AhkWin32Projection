@@ -34,7 +34,9 @@ class IApoAcousticEchoCancellation2 extends IApoAcousticEchoCancellation{
      * @returns {HRESULT} 
      */
     GetDesiredReferenceStreamProperties(pProperties) {
-        result := ComCall(3, this, "int*", pProperties, "HRESULT")
+        pPropertiesMarshal := pProperties is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pPropertiesMarshal, pProperties, "HRESULT")
         return result
     }
 }

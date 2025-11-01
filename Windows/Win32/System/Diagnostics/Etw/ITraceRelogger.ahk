@@ -47,7 +47,10 @@ class ITraceRelogger extends IUnknown{
     AddLogfileTraceStream(LogfileName, UserContext, TraceStreamId) {
         LogfileName := LogfileName is String ? BSTR.Alloc(LogfileName).Value : LogfileName
 
-        result := ComCall(3, this, "ptr", LogfileName, "ptr", UserContext, "uint*", TraceStreamId, "HRESULT")
+        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        TraceStreamIdMarshal := TraceStreamId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", LogfileName, UserContextMarshal, UserContext, TraceStreamIdMarshal, TraceStreamId, "HRESULT")
         return result
     }
 
@@ -62,7 +65,10 @@ class ITraceRelogger extends IUnknown{
     AddRealtimeTraceStream(LoggerName, UserContext, TraceStreamId) {
         LoggerName := LoggerName is String ? BSTR.Alloc(LoggerName).Value : LoggerName
 
-        result := ComCall(4, this, "ptr", LoggerName, "ptr", UserContext, "uint*", TraceStreamId, "HRESULT")
+        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        TraceStreamIdMarshal := TraceStreamId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", LoggerName, UserContextMarshal, UserContext, TraceStreamIdMarshal, TraceStreamId, "HRESULT")
         return result
     }
 

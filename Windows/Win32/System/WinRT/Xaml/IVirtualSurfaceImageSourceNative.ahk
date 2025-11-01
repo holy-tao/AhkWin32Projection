@@ -48,7 +48,9 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getupdaterectcount
      */
     GetUpdateRectCount(count) {
-        result := ComCall(7, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, countMarshal, count, "HRESULT")
         return result
     }
 

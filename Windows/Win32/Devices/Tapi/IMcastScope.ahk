@@ -37,7 +37,9 @@ class IMcastScope extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_scopeid
      */
     get_ScopeID(pID) {
-        result := ComCall(7, this, "int*", pID, "HRESULT")
+        pIDMarshal := pID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pIDMarshal, pID, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IMcastScope extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_serverid
      */
     get_ServerID(pID) {
-        result := ComCall(8, this, "int*", pID, "HRESULT")
+        pIDMarshal := pID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pIDMarshal, pID, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IMcastScope extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_interfaceid
      */
     get_InterfaceID(pID) {
-        result := ComCall(9, this, "int*", pID, "HRESULT")
+        pIDMarshal := pID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pIDMarshal, pID, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class IMcastScope extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastscope-get_ttl
      */
     get_TTL(pTTL) {
-        result := ComCall(11, this, "int*", pTTL, "HRESULT")
+        pTTLMarshal := pTTL is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pTTLMarshal, pTTL, "HRESULT")
         return result
     }
 }

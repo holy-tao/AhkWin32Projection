@@ -41,7 +41,9 @@ class IPropertyChangeArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychangearray-getcount
      */
     GetCount(pcOperations) {
-        result := ComCall(3, this, "uint*", pcOperations, "HRESULT")
+        pcOperationsMarshal := pcOperations is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcOperationsMarshal, pcOperations, "HRESULT")
         return result
     }
 

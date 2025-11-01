@@ -69,7 +69,9 @@ class IMbnConnection extends IUnknown{
     Connect(connectionMode, strProfile, requestID) {
         strProfile := strProfile is String ? StrPtr(strProfile) : strProfile
 
-        result := ComCall(5, this, "int", connectionMode, "ptr", strProfile, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", connectionMode, "ptr", strProfile, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class IMbnConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-disconnect
      */
     Disconnect(requestID) {
-        result := ComCall(6, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IMbnConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-getconnectionstate
      */
     GetConnectionState(ConnectionState, ProfileName) {
-        result := ComCall(7, this, "int*", ConnectionState, "ptr", ProfileName, "HRESULT")
+        ConnectionStateMarshal := ConnectionState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, ConnectionStateMarshal, ConnectionState, "ptr", ProfileName, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class IMbnConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-getvoicecallstate
      */
     GetVoiceCallState(voiceCallState) {
-        result := ComCall(8, this, "int*", voiceCallState, "HRESULT")
+        voiceCallStateMarshal := voiceCallState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, voiceCallStateMarshal, voiceCallState, "HRESULT")
         return result
     }
 
@@ -114,7 +122,9 @@ class IMbnConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-getactivationnetworkerror
      */
     GetActivationNetworkError(networkError) {
-        result := ComCall(9, this, "uint*", networkError, "HRESULT")
+        networkErrorMarshal := networkError is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, networkErrorMarshal, networkError, "HRESULT")
         return result
     }
 }

@@ -59,7 +59,9 @@ class IISDB_EMM extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IISDB_EMM extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-gettableidextension
      */
     GetTableIdExtension(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -82,7 +86,10 @@ class IISDB_EMM extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getdatabytes
      */
     GetDataBytes(pwBufferLength, pbBuffer) {
-        result := ComCall(6, this, "ushort*", pwBufferLength, "char*", pbBuffer, "HRESULT")
+        pwBufferLengthMarshal := pwBufferLength is VarRef ? "ushort*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pwBufferLengthMarshal, pwBufferLength, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -94,7 +101,9 @@ class IISDB_EMM extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getsharedemmmessage
      */
     GetSharedEmmMessage(pwLength, ppbMessage) {
-        result := ComCall(7, this, "ushort*", pwLength, "ptr*", ppbMessage, "HRESULT")
+        pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pwLengthMarshal, pwLength, "ptr*", ppbMessage, "HRESULT")
         return result
     }
 
@@ -107,7 +116,9 @@ class IISDB_EMM extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getindividualemmmessage
      */
     GetIndividualEmmMessage(pUnknown, pwLength, ppbMessage) {
-        result := ComCall(8, this, "ptr", pUnknown, "ushort*", pwLength, "ptr*", ppbMessage, "HRESULT")
+        pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pUnknown, pwLengthMarshal, pwLength, "ptr*", ppbMessage, "HRESULT")
         return result
     }
 
@@ -118,7 +129,9 @@ class IISDB_EMM extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionhash
      */
     GetVersionHash(pdwVersionHash) {
-        result := ComCall(9, this, "uint*", pdwVersionHash, "HRESULT")
+        pdwVersionHashMarshal := pdwVersionHash is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwVersionHashMarshal, pdwVersionHash, "HRESULT")
         return result
     }
 }

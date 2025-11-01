@@ -88,7 +88,10 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-queryinsert
      */
     QueryInsert(acpTestStart, acpTestEnd, cch, pacpResultStart, pacpResultEnd) {
-        result := ComCall(7, this, "int", acpTestStart, "int", acpTestEnd, "uint", cch, "int*", pacpResultStart, "int*", pacpResultEnd, "HRESULT")
+        pacpResultStartMarshal := pacpResultStart is VarRef ? "int*" : "ptr"
+        pacpResultEndMarshal := pacpResultEnd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", acpTestStart, "int", acpTestEnd, "uint", cch, pacpResultStartMarshal, pacpResultStart, pacpResultEndMarshal, pacpResultEnd, "HRESULT")
         return result
     }
 
@@ -102,7 +105,9 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getselection
      */
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
-        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -135,7 +140,11 @@ class ITextStoreACP extends IUnknown{
     GetText(acpStart, acpEnd, pchPlain, cchPlainReq, pcchPlainRet, prgRunInfo, cRunInfoReq, pcRunInfoRet, pacpNext) {
         pchPlain := pchPlain is String ? StrPtr(pchPlain) : pchPlain
 
-        result := ComCall(10, this, "int", acpStart, "int", acpEnd, "ptr", pchPlain, "uint", cchPlainReq, "uint*", pcchPlainRet, "ptr", prgRunInfo, "uint", cRunInfoReq, "uint*", pcRunInfoRet, "int*", pacpNext, "HRESULT")
+        pcchPlainRetMarshal := pcchPlainRet is VarRef ? "uint*" : "ptr"
+        pcRunInfoRetMarshal := pcRunInfoRet is VarRef ? "uint*" : "ptr"
+        pacpNextMarshal := pacpNext is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", acpStart, "int", acpEnd, "ptr", pchPlain, "uint", cchPlainReq, pcchPlainRetMarshal, pcchPlainRet, "ptr", prgRunInfo, "uint", cRunInfoReq, pcRunInfoRetMarshal, pcRunInfoRet, pacpNextMarshal, pacpNext, "HRESULT")
         return result
     }
 
@@ -226,7 +235,10 @@ class ITextStoreACP extends IUnknown{
     InsertTextAtSelection(dwFlags, pchText, cch, pacpStart, pacpEnd, pChange) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(16, this, "uint", dwFlags, "ptr", pchText, "uint", cch, "int*", pacpStart, "int*", pacpEnd, "ptr", pChange, "HRESULT")
+        pacpStartMarshal := pacpStart is VarRef ? "int*" : "ptr"
+        pacpEndMarshal := pacpEnd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "uint", dwFlags, "ptr", pchText, "uint", cch, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, "ptr", pChange, "HRESULT")
         return result
     }
 
@@ -241,7 +253,10 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-insertembeddedatselection
      */
     InsertEmbeddedAtSelection(dwFlags, pDataObject, pacpStart, pacpEnd, pChange) {
-        result := ComCall(17, this, "uint", dwFlags, "ptr", pDataObject, "int*", pacpStart, "int*", pacpEnd, "ptr", pChange, "HRESULT")
+        pacpStartMarshal := pacpStart is VarRef ? "int*" : "ptr"
+        pacpEndMarshal := pacpEnd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwFlags, "ptr", pDataObject, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, "ptr", pChange, "HRESULT")
         return result
     }
 
@@ -300,7 +315,10 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-findnextattrtransition
      */
     FindNextAttrTransition(acpStart, acpHalt, cFilterAttrs, paFilterAttrs, dwFlags, pacpNext, pfFound, plFoundOffset) {
-        result := ComCall(21, this, "int", acpStart, "int", acpHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "int*", pacpNext, "ptr", pfFound, "int*", plFoundOffset, "HRESULT")
+        pacpNextMarshal := pacpNext is VarRef ? "int*" : "ptr"
+        plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, "int", acpStart, "int", acpHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, pacpNextMarshal, pacpNext, "ptr", pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
         return result
     }
 
@@ -313,7 +331,9 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-retrieverequestedattrs
      */
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
-        result := ComCall(22, this, "uint", ulCount, "ptr", paAttrVals, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", ulCount, "ptr", paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -324,7 +344,9 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getendacp
      */
     GetEndACP(pacp) {
-        result := ComCall(23, this, "int*", pacp, "HRESULT")
+        pacpMarshal := pacp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pacpMarshal, pacp, "HRESULT")
         return result
     }
 
@@ -335,7 +357,9 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getactiveview
      */
     GetActiveView(pvcView) {
-        result := ComCall(24, this, "uint*", pvcView, "HRESULT")
+        pvcViewMarshal := pvcView is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, pvcViewMarshal, pvcView, "HRESULT")
         return result
     }
 
@@ -349,7 +373,9 @@ class ITextStoreACP extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp-getacpfrompoint
      */
     GetACPFromPoint(vcView, ptScreen, dwFlags, pacp) {
-        result := ComCall(25, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, "int*", pacp, "HRESULT")
+        pacpMarshal := pacp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, pacpMarshal, pacp, "HRESULT")
         return result
     }
 

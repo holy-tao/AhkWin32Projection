@@ -37,7 +37,9 @@ class IWMProfile3 extends IWMProfile2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getstorageformat
      */
     GetStorageFormat(pnStorageFormat) {
-        result := ComCall(22, this, "int*", pnStorageFormat, "HRESULT")
+        pnStorageFormatMarshal := pnStorageFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pnStorageFormatMarshal, pnStorageFormat, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IWMProfile3 extends IWMProfile2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharingcount
      */
     GetBandwidthSharingCount(pcBS) {
-        result := ComCall(24, this, "uint*", pcBS, "HRESULT")
+        pcBSMarshal := pcBS is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, pcBSMarshal, pcBS, "HRESULT")
         return result
     }
 
@@ -159,7 +163,9 @@ class IWMProfile3 extends IWMProfile2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getexpectedpacketcount
      */
     GetExpectedPacketCount(msDuration, pcPackets) {
-        result := ComCall(33, this, "uint", msDuration, "uint*", pcPackets, "HRESULT")
+        pcPacketsMarshal := pcPackets is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "uint", msDuration, pcPacketsMarshal, pcPackets, "HRESULT")
         return result
     }
 }

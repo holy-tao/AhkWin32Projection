@@ -44,7 +44,9 @@ class IUPnPDescriptionDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdescriptiondocument-get_readystate
      */
     get_ReadyState(plReadyState) {
-        result := ComCall(7, this, "int*", plReadyState, "HRESULT")
+        plReadyStateMarshal := plReadyState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plReadyStateMarshal, plReadyState, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IUPnPDescriptionDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdescriptiondocument-get_loadresult
      */
     get_LoadResult(phrError) {
-        result := ComCall(10, this, "int*", phrError, "HRESULT")
+        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, phrErrorMarshal, phrError, "HRESULT")
         return result
     }
 

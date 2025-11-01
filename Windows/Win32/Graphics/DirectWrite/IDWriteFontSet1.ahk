@@ -64,7 +64,9 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
     GetFilteredFonts(indices, indexCount, filteredFontSet) {
-        result := ComCall(15, this, "uint*", indices, "uint", indexCount, "ptr*", filteredFontSet, "HRESULT")
+        indicesMarshal := indices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, indicesMarshal, indices, "uint", indexCount, "ptr*", filteredFontSet, "HRESULT")
         return result
     }
 
@@ -108,7 +110,10 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfontindices
      */
     GetFilteredFontIndices(fontAxisRanges, fontAxisRangeCount, selectAnyRange, indices, maxIndexCount, actualIndexCount) {
-        result := ComCall(18, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "int", selectAnyRange, "uint*", indices, "uint", maxIndexCount, "uint*", actualIndexCount, "HRESULT")
+        indicesMarshal := indices is VarRef ? "uint*" : "ptr"
+        actualIndexCountMarshal := actualIndexCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "int", selectAnyRange, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
         return result
     }
 
@@ -124,7 +129,10 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfontindices
      */
     GetFilteredFontIndices1(properties, propertyCount, selectAnyProperty, indices, maxIndexCount, actualIndexCount) {
-        result := ComCall(19, this, "ptr", properties, "uint", propertyCount, "int", selectAnyProperty, "uint*", indices, "uint", maxIndexCount, "uint*", actualIndexCount, "HRESULT")
+        indicesMarshal := indices is VarRef ? "uint*" : "ptr"
+        actualIndexCountMarshal := actualIndexCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", properties, "uint", propertyCount, "int", selectAnyProperty, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
         return result
     }
 
@@ -138,7 +146,9 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfontaxisranges
      */
     GetFontAxisRanges(listIndex, fontAxisRanges, maxFontAxisRangeCount, actualFontAxisRangeCount) {
-        result := ComCall(20, this, "uint", listIndex, "ptr", fontAxisRanges, "uint", maxFontAxisRangeCount, "uint*", actualFontAxisRangeCount, "HRESULT")
+        actualFontAxisRangeCountMarshal := actualFontAxisRangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", listIndex, "ptr", fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
         return result
     }
 
@@ -151,7 +161,9 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfontaxisranges
      */
     GetFontAxisRanges1(fontAxisRanges, maxFontAxisRangeCount, actualFontAxisRangeCount) {
-        result := ComCall(21, this, "ptr", fontAxisRanges, "uint", maxFontAxisRangeCount, "uint*", actualFontAxisRangeCount, "HRESULT")
+        actualFontAxisRangeCountMarshal := actualFontAxisRangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr", fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
         return result
     }
 

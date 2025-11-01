@@ -47,7 +47,10 @@ class IAccessibilityDockingService extends IUnknown{
     GetAvailableSize(hMonitor, pcxFixed, pcyMax) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
-        result := ComCall(3, this, "ptr", hMonitor, "uint*", pcxFixed, "uint*", pcyMax, "HRESULT")
+        pcxFixedMarshal := pcxFixed is VarRef ? "uint*" : "ptr"
+        pcyMaxMarshal := pcyMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hMonitor, pcxFixedMarshal, pcxFixed, pcyMaxMarshal, pcyMax, "HRESULT")
         return result
     }
 

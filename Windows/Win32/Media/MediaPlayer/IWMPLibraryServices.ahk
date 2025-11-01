@@ -38,7 +38,9 @@ class IWMPLibraryServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibraryservices-getcountbytype
      */
     getCountByType(wmplt, plCount) {
-        result := ComCall(3, this, "int", wmplt, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", wmplt, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

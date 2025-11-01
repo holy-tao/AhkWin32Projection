@@ -4764,9 +4764,9 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothAuthenticateDevice(hwndParent, hRadio, pbtbi, pszPasskey, ulPasskeyLength) {
-        pszPasskey := pszPasskey is String ? StrPtr(pszPasskey) : pszPasskey
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         hRadio := hRadio is Win32Handle ? NumGet(hRadio, "ptr") : hRadio
+        pszPasskey := pszPasskey is String ? StrPtr(pszPasskey) : pszPasskey
 
         result := DllCall("bthprops.cpl\BluetoothAuthenticateDevice", "ptr", hwndParent, "ptr", hRadio, "ptr", pbtbi, "ptr", pszPasskey, "uint", ulPasskeyLength, "uint")
         return result
@@ -4989,7 +4989,9 @@ class Bluetooth {
     static BluetoothEnumerateInstalledServices(hRadio, pbtdi, pcServiceInout, pGuidServices) {
         hRadio := hRadio is Win32Handle ? NumGet(hRadio, "ptr") : hRadio
 
-        result := DllCall("BluetoothApis.dll\BluetoothEnumerateInstalledServices", "ptr", hRadio, "ptr", pbtdi, "uint*", pcServiceInout, "ptr", pGuidServices, "uint")
+        pcServiceInoutMarshal := pcServiceInout is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothEnumerateInstalledServices", "ptr", hRadio, "ptr", pbtdi, pcServiceInoutMarshal, pcServiceInout, "ptr", pGuidServices, "uint")
         return result
     }
 
@@ -5082,9 +5084,12 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothRegisterForAuthentication(pbtdi, phRegHandle, pfnCallback, pvParam) {
+        phRegHandleMarshal := phRegHandle is VarRef ? "ptr*" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", "ptr", pbtdi, "ptr*", phRegHandle, "ptr", pfnCallback, "ptr", pvParam, "uint")
+        result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", "ptr", pbtdi, phRegHandleMarshal, phRegHandle, "ptr", pfnCallback, pvParamMarshal, pvParam, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -5132,7 +5137,10 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothRegisterForAuthenticationEx(pbtdiIn, phRegHandleOut, pfnCallbackIn, pvParam) {
-        result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", "ptr", pbtdiIn, "ptr*", phRegHandleOut, "ptr", pfnCallbackIn, "ptr", pvParam, "uint")
+        phRegHandleOutMarshal := phRegHandleOut is VarRef ? "ptr*" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", "ptr", pbtdiIn, phRegHandleOutMarshal, phRegHandleOut, "ptr", pfnCallbackIn, pvParamMarshal, pvParam, "uint")
         return result
     }
 
@@ -5213,8 +5221,8 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothSendAuthenticationResponse(hRadio, pbtdi, pszPasskey) {
-        pszPasskey := pszPasskey is String ? StrPtr(pszPasskey) : pszPasskey
         hRadio := hRadio is Win32Handle ? NumGet(hRadio, "ptr") : hRadio
+        pszPasskey := pszPasskey is String ? StrPtr(pszPasskey) : pszPasskey
 
         result := DllCall("BluetoothApis.dll\BluetoothSendAuthenticationResponse", "ptr", hRadio, "ptr", pbtdi, "ptr", pszPasskey, "uint")
         return result
@@ -5324,7 +5332,9 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothSdpGetContainerElementData(pContainerStream, cbContainerLength, pElement, pData) {
-        result := DllCall("BluetoothApis.dll\BluetoothSdpGetContainerElementData", "ptr", pContainerStream, "uint", cbContainerLength, "ptr*", pElement, "ptr", pData, "uint")
+        pElementMarshal := pElement is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothSdpGetContainerElementData", "ptr", pContainerStream, "uint", cbContainerLength, pElementMarshal, pElement, "ptr", pData, "uint")
         return result
     }
 
@@ -5446,7 +5456,9 @@ class Bluetooth {
     static BluetoothSdpGetString(pRecordStream, cbRecordLength, pStringData, usStringOffset, pszString, pcchStringLength) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("BluetoothApis.dll\BluetoothSdpGetString", "ptr", pRecordStream, "uint", cbRecordLength, "ptr", pStringData, "ushort", usStringOffset, "ptr", pszString, "uint*", pcchStringLength, "uint")
+        pcchStringLengthMarshal := pcchStringLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothSdpGetString", "ptr", pRecordStream, "uint", cbRecordLength, "ptr", pStringData, "ushort", usStringOffset, "ptr", pszString, pcchStringLengthMarshal, pcchStringLength, "uint")
         return result
     }
 
@@ -5490,9 +5502,11 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, pfnCallback, pvParam) {
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", pfnCallback, "ptr", pvParam, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", pfnCallback, pvParamMarshal, pvParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5719,7 +5733,9 @@ class Bluetooth {
     static BluetoothGATTGetServices(hDevice, ServicesBufferCount, ServicesBuffer, ServicesBufferActual, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetServices", "ptr", hDevice, "ushort", ServicesBufferCount, "ptr", ServicesBuffer, "ushort*", ServicesBufferActual, "uint", Flags, "int")
+        ServicesBufferActualMarshal := ServicesBufferActual is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetServices", "ptr", hDevice, "ushort", ServicesBufferCount, "ptr", ServicesBuffer, ServicesBufferActualMarshal, ServicesBufferActual, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5861,7 +5877,9 @@ class Bluetooth {
     static BluetoothGATTGetIncludedServices(hDevice, ParentService, IncludedServicesBufferCount, IncludedServicesBuffer, IncludedServicesBufferActual, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetIncludedServices", "ptr", hDevice, "ptr", ParentService, "ushort", IncludedServicesBufferCount, "ptr", IncludedServicesBuffer, "ushort*", IncludedServicesBufferActual, "uint", Flags, "int")
+        IncludedServicesBufferActualMarshal := IncludedServicesBufferActual is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetIncludedServices", "ptr", hDevice, "ptr", ParentService, "ushort", IncludedServicesBufferCount, "ptr", IncludedServicesBuffer, IncludedServicesBufferActualMarshal, IncludedServicesBufferActual, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5991,7 +6009,9 @@ class Bluetooth {
     static BluetoothGATTGetCharacteristics(hDevice, Service, CharacteristicsBufferCount, CharacteristicsBuffer, CharacteristicsBufferActual, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristics", "ptr", hDevice, "ptr", Service, "ushort", CharacteristicsBufferCount, "ptr", CharacteristicsBuffer, "ushort*", CharacteristicsBufferActual, "uint", Flags, "int")
+        CharacteristicsBufferActualMarshal := CharacteristicsBufferActual is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristics", "ptr", hDevice, "ptr", Service, "ushort", CharacteristicsBufferCount, "ptr", CharacteristicsBuffer, CharacteristicsBufferActualMarshal, CharacteristicsBufferActual, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6121,7 +6141,9 @@ class Bluetooth {
     static BluetoothGATTGetDescriptors(hDevice, Characteristic, DescriptorsBufferCount, DescriptorsBuffer, DescriptorsBufferActual, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptors", "ptr", hDevice, "ptr", Characteristic, "ushort", DescriptorsBufferCount, "ptr", DescriptorsBuffer, "ushort*", DescriptorsBufferActual, "uint", Flags, "int")
+        DescriptorsBufferActualMarshal := DescriptorsBufferActual is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptors", "ptr", hDevice, "ptr", Characteristic, "ushort", DescriptorsBufferCount, "ptr", DescriptorsBuffer, DescriptorsBufferActualMarshal, DescriptorsBufferActual, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6518,7 +6540,9 @@ class Bluetooth {
     static BluetoothGATTGetCharacteristicValue(hDevice, Characteristic, CharacteristicValueDataSize, CharacteristicValue, CharacteristicValueSizeRequired, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristicValue", "ptr", hDevice, "ptr", Characteristic, "uint", CharacteristicValueDataSize, "ptr", CharacteristicValue, "ushort*", CharacteristicValueSizeRequired, "uint", Flags, "int")
+        CharacteristicValueSizeRequiredMarshal := CharacteristicValueSizeRequired is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristicValue", "ptr", hDevice, "ptr", Characteristic, "uint", CharacteristicValueDataSize, "ptr", CharacteristicValue, CharacteristicValueSizeRequiredMarshal, CharacteristicValueSizeRequired, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6916,7 +6940,9 @@ class Bluetooth {
     static BluetoothGATTGetDescriptorValue(hDevice, Descriptor, DescriptorValueDataSize, DescriptorValue, DescriptorValueSizeRequired, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptorValue", "ptr", hDevice, "ptr", Descriptor, "uint", DescriptorValueDataSize, "ptr", DescriptorValue, "ushort*", DescriptorValueSizeRequired, "uint", Flags, "int")
+        DescriptorValueSizeRequiredMarshal := DescriptorValueSizeRequired is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptorValue", "ptr", hDevice, "ptr", Descriptor, "uint", DescriptorValueDataSize, "ptr", DescriptorValue, DescriptorValueSizeRequiredMarshal, DescriptorValueSizeRequired, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6992,7 +7018,9 @@ class Bluetooth {
     static BluetoothGATTBeginReliableWrite(hDevice, ReliableWriteContext, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTBeginReliableWrite", "ptr", hDevice, "uint*", ReliableWriteContext, "uint", Flags, "int")
+        ReliableWriteContextMarshal := ReliableWriteContext is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTBeginReliableWrite", "ptr", hDevice, ReliableWriteContextMarshal, ReliableWriteContext, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8378,7 +8406,11 @@ class Bluetooth {
     static BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callback, CallbackContext, pEventHandle, Flags) {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", "ptr", hService, "int", EventType, "ptr", EventParameterIn, "ptr", Callback, "ptr", CallbackContext, "ptr*", pEventHandle, "uint", Flags, "int")
+        EventParameterInMarshal := EventParameterIn is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        pEventHandleMarshal := pEventHandle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", "ptr", hService, "int", EventType, EventParameterInMarshal, EventParameterIn, "ptr", Callback, CallbackContextMarshal, CallbackContext, pEventHandleMarshal, pEventHandle, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 

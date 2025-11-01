@@ -78,7 +78,9 @@ class IGetClusterObjectInfo extends IUnknown{
     GetObjectName(lObjIndex, lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
 
-        result := ComCall(3, this, "int", lObjIndex, "ptr", lpszName, "int*", pcchName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", lObjIndex, "ptr", lpszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 

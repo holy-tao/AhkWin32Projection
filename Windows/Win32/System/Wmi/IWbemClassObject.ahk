@@ -74,7 +74,10 @@ class IWbemClassObject extends IUnknown{
     Get(wszName, lFlags, pVal, pType, plFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(4, this, "ptr", wszName, "int", lFlags, "ptr", pVal, "int*", pType, "int*", plFlavor, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", wszName, "int", lFlags, "ptr", pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -145,7 +148,10 @@ class IWbemClassObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-next
      */
     Next(lFlags, strName, pVal, pType, plFlavor) {
-        result := ComCall(9, this, "int", lFlags, "ptr", strName, "ptr", pVal, "int*", pType, "int*", plFlavor, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", lFlags, "ptr", strName, "ptr", pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 

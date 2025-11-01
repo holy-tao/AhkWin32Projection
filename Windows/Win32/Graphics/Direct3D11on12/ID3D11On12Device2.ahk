@@ -54,7 +54,9 @@ class ID3D11On12Device2 extends ID3D11On12Device1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device2-returnunderlyingresource
      */
     ReturnUnderlyingResource(pResource11, NumSync, pSignalValues, ppFences) {
-        result := ComCall(8, this, "ptr", pResource11, "uint", NumSync, "uint*", pSignalValues, "ptr*", ppFences, "HRESULT")
+        pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pResource11, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", ppFences, "HRESULT")
         return result
     }
 }

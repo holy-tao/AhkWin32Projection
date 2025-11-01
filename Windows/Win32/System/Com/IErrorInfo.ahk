@@ -81,7 +81,9 @@ class IErrorInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorinfo-gethelpcontext
      */
     GetHelpContext(pdwHelpContext) {
-        result := ComCall(7, this, "uint*", pdwHelpContext, "HRESULT")
+        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwHelpContextMarshal, pdwHelpContext, "HRESULT")
         return result
     }
 }

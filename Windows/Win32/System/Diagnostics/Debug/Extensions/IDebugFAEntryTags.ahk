@@ -54,7 +54,11 @@ class IDebugFAEntryTags extends Win32ComInterface{
      * @returns {HRESULT} 
      */
     GetProperties(Tag, Name, NameSize, Description, DescSize, Flags) {
-        result := ComCall(2, this, "int", Tag, "ptr", Name, "uint*", NameSize, "ptr", Description, "uint*", DescSize, "uint*", Flags, "HRESULT")
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+        DescSizeMarshal := DescSize is VarRef ? "uint*" : "ptr"
+        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(2, this, "int", Tag, "ptr", Name, NameSizeMarshal, NameSize, "ptr", Description, DescSizeMarshal, DescSize, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 
@@ -67,6 +71,9 @@ class IDebugFAEntryTags extends Win32ComInterface{
      * @returns {HRESULT} 
      */
     SetProperties(Tag, Name, Description, Flags) {
+        Name := Name is String ? StrPtr(Name) : Name
+        Description := Description is String ? StrPtr(Description) : Description
+
         result := ComCall(3, this, "int", Tag, "ptr", Name, "ptr", Description, "uint", Flags, "HRESULT")
         return result
     }
@@ -79,7 +86,12 @@ class IDebugFAEntryTags extends Win32ComInterface{
      * @returns {HRESULT} 
      */
     GetTagByName(PluginId, TagName, Tag) {
-        result := ComCall(4, this, "ptr", PluginId, "ptr", TagName, "int*", Tag, "HRESULT")
+        PluginId := PluginId is String ? StrPtr(PluginId) : PluginId
+        TagName := TagName is String ? StrPtr(TagName) : TagName
+
+        TagMarshal := Tag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", PluginId, "ptr", TagName, TagMarshal, Tag, "HRESULT")
         return result
     }
 

@@ -108,6 +108,8 @@ class ID3D10EffectPass extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getannotationbyname
      */
     GetAnnotationByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(6, this, "ptr", Name, "ptr")
         return result
     }

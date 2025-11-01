@@ -78,7 +78,9 @@ class IDirectManipulationContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag
      */
     GetTag(riid, object, id) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", object, "uint*", id, "HRESULT")
+        idMarshal := id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, "ptr*", object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -102,7 +104,9 @@ class IDirectManipulationContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getoutputtransform
      */
     GetOutputTransform(matrix, pointCount) {
-        result := ComCall(8, this, "float*", matrix, "uint", pointCount, "HRESULT")
+        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IDirectManipulationContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontenttransform
      */
     GetContentTransform(matrix, pointCount) {
-        result := ComCall(9, this, "float*", matrix, "uint", pointCount, "HRESULT")
+        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -126,7 +132,9 @@ class IDirectManipulationContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform
      */
     SyncContentTransform(matrix, pointCount) {
-        result := ComCall(10, this, "float*", matrix, "uint", pointCount, "HRESULT")
+        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
         return result
     }
 }

@@ -37,6 +37,8 @@ class IDirectInput2A extends IDirectInputA{
      * @returns {HRESULT} 
      */
     FindDevice(param0, param1, param2) {
+        param1 := param1 is String ? StrPtr(param1) : param1
+
         result := ComCall(8, this, "ptr", param0, "ptr", param1, "ptr", param2, "HRESULT")
         return result
     }

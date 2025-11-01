@@ -36,7 +36,9 @@ class IColumnsInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColumnInfo(pcColumns, prgInfo, ppStringsBuffer) {
-        result := ComCall(3, this, "ptr*", pcColumns, "ptr*", prgInfo, "ptr*", ppStringsBuffer, "HRESULT")
+        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pcColumnsMarshal, pcColumns, "ptr*", prgInfo, "ptr*", ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IColumnsInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     MapColumnIDs(cColumnIDs, rgColumnIDs, rgColumns) {
-        result := ComCall(4, this, "ptr", cColumnIDs, "ptr", rgColumnIDs, "ptr*", rgColumns, "HRESULT")
+        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", cColumnIDs, "ptr", rgColumnIDs, rgColumnsMarshal, rgColumns, "HRESULT")
         return result
     }
 }

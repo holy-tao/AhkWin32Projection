@@ -55,7 +55,9 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_count
      */
     get_Count(count) {
-        result := ComCall(8, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, countMarshal, count, "HRESULT")
         return result
     }
 

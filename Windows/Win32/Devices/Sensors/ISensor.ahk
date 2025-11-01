@@ -146,7 +146,9 @@ class ISensor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getstate
      */
     GetState(pState) {
-        result := ComCall(12, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -181,7 +183,9 @@ class ISensor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-geteventinterest
      */
     GetEventInterest(ppValues, pCount) {
-        result := ComCall(15, this, "ptr*", ppValues, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr*", ppValues, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

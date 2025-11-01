@@ -89,7 +89,9 @@ class IBootOptions extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_platformid
      */
     get_PlatformId(pVal) {
-        result := ComCall(10, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -111,7 +113,9 @@ class IBootOptions extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_emulation
      */
     get_Emulation(pVal) {
-        result := ComCall(12, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -133,7 +137,9 @@ class IBootOptions extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ibootoptions-get_imagesize
      */
     get_ImageSize(pVal) {
-        result := ComCall(14, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

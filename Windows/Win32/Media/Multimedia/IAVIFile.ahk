@@ -89,7 +89,9 @@ class IAVIFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-readdata
      */
     ReadData(ckid, lpData, lpcbData) {
-        result := ComCall(7, this, "uint", ckid, "ptr", lpData, "int*", lpcbData, "HRESULT")
+        lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "uint", ckid, "ptr", lpData, lpcbDataMarshal, lpcbData, "HRESULT")
         return result
     }
 

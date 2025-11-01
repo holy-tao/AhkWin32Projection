@@ -167,7 +167,9 @@ class ISearchRoot extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_enumerationdepth
      */
     get_EnumerationDepth(pdwDepth) {
-        result := ComCall(14, this, "uint*", pdwDepth, "HRESULT")
+        pdwDepthMarshal := pdwDepth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwDepthMarshal, pdwDepth, "HRESULT")
         return result
     }
 
@@ -189,7 +191,9 @@ class ISearchRoot extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_hostdepth
      */
     get_HostDepth(pdwDepth) {
-        result := ComCall(16, this, "uint*", pdwDepth, "HRESULT")
+        pdwDepthMarshal := pdwDepth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pdwDepthMarshal, pdwDepth, "HRESULT")
         return result
     }
 
@@ -233,7 +237,9 @@ class ISearchRoot extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-get_authenticationtype
      */
     get_AuthenticationType(pAuthType) {
-        result := ComCall(20, this, "int*", pAuthType, "HRESULT")
+        pAuthTypeMarshal := pAuthType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pAuthTypeMarshal, pAuthType, "HRESULT")
         return result
     }
 

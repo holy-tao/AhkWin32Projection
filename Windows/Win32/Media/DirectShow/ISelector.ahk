@@ -52,7 +52,9 @@ class ISelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-get_numsources
      */
     get_NumSources(pdwNumSources) {
-        result := ComCall(3, this, "uint*", pdwNumSources, "HRESULT")
+        pdwNumSourcesMarshal := pdwNumSources is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwNumSourcesMarshal, pdwNumSources, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ISelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-get_sourcenodeid
      */
     get_SourceNodeId(pdwPinId) {
-        result := ComCall(4, this, "uint*", pdwPinId, "HRESULT")
+        pdwPinIdMarshal := pdwPinId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwPinIdMarshal, pdwPinId, "HRESULT")
         return result
     }
 

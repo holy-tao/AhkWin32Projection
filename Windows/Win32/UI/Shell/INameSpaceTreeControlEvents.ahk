@@ -249,7 +249,10 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnGetDefaultIconIndex(psi, piDefaultIcon, piOpenIcon) {
-        result := ComCall(20, this, "ptr", psi, "int*", piDefaultIcon, "int*", piOpenIcon, "HRESULT")
+        piDefaultIconMarshal := piDefaultIcon is VarRef ? "int*" : "ptr"
+        piOpenIconMarshal := piOpenIcon is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "ptr", psi, piDefaultIconMarshal, piDefaultIcon, piOpenIconMarshal, piOpenIcon, "HRESULT")
         return result
     }
 }

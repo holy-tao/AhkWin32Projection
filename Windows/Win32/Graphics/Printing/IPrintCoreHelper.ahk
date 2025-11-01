@@ -37,6 +37,8 @@ class IPrintCoreHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOption(pDevmode, cbSize, pszFeatureRequested, ppszOption) {
+        pszFeatureRequested := pszFeatureRequested is String ? StrPtr(pszFeatureRequested) : pszFeatureRequested
+
         result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, "ptr", ppszOption, "HRESULT")
         return result
     }
@@ -53,7 +55,10 @@ class IPrintCoreHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOptions(pDevmode, cbSize, bResolveConflicts, pFOPairs, cPairs, pcPairsWritten, pdwResult) {
-        result := ComCall(4, this, "ptr", pDevmode, "uint", cbSize, "int", bResolveConflicts, "ptr", pFOPairs, "uint", cPairs, "uint*", pcPairsWritten, "uint*", pdwResult, "HRESULT")
+        pcPairsWrittenMarshal := pcPairsWritten is VarRef ? "uint*" : "ptr"
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pDevmode, "uint", cbSize, "int", bResolveConflicts, "ptr", pFOPairs, "uint", cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -67,7 +72,11 @@ class IPrintCoreHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumConstrainedOptions(pDevmode, cbSize, pszFeatureKeyword, pConstrainedOptionList, pdwNumOptions) {
-        result := ComCall(5, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, "ptr*", pConstrainedOptionList, "uint*", pdwNumOptions, "HRESULT")
+        pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
+
+        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, "ptr*", pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
@@ -82,7 +91,12 @@ class IPrintCoreHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     WhyConstrained(pDevmode, cbSize, pszFeatureKeyword, pszOptionKeyword, ppFOConstraints, pdwNumOptions) {
-        result := ComCall(6, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr*", ppFOConstraints, "uint*", pdwNumOptions, "HRESULT")
+        pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
+        pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
+
+        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr*", ppFOConstraints, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
@@ -93,7 +107,9 @@ class IPrintCoreHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumFeatures(pFeatureList, pdwNumFeatures) {
-        result := ComCall(7, this, "ptr*", pFeatureList, "uint*", pdwNumFeatures, "HRESULT")
+        pdwNumFeaturesMarshal := pdwNumFeatures is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr*", pFeatureList, pdwNumFeaturesMarshal, pdwNumFeatures, "HRESULT")
         return result
     }
 
@@ -105,7 +121,11 @@ class IPrintCoreHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumOptions(pszFeatureKeyword, pOptionList, pdwNumOptions) {
-        result := ComCall(8, this, "ptr", pszFeatureKeyword, "ptr*", pOptionList, "uint*", pdwNumOptions, "HRESULT")
+        pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
+
+        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pszFeatureKeyword, "ptr*", pOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 

@@ -42,7 +42,9 @@ class IInkCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd
      */
     get_hWnd(CurrentWindow) {
-        result := ComCall(7, this, "ptr*", CurrentWindow, "HRESULT")
+        CurrentWindowMarshal := CurrentWindow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, CurrentWindowMarshal, CurrentWindow, "HRESULT")
         return result
     }
 
@@ -185,7 +187,9 @@ class IInkCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_collectionmode
      */
     get_CollectionMode(Mode) {
-        result := ComCall(20, this, "int*", Mode, "HRESULT")
+        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, ModeMarshal, Mode, "HRESULT")
         return result
     }
 
@@ -283,7 +287,9 @@ class IInkCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_mousepointer
      */
     get_MousePointer(MousePointer) {
-        result := ComCall(29, this, "int*", MousePointer, "HRESULT")
+        MousePointerMarshal := MousePointer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, MousePointerMarshal, MousePointer, "HRESULT")
         return result
     }
 
@@ -316,7 +322,9 @@ class IInkCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_marginx
      */
     get_MarginX(MarginX) {
-        result := ComCall(32, this, "int*", MarginX, "HRESULT")
+        MarginXMarshal := MarginX is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, MarginXMarshal, MarginX, "HRESULT")
         return result
     }
 
@@ -338,7 +346,9 @@ class IInkCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_marginy
      */
     get_MarginY(MarginY) {
-        result := ComCall(34, this, "int*", MarginY, "HRESULT")
+        MarginYMarshal := MarginY is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, MarginYMarshal, MarginY, "HRESULT")
         return result
     }
 

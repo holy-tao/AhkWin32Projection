@@ -141,7 +141,9 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     get_globalAlpha(p) {
-        result := ComCall(16, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -309,7 +311,9 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     get_lineWidth(p) {
-        result := ComCall(31, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(31, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -329,7 +333,9 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     get_miterLimit(p) {
-        result := ComCall(33, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(33, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -349,7 +355,9 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     get_shadowBlur(p) {
-        result := ComCall(35, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(35, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -391,7 +399,9 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     get_shadowOffsetX(p) {
-        result := ComCall(39, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(39, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -411,7 +421,9 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     get_shadowOffsetY(p) {
-        result := ComCall(41, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(41, this, pMarshal, p, "HRESULT")
         return result
     }
 

@@ -47,7 +47,11 @@ class ICLRMetaHostPolicy extends IUnknown{
         pwzVersion := pwzVersion is String ? StrPtr(pwzVersion) : pwzVersion
         pwzImageVersion := pwzImageVersion is String ? StrPtr(pwzImageVersion) : pwzImageVersion
 
-        result := ComCall(3, this, "int", dwPolicyFlags, "ptr", pwzBinary, "ptr", pCfgStream, "ptr", pwzVersion, "uint*", pcchVersion, "ptr", pwzImageVersion, "uint*", pcchImageVersion, "uint*", pdwConfigFlags, "ptr", riid, "ptr*", ppRuntime, "HRESULT")
+        pcchVersionMarshal := pcchVersion is VarRef ? "uint*" : "ptr"
+        pcchImageVersionMarshal := pcchImageVersion is VarRef ? "uint*" : "ptr"
+        pdwConfigFlagsMarshal := pdwConfigFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "int", dwPolicyFlags, "ptr", pwzBinary, "ptr", pCfgStream, "ptr", pwzVersion, pcchVersionMarshal, pcchVersion, "ptr", pwzImageVersion, pcchImageVersionMarshal, pcchImageVersion, pdwConfigFlagsMarshal, pdwConfigFlags, "ptr", riid, "ptr*", ppRuntime, "HRESULT")
         return result
     }
 }

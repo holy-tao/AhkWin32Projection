@@ -51,7 +51,9 @@ class IEAPProviderConfig extends IUnknown{
     Initialize(pszMachineName, dwEapTypeId, puConnectionParam) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwEapTypeId, "ptr*", puConnectionParam, "HRESULT")
+        puConnectionParamMarshal := puConnectionParam is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwEapTypeId, puConnectionParamMarshal, puConnectionParam, "HRESULT")
         return result
     }
 
@@ -100,7 +102,10 @@ class IEAPProviderConfig extends IUnknown{
     RouterInvokeConfigUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, ppConnectionDataOut, pdwSizeOfConnectionDataOut) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(6, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, "char*", pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, "ptr*", ppConnectionDataOut, "uint*", pdwSizeOfConnectionDataOut, "HRESULT")
+        pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : "ptr"
+        pdwSizeOfConnectionDataOutMarshal := pdwSizeOfConnectionDataOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, "ptr*", ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "HRESULT")
         return result
     }
 
@@ -122,7 +127,11 @@ class IEAPProviderConfig extends IUnknown{
     RouterInvokeCredentialsUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, pUserDataIn, dwSizeOfUserDataIn, ppUserDataOut, pdwSizeOfUserDataOut) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(7, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, "char*", pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, "char*", pUserDataIn, "uint", dwSizeOfUserDataIn, "ptr*", ppUserDataOut, "uint*", pdwSizeOfUserDataOut, "HRESULT")
+        pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : "ptr"
+        pUserDataInMarshal := pUserDataIn is VarRef ? "char*" : "ptr"
+        pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, "uint", dwSizeOfUserDataIn, "ptr*", ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "HRESULT")
         return result
     }
 }

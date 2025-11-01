@@ -43,6 +43,8 @@ class IMFSignedLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsignedlibrary-getprocedureaddress
      */
     GetProcedureAddress(name, address) {
+        name := name is String ? StrPtr(name) : name
+
         result := ComCall(3, this, "ptr", name, "ptr*", address, "HRESULT")
         return result
     }

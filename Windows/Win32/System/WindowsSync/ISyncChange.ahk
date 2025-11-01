@@ -38,7 +38,10 @@ class ISyncChange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getownerreplicaid
      */
     GetOwnerReplicaId(pbReplicaId, pcbIdSize) {
-        result := ComCall(3, this, "char*", pbReplicaId, "uint*", pcbIdSize, "HRESULT")
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 
@@ -50,7 +53,10 @@ class ISyncChange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getrootitemid
      */
     GetRootItemId(pbRootItemId, pcbIdSize) {
-        result := ComCall(4, this, "char*", pbRootItemId, "uint*", pcbIdSize, "HRESULT")
+        pbRootItemIdMarshal := pbRootItemId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbRootItemIdMarshal, pbRootItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 
@@ -62,7 +68,9 @@ class ISyncChange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getchangeversion
      */
     GetChangeVersion(pbCurrentReplicaId, pVersion) {
-        result := ComCall(5, this, "char*", pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
+        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class ISyncChange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getcreationversion
      */
     GetCreationVersion(pbCurrentReplicaId, pVersion) {
-        result := ComCall(6, this, "char*", pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
+        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
         return result
     }
 
@@ -85,7 +95,9 @@ class ISyncChange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(7, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -96,7 +108,9 @@ class ISyncChange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getworkestimate
      */
     GetWorkEstimate(pdwWork) {
-        result := ComCall(8, this, "uint*", pdwWork, "HRESULT")
+        pdwWorkMarshal := pdwWork is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwWorkMarshal, pdwWork, "HRESULT")
         return result
     }
 

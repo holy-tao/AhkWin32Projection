@@ -38,7 +38,9 @@ class ICertSrvSetup extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-get_caerrorid
      */
     get_CAErrorId(pVal) {
-        result := ComCall(7, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

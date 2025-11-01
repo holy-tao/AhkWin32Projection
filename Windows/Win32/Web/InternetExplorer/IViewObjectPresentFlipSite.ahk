@@ -101,7 +101,10 @@ class IViewObjectPresentFlipSite extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMetrics(pPos, pSize, pScaleX, pScaleY) {
-        result := ComCall(9, this, "ptr", pPos, "ptr", pSize, "float*", pScaleX, "float*", pScaleY, "HRESULT")
+        pScaleXMarshal := pScaleX is VarRef ? "float*" : "ptr"
+        pScaleYMarshal := pScaleY is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pPos, "ptr", pSize, pScaleXMarshal, pScaleX, pScaleYMarshal, pScaleY, "HRESULT")
         return result
     }
 

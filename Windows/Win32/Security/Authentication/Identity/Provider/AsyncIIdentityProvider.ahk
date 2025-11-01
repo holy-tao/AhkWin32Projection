@@ -178,7 +178,9 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_Advise(pdwCookie) {
-        result := ComCall(16, this, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

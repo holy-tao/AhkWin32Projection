@@ -60,7 +60,9 @@ class ID3D12Device5 extends ID3D12Device4{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-enumeratemetacommands
      */
     EnumerateMetaCommands(pNumMetaCommands, pDescs) {
-        result := ComCall(59, this, "uint*", pNumMetaCommands, "ptr", pDescs, "HRESULT")
+        pNumMetaCommandsMarshal := pNumMetaCommands is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(59, this, pNumMetaCommandsMarshal, pNumMetaCommands, "ptr", pDescs, "HRESULT")
         return result
     }
 
@@ -75,7 +77,10 @@ class ID3D12Device5 extends ID3D12Device4{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-enumeratemetacommandparameters
      */
     EnumerateMetaCommandParameters(CommandId, Stage, pTotalStructureSizeInBytes, pParameterCount, pParameterDescs) {
-        result := ComCall(60, this, "ptr", CommandId, "int", Stage, "uint*", pTotalStructureSizeInBytes, "uint*", pParameterCount, "ptr", pParameterDescs, "HRESULT")
+        pTotalStructureSizeInBytesMarshal := pTotalStructureSizeInBytes is VarRef ? "uint*" : "ptr"
+        pParameterCountMarshal := pParameterCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(60, this, "ptr", CommandId, "int", Stage, pTotalStructureSizeInBytesMarshal, pTotalStructureSizeInBytes, pParameterCountMarshal, pParameterCount, "ptr", pParameterDescs, "HRESULT")
         return result
     }
 

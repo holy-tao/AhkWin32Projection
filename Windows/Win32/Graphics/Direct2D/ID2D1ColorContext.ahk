@@ -60,7 +60,9 @@ class ID2D1ColorContext extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofile
      */
     GetProfile(profile, profileSize) {
-        result := ComCall(6, this, "char*", profile, "uint", profileSize, "HRESULT")
+        profileMarshal := profile is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, profileMarshal, profile, "uint", profileSize, "HRESULT")
         return result
     }
 }

@@ -64,7 +64,9 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitidcount
      */
     GetChangeUnitIdCount(pdwChangeUnitIdCount) {
-        result := ComCall(5, this, "uint*", pdwChangeUnitIdCount, "HRESULT")
+        pdwChangeUnitIdCountMarshal := pdwChangeUnitIdCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwChangeUnitIdCountMarshal, pdwChangeUnitIdCount, "HRESULT")
         return result
     }
 
@@ -77,7 +79,10 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitid
      */
     GetChangeUnitId(dwChangeUnitIdIndex, pbChangeUnitId, pcbIdSize) {
-        result := ComCall(6, this, "uint", dwChangeUnitIdIndex, "char*", pbChangeUnitId, "uint*", pcbIdSize, "HRESULT")
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwChangeUnitIdIndex, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 }

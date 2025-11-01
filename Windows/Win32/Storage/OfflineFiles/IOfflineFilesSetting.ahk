@@ -54,7 +54,9 @@ class IOfflineFilesSetting extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getvaluetype
      */
     GetValueType(pType) {
-        result := ComCall(4, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class IOfflineFilesSetting extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpreferencescope
      */
     GetPreferenceScope(pdwScope) {
-        result := ComCall(6, this, "uint*", pdwScope, "HRESULT")
+        pdwScopeMarshal := pdwScope is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwScopeMarshal, pdwScope, "HRESULT")
         return result
     }
 
@@ -123,7 +127,9 @@ class IOfflineFilesSetting extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpolicyscope
      */
     GetPolicyScope(pdwScope) {
-        result := ComCall(10, this, "uint*", pdwScope, "HRESULT")
+        pdwScopeMarshal := pdwScope is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwScopeMarshal, pdwScope, "HRESULT")
         return result
     }
 

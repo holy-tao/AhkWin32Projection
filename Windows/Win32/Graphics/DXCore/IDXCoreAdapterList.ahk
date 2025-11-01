@@ -83,7 +83,9 @@ class IDXCoreAdapterList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-sort
      */
     Sort(numPreferences, preferences) {
-        result := ComCall(7, this, "uint", numPreferences, "uint*", preferences, "HRESULT")
+        preferencesMarshal := preferences is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", numPreferences, preferencesMarshal, preferences, "HRESULT")
         return result
     }
 

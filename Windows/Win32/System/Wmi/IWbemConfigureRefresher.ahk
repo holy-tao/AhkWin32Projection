@@ -44,7 +44,9 @@ class IWbemConfigureRefresher extends IUnknown{
     AddObjectByPath(pNamespace, wszPath, lFlags, pContext, ppRefreshable, plId) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszPath, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszPath, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IWbemConfigureRefresher extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbytemplate
      */
     AddObjectByTemplate(pNamespace, pTemplate, lFlags, pContext, ppRefreshable, plId) {
-        result := ComCall(4, this, "ptr", pNamespace, "ptr", pTemplate, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pNamespace, "ptr", pTemplate, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -73,7 +77,9 @@ class IWbemConfigureRefresher extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addrefresher
      */
     AddRefresher(pRefresher, lFlags, plId) {
-        result := ComCall(5, this, "ptr", pRefresher, "int", lFlags, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pRefresher, "int", lFlags, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class IWbemConfigureRefresher extends IUnknown{
     AddEnum(pNamespace, wszClassName, lFlags, pContext, ppEnum, plId) {
         wszClassName := wszClassName is String ? StrPtr(wszClassName) : wszClassName
 
-        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClassName, "int", lFlags, "ptr", pContext, "ptr*", ppEnum, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClassName, "int", lFlags, "ptr", pContext, "ptr*", ppEnum, plIdMarshal, plId, "HRESULT")
         return result
     }
 }

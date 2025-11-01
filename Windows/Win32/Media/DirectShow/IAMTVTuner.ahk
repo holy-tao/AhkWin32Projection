@@ -37,7 +37,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_availabletvformats
      */
     get_AvailableTVFormats(lAnalogVideoStandard) {
-        result := ComCall(18, this, "int*", lAnalogVideoStandard, "HRESULT")
+        lAnalogVideoStandardMarshal := lAnalogVideoStandard is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, lAnalogVideoStandardMarshal, lAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_tvformat
      */
     get_TVFormat(plAnalogVideoStandard) {
-        result := ComCall(19, this, "int*", plAnalogVideoStandard, "HRESULT")
+        plAnalogVideoStandardMarshal := plAnalogVideoStandard is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plAnalogVideoStandardMarshal, plAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-autotune
      */
     AutoTune(lChannel, plFoundSignal) {
-        result := ComCall(20, this, "int", lChannel, "int*", plFoundSignal, "HRESULT")
+        plFoundSignalMarshal := plFoundSignal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "int", lChannel, plFoundSignalMarshal, plFoundSignal, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_numinputconnections
      */
     get_NumInputConnections(plNumInputConnections) {
-        result := ComCall(22, this, "int*", plNumInputConnections, "HRESULT")
+        plNumInputConnectionsMarshal := plNumInputConnections is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, plNumInputConnectionsMarshal, plNumInputConnections, "HRESULT")
         return result
     }
 
@@ -105,7 +113,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_inputtype
      */
     get_InputType(lIndex, pInputType) {
-        result := ComCall(24, this, "int", lIndex, "int*", pInputType, "HRESULT")
+        pInputTypeMarshal := pInputType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "int", lIndex, pInputTypeMarshal, pInputType, "HRESULT")
         return result
     }
 
@@ -127,7 +137,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_connectinput
      */
     get_ConnectInput(plIndex) {
-        result := ComCall(26, this, "int*", plIndex, "HRESULT")
+        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, plIndexMarshal, plIndex, "HRESULT")
         return result
     }
 
@@ -138,7 +150,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_videofrequency
      */
     get_VideoFrequency(lFreq) {
-        result := ComCall(27, this, "int*", lFreq, "HRESULT")
+        lFreqMarshal := lFreq is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, lFreqMarshal, lFreq, "HRESULT")
         return result
     }
 
@@ -149,7 +163,9 @@ class IAMTVTuner extends IAMTuner{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_audiofrequency
      */
     get_AudioFrequency(lFreq) {
-        result := ComCall(28, this, "int*", lFreq, "HRESULT")
+        lFreqMarshal := lFreq is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, lFreqMarshal, lFreq, "HRESULT")
         return result
     }
 }

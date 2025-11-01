@@ -48,7 +48,9 @@ class IAppxManifestTargetDeviceFamily extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getminversion
      */
     GetMinVersion(minVersion) {
-        result := ComCall(4, this, "uint*", minVersion, "HRESULT")
+        minVersionMarshal := minVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, minVersionMarshal, minVersion, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IAppxManifestTargetDeviceFamily extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getmaxversiontested
      */
     GetMaxVersionTested(maxVersionTested) {
-        result := ComCall(5, this, "uint*", maxVersionTested, "HRESULT")
+        maxVersionTestedMarshal := maxVersionTested is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, maxVersionTestedMarshal, maxVersionTested, "HRESULT")
         return result
     }
 }

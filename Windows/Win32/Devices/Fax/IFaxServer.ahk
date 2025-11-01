@@ -127,7 +127,9 @@ class IFaxServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_majorversion
      */
     get_MajorVersion(plMajorVersion) {
-        result := ComCall(14, this, "int*", plMajorVersion, "HRESULT")
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
         return result
     }
 
@@ -138,7 +140,9 @@ class IFaxServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_minorversion
      */
     get_MinorVersion(plMinorVersion) {
-        result := ComCall(15, this, "int*", plMinorVersion, "HRESULT")
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
     }
 
@@ -149,7 +153,9 @@ class IFaxServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_majorbuild
      */
     get_MajorBuild(plMajorBuild) {
-        result := ComCall(16, this, "int*", plMajorBuild, "HRESULT")
+        plMajorBuildMarshal := plMajorBuild is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plMajorBuildMarshal, plMajorBuild, "HRESULT")
         return result
     }
 
@@ -160,7 +166,9 @@ class IFaxServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_minorbuild
      */
     get_MinorBuild(plMinorBuild) {
-        result := ComCall(17, this, "int*", plMinorBuild, "HRESULT")
+        plMinorBuildMarshal := plMinorBuild is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plMinorBuildMarshal, plMinorBuild, "HRESULT")
         return result
     }
 
@@ -339,7 +347,9 @@ class IFaxServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_registeredevents
      */
     get_RegisteredEvents(pEventTypes) {
-        result := ComCall(31, this, "int*", pEventTypes, "HRESULT")
+        pEventTypesMarshal := pEventTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pEventTypesMarshal, pEventTypes, "HRESULT")
         return result
     }
 
@@ -350,7 +360,9 @@ class IFaxServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_apiversion
      */
     get_APIVersion(pAPIVersion) {
-        result := ComCall(32, this, "int*", pAPIVersion, "HRESULT")
+        pAPIVersionMarshal := pAPIVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pAPIVersionMarshal, pAPIVersion, "HRESULT")
         return result
     }
 }

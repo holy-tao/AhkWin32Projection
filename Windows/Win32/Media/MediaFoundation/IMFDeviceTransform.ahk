@@ -123,7 +123,10 @@ class IMFDeviceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getstreamcount
      */
     GetStreamCount(pcInputStreams, pcOutputStreams) {
-        result := ComCall(10, this, "uint*", pcInputStreams, "uint*", pcOutputStreams, "HRESULT")
+        pcInputStreamsMarshal := pcInputStreams is VarRef ? "uint*" : "ptr"
+        pcOutputStreamsMarshal := pcOutputStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcInputStreamsMarshal, pcInputStreams, pcOutputStreamsMarshal, pcOutputStreams, "HRESULT")
         return result
     }
 
@@ -137,7 +140,10 @@ class IMFDeviceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getstreamids
      */
     GetStreamIDs(dwInputIDArraySize, pdwInputStreamIds, dwOutputIDArraySize, pdwOutputStreamIds) {
-        result := ComCall(11, this, "uint", dwInputIDArraySize, "uint*", pdwInputStreamIds, "uint", dwOutputIDArraySize, "uint*", pdwOutputStreamIds, "HRESULT")
+        pdwInputStreamIdsMarshal := pdwInputStreamIds is VarRef ? "uint*" : "ptr"
+        pdwOutputStreamIdsMarshal := pdwOutputStreamIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwInputIDArraySize, pdwInputStreamIdsMarshal, pdwInputStreamIds, "uint", dwOutputIDArraySize, pdwOutputStreamIdsMarshal, pdwOutputStreamIds, "HRESULT")
         return result
     }
 
@@ -188,7 +194,9 @@ class IMFDeviceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-processoutput
      */
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputSample, pdwStatus) {
-        result := ComCall(15, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSample, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSample, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -214,7 +222,9 @@ class IMFDeviceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getinputstreamstate
      */
     GetInputStreamState(dwStreamID, value) {
-        result := ComCall(17, this, "uint", dwStreamID, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwStreamID, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -240,7 +250,9 @@ class IMFDeviceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getoutputstreamstate
      */
     GetOutputStreamState(dwStreamID, value) {
-        result := ComCall(19, this, "uint", dwStreamID, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "uint", dwStreamID, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -253,7 +265,9 @@ class IMFDeviceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getinputstreampreferredstate
      */
     GetInputStreamPreferredState(dwStreamID, value, ppMediaType) {
-        result := ComCall(20, this, "uint", dwStreamID, "int*", value, "ptr*", ppMediaType, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "uint", dwStreamID, valueMarshal, value, "ptr*", ppMediaType, "HRESULT")
         return result
     }
 

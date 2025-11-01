@@ -44,7 +44,9 @@ class IProfferService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iprofferservice-profferservice
      */
     ProfferService(serviceId, serviceProvider, cookie) {
-        result := ComCall(3, this, "ptr", serviceId, "ptr", serviceProvider, "uint*", cookie, "HRESULT")
+        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", serviceId, "ptr", serviceProvider, cookieMarshal, cookie, "HRESULT")
         return result
     }
 

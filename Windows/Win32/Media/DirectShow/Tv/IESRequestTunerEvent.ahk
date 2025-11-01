@@ -41,7 +41,9 @@ class IESRequestTunerEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getpriority
      */
     GetPriority(pbyPriority) {
-        result := ComCall(8, this, "char*", pbyPriority, "HRESULT")
+        pbyPriorityMarshal := pbyPriority is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbyPriorityMarshal, pbyPriority, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IESRequestTunerEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getreason
      */
     GetReason(pbyReason) {
-        result := ComCall(9, this, "char*", pbyReason, "HRESULT")
+        pbyReasonMarshal := pbyReason is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbyReasonMarshal, pbyReason, "HRESULT")
         return result
     }
 
@@ -63,7 +67,9 @@ class IESRequestTunerEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getconsequences
      */
     GetConsequences(pbyConsequences) {
-        result := ComCall(10, this, "char*", pbyConsequences, "HRESULT")
+        pbyConsequencesMarshal := pbyConsequences is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pbyConsequencesMarshal, pbyConsequences, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class IESRequestTunerEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getestimatedtime
      */
     GetEstimatedTime(pdwEstimatedTime) {
-        result := ComCall(11, this, "uint*", pdwEstimatedTime, "HRESULT")
+        pdwEstimatedTimeMarshal := pdwEstimatedTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwEstimatedTimeMarshal, pdwEstimatedTime, "HRESULT")
         return result
     }
 }

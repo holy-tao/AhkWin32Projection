@@ -40,7 +40,9 @@ class ID3D12ShaderCacheSession extends ID3D12DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12shadercachesession-findvalue
      */
     FindValue(pKey, KeySize, pValue, pValueSize) {
-        result := ComCall(8, this, "ptr", pKey, "uint", KeySize, "ptr", pValue, "uint*", pValueSize, "HRESULT")
+        pValueSizeMarshal := pValueSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pKey, "uint", KeySize, "ptr", pValue, pValueSizeMarshal, pValueSize, "HRESULT")
         return result
     }
 

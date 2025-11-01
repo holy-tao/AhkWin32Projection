@@ -44,7 +44,9 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_anchorOffset(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_focusOffset(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -132,7 +136,9 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_rangeCount(p) {
-        result := ComCall(17, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pMarshal, p, "HRESULT")
         return result
     }
 

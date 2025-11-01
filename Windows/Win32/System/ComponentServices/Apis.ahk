@@ -325,7 +325,9 @@ class ComponentServices {
      * @since windows5.1.2600
      */
     static GetManagedExtensions(dwExts) {
-        result := DllCall("comsvcs.dll\GetManagedExtensions", "uint*", dwExts, "int")
+        dwExtsMarshal := dwExts is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("comsvcs.dll\GetManagedExtensions", dwExtsMarshal, dwExts, "int")
         if(result != 0)
             throw OSError(result)
 

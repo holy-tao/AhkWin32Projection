@@ -50,7 +50,10 @@ class ITypeLib2 extends ITypeLib{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib2-getlibstatistics
      */
     GetLibStatistics(pcUniqueNames, pcchUniqueNames) {
-        result := ComCall(14, this, "uint*", pcUniqueNames, "uint*", pcchUniqueNames, "HRESULT")
+        pcUniqueNamesMarshal := pcUniqueNames is VarRef ? "uint*" : "ptr"
+        pcchUniqueNamesMarshal := pcchUniqueNames is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pcUniqueNamesMarshal, pcUniqueNames, pcchUniqueNamesMarshal, pcchUniqueNames, "HRESULT")
         return result
     }
 
@@ -65,7 +68,9 @@ class ITypeLib2 extends ITypeLib{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib2-getdocumentation2
      */
     GetDocumentation2(index, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
-        result := ComCall(15, this, "int", index, "uint", lcid, "ptr", pbstrHelpString, "uint*", pdwHelpStringContext, "ptr", pbstrHelpStringDll, "HRESULT")
+        pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "int", index, "uint", lcid, "ptr", pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, "ptr", pbstrHelpStringDll, "HRESULT")
         return result
     }
 

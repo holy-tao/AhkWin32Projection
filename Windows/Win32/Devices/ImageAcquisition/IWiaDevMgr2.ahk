@@ -180,7 +180,9 @@ class IWiaDevMgr2 extends IUnknown{
         bstrFolderName := bstrFolderName is String ? BSTR.Alloc(bstrFolderName).Value : bstrFolderName
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
-        result := ComCall(10, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, "int*", plNumFiles, "ptr*", ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
+        plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, plNumFilesMarshal, plNumFiles, "ptr*", ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
         return result
     }
 }

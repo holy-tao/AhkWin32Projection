@@ -37,7 +37,10 @@ class IRowsetChange extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteRows(hReserved, cRows, rghRows, rgRowStatus) {
-        result := ComCall(3, this, "ptr", hReserved, "ptr", cRows, "ptr*", rghRows, "uint*", rgRowStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
@@ -51,7 +54,9 @@ class IRowsetChange extends IUnknown{
     SetData(hRow, hAccessor, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -66,7 +71,10 @@ class IRowsetChange extends IUnknown{
     InsertRow(hReserved, hAccessor, pData, phRow) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(5, this, "ptr", hReserved, "ptr", hAccessor, "ptr", pData, "ptr*", phRow, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        phRowMarshal := phRow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hReserved, "ptr", hAccessor, pDataMarshal, pData, phRowMarshal, phRow, "HRESULT")
         return result
     }
 }

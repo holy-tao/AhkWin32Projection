@@ -43,7 +43,9 @@ class IAMNetShowExProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_sourceprotocol
      */
     get_SourceProtocol(pSourceProtocol) {
-        result := ComCall(7, this, "int*", pSourceProtocol, "HRESULT")
+        pSourceProtocolMarshal := pSourceProtocol is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pSourceProtocolMarshal, pSourceProtocol, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IAMNetShowExProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_bandwidth
      */
     get_Bandwidth(pBandwidth) {
-        result := ComCall(8, this, "int*", pBandwidth, "HRESULT")
+        pBandwidthMarshal := pBandwidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pBandwidthMarshal, pBandwidth, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class IAMNetShowExProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_codeccount
      */
     get_CodecCount(pCodecCount) {
-        result := ComCall(10, this, "int*", pCodecCount, "HRESULT")
+        pCodecCountMarshal := pCodecCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pCodecCountMarshal, pCodecCount, "HRESULT")
         return result
     }
 
@@ -123,7 +129,9 @@ class IAMNetShowExProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_creationdate
      */
     get_CreationDate(pCreationDate) {
-        result := ComCall(14, this, "double*", pCreationDate, "HRESULT")
+        pCreationDateMarshal := pCreationDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, pCreationDateMarshal, pCreationDate, "HRESULT")
         return result
     }
 

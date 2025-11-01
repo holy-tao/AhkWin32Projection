@@ -56,7 +56,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getalignment
      */
     GetAlignment(pValue) {
-        result := ComCall(7, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellcount
      */
     GetCellCount(pValue) {
-        result := ComCall(9, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -100,7 +104,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellcountcache
      */
     GetCellCountCache(pValue) {
-        result := ComCall(11, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -122,7 +128,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellindex
      */
     GetCellIndex(pValue) {
-        result := ComCall(13, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -144,7 +152,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellmargin
      */
     GetCellMargin(pValue) {
-        result := ComCall(15, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -166,7 +176,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getheight
      */
     GetHeight(pValue) {
-        result := ComCall(17, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -188,7 +200,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getindent
      */
     GetIndent(pValue) {
-        result := ComCall(19, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -210,7 +224,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getkeeptogether
      */
     GetKeepTogether(pValue) {
-        result := ComCall(21, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -232,7 +248,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getkeepwithnext
      */
     GetKeepWithNext(pValue) {
-        result := ComCall(23, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -254,7 +272,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getnestlevel
      */
     GetNestLevel(pValue) {
-        result := ComCall(25, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -265,7 +285,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getrtl
      */
     GetRTL(pValue) {
-        result := ComCall(26, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -287,7 +309,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellalignment
      */
     GetCellAlignment(pValue) {
-        result := ComCall(28, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -309,7 +333,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellcolorback
      */
     GetCellColorBack(pValue) {
-        result := ComCall(30, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -331,7 +357,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellcolorfore
      */
     GetCellColorFore(pValue) {
-        result := ComCall(32, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -353,7 +381,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellmergeflags
      */
     GetCellMergeFlags(pValue) {
-        result := ComCall(34, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -375,7 +405,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellshading
      */
     GetCellShading(pValue) {
-        result := ComCall(36, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -397,7 +429,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellverticaltext
      */
     GetCellVerticalText(pValue) {
-        result := ComCall(38, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -419,7 +453,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellwidth
      */
     GetCellWidth(pValue) {
-        result := ComCall(40, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -444,7 +480,12 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellbordercolors
      */
     GetCellBorderColors(pcrLeft, pcrTop, pcrRight, pcrBottom) {
-        result := ComCall(42, this, "int*", pcrLeft, "int*", pcrTop, "int*", pcrRight, "int*", pcrBottom, "HRESULT")
+        pcrLeftMarshal := pcrLeft is VarRef ? "int*" : "ptr"
+        pcrTopMarshal := pcrTop is VarRef ? "int*" : "ptr"
+        pcrRightMarshal := pcrRight is VarRef ? "int*" : "ptr"
+        pcrBottomMarshal := pcrBottom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, pcrLeftMarshal, pcrLeft, pcrTopMarshal, pcrTop, pcrRightMarshal, pcrRight, pcrBottomMarshal, pcrBottom, "HRESULT")
         return result
     }
 
@@ -458,7 +499,12 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellborderwidths
      */
     GetCellBorderWidths(pduLeft, pduTop, pduRight, pduBottom) {
-        result := ComCall(43, this, "int*", pduLeft, "int*", pduTop, "int*", pduRight, "int*", pduBottom, "HRESULT")
+        pduLeftMarshal := pduLeft is VarRef ? "int*" : "ptr"
+        pduTopMarshal := pduTop is VarRef ? "int*" : "ptr"
+        pduRightMarshal := pduRight is VarRef ? "int*" : "ptr"
+        pduBottomMarshal := pduBottom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, pduLeftMarshal, pduLeft, pduTopMarshal, pduTop, pduRightMarshal, pduRight, pduBottomMarshal, pduBottom, "HRESULT")
         return result
     }
 
@@ -509,7 +555,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-canchange
      */
     CanChange(pValue) {
-        result := ComCall(47, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -521,7 +569,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getproperty
      */
     GetProperty(Type, pValue) {
-        result := ComCall(48, this, "int", Type, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, "int", Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -544,7 +594,9 @@ class ITextRow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-isequal
      */
     IsEqual(pRow, pB) {
-        result := ComCall(50, this, "ptr", pRow, "int*", pB, "HRESULT")
+        pBMarshal := pB is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, "ptr", pRow, pBMarshal, pB, "HRESULT")
         return result
     }
 

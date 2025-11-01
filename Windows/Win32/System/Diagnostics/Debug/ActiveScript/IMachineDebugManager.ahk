@@ -35,7 +35,9 @@ class IMachineDebugManager extends IUnknown{
      * @returns {HRESULT} 
      */
     AddApplication(pda, pdwAppCookie) {
-        result := ComCall(3, this, "ptr", pda, "uint*", pdwAppCookie, "HRESULT")
+        pdwAppCookieMarshal := pdwAppCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pda, pdwAppCookieMarshal, pdwAppCookie, "HRESULT")
         return result
     }
 

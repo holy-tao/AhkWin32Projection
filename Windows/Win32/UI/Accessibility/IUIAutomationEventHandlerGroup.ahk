@@ -68,7 +68,9 @@ class IUIAutomationEventHandlerGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addchangeseventhandler
      */
     AddChangesEventHandler(scope, changeTypes, changesCount, cacheRequest, handler) {
-        result := ComCall(5, this, "int", scope, "int*", changeTypes, "int", changesCount, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class IUIAutomationEventHandlerGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addpropertychangedeventhandler
      */
     AddPropertyChangedEventHandler(scope, cacheRequest, handler, propertyArray, propertyCount) {
-        result := ComCall(7, this, "int", scope, "ptr", cacheRequest, "ptr", handler, "int*", propertyArray, "int", propertyCount, "HRESULT")
+        propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
         return result
     }
 

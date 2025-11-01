@@ -35,7 +35,10 @@ class ICorProfilerInfo5 extends ICorProfilerInfo4{
      * @returns {HRESULT} 
      */
     GetEventMask2(pdwEventsLow, pdwEventsHigh) {
-        result := ComCall(81, this, "uint*", pdwEventsLow, "uint*", pdwEventsHigh, "HRESULT")
+        pdwEventsLowMarshal := pdwEventsLow is VarRef ? "uint*" : "ptr"
+        pdwEventsHighMarshal := pdwEventsHigh is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(81, this, pdwEventsLowMarshal, pdwEventsLow, pdwEventsHighMarshal, pdwEventsHigh, "HRESULT")
         return result
     }
 

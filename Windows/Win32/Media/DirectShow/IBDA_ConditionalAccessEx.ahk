@@ -49,7 +49,10 @@ class IBDA_ConditionalAccessEx extends IUnknown{
     CheckEntitlementToken(ulDialogRequest, bstrLanguage, RequestType, ulcbEntitlementTokenLen, pbEntitlementToken, pulDescrambleStatus) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "int", RequestType, "uint", ulcbEntitlementTokenLen, "char*", pbEntitlementToken, "uint*", pulDescrambleStatus, "HRESULT")
+        pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : "ptr"
+        pulDescrambleStatusMarshal := pulDescrambleStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "int", RequestType, "uint", ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, pulDescrambleStatusMarshal, pulDescrambleStatus, "HRESULT")
         return result
     }
 
@@ -61,7 +64,9 @@ class IBDA_ConditionalAccessEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccessex-setcapturetoken
      */
     SetCaptureToken(ulcbCaptureTokenLen, pbCaptureToken) {
-        result := ComCall(4, this, "uint", ulcbCaptureTokenLen, "char*", pbCaptureToken, "HRESULT")
+        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulcbCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return result
     }
 
@@ -93,7 +98,9 @@ class IBDA_ConditionalAccessEx extends IUnknown{
     CloseMmiDialog(ulDialogRequest, bstrLanguage, ulDialogNumber, ReasonCode, pulSessionResult) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(6, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulDialogNumber, "int", ReasonCode, "uint*", pulSessionResult, "HRESULT")
+        pulSessionResultMarshal := pulSessionResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulDialogNumber, "int", ReasonCode, pulSessionResultMarshal, pulSessionResult, "HRESULT")
         return result
     }
 
@@ -104,7 +111,9 @@ class IBDA_ConditionalAccessEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccessex-createdialogrequestnumber
      */
     CreateDialogRequestNumber(pulDialogRequestNumber) {
-        result := ComCall(7, this, "uint*", pulDialogRequestNumber, "HRESULT")
+        pulDialogRequestNumberMarshal := pulDialogRequestNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulDialogRequestNumberMarshal, pulDialogRequestNumber, "HRESULT")
         return result
     }
 }

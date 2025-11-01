@@ -40,7 +40,9 @@ class ISideShowNotification extends IUnknown{
      * @returns {HRESULT} 
      */
     get_NotificationId(out_pNotificationId) {
-        result := ComCall(3, this, "uint*", out_pNotificationId, "HRESULT")
+        out_pNotificationIdMarshal := out_pNotificationId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, out_pNotificationIdMarshal, out_pNotificationId, "HRESULT")
         return result
     }
 

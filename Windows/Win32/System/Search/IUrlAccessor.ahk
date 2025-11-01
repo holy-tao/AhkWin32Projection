@@ -62,7 +62,9 @@ class IUrlAccessor extends IUnknown{
     GetDocFormat(wszDocFormat, dwSize, pdwLength) {
         wszDocFormat := wszDocFormat is String ? StrPtr(wszDocFormat) : wszDocFormat
 
-        result := ComCall(4, this, "ptr", wszDocFormat, "uint", dwSize, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", wszDocFormat, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -88,7 +90,9 @@ class IUrlAccessor extends IUnknown{
     GetHost(wszHost, dwSize, pdwLength) {
         wszHost := wszHost is String ? StrPtr(wszHost) : wszHost
 
-        result := ComCall(6, this, "ptr", wszHost, "uint", dwSize, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", wszHost, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class IUrlAccessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsize
      */
     GetSize(pllSize) {
-        result := ComCall(8, this, "uint*", pllSize, "HRESULT")
+        pllSizeMarshal := pllSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pllSizeMarshal, pllSize, "HRESULT")
         return result
     }
 
@@ -135,7 +141,9 @@ class IUrlAccessor extends IUnknown{
     GetFileName(wszFileName, dwSize, pdwLength) {
         wszFileName := wszFileName is String ? StrPtr(wszFileName) : wszFileName
 
-        result := ComCall(10, this, "ptr", wszFileName, "uint", dwSize, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", wszFileName, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -148,7 +156,10 @@ class IUrlAccessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsecuritydescriptor
      */
     GetSecurityDescriptor(pSD, dwSize, pdwLength) {
-        result := ComCall(11, this, "char*", pSD, "uint", dwSize, "uint*", pdwLength, "HRESULT")
+        pSDMarshal := pSD is VarRef ? "char*" : "ptr"
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pSDMarshal, pSD, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -163,7 +174,9 @@ class IUrlAccessor extends IUnknown{
     GetRedirectedURL(wszRedirectedURL, dwSize, pdwLength) {
         wszRedirectedURL := wszRedirectedURL is String ? StrPtr(wszRedirectedURL) : wszRedirectedURL
 
-        result := ComCall(12, this, "ptr", wszRedirectedURL, "uint", dwSize, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", wszRedirectedURL, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 

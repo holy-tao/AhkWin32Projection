@@ -41,7 +41,9 @@ class ICLRProfiling extends IUnknown{
     AttachProfiler(dwProfileeProcessID, dwMillisecondsMax, pClsidProfiler, wszProfilerPath, pvClientData, cbClientData) {
         wszProfilerPath := wszProfilerPath is String ? StrPtr(wszProfilerPath) : wszProfilerPath
 
-        result := ComCall(3, this, "uint", dwProfileeProcessID, "uint", dwMillisecondsMax, "ptr", pClsidProfiler, "ptr", wszProfilerPath, "ptr", pvClientData, "uint", cbClientData, "HRESULT")
+        pvClientDataMarshal := pvClientData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", dwProfileeProcessID, "uint", dwMillisecondsMax, "ptr", pClsidProfiler, "ptr", wszProfilerPath, pvClientDataMarshal, pvClientData, "uint", cbClientData, "HRESULT")
         return result
     }
 }

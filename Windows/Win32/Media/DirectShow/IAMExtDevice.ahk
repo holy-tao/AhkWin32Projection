@@ -49,7 +49,10 @@ class IAMExtDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-getcapability
      */
     GetCapability(Capability, pValue, pdblValue) {
-        result := ComCall(3, this, "int", Capability, "int*", pValue, "double*", pdblValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(3, this, "int", Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
         return result
     }
 
@@ -93,7 +96,9 @@ class IAMExtDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_devicepower
      */
     get_DevicePower(pPowerMode) {
-        result := ComCall(7, this, "int*", pPowerMode, "HRESULT")
+        pPowerModeMarshal := pPowerMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pPowerModeMarshal, pPowerMode, "HRESULT")
         return result
     }
 
@@ -106,7 +111,9 @@ class IAMExtDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-calibrate
      */
     Calibrate(hEvent, Mode, pStatus) {
-        result := ComCall(8, this, "ptr", hEvent, "int", Mode, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", hEvent, "int", Mode, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -128,7 +135,9 @@ class IAMExtDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_deviceport
      */
     get_DevicePort(pDevicePort) {
-        result := ComCall(10, this, "int*", pDevicePort, "HRESULT")
+        pDevicePortMarshal := pDevicePort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pDevicePortMarshal, pDevicePort, "HRESULT")
         return result
     }
 }

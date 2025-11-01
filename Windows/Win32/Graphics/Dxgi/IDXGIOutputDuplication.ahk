@@ -109,7 +109,9 @@ class IDXGIOutputDuplication extends IDXGIObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframedirtyrects
      */
     GetFrameDirtyRects(DirtyRectsBufferSize, pDirtyRectsBuffer, pDirtyRectsBufferSizeRequired) {
-        result := ComCall(9, this, "uint", DirtyRectsBufferSize, "ptr", pDirtyRectsBuffer, "uint*", pDirtyRectsBufferSizeRequired, "HRESULT")
+        pDirtyRectsBufferSizeRequiredMarshal := pDirtyRectsBufferSizeRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", DirtyRectsBufferSize, "ptr", pDirtyRectsBuffer, pDirtyRectsBufferSizeRequiredMarshal, pDirtyRectsBufferSizeRequired, "HRESULT")
         return result
     }
 
@@ -122,7 +124,9 @@ class IDXGIOutputDuplication extends IDXGIObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframemoverects
      */
     GetFrameMoveRects(MoveRectsBufferSize, pMoveRectBuffer, pMoveRectsBufferSizeRequired) {
-        result := ComCall(10, this, "uint", MoveRectsBufferSize, "ptr", pMoveRectBuffer, "uint*", pMoveRectsBufferSizeRequired, "HRESULT")
+        pMoveRectsBufferSizeRequiredMarshal := pMoveRectsBufferSizeRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", MoveRectsBufferSize, "ptr", pMoveRectBuffer, pMoveRectsBufferSizeRequiredMarshal, pMoveRectsBufferSizeRequired, "HRESULT")
         return result
     }
 
@@ -136,7 +140,9 @@ class IDXGIOutputDuplication extends IDXGIObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframepointershape
      */
     GetFramePointerShape(PointerShapeBufferSize, pPointerShapeBuffer, pPointerShapeBufferSizeRequired, pPointerShapeInfo) {
-        result := ComCall(11, this, "uint", PointerShapeBufferSize, "ptr", pPointerShapeBuffer, "uint*", pPointerShapeBufferSizeRequired, "ptr", pPointerShapeInfo, "HRESULT")
+        pPointerShapeBufferSizeRequiredMarshal := pPointerShapeBufferSizeRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", PointerShapeBufferSize, "ptr", pPointerShapeBuffer, pPointerShapeBufferSizeRequiredMarshal, pPointerShapeBufferSizeRequired, "ptr", pPointerShapeInfo, "HRESULT")
         return result
     }
 

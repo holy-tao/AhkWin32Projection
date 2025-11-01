@@ -55,7 +55,9 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyieconfig
      */
     ProxyIEConfig(value) {
-        result := ComCall(13, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxywinhttpconfig
      */
     ProxyWinHttpConfig(value) {
-        result := ComCall(14, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyautodetect
      */
     ProxyAutoDetect(value) {
-        result := ComCall(15, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -88,7 +94,9 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxynoproxyserver
      */
     ProxyNoProxyServer(value) {
-        result := ComCall(16, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -99,7 +107,9 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyauthenticationusenegotiate
      */
     ProxyAuthenticationUseNegotiate(value) {
-        result := ComCall(17, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -110,7 +120,9 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyauthenticationusebasic
      */
     ProxyAuthenticationUseBasic(value) {
-        result := ComCall(18, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -121,7 +133,9 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyauthenticationusedigest
      */
     ProxyAuthenticationUseDigest(value) {
-        result := ComCall(19, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

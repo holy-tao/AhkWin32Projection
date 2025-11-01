@@ -81,7 +81,9 @@ class INetFwOpenPort extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_ipversion
      */
     get_IpVersion(ipVersion) {
-        result := ComCall(9, this, "int*", ipVersion, "HRESULT")
+        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, ipVersionMarshal, ipVersion, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class INetFwOpenPort extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_protocol
      */
     get_Protocol(ipProtocol) {
-        result := ComCall(11, this, "int*", ipProtocol, "HRESULT")
+        ipProtocolMarshal := ipProtocol is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, ipProtocolMarshal, ipProtocol, "HRESULT")
         return result
     }
 
@@ -125,7 +129,9 @@ class INetFwOpenPort extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_port
      */
     get_Port(portNumber) {
-        result := ComCall(13, this, "int*", portNumber, "HRESULT")
+        portNumberMarshal := portNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, portNumberMarshal, portNumber, "HRESULT")
         return result
     }
 
@@ -147,7 +153,9 @@ class INetFwOpenPort extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_scope
      */
     get_Scope(scope) {
-        result := ComCall(15, this, "int*", scope, "HRESULT")
+        scopeMarshal := scope is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, scopeMarshal, scope, "HRESULT")
         return result
     }
 

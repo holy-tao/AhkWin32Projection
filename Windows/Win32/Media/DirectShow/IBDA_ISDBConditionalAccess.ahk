@@ -43,7 +43,9 @@ class IBDA_ISDBConditionalAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_isdbconditionalaccess-setisdbcasrequest
      */
     SetIsdbCasRequest(ulRequestId, ulcbRequestBufferLen, pbRequestBuffer) {
-        result := ComCall(3, this, "uint", ulRequestId, "uint", ulcbRequestBufferLen, "char*", pbRequestBuffer, "HRESULT")
+        pbRequestBufferMarshal := pbRequestBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulRequestId, "uint", ulcbRequestBufferLen, pbRequestBufferMarshal, pbRequestBuffer, "HRESULT")
         return result
     }
 }

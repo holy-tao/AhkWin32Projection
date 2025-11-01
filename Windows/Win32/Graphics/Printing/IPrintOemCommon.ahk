@@ -37,7 +37,9 @@ class IPrintOemCommon extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInfo(dwMode, pBuffer, cbSize, pcbNeeded) {
-        result := ComCall(3, this, "uint", dwMode, "ptr", pBuffer, "uint", cbSize, "uint*", pcbNeeded, "HRESULT")
+        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwMode, "ptr", pBuffer, "uint", cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
         return result
     }
 

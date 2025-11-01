@@ -41,7 +41,9 @@ class ISpatialAudioMetadataItems extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getframecount
      */
     GetFrameCount(frameCount) {
-        result := ComCall(3, this, "ushort*", frameCount, "HRESULT")
+        frameCountMarshal := frameCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, frameCountMarshal, frameCount, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class ISpatialAudioMetadataItems extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getitemcount
      */
     GetItemCount(itemCount) {
-        result := ComCall(4, this, "ushort*", itemCount, "HRESULT")
+        itemCountMarshal := itemCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, itemCountMarshal, itemCount, "HRESULT")
         return result
     }
 
@@ -63,7 +67,9 @@ class ISpatialAudioMetadataItems extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxitemcount
      */
     GetMaxItemCount(maxItemCount) {
-        result := ComCall(5, this, "ushort*", maxItemCount, "HRESULT")
+        maxItemCountMarshal := maxItemCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, maxItemCountMarshal, maxItemCount, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class ISpatialAudioMetadataItems extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxvaluebufferlength
      */
     GetMaxValueBufferLength(maxValueBufferLength) {
-        result := ComCall(6, this, "uint*", maxValueBufferLength, "HRESULT")
+        maxValueBufferLengthMarshal := maxValueBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, maxValueBufferLengthMarshal, maxValueBufferLength, "HRESULT")
         return result
     }
 

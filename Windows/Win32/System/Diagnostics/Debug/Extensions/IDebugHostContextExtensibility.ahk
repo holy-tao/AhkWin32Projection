@@ -46,7 +46,9 @@ class IDebugHostContextExtensibility extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadExtensionData(blobId, bufferSize, buffer) {
-        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, "ptr", buffer, "HRESULT")
+        bufferMarshal := buffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, bufferMarshal, buffer, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class IDebugHostContextExtensibility extends IUnknown{
      * @returns {HRESULT} 
      */
     CloneContextWithModification(blobId, dataSize, data, clonedContext) {
-        result := ComCall(6, this, "uint", blobId, "uint", dataSize, "ptr", data, "ptr*", clonedContext, "HRESULT")
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "ptr*", clonedContext, "HRESULT")
         return result
     }
 }

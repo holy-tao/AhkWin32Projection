@@ -37,7 +37,9 @@ class ISyncMgrResolutionHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-queryabilities
      */
     QueryAbilities(pdwAbilities) {
-        result := ComCall(3, this, "uint*", pdwAbilities, "HRESULT")
+        pdwAbilitiesMarshal := pdwAbilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwAbilitiesMarshal, pdwAbilities, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class ISyncMgrResolutionHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepother
      */
     KeepOther(psiOther, pFeedback) {
-        result := ComCall(4, this, "ptr", psiOther, "int*", pFeedback, "HRESULT")
+        pFeedbackMarshal := pFeedback is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", psiOther, pFeedbackMarshal, pFeedback, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class ISyncMgrResolutionHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keeprecent
      */
     KeepRecent(pFeedback) {
-        result := ComCall(5, this, "int*", pFeedback, "HRESULT")
+        pFeedbackMarshal := pFeedback is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pFeedbackMarshal, pFeedback, "HRESULT")
         return result
     }
 
@@ -71,7 +77,9 @@ class ISyncMgrResolutionHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-removefromsyncset
      */
     RemoveFromSyncSet(pFeedback) {
-        result := ComCall(6, this, "int*", pFeedback, "HRESULT")
+        pFeedbackMarshal := pFeedback is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pFeedbackMarshal, pFeedback, "HRESULT")
         return result
     }
 
@@ -83,7 +91,9 @@ class ISyncMgrResolutionHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrresolutionhandler-keepitems
      */
     KeepItems(pArray, pFeedback) {
-        result := ComCall(7, this, "ptr", pArray, "int*", pFeedback, "HRESULT")
+        pFeedbackMarshal := pFeedback is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pArray, pFeedbackMarshal, pFeedback, "HRESULT")
         return result
     }
 }

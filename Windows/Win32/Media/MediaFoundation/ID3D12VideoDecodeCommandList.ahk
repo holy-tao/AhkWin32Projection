@@ -190,6 +190,8 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-writebufferimmediate
      */
     WriteBufferImmediate(Count, pParams, pModes) {
-        ComCall(22, this, "uint", Count, "ptr", pParams, "int*", pModes)
+        pModesMarshal := pModes is VarRef ? "int*" : "ptr"
+
+        ComCall(22, this, "uint", Count, "ptr", pParams, pModesMarshal, pModes)
     }
 }

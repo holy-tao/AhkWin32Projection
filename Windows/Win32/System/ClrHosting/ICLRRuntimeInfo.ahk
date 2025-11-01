@@ -37,7 +37,9 @@ class ICLRRuntimeInfo extends IUnknown{
     GetVersionString(pwzBuffer, pcchBuffer) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        result := ComCall(3, this, "ptr", pwzBuffer, "uint*", pcchBuffer, "HRESULT")
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class ICLRRuntimeInfo extends IUnknown{
     GetRuntimeDirectory(pwzBuffer, pcchBuffer) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        result := ComCall(4, this, "ptr", pwzBuffer, "uint*", pcchBuffer, "HRESULT")
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
         return result
     }
 
@@ -78,7 +82,9 @@ class ICLRRuntimeInfo extends IUnknown{
     LoadErrorString(iResourceID, pwzBuffer, pcchBuffer, iLocaleID) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        result := ComCall(6, this, "uint", iResourceID, "ptr", pwzBuffer, "uint*", pcchBuffer, "int", iLocaleID, "HRESULT")
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", iResourceID, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "int", iLocaleID, "HRESULT")
         return result
     }
 
@@ -110,6 +116,8 @@ class ICLRRuntimeInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-getprocaddress
      */
     GetProcAddress(pszProcName, ppProc) {
+        pszProcName := pszProcName is String ? StrPtr(pszProcName) : pszProcName
+
         result := ComCall(8, this, "ptr", pszProcName, "ptr*", ppProc, "HRESULT")
         return result
     }
@@ -159,7 +167,10 @@ class ICLRRuntimeInfo extends IUnknown{
     GetDefaultStartupFlags(pdwStartupFlags, pwzHostConfigFile, pcchHostConfigFile) {
         pwzHostConfigFile := pwzHostConfigFile is String ? StrPtr(pwzHostConfigFile) : pwzHostConfigFile
 
-        result := ComCall(12, this, "uint*", pdwStartupFlags, "ptr", pwzHostConfigFile, "uint*", pcchHostConfigFile, "HRESULT")
+        pdwStartupFlagsMarshal := pdwStartupFlags is VarRef ? "uint*" : "ptr"
+        pcchHostConfigFileMarshal := pcchHostConfigFile is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwStartupFlagsMarshal, pdwStartupFlags, "ptr", pwzHostConfigFile, pcchHostConfigFileMarshal, pcchHostConfigFile, "HRESULT")
         return result
     }
 
@@ -179,7 +190,9 @@ class ICLRRuntimeInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     IsStarted(pbStarted, pdwStartupFlags) {
-        result := ComCall(14, this, "ptr", pbStarted, "uint*", pdwStartupFlags, "HRESULT")
+        pdwStartupFlagsMarshal := pdwStartupFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pbStarted, pdwStartupFlagsMarshal, pdwStartupFlags, "HRESULT")
         return result
     }
 }

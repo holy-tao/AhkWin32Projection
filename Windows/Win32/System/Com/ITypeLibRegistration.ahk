@@ -57,7 +57,9 @@ class ITypeLibRegistration extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLcid(pLcid) {
-        result := ComCall(5, this, "uint*", pLcid, "HRESULT")
+        pLcidMarshal := pLcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pLcidMarshal, pLcid, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ class ITypeLibRegistration extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFlags(pFlags) {
-        result := ComCall(9, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

@@ -105,7 +105,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AppInstallType(pAppInstallType) {
-        result := ComCall(10, this, "int*", pAppInstallType, "HRESULT")
+        pAppInstallTypeMarshal := pAppInstallType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pAppInstallTypeMarshal, pAppInstallType, "HRESULT")
         return result
     }
 
@@ -115,7 +117,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_State(pState) {
-        result := ComCall(11, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -205,7 +209,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Genre(pGenre) {
-        result := ComCall(20, this, "int*", pGenre, "HRESULT")
+        pGenreMarshal := pGenre is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pGenreMarshal, pGenre, "HRESULT")
         return result
     }
 
@@ -266,7 +272,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AppPlatMajorVersion(pMajorVer) {
-        result := ComCall(26, this, "char*", pMajorVer, "HRESULT")
+        pMajorVerMarshal := pMajorVer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(26, this, pMajorVerMarshal, pMajorVer, "HRESULT")
         return result
     }
 
@@ -276,7 +284,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AppPlatMinorVersion(pMinorVer) {
-        result := ComCall(27, this, "char*", pMinorVer, "HRESULT")
+        pMinorVerMarshal := pMinorVer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(27, this, pMinorVerMarshal, pMinorVer, "HRESULT")
         return result
     }
 
@@ -316,7 +326,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AppPlatMajorVersionLightUp(pMajorVer) {
-        result := ComCall(31, this, "char*", pMajorVer, "HRESULT")
+        pMajorVerMarshal := pMajorVer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(31, this, pMajorVerMarshal, pMajorVer, "HRESULT")
         return result
     }
 
@@ -326,7 +338,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AppPlatMinorVersionLightUp(pMinorVer) {
-        result := ComCall(32, this, "char*", pMinorVer, "HRESULT")
+        pMinorVerMarshal := pMinorVer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(32, this, pMinorVerMarshal, pMinorVer, "HRESULT")
         return result
     }
 
@@ -518,7 +532,9 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DeploymentAppEnumerationHubFilter(HubType) {
-        result := ComCall(51, this, "int*", HubType, "HRESULT")
+        HubTypeMarshal := HubType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(51, this, HubTypeMarshal, HubType, "HRESULT")
         return result
     }
 

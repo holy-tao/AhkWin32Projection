@@ -58,7 +58,9 @@ class IDVB_ST extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_st-getdatalength
      */
     GetDataLength(pwVal) {
-        result := ComCall(4, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 

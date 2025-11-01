@@ -45,7 +45,9 @@ class ISchemaType extends ISchemaItem{
      * @returns {HRESULT} 
      */
     get_final(final) {
-        result := ComCall(15, this, "int*", final, "HRESULT")
+        finalMarshal := final is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, finalMarshal, final, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class ISchemaType extends ISchemaItem{
      * @returns {HRESULT} 
      */
     get_variety(variety) {
-        result := ComCall(16, this, "int*", variety, "HRESULT")
+        varietyMarshal := variety is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, varietyMarshal, variety, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class ISchemaType extends ISchemaItem{
      * @returns {HRESULT} 
      */
     get_derivedBy(derivedBy) {
-        result := ComCall(17, this, "int*", derivedBy, "HRESULT")
+        derivedByMarshal := derivedBy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, derivedByMarshal, derivedBy, "HRESULT")
         return result
     }
 
@@ -188,7 +194,9 @@ class ISchemaType extends ISchemaItem{
      * @returns {HRESULT} 
      */
     get_whitespace(whitespace) {
-        result := ComCall(29, this, "int*", whitespace, "HRESULT")
+        whitespaceMarshal := whitespace is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, whitespaceMarshal, whitespace, "HRESULT")
         return result
     }
 

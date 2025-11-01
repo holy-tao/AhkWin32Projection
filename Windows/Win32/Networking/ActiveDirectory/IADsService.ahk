@@ -111,7 +111,9 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     get_ServiceType(retval) {
-        result := ComCall(26, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -131,7 +133,9 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     get_StartType(retval) {
-        result := ComCall(28, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -195,7 +199,9 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     get_ErrorControl(retval) {
-        result := ComCall(34, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

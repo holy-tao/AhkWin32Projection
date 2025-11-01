@@ -41,7 +41,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleTheirXln(lRecoverySeqNum, Xln, pRemoteLogName, cbRemoteLogName, pOurLogName, cbOurLogName, dwProtocol, pResponse) {
-        result := ComCall(3, this, "int", lRecoverySeqNum, "int", Xln, "char*", pRemoteLogName, "uint", cbRemoteLogName, "char*", pOurLogName, "uint", cbOurLogName, "uint", dwProtocol, "int*", pResponse, "HRESULT")
+        pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
+        pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : "ptr"
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", lRecoverySeqNum, "int", Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, pOurLogNameMarshal, pOurLogName, "uint", cbOurLogName, "uint", dwProtocol, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 
@@ -51,7 +55,9 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOurLogNameSize(pcbOurLogName) {
-        result := ComCall(4, this, "uint*", pcbOurLogName, "HRESULT")
+        pcbOurLogNameMarshal := pcbOurLogName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcbOurLogNameMarshal, pcbOurLogName, "HRESULT")
         return result
     }
 
@@ -63,7 +69,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOurXln(pXln, pOurLogName, pdwProtocol) {
-        result := ComCall(5, this, "int*", pXln, "char*", pOurLogName, "uint*", pdwProtocol, "HRESULT")
+        pXlnMarshal := pXln is VarRef ? "int*" : "ptr"
+        pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : "ptr"
+        pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pXlnMarshal, pXln, pOurLogNameMarshal, pOurLogName, pdwProtocolMarshal, pdwProtocol, "HRESULT")
         return result
     }
 
@@ -87,7 +97,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleTheirCompareStates(pRemoteTransId, cbRemoteTransId, CompareState, pResponse, pCompareState) {
-        result := ComCall(7, this, "char*", pRemoteTransId, "uint", cbRemoteTransId, "int", CompareState, "int*", pResponse, "int*", pCompareState, "HRESULT")
+        pRemoteTransIdMarshal := pRemoteTransId is VarRef ? "char*" : "ptr"
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+        pCompareStateMarshal := pCompareState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pRemoteTransIdMarshal, pRemoteTransId, "uint", cbRemoteTransId, "int", CompareState, pResponseMarshal, pResponse, pCompareStateMarshal, pCompareState, "HRESULT")
         return result
     }
 

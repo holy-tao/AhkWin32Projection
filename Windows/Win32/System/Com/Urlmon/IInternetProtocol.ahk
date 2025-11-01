@@ -36,7 +36,10 @@ class IInternetProtocol extends IInternetProtocolRoot{
      * @returns {HRESULT} 
      */
     Read(pv, cb, pcbRead) {
-        result := ComCall(9, this, "ptr", pv, "uint", cb, "uint*", pcbRead, "HRESULT")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pvMarshal, pv, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -48,7 +51,9 @@ class IInternetProtocol extends IInternetProtocolRoot{
      * @returns {HRESULT} 
      */
     Seek(dlibMove, dwOrigin, plibNewPosition) {
-        result := ComCall(10, this, "int64", dlibMove, "uint", dwOrigin, "uint*", plibNewPosition, "HRESULT")
+        plibNewPositionMarshal := plibNewPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "int64", dlibMove, "uint", dwOrigin, plibNewPositionMarshal, plibNewPosition, "HRESULT")
         return result
     }
 

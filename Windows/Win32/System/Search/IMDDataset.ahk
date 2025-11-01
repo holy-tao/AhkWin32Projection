@@ -46,7 +46,9 @@ class IMDDataset extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAxisInfo(pcAxes, prgAxisInfo) {
-        result := ComCall(4, this, "ptr*", pcAxes, "ptr*", prgAxisInfo, "HRESULT")
+        pcAxesMarshal := pcAxes is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pcAxesMarshal, pcAxes, "ptr*", prgAxisInfo, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IMDDataset extends IUnknown{
     GetCellData(hAccessor, ulStartCell, ulEndCell, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(6, this, "ptr", hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, pDataMarshal, pData, "HRESULT")
         return result
     }
 

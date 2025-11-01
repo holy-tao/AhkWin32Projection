@@ -43,7 +43,9 @@ class IShellDispatch2 extends IShellDispatch{
         Group := Group is String ? BSTR.Alloc(Group).Value : Group
         Restriction := Restriction is String ? BSTR.Alloc(Restriction).Value : Restriction
 
-        result := ComCall(30, this, "ptr", Group, "ptr", Restriction, "int*", plRestrictValue, "HRESULT")
+        plRestrictValueMarshal := plRestrictValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, "ptr", Group, "ptr", Restriction, plRestrictValueMarshal, plRestrictValue, "HRESULT")
         return result
     }
 

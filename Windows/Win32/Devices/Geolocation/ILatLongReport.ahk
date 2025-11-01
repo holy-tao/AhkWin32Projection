@@ -43,7 +43,9 @@ class ILatLongReport extends ILocationReport{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getlatitude
      */
     GetLatitude(pLatitude) {
-        result := ComCall(6, this, "double*", pLatitude, "HRESULT")
+        pLatitudeMarshal := pLatitude is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, pLatitudeMarshal, pLatitude, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ILatLongReport extends ILocationReport{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getlongitude
      */
     GetLongitude(pLongitude) {
-        result := ComCall(7, this, "double*", pLongitude, "HRESULT")
+        pLongitudeMarshal := pLongitude is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, pLongitudeMarshal, pLongitude, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class ILatLongReport extends ILocationReport{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-geterrorradius
      */
     GetErrorRadius(pErrorRadius) {
-        result := ComCall(8, this, "double*", pErrorRadius, "HRESULT")
+        pErrorRadiusMarshal := pErrorRadius is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pErrorRadiusMarshal, pErrorRadius, "HRESULT")
         return result
     }
 
@@ -76,7 +82,9 @@ class ILatLongReport extends ILocationReport{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getaltitude
      */
     GetAltitude(pAltitude) {
-        result := ComCall(9, this, "double*", pAltitude, "HRESULT")
+        pAltitudeMarshal := pAltitude is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, pAltitudeMarshal, pAltitude, "HRESULT")
         return result
     }
 
@@ -87,7 +95,9 @@ class ILatLongReport extends ILocationReport{
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilatlongreport-getaltitudeerror
      */
     GetAltitudeError(pAltitudeError) {
-        result := ComCall(10, this, "double*", pAltitudeError, "HRESULT")
+        pAltitudeErrorMarshal := pAltitudeError is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, pAltitudeErrorMarshal, pAltitudeError, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,9 @@ class INetFwRules extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrules-get_count
      */
     get_Count(count) {
-        result := ComCall(7, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, countMarshal, count, "HRESULT")
         return result
     }
 

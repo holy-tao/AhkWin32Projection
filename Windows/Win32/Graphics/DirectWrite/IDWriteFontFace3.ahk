@@ -143,7 +143,10 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingParams, renderingMode, gridFitMode) {
-        result := ComCall(44, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, "int*", renderingMode, "int*", gridFitMode, "HRESULT")
+        renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
+        gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
     }
 
@@ -195,7 +198,9 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-areglyphslocal
      */
     AreGlyphsLocal(glyphIndices, glyphCount, enqueueIfNotLocal, isLocal) {
-        result := ComCall(48, this, "ushort*", glyphIndices, "uint", glyphCount, "int", enqueueIfNotLocal, "ptr", isLocal, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "int", enqueueIfNotLocal, "ptr", isLocal, "HRESULT")
         return result
     }
 }

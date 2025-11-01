@@ -72,7 +72,9 @@ class IPortableDeviceResources extends IUnknown{
     GetStream(pszObjectID, Key, dwMode, pdwOptimalBufferSize, ppStream) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(5, this, "ptr", pszObjectID, "ptr", Key, "uint", dwMode, "uint*", pdwOptimalBufferSize, "ptr*", ppStream, "HRESULT")
+        pdwOptimalBufferSizeMarshal := pdwOptimalBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszObjectID, "ptr", Key, "uint", dwMode, pdwOptimalBufferSizeMarshal, pdwOptimalBufferSize, "ptr*", ppStream, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class IPortableDeviceResources extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceresources-createresource
      */
     CreateResource(pResourceAttributes, ppData, pdwOptimalWriteBufferSize, ppszCookie) {
-        result := ComCall(8, this, "ptr", pResourceAttributes, "ptr*", ppData, "uint*", pdwOptimalWriteBufferSize, "ptr", ppszCookie, "HRESULT")
+        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pResourceAttributes, "ptr*", ppData, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "ptr", ppszCookie, "HRESULT")
         return result
     }
 }

@@ -106,7 +106,9 @@ class IFsrmClassificationManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_logging
      */
     get_Logging(logging) {
-        result := ComCall(9, this, "int*", logging, "HRESULT")
+        loggingMarshal := logging is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, loggingMarshal, logging, "HRESULT")
         return result
     }
 
@@ -196,7 +198,9 @@ class IFsrmClassificationManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationrunningstatus
      */
     get_ClassificationRunningStatus(runningStatus) {
-        result := ComCall(17, this, "int*", runningStatus, "HRESULT")
+        runningStatusMarshal := runningStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, runningStatusMarshal, runningStatus, "HRESULT")
         return result
     }
 

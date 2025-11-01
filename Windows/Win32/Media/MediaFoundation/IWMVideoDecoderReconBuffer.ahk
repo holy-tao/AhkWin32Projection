@@ -37,7 +37,9 @@ class IWMVideoDecoderReconBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframesize
      */
     GetReconstructedVideoFrameSize(pdwSize) {
-        result := ComCall(3, this, "uint*", pdwSize, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 

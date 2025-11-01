@@ -35,7 +35,9 @@ class IActiveScriptSiteUIControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetUIBehavior(UicItem, pUicHandling) {
-        result := ComCall(3, this, "int", UicItem, "int*", pUicHandling, "HRESULT")
+        pUicHandlingMarshal := pUicHandling is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", UicItem, pUicHandlingMarshal, pUicHandling, "HRESULT")
         return result
     }
 }

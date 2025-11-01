@@ -45,7 +45,11 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
     GetCodecFormatProp(guidType, dwCodecIndex, dwFormatIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(8, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr", pszName, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -63,7 +67,11 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
     GetCodecProp(guidType, dwCodecIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(9, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
     SetCodecEnumerationSetting(guidType, dwCodecIndex, pszName, Type, pValue, dwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(10, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, "int", Type, "char*", pValue, "uint", dwSize, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, "int", Type, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
         return result
     }
 
@@ -99,7 +109,11 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
     GetCodecEnumerationSetting(guidType, dwCodecIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(11, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 }

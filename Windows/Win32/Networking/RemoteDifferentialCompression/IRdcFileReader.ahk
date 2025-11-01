@@ -57,7 +57,9 @@ class IRdcFileReader extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
     GetFileSize(fileSize) {
-        result := ComCall(3, this, "uint*", fileSize, "HRESULT")
+        fileSizeMarshal := fileSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, fileSizeMarshal, fileSize, "HRESULT")
         return result
     }
 
@@ -72,7 +74,10 @@ class IRdcFileReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilereader-read
      */
     Read(offsetFileStart, bytesToRead, bytesActuallyRead, buffer, eof) {
-        result := ComCall(4, this, "uint", offsetFileStart, "uint", bytesToRead, "uint*", bytesActuallyRead, "char*", buffer, "ptr", eof, "HRESULT")
+        bytesActuallyReadMarshal := bytesActuallyRead is VarRef ? "uint*" : "ptr"
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", offsetFileStart, "uint", bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, bufferMarshal, buffer, "ptr", eof, "HRESULT")
         return result
     }
 
@@ -83,7 +88,9 @@ class IRdcFileReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilereader-getfileposition
      */
     GetFilePosition(offsetFromStart) {
-        result := ComCall(5, this, "uint*", offsetFromStart, "HRESULT")
+        offsetFromStartMarshal := offsetFromStart is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, offsetFromStartMarshal, offsetFromStart, "HRESULT")
         return result
     }
 }

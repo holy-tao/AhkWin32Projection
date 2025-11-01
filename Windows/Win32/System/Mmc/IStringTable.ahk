@@ -40,7 +40,9 @@ class IStringTable extends IUnknown{
     AddString(pszAdd, pStringID) {
         pszAdd := pszAdd is String ? StrPtr(pszAdd) : pszAdd
 
-        result := ComCall(3, this, "ptr", pszAdd, "uint*", pStringID, "HRESULT")
+        pStringIDMarshal := pStringID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszAdd, pStringIDMarshal, pStringID, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IStringTable extends IUnknown{
     GetString(StringID, cchBuffer, lpBuffer, pcchOut) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-        result := ComCall(4, this, "uint", StringID, "uint", cchBuffer, "ptr", lpBuffer, "uint*", pcchOut, "HRESULT")
+        pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", StringID, "uint", cchBuffer, "ptr", lpBuffer, pcchOutMarshal, pcchOut, "HRESULT")
         return result
     }
 
@@ -68,7 +72,9 @@ class IStringTable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-getstringlength
      */
     GetStringLength(StringID, pcchString) {
-        result := ComCall(5, this, "uint", StringID, "uint*", pcchString, "HRESULT")
+        pcchStringMarshal := pcchString is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", StringID, pcchStringMarshal, pcchString, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class IStringTable extends IUnknown{
     FindString(pszFind, pStringID) {
         pszFind := pszFind is String ? StrPtr(pszFind) : pszFind
 
-        result := ComCall(8, this, "ptr", pszFind, "uint*", pStringID, "HRESULT")
+        pStringIDMarshal := pStringID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pszFind, pStringIDMarshal, pStringID, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class IWTSProtocolLicenseConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestlicensingcapabilities
      */
     RequestLicensingCapabilities(ppLicenseCapabilities, pcbLicenseCapabilities) {
-        result := ComCall(3, this, "ptr", ppLicenseCapabilities, "uint*", pcbLicenseCapabilities, "HRESULT")
+        pcbLicenseCapabilitiesMarshal := pcbLicenseCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ppLicenseCapabilities, pcbLicenseCapabilitiesMarshal, pcbLicenseCapabilities, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IWTSProtocolLicenseConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-sendclientlicense
      */
     SendClientLicense(pClientLicense, cbClientLicense) {
-        result := ComCall(4, this, "char*", pClientLicense, "uint", cbClientLicense, "HRESULT")
+        pClientLicenseMarshal := pClientLicense is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pClientLicenseMarshal, pClientLicense, "uint", cbClientLicense, "HRESULT")
         return result
     }
 
@@ -64,7 +68,11 @@ class IWTSProtocolLicenseConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestclientlicense
      */
     RequestClientLicense(Reserve1, Reserve2, ppClientLicense, pcbClientLicense) {
-        result := ComCall(5, this, "char*", Reserve1, "uint", Reserve2, "char*", ppClientLicense, "uint*", pcbClientLicense, "HRESULT")
+        Reserve1Marshal := Reserve1 is VarRef ? "char*" : "ptr"
+        ppClientLicenseMarshal := ppClientLicense is VarRef ? "char*" : "ptr"
+        pcbClientLicenseMarshal := pcbClientLicense is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, Reserve1Marshal, Reserve1, "uint", Reserve2, ppClientLicenseMarshal, ppClientLicense, pcbClientLicenseMarshal, pcbClientLicense, "HRESULT")
         return result
     }
 

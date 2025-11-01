@@ -37,7 +37,9 @@ class IAMLatency extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamlatency-getlatency
      */
     GetLatency(prtLatency) {
-        result := ComCall(3, this, "int64*", prtLatency, "HRESULT")
+        prtLatencyMarshal := prtLatency is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, prtLatencyMarshal, prtLatency, "HRESULT")
         return result
     }
 }

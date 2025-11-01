@@ -58,7 +58,9 @@ class ISpPhrase extends IUnknown{
      * @returns {HRESULT} 
      */
     GetText(ulStart, ulCount, fUseTextReplacements, ppszCoMemText, pbDisplayAttributes) {
-        result := ComCall(5, this, "uint", ulStart, "uint", ulCount, "int", fUseTextReplacements, "ptr", ppszCoMemText, "char*", pbDisplayAttributes, "HRESULT")
+        pbDisplayAttributesMarshal := pbDisplayAttributes is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulStart, "uint", ulCount, "int", fUseTextReplacements, "ptr", ppszCoMemText, pbDisplayAttributesMarshal, pbDisplayAttributes, "HRESULT")
         return result
     }
 

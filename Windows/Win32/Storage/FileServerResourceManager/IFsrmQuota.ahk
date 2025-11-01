@@ -64,7 +64,9 @@ class IFsrmQuota extends IFsrmQuotaObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquota-get_quotapeakusagetime
      */
     get_QuotaPeakUsageTime(peakUsageDateTime) {
-        result := ComCall(30, this, "double*", peakUsageDateTime, "HRESULT")
+        peakUsageDateTimeMarshal := peakUsageDateTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(30, this, peakUsageDateTimeMarshal, peakUsageDateTime, "HRESULT")
         return result
     }
 

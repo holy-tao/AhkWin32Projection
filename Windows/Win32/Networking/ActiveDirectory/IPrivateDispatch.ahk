@@ -44,7 +44,9 @@ class IPrivateDispatch extends IUnknown{
      * @returns {HRESULT} 
      */
     ADSIGetTypeInfoCount(pctinfo) {
-        result := ComCall(4, this, "uint*", pctinfo, "HRESULT")
+        pctinfoMarshal := pctinfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pctinfoMarshal, pctinfo, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IPrivateDispatch extends IUnknown{
      * @returns {HRESULT} 
      */
     ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", rgszNames, "uint", cNames, "uint", lcid, "int*", rgdispid, "HRESULT")
+        rgdispidMarshal := rgdispid is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, "ptr*", rgszNames, "uint", cNames, "uint", lcid, rgdispidMarshal, rgdispid, "HRESULT")
         return result
     }
 
@@ -87,7 +91,9 @@ class IPrivateDispatch extends IUnknown{
      * @returns {HRESULT} 
      */
     ADSIInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
-        result := ComCall(7, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, "uint*", puArgErr, "HRESULT")
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 }

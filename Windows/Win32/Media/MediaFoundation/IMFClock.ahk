@@ -42,7 +42,9 @@ class IMFClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getclockcharacteristics
      */
     GetClockCharacteristics(pdwCharacteristics) {
-        result := ComCall(3, this, "uint*", pdwCharacteristics, "HRESULT")
+        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
         return result
     }
 
@@ -55,7 +57,10 @@ class IMFClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getcorrelatedtime
      */
     GetCorrelatedTime(dwReserved, pllClockTime, phnsSystemTime) {
-        result := ComCall(4, this, "uint", dwReserved, "int64*", pllClockTime, "int64*", phnsSystemTime, "HRESULT")
+        pllClockTimeMarshal := pllClockTime is VarRef ? "int64*" : "ptr"
+        phnsSystemTimeMarshal := phnsSystemTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwReserved, pllClockTimeMarshal, pllClockTime, phnsSystemTimeMarshal, phnsSystemTime, "HRESULT")
         return result
     }
 
@@ -66,7 +71,9 @@ class IMFClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getcontinuitykey
      */
     GetContinuityKey(pdwContinuityKey) {
-        result := ComCall(5, this, "uint*", pdwContinuityKey, "HRESULT")
+        pdwContinuityKeyMarshal := pdwContinuityKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwContinuityKeyMarshal, pdwContinuityKey, "HRESULT")
         return result
     }
 
@@ -78,7 +85,9 @@ class IMFClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getstate
      */
     GetState(dwReserved, peClockState) {
-        result := ComCall(6, this, "uint", dwReserved, "int*", peClockState, "HRESULT")
+        peClockStateMarshal := peClockState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwReserved, peClockStateMarshal, peClockState, "HRESULT")
         return result
     }
 

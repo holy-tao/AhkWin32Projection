@@ -40,7 +40,9 @@ class IAccPropServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-setpropvalue
      */
     SetPropValue(pIDString, dwIDStringLen, idProp, var) {
-        result := ComCall(3, this, "char*", pIDString, "uint", dwIDStringLen, "ptr", idProp, "ptr", var, "HRESULT")
+        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", idProp, "ptr", var, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IAccPropServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-setpropserver
      */
     SetPropServer(pIDString, dwIDStringLen, paProps, cProps, pServer, annoScope) {
-        result := ComCall(4, this, "char*", pIDString, "uint", dwIDStringLen, "ptr", paProps, "int", cProps, "ptr", pServer, "int", annoScope, "HRESULT")
+        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", paProps, "int", cProps, "ptr", pServer, "int", annoScope, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IAccPropServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-clearprops
      */
     ClearProps(pIDString, dwIDStringLen, paProps, cProps) {
-        result := ComCall(5, this, "char*", pIDString, "uint", dwIDStringLen, "ptr", paProps, "int", cProps, "HRESULT")
+        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", paProps, "int", cProps, "HRESULT")
         return result
     }
 
@@ -158,7 +164,9 @@ class IAccPropServices extends IUnknown{
     ComposeHwndIdentityString(hwnd, idObject, idChild, ppIDString, pdwIDStringLen) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(10, this, "ptr", hwnd, "uint", idObject, "uint", idChild, "ptr*", ppIDString, "uint*", pdwIDStringLen, "HRESULT")
+        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", hwnd, "uint", idObject, "uint", idChild, "ptr*", ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 
@@ -173,7 +181,11 @@ class IAccPropServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-decomposehwndidentitystring
      */
     DecomposeHwndIdentityString(pIDString, dwIDStringLen, phwnd, pidObject, pidChild) {
-        result := ComCall(11, this, "char*", pIDString, "uint", dwIDStringLen, "ptr", phwnd, "uint*", pidObject, "uint*", pidChild, "HRESULT")
+        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+        pidObjectMarshal := pidObject is VarRef ? "uint*" : "ptr"
+        pidChildMarshal := pidChild is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", phwnd, pidObjectMarshal, pidObject, pidChildMarshal, pidChild, "HRESULT")
         return result
     }
 
@@ -256,7 +268,9 @@ class IAccPropServices extends IUnknown{
     ComposeHmenuIdentityString(hmenu, idChild, ppIDString, pdwIDStringLen) {
         hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
 
-        result := ComCall(16, this, "ptr", hmenu, "uint", idChild, "ptr*", ppIDString, "uint*", pdwIDStringLen, "HRESULT")
+        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", hmenu, "uint", idChild, "ptr*", ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 
@@ -270,7 +284,10 @@ class IAccPropServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-decomposehmenuidentitystring
      */
     DecomposeHmenuIdentityString(pIDString, dwIDStringLen, phmenu, pidChild) {
-        result := ComCall(17, this, "char*", pIDString, "uint", dwIDStringLen, "ptr", phmenu, "uint*", pidChild, "HRESULT")
+        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+        pidChildMarshal := pidChild is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", phmenu, pidChildMarshal, pidChild, "HRESULT")
         return result
     }
 }

@@ -54,7 +54,10 @@ class IDTFilter2 extends IDTFilter{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(protType, lpDateTime) {
-        result := ComCall(12, this, "int*", protType, "int*", lpDateTime, "HRESULT")
+        protTypeMarshal := protType is VarRef ? "int*" : "ptr"
+        lpDateTimeMarshal := lpDateTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, protTypeMarshal, protType, lpDateTimeMarshal, lpDateTime, "HRESULT")
         return result
     }
 

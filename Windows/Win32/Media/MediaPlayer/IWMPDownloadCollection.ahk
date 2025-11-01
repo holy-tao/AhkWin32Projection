@@ -35,7 +35,9 @@ class IWMPDownloadCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_id(plId) {
-        result := ComCall(7, this, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -45,7 +47,9 @@ class IWMPDownloadCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_count(plCount) {
-        result := ComCall(8, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

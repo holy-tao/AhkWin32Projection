@@ -74,7 +74,12 @@ class IWRdsProtocolShadowConnection extends IUnknown{
     DoTarget(pParam1, Param1Size, pParam2, Param2Size, pParam3, Param3Size, pParam4, Param4Size, pClientName) {
         pClientName := pClientName is String ? StrPtr(pClientName) : pClientName
 
-        result := ComCall(5, this, "char*", pParam1, "uint", Param1Size, "char*", pParam2, "uint", Param2Size, "char*", pParam3, "uint", Param3Size, "char*", pParam4, "uint", Param4Size, "ptr", pClientName, "HRESULT")
+        pParam1Marshal := pParam1 is VarRef ? "char*" : "ptr"
+        pParam2Marshal := pParam2 is VarRef ? "char*" : "ptr"
+        pParam3Marshal := pParam3 is VarRef ? "char*" : "ptr"
+        pParam4Marshal := pParam4 is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pParam1Marshal, pParam1, "uint", Param1Size, pParam2Marshal, pParam2, "uint", Param2Size, pParam3Marshal, pParam3, "uint", Param3Size, pParam4Marshal, pParam4, "uint", Param4Size, "ptr", pClientName, "HRESULT")
         return result
     }
 }

@@ -501,7 +501,9 @@ class Console {
      * @returns {HRESULT} 
      */
     static AllocConsoleWithOptions(options, result) {
-        result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, "int*", result, "int")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, resultMarshal, result, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -579,9 +581,11 @@ class Console {
     static GetConsoleMode(hConsoleHandle, lpMode) {
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
 
+        lpModeMarshal := lpMode is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleMode", "ptr", hConsoleHandle, "uint*", lpMode, "int")
+        result := DllCall("KERNEL32.dll\GetConsoleMode", "ptr", hConsoleHandle, lpModeMarshal, lpMode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -617,9 +621,11 @@ class Console {
     static GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpNumberOfEventsMarshal := lpNumberOfEvents is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumberOfConsoleInputEvents", "ptr", hConsoleInput, "uint*", lpNumberOfEvents, "int")
+        result := DllCall("KERNEL32.dll\GetNumberOfConsoleInputEvents", "ptr", hConsoleInput, lpNumberOfEventsMarshal, lpNumberOfEvents, "int")
         if(A_LastError)
             throw OSError()
 
@@ -638,9 +644,11 @@ class Console {
     static ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -659,9 +667,11 @@ class Console {
     static ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -680,9 +690,11 @@ class Console {
     static PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PeekConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\PeekConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -701,9 +713,11 @@ class Console {
     static PeekConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PeekConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\PeekConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -723,9 +737,12 @@ class Console {
     static ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nNumberOfCharsToRead, "uint*", lpNumberOfCharsRead, "ptr", pInputControl, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleA", "ptr", hConsoleInput, lpBufferMarshal, lpBuffer, "uint", nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "ptr", pInputControl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -745,9 +762,12 @@ class Console {
     static ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nNumberOfCharsToRead, "uint*", lpNumberOfCharsRead, "ptr", pInputControl, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleW", "ptr", hConsoleInput, lpBufferMarshal, lpBuffer, "uint", nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "ptr", pInputControl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -766,12 +786,14 @@ class Console {
     static WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+
+        lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleA", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, "uint*", lpNumberOfCharsWritten, "ptr", lpReserved, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleA", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -790,12 +812,14 @@ class Console {
     static WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+
+        lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleW", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, "uint*", lpNumberOfCharsWritten, "ptr", lpReserved, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleW", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -897,9 +921,11 @@ class Console {
     static FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
 
+        lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterA", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterA", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -919,9 +945,11 @@ class Console {
     static FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
 
+        lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterW", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterW", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -941,9 +969,11 @@ class Console {
     static FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
 
+        lpNumberOfAttrsWrittenMarshal := lpNumberOfAttrsWritten is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FillConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort", wAttribute, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfAttrsWritten, "int")
+        result := DllCall("KERNEL32.dll\FillConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort", wAttribute, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1257,12 +1287,14 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
+
+        lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1280,12 +1312,14 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
+
+        lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1305,9 +1339,12 @@ class Console {
     static WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
 
+        lpAttributeMarshal := lpAttribute is VarRef ? "ushort*" : "ptr"
+        lpNumberOfAttrsWrittenMarshal := lpNumberOfAttrsWritten is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort*", lpAttribute, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfAttrsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleOutputAttribute", "ptr", hConsoleOutput, lpAttributeMarshal, lpAttribute, "uint", nLength, "ptr", dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1325,12 +1362,14 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
+
+        lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "uint*", lpNumberOfCharsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1348,12 +1387,14 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
+
+        lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "uint*", lpNumberOfCharsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1373,9 +1414,12 @@ class Console {
     static ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCoord, lpNumberOfAttrsRead) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
 
+        lpAttributeMarshal := lpAttribute is VarRef ? "ushort*" : "ptr"
+        lpNumberOfAttrsReadMarshal := lpNumberOfAttrsRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort*", lpAttribute, "uint", nLength, "ptr", dwReadCoord, "uint*", lpNumberOfAttrsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleOutputAttribute", "ptr", hConsoleOutput, lpAttributeMarshal, lpAttribute, "uint", nLength, "ptr", dwReadCoord, lpNumberOfAttrsReadMarshal, lpNumberOfAttrsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1394,9 +1438,11 @@ class Console {
     static WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1415,9 +1461,11 @@ class Console {
     static WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
+        lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1675,9 +1723,11 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getnumberofconsolemousebuttons
      */
     static GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons) {
+        lpNumberOfMouseButtonsMarshal := lpNumberOfMouseButtons is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumberOfConsoleMouseButtons", "uint*", lpNumberOfMouseButtons, "int")
+        result := DllCall("KERNEL32.dll\GetNumberOfConsoleMouseButtons", lpNumberOfMouseButtonsMarshal, lpNumberOfMouseButtons, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1818,9 +1868,11 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsoledisplaymode
      */
     static GetConsoleDisplayMode(lpModeFlags) {
+        lpModeFlagsMarshal := lpModeFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleDisplayMode", "uint*", lpModeFlags, "int")
+        result := DllCall("KERNEL32.dll\GetConsoleDisplayMode", lpModeFlagsMarshal, lpModeFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2181,9 +2233,11 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/getconsoleprocesslist
      */
     static GetConsoleProcessList(lpdwProcessList, dwProcessCount) {
+        lpdwProcessListMarshal := lpdwProcessList is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleProcessList", "uint*", lpdwProcessList, "uint", dwProcessCount, "uint")
+        result := DllCall("KERNEL32.dll\GetConsoleProcessList", lpdwProcessListMarshal, lpdwProcessList, "uint", dwProcessCount, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2242,7 +2296,9 @@ class Console {
      * @returns {BOOL} 
      */
     static VDMConsoleOperation(iFunction, lpData) {
-        result := DllCall("KERNEL32.dll\VDMConsoleOperation", "uint", iFunction, "ptr", lpData, "int")
+        lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\VDMConsoleOperation", "uint", iFunction, lpDataMarshal, lpData, "int")
         return result
     }
 
@@ -2370,7 +2426,9 @@ class Console {
         hEndHardwareEvent := hEndHardwareEvent is Win32Handle ? NumGet(hEndHardwareEvent, "ptr") : hEndHardwareEvent
         hErrorhardwareEvent := hErrorhardwareEvent is Win32Handle ? NumGet(hErrorhardwareEvent, "ptr") : hErrorhardwareEvent
 
-        result := DllCall("KERNEL32.dll\RegisterConsoleVDM", "uint", dwRegisterFlags, "ptr", hStartHardwareEvent, "ptr", hEndHardwareEvent, "ptr", hErrorhardwareEvent, "uint", Reserved, "uint*", lpStateLength, "ptr*", lpState, "ptr", VDMBufferSize, "ptr*", lpVDMBuffer, "int")
+        lpStateLengthMarshal := lpStateLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\RegisterConsoleVDM", "uint", dwRegisterFlags, "ptr", hStartHardwareEvent, "ptr", hEndHardwareEvent, "ptr", hErrorhardwareEvent, "uint", Reserved, lpStateLengthMarshal, lpStateLength, "ptr*", lpState, "ptr", VDMBufferSize, "ptr*", lpVDMBuffer, "int")
         return result
     }
 
@@ -2488,7 +2546,9 @@ class Console {
     static ReadConsoleInputExA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
-        result := DllCall("KERNEL32.dll\ReadConsoleInputExA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "ushort", wFlags, "int")
+        lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\ReadConsoleInputExA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "ushort", wFlags, "int")
         return result
     }
 
@@ -2505,7 +2565,9 @@ class Console {
     static ReadConsoleInputExW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
-        result := DllCall("KERNEL32.dll\ReadConsoleInputExW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "ushort", wFlags, "int")
+        lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\ReadConsoleInputExW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "ushort", wFlags, "int")
         return result
     }
 
@@ -2520,7 +2582,9 @@ class Console {
     static WriteConsoleInputVDMA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
-        result := DllCall("KERNEL32.dll\WriteConsoleInputVDMA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsWritten, "int")
+        lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\WriteConsoleInputVDMA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, "int")
         return result
     }
 
@@ -2535,7 +2599,9 @@ class Console {
     static WriteConsoleInputVDMW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
 
-        result := DllCall("KERNEL32.dll\WriteConsoleInputVDMW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsWritten, "int")
+        lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\WriteConsoleInputVDMW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, "int")
         return result
     }
 
@@ -2548,7 +2614,9 @@ class Console {
     static GetConsoleNlsMode(hConsole, lpdwNlsMode) {
         hConsole := hConsole is Win32Handle ? NumGet(hConsole, "ptr") : hConsole
 
-        result := DllCall("KERNEL32.dll\GetConsoleNlsMode", "ptr", hConsole, "uint*", lpdwNlsMode, "int")
+        lpdwNlsModeMarshal := lpdwNlsMode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetConsoleNlsMode", "ptr", hConsole, lpdwNlsModeMarshal, lpdwNlsMode, "int")
         return result
     }
 
@@ -2575,7 +2643,9 @@ class Console {
     static GetConsoleCharType(hConsole, coordCheck, pdwType) {
         hConsole := hConsole is Win32Handle ? NumGet(hConsole, "ptr") : hConsole
 
-        result := DllCall("KERNEL32.dll\GetConsoleCharType", "ptr", hConsole, "ptr", coordCheck, "uint*", pdwType, "int")
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetConsoleCharType", "ptr", hConsole, "ptr", coordCheck, pdwTypeMarshal, pdwType, "int")
         return result
     }
 
@@ -2588,8 +2658,8 @@ class Console {
      * @returns {BOOL} 
      */
     static SetConsoleLocalEUDC(hConsoleHandle, wCodePoint, cFontSize, lpSB) {
-        lpSB := lpSB is String ? StrPtr(lpSB) : lpSB
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
+        lpSB := lpSB is String ? StrPtr(lpSB) : lpSB
 
         result := DllCall("KERNEL32.dll\SetConsoleLocalEUDC", "ptr", hConsoleHandle, "ushort", wCodePoint, "ptr", cFontSize, "ptr", lpSB, "int")
         return result
@@ -2652,7 +2722,9 @@ class Console {
     static RegisterConsoleIME(hWndConsoleIME, lpdwConsoleThreadId) {
         hWndConsoleIME := hWndConsoleIME is Win32Handle ? NumGet(hWndConsoleIME, "ptr") : hWndConsoleIME
 
-        result := DllCall("KERNEL32.dll\RegisterConsoleIME", "ptr", hWndConsoleIME, "uint*", lpdwConsoleThreadId, "int")
+        lpdwConsoleThreadIdMarshal := lpdwConsoleThreadId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\RegisterConsoleIME", "ptr", hWndConsoleIME, lpdwConsoleThreadIdMarshal, lpdwConsoleThreadId, "int")
         return result
     }
 

@@ -71,7 +71,9 @@ class IMtsEventInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_count
      */
     get_Count(lCount) {
-        result := ComCall(10, this, "int*", lCount, "HRESULT")
+        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, lCountMarshal, lCount, "HRESULT")
         return result
     }
 

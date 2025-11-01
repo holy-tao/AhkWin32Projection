@@ -83,7 +83,10 @@ class IMemAllocator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocator-getbuffer
      */
     GetBuffer(ppBuffer, pStartTime, pEndTime, dwFlags) {
-        result := ComCall(7, this, "ptr*", ppBuffer, "int64*", pStartTime, "int64*", pEndTime, "uint", dwFlags, "HRESULT")
+        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
+        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, "ptr*", ppBuffer, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, "uint", dwFlags, "HRESULT")
         return result
     }
 

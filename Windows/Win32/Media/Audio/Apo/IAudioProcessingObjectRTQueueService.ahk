@@ -37,7 +37,9 @@ class IAudioProcessingObjectRTQueueService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudioprocessingobjectrtqueueservice-getrealtimeworkqueue
      */
     GetRealTimeWorkQueue(workQueueId) {
-        result := ComCall(3, this, "uint*", workQueueId, "HRESULT")
+        workQueueIdMarshal := workQueueId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, workQueueIdMarshal, workQueueId, "HRESULT")
         return result
     }
 }

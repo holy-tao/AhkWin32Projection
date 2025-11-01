@@ -50,7 +50,9 @@ class IAMStreamSelect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-count
      */
     Count(pcStreams) {
-        result := ComCall(3, this, "uint*", pcStreams, "HRESULT")
+        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcStreamsMarshal, pcStreams, "HRESULT")
         return result
     }
 
@@ -68,7 +70,11 @@ class IAMStreamSelect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-info
      */
     Info(lIndex, ppmt, pdwFlags, plcid, pdwGroup, ppszName, ppObject, ppUnk) {
-        result := ComCall(4, this, "int", lIndex, "ptr*", ppmt, "uint*", pdwFlags, "uint*", plcid, "uint*", pdwGroup, "ptr", ppszName, "ptr*", ppObject, "ptr*", ppUnk, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+        pdwGroupMarshal := pdwGroup is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", lIndex, "ptr*", ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, "ptr", ppszName, "ptr*", ppObject, "ptr*", ppUnk, "HRESULT")
         return result
     }
 

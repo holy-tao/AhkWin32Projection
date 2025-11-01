@@ -44,7 +44,9 @@ class IEnumGuideDataProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumguidedataproperties-next
      */
     Next(celt, ppprop, pcelt) {
-        result := ComCall(3, this, "uint", celt, "ptr*", ppprop, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", ppprop, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 

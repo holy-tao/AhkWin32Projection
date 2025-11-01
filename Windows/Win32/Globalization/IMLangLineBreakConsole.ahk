@@ -40,7 +40,10 @@ class IMLangLineBreakConsole extends IUnknown{
      * @returns {HRESULT} 
      */
     BreakLineML(pSrcMLStr, lSrcPos, lSrcLen, cMinColumns, cMaxColumns, plLineLen, plSkipLen) {
-        result := ComCall(3, this, "ptr", pSrcMLStr, "int", lSrcPos, "int", lSrcLen, "int", cMinColumns, "int", cMaxColumns, "int*", plLineLen, "int*", plSkipLen, "HRESULT")
+        plLineLenMarshal := plLineLen is VarRef ? "int*" : "ptr"
+        plSkipLenMarshal := plSkipLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pSrcMLStr, "int", lSrcPos, "int", lSrcLen, "int", cMinColumns, "int", cMaxColumns, plLineLenMarshal, plLineLen, plSkipLenMarshal, plSkipLen, "HRESULT")
         return result
     }
 
@@ -57,7 +60,10 @@ class IMLangLineBreakConsole extends IUnknown{
     BreakLineW(locale, pszSrc, cchSrc, cMaxColumns, pcchLine, pcchSkip) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := ComCall(4, this, "uint", locale, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, "int*", pcchLine, "int*", pcchSkip, "HRESULT")
+        pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
+        pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "uint", locale, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
         return result
     }
 
@@ -73,7 +79,12 @@ class IMLangLineBreakConsole extends IUnknown{
      * @returns {HRESULT} 
      */
     BreakLineA(locale, uCodePage, pszSrc, cchSrc, cMaxColumns, pcchLine, pcchSkip) {
-        result := ComCall(5, this, "uint", locale, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, "int*", pcchLine, "int*", pcchSkip, "HRESULT")
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
+
+        pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
+        pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "uint", locale, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
         return result
     }
 }

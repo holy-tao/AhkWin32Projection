@@ -102,7 +102,9 @@ class IAction extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iaction-get_type
      */
     get_Type(pType) {
-        result := ComCall(9, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 }

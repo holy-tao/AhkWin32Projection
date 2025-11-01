@@ -65,7 +65,9 @@ class IAMMediaTypeStream extends IMediaStream{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-createsample
      */
     CreateSample(lSampleSize, pbBuffer, dwFlags, pUnkOuter, ppAMMediaTypeSample) {
-        result := ComCall(11, this, "int", lSampleSize, "char*", pbBuffer, "uint", dwFlags, "ptr", pUnkOuter, "ptr*", ppAMMediaTypeSample, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "int", lSampleSize, pbBufferMarshal, pbBuffer, "uint", dwFlags, "ptr", pUnkOuter, "ptr*", ppAMMediaTypeSample, "HRESULT")
         return result
     }
 

@@ -50,7 +50,9 @@ class IShellIconOverlayManager extends IUnknown{
     GetFileOverlayInfo(pwszPath, dwAttrib, pIndex, dwflags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, "int*", pIndex, "uint", dwflags, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, pIndexMarshal, pIndex, "uint", dwflags, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IShellIconOverlayManager extends IUnknown{
     GetReservedOverlayInfo(pwszPath, dwAttrib, pIndex, dwflags, iReservedID) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(4, this, "ptr", pwszPath, "uint", dwAttrib, "int*", pIndex, "uint", dwflags, "int", iReservedID, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszPath, "uint", dwAttrib, pIndexMarshal, pIndex, "uint", dwflags, "int", iReservedID, "HRESULT")
         return result
     }
 
@@ -101,7 +105,9 @@ class IShellIconOverlayManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
      */
     OverlayIndexFromImageIndex(iImage, piIndex, fAdd) {
-        result := ComCall(7, this, "int", iImage, "int*", piIndex, "int", fAdd, "HRESULT")
+        piIndexMarshal := piIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", iImage, piIndexMarshal, piIndex, "int", fAdd, "HRESULT")
         return result
     }
 }

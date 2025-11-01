@@ -101,7 +101,9 @@ class IAzBizRuleParameters extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleparameters-get_count
      */
     get_Count(plCount) {
-        result := ComCall(12, this, "uint*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 }

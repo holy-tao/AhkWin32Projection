@@ -81,7 +81,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getexposurecompensation
      */
     GetExposureCompensation(pEV) {
-        result := ComCall(15, this, "double*", pEV, "HRESULT")
+        pEVMarshal := pEV is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, pEVMarshal, pEV, "HRESULT")
         return result
     }
 
@@ -107,7 +109,11 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getwhitepointrgb
      */
     GetWhitePointRGB(pRed, pGreen, pBlue) {
-        result := ComCall(17, this, "uint*", pRed, "uint*", pGreen, "uint*", pBlue, "HRESULT")
+        pRedMarshal := pRed is VarRef ? "uint*" : "ptr"
+        pGreenMarshal := pGreen is VarRef ? "uint*" : "ptr"
+        pBlueMarshal := pBlue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pRedMarshal, pRed, pGreenMarshal, pGreen, pBlueMarshal, pBlue, "HRESULT")
         return result
     }
 
@@ -129,7 +135,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getnamedwhitepoint
      */
     GetNamedWhitePoint(pWhitePoint) {
-        result := ComCall(19, this, "int*", pWhitePoint, "HRESULT")
+        pWhitePointMarshal := pWhitePoint is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pWhitePointMarshal, pWhitePoint, "HRESULT")
         return result
     }
 
@@ -151,7 +159,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getwhitepointkelvin
      */
     GetWhitePointKelvin(pWhitePointKelvin) {
-        result := ComCall(21, this, "uint*", pWhitePointKelvin, "HRESULT")
+        pWhitePointKelvinMarshal := pWhitePointKelvin is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pWhitePointKelvinMarshal, pWhitePointKelvin, "HRESULT")
         return result
     }
 
@@ -164,7 +174,11 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getkelvinrangeinfo
      */
     GetKelvinRangeInfo(pMinKelvinTemp, pMaxKelvinTemp, pKelvinTempStepValue) {
-        result := ComCall(22, this, "uint*", pMinKelvinTemp, "uint*", pMaxKelvinTemp, "uint*", pKelvinTempStepValue, "HRESULT")
+        pMinKelvinTempMarshal := pMinKelvinTemp is VarRef ? "uint*" : "ptr"
+        pMaxKelvinTempMarshal := pMaxKelvinTemp is VarRef ? "uint*" : "ptr"
+        pKelvinTempStepValueMarshal := pKelvinTempStepValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pMinKelvinTempMarshal, pMinKelvinTemp, pMaxKelvinTempMarshal, pMaxKelvinTemp, pKelvinTempStepValueMarshal, pKelvinTempStepValue, "HRESULT")
         return result
     }
 
@@ -186,7 +200,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getcontrast
      */
     GetContrast(pContrast) {
-        result := ComCall(24, this, "double*", pContrast, "HRESULT")
+        pContrastMarshal := pContrast is VarRef ? "double*" : "ptr"
+
+        result := ComCall(24, this, pContrastMarshal, pContrast, "HRESULT")
         return result
     }
 
@@ -208,7 +224,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getgamma
      */
     GetGamma(pGamma) {
-        result := ComCall(26, this, "double*", pGamma, "HRESULT")
+        pGammaMarshal := pGamma is VarRef ? "double*" : "ptr"
+
+        result := ComCall(26, this, pGammaMarshal, pGamma, "HRESULT")
         return result
     }
 
@@ -230,7 +248,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getsharpness
      */
     GetSharpness(pSharpness) {
-        result := ComCall(28, this, "double*", pSharpness, "HRESULT")
+        pSharpnessMarshal := pSharpness is VarRef ? "double*" : "ptr"
+
+        result := ComCall(28, this, pSharpnessMarshal, pSharpness, "HRESULT")
         return result
     }
 
@@ -252,7 +272,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getsaturation
      */
     GetSaturation(pSaturation) {
-        result := ComCall(30, this, "double*", pSaturation, "HRESULT")
+        pSaturationMarshal := pSaturation is VarRef ? "double*" : "ptr"
+
+        result := ComCall(30, this, pSaturationMarshal, pSaturation, "HRESULT")
         return result
     }
 
@@ -274,7 +296,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-gettint
      */
     GetTint(pTint) {
-        result := ComCall(32, this, "double*", pTint, "HRESULT")
+        pTintMarshal := pTint is VarRef ? "double*" : "ptr"
+
+        result := ComCall(32, this, pTintMarshal, pTint, "HRESULT")
         return result
     }
 
@@ -296,7 +320,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getnoisereduction
      */
     GetNoiseReduction(pNoiseReduction) {
-        result := ComCall(34, this, "double*", pNoiseReduction, "HRESULT")
+        pNoiseReductionMarshal := pNoiseReduction is VarRef ? "double*" : "ptr"
+
+        result := ComCall(34, this, pNoiseReductionMarshal, pNoiseReduction, "HRESULT")
         return result
     }
 
@@ -332,7 +358,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-gettonecurve
      */
     GetToneCurve(cbToneCurveBufferSize, pToneCurve, pcbActualToneCurveBufferSize) {
-        result := ComCall(37, this, "uint", cbToneCurveBufferSize, "ptr", pToneCurve, "uint*", pcbActualToneCurveBufferSize, "HRESULT")
+        pcbActualToneCurveBufferSizeMarshal := pcbActualToneCurveBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "uint", cbToneCurveBufferSize, "ptr", pToneCurve, pcbActualToneCurveBufferSizeMarshal, pcbActualToneCurveBufferSize, "HRESULT")
         return result
     }
 
@@ -354,7 +382,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getrotation
      */
     GetRotation(pRotation) {
-        result := ComCall(39, this, "double*", pRotation, "HRESULT")
+        pRotationMarshal := pRotation is VarRef ? "double*" : "ptr"
+
+        result := ComCall(39, this, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 
@@ -376,7 +406,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getrendermode
      */
     GetRenderMode(pRenderMode) {
-        result := ComCall(41, this, "int*", pRenderMode, "HRESULT")
+        pRenderModeMarshal := pRenderMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, pRenderModeMarshal, pRenderMode, "HRESULT")
         return result
     }
 

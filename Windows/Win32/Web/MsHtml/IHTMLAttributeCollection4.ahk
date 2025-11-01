@@ -122,7 +122,9 @@ class IHTMLAttributeCollection4 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(14, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 }

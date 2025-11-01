@@ -51,7 +51,9 @@ class IFrameworkInputPane extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advise
      */
     Advise(pWindow, pHandler, pdwCookie) {
-        result := ComCall(3, this, "ptr", pWindow, "ptr", pHandler, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pWindow, "ptr", pHandler, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IFrameworkInputPane extends IUnknown{
     AdviseWithHWND(hwnd, pHandler, pdwCookie) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", pHandler, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hwnd, "ptr", pHandler, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

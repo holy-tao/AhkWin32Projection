@@ -37,7 +37,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -62,7 +66,12 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcopycontrol
      */
     GetCopyControl(pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
-        result := ComCall(5, this, "char*", pbDigitalRecordingControlData, "char*", pbCopyControlType, "char*", pbAPSControlData, "char*", pbMaximumBitrate, "HRESULT")
+        pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : "ptr"
+        pbCopyControlTypeMarshal := pbCopyControlType is VarRef ? "char*" : "ptr"
+        pbAPSControlDataMarshal := pbAPSControlData is VarRef ? "char*" : "ptr"
+        pbMaximumBitrateMarshal := pbMaximumBitrate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbDigitalRecordingControlDataMarshal, pbDigitalRecordingControlData, pbCopyControlTypeMarshal, pbCopyControlType, pbAPSControlDataMarshal, pbAPSControlData, pbMaximumBitrateMarshal, pbMaximumBitrate, "HRESULT")
         return result
     }
 
@@ -73,7 +82,9 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -89,7 +100,13 @@ class IIsdbDigitalCopyControlDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getrecordcopycontrol
      */
     GetRecordCopyControl(bRecordIndex, pbComponentTag, pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", pbComponentTag, "char*", pbDigitalRecordingControlData, "char*", pbCopyControlType, "char*", pbAPSControlData, "char*", pbMaximumBitrate, "HRESULT")
+        pbComponentTagMarshal := pbComponentTag is VarRef ? "char*" : "ptr"
+        pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : "ptr"
+        pbCopyControlTypeMarshal := pbCopyControlType is VarRef ? "char*" : "ptr"
+        pbAPSControlDataMarshal := pbAPSControlData is VarRef ? "char*" : "ptr"
+        pbMaximumBitrateMarshal := pbMaximumBitrate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "char", bRecordIndex, pbComponentTagMarshal, pbComponentTag, pbDigitalRecordingControlDataMarshal, pbDigitalRecordingControlData, pbCopyControlTypeMarshal, pbCopyControlType, pbAPSControlDataMarshal, pbAPSControlData, pbMaximumBitrateMarshal, pbMaximumBitrate, "HRESULT")
         return result
     }
 }

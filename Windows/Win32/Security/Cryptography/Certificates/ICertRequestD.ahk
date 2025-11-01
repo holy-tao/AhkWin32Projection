@@ -45,7 +45,10 @@ class ICertRequestD extends IUnknown{
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
         pwszAttributes := pwszAttributes is String ? StrPtr(pwszAttributes) : pwszAttributes
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pwszAuthority, "uint*", pdwRequestId, "uint*", pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbCertChain, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "HRESULT")
+        pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
+        pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pwszAuthority, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbCertChain, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "HRESULT")
         return result
     }
 

@@ -69,7 +69,9 @@ class ISyncMgrRegister extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrregister-gethandlerregistrationinfo
      */
     GetHandlerRegistrationInfo(clsidHandler, pdwSyncMgrRegisterFlags) {
-        result := ComCall(5, this, "ptr", clsidHandler, "uint*", pdwSyncMgrRegisterFlags, "HRESULT")
+        pdwSyncMgrRegisterFlagsMarshal := pdwSyncMgrRegisterFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", clsidHandler, pdwSyncMgrRegisterFlagsMarshal, pdwSyncMgrRegisterFlags, "HRESULT")
         return result
     }
 }

@@ -66,7 +66,9 @@ class IGCHost extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadStats(pFiberCookie, pStats) {
-        result := ComCall(6, this, "uint*", pFiberCookie, "ptr", pStats, "HRESULT")
+        pFiberCookieMarshal := pFiberCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pFiberCookieMarshal, pFiberCookie, "ptr", pStats, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class IInternetZoneManagerEx extends IInternetZoneManager{
      * @returns {HRESULT} 
      */
     GetZoneActionPolicyEx(dwZone, dwAction, pPolicy, cbPolicy, urlZoneReg, dwFlags) {
-        result := ComCall(15, this, "uint", dwZone, "uint", dwAction, "char*", pPolicy, "uint", cbPolicy, "int", urlZoneReg, "uint", dwFlags, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, "int", urlZoneReg, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IInternetZoneManagerEx extends IInternetZoneManager{
      * @returns {HRESULT} 
      */
     SetZoneActionPolicyEx(dwZone, dwAction, pPolicy, cbPolicy, urlZoneReg, dwFlags) {
-        result := ComCall(16, this, "uint", dwZone, "uint", dwAction, "char*", pPolicy, "uint", cbPolicy, "int", urlZoneReg, "uint", dwFlags, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+
+        result := ComCall(16, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, "int", urlZoneReg, "uint", dwFlags, "HRESULT")
         return result
     }
 }

@@ -54,7 +54,16 @@ class ISCPSecureQuery2 extends ISCPSecureQuery{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery2-makedecision2
      */
     MakeDecision2(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, pAppCertApp, dwAppCertAppLen, pAppCertSP, dwAppCertSPLen, pszRevocationURL, pdwRevocationURLLen, pdwRevocationBitFlag, pqwFileSize, pUnknown, ppExchange, abMac) {
-        result := ComCall(7, this, "uint", fuFlags, "char*", pData, "uint", dwSize, "uint", dwAppSec, "char*", pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "char*", pAppCertApp, "uint", dwAppCertAppLen, "char*", pAppCertSP, "uint", dwAppCertSPLen, "ptr", pszRevocationURL, "uint*", pdwRevocationURLLen, "uint*", pdwRevocationBitFlag, "uint*", pqwFileSize, "ptr", pUnknown, "ptr*", ppExchange, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
+        pAppCertAppMarshal := pAppCertApp is VarRef ? "char*" : "ptr"
+        pAppCertSPMarshal := pAppCertSP is VarRef ? "char*" : "ptr"
+        pdwRevocationURLLenMarshal := pdwRevocationURLLen is VarRef ? "uint*" : "ptr"
+        pdwRevocationBitFlagMarshal := pdwRevocationBitFlag is VarRef ? "uint*" : "ptr"
+        pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, pAppCertAppMarshal, pAppCertApp, "uint", dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, "uint", dwAppCertSPLen, "ptr", pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, "ptr*", ppExchange, abMacMarshal, abMac, "HRESULT")
         return result
     }
 }

@@ -192,7 +192,9 @@ class Cabinets {
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fcicreate
      */
     static FCICreate(perf, pfnfcifp, pfna, pfnf, pfnopen, pfnread, pfnwrite, pfnclose, pfnseek, pfndelete, pfnfcigtf, pccab, pv) {
-        result := DllCall("Cabinet.dll\FCICreate", "ptr", perf, "ptr", pfnfcifp, "ptr", pfna, "ptr", pfnf, "ptr", pfnopen, "ptr", pfnread, "ptr", pfnwrite, "ptr", pfnclose, "ptr", pfnseek, "ptr", pfndelete, "ptr", pfnfcigtf, "ptr", pccab, "ptr", pv, "CDecl ptr")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FCICreate", "ptr", perf, "ptr", pfnfcifp, "ptr", pfna, "ptr", pfnf, "ptr", pfnopen, "ptr", pfnread, "ptr", pfnwrite, "ptr", pfnclose, "ptr", pfnseek, "ptr", pfndelete, "ptr", pfnfcigtf, "ptr", pccab, pvMarshal, pv, "CDecl ptr")
         return result
     }
 
@@ -246,7 +248,9 @@ class Cabinets {
         pszSourceFile := pszSourceFile is String ? StrPtr(pszSourceFile) : pszSourceFile
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("Cabinet.dll\FCIAddFile", "ptr", hfci, "ptr", pszSourceFile, "ptr", pszFileName, "int", fExecute, "ptr", pfnfcignc, "ptr", pfnfcis, "ptr", pfnfcigoi, "ushort", typeCompress, "CDecl int")
+        hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FCIAddFile", hfciMarshal, hfci, "ptr", pszSourceFile, "ptr", pszFileName, "int", fExecute, "ptr", pfnfcignc, "ptr", pfnfcis, "ptr", pfnfcigoi, "ushort", typeCompress, "CDecl int")
         return result
     }
 
@@ -262,7 +266,9 @@ class Cabinets {
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciflushcabinet
      */
     static FCIFlushCabinet(hfci, fGetNextCab, pfnfcignc, pfnfcis) {
-        result := DllCall("Cabinet.dll\FCIFlushCabinet", "ptr", hfci, "int", fGetNextCab, "ptr", pfnfcignc, "ptr", pfnfcis, "CDecl int")
+        hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FCIFlushCabinet", hfciMarshal, hfci, "int", fGetNextCab, "ptr", pfnfcignc, "ptr", pfnfcis, "CDecl int")
         return result
     }
 
@@ -277,7 +283,9 @@ class Cabinets {
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciflushfolder
      */
     static FCIFlushFolder(hfci, pfnfcignc, pfnfcis) {
-        result := DllCall("Cabinet.dll\FCIFlushFolder", "ptr", hfci, "ptr", pfnfcignc, "ptr", pfnfcis, "CDecl int")
+        hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FCIFlushFolder", hfciMarshal, hfci, "ptr", pfnfcignc, "ptr", pfnfcis, "CDecl int")
         return result
     }
 
@@ -290,7 +298,9 @@ class Cabinets {
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fcidestroy
      */
     static FCIDestroy(hfci) {
-        result := DllCall("Cabinet.dll\FCIDestroy", "ptr", hfci, "CDecl int")
+        hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FCIDestroy", hfciMarshal, hfci, "CDecl int")
         return result
     }
 
@@ -328,7 +338,9 @@ class Cabinets {
      * @since windows5.0
      */
     static FDIIsCabinet(hfdi, hf, pfdici) {
-        result := DllCall("Cabinet.dll\FDIIsCabinet", "ptr", hfdi, "ptr", hf, "ptr", pfdici, "CDecl int")
+        hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FDIIsCabinet", hfdiMarshal, hfdi, "ptr", hf, "ptr", pfdici, "CDecl int")
         return result
     }
 
@@ -353,7 +365,10 @@ class Cabinets {
         pszCabinet := pszCabinet is String ? StrPtr(pszCabinet) : pszCabinet
         pszCabPath := pszCabPath is String ? StrPtr(pszCabPath) : pszCabPath
 
-        result := DllCall("Cabinet.dll\FDICopy", "ptr", hfdi, "ptr", pszCabinet, "ptr", pszCabPath, "int", flags, "ptr", pfnfdin, "ptr", pfnfdid, "ptr", pvUser, "CDecl int")
+        hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
+        pvUserMarshal := pvUser is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FDICopy", hfdiMarshal, hfdi, "ptr", pszCabinet, "ptr", pszCabPath, "int", flags, "ptr", pfnfdin, "ptr", pfnfdid, pvUserMarshal, pvUser, "CDecl int")
         return result
     }
 
@@ -367,7 +382,9 @@ class Cabinets {
      * @since windows5.0
      */
     static FDIDestroy(hfdi) {
-        result := DllCall("Cabinet.dll\FDIDestroy", "ptr", hfdi, "CDecl int")
+        hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FDIDestroy", hfdiMarshal, hfdi, "CDecl int")
         return result
     }
 
@@ -384,7 +401,9 @@ class Cabinets {
     static FDITruncateCabinet(hfdi, pszCabinetName, iFolderToDelete) {
         pszCabinetName := pszCabinetName is String ? StrPtr(pszCabinetName) : pszCabinetName
 
-        result := DllCall("Cabinet.dll\FDITruncateCabinet", "ptr", hfdi, "ptr", pszCabinetName, "ushort", iFolderToDelete, "CDecl int")
+        hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Cabinet.dll\FDITruncateCabinet", hfdiMarshal, hfdi, "ptr", pszCabinetName, "ushort", iFolderToDelete, "CDecl int")
         return result
     }
 

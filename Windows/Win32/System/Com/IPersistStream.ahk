@@ -82,7 +82,9 @@ class IPersistStream extends IPersist{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersiststream-getsizemax
      */
     GetSizeMax(pcbSize) {
-        result := ComCall(7, this, "uint*", pcbSize, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 }

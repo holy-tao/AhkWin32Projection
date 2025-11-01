@@ -66,7 +66,9 @@ class ISearchItemsChangedSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchitemschangedsink-onitemschanged
      */
     OnItemsChanged(dwNumberOfChanges, rgDataChangeEntries, rgdwDocIds, rghrCompletionCodes) {
-        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", rgDataChangeEntries, "uint*", rgdwDocIds, "ptr", rghrCompletionCodes, "HRESULT")
+        rgdwDocIdsMarshal := rgdwDocIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, "ptr", rghrCompletionCodes, "HRESULT")
         return result
     }
 }

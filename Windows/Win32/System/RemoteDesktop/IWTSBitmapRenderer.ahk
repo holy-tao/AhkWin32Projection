@@ -42,7 +42,9 @@ class IWTSBitmapRenderer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-render
      */
     Render(imageFormat, dwWidth, dwHeight, cbStride, cbImageBuffer, pImageBuffer) {
-        result := ComCall(3, this, "ptr", imageFormat, "uint", dwWidth, "uint", dwHeight, "int", cbStride, "uint", cbImageBuffer, "char*", pImageBuffer, "HRESULT")
+        pImageBufferMarshal := pImageBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", imageFormat, "uint", dwWidth, "uint", dwHeight, "int", cbStride, "uint", cbImageBuffer, pImageBufferMarshal, pImageBuffer, "HRESULT")
         return result
     }
 

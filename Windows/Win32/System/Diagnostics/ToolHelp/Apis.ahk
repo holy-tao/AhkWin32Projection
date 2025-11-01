@@ -151,7 +151,11 @@ class ToolHelp {
      * @since windows5.1.2600
      */
     static Toolhelp32ReadProcessMemory(th32ProcessID, lpBaseAddress, lpBuffer, cbRead, lpNumberOfBytesRead) {
-        result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", "uint", th32ProcessID, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", cbRead, "ptr*", lpNumberOfBytesRead, "int")
+        lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpNumberOfBytesReadMarshal := lpNumberOfBytesRead is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", "uint", th32ProcessID, lpBaseAddressMarshal, lpBaseAddress, lpBufferMarshal, lpBuffer, "ptr", cbRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, "int")
         return result
     }
 

@@ -51,7 +51,9 @@ class ICertEncodeBitString extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-getbitcount
      */
     GetBitCount(pBitCount) {
-        result := ComCall(8, this, "int*", pBitCount, "HRESULT")
+        pBitCountMarshal := pBitCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pBitCountMarshal, pBitCount, "HRESULT")
         return result
     }
 

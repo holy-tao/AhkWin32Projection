@@ -166,7 +166,9 @@ class IExplorerBrowser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-advise
      */
     Advise(psbe, pdwCookie) {
-        result := ComCall(9, this, "ptr", psbe, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", psbe, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -199,7 +201,9 @@ class IExplorerBrowser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getoptions
      */
     GetOptions(pdwFlag) {
-        result := ComCall(12, this, "int*", pdwFlag, "HRESULT")
+        pdwFlagMarshal := pdwFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pdwFlagMarshal, pdwFlag, "HRESULT")
         return result
     }
 

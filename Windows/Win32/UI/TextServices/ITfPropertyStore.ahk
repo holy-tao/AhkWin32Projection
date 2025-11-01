@@ -48,7 +48,9 @@ class ITfPropertyStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-getdatatype
      */
     GetDataType(pdwReserved) {
-        result := ComCall(4, this, "uint*", pdwReserved, "HRESULT")
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 
@@ -131,7 +133,9 @@ class ITfPropertyStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-serialize
      */
     Serialize(pStream, pcb) {
-        result := ComCall(11, this, "ptr", pStream, "uint*", pcb, "HRESULT")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pStream, pcbMarshal, pcb, "HRESULT")
         return result
     }
 }

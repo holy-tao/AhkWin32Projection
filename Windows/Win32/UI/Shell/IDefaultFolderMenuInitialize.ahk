@@ -80,7 +80,9 @@ class IDefaultFolderMenuInitialize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-getmenurestrictions
      */
     GetMenuRestrictions(dfmrMask, pdfmrValues) {
-        result := ComCall(5, this, "int", dfmrMask, "int*", pdfmrValues, "HRESULT")
+        pdfmrValuesMarshal := pdfmrValues is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", dfmrMask, pdfmrValuesMarshal, pdfmrValues, "HRESULT")
         return result
     }
 

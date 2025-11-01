@@ -75,7 +75,9 @@ class IBackgroundCopyCallback1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
      */
     OnProgressEx(ProgressType, pGroup, pJob, dwFileIndex, dwProgressValue, dwByteArraySize, pByte) {
-        result := ComCall(5, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "uint", dwByteArraySize, "char*", pByte, "HRESULT")
+        pByteMarshal := pByte is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "uint", dwByteArraySize, pByteMarshal, pByte, "HRESULT")
         return result
     }
 }

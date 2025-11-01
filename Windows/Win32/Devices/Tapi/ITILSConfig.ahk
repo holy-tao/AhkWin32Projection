@@ -37,7 +37,9 @@ class ITILSConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itilsconfig-get_port
      */
     get_Port(pPort) {
-        result := ComCall(7, this, "int*", pPort, "HRESULT")
+        pPortMarshal := pPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pPortMarshal, pPort, "HRESULT")
         return result
     }
 

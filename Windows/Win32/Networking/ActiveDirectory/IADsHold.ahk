@@ -59,7 +59,9 @@ class IADsHold extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Amount(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

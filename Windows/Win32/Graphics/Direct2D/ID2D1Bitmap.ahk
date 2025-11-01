@@ -89,7 +89,10 @@ class ID2D1Bitmap extends ID2D1Image{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-getdpi
      */
     GetDpi(dpiX, dpiY) {
-        ComCall(7, this, "float*", dpiX, "float*", dpiY)
+        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
+        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+
+        ComCall(7, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY)
     }
 
     /**
@@ -127,7 +130,9 @@ class ID2D1Bitmap extends ID2D1Image{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-copyfrommemory
      */
     CopyFromMemory(dstRect, srcData, pitch) {
-        result := ComCall(10, this, "ptr", dstRect, "ptr", srcData, "uint", pitch, "HRESULT")
+        srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "ptr", dstRect, srcDataMarshal, srcData, "uint", pitch, "HRESULT")
         return result
     }
 }

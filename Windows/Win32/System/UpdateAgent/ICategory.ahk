@@ -92,7 +92,9 @@ class ICategory extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_order
      */
     get_Order(retval) {
-        result := ComCall(12, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

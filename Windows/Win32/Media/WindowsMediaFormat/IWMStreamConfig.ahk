@@ -48,7 +48,9 @@ class IWMStreamConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamnumber
      */
     GetStreamNumber(pwStreamNum) {
-        result := ComCall(4, this, "ushort*", pwStreamNum, "HRESULT")
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pwStreamNumMarshal, pwStreamNum, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IWMStreamConfig extends IUnknown{
     GetStreamName(pwszStreamName, pcchStreamName) {
         pwszStreamName := pwszStreamName is String ? StrPtr(pwszStreamName) : pwszStreamName
 
-        result := ComCall(6, this, "ptr", pwszStreamName, "ushort*", pcchStreamName, "HRESULT")
+        pcchStreamNameMarshal := pcchStreamName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszStreamName, pcchStreamNameMarshal, pcchStreamName, "HRESULT")
         return result
     }
 
@@ -100,7 +104,9 @@ class IWMStreamConfig extends IUnknown{
     GetConnectionName(pwszInputName, pcchInputName) {
         pwszInputName := pwszInputName is String ? StrPtr(pwszInputName) : pwszInputName
 
-        result := ComCall(8, this, "ptr", pwszInputName, "ushort*", pcchInputName, "HRESULT")
+        pcchInputNameMarshal := pcchInputName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pwszInputName, pcchInputNameMarshal, pcchInputName, "HRESULT")
         return result
     }
 
@@ -124,7 +130,9 @@ class IWMStreamConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbitrate
      */
     GetBitrate(pdwBitrate) {
-        result := ComCall(10, this, "uint*", pdwBitrate, "HRESULT")
+        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwBitrateMarshal, pdwBitrate, "HRESULT")
         return result
     }
 
@@ -146,7 +154,9 @@ class IWMStreamConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbufferwindow
      */
     GetBufferWindow(pmsBufferWindow) {
-        result := ComCall(12, this, "uint*", pmsBufferWindow, "HRESULT")
+        pmsBufferWindowMarshal := pmsBufferWindow is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pmsBufferWindowMarshal, pmsBufferWindow, "HRESULT")
         return result
     }
 

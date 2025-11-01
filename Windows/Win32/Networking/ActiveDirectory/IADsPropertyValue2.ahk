@@ -343,7 +343,9 @@ class IADsPropertyValue2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue2-getobjectproperty
      */
     GetObjectProperty(lnADsType, pvProp) {
-        result := ComCall(7, this, "int*", lnADsType, "ptr", pvProp, "HRESULT")
+        lnADsTypeMarshal := lnADsType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, lnADsTypeMarshal, lnADsType, "ptr", pvProp, "HRESULT")
         return result
     }
 

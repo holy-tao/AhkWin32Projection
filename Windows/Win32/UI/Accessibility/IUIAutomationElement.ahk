@@ -250,7 +250,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentprocessid
      */
     get_CurrentProcessId(retVal) {
-        result := ComCall(20, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -261,7 +263,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontroltype
      */
     get_CurrentControlType(retVal) {
-        result := ComCall(21, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -382,7 +386,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentculture
      */
     get_CurrentCulture(retVal) {
-        result := ComCall(32, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -459,7 +465,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentorientation
      */
     get_CurrentOrientation(retVal) {
-        result := ComCall(39, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -602,7 +610,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedprocessid
      */
     get_CachedProcessId(retVal) {
-        result := ComCall(52, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -613,7 +623,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontroltype
      */
     get_CachedControlType(retVal) {
-        result := ComCall(53, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -734,7 +746,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedculture
      */
     get_CachedCulture(retVal) {
-        result := ComCall(64, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -811,7 +825,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedorientation
      */
     get_CachedOrientation(retVal) {
-        result := ComCall(71, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(71, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

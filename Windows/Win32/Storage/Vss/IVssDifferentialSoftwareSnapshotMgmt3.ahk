@@ -45,7 +45,9 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-setvolumeprotectlevel
      */
     SetVolumeProtectLevel(pwszVolumeName, protectionLevel) {
-        result := ComCall(13, this, "ushort*", pwszVolumeName, "int", protectionLevel, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(13, this, pwszVolumeNameMarshal, pwszVolumeName, "int", protectionLevel, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-getvolumeprotectlevel
      */
     GetVolumeProtectLevel(pwszVolumeName, protectionLevel) {
-        result := ComCall(14, this, "ushort*", pwszVolumeName, "ptr", protectionLevel, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(14, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", protectionLevel, "HRESULT")
         return result
     }
 
@@ -68,7 +72,9 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-clearvolumeprotectfault
      */
     ClearVolumeProtectFault(pwszVolumeName) {
-        result := ComCall(15, this, "ushort*", pwszVolumeName, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(15, this, pwszVolumeNameMarshal, pwszVolumeName, "HRESULT")
         return result
     }
 
@@ -79,7 +85,9 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-deleteunuseddiffareas
      */
     DeleteUnusedDiffAreas(pwszDiffAreaVolumeName) {
-        result := ComCall(16, this, "ushort*", pwszDiffAreaVolumeName, "HRESULT")
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(16, this, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "HRESULT")
         return result
     }
 
@@ -94,7 +102,10 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-querysnapshotdeltabitmap
      */
     QuerySnapshotDeltaBitmap(idSnapshotOlder, idSnapshotYounger, pcBlockSizePerBit, pcBitmapLength, ppbBitmap) {
-        result := ComCall(17, this, "ptr", idSnapshotOlder, "ptr", idSnapshotYounger, "uint*", pcBlockSizePerBit, "uint*", pcBitmapLength, "ptr*", ppbBitmap, "HRESULT")
+        pcBlockSizePerBitMarshal := pcBlockSizePerBit is VarRef ? "uint*" : "ptr"
+        pcBitmapLengthMarshal := pcBitmapLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "ptr", idSnapshotOlder, "ptr", idSnapshotYounger, pcBlockSizePerBitMarshal, pcBlockSizePerBit, pcBitmapLengthMarshal, pcBitmapLength, "ptr*", ppbBitmap, "HRESULT")
         return result
     }
 }

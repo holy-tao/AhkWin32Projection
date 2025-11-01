@@ -59,7 +59,9 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-getselectionstyle
      */
     GetSelectionStyle(ptfSelectionStyle) {
-        result := ComCall(4, this, "int*", ptfSelectionStyle, "HRESULT")
+        ptfSelectionStyleMarshal := ptfSelectionStyle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, ptfSelectionStyleMarshal, ptfSelectionStyle, "HRESULT")
         return result
     }
 

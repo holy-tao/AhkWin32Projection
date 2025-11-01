@@ -75,7 +75,9 @@ class IFullScreenVideoEx extends IFullScreenVideo{
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-ifullscreenvideoex-iskeeppixelaspectratio
      */
     IsKeepPixelAspectRatio(pKeepAspect) {
-        result := ComCall(23, this, "int*", pKeepAspect, "HRESULT")
+        pKeepAspectMarshal := pKeepAspect is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pKeepAspectMarshal, pKeepAspect, "HRESULT")
         return result
     }
 }

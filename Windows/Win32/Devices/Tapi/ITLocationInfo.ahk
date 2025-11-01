@@ -37,7 +37,9 @@ class ITLocationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_permanentlocationid
      */
     get_PermanentLocationID(plLocationID) {
-        result := ComCall(7, this, "int*", plLocationID, "HRESULT")
+        plLocationIDMarshal := plLocationID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plLocationIDMarshal, plLocationID, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ITLocationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_countrycode
      */
     get_CountryCode(plCountryCode) {
-        result := ComCall(8, this, "int*", plCountryCode, "HRESULT")
+        plCountryCodeMarshal := plCountryCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plCountryCodeMarshal, plCountryCode, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class ITLocationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_countryid
      */
     get_CountryID(plCountryID) {
-        result := ComCall(9, this, "int*", plCountryID, "HRESULT")
+        plCountryIDMarshal := plCountryID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCountryIDMarshal, plCountryID, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class ITLocationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_options
      */
     get_Options(plOptions) {
-        result := ComCall(10, this, "int*", plOptions, "HRESULT")
+        plOptionsMarshal := plOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plOptionsMarshal, plOptions, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class ITLocationInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_preferredcardid
      */
     get_PreferredCardID(plCardID) {
-        result := ComCall(11, this, "int*", plCardID, "HRESULT")
+        plCardIDMarshal := plCardID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plCardIDMarshal, plCardID, "HRESULT")
         return result
     }
 

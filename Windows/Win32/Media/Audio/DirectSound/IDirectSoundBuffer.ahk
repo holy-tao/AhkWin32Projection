@@ -45,7 +45,10 @@ class IDirectSoundBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentPosition(pdwCurrentPlayCursor, pdwCurrentWriteCursor) {
-        result := ComCall(4, this, "uint*", pdwCurrentPlayCursor, "uint*", pdwCurrentWriteCursor, "HRESULT")
+        pdwCurrentPlayCursorMarshal := pdwCurrentPlayCursor is VarRef ? "uint*" : "ptr"
+        pdwCurrentWriteCursorMarshal := pdwCurrentWriteCursor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwCurrentPlayCursorMarshal, pdwCurrentPlayCursor, pdwCurrentWriteCursorMarshal, pdwCurrentWriteCursor, "HRESULT")
         return result
     }
 
@@ -57,7 +60,9 @@ class IDirectSoundBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFormat(pwfxFormat, dwSizeAllocated, pdwSizeWritten) {
-        result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, "uint*", pdwSizeWritten, "HRESULT")
+        pdwSizeWrittenMarshal := pdwSizeWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, pdwSizeWrittenMarshal, pdwSizeWritten, "HRESULT")
         return result
     }
 
@@ -67,7 +72,9 @@ class IDirectSoundBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetVolume(plVolume) {
-        result := ComCall(6, this, "int*", plVolume, "HRESULT")
+        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, plVolumeMarshal, plVolume, "HRESULT")
         return result
     }
 
@@ -77,7 +84,9 @@ class IDirectSoundBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPan(plPan) {
-        result := ComCall(7, this, "int*", plPan, "HRESULT")
+        plPanMarshal := plPan is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plPanMarshal, plPan, "HRESULT")
         return result
     }
 
@@ -87,7 +96,9 @@ class IDirectSoundBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFrequency(pdwFrequency) {
-        result := ComCall(8, this, "uint*", pdwFrequency, "HRESULT")
+        pdwFrequencyMarshal := pdwFrequency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwFrequencyMarshal, pdwFrequency, "HRESULT")
         return result
     }
 
@@ -97,7 +108,9 @@ class IDirectSoundBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus(pdwStatus) {
-        result := ComCall(9, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -135,7 +148,10 @@ class IDirectSoundBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     Lock(dwOffset, dwBytes, ppvAudioPtr1, pdwAudioBytes1, ppvAudioPtr2, pdwAudioBytes2, dwFlags) {
-        result := ComCall(11, this, "uint", dwOffset, "uint", dwBytes, "ptr*", ppvAudioPtr1, "uint*", pdwAudioBytes1, "ptr*", ppvAudioPtr2, "uint*", pdwAudioBytes2, "uint", dwFlags, "HRESULT")
+        pdwAudioBytes1Marshal := pdwAudioBytes1 is VarRef ? "uint*" : "ptr"
+        pdwAudioBytes2Marshal := pdwAudioBytes2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwOffset, "uint", dwBytes, "ptr*", ppvAudioPtr1, pdwAudioBytes1Marshal, pdwAudioBytes1, "ptr*", ppvAudioPtr2, pdwAudioBytes2Marshal, pdwAudioBytes2, "uint", dwFlags, "HRESULT")
         return result
     }
 

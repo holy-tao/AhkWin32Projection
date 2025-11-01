@@ -41,7 +41,9 @@ class IWMIndexer extends IUnknown{
     StartIndexing(pwszURL, pCallback, pvContext) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

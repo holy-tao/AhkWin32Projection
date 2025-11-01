@@ -37,7 +37,9 @@ class ISpatialAudioObjectRenderStreamBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-getavailabledynamicobjectcount
      */
     GetAvailableDynamicObjectCount(value) {
-        result := ComCall(3, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -91,7 +93,10 @@ class ISpatialAudioObjectRenderStreamBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-beginupdatingaudioobjects
      */
     BeginUpdatingAudioObjects(availableDynamicObjectCount, frameCountPerBuffer) {
-        result := ComCall(8, this, "uint*", availableDynamicObjectCount, "uint*", frameCountPerBuffer, "HRESULT")
+        availableDynamicObjectCountMarshal := availableDynamicObjectCount is VarRef ? "uint*" : "ptr"
+        frameCountPerBufferMarshal := frameCountPerBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, availableDynamicObjectCountMarshal, availableDynamicObjectCount, frameCountPerBufferMarshal, frameCountPerBuffer, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class IWMWriterPreprocess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-getmaxpreprocessingpasses
      */
     GetMaxPreprocessingPasses(dwInputNum, dwFlags, pdwMaxNumPasses) {
-        result := ComCall(3, this, "uint", dwInputNum, "uint", dwFlags, "uint*", pdwMaxNumPasses, "HRESULT")
+        pdwMaxNumPassesMarshal := pdwMaxNumPasses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwInputNum, "uint", dwFlags, pdwMaxNumPassesMarshal, pdwMaxNumPasses, "HRESULT")
         return result
     }
 

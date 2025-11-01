@@ -60,7 +60,9 @@ class IRegisteredTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_state
      */
     get_State(pState) {
-        result := ComCall(9, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -134,7 +136,9 @@ class IRegisteredTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_lastruntime
      */
     get_LastRunTime(pLastRunTime) {
-        result := ComCall(15, this, "double*", pLastRunTime, "HRESULT")
+        pLastRunTimeMarshal := pLastRunTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, pLastRunTimeMarshal, pLastRunTime, "HRESULT")
         return result
     }
 
@@ -145,7 +149,9 @@ class IRegisteredTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_lasttaskresult
      */
     get_LastTaskResult(pLastTaskResult) {
-        result := ComCall(16, this, "int*", pLastTaskResult, "HRESULT")
+        pLastTaskResultMarshal := pLastTaskResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pLastTaskResultMarshal, pLastTaskResult, "HRESULT")
         return result
     }
 
@@ -156,7 +162,9 @@ class IRegisteredTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_numberofmissedruns
      */
     get_NumberOfMissedRuns(pNumberOfMissedRuns) {
-        result := ComCall(17, this, "int*", pNumberOfMissedRuns, "HRESULT")
+        pNumberOfMissedRunsMarshal := pNumberOfMissedRuns is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pNumberOfMissedRunsMarshal, pNumberOfMissedRuns, "HRESULT")
         return result
     }
 
@@ -167,7 +175,9 @@ class IRegisteredTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_nextruntime
      */
     get_NextRunTime(pNextRunTime) {
-        result := ComCall(18, this, "double*", pNextRunTime, "HRESULT")
+        pNextRunTimeMarshal := pNextRunTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(18, this, pNextRunTimeMarshal, pNextRunTime, "HRESULT")
         return result
     }
 
@@ -240,7 +250,9 @@ class IRegisteredTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getruntimes
      */
     GetRunTimes(pstStart, pstEnd, pCount, pRunTimes) {
-        result := ComCall(24, this, "ptr", pstStart, "ptr", pstEnd, "uint*", pCount, "ptr*", pRunTimes, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "ptr", pstStart, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", pRunTimes, "HRESULT")
         return result
     }
 }

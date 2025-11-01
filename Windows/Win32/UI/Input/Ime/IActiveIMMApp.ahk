@@ -224,8 +224,12 @@ class IActiveIMMApp extends IUnknown{
      */
     EnumRegisterWordA(hKL, szReading, dwStyle, szRegister, pData, pEnum) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szReading := szReading is String ? StrPtr(szReading) : szReading
+        szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        result := ComCall(8, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "ptr", pData, "ptr*", pEnum, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", pEnum, "HRESULT")
         return result
     }
 
@@ -244,7 +248,9 @@ class IActiveIMMApp extends IUnknown{
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        result := ComCall(9, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "ptr", pData, "ptr*", pEnum, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", pEnum, "HRESULT")
         return result
     }
 
@@ -261,7 +267,9 @@ class IActiveIMMApp extends IUnknown{
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(10, this, "ptr", hKL, "ptr", hIMC, "uint", uEscape, "ptr", pData, "ptr", plResult, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "ptr", hKL, "ptr", hIMC, "uint", uEscape, pDataMarshal, pData, "ptr", plResult, "HRESULT")
         return result
     }
 
@@ -278,7 +286,9 @@ class IActiveIMMApp extends IUnknown{
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(11, this, "ptr", hKL, "ptr", hIMC, "uint", uEscape, "ptr", pData, "ptr", plResult, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, "ptr", hKL, "ptr", hIMC, "uint", uEscape, pDataMarshal, pData, "ptr", plResult, "HRESULT")
         return result
     }
 
@@ -294,7 +304,9 @@ class IActiveIMMApp extends IUnknown{
     GetCandidateListA(hIMC, dwIndex, uBufLen, pCandList, puCopied) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(12, this, "ptr", hIMC, "uint", dwIndex, "uint", uBufLen, "ptr", pCandList, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", hIMC, "uint", dwIndex, "uint", uBufLen, "ptr", pCandList, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -310,7 +322,9 @@ class IActiveIMMApp extends IUnknown{
     GetCandidateListW(hIMC, dwIndex, uBufLen, pCandList, puCopied) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(13, this, "ptr", hIMC, "uint", dwIndex, "uint", uBufLen, "ptr", pCandList, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", hIMC, "uint", dwIndex, "uint", uBufLen, "ptr", pCandList, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -324,7 +338,10 @@ class IActiveIMMApp extends IUnknown{
     GetCandidateListCountA(hIMC, pdwListSize, pdwBufLen) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(14, this, "ptr", hIMC, "uint*", pdwListSize, "uint*", pdwBufLen, "HRESULT")
+        pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : "ptr"
+        pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
         return result
     }
 
@@ -338,7 +355,10 @@ class IActiveIMMApp extends IUnknown{
     GetCandidateListCountW(hIMC, pdwListSize, pdwBufLen) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(15, this, "ptr", hIMC, "uint*", pdwListSize, "uint*", pdwBufLen, "HRESULT")
+        pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : "ptr"
+        pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
         return result
     }
 
@@ -394,7 +414,10 @@ class IActiveIMMApp extends IUnknown{
     GetCompositionStringA(hIMC, dwIndex, dwBufLen, plCopied, pBuf) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(19, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, "int*", plCopied, "ptr", pBuf, "HRESULT")
+        plCopiedMarshal := plCopied is VarRef ? "int*" : "ptr"
+        pBufMarshal := pBuf is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(19, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
         return result
     }
 
@@ -410,7 +433,10 @@ class IActiveIMMApp extends IUnknown{
     GetCompositionStringW(hIMC, dwIndex, dwBufLen, plCopied, pBuf) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(20, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, "int*", plCopied, "ptr", pBuf, "HRESULT")
+        plCopiedMarshal := plCopied is VarRef ? "int*" : "ptr"
+        pBufMarshal := pBuf is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(20, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
         return result
     }
 
@@ -454,8 +480,11 @@ class IActiveIMMApp extends IUnknown{
     GetConversionListA(hKL, hIMC, pSrc, uBufLen, uFlag, pDst, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+        pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
 
-        result := ComCall(23, this, "ptr", hKL, "ptr", hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, "ptr", pDst, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "ptr", hKL, "ptr", hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, "ptr", pDst, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -475,7 +504,9 @@ class IActiveIMMApp extends IUnknown{
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
         pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
 
-        result := ComCall(24, this, "ptr", hKL, "ptr", hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, "ptr", pDst, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "ptr", hKL, "ptr", hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, "ptr", pDst, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -489,7 +520,10 @@ class IActiveIMMApp extends IUnknown{
     GetConversionStatus(hIMC, pfdwConversion, pfdwSentence) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(25, this, "ptr", hIMC, "uint*", pfdwConversion, "uint*", pfdwSentence, "HRESULT")
+        pfdwConversionMarshal := pfdwConversion is VarRef ? "uint*" : "ptr"
+        pfdwSentenceMarshal := pfdwSentence is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "ptr", hIMC, pfdwConversionMarshal, pfdwConversion, pfdwSentenceMarshal, pfdwSentence, "HRESULT")
         return result
     }
 
@@ -516,8 +550,11 @@ class IActiveIMMApp extends IUnknown{
      */
     GetDescriptionA(hKL, uBufLen, szDescription, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
-        result := ComCall(27, this, "ptr", hKL, "uint", uBufLen, "ptr", szDescription, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, "ptr", hKL, "uint", uBufLen, "ptr", szDescription, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -533,7 +570,9 @@ class IActiveIMMApp extends IUnknown{
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
-        result := ComCall(28, this, "ptr", hKL, "uint", uBufLen, "ptr", szDescription, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, "ptr", hKL, "uint", uBufLen, "ptr", szDescription, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -548,8 +587,11 @@ class IActiveIMMApp extends IUnknown{
      */
     GetGuideLineA(hIMC, dwIndex, dwBufLen, pBuf, pdwResult) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+        pBuf := pBuf is String ? StrPtr(pBuf) : pBuf
 
-        result := ComCall(29, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, "uint*", pdwResult, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -566,7 +608,9 @@ class IActiveIMMApp extends IUnknown{
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
         pBuf := pBuf is String ? StrPtr(pBuf) : pBuf
 
-        result := ComCall(30, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, "uint*", pdwResult, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -580,8 +624,11 @@ class IActiveIMMApp extends IUnknown{
      */
     GetIMEFileNameA(hKL, uBufLen, szFileName, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
-        result := ComCall(31, this, "ptr", hKL, "uint", uBufLen, "ptr", szFileName, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "ptr", hKL, "uint", uBufLen, "ptr", szFileName, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -597,7 +644,9 @@ class IActiveIMMApp extends IUnknown{
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
-        result := ComCall(32, this, "ptr", hKL, "uint", uBufLen, "ptr", szFileName, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, "ptr", hKL, "uint", uBufLen, "ptr", szFileName, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -623,7 +672,9 @@ class IActiveIMMApp extends IUnknown{
     GetProperty(hKL, fdwIndex, pdwProperty) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
 
-        result := ComCall(34, this, "ptr", hKL, "uint", fdwIndex, "uint*", pdwProperty, "HRESULT")
+        pdwPropertyMarshal := pdwProperty is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, "ptr", hKL, "uint", fdwIndex, pdwPropertyMarshal, pdwProperty, "HRESULT")
         return result
     }
 
@@ -638,7 +689,9 @@ class IActiveIMMApp extends IUnknown{
     GetRegisterWordStyleA(hKL, nItem, pStyleBuf, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
 
-        result := ComCall(35, this, "ptr", hKL, "uint", nItem, "ptr", pStyleBuf, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, "ptr", hKL, "uint", nItem, "ptr", pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -653,7 +706,9 @@ class IActiveIMMApp extends IUnknown{
     GetRegisterWordStyleW(hKL, nItem, pStyleBuf, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
 
-        result := ComCall(36, this, "ptr", hKL, "uint", nItem, "ptr", pStyleBuf, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, "ptr", hKL, "uint", nItem, "ptr", pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -679,7 +734,9 @@ class IActiveIMMApp extends IUnknown{
     GetVirtualKey(hWnd, puVirtualKey) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(38, this, "ptr", hWnd, "uint*", puVirtualKey, "HRESULT")
+        puVirtualKeyMarshal := puVirtualKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(38, this, "ptr", hWnd, puVirtualKeyMarshal, puVirtualKey, "HRESULT")
         return result
     }
 
@@ -691,6 +748,9 @@ class IActiveIMMApp extends IUnknown{
      * @returns {HRESULT} 
      */
     InstallIMEA(szIMEFileName, szLayoutText, phKL) {
+        szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
+        szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
+
         result := ComCall(39, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
         return result
     }
@@ -777,6 +837,8 @@ class IActiveIMMApp extends IUnknown{
      */
     RegisterWordA(hKL, szReading, dwStyle, szRegister) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szReading := szReading is String ? StrPtr(szReading) : szReading
+        szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
         result := ComCall(45, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "HRESULT")
         return result
@@ -865,7 +927,10 @@ class IActiveIMMApp extends IUnknown{
     SetCompositionStringA(hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(51, this, "ptr", hIMC, "uint", dwIndex, "ptr", pComp, "uint", dwCompLen, "ptr", pRead, "uint", dwReadLen, "HRESULT")
+        pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
+        pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(51, this, "ptr", hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
         return result
     }
 
@@ -882,7 +947,10 @@ class IActiveIMMApp extends IUnknown{
     SetCompositionStringW(hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(52, this, "ptr", hIMC, "uint", dwIndex, "ptr", pComp, "uint", dwCompLen, "ptr", pRead, "uint", dwReadLen, "HRESULT")
+        pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
+        pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(52, this, "ptr", hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
         return result
     }
 
@@ -962,6 +1030,8 @@ class IActiveIMMApp extends IUnknown{
      */
     UnregisterWordA(hKL, szReading, dwStyle, szUnregister) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szReading := szReading is String ? StrPtr(szReading) : szReading
+        szUnregister := szUnregister is String ? StrPtr(szUnregister) : szUnregister
 
         result := ComCall(58, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szUnregister, "HRESULT")
         return result
@@ -1026,7 +1096,9 @@ class IActiveIMMApp extends IUnknown{
      * @returns {HRESULT} 
      */
     FilterClientWindows(aaClassList, uSize) {
-        result := ComCall(63, this, "ushort*", aaClassList, "uint", uSize, "HRESULT")
+        aaClassListMarshal := aaClassList is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(63, this, aaClassListMarshal, aaClassList, "uint", uSize, "HRESULT")
         return result
     }
 
@@ -1039,7 +1111,9 @@ class IActiveIMMApp extends IUnknown{
     GetCodePageA(hKL, uCodePage) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
 
-        result := ComCall(64, this, "ptr", hKL, "uint*", uCodePage, "HRESULT")
+        uCodePageMarshal := uCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(64, this, "ptr", hKL, uCodePageMarshal, uCodePage, "HRESULT")
         return result
     }
 
@@ -1052,7 +1126,9 @@ class IActiveIMMApp extends IUnknown{
     GetLangId(hKL, plid) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
 
-        result := ComCall(65, this, "ptr", hKL, "ushort*", plid, "HRESULT")
+        plidMarshal := plid is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(65, this, "ptr", hKL, plidMarshal, plid, "HRESULT")
         return result
     }
 
@@ -1095,7 +1171,9 @@ class IActiveIMMApp extends IUnknown{
     GetImeMenuItemsA(hIMC, dwFlags, dwType, pImeParentMenu, pImeMenu, dwSize, pdwResult) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(68, this, "ptr", hIMC, "uint", dwFlags, "uint", dwType, "ptr", pImeParentMenu, "ptr", pImeMenu, "uint", dwSize, "uint*", pdwResult, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(68, this, "ptr", hIMC, "uint", dwFlags, "uint", dwType, "ptr", pImeParentMenu, "ptr", pImeMenu, "uint", dwSize, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -1113,7 +1191,9 @@ class IActiveIMMApp extends IUnknown{
     GetImeMenuItemsW(hIMC, dwFlags, dwType, pImeParentMenu, pImeMenu, dwSize, pdwResult) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(69, this, "ptr", hIMC, "uint", dwFlags, "uint", dwType, "ptr", pImeParentMenu, "ptr", pImeMenu, "uint", dwSize, "uint*", pdwResult, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(69, this, "ptr", hIMC, "uint", dwFlags, "uint", dwType, "ptr", pImeParentMenu, "ptr", pImeMenu, "uint", dwSize, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 

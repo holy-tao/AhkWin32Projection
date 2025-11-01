@@ -236,7 +236,9 @@ class IOleObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-advise
      */
     Advise(pAdvSink, pdwConnection) {
-        result := ComCall(19, this, "ptr", pAdvSink, "uint*", pdwConnection, "HRESULT")
+        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", pAdvSink, pdwConnectionMarshal, pdwConnection, "HRESULT")
         return result
     }
 
@@ -270,7 +272,9 @@ class IOleObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getmiscstatus
      */
     GetMiscStatus(dwAspect, pdwStatus) {
-        result := ComCall(22, this, "uint", dwAspect, "int*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "uint", dwAspect, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 

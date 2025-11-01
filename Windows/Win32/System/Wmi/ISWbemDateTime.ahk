@@ -63,7 +63,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Year(iYear) {
-        result := ComCall(9, this, "int*", iYear, "HRESULT")
+        iYearMarshal := iYear is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, iYearMarshal, iYear, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Month(iMonth) {
-        result := ComCall(13, this, "int*", iMonth, "HRESULT")
+        iMonthMarshal := iMonth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, iMonthMarshal, iMonth, "HRESULT")
         return result
     }
 
@@ -143,7 +147,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Day(iDay) {
-        result := ComCall(17, this, "int*", iDay, "HRESULT")
+        iDayMarshal := iDay is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, iDayMarshal, iDay, "HRESULT")
         return result
     }
 
@@ -183,7 +189,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Hours(iHours) {
-        result := ComCall(21, this, "int*", iHours, "HRESULT")
+        iHoursMarshal := iHours is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, iHoursMarshal, iHours, "HRESULT")
         return result
     }
 
@@ -223,7 +231,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Minutes(iMinutes) {
-        result := ComCall(25, this, "int*", iMinutes, "HRESULT")
+        iMinutesMarshal := iMinutes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, iMinutesMarshal, iMinutes, "HRESULT")
         return result
     }
 
@@ -263,7 +273,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Seconds(iSeconds) {
-        result := ComCall(29, this, "int*", iSeconds, "HRESULT")
+        iSecondsMarshal := iSeconds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, iSecondsMarshal, iSeconds, "HRESULT")
         return result
     }
 
@@ -303,7 +315,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Microseconds(iMicroseconds) {
-        result := ComCall(33, this, "int*", iMicroseconds, "HRESULT")
+        iMicrosecondsMarshal := iMicroseconds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, iMicrosecondsMarshal, iMicroseconds, "HRESULT")
         return result
     }
 
@@ -343,7 +357,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UTC(iUTC) {
-        result := ComCall(37, this, "int*", iUTC, "HRESULT")
+        iUTCMarshal := iUTC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, iUTCMarshal, iUTC, "HRESULT")
         return result
     }
 
@@ -404,7 +420,9 @@ class ISWbemDateTime extends IDispatch{
      * @returns {HRESULT} 
      */
     GetVarDate(bIsLocal, dVarDate) {
-        result := ComCall(43, this, "short", bIsLocal, "double*", dVarDate, "HRESULT")
+        dVarDateMarshal := dVarDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(43, this, "short", bIsLocal, dVarDateMarshal, dVarDate, "HRESULT")
         return result
     }
 

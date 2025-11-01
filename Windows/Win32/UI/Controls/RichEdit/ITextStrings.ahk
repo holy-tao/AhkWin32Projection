@@ -50,7 +50,9 @@ class ITextStrings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-getcount
      */
     GetCount(pCount) {
-        result := ComCall(8, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -141,7 +143,9 @@ class ITextStrings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-getcch
      */
     GetCch(iString, pcch) {
-        result := ComCall(15, this, "int", iString, "int*", pcch, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "int", iString, pcchMarshal, pcch, "HRESULT")
         return result
     }
 

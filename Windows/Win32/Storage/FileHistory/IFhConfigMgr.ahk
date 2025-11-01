@@ -104,7 +104,9 @@ class IFhConfigMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy
      */
     GetLocalPolicy(LocalPolicyType, PolicyValue) {
-        result := ComCall(8, this, "int", LocalPolicyType, "uint*", PolicyValue, "HRESULT")
+        PolicyValueMarshal := PolicyValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "int", LocalPolicyType, PolicyValueMarshal, PolicyValue, "HRESULT")
         return result
     }
 
@@ -127,7 +129,9 @@ class IFhConfigMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getbackupstatus
      */
     GetBackupStatus(BackupStatus) {
-        result := ComCall(10, this, "int*", BackupStatus, "HRESULT")
+        BackupStatusMarshal := BackupStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, BackupStatusMarshal, BackupStatus, "HRESULT")
         return result
     }
 
@@ -163,7 +167,9 @@ class IFhConfigMgr extends IUnknown{
     ValidateTarget(TargetUrl, ValidationResult) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
 
-        result := ComCall(13, this, "ptr", TargetUrl, "int*", ValidationResult, "HRESULT")
+        ValidationResultMarshal := ValidationResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "ptr", TargetUrl, ValidationResultMarshal, ValidationResult, "HRESULT")
         return result
     }
 
@@ -201,7 +207,9 @@ class IFhConfigMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-queryprotectionstatus
      */
     QueryProtectionStatus(ProtectionState, ProtectedUntilTime) {
-        result := ComCall(16, this, "uint*", ProtectionState, "ptr", ProtectedUntilTime, "HRESULT")
+        ProtectionStateMarshal := ProtectionState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, ProtectionStateMarshal, ProtectionState, "ptr", ProtectedUntilTime, "HRESULT")
         return result
     }
 }

@@ -308,7 +308,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_copies(p) {
-        result := ComCall(34, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(34, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -328,7 +330,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageFrom(p) {
-        result := ComCall(36, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(36, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -348,7 +352,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageTo(p) {
-        result := ComCall(38, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(38, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -452,7 +458,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_marginLeft(p) {
-        result := ComCall(48, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -472,7 +480,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_marginRight(p) {
-        result := ComCall(50, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -492,7 +502,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_marginTop(p) {
-        result := ComCall(52, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -512,7 +524,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_marginBottom(p) {
-        result := ComCall(54, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -522,7 +536,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageWidth(p) {
-        result := ComCall(55, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(55, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -532,7 +548,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageHeight(p) {
-        result := ComCall(56, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(56, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -542,7 +560,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_unprintableLeft(p) {
-        result := ComCall(57, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(57, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -552,7 +572,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_unprintableTop(p) {
-        result := ComCall(58, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -562,7 +584,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_unprintableRight(p) {
-        result := ComCall(59, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(59, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -572,7 +596,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_unprintableBottom(p) {
-        result := ComCall(60, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(60, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -582,7 +608,9 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     updatePageStatus(p) {
-        result := ComCall(61, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(61, this, pMarshal, p, "HRESULT")
         return result
     }
 }

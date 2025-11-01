@@ -61,7 +61,11 @@ class IETFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrrating
      */
     GetCurrRating(pEnSystem, pEnRating, plbfEnAttr) {
-        result := ComCall(4, this, "int*", pEnSystem, "int*", pEnRating, "int*", plbfEnAttr, "HRESULT")
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
+        pEnRatingMarshal := pEnRating is VarRef ? "int*" : "ptr"
+        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pEnSystemMarshal, pEnSystem, pEnRatingMarshal, pEnRating, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
     }
 
@@ -73,7 +77,10 @@ class IETFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(protType, lpDateTime) {
-        result := ComCall(5, this, "int*", protType, "int*", lpDateTime, "HRESULT")
+        protTypeMarshal := protType is VarRef ? "int*" : "ptr"
+        lpDateTimeMarshal := lpDateTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, protTypeMarshal, protType, lpDateTimeMarshal, lpDateTime, "HRESULT")
         return result
     }
 

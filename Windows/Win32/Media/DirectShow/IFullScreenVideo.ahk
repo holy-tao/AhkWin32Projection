@@ -35,7 +35,9 @@ class IFullScreenVideo extends IUnknown{
      * @returns {HRESULT} 
      */
     CountModes(pModes) {
-        result := ComCall(3, this, "int*", pModes, "HRESULT")
+        pModesMarshal := pModes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pModesMarshal, pModes, "HRESULT")
         return result
     }
 
@@ -48,7 +50,11 @@ class IFullScreenVideo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetModeInfo(Mode, pWidth, pHeight, pDepth) {
-        result := ComCall(4, this, "int", Mode, "int*", pWidth, "int*", pHeight, "int*", pDepth, "HRESULT")
+        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
+        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pDepthMarshal := pDepth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", Mode, pWidthMarshal, pWidth, pHeightMarshal, pHeight, pDepthMarshal, pDepth, "HRESULT")
         return result
     }
 
@@ -58,7 +64,9 @@ class IFullScreenVideo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentMode(pMode) {
-        result := ComCall(5, this, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 
@@ -99,7 +107,9 @@ class IFullScreenVideo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetClipFactor(pClipFactor) {
-        result := ComCall(9, this, "int*", pClipFactor, "HRESULT")
+        pClipFactorMarshal := pClipFactor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pClipFactorMarshal, pClipFactor, "HRESULT")
         return result
     }
 
@@ -151,7 +161,9 @@ class IFullScreenVideo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMonitor(Monitor) {
-        result := ComCall(14, this, "int*", Monitor, "HRESULT")
+        MonitorMarshal := Monitor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, MonitorMarshal, Monitor, "HRESULT")
         return result
     }
 

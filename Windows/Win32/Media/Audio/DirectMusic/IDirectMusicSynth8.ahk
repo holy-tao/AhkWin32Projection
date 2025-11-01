@@ -71,7 +71,9 @@ class IDirectMusicSynth8 extends IDirectMusicSynth{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-getvoicestate
      */
     GetVoiceState(dwVoice, cbVoice, dwVoiceState) {
-        result := ComCall(22, this, "uint*", dwVoice, "uint", cbVoice, "ptr", dwVoiceState, "HRESULT")
+        dwVoiceMarshal := dwVoice is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, dwVoiceMarshal, dwVoice, "uint", cbVoice, "ptr", dwVoiceState, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ class IDirectMusicSynth8 extends IDirectMusicSynth{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-assignchanneltobuses
      */
     AssignChannelToBuses(dwChannelGroup, dwChannel, pdwBuses, cBuses) {
-        result := ComCall(24, this, "uint", dwChannelGroup, "uint", dwChannel, "uint*", pdwBuses, "uint", cBuses, "HRESULT")
+        pdwBusesMarshal := pdwBuses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "uint", dwChannelGroup, "uint", dwChannel, pdwBusesMarshal, pdwBuses, "uint", cBuses, "HRESULT")
         return result
     }
 }

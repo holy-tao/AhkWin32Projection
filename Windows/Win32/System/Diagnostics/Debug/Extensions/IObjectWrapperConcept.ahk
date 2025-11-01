@@ -36,7 +36,9 @@ class IObjectWrapperConcept extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWrappedObject(pContextObject, wrappedObject, pUsagePreference) {
-        result := ComCall(3, this, "ptr", pContextObject, "ptr*", wrappedObject, "int*", pUsagePreference, "HRESULT")
+        pUsagePreferenceMarshal := pUsagePreference is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pContextObject, "ptr*", wrappedObject, pUsagePreferenceMarshal, pUsagePreference, "HRESULT")
         return result
     }
 }

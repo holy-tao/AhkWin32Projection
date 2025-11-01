@@ -175,7 +175,9 @@ class IVdsSubSystem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-querymaxluncreatesize
      */
     QueryMaxLunCreateSize(type, pDriveIdArray, lNumberOfDrives, pHints, pullMaxLunSize) {
-        result := ComCall(14, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints, "uint*", pullMaxLunSize, "HRESULT")
+        pullMaxLunSizeMarshal := pullMaxLunSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints, pullMaxLunSizeMarshal, pullMaxLunSize, "HRESULT")
         return result
     }
 }

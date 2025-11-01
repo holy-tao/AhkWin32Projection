@@ -48,7 +48,10 @@ class IUIAnimationVariableChangeHandler2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariablechangehandler2-onvaluechanged
      */
     OnValueChanged(storyboard, variable, newValue, previousValue, cDimension) {
-        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, "double*", newValue, "double*", previousValue, "uint", cDimension, "HRESULT")
+        newValueMarshal := newValue is VarRef ? "double*" : "ptr"
+        previousValueMarshal := previousValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, newValueMarshal, newValue, previousValueMarshal, previousValue, "uint", cDimension, "HRESULT")
         return result
     }
 }

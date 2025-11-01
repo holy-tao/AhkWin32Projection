@@ -50,7 +50,9 @@ class AsyncIFtpPostprocessProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_HandlePostprocess(pFtpProcessStatus) {
-        result := ComCall(4, this, "int*", pFtpProcessStatus, "HRESULT")
+        pFtpProcessStatusMarshal := pFtpProcessStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pFtpProcessStatusMarshal, pFtpProcessStatus, "HRESULT")
         return result
     }
 }

@@ -147,7 +147,10 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-iasetvertexbuffers
      */
     IASetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets) {
-        ComCall(12, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, "uint*", pStrides, "uint*", pOffsets)
+        pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
+        pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
+
+        ComCall(12, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -301,7 +304,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-omsetblendstate
      */
     OMSetBlendState(pBlendState, BlendFactor, SampleMask) {
-        ComCall(25, this, "ptr", pBlendState, "float*", BlendFactor, "uint", SampleMask)
+        BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
+
+        ComCall(25, this, "ptr", pBlendState, BlendFactorMarshal, BlendFactor, "uint", SampleMask)
     }
 
     /**
@@ -324,7 +329,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-sosettargets
      */
     SOSetTargets(NumBuffers, ppSOTargets, pOffsets) {
-        ComCall(27, this, "uint", NumBuffers, "ptr*", ppSOTargets, "uint*", pOffsets)
+        pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
+
+        ComCall(27, this, "uint", NumBuffers, "ptr*", ppSOTargets, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -408,7 +415,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-updatesubresource
      */
     UpdateSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
-        ComCall(34, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, "ptr", pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        ComCall(34, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
     }
 
     /**
@@ -419,7 +428,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-clearrendertargetview
      */
     ClearRenderTargetView(pRenderTargetView, ColorRGBA) {
-        ComCall(35, this, "ptr", pRenderTargetView, "float*", ColorRGBA)
+        ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
+
+        ComCall(35, this, "ptr", pRenderTargetView, ColorRGBAMarshal, ColorRGBA)
     }
 
     /**
@@ -548,7 +559,10 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-iagetvertexbuffers
      */
     IAGetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets) {
-        ComCall(46, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, "uint*", pStrides, "uint*", pOffsets)
+        pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
+        pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
+
+        ComCall(46, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -560,7 +574,10 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-iagetindexbuffer
      */
     IAGetIndexBuffer(pIndexBuffer, Format, Offset) {
-        ComCall(47, this, "ptr*", pIndexBuffer, "int*", Format, "uint*", Offset)
+        FormatMarshal := Format is VarRef ? "int*" : "ptr"
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        ComCall(47, this, "ptr*", pIndexBuffer, FormatMarshal, Format, OffsetMarshal, Offset)
     }
 
     /**
@@ -592,7 +609,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-iagetprimitivetopology
      */
     IAGetPrimitiveTopology(pTopology) {
-        ComCall(50, this, "int*", pTopology)
+        pTopologyMarshal := pTopology is VarRef ? "int*" : "ptr"
+
+        ComCall(50, this, pTopologyMarshal, pTopology)
     }
 
     /**
@@ -675,7 +694,10 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-omgetblendstate
      */
     OMGetBlendState(ppBlendState, BlendFactor, pSampleMask) {
-        ComCall(57, this, "ptr*", ppBlendState, "float*", BlendFactor, "uint*", pSampleMask)
+        BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
+        pSampleMaskMarshal := pSampleMask is VarRef ? "uint*" : "ptr"
+
+        ComCall(57, this, "ptr*", ppBlendState, BlendFactorMarshal, BlendFactor, pSampleMaskMarshal, pSampleMask)
     }
 
     /**
@@ -686,7 +708,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-omgetdepthstencilstate
      */
     OMGetDepthStencilState(ppDepthStencilState, pStencilRef) {
-        ComCall(58, this, "ptr*", ppDepthStencilState, "uint*", pStencilRef)
+        pStencilRefMarshal := pStencilRef is VarRef ? "uint*" : "ptr"
+
+        ComCall(58, this, "ptr*", ppDepthStencilState, pStencilRefMarshal, pStencilRef)
     }
 
     /**
@@ -698,7 +722,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-sogettargets
      */
     SOGetTargets(NumBuffers, ppSOTargets, pOffsets) {
-        ComCall(59, this, "uint", NumBuffers, "ptr*", ppSOTargets, "uint*", pOffsets)
+        pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
+
+        ComCall(59, this, "uint", NumBuffers, "ptr*", ppSOTargets, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -719,7 +745,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-rsgetviewports
      */
     RSGetViewports(NumViewports, pViewports) {
-        ComCall(61, this, "uint*", NumViewports, "ptr", pViewports)
+        NumViewportsMarshal := NumViewports is VarRef ? "uint*" : "ptr"
+
+        ComCall(61, this, NumViewportsMarshal, NumViewports, "ptr", pViewports)
     }
 
     /**
@@ -730,7 +758,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-rsgetscissorrects
      */
     RSGetScissorRects(NumRects, pRects) {
-        ComCall(62, this, "uint*", NumRects, "ptr", pRects)
+        NumRectsMarshal := NumRects is VarRef ? "uint*" : "ptr"
+
+        ComCall(62, this, NumRectsMarshal, NumRects, "ptr", pRects)
     }
 
     /**
@@ -773,7 +803,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
-        result := ComCall(66, this, "ptr", guid, "uint*", pDataSize, "ptr", pData, "HRESULT")
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(66, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -922,7 +954,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createinputlayout
      */
     CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength, ppInputLayout) {
-        result := ComCall(78, this, "ptr", pInputElementDescs, "uint", NumElements, "ptr", pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", ppInputLayout, "HRESULT")
+        pShaderBytecodeWithInputSignatureMarshal := pShaderBytecodeWithInputSignature is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(78, this, "ptr", pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", ppInputLayout, "HRESULT")
         return result
     }
 
@@ -935,7 +969,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createvertexshader
      */
     CreateVertexShader(pShaderBytecode, BytecodeLength, ppVertexShader) {
-        result := ComCall(79, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppVertexShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(79, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppVertexShader, "HRESULT")
         return result
     }
 
@@ -948,7 +984,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-creategeometryshader
      */
     CreateGeometryShader(pShaderBytecode, BytecodeLength, ppGeometryShader) {
-        result := ComCall(80, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppGeometryShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(80, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppGeometryShader, "HRESULT")
         return result
     }
 
@@ -964,7 +1002,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-creategeometryshaderwithstreamoutput
      */
     CreateGeometryShaderWithStreamOutput(pShaderBytecode, BytecodeLength, pSODeclaration, NumEntries, OutputStreamStride, ppGeometryShader) {
-        result := ComCall(81, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, "uint", OutputStreamStride, "ptr*", ppGeometryShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(81, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, "uint", OutputStreamStride, "ptr*", ppGeometryShader, "HRESULT")
         return result
     }
 
@@ -977,7 +1017,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-createpixelshader
      */
     CreatePixelShader(pShaderBytecode, BytecodeLength, ppPixelShader) {
-        result := ComCall(82, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppPixelShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(82, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppPixelShader, "HRESULT")
         return result
     }
 
@@ -1073,7 +1115,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-checkformatsupport
      */
     CheckFormatSupport(Format, pFormatSupport) {
-        result := ComCall(90, this, "int", Format, "uint*", pFormatSupport, "HRESULT")
+        pFormatSupportMarshal := pFormatSupport is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(90, this, "int", Format, pFormatSupportMarshal, pFormatSupport, "HRESULT")
         return result
     }
 
@@ -1086,7 +1130,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-checkmultisamplequalitylevels
      */
     CheckMultisampleQualityLevels(Format, SampleCount, pNumQualityLevels) {
-        result := ComCall(91, this, "int", Format, "uint", SampleCount, "uint*", pNumQualityLevels, "HRESULT")
+        pNumQualityLevelsMarshal := pNumQualityLevels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(91, this, "int", Format, "uint", SampleCount, pNumQualityLevelsMarshal, pNumQualityLevels, "HRESULT")
         return result
     }
 
@@ -1115,7 +1161,17 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-checkcounter
      */
     CheckCounter(pDesc, pType, pActiveCounters, szName, pNameLength, szUnits, pUnitsLength, szDescription, pDescriptionLength) {
-        result := ComCall(93, this, "ptr", pDesc, "int*", pType, "uint*", pActiveCounters, "ptr", szName, "uint*", pNameLength, "ptr", szUnits, "uint*", pUnitsLength, "ptr", szDescription, "uint*", pDescriptionLength, "HRESULT")
+        szName := szName is String ? StrPtr(szName) : szName
+        szUnits := szUnits is String ? StrPtr(szUnits) : szUnits
+        szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
+
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pActiveCountersMarshal := pActiveCounters is VarRef ? "uint*" : "ptr"
+        pNameLengthMarshal := pNameLength is VarRef ? "uint*" : "ptr"
+        pUnitsLengthMarshal := pUnitsLength is VarRef ? "uint*" : "ptr"
+        pDescriptionLengthMarshal := pDescriptionLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(93, this, "ptr", pDesc, pTypeMarshal, pType, pActiveCountersMarshal, pActiveCounters, "ptr", szName, pNameLengthMarshal, pNameLength, "ptr", szUnits, pUnitsLengthMarshal, pUnitsLength, "ptr", szDescription, pDescriptionLengthMarshal, pDescriptionLength, "HRESULT")
         return result
     }
 
@@ -1163,6 +1219,9 @@ class ID3D10Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-gettextfiltersize
      */
     GetTextFilterSize(pWidth, pHeight) {
-        ComCall(97, this, "uint*", pWidth, "uint*", pHeight)
+        pWidthMarshal := pWidth is VarRef ? "uint*" : "ptr"
+        pHeightMarshal := pHeight is VarRef ? "uint*" : "ptr"
+
+        ComCall(97, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight)
     }
 }

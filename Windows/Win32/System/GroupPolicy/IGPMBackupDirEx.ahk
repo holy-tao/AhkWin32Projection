@@ -53,7 +53,9 @@ class IGPMBackupDirEx extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BackupType(pgpmBackupType) {
-        result := ComCall(8, this, "int*", pgpmBackupType, "HRESULT")
+        pgpmBackupTypeMarshal := pgpmBackupType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pgpmBackupTypeMarshal, pgpmBackupType, "HRESULT")
         return result
     }
 

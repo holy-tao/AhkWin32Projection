@@ -44,7 +44,9 @@ class ISchemaAny extends ISchemaParticle{
      * @returns {HRESULT} 
      */
     get_processContents(processContents) {
-        result := ComCall(17, this, "int*", processContents, "HRESULT")
+        processContentsMarshal := processContents is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, processContentsMarshal, processContents, "HRESULT")
         return result
     }
 }

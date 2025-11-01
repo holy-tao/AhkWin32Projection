@@ -61,7 +61,9 @@ class IStillImageW extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceList(dwType, dwFlags, pdwItemsReturned, ppBuffer) {
-        result := ComCall(4, this, "uint", dwType, "uint", dwFlags, "uint*", pdwItemsReturned, "ptr*", ppBuffer, "HRESULT")
+        pdwItemsReturnedMarshal := pdwItemsReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwType, "uint", dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, "ptr*", ppBuffer, "HRESULT")
         return result
     }
 
@@ -106,7 +108,10 @@ class IStillImageW extends IUnknown{
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint*", cbData, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "uint*" : "ptr"
+        cbDataMarshal := cbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, pTypeMarshal, pType, "ptr", pData, cbDataMarshal, cbData, "HRESULT")
         return result
     }
 
@@ -138,7 +143,9 @@ class IStillImageW extends IUnknown{
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pwszEventName := pwszEventName is String ? StrPtr(pwszEventName) : pwszEventName
 
-        result := ComCall(9, this, "ptr", pwszDeviceName, "uint*", pdwEventCode, "ptr", pwszEventName, "HRESULT")
+        pdwEventCodeMarshal := pdwEventCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pwszDeviceName, pdwEventCodeMarshal, pdwEventCode, "ptr", pwszEventName, "HRESULT")
         return result
     }
 

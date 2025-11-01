@@ -63,7 +63,9 @@ class IVdsDiskPartitionMF extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-querypartitionfilesystemformatsupport
      */
     QueryPartitionFileSystemFormatSupport(ullOffset, ppFileSystemSupportProps, plNumberOfFileSystems) {
-        result := ComCall(5, this, "uint", ullOffset, "ptr*", ppFileSystemSupportProps, "int*", plNumberOfFileSystems, "HRESULT")
+        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "uint", ullOffset, "ptr*", ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
     }
 

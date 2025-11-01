@@ -66,7 +66,10 @@ class IShellIconOverlayIdentifier extends IUnknown{
     GetOverlayInfo(pwszIconFile, cchMax, pIndex, pdwFlags) {
         pwszIconFile := pwszIconFile is String ? StrPtr(pwszIconFile) : pwszIconFile
 
-        result := ComCall(4, this, "ptr", pwszIconFile, "int", cchMax, "int*", pIndex, "uint*", pdwFlags, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszIconFile, "int", cchMax, pIndexMarshal, pIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -77,7 +80,9 @@ class IShellIconOverlayIdentifier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelliconoverlayidentifier-getpriority
      */
     GetPriority(pPriority) {
-        result := ComCall(5, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 }

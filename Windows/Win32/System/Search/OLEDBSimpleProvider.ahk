@@ -40,7 +40,9 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     getRowCount(pcRows) {
-        result := ComCall(3, this, "ptr*", pcRows, "HRESULT")
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     getColumnCount(pcColumns) {
-        result := ComCall(4, this, "ptr*", pcColumns, "HRESULT")
+        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pcColumnsMarshal, pcColumns, "HRESULT")
         return result
     }
 
@@ -62,7 +66,9 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     getRWStatus(iRow, iColumn, prwStatus) {
-        result := ComCall(5, this, "ptr", iRow, "ptr", iColumn, "int*", prwStatus, "HRESULT")
+        prwStatusMarshal := prwStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", iRow, "ptr", iColumn, prwStatusMarshal, prwStatus, "HRESULT")
         return result
     }
 
@@ -110,7 +116,9 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     deleteRows(iRow, cRows, pcRowsDeleted) {
-        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, "ptr*", pcRowsDeleted, "HRESULT")
+        pcRowsDeletedMarshal := pcRowsDeleted is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, pcRowsDeletedMarshal, pcRowsDeleted, "HRESULT")
         return result
     }
 
@@ -122,7 +130,9 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     insertRows(iRow, cRows, pcRowsInserted) {
-        result := ComCall(10, this, "ptr", iRow, "ptr", cRows, "ptr*", pcRowsInserted, "HRESULT")
+        pcRowsInsertedMarshal := pcRowsInserted is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", iRow, "ptr", cRows, pcRowsInsertedMarshal, pcRowsInserted, "HRESULT")
         return result
     }
 
@@ -137,7 +147,9 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     find(iRowStart, iColumn, val, findFlags, compType, piRowFound) {
-        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", val, "int", findFlags, "int", compType, "ptr*", piRowFound, "HRESULT")
+        piRowFoundMarshal := piRowFound is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", val, "int", findFlags, "int", compType, piRowFoundMarshal, piRowFound, "HRESULT")
         return result
     }
 
@@ -177,7 +189,9 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     getEstimatedRows(piRows) {
-        result := ComCall(15, this, "ptr*", piRows, "HRESULT")
+        piRowsMarshal := piRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, piRowsMarshal, piRows, "HRESULT")
         return result
     }
 

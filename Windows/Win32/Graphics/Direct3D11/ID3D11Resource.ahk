@@ -42,7 +42,9 @@ class ID3D11Resource extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11resource-gettype
      */
     GetType(pResourceDimension) {
-        ComCall(7, this, "int*", pResourceDimension)
+        pResourceDimensionMarshal := pResourceDimension is VarRef ? "int*" : "ptr"
+
+        ComCall(7, this, pResourceDimensionMarshal, pResourceDimension)
     }
 
     /**

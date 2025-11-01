@@ -36,7 +36,9 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface{
     GetInstallerName(pNameLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(0, this, "ptr*", pNameLength, "ptr", pName, "HRESULT")
+        pNameLengthMarshal := pNameLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(0, this, pNameLengthMarshal, pNameLength, "ptr", pName, "HRESULT")
         return result
     }
 

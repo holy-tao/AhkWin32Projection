@@ -103,7 +103,9 @@ class IComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-getresultviewtype
      */
     GetResultViewType(cookie, ppViewType, pViewOptions) {
-        result := ComCall(7, this, "ptr", cookie, "ptr", ppViewType, "int*", pViewOptions, "HRESULT")
+        pViewOptionsMarshal := pViewOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", cookie, "ptr", ppViewType, pViewOptionsMarshal, pViewOptions, "HRESULT")
         return result
     }
 

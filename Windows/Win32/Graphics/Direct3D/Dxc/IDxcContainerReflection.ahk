@@ -44,7 +44,9 @@ class IDxcContainerReflection extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPartCount(pResult) {
-        result := ComCall(4, this, "uint*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IDxcContainerReflection extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPartKind(idx, pResult) {
-        result := ComCall(5, this, "uint", idx, "uint*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", idx, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IDxcContainerReflection extends IUnknown{
      * @returns {HRESULT} 
      */
     FindFirstPartKind(kind, pResult) {
-        result := ComCall(7, this, "uint", kind, "uint*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", kind, pResultMarshal, pResult, "HRESULT")
         return result
     }
 

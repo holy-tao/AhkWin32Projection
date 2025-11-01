@@ -86,7 +86,9 @@ class IADsSession extends IADs{
      * @returns {HRESULT} 
      */
     get_ConnectTime(retval) {
-        result := ComCall(24, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class IADsSession extends IADs{
      * @returns {HRESULT} 
      */
     get_IdleTime(retval) {
-        result := ComCall(25, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

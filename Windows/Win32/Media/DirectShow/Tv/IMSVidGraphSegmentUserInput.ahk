@@ -53,7 +53,9 @@ class IMSVidGraphSegmentUserInput extends IUnknown{
      * @returns {HRESULT} 
      */
     KeyDown(KeyCode, ShiftState) {
-        result := ComCall(5, this, "short*", KeyCode, "short", ShiftState, "HRESULT")
+        KeyCodeMarshal := KeyCode is VarRef ? "short*" : "ptr"
+
+        result := ComCall(5, this, KeyCodeMarshal, KeyCode, "short", ShiftState, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IMSVidGraphSegmentUserInput extends IUnknown{
      * @returns {HRESULT} 
      */
     KeyPress(KeyAscii) {
-        result := ComCall(6, this, "short*", KeyAscii, "HRESULT")
+        KeyAsciiMarshal := KeyAscii is VarRef ? "short*" : "ptr"
+
+        result := ComCall(6, this, KeyAsciiMarshal, KeyAscii, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IMSVidGraphSegmentUserInput extends IUnknown{
      * @returns {HRESULT} 
      */
     KeyUp(KeyCode, ShiftState) {
-        result := ComCall(7, this, "short*", KeyCode, "short", ShiftState, "HRESULT")
+        KeyCodeMarshal := KeyCode is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, KeyCodeMarshal, KeyCode, "short", ShiftState, "HRESULT")
         return result
     }
 

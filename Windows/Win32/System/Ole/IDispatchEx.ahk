@@ -39,7 +39,9 @@ class IDispatchEx extends IDispatch{
     GetDispID(bstrName, grfdex, pid) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "ptr", bstrName, "uint", grfdex, "int*", pid, "HRESULT")
+        pidMarshal := pid is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", bstrName, "uint", grfdex, pidMarshal, pid, "HRESULT")
         return result
     }
 
@@ -90,7 +92,9 @@ class IDispatchEx extends IDispatch{
      * @returns {HRESULT} 
      */
     GetMemberProperties(id, grfdexFetch, pgrfdex) {
-        result := ComCall(11, this, "int", id, "uint", grfdexFetch, "uint*", pgrfdex, "HRESULT")
+        pgrfdexMarshal := pgrfdex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "int", id, "uint", grfdexFetch, pgrfdexMarshal, pgrfdex, "HRESULT")
         return result
     }
 
@@ -113,7 +117,9 @@ class IDispatchEx extends IDispatch{
      * @returns {HRESULT} 
      */
     GetNextDispID(grfdex, id, pid) {
-        result := ComCall(13, this, "uint", grfdex, "int", id, "int*", pid, "HRESULT")
+        pidMarshal := pid is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "uint", grfdex, "int", id, pidMarshal, pid, "HRESULT")
         return result
     }
 

@@ -95,7 +95,9 @@ class IAppPublisher extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getnumberofcategories
      */
     GetNumberOfCategories(pdwCat) {
-        result := ComCall(3, this, "uint*", pdwCat, "HRESULT")
+        pdwCatMarshal := pdwCat is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCatMarshal, pdwCat, "HRESULT")
         return result
     }
 
@@ -117,7 +119,9 @@ class IAppPublisher extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getnumberofapps
      */
     GetNumberOfApps(pdwApps) {
-        result := ComCall(5, this, "uint*", pdwApps, "HRESULT")
+        pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwAppsMarshal, pdwApps, "HRESULT")
         return result
     }
 

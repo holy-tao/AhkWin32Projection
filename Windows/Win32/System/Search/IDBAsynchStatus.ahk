@@ -50,7 +50,11 @@ class IDBAsynchStatus extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus(hChapter, eOperation, pulProgress, pulProgressMax, peAsynchPhase, ppwszStatusText) {
-        result := ComCall(4, this, "ptr", hChapter, "uint", eOperation, "ptr*", pulProgress, "ptr*", pulProgressMax, "uint*", peAsynchPhase, "ptr", ppwszStatusText, "HRESULT")
+        pulProgressMarshal := pulProgress is VarRef ? "ptr*" : "ptr"
+        pulProgressMaxMarshal := pulProgressMax is VarRef ? "ptr*" : "ptr"
+        peAsynchPhaseMarshal := peAsynchPhase is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hChapter, "uint", eOperation, pulProgressMarshal, pulProgress, pulProgressMaxMarshal, pulProgressMax, peAsynchPhaseMarshal, peAsynchPhase, "ptr", ppwszStatusText, "HRESULT")
         return result
     }
 }

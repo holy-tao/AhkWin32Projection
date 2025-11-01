@@ -39,7 +39,9 @@ class ICertConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-reset
      */
     Reset(Index, pCount) {
-        result := ComCall(7, this, "int", Index, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", Index, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class ICertConfig extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-next
      */
     Next(pIndex) {
-        result := ComCall(8, this, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 

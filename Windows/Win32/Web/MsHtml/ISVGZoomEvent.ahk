@@ -50,7 +50,9 @@ class ISVGZoomEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_previousScale(p) {
-        result := ComCall(8, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ISVGZoomEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_newScale(p) {
-        result := ComCall(10, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 

@@ -91,7 +91,9 @@ class ICLRRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     ExecuteInAppDomain(dwAppDomainId, pCallback, cookie) {
-        result := ComCall(8, this, "uint", dwAppDomainId, "ptr", pCallback, "ptr", cookie, "HRESULT")
+        cookieMarshal := cookie is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", dwAppDomainId, "ptr", pCallback, cookieMarshal, cookie, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class ICLRRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentAppDomainId(pdwAppDomainId) {
-        result := ComCall(9, this, "uint*", pdwAppDomainId, "HRESULT")
+        pdwAppDomainIdMarshal := pdwAppDomainId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwAppDomainIdMarshal, pdwAppDomainId, "HRESULT")
         return result
     }
 
@@ -118,7 +122,9 @@ class ICLRRuntimeHost extends IUnknown{
     ExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, pReturnValue) {
         pwzAppFullName := pwzAppFullName is String ? StrPtr(pwzAppFullName) : pwzAppFullName
 
-        result := ComCall(10, this, "ptr", pwzAppFullName, "uint", dwManifestPaths, "ptr", ppwzManifestPaths, "uint", dwActivationData, "ptr", ppwzActivationData, "int*", pReturnValue, "HRESULT")
+        pReturnValueMarshal := pReturnValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pwzAppFullName, "uint", dwManifestPaths, "ptr", ppwzManifestPaths, "uint", dwActivationData, "ptr", ppwzActivationData, pReturnValueMarshal, pReturnValue, "HRESULT")
         return result
     }
 
@@ -137,7 +143,9 @@ class ICLRRuntimeHost extends IUnknown{
         pwzMethodName := pwzMethodName is String ? StrPtr(pwzMethodName) : pwzMethodName
         pwzArgument := pwzArgument is String ? StrPtr(pwzArgument) : pwzArgument
 
-        result := ComCall(11, this, "ptr", pwzAssemblyPath, "ptr", pwzTypeName, "ptr", pwzMethodName, "ptr", pwzArgument, "uint*", pReturnValue, "HRESULT")
+        pReturnValueMarshal := pReturnValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pwzAssemblyPath, "ptr", pwzTypeName, "ptr", pwzMethodName, "ptr", pwzArgument, pReturnValueMarshal, pReturnValue, "HRESULT")
         return result
     }
 }

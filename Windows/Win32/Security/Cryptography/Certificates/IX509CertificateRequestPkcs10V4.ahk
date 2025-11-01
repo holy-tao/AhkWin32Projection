@@ -34,7 +34,9 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
      * @returns {HRESULT} 
      */
     get_ClaimType(pValue) {
-        result := ComCall(76, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(76, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

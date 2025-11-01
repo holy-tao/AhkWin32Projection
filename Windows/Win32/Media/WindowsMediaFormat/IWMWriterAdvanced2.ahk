@@ -43,7 +43,11 @@ class IWMWriterAdvanced2 extends IWMWriterAdvanced{
     GetInputSetting(dwInputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(14, this, "uint", dwInputNum, "ptr", pszName, "int*", pType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(14, this, "uint", dwInputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IWMWriterAdvanced2 extends IWMWriterAdvanced{
     SetInputSetting(dwInputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(15, this, "uint", dwInputNum, "ptr", pszName, "int", Type, "char*", pValue, "ushort", cbLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwInputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 }

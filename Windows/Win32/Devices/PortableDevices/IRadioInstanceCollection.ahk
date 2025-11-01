@@ -34,7 +34,9 @@ class IRadioInstanceCollection extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pcInstance) {
-        result := ComCall(3, this, "uint*", pcInstance, "HRESULT")
+        pcInstanceMarshal := pcInstance is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcInstanceMarshal, pcInstance, "HRESULT")
         return result
     }
 

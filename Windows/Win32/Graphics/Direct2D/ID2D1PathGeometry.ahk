@@ -70,7 +70,9 @@ class ID2D1PathGeometry extends ID2D1Geometry{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-getsegmentcount
      */
     GetSegmentCount(count) {
-        result := ComCall(19, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class ID2D1PathGeometry extends ID2D1Geometry{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-getfigurecount
      */
     GetFigureCount(count) {
-        result := ComCall(20, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, countMarshal, count, "HRESULT")
         return result
     }
 }

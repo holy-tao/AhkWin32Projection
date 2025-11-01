@@ -34,7 +34,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetTypeKind(kind) {
-        result := ComCall(10, this, "int*", kind, "HRESULT")
+        kindMarshal := kind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, kindMarshal, kind, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetSize(size) {
-        result := ComCall(11, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, sizeMarshal, size, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetHashCode(hashCode) {
-        result := ComCall(13, this, "uint*", hashCode, "HRESULT")
+        hashCodeMarshal := hashCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, hashCodeMarshal, hashCode, "HRESULT")
         return result
     }
 
@@ -75,7 +81,10 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetIntrinsicType(intrinsicKind, carrierType) {
-        result := ComCall(14, this, "int*", intrinsicKind, "ushort*", carrierType, "HRESULT")
+        intrinsicKindMarshal := intrinsicKind is VarRef ? "int*" : "ptr"
+        carrierTypeMarshal := carrierType is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(14, this, intrinsicKindMarshal, intrinsicKind, carrierTypeMarshal, carrierType, "HRESULT")
         return result
     }
 
@@ -86,7 +95,10 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetBitField(lsbOfField, lengthOfField) {
-        result := ComCall(15, this, "uint*", lsbOfField, "uint*", lengthOfField, "HRESULT")
+        lsbOfFieldMarshal := lsbOfField is VarRef ? "uint*" : "ptr"
+        lengthOfFieldMarshal := lengthOfField is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, lsbOfFieldMarshal, lsbOfField, lengthOfFieldMarshal, lengthOfField, "HRESULT")
         return result
     }
 
@@ -96,7 +108,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetPointerKind(pointerKind) {
-        result := ComCall(16, this, "int*", pointerKind, "HRESULT")
+        pointerKindMarshal := pointerKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pointerKindMarshal, pointerKind, "HRESULT")
         return result
     }
 
@@ -127,7 +141,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetArrayDimensionality(arrayDimensionality) {
-        result := ComCall(19, this, "uint*", arrayDimensionality, "HRESULT")
+        arrayDimensionalityMarshal := arrayDimensionality is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, arrayDimensionalityMarshal, arrayDimensionality, "HRESULT")
         return result
     }
 
@@ -160,7 +176,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetFunctionCallingConvention(conventionKind) {
-        result := ComCall(22, this, "int*", conventionKind, "HRESULT")
+        conventionKindMarshal := conventionKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, conventionKindMarshal, conventionKind, "HRESULT")
         return result
     }
 
@@ -180,7 +198,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetFunctionParameterTypeCount(count) {
-        result := ComCall(24, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -201,7 +221,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     IsGeneric(isGeneric) {
-        result := ComCall(26, this, "int*", isGeneric, "HRESULT")
+        isGenericMarshal := isGeneric is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, isGenericMarshal, isGeneric, "HRESULT")
         return result
     }
 
@@ -211,7 +233,9 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetGenericArgumentCount(argCount) {
-        result := ComCall(27, this, "uint*", argCount, "HRESULT")
+        argCountMarshal := argCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, argCountMarshal, argCount, "HRESULT")
         return result
     }
 

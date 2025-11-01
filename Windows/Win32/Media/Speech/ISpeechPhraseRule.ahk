@@ -44,7 +44,9 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Id(Id) {
-        result := ComCall(8, this, "int*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_FirstElement(FirstElement) {
-        result := ComCall(9, this, "int*", FirstElement, "HRESULT")
+        FirstElementMarshal := FirstElement is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, FirstElementMarshal, FirstElement, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_NumberOfElements(NumberOfElements) {
-        result := ComCall(10, this, "int*", NumberOfElements, "HRESULT")
+        NumberOfElementsMarshal := NumberOfElements is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, NumberOfElementsMarshal, NumberOfElements, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Confidence(ActualConfidence) {
-        result := ComCall(13, this, "int*", ActualConfidence, "HRESULT")
+        ActualConfidenceMarshal := ActualConfidence is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, ActualConfidenceMarshal, ActualConfidence, "HRESULT")
         return result
     }
 
@@ -104,7 +112,9 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EngineConfidence(EngineConfidence) {
-        result := ComCall(14, this, "float*", EngineConfidence, "HRESULT")
+        EngineConfidenceMarshal := EngineConfidence is VarRef ? "float*" : "ptr"
+
+        result := ComCall(14, this, EngineConfidenceMarshal, EngineConfidence, "HRESULT")
         return result
     }
 }

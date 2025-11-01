@@ -37,7 +37,9 @@ class IWMReaderStreamClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-gettime
      */
     GetTime(pcnsNow) {
-        result := ComCall(3, this, "uint*", pcnsNow, "HRESULT")
+        pcnsNowMarshal := pcnsNow is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcnsNowMarshal, pcnsNow, "HRESULT")
         return result
     }
 
@@ -56,7 +58,10 @@ class IWMReaderStreamClock extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-settimer
      */
     SetTimer(cnsWhen, pvParam, pdwTimerId) {
-        result := ComCall(4, this, "uint", cnsWhen, "ptr", pvParam, "uint*", pdwTimerId, "HRESULT")
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+        pdwTimerIdMarshal := pdwTimerId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", cnsWhen, pvParamMarshal, pvParam, pdwTimerIdMarshal, pdwTimerId, "HRESULT")
         return result
     }
 

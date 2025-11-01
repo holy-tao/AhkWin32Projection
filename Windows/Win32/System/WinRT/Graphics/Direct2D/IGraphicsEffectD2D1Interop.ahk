@@ -52,7 +52,10 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
     GetNamedPropertyMapping(name, index, mapping) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", name, "uint*", index, "int*", mapping, "HRESULT")
+        indexMarshal := index is VarRef ? "uint*" : "ptr"
+        mappingMarshal := mapping is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", name, indexMarshal, index, mappingMarshal, mapping, "HRESULT")
         return result
     }
 
@@ -63,7 +66,9 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getpropertycount
      */
     GetPropertyCount(count) {
-        result := ComCall(5, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -98,7 +103,9 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getsourcecount
      */
     GetSourceCount(count) {
-        result := ComCall(8, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, countMarshal, count, "HRESULT")
         return result
     }
 }

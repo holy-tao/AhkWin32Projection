@@ -37,7 +37,9 @@ class INetFwRule2 extends INetFwRule{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule2-get_edgetraversaloptions
      */
     get_EdgeTraversalOptions(lOptions) {
-        result := ComCall(43, this, "int*", lOptions, "HRESULT")
+        lOptionsMarshal := lOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, lOptionsMarshal, lOptions, "HRESULT")
         return result
     }
 

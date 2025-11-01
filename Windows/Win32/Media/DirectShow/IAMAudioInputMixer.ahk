@@ -92,7 +92,9 @@ class IAMAudioInputMixer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_mixlevel
      */
     get_MixLevel(pLevel) {
-        result := ComCall(8, this, "double*", pLevel, "HRESULT")
+        pLevelMarshal := pLevel is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pLevelMarshal, pLevel, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IAMAudioInputMixer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_pan
      */
     get_Pan(pPan) {
-        result := ComCall(10, this, "double*", pPan, "HRESULT")
+        pPanMarshal := pPan is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, pPanMarshal, pPan, "HRESULT")
         return result
     }
 
@@ -158,7 +162,9 @@ class IAMAudioInputMixer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_treble
      */
     get_Treble(pTreble) {
-        result := ComCall(14, this, "double*", pTreble, "HRESULT")
+        pTrebleMarshal := pTreble is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, pTrebleMarshal, pTreble, "HRESULT")
         return result
     }
 
@@ -169,7 +175,9 @@ class IAMAudioInputMixer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_treblerange
      */
     get_TrebleRange(pRange) {
-        result := ComCall(15, this, "double*", pRange, "HRESULT")
+        pRangeMarshal := pRange is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, pRangeMarshal, pRange, "HRESULT")
         return result
     }
 
@@ -191,7 +199,9 @@ class IAMAudioInputMixer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_bass
      */
     get_Bass(pBass) {
-        result := ComCall(17, this, "double*", pBass, "HRESULT")
+        pBassMarshal := pBass is VarRef ? "double*" : "ptr"
+
+        result := ComCall(17, this, pBassMarshal, pBass, "HRESULT")
         return result
     }
 
@@ -202,7 +212,9 @@ class IAMAudioInputMixer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_bassrange
      */
     get_BassRange(pRange) {
-        result := ComCall(18, this, "double*", pRange, "HRESULT")
+        pRangeMarshal := pRange is VarRef ? "double*" : "ptr"
+
+        result := ComCall(18, this, pRangeMarshal, pRange, "HRESULT")
         return result
     }
 }

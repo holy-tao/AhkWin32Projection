@@ -48,7 +48,9 @@ class IRowsetCopyRows extends IUnknown{
      * @returns {HRESULT} 
      */
     CopyByHROWS(hSourceID, hReserved, cRows, rghRows, bFlags) {
-        result := ComCall(4, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "ptr*", rghRows, "uint", bFlags, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint", bFlags, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IRowsetCopyRows extends IUnknown{
      * @returns {HRESULT} 
      */
     CopyRows(hSourceID, hReserved, cRows, bFlags, pcRowsCopied) {
-        result := ComCall(5, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "uint", bFlags, "ptr*", pcRowsCopied, "HRESULT")
+        pcRowsCopiedMarshal := pcRowsCopied is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "uint", bFlags, pcRowsCopiedMarshal, pcRowsCopied, "HRESULT")
         return result
     }
 
@@ -76,7 +80,11 @@ class IRowsetCopyRows extends IUnknown{
      * @returns {HRESULT} 
      */
     DefineSource(pRowsetSource, cColIds, rgSourceColumns, rgTargetColumns, phSourceID) {
-        result := ComCall(6, this, "ptr", pRowsetSource, "ptr", cColIds, "ptr*", rgSourceColumns, "ptr*", rgTargetColumns, "ushort*", phSourceID, "HRESULT")
+        rgSourceColumnsMarshal := rgSourceColumns is VarRef ? "ptr*" : "ptr"
+        rgTargetColumnsMarshal := rgTargetColumns is VarRef ? "ptr*" : "ptr"
+        phSourceIDMarshal := phSourceID is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pRowsetSource, "ptr", cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, phSourceIDMarshal, phSourceID, "HRESULT")
         return result
     }
 }

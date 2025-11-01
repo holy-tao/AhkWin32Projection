@@ -38,7 +38,10 @@ class IMDSPObject2 extends IMDSPObject{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject2-readonclearchannel
      */
     ReadOnClearChannel(pData, pdwSize) {
-        result := ComCall(11, this, "char*", pData, "uint*", pdwSize, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -50,7 +53,10 @@ class IMDSPObject2 extends IMDSPObject{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject2-writeonclearchannel
      */
     WriteOnClearChannel(pData, pdwSize) {
-        result := ComCall(12, this, "char*", pData, "uint*", pdwSize, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 }

@@ -55,7 +55,9 @@ class IBurnVerification extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iburnverification-get_burnverificationlevel
      */
     get_BurnVerificationLevel(value) {
-        result := ComCall(4, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

@@ -35,7 +35,9 @@ class IRowsetKeys extends IUnknown{
      * @returns {HRESULT} 
      */
     ListKeys(pcColumns, prgColumns) {
-        result := ComCall(3, this, "ptr*", pcColumns, "ptr*", prgColumns, "HRESULT")
+        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pcColumnsMarshal, pcColumns, "ptr*", prgColumns, "HRESULT")
         return result
     }
 }

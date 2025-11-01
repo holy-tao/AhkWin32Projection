@@ -44,7 +44,10 @@ class IDebugPlmClient2 extends IUnknown{
         AppName := AppName is String ? StrPtr(AppName) : AppName
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        result := ComCall(3, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, "uint*", ProcessId, "uint*", ThreadId, "HRESULT")
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
@@ -62,7 +65,10 @@ class IDebugPlmClient2 extends IUnknown{
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
         BackgroundTaskId := BackgroundTaskId is String ? StrPtr(BackgroundTaskId) : BackgroundTaskId
 
-        result := ComCall(4, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, "uint*", ProcessId, "uint*", ThreadId, "HRESULT")
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 }

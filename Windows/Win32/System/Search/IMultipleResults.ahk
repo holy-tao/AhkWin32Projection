@@ -38,7 +38,9 @@ class IMultipleResults extends IUnknown{
      * @returns {HRESULT} 
      */
     GetResult(pUnkOuter, lResultFlag, riid, pcRowsAffected, ppRowset) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", lResultFlag, "ptr", riid, "ptr*", pcRowsAffected, "ptr*", ppRowset, "HRESULT")
+        pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", lResultFlag, "ptr", riid, pcRowsAffectedMarshal, pcRowsAffected, "ptr*", ppRowset, "HRESULT")
         return result
     }
 }

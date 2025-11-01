@@ -37,7 +37,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrix
      */
     SetMatrix(pData) {
-        result := ComCall(25, this, "float*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(25, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrix
      */
     GetMatrix(pData) {
-        result := ComCall(26, this, "float*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(26, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -61,7 +65,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixarray
      */
     SetMatrixArray(pData, Offset, Count) {
-        result := ComCall(27, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(27, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixarray
      */
     GetMatrixArray(pData, Offset, Count) {
-        result := ComCall(28, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(28, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -85,7 +93,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtranspose
      */
     SetMatrixTranspose(pData) {
-        result := ComCall(29, this, "float*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(29, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -96,7 +106,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtranspose
      */
     GetMatrixTranspose(pData) {
-        result := ComCall(30, this, "float*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(30, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -109,7 +121,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtransposearray
      */
     SetMatrixTransposeArray(pData, Offset, Count) {
-        result := ComCall(31, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -122,7 +136,9 @@ class ID3D10EffectMatrixVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtransposearray
      */
     GetMatrixTransposeArray(pData, Offset, Count) {
-        result := ComCall(32, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(32, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 }

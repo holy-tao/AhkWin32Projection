@@ -8,6 +8,7 @@
 #Include ../Windows/Win32/System/SystemInformation/Apis.ahk
 #Include ../Windows/Win32/UI/WindowsAndMessaging/Apis.ahk
 #include ../Windows/Win32/System/Memory/Apis.ahk
+#include ../Windows/Win32/System/Com/Apis.ahk
 #Include ../Windows/Win32/Networking/WinSock/Apis.ahk
 #Include ../Windows/Win32/System/Com/Urlmon/Apis.ahk
 #Include ../Windows/Win32/Security/Authentication/Identity/Apis.ahk
@@ -195,6 +196,29 @@ class GeneratedApiSmokeTests {
             str := Foundation.SysAllocString("Test")
             handleRaw := str.Value
             Foundation.SysFreeString(handleRaw)   ; will segfault (exit with code=3221226356) if passed an invalid non-null handle
+        }
+    }
+
+    /**
+     * Pointers to primitives should accept VarRefs and raw pointers
+     * Fix to https://github.com/holy-tao/AhkWin32Structs-Generator/issues/18
+     */
+    class PrimitivePointerMarshalling {
+        PrimitivePtrParams_Always_AcceptVarRefs(){
+            Com.CoGetApartmentType(&aptTyp := 0xFFFFFFFF, &aptQualifier := 0xFFFFFFFF)
+
+            YUnit.Assert(aptTyp != 0xFFFFFFFF)
+            YUnit.Assert(aptQualifier != 0xFFFFFFFF)
+        }
+
+        PrimitivePtrParams_Always_AcceptRawPointers(){
+            aptTyp := Buffer(4, 0xFF)
+            aptQualifier := Buffer(4, 0xFF)
+
+            Com.CoGetApartmentType(aptTyp, aptQualifier)
+
+            YUnit.Assert(NumGet(aptTyp, "int") != 0xFFFFFFFF)
+            YUnit.Assert(NumGet(aptQualifier, "int") != 0xFFFFFFFF)
         }
     }
 }

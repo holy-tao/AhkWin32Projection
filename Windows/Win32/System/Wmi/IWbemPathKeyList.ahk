@@ -37,7 +37,9 @@ class IWbemPathKeyList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-getcount
      */
     GetCount(puKeyCount) {
-        result := ComCall(3, this, "uint*", puKeyCount, "HRESULT")
+        puKeyCountMarshal := puKeyCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puKeyCountMarshal, puKeyCount, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IWbemPathKeyList extends IUnknown{
     SetKey(wszName, uFlags, uCimType, pKeyVal) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(4, this, "ptr", wszName, "uint", uFlags, "uint", uCimType, "ptr", pKeyVal, "HRESULT")
+        pKeyValMarshal := pKeyVal is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", wszName, "uint", uFlags, "uint", uCimType, pKeyValMarshal, pKeyVal, "HRESULT")
         return result
     }
 
@@ -88,7 +92,12 @@ class IWbemPathKeyList extends IUnknown{
     GetKey(uKeyIx, uFlags, puNameBufSize, pszKeyName, puKeyValBufSize, pKeyVal, puApparentCimType) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        result := ComCall(6, this, "uint", uKeyIx, "uint", uFlags, "uint*", puNameBufSize, "ptr", pszKeyName, "uint*", puKeyValBufSize, "ptr", pKeyVal, "uint*", puApparentCimType, "HRESULT")
+        puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : "ptr"
+        puKeyValBufSizeMarshal := puKeyValBufSize is VarRef ? "uint*" : "ptr"
+        pKeyValMarshal := pKeyVal is VarRef ? "ptr" : "ptr"
+        puApparentCimTypeMarshal := puApparentCimType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, puKeyValBufSizeMarshal, puKeyValBufSize, pKeyValMarshal, pKeyVal, puApparentCimTypeMarshal, puApparentCimType, "HRESULT")
         return result
     }
 
@@ -106,7 +115,10 @@ class IWbemPathKeyList extends IUnknown{
     GetKey2(uKeyIx, uFlags, puNameBufSize, pszKeyName, pKeyValue, puApparentCimType) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        result := ComCall(7, this, "uint", uKeyIx, "uint", uFlags, "uint*", puNameBufSize, "ptr", pszKeyName, "ptr", pKeyValue, "uint*", puApparentCimType, "HRESULT")
+        puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : "ptr"
+        puApparentCimTypeMarshal := puApparentCimType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, "ptr", pKeyValue, puApparentCimTypeMarshal, puApparentCimType, "HRESULT")
         return result
     }
 
@@ -154,7 +166,9 @@ class IWbemPathKeyList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-getinfo
      */
     GetInfo(uRequestedInfo, puResponse) {
-        result := ComCall(11, this, "uint", uRequestedInfo, "uint*", puResponse, "HRESULT")
+        puResponseMarshal := puResponse is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", uRequestedInfo, puResponseMarshal, puResponse, "HRESULT")
         return result
     }
 
@@ -169,7 +183,9 @@ class IWbemPathKeyList extends IUnknown{
     GetText(lFlags, puBuffLength, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(12, this, "int", lFlags, "uint*", puBuffLength, "ptr", pszText, "HRESULT")
+        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "int", lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
         return result
     }
 }

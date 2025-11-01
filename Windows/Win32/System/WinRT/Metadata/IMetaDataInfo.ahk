@@ -36,7 +36,10 @@ class IMetaDataInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFileMapping(ppvData, pcbData, pdwMappingType) {
-        result := ComCall(3, this, "ptr*", ppvData, "uint*", pcbData, "uint*", pdwMappingType, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pdwMappingTypeMarshal := pdwMappingType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", ppvData, pcbDataMarshal, pcbData, pdwMappingTypeMarshal, pdwMappingType, "HRESULT")
         return result
     }
 }

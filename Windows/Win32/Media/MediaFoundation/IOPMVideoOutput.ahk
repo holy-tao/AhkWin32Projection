@@ -39,7 +39,9 @@ class IOPMVideoOutput extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-startinitialization
      */
     StartInitialization(prnRandomNumber, ppbCertificate, pulCertificateLength) {
-        result := ComCall(3, this, "ptr", prnRandomNumber, "ptr*", ppbCertificate, "uint*", pulCertificateLength, "HRESULT")
+        pulCertificateLengthMarshal := pulCertificateLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", prnRandomNumber, "ptr*", ppbCertificate, pulCertificateLengthMarshal, pulCertificateLength, "HRESULT")
         return result
     }
 

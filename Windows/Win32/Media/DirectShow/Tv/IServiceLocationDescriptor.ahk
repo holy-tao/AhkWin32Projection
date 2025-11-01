@@ -37,7 +37,9 @@ class IServiceLocationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getpcr_pid
      */
     GetPCR_PID(pwVal) {
-        result := ComCall(3, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IServiceLocationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getnumberofelements
      */
     GetNumberOfElements(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IServiceLocationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getelementstreamtype
      */
     GetElementStreamType(bIndex, pbVal) {
-        result := ComCall(5, this, "char", bIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -72,7 +78,9 @@ class IServiceLocationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getelementpid
      */
     GetElementPID(bIndex, pwVal) {
-        result := ComCall(6, this, "char", bIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "char", bIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -84,7 +92,9 @@ class IServiceLocationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getelementlanguagecode
      */
     GetElementLanguageCode(bIndex, LangCode) {
-        result := ComCall(7, this, "char", bIndex, "char*", LangCode, "HRESULT")
+        LangCodeMarshal := LangCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "char", bIndex, LangCodeMarshal, LangCode, "HRESULT")
         return result
     }
 }

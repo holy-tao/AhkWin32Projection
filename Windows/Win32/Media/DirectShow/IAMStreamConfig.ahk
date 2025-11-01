@@ -68,7 +68,10 @@ class IAMStreamConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getnumberofcapabilities
      */
     GetNumberOfCapabilities(piCount, piSize) {
-        result := ComCall(5, this, "int*", piCount, "int*", piSize, "HRESULT")
+        piCountMarshal := piCount is VarRef ? "int*" : "ptr"
+        piSizeMarshal := piSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, piCountMarshal, piCount, piSizeMarshal, piSize, "HRESULT")
         return result
     }
 
@@ -81,7 +84,9 @@ class IAMStreamConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getstreamcaps
      */
     GetStreamCaps(iIndex, ppmt, pSCC) {
-        result := ComCall(6, this, "int", iIndex, "ptr*", ppmt, "char*", pSCC, "HRESULT")
+        pSCCMarshal := pSCC is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "int", iIndex, "ptr*", ppmt, pSCCMarshal, pSCC, "HRESULT")
         return result
     }
 }

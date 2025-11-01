@@ -111,7 +111,10 @@ class ICaptureGraphBuilder2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-controlstream
      */
     ControlStream(pCategory, pType, pFilter, pstart, pstop, wStartCookie, wStopCookie) {
-        result := ComCall(8, this, "ptr", pCategory, "ptr", pType, "ptr", pFilter, "int64*", pstart, "int64*", pstop, "ushort", wStartCookie, "ushort", wStopCookie, "HRESULT")
+        pstartMarshal := pstart is VarRef ? "int64*" : "ptr"
+        pstopMarshal := pstop is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pCategory, "ptr", pType, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, "ushort", wStartCookie, "ushort", wStopCookie, "HRESULT")
         return result
     }
 

@@ -167,7 +167,9 @@ class IHTMLInputElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_size(p) {
-        result := ComCall(19, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -187,7 +189,9 @@ class IHTMLInputElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_maxLength(p) {
-        result := ComCall(21, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -478,7 +482,9 @@ class IHTMLInputElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_vspace(p) {
-        result := ComCall(41, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -498,7 +504,9 @@ class IHTMLInputElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_hspace(p) {
-        result := ComCall(43, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -750,7 +758,9 @@ class IHTMLInputElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(67, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(67, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -770,7 +780,9 @@ class IHTMLInputElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(69, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(69, this, pMarshal, p, "HRESULT")
         return result
     }
 

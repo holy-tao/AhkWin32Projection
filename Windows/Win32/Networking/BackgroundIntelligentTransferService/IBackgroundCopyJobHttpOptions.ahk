@@ -41,7 +41,9 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
     SetClientCertificateByID(StoreLocation, StoreName, pCertHashBlob) {
         StoreName := StoreName is String ? StrPtr(StoreName) : StoreName
 
-        result := ComCall(3, this, "int", StoreLocation, "ptr", StoreName, "char*", pCertHashBlob, "HRESULT")
+        pCertHashBlobMarshal := pCertHashBlob is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "int", StoreLocation, "ptr", StoreName, pCertHashBlobMarshal, pCertHashBlob, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getclientcertificate
      */
     GetClientCertificate(pStoreLocation, pStoreName, ppCertHashBlob, pSubjectName) {
-        result := ComCall(6, this, "int*", pStoreLocation, "ptr", pStoreName, "ptr*", ppCertHashBlob, "ptr", pSubjectName, "HRESULT")
+        pStoreLocationMarshal := pStoreLocation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, "ptr", pStoreName, "ptr*", ppCertHashBlob, "ptr", pSubjectName, "HRESULT")
         return result
     }
 
@@ -127,7 +131,9 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getsecurityflags
      */
     GetSecurityFlags(pFlags) {
-        result := ComCall(10, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 }

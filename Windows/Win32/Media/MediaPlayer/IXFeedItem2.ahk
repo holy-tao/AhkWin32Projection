@@ -34,7 +34,9 @@ class IXFeedItem2 extends IXFeedItem{
      * @returns {HRESULT} 
      */
     EffectiveId(puiEffectiveId) {
-        result := ComCall(20, this, "uint*", puiEffectiveId, "HRESULT")
+        puiEffectiveIdMarshal := puiEffectiveId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, puiEffectiveIdMarshal, puiEffectiveId, "HRESULT")
         return result
     }
 }

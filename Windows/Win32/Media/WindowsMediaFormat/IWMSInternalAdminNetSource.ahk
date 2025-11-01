@@ -126,7 +126,9 @@ class IWMSInternalAdminNetSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource-getcredentialflags
      */
     GetCredentialFlags(lpdwFlags) {
-        result := ComCall(8, this, "uint*", lpdwFlags, "HRESULT")
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, lpdwFlagsMarshal, lpdwFlags, "HRESULT")
         return result
     }
 
@@ -156,7 +158,10 @@ class IWMSInternalAdminNetSource extends IUnknown{
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
         bstrHost := bstrHost is String ? BSTR.Alloc(bstrHost).Value : bstrHost
 
-        result := ComCall(10, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", pfProxyEnabled, "ptr", pbstrProxyServer, "uint*", pdwProxyPort, "uint*", pdwProxyContext, "HRESULT")
+        pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
+        pdwProxyContextMarshal := pdwProxyContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pdwProxyContextMarshal, pdwProxyContext, "HRESULT")
         return result
     }
 

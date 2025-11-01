@@ -50,7 +50,10 @@ class IIOCancelInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iiocancelinformation-getcancelinformation
      */
     GetCancelInformation(pdwThreadID, puMsgCancel) {
-        result := ComCall(4, this, "uint*", pdwThreadID, "uint*", puMsgCancel, "HRESULT")
+        pdwThreadIDMarshal := pdwThreadID is VarRef ? "uint*" : "ptr"
+        puMsgCancelMarshal := puMsgCancel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwThreadIDMarshal, pdwThreadID, puMsgCancelMarshal, puMsgCancel, "HRESULT")
         return result
     }
 }

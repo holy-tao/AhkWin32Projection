@@ -91,7 +91,9 @@ class ISessionStateChangeTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_statechange
      */
     get_StateChange(pType) {
-        result := ComCall(24, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 

@@ -55,7 +55,9 @@ class IUIAutomationGridPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_currentrowcount
      */
     get_CurrentRowCount(retVal) {
-        result := ComCall(4, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IUIAutomationGridPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_currentcolumncount
      */
     get_CurrentColumnCount(retVal) {
-        result := ComCall(5, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IUIAutomationGridPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_cachedrowcount
      */
     get_CachedRowCount(retVal) {
-        result := ComCall(6, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -88,7 +94,9 @@ class IUIAutomationGridPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_cachedcolumncount
      */
     get_CachedColumnCount(retVal) {
-        result := ComCall(7, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

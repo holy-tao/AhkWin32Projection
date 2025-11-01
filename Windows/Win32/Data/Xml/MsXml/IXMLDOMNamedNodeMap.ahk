@@ -83,7 +83,9 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(listLength) {
-        result := ComCall(11, this, "int*", listLength, "HRESULT")
+        listLengthMarshal := listLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, listLengthMarshal, listLength, "HRESULT")
         return result
     }
 

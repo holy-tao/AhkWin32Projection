@@ -63,7 +63,11 @@ class ID3D11ClassInstance extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11classinstance-getinstancename
      */
     GetInstanceName(pInstanceName, pBufferLength) {
-        ComCall(9, this, "ptr", pInstanceName, "ptr*", pBufferLength)
+        pInstanceName := pInstanceName is String ? StrPtr(pInstanceName) : pInstanceName
+
+        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : "ptr"
+
+        ComCall(9, this, "ptr", pInstanceName, pBufferLengthMarshal, pBufferLength)
     }
 
     /**
@@ -74,6 +78,10 @@ class ID3D11ClassInstance extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11classinstance-gettypename
      */
     GetTypeName(pTypeName, pBufferLength) {
-        ComCall(10, this, "ptr", pTypeName, "ptr*", pBufferLength)
+        pTypeName := pTypeName is String ? StrPtr(pTypeName) : pTypeName
+
+        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : "ptr"
+
+        ComCall(10, this, "ptr", pTypeName, pBufferLengthMarshal, pBufferLength)
     }
 }

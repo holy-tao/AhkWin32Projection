@@ -48,7 +48,9 @@ class ITfCandidateString extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatestring-getindex
      */
     GetIndex(pnIndex) {
-        result := ComCall(4, this, "uint*", pnIndex, "HRESULT")
+        pnIndexMarshal := pnIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pnIndexMarshal, pnIndex, "HRESULT")
         return result
     }
 }

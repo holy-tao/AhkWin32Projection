@@ -36,7 +36,10 @@ class ISpSREngineSite extends IUnknown{
      * @returns {HRESULT} 
      */
     Read(pv, cb, pcbRead) {
-        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", pcbRead, "HRESULT")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pvMarshal, pv, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -46,7 +49,9 @@ class ISpSREngineSite extends IUnknown{
      * @returns {HRESULT} 
      */
     DataAvailable(pcb) {
-        result := ComCall(4, this, "uint*", pcb, "HRESULT")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 
@@ -124,7 +129,9 @@ class ISpSREngineSite extends IUnknown{
     SetWordClientContext(hWord, pvClientContext) {
         hWord := hWord is Win32Handle ? NumGet(hWord, "ptr") : hWord
 
-        result := ComCall(11, this, "ptr", hWord, "ptr", pvClientContext, "HRESULT")
+        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, "ptr", hWord, pvClientContextMarshal, pvClientContext, "HRESULT")
         return result
     }
 
@@ -148,7 +155,9 @@ class ISpSREngineSite extends IUnknown{
     SetRuleClientContext(hRule, pvClientContext) {
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
 
-        result := ComCall(13, this, "ptr", hRule, "ptr", pvClientContext, "HRESULT")
+        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(13, this, "ptr", hRule, pvClientContextMarshal, pvClientContext, "HRESULT")
         return result
     }
 
@@ -216,7 +225,9 @@ class ISpSREngineSite extends IUnknown{
     GetMaxAlternates(hRule, pulNumAlts) {
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
 
-        result := ComCall(18, this, "ptr", hRule, "uint*", pulNumAlts, "HRESULT")
+        pulNumAltsMarshal := pulNumAlts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", hRule, pulNumAltsMarshal, pulNumAlts, "HRESULT")
         return result
     }
 
@@ -229,7 +240,9 @@ class ISpSREngineSite extends IUnknown{
     GetContextMaxAlternates(hContext, pulNumAlts) {
         hContext := hContext is Win32Handle ? NumGet(hContext, "ptr") : hContext
 
-        result := ComCall(19, this, "ptr", hContext, "uint*", pulNumAlts, "HRESULT")
+        pulNumAltsMarshal := pulNumAlts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", hContext, pulNumAltsMarshal, pulNumAlts, "HRESULT")
         return result
     }
 

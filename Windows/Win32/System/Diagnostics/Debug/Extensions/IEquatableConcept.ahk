@@ -36,7 +36,9 @@ class IEquatableConcept extends IUnknown{
      * @returns {HRESULT} 
      */
     AreObjectsEqual(contextObject, otherObject, isEqual) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", isEqual, "HRESULT")
+        isEqualMarshal := isEqual is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, isEqualMarshal, isEqual, "HRESULT")
         return result
     }
 }

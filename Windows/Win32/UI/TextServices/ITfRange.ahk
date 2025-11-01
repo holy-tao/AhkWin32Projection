@@ -49,7 +49,9 @@ class ITfRange extends IUnknown{
     GetText(ec, dwFlags, pchText, cchMax, pcch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "uint", cchMax, "uint*", pcch, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "uint", cchMax, pcchMarshal, pcch, "HRESULT")
         return result
     }
 
@@ -118,7 +120,9 @@ class ITfRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstart
      */
     ShiftStart(ec, cchReq, pcch, pHalt) {
-        result := ComCall(8, this, "uint", ec, "int", cchReq, "int*", pcch, "ptr", pHalt, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "uint", ec, "int", cchReq, pcchMarshal, pcch, "ptr", pHalt, "HRESULT")
         return result
     }
 
@@ -132,7 +136,9 @@ class ITfRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftend
      */
     ShiftEnd(ec, cchReq, pcch, pHalt) {
-        result := ComCall(9, this, "uint", ec, "int", cchReq, "int*", pcch, "ptr", pHalt, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "uint", ec, "int", cchReq, pcchMarshal, pcch, "ptr", pHalt, "HRESULT")
         return result
     }
 
@@ -250,7 +256,9 @@ class ITfRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-comparestart
      */
     CompareStart(ec, pWith, aPos, plResult) {
-        result := ComCall(18, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", plResult, "HRESULT")
+        plResultMarshal := plResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, "uint", ec, "ptr", pWith, "int", aPos, plResultMarshal, plResult, "HRESULT")
         return result
     }
 
@@ -264,7 +272,9 @@ class ITfRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-compareend
      */
     CompareEnd(ec, pWith, aPos, plResult) {
-        result := ComCall(19, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", plResult, "HRESULT")
+        plResultMarshal := plResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "uint", ec, "ptr", pWith, "int", aPos, plResultMarshal, plResult, "HRESULT")
         return result
     }
 
@@ -289,7 +299,10 @@ class ITfRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getgravity
      */
     GetGravity(pgStart, pgEnd) {
-        result := ComCall(21, this, "int*", pgStart, "int*", pgEnd, "HRESULT")
+        pgStartMarshal := pgStart is VarRef ? "int*" : "ptr"
+        pgEndMarshal := pgEnd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pgStartMarshal, pgStart, pgEndMarshal, pgEnd, "HRESULT")
         return result
     }
 

@@ -42,7 +42,9 @@ class IFileSyncMergeHandler extends IUnknown{
         localFilePath := localFilePath is String ? StrPtr(localFilePath) : localFilePath
         serverFilePath := serverFilePath is String ? StrPtr(serverFilePath) : serverFilePath
 
-        result := ComCall(3, this, "ptr", localFilePath, "ptr", serverFilePath, "int*", updateStatus, "HRESULT")
+        updateStatusMarshal := updateStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", localFilePath, "ptr", serverFilePath, updateStatusMarshal, updateStatus, "HRESULT")
         return result
     }
 

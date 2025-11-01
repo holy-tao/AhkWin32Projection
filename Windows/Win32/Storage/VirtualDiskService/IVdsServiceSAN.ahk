@@ -37,7 +37,9 @@ class IVdsServiceSAN extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservicesan-getsanpolicy
      */
     GetSANPolicy(pSanPolicy) {
-        result := ComCall(3, this, "int*", pSanPolicy, "HRESULT")
+        pSanPolicyMarshal := pSanPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pSanPolicyMarshal, pSanPolicy, "HRESULT")
         return result
     }
 

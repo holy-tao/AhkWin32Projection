@@ -654,7 +654,9 @@ class Fxc {
     static D3DDisassembleRegion(pSrcData, SrcDataSize, Flags, szComments, StartByteOffset, NumInsts, pFinishByteOffset, ppDisassembly) {
         szComments := szComments is String ? StrPtr(szComments) : szComments
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, "ptr*", pFinishByteOffset, "ptr*", ppDisassembly, "int")
+        pFinishByteOffsetMarshal := pFinishByteOffset is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, pFinishByteOffsetMarshal, pFinishByteOffset, "ptr*", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -696,7 +698,9 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dloadmodule
      */
     static D3DLoadModule(pSrcData, cbSrcDataSize, ppModule) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", "ptr", pSrcData, "ptr", cbSrcDataSize, "ptr*", ppModule, "int")
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", pSrcDataMarshal, pSrcData, "ptr", cbSrcDataSize, "ptr*", ppModule, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -748,7 +752,10 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dgettraceinstructionoffsets
      */
     static D3DGetTraceInstructionOffsets(pSrcData, SrcDataSize, Flags, StartInstIndex, NumInsts, pOffsets, pTotalInsts) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetTraceInstructionOffsets", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", StartInstIndex, "ptr", NumInsts, "ptr*", pOffsets, "ptr*", pTotalInsts, "int")
+        pOffsetsMarshal := pOffsets is VarRef ? "ptr*" : "ptr"
+        pTotalInstsMarshal := pTotalInsts is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetTraceInstructionOffsets", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", StartInstIndex, "ptr", NumInsts, pOffsetsMarshal, pOffsets, pTotalInstsMarshal, pTotalInsts, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1000,7 +1007,10 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3ddecompressshaders
      */
     static D3DDecompressShaders(pSrcData, SrcDataSize, uNumShaders, uStartIndex, pIndices, uFlags, ppShaders, pTotalShaders) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", "ptr", pSrcData, "ptr", SrcDataSize, "uint", uNumShaders, "uint", uStartIndex, "uint*", pIndices, "uint", uFlags, "ptr*", ppShaders, "uint*", pTotalShaders, "int")
+        pIndicesMarshal := pIndices is VarRef ? "uint*" : "ptr"
+        pTotalShadersMarshal := pTotalShaders is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", "ptr", pSrcData, "ptr", SrcDataSize, "uint", uNumShaders, "uint", uStartIndex, pIndicesMarshal, pIndices, "uint", uFlags, "ptr*", ppShaders, pTotalShadersMarshal, pTotalShaders, "int")
         if(result != 0)
             throw OSError(result)
 

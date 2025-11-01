@@ -39,7 +39,9 @@ class IEnumWorkItems extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ienumworkitems-next
      */
     Next(celt, rgpwszNames, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", rgpwszNames, "uint*", pceltFetched, "int")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", rgpwszNames, pceltFetchedMarshal, pceltFetched, "int")
         return result
     }
 

@@ -59,7 +59,9 @@ class IProgressItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_firstblock
      */
     get_FirstBlock(block) {
-        result := ComCall(8, this, "uint*", block, "HRESULT")
+        blockMarshal := block is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, blockMarshal, block, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IProgressItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_lastblock
      */
     get_LastBlock(block) {
-        result := ComCall(9, this, "uint*", block, "HRESULT")
+        blockMarshal := block is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, blockMarshal, block, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IProgressItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_blockcount
      */
     get_BlockCount(blocks) {
-        result := ComCall(10, this, "uint*", blocks, "HRESULT")
+        blocksMarshal := blocks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, blocksMarshal, blocks, "HRESULT")
         return result
     }
 }

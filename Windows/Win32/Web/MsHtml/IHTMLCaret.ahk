@@ -141,7 +141,9 @@ class IHTMLCaret extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCaretDirection(peDir) {
-        result := ComCall(13, this, "int*", peDir, "HRESULT")
+        peDirMarshal := peDir is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, peDirMarshal, peDir, "HRESULT")
         return result
     }
 

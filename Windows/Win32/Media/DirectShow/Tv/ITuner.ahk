@@ -130,7 +130,9 @@ class ITuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_signalstrength
      */
     get_SignalStrength(Strength) {
-        result := ComCall(11, this, "int*", Strength, "HRESULT")
+        StrengthMarshal := Strength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, StrengthMarshal, Strength, "HRESULT")
         return result
     }
 

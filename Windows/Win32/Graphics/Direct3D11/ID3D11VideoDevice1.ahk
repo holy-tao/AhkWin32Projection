@@ -46,7 +46,10 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-getcryptosessionprivatedatasize
      */
     GetCryptoSessionPrivateDataSize(pCryptoType, pDecoderProfile, pKeyExchangeType, pPrivateInputSize, pPrivateOutputSize) {
-        result := ComCall(20, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pKeyExchangeType, "uint*", pPrivateInputSize, "uint*", pPrivateOutputSize, "HRESULT")
+        pPrivateInputSizeMarshal := pPrivateInputSize is VarRef ? "uint*" : "ptr"
+        pPrivateOutputSizeMarshal := pPrivateOutputSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pKeyExchangeType, pPrivateInputSizeMarshal, pPrivateInputSize, pPrivateOutputSizeMarshal, pPrivateOutputSize, "HRESULT")
         return result
     }
 
@@ -63,7 +66,9 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-getvideodecodercaps
      */
     GetVideoDecoderCaps(pDecoderProfile, SampleWidth, SampleHeight, pFrameRate, BitRate, pCryptoType, pDecoderCaps) {
-        result := ComCall(21, this, "ptr", pDecoderProfile, "uint", SampleWidth, "uint", SampleHeight, "ptr", pFrameRate, "uint", BitRate, "ptr", pCryptoType, "uint*", pDecoderCaps, "HRESULT")
+        pDecoderCapsMarshal := pDecoderCaps is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr", pDecoderProfile, "uint", SampleWidth, "uint", SampleHeight, "ptr", pFrameRate, "uint", BitRate, "ptr", pCryptoType, pDecoderCapsMarshal, pDecoderCaps, "HRESULT")
         return result
     }
 

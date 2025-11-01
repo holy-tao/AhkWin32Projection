@@ -40,7 +40,9 @@ class IResourceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     Enlist(pTransaction, pRes, pUOW, pisoLevel, ppEnlist) {
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", pRes, "ptr", pUOW, "int*", pisoLevel, "ptr*", ppEnlist, "HRESULT")
+        pisoLevelMarshal := pisoLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pTransaction, "ptr", pRes, "ptr", pUOW, pisoLevelMarshal, pisoLevel, "ptr*", ppEnlist, "HRESULT")
         return result
     }
 
@@ -53,7 +55,10 @@ class IResourceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     Reenlist(pPrepInfo, cbPrepInfo, lTimeout, pXactStat) {
-        result := ComCall(4, this, "char*", pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, "int*", pXactStat, "HRESULT")
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+        pXactStatMarshal := pXactStat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, pXactStatMarshal, pXactStat, "HRESULT")
         return result
     }
 

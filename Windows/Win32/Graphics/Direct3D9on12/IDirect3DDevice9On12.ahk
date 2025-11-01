@@ -61,7 +61,9 @@ class IDirect3DDevice9On12 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReturnUnderlyingResource(pResource, NumSync, pSignalValues, ppFences) {
-        result := ComCall(5, this, "ptr", pResource, "uint", NumSync, "uint*", pSignalValues, "ptr*", ppFences, "HRESULT")
+        pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pResource, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", ppFences, "HRESULT")
         return result
     }
 }

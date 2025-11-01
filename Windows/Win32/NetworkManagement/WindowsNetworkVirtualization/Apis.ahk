@@ -93,7 +93,9 @@ class WindowsNetworkVirtualization {
     static WnvRequestNotification(WnvHandle, NotificationParam, Overlapped, BytesTransferred) {
         WnvHandle := WnvHandle is Win32Handle ? NumGet(WnvHandle, "ptr") : WnvHandle
 
-        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped, "uint*", BytesTransferred, "uint")
+        BytesTransferredMarshal := BytesTransferred is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped, BytesTransferredMarshal, BytesTransferred, "uint")
         return result
     }
 

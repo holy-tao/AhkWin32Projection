@@ -63,7 +63,9 @@ class IStrokeBuilder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-createstroke
      */
     CreateStroke(cPktBuffLength, pPackets, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
-        result := ComCall(3, this, "uint", cPktBuffLength, "int*", pPackets, "uint", cPacketProperties, "ptr", pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, "ptr*", ppIInkStroke, "HRESULT")
+        pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", cPktBuffLength, pPacketsMarshal, pPackets, "uint", cPacketProperties, "ptr", pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, "ptr*", ppIInkStroke, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IStrokeBuilder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-beginstroke
      */
     BeginStroke(tcid, sid, pPacket, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
-        result := ComCall(4, this, "uint", tcid, "uint", sid, "int*", pPacket, "uint", cPacketProperties, "ptr", pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, "ptr*", ppIInkStroke, "HRESULT")
+        pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "uint", tcid, "uint", sid, pPacketMarshal, pPacket, "uint", cPacketProperties, "ptr", pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, "ptr*", ppIInkStroke, "HRESULT")
         return result
     }
 
@@ -95,7 +99,9 @@ class IStrokeBuilder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-appendpackets
      */
     AppendPackets(tcid, sid, cPktBuffLength, pPackets) {
-        result := ComCall(5, this, "uint", tcid, "uint", sid, "uint", cPktBuffLength, "int*", pPackets, "HRESULT")
+        pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "uint", tcid, "uint", sid, "uint", cPktBuffLength, pPacketsMarshal, pPackets, "HRESULT")
         return result
     }
 

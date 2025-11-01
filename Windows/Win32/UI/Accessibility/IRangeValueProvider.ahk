@@ -53,7 +53,9 @@ class IRangeValueProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_value
      */
     get_Value(pRetVal) {
-        result := ComCall(4, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IRangeValueProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_maximum
      */
     get_Maximum(pRetVal) {
-        result := ComCall(6, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IRangeValueProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_minimum
      */
     get_Minimum(pRetVal) {
-        result := ComCall(7, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -97,7 +103,9 @@ class IRangeValueProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_largechange
      */
     get_LargeChange(pRetVal) {
-        result := ComCall(8, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -108,7 +116,9 @@ class IRangeValueProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_smallchange
      */
     get_SmallChange(pRetVal) {
-        result := ComCall(9, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

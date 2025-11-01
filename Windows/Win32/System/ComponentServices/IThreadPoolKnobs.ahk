@@ -37,7 +37,9 @@ class IThreadPoolKnobs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxthreads
      */
     GetMaxThreads(plcMaxThreads) {
-        result := ComCall(3, this, "int*", plcMaxThreads, "HRESULT")
+        plcMaxThreadsMarshal := plcMaxThreads is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plcMaxThreadsMarshal, plcMaxThreads, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IThreadPoolKnobs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentthreads
      */
     GetCurrentThreads(plcCurrentThreads) {
-        result := ComCall(4, this, "int*", plcCurrentThreads, "HRESULT")
+        plcCurrentThreadsMarshal := plcCurrentThreads is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plcCurrentThreadsMarshal, plcCurrentThreads, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IThreadPoolKnobs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getdeletedelay
      */
     GetDeleteDelay(pmsecDeleteDelay) {
-        result := ComCall(6, this, "int*", pmsecDeleteDelay, "HRESULT")
+        pmsecDeleteDelayMarshal := pmsecDeleteDelay is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pmsecDeleteDelayMarshal, pmsecDeleteDelay, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IThreadPoolKnobs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxqueuedrequests
      */
     GetMaxQueuedRequests(plcMaxQueuedRequests) {
-        result := ComCall(8, this, "int*", plcMaxQueuedRequests, "HRESULT")
+        plcMaxQueuedRequestsMarshal := plcMaxQueuedRequests is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plcMaxQueuedRequestsMarshal, plcMaxQueuedRequests, "HRESULT")
         return result
     }
 
@@ -103,7 +111,9 @@ class IThreadPoolKnobs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentqueuedrequests
      */
     GetCurrentQueuedRequests(plcCurrentQueuedRequests) {
-        result := ComCall(9, this, "int*", plcCurrentQueuedRequests, "HRESULT")
+        plcCurrentQueuedRequestsMarshal := plcCurrentQueuedRequests is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plcCurrentQueuedRequestsMarshal, plcCurrentQueuedRequests, "HRESULT")
         return result
     }
 

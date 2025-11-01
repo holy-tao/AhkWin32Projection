@@ -71,7 +71,9 @@ class IWICStream extends IStream{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicstream-initializefrommemory
      */
     InitializeFromMemory(pbBuffer, cbBufferSize) {
-        result := ComCall(16, this, "char*", pbBuffer, "uint", cbBufferSize, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(16, this, pbBufferMarshal, pbBuffer, "uint", cbBufferSize, "HRESULT")
         return result
     }
 

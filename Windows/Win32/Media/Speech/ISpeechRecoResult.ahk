@@ -112,7 +112,9 @@ class ISpeechRecoResult extends IDispatch{
      * @returns {HRESULT} 
      */
     SpeakAudio(StartElement, Elements, Flags, StreamNumber) {
-        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, "int*", StreamNumber, "HRESULT")
+        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, StreamNumberMarshal, StreamNumber, "HRESULT")
         return result
     }
 

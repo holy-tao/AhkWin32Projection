@@ -44,7 +44,9 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
      * @returns {HRESULT} 
      */
     GetProcessPriority(pOutValue) {
-        result := ComCall(20, this, "int*", pOutValue, "HRESULT")
+        pOutValueMarshal := pOutValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pOutValueMarshal, pOutValue, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
      * @returns {HRESULT} 
      */
     GetGlobalPriority(pOutValue) {
-        result := ComCall(22, this, "int*", pOutValue, "HRESULT")
+        pOutValueMarshal := pOutValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pOutValueMarshal, pOutValue, "HRESULT")
         return result
     }
 }

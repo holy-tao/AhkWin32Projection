@@ -131,7 +131,9 @@ class IMFVirtualCamera extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-sendcameraproperty
      */
     SendCameraProperty(propertySet, propertyId, propertyFlags, propertyPayload, propertyPayloadLength, data, dataLength, dataWritten) {
-        result := ComCall(40, this, "ptr", propertySet, "uint", propertyId, "uint", propertyFlags, "ptr", propertyPayload, "uint", propertyPayloadLength, "ptr", data, "uint", dataLength, "uint*", dataWritten, "HRESULT")
+        dataWrittenMarshal := dataWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, "ptr", propertySet, "uint", propertyId, "uint", propertyFlags, "ptr", propertyPayload, "uint", propertyPayloadLength, "ptr", data, "uint", dataLength, dataWrittenMarshal, dataWritten, "HRESULT")
         return result
     }
 

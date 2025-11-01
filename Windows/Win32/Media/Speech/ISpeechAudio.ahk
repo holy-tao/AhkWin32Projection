@@ -64,7 +64,9 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     get_Volume(Volume) {
-        result := ComCall(15, this, "int*", Volume, "HRESULT")
+        VolumeMarshal := Volume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, VolumeMarshal, Volume, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     get_BufferNotifySize(BufferNotifySize) {
-        result := ComCall(17, this, "int*", BufferNotifySize, "HRESULT")
+        BufferNotifySizeMarshal := BufferNotifySize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, BufferNotifySizeMarshal, BufferNotifySize, "HRESULT")
         return result
     }
 
@@ -104,7 +108,9 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     get_EventHandle(EventHandle) {
-        result := ComCall(19, this, "int*", EventHandle, "HRESULT")
+        EventHandleMarshal := EventHandle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, EventHandleMarshal, EventHandle, "HRESULT")
         return result
     }
 

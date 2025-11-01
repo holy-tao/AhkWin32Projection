@@ -90,7 +90,9 @@ class IBDA_DiseqCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqsendcommand
      */
     put_DiseqSendCommand(ulRequestId, ulcbCommandLen, pbCommand) {
-        result := ComCall(7, this, "uint", ulRequestId, "uint", ulcbCommandLen, "char*", pbCommand, "HRESULT")
+        pbCommandMarshal := pbCommand is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "uint", ulRequestId, "uint", ulcbCommandLen, pbCommandMarshal, pbCommand, "HRESULT")
         return result
     }
 
@@ -103,7 +105,10 @@ class IBDA_DiseqCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-get_diseqresponse
      */
     get_DiseqResponse(ulRequestId, pulcbResponseLen, pbResponse) {
-        result := ComCall(8, this, "uint", ulRequestId, "uint*", pulcbResponseLen, "char*", pbResponse, "HRESULT")
+        pulcbResponseLenMarshal := pulcbResponseLen is VarRef ? "uint*" : "ptr"
+        pbResponseMarshal := pbResponse is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "uint", ulRequestId, pulcbResponseLenMarshal, pulcbResponseLen, pbResponseMarshal, pbResponse, "HRESULT")
         return result
     }
 }

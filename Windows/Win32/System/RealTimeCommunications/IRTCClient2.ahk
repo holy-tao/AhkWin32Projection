@@ -47,7 +47,9 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     get_AnswerMode(enType, penMode) {
-        result := ComCall(46, this, "int", enType, "int*", penMode, "HRESULT")
+        penModeMarshal := penMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, "int", enType, penModeMarshal, penMode, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     get_Version(plVersion) {
-        result := ComCall(48, this, "int*", plVersion, "HRESULT")
+        plVersionMarshal := plVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, plVersionMarshal, plVersion, "HRESULT")
         return result
     }
 
@@ -152,7 +156,9 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     get_PreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        result := ComCall(55, this, "int", enSecurityType, "int*", penSecurityLevel, "HRESULT")
+        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(55, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
         return result
     }
 
@@ -174,7 +180,9 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     get_AllowedPorts(lTransport, penListenMode) {
-        result := ComCall(57, this, "int", lTransport, "int*", penListenMode, "HRESULT")
+        penListenModeMarshal := penListenMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(57, this, "int", lTransport, penListenModeMarshal, penListenMode, "HRESULT")
         return result
     }
 }

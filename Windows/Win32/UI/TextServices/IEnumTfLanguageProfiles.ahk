@@ -50,7 +50,9 @@ class IEnumTfLanguageProfiles extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtflanguageprofiles-next
      */
     Next(ulCount, pProfile, pcFetch) {
-        result := ComCall(4, this, "uint", ulCount, "ptr", pProfile, "uint*", pcFetch, "HRESULT")
+        pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr", pProfile, pcFetchMarshal, pcFetch, "HRESULT")
         return result
     }
 

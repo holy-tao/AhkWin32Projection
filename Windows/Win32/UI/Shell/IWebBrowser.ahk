@@ -181,7 +181,9 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Left(pl) {
-        result := ComCall(21, this, "int*", pl, "HRESULT")
+        plMarshal := pl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, plMarshal, pl, "HRESULT")
         return result
     }
 
@@ -201,7 +203,9 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Top(pl) {
-        result := ComCall(23, this, "int*", pl, "HRESULT")
+        plMarshal := pl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, plMarshal, pl, "HRESULT")
         return result
     }
 
@@ -221,7 +225,9 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Width(pl) {
-        result := ComCall(25, this, "int*", pl, "HRESULT")
+        plMarshal := pl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, plMarshal, pl, "HRESULT")
         return result
     }
 
@@ -241,7 +247,9 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Height(pl) {
-        result := ComCall(27, this, "int*", pl, "HRESULT")
+        plMarshal := pl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, plMarshal, pl, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class IWRdsGraphicsChannelEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-ondatareceived
      */
     OnDataReceived(cbSize, pBuffer) {
-        result := ComCall(3, this, "uint", cbSize, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", cbSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IWRdsGraphicsChannelEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-ondatasent
      */
     OnDataSent(pWriteContext, bCancelled, pBuffer, cbBuffer) {
-        result := ComCall(6, this, "ptr", pWriteContext, "int", bCancelled, "char*", pBuffer, "uint", cbBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pWriteContext, "int", bCancelled, pBufferMarshal, pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 

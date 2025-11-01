@@ -92,9 +92,12 @@ class IO {
     static GetQueuedCompletionStatus(CompletionPort, lpNumberOfBytesTransferred, lpCompletionKey, lpOverlapped, dwMilliseconds) {
         CompletionPort := CompletionPort is Win32Handle ? NumGet(CompletionPort, "ptr") : CompletionPort
 
+        lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+        lpCompletionKeyMarshal := lpCompletionKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", "ptr", CompletionPort, "uint*", lpNumberOfBytesTransferred, "ptr*", lpCompletionKey, "ptr*", lpOverlapped, "uint", dwMilliseconds, "int")
+        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", "ptr", CompletionPort, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, lpCompletionKeyMarshal, lpCompletionKey, "ptr*", lpOverlapped, "uint", dwMilliseconds, "int")
         if(A_LastError)
             throw OSError()
 
@@ -145,9 +148,11 @@ class IO {
     static GetQueuedCompletionStatusEx(CompletionPort, lpCompletionPortEntries, ulCount, ulNumEntriesRemoved, dwMilliseconds, fAlertable) {
         CompletionPort := CompletionPort is Win32Handle ? NumGet(CompletionPort, "ptr") : CompletionPort
 
+        ulNumEntriesRemovedMarshal := ulNumEntriesRemoved is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatusEx", "ptr", CompletionPort, "ptr", lpCompletionPortEntries, "uint", ulCount, "uint*", ulNumEntriesRemoved, "uint", dwMilliseconds, "int", fAlertable, "int")
+        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatusEx", "ptr", CompletionPort, "ptr", lpCompletionPortEntries, "uint", ulCount, ulNumEntriesRemovedMarshal, ulNumEntriesRemoved, "uint", dwMilliseconds, "int", fAlertable, "int")
         if(A_LastError)
             throw OSError()
 
@@ -260,9 +265,11 @@ class IO {
     static DeviceIoControl(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeviceIoControl", "ptr", hDevice, "uint", dwIoControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\DeviceIoControl", "ptr", hDevice, "uint", dwIoControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -301,9 +308,11 @@ class IO {
     static GetOverlappedResult(hFile, lpOverlapped, lpNumberOfBytesTransferred, bWait) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetOverlappedResult", "ptr", hFile, "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "int", bWait, "int")
+        result := DllCall("KERNEL32.dll\GetOverlappedResult", "ptr", hFile, "ptr", lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, "int", bWait, "int")
         if(A_LastError)
             throw OSError()
 
@@ -420,9 +429,11 @@ class IO {
     static GetOverlappedResultEx(hFile, lpOverlapped, lpNumberOfBytesTransferred, dwMilliseconds, bAlertable) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetOverlappedResultEx", "ptr", hFile, "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "uint", dwMilliseconds, "int", bAlertable, "int")
+        result := DllCall("KERNEL32.dll\GetOverlappedResultEx", "ptr", hFile, "ptr", lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, "uint", dwMilliseconds, "int", bAlertable, "int")
         if(A_LastError)
             throw OSError()
 

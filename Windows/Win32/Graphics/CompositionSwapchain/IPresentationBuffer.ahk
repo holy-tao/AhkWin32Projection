@@ -48,7 +48,9 @@ class IPresentationBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-isavailable
      */
     IsAvailable(isAvailable) {
-        result := ComCall(4, this, "char*", isAvailable, "HRESULT")
+        isAvailableMarshal := isAvailable is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, isAvailableMarshal, isAvailable, "HRESULT")
         return result
     }
 }

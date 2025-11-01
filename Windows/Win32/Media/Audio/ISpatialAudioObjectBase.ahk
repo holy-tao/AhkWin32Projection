@@ -38,7 +38,9 @@ class ISpatialAudioObjectBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-getbuffer
      */
     GetBuffer(buffer, bufferLength) {
-        result := ComCall(3, this, "ptr*", buffer, "uint*", bufferLength, "HRESULT")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", buffer, bufferLengthMarshal, bufferLength, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class ISpatialAudioObjectBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-getaudioobjecttype
      */
     GetAudioObjectType(audioObjectType) {
-        result := ComCall(6, this, "int*", audioObjectType, "HRESULT")
+        audioObjectTypeMarshal := audioObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, audioObjectTypeMarshal, audioObjectType, "HRESULT")
         return result
     }
 }

@@ -516,9 +516,11 @@ class Environment {
      * @since windows5.0
      */
     static DestroyEnvironmentBlock(lpEnvironment) {
+        lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\DestroyEnvironmentBlock", "ptr", lpEnvironment, "int")
+        result := DllCall("USERENV.dll\DestroyEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, "int")
         if(A_LastError)
             throw OSError()
 
@@ -550,9 +552,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserA(hToken, lpSrc, lpDest, dwSize) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
         lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -588,9 +590,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserW(hToken, lpSrc, lpDest, dwSize) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
         lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -757,9 +759,12 @@ class Environment {
     static CreateEnclave(hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclaveType, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+        lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "ptr")
+        result := DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, lpEnclaveErrorMarshal, lpEnclaveError, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -827,9 +832,13 @@ class Environment {
     static LoadEnclaveData(hProcess, lpAddress, lpBuffer, nSize, flProtect, lpPageInformation, dwInfoLength, lpNumberOfBytesWritten, lpEnclaveError) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+        lpNumberOfBytesWrittenMarshal := lpNumberOfBytesWritten is VarRef ? "ptr*" : "ptr"
+        lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, "ptr*", lpNumberOfBytesWritten, "uint*", lpEnclaveError, "int")
+        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, lpEnclaveErrorMarshal, lpEnclaveError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -902,9 +911,12 @@ class Environment {
     static InitializeEnclave(hProcess, lpAddress, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+        lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "int")
+        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, lpAddressMarshal, lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, lpEnclaveErrorMarshal, lpEnclaveError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -923,7 +935,9 @@ class Environment {
     static LoadEnclaveImageA(lpEnclaveAddress, lpImageName) {
         lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")
+        lpEnclaveAddressMarshal := lpEnclaveAddress is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", lpEnclaveAddressMarshal, lpEnclaveAddress, "ptr", lpImageName, "int")
         return result
     }
 
@@ -939,9 +953,11 @@ class Environment {
     static LoadEnclaveImageW(lpEnclaveAddress, lpImageName) {
         lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
 
+        lpEnclaveAddressMarshal := lpEnclaveAddress is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", lpEnclaveAddressMarshal, lpEnclaveAddress, "ptr", lpImageName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -964,9 +980,11 @@ class Environment {
      * @since windows10.0.16299
      */
     static CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
+        lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, "ptr", lpParameter, "int", fWaitForThread, "ptr*", lpReturnValue, "int")
+        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, lpParameterMarshal, lpParameter, "int", fWaitForThread, "ptr*", lpReturnValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -983,9 +1001,11 @@ class Environment {
      * @since windows10.0.16299
      */
     static TerminateEnclave(lpAddress, fWait) {
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\TerminateEnclave", "ptr", lpAddress, "int", fWait, "int")
+        result := DllCall("vertdll.dll\TerminateEnclave", lpAddressMarshal, lpAddress, "int", fWait, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1021,9 +1041,11 @@ class Environment {
      * @since windows10.0.16299
      */
     static DeleteEnclave(lpAddress) {
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", "ptr", lpAddress, "int")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", lpAddressMarshal, lpAddress, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1041,7 +1063,10 @@ class Environment {
      * @since windows10.0.16299
      */
     static EnclaveGetAttestationReport(EnclaveData, Report, BufferSize, OutputSize) {
-        result := DllCall("vertdll.dll\EnclaveGetAttestationReport", "char*", EnclaveData, "ptr", Report, "uint", BufferSize, "uint*", OutputSize, "int")
+        EnclaveDataMarshal := EnclaveData is VarRef ? "char*" : "ptr"
+        OutputSizeMarshal := OutputSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("vertdll.dll\EnclaveGetAttestationReport", EnclaveDataMarshal, EnclaveData, "ptr", Report, "uint", BufferSize, OutputSizeMarshal, OutputSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1110,7 +1135,9 @@ class Environment {
      * @since windows10.0.16299
      */
     static EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize, ProtectedBlobSize) {
-        result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, "uint*", ProtectedBlobSize, "int")
+        ProtectedBlobSizeMarshal := ProtectedBlobSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, ProtectedBlobSizeMarshal, ProtectedBlobSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1149,7 +1176,10 @@ class Environment {
      * @since windows10.0.16299
      */
     static EnclaveUnsealData(ProtectedBlob, ProtectedBlobSize, DecryptedData, BufferSize, DecryptedDataSize, SealingIdentity, UnsealingFlags) {
-        result := DllCall("vertdll.dll\EnclaveUnsealData", "ptr", ProtectedBlob, "uint", ProtectedBlobSize, "ptr", DecryptedData, "uint", BufferSize, "uint*", DecryptedDataSize, "ptr", SealingIdentity, "uint*", UnsealingFlags, "int")
+        DecryptedDataSizeMarshal := DecryptedDataSize is VarRef ? "uint*" : "ptr"
+        UnsealingFlagsMarshal := UnsealingFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("vertdll.dll\EnclaveUnsealData", "ptr", ProtectedBlob, "uint", ProtectedBlobSize, "ptr", DecryptedData, "uint", BufferSize, DecryptedDataSizeMarshal, DecryptedDataSize, "ptr", SealingIdentity, UnsealingFlagsMarshal, UnsealingFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1167,7 +1197,9 @@ class Environment {
      * @returns {HRESULT} 
      */
     static EnclaveEncryptDataForTrustlet(DataToEncrypt, DataToEncryptSize, TrustletBindingData, EncryptedData, BufferSize, EncryptedDataSize) {
-        result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "ptr", TrustletBindingData, "ptr", EncryptedData, "uint", BufferSize, "uint*", EncryptedDataSize, "int")
+        EncryptedDataSizeMarshal := EncryptedDataSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "ptr", TrustletBindingData, "ptr", EncryptedData, "uint", BufferSize, EncryptedDataSizeMarshal, EncryptedDataSize, "int")
         if(result != 0)
             throw OSError(result)
 

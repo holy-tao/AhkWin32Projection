@@ -157,7 +157,9 @@ class IMFMediaEngine extends IUnknown{
     CanPlayType(type, pAnswer) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
-        result := ComCall(13, this, "ptr", type, "int*", pAnswer, "HRESULT")
+        pAnswerMarshal := pAnswer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "ptr", type, pAnswerMarshal, pAnswer, "HRESULT")
         return result
     }
 
@@ -438,7 +440,10 @@ class IMFMediaEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getnativevideosize
      */
     GetNativeVideoSize(cx, cy) {
-        result := ComCall(40, this, "uint*", cx, "uint*", cy, "HRESULT")
+        cxMarshal := cx is VarRef ? "uint*" : "ptr"
+        cyMarshal := cy is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, cxMarshal, cx, cyMarshal, cy, "HRESULT")
         return result
     }
 
@@ -450,7 +455,10 @@ class IMFMediaEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getvideoaspectratio
      */
     GetVideoAspectRatio(cx, cy) {
-        result := ComCall(41, this, "uint*", cx, "uint*", cy, "HRESULT")
+        cxMarshal := cx is VarRef ? "uint*" : "ptr"
+        cyMarshal := cy is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, cxMarshal, cx, cyMarshal, cy, "HRESULT")
         return result
     }
 
@@ -485,7 +493,9 @@ class IMFMediaEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-onvideostreamtick
      */
     OnVideoStreamTick(pPts) {
-        result := ComCall(44, this, "int64*", pPts, "HRESULT")
+        pPtsMarshal := pPts is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(44, this, pPtsMarshal, pPts, "HRESULT")
         return result
     }
 }

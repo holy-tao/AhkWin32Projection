@@ -37,7 +37,9 @@ class IUIAutomationElementArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-get_length
      */
     get_Length(length) {
-        result := ComCall(3, this, "int*", length, "HRESULT")
+        lengthMarshal := length is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, lengthMarshal, length, "HRESULT")
         return result
     }
 

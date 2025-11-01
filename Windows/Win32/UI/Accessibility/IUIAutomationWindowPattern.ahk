@@ -159,7 +159,9 @@ class IUIAutomationWindowPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowvisualstate
      */
     get_CurrentWindowVisualState(retVal) {
-        result := ComCall(10, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -170,7 +172,9 @@ class IUIAutomationWindowPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowinteractionstate
      */
     get_CurrentWindowInteractionState(retVal) {
-        result := ComCall(11, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -225,7 +229,9 @@ class IUIAutomationWindowPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowvisualstate
      */
     get_CachedWindowVisualState(retVal) {
-        result := ComCall(16, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -236,7 +242,9 @@ class IUIAutomationWindowPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowinteractionstate
      */
     get_CachedWindowInteractionState(retVal) {
-        result := ComCall(17, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

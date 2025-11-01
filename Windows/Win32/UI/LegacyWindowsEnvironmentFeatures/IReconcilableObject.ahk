@@ -49,7 +49,9 @@ class IReconcilableObject extends IUnknown{
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         hwndProgressFeedback := hwndProgressFeedback is Win32Handle ? NumGet(hwndProgressFeedback, "ptr") : hwndProgressFeedback
 
-        result := ComCall(3, this, "ptr", pInitiator, "uint", dwFlags, "ptr", hwndOwner, "ptr", hwndProgressFeedback, "uint", ulcInput, "ptr*", rgpmkOtherInput, "int*", plOutIndex, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
+        plOutIndexMarshal := plOutIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pInitiator, "uint", dwFlags, "ptr", hwndOwner, "ptr", hwndProgressFeedback, "uint", ulcInput, "ptr*", rgpmkOtherInput, plOutIndexMarshal, plOutIndex, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IReconcilableObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcilableobject-getprogressfeedbackmaxestimate
      */
     GetProgressFeedbackMaxEstimate(pulProgressMax) {
-        result := ComCall(4, this, "uint*", pulProgressMax, "HRESULT")
+        pulProgressMaxMarshal := pulProgressMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulProgressMaxMarshal, pulProgressMax, "HRESULT")
         return result
     }
 }

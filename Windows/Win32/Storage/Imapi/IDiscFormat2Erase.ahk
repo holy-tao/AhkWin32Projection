@@ -87,7 +87,9 @@ class IDiscFormat2Erase extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType(value) {
-        result := ComCall(16, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, valueMarshal, value, "HRESULT")
         return result
     }
 

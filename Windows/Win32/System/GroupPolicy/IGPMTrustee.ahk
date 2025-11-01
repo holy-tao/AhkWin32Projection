@@ -82,7 +82,9 @@ class IGPMTrustee extends IDispatch{
      * @returns {HRESULT} 
      */
     get_TrusteeType(lVal) {
-        result := ComCall(11, this, "int*", lVal, "HRESULT")
+        lValMarshal := lVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, lValMarshal, lVal, "HRESULT")
         return result
     }
 }

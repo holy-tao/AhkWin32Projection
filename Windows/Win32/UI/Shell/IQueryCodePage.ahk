@@ -37,7 +37,9 @@ class IQueryCodePage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iquerycodepage-getcodepage
      */
     GetCodePage(puiCodePage) {
-        result := ComCall(3, this, "uint*", puiCodePage, "HRESULT")
+        puiCodePageMarshal := puiCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiCodePageMarshal, puiCodePage, "HRESULT")
         return result
     }
 

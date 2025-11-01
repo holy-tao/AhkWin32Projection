@@ -65,7 +65,9 @@ class IZoneIdentifier2 extends IZoneIdentifier{
      * @returns {HRESULT} 
      */
     GetAppZoneId(zone) {
-        result := ComCall(9, this, "uint*", zone, "HRESULT")
+        zoneMarshal := zone is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, zoneMarshal, zone, "HRESULT")
         return result
     }
 

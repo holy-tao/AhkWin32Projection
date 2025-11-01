@@ -49,7 +49,9 @@ class IWMMediaProps extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-getmediatype
      */
     GetMediaType(pType, pcbType) {
-        result := ComCall(4, this, "ptr", pType, "uint*", pcbType, "HRESULT")
+        pcbTypeMarshal := pcbType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pType, pcbTypeMarshal, pcbType, "HRESULT")
         return result
     }
 

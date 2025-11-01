@@ -37,7 +37,10 @@ class IMetaDataEmit2 extends IMetaDataEmit{
      * @returns {HRESULT} 
      */
     DefineMethodSpec(tkParent, pvSigBlob, cbSigBlob, pmi) {
-        result := ComCall(52, this, "uint", tkParent, "char*", pvSigBlob, "uint", cbSigBlob, "uint*", pmi, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pmiMarshal := pmi is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(52, this, "uint", tkParent, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmiMarshal, pmi, "HRESULT")
         return result
     }
 
@@ -48,7 +51,9 @@ class IMetaDataEmit2 extends IMetaDataEmit{
      * @returns {HRESULT} 
      */
     GetDeltaSaveSize(fSave, pdwSaveSize) {
-        result := ComCall(53, this, "int", fSave, "uint*", pdwSaveSize, "HRESULT")
+        pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(53, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
         return result
     }
 
@@ -83,7 +88,9 @@ class IMetaDataEmit2 extends IMetaDataEmit{
      * @returns {HRESULT} 
      */
     SaveDeltaToMemory(pbData, cbData) {
-        result := ComCall(56, this, "ptr", pbData, "uint", cbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(56, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -101,7 +108,10 @@ class IMetaDataEmit2 extends IMetaDataEmit{
     DefineGenericParam(tk, ulParamSeq, dwParamFlags, szname, reserved, rtkConstraints, pgp) {
         szname := szname is String ? StrPtr(szname) : szname
 
-        result := ComCall(57, this, "uint", tk, "uint", ulParamSeq, "uint", dwParamFlags, "ptr", szname, "uint", reserved, "uint*", rtkConstraints, "uint*", pgp, "HRESULT")
+        rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
+        pgpMarshal := pgp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(57, this, "uint", tk, "uint", ulParamSeq, "uint", dwParamFlags, "ptr", szname, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, pgpMarshal, pgp, "HRESULT")
         return result
     }
 
@@ -117,7 +127,9 @@ class IMetaDataEmit2 extends IMetaDataEmit{
     SetGenericParamProps(gp, dwParamFlags, szName, reserved, rtkConstraints) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(58, this, "uint", gp, "uint", dwParamFlags, "ptr", szName, "uint", reserved, "uint*", rtkConstraints, "HRESULT")
+        rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(58, this, "uint", gp, "uint", dwParamFlags, "ptr", szName, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, "HRESULT")
         return result
     }
 

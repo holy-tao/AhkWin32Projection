@@ -37,7 +37,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-openentry
      */
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, lppUnk) {
-        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, "uint*", lpulObjType, "ptr*", lppUnk, "HRESULT")
+        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", lppUnk, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-compareentryids
      */
     CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags, lpulResult) {
-        result := ComCall(15, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, "uint*", lpulResult, "HRESULT")
+        lpulResultMarshal := lpulResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
         return result
     }
 
@@ -68,7 +72,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-advise
      */
     Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink, lpulConnection) {
-        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, "uint*", lpulConnection, "HRESULT")
+        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
     }
 
@@ -95,7 +101,12 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-createoneoff
      */
     CreateOneOff(lpszName, lpszAdrType, lpszAddress, ulFlags, lpcbEntryID, lppEntryID) {
-        result := ComCall(18, this, "char*", lpszName, "char*", lpszAdrType, "char*", lpszAddress, "uint", ulFlags, "uint*", lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
+        lpszNameMarshal := lpszName is VarRef ? "char*" : "ptr"
+        lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : "ptr"
+        lpszAddressMarshal := lpszAddress is VarRef ? "char*" : "ptr"
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, lpszNameMarshal, lpszName, lpszAdrTypeMarshal, lpszAdrType, lpszAddressMarshal, lpszAddress, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
         return result
     }
 
@@ -113,7 +124,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-newentry
      */
     NewEntry(ulUIParam, ulFlags, cbEIDContainer, lpEIDContainer, cbEIDNewEntryTpl, lpEIDNewEntryTpl, lpcbEIDNewEntry, lppEIDNewEntry) {
-        result := ComCall(19, this, "uint", ulUIParam, "uint", ulFlags, "uint", cbEIDContainer, "ptr", lpEIDContainer, "uint", cbEIDNewEntryTpl, "ptr", lpEIDNewEntryTpl, "uint*", lpcbEIDNewEntry, "ptr*", lppEIDNewEntry, "HRESULT")
+        lpcbEIDNewEntryMarshal := lpcbEIDNewEntry is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "uint", ulUIParam, "uint", ulFlags, "uint", cbEIDContainer, "ptr", lpEIDContainer, "uint", cbEIDNewEntryTpl, "ptr", lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, "ptr*", lppEIDNewEntry, "HRESULT")
         return result
     }
 
@@ -127,7 +140,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-resolvename
      */
     ResolveName(ulUIParam, ulFlags, lpszNewEntryTitle, lpAdrList) {
-        result := ComCall(20, this, "ptr", ulUIParam, "uint", ulFlags, "char*", lpszNewEntryTitle, "ptr", lpAdrList, "HRESULT")
+        lpszNewEntryTitleMarshal := lpszNewEntryTitle is VarRef ? "char*" : "ptr"
+
+        result := ComCall(20, this, "ptr", ulUIParam, "uint", ulFlags, lpszNewEntryTitleMarshal, lpszNewEntryTitle, "ptr", lpAdrList, "HRESULT")
         return result
     }
 
@@ -140,7 +155,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-address
      */
     Address(lpulUIParam, lpAdrParms, lppAdrList) {
-        result := ComCall(21, this, "uint*", lpulUIParam, "ptr", lpAdrParms, "ptr*", lppAdrList, "HRESULT")
+        lpulUIParamMarshal := lpulUIParam is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, lpulUIParamMarshal, lpulUIParam, "ptr", lpAdrParms, "ptr*", lppAdrList, "HRESULT")
         return result
     }
 
@@ -159,7 +176,12 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-details
      */
     Details(lpulUIParam, lpfnDismiss, lpvDismissContext, cbEntryID, lpEntryID, lpfButtonCallback, lpvButtonContext, lpszButtonText, ulFlags) {
-        result := ComCall(22, this, "ptr*", lpulUIParam, "ptr", lpfnDismiss, "ptr", lpvDismissContext, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpfButtonCallback, "ptr", lpvButtonContext, "char*", lpszButtonText, "uint", ulFlags, "HRESULT")
+        lpulUIParamMarshal := lpulUIParam is VarRef ? "ptr*" : "ptr"
+        lpvDismissContextMarshal := lpvDismissContext is VarRef ? "ptr" : "ptr"
+        lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : "ptr"
+        lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : "ptr"
+
+        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -186,7 +208,10 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/windows/win32/api/wabiab/nf-wabiab-iaddrbook-querydefaultrecipopt
      */
     QueryDefaultRecipOpt(lpszAdrType, ulFlags, lpcValues, lppOptions) {
-        result := ComCall(24, this, "char*", lpszAdrType, "uint", ulFlags, "uint*", lpcValues, "ptr*", lppOptions, "HRESULT")
+        lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : "ptr"
+        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, lpszAdrTypeMarshal, lpszAdrType, "uint", ulFlags, lpcValuesMarshal, lpcValues, "ptr*", lppOptions, "HRESULT")
         return result
     }
 
@@ -198,7 +223,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-getpab
      */
     GetPAB(lpcbEntryID, lppEntryID) {
-        result := ComCall(25, this, "uint*", lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
         return result
     }
 
@@ -222,7 +249,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-getdefaultdir
      */
     GetDefaultDir(lpcbEntryID, lppEntryID) {
-        result := ComCall(27, this, "uint*", lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
         return result
     }
 

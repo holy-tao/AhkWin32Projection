@@ -51,7 +51,13 @@ class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2{
     CreateVirtualSmartCardWithAttestation(pszFriendlyName, bAdminAlgId, pbAdminKey, cbAdminKey, pbAdminKcv, cbAdminKcv, pbPuk, cbPuk, pbPin, cbPin, pbPinPolicy, cbPinPolicy, attestationType, fGenerate, pStatusCallback, ppszInstanceId) {
         pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
 
-        result := ComCall(6, this, "ptr", pszFriendlyName, "char", bAdminAlgId, "char*", pbAdminKey, "uint", cbAdminKey, "char*", pbAdminKcv, "uint", cbAdminKcv, "char*", pbPuk, "uint", cbPuk, "char*", pbPin, "uint", cbPin, "char*", pbPinPolicy, "uint", cbPinPolicy, "int", attestationType, "int", fGenerate, "ptr", pStatusCallback, "ptr", ppszInstanceId, "HRESULT")
+        pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : "ptr"
+        pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : "ptr"
+        pbPukMarshal := pbPuk is VarRef ? "char*" : "ptr"
+        pbPinMarshal := pbPin is VarRef ? "char*" : "ptr"
+        pbPinPolicyMarshal := pbPinPolicy is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, pbPinPolicyMarshal, pbPinPolicy, "uint", cbPinPolicy, "int", attestationType, "int", fGenerate, "ptr", pStatusCallback, "ptr", ppszInstanceId, "HRESULT")
         return result
     }
 }

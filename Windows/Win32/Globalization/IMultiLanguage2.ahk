@@ -35,7 +35,9 @@ class IMultiLanguage2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberOfCodePageInfo(pcCodePage) {
-        result := ComCall(3, this, "uint*", pcCodePage, "HRESULT")
+        pcCodePageMarshal := pcCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcCodePageMarshal, pcCodePage, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IMultiLanguage2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFamilyCodePage(uiCodePage, puiFamilyCodePage) {
-        result := ComCall(5, this, "uint", uiCodePage, "uint*", puiFamilyCodePage, "HRESULT")
+        puiFamilyCodePageMarshal := puiFamilyCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", uiCodePage, puiFamilyCodePageMarshal, puiFamilyCodePage, "HRESULT")
         return result
     }
 
@@ -110,7 +114,11 @@ class IMultiLanguage2 extends IUnknown{
      * @returns {HRESULT} 
      */
     ConvertString(pdwMode, dwSrcEncoding, dwDstEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
-        result := ComCall(9, this, "uint*", pdwMode, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "HRESULT")
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwModeMarshal, pdwMode, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -127,7 +135,11 @@ class IMultiLanguage2 extends IUnknown{
     ConvertStringToUnicode(pdwMode, dwEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pDstStr := pDstStr is String ? StrPtr(pDstStr) : pDstStr
 
-        result := ComCall(10, this, "uint*", pdwMode, "uint", dwEncoding, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "HRESULT")
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -144,7 +156,11 @@ class IMultiLanguage2 extends IUnknown{
     ConvertStringFromUnicode(pdwMode, dwEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pSrcStr := pSrcStr is String ? StrPtr(pSrcStr) : pSrcStr
 
-        result := ComCall(11, this, "uint*", pdwMode, "uint", dwEncoding, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "HRESULT")
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -177,7 +193,9 @@ class IMultiLanguage2 extends IUnknown{
     GetLcidFromRfc1766(pLocale, bstrRfc1766) {
         bstrRfc1766 := bstrRfc1766 is String ? BSTR.Alloc(bstrRfc1766).Value : bstrRfc1766
 
-        result := ComCall(14, this, "uint*", pLocale, "ptr", bstrRfc1766, "HRESULT")
+        pLocaleMarshal := pLocale is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pLocaleMarshal, pLocale, "ptr", bstrRfc1766, "HRESULT")
         return result
     }
 
@@ -231,7 +249,9 @@ class IMultiLanguage2 extends IUnknown{
     ConvertStringInIStream(pdwMode, dwFlag, lpFallBack, dwSrcEncoding, dwDstEncoding, pstmIn, pstmOut) {
         lpFallBack := lpFallBack is String ? StrPtr(lpFallBack) : lpFallBack
 
-        result := ComCall(18, this, "uint*", pdwMode, "uint", dwFlag, "ptr", lpFallBack, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pstmIn, "ptr", pstmOut, "HRESULT")
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, pdwModeMarshal, pdwMode, "uint", dwFlag, "ptr", lpFallBack, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pstmIn, "ptr", pstmOut, "HRESULT")
         return result
     }
 
@@ -251,7 +271,11 @@ class IMultiLanguage2 extends IUnknown{
         pDstStr := pDstStr is String ? StrPtr(pDstStr) : pDstStr
         lpFallBack := lpFallBack is String ? StrPtr(lpFallBack) : lpFallBack
 
-        result := ComCall(19, this, "uint*", pdwMode, "uint", dwEncoding, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "uint", dwFlag, "ptr", lpFallBack, "HRESULT")
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "uint", dwFlag, "ptr", lpFallBack, "HRESULT")
         return result
     }
 
@@ -271,7 +295,11 @@ class IMultiLanguage2 extends IUnknown{
         pSrcStr := pSrcStr is String ? StrPtr(pSrcStr) : pSrcStr
         lpFallBack := lpFallBack is String ? StrPtr(lpFallBack) : lpFallBack
 
-        result := ComCall(20, this, "uint*", pdwMode, "uint", dwEncoding, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "uint", dwFlag, "ptr", lpFallBack, "HRESULT")
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "uint", dwFlag, "ptr", lpFallBack, "HRESULT")
         return result
     }
 
@@ -285,7 +313,9 @@ class IMultiLanguage2 extends IUnknown{
      * @returns {HRESULT} 
      */
     DetectCodepageInIStream(dwFlag, dwPrefWinCodePage, pstmIn, lpEncoding, pnScores) {
-        result := ComCall(21, this, "uint", dwFlag, "uint", dwPrefWinCodePage, "ptr", pstmIn, "ptr", lpEncoding, "int*", pnScores, "HRESULT")
+        pnScoresMarshal := pnScores is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, "uint", dwFlag, "uint", dwPrefWinCodePage, "ptr", pstmIn, "ptr", lpEncoding, pnScoresMarshal, pnScores, "HRESULT")
         return result
     }
 
@@ -300,7 +330,10 @@ class IMultiLanguage2 extends IUnknown{
      * @returns {HRESULT} 
      */
     DetectInputCodepage(dwFlag, dwPrefWinCodePage, pSrcStr, pcSrcSize, lpEncoding, pnScores) {
-        result := ComCall(22, this, "uint", dwFlag, "uint", dwPrefWinCodePage, "ptr", pSrcStr, "int*", pcSrcSize, "ptr", lpEncoding, "int*", pnScores, "HRESULT")
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "int*" : "ptr"
+        pnScoresMarshal := pnScores is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "uint", dwFlag, "uint", dwPrefWinCodePage, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", lpEncoding, pnScoresMarshal, pnScores, "HRESULT")
         return result
     }
 
@@ -358,7 +391,9 @@ class IMultiLanguage2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberOfScripts(pnScripts) {
-        result := ComCall(27, this, "uint*", pnScripts, "HRESULT")
+        pnScriptsMarshal := pnScripts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, pnScriptsMarshal, pnScripts, "HRESULT")
         return result
     }
 

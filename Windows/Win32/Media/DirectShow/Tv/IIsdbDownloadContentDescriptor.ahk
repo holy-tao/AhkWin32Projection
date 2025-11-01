@@ -37,7 +37,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcomponentsize
      */
     GetComponentSize(pdwVal) {
-        result := ComCall(6, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -85,7 +91,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getdownloadid
      */
     GetDownloadId(pdwVal) {
-        result := ComCall(7, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -96,7 +104,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettimeoutvaluedii
      */
     GetTimeOutValueDII(pdwVal) {
-        result := ComCall(8, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -107,7 +117,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getleakrate
      */
     GetLeakRate(pdwVal) {
-        result := ComCall(9, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -118,7 +130,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcomponenttag
      */
     GetComponentTag(pbVal) {
-        result := ComCall(10, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -129,7 +143,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcompatiblitydescriptorlength
      */
     GetCompatiblityDescriptorLength(pwLength) {
-        result := ComCall(11, this, "ushort*", pwLength, "HRESULT")
+        pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pwLengthMarshal, pwLength, "HRESULT")
         return result
     }
 
@@ -151,7 +167,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcountofrecords
      */
     GetCountOfRecords(pwVal) {
-        result := ComCall(13, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(13, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -163,7 +181,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleid
      */
     GetRecordModuleId(wRecordIndex, pwVal) {
-        result := ComCall(14, this, "ushort", wRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(14, this, "ushort", wRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -175,7 +195,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmodulesize
      */
     GetRecordModuleSize(wRecordIndex, pdwVal) {
-        result := ComCall(15, this, "ushort", wRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ushort", wRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -187,7 +209,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleinfolength
      */
     GetRecordModuleInfoLength(wRecordIndex, pbVal) {
-        result := ComCall(16, this, "ushort", wRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(16, this, "ushort", wRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -210,7 +234,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettextlanguagecode
      */
     GetTextLanguageCode(szCode) {
-        result := ComCall(18, this, "char*", szCode, "HRESULT")
+        szCodeMarshal := szCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(18, this, szCodeMarshal, szCode, "HRESULT")
         return result
     }
 

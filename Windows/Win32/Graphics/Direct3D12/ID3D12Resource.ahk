@@ -85,7 +85,9 @@ class ID3D12Resource extends ID3D12Pageable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-writetosubresource
      */
     WriteToSubresource(DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
-        result := ComCall(12, this, "uint", DstSubresource, "ptr", pDstBox, "ptr", pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "HRESULT")
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "HRESULT")
         return result
     }
 
@@ -100,7 +102,9 @@ class ID3D12Resource extends ID3D12Pageable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-readfromsubresource
      */
     ReadFromSubresource(pDstData, DstRowPitch, DstDepthPitch, SrcSubresource, pSrcBox) {
-        result := ComCall(13, this, "ptr", pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "uint", SrcSubresource, "ptr", pSrcBox, "HRESULT")
+        pDstDataMarshal := pDstData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(13, this, pDstDataMarshal, pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "uint", SrcSubresource, "ptr", pSrcBox, "HRESULT")
         return result
     }
 
@@ -112,7 +116,9 @@ class ID3D12Resource extends ID3D12Pageable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-getheapproperties
      */
     GetHeapProperties(pHeapProperties, pHeapFlags) {
-        result := ComCall(14, this, "ptr", pHeapProperties, "int*", pHeapFlags, "HRESULT")
+        pHeapFlagsMarshal := pHeapFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pHeapProperties, pHeapFlagsMarshal, pHeapFlags, "HRESULT")
         return result
     }
 }

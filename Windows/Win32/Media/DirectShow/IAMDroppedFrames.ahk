@@ -46,7 +46,9 @@ class IAMDroppedFrames extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getnumdropped
      */
     GetNumDropped(plDropped) {
-        result := ComCall(3, this, "int*", plDropped, "HRESULT")
+        plDroppedMarshal := plDropped is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plDroppedMarshal, plDropped, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IAMDroppedFrames extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getnumnotdropped
      */
     GetNumNotDropped(plNotDropped) {
-        result := ComCall(4, this, "int*", plNotDropped, "HRESULT")
+        plNotDroppedMarshal := plNotDropped is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plNotDroppedMarshal, plNotDropped, "HRESULT")
         return result
     }
 
@@ -70,7 +74,10 @@ class IAMDroppedFrames extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getdroppedinfo
      */
     GetDroppedInfo(lSize, plArray, plNumCopied) {
-        result := ComCall(5, this, "int", lSize, "int*", plArray, "int*", plNumCopied, "HRESULT")
+        plArrayMarshal := plArray is VarRef ? "int*" : "ptr"
+        plNumCopiedMarshal := plNumCopied is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", lSize, plArrayMarshal, plArray, plNumCopiedMarshal, plNumCopied, "HRESULT")
         return result
     }
 
@@ -81,7 +88,9 @@ class IAMDroppedFrames extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getaverageframesize
      */
     GetAverageFrameSize(plAverageSize) {
-        result := ComCall(6, this, "int*", plAverageSize, "HRESULT")
+        plAverageSizeMarshal := plAverageSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, plAverageSizeMarshal, plAverageSize, "HRESULT")
         return result
     }
 }

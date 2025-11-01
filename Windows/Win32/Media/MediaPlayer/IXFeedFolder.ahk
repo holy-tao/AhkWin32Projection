@@ -225,7 +225,9 @@ class IXFeedFolder extends IUnknown{
      * @returns {HRESULT} 
      */
     TotalUnreadItemCount(puiTotalUnreadItemCount) {
-        result := ComCall(19, this, "uint*", puiTotalUnreadItemCount, "HRESULT")
+        puiTotalUnreadItemCountMarshal := puiTotalUnreadItemCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, puiTotalUnreadItemCountMarshal, puiTotalUnreadItemCount, "HRESULT")
         return result
     }
 
@@ -235,7 +237,9 @@ class IXFeedFolder extends IUnknown{
      * @returns {HRESULT} 
      */
     TotalItemCount(puiTotalItemCount) {
-        result := ComCall(20, this, "uint*", puiTotalItemCount, "HRESULT")
+        puiTotalItemCountMarshal := puiTotalItemCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, puiTotalItemCountMarshal, puiTotalItemCount, "HRESULT")
         return result
     }
 }

@@ -39,7 +39,9 @@ class IResourceManager2 extends IResourceManager{
      * @returns {HRESULT} 
      */
     Enlist2(pTransaction, pResAsync, pUOW, pisoLevel, pXid, ppEnlist) {
-        result := ComCall(7, this, "ptr", pTransaction, "ptr", pResAsync, "ptr", pUOW, "int*", pisoLevel, "ptr", pXid, "ptr*", ppEnlist, "HRESULT")
+        pisoLevelMarshal := pisoLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pTransaction, "ptr", pResAsync, "ptr", pUOW, pisoLevelMarshal, pisoLevel, "ptr", pXid, "ptr*", ppEnlist, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IResourceManager2 extends IResourceManager{
      * @returns {HRESULT} 
      */
     Reenlist2(pXid, dwTimeout, pXactStat) {
-        result := ComCall(8, this, "ptr", pXid, "uint", dwTimeout, "int*", pXactStat, "HRESULT")
+        pXactStatMarshal := pXactStat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pXid, "uint", dwTimeout, pXactStatMarshal, pXactStat, "HRESULT")
         return result
     }
 }

@@ -57,7 +57,9 @@ class ID2D1Factory1 extends ID2D1Factory{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createstrokestyle(constd2d1_stroke_style_properties1_constfloat_uint32_id2d1strokestyle1)
      */
     CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount, strokeStyle) {
-        result := ComCall(18, this, "ptr", strokeStyleProperties, "float*", dashes, "uint", dashesCount, "ptr*", strokeStyle, "HRESULT")
+        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(18, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", strokeStyle, "HRESULT")
         return result
     }
 
@@ -150,7 +152,10 @@ class ID2D1Factory1 extends ID2D1Factory{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-getregisteredeffects
      */
     GetRegisteredEffects(effects, effectsCount, effectsReturned, effectsRegistered) {
-        result := ComCall(25, this, "ptr", effects, "uint", effectsCount, "uint*", effectsReturned, "uint*", effectsRegistered, "HRESULT")
+        effectsReturnedMarshal := effectsReturned is VarRef ? "uint*" : "ptr"
+        effectsRegisteredMarshal := effectsRegistered is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "ptr", effects, "uint", effectsCount, effectsReturnedMarshal, effectsReturned, effectsRegisteredMarshal, effectsRegistered, "HRESULT")
         return result
     }
 

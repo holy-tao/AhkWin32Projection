@@ -50,7 +50,9 @@ class IMDSPStorage4 extends IMDSPStorage3{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-getreferences
      */
     GetReferences(pdwRefs, pppISPStorage) {
-        result := ComCall(20, this, "uint*", pdwRefs, "ptr*", pppISPStorage, "HRESULT")
+        pdwRefsMarshal := pdwRefs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwRefsMarshal, pdwRefs, "ptr*", pppISPStorage, "HRESULT")
         return result
     }
 

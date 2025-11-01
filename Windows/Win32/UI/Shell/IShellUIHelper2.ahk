@@ -140,7 +140,9 @@ class IShellUIHelper2 extends IShellUIHelper{
     IsSearchProviderInstalled(URL, pdwResult) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
 
-        result := ComCall(30, this, "ptr", URL, "uint*", pdwResult, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "ptr", URL, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 

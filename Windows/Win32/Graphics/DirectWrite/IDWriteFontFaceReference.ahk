@@ -184,7 +184,9 @@ class IDWriteFontFaceReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueueglyphdownloadrequest
      */
     EnqueueGlyphDownloadRequest(glyphIndices, glyphCount) {
-        result := ComCall(15, this, "ushort*", glyphIndices, "uint", glyphCount, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(15, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "HRESULT")
         return result
     }
 

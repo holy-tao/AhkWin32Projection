@@ -68,7 +68,9 @@ class IInkRecognitionAlternate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_confidence
      */
     get_Confidence(Confidence) {
-        result := ComCall(8, this, "int*", Confidence, "HRESULT")
+        ConfidenceMarshal := Confidence is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, ConfidenceMarshal, Confidence, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class IInkRecognitionAlternate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_linenumber
      */
     get_LineNumber(LineNumber) {
-        result := ComCall(13, this, "int*", LineNumber, "HRESULT")
+        LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, LineNumberMarshal, LineNumber, "HRESULT")
         return result
     }
 
@@ -181,7 +185,10 @@ class IInkRecognitionAlternate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-getstrokesfromtextrange
      */
     GetStrokesFromTextRange(selectionStart, selectionLength, GetStrokesFromTextRange) {
-        result := ComCall(18, this, "int*", selectionStart, "int*", selectionLength, "ptr*", GetStrokesFromTextRange, "HRESULT")
+        selectionStartMarshal := selectionStart is VarRef ? "int*" : "ptr"
+        selectionLengthMarshal := selectionLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, selectionStartMarshal, selectionStart, selectionLengthMarshal, selectionLength, "ptr*", GetStrokesFromTextRange, "HRESULT")
         return result
     }
 
@@ -194,7 +201,10 @@ class IInkRecognitionAlternate extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-gettextrangefromstrokes
      */
     GetTextRangeFromStrokes(Strokes, selectionStart, selectionLength) {
-        result := ComCall(19, this, "ptr", Strokes, "int*", selectionStart, "int*", selectionLength, "HRESULT")
+        selectionStartMarshal := selectionStart is VarRef ? "int*" : "ptr"
+        selectionLengthMarshal := selectionLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "ptr", Strokes, selectionStartMarshal, selectionStart, selectionLengthMarshal, selectionLength, "HRESULT")
         return result
     }
 

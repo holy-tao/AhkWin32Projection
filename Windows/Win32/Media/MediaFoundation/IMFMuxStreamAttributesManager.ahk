@@ -37,7 +37,9 @@ class IMFMuxStreamAttributesManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getstreamcount
      */
     GetStreamCount(pdwMuxStreamCount) {
-        result := ComCall(3, this, "uint*", pdwMuxStreamCount, "HRESULT")
+        pdwMuxStreamCountMarshal := pdwMuxStreamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwMuxStreamCountMarshal, pdwMuxStreamCount, "HRESULT")
         return result
     }
 

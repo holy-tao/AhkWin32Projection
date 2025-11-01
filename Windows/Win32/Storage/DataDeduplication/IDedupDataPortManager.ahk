@@ -39,7 +39,13 @@ class IDedupDataPortManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConfiguration(pMinChunkSize, pMaxChunkSize, pChunkingAlgorithm, pHashingAlgorithm, pCompressionAlgorithm) {
-        result := ComCall(3, this, "uint*", pMinChunkSize, "uint*", pMaxChunkSize, "int*", pChunkingAlgorithm, "int*", pHashingAlgorithm, "int*", pCompressionAlgorithm, "HRESULT")
+        pMinChunkSizeMarshal := pMinChunkSize is VarRef ? "uint*" : "ptr"
+        pMaxChunkSizeMarshal := pMaxChunkSize is VarRef ? "uint*" : "ptr"
+        pChunkingAlgorithmMarshal := pChunkingAlgorithm is VarRef ? "int*" : "ptr"
+        pHashingAlgorithmMarshal := pHashingAlgorithm is VarRef ? "int*" : "ptr"
+        pCompressionAlgorithmMarshal := pCompressionAlgorithm is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pMinChunkSizeMarshal, pMinChunkSize, pMaxChunkSizeMarshal, pMaxChunkSize, pChunkingAlgorithmMarshal, pChunkingAlgorithm, pHashingAlgorithmMarshal, pHashingAlgorithm, pCompressionAlgorithmMarshal, pCompressionAlgorithm, "HRESULT")
         return result
     }
 
@@ -53,7 +59,9 @@ class IDedupDataPortManager extends IUnknown{
     GetVolumeStatus(Options, Path, pStatus) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path
 
-        result := ComCall(4, this, "uint", Options, "ptr", Path, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "uint", Options, "ptr", Path, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 

@@ -79,7 +79,10 @@ class IStreamBufferConfigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getbackingfilecount
      */
     GetBackingFileCount(pdwMin, pdwMax) {
-        result := ComCall(6, this, "uint*", pdwMin, "uint*", pdwMax, "HRESULT")
+        pdwMinMarshal := pdwMin is VarRef ? "uint*" : "ptr"
+        pdwMaxMarshal := pdwMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwMinMarshal, pdwMin, pdwMaxMarshal, pdwMax, "HRESULT")
         return result
     }
 
@@ -101,7 +104,9 @@ class IStreamBufferConfigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getbackingfileduration
      */
     GetBackingFileDuration(pdwSeconds) {
-        result := ComCall(8, this, "uint*", pdwSeconds, "HRESULT")
+        pdwSecondsMarshal := pdwSeconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwSecondsMarshal, pdwSeconds, "HRESULT")
         return result
     }
 }

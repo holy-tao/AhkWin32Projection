@@ -52,7 +52,9 @@ class IWbemClientConnectionTransport extends IUnknown{
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
 
-        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, "char*", abBinaryAddress, "ptr", strObject, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, "ptr*", pInterface, "ptr*", pCallRes, "HRESULT")
+        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strObject, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, "ptr*", pInterface, "ptr*", pCallRes, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class IWbemClientConnectionTransport extends IUnknown{
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
 
-        result := ComCall(4, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, "char*", abBinaryAddress, "ptr", strObject, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, "ptr", pResponseHandler, "HRESULT")
+        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strObject, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 

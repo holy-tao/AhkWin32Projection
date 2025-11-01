@@ -40,7 +40,9 @@ class IOfflineFilesSimpleProgress extends IOfflineFilesProgress{
     ItemBegin(pszFile, pResponse) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(6, this, "ptr", pszFile, "int*", pResponse, "HRESULT")
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszFile, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IOfflineFilesSimpleProgress extends IOfflineFilesProgress{
     ItemResult(pszFile, hrResult, pResponse) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "int*", pResponse, "HRESULT")
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 }

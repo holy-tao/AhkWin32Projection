@@ -63,7 +63,9 @@ class IThumbnailProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailprovider-getthumbnail
      */
     GetThumbnail(cx, phbmp, pdwAlpha) {
-        result := ComCall(3, this, "uint", cx, "ptr", phbmp, "int*", pdwAlpha, "HRESULT")
+        pdwAlphaMarshal := pdwAlpha is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", cx, "ptr", phbmp, pdwAlphaMarshal, pdwAlpha, "HRESULT")
         return result
     }
 }

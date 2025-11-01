@@ -81,7 +81,9 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getacceleratedstreamingduration
      */
     GetAcceleratedStreamingDuration(pcnsAccelDuration) {
-        result := ComCall(40, this, "uint*", pcnsAccelDuration, "HRESULT")
+        pcnsAccelDurationMarshal := pcnsAccelDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, pcnsAccelDurationMarshal, pcnsAccelDuration, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getautoreconnectlimit
      */
     GetAutoReconnectLimit(pdwAutoReconnectLimit) {
-        result := ComCall(42, this, "uint*", pdwAutoReconnectLimit, "HRESULT")
+        pdwAutoReconnectLimitMarshal := pdwAutoReconnectLimit is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(42, this, pdwAutoReconnectLimitMarshal, pdwAutoReconnectLimit, "HRESULT")
         return result
     }
 
@@ -169,7 +173,9 @@ class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-getmaxnetpacketsize
      */
     GetMaxNetPacketSize(pdwMaxNetPacketSize) {
-        result := ComCall(48, this, "uint*", pdwMaxNetPacketSize, "HRESULT")
+        pdwMaxNetPacketSizeMarshal := pdwMaxNetPacketSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(48, this, pdwMaxNetPacketSizeMarshal, pdwMaxNetPacketSize, "HRESULT")
         return result
     }
 }

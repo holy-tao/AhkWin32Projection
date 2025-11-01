@@ -47,7 +47,9 @@ class IRow extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceRowset(riid, ppRowset, phRow) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppRowset, "ptr*", phRow, "HRESULT")
+        phRowMarshal := phRow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, "ptr*", ppRowset, phRowMarshal, phRow, "HRESULT")
         return result
     }
 

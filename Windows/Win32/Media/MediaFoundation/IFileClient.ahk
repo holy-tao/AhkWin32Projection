@@ -34,7 +34,9 @@ class IFileClient extends IUnknown{
      * @returns {HRESULT} 
      */
     GetObjectDiskSize(pqwSize) {
-        result := ComCall(3, this, "uint*", pqwSize, "HRESULT")
+        pqwSizeMarshal := pqwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pqwSizeMarshal, pqwSize, "HRESULT")
         return result
     }
 

@@ -50,7 +50,9 @@ class ISVGMatrix extends IDispatch{
      * @returns {HRESULT} 
      */
     get_a(p) {
-        result := ComCall(8, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ISVGMatrix extends IDispatch{
      * @returns {HRESULT} 
      */
     get_b(p) {
-        result := ComCall(10, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -90,7 +94,9 @@ class ISVGMatrix extends IDispatch{
      * @returns {HRESULT} 
      */
     get_c(p) {
-        result := ComCall(12, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -110,7 +116,9 @@ class ISVGMatrix extends IDispatch{
      * @returns {HRESULT} 
      */
     get_d(p) {
-        result := ComCall(14, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -130,7 +138,9 @@ class ISVGMatrix extends IDispatch{
      * @returns {HRESULT} 
      */
     get_e(p) {
-        result := ComCall(16, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -150,7 +160,9 @@ class ISVGMatrix extends IDispatch{
      * @returns {HRESULT} 
      */
     get_f(p) {
-        result := ComCall(18, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(18, this, pMarshal, p, "HRESULT")
         return result
     }
 

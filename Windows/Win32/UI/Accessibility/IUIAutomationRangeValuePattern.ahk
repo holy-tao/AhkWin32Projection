@@ -48,7 +48,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentvalue
      */
     get_CurrentValue(retVal) {
-        result := ComCall(4, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentmaximum
      */
     get_CurrentMaximum(retVal) {
-        result := ComCall(6, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentminimum
      */
     get_CurrentMinimum(retVal) {
-        result := ComCall(7, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentlargechange
      */
     get_CurrentLargeChange(retVal) {
-        result := ComCall(8, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -103,7 +111,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentsmallchange
      */
     get_CurrentSmallChange(retVal) {
-        result := ComCall(9, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -114,7 +124,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedvalue
      */
     get_CachedValue(retVal) {
-        result := ComCall(10, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -136,7 +148,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedmaximum
      */
     get_CachedMaximum(retVal) {
-        result := ComCall(12, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -147,7 +161,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedminimum
      */
     get_CachedMinimum(retVal) {
-        result := ComCall(13, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -158,7 +174,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedlargechange
      */
     get_CachedLargeChange(retVal) {
-        result := ComCall(14, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -169,7 +187,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedsmallchange
      */
     get_CachedSmallChange(retVal) {
-        result := ComCall(15, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

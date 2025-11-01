@@ -64,7 +64,9 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TaskTransition(pTaskTransition) {
-        result := ComCall(6, this, "int*", pTaskTransition, "HRESULT")
+        pTaskTransitionMarshal := pTaskTransition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pTaskTransitionMarshal, pTaskTransition, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_RuntimeType(pRuntimetype) {
-        result := ComCall(7, this, "int*", pRuntimetype, "HRESULT")
+        pRuntimetypeMarshal := pRuntimetype is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pRuntimetypeMarshal, pRuntimetype, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ActivationPolicy(pActivationPolicy) {
-        result := ComCall(8, this, "int*", pActivationPolicy, "HRESULT")
+        pActivationPolicyMarshal := pActivationPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pActivationPolicyMarshal, pActivationPolicy, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TaskType(pTaskType) {
-        result := ComCall(9, this, "int*", pTaskType, "HRESULT")
+        pTaskTypeMarshal := pTaskType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pTaskTypeMarshal, pTaskType, "HRESULT")
         return result
     }
 
@@ -175,7 +183,9 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ApplicationState(pApplicationState) {
-        result := ComCall(17, this, "int*", pApplicationState, "HRESULT")
+        pApplicationStateMarshal := pApplicationState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pApplicationStateMarshal, pApplicationState, "HRESULT")
         return result
     }
 
@@ -185,7 +195,9 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InstallType(pInstallType) {
-        result := ComCall(18, this, "int*", pInstallType, "HRESULT")
+        pInstallTypeMarshal := pInstallType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pInstallTypeMarshal, pInstallType, "HRESULT")
         return result
     }
 
@@ -196,7 +208,10 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Version(pTargetMajorVersion, pTargetMinorVersion) {
-        result := ComCall(19, this, "char*", pTargetMajorVersion, "char*", pTargetMinorVersion, "HRESULT")
+        pTargetMajorVersionMarshal := pTargetMajorVersion is VarRef ? "char*" : "ptr"
+        pTargetMinorVersionMarshal := pTargetMinorVersion is VarRef ? "char*" : "ptr"
+
+        result := ComCall(19, this, pTargetMajorVersionMarshal, pTargetMajorVersion, pTargetMinorVersionMarshal, pTargetMinorVersion, "HRESULT")
         return result
     }
 
@@ -206,7 +221,9 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BitsPerPixel(pBitsPerPixel) {
-        result := ComCall(20, this, "ushort*", pBitsPerPixel, "HRESULT")
+        pBitsPerPixelMarshal := pBitsPerPixel is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(20, this, pBitsPerPixelMarshal, pBitsPerPixel, "HRESULT")
         return result
     }
 

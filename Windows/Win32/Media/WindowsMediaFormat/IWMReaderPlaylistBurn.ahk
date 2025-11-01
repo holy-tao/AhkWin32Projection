@@ -40,7 +40,9 @@ class IWMReaderPlaylistBurn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-initplaylistburn
      */
     InitPlaylistBurn(cFiles, ppwszFilenames, pCallback, pvContext) {
-        result := ComCall(3, this, "uint", cFiles, "ptr", ppwszFilenames, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", cFiles, "ptr", ppwszFilenames, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

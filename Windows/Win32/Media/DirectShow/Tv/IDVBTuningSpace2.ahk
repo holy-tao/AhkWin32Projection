@@ -42,7 +42,9 @@ class IDVBTuningSpace2 extends IDVBTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace2-get_networkid
      */
     get_NetworkID(NetworkID) {
-        result := ComCall(28, this, "int*", NetworkID, "HRESULT")
+        NetworkIDMarshal := NetworkID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, NetworkIDMarshal, NetworkID, "HRESULT")
         return result
     }
 

@@ -90,7 +90,9 @@ class IExplorerCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getstate
      */
     GetState(psiItemArray, fOkToBeSlow, pCmdState) {
-        result := ComCall(7, this, "ptr", psiItemArray, "int", fOkToBeSlow, "uint*", pCmdState, "HRESULT")
+        pCmdStateMarshal := pCmdState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", psiItemArray, "int", fOkToBeSlow, pCmdStateMarshal, pCmdState, "HRESULT")
         return result
     }
 
@@ -113,7 +115,9 @@ class IExplorerCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getflags
      */
     GetFlags(pFlags) {
-        result := ComCall(9, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

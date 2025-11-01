@@ -37,7 +37,9 @@ class IWMAuthorizer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getcertcount
      */
     GetCertCount(pcCerts) {
-        result := ComCall(3, this, "uint*", pcCerts, "HRESULT")
+        pcCertsMarshal := pcCerts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcCertsMarshal, pcCerts, "HRESULT")
         return result
     }
 
@@ -63,7 +65,10 @@ class IWMAuthorizer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getshareddata
      */
     GetSharedData(dwCertIndex, pbSharedData, pbCert, ppbSharedData) {
-        result := ComCall(5, this, "uint", dwCertIndex, "char*", pbSharedData, "char*", pbCert, "ptr*", ppbSharedData, "HRESULT")
+        pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
+        pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", ppbSharedData, "HRESULT")
         return result
     }
 }

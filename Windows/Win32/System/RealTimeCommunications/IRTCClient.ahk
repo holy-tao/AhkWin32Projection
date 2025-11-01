@@ -89,7 +89,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_EventFilter(plFilter) {
-        result := ComCall(7, this, "int*", plFilter, "HRESULT")
+        plFilterMarshal := plFilter is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plFilterMarshal, plFilter, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PreferredMediaTypes(plMediaTypes) {
-        result := ComCall(9, this, "int*", plMediaTypes, "HRESULT")
+        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
         return result
     }
 
@@ -120,7 +124,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_MediaCapabilities(plMediaTypes) {
-        result := ComCall(10, this, "int*", plMediaTypes, "HRESULT")
+        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
         return result
     }
 
@@ -156,7 +162,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ListenForIncomingSessions(penListen) {
-        result := ComCall(13, this, "int*", penListen, "HRESULT")
+        penListenMarshal := penListen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, penListenMarshal, penListen, "HRESULT")
         return result
     }
 
@@ -190,7 +198,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Volume(enDevice, plVolume) {
-        result := ComCall(16, this, "int", enDevice, "int*", plVolume, "HRESULT")
+        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "int", enDevice, plVolumeMarshal, plVolume, "HRESULT")
         return result
     }
 
@@ -269,7 +279,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PreferredVolume(enDevice, plVolume) {
-        result := ComCall(23, this, "int", enDevice, "int*", plVolume, "HRESULT")
+        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, "int", enDevice, plVolumeMarshal, plVolume, "HRESULT")
         return result
     }
 
@@ -321,7 +333,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ActiveMedia(plMediaType) {
-        result := ComCall(28, this, "int*", plMediaType, "HRESULT")
+        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, plMediaTypeMarshal, plMediaType, "HRESULT")
         return result
     }
 
@@ -341,7 +355,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_MaxBitrate(plMaxBitrate) {
-        result := ComCall(30, this, "int*", plMaxBitrate, "HRESULT")
+        plMaxBitrateMarshal := plMaxBitrate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, plMaxBitrateMarshal, plMaxBitrate, "HRESULT")
         return result
     }
 
@@ -361,7 +377,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TemporalSpatialTradeOff(plValue) {
-        result := ComCall(32, this, "int*", plValue, "HRESULT")
+        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, plValueMarshal, plValue, "HRESULT")
         return result
     }
 
@@ -371,7 +389,9 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     get_NetworkQuality(plNetworkQuality) {
-        result := ComCall(33, this, "int*", plNetworkQuality, "HRESULT")
+        plNetworkQualityMarshal := plNetworkQuality is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, plNetworkQualityMarshal, plNetworkQuality, "HRESULT")
         return result
     }
 

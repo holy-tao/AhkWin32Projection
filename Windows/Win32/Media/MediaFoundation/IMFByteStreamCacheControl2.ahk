@@ -43,7 +43,9 @@ class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol2-getbyteranges
      */
     GetByteRanges(pcRanges, ppRanges) {
-        result := ComCall(4, this, "uint*", pcRanges, "ptr*", ppRanges, "HRESULT")
+        pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcRangesMarshal, pcRanges, "ptr*", ppRanges, "HRESULT")
         return result
     }
 

@@ -42,7 +42,9 @@ class IXpsOMDocumentCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-getcount
      */
     GetCount(count) {
-        result := ComCall(3, this, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, countMarshal, count, "HRESULT")
         return result
     }
 

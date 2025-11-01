@@ -49,7 +49,9 @@ class IMediaStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-getinformation
      */
     GetInformation(pPurposeId, pType) {
-        result := ComCall(4, this, "ptr", pPurposeId, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pPurposeId, pTypeMarshal, pType, "HRESULT")
         return result
     }
 

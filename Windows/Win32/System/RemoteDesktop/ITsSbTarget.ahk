@@ -135,7 +135,9 @@ class ITsSbTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_ipaddresses
      */
     get_IpAddresses(SOCKADDR, numAddresses) {
-        result := ComCall(11, this, "ptr", SOCKADDR, "uint*", numAddresses, "HRESULT")
+        numAddressesMarshal := numAddresses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", SOCKADDR, numAddressesMarshal, numAddresses, "HRESULT")
         return result
     }
 
@@ -158,7 +160,9 @@ class ITsSbTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetstate
      */
     get_TargetState(pState) {
-        result := ComCall(13, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -226,7 +230,9 @@ class ITsSbTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_numsessions
      */
     get_NumSessions(pNumSessions) {
-        result := ComCall(19, this, "uint*", pNumSessions, "HRESULT")
+        pNumSessionsMarshal := pNumSessions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pNumSessionsMarshal, pNumSessions, "HRESULT")
         return result
     }
 
@@ -237,7 +243,9 @@ class ITsSbTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_numpendingconnections
      */
     get_NumPendingConnections(pNumPendingConnections) {
-        result := ComCall(20, this, "uint*", pNumPendingConnections, "HRESULT")
+        pNumPendingConnectionsMarshal := pNumPendingConnections is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pNumPendingConnectionsMarshal, pNumPendingConnections, "HRESULT")
         return result
     }
 
@@ -248,7 +256,9 @@ class ITsSbTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetload
      */
     get_TargetLoad(pTargetLoad) {
-        result := ComCall(21, this, "uint*", pTargetLoad, "HRESULT")
+        pTargetLoadMarshal := pTargetLoad is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pTargetLoadMarshal, pTargetLoad, "HRESULT")
         return result
     }
 }

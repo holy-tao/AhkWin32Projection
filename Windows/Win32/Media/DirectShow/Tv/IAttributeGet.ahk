@@ -42,7 +42,9 @@ class IAttributeGet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getcount
      */
     GetCount(plCount) {
-        result := ComCall(3, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -56,7 +58,10 @@ class IAttributeGet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattribindexed
      */
     GetAttribIndexed(lIndex, pguidAttribute, pbAttribute, pdwAttributeLength) {
-        result := ComCall(4, this, "int", lIndex, "ptr", pguidAttribute, "char*", pbAttribute, "uint*", pdwAttributeLength, "HRESULT")
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", lIndex, "ptr", pguidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
         return result
     }
 
@@ -69,7 +74,10 @@ class IAttributeGet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattrib
      */
     GetAttrib(guidAttribute, pbAttribute, pdwAttributeLength) {
-        result := ComCall(5, this, "ptr", guidAttribute, "char*", pbAttribute, "uint*", pdwAttributeLength, "HRESULT")
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", guidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
         return result
     }
 }

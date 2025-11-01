@@ -51,7 +51,9 @@ class IDWriteFontFileStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-releasefilefragment
      */
     ReleaseFileFragment(fragmentContext) {
-        ComCall(4, this, "ptr", fragmentContext)
+        fragmentContextMarshal := fragmentContext is VarRef ? "ptr" : "ptr"
+
+        ComCall(4, this, fragmentContextMarshal, fragmentContext)
     }
 
     /**
@@ -75,7 +77,9 @@ class IDWriteFontFileStream extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
     GetFileSize(fileSize) {
-        result := ComCall(5, this, "uint*", fileSize, "HRESULT")
+        fileSizeMarshal := fileSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, fileSizeMarshal, fileSize, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IDWriteFontFileStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-getlastwritetime
      */
     GetLastWriteTime(lastWriteTime) {
-        result := ComCall(6, this, "uint*", lastWriteTime, "HRESULT")
+        lastWriteTimeMarshal := lastWriteTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, lastWriteTimeMarshal, lastWriteTime, "HRESULT")
         return result
     }
 }

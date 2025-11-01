@@ -66,7 +66,9 @@ class INetFwMgr extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwmgr-get_currentprofiletype
      */
     get_CurrentProfileType(profileType) {
-        result := ComCall(8, this, "int*", profileType, "HRESULT")
+        profileTypeMarshal := profileType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, profileTypeMarshal, profileType, "HRESULT")
         return result
     }
 

@@ -42,6 +42,8 @@ class IFECommon extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifecommon-isdefaultime
      */
     IsDefaultIME(szName, cszName) {
+        szName := szName is String ? StrPtr(szName) : szName
+
         result := ComCall(3, this, "ptr", szName, "int", cszName, "HRESULT")
         return result
     }

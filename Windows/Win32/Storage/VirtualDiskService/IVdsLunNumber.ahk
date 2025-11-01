@@ -37,7 +37,9 @@ class IVdsLunNumber extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunnumber-getlunnumber
      */
     GetLunNumber(pulLunNumber) {
-        result := ComCall(3, this, "uint*", pulLunNumber, "HRESULT")
+        pulLunNumberMarshal := pulLunNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulLunNumberMarshal, pulLunNumber, "HRESULT")
         return result
     }
 }

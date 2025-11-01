@@ -41,7 +41,9 @@ class IMDServiceProvider2 extends IMDServiceProvider{
     CreateDevice(pwszDevicePath, pdwCount, pppDeviceArray) {
         pwszDevicePath := pwszDevicePath is String ? StrPtr(pwszDevicePath) : pwszDevicePath
 
-        result := ComCall(5, this, "ptr", pwszDevicePath, "uint*", pdwCount, "ptr*", pppDeviceArray, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwszDevicePath, pdwCountMarshal, pdwCount, "ptr*", pppDeviceArray, "HRESULT")
         return result
     }
 }

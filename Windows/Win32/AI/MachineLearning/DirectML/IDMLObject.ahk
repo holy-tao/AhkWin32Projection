@@ -39,7 +39,9 @@ class IDMLObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlobject-getprivatedata
      */
     GetPrivateData(guid, dataSize, data) {
-        result := ComCall(3, this, "ptr", guid, "uint*", dataSize, "ptr", data, "HRESULT")
+        dataSizeMarshal := dataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", guid, dataSizeMarshal, dataSize, "ptr", data, "HRESULT")
         return result
     }
 

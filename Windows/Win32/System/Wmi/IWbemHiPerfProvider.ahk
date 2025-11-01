@@ -73,7 +73,9 @@ class IWbemHiPerfProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefreshableobject
      */
     CreateRefreshableObject(pNamespace, pTemplate, pRefresher, lFlags, pContext, ppRefreshable, plId) {
-        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -105,7 +107,9 @@ class IWbemHiPerfProvider extends IUnknown{
     CreateRefreshableEnum(pNamespace, wszClass, pRefresher, lFlags, pContext, pHiPerfEnum, plId) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr", pHiPerfEnum, "int*", plId, "HRESULT")
+        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr", pHiPerfEnum, plIdMarshal, plId, "HRESULT")
         return result
     }
 

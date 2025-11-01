@@ -74,7 +74,9 @@ class IInkCursorButton extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbutton-get_state
      */
     get_State(CurrentState) {
-        result := ComCall(9, this, "int*", CurrentState, "HRESULT")
+        CurrentStateMarshal := CurrentState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, CurrentStateMarshal, CurrentState, "HRESULT")
         return result
     }
 }

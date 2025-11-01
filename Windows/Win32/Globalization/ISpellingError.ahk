@@ -37,7 +37,9 @@ class ISpellingError extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_startindex
      */
     get_StartIndex(value) {
-        result := ComCall(3, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ISpellingError extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_length
      */
     get_Length(value) {
-        result := ComCall(4, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class ISpellingError extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction
      */
     get_CorrectiveAction(value) {
-        result := ComCall(5, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, valueMarshal, value, "HRESULT")
         return result
     }
 

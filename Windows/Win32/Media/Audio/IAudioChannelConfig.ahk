@@ -49,7 +49,9 @@ class IAudioChannelConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiochannelconfig-getchannelconfig
      */
     GetChannelConfig(pdwConfig) {
-        result := ComCall(4, this, "uint*", pdwConfig, "HRESULT")
+        pdwConfigMarshal := pdwConfig is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwConfigMarshal, pdwConfig, "HRESULT")
         return result
     }
 }

@@ -216,7 +216,9 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetblendfactor
      */
     OMSetBlendFactor(BlendFactor) {
-        ComCall(23, this, "float*", BlendFactor)
+        BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
+
+        ComCall(23, this, BlendFactorMarshal, BlendFactor)
     }
 
     /**
@@ -347,7 +349,9 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstants
      */
     SetComputeRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
-        ComCall(35, this, "uint", RootParameterIndex, "uint", Num32BitValuesToSet, "ptr", pSrcData, "uint", DestOffsetIn32BitValues)
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        ComCall(35, this, "uint", RootParameterIndex, "uint", Num32BitValuesToSet, pSrcDataMarshal, pSrcData, "uint", DestOffsetIn32BitValues)
     }
 
     /**
@@ -360,7 +364,9 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstants
      */
     SetGraphicsRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
-        ComCall(36, this, "uint", RootParameterIndex, "uint", Num32BitValuesToSet, "ptr", pSrcData, "uint", DestOffsetIn32BitValues)
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        ComCall(36, this, "uint", RootParameterIndex, "uint", Num32BitValuesToSet, pSrcDataMarshal, pSrcData, "uint", DestOffsetIn32BitValues)
     }
 
     /**
@@ -501,7 +507,9 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview
      */
     ClearRenderTargetView(RenderTargetView, ColorRGBA, NumRects, pRects) {
-        ComCall(48, this, "ptr", RenderTargetView, "float*", ColorRGBA, "uint", NumRects, "ptr", pRects)
+        ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
+
+        ComCall(48, this, "ptr", RenderTargetView, ColorRGBAMarshal, ColorRGBA, "uint", NumRects, "ptr", pRects)
     }
 
     /**
@@ -516,7 +524,9 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewuint
      */
     ClearUnorderedAccessViewUint(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
-        ComCall(49, this, "ptr", ViewGPUHandleInCurrentHeap, "ptr", ViewCPUHandle, "ptr", pResource, "uint*", Values, "uint", NumRects, "ptr", pRects)
+        ValuesMarshal := Values is VarRef ? "uint*" : "ptr"
+
+        ComCall(49, this, "ptr", ViewGPUHandleInCurrentHeap, "ptr", ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, "ptr", pRects)
     }
 
     /**
@@ -531,7 +541,9 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewfloat
      */
     ClearUnorderedAccessViewFloat(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
-        ComCall(50, this, "ptr", ViewGPUHandleInCurrentHeap, "ptr", ViewCPUHandle, "ptr", pResource, "float*", Values, "uint", NumRects, "ptr", pRects)
+        ValuesMarshal := Values is VarRef ? "float*" : "ptr"
+
+        ComCall(50, this, "ptr", ViewGPUHandleInCurrentHeap, "ptr", ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, "ptr", pRects)
     }
 
     /**

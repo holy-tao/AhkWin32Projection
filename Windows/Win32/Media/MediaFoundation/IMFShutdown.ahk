@@ -79,7 +79,9 @@ class IMFShutdown extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfshutdown-getshutdownstatus
      */
     GetShutdownStatus(pStatus) {
-        result := ComCall(4, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,9 @@ class IWiaLogEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-initializelogex
      */
     InitializeLogEx(hInstance) {
-        result := ComCall(3, this, "char*", hInstance, "HRESULT")
+        hInstanceMarshal := hInstance is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, hInstanceMarshal, hInstance, "HRESULT")
         return result
     }
 

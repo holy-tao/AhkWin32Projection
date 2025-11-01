@@ -2113,7 +2113,9 @@ class TabletPC {
     static GetResultPropertyList(hrec, pPropertyCount, pPropertyGuid) {
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
 
-        result := DllCall("inkobjcore.dll\GetResultPropertyList", "ptr", hrec, "uint*", pPropertyCount, "ptr", pPropertyGuid, "int")
+        pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetResultPropertyList", "ptr", hrec, pPropertyCountMarshal, pPropertyCount, "ptr", pPropertyGuid, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2289,7 +2291,9 @@ class TabletPC {
     static GetUnicodeRanges(hrec, pcRanges, pcr) {
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
 
-        result := DllCall("inkobjcore.dll\GetUnicodeRanges", "ptr", hrec, "uint*", pcRanges, "ptr", pcr, "int")
+        pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetUnicodeRanges", "ptr", hrec, pcRangesMarshal, pcRanges, "ptr", pcr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2394,7 +2398,9 @@ class TabletPC {
     static AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\AddStroke", "ptr", hrc, "ptr", pPacketDesc, "uint", cbPacket, "char*", pPacket, "ptr", pXForm, "int")
+        pPacketMarshal := pPacket is VarRef ? "char*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\AddStroke", "ptr", hrc, "ptr", pPacketDesc, "uint", cbPacket, pPacketMarshal, pPacket, "ptr", pXForm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2497,10 +2503,12 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetBestResultString(hrc, pcSize, pwcBestResult) {
-        pwcBestResult := pwcBestResult is String ? StrPtr(pwcBestResult) : pwcBestResult
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcBestResult := pwcBestResult is String ? StrPtr(pwcBestResult) : pwcBestResult
 
-        result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, "uint*", pcSize, "ptr", pwcBestResult, "int")
+        pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcBestResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2708,7 +2716,9 @@ class TabletPC {
     static GetGuide(hrc, pGuide, piIndex) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\GetGuide", "ptr", hrc, "ptr", pGuide, "uint*", piIndex, "int")
+        piIndexMarshal := piIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetGuide", "ptr", hrc, "ptr", pGuide, piIndexMarshal, piIndex, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3318,8 +3328,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static SetFactoid(hrc, cwcFactoid, pwcFactoid) {
-        pwcFactoid := pwcFactoid is String ? StrPtr(pwcFactoid) : pwcFactoid
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcFactoid := pwcFactoid is String ? StrPtr(pwcFactoid) : pwcFactoid
 
         result := DllCall("inkobjcore.dll\SetFactoid", "ptr", hrc, "uint", cwcFactoid, "ptr", pwcFactoid, "int")
         if(result != 0)
@@ -3687,9 +3697,9 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static SetTextContext(hrc, cwcBefore, pwcBefore, cwcAfter, pwcAfter) {
+        hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
         pwcBefore := pwcBefore is String ? StrPtr(pwcBefore) : pwcBefore
         pwcAfter := pwcAfter is String ? StrPtr(pwcAfter) : pwcAfter
-        hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
         result := DllCall("inkobjcore.dll\SetTextContext", "ptr", hrc, "uint", cwcBefore, "ptr", pwcBefore, "uint", cwcAfter, "ptr", pwcAfter, "int")
         if(result != 0)
@@ -3783,7 +3793,9 @@ class TabletPC {
     static GetEnabledUnicodeRanges(hrc, pcRanges, pcr) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\GetEnabledUnicodeRanges", "ptr", hrc, "uint*", pcRanges, "ptr", pcr, "int")
+        pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetEnabledUnicodeRanges", "ptr", hrc, pcRangesMarshal, pcRanges, "ptr", pcr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3945,7 +3957,9 @@ class TabletPC {
     static GetContextPropertyList(hrc, pcProperties, pPropertyGUIDS) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\GetContextPropertyList", "ptr", hrc, "uint*", pcProperties, "ptr", pPropertyGUIDS, "int")
+        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetContextPropertyList", "ptr", hrc, pcPropertiesMarshal, pcProperties, "ptr", pPropertyGUIDS, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4049,7 +4063,10 @@ class TabletPC {
     static GetContextPropertyValue(hrc, pGuid, pcbSize, pProperty) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\GetContextPropertyValue", "ptr", hrc, "ptr", pGuid, "uint*", pcbSize, "char*", pProperty, "int")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pPropertyMarshal := pProperty is VarRef ? "char*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetContextPropertyValue", "ptr", hrc, "ptr", pGuid, pcbSizeMarshal, pcbSize, pPropertyMarshal, pProperty, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4142,7 +4159,9 @@ class TabletPC {
     static SetContextPropertyValue(hrc, pGuid, cbSize, pProperty) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\SetContextPropertyValue", "ptr", hrc, "ptr", pGuid, "uint", cbSize, "char*", pProperty, "int")
+        pPropertyMarshal := pProperty is VarRef ? "char*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\SetContextPropertyValue", "ptr", hrc, "ptr", pGuid, "uint", cbSize, pPropertyMarshal, pProperty, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4234,8 +4253,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static IsStringSupported(hrc, wcString, pwcString) {
-        pwcString := pwcString is String ? StrPtr(pwcString) : pwcString
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcString := pwcString is String ? StrPtr(pwcString) : pwcString
 
         result := DllCall("inkobjcore.dll\IsStringSupported", "ptr", hrc, "uint", wcString, "ptr", pwcString, "int")
         if(result != 0)
@@ -4347,7 +4366,9 @@ class TabletPC {
     static GetContextPreferenceFlags(hrc, pdwContextPreferenceFlags) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\GetContextPreferenceFlags", "ptr", hrc, "uint*", pdwContextPreferenceFlags, "int")
+        pdwContextPreferenceFlagsMarshal := pdwContextPreferenceFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetContextPreferenceFlags", "ptr", hrc, pdwContextPreferenceFlagsMarshal, pdwContextPreferenceFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4364,10 +4385,12 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
-        pwcRightSeparator := pwcRightSeparator is String ? StrPtr(pwcRightSeparator) : pwcRightSeparator
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcRightSeparator := pwcRightSeparator is String ? StrPtr(pwcRightSeparator) : pwcRightSeparator
 
-        result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcRightSeparator, "int")
+        pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcRightSeparator, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4384,10 +4407,12 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetLeftSeparator(hrc, pcSize, pwcLeftSeparator) {
-        pwcLeftSeparator := pwcLeftSeparator is String ? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcLeftSeparator := pwcLeftSeparator is String ? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
 
-        result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcLeftSeparator, "int")
+        pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, pcSizeMarshal, pcSize, "ptr", pwcLeftSeparator, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4522,8 +4547,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static AddWordsToWordList(hwl, pwcWords) {
-        pwcWords := pwcWords is String ? StrPtr(pwcWords) : pwcWords
         hwl := hwl is Win32Handle ? NumGet(hwl, "ptr") : hwl
+        pwcWords := pwcWords is String ? StrPtr(pwcWords) : pwcWords
 
         result := DllCall("inkobjcore.dll\AddWordsToWordList", "ptr", hwl, "ptr", pwcWords, "int")
         if(result != 0)
@@ -4615,8 +4640,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static MakeWordList(hrec, pBuffer, phwl) {
-        pBuffer := pBuffer is String ? StrPtr(pBuffer) : pBuffer
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
+        pBuffer := pBuffer is String ? StrPtr(pBuffer) : pBuffer
 
         result := DllCall("inkobjcore.dll\MakeWordList", "ptr", hrec, "ptr", pBuffer, "ptr", phwl, "int")
         if(result != 0)
@@ -4685,7 +4710,9 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetAllRecognizers(recognizerClsids, count) {
-        result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr*", recognizerClsids, "uint*", count, "int")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr*", recognizerClsids, countMarshal, count, "int")
         if(result != 0)
             throw OSError(result)
 

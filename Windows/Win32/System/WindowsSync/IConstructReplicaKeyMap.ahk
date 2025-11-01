@@ -43,7 +43,10 @@ class IConstructReplicaKeyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iconstructreplicakeymap-findoraddreplica
      */
     FindOrAddReplica(pbReplicaId, pdwReplicaKey) {
-        result := ComCall(3, this, "char*", pbReplicaId, "uint*", pdwReplicaKey, "HRESULT")
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
+        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
         return result
     }
 }

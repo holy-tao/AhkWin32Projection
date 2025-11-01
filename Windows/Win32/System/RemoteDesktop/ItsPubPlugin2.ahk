@@ -41,7 +41,9 @@ class ItsPubPlugin2 extends ItsPubPlugin{
     GetResource2List(userID, pceAppListSize, resourceList) {
         userID := userID is String ? StrPtr(userID) : userID
 
-        result := ComCall(9, this, "ptr", userID, "int*", pceAppListSize, "ptr*", resourceList, "HRESULT")
+        pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, "ptr*", resourceList, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class ItsPubPlugin2 extends ItsPubPlugin{
         poolId := poolId is String ? StrPtr(poolId) : poolId
         endPointName := endPointName is String ? StrPtr(endPointName) : endPointName
 
-        result := ComCall(11, this, "ptr", userId, "ptr", poolId, "int", ePdResolutionType, "int*", pPdAssignmentType, "ptr", endPointName, "HRESULT")
+        pPdAssignmentTypeMarshal := pPdAssignmentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", userId, "ptr", poolId, "int", ePdResolutionType, pPdAssignmentTypeMarshal, pPdAssignmentType, "ptr", endPointName, "HRESULT")
         return result
     }
 

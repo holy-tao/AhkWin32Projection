@@ -271,7 +271,9 @@ class IX509PrivateKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_providertype
      */
     get_ProviderType(pValue) {
-        result := ComCall(27, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -337,7 +339,9 @@ class IX509PrivateKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec
      */
     get_KeySpec(pValue) {
-        result := ComCall(33, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -359,7 +363,9 @@ class IX509PrivateKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_length
      */
     get_Length(pValue) {
-        result := ComCall(35, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -381,7 +387,9 @@ class IX509PrivateKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_exportpolicy
      */
     get_ExportPolicy(pValue) {
-        result := ComCall(37, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -403,7 +411,9 @@ class IX509PrivateKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage
      */
     get_KeyUsage(pValue) {
-        result := ComCall(39, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -425,7 +435,9 @@ class IX509PrivateKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyprotection
      */
     get_KeyProtection(pValue) {
-        result := ComCall(41, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -596,7 +608,9 @@ class IX509PrivateKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_parentwindow
      */
     get_ParentWindow(pValue) {
-        result := ComCall(56, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(56, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

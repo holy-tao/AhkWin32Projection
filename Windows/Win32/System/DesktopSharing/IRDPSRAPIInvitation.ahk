@@ -76,7 +76,9 @@ class IRDPSRAPIInvitation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_attendeelimit
      */
     get_AttendeeLimit(pRetVal) {
-        result := ComCall(10, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

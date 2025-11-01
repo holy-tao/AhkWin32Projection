@@ -36,7 +36,9 @@ class ICommandWithParameters extends IUnknown{
      * @returns {HRESULT} 
      */
     GetParameterInfo(pcParams, prgParamInfo, ppNamesBuffer) {
-        result := ComCall(3, this, "ptr*", pcParams, "ptr*", prgParamInfo, "ptr*", ppNamesBuffer, "HRESULT")
+        pcParamsMarshal := pcParams is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pcParamsMarshal, pcParams, "ptr*", prgParamInfo, "ptr*", ppNamesBuffer, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ICommandWithParameters extends IUnknown{
      * @returns {HRESULT} 
      */
     MapParameterNames(cParamNames, rgParamNames, rgParamOrdinals) {
-        result := ComCall(4, this, "ptr", cParamNames, "ptr", rgParamNames, "ptr*", rgParamOrdinals, "HRESULT")
+        rgParamOrdinalsMarshal := rgParamOrdinals is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", cParamNames, "ptr", rgParamNames, rgParamOrdinalsMarshal, rgParamOrdinals, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class ICommandWithParameters extends IUnknown{
      * @returns {HRESULT} 
      */
     SetParameterInfo(cParams, rgParamOrdinals, rgParamBindInfo) {
-        result := ComCall(5, this, "ptr", cParams, "ptr*", rgParamOrdinals, "ptr", rgParamBindInfo, "HRESULT")
+        rgParamOrdinalsMarshal := rgParamOrdinals is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", cParams, rgParamOrdinalsMarshal, rgParamOrdinals, "ptr", rgParamBindInfo, "HRESULT")
         return result
     }
 }

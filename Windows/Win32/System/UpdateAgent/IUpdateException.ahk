@@ -53,7 +53,9 @@ class IUpdateException extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_hresult
      */
     get_HResult(retval) {
-        result := ComCall(8, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IUpdateException extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_context
      */
     get_Context(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

@@ -193,7 +193,9 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-enumdisplaymodes
      */
     EnumDisplayModes(param0, param1, param2, param3) {
-        result := ComCall(8, this, "uint", param0, "ptr", param1, "ptr", param2, "ptr", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -207,7 +209,9 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-enumsurfaces
      */
     EnumSurfaces(param0, param1, param2, param3) {
-        result := ComCall(9, this, "uint", param0, "ptr", param1, "ptr", param2, "ptr", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -252,7 +256,10 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getfourcccodes
      */
     GetFourCCCodes(param0, param1) {
-        result := ComCall(13, this, "uint*", param0, "uint*", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -274,7 +281,9 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getmonitorfrequency
      */
     GetMonitorFrequency(param0) {
-        result := ComCall(15, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -285,7 +294,9 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getscanline
      */
     GetScanLine(param0) {
-        result := ComCall(16, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -383,7 +394,10 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getavailablevidmem
      */
     GetAvailableVidMem(param0, param1, param2) {
-        result := ComCall(23, this, "ptr", param0, "uint*", param1, "uint*", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
     }
 
@@ -454,7 +468,9 @@ class IDirectDraw7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-evaluatemode
      */
     EvaluateMode(param0, param1) {
-        result := ComCall(29, this, "uint", param0, "uint*", param1, "HRESULT")
+        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "uint", param0, param1Marshal, param1, "HRESULT")
         return result
     }
 }

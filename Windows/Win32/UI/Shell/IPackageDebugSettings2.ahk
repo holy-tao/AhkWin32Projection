@@ -39,7 +39,9 @@ class IPackageDebugSettings2 extends IPackageDebugSettings{
     EnumerateApps(packageFullName, appCount, appUserModelIds, appDisplayNames) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := ComCall(18, this, "ptr", packageFullName, "uint*", appCount, "ptr*", appUserModelIds, "ptr*", appDisplayNames, "HRESULT")
+        appCountMarshal := appCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", packageFullName, appCountMarshal, appCount, "ptr*", appUserModelIds, "ptr*", appDisplayNames, "HRESULT")
         return result
     }
 }

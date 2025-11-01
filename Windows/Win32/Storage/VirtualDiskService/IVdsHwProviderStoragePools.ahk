@@ -72,7 +72,9 @@ class IVdsHwProviderStoragePools extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-querymaxluncreatesizeinstoragepool
      */
     QueryMaxLunCreateSizeInStoragePool(type, StoragePoolId, pHints2, pullMaxLunSize) {
-        result := ComCall(5, this, "int", type, "ptr", StoragePoolId, "ptr", pHints2, "uint*", pullMaxLunSize, "HRESULT")
+        pullMaxLunSizeMarshal := pullMaxLunSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", type, "ptr", StoragePoolId, "ptr", pHints2, pullMaxLunSizeMarshal, pullMaxLunSize, "HRESULT")
         return result
     }
 }

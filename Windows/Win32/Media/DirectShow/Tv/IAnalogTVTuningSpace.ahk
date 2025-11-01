@@ -48,7 +48,9 @@ class IAnalogTVTuningSpace extends ITuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_minchannel
      */
     get_MinChannel(MinChannelVal) {
-        result := ComCall(26, this, "int*", MinChannelVal, "HRESULT")
+        MinChannelValMarshal := MinChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, MinChannelValMarshal, MinChannelVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IAnalogTVTuningSpace extends ITuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_maxchannel
      */
     get_MaxChannel(MaxChannelVal) {
-        result := ComCall(28, this, "int*", MaxChannelVal, "HRESULT")
+        MaxChannelValMarshal := MaxChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, MaxChannelValMarshal, MaxChannelVal, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IAnalogTVTuningSpace extends ITuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_inputtype
      */
     get_InputType(InputTypeVal) {
-        result := ComCall(30, this, "int*", InputTypeVal, "HRESULT")
+        InputTypeValMarshal := InputTypeVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, InputTypeValMarshal, InputTypeVal, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class IAnalogTVTuningSpace extends ITuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_countrycode
      */
     get_CountryCode(CountryCodeVal) {
-        result := ComCall(32, this, "int*", CountryCodeVal, "HRESULT")
+        CountryCodeValMarshal := CountryCodeVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, CountryCodeValMarshal, CountryCodeVal, "HRESULT")
         return result
     }
 

@@ -193,7 +193,11 @@ class IDirectMusicPort extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//ioapiset/nf-ioapiset-deviceiocontrol
      */
     DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped) {
-        result := ComCall(12, this, "uint", dwIoControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpOverlapped, "HRESULT")
+        lpInBufferMarshal := lpInBuffer is VarRef ? "ptr" : "ptr"
+        lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : "ptr"
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "HRESULT")
         return result
     }
 
@@ -213,7 +217,9 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumChannelGroups(pdwChannelGroups) {
-        result := ComCall(14, this, "uint*", pdwChannelGroups, "HRESULT")
+        pdwChannelGroupsMarshal := pdwChannelGroups is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwChannelGroupsMarshal, pdwChannelGroups, "HRESULT")
         return result
     }
 
@@ -247,7 +253,9 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetChannelPriority(dwChannelGroup, dwChannel, pdwPriority) {
-        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, "uint*", pdwPriority, "HRESULT")
+        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
         return result
     }
 
@@ -270,7 +278,10 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize, pdwBufferSize) {
-        result := ComCall(19, this, "ptr", pWaveFormatEx, "uint*", pdwWaveFormatExSize, "uint*", pdwBufferSize, "HRESULT")
+        pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
     }
 }

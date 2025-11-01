@@ -146,7 +146,9 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getunicoderanges
      */
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
-        result := ComCall(21, this, "uint", maxRangeCount, "ptr", unicodeRanges, "uint*", actualRangeCount, "HRESULT")
+        actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", maxRangeCount, "ptr", unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 
@@ -170,7 +172,10 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getdesignglyphadvances
      */
     GetDesignGlyphAdvances(glyphCount, glyphIndices, glyphAdvances, isSideways) {
-        result := ComCall(23, this, "uint", glyphCount, "ushort*", glyphIndices, "int*", glyphAdvances, "int", isSideways, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, "int", isSideways, "HRESULT")
         return result
     }
 
@@ -188,7 +193,10 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatibleglyphadvances
      */
     GetGdiCompatibleGlyphAdvances(emSize, pixelsPerDip, transform, useGdiNatural, isSideways, glyphCount, glyphIndices, glyphAdvances) {
-        result := ComCall(24, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "uint", glyphCount, "ushort*", glyphIndices, "int*", glyphAdvances, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, "HRESULT")
         return result
     }
 
@@ -201,7 +209,10 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getkerningpairadjustments
      */
     GetKerningPairAdjustments(glyphCount, glyphIndices, glyphAdvanceAdjustments) {
-        result := ComCall(25, this, "uint", glyphCount, "ushort*", glyphIndices, "int*", glyphAdvanceAdjustments, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphAdvanceAdjustmentsMarshal := glyphAdvanceAdjustments is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, glyphAdvanceAdjustmentsMarshal, glyphAdvanceAdjustments, "HRESULT")
         return result
     }
 
@@ -229,7 +240,9 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingMode) {
-        result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "int*", renderingMode, "HRESULT")
+        renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, renderingModeMarshal, renderingMode, "HRESULT")
         return result
     }
 
@@ -242,7 +255,10 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getverticalglyphvariants
      */
     GetVerticalGlyphVariants(glyphCount, nominalGlyphIndices, verticalGlyphIndices) {
-        result := ComCall(28, this, "uint", glyphCount, "ushort*", nominalGlyphIndices, "ushort*", verticalGlyphIndices, "HRESULT")
+        nominalGlyphIndicesMarshal := nominalGlyphIndices is VarRef ? "ushort*" : "ptr"
+        verticalGlyphIndicesMarshal := verticalGlyphIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(28, this, "uint", glyphCount, nominalGlyphIndicesMarshal, nominalGlyphIndices, verticalGlyphIndicesMarshal, verticalGlyphIndices, "HRESULT")
         return result
     }
 

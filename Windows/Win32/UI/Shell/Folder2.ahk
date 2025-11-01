@@ -52,7 +52,9 @@ class Folder2 extends Folder{
      * @returns {HRESULT} 
      */
     get_OfflineStatus(pul) {
-        result := ComCall(18, this, "int*", pul, "HRESULT")
+        pulMarshal := pul is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pulMarshal, pul, "HRESULT")
         return result
     }
 

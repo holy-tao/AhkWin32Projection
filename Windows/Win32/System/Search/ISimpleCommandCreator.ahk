@@ -68,7 +68,9 @@ class ISimpleCommandCreator extends IUnknown{
     GetDefaultCatalog(pwszCatalogName, cwcIn, pcwcOut) {
         pwszCatalogName := pwszCatalogName is String ? StrPtr(pwszCatalogName) : pwszCatalogName
 
-        result := ComCall(5, this, "ptr", pwszCatalogName, "uint", cwcIn, "uint*", pcwcOut, "HRESULT")
+        pcwcOutMarshal := pcwcOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwszCatalogName, "uint", cwcIn, pcwcOutMarshal, pcwcOut, "HRESULT")
         return result
     }
 }

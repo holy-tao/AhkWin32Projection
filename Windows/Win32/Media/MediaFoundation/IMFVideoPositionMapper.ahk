@@ -42,7 +42,10 @@ class IMFVideoPositionMapper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopositionmapper-mapoutputcoordinatetoinputstream
      */
     MapOutputCoordinateToInputStream(xOut, yOut, dwOutputStreamIndex, dwInputStreamIndex, pxIn, pyIn) {
-        result := ComCall(3, this, "float", xOut, "float", yOut, "uint", dwOutputStreamIndex, "uint", dwInputStreamIndex, "float*", pxIn, "float*", pyIn, "HRESULT")
+        pxInMarshal := pxIn is VarRef ? "float*" : "ptr"
+        pyInMarshal := pyIn is VarRef ? "float*" : "ptr"
+
+        result := ComCall(3, this, "float", xOut, "float", yOut, "uint", dwOutputStreamIndex, "uint", dwInputStreamIndex, pxInMarshal, pxIn, pyInMarshal, pyIn, "HRESULT")
         return result
     }
 }

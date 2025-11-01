@@ -54,7 +54,9 @@ class IXFeedEnclosure extends IUnknown{
      * @returns {HRESULT} 
      */
     Length(puiLength) {
-        result := ComCall(5, this, "uint*", puiLength, "HRESULT")
+        puiLengthMarshal := puiLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, puiLengthMarshal, puiLength, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IXFeedEnclosure extends IUnknown{
      * @returns {HRESULT} 
      */
     DownloadStatus(pfds) {
-        result := ComCall(8, this, "int*", pfds, "HRESULT")
+        pfdsMarshal := pfds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pfdsMarshal, pfds, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IXFeedEnclosure extends IUnknown{
      * @returns {HRESULT} 
      */
     LastDownloadError(pfde) {
-        result := ComCall(9, this, "int*", pfde, "HRESULT")
+        pfdeMarshal := pfde is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pfdeMarshal, pfde, "HRESULT")
         return result
     }
 

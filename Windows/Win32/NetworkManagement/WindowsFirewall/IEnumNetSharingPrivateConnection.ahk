@@ -39,7 +39,9 @@ class IEnumNetSharingPrivateConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingprivateconnection-next
      */
     Next(celt, rgVar, pCeltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", rgVar, "uint*", pCeltFetched, "HRESULT")
+        pCeltFetchedMarshal := pCeltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", rgVar, pCeltFetchedMarshal, pCeltFetched, "HRESULT")
         return result
     }
 

@@ -59,7 +59,9 @@ class IDot11AdHocInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isdot11d
      */
     IsDot11d(pf11d) {
-        result := ComCall(5, this, "char*", pf11d, "HRESULT")
+        pf11dMarshal := pf11d is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pf11dMarshal, pf11d, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IDot11AdHocInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isadhoccapable
      */
     IsAdHocCapable(pfAdHocCapable) {
-        result := ComCall(6, this, "char*", pfAdHocCapable, "HRESULT")
+        pfAdHocCapableMarshal := pfAdHocCapable is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pfAdHocCapableMarshal, pfAdHocCapable, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IDot11AdHocInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isradioon
      */
     IsRadioOn(pfIsRadioOn) {
-        result := ComCall(7, this, "char*", pfIsRadioOn, "HRESULT")
+        pfIsRadioOnMarshal := pfIsRadioOn is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pfIsRadioOnMarshal, pfIsRadioOn, "HRESULT")
         return result
     }
 
@@ -126,7 +132,9 @@ class IDot11AdHocInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getstatus
      */
     GetStatus(pState) {
-        result := ComCall(11, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

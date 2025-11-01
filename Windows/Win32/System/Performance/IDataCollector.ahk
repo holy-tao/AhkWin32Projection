@@ -109,7 +109,9 @@ class IDataCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_datacollectortype
      */
     get_DataCollectorType(type) {
-        result := ComCall(9, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, typeMarshal, type, "HRESULT")
         return result
     }
 
@@ -144,7 +146,9 @@ class IDataCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_filenameformat
      */
     get_FileNameFormat(format) {
-        result := ComCall(12, this, "int*", format, "HRESULT")
+        formatMarshal := format is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, formatMarshal, format, "HRESULT")
         return result
     }
 
@@ -315,7 +319,9 @@ class IDataCollector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollector-get_index
      */
     get_Index(index) {
-        result := ComCall(27, this, "int*", index, "HRESULT")
+        indexMarshal := index is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, indexMarshal, index, "HRESULT")
         return result
     }
 

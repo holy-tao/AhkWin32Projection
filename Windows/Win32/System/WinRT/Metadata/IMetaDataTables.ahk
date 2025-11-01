@@ -37,7 +37,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getstringheapsize
      */
     GetStringHeapSize(pcbStrings) {
-        result := ComCall(3, this, "uint*", pcbStrings, "HRESULT")
+        pcbStringsMarshal := pcbStrings is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcbStringsMarshal, pcbStrings, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getblobheapsize
      */
     GetBlobHeapSize(pcbBlobs) {
-        result := ComCall(4, this, "uint*", pcbBlobs, "HRESULT")
+        pcbBlobsMarshal := pcbBlobs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcbBlobsMarshal, pcbBlobs, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getguidheapsize
      */
     GetGuidHeapSize(pcbGuids) {
-        result := ComCall(5, this, "uint*", pcbGuids, "HRESULT")
+        pcbGuidsMarshal := pcbGuids is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pcbGuidsMarshal, pcbGuids, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getuserstringheapsize
      */
     GetUserStringHeapSize(pcbBlobs) {
-        result := ComCall(6, this, "uint*", pcbBlobs, "HRESULT")
+        pcbBlobsMarshal := pcbBlobs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcbBlobsMarshal, pcbBlobs, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnumtables
      */
     GetNumTables(pcTables) {
-        result := ComCall(7, this, "uint*", pcTables, "HRESULT")
+        pcTablesMarshal := pcTables is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pcTablesMarshal, pcTables, "HRESULT")
         return result
     }
 
@@ -93,7 +103,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-gettableindex
      */
     GetTableIndex(token, pixTbl) {
-        result := ComCall(8, this, "uint", token, "uint*", pixTbl, "HRESULT")
+        pixTblMarshal := pixTbl is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", token, pixTblMarshal, pixTbl, "HRESULT")
         return result
     }
 
@@ -109,7 +121,12 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-gettableinfo
      */
     GetTableInfo(ixTbl, pcbRow, pcRows, pcCols, piKey, ppName) {
-        result := ComCall(9, this, "uint", ixTbl, "uint*", pcbRow, "uint*", pcRows, "uint*", pcCols, "uint*", piKey, "ptr*", ppName, "HRESULT")
+        pcbRowMarshal := pcbRow is VarRef ? "uint*" : "ptr"
+        pcRowsMarshal := pcRows is VarRef ? "uint*" : "ptr"
+        pcColsMarshal := pcCols is VarRef ? "uint*" : "ptr"
+        piKeyMarshal := piKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", ixTbl, pcbRowMarshal, pcbRow, pcRowsMarshal, pcRows, pcColsMarshal, pcCols, piKeyMarshal, piKey, "ptr*", ppName, "HRESULT")
         return result
     }
 
@@ -125,7 +142,11 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getcolumninfo
      */
     GetColumnInfo(ixTbl, ixCol, poCol, pcbCol, pType, ppName) {
-        result := ComCall(10, this, "uint", ixTbl, "uint", ixCol, "uint*", poCol, "uint*", pcbCol, "uint*", pType, "ptr*", ppName, "HRESULT")
+        poColMarshal := poCol is VarRef ? "uint*" : "ptr"
+        pcbColMarshal := pcbCol is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", ixTbl, "uint", ixCol, poColMarshal, poCol, pcbColMarshal, pcbCol, pTypeMarshal, pType, "ptr*", ppName, "HRESULT")
         return result
     }
 
@@ -139,7 +160,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getcodedtokeninfo
      */
     GetCodedTokenInfo(ixCdTkn, pcTokens, ppTokens, ppName) {
-        result := ComCall(11, this, "uint", ixCdTkn, "uint*", pcTokens, "ptr*", ppTokens, "ptr*", ppName, "HRESULT")
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", ixCdTkn, pcTokensMarshal, pcTokens, "ptr*", ppTokens, "ptr*", ppName, "HRESULT")
         return result
     }
 
@@ -166,7 +189,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getcolumn
      */
     GetColumn(ixTbl, ixCol, rid, pVal) {
-        result := ComCall(13, this, "uint", ixTbl, "uint", ixCol, "uint", rid, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", ixTbl, "uint", ixCol, "uint", rid, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -191,7 +216,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getblob
      */
     GetBlob(ixBlob, pcbData, ppData) {
-        result := ComCall(15, this, "uint", ixBlob, "uint*", pcbData, "ptr*", ppData, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", ixBlob, pcbDataMarshal, pcbData, "ptr*", ppData, "HRESULT")
         return result
     }
 
@@ -216,7 +243,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getuserstring
      */
     GetUserString(ixUserString, pcbData, ppData) {
-        result := ComCall(17, this, "uint", ixUserString, "uint*", pcbData, "ptr*", ppData, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", ixUserString, pcbDataMarshal, pcbData, "ptr*", ppData, "HRESULT")
         return result
     }
 
@@ -228,7 +257,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextstring
      */
     GetNextString(ixString, pNext) {
-        result := ComCall(18, this, "uint", ixString, "uint*", pNext, "HRESULT")
+        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "uint", ixString, pNextMarshal, pNext, "HRESULT")
         return result
     }
 
@@ -240,7 +271,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextblob
      */
     GetNextBlob(ixBlob, pNext) {
-        result := ComCall(19, this, "uint", ixBlob, "uint*", pNext, "HRESULT")
+        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "uint", ixBlob, pNextMarshal, pNext, "HRESULT")
         return result
     }
 
@@ -252,7 +285,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextguid
      */
     GetNextGuid(ixGuid, pNext) {
-        result := ComCall(20, this, "uint", ixGuid, "uint*", pNext, "HRESULT")
+        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", ixGuid, pNextMarshal, pNext, "HRESULT")
         return result
     }
 
@@ -264,7 +299,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextuserstring
      */
     GetNextUserString(ixUserString, pNext) {
-        result := ComCall(21, this, "uint", ixUserString, "uint*", pNext, "HRESULT")
+        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", ixUserString, pNextMarshal, pNext, "HRESULT")
         return result
     }
 }

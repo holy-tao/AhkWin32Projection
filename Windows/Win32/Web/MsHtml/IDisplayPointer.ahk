@@ -38,7 +38,9 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToPoint(ptPoint, eCoordSystem, pElementContext, dwHitTestOptions, pdwHitTestResults) {
-        result := ComCall(3, this, "ptr", ptPoint, "int", eCoordSystem, "ptr", pElementContext, "uint", dwHitTestOptions, "uint*", pdwHitTestResults, "HRESULT")
+        pdwHitTestResultsMarshal := pdwHitTestResults is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ptPoint, "int", eCoordSystem, "ptr", pElementContext, "uint", dwHitTestOptions, pdwHitTestResultsMarshal, pdwHitTestResults, "HRESULT")
         return result
     }
 
@@ -89,7 +91,9 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPointerGravity(peGravity) {
-        result := ComCall(8, this, "int*", peGravity, "HRESULT")
+        peGravityMarshal := peGravity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, peGravityMarshal, peGravity, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDisplayGravity(peGravity) {
-        result := ComCall(10, this, "int*", peGravity, "HRESULT")
+        peGravityMarshal := peGravity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, peGravityMarshal, peGravity, "HRESULT")
         return result
     }
 
@@ -221,7 +227,9 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryBreaks(pdwBreaks) {
-        result := ComCall(21, this, "uint*", pdwBreaks, "HRESULT")
+        pdwBreaksMarshal := pdwBreaks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, pdwBreaksMarshal, pdwBreaks, "HRESULT")
         return result
     }
 }

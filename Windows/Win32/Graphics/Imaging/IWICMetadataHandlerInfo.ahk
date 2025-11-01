@@ -50,7 +50,9 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
      */
     GetContainerFormats(cContainerFormats, pguidContainerFormats, pcchActual) {
-        result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, "uint*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer, pcchActual) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
 
-        result := ComCall(13, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 
@@ -80,7 +84,9 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
     GetDeviceModels(cchDeviceModels, wzDeviceModels, pcchActual) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
 
-        result := ComCall(14, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, "uint*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 

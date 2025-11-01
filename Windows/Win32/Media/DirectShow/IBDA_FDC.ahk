@@ -48,7 +48,10 @@ class IBDA_FDC extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-getstatus
      */
     GetStatus(CurrentBitrate, CarrierLock, CurrentFrequency, CurrentSpectrumInversion, CurrentPIDList, CurrentTIDList, Overflow) {
-        result := ComCall(3, this, "uint*", CurrentBitrate, "ptr", CarrierLock, "uint*", CurrentFrequency, "ptr", CurrentSpectrumInversion, "ptr", CurrentPIDList, "ptr", CurrentTIDList, "ptr", Overflow, "HRESULT")
+        CurrentBitrateMarshal := CurrentBitrate is VarRef ? "uint*" : "ptr"
+        CurrentFrequencyMarshal := CurrentFrequency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, CurrentBitrateMarshal, CurrentBitrate, "ptr", CarrierLock, CurrentFrequencyMarshal, CurrentFrequency, "ptr", CurrentSpectrumInversion, "ptr", CurrentPIDList, "ptr", CurrentTIDList, "ptr", Overflow, "HRESULT")
         return result
     }
 
@@ -75,7 +78,9 @@ class IBDA_FDC extends IUnknown{
     AddPid(PidsToAdd, RemainingFilterEntries) {
         PidsToAdd := PidsToAdd is String ? BSTR.Alloc(PidsToAdd).Value : PidsToAdd
 
-        result := ComCall(5, this, "ptr", PidsToAdd, "uint*", RemainingFilterEntries, "HRESULT")
+        RemainingFilterEntriesMarshal := RemainingFilterEntries is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", PidsToAdd, RemainingFilterEntriesMarshal, RemainingFilterEntries, "HRESULT")
         return result
     }
 
@@ -129,7 +134,11 @@ class IBDA_FDC extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-gettablesection
      */
     GetTableSection(Pid, MaxBufferSize, ActualSize, SecBuffer) {
-        result := ComCall(9, this, "uint*", Pid, "uint", MaxBufferSize, "uint*", ActualSize, "char*", SecBuffer, "HRESULT")
+        PidMarshal := Pid is VarRef ? "uint*" : "ptr"
+        ActualSizeMarshal := ActualSize is VarRef ? "uint*" : "ptr"
+        SecBufferMarshal := SecBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, PidMarshal, Pid, "uint", MaxBufferSize, ActualSizeMarshal, ActualSize, SecBufferMarshal, SecBuffer, "HRESULT")
         return result
     }
 }

@@ -44,7 +44,9 @@ class ITypeNameFactory extends IUnknown{
     ParseTypeName(szName, pError, ppTypeName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "uint*", pError, "ptr*", ppTypeName, "HRESULT")
+        pErrorMarshal := pError is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", szName, pErrorMarshal, pError, "ptr*", ppTypeName, "HRESULT")
         return result
     }
 

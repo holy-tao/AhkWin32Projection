@@ -48,7 +48,9 @@ class IMcastLeaseInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_leasestarttime
      */
     get_LeaseStartTime(pTime) {
-        result := ComCall(8, this, "double*", pTime, "HRESULT")
+        pTimeMarshal := pTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pTimeMarshal, pTime, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IMcastLeaseInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_leasestoptime
      */
     get_LeaseStopTime(pTime) {
-        result := ComCall(10, this, "double*", pTime, "HRESULT")
+        pTimeMarshal := pTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, pTimeMarshal, pTime, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IMcastLeaseInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_addresscount
      */
     get_AddressCount(pCount) {
-        result := ComCall(12, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class IMcastLeaseInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_ttl
      */
     get_TTL(pTTL) {
-        result := ComCall(14, this, "int*", pTTL, "HRESULT")
+        pTTLMarshal := pTTL is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pTTLMarshal, pTTL, "HRESULT")
         return result
     }
 

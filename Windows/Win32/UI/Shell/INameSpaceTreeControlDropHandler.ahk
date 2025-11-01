@@ -41,7 +41,9 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragenter
      */
     OnDragEnter(psiOver, psiaData, fOutsideSource, grfKeyState, pdwEffect) {
-        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, "int", fOutsideSource, "uint", grfKeyState, "uint*", pdwEffect, "HRESULT")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, "int", fOutsideSource, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragover
      */
     OnDragOver(psiOver, psiaData, grfKeyState, pdwEffect) {
-        result := ComCall(4, this, "ptr", psiOver, "ptr", psiaData, "uint", grfKeyState, "uint*", pdwEffect, "HRESULT")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", psiOver, "ptr", psiaData, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondrop
      */
     OnDrop(psiOver, psiaData, iPosition, grfKeyState, pdwEffect) {
-        result := ComCall(6, this, "ptr", psiOver, "ptr", psiaData, "int", iPosition, "uint", grfKeyState, "uint*", pdwEffect, "HRESULT")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", psiOver, "ptr", psiaData, "int", iPosition, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 

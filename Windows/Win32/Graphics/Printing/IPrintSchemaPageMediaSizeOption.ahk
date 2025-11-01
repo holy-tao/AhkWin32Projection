@@ -34,7 +34,9 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption{
      * @returns {HRESULT} 
      */
     get_WidthInMicrons(pulWidth) {
-        result := ComCall(14, this, "uint*", pulWidth, "HRESULT")
+        pulWidthMarshal := pulWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pulWidthMarshal, pulWidth, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption{
      * @returns {HRESULT} 
      */
     get_HeightInMicrons(pulHeight) {
-        result := ComCall(15, this, "uint*", pulHeight, "HRESULT")
+        pulHeightMarshal := pulHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pulHeightMarshal, pulHeight, "HRESULT")
         return result
     }
 }

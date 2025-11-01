@@ -53,7 +53,9 @@ class IWMSyncReader2 extends IWMSyncReader{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-setrangebyframeex
      */
     SetRangeByFrameEx(wStreamNum, qwFrameNumber, cFramesToRead, pcnsStartTime) {
-        result := ComCall(25, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, "uint*", pcnsStartTime, "HRESULT")
+        pcnsStartTimeMarshal := pcnsStartTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, pcnsStartTimeMarshal, pcnsStartTime, "HRESULT")
         return result
     }
 

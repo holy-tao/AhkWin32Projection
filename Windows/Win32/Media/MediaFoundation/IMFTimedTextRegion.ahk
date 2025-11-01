@@ -50,7 +50,11 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getposition
      */
     GetPosition(pX, pY, unitType) {
-        result := ComCall(4, this, "double*", pX, "double*", pY, "int*", unitType, "HRESULT")
+        pXMarshal := pX is VarRef ? "double*" : "ptr"
+        pYMarshal := pY is VarRef ? "double*" : "ptr"
+        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pXMarshal, pX, pYMarshal, pY, unitTypeMarshal, unitType, "HRESULT")
         return result
     }
 
@@ -63,7 +67,11 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getextent
      */
     GetExtent(pWidth, pHeight, unitType) {
-        result := ComCall(5, this, "double*", pWidth, "double*", pHeight, "int*", unitType, "HRESULT")
+        pWidthMarshal := pWidth is VarRef ? "double*" : "ptr"
+        pHeightMarshal := pHeight is VarRef ? "double*" : "ptr"
+        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, unitTypeMarshal, unitType, "HRESULT")
         return result
     }
 
@@ -85,7 +93,9 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwritingmode
      */
     GetWritingMode(writingMode) {
-        result := ComCall(7, this, "int*", writingMode, "HRESULT")
+        writingModeMarshal := writingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, writingModeMarshal, writingMode, "HRESULT")
         return result
     }
 
@@ -96,7 +106,9 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getdisplayalignment
      */
     GetDisplayAlignment(displayAlign) {
-        result := ComCall(8, this, "int*", displayAlign, "HRESULT")
+        displayAlignMarshal := displayAlign is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, displayAlignMarshal, displayAlign, "HRESULT")
         return result
     }
 
@@ -108,7 +120,10 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getlineheight
      */
     GetLineHeight(pLineHeight, unitType) {
-        result := ComCall(9, this, "double*", pLineHeight, "int*", unitType, "HRESULT")
+        pLineHeightMarshal := pLineHeight is VarRef ? "double*" : "ptr"
+        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pLineHeightMarshal, pLineHeight, unitTypeMarshal, unitType, "HRESULT")
         return result
     }
 
@@ -134,7 +149,13 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getpadding
      */
     GetPadding(before, start, after, end, unitType) {
-        result := ComCall(11, this, "double*", before, "double*", start, "double*", after, "double*", end, "int*", unitType, "HRESULT")
+        beforeMarshal := before is VarRef ? "double*" : "ptr"
+        startMarshal := start is VarRef ? "double*" : "ptr"
+        afterMarshal := after is VarRef ? "double*" : "ptr"
+        endMarshal := end is VarRef ? "double*" : "ptr"
+        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, beforeMarshal, before, startMarshal, start, afterMarshal, after, endMarshal, end, unitTypeMarshal, unitType, "HRESULT")
         return result
     }
 
@@ -156,7 +177,9 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getzindex
      */
     GetZIndex(zIndex) {
-        result := ComCall(13, this, "int*", zIndex, "HRESULT")
+        zIndexMarshal := zIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, zIndexMarshal, zIndex, "HRESULT")
         return result
     }
 
@@ -167,7 +190,9 @@ class IMFTimedTextRegion extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getscrollmode
      */
     GetScrollMode(scrollMode) {
-        result := ComCall(14, this, "int*", scrollMode, "HRESULT")
+        scrollModeMarshal := scrollMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, scrollModeMarshal, scrollMode, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getfiles
      */
     GetFiles(numberOfFiles, fontFiles) {
-        result := ComCall(4, this, "uint*", numberOfFiles, "ptr*", fontFiles, "HRESULT")
+        numberOfFilesMarshal := numberOfFiles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, numberOfFilesMarshal, numberOfFiles, "ptr*", fontFiles, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getdesignglyphmetrics
      */
     GetDesignGlyphMetrics(glyphIndices, glyphCount, glyphMetrics, isSideways) {
-        result := ComCall(10, this, "ushort*", glyphIndices, "uint", glyphCount, "ptr", glyphMetrics, "int", isSideways, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "ptr", glyphMetrics, "int", isSideways, "HRESULT")
         return result
     }
 
@@ -125,7 +129,10 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphindices
      */
     GetGlyphIndices(codePoints, codePointCount, glyphIndices) {
-        result := ComCall(11, this, "uint*", codePoints, "uint", codePointCount, "ushort*", glyphIndices, "HRESULT")
+        codePointsMarshal := codePoints is VarRef ? "uint*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, codePointsMarshal, codePoints, "uint", codePointCount, glyphIndicesMarshal, glyphIndices, "HRESULT")
         return result
     }
 
@@ -140,7 +147,9 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-trygetfonttable
      */
     TryGetFontTable(openTypeTableTag, tableData, tableSize, tableContext, exists) {
-        result := ComCall(12, this, "uint", openTypeTableTag, "ptr*", tableData, "uint*", tableSize, "ptr*", tableContext, "ptr", exists, "HRESULT")
+        tableSizeMarshal := tableSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", openTypeTableTag, "ptr*", tableData, tableSizeMarshal, tableSize, "ptr*", tableContext, "ptr", exists, "HRESULT")
         return result
     }
 
@@ -151,7 +160,9 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-releasefonttable
      */
     ReleaseFontTable(tableContext) {
-        ComCall(13, this, "ptr", tableContext)
+        tableContextMarshal := tableContext is VarRef ? "ptr" : "ptr"
+
+        ComCall(13, this, tableContextMarshal, tableContext)
     }
 
     /**
@@ -168,7 +179,10 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphrunoutline
      */
     GetGlyphRunOutline(emSize, glyphIndices, glyphAdvances, glyphOffsets, glyphCount, isSideways, isRightToLeft, geometrySink) {
-        result := ComCall(14, this, "float", emSize, "ushort*", glyphIndices, "float*", glyphAdvances, "ptr", glyphOffsets, "uint", glyphCount, "int", isSideways, "int", isRightToLeft, "ptr", geometrySink, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
+
+        result := ComCall(14, this, "float", emSize, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "uint", glyphCount, "int", isSideways, "int", isRightToLeft, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -183,7 +197,9 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(emSize, pixelsPerDip, measuringMode, renderingParams, renderingMode) {
-        result := ComCall(15, this, "float", emSize, "float", pixelsPerDip, "int", measuringMode, "ptr", renderingParams, "int*", renderingMode, "HRESULT")
+        renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "float", emSize, "float", pixelsPerDip, "int", measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, "HRESULT")
         return result
     }
 
@@ -215,7 +231,9 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontface-getgdicompatibleglyphmetrics
      */
     GetGdiCompatibleGlyphMetrics(emSize, pixelsPerDip, transform, useGdiNatural, glyphIndices, glyphCount, glyphMetrics, isSideways) {
-        result := ComCall(17, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "ushort*", glyphIndices, "uint", glyphCount, "ptr", glyphMetrics, "int", isSideways, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(17, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "ptr", glyphMetrics, "int", isSideways, "HRESULT")
         return result
     }
 }

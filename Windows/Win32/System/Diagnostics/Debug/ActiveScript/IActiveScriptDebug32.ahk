@@ -41,7 +41,9 @@ class IActiveScriptDebug32 extends IUnknown{
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(3, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, "ushort*", pattr, "HRESULT")
+        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IActiveScriptDebug32 extends IUnknown{
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, "ushort*", pattr, "HRESULT")
+        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 

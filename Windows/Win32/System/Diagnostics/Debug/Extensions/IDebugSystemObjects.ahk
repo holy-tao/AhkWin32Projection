@@ -34,7 +34,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventThread(Id) {
-        result := ComCall(3, this, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventProcess(Id) {
-        result := ComCall(4, this, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -55,7 +59,9 @@ class IDebugSystemObjects extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthreadid
      */
     GetCurrentThreadId(Id) {
-        result := ComCall(5, this, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -76,7 +82,9 @@ class IDebugSystemObjects extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentprocessid
      */
     GetCurrentProcessId(Id) {
-        result := ComCall(7, this, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -96,7 +104,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberThreads(Number) {
-        result := ComCall(9, this, "uint*", Number, "HRESULT")
+        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, NumberMarshal, Number, "HRESULT")
         return result
     }
 
@@ -107,7 +117,10 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTotalNumberThreads(Total, LargestProcess) {
-        result := ComCall(10, this, "uint*", Total, "uint*", LargestProcess, "HRESULT")
+        TotalMarshal := Total is VarRef ? "uint*" : "ptr"
+        LargestProcessMarshal := LargestProcess is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, TotalMarshal, Total, LargestProcessMarshal, LargestProcess, "HRESULT")
         return result
     }
 
@@ -120,7 +133,10 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadIdsByIndex(Start, Count, Ids, SysIds) {
-        result := ComCall(11, this, "uint", Start, "uint", Count, "uint*", Ids, "uint*", SysIds, "HRESULT")
+        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
+        SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
         return result
     }
 
@@ -131,7 +147,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadIdByProcessor(Processor, Id) {
-        result := ComCall(12, this, "uint", Processor, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", Processor, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -141,7 +159,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentThreadDataOffset(Offset) {
-        result := ComCall(13, this, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -152,7 +172,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadIdByDataOffset(Offset, Id) {
-        result := ComCall(14, this, "uint", Offset, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", Offset, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -162,7 +184,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentThreadTeb(Offset) {
-        result := ComCall(15, this, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -173,7 +197,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadIdByTeb(Offset, Id) {
-        result := ComCall(16, this, "uint", Offset, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", Offset, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -183,7 +209,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentThreadSystemId(SysId) {
-        result := ComCall(17, this, "uint*", SysId, "HRESULT")
+        SysIdMarshal := SysId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, SysIdMarshal, SysId, "HRESULT")
         return result
     }
 
@@ -194,7 +222,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadIdBySystemId(SysId, Id) {
-        result := ComCall(18, this, "uint", SysId, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "uint", SysId, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -204,7 +234,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentThreadHandle(Handle) {
-        result := ComCall(19, this, "uint*", Handle, "HRESULT")
+        HandleMarshal := Handle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, HandleMarshal, Handle, "HRESULT")
         return result
     }
 
@@ -215,7 +247,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadIdByHandle(Handle, Id) {
-        result := ComCall(20, this, "uint", Handle, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", Handle, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -225,7 +259,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberProcesses(Number) {
-        result := ComCall(21, this, "uint*", Number, "HRESULT")
+        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, NumberMarshal, Number, "HRESULT")
         return result
     }
 
@@ -238,7 +274,10 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProcessIdsByIndex(Start, Count, Ids, SysIds) {
-        result := ComCall(22, this, "uint", Start, "uint", Count, "uint*", Ids, "uint*", SysIds, "HRESULT")
+        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
+        SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
         return result
     }
 
@@ -248,7 +287,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentProcessDataOffset(Offset) {
-        result := ComCall(23, this, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -259,7 +300,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProcessIdByDataOffset(Offset, Id) {
-        result := ComCall(24, this, "uint", Offset, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "uint", Offset, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -269,7 +312,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentProcessPeb(Offset) {
-        result := ComCall(25, this, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -280,7 +325,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProcessIdByPeb(Offset, Id) {
-        result := ComCall(26, this, "uint", Offset, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "uint", Offset, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -290,7 +337,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentProcessSystemId(SysId) {
-        result := ComCall(27, this, "uint*", SysId, "HRESULT")
+        SysIdMarshal := SysId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, SysIdMarshal, SysId, "HRESULT")
         return result
     }
 
@@ -301,7 +350,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProcessIdBySystemId(SysId, Id) {
-        result := ComCall(28, this, "uint", SysId, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, "uint", SysId, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -311,7 +362,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentProcessHandle(Handle) {
-        result := ComCall(29, this, "uint*", Handle, "HRESULT")
+        HandleMarshal := Handle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, HandleMarshal, Handle, "HRESULT")
         return result
     }
 
@@ -322,7 +375,9 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProcessIdByHandle(Handle, Id) {
-        result := ComCall(30, this, "uint", Handle, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "uint", Handle, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -334,7 +389,11 @@ class IDebugSystemObjects extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentProcessExecutableName(Buffer, BufferSize, ExeSize) {
-        result := ComCall(31, this, "ptr", Buffer, "uint", BufferSize, "uint*", ExeSize, "HRESULT")
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        ExeSizeMarshal := ExeSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "ptr", Buffer, "uint", BufferSize, ExeSizeMarshal, ExeSize, "HRESULT")
         return result
     }
 }

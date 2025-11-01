@@ -41,7 +41,11 @@ class IWinInetCacheHints2 extends IWinInetCacheHints{
         pwzExt := pwzExt is String ? StrPtr(pwzExt) : pwzExt
         pwzCacheFile := pwzCacheFile is String ? StrPtr(pwzCacheFile) : pwzCacheFile
 
-        result := ComCall(4, this, "ptr", pwzExt, "ptr", pwzCacheFile, "uint*", pcchCacheFile, "uint*", pdwWinInetError, "uint*", pdwReserved, "HRESULT")
+        pcchCacheFileMarshal := pcchCacheFile is VarRef ? "uint*" : "ptr"
+        pdwWinInetErrorMarshal := pdwWinInetError is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwzExt, "ptr", pwzCacheFile, pcchCacheFileMarshal, pcchCacheFile, pdwWinInetErrorMarshal, pdwWinInetError, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 }

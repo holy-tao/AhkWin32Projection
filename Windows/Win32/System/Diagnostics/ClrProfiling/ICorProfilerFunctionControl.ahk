@@ -45,7 +45,9 @@ class ICorProfilerFunctionControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetILFunctionBody(cbNewILMethodHeader, pbNewILMethodHeader) {
-        result := ComCall(4, this, "uint", cbNewILMethodHeader, "char*", pbNewILMethodHeader, "HRESULT")
+        pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", cbNewILMethodHeader, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
         return result
     }
 

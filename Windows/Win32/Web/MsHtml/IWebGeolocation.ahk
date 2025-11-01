@@ -55,7 +55,9 @@ class IWebGeolocation extends IDispatch{
      * @returns {HRESULT} 
      */
     watchPosition(successCallback, errorCallback, options, watchId) {
-        result := ComCall(8, this, "ptr", successCallback, "ptr", errorCallback, "ptr", options, "int*", watchId, "HRESULT")
+        watchIdMarshal := watchId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", successCallback, "ptr", errorCallback, "ptr", options, watchIdMarshal, watchId, "HRESULT")
         return result
     }
 

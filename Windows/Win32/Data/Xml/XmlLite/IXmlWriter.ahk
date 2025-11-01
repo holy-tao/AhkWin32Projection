@@ -45,7 +45,9 @@ class IXmlWriter extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProperty(nProperty, ppValue) {
-        result := ComCall(4, this, "uint", nProperty, "ptr*", ppValue, "HRESULT")
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", nProperty, ppValueMarshal, ppValue, "HRESULT")
         return result
     }
 

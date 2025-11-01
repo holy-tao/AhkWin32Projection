@@ -43,7 +43,10 @@ class IReplicaKeyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ireplicakeymap-lookupreplicakey
      */
     LookupReplicaKey(pbReplicaId, pdwReplicaKey) {
-        result := ComCall(3, this, "char*", pbReplicaId, "uint*", pdwReplicaKey, "HRESULT")
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
+        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
         return result
     }
 
@@ -56,7 +59,10 @@ class IReplicaKeyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ireplicakeymap-lookupreplicaid
      */
     LookupReplicaId(dwReplicaKey, pbReplicaId, pcbIdSize) {
-        result := ComCall(4, this, "uint", dwReplicaKey, "char*", pbReplicaId, "uint*", pcbIdSize, "HRESULT")
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwReplicaKey, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 
@@ -68,7 +74,10 @@ class IReplicaKeyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ireplicakeymap-serialize
      */
     Serialize(pbReplicaKeyMap, pcbReplicaKeyMap) {
-        result := ComCall(5, this, "char*", pbReplicaKeyMap, "uint*", pcbReplicaKeyMap, "HRESULT")
+        pbReplicaKeyMapMarshal := pbReplicaKeyMap is VarRef ? "char*" : "ptr"
+        pcbReplicaKeyMapMarshal := pcbReplicaKeyMap is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pbReplicaKeyMapMarshal, pbReplicaKeyMap, pcbReplicaKeyMapMarshal, pcbReplicaKeyMap, "HRESULT")
         return result
     }
 }

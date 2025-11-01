@@ -55,7 +55,9 @@ class ISensorCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-getcount
      */
     GetCount(pCount) {
-        result := ComCall(4, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

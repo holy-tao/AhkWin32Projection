@@ -37,7 +37,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getgrouptype
      */
     GetGroupType(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -83,7 +91,10 @@ class IIsdbEventGroupDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrecordevent
      */
     GetRecordEvent(bRecordIndex, pwServiceId, pwEventId) {
-        result := ComCall(7, this, "char", bRecordIndex, "ushort*", pwServiceId, "ushort*", pwEventId, "HRESULT")
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
+        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "char", bRecordIndex, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
         return result
     }
 
@@ -94,7 +105,9 @@ class IIsdbEventGroupDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getcountofrefrecords
      */
     GetCountOfRefRecords(pbVal) {
-        result := ComCall(8, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -109,7 +122,12 @@ class IIsdbEventGroupDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbeventgroupdescriptor-getrefrecordevent
      */
     GetRefRecordEvent(bRecordIndex, pwOriginalNetworkId, pwTransportStreamId, pwServiceId, pwEventId) {
-        result := ComCall(9, this, "char", bRecordIndex, "ushort*", pwOriginalNetworkId, "ushort*", pwTransportStreamId, "ushort*", pwServiceId, "ushort*", pwEventId, "HRESULT")
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
+        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
+        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "char", bRecordIndex, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, pwTransportStreamIdMarshal, pwTransportStreamId, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
         return result
     }
 }

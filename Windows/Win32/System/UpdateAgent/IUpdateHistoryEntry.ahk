@@ -37,7 +37,9 @@ class IUpdateHistoryEntry extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_operation
      */
     get_Operation(retval) {
-        result := ComCall(7, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IUpdateHistoryEntry extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_resultcode
      */
     get_ResultCode(retval) {
-        result := ComCall(8, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IUpdateHistoryEntry extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_hresult
      */
     get_HResult(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IUpdateHistoryEntry extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_date
      */
     get_Date(retval) {
-        result := ComCall(10, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -114,7 +122,9 @@ class IUpdateHistoryEntry extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_unmappedresultcode
      */
     get_UnmappedResultCode(retval) {
-        result := ComCall(14, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -136,7 +146,9 @@ class IUpdateHistoryEntry extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_serverselection
      */
     get_ServerSelection(retval) {
-        result := ComCall(16, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IUIAutomationOrCondition extends IUIAutomationCondition{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-get_childcount
      */
     get_ChildCount(childCount) {
-        result := ComCall(3, this, "int*", childCount, "HRESULT")
+        childCountMarshal := childCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, childCountMarshal, childCount, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IUIAutomationOrCondition extends IUIAutomationCondition{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-getchildrenasnativearray
      */
     GetChildrenAsNativeArray(childArray, childArrayCount) {
-        result := ComCall(4, this, "ptr*", childArray, "int*", childArrayCount, "HRESULT")
+        childArrayCountMarshal := childArrayCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", childArray, childArrayCountMarshal, childArrayCount, "HRESULT")
         return result
     }
 

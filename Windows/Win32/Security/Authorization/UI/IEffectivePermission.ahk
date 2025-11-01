@@ -47,7 +47,10 @@ class IEffectivePermission extends IUnknown{
         pszServerName := pszServerName is String ? StrPtr(pszServerName) : pszServerName
         pSD := pSD is Win32Handle ? NumGet(pSD, "ptr") : pSD
 
-        result := ComCall(3, this, "ptr", pguidObjectType, "ptr", pUserSid, "ptr", pszServerName, "ptr", pSD, "ptr*", ppObjectTypeList, "uint*", pcObjectTypeListLength, "ptr*", ppGrantedAccessList, "uint*", pcGrantedAccessListLength, "HRESULT")
+        pcObjectTypeListLengthMarshal := pcObjectTypeListLength is VarRef ? "uint*" : "ptr"
+        pcGrantedAccessListLengthMarshal := pcGrantedAccessListLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pguidObjectType, "ptr", pUserSid, "ptr", pszServerName, "ptr", pSD, "ptr*", ppObjectTypeList, pcObjectTypeListLengthMarshal, pcObjectTypeListLength, "ptr*", ppGrantedAccessList, pcGrantedAccessListLengthMarshal, pcGrantedAccessListLength, "HRESULT")
         return result
     }
 }

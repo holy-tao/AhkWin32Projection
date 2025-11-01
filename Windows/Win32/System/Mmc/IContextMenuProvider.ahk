@@ -75,7 +75,9 @@ class IContextMenuProvider extends IContextMenuCallback{
     ShowContextMenu(hwndParent, xPos, yPos, plSelected) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(7, this, "ptr", hwndParent, "int", xPos, "int", yPos, "int*", plSelected, "HRESULT")
+        plSelectedMarshal := plSelected is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hwndParent, "int", xPos, "int", yPos, plSelectedMarshal, plSelected, "HRESULT")
         return result
     }
 }

@@ -34,7 +34,9 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {HRESULT} 
      */
     KsGetTime(Time) {
-        result := ComCall(3, this, "int64*", Time, "HRESULT")
+        TimeMarshal := Time is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, TimeMarshal, Time, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {HRESULT} 
      */
     KsGetPhysicalTime(Time) {
-        result := ComCall(5, this, "int64*", Time, "HRESULT")
+        TimeMarshal := Time is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, TimeMarshal, Time, "HRESULT")
         return result
     }
 
@@ -124,7 +128,9 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {HRESULT} 
      */
     KsGetState(State) {
-        result := ComCall(12, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, StateMarshal, State, "HRESULT")
         return result
     }
 }

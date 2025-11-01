@@ -53,7 +53,10 @@ class IDvbSiParser2 extends IDvbSiParser{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser2-geteit2
      */
     GetEIT2(tableId, pwServiceId, pbSegment, ppEIT) {
-        result := ComCall(18, this, "char", tableId, "ushort*", pwServiceId, "char*", pbSegment, "ptr*", ppEIT, "HRESULT")
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
+        pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
+
+        result := ComCall(18, this, "char", tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", ppEIT, "HRESULT")
         return result
     }
 }

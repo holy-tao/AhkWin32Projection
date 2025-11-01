@@ -38,7 +38,10 @@ class IOfflineFilesItemFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-getfilterflags
      */
     GetFilterFlags(pullFlags, pullMask) {
-        result := ComCall(3, this, "uint*", pullFlags, "uint*", pullMask, "HRESULT")
+        pullFlagsMarshal := pullFlags is VarRef ? "uint*" : "ptr"
+        pullMaskMarshal := pullMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pullFlagsMarshal, pullFlags, pullMaskMarshal, pullMask, "HRESULT")
         return result
     }
 
@@ -52,7 +55,10 @@ class IOfflineFilesItemFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-gettimefilter
      */
     GetTimeFilter(pftTime, pbEvalTimeOfDay, pTimeType, pCompare) {
-        result := ComCall(4, this, "ptr", pftTime, "ptr", pbEvalTimeOfDay, "int*", pTimeType, "int*", pCompare, "HRESULT")
+        pTimeTypeMarshal := pTimeType is VarRef ? "int*" : "ptr"
+        pCompareMarshal := pCompare is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pftTime, "ptr", pbEvalTimeOfDay, pTimeTypeMarshal, pTimeType, pCompareMarshal, pCompare, "HRESULT")
         return result
     }
 

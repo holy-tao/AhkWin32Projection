@@ -2319,8 +2319,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static IESaveFile(hState, lpwstrSourceFile) {
-        lpwstrSourceFile := lpwstrSourceFile is String ? StrPtr(lpwstrSourceFile) : lpwstrSourceFile
         hState := hState is Win32Handle ? NumGet(hState, "ptr") : hState
+        lpwstrSourceFile := lpwstrSourceFile is String ? StrPtr(lpwstrSourceFile) : lpwstrSourceFile
 
         result := DllCall("Ieframe.dll\IESaveFile", "ptr", hState, "ptr", lpwstrSourceFile, "int")
         if(result != 0)
@@ -2358,11 +2358,11 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpwstrInitialFileName := lpwstrInitialFileName is String ? StrPtr(lpwstrInitialFileName) : lpwstrInitialFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", lppwstrDestinationFilePath, "ptr", phState, "int")
         if(result != 0)
@@ -2385,11 +2385,11 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, phFile) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpwstrFileName := lpwstrFileName is String ? StrPtr(lpwstrFileName) : lpwstrFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "int")
         if(result != 0)
@@ -2463,7 +2463,9 @@ class InternetExplorer {
     static IELaunchURL(lpwstrUrl, lpProcInfo, lpInfo) {
         lpwstrUrl := lpwstrUrl is String ? StrPtr(lpwstrUrl) : lpwstrUrl
 
-        result := DllCall("Ieframe.dll\IELaunchURL", "ptr", lpwstrUrl, "ptr", lpProcInfo, "ptr", lpInfo, "int")
+        lpInfoMarshal := lpInfo is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Ieframe.dll\IELaunchURL", "ptr", lpwstrUrl, "ptr", lpProcInfo, lpInfoMarshal, lpInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2496,7 +2498,9 @@ class InternetExplorer {
         lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
         lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
-        result := DllCall("Ieframe.dll\IEGetProtectedModeCookie", "ptr", lpszURL, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint*", pcchCookieData, "uint", dwFlags, "int")
+        pcchCookieDataMarshal := pcchCookieData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("Ieframe.dll\IEGetProtectedModeCookie", "ptr", lpszURL, "ptr", lpszCookieName, "ptr", lpszCookieData, pcchCookieDataMarshal, pcchCookieData, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2590,7 +2594,9 @@ class InternetExplorer {
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-        result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "int")
+        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2699,7 +2705,9 @@ class InternetExplorer {
     static IEGetFileAttributesEx(lpFileName, fInfoLevelId, lpFileInformation) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("Ieframe.dll\IEGetFileAttributesEx", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
+        lpFileInformationMarshal := lpFileInformation is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Ieframe.dll\IEGetFileAttributesEx", "ptr", lpFileName, "int", fInfoLevelId, lpFileInformationMarshal, lpFileInformation, "int")
         return result
     }
 
@@ -2724,8 +2732,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingEnable(hwndParent, pszUsername, fEnable) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingEnable", "ptr", hwndParent, "ptr", pszUsername, "int", fEnable, "int")
         if(result != 0)
@@ -2742,8 +2750,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingEnableW(hwndParent, pszUsername, fEnable) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingEnableW", "ptr", hwndParent, "ptr", pszUsername, "int", fEnable, "int")
         if(result != 0)
@@ -2805,11 +2813,13 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialog(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
-        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", pRatingDetails, "int")
+        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, pRatingDetailsMarshal, pRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2825,11 +2835,13 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialogW(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
-        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", pRatingDetails, "int")
+        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, pRatingDetailsMarshal, pRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2844,10 +2856,12 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialog2(hDlg, pszUsername, pRatingDetails) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", "ptr", hDlg, "ptr", pszUsername, "ptr", pRatingDetails, "int")
+        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", "ptr", hDlg, "ptr", pszUsername, pRatingDetailsMarshal, pRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2862,10 +2876,12 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialog2W(hDlg, pszUsername, pRatingDetails) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
-        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", "ptr", hDlg, "ptr", pszUsername, "ptr", pRatingDetails, "int")
+        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", "ptr", hDlg, "ptr", pszUsername, pRatingDetailsMarshal, pRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2878,7 +2894,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingFreeDetails(pRatingDetails) {
-        result := DllCall("MSRATING.dll\RatingFreeDetails", "ptr", pRatingDetails, "int")
+        pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSRATING.dll\RatingFreeDetails", pRatingDetailsMarshal, pRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2943,8 +2961,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingSetupUI(hDlg, pszUsername) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingSetupUI", "ptr", hDlg, "ptr", pszUsername, "int")
         if(result != 0)
@@ -2960,8 +2978,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingSetupUIW(hDlg, pszUsername) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingSetupUIW", "ptr", hDlg, "ptr", pszUsername, "int")
         if(result != 0)
@@ -2982,8 +3000,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAddToApprovedSites(hDlg, cbPasswordBlob, pbPasswordBlob, lpszUrl, fAlwaysNever, fSitePage, fApprovedSitesEnforced) {
-        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         result := DllCall("MSRATING.dll\RatingAddToApprovedSites", "ptr", hDlg, "uint", cbPasswordBlob, "ptr", pbPasswordBlob, "ptr", lpszUrl, "int", fAlwaysNever, "int", fSitePage, "int", fApprovedSitesEnforced, "int")
         if(result != 0)
@@ -3001,9 +3019,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingClickedOnPRFInternal(hWndOwner, param1, lpszFileName, nShow) {
-        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("MSRATING.dll\RatingClickedOnPRFInternal", "ptr", hWndOwner, "ptr", param1, "ptr", lpszFileName, "int", nShow, "int")
         if(result != 0)
@@ -3021,9 +3039,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingClickedOnRATInternal(hWndOwner, param1, lpszFileName, nShow) {
-        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("MSRATING.dll\RatingClickedOnRATInternal", "ptr", hWndOwner, "ptr", param1, "ptr", lpszFileName, "int", nShow, "int")
         if(result != 0)
@@ -3092,7 +3110,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static SniffStream(pInStream, pnFormat, ppOutStream) {
-        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, "uint*", pnFormat, "ptr*", ppOutStream, "int")
+        pnFormatMarshal := pnFormat is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, pnFormatMarshal, pnFormat, "ptr*", ppOutStream, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3105,7 +3125,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static GetMaxMIMEIDBytes(pnMaxBytes) {
-        result := DllCall("ImgUtil.dll\GetMaxMIMEIDBytes", "uint*", pnMaxBytes, "int")
+        pnMaxBytesMarshal := pnMaxBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ImgUtil.dll\GetMaxMIMEIDBytes", pnMaxBytesMarshal, pnMaxBytes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3120,7 +3142,10 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static IdentifyMIMEType(pbBytes, nBytes, pnFormat) {
-        result := DllCall("ImgUtil.dll\IdentifyMIMEType", "char*", pbBytes, "uint", nBytes, "uint*", pnFormat, "int")
+        pbBytesMarshal := pbBytes is VarRef ? "char*" : "ptr"
+        pnFormatMarshal := pnFormat is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ImgUtil.dll\IdentifyMIMEType", pbBytesMarshal, pbBytes, "uint", nBytes, pnFormatMarshal, pnFormat, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3136,7 +3161,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static ComputeInvCMAP(pRGBColors, nColors, pInvTable, cbTable) {
-        result := DllCall("ImgUtil.dll\ComputeInvCMAP", "ptr", pRGBColors, "uint", nColors, "char*", pInvTable, "uint", cbTable, "int")
+        pInvTableMarshal := pInvTable is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ImgUtil.dll\ComputeInvCMAP", "ptr", pRGBColors, "uint", nColors, pInvTableMarshal, pInvTable, "uint", cbTable, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3162,7 +3189,11 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static DitherTo8(pDestBits, nDestPitch, pSrcBits, nSrcPitch, bfidSrc, prgbDestColors, prgbSrcColors, pbDestInvMap, x, y, cx, cy, lDestTrans, lSrcTrans) {
-        result := DllCall("ImgUtil.dll\DitherTo8", "char*", pDestBits, "int", nDestPitch, "char*", pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, "char*", pbDestInvMap, "int", x, "int", y, "int", cx, "int", cy, "int", lDestTrans, "int", lSrcTrans, "int")
+        pDestBitsMarshal := pDestBits is VarRef ? "char*" : "ptr"
+        pSrcBitsMarshal := pSrcBits is VarRef ? "char*" : "ptr"
+        pbDestInvMapMarshal := pbDestInvMap is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ImgUtil.dll\DitherTo8", pDestBitsMarshal, pDestBits, "int", nDestPitch, pSrcBitsMarshal, pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, pbDestInvMapMarshal, pbDestInvMap, "int", x, "int", y, "int", cx, "int", cy, "int", lDestTrans, "int", lSrcTrans, "int")
         if(result != 0)
             throw OSError(result)
 

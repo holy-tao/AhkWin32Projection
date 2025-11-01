@@ -98,7 +98,10 @@ class IGameInput extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterReadingCallback(device, inputKind, analogThreshold, context, callbackFunc, callbackToken) {
-        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, "ptr", context, "ptr", callbackFunc, "uint*", callbackToken, "HRESULT")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
         return result
     }
 
@@ -114,7 +117,10 @@ class IGameInput extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, context, callbackFunc, callbackToken) {
-        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, "ptr", context, "ptr", callbackFunc, "uint*", callbackToken, "HRESULT")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
         return result
     }
 
@@ -128,7 +134,10 @@ class IGameInput extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterSystemButtonCallback(device, buttonFilter, context, callbackFunc, callbackToken) {
-        result := ComCall(10, this, "ptr", device, "int", buttonFilter, "ptr", context, "ptr", callbackFunc, "uint*", callbackToken, "HRESULT")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", device, "int", buttonFilter, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
         return result
     }
 
@@ -141,7 +150,10 @@ class IGameInput extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterKeyboardLayoutCallback(device, context, callbackFunc, callbackToken) {
-        result := ComCall(11, this, "ptr", device, "ptr", context, "ptr", callbackFunc, "uint*", callbackToken, "HRESULT")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", device, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
         return result
     }
 

@@ -80,7 +80,9 @@ class IBackgroundCopyJob3 extends IBackgroundCopyJob2{
      * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nf-bits2_0-ibackgroundcopyjob3-getfileaclflags
      */
     GetFileACLFlags(Flags) {
-        result := ComCall(46, this, "uint*", Flags, "HRESULT")
+        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(46, this, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 }

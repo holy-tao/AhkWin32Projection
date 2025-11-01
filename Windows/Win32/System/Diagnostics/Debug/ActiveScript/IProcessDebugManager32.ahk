@@ -55,7 +55,9 @@ class IProcessDebugManager32 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddApplication(pda, pdwAppCookie) {
-        result := ComCall(5, this, "ptr", pda, "uint*", pdwAppCookie, "HRESULT")
+        pdwAppCookieMarshal := pdwAppCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pda, pdwAppCookieMarshal, pdwAppCookie, "HRESULT")
         return result
     }
 

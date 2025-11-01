@@ -52,7 +52,10 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getcapability
      */
     GetCapability(Capability, pValue, pdblValue) {
-        result := ComCall(3, this, "int", Capability, "int*", pValue, "double*", pdblValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(3, this, "int", Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
         return result
     }
 
@@ -74,7 +77,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_mediastate
      */
     get_MediaState(pState) {
-        result := ComCall(5, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -96,7 +101,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_localcontrol
      */
     get_LocalControl(pState) {
-        result := ComCall(7, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -108,7 +115,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getstatus
      */
     GetStatus(StatusItem, pValue) {
-        result := ComCall(8, this, "int", StatusItem, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", StatusItem, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -121,7 +130,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportbasicparameters
      */
     GetTransportBasicParameters(Param, pValue, ppszData) {
-        result := ComCall(9, this, "int", Param, "int*", pValue, "ptr", ppszData, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", Param, pValueMarshal, pValue, "ptr", ppszData, "HRESULT")
         return result
     }
 
@@ -148,7 +159,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportvideoparameters
      */
     GetTransportVideoParameters(Param, pValue) {
-        result := ComCall(11, this, "int", Param, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", Param, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -172,7 +185,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportaudioparameters
      */
     GetTransportAudioParameters(Param, pValue) {
-        result := ComCall(13, this, "int", Param, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "int", Param, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -206,7 +221,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_mode
      */
     get_Mode(pMode) {
-        result := ComCall(16, this, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 
@@ -228,7 +245,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_rate
      */
     get_Rate(pdblRate) {
-        result := ComCall(18, this, "double*", pdblRate, "HRESULT")
+        pdblRateMarshal := pdblRate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(18, this, pdblRateMarshal, pdblRate, "HRESULT")
         return result
     }
 
@@ -241,7 +260,11 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getchase
      */
     GetChase(pEnabled, pOffset, phEvent) {
-        result := ComCall(19, this, "int*", pEnabled, "int*", pOffset, "ptr*", phEvent, "HRESULT")
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+        pOffsetMarshal := pOffset is VarRef ? "int*" : "ptr"
+        phEventMarshal := phEvent is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, pEnabledMarshal, pEnabled, pOffsetMarshal, pOffset, phEventMarshal, phEvent, "HRESULT")
         return result
     }
 
@@ -266,7 +289,10 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getbump
      */
     GetBump(pSpeed, pDuration) {
-        result := ComCall(21, this, "int*", pSpeed, "int*", pDuration, "HRESULT")
+        pSpeedMarshal := pSpeed is VarRef ? "int*" : "ptr"
+        pDurationMarshal := pDuration is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pSpeedMarshal, pSpeed, pDurationMarshal, pDuration, "HRESULT")
         return result
     }
 
@@ -289,7 +315,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_anticlogcontrol
      */
     get_AntiClogControl(pEnabled) {
-        result := ComCall(23, this, "int*", pEnabled, "HRESULT")
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pEnabledMarshal, pEnabled, "HRESULT")
         return result
     }
 
@@ -312,7 +340,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-geteditpropertyset
      */
     GetEditPropertySet(EditID, pState) {
-        result := ComCall(25, this, "int", EditID, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "int", EditID, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -324,7 +354,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-seteditpropertyset
      */
     SetEditPropertySet(pEditID, State) {
-        result := ComCall(26, this, "int*", pEditID, "int", State, "HRESULT")
+        pEditIDMarshal := pEditID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pEditIDMarshal, pEditID, "int", State, "HRESULT")
         return result
     }
 
@@ -337,7 +369,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-geteditproperty
      */
     GetEditProperty(EditID, Param, pValue) {
-        result := ComCall(27, this, "int", EditID, "int", Param, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, "int", EditID, "int", Param, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -361,7 +395,9 @@ class IAMExtTransport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-get_editstart
      */
     get_EditStart(pValue) {
-        result := ComCall(29, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

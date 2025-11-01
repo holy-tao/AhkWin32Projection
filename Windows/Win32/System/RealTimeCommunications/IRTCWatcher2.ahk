@@ -44,7 +44,9 @@ class IRTCWatcher2 extends IRTCWatcher{
      * @returns {HRESULT} 
      */
     get_Scope(penScope) {
-        result := ComCall(14, this, "int*", penScope, "HRESULT")
+        penScopeMarshal := penScope is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, penScopeMarshal, penScope, "HRESULT")
         return result
     }
 }

@@ -34,7 +34,9 @@ class IMFTimedTextBouten extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBoutenType(value) {
-        result := ComCall(3, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IMFTimedTextBouten extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBoutenPosition(value) {
-        result := ComCall(5, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

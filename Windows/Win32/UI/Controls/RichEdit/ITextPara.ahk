@@ -94,7 +94,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-canchange
      */
     CanChange(pValue) {
-        result := ComCall(9, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -106,7 +108,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-isequal
      */
     IsEqual(pPara, pValue) {
-        result := ComCall(10, this, "ptr", pPara, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pPara, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -128,7 +132,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getstyle
      */
     GetStyle(pValue) {
-        result := ComCall(12, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -150,7 +156,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getalignment
      */
     GetAlignment(pValue) {
-        result := ComCall(14, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -172,7 +180,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-gethyphenation
      */
     GetHyphenation(pValue) {
-        result := ComCall(16, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -194,7 +204,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getfirstlineindent
      */
     GetFirstLineIndent(pValue) {
-        result := ComCall(18, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(18, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -205,7 +217,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getkeeptogether
      */
     GetKeepTogether(pValue) {
-        result := ComCall(19, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -227,7 +241,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getkeepwithnext
      */
     GetKeepWithNext(pValue) {
-        result := ComCall(21, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -249,7 +265,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getleftindent
      */
     GetLeftIndent(pValue) {
-        result := ComCall(23, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(23, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -260,7 +278,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getlinespacing
      */
     GetLineSpacing(pValue) {
-        result := ComCall(24, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(24, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -271,7 +291,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getlinespacingrule
      */
     GetLineSpacingRule(pValue) {
-        result := ComCall(25, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -282,7 +304,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getlistalignment
      */
     GetListAlignment(pValue) {
-        result := ComCall(26, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -304,7 +328,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getlistlevelindex
      */
     GetListLevelIndex(pValue) {
-        result := ComCall(28, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -326,7 +352,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getliststart
      */
     GetListStart(pValue) {
-        result := ComCall(30, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -348,7 +376,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getlisttab
      */
     GetListTab(pValue) {
-        result := ComCall(32, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(32, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -370,7 +400,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getlisttype
      */
     GetListType(pValue) {
-        result := ComCall(34, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -392,7 +424,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getnolinenumber
      */
     GetNoLineNumber(pValue) {
-        result := ComCall(36, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -414,7 +448,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getpagebreakbefore
      */
     GetPageBreakBefore(pValue) {
-        result := ComCall(38, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -436,7 +472,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getrightindent
      */
     GetRightIndent(pValue) {
-        result := ComCall(40, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(40, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -483,7 +521,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getspaceafter
      */
     GetSpaceAfter(pValue) {
-        result := ComCall(44, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(44, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -505,7 +545,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getspacebefore
      */
     GetSpaceBefore(pValue) {
-        result := ComCall(46, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(46, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -527,7 +569,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getwidowcontrol
      */
     GetWidowControl(pValue) {
-        result := ComCall(48, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -549,7 +593,9 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-gettabcount
      */
     GetTabCount(pCount) {
-        result := ComCall(50, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -597,7 +643,11 @@ class ITextPara extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-gettab
      */
     GetTab(iTab, ptbPos, ptbAlign, ptbLeader) {
-        result := ComCall(54, this, "int", iTab, "float*", ptbPos, "int*", ptbAlign, "int*", ptbLeader, "HRESULT")
+        ptbPosMarshal := ptbPos is VarRef ? "float*" : "ptr"
+        ptbAlignMarshal := ptbAlign is VarRef ? "int*" : "ptr"
+        ptbLeaderMarshal := ptbLeader is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, "int", iTab, ptbPosMarshal, ptbPos, ptbAlignMarshal, ptbAlign, ptbLeaderMarshal, ptbLeader, "HRESULT")
         return result
     }
 }

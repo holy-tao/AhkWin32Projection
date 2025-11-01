@@ -55,7 +55,9 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receipttype
      */
     get_ReceiptType(pReceiptType) {
-        result := ComCall(27, this, "int*", pReceiptType, "HRESULT")
+        pReceiptTypeMarshal := pReceiptType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pReceiptTypeMarshal, pReceiptType, "HRESULT")
         return result
     }
 

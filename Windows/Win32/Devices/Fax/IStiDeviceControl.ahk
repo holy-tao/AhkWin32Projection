@@ -62,7 +62,10 @@ class IStiDeviceControl extends IUnknown{
      * @returns {HRESULT} 
      */
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        result := ComCall(4, this, "ptr", lpBuffer, "uint*", lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
         return result
     }
 
@@ -74,7 +77,9 @@ class IStiDeviceControl extends IUnknown{
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(5, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
         return result
     }
 
@@ -86,7 +91,10 @@ class IStiDeviceControl extends IUnknown{
      * @returns {HRESULT} 
      */
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        result := ComCall(6, this, "ptr", lpBuffer, "uint*", lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
         return result
     }
 
@@ -98,7 +106,9 @@ class IStiDeviceControl extends IUnknown{
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(7, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
         return result
     }
 
@@ -113,7 +123,11 @@ class IStiDeviceControl extends IUnknown{
      * @returns {HRESULT} 
      */
     RawDeviceControl(EscapeFunction, lpInData, cbInDataSize, pOutData, dwOutDataSize, pdwActualData) {
-        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", dwOutDataSize, "uint*", pdwActualData, "HRESULT")
+        lpInDataMarshal := lpInData is VarRef ? "ptr" : "ptr"
+        pOutDataMarshal := pOutData is VarRef ? "ptr" : "ptr"
+        pdwActualDataMarshal := pdwActualData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", EscapeFunction, lpInDataMarshal, lpInData, "uint", cbInDataSize, pOutDataMarshal, pOutData, "uint", dwOutDataSize, pdwActualDataMarshal, pdwActualData, "HRESULT")
         return result
     }
 
@@ -126,7 +140,9 @@ class IStiDeviceControl extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError(lpdwLastError) {
-        result := ComCall(9, this, "uint*", lpdwLastError, "HRESULT")
+        lpdwLastErrorMarshal := lpdwLastError is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, lpdwLastErrorMarshal, lpdwLastError, "HRESULT")
         return result
     }
 
@@ -159,7 +175,9 @@ class IStiDeviceControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMyDeviceOpenMode(pdwOpenMode) {
-        result := ComCall(12, this, "uint*", pdwOpenMode, "HRESULT")
+        pdwOpenModeMarshal := pdwOpenMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwOpenModeMarshal, pdwOpenMode, "HRESULT")
         return result
     }
 

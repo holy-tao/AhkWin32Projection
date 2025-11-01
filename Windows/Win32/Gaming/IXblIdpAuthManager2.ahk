@@ -50,7 +50,9 @@ class IXblIdpAuthManager2 extends IUnknown{
         uri := uri is String ? StrPtr(uri) : uri
         headers := headers is String ? StrPtr(headers) : headers
 
-        result := ComCall(3, this, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, "char*", body, "uint", bodySize, "int", forceRefresh, "ptr*", result, "HRESULT")
+        bodyMarshal := body is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, "int", forceRefresh, "ptr*", result, "HRESULT")
         return result
     }
 }

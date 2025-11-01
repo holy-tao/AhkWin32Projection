@@ -143,7 +143,10 @@ class IOperationsProgressDialog extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getmilliseconds
      */
     GetMilliseconds(pullElapsed, pullRemaining) {
-        result := ComCall(12, this, "uint*", pullElapsed, "uint*", pullRemaining, "HRESULT")
+        pullElapsedMarshal := pullElapsed is VarRef ? "uint*" : "ptr"
+        pullRemainingMarshal := pullRemaining is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pullElapsedMarshal, pullElapsed, pullRemainingMarshal, pullRemaining, "HRESULT")
         return result
     }
 
@@ -154,7 +157,9 @@ class IOperationsProgressDialog extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getoperationstatus
      */
     GetOperationStatus(popstatus) {
-        result := ComCall(13, this, "int*", popstatus, "HRESULT")
+        popstatusMarshal := popstatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, popstatusMarshal, popstatus, "HRESULT")
         return result
     }
 }

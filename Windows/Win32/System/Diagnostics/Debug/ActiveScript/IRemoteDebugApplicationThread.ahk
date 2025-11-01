@@ -34,7 +34,9 @@ class IRemoteDebugApplicationThread extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSystemThreadId(dwThreadId) {
-        result := ComCall(3, this, "uint*", dwThreadId, "HRESULT")
+        dwThreadIdMarshal := dwThreadId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, dwThreadIdMarshal, dwThreadId, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class IRemoteDebugApplicationThread extends IUnknown{
      * @returns {HRESULT} 
      */
     GetState(pState) {
-        result := ComCall(8, this, "uint*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IRemoteDebugApplicationThread extends IUnknown{
      * @returns {HRESULT} 
      */
     Suspend(pdwCount) {
-        result := ComCall(9, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -106,7 +112,9 @@ class IRemoteDebugApplicationThread extends IUnknown{
      * @returns {HRESULT} 
      */
     Resume(pdwCount) {
-        result := ComCall(10, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -116,7 +124,9 @@ class IRemoteDebugApplicationThread extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSuspendCount(pdwCount) {
-        result := ComCall(11, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 }

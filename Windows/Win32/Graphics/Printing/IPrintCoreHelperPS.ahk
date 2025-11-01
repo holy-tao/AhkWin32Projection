@@ -37,7 +37,12 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
      * @returns {HRESULT} 
      */
     GetGlobalAttribute(pszAttribute, pdwDataType, ppbData, pcbSize) {
-        result := ComCall(12, this, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
+        pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
+
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr*", ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -51,7 +56,13 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
      * @returns {HRESULT} 
      */
     GetFeatureAttribute(pszFeatureKeyword, pszAttribute, pdwDataType, ppbData, pcbSize) {
-        result := ComCall(13, this, "ptr", pszFeatureKeyword, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
+        pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
+        pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
+
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pszFeatureKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr*", ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -66,7 +77,14 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
      * @returns {HRESULT} 
      */
     GetOptionAttribute(pszFeatureKeyword, pszOptionKeyword, pszAttribute, pdwDataType, ppbData, pcbSize) {
-        result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
+        pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
+        pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
+        pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
+
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr*", ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 }

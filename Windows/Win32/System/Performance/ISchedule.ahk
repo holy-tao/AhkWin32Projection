@@ -111,7 +111,9 @@ class ISchedule extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_days
      */
     get_Days(days) {
-        result := ComCall(13, this, "int*", days, "HRESULT")
+        daysMarshal := days is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, daysMarshal, days, "HRESULT")
         return result
     }
 

@@ -49,7 +49,9 @@ class IWMCredentialCallback extends IUnknown{
         pwszUser := pwszUser is String ? StrPtr(pwszUser) : pwszUser
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, "uint", cchUser, "ptr", pwszPassword, "uint", cchPassword, "int", hrStatus, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, "uint", cchUser, "ptr", pwszPassword, "uint", cchPassword, "int", hrStatus, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

@@ -98,7 +98,10 @@ class ICredentialProviderCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getfieldstate
      */
     GetFieldState(dwFieldID, pcpfs, pcpfis) {
-        result := ComCall(7, this, "uint", dwFieldID, "int*", pcpfs, "int*", pcpfis, "HRESULT")
+        pcpfsMarshal := pcpfs is VarRef ? "int*" : "ptr"
+        pcpfisMarshal := pcpfis is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwFieldID, pcpfsMarshal, pcpfs, pcpfisMarshal, pcpfis, "HRESULT")
         return result
     }
 
@@ -147,7 +150,9 @@ class ICredentialProviderCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getsubmitbuttonvalue
      */
     GetSubmitButtonValue(dwFieldID, pdwAdjacentTo) {
-        result := ComCall(11, this, "uint", dwFieldID, "uint*", pdwAdjacentTo, "HRESULT")
+        pdwAdjacentToMarshal := pdwAdjacentTo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwFieldID, pdwAdjacentToMarshal, pdwAdjacentTo, "HRESULT")
         return result
     }
 
@@ -160,7 +165,10 @@ class ICredentialProviderCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getcomboboxvaluecount
      */
     GetComboBoxValueCount(dwFieldID, pcItems, pdwSelectedItem) {
-        result := ComCall(12, this, "uint", dwFieldID, "uint*", pcItems, "uint*", pdwSelectedItem, "HRESULT")
+        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
+        pdwSelectedItemMarshal := pdwSelectedItem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwFieldID, pcItemsMarshal, pcItems, pdwSelectedItemMarshal, pdwSelectedItem, "HRESULT")
         return result
     }
 
@@ -236,7 +244,10 @@ class ICredentialProviderCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getserialization
      */
     GetSerialization(pcpgsr, pcpcs, ppszOptionalStatusText, pcpsiOptionalStatusIcon) {
-        result := ComCall(18, this, "int*", pcpgsr, "ptr", pcpcs, "ptr", ppszOptionalStatusText, "int*", pcpsiOptionalStatusIcon, "HRESULT")
+        pcpgsrMarshal := pcpgsr is VarRef ? "int*" : "ptr"
+        pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pcpgsrMarshal, pcpgsr, "ptr", pcpcs, "ptr", ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
     }
 
@@ -250,7 +261,9 @@ class ICredentialProviderCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-reportresult
      */
     ReportResult(ntsStatus, ntsSubstatus, ppszOptionalStatusText, pcpsiOptionalStatusIcon) {
-        result := ComCall(19, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", ppszOptionalStatusText, "int*", pcpsiOptionalStatusIcon, "HRESULT")
+        pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
     }
 }

@@ -37,7 +37,11 @@ class IRowsetAsynch extends IUnknown{
      * @returns {HRESULT} 
      */
     RatioFinished(pulDenominator, pulNumerator, pcRows, pfNewRows) {
-        result := ComCall(3, this, "ptr*", pulDenominator, "ptr*", pulNumerator, "ptr*", pcRows, "ptr", pfNewRows, "HRESULT")
+        pulDenominatorMarshal := pulDenominator is VarRef ? "ptr*" : "ptr"
+        pulNumeratorMarshal := pulNumerator is VarRef ? "ptr*" : "ptr"
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pulDenominatorMarshal, pulDenominator, pulNumeratorMarshal, pulNumerator, pcRowsMarshal, pcRows, "ptr", pfNewRows, "HRESULT")
         return result
     }
 

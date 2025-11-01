@@ -107,7 +107,9 @@ class IXMLDocument2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyState(pl) {
-        result := ComCall(14, this, "int*", pl, "HRESULT")
+        plMarshal := pl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plMarshal, pl, "HRESULT")
         return result
     }
 

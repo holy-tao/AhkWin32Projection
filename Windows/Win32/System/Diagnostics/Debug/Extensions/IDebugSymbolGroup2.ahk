@@ -34,7 +34,9 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberSymbols(Number) {
-        result := ComCall(3, this, "uint*", Number, "HRESULT")
+        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, NumberMarshal, Number, "HRESULT")
         return result
     }
 
@@ -45,7 +47,11 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddSymbol(Name, Index) {
-        result := ComCall(4, this, "ptr", Name, "uint*", Index, "HRESULT")
+        Name := Name is String ? StrPtr(Name) : Name
+
+        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", Name, IndexMarshal, Index, "HRESULT")
         return result
     }
 
@@ -55,6 +61,8 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveSymbolByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(5, this, "ptr", Name, "HRESULT")
         return result
     }
@@ -78,7 +86,11 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolName(Index, Buffer, BufferSize, NameSize) {
-        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
         return result
     }
 
@@ -125,6 +137,8 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteSymbol(Index, Value) {
+        Value := Value is String ? StrPtr(Value) : Value
+
         result := ComCall(11, this, "uint", Index, "ptr", Value, "HRESULT")
         return result
     }
@@ -136,6 +150,8 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputAsType(Index, Type) {
+        Type := Type is String ? StrPtr(Type) : Type
+
         result := ComCall(12, this, "uint", Index, "ptr", Type, "HRESULT")
         return result
     }
@@ -149,7 +165,9 @@ class IDebugSymbolGroup2 extends IUnknown{
     AddSymbolWide(Name, Index) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(13, this, "ptr", Name, "uint*", Index, "HRESULT")
+        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", Name, IndexMarshal, Index, "HRESULT")
         return result
     }
 
@@ -176,7 +194,9 @@ class IDebugSymbolGroup2 extends IUnknown{
     GetSymbolNameWide(Index, Buffer, BufferSize, NameSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(15, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
         return result
     }
 
@@ -215,7 +235,11 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolTypeName(Index, Buffer, BufferSize, NameSize) {
-        result := ComCall(18, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
         return result
     }
 
@@ -230,7 +254,9 @@ class IDebugSymbolGroup2 extends IUnknown{
     GetSymbolTypeNameWide(Index, Buffer, BufferSize, NameSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(19, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
         return result
     }
 
@@ -241,7 +267,9 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolSize(Index, Size) {
-        result := ComCall(20, this, "uint", Index, "uint*", Size, "HRESULT")
+        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", Index, SizeMarshal, Size, "HRESULT")
         return result
     }
 
@@ -252,7 +280,9 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolOffset(Index, Offset) {
-        result := ComCall(21, this, "uint", Index, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", Index, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -263,7 +293,9 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolRegister(Index, Register) {
-        result := ComCall(22, this, "uint", Index, "uint*", Register, "HRESULT")
+        RegisterMarshal := Register is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", Index, RegisterMarshal, Register, "HRESULT")
         return result
     }
 
@@ -276,7 +308,11 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolValueText(Index, Buffer, BufferSize, NameSize) {
-        result := ComCall(23, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
         return result
     }
 
@@ -291,7 +327,9 @@ class IDebugSymbolGroup2 extends IUnknown{
     GetSymbolValueTextWide(Index, Buffer, BufferSize, NameSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(24, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
         return result
     }
 

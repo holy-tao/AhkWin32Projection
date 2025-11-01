@@ -163,7 +163,9 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BackgroundSyncStatus(status) {
-        result := ComCall(17, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, statusMarshal, status, "HRESULT")
         return result
     }
 
@@ -173,7 +175,9 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DefaultInterval(minutes) {
-        result := ComCall(18, this, "int*", minutes, "HRESULT")
+        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, minutesMarshal, minutes, "HRESULT")
         return result
     }
 
@@ -215,7 +219,9 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ItemCountLimit(itemCountLimit) {
-        result := ComCall(22, this, "int*", itemCountLimit, "HRESULT")
+        itemCountLimitMarshal := itemCountLimit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, itemCountLimitMarshal, itemCountLimit, "HRESULT")
         return result
     }
 }

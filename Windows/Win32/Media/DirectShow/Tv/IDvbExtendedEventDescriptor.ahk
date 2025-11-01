@@ -37,7 +37,9 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getdescriptornumber
      */
     GetDescriptorNumber(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getlastdescriptornumber
      */
     GetLastDescriptorNumber(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getlanguagecode
      */
     GetLanguageCode(pszCode) {
-        result := ComCall(7, this, "char*", pszCode, "HRESULT")
+        pszCodeMarshal := pszCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pszCodeMarshal, pszCode, "HRESULT")
         return result
     }
 
@@ -92,7 +102,9 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(8, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -158,7 +170,9 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getrecorditemrawbytes
      */
     GetRecordItemRawBytes(bRecordIndex, ppbRawItem, pbItemLength) {
-        result := ComCall(13, this, "char", bRecordIndex, "ptr*", ppbRawItem, "char*", pbItemLength, "HRESULT")
+        pbItemLengthMarshal := pbItemLength is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "char", bRecordIndex, "ptr*", ppbRawItem, pbItemLengthMarshal, pbItemLength, "HRESULT")
         return result
     }
 }

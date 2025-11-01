@@ -97,7 +97,9 @@ class IActiveScriptAuthor extends IUnknown{
         pszCode := pszCode is String ? StrPtr(pszCode) : pszCode
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(6, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, "ushort*", pattr, "HRESULT")
+        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IActiveScriptAuthor extends IUnknown{
         pszCode := pszCode is String ? StrPtr(pszCode) : pszCode
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(7, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, "ushort*", pattr, "HRESULT")
+        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
@@ -134,7 +138,9 @@ class IActiveScriptAuthor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLanguageFlags(pgrfasa) {
-        result := ComCall(9, this, "uint*", pgrfasa, "HRESULT")
+        pgrfasaMarshal := pgrfasa is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pgrfasaMarshal, pgrfasa, "HRESULT")
         return result
     }
 
@@ -221,7 +227,13 @@ class IActiveScriptAuthor extends IUnknown{
     GetInfoFromContext(pszCode, cchCode, ichCurrentPosition, dwListTypesRequested, pdwListTypesProvided, pichListAnchorPosition, pichFuncAnchorPosition, pmemid, piCurrentParameter, ppunk) {
         pszCode := pszCode is String ? StrPtr(pszCode) : pszCode
 
-        result := ComCall(15, this, "ptr", pszCode, "uint", cchCode, "uint", ichCurrentPosition, "uint", dwListTypesRequested, "uint*", pdwListTypesProvided, "uint*", pichListAnchorPosition, "uint*", pichFuncAnchorPosition, "int*", pmemid, "int*", piCurrentParameter, "ptr*", ppunk, "HRESULT")
+        pdwListTypesProvidedMarshal := pdwListTypesProvided is VarRef ? "uint*" : "ptr"
+        pichListAnchorPositionMarshal := pichListAnchorPosition is VarRef ? "uint*" : "ptr"
+        pichFuncAnchorPositionMarshal := pichFuncAnchorPosition is VarRef ? "uint*" : "ptr"
+        pmemidMarshal := pmemid is VarRef ? "int*" : "ptr"
+        piCurrentParameterMarshal := piCurrentParameter is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pszCode, "uint", cchCode, "uint", ichCurrentPosition, "uint", dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, "ptr*", ppunk, "HRESULT")
         return result
     }
 

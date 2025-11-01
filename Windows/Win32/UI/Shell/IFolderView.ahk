@@ -37,7 +37,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getcurrentviewmode
      */
     GetCurrentViewMode(pViewMode) {
-        result := ComCall(3, this, "uint*", pViewMode, "HRESULT")
+        pViewModeMarshal := pViewMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pViewModeMarshal, pViewMode, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-itemcount
      */
     ItemCount(uFlags, pcItems) {
-        result := ComCall(7, this, "uint", uFlags, "int*", pcItems, "HRESULT")
+        pcItemsMarshal := pcItems is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "uint", uFlags, pcItemsMarshal, pcItems, "HRESULT")
         return result
     }
 
@@ -108,7 +112,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getselectionmarkeditem
      */
     GetSelectionMarkedItem(piItem) {
-        result := ComCall(9, this, "int*", piItem, "HRESULT")
+        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, piItemMarshal, piItem, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getfocuseditem
      */
     GetFocusedItem(piItem) {
-        result := ComCall(10, this, "int*", piItem, "HRESULT")
+        piItemMarshal := piItem is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, piItemMarshal, piItem, "HRESULT")
         return result
     }
 

@@ -49,7 +49,9 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
      * @returns {HRESULT} 
      */
     GetZoneSecurityState(dwZoneIndex, fRespectPolicy, pdwState, pfPolicyEncountered) {
-        result := ComCall(18, this, "uint", dwZoneIndex, "int", fRespectPolicy, "uint*", pdwState, "ptr", pfPolicyEncountered, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "uint", dwZoneIndex, "int", fRespectPolicy, pdwStateMarshal, pdwState, "ptr", pfPolicyEncountered, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
      * @returns {HRESULT} 
      */
     GetIESecurityState(fRespectPolicy, pdwState, pfPolicyEncountered, fNoCache) {
-        result := ComCall(19, this, "int", fRespectPolicy, "uint*", pdwState, "ptr", pfPolicyEncountered, "int", fNoCache, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "int", fRespectPolicy, pdwStateMarshal, pdwState, "ptr", pfPolicyEncountered, "int", fNoCache, "HRESULT")
         return result
     }
 

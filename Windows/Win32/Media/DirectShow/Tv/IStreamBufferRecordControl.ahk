@@ -42,7 +42,9 @@ class IStreamBufferRecordControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-start
      */
     Start(prtStart) {
-        result := ComCall(3, this, "int64*", prtStart, "HRESULT")
+        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, prtStartMarshal, prtStart, "HRESULT")
         return result
     }
 

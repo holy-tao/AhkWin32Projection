@@ -102,7 +102,9 @@ class IMFCaptureRecordSink extends IMFCaptureSink{
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturerecordsink-getrotation
      */
     GetRotation(dwStreamIndex, pdwRotationValue) {
-        result := ComCall(12, this, "uint", dwStreamIndex, "uint*", pdwRotationValue, "HRESULT")
+        pdwRotationValueMarshal := pdwRotationValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwStreamIndex, pdwRotationValueMarshal, pdwRotationValue, "HRESULT")
         return result
     }
 

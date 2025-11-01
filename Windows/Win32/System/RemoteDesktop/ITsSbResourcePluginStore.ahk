@@ -117,7 +117,9 @@ class ITsSbResourcePluginStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumeratefarms
      */
     EnumerateFarms(pdwCount, pVal) {
-        result := ComCall(9, this, "uint*", pdwCount, "ptr*", pVal, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
         return result
     }
 
@@ -143,7 +145,9 @@ class ITsSbResourcePluginStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumerateenvironments
      */
     EnumerateEnvironments(pdwCount, pVal) {
-        result := ComCall(11, this, "uint*", pdwCount, "ptr*", pVal, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
         return result
     }
 
@@ -225,7 +229,9 @@ class ITsSbResourcePluginStore extends IUnknown{
     SetTargetState(targetName, newState, pOldState) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        result := ComCall(17, this, "ptr", targetName, "int", newState, "int*", pOldState, "HRESULT")
+        pOldStateMarshal := pOldState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "ptr", targetName, "int", newState, pOldStateMarshal, pOldState, "HRESULT")
         return result
     }
 
@@ -256,7 +262,9 @@ class ITsSbResourcePluginStore extends IUnknown{
         EnvName := EnvName is String ? BSTR.Alloc(EnvName).Value : EnvName
         sortyByPropName := sortyByPropName is String ? BSTR.Alloc(sortyByPropName).Value : sortyByPropName
 
-        result := ComCall(19, this, "ptr", FarmName, "ptr", EnvName, "int", sortByFieldId, "ptr", sortyByPropName, "uint*", pdwCount, "ptr*", pVal, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", FarmName, "ptr", EnvName, "int", sortByFieldId, "ptr", sortyByPropName, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
         return result
     }
 
@@ -280,7 +288,10 @@ class ITsSbResourcePluginStore extends IUnknown{
         poolName := poolName is String ? BSTR.Alloc(poolName).Value : poolName
         initialProgram := initialProgram is String ? BSTR.Alloc(initialProgram).Value : initialProgram
 
-        result := ComCall(20, this, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, "int*", pSessionState, "uint*", pdwCount, "ptr*", ppVal, "HRESULT")
+        pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", ppVal, "HRESULT")
         return result
     }
 
@@ -385,7 +396,9 @@ class ITsSbResourcePluginStore extends IUnknown{
         PoolName := PoolName is String ? BSTR.Alloc(PoolName).Value : PoolName
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        result := ComCall(27, this, "ptr", PoolName, "ptr", ServerFQDN, "int", NewState, "int", TestState, "int*", pInitState, "HRESULT")
+        pInitStateMarshal := pInitState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, "ptr", PoolName, "ptr", ServerFQDN, "int", NewState, "int", TestState, pInitStateMarshal, pInitState, "HRESULT")
         return result
     }
 
@@ -416,7 +429,9 @@ class ITsSbResourcePluginStore extends IUnknown{
         PoolName := PoolName is String ? BSTR.Alloc(PoolName).Value : PoolName
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        result := ComCall(29, this, "ptr", PoolName, "ptr", ServerFQDN, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, "ptr", PoolName, "ptr", ServerFQDN, pStateMarshal, pState, "HRESULT")
         return result
     }
 

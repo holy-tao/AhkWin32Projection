@@ -34,7 +34,9 @@ class ISVGZoomAndPan extends IDispatch{
      * @returns {HRESULT} 
      */
     get_zoomAndPan(p) {
-        result := ComCall(7, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 }

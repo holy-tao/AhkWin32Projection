@@ -52,7 +52,9 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_propertyCount(p) {
-        result := ComCall(11, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -123,7 +127,9 @@ class IRulesAppliedCollection extends IDispatch{
     propertyInheritedTraceLength(name, pLength) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(14, this, "ptr", name, "int*", pLength, "HRESULT")
+        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", name, pLengthMarshal, pLength, "HRESULT")
         return result
     }
 }

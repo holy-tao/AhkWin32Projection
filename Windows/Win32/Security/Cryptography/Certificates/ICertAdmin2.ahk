@@ -92,7 +92,9 @@ class ICertAdmin2 extends ICertAdmin{
     GetCAPropertyFlags(strConfig, PropId, pPropFlags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(20, this, "ptr", strConfig, "int", PropId, "int*", pPropFlags, "HRESULT")
+        pPropFlagsMarshal := pPropFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "ptr", strConfig, "int", PropId, pPropFlagsMarshal, pPropFlags, "HRESULT")
         return result
     }
 
@@ -192,7 +194,9 @@ class ICertAdmin2 extends ICertAdmin{
     GetMyRoles(strConfig, pRoles) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(26, this, "ptr", strConfig, "uint*", pRoles, "HRESULT")
+        pRolesMarshal := pRoles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "ptr", strConfig, pRolesMarshal, pRoles, "HRESULT")
         return result
     }
 
@@ -210,7 +214,9 @@ class ICertAdmin2 extends ICertAdmin{
     DeleteRow(strConfig, Flags, Date, Table, RowId, pcDeleted) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, "int*", pcDeleted, "HRESULT")
+        pcDeletedMarshal := pcDeleted is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, pcDeletedMarshal, pcDeleted, "HRESULT")
         return result
     }
 }

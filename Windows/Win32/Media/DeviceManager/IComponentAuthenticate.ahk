@@ -42,7 +42,10 @@ class IComponentAuthenticate extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-icomponentauthenticate-sacauth
      */
     SACAuth(dwProtocolID, dwPass, pbDataIn, dwDataInLen, ppbDataOut, pdwDataOutLen) {
-        result := ComCall(3, this, "uint", dwProtocolID, "uint", dwPass, "char*", pbDataIn, "uint", dwDataInLen, "ptr*", ppbDataOut, "uint*", pdwDataOutLen, "HRESULT")
+        pbDataInMarshal := pbDataIn is VarRef ? "char*" : "ptr"
+        pdwDataOutLenMarshal := pdwDataOutLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwProtocolID, "uint", dwPass, pbDataInMarshal, pbDataIn, "uint", dwDataInLen, "ptr*", ppbDataOut, pdwDataOutLenMarshal, pdwDataOutLen, "HRESULT")
         return result
     }
 
@@ -54,7 +57,9 @@ class IComponentAuthenticate extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-icomponentauthenticate-sacgetprotocols
      */
     SACGetProtocols(ppdwProtocols, pdwProtocolCount) {
-        result := ComCall(4, this, "ptr*", ppdwProtocols, "uint*", pdwProtocolCount, "HRESULT")
+        pdwProtocolCountMarshal := pdwProtocolCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppdwProtocols, pdwProtocolCountMarshal, pdwProtocolCount, "HRESULT")
         return result
     }
 }

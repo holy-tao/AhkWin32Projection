@@ -113,7 +113,14 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-gettransform
      */
     GetTransform(eM11, eM12, eM21, eM22, eDx, eDy) {
-        result := ComCall(13, this, "float*", eM11, "float*", eM12, "float*", eM21, "float*", eM22, "float*", eDx, "float*", eDy, "HRESULT")
+        eM11Marshal := eM11 is VarRef ? "float*" : "ptr"
+        eM12Marshal := eM12 is VarRef ? "float*" : "ptr"
+        eM21Marshal := eM21 is VarRef ? "float*" : "ptr"
+        eM22Marshal := eM22 is VarRef ? "float*" : "ptr"
+        eDxMarshal := eDx is VarRef ? "float*" : "ptr"
+        eDyMarshal := eDy is VarRef ? "float*" : "ptr"
+
+        result := ComCall(13, this, eM11Marshal, eM11, eM12Marshal, eM12, eM21Marshal, eM21, eM22Marshal, eM22, eDxMarshal, eDx, eDyMarshal, eDy, "HRESULT")
         return result
     }
 
@@ -140,7 +147,9 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em11
      */
     get_eM11(Value) {
-        result := ComCall(15, this, "float*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "float*" : "ptr"
+
+        result := ComCall(15, this, ValueMarshal, Value, "HRESULT")
         return result
     }
 
@@ -162,7 +171,9 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em12
      */
     get_eM12(Value) {
-        result := ComCall(17, this, "float*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "float*" : "ptr"
+
+        result := ComCall(17, this, ValueMarshal, Value, "HRESULT")
         return result
     }
 
@@ -184,7 +195,9 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em21
      */
     get_eM21(Value) {
-        result := ComCall(19, this, "float*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "float*" : "ptr"
+
+        result := ComCall(19, this, ValueMarshal, Value, "HRESULT")
         return result
     }
 
@@ -206,7 +219,9 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em22
      */
     get_eM22(Value) {
-        result := ComCall(21, this, "float*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "float*" : "ptr"
+
+        result := ComCall(21, this, ValueMarshal, Value, "HRESULT")
         return result
     }
 
@@ -228,7 +243,9 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_edx
      */
     get_eDx(Value) {
-        result := ComCall(23, this, "float*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "float*" : "ptr"
+
+        result := ComCall(23, this, ValueMarshal, Value, "HRESULT")
         return result
     }
 
@@ -250,7 +267,9 @@ class IInkTransform extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_edy
      */
     get_eDy(Value) {
-        result := ComCall(25, this, "float*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "float*" : "ptr"
+
+        result := ComCall(25, this, ValueMarshal, Value, "HRESULT")
         return result
     }
 

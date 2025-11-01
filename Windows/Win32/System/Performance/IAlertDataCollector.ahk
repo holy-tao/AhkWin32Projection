@@ -108,7 +108,9 @@ class IAlertDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_sampleinterval
      */
     get_SampleInterval(interval) {
-        result := ComCall(36, this, "uint*", interval, "HRESULT")
+        intervalMarshal := interval is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, intervalMarshal, interval, "HRESULT")
         return result
     }
 

@@ -121,7 +121,9 @@ class IDXGIFactory2 extends IDXGIFactory1{
     RegisterStereoStatusWindow(WindowHandle, wMsg, pdwCookie) {
         WindowHandle := WindowHandle is Win32Handle ? NumGet(WindowHandle, "ptr") : WindowHandle
 
-        result := ComCall(18, this, "ptr", WindowHandle, "uint", wMsg, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", WindowHandle, "uint", wMsg, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -135,7 +137,9 @@ class IDXGIFactory2 extends IDXGIFactory1{
     RegisterStereoStatusEvent(hEvent, pdwCookie) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(19, this, "ptr", hEvent, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -160,7 +164,9 @@ class IDXGIFactory2 extends IDXGIFactory1{
     RegisterOcclusionStatusWindow(WindowHandle, wMsg, pdwCookie) {
         WindowHandle := WindowHandle is Win32Handle ? NumGet(WindowHandle, "ptr") : WindowHandle
 
-        result := ComCall(21, this, "ptr", WindowHandle, "uint", wMsg, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr", WindowHandle, "uint", wMsg, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -174,7 +180,9 @@ class IDXGIFactory2 extends IDXGIFactory1{
     RegisterOcclusionStatusEvent(hEvent, pdwCookie) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(22, this, "ptr", hEvent, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

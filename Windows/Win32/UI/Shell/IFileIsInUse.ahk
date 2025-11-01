@@ -80,7 +80,9 @@ class IFileIsInUse extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getusage
      */
     GetUsage(pfut) {
-        result := ComCall(4, this, "int*", pfut, "HRESULT")
+        pfutMarshal := pfut is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pfutMarshal, pfut, "HRESULT")
         return result
     }
 
@@ -91,7 +93,9 @@ class IFileIsInUse extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities
      */
     GetCapabilities(pdwCapFlags) {
-        result := ComCall(5, this, "uint*", pdwCapFlags, "HRESULT")
+        pdwCapFlagsMarshal := pdwCapFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwCapFlagsMarshal, pdwCapFlags, "HRESULT")
         return result
     }
 

@@ -54,7 +54,9 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BSAID(pBSAID) {
-        result := ComCall(5, this, "uint*", pBSAID, "HRESULT")
+        pBSAIDMarshal := pBSAID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pBSAIDMarshal, pBSAID, "HRESULT")
         return result
     }
 

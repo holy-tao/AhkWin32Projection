@@ -86,7 +86,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-canchange
      */
     CanChange(pValue) {
-        result := ComCall(9, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-isequal
      */
     IsEqual(pFont, pValue) {
-        result := ComCall(10, this, "ptr", pFont, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pFont, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -120,7 +124,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getstyle
      */
     GetStyle(pValue) {
-        result := ComCall(12, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -142,7 +148,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getallcaps
      */
     GetAllCaps(pValue) {
-        result := ComCall(14, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -164,7 +172,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getanimation
      */
     GetAnimation(pValue) {
-        result := ComCall(16, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -186,7 +196,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getbackcolor
      */
     GetBackColor(pValue) {
-        result := ComCall(18, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -208,7 +220,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getbold
      */
     GetBold(pValue) {
-        result := ComCall(20, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -230,7 +244,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getemboss
      */
     GetEmboss(pValue) {
-        result := ComCall(22, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -252,7 +268,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getforecolor
      */
     GetForeColor(pValue) {
-        result := ComCall(24, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -274,7 +292,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-gethidden
      */
     GetHidden(pValue) {
-        result := ComCall(26, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -296,7 +316,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getengrave
      */
     GetEngrave(pValue) {
-        result := ComCall(28, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -318,7 +340,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getitalic
      */
     GetItalic(pValue) {
-        result := ComCall(30, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -340,7 +364,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getkerning
      */
     GetKerning(pValue) {
-        result := ComCall(32, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(32, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -362,7 +388,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getlanguageid
      */
     GetLanguageID(pValue) {
-        result := ComCall(34, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -408,7 +436,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getoutline
      */
     GetOutline(pValue) {
-        result := ComCall(38, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -430,7 +460,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getposition
      */
     GetPosition(pValue) {
-        result := ComCall(40, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(40, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -452,7 +484,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getprotected
      */
     GetProtected(pValue) {
-        result := ComCall(42, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -474,7 +508,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getshadow
      */
     GetShadow(pValue) {
-        result := ComCall(44, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -496,7 +532,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getsize
      */
     GetSize(pValue) {
-        result := ComCall(46, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(46, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -518,7 +556,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getsmallcaps
      */
     GetSmallCaps(pValue) {
-        result := ComCall(48, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -540,7 +580,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getspacing
      */
     GetSpacing(pValue) {
-        result := ComCall(50, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(50, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -562,7 +604,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getstrikethrough
      */
     GetStrikeThrough(pValue) {
-        result := ComCall(52, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -584,7 +628,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getsubscript
      */
     GetSubscript(pValue) {
-        result := ComCall(54, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -606,7 +652,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getsuperscript
      */
     GetSuperscript(pValue) {
-        result := ComCall(56, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(56, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -628,7 +676,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getunderline
      */
     GetUnderline(pValue) {
-        result := ComCall(58, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -650,7 +700,9 @@ class ITextFont extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-getweight
      */
     GetWeight(pValue) {
-        result := ComCall(60, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(60, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

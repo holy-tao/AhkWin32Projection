@@ -67,7 +67,9 @@ class IDXGIResource extends IDXGIDeviceSubObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getusage
      */
     GetUsage(pUsage) {
-        result := ComCall(9, this, "uint*", pUsage, "HRESULT")
+        pUsageMarshal := pUsage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pUsageMarshal, pUsage, "HRESULT")
         return result
     }
 
@@ -89,7 +91,9 @@ class IDXGIResource extends IDXGIDeviceSubObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getevictionpriority
      */
     GetEvictionPriority(pEvictionPriority) {
-        result := ComCall(11, this, "uint*", pEvictionPriority, "HRESULT")
+        pEvictionPriorityMarshal := pEvictionPriority is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pEvictionPriorityMarshal, pEvictionPriority, "HRESULT")
         return result
     }
 }

@@ -301,7 +301,10 @@ class DxMediaObjects {
      * @see https://docs.microsoft.com/windows/win32/api//dmoreg/nf-dmoreg-dmogettypes
      */
     static DMOGetTypes(clsidDMO, ulInputTypesRequested, pulInputTypesSupplied, pInputTypes, ulOutputTypesRequested, pulOutputTypesSupplied, pOutputTypes) {
-        result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, "uint*", pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, "uint*", pulOutputTypesSupplied, "ptr", pOutputTypes, "int")
+        pulInputTypesSuppliedMarshal := pulInputTypesSupplied is VarRef ? "uint*" : "ptr"
+        pulOutputTypesSuppliedMarshal := pulOutputTypesSupplied is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, pulInputTypesSuppliedMarshal, pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, pulOutputTypesSuppliedMarshal, pulOutputTypesSupplied, "ptr", pOutputTypes, "int")
         if(result != 0)
             throw OSError(result)
 

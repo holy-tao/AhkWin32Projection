@@ -39,7 +39,9 @@ class IWRdsGraphicsChannelManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelmanager-createchannel
      */
     CreateChannel(pszChannelName, channelType, ppVirtualChannel) {
-        result := ComCall(3, this, "char*", pszChannelName, "int", channelType, "ptr*", ppVirtualChannel, "HRESULT")
+        pszChannelNameMarshal := pszChannelName is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pszChannelNameMarshal, pszChannelName, "int", channelType, "ptr*", ppVirtualChannel, "HRESULT")
         return result
     }
 }

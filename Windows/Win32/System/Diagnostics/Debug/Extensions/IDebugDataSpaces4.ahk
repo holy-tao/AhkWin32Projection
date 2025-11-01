@@ -37,7 +37,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadVirtual(Offset, Buffer, BufferSize, BytesRead) {
-        result := ComCall(3, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteVirtual(Offset, Buffer, BufferSize, BytesWritten) {
-        result := ComCall(4, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     SearchVirtual(Offset, Length, Pattern, PatternSize, PatternGranularity, MatchOffset) {
-        result := ComCall(5, this, "uint", Offset, "uint", Length, "ptr", Pattern, "uint", PatternSize, "uint", PatternGranularity, "uint*", MatchOffset, "HRESULT")
+        MatchOffsetMarshal := MatchOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", Offset, "uint", Length, "ptr", Pattern, "uint", PatternSize, "uint", PatternGranularity, MatchOffsetMarshal, MatchOffset, "HRESULT")
         return result
     }
 
@@ -78,7 +84,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadVirtualUncached(Offset, Buffer, BufferSize, BytesRead) {
-        result := ComCall(6, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -91,7 +99,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteVirtualUncached(Offset, Buffer, BufferSize, BytesWritten) {
-        result := ComCall(7, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 
@@ -103,7 +113,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadPointersVirtual(Count, Offset, Ptrs) {
-        result := ComCall(8, this, "uint", Count, "uint", Offset, "uint*", Ptrs, "HRESULT")
+        PtrsMarshal := Ptrs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", Count, "uint", Offset, PtrsMarshal, Ptrs, "HRESULT")
         return result
     }
 
@@ -115,7 +127,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WritePointersVirtual(Count, Offset, Ptrs) {
-        result := ComCall(9, this, "uint", Count, "uint", Offset, "uint*", Ptrs, "HRESULT")
+        PtrsMarshal := Ptrs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", Count, "uint", Offset, PtrsMarshal, Ptrs, "HRESULT")
         return result
     }
 
@@ -128,7 +142,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadPhysical(Offset, Buffer, BufferSize, BytesRead) {
-        result := ComCall(10, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -141,7 +157,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WritePhysical(Offset, Buffer, BufferSize, BytesWritten) {
-        result := ComCall(11, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 
@@ -155,7 +173,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadControl(Processor, Offset, Buffer, BufferSize, BytesRead) {
-        result := ComCall(12, this, "uint", Processor, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", Processor, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -169,7 +189,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteControl(Processor, Offset, Buffer, BufferSize, BytesWritten) {
-        result := ComCall(13, this, "uint", Processor, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", Processor, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 
@@ -185,7 +207,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadIo(InterfaceType, BusNumber, AddressSpace, Offset, Buffer, BufferSize, BytesRead) {
-        result := ComCall(14, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -201,7 +225,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteIo(InterfaceType, BusNumber, AddressSpace, Offset, Buffer, BufferSize, BytesWritten) {
-        result := ComCall(15, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 
@@ -212,7 +238,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadMsr(Msr, Value) {
-        result := ComCall(16, this, "uint", Msr, "uint*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", Msr, ValueMarshal, Value, "HRESULT")
         return result
     }
 
@@ -239,7 +267,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadBusData(BusDataType, BusNumber, SlotNumber, Offset, Buffer, BufferSize, BytesRead) {
-        result := ComCall(18, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -255,7 +285,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteBusData(BusDataType, BusNumber, SlotNumber, Offset, Buffer, BufferSize, BytesWritten) {
-        result := ComCall(19, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", Buffer, "uint", BufferSize, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 
@@ -277,7 +309,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadDebuggerData(Index, Buffer, BufferSize, DataSize) {
-        result := ComCall(21, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", DataSize, "HRESULT")
+        DataSizeMarshal := DataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, DataSizeMarshal, DataSize, "HRESULT")
         return result
     }
 
@@ -291,7 +325,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadProcessorSystemData(Processor, Index, Buffer, BufferSize, DataSize) {
-        result := ComCall(22, this, "uint", Processor, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", DataSize, "HRESULT")
+        DataSizeMarshal := DataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", Processor, "uint", Index, "ptr", Buffer, "uint", BufferSize, DataSizeMarshal, DataSize, "HRESULT")
         return result
     }
 
@@ -302,7 +338,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     VirtualToPhysical(Virtual, Physical) {
-        result := ComCall(23, this, "uint", Virtual, "uint*", Physical, "HRESULT")
+        PhysicalMarshal := Physical is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "uint", Virtual, PhysicalMarshal, Physical, "HRESULT")
         return result
     }
 
@@ -315,7 +353,10 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetVirtualTranslationPhysicalOffsets(Virtual, Offsets, OffsetsSize, Levels) {
-        result := ComCall(24, this, "uint", Virtual, "uint*", Offsets, "uint", OffsetsSize, "uint*", Levels, "HRESULT")
+        OffsetsMarshal := Offsets is VarRef ? "uint*" : "ptr"
+        LevelsMarshal := Levels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "uint", Virtual, OffsetsMarshal, Offsets, "uint", OffsetsSize, LevelsMarshal, Levels, "HRESULT")
         return result
     }
 
@@ -329,7 +370,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadHandleData(Handle, DataType, Buffer, BufferSize, DataSize) {
-        result := ComCall(25, this, "uint", Handle, "uint", DataType, "ptr", Buffer, "uint", BufferSize, "uint*", DataSize, "HRESULT")
+        DataSizeMarshal := DataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "uint", Handle, "uint", DataType, "ptr", Buffer, "uint", BufferSize, DataSizeMarshal, DataSize, "HRESULT")
         return result
     }
 
@@ -343,7 +386,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     FillVirtual(Start, Size, Pattern, PatternSize, Filled) {
-        result := ComCall(26, this, "uint", Start, "uint", Size, "ptr", Pattern, "uint", PatternSize, "uint*", Filled, "HRESULT")
+        FilledMarshal := Filled is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "uint", Start, "uint", Size, "ptr", Pattern, "uint", PatternSize, FilledMarshal, Filled, "HRESULT")
         return result
     }
 
@@ -357,7 +402,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     FillPhysical(Start, Size, Pattern, PatternSize, Filled) {
-        result := ComCall(27, this, "uint", Start, "uint", Size, "ptr", Pattern, "uint", PatternSize, "uint*", Filled, "HRESULT")
+        FilledMarshal := Filled is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, "uint", Start, "uint", Size, "ptr", Pattern, "uint", PatternSize, FilledMarshal, Filled, "HRESULT")
         return result
     }
 
@@ -393,7 +440,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadTagged(Tag, Offset, Buffer, BufferSize, TotalSize) {
-        result := ComCall(30, this, "ptr", Tag, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", TotalSize, "HRESULT")
+        TotalSizeMarshal := TotalSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "ptr", Tag, "uint", Offset, "ptr", Buffer, "uint", BufferSize, TotalSizeMarshal, TotalSize, "HRESULT")
         return result
     }
 
@@ -403,7 +452,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     StartEnumTagged(Handle) {
-        result := ComCall(31, this, "uint*", Handle, "HRESULT")
+        HandleMarshal := Handle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, HandleMarshal, Handle, "HRESULT")
         return result
     }
 
@@ -415,7 +466,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNextTagged(Handle, Tag, Size) {
-        result := ComCall(32, this, "uint", Handle, "ptr", Tag, "uint*", Size, "HRESULT")
+        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, "uint", Handle, "ptr", Tag, SizeMarshal, Size, "HRESULT")
         return result
     }
 
@@ -440,7 +493,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOffsetInformation(Space, Which, Offset, Buffer, BufferSize, InfoSize) {
-        result := ComCall(34, this, "uint", Space, "uint", Which, "uint", Offset, "ptr", Buffer, "uint", BufferSize, "uint*", InfoSize, "HRESULT")
+        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, "uint", Space, "uint", Which, "uint", Offset, "ptr", Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "HRESULT")
         return result
     }
 
@@ -451,7 +506,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNextDifferentlyValidOffsetVirtual(Offset, NextOffset) {
-        result := ComCall(35, this, "uint", Offset, "uint*", NextOffset, "HRESULT")
+        NextOffsetMarshal := NextOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, "uint", Offset, NextOffsetMarshal, NextOffset, "HRESULT")
         return result
     }
 
@@ -464,7 +521,10 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetValidRegionVirtual(Base, Size, ValidBase, ValidSize) {
-        result := ComCall(36, this, "uint", Base, "uint", Size, "uint*", ValidBase, "uint*", ValidSize, "HRESULT")
+        ValidBaseMarshal := ValidBase is VarRef ? "uint*" : "ptr"
+        ValidSizeMarshal := ValidSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, "uint", Base, "uint", Size, ValidBaseMarshal, ValidBase, ValidSizeMarshal, ValidSize, "HRESULT")
         return result
     }
 
@@ -480,7 +540,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     SearchVirtual2(Offset, Length, Flags, Pattern, PatternSize, PatternGranularity, MatchOffset) {
-        result := ComCall(37, this, "uint", Offset, "uint", Length, "uint", Flags, "ptr", Pattern, "uint", PatternSize, "uint", PatternGranularity, "uint*", MatchOffset, "HRESULT")
+        MatchOffsetMarshal := MatchOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "uint", Offset, "uint", Length, "uint", Flags, "ptr", Pattern, "uint", PatternSize, "uint", PatternGranularity, MatchOffsetMarshal, MatchOffset, "HRESULT")
         return result
     }
 
@@ -494,7 +556,11 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadMultiByteStringVirtual(Offset, MaxBytes, Buffer, BufferSize, StringBytes) {
-        result := ComCall(38, this, "uint", Offset, "uint", MaxBytes, "ptr", Buffer, "uint", BufferSize, "uint*", StringBytes, "HRESULT")
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        StringBytesMarshal := StringBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(38, this, "uint", Offset, "uint", MaxBytes, "ptr", Buffer, "uint", BufferSize, StringBytesMarshal, StringBytes, "HRESULT")
         return result
     }
 
@@ -511,7 +577,9 @@ class IDebugDataSpaces4 extends IUnknown{
     ReadMultiByteStringVirtualWide(Offset, MaxBytes, CodePage, Buffer, BufferSize, StringBytes) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(39, this, "uint", Offset, "uint", MaxBytes, "uint", CodePage, "ptr", Buffer, "uint", BufferSize, "uint*", StringBytes, "HRESULT")
+        StringBytesMarshal := StringBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, "uint", Offset, "uint", MaxBytes, "uint", CodePage, "ptr", Buffer, "uint", BufferSize, StringBytesMarshal, StringBytes, "HRESULT")
         return result
     }
 
@@ -526,7 +594,11 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadUnicodeStringVirtual(Offset, MaxBytes, CodePage, Buffer, BufferSize, StringBytes) {
-        result := ComCall(40, this, "uint", Offset, "uint", MaxBytes, "uint", CodePage, "ptr", Buffer, "uint", BufferSize, "uint*", StringBytes, "HRESULT")
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
+        StringBytesMarshal := StringBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, "uint", Offset, "uint", MaxBytes, "uint", CodePage, "ptr", Buffer, "uint", BufferSize, StringBytesMarshal, StringBytes, "HRESULT")
         return result
     }
 
@@ -542,7 +614,9 @@ class IDebugDataSpaces4 extends IUnknown{
     ReadUnicodeStringVirtualWide(Offset, MaxBytes, Buffer, BufferSize, StringBytes) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(41, this, "uint", Offset, "uint", MaxBytes, "ptr", Buffer, "uint", BufferSize, "uint*", StringBytes, "HRESULT")
+        StringBytesMarshal := StringBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, "uint", Offset, "uint", MaxBytes, "ptr", Buffer, "uint", BufferSize, StringBytesMarshal, StringBytes, "HRESULT")
         return result
     }
 
@@ -556,7 +630,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadPhysical2(Offset, Flags, Buffer, BufferSize, BytesRead) {
-        result := ComCall(42, this, "uint", Offset, "uint", Flags, "ptr", Buffer, "uint", BufferSize, "uint*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(42, this, "uint", Offset, "uint", Flags, "ptr", Buffer, "uint", BufferSize, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -570,7 +646,9 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     WritePhysical2(Offset, Flags, Buffer, BufferSize, BytesWritten) {
-        result := ComCall(43, this, "uint", Offset, "uint", Flags, "ptr", Buffer, "uint", BufferSize, "uint*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, "uint", Offset, "uint", Flags, "ptr", Buffer, "uint", BufferSize, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 }

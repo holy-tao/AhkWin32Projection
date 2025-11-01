@@ -40,7 +40,10 @@ class IDtcLuRmEnlistmentFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     Create(pucLuPair, cbLuPair, pITransaction, pTransId, cbTransId, pRmEnlistmentSink, ppRmEnlistment) {
-        result := ComCall(3, this, "char*", pucLuPair, "uint", cbLuPair, "ptr", pITransaction, "char*", pTransId, "uint", cbTransId, "ptr", pRmEnlistmentSink, "ptr*", ppRmEnlistment, "HRESULT")
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+        pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", pITransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pRmEnlistmentSink, "ptr*", ppRmEnlistment, "HRESULT")
         return result
     }
 }

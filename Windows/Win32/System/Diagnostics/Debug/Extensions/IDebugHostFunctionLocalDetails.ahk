@@ -64,7 +64,9 @@ class IDebugHostFunctionLocalDetails extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLocalKind(kind) {
-        result := ComCall(6, this, "int*", kind, "HRESULT")
+        kindMarshal := kind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, kindMarshal, kind, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IDebugHostFunctionLocalDetails extends IUnknown{
      * @returns {HRESULT} 
      */
     GetArgumentPosition(argPosition) {
-        result := ComCall(7, this, "uint*", argPosition, "HRESULT")
+        argPositionMarshal := argPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, argPositionMarshal, argPosition, "HRESULT")
         return result
     }
 }

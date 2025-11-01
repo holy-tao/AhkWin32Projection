@@ -61,7 +61,9 @@ class ICatalogCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_count
      */
     get_Count(plObjectCount) {
-        result := ComCall(9, this, "int*", plObjectCount, "HRESULT")
+        plObjectCountMarshal := plObjectCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plObjectCountMarshal, plObjectCount, "HRESULT")
         return result
     }
 
@@ -104,7 +106,9 @@ class ICatalogCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-savechanges
      */
     SaveChanges(pcChanges) {
-        result := ComCall(13, this, "int*", pcChanges, "HRESULT")
+        pcChangesMarshal := pcChanges is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pcChangesMarshal, pcChanges, "HRESULT")
         return result
     }
 
@@ -174,7 +178,9 @@ class ICatalogCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_datastoremajorversion
      */
     get_DataStoreMajorVersion(plMajorVersion) {
-        result := ComCall(19, this, "int*", plMajorVersion, "HRESULT")
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
         return result
     }
 
@@ -185,7 +191,9 @@ class ICatalogCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_datastoreminorversion
      */
     get_DataStoreMinorVersion(plMinorVersionl) {
-        result := ComCall(20, this, "int*", plMinorVersionl, "HRESULT")
+        plMinorVersionlMarshal := plMinorVersionl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plMinorVersionlMarshal, plMinorVersionl, "HRESULT")
         return result
     }
 

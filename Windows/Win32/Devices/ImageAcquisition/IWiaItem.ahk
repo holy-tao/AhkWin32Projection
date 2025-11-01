@@ -139,7 +139,9 @@ class IWiaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-getitemtype
      */
     GetItemType(pItemType) {
-        result := ComCall(3, this, "int*", pItemType, "HRESULT")
+        pItemTypeMarshal := pItemType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pItemTypeMarshal, pItemType, "HRESULT")
         return result
     }
 
@@ -234,7 +236,9 @@ class IWiaItem extends IUnknown{
     DeviceDlg(hwndParent, lFlags, lIntent, plItemCount, ppIWiaItem) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(10, this, "ptr", hwndParent, "int", lFlags, "int", lIntent, "int*", plItemCount, "ptr*", ppIWiaItem, "HRESULT")
+        plItemCountMarshal := plItemCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", hwndParent, "int", lFlags, "int", lIntent, plItemCountMarshal, plItemCount, "ptr*", ppIWiaItem, "HRESULT")
         return result
     }
 
@@ -315,7 +319,9 @@ class IWiaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-diagnostic
      */
     Diagnostic(ulSize, pBuffer) {
-        result := ComCall(17, this, "uint", ulSize, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(17, this, "uint", ulSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 }

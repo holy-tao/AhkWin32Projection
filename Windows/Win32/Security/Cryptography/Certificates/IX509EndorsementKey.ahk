@@ -62,7 +62,9 @@ class IX509EndorsementKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-get_length
      */
     get_Length(pValue) {
-        result := ComCall(9, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -127,7 +129,9 @@ class IX509EndorsementKey extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509endorsementkey-getcertificatecount
      */
     GetCertificateCount(ManufacturerOnly, pCount) {
-        result := ComCall(14, this, "short", ManufacturerOnly, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "short", ManufacturerOnly, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

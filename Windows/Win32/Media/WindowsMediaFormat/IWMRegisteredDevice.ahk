@@ -60,7 +60,9 @@ class IWMRegisteredDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getdevicetype
      */
     GetDeviceType(pdwType) {
-        result := ComCall(5, this, "uint*", pdwType, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwTypeMarshal, pdwType, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IWMRegisteredDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getattributecount
      */
     GetAttributeCount(pcAttributes) {
-        result := ComCall(6, this, "uint*", pcAttributes, "HRESULT")
+        pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcAttributesMarshal, pcAttributes, "HRESULT")
         return result
     }
 

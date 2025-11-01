@@ -37,7 +37,9 @@ class IWMPErrorItem2 extends IWMPErrorItem{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem2-get_condition
      */
     get_condition(plCondition) {
-        result := ComCall(12, this, "int*", plCondition, "HRESULT")
+        plConditionMarshal := plCondition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plConditionMarshal, plCondition, "HRESULT")
         return result
     }
 }

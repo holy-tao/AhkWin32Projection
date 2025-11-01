@@ -128,7 +128,9 @@ class ITask extends IScheduledWorkItem{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getpriority
      */
     GetPriority(pdwPriority) {
-        result := ComCall(39, this, "uint*", pdwPriority, "HRESULT")
+        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, pdwPriorityMarshal, pdwPriority, "HRESULT")
         return result
     }
 
@@ -150,7 +152,9 @@ class ITask extends IScheduledWorkItem{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-gettaskflags
      */
     GetTaskFlags(pdwFlags) {
-        result := ComCall(41, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -172,7 +176,9 @@ class ITask extends IScheduledWorkItem{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getmaxruntime
      */
     GetMaxRunTime(pdwMaxRunTimeMS) {
-        result := ComCall(43, this, "uint*", pdwMaxRunTimeMS, "HRESULT")
+        pdwMaxRunTimeMSMarshal := pdwMaxRunTimeMS is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, pdwMaxRunTimeMSMarshal, pdwMaxRunTimeMS, "HRESULT")
         return result
     }
 }

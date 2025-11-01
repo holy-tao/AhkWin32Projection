@@ -35,7 +35,9 @@ class ISpeechPhoneConverter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LanguageId(LanguageId) {
-        result := ComCall(7, this, "int*", LanguageId, "HRESULT")
+        LanguageIdMarshal := LanguageId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, LanguageIdMarshal, LanguageId, "HRESULT")
         return result
     }
 

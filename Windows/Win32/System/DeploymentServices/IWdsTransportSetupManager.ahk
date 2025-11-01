@@ -44,7 +44,9 @@ class IWdsTransportSetupManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_version
      */
     get_Version(pullVersion) {
-        result := ComCall(7, this, "uint*", pullVersion, "HRESULT")
+        pullVersionMarshal := pullVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pullVersionMarshal, pullVersion, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IWdsTransportSetupManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_installedfeatures
      */
     get_InstalledFeatures(pulInstalledFeatures) {
-        result := ComCall(8, this, "uint*", pulInstalledFeatures, "HRESULT")
+        pulInstalledFeaturesMarshal := pulInstalledFeatures is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulInstalledFeaturesMarshal, pulInstalledFeatures, "HRESULT")
         return result
     }
 
@@ -66,7 +70,9 @@ class IWdsTransportSetupManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_protocols
      */
     get_Protocols(pulProtocols) {
-        result := ComCall(9, this, "uint*", pulProtocols, "HRESULT")
+        pulProtocolsMarshal := pulProtocols is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pulProtocolsMarshal, pulProtocols, "HRESULT")
         return result
     }
 

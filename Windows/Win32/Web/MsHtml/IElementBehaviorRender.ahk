@@ -49,7 +49,9 @@ class IElementBehaviorRender extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRenderInfo(plRenderInfo) {
-        result := ComCall(4, this, "int*", plRenderInfo, "HRESULT")
+        plRenderInfoMarshal := plRenderInfo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plRenderInfoMarshal, plRenderInfo, "HRESULT")
         return result
     }
 

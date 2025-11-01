@@ -59,7 +59,9 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelcount
      */
     GetChannelCount(pnChannelCount) {
-        result := ComCall(5, this, "uint*", pnChannelCount, "HRESULT")
+        pnChannelCountMarshal := pnChannelCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pnChannelCountMarshal, pnChannelCount, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getmastervolumelevel
      */
     GetMasterVolumeLevel(pfLevelDB) {
-        result := ComCall(8, this, "float*", pfLevelDB, "HRESULT")
+        pfLevelDBMarshal := pfLevelDB is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pfLevelDBMarshal, pfLevelDB, "HRESULT")
         return result
     }
 
@@ -105,7 +109,9 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getmastervolumelevelscalar
      */
     GetMasterVolumeLevelScalar(pfLevel) {
-        result := ComCall(9, this, "float*", pfLevel, "HRESULT")
+        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, pfLevelMarshal, pfLevel, "HRESULT")
         return result
     }
 
@@ -143,7 +149,9 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelvolumelevel
      */
     GetChannelVolumeLevel(nChannel, pfLevelDB) {
-        result := ComCall(12, this, "uint", nChannel, "float*", pfLevelDB, "HRESULT")
+        pfLevelDBMarshal := pfLevelDB is VarRef ? "float*" : "ptr"
+
+        result := ComCall(12, this, "uint", nChannel, pfLevelDBMarshal, pfLevelDB, "HRESULT")
         return result
     }
 
@@ -155,7 +163,9 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelvolumelevelscalar
      */
     GetChannelVolumeLevelScalar(nChannel, pfLevel) {
-        result := ComCall(13, this, "uint", nChannel, "float*", pfLevel, "HRESULT")
+        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
+
+        result := ComCall(13, this, "uint", nChannel, pfLevelMarshal, pfLevel, "HRESULT")
         return result
     }
 
@@ -190,7 +200,10 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getvolumestepinfo
      */
     GetVolumeStepInfo(pnStep, pnStepCount) {
-        result := ComCall(16, this, "uint*", pnStep, "uint*", pnStepCount, "HRESULT")
+        pnStepMarshal := pnStep is VarRef ? "uint*" : "ptr"
+        pnStepCountMarshal := pnStepCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pnStepMarshal, pnStep, pnStepCountMarshal, pnStepCount, "HRESULT")
         return result
     }
 
@@ -223,7 +236,9 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-queryhardwaresupport
      */
     QueryHardwareSupport(pdwHardwareSupportMask) {
-        result := ComCall(19, this, "uint*", pdwHardwareSupportMask, "HRESULT")
+        pdwHardwareSupportMaskMarshal := pdwHardwareSupportMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pdwHardwareSupportMaskMarshal, pdwHardwareSupportMask, "HRESULT")
         return result
     }
 
@@ -236,7 +251,11 @@ class IAudioEndpointVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getvolumerange
      */
     GetVolumeRange(pflVolumeMindB, pflVolumeMaxdB, pflVolumeIncrementdB) {
-        result := ComCall(20, this, "float*", pflVolumeMindB, "float*", pflVolumeMaxdB, "float*", pflVolumeIncrementdB, "HRESULT")
+        pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : "ptr"
+        pflVolumeMaxdBMarshal := pflVolumeMaxdB is VarRef ? "float*" : "ptr"
+        pflVolumeIncrementdBMarshal := pflVolumeIncrementdB is VarRef ? "float*" : "ptr"
+
+        result := ComCall(20, this, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "HRESULT")
         return result
     }
 }

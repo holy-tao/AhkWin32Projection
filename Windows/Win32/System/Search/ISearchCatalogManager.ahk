@@ -77,7 +77,10 @@ class ISearchCatalogManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getcatalogstatus
      */
     GetCatalogStatus(pStatus, pPausedReason) {
-        result := ComCall(6, this, "int*", pStatus, "int*", pPausedReason, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        pPausedReasonMarshal := pPausedReason is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pStatusMarshal, pStatus, pPausedReasonMarshal, pPausedReason, "HRESULT")
         return result
     }
 
@@ -145,7 +148,9 @@ class ISearchCatalogManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_connecttimeout
      */
     get_ConnectTimeout(pdwConnectTimeout) {
-        result := ComCall(12, this, "uint*", pdwConnectTimeout, "HRESULT")
+        pdwConnectTimeoutMarshal := pdwConnectTimeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwConnectTimeoutMarshal, pdwConnectTimeout, "HRESULT")
         return result
     }
 
@@ -167,7 +172,9 @@ class ISearchCatalogManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_datatimeout
      */
     get_DataTimeout(pdwDataTimeout) {
-        result := ComCall(14, this, "uint*", pdwDataTimeout, "HRESULT")
+        pdwDataTimeoutMarshal := pdwDataTimeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwDataTimeoutMarshal, pdwDataTimeout, "HRESULT")
         return result
     }
 
@@ -178,7 +185,9 @@ class ISearchCatalogManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-numberofitems
      */
     NumberOfItems(plCount) {
-        result := ComCall(15, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -191,7 +200,11 @@ class ISearchCatalogManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-numberofitemstoindex
      */
     NumberOfItemsToIndex(plIncrementalCount, plNotificationQueue, plHighPriorityQueue) {
-        result := ComCall(16, this, "int*", plIncrementalCount, "int*", plNotificationQueue, "int*", plHighPriorityQueue, "HRESULT")
+        plIncrementalCountMarshal := plIncrementalCount is VarRef ? "int*" : "ptr"
+        plNotificationQueueMarshal := plNotificationQueue is VarRef ? "int*" : "ptr"
+        plHighPriorityQueueMarshal := plHighPriorityQueue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plIncrementalCountMarshal, plIncrementalCount, plNotificationQueueMarshal, plNotificationQueue, plHighPriorityQueueMarshal, plHighPriorityQueue, "HRESULT")
         return result
     }
 
@@ -216,7 +229,9 @@ class ISearchCatalogManager extends IUnknown{
     GetURLIndexingState(pszURL, pdwState) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(18, this, "ptr", pszURL, "uint*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", pszURL, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 
@@ -242,7 +257,9 @@ class ISearchCatalogManager extends IUnknown{
     RegisterViewForNotification(pszView, pViewChangedSink, pdwCookie) {
         pszView := pszView is String ? StrPtr(pszView) : pszView
 
-        result := ComCall(20, this, "ptr", pszView, "ptr", pViewChangedSink, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "ptr", pszView, "ptr", pViewChangedSink, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -258,7 +275,9 @@ class ISearchCatalogManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getitemschangedsink
      */
     GetItemsChangedSink(pISearchNotifyInlineSite, riid, ppv, pGUIDCatalogResetSignature, pGUIDCheckPointSignature, pdwLastCheckPointNumber) {
-        result := ComCall(21, this, "ptr", pISearchNotifyInlineSite, "ptr", riid, "ptr*", ppv, "ptr", pGUIDCatalogResetSignature, "ptr", pGUIDCheckPointSignature, "uint*", pdwLastCheckPointNumber, "HRESULT")
+        pdwLastCheckPointNumberMarshal := pdwLastCheckPointNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr", pISearchNotifyInlineSite, "ptr", riid, "ptr*", ppv, "ptr", pGUIDCatalogResetSignature, "ptr", pGUIDCheckPointSignature, pdwLastCheckPointNumberMarshal, pdwLastCheckPointNumber, "HRESULT")
         return result
     }
 

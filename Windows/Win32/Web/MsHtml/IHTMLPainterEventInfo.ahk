@@ -34,7 +34,9 @@ class IHTMLPainterEventInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventInfoFlags(plEventInfoFlags) {
-        result := ComCall(3, this, "int*", plEventInfoFlags, "HRESULT")
+        plEventInfoFlagsMarshal := plEventInfoFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plEventInfoFlagsMarshal, plEventInfoFlags, "HRESULT")
         return result
     }
 

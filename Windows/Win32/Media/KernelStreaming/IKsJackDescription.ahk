@@ -68,7 +68,9 @@ class IKsJackDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjackdescription-getjackcount
      */
     GetJackCount(pcJacks) {
-        result := ComCall(3, this, "uint*", pcJacks, "HRESULT")
+        pcJacksMarshal := pcJacks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcJacksMarshal, pcJacks, "HRESULT")
         return result
     }
 

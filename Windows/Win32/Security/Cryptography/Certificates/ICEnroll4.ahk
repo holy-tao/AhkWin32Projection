@@ -348,7 +348,9 @@ class ICEnroll4 extends ICEnroll3{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex
      */
     GetKeyLenEx(lSizeSpec, lKeySpec, pdwKeySize) {
-        result := ComCall(105, this, "int", lSizeSpec, "int", lKeySpec, "int*", pdwKeySize, "HRESULT")
+        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(105, this, "int", lSizeSpec, "int", lKeySpec, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
         return result
     }
 
@@ -362,7 +364,9 @@ class ICEnroll4 extends ICEnroll3{
     InstallPKCS7Ex(PKCS7, plCertInstalled) {
         PKCS7 := PKCS7 is String ? BSTR.Alloc(PKCS7).Value : PKCS7
 
-        result := ComCall(106, this, "ptr", PKCS7, "int*", plCertInstalled, "HRESULT")
+        plCertInstalledMarshal := plCertInstalled is VarRef ? "int*" : "ptr"
+
+        result := ComCall(106, this, "ptr", PKCS7, plCertInstalledMarshal, plCertInstalled, "HRESULT")
         return result
     }
 
@@ -393,7 +397,9 @@ class ICEnroll4 extends ICEnroll3{
     getProviderType(strProvName, plProvType) {
         strProvName := strProvName is String ? BSTR.Alloc(strProvName).Value : strProvName
 
-        result := ComCall(108, this, "ptr", strProvName, "int*", plProvType, "HRESULT")
+        plProvTypeMarshal := plProvType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(108, this, "ptr", strProvName, plProvTypeMarshal, plProvType, "HRESULT")
         return result
     }
 
@@ -428,7 +434,9 @@ class ICEnroll4 extends ICEnroll3{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_clientid
      */
     get_ClientId(plClientId) {
-        result := ComCall(111, this, "int*", plClientId, "HRESULT")
+        plClientIdMarshal := plClientId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(111, this, plClientIdMarshal, plClientId, "HRESULT")
         return result
     }
 

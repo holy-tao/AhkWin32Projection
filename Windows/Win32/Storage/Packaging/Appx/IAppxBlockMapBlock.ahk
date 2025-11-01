@@ -47,7 +47,9 @@ class IAppxBlockMapBlock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-gethash
      */
     GetHash(bufferSize, buffer) {
-        result := ComCall(3, this, "uint*", bufferSize, "ptr*", buffer, "HRESULT")
+        bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, bufferSizeMarshal, bufferSize, "ptr*", buffer, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IAppxBlockMapBlock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-getcompressedsize
      */
     GetCompressedSize(size) {
-        result := ComCall(4, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, sizeMarshal, size, "HRESULT")
         return result
     }
 }

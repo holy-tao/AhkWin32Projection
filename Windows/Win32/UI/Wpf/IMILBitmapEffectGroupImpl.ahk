@@ -48,7 +48,9 @@ class IMILBitmapEffectGroupImpl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroupimpl-getnumberchildren
      */
     GetNumberChildren(puiNumberChildren) {
-        result := ComCall(4, this, "uint*", puiNumberChildren, "HRESULT")
+        puiNumberChildrenMarshal := puiNumberChildren is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, puiNumberChildrenMarshal, puiNumberChildren, "HRESULT")
         return result
     }
 

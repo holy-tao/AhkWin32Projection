@@ -37,7 +37,9 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-getdatabroadcastid
      */
     GetDataBroadcastID(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-getcomponenttag
      */
     GetComponentTag(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-getselectorlength
      */
     GetSelectorLength(pbVal) {
-        result := ComCall(7, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -93,7 +103,10 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-getselectorbytes
      */
     GetSelectorBytes(pbLen, pbVal) {
-        result := ComCall(8, this, "char*", pbLen, "char*", pbVal, "HRESULT")
+        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbLenMarshal, pbLen, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -104,7 +117,9 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-getlangid
      */
     GetLangID(pulVal) {
-        result := ComCall(9, this, "uint*", pulVal, "HRESULT")
+        pulValMarshal := pulVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pulValMarshal, pulVal, "HRESULT")
         return result
     }
 
@@ -115,7 +130,9 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-gettextlength
      */
     GetTextLength(pbVal) {
-        result := ComCall(10, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -127,7 +144,10 @@ class IDvbDataBroadcastDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-gettext
      */
     GetText(pbLen, pbVal) {
-        result := ComCall(11, this, "char*", pbLen, "char*", pbVal, "HRESULT")
+        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, pbLenMarshal, pbLen, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

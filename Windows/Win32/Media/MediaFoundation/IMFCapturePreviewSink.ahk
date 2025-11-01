@@ -114,7 +114,9 @@ class IMFCapturePreviewSink extends IMFCaptureSink{
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-getrotation
      */
     GetRotation(dwStreamIndex, pdwRotationValue) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "uint*", pdwRotationValue, "HRESULT")
+        pdwRotationValueMarshal := pdwRotationValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", dwStreamIndex, pdwRotationValueMarshal, pdwRotationValue, "HRESULT")
         return result
     }
 

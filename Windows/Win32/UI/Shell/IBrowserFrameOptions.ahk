@@ -38,7 +38,9 @@ class IBrowserFrameOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibrowserframeoptions-getframeoptions
      */
     GetFrameOptions(dwMask, pdwOptions) {
-        result := ComCall(3, this, "uint", dwMask, "uint*", pdwOptions, "HRESULT")
+        pdwOptionsMarshal := pdwOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwMask, pdwOptionsMarshal, pdwOptions, "HRESULT")
         return result
     }
 }

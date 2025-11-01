@@ -47,7 +47,9 @@ class IAudioProcessingObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getlatency
      */
     GetLatency(pTime) {
-        result := ComCall(4, this, "int64*", pTime, "HRESULT")
+        pTimeMarshal := pTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, pTimeMarshal, pTime, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class IAudioProcessingObject extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(cbDataSize, pbyData) {
-        result := ComCall(6, this, "uint", cbDataSize, "char*", pbyData, "HRESULT")
+        pbyDataMarshal := pbyData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "uint", cbDataSize, pbyDataMarshal, pbyData, "HRESULT")
         return result
     }
 
@@ -117,7 +121,9 @@ class IAudioProcessingObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getinputchannelcount
      */
     GetInputChannelCount(pu32ChannelCount) {
-        result := ComCall(9, this, "uint*", pu32ChannelCount, "HRESULT")
+        pu32ChannelCountMarshal := pu32ChannelCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pu32ChannelCountMarshal, pu32ChannelCount, "HRESULT")
         return result
     }
 }

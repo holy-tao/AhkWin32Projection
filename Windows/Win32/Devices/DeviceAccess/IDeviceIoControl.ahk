@@ -42,7 +42,11 @@ class IDeviceIoControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-ideviceiocontrol-deviceiocontrolsync
      */
     DeviceIoControlSync(ioControlCode, inputBuffer, inputBufferSize, outputBuffer, outputBufferSize, bytesReturned) {
-        result := ComCall(3, this, "uint", ioControlCode, "char*", inputBuffer, "uint", inputBufferSize, "char*", outputBuffer, "uint", outputBufferSize, "uint*", bytesReturned, "HRESULT")
+        inputBufferMarshal := inputBuffer is VarRef ? "char*" : "ptr"
+        outputBufferMarshal := outputBuffer is VarRef ? "char*" : "ptr"
+        bytesReturnedMarshal := bytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", ioControlCode, inputBufferMarshal, inputBuffer, "uint", inputBufferSize, outputBufferMarshal, outputBuffer, "uint", outputBufferSize, bytesReturnedMarshal, bytesReturned, "HRESULT")
         return result
     }
 
@@ -59,7 +63,11 @@ class IDeviceIoControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-ideviceiocontrol-deviceiocontrolasync
      */
     DeviceIoControlAsync(ioControlCode, inputBuffer, inputBufferSize, outputBuffer, outputBufferSize, requestCompletionCallback, cancelContext) {
-        result := ComCall(4, this, "uint", ioControlCode, "char*", inputBuffer, "uint", inputBufferSize, "char*", outputBuffer, "uint", outputBufferSize, "ptr", requestCompletionCallback, "ptr*", cancelContext, "HRESULT")
+        inputBufferMarshal := inputBuffer is VarRef ? "char*" : "ptr"
+        outputBufferMarshal := outputBuffer is VarRef ? "char*" : "ptr"
+        cancelContextMarshal := cancelContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", ioControlCode, inputBufferMarshal, inputBuffer, "uint", inputBufferSize, outputBufferMarshal, outputBuffer, "uint", outputBufferSize, "ptr", requestCompletionCallback, cancelContextMarshal, cancelContext, "HRESULT")
         return result
     }
 

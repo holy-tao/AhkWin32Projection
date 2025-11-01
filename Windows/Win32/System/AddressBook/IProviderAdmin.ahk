@@ -64,7 +64,9 @@ class IProviderAdmin extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-createprovider
      */
     CreateProvider(lpszProvider, cValues, lpProps, ulUIParam, ulFlags, lpUID) {
-        result := ComCall(5, this, "char*", lpszProvider, "uint", cValues, "ptr", lpProps, "ptr", ulUIParam, "uint", ulFlags, "ptr", lpUID, "HRESULT")
+        lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, lpszProviderMarshal, lpszProvider, "uint", cValues, "ptr", lpProps, "ptr", ulUIParam, "uint", ulFlags, "ptr", lpUID, "HRESULT")
         return result
     }
 

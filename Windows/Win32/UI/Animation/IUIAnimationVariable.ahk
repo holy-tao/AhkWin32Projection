@@ -44,7 +44,9 @@ class IUIAnimationVariable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getvalue
      */
     GetValue(value) {
-        result := ComCall(3, this, "double*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(3, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IUIAnimationVariable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getfinalvalue
      */
     GetFinalValue(finalValue) {
-        result := ComCall(4, this, "double*", finalValue, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, finalValueMarshal, finalValue, "HRESULT")
         return result
     }
 
@@ -66,7 +70,9 @@ class IUIAnimationVariable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getpreviousvalue
      */
     GetPreviousValue(previousValue) {
-        result := ComCall(5, this, "double*", previousValue, "HRESULT")
+        previousValueMarshal := previousValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, previousValueMarshal, previousValue, "HRESULT")
         return result
     }
 
@@ -77,7 +83,9 @@ class IUIAnimationVariable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getintegervalue
      */
     GetIntegerValue(value) {
-        result := ComCall(6, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -88,7 +96,9 @@ class IUIAnimationVariable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getfinalintegervalue
      */
     GetFinalIntegerValue(finalValue) {
-        result := ComCall(7, this, "int*", finalValue, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, finalValueMarshal, finalValue, "HRESULT")
         return result
     }
 
@@ -99,7 +109,9 @@ class IUIAnimationVariable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-getpreviousintegervalue
      */
     GetPreviousIntegerValue(previousValue) {
-        result := ComCall(8, this, "int*", previousValue, "HRESULT")
+        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, previousValueMarshal, previousValue, "HRESULT")
         return result
     }
 
@@ -167,7 +179,9 @@ class IUIAnimationVariable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-gettag
      */
     GetTag(object, id) {
-        result := ComCall(14, this, "ptr*", object, "uint*", id, "HRESULT")
+        idMarshal := id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr*", object, idMarshal, id, "HRESULT")
         return result
     }
 

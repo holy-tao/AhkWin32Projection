@@ -43,7 +43,9 @@ class IFtpAuthorizationProvider extends IUnknown{
         pszVirtualPath := pszVirtualPath is String ? StrPtr(pszVirtualPath) : pszVirtualPath
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszVirtualPath, "ptr", pszUserName, "int*", pFtpAccess, "HRESULT")
+        pFtpAccessMarshal := pFtpAccess is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszVirtualPath, "ptr", pszUserName, pFtpAccessMarshal, pFtpAccess, "HRESULT")
         return result
     }
 }

@@ -66,7 +66,9 @@ class Properties extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(Count) {
-        result := ComCall(9, this, "int*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, CountMarshal, Count, "HRESULT")
         return result
     }
 

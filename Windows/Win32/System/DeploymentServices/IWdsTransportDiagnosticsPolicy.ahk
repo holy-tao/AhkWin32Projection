@@ -65,7 +65,9 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_components
      */
     get_Components(pulComponents) {
-        result := ComCall(13, this, "uint*", pulComponents, "HRESULT")
+        pulComponentsMarshal := pulComponents is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pulComponentsMarshal, pulComponents, "HRESULT")
         return result
     }
 

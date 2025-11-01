@@ -227,7 +227,9 @@ class Vhd {
     static GetVirtualDiskPhysicalPath(VirtualDiskHandle, DiskPathSizeInBytes, DiskPath) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\GetVirtualDiskPhysicalPath", "ptr", VirtualDiskHandle, "uint*", DiskPathSizeInBytes, "ptr", DiskPath, "uint")
+        DiskPathSizeInBytesMarshal := DiskPathSizeInBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VirtDisk.dll\GetVirtualDiskPhysicalPath", "ptr", VirtualDiskHandle, DiskPathSizeInBytesMarshal, DiskPathSizeInBytes, "ptr", DiskPath, "uint")
         return result
     }
 
@@ -238,7 +240,9 @@ class Vhd {
      * @returns {Integer} 
      */
     static GetAllAttachedVirtualDiskPhysicalPaths(PathsBufferSizeInBytes, PathsBuffer) {
-        result := DllCall("VirtDisk.dll\GetAllAttachedVirtualDiskPhysicalPaths", "uint*", PathsBufferSizeInBytes, "ptr", PathsBuffer, "uint")
+        PathsBufferSizeInBytesMarshal := PathsBufferSizeInBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VirtDisk.dll\GetAllAttachedVirtualDiskPhysicalPaths", PathsBufferSizeInBytesMarshal, PathsBufferSizeInBytes, "ptr", PathsBuffer, "uint")
         return result
     }
 
@@ -273,7 +277,9 @@ class Vhd {
     static GetStorageDependencyInformation(ObjectHandle, Flags, StorageDependencyInfoSize, StorageDependencyInfo, SizeUsed) {
         ObjectHandle := ObjectHandle is Win32Handle ? NumGet(ObjectHandle, "ptr") : ObjectHandle
 
-        result := DllCall("VirtDisk.dll\GetStorageDependencyInformation", "ptr", ObjectHandle, "int", Flags, "uint", StorageDependencyInfoSize, "ptr", StorageDependencyInfo, "uint*", SizeUsed, "uint")
+        SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VirtDisk.dll\GetStorageDependencyInformation", "ptr", ObjectHandle, "int", Flags, "uint", StorageDependencyInfoSize, "ptr", StorageDependencyInfo, SizeUsedMarshal, SizeUsed, "uint")
         return result
     }
 
@@ -304,7 +310,10 @@ class Vhd {
     static GetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfoSize, VirtualDiskInfo, SizeUsed) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\GetVirtualDiskInformation", "ptr", VirtualDiskHandle, "uint*", VirtualDiskInfoSize, "ptr", VirtualDiskInfo, "uint*", SizeUsed, "uint")
+        VirtualDiskInfoSizeMarshal := VirtualDiskInfoSize is VarRef ? "uint*" : "ptr"
+        SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VirtDisk.dll\GetVirtualDiskInformation", "ptr", VirtualDiskHandle, VirtualDiskInfoSizeMarshal, VirtualDiskInfoSize, "ptr", VirtualDiskInfo, SizeUsedMarshal, SizeUsed, "uint")
         return result
     }
 
@@ -357,7 +366,9 @@ class Vhd {
     static EnumerateVirtualDiskMetadata(VirtualDiskHandle, NumberOfItems, Items) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\EnumerateVirtualDiskMetadata", "ptr", VirtualDiskHandle, "uint*", NumberOfItems, "ptr", Items, "uint")
+        NumberOfItemsMarshal := NumberOfItems is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VirtDisk.dll\EnumerateVirtualDiskMetadata", "ptr", VirtualDiskHandle, NumberOfItemsMarshal, NumberOfItems, "ptr", Items, "uint")
         return result
     }
 
@@ -386,7 +397,9 @@ class Vhd {
     static GetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\GetVirtualDiskMetadata", "ptr", VirtualDiskHandle, "ptr", Item, "uint*", MetaDataSize, "ptr", MetaData, "uint")
+        MetaDataSizeMarshal := MetaDataSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VirtDisk.dll\GetVirtualDiskMetadata", "ptr", VirtualDiskHandle, "ptr", Item, MetaDataSizeMarshal, MetaDataSize, "ptr", MetaData, "uint")
         return result
     }
 
@@ -651,8 +664,8 @@ class Vhd {
      * @since windows8.0
      */
     static AddVirtualDiskParent(VirtualDiskHandle, ParentPath) {
-        ParentPath := ParentPath is String ? StrPtr(ParentPath) : ParentPath
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+        ParentPath := ParentPath is String ? StrPtr(ParentPath) : ParentPath
 
         result := DllCall("VirtDisk.dll\AddVirtualDiskParent", "ptr", VirtualDiskHandle, "ptr", ParentPath, "uint")
         return result
@@ -683,10 +696,13 @@ class Vhd {
      * @since windows10.0.10240
      */
     static QueryChangesVirtualDisk(VirtualDiskHandle, ChangeTrackingId, ByteOffset, ByteLength, Flags, Ranges, RangeCount, ProcessedLength) {
-        ChangeTrackingId := ChangeTrackingId is String ? StrPtr(ChangeTrackingId) : ChangeTrackingId
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+        ChangeTrackingId := ChangeTrackingId is String ? StrPtr(ChangeTrackingId) : ChangeTrackingId
 
-        result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", "ptr", VirtualDiskHandle, "ptr", ChangeTrackingId, "uint", ByteOffset, "uint", ByteLength, "int", Flags, "ptr", Ranges, "uint*", RangeCount, "uint*", ProcessedLength, "uint")
+        RangeCountMarshal := RangeCount is VarRef ? "uint*" : "ptr"
+        ProcessedLengthMarshal := ProcessedLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", "ptr", VirtualDiskHandle, "ptr", ChangeTrackingId, "uint", ByteOffset, "uint", ByteLength, "int", Flags, "ptr", Ranges, RangeCountMarshal, RangeCount, ProcessedLengthMarshal, ProcessedLength, "uint")
         return result
     }
 

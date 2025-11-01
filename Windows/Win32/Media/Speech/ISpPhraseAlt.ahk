@@ -37,7 +37,11 @@ class ISpPhraseAlt extends ISpPhrase{
      * @returns {HRESULT} 
      */
     GetAltInfo(ppParent, pulStartElementInParent, pcElementsInParent, pcElementsInAlt) {
-        result := ComCall(7, this, "ptr*", ppParent, "uint*", pulStartElementInParent, "uint*", pcElementsInParent, "uint*", pcElementsInAlt, "HRESULT")
+        pulStartElementInParentMarshal := pulStartElementInParent is VarRef ? "uint*" : "ptr"
+        pcElementsInParentMarshal := pcElementsInParent is VarRef ? "uint*" : "ptr"
+        pcElementsInAltMarshal := pcElementsInAlt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr*", ppParent, pulStartElementInParentMarshal, pulStartElementInParent, pcElementsInParentMarshal, pcElementsInParent, pcElementsInAltMarshal, pcElementsInAlt, "HRESULT")
         return result
     }
 

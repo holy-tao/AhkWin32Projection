@@ -54,7 +54,12 @@ class IMixerPinConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getrelativeposition
      */
     GetRelativePosition(pdwLeft, pdwTop, pdwRight, pdwBottom) {
-        result := ComCall(4, this, "uint*", pdwLeft, "uint*", pdwTop, "uint*", pdwRight, "uint*", pdwBottom, "HRESULT")
+        pdwLeftMarshal := pdwLeft is VarRef ? "uint*" : "ptr"
+        pdwTopMarshal := pdwTop is VarRef ? "uint*" : "ptr"
+        pdwRightMarshal := pdwRight is VarRef ? "uint*" : "ptr"
+        pdwBottomMarshal := pdwBottom is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwLeftMarshal, pdwLeft, pdwTopMarshal, pdwTop, pdwRightMarshal, pdwRight, pdwBottomMarshal, pdwBottom, "HRESULT")
         return result
     }
 
@@ -76,7 +81,9 @@ class IMixerPinConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getzorder
      */
     GetZOrder(pdwZOrder) {
-        result := ComCall(6, this, "uint*", pdwZOrder, "HRESULT")
+        pdwZOrderMarshal := pdwZOrder is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwZOrderMarshal, pdwZOrder, "HRESULT")
         return result
     }
 
@@ -99,7 +106,9 @@ class IMixerPinConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getcolorkey
      */
     GetColorKey(pColorKey, pColor) {
-        result := ComCall(8, this, "ptr", pColorKey, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pColorKey, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -121,7 +130,9 @@ class IMixerPinConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getblendingparameter
      */
     GetBlendingParameter(pdwBlendingParameter) {
-        result := ComCall(10, this, "uint*", pdwBlendingParameter, "HRESULT")
+        pdwBlendingParameterMarshal := pdwBlendingParameter is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwBlendingParameterMarshal, pdwBlendingParameter, "HRESULT")
         return result
     }
 
@@ -143,7 +154,9 @@ class IMixerPinConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getaspectratiomode
      */
     GetAspectRatioMode(pamAspectRatioMode) {
-        result := ComCall(12, this, "int*", pamAspectRatioMode, "HRESULT")
+        pamAspectRatioModeMarshal := pamAspectRatioMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pamAspectRatioModeMarshal, pamAspectRatioMode, "HRESULT")
         return result
     }
 

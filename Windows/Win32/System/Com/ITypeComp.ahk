@@ -44,7 +44,9 @@ class ITypeComp extends IUnknown{
     Bind(szName, lHashVal, wFlags, ppTInfo, pDescKind, pBindPtr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "uint", lHashVal, "ushort", wFlags, "ptr*", ppTInfo, "int*", pDescKind, "ptr", pBindPtr, "HRESULT")
+        pDescKindMarshal := pDescKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", szName, "uint", lHashVal, "ushort", wFlags, "ptr*", ppTInfo, pDescKindMarshal, pDescKind, "ptr", pBindPtr, "HRESULT")
         return result
     }
 

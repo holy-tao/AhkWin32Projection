@@ -57,7 +57,9 @@ class IMFSinkWriter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-addstream
      */
     AddStream(pTargetMediaType, pdwStreamIndex) {
-        result := ComCall(3, this, "ptr", pTargetMediaType, "uint*", pdwStreamIndex, "HRESULT")
+        pdwStreamIndexMarshal := pdwStreamIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pTargetMediaType, pdwStreamIndexMarshal, pdwStreamIndex, "HRESULT")
         return result
     }
 
@@ -116,7 +118,9 @@ class IMFSinkWriter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-placemarker
      */
     PlaceMarker(dwStreamIndex, pvContext) {
-        result := ComCall(8, this, "uint", dwStreamIndex, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
