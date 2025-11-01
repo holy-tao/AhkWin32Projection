@@ -2265,6 +2265,11 @@ class Direct3D12 {
     static CLSID_D3D12DSRDeviceFactory => "{bb6dd27e-94a9-41a6-9f1b-133772172428}"
 
     /**
+     * @type {String}
+     */
+    static CLSID_D3D12StateObjectFactory => "{54e1c9f3-1303-4112-bf8e-7bf2bb606a73}"
+
+    /**
      * @type {Integer (UInt32)}
      */
     static D3D12_SHADING_RATE_X_AXIS_SHIFT => 2
