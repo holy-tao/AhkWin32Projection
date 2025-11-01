@@ -38,7 +38,9 @@ class IWMWriterPostView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-setpostviewcallback
      */
     SetPostViewCallback(pCallback, pvContext) {
-        result := ComCall(3, this, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IWMWriterPostView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getpostviewformatcount
      */
     GetPostViewFormatCount(wStreamNumber, pcFormats) {
-        result := ComCall(8, this, "ushort", wStreamNumber, "uint*", pcFormats, "HRESULT")
+        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ushort", wStreamNumber, pcFormatsMarshal, pcFormats, "HRESULT")
         return result
     }
 

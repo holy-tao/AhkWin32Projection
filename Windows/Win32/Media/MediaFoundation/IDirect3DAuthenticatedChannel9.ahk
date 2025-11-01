@@ -37,7 +37,9 @@ class IDirect3DAuthenticatedChannel9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificatesize
      */
     GetCertificateSize(pCertificateSize) {
-        result := ComCall(3, this, "uint*", pCertificateSize, "HRESULT")
+        pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCertificateSizeMarshal, pCertificateSize, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IDirect3DAuthenticatedChannel9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificate
      */
     GetCertificate(CertifacteSize, ppCertificate) {
-        result := ComCall(4, this, "uint", CertifacteSize, "char*", ppCertificate, "HRESULT")
+        ppCertificateMarshal := ppCertificate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
         return result
     }
 
@@ -61,7 +65,9 @@ class IDirect3DAuthenticatedChannel9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-negotiatekeyexchange
      */
     NegotiateKeyExchange(DataSize, pData) {
-        result := ComCall(5, this, "uint", DataSize, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "uint", DataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -75,7 +81,10 @@ class IDirect3DAuthenticatedChannel9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-query
      */
     Query(InputSize, pInput, OutputSize, pOutput) {
-        result := ComCall(6, this, "uint", InputSize, "ptr", pInput, "uint", OutputSize, "ptr", pOutput, "HRESULT")
+        pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
+        pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "uint", InputSize, pInputMarshal, pInput, "uint", OutputSize, pOutputMarshal, pOutput, "HRESULT")
         return result
     }
 
@@ -88,7 +97,9 @@ class IDirect3DAuthenticatedChannel9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-configure
      */
     Configure(InputSize, pInput, pOutput) {
-        result := ComCall(7, this, "uint", InputSize, "ptr", pInput, "ptr", pOutput, "HRESULT")
+        pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "uint", InputSize, pInputMarshal, pInput, "ptr", pOutput, "HRESULT")
         return result
     }
 }

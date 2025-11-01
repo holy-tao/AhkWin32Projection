@@ -65,7 +65,10 @@ class ISyncChangeBatchAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchadvanced-getupperbounditemid
      */
     GetUpperBoundItemId(pbItemId, pcbIdSize) {
-        result := ComCall(5, this, "char*", pbItemId, "uint*", pcbIdSize, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 

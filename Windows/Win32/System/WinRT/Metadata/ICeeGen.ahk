@@ -37,7 +37,9 @@ class ICeeGen extends IUnknown{
     EmitString(lpString, RVA) {
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := ComCall(3, this, "ptr", lpString, "uint*", RVA, "HRESULT")
+        RVAMarshal := RVA is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", lpString, RVAMarshal, RVA, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     AllocateMethodBuffer(cchBuffer, lpBuffer, RVA) {
-        result := ComCall(5, this, "uint", cchBuffer, "ptr*", lpBuffer, "uint*", RVA, "HRESULT")
+        RVAMarshal := RVA is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", cchBuffer, "ptr*", lpBuffer, RVAMarshal, RVA, "HRESULT")
         return result
     }
 
@@ -123,7 +127,10 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     AddSectionReloc(section, offset, relativeTo, relocType) {
-        result := ComCall(11, this, "ptr", section, "uint", offset, "ptr", relativeTo, "int", relocType, "HRESULT")
+        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+        relativeToMarshal := relativeTo is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, sectionMarshal, section, "uint", offset, relativeToMarshal, relativeTo, "int", relocType, "HRESULT")
         return result
     }
 
@@ -148,7 +155,10 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSectionDataLen(section, dataLen) {
-        result := ComCall(13, this, "ptr", section, "uint*", dataLen, "HRESULT")
+        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+        dataLenMarshal := dataLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, sectionMarshal, section, dataLenMarshal, dataLen, "HRESULT")
         return result
     }
 
@@ -161,7 +171,9 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSectionBlock(section, len, align, ppBytes) {
-        result := ComCall(14, this, "ptr", section, "uint", len, "uint", align, "ptr*", ppBytes, "HRESULT")
+        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(14, this, sectionMarshal, section, "uint", len, "uint", align, "ptr*", ppBytes, "HRESULT")
         return result
     }
 
@@ -172,7 +184,9 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     TruncateSection(section, len) {
-        result := ComCall(15, this, "ptr", section, "uint", len, "HRESULT")
+        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(15, this, sectionMarshal, section, "uint", len, "HRESULT")
         return result
     }
 
@@ -194,7 +208,9 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     ComputePointer(section, RVA, lpBuffer) {
-        result := ComCall(17, this, "ptr", section, "uint", RVA, "ptr*", lpBuffer, "HRESULT")
+        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(17, this, sectionMarshal, section, "uint", RVA, "ptr*", lpBuffer, "HRESULT")
         return result
     }
 }

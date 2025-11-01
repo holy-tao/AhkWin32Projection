@@ -39,7 +39,9 @@ class ISequentialStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-read
      */
     Read(pv, cb, pcbRead) {
-        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", pcbRead, "int")
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pv, "uint", cb, pcbReadMarshal, pcbRead, "int")
         return result
     }
 
@@ -52,7 +54,9 @@ class ISequentialStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-write
      */
     Write(pv, cb, pcbWritten) {
-        result := ComCall(4, this, "ptr", pv, "uint", cb, "uint*", pcbWritten, "int")
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "int")
         return result
     }
 }

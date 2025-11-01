@@ -37,7 +37,9 @@ class IWMPErrorItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_errorcode
      */
     get_errorCode(phr) {
-        result := ComCall(7, this, "int*", phr, "HRESULT")
+        phrMarshal := phr is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, phrMarshal, phr, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IWMPErrorItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_remedy
      */
     get_remedy(plRemedy) {
-        result := ComCall(10, this, "int*", plRemedy, "HRESULT")
+        plRemedyMarshal := plRemedy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plRemedyMarshal, plRemedy, "HRESULT")
         return result
     }
 

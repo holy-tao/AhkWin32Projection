@@ -41,7 +41,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenX(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenY(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -61,7 +65,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientX(p) {
-        result := ComCall(9, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -71,7 +77,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientY(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -121,7 +129,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_button(p) {
-        result := ComCall(15, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -180,7 +190,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_buttons(p) {
-        result := ComCall(19, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(19, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -210,7 +222,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_x(p) {
-        result := ComCall(22, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -220,7 +234,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_y(p) {
-        result := ComCall(23, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -230,7 +246,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetX(p) {
-        result := ComCall(24, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -240,7 +258,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetY(p) {
-        result := ComCall(25, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -250,7 +270,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageX(p) {
-        result := ComCall(26, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -260,7 +282,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageY(p) {
-        result := ComCall(27, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -270,7 +294,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_layerX(p) {
-        result := ComCall(28, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -280,7 +306,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_layerY(p) {
-        result := ComCall(29, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -290,7 +318,9 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_which(p) {
-        result := ComCall(30, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(30, this, pMarshal, p, "HRESULT")
         return result
     }
 }

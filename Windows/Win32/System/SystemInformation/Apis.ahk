@@ -700,7 +700,9 @@ class SystemInformation {
      * @returns {BOOL} 
      */
     static GetSystemLeapSecondInformation(Enabled, Flags) {
-        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "ptr", Enabled, "uint*", Flags, "int")
+        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "ptr", Enabled, FlagsMarshal, Flags, "int")
         return result
     }
 
@@ -786,9 +788,12 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemTimeAdjustment(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
+        lpTimeAdjustmentMarshal := lpTimeAdjustment is VarRef ? "uint*" : "ptr"
+        lpTimeIncrementMarshal := lpTimeIncrement is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -811,9 +816,12 @@ class SystemInformation {
      * @since windows10.0.10240
      */
     static GetSystemTimeAdjustmentPrecise(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
+        lpTimeAdjustmentMarshal := lpTimeAdjustment is VarRef ? "uint*" : "ptr"
+        lpTimeIncrementMarshal := lpTimeIncrement is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1122,9 +1130,11 @@ class SystemInformation {
     static GetComputerNameExA(NameType, lpBuffer, nSize) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "int")
+        result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1271,9 +1281,11 @@ class SystemInformation {
     static GetComputerNameExW(NameType, lpBuffer, nSize) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "int")
+        result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1402,9 +1414,11 @@ class SystemInformation {
      * @since windows6.0.6000
      */
     static GetLogicalProcessorInformation(Buffer, ReturnedLength) {
+        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, "uint*", ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1497,9 +1511,11 @@ class SystemInformation {
      * @since windows6.1
      */
     static GetLogicalProcessorInformationEx(RelationshipType, Buffer, ReturnedLength) {
+        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, "uint*", ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1563,7 +1579,9 @@ class SystemInformation {
      * @since windows6.0.6000
      */
     static GetProductInfo(dwOSMajorVersion, dwOSMinorVersion, dwSpMajorVersion, dwSpMinorVersion, pdwReturnedProductType) {
-        result := DllCall("KERNEL32.dll\GetProductInfo", "uint", dwOSMajorVersion, "uint", dwOSMinorVersion, "uint", dwSpMajorVersion, "uint", dwSpMinorVersion, "uint*", pdwReturnedProductType, "int")
+        pdwReturnedProductTypeMarshal := pdwReturnedProductType is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetProductInfo", "uint", dwOSMajorVersion, "uint", dwOSMinorVersion, "uint", dwSpMajorVersion, "uint", dwSpMinorVersion, pdwReturnedProductTypeMarshal, pdwReturnedProductType, "int")
         return result
     }
 
@@ -1595,7 +1613,9 @@ class SystemInformation {
      * @returns {BOOL} 
      */
     static GetOsSafeBootMode(Flags) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-0.dll\GetOsSafeBootMode", "uint*", Flags, "int")
+        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-0.dll\GetOsSafeBootMode", FlagsMarshal, Flags, "int")
         return result
     }
 
@@ -1667,7 +1687,9 @@ class SystemInformation {
         Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, "int")
         return result
     }
 
@@ -1713,9 +1735,11 @@ class SystemInformation {
      * @since windows6.0.6000
      */
     static GetPhysicallyInstalledSystemMemory(TotalMemoryInKilobytes) {
+        TotalMemoryInKilobytesMarshal := TotalMemoryInKilobytes is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", "uint*", TotalMemoryInKilobytes, "int")
+        result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", TotalMemoryInKilobytesMarshal, TotalMemoryInKilobytes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1808,9 +1832,11 @@ class SystemInformation {
      * @since windows6.1
      */
     static GetProcessorSystemCycleTime(Group, Buffer, ReturnedLength) {
+        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, "uint*", ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, ReturnedLengthMarshal, ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1835,7 +1861,9 @@ class SystemInformation {
      * @since windows10.0.10240
      */
     static GetIntegratedDisplaySize(sizeInInches) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetIntegratedDisplaySize", "double*", sizeInInches, "int")
+        sizeInInchesMarshal := sizeInInches is VarRef ? "double*" : "ptr"
+
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetIntegratedDisplaySize", sizeInInchesMarshal, sizeInInches, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1944,7 +1972,9 @@ class SystemInformation {
 
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, "uint*", ReturnedLength, "ptr", Process, "uint", Flags, "int")
+        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, ReturnedLengthMarshal, ReturnedLength, "ptr", Process, "uint", Flags, "int")
         return result
     }
 
@@ -2077,7 +2107,9 @@ class SystemInformation {
      * @returns {BOOLEAN} 
      */
     static RtlGetProductInfo(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType) {
-        result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, "uint*", ReturnedProductType, "char")
+        ReturnedProductTypeMarshal := ReturnedProductType is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, ReturnedProductTypeMarshal, ReturnedProductType, "char")
         return result
     }
 
@@ -2099,7 +2131,9 @@ class SystemInformation {
      * @returns {Integer} 
      */
     static RtlGetSystemGlobalData(DataId, Buffer, Size) {
-        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, "ptr", Buffer, "uint", Size, "uint")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, BufferMarshal, Buffer, "uint", Size, "uint")
         return result
     }
 
@@ -2112,7 +2146,11 @@ class SystemInformation {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlgetdevicefamilyinfoenum
      */
     static RtlGetDeviceFamilyInfoEnum(pullUAPInfo, pulDeviceFamily, pulDeviceForm) {
-        DllCall("ntdll.dll\RtlGetDeviceFamilyInfoEnum", "uint*", pullUAPInfo, "uint*", pulDeviceFamily, "uint*", pulDeviceForm)
+        pullUAPInfoMarshal := pullUAPInfo is VarRef ? "uint*" : "ptr"
+        pulDeviceFamilyMarshal := pulDeviceFamily is VarRef ? "uint*" : "ptr"
+        pulDeviceFormMarshal := pulDeviceForm is VarRef ? "uint*" : "ptr"
+
+        DllCall("ntdll.dll\RtlGetDeviceFamilyInfoEnum", pullUAPInfoMarshal, pullUAPInfo, pulDeviceFamilyMarshal, pulDeviceFamily, pulDeviceFormMarshal, pulDeviceForm)
     }
 
     /**
@@ -2125,7 +2163,10 @@ class SystemInformation {
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlconvertdevicefamilyinfotostring
      */
     static RtlConvertDeviceFamilyInfoToString(pulDeviceFamilyBufferSize, pulDeviceFormBufferSize, DeviceFamily, DeviceForm) {
-        result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", "uint*", pulDeviceFamilyBufferSize, "uint*", pulDeviceFormBufferSize, "ptr", DeviceFamily, "ptr", DeviceForm, "uint")
+        pulDeviceFamilyBufferSizeMarshal := pulDeviceFamilyBufferSize is VarRef ? "uint*" : "ptr"
+        pulDeviceFormBufferSizeMarshal := pulDeviceFormBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", pulDeviceFamilyBufferSizeMarshal, pulDeviceFamilyBufferSize, pulDeviceFormBufferSizeMarshal, pulDeviceFormBufferSize, "ptr", DeviceFamily, "ptr", DeviceForm, "uint")
         return result
     }
 
@@ -2246,9 +2287,11 @@ class SystemInformation {
      * @since windows8.0
      */
     static GetFirmwareType(FirmwareType) {
+        FirmwareTypeMarshal := FirmwareType is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFirmwareType", "int*", FirmwareType, "int")
+        result := DllCall("KERNEL32.dll\GetFirmwareType", FirmwareTypeMarshal, FirmwareType, "int")
         if(A_LastError)
             throw OSError()
 

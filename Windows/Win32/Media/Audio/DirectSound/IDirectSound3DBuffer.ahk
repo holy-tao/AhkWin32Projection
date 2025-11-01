@@ -45,7 +45,10 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConeAngles(pdwInsideConeAngle, pdwOutsideConeAngle) {
-        result := ComCall(4, this, "uint*", pdwInsideConeAngle, "uint*", pdwOutsideConeAngle, "HRESULT")
+        pdwInsideConeAngleMarshal := pdwInsideConeAngle is VarRef ? "uint*" : "ptr"
+        pdwOutsideConeAngleMarshal := pdwOutsideConeAngle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwInsideConeAngleMarshal, pdwInsideConeAngle, pdwOutsideConeAngleMarshal, pdwOutsideConeAngle, "HRESULT")
         return result
     }
 
@@ -65,7 +68,9 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConeOutsideVolume(plConeOutsideVolume) {
-        result := ComCall(6, this, "int*", plConeOutsideVolume, "HRESULT")
+        plConeOutsideVolumeMarshal := plConeOutsideVolume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, plConeOutsideVolumeMarshal, plConeOutsideVolume, "HRESULT")
         return result
     }
 
@@ -75,7 +80,9 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxDistance(pflMaxDistance) {
-        result := ComCall(7, this, "float*", pflMaxDistance, "HRESULT")
+        pflMaxDistanceMarshal := pflMaxDistance is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, pflMaxDistanceMarshal, pflMaxDistance, "HRESULT")
         return result
     }
 
@@ -85,7 +92,9 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMinDistance(pflMinDistance) {
-        result := ComCall(8, this, "float*", pflMinDistance, "HRESULT")
+        pflMinDistanceMarshal := pflMinDistance is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pflMinDistanceMarshal, pflMinDistance, "HRESULT")
         return result
     }
 
@@ -95,7 +104,9 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMode(pdwMode) {
-        result := ComCall(9, this, "uint*", pdwMode, "HRESULT")
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwModeMarshal, pdwMode, "HRESULT")
         return result
     }
 

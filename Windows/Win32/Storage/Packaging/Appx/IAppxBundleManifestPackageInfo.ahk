@@ -37,7 +37,9 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getpackagetype
      */
     GetPackageType(packageType) {
-        result := ComCall(3, this, "int*", packageType, "HRESULT")
+        packageTypeMarshal := packageType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, packageTypeMarshal, packageType, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getoffset
      */
     GetOffset(offset) {
-        result := ComCall(6, this, "uint*", offset, "HRESULT")
+        offsetMarshal := offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, offsetMarshal, offset, "HRESULT")
         return result
     }
 
@@ -112,7 +116,9 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getsize
      */
     GetSize(size) {
-        result := ComCall(7, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, sizeMarshal, size, "HRESULT")
         return result
     }
 

@@ -3474,7 +3474,9 @@ class Ime {
     static ImmGetCandidateListCountA(param0, lpdwListCount) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("IMM32.dll\ImmGetCandidateListCountA", "ptr", param0, "uint*", lpdwListCount, "uint")
+        lpdwListCountMarshal := lpdwListCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmGetCandidateListCountA", "ptr", param0, lpdwListCountMarshal, lpdwListCount, "uint")
         return result
     }
 
@@ -3489,7 +3491,9 @@ class Ime {
     static ImmGetCandidateListCountW(param0, lpdwListCount) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("IMM32.dll\ImmGetCandidateListCountW", "ptr", param0, "uint*", lpdwListCount, "uint")
+        lpdwListCountMarshal := lpdwListCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmGetCandidateListCountW", "ptr", param0, lpdwListCountMarshal, lpdwListCount, "uint")
         return result
     }
 
@@ -3765,7 +3769,10 @@ class Ime {
     static ImmGetConversionStatus(param0, lpfdwConversion, lpfdwSentence) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("IMM32.dll\ImmGetConversionStatus", "ptr", param0, "uint*", lpfdwConversion, "uint*", lpfdwSentence, "int")
+        lpfdwConversionMarshal := lpfdwConversion is VarRef ? "uint*" : "ptr"
+        lpfdwSentenceMarshal := lpfdwSentence is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmGetConversionStatus", "ptr", param0, lpfdwConversionMarshal, lpfdwConversion, lpfdwSentenceMarshal, lpfdwSentence, "int")
         return result
     }
 
@@ -3888,7 +3895,9 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
-        result := DllCall("IMM32.dll\ImmConfigureIMEA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmConfigureIMEA", "ptr", param0, "ptr", param1, "uint", param2, param3Marshal, param3, "int")
         return result
     }
 
@@ -3906,7 +3915,9 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
-        result := DllCall("IMM32.dll\ImmConfigureIMEW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmConfigureIMEW", "ptr", param0, "ptr", param1, "uint", param2, param3Marshal, param3, "int")
         return result
     }
 
@@ -3924,7 +3935,9 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
-        result := DllCall("IMM32.dll\ImmEscapeA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr")
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmEscapeA", "ptr", param0, "ptr", param1, "uint", param2, param3Marshal, param3, "ptr")
         return result
     }
 
@@ -3942,7 +3955,9 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
-        result := DllCall("IMM32.dll\ImmEscapeW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr")
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmEscapeW", "ptr", param0, "ptr", param1, "uint", param2, param3Marshal, param3, "ptr")
         return result
     }
 
@@ -4269,7 +4284,9 @@ class Ime {
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
 
-        result := DllCall("IMM32.dll\ImmEnumRegisterWordA", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
+        param5Marshal := param5 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmEnumRegisterWordA", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, param5Marshal, param5, "uint")
         return result
     }
 
@@ -4290,7 +4307,9 @@ class Ime {
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
 
-        result := DllCall("IMM32.dll\ImmEnumRegisterWordW", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
+        param5Marshal := param5 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmEnumRegisterWordW", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, param5Marshal, param5, "uint")
         return result
     }
 
@@ -4390,7 +4409,10 @@ class Ime {
      * @returns {BOOL} 
      */
     static ImmGetHotKey(param0, lpuModifiers, lpuVKey, phKL) {
-        result := DllCall("IMM32.dll\ImmGetHotKey", "uint", param0, "uint*", lpuModifiers, "uint*", lpuVKey, "ptr", phKL, "int")
+        lpuModifiersMarshal := lpuModifiers is VarRef ? "uint*" : "ptr"
+        lpuVKeyMarshal := lpuVKey is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("IMM32.dll\ImmGetHotKey", "uint", param0, lpuModifiersMarshal, lpuModifiers, lpuVKeyMarshal, lpuVKey, "ptr", phKL, "int")
         return result
     }
 

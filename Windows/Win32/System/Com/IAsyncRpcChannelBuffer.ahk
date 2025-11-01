@@ -36,7 +36,9 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     Send(pMsg, pSync, pulStatus) {
-        result := ComCall(9, this, "ptr", pMsg, "ptr", pSync, "uint*", pulStatus, "HRESULT")
+        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pMsg, "ptr", pSync, pulStatusMarshal, pulStatus, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     Receive(pMsg, pulStatus) {
-        result := ComCall(10, this, "ptr", pMsg, "uint*", pulStatus, "HRESULT")
+        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pMsg, pulStatusMarshal, pulStatus, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     GetDestCtxEx(pMsg, pdwDestContext, ppvDestContext) {
-        result := ComCall(11, this, "ptr", pMsg, "uint*", pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
+        pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
         return result
     }
 }

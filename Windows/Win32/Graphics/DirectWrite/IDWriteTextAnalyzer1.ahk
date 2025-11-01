@@ -47,7 +47,11 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-applycharacterspacing
      */
     ApplyCharacterSpacing(leadingSpacing, trailingSpacing, minimumAdvanceWidth, textLength, glyphCount, clusterMap, glyphAdvances, glyphOffsets, glyphProperties, modifiedGlyphAdvances, modifiedGlyphOffsets) {
-        result := ComCall(10, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "uint", textLength, "uint", glyphCount, "ushort*", clusterMap, "float*", glyphAdvances, "ptr", glyphOffsets, "ptr", glyphProperties, "float*", modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
+        modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "uint", textLength, "uint", glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "ptr", glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -67,7 +71,9 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
     GetBaseline(fontFace, baseline, isVertical, isSimulationAllowed, scriptAnalysis, localeName, baselineCoordinate, exists) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(11, this, "ptr", fontFace, "int", baseline, "int", isVertical, "int", isSimulationAllowed, "ptr", scriptAnalysis, "ptr", localeName, "int*", baselineCoordinate, "ptr", exists, "HRESULT")
+        baselineCoordinateMarshal := baselineCoordinate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", fontFace, "int", baseline, "int", isVertical, "int", isSimulationAllowed, "ptr", scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, "ptr", exists, "HRESULT")
         return result
     }
 
@@ -124,7 +130,10 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
     GetTextComplexity(textString, textLength, fontFace, isTextSimple, textLengthRead, glyphIndices) {
         textString := textString is String ? StrPtr(textString) : textString
 
-        result := ComCall(15, this, "ptr", textString, "uint", textLength, "ptr", fontFace, "ptr", isTextSimple, "uint*", textLengthRead, "ushort*", glyphIndices, "HRESULT")
+        textLengthReadMarshal := textLengthRead is VarRef ? "uint*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(15, this, "ptr", textString, "uint", textLength, "ptr", fontFace, "ptr", isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "HRESULT")
         return result
     }
 
@@ -145,7 +154,9 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
     GetJustificationOpportunities(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, textString, clusterMap, glyphProperties, justificationOpportunities) {
         textString := textString is String ? StrPtr(textString) : textString
 
-        result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, "ushort*", clusterMap, "ptr", glyphProperties, "ptr", justificationOpportunities, "HRESULT")
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", glyphProperties, "ptr", justificationOpportunities, "HRESULT")
         return result
     }
 
@@ -162,7 +173,10 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-justifyglyphadvances
      */
     JustifyGlyphAdvances(lineWidth, glyphCount, justificationOpportunities, glyphAdvances, glyphOffsets, justifiedGlyphAdvances, justifiedGlyphOffsets) {
-        result := ComCall(17, this, "float", lineWidth, "uint", glyphCount, "ptr", justificationOpportunities, "float*", glyphAdvances, "ptr", glyphOffsets, "float*", justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "HRESULT")
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
+        justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : "ptr"
+
+        result := ComCall(17, this, "float", lineWidth, "uint", glyphCount, "ptr", justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -189,7 +203,16 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustifiedglyphs
      */
     GetJustifiedGlyphs(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, maxGlyphCount, clusterMap, glyphIndices, glyphAdvances, justifiedGlyphAdvances, justifiedGlyphOffsets, glyphProperties, actualGlyphCount, modifiedClusterMap, modifiedGlyphIndices, modifiedGlyphAdvances, modifiedGlyphOffsets) {
-        result := ComCall(18, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "uint", maxGlyphCount, "ushort*", clusterMap, "ushort*", glyphIndices, "float*", glyphAdvances, "float*", justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "ptr", glyphProperties, "uint*", actualGlyphCount, "ushort*", modifiedClusterMap, "ushort*", modifiedGlyphIndices, "float*", modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
+        justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : "ptr"
+        actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : "ptr"
+        modifiedClusterMapMarshal := modifiedClusterMap is VarRef ? "ushort*" : "ptr"
+        modifiedGlyphIndicesMarshal := modifiedGlyphIndices is VarRef ? "ushort*" : "ptr"
+        modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
+
+        result := ComCall(18, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "ptr", glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
         return result
     }
 }

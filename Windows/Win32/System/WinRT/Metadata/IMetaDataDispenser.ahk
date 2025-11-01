@@ -71,7 +71,9 @@ class IMetaDataDispenser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenser-openscopeonmemory
      */
     OpenScopeOnMemory(pData, cbData, dwOpenFlags, riid, ppIUnk) {
-        result := ComCall(5, this, "ptr", pData, "uint", cbData, "uint", dwOpenFlags, "ptr", riid, "ptr*", ppIUnk, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pDataMarshal, pData, "uint", cbData, "uint", dwOpenFlags, "ptr", riid, "ptr*", ppIUnk, "HRESULT")
         return result
     }
 }

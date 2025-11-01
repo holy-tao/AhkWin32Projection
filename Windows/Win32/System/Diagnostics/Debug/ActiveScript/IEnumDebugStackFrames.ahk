@@ -36,7 +36,9 @@ class IEnumDebugStackFrames extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, prgdsfd, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", prgdsfd, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", prgdsfd, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

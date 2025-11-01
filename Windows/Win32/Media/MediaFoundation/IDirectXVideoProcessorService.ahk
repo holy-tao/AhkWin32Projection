@@ -37,7 +37,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-registervideoprocessorsoftwaredevice
      */
     RegisterVideoProcessorSoftwareDevice(pCallbacks) {
-        result := ComCall(4, this, "ptr", pCallbacks, "HRESULT")
+        pCallbacksMarshal := pCallbacks is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pCallbacksMarshal, pCallbacks, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids
      */
     GetVideoProcessorDeviceGuids(pVideoDesc, pCount, pGuids) {
-        result := ComCall(5, this, "ptr", pVideoDesc, "uint*", pCount, "ptr*", pGuids, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pVideoDesc, pCountMarshal, pCount, "ptr*", pGuids, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessorrendertargets
      */
     GetVideoProcessorRenderTargets(VideoProcDeviceGuid, pVideoDesc, pCount, pFormats) {
-        result := ComCall(6, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint*", pCount, "ptr*", pFormats, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, pCountMarshal, pCount, "ptr*", pFormats, "HRESULT")
         return result
     }
 
@@ -79,7 +85,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessorsubstreamformats
      */
     GetVideoProcessorSubStreamFormats(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, pCount, pFormats) {
-        result := ComCall(7, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, "uint*", pCount, "ptr*", pFormats, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, pCountMarshal, pCount, "ptr*", pFormats, "HRESULT")
         return result
     }
 

@@ -40,7 +40,9 @@ class IRowsetNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnFieldChange(pRowset, hRow, cColumns, rgColumns, eReason, ePhase, fCantDeny) {
-        result := ComCall(3, this, "ptr", pRowset, "ptr", hRow, "ptr", cColumns, "ptr*", rgColumns, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
+        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pRowset, "ptr", hRow, "ptr", cColumns, rgColumnsMarshal, rgColumns, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IRowsetNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnRowChange(pRowset, cRows, rghRows, eReason, ePhase, fCantDeny) {
-        result := ComCall(4, this, "ptr", pRowset, "ptr", cRows, "ptr*", rghRows, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pRowset, "ptr", cRows, rghRowsMarshal, rghRows, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
         return result
     }
 

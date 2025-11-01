@@ -37,7 +37,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-closeenum
      */
     CloseEnum(hEnum) {
-        ComCall(3, this, "ptr", hEnum)
+        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+
+        ComCall(3, this, hEnumMarshal, hEnum)
     }
 
     /**
@@ -48,7 +50,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-countenum
      */
     CountEnum(hEnum, pulCount) {
-        result := ComCall(4, this, "ptr", hEnum, "uint*", pulCount, "HRESULT")
+        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, hEnumMarshal, hEnum, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 
@@ -60,7 +65,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-resetenum
      */
     ResetEnum(hEnum, ulPos) {
-        result := ComCall(5, this, "ptr", hEnum, "uint", ulPos, "HRESULT")
+        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, hEnumMarshal, hEnum, "uint", ulPos, "HRESULT")
         return result
     }
 
@@ -74,7 +81,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs
      */
     EnumTypeDefs(phEnum, rTypeDefs, cMax, pcTypeDefs) {
-        result := ComCall(6, this, "ptr*", phEnum, "uint*", rTypeDefs, "uint", cMax, "uint*", pcTypeDefs, "HRESULT")
+        rTypeDefsMarshal := rTypeDefs is VarRef ? "uint*" : "ptr"
+        pcTypeDefsMarshal := pcTypeDefs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", phEnum, rTypeDefsMarshal, rTypeDefs, "uint", cMax, pcTypeDefsMarshal, pcTypeDefs, "HRESULT")
         return result
     }
 
@@ -89,7 +99,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enuminterfaceimpls
      */
     EnumInterfaceImpls(phEnum, td, rImpls, cMax, pcImpls) {
-        result := ComCall(7, this, "ptr*", phEnum, "uint", td, "uint*", rImpls, "uint", cMax, "uint*", pcImpls, "HRESULT")
+        rImplsMarshal := rImpls is VarRef ? "uint*" : "ptr"
+        pcImplsMarshal := pcImpls is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr*", phEnum, "uint", td, rImplsMarshal, rImpls, "uint", cMax, pcImplsMarshal, pcImpls, "HRESULT")
         return result
     }
 
@@ -103,7 +116,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtyperefs
      */
     EnumTypeRefs(phEnum, rTypeRefs, cMax, pcTypeRefs) {
-        result := ComCall(8, this, "ptr*", phEnum, "uint*", rTypeRefs, "uint", cMax, "uint*", pcTypeRefs, "HRESULT")
+        rTypeRefsMarshal := rTypeRefs is VarRef ? "uint*" : "ptr"
+        pcTypeRefsMarshal := pcTypeRefs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr*", phEnum, rTypeRefsMarshal, rTypeRefs, "uint", cMax, pcTypeRefsMarshal, pcTypeRefs, "HRESULT")
         return result
     }
 
@@ -118,7 +134,9 @@ class IMetaDataImport extends IUnknown{
     FindTypeDefByName(szTypeDef, tkEnclosingClass, ptd) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
 
-        result := ComCall(9, this, "ptr", szTypeDef, "uint", tkEnclosingClass, "uint*", ptd, "HRESULT")
+        ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", szTypeDef, "uint", tkEnclosingClass, ptdMarshal, ptd, "HRESULT")
         return result
     }
 
@@ -134,7 +152,9 @@ class IMetaDataImport extends IUnknown{
     GetScopeProps(szName, cchName, pchName, pmvid) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(10, this, "ptr", szName, "uint", cchName, "uint*", pchName, "ptr", pmvid, "HRESULT")
+        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pmvid, "HRESULT")
         return result
     }
 
@@ -145,7 +165,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmodulefromscope
      */
     GetModuleFromScope(pmd) {
-        result := ComCall(11, this, "uint*", pmd, "HRESULT")
+        pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pmdMarshal, pmd, "HRESULT")
         return result
     }
 
@@ -163,7 +185,11 @@ class IMetaDataImport extends IUnknown{
     GetTypeDefProps(td, szTypeDef, cchTypeDef, pchTypeDef, pdwTypeDefFlags, ptkExtends) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
 
-        result := ComCall(12, this, "uint", td, "ptr", szTypeDef, "uint", cchTypeDef, "uint*", pchTypeDef, "uint*", pdwTypeDefFlags, "uint*", ptkExtends, "HRESULT")
+        pchTypeDefMarshal := pchTypeDef is VarRef ? "uint*" : "ptr"
+        pdwTypeDefFlagsMarshal := pdwTypeDefFlags is VarRef ? "uint*" : "ptr"
+        ptkExtendsMarshal := ptkExtends is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", td, "ptr", szTypeDef, "uint", cchTypeDef, pchTypeDefMarshal, pchTypeDef, pdwTypeDefFlagsMarshal, pdwTypeDefFlags, ptkExtendsMarshal, ptkExtends, "HRESULT")
         return result
     }
 
@@ -176,7 +202,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getinterfaceimplprops
      */
     GetInterfaceImplProps(iiImpl, pClass, ptkIface) {
-        result := ComCall(13, this, "uint", iiImpl, "uint*", pClass, "uint*", ptkIface, "HRESULT")
+        pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
+        ptkIfaceMarshal := ptkIface is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", iiImpl, pClassMarshal, pClass, ptkIfaceMarshal, ptkIface, "HRESULT")
         return result
     }
 
@@ -193,7 +222,10 @@ class IMetaDataImport extends IUnknown{
     GetTypeRefProps(tr, ptkResolutionScope, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(14, this, "uint", tr, "uint*", ptkResolutionScope, "ptr", szName, "uint", cchName, "uint*", pchName, "HRESULT")
+        ptkResolutionScopeMarshal := ptkResolutionScope is VarRef ? "uint*" : "ptr"
+        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
         return result
     }
 
@@ -207,7 +239,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-resolvetyperef
      */
     ResolveTypeRef(tr, riid, ppIScope, ptd) {
-        result := ComCall(15, this, "uint", tr, "ptr", riid, "ptr*", ppIScope, "uint*", ptd, "HRESULT")
+        ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", tr, "ptr", riid, "ptr*", ppIScope, ptdMarshal, ptd, "HRESULT")
         return result
     }
 
@@ -222,7 +256,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummembers
      */
     EnumMembers(phEnum, cl, rMembers, cMax, pcTokens) {
-        result := ComCall(16, this, "ptr*", phEnum, "uint", cl, "uint*", rMembers, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rMembersMarshal := rMembers is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr*", phEnum, "uint", cl, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -240,7 +277,10 @@ class IMetaDataImport extends IUnknown{
     EnumMembersWithName(phEnum, cl, szName, rMembers, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(17, this, "ptr*", phEnum, "uint", cl, "ptr", szName, "uint*", rMembers, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rMembersMarshal := rMembers is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "ptr*", phEnum, "uint", cl, "ptr", szName, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -255,7 +295,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethods
      */
     EnumMethods(phEnum, cl, rMethods, cMax, pcTokens) {
-        result := ComCall(18, this, "ptr*", phEnum, "uint", cl, "uint*", rMethods, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr*", phEnum, "uint", cl, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -273,7 +316,10 @@ class IMetaDataImport extends IUnknown{
     EnumMethodsWithName(phEnum, cl, szName, rMethods, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(19, this, "ptr*", phEnum, "uint", cl, "ptr", szName, "uint*", rMethods, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr*", phEnum, "uint", cl, "ptr", szName, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -288,7 +334,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumfields
      */
     EnumFields(phEnum, cl, rFields, cMax, pcTokens) {
-        result := ComCall(20, this, "ptr*", phEnum, "uint", cl, "uint*", rFields, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rFieldsMarshal := rFields is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "ptr*", phEnum, "uint", cl, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -306,7 +355,10 @@ class IMetaDataImport extends IUnknown{
     EnumFieldsWithName(phEnum, cl, szName, rFields, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(21, this, "ptr*", phEnum, "uint", cl, "ptr", szName, "uint*", rFields, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rFieldsMarshal := rFields is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr*", phEnum, "uint", cl, "ptr", szName, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -321,7 +373,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumparams
      */
     EnumParams(phEnum, mb, rParams, cMax, pcTokens) {
-        result := ComCall(22, this, "ptr*", phEnum, "uint", mb, "uint*", rParams, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rParamsMarshal := rParams is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "ptr*", phEnum, "uint", mb, rParamsMarshal, rParams, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -336,7 +391,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummemberrefs
      */
     EnumMemberRefs(phEnum, tkParent, rMemberRefs, cMax, pcTokens) {
-        result := ComCall(23, this, "ptr*", phEnum, "uint", tkParent, "uint*", rMemberRefs, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rMemberRefsMarshal := rMemberRefs is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "ptr*", phEnum, "uint", tkParent, rMemberRefsMarshal, rMemberRefs, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -352,7 +410,11 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethodimpls
      */
     EnumMethodImpls(phEnum, td, rMethodBody, rMethodDecl, cMax, pcTokens) {
-        result := ComCall(24, this, "ptr*", phEnum, "uint", td, "uint*", rMethodBody, "uint*", rMethodDecl, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rMethodBodyMarshal := rMethodBody is VarRef ? "uint*" : "ptr"
+        rMethodDeclMarshal := rMethodDecl is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "ptr*", phEnum, "uint", td, rMethodBodyMarshal, rMethodBody, rMethodDeclMarshal, rMethodDecl, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -368,7 +430,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumpermissionsets
      */
     EnumPermissionSets(phEnum, tk, dwActions, rPermission, cMax, pcTokens) {
-        result := ComCall(25, this, "ptr*", phEnum, "uint", tk, "uint", dwActions, "uint*", rPermission, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rPermissionMarshal := rPermission is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "ptr*", phEnum, "uint", tk, "uint", dwActions, rPermissionMarshal, rPermission, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -384,7 +449,10 @@ class IMetaDataImport extends IUnknown{
     FindMember(td, szName, pvSigBlob, cbSigBlob, pmb) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(26, this, "uint", td, "ptr", szName, "char*", pvSigBlob, "uint", cbSigBlob, "uint*", pmb, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
         return result
     }
 
@@ -400,7 +468,10 @@ class IMetaDataImport extends IUnknown{
     FindMethod(td, szName, pvSigBlob, cbSigBlob, pmb) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(27, this, "uint", td, "ptr", szName, "char*", pvSigBlob, "uint", cbSigBlob, "uint*", pmb, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
         return result
     }
 
@@ -416,7 +487,10 @@ class IMetaDataImport extends IUnknown{
     FindField(td, szName, pvSigBlob, cbSigBlob, pmb) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(28, this, "uint", td, "ptr", szName, "char*", pvSigBlob, "uint", cbSigBlob, "uint*", pmb, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
         return result
     }
 
@@ -433,7 +507,10 @@ class IMetaDataImport extends IUnknown{
     FindMemberRef(td, szName, pvSigBlob, cbSigBlob, pmr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(29, this, "uint", td, "ptr", szName, "char*", pvSigBlob, "uint", cbSigBlob, "uint*", pmr, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmrMarshal, pmr, "HRESULT")
         return result
     }
 
@@ -455,7 +532,14 @@ class IMetaDataImport extends IUnknown{
     GetMethodProps(mb, pClass, szMethod, cchMethod, pchMethod, pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags) {
         szMethod := szMethod is String ? StrPtr(szMethod) : szMethod
 
-        result := ComCall(30, this, "uint", mb, "uint*", pClass, "ptr", szMethod, "uint", cchMethod, "uint*", pchMethod, "uint*", pdwAttr, "ptr*", ppvSigBlob, "uint*", pcbSigBlob, "uint*", pulCodeRVA, "uint*", pdwImplFlags, "HRESULT")
+        pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
+        pchMethodMarshal := pchMethod is VarRef ? "uint*" : "ptr"
+        pdwAttrMarshal := pdwAttr is VarRef ? "uint*" : "ptr"
+        pcbSigBlobMarshal := pcbSigBlob is VarRef ? "uint*" : "ptr"
+        pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
+        pdwImplFlagsMarshal := pdwImplFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "uint", mb, pClassMarshal, pClass, "ptr", szMethod, "uint", cchMethod, pchMethodMarshal, pchMethod, pdwAttrMarshal, pdwAttr, "ptr*", ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
         return result
     }
 
@@ -474,7 +558,11 @@ class IMetaDataImport extends IUnknown{
     GetMemberRefProps(mr, ptk, szMember, cchMember, pchMember, ppvSigBlob, pbSig) {
         szMember := szMember is String ? StrPtr(szMember) : szMember
 
-        result := ComCall(31, this, "uint", mr, "uint*", ptk, "ptr", szMember, "uint", cchMember, "uint*", pchMember, "ptr*", ppvSigBlob, "uint*", pbSig, "HRESULT")
+        ptkMarshal := ptk is VarRef ? "uint*" : "ptr"
+        pchMemberMarshal := pchMember is VarRef ? "uint*" : "ptr"
+        pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "uint", mr, ptkMarshal, ptk, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, "ptr*", ppvSigBlob, pbSigMarshal, pbSig, "HRESULT")
         return result
     }
 
@@ -489,7 +577,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumproperties
      */
     EnumProperties(phEnum, td, rProperties, cMax, pcProperties) {
-        result := ComCall(32, this, "ptr*", phEnum, "uint", td, "uint*", rProperties, "uint", cMax, "uint*", pcProperties, "HRESULT")
+        rPropertiesMarshal := rProperties is VarRef ? "uint*" : "ptr"
+        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, "ptr*", phEnum, "uint", td, rPropertiesMarshal, rProperties, "uint", cMax, pcPropertiesMarshal, pcProperties, "HRESULT")
         return result
     }
 
@@ -504,7 +595,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumevents
      */
     EnumEvents(phEnum, td, rEvents, cMax, pcEvents) {
-        result := ComCall(33, this, "ptr*", phEnum, "uint", td, "uint*", rEvents, "uint", cMax, "uint*", pcEvents, "HRESULT")
+        rEventsMarshal := rEvents is VarRef ? "uint*" : "ptr"
+        pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "ptr*", phEnum, "uint", td, rEventsMarshal, rEvents, "uint", cMax, pcEventsMarshal, pcEvents, "HRESULT")
         return result
     }
 
@@ -528,7 +622,17 @@ class IMetaDataImport extends IUnknown{
     GetEventProps(ev, pClass, szEvent, cchEvent, pchEvent, pdwEventFlags, ptkEventType, pmdAddOn, pmdRemoveOn, pmdFire, rmdOtherMethod, cMax, pcOtherMethod) {
         szEvent := szEvent is String ? StrPtr(szEvent) : szEvent
 
-        result := ComCall(34, this, "uint", ev, "uint*", pClass, "ptr", szEvent, "uint", cchEvent, "uint*", pchEvent, "uint*", pdwEventFlags, "uint*", ptkEventType, "uint*", pmdAddOn, "uint*", pmdRemoveOn, "uint*", pmdFire, "uint*", rmdOtherMethod, "uint", cMax, "uint*", pcOtherMethod, "HRESULT")
+        pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
+        pchEventMarshal := pchEvent is VarRef ? "uint*" : "ptr"
+        pdwEventFlagsMarshal := pdwEventFlags is VarRef ? "uint*" : "ptr"
+        ptkEventTypeMarshal := ptkEventType is VarRef ? "uint*" : "ptr"
+        pmdAddOnMarshal := pmdAddOn is VarRef ? "uint*" : "ptr"
+        pmdRemoveOnMarshal := pmdRemoveOn is VarRef ? "uint*" : "ptr"
+        pmdFireMarshal := pmdFire is VarRef ? "uint*" : "ptr"
+        rmdOtherMethodMarshal := rmdOtherMethod is VarRef ? "uint*" : "ptr"
+        pcOtherMethodMarshal := pcOtherMethod is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, "uint", ev, pClassMarshal, pClass, "ptr", szEvent, "uint", cchEvent, pchEventMarshal, pchEvent, pdwEventFlagsMarshal, pdwEventFlags, ptkEventTypeMarshal, ptkEventType, pmdAddOnMarshal, pmdAddOn, pmdRemoveOnMarshal, pmdRemoveOn, pmdFireMarshal, pmdFire, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
         return result
     }
 
@@ -543,7 +647,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethodsemantics
      */
     EnumMethodSemantics(phEnum, mb, rEventProp, cMax, pcEventProp) {
-        result := ComCall(35, this, "ptr*", phEnum, "uint", mb, "uint*", rEventProp, "uint", cMax, "uint*", pcEventProp, "HRESULT")
+        rEventPropMarshal := rEventProp is VarRef ? "uint*" : "ptr"
+        pcEventPropMarshal := pcEventProp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, "ptr*", phEnum, "uint", mb, rEventPropMarshal, rEventProp, "uint", cMax, pcEventPropMarshal, pcEventProp, "HRESULT")
         return result
     }
 
@@ -556,7 +663,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getmethodsemantics
      */
     GetMethodSemantics(mb, tkEventProp, pdwSemanticsFlags) {
-        result := ComCall(36, this, "uint", mb, "uint", tkEventProp, "uint*", pdwSemanticsFlags, "HRESULT")
+        pdwSemanticsFlagsMarshal := pdwSemanticsFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, "uint", mb, "uint", tkEventProp, pdwSemanticsFlagsMarshal, pdwSemanticsFlags, "HRESULT")
         return result
     }
 
@@ -571,7 +680,11 @@ class IMetaDataImport extends IUnknown{
      * @returns {HRESULT} 
      */
     GetClassLayout(td, pdwPackSize, rFieldOffset, cMax, pcFieldOffset, pulClassSize) {
-        result := ComCall(37, this, "uint", td, "uint*", pdwPackSize, "ptr", rFieldOffset, "uint", cMax, "uint*", pcFieldOffset, "uint*", pulClassSize, "HRESULT")
+        pdwPackSizeMarshal := pdwPackSize is VarRef ? "uint*" : "ptr"
+        pcFieldOffsetMarshal := pcFieldOffset is VarRef ? "uint*" : "ptr"
+        pulClassSizeMarshal := pulClassSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "uint", td, pdwPackSizeMarshal, pdwPackSize, "ptr", rFieldOffset, "uint", cMax, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
         return result
     }
 
@@ -584,7 +697,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getfieldmarshal
      */
     GetFieldMarshal(tk, ppvNativeType, pcbNativeType) {
-        result := ComCall(38, this, "uint", tk, "ptr*", ppvNativeType, "uint*", pcbNativeType, "HRESULT")
+        pcbNativeTypeMarshal := pcbNativeType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(38, this, "uint", tk, "ptr*", ppvNativeType, pcbNativeTypeMarshal, pcbNativeType, "HRESULT")
         return result
     }
 
@@ -597,7 +712,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getrva
      */
     GetRVA(tk, pulCodeRVA, pdwImplFlags) {
-        result := ComCall(39, this, "uint", tk, "uint*", pulCodeRVA, "uint*", pdwImplFlags, "HRESULT")
+        pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
+        pdwImplFlagsMarshal := pdwImplFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, "uint", tk, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
         return result
     }
 
@@ -611,7 +729,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getpermissionsetprops
      */
     GetPermissionSetProps(pm, pdwAction, ppvPermission, pcbPermission) {
-        result := ComCall(40, this, "uint", pm, "uint*", pdwAction, "ptr*", ppvPermission, "uint*", pcbPermission, "HRESULT")
+        pdwActionMarshal := pdwAction is VarRef ? "uint*" : "ptr"
+        pcbPermissionMarshal := pcbPermission is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, "uint", pm, pdwActionMarshal, pdwAction, "ptr*", ppvPermission, pcbPermissionMarshal, pcbPermission, "HRESULT")
         return result
     }
 
@@ -624,7 +745,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getsigfromtoken
      */
     GetSigFromToken(mdSig, ppvSig, pcbSig) {
-        result := ComCall(41, this, "uint", mdSig, "ptr*", ppvSig, "uint*", pcbSig, "HRESULT")
+        pcbSigMarshal := pcbSig is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, "uint", mdSig, "ptr*", ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
         return result
     }
 
@@ -640,7 +763,9 @@ class IMetaDataImport extends IUnknown{
     GetModuleRefProps(mur, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(42, this, "uint", mur, "ptr", szName, "uint", cchName, "uint*", pchName, "HRESULT")
+        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(42, this, "uint", mur, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
         return result
     }
 
@@ -654,7 +779,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enummodulerefs
      */
     EnumModuleRefs(phEnum, rModuleRefs, cmax, pcModuleRefs) {
-        result := ComCall(43, this, "ptr*", phEnum, "uint*", rModuleRefs, "uint", cmax, "uint*", pcModuleRefs, "HRESULT")
+        rModuleRefsMarshal := rModuleRefs is VarRef ? "uint*" : "ptr"
+        pcModuleRefsMarshal := pcModuleRefs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, "ptr*", phEnum, rModuleRefsMarshal, rModuleRefs, "uint", cmax, pcModuleRefsMarshal, pcModuleRefs, "HRESULT")
         return result
     }
 
@@ -667,7 +795,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-gettypespecfromtoken
      */
     GetTypeSpecFromToken(typespec, ppvSig, pcbSig) {
-        result := ComCall(44, this, "uint", typespec, "ptr*", ppvSig, "uint*", pcbSig, "HRESULT")
+        pcbSigMarshal := pcbSig is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(44, this, "uint", typespec, "ptr*", ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
         return result
     }
 
@@ -693,7 +823,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumunresolvedmethods
      */
     EnumUnresolvedMethods(phEnum, rMethods, cMax, pcTokens) {
-        result := ComCall(46, this, "ptr*", phEnum, "uint*", rMethods, "uint", cMax, "uint*", pcTokens, "HRESULT")
+        rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(46, this, "ptr*", phEnum, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -709,7 +842,9 @@ class IMetaDataImport extends IUnknown{
     GetUserString(stk, szString, cchString, pchString) {
         szString := szString is String ? StrPtr(szString) : szString
 
-        result := ComCall(47, this, "uint", stk, "ptr", szString, "uint", cchString, "uint*", pchString, "HRESULT")
+        pchStringMarshal := pchString is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(47, this, "uint", stk, "ptr", szString, "uint", cchString, pchStringMarshal, pchString, "HRESULT")
         return result
     }
 
@@ -727,7 +862,11 @@ class IMetaDataImport extends IUnknown{
     GetPinvokeMap(tk, pdwMappingFlags, szImportName, cchImportName, pchImportName, pmrImportDLL) {
         szImportName := szImportName is String ? StrPtr(szImportName) : szImportName
 
-        result := ComCall(48, this, "uint", tk, "uint*", pdwMappingFlags, "ptr", szImportName, "uint", cchImportName, "uint*", pchImportName, "uint*", pmrImportDLL, "HRESULT")
+        pdwMappingFlagsMarshal := pdwMappingFlags is VarRef ? "uint*" : "ptr"
+        pchImportNameMarshal := pchImportName is VarRef ? "uint*" : "ptr"
+        pmrImportDLLMarshal := pmrImportDLL is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(48, this, "uint", tk, pdwMappingFlagsMarshal, pdwMappingFlags, "ptr", szImportName, "uint", cchImportName, pchImportNameMarshal, pchImportName, pmrImportDLLMarshal, pmrImportDLL, "HRESULT")
         return result
     }
 
@@ -741,7 +880,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumsignatures
      */
     EnumSignatures(phEnum, rSignatures, cmax, pcSignatures) {
-        result := ComCall(49, this, "ptr*", phEnum, "uint*", rSignatures, "uint", cmax, "uint*", pcSignatures, "HRESULT")
+        rSignaturesMarshal := rSignatures is VarRef ? "uint*" : "ptr"
+        pcSignaturesMarshal := pcSignatures is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(49, this, "ptr*", phEnum, rSignaturesMarshal, rSignatures, "uint", cmax, pcSignaturesMarshal, pcSignatures, "HRESULT")
         return result
     }
 
@@ -755,7 +897,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtypespecs
      */
     EnumTypeSpecs(phEnum, rTypeSpecs, cmax, pcTypeSpecs) {
-        result := ComCall(50, this, "ptr*", phEnum, "uint*", rTypeSpecs, "uint", cmax, "uint*", pcTypeSpecs, "HRESULT")
+        rTypeSpecsMarshal := rTypeSpecs is VarRef ? "uint*" : "ptr"
+        pcTypeSpecsMarshal := pcTypeSpecs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(50, this, "ptr*", phEnum, rTypeSpecsMarshal, rTypeSpecs, "uint", cmax, pcTypeSpecsMarshal, pcTypeSpecs, "HRESULT")
         return result
     }
 
@@ -769,7 +914,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumuserstrings
      */
     EnumUserStrings(phEnum, rStrings, cmax, pcStrings) {
-        result := ComCall(51, this, "ptr*", phEnum, "uint*", rStrings, "uint", cmax, "uint*", pcStrings, "HRESULT")
+        rStringsMarshal := rStrings is VarRef ? "uint*" : "ptr"
+        pcStringsMarshal := pcStrings is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(51, this, "ptr*", phEnum, rStringsMarshal, rStrings, "uint", cmax, pcStringsMarshal, pcStrings, "HRESULT")
         return result
     }
 
@@ -782,7 +930,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getparamformethodindex
      */
     GetParamForMethodIndex(md, ulParamSeq, ppd) {
-        result := ComCall(52, this, "uint", md, "uint", ulParamSeq, "uint*", ppd, "HRESULT")
+        ppdMarshal := ppd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(52, this, "uint", md, "uint", ulParamSeq, ppdMarshal, ppd, "HRESULT")
         return result
     }
 
@@ -798,7 +948,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-enumcustomattributes
      */
     EnumCustomAttributes(phEnum, tk, tkType, rCustomAttributes, cMax, pcCustomAttributes) {
-        result := ComCall(53, this, "ptr*", phEnum, "uint", tk, "uint", tkType, "uint*", rCustomAttributes, "uint", cMax, "uint*", pcCustomAttributes, "HRESULT")
+        rCustomAttributesMarshal := rCustomAttributes is VarRef ? "uint*" : "ptr"
+        pcCustomAttributesMarshal := pcCustomAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(53, this, "ptr*", phEnum, "uint", tk, "uint", tkType, rCustomAttributesMarshal, rCustomAttributes, "uint", cMax, pcCustomAttributesMarshal, pcCustomAttributes, "HRESULT")
         return result
     }
 
@@ -813,7 +966,11 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributeprops
      */
     GetCustomAttributeProps(cv, ptkObj, ptkType, ppBlob, pcbSize) {
-        result := ComCall(54, this, "uint", cv, "uint*", ptkObj, "uint*", ptkType, "ptr*", ppBlob, "uint*", pcbSize, "HRESULT")
+        ptkObjMarshal := ptkObj is VarRef ? "uint*" : "ptr"
+        ptkTypeMarshal := ptkType is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(54, this, "uint", cv, ptkObjMarshal, ptkObj, ptkTypeMarshal, ptkType, "ptr*", ppBlob, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -828,7 +985,9 @@ class IMetaDataImport extends IUnknown{
     FindTypeRef(tkResolutionScope, szName, ptr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(55, this, "uint", tkResolutionScope, "ptr", szName, "uint*", ptr, "HRESULT")
+        ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(55, this, "uint", tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "HRESULT")
         return result
     }
 
@@ -853,7 +1012,16 @@ class IMetaDataImport extends IUnknown{
     GetMemberProps(mb, pClass, szMember, cchMember, pchMember, pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szMember := szMember is String ? StrPtr(szMember) : szMember
 
-        result := ComCall(56, this, "uint", mb, "uint*", pClass, "ptr", szMember, "uint", cchMember, "uint*", pchMember, "uint*", pdwAttr, "ptr*", ppvSigBlob, "uint*", pcbSigBlob, "uint*", pulCodeRVA, "uint*", pdwImplFlags, "uint*", pdwCPlusTypeFlag, "ptr*", ppValue, "uint*", pcchValue, "HRESULT")
+        pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
+        pchMemberMarshal := pchMember is VarRef ? "uint*" : "ptr"
+        pdwAttrMarshal := pdwAttr is VarRef ? "uint*" : "ptr"
+        pcbSigBlobMarshal := pcbSigBlob is VarRef ? "uint*" : "ptr"
+        pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
+        pdwImplFlagsMarshal := pdwImplFlags is VarRef ? "uint*" : "ptr"
+        pdwCPlusTypeFlagMarshal := pdwCPlusTypeFlag is VarRef ? "uint*" : "ptr"
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(56, this, "uint", mb, pClassMarshal, pClass, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, pdwAttrMarshal, pdwAttr, "ptr*", ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, "ptr*", ppValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -876,7 +1044,14 @@ class IMetaDataImport extends IUnknown{
     GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szField := szField is String ? StrPtr(szField) : szField
 
-        result := ComCall(57, this, "uint", mb, "uint*", pClass, "ptr", szField, "uint", cchField, "uint*", pchField, "uint*", pdwAttr, "ptr*", ppvSigBlob, "uint*", pcbSigBlob, "uint*", pdwCPlusTypeFlag, "ptr*", ppValue, "uint*", pcchValue, "HRESULT")
+        pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
+        pchFieldMarshal := pchField is VarRef ? "uint*" : "ptr"
+        pdwAttrMarshal := pdwAttr is VarRef ? "uint*" : "ptr"
+        pcbSigBlobMarshal := pcbSigBlob is VarRef ? "uint*" : "ptr"
+        pdwCPlusTypeFlagMarshal := pdwCPlusTypeFlag is VarRef ? "uint*" : "ptr"
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(57, this, "uint", mb, pClassMarshal, pClass, "ptr", szField, "uint", cchField, pchFieldMarshal, pchField, pdwAttrMarshal, pdwAttr, "ptr*", ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, "ptr*", ppValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -903,7 +1078,18 @@ class IMetaDataImport extends IUnknown{
     GetPropertyProps(prop, pClass, szProperty, cchProperty, pchProperty, pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod, cMax, pcOtherMethod) {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
 
-        result := ComCall(58, this, "uint", prop, "uint*", pClass, "ptr", szProperty, "uint", cchProperty, "uint*", pchProperty, "uint*", pdwPropFlags, "ptr*", ppvSig, "uint*", pbSig, "uint*", pdwCPlusTypeFlag, "ptr*", ppDefaultValue, "uint*", pcchDefaultValue, "uint*", pmdSetter, "uint*", pmdGetter, "uint*", rmdOtherMethod, "uint", cMax, "uint*", pcOtherMethod, "HRESULT")
+        pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
+        pchPropertyMarshal := pchProperty is VarRef ? "uint*" : "ptr"
+        pdwPropFlagsMarshal := pdwPropFlags is VarRef ? "uint*" : "ptr"
+        pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
+        pdwCPlusTypeFlagMarshal := pdwCPlusTypeFlag is VarRef ? "uint*" : "ptr"
+        pcchDefaultValueMarshal := pcchDefaultValue is VarRef ? "uint*" : "ptr"
+        pmdSetterMarshal := pmdSetter is VarRef ? "uint*" : "ptr"
+        pmdGetterMarshal := pmdGetter is VarRef ? "uint*" : "ptr"
+        rmdOtherMethodMarshal := rmdOtherMethod is VarRef ? "uint*" : "ptr"
+        pcOtherMethodMarshal := pcOtherMethod is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(58, this, "uint", prop, pClassMarshal, pClass, "ptr", szProperty, "uint", cchProperty, pchPropertyMarshal, pchProperty, pdwPropFlagsMarshal, pdwPropFlags, "ptr*", ppvSig, pbSigMarshal, pbSig, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, "ptr*", ppDefaultValue, pcchDefaultValueMarshal, pcchDefaultValue, pmdSetterMarshal, pmdSetter, pmdGetterMarshal, pmdGetter, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
         return result
     }
 
@@ -925,7 +1111,14 @@ class IMetaDataImport extends IUnknown{
     GetParamProps(tk, pmd, pulSequence, szName, cchName, pchName, pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(59, this, "uint", tk, "uint*", pmd, "uint*", pulSequence, "ptr", szName, "uint", cchName, "uint*", pchName, "uint*", pdwAttr, "uint*", pdwCPlusTypeFlag, "ptr*", ppValue, "uint*", pcchValue, "HRESULT")
+        pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
+        pulSequenceMarshal := pulSequence is VarRef ? "uint*" : "ptr"
+        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+        pdwAttrMarshal := pdwAttr is VarRef ? "uint*" : "ptr"
+        pdwCPlusTypeFlagMarshal := pdwCPlusTypeFlag is VarRef ? "uint*" : "ptr"
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(59, this, "uint", tk, pmdMarshal, pmd, pulSequenceMarshal, pulSequence, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, pdwAttrMarshal, pdwAttr, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, "ptr*", ppValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -941,7 +1134,9 @@ class IMetaDataImport extends IUnknown{
     GetCustomAttributeByName(tkObj, szName, ppData, pcbData) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(60, this, "uint", tkObj, "ptr", szName, "ptr*", ppData, "uint*", pcbData, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(60, this, "uint", tkObj, "ptr", szName, "ptr*", ppData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 
@@ -964,7 +1159,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getnestedclassprops
      */
     GetNestedClassProps(tdNestedClass, ptdEnclosingClass) {
-        result := ComCall(62, this, "uint", tdNestedClass, "uint*", ptdEnclosingClass, "HRESULT")
+        ptdEnclosingClassMarshal := ptdEnclosingClass is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(62, this, "uint", tdNestedClass, ptdEnclosingClassMarshal, ptdEnclosingClass, "HRESULT")
         return result
     }
 
@@ -977,7 +1174,10 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-getnativecallconvfromsig
      */
     GetNativeCallConvFromSig(pvSig, cbSig, pCallConv) {
-        result := ComCall(63, this, "ptr", pvSig, "uint", cbSig, "uint*", pCallConv, "HRESULT")
+        pvSigMarshal := pvSig is VarRef ? "ptr" : "ptr"
+        pCallConvMarshal := pCallConv is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(63, this, pvSigMarshal, pvSig, "uint", cbSig, pCallConvMarshal, pCallConv, "HRESULT")
         return result
     }
 
@@ -989,7 +1189,9 @@ class IMetaDataImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-isglobal
      */
     IsGlobal(pd, pbGlobal) {
-        result := ComCall(64, this, "uint", pd, "int*", pbGlobal, "HRESULT")
+        pbGlobalMarshal := pbGlobal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, "uint", pd, pbGlobalMarshal, pbGlobal, "HRESULT")
         return result
     }
 }

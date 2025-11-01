@@ -36,7 +36,9 @@ class IADsSyntax extends IADs{
      * @returns {HRESULT} 
      */
     get_OleAutoDataType(retval) {
-        result := ComCall(20, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

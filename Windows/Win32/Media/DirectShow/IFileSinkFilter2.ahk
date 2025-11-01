@@ -48,7 +48,9 @@ class IFileSinkFilter2 extends IFileSinkFilter{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesinkfilter2-getmode
      */
     GetMode(pdwFlags) {
-        result := ComCall(6, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IDXGIOutput6 extends IDXGIOutput5{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-checkhardwarecompositionsupport
      */
     CheckHardwareCompositionSupport(pFlags) {
-        result := ComCall(28, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 }

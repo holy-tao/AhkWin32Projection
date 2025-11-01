@@ -39,7 +39,10 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
     GetGlobalAttribute(pszAttribute, pdwDataType, ppbData, pcbSize) {
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        result := ComCall(12, this, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr*", ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -56,7 +59,10 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        result := ComCall(13, this, "ptr", pszFeatureKeyword, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pszFeatureKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr*", ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -75,7 +81,10 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
         pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr*", ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 }

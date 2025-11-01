@@ -41,7 +41,9 @@ class IAccPropServer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropserver-getpropvalue
      */
     GetPropValue(pIDString, dwIDStringLen, idProp, pvarValue, pfHasProp) {
-        result := ComCall(3, this, "char*", pIDString, "uint", dwIDStringLen, "ptr", idProp, "ptr", pvarValue, "ptr", pfHasProp, "HRESULT")
+        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", idProp, "ptr", pvarValue, "ptr", pfHasProp, "HRESULT")
         return result
     }
 }

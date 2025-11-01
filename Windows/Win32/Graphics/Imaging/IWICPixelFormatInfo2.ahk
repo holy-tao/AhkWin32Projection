@@ -48,7 +48,9 @@ class IWICPixelFormatInfo2 extends IWICPixelFormatInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo2-getnumericrepresentation
      */
     GetNumericRepresentation(pNumericRepresentation) {
-        result := ComCall(17, this, "int*", pNumericRepresentation, "HRESULT")
+        pNumericRepresentationMarshal := pNumericRepresentation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pNumericRepresentationMarshal, pNumericRepresentation, "HRESULT")
         return result
     }
 }

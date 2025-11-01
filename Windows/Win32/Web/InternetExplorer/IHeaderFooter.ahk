@@ -109,7 +109,9 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_page(p) {
-        result := ComCall(14, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -129,7 +131,9 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pageTotal(p) {
-        result := ComCall(16, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 

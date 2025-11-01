@@ -149,7 +149,9 @@ class IOCSPAdmin extends IDispatch{
     GetMyRoles(bstrServerName, pRoles) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        result := ComCall(11, this, "ptr", bstrServerName, "int*", pRoles, "HRESULT")
+        pRolesMarshal := pRoles is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", bstrServerName, pRolesMarshal, pRoles, "HRESULT")
         return result
     }
 

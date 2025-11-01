@@ -143,7 +143,9 @@ class ID3DShaderCacheInstaller extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPrecompileTargets(pApplicationDesc, pArraySize, pArray, flags) {
-        result := ComCall(13, this, "ptr", pApplicationDesc, "uint*", pArraySize, "ptr", pArray, "int", flags, "HRESULT")
+        pArraySizeMarshal := pArraySize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pApplicationDesc, pArraySizeMarshal, pArraySize, "ptr", pArray, "int", flags, "HRESULT")
         return result
     }
 }

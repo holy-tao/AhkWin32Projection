@@ -45,7 +45,11 @@ class IRowPosition extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRowPosition(phChapter, phRow, pdwPositionFlags) {
-        result := ComCall(4, this, "ptr*", phChapter, "ptr*", phRow, "uint*", pdwPositionFlags, "HRESULT")
+        phChapterMarshal := phChapter is VarRef ? "ptr*" : "ptr"
+        phRowMarshal := phRow is VarRef ? "ptr*" : "ptr"
+        pdwPositionFlagsMarshal := pdwPositionFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, phChapterMarshal, phChapter, phRowMarshal, phRow, pdwPositionFlagsMarshal, pdwPositionFlags, "HRESULT")
         return result
     }
 

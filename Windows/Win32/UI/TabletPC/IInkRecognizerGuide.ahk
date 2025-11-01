@@ -81,7 +81,9 @@ class IInkRecognizerGuide extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_rows
      */
     get_Rows(Units) {
-        result := ComCall(11, this, "int*", Units, "HRESULT")
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, UnitsMarshal, Units, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class IInkRecognizerGuide extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_columns
      */
     get_Columns(Units) {
-        result := ComCall(13, this, "int*", Units, "HRESULT")
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, UnitsMarshal, Units, "HRESULT")
         return result
     }
 
@@ -125,7 +129,9 @@ class IInkRecognizerGuide extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_midline
      */
     get_Midline(Units) {
-        result := ComCall(15, this, "int*", Units, "HRESULT")
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, UnitsMarshal, Units, "HRESULT")
         return result
     }
 

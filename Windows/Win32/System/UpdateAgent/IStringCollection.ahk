@@ -85,7 +85,9 @@ class IStringCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-get_count
      */
     get_Count(retval) {
-        result := ComCall(10, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class IStringCollection extends IDispatch{
     Add(value, retval) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(12, this, "ptr", value, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", value, retvalMarshal, retval, "HRESULT")
         return result
     }
 

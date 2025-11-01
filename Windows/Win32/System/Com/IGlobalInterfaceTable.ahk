@@ -49,7 +49,9 @@ class IGlobalInterfaceTable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-registerinterfaceinglobal
      */
     RegisterInterfaceInGlobal(pUnk, riid, pdwCookie) {
-        result := ComCall(3, this, "ptr", pUnk, "ptr", riid, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnk, "ptr", riid, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

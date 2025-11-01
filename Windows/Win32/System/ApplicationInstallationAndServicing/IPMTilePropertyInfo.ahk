@@ -35,7 +35,9 @@ class IPMTilePropertyInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PropertyID(pPropID) {
-        result := ComCall(3, this, "uint*", pPropID, "HRESULT")
+        pPropIDMarshal := pPropID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pPropIDMarshal, pPropID, "HRESULT")
         return result
     }
 

@@ -64,7 +64,9 @@ class IPrinterPropertyBag extends IDispatch{
     GetInt32(bstrName, pnValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "int*", pnValue, "HRESULT")
+        pnValueMarshal := pnValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", bstrName, pnValueMarshal, pnValue, "HRESULT")
         return result
     }
 
@@ -118,7 +120,9 @@ class IPrinterPropertyBag extends IDispatch{
     GetBytes(bstrName, pcbValue, ppValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(13, this, "ptr", bstrName, "uint*", pcbValue, "ptr*", ppValue, "HRESULT")
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", bstrName, pcbValueMarshal, pcbValue, "ptr*", ppValue, "HRESULT")
         return result
     }
 
@@ -132,7 +136,9 @@ class IPrinterPropertyBag extends IDispatch{
     SetBytes(bstrName, cbValue, pValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(14, this, "ptr", bstrName, "uint", cbValue, "char*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(14, this, "ptr", bstrName, "uint", cbValue, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

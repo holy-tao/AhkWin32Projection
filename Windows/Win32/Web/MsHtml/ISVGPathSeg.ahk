@@ -50,7 +50,9 @@ class ISVGPathSeg extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pathSegType(p) {
-        result := ComCall(8, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 

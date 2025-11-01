@@ -48,7 +48,9 @@ class IMPEG2TuneRequest extends ITuneRequest{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-get_tsid
      */
     get_TSID(TSID) {
-        result := ComCall(12, this, "int*", TSID, "HRESULT")
+        TSIDMarshal := TSID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, TSIDMarshal, TSID, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IMPEG2TuneRequest extends ITuneRequest{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-get_progno
      */
     get_ProgNo(ProgNo) {
-        result := ComCall(14, this, "int*", ProgNo, "HRESULT")
+        ProgNoMarshal := ProgNo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, ProgNoMarshal, ProgNo, "HRESULT")
         return result
     }
 

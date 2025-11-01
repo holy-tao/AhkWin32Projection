@@ -36,7 +36,9 @@ class IEnumJsStackFrames extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(cFrameCount, pFrames, pcFetched) {
-        result := ComCall(3, this, "uint", cFrameCount, "ptr", pFrames, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cFrameCount, "ptr", pFrames, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

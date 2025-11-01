@@ -89,7 +89,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphindexcount
      */
     GetGlyphIndexCount(indexCount) {
-        result := ComCall(31, this, "uint*", indexCount, "HRESULT")
+        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, indexCountMarshal, indexCount, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphindices
      */
     GetGlyphIndices(indexCount, glyphIndices) {
-        result := ComCall(32, this, "uint*", indexCount, "ptr", glyphIndices, "HRESULT")
+        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, indexCountMarshal, indexCount, "ptr", glyphIndices, "HRESULT")
         return result
     }
 
@@ -112,7 +116,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphmappingcount
      */
     GetGlyphMappingCount(glyphMappingCount) {
-        result := ComCall(33, this, "uint*", glyphMappingCount, "HRESULT")
+        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, glyphMappingCountMarshal, glyphMappingCount, "HRESULT")
         return result
     }
 
@@ -124,7 +130,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphmappings
      */
     GetGlyphMappings(glyphMappingCount, glyphMappings) {
-        result := ComCall(34, this, "uint*", glyphMappingCount, "ptr", glyphMappings, "HRESULT")
+        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, glyphMappingCountMarshal, glyphMappingCount, "ptr", glyphMappings, "HRESULT")
         return result
     }
 
@@ -135,7 +143,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getprohibitedcaretstopcount
      */
     GetProhibitedCaretStopCount(prohibitedCaretStopCount) {
-        result := ComCall(35, this, "uint*", prohibitedCaretStopCount, "HRESULT")
+        prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, "HRESULT")
         return result
     }
 
@@ -147,7 +157,10 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getprohibitedcaretstops
      */
     GetProhibitedCaretStops(prohibitedCaretStopCount, prohibitedCaretStops) {
-        result := ComCall(36, this, "uint*", prohibitedCaretStopCount, "uint*", prohibitedCaretStops, "HRESULT")
+        prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : "ptr"
+        prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(36, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
         return result
     }
 
@@ -158,7 +171,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getbidilevel
      */
     GetBidiLevel(bidiLevel) {
-        result := ComCall(37, this, "uint*", bidiLevel, "HRESULT")
+        bidiLevelMarshal := bidiLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, bidiLevelMarshal, bidiLevel, "HRESULT")
         return result
     }
 
@@ -191,7 +206,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getstylesimulations
      */
     GetStyleSimulations(styleSimulations) {
-        result := ComCall(40, this, "int*", styleSimulations, "HRESULT")
+        styleSimulationsMarshal := styleSimulations is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, styleSimulationsMarshal, styleSimulations, "HRESULT")
         return result
     }
 
@@ -235,7 +252,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfontrenderingemsize
      */
     GetFontRenderingEmSize(fontRenderingEmSize) {
-        result := ComCall(44, this, "float*", fontRenderingEmSize, "HRESULT")
+        fontRenderingEmSizeMarshal := fontRenderingEmSize is VarRef ? "float*" : "ptr"
+
+        result := ComCall(44, this, fontRenderingEmSizeMarshal, fontRenderingEmSize, "HRESULT")
         return result
     }
 
@@ -279,7 +298,9 @@ class IXpsOMGlyphs extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getfontfaceindex
      */
     GetFontFaceIndex(fontFaceIndex) {
-        result := ComCall(48, this, "short*", fontFaceIndex, "HRESULT")
+        fontFaceIndexMarshal := fontFaceIndex is VarRef ? "short*" : "ptr"
+
+        result := ComCall(48, this, fontFaceIndexMarshal, fontFaceIndex, "HRESULT")
         return result
     }
 

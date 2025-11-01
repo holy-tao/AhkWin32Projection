@@ -38,7 +38,10 @@ class IBackgroundCopyFile4 extends IBackgroundCopyFile3{
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibackgroundcopyfile4-getpeerdownloadstats
      */
     GetPeerDownloadStats(pFromOrigin, pFromPeers) {
-        result := ComCall(12, this, "uint*", pFromOrigin, "uint*", pFromPeers, "HRESULT")
+        pFromOriginMarshal := pFromOrigin is VarRef ? "uint*" : "ptr"
+        pFromPeersMarshal := pFromPeers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pFromOriginMarshal, pFromOrigin, pFromPeersMarshal, pFromPeers, "HRESULT")
         return result
     }
 }

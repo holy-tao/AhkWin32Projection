@@ -63,7 +63,9 @@ class IMFOutputPolicy extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputpolicy-getminimumgrlversion
      */
     GetMinimumGRLVersion(pdwMinimumGRLVersion) {
-        result := ComCall(35, this, "uint*", pdwMinimumGRLVersion, "HRESULT")
+        pdwMinimumGRLVersionMarshal := pdwMinimumGRLVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, pdwMinimumGRLVersionMarshal, pdwMinimumGRLVersion, "HRESULT")
         return result
     }
 }

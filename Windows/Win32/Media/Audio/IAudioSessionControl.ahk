@@ -37,7 +37,9 @@ class IAudioSessionControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-getstate
      */
     GetState(pRetVal) {
-        result := ComCall(3, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

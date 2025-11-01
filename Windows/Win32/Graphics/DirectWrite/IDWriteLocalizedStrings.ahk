@@ -116,7 +116,9 @@ class IDWriteLocalizedStrings extends IUnknown{
     FindLocaleName(localeName, index, exists) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(4, this, "ptr", localeName, "uint*", index, "ptr", exists, "HRESULT")
+        indexMarshal := index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", localeName, indexMarshal, index, "ptr", exists, "HRESULT")
         return result
     }
 
@@ -128,7 +130,9 @@ class IDWriteLocalizedStrings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getlocalenamelength
      */
     GetLocaleNameLength(index, length) {
-        result := ComCall(5, this, "uint", index, "uint*", length, "HRESULT")
+        lengthMarshal := length is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", index, lengthMarshal, length, "HRESULT")
         return result
     }
 
@@ -155,7 +159,9 @@ class IDWriteLocalizedStrings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength
      */
     GetStringLength(index, length) {
-        result := ComCall(7, this, "uint", index, "uint*", length, "HRESULT")
+        lengthMarshal := length is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", index, lengthMarshal, length, "HRESULT")
         return result
     }
 

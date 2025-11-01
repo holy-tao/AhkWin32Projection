@@ -62,7 +62,9 @@ class ISWbemPrivilegeSet extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(iCount) {
-        result := ComCall(9, this, "int*", iCount, "HRESULT")
+        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
         return result
     }
 

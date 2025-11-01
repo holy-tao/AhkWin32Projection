@@ -40,7 +40,9 @@ class IWbemHiPerfEnum extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemhiperfenum-addobjects
      */
     AddObjects(lFlags, uNumObjects, apIds, apObj) {
-        result := ComCall(3, this, "int", lFlags, "uint", uNumObjects, "int*", apIds, "ptr*", apObj, "HRESULT")
+        apIdsMarshal := apIds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", lFlags, "uint", uNumObjects, apIdsMarshal, apIds, "ptr*", apObj, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IWbemHiPerfEnum extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemhiperfenum-removeobjects
      */
     RemoveObjects(lFlags, uNumObjects, apIds) {
-        result := ComCall(4, this, "int", lFlags, "uint", uNumObjects, "int*", apIds, "HRESULT")
+        apIdsMarshal := apIds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", lFlags, "uint", uNumObjects, apIdsMarshal, apIds, "HRESULT")
         return result
     }
 
@@ -67,7 +71,9 @@ class IWbemHiPerfEnum extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemhiperfenum-getobjects
      */
     GetObjects(lFlags, uNumObjects, apObj, puReturned) {
-        result := ComCall(5, this, "int", lFlags, "uint", uNumObjects, "ptr*", apObj, "uint*", puReturned, "HRESULT")
+        puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", lFlags, "uint", uNumObjects, "ptr*", apObj, puReturnedMarshal, puReturned, "HRESULT")
         return result
     }
 

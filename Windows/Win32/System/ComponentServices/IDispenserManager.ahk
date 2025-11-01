@@ -59,7 +59,10 @@ class IDispenserManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispensermanager-getcontext
      */
     GetContext(__MIDL__IDispenserManager0002, __MIDL__IDispenserManager0003) {
-        result := ComCall(4, this, "ptr*", __MIDL__IDispenserManager0002, "ptr*", __MIDL__IDispenserManager0003, "HRESULT")
+        __MIDL__IDispenserManager0002Marshal := __MIDL__IDispenserManager0002 is VarRef ? "ptr*" : "ptr"
+        __MIDL__IDispenserManager0003Marshal := __MIDL__IDispenserManager0003 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, __MIDL__IDispenserManager0002Marshal, __MIDL__IDispenserManager0002, __MIDL__IDispenserManager0003Marshal, __MIDL__IDispenserManager0003, "HRESULT")
         return result
     }
 }

@@ -86,7 +86,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_childid
      */
     get_ChildId(pRetVal) {
-        result := ComCall(7, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -130,7 +132,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_role
      */
     get_Role(pdwRole) {
-        result := ComCall(11, this, "uint*", pdwRole, "HRESULT")
+        pdwRoleMarshal := pdwRole is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwRoleMarshal, pdwRole, "HRESULT")
         return result
     }
 
@@ -141,7 +145,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_state
      */
     get_State(pdwState) {
-        result := ComCall(12, this, "uint*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 

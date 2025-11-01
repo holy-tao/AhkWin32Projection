@@ -63,7 +63,9 @@ class IDeviceModelPlugIn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getnumchannels
      */
     GetNumChannels(pNumChannels) {
-        result := ComCall(4, this, "uint*", pNumChannels, "HRESULT")
+        pNumChannelsMarshal := pNumChannels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pNumChannelsMarshal, pNumChannels, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class IDeviceModelPlugIn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-devicetocolorimetriccolors
      */
     DeviceToColorimetricColors(cColors, cChannels, pDeviceValues, pXYZColors) {
-        result := ComCall(5, this, "uint", cColors, "uint", cChannels, "float*", pDeviceValues, "ptr", pXYZColors, "HRESULT")
+        pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "uint", cColors, "uint", cChannels, pDeviceValuesMarshal, pDeviceValues, "ptr", pXYZColors, "HRESULT")
         return result
     }
 
@@ -91,7 +95,9 @@ class IDeviceModelPlugIn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolors
      */
     ColorimetricToDeviceColors(cColors, cChannels, pXYZColors, pDeviceValues) {
-        result := ComCall(6, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "float*", pDeviceValues, "HRESULT")
+        pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(6, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, pDeviceValuesMarshal, pDeviceValues, "HRESULT")
         return result
     }
 
@@ -106,7 +112,9 @@ class IDeviceModelPlugIn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolorswithblack
      */
     ColorimetricToDeviceColorsWithBlack(cColors, cChannels, pXYZColors, pBlackInformation, pDeviceValues) {
-        result := ComCall(7, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "ptr", pBlackInformation, "float*", pDeviceValues, "HRESULT")
+        pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "ptr", pBlackInformation, pDeviceValuesMarshal, pDeviceValues, "HRESULT")
         return result
     }
 
@@ -141,7 +149,10 @@ class IDeviceModelPlugIn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getgamutboundarymeshsize
      */
     GetGamutBoundaryMeshSize(pNumVertices, pNumTriangles) {
-        result := ComCall(10, this, "uint*", pNumVertices, "uint*", pNumTriangles, "HRESULT")
+        pNumVerticesMarshal := pNumVertices is VarRef ? "uint*" : "ptr"
+        pNumTrianglesMarshal := pNumTriangles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pNumVerticesMarshal, pNumVertices, pNumTrianglesMarshal, pNumTriangles, "HRESULT")
         return result
     }
 
@@ -156,7 +167,9 @@ class IDeviceModelPlugIn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getgamutboundarymesh
      */
     GetGamutBoundaryMesh(cChannels, cVertices, cTriangles, pVertices, pTriangles) {
-        result := ComCall(11, this, "uint", cChannels, "uint", cVertices, "uint", cTriangles, "float*", pVertices, "ptr", pTriangles, "HRESULT")
+        pVerticesMarshal := pVertices is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, "uint", cChannels, "uint", cVertices, "uint", cTriangles, pVerticesMarshal, pVertices, "ptr", pTriangles, "HRESULT")
         return result
     }
 
@@ -167,7 +180,9 @@ class IDeviceModelPlugIn extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getneutralaxissize
      */
     GetNeutralAxisSize(pcColors) {
-        result := ComCall(12, this, "uint*", pcColors, "HRESULT")
+        pcColorsMarshal := pcColors is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pcColorsMarshal, pcColors, "HRESULT")
         return result
     }
 

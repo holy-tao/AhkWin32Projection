@@ -87,7 +87,9 @@ class IDXGIDevice extends IDXGIObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency
      */
     QueryResourceResidency(ppResources, pResidencyStatus, NumResources) {
-        result := ComCall(9, this, "ptr*", ppResources, "int*", pResidencyStatus, "uint", NumResources, "HRESULT")
+        pResidencyStatusMarshal := pResidencyStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr*", ppResources, pResidencyStatusMarshal, pResidencyStatus, "uint", NumResources, "HRESULT")
         return result
     }
 
@@ -109,7 +111,9 @@ class IDXGIDevice extends IDXGIObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-getgputhreadpriority
      */
     GetGPUThreadPriority(pPriority) {
-        result := ComCall(11, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 }

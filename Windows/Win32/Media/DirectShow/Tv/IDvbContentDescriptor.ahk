@@ -37,7 +37,9 @@ class IDvbContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IDvbContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getcountofrecords
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -72,7 +78,10 @@ class IDvbContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordcontentnibbles
      */
     GetRecordContentNibbles(bRecordIndex, pbValLevel1, pbValLevel2) {
-        result := ComCall(6, this, "char", bRecordIndex, "char*", pbValLevel1, "char*", pbValLevel2, "HRESULT")
+        pbValLevel1Marshal := pbValLevel1 is VarRef ? "char*" : "ptr"
+        pbValLevel2Marshal := pbValLevel2 is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "char", bRecordIndex, pbValLevel1Marshal, pbValLevel1, pbValLevel2Marshal, pbValLevel2, "HRESULT")
         return result
     }
 
@@ -85,7 +94,10 @@ class IDvbContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordusernibbles
      */
     GetRecordUserNibbles(bRecordIndex, pbVal1, pbVal2) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", pbVal1, "char*", pbVal2, "HRESULT")
+        pbVal1Marshal := pbVal1 is VarRef ? "char*" : "ptr"
+        pbVal2Marshal := pbVal2 is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "char", bRecordIndex, pbVal1Marshal, pbVal1, pbVal2Marshal, pbVal2, "HRESULT")
         return result
     }
 }

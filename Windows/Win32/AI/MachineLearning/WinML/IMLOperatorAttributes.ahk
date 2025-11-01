@@ -38,7 +38,9 @@ class IMLOperatorAttributes extends IUnknown{
     GetAttributeElementCount(name, type, elementCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "uint", type, "uint*", elementCount, "HRESULT")
+        elementCountMarshal := elementCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", name, "uint", type, elementCountMarshal, elementCount, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IMLOperatorAttributes extends IUnknown{
     GetAttribute(name, type, elementCount, elementByteSize, value) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, "ptr", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -68,7 +72,9 @@ class IMLOperatorAttributes extends IUnknown{
     GetStringAttributeElementLength(name, elementIndex, attributeElementByteSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(5, this, "ptr", name, "uint", elementIndex, "uint*", attributeElementByteSize, "HRESULT")
+        attributeElementByteSizeMarshal := attributeElementByteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", name, "uint", elementIndex, attributeElementByteSizeMarshal, attributeElementByteSize, "HRESULT")
         return result
     }
 

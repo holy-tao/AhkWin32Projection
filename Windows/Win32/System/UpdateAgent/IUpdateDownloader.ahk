@@ -95,7 +95,9 @@ class IUpdateDownloader extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_priority
      */
     get_Priority(retval) {
-        result := ComCall(11, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -64,7 +64,9 @@ class ICertView extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-getcolumncount
      */
     GetColumnCount(fResultColumn, pcColumn) {
-        result := ComCall(9, this, "int", fResultColumn, "int*", pcColumn, "HRESULT")
+        pcColumnMarshal := pcColumn is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", fResultColumn, pcColumnMarshal, pcColumn, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class ICertView extends IDispatch{
     GetColumnIndex(fResultColumn, strColumnName, pColumnIndex) {
         strColumnName := strColumnName is String ? BSTR.Alloc(strColumnName).Value : strColumnName
 
-        result := ComCall(10, this, "int", fResultColumn, "ptr", strColumnName, "int*", pColumnIndex, "HRESULT")
+        pColumnIndexMarshal := pColumnIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", fResultColumn, "ptr", strColumnName, pColumnIndexMarshal, pColumnIndex, "HRESULT")
         return result
     }
 

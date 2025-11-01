@@ -118,7 +118,10 @@ class IDXGIDecodeSwapChain extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-getdestsize
      */
     GetDestSize(pWidth, pHeight) {
-        result := ComCall(9, this, "uint*", pWidth, "uint*", pHeight, "HRESULT")
+        pWidthMarshal := pWidth is VarRef ? "uint*" : "ptr"
+        pHeightMarshal := pHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
     }
 

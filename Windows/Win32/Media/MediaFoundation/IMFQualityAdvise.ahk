@@ -64,7 +64,9 @@ class IMFQualityAdvise extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise-getdropmode
      */
     GetDropMode(peDropMode) {
-        result := ComCall(5, this, "int*", peDropMode, "HRESULT")
+        peDropModeMarshal := peDropMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, peDropModeMarshal, peDropMode, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IMFQualityAdvise extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise-getqualitylevel
      */
     GetQualityLevel(peQualityLevel) {
-        result := ComCall(6, this, "int*", peQualityLevel, "HRESULT")
+        peQualityLevelMarshal := peQualityLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, peQualityLevelMarshal, peQualityLevel, "HRESULT")
         return result
     }
 

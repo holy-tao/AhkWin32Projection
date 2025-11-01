@@ -56,7 +56,9 @@ class ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-checkvideoprocessorformat
      */
     CheckVideoProcessorFormat(Format, pFlags) {
-        result := ComCall(8, this, "int", Format, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "int", Format, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

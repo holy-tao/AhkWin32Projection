@@ -55,7 +55,9 @@ class IMFMediaTimeRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getstart
      */
     GetStart(index, pStart) {
-        result := ComCall(4, this, "uint", index, "double*", pStart, "HRESULT")
+        pStartMarshal := pStart is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, "uint", index, pStartMarshal, pStart, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IMFMediaTimeRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getend
      */
     GetEnd(index, pEnd) {
-        result := ComCall(5, this, "uint", index, "double*", pEnd, "HRESULT")
+        pEndMarshal := pEnd is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, "uint", index, pEndMarshal, pEnd, "HRESULT")
         return result
     }
 

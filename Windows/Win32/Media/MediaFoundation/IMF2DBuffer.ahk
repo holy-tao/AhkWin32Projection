@@ -59,7 +59,9 @@ class IMF2DBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d
      */
     Lock2D(ppbScanline0, plPitch) {
-        result := ComCall(3, this, "ptr*", ppbScanline0, "int*", plPitch, "HRESULT")
+        plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", ppbScanline0, plPitchMarshal, plPitch, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IMF2DBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-getscanline0andpitch
      */
     GetScanline0AndPitch(pbScanline0, plPitch) {
-        result := ComCall(5, this, "ptr*", pbScanline0, "int*", plPitch, "HRESULT")
+        plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", pbScanline0, plPitchMarshal, plPitch, "HRESULT")
         return result
     }
 
@@ -103,7 +107,9 @@ class IMF2DBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength
      */
     GetContiguousLength(pcbLength) {
-        result := ComCall(7, this, "uint*", pcbLength, "HRESULT")
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 

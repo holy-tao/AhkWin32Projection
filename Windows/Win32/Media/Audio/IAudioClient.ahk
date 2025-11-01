@@ -69,7 +69,9 @@ class IAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getbuffersize
      */
     GetBufferSize(pNumBufferFrames) {
-        result := ComCall(4, this, "uint*", pNumBufferFrames, "HRESULT")
+        pNumBufferFramesMarshal := pNumBufferFrames is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pNumBufferFramesMarshal, pNumBufferFrames, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class IAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getstreamlatency
      */
     GetStreamLatency(phnsLatency) {
-        result := ComCall(5, this, "int64*", phnsLatency, "HRESULT")
+        phnsLatencyMarshal := phnsLatency is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, phnsLatencyMarshal, phnsLatency, "HRESULT")
         return result
     }
 
@@ -91,7 +95,9 @@ class IAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getcurrentpadding
      */
     GetCurrentPadding(pNumPaddingFrames) {
-        result := ComCall(6, this, "uint*", pNumPaddingFrames, "HRESULT")
+        pNumPaddingFramesMarshal := pNumPaddingFrames is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pNumPaddingFramesMarshal, pNumPaddingFrames, "HRESULT")
         return result
     }
 
@@ -127,7 +133,10 @@ class IAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getdeviceperiod
      */
     GetDevicePeriod(phnsDefaultDevicePeriod, phnsMinimumDevicePeriod) {
-        result := ComCall(9, this, "int64*", phnsDefaultDevicePeriod, "int64*", phnsMinimumDevicePeriod, "HRESULT")
+        phnsDefaultDevicePeriodMarshal := phnsDefaultDevicePeriod is VarRef ? "int64*" : "ptr"
+        phnsMinimumDevicePeriodMarshal := phnsMinimumDevicePeriod is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(9, this, phnsDefaultDevicePeriodMarshal, phnsDefaultDevicePeriod, phnsMinimumDevicePeriodMarshal, phnsMinimumDevicePeriod, "HRESULT")
         return result
     }
 

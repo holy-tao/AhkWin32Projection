@@ -34,7 +34,9 @@ class IShellUIHelper9 extends IShellUIHelper8{
      * @returns {HRESULT} 
      */
     GetOSSku(pdwResult) {
-        result := ComCall(104, this, "uint*", pdwResult, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(104, this, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 }

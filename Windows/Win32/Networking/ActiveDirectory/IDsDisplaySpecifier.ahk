@@ -89,7 +89,9 @@ class IDsDisplaySpecifier extends IUnknown{
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(6, this, "ptr", pszObjectClass, "uint", dwFlags, "ptr", pszBuffer, "int", cchBuffer, "int*", presid, "HRESULT")
+        presidMarshal := presid is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszObjectClass, "uint", dwFlags, "ptr", pszBuffer, "int", cchBuffer, presidMarshal, presid, "HRESULT")
         return result
     }
 

@@ -165,7 +165,9 @@ class IOpcRelationship extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-gettargetmode
      */
     GetTargetMode(targetMode) {
-        result := ComCall(7, this, "int*", targetMode, "HRESULT")
+        targetModeMarshal := targetMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, targetModeMarshal, targetMode, "HRESULT")
         return result
     }
 }

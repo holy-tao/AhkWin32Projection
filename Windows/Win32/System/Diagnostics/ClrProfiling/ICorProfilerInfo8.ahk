@@ -47,7 +47,11 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7{
      * @returns {HRESULT} 
      */
     GetFunctionFromIP3(ip, functionId, pReJitId) {
-        result := ComCall(88, this, "char*", ip, "ptr*", functionId, "ptr*", pReJitId, "HRESULT")
+        ipMarshal := ip is VarRef ? "char*" : "ptr"
+        functionIdMarshal := functionId is VarRef ? "ptr*" : "ptr"
+        pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(88, this, ipMarshal, ip, functionIdMarshal, functionId, pReJitIdMarshal, pReJitId, "HRESULT")
         return result
     }
 
@@ -65,7 +69,11 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7{
     GetDynamicFunctionInfo(functionId, moduleId, ppvSig, pbSig, cchName, pcchName, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(89, this, "ptr", functionId, "ptr*", moduleId, "ptr*", ppvSig, "uint*", pbSig, "uint", cchName, "uint*", pcchName, "ptr", wszName, "HRESULT")
+        moduleIdMarshal := moduleId is VarRef ? "ptr*" : "ptr"
+        pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(89, this, "ptr", functionId, moduleIdMarshal, moduleId, "ptr*", ppvSig, pbSigMarshal, pbSig, "uint", cchName, pcchNameMarshal, pcchName, "ptr", wszName, "HRESULT")
         return result
     }
 }

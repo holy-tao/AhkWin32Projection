@@ -47,7 +47,9 @@ class ISpEventSource extends ISpNotifySource{
      * @returns {HRESULT} 
      */
     GetEvents(ulCount, pEventArray, pulFetched) {
-        result := ComCall(11, this, "uint", ulCount, "ptr", pEventArray, "uint*", pulFetched, "HRESULT")
+        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", ulCount, "ptr", pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 

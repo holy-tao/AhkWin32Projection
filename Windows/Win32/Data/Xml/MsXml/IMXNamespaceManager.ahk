@@ -110,7 +110,9 @@ class IMXNamespaceManager extends IUnknown{
     getDeclaredPrefix(nIndex, pwchPrefix, pcchPrefix) {
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
 
-        result := ComCall(10, this, "int", nIndex, "ptr", pwchPrefix, "int*", pcchPrefix, "HRESULT")
+        pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
         return result
     }
 
@@ -126,7 +128,9 @@ class IMXNamespaceManager extends IUnknown{
         pwszNamespaceURI := pwszNamespaceURI is String ? StrPtr(pwszNamespaceURI) : pwszNamespaceURI
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
 
-        result := ComCall(11, this, "ptr", pwszNamespaceURI, "int", nIndex, "ptr", pwchPrefix, "int*", pcchPrefix, "HRESULT")
+        pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pwszNamespaceURI, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
         return result
     }
 
@@ -142,7 +146,9 @@ class IMXNamespaceManager extends IUnknown{
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
 
-        result := ComCall(12, this, "ptr", pwchPrefix, "ptr", pContextNode, "ptr", pwchUri, "int*", pcchUri, "HRESULT")
+        pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pwchPrefix, "ptr", pContextNode, "ptr", pwchUri, pcchUriMarshal, pcchUri, "HRESULT")
         return result
     }
 }

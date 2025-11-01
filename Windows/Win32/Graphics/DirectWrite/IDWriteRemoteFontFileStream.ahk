@@ -42,7 +42,9 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocalfilesize
      */
     GetLocalFileSize(localFileSize) {
-        result := ComCall(7, this, "uint*", localFileSize, "HRESULT")
+        localFileSizeMarshal := localFileSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, localFileSizeMarshal, localFileSize, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getfilefragmentlocality
      */
     GetFileFragmentLocality(fileOffset, fragmentSize, isLocal, partialSize) {
-        result := ComCall(8, this, "uint", fileOffset, "uint", fragmentSize, "ptr", isLocal, "uint*", partialSize, "HRESULT")
+        partialSizeMarshal := partialSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", fileOffset, "uint", fragmentSize, "ptr", isLocal, partialSizeMarshal, partialSize, "HRESULT")
         return result
     }
 

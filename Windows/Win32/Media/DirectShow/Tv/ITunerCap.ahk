@@ -44,7 +44,9 @@ class ITunerCap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercap-get_supportednetworktypes
      */
     get_SupportedNetworkTypes(ulcNetworkTypesMax, pulcNetworkTypes, pguidNetworkTypes) {
-        result := ComCall(3, this, "uint", ulcNetworkTypesMax, "uint*", pulcNetworkTypes, "ptr", pguidNetworkTypes, "HRESULT")
+        pulcNetworkTypesMarshal := pulcNetworkTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulcNetworkTypesMax, pulcNetworkTypesMarshal, pulcNetworkTypes, "ptr", pguidNetworkTypes, "HRESULT")
         return result
     }
 
@@ -56,7 +58,10 @@ class ITunerCap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercap-get_supportedvideoformats
      */
     get_SupportedVideoFormats(pulAMTunerModeType, pulAnalogVideoStandard) {
-        result := ComCall(4, this, "uint*", pulAMTunerModeType, "uint*", pulAnalogVideoStandard, "HRESULT")
+        pulAMTunerModeTypeMarshal := pulAMTunerModeType is VarRef ? "uint*" : "ptr"
+        pulAnalogVideoStandardMarshal := pulAnalogVideoStandard is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulAMTunerModeTypeMarshal, pulAMTunerModeType, pulAnalogVideoStandardMarshal, pulAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -68,7 +73,10 @@ class ITunerCap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercap-get_auxinputcount
      */
     get_AuxInputCount(pulCompositeCount, pulSvideoCount) {
-        result := ComCall(5, this, "uint*", pulCompositeCount, "uint*", pulSvideoCount, "HRESULT")
+        pulCompositeCountMarshal := pulCompositeCount is VarRef ? "uint*" : "ptr"
+        pulSvideoCountMarshal := pulSvideoCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulCompositeCountMarshal, pulCompositeCount, pulSvideoCountMarshal, pulSvideoCount, "HRESULT")
         return result
     }
 }

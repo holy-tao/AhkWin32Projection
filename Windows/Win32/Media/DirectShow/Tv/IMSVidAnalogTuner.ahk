@@ -42,7 +42,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_channel
      */
     get_Channel(Channel) {
-        result := ComCall(22, this, "int*", Channel, "HRESULT")
+        ChannelMarshal := Channel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, ChannelMarshal, Channel, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_videofrequency
      */
     get_VideoFrequency(lcc) {
-        result := ComCall(24, this, "int*", lcc, "HRESULT")
+        lccMarshal := lcc is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, lccMarshal, lcc, "HRESULT")
         return result
     }
 
@@ -75,7 +79,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_audiofrequency
      */
     get_AudioFrequency(lcc) {
-        result := ComCall(25, this, "int*", lcc, "HRESULT")
+        lccMarshal := lcc is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, lccMarshal, lcc, "HRESULT")
         return result
     }
 
@@ -86,7 +92,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_countrycode
      */
     get_CountryCode(lcc) {
-        result := ComCall(26, this, "int*", lcc, "HRESULT")
+        lccMarshal := lcc is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, lccMarshal, lcc, "HRESULT")
         return result
     }
 
@@ -132,7 +140,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-channelavailable
      */
     ChannelAvailable(nChannel, SignalStrength, fSignalPresent) {
-        result := ComCall(30, this, "int", nChannel, "int*", SignalStrength, "ptr", fSignalPresent, "HRESULT")
+        SignalStrengthMarshal := SignalStrength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, "int", nChannel, SignalStrengthMarshal, SignalStrength, "ptr", fSignalPresent, "HRESULT")
         return result
     }
 }

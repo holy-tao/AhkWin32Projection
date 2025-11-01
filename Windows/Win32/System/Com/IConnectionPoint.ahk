@@ -78,7 +78,9 @@ class IConnectionPoint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-advise
      */
     Advise(pUnkSink, pdwCookie) {
-        result := ComCall(5, this, "ptr", pUnkSink, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pUnkSink, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

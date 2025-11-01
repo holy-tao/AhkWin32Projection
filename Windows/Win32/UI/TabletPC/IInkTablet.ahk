@@ -86,7 +86,9 @@ class IInkTablet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_hardwarecapabilities
      */
     get_HardwareCapabilities(Capabilities) {
-        result := ComCall(10, this, "int*", Capabilities, "HRESULT")
+        CapabilitiesMarshal := Capabilities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, CapabilitiesMarshal, Capabilities, "HRESULT")
         return result
     }
 
@@ -117,7 +119,12 @@ class IInkTablet extends IDispatch{
     GetPropertyMetrics(propertyName, Minimum, Maximum, Units, Resolution) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(12, this, "ptr", propertyName, "int*", Minimum, "int*", Maximum, "int*", Units, "float*", Resolution, "HRESULT")
+        MinimumMarshal := Minimum is VarRef ? "int*" : "ptr"
+        MaximumMarshal := Maximum is VarRef ? "int*" : "ptr"
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+        ResolutionMarshal := Resolution is VarRef ? "float*" : "ptr"
+
+        result := ComCall(12, this, "ptr", propertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "HRESULT")
         return result
     }
 }

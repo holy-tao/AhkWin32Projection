@@ -42,7 +42,9 @@ class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace2-get_countrycode
      */
     get_CountryCode(CountryCodeVal) {
-        result := ComCall(32, this, "int*", CountryCodeVal, "HRESULT")
+        CountryCodeValMarshal := CountryCodeVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, CountryCodeValMarshal, CountryCodeVal, "HRESULT")
         return result
     }
 

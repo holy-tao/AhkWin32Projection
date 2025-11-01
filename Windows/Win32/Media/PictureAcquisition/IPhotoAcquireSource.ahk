@@ -63,7 +63,9 @@ class IPhotoAcquireSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-initializeitemlist
      */
     InitializeItemList(fForceEnumeration, pPhotoAcquireProgressCB, pnItemCount) {
-        result := ComCall(5, this, "int", fForceEnumeration, "ptr", pPhotoAcquireProgressCB, "uint*", pnItemCount, "HRESULT")
+        pnItemCountMarshal := pnItemCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", fForceEnumeration, "ptr", pPhotoAcquireProgressCB, pnItemCountMarshal, pnItemCount, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IPhotoAcquireSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getitemcount
      */
     GetItemCount(pnItemCount) {
-        result := ComCall(6, this, "uint*", pnItemCount, "HRESULT")
+        pnItemCountMarshal := pnItemCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pnItemCountMarshal, pnItemCount, "HRESULT")
         return result
     }
 

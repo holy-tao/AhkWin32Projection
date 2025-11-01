@@ -52,7 +52,9 @@ class ICLRAssemblyIdentityManager extends IUnknown{
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        result := ComCall(4, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pwzBuffer, "uint*", pcchBufferSize, "HRESULT")
+        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class ICLRAssemblyIdentityManager extends IUnknown{
     GetBindingIdentityFromStream(pStream, dwFlags, pwzBuffer, pcchBufferSize) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        result := ComCall(5, this, "ptr", pStream, "uint", dwFlags, "ptr", pwzBuffer, "uint*", pcchBufferSize, "HRESULT")
+        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pStream, "uint", dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
         return result
     }
 

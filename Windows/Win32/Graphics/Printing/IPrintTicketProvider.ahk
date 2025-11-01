@@ -38,7 +38,9 @@ class IPrintTicketProvider extends IUnknown{
     GetSupportedVersions(hPrinter, ppVersions, cVersions) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(3, this, "ptr", hPrinter, "ptr*", ppVersions, "int*", cVersions, "HRESULT")
+        cVersionsMarshal := cVersions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hPrinter, "ptr*", ppVersions, cVersionsMarshal, cVersions, "HRESULT")
         return result
     }
 
@@ -55,7 +57,11 @@ class IPrintTicketProvider extends IUnknown{
     BindPrinter(hPrinter, version, pOptions, pDevModeFlags, cNamespaces, ppNamespaces) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(4, this, "ptr", hPrinter, "int", version, "int*", pOptions, "uint*", pDevModeFlags, "int*", cNamespaces, "ptr*", ppNamespaces, "HRESULT")
+        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
+        pDevModeFlagsMarshal := pDevModeFlags is VarRef ? "uint*" : "ptr"
+        cNamespacesMarshal := cNamespaces is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hPrinter, "int", version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, "ptr*", ppNamespaces, "HRESULT")
         return result
     }
 
@@ -79,7 +85,9 @@ class IPrintTicketProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     ConvertPrintTicketToDevMode(pPrintTicket, cbDevmodeIn, pDevmodeIn, pcbDevmodeOut, ppDevmodeOut) {
-        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, "ptr", pDevmodeIn, "uint*", pcbDevmodeOut, "ptr*", ppDevmodeOut, "HRESULT")
+        pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, "ptr", pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, "ptr*", ppDevmodeOut, "HRESULT")
         return result
     }
 

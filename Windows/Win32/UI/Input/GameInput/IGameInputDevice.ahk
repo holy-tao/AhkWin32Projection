@@ -197,7 +197,9 @@ class IGameInputDevice extends IUnknown{
      * @returns {HRESULT} 
      */
     ExecuteRawDeviceIoControl(controlCode, inputBufferSize, inputBuffer, outputBufferSize, outputBuffer, outputSize) {
-        result := ComCall(19, this, "uint", controlCode, "ptr", inputBufferSize, "ptr", inputBuffer, "ptr", outputBufferSize, "ptr", outputBuffer, "ptr*", outputSize, "HRESULT")
+        outputSizeMarshal := outputSize is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, "uint", controlCode, "ptr", inputBufferSize, "ptr", inputBuffer, "ptr", outputBufferSize, "ptr", outputBuffer, outputSizeMarshal, outputSize, "HRESULT")
         return result
     }
 

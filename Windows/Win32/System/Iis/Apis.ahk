@@ -4689,7 +4689,9 @@ class Iis {
      * @returns {Integer} 
      */
     static HttpFilterProc(pfc, NotificationType, pvNotification) {
-        result := DllCall("RpcProxy.dll\HttpFilterProc", "ptr", pfc, "uint", NotificationType, "ptr", pvNotification, "uint")
+        pvNotificationMarshal := pvNotification is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RpcProxy.dll\HttpFilterProc", "ptr", pfc, "uint", NotificationType, pvNotificationMarshal, pvNotification, "uint")
         return result
     }
 

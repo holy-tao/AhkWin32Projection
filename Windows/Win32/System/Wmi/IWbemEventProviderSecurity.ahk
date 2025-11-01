@@ -49,7 +49,11 @@ class IWbemEventProviderSecurity extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-accesscheck
      */
     AccessCheck(wszQueryLanguage, wszQuery, lSidLength, pSid) {
-        result := ComCall(3, this, "ushort*", wszQueryLanguage, "ushort*", wszQuery, "int", lSidLength, "char*", pSid, "HRESULT")
+        wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"
+        wszQueryMarshal := wszQuery is VarRef ? "ushort*" : "ptr"
+        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "int", lSidLength, pSidMarshal, pSid, "HRESULT")
         return result
     }
 }

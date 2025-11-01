@@ -34,7 +34,9 @@ class IQueryOEMWinSATCustomization extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOEMPrePopulationInfo(state) {
-        result := ComCall(3, this, "int*", state, "HRESULT")
+        stateMarshal := state is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, stateMarshal, state, "HRESULT")
         return result
     }
 }

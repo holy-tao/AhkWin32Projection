@@ -41,7 +41,9 @@ class IMFRealTimeClientEx extends IUnknown{
     RegisterThreadsEx(pdwTaskIndex, wszClassName, lBasePriority) {
         wszClassName := wszClassName is String ? StrPtr(wszClassName) : wszClassName
 
-        result := ComCall(3, this, "uint*", pdwTaskIndex, "ptr", wszClassName, "int", lBasePriority, "HRESULT")
+        pdwTaskIndexMarshal := pdwTaskIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwTaskIndexMarshal, pdwTaskIndex, "ptr", wszClassName, "int", lBasePriority, "HRESULT")
         return result
     }
 

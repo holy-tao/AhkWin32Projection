@@ -70,7 +70,9 @@ class ITFileTerminalEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_state
      */
     get_State(pState) {
-        result := ComCall(10, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class ITFileTerminalEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfileterminalevent-get_cause
      */
     get_Cause(pCause) {
-        result := ComCall(11, this, "int*", pCause, "HRESULT")
+        pCauseMarshal := pCause is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pCauseMarshal, pCause, "HRESULT")
         return result
     }
 

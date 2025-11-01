@@ -63,7 +63,9 @@ class IDirect3DVertexDeclaration9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexdeclaration9-getdeclaration
      */
     GetDeclaration(pElement, pNumElements) {
-        result := ComCall(4, this, "ptr", pElement, "uint*", pNumElements, "HRESULT")
+        pNumElementsMarshal := pNumElements is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pElement, pNumElementsMarshal, pNumElements, "HRESULT")
         return result
     }
 }

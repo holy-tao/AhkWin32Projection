@@ -59,7 +59,9 @@ class IEmptyVolumeCache extends IUnknown{
         hkRegKey := hkRegKey is Win32Handle ? NumGet(hkRegKey, "ptr") : hkRegKey
         pcwszVolume := pcwszVolume is String ? StrPtr(pcwszVolume) : pcwszVolume
 
-        result := ComCall(3, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", ppwszDisplayName, "ptr", ppwszDescription, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", ppwszDisplayName, "ptr", ppwszDescription, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IEmptyVolumeCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-getspaceused
      */
     GetSpaceUsed(pdwlSpaceUsed, picb) {
-        result := ComCall(4, this, "uint*", pdwlSpaceUsed, "ptr", picb, "HRESULT")
+        pdwlSpaceUsedMarshal := pdwlSpaceUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwlSpaceUsedMarshal, pdwlSpaceUsed, "ptr", picb, "HRESULT")
         return result
     }
 
@@ -107,7 +111,9 @@ class IEmptyVolumeCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-deactivate
      */
     Deactivate(pdwFlags) {
-        result := ComCall(7, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

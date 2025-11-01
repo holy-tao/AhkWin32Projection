@@ -34,7 +34,9 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {HRESULT} 
      */
     IsTypedef(isTypedef) {
-        result := ComCall(29, this, "int*", isTypedef, "HRESULT")
+        isTypedefMarshal := isTypedef is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, isTypedefMarshal, isTypedef, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {HRESULT} 
      */
     GetFunctionVarArgsKind(varArgsKind) {
-        result := ComCall(32, this, "int*", varArgsKind, "HRESULT")
+        varArgsKindMarshal := varArgsKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, varArgsKindMarshal, varArgsKind, "HRESULT")
         return result
     }
 

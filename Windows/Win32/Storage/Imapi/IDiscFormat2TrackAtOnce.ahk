@@ -142,7 +142,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_numberofexistingtracks
      */
     get_NumberOfExistingTracks(value) {
-        result := ComCall(21, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -153,7 +155,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_totalsectorsonmedia
      */
     get_TotalSectorsOnMedia(value) {
-        result := ComCall(22, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -164,7 +168,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_freesectorsonmedia
      */
     get_FreeSectorsOnMedia(value) {
-        result := ComCall(23, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -175,7 +181,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_usedsectorsonmedia
      */
     get_UsedSectorsOnMedia(value) {
-        result := ComCall(24, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -219,7 +227,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType(value) {
-        result := ComCall(28, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -254,7 +264,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedwritespeed
      */
     get_RequestedWriteSpeed(value) {
-        result := ComCall(31, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -276,7 +288,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentwritespeed
      */
     get_CurrentWriteSpeed(value) {
-        result := ComCall(33, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, valueMarshal, value, "HRESULT")
         return result
     }
 

@@ -46,7 +46,9 @@ class ICertRequest extends IDispatch{
         strAttributes := strAttributes is String ? BSTR.Alloc(strAttributes).Value : strAttributes
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(7, this, "int", Flags, "ptr", strRequest, "ptr", strAttributes, "ptr", strConfig, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", Flags, "ptr", strRequest, "ptr", strAttributes, "ptr", strConfig, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class ICertRequest extends IDispatch{
     RetrievePending(RequestId, strConfig, pDisposition) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(8, this, "int", RequestId, "ptr", strConfig, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", RequestId, "ptr", strConfig, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -72,7 +76,9 @@ class ICertRequest extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getlaststatus
      */
     GetLastStatus(pStatus) {
-        result := ComCall(9, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -83,7 +89,9 @@ class ICertRequest extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getrequestid
      */
     GetRequestId(pRequestId) {
-        result := ComCall(10, this, "int*", pRequestId, "HRESULT")
+        pRequestIdMarshal := pRequestId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pRequestIdMarshal, pRequestId, "HRESULT")
         return result
     }
 

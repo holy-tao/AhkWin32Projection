@@ -39,7 +39,10 @@ class IAMAudioRendererStats extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudiorendererstats-getstatparam
      */
     GetStatParam(dwParam, pdwParam1, pdwParam2) {
-        result := ComCall(3, this, "uint", dwParam, "uint*", pdwParam1, "uint*", pdwParam2, "HRESULT")
+        pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : "ptr"
+        pdwParam2Marshal := pdwParam2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwParam, pdwParam1Marshal, pdwParam1, pdwParam2Marshal, pdwParam2, "HRESULT")
         return result
     }
 }

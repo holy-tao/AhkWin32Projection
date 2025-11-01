@@ -37,7 +37,9 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-next
      */
     Next(pIndex) {
-        result := ComCall(7, this, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IEnumCERTVIEWEXTENSION extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-getflags
      */
     GetFlags(pFlags) {
-        result := ComCall(9, this, "int*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

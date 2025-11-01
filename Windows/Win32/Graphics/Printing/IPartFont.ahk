@@ -35,7 +35,9 @@ class IPartFont extends IPartBase{
      * @returns {HRESULT} 
      */
     GetFontProperties(pContentType, pFontOptions) {
-        result := ComCall(7, this, "ptr", pContentType, "int*", pFontOptions, "HRESULT")
+        pFontOptionsMarshal := pFontOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pContentType, pFontOptionsMarshal, pFontOptions, "HRESULT")
         return result
     }
 

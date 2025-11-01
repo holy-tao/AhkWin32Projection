@@ -146,7 +146,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduletype
      */
     get_ModuleType(moduleType) {
-        result := ComCall(20, this, "int*", moduleType, "HRESULT")
+        moduleTypeMarshal := moduleType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, moduleTypeMarshal, moduleType, "HRESULT")
         return result
     }
 
@@ -201,7 +203,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_account
      */
     get_Account(retrievalAccount) {
-        result := ComCall(25, this, "int*", retrievalAccount, "HRESULT")
+        retrievalAccountMarshal := retrievalAccount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, retrievalAccountMarshal, retrievalAccount, "HRESULT")
         return result
     }
 

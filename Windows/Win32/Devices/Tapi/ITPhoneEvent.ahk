@@ -48,7 +48,9 @@ class ITPhoneEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_event
      */
     get_Event(pEvent) {
-        result := ComCall(8, this, "int*", pEvent, "HRESULT")
+        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITPhoneEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_buttonstate
      */
     get_ButtonState(pState) {
-        result := ComCall(9, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class ITPhoneEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchstate
      */
     get_HookSwitchState(pState) {
-        result := ComCall(10, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class ITPhoneEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchdevice
      */
     get_HookSwitchDevice(pDevice) {
-        result := ComCall(11, this, "int*", pDevice, "HRESULT")
+        pDeviceMarshal := pDevice is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pDeviceMarshal, pDevice, "HRESULT")
         return result
     }
 
@@ -92,7 +100,9 @@ class ITPhoneEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_ringmode
      */
     get_RingMode(plRingMode) {
-        result := ComCall(12, this, "int*", plRingMode, "HRESULT")
+        plRingModeMarshal := plRingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plRingModeMarshal, plRingMode, "HRESULT")
         return result
     }
 
@@ -103,7 +113,9 @@ class ITPhoneEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_buttonlampid
      */
     get_ButtonLampId(plButtonLampId) {
-        result := ComCall(13, this, "int*", plButtonLampId, "HRESULT")
+        plButtonLampIdMarshal := plButtonLampId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plButtonLampIdMarshal, plButtonLampId, "HRESULT")
         return result
     }
 

@@ -71,7 +71,9 @@ class IHTMLOListElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_start(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 

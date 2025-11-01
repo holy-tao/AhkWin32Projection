@@ -61,7 +61,9 @@ class ISyncMgrSynchronize extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(dwReserved, dwSyncMgrFlags, cbCookie, lpCookie) {
-        result := ComCall(3, this, "uint", dwReserved, "uint", dwSyncMgrFlags, "uint", cbCookie, "char*", lpCookie, "HRESULT")
+        lpCookieMarshal := lpCookie is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwReserved, "uint", dwSyncMgrFlags, "uint", cbCookie, lpCookieMarshal, lpCookie, "HRESULT")
         return result
     }
 

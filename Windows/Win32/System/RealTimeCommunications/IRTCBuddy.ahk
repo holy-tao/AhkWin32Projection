@@ -34,7 +34,9 @@ class IRTCBuddy extends IRTCPresenceContact{
      * @returns {HRESULT} 
      */
     get_Status(penStatus) {
-        result := ComCall(11, this, "int*", penStatus, "HRESULT")
+        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, penStatusMarshal, penStatus, "HRESULT")
         return result
     }
 

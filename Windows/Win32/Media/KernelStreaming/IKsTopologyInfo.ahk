@@ -48,7 +48,9 @@ class IKsTopologyInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_numcategories
      */
     get_NumCategories(pdwNumCategories) {
-        result := ComCall(3, this, "uint*", pdwNumCategories, "HRESULT")
+        pdwNumCategoriesMarshal := pdwNumCategories is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwNumCategoriesMarshal, pdwNumCategories, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IKsTopologyInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_numconnections
      */
     get_NumConnections(pdwNumConnections) {
-        result := ComCall(5, this, "uint*", pdwNumConnections, "HRESULT")
+        pdwNumConnectionsMarshal := pdwNumConnections is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwNumConnectionsMarshal, pdwNumConnections, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class IKsTopologyInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_nodename
      */
     get_NodeName(dwNodeId, pwchNodeName, dwBufSize, pdwNameLen) {
-        result := ComCall(7, this, "uint", dwNodeId, "ptr", pwchNodeName, "uint", dwBufSize, "uint*", pdwNameLen, "HRESULT")
+        pdwNameLenMarshal := pdwNameLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwNodeId, "ptr", pwchNodeName, "uint", dwBufSize, pdwNameLenMarshal, pdwNameLen, "HRESULT")
         return result
     }
 
@@ -108,7 +114,9 @@ class IKsTopologyInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_numnodes
      */
     get_NumNodes(pdwNumNodes) {
-        result := ComCall(8, this, "uint*", pdwNumNodes, "HRESULT")
+        pdwNumNodesMarshal := pdwNumNodes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwNumNodesMarshal, pdwNumNodes, "HRESULT")
         return result
     }
 

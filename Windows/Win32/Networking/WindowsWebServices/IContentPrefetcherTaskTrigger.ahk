@@ -53,7 +53,9 @@ class IContentPrefetcherTaskTrigger extends IInspectable{
     IsRegisteredForContentPrefetch(packageFullName, isRegistered) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := ComCall(7, this, "ptr", packageFullName, "char*", isRegistered, "HRESULT")
+        isRegisteredMarshal := isRegistered is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", packageFullName, isRegisteredMarshal, isRegistered, "HRESULT")
         return result
     }
 }

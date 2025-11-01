@@ -52,7 +52,10 @@ class ITSGPolicyEngine extends IUnknown{
         clientMachineIP := clientMachineIP is String ? BSTR.Alloc(clientMachineIP).Value : clientMachineIP
         clientMachineName := clientMachineName is String ? BSTR.Alloc(clientMachineName).Value : clientMachineName
 
-        result := ComCall(3, this, "ptr", mainSessionId, "ptr", username, "int", authType, "ptr", clientMachineIP, "ptr", clientMachineName, "char*", sohData, "uint", numSOHBytes, "char*", cookieData, "uint", numCookieBytes, "ptr", userToken, "ptr", pSink, "HRESULT")
+        sohDataMarshal := sohData is VarRef ? "char*" : "ptr"
+        cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", mainSessionId, "ptr", username, "int", authType, "ptr", clientMachineIP, "ptr", clientMachineName, sohDataMarshal, sohData, "uint", numSOHBytes, cookieDataMarshal, cookieData, "uint", numCookieBytes, "ptr", userToken, "ptr", pSink, "HRESULT")
         return result
     }
 
@@ -77,7 +80,9 @@ class ITSGPolicyEngine extends IUnknown{
         username := username is String ? BSTR.Alloc(username).Value : username
         operation := operation is String ? BSTR.Alloc(operation).Value : operation
 
-        result := ComCall(4, this, "ptr", mainSessionId, "int", subSessionId, "ptr", username, "ptr", resourceNames, "uint", numResources, "ptr", alternateResourceNames, "uint", numAlternateResourceName, "uint", portNumber, "ptr", operation, "char*", cookie, "uint", numBytesInCookie, "ptr", pSink, "HRESULT")
+        cookieMarshal := cookie is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", mainSessionId, "int", subSessionId, "ptr", username, "ptr", resourceNames, "uint", numResources, "ptr", alternateResourceNames, "uint", numAlternateResourceName, "uint", portNumber, "ptr", operation, cookieMarshal, cookie, "uint", numBytesInCookie, "ptr", pSink, "HRESULT")
         return result
     }
 

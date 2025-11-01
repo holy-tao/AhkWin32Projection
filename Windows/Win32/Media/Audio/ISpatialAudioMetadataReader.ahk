@@ -49,7 +49,10 @@ class ISpatialAudioMetadataReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-readnextitem
      */
     ReadNextItem(commandCount, frameOffset) {
-        result := ComCall(4, this, "char*", commandCount, "ushort*", frameOffset, "HRESULT")
+        commandCountMarshal := commandCount is VarRef ? "char*" : "ptr"
+        frameOffsetMarshal := frameOffset is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, commandCountMarshal, commandCount, frameOffsetMarshal, frameOffset, "HRESULT")
         return result
     }
 
@@ -63,7 +66,10 @@ class ISpatialAudioMetadataReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-readnextitemcommand
      */
     ReadNextItemCommand(commandID, valueBuffer, maxValueBufferLength, valueBufferLength) {
-        result := ComCall(5, this, "char*", commandID, "ptr", valueBuffer, "uint", maxValueBufferLength, "uint*", valueBufferLength, "HRESULT")
+        commandIDMarshal := commandID is VarRef ? "char*" : "ptr"
+        valueBufferLengthMarshal := valueBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, commandIDMarshal, commandID, "ptr", valueBuffer, "uint", maxValueBufferLength, valueBufferLengthMarshal, valueBufferLength, "HRESULT")
         return result
     }
 

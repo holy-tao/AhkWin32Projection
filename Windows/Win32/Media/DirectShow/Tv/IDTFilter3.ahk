@@ -43,7 +43,9 @@ class IDTFilter3 extends IDTFilter2{
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-getprotectiontype
      */
     GetProtectionType(pProtectionType) {
-        result := ComCall(14, this, "int*", pProtectionType, "HRESULT")
+        pProtectionTypeMarshal := pProtectionType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pProtectionTypeMarshal, pProtectionType, "HRESULT")
         return result
     }
 

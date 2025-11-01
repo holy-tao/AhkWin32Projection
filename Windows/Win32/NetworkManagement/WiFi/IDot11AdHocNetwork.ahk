@@ -37,7 +37,9 @@ class IDot11AdHocNetwork extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getstatus
      */
     GetStatus(eStatus) {
-        result := ComCall(3, this, "int*", eStatus, "HRESULT")
+        eStatusMarshal := eStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, eStatusMarshal, eStatus, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IDot11AdHocNetwork extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-hasprofile
      */
     HasProfile(pf11d) {
-        result := ComCall(5, this, "char*", pf11d, "HRESULT")
+        pf11dMarshal := pf11d is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pf11dMarshal, pf11d, "HRESULT")
         return result
     }
 
@@ -92,7 +96,10 @@ class IDot11AdHocNetwork extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getsignalquality
      */
     GetSignalQuality(puStrengthValue, puStrengthMax) {
-        result := ComCall(8, this, "uint*", puStrengthValue, "uint*", puStrengthMax, "HRESULT")
+        puStrengthValueMarshal := puStrengthValue is VarRef ? "uint*" : "ptr"
+        puStrengthMaxMarshal := puStrengthMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, puStrengthValueMarshal, puStrengthValue, puStrengthMaxMarshal, puStrengthMax, "HRESULT")
         return result
     }
 

@@ -336,7 +336,9 @@ class IHTMLTextAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_rows(p) {
-        result := ComCall(27, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -356,7 +358,9 @@ class IHTMLTextAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_cols(p) {
-        result := ComCall(29, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pMarshal, p, "HRESULT")
         return result
     }
 

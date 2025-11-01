@@ -37,7 +37,9 @@ class IUIAnimationTransition2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-getdimension
      */
     GetDimension(dimension) {
-        result := ComCall(3, this, "uint*", dimension, "HRESULT")
+        dimensionMarshal := dimension is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, dimensionMarshal, dimension, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IUIAnimationTransition2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-setinitialvectorvalue
      */
     SetInitialVectorValue(value, cDimension) {
-        result := ComCall(5, this, "double*", value, "uint", cDimension, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, valueMarshal, value, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -83,7 +87,9 @@ class IUIAnimationTransition2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-setinitialvectorvelocity
      */
     SetInitialVectorVelocity(velocity, cDimension) {
-        result := ComCall(7, this, "double*", velocity, "uint", cDimension, "HRESULT")
+        velocityMarshal := velocity is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, velocityMarshal, velocity, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -104,7 +110,9 @@ class IUIAnimationTransition2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-getduration
      */
     GetDuration(duration) {
-        result := ComCall(9, this, "double*", duration, "HRESULT")
+        durationMarshal := duration is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, durationMarshal, duration, "HRESULT")
         return result
     }
 }

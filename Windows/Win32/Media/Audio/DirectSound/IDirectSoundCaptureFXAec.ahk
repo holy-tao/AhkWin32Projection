@@ -54,7 +54,9 @@ class IDirectSoundCaptureFXAec extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus(pdwStatus) {
-        result := ComCall(5, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 

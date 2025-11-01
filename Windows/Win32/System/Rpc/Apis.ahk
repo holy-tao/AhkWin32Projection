@@ -1264,7 +1264,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingCopy(SourceBinding, DestinationBinding) {
-        result := DllCall("RPCRT4.dll\RpcBindingCopy", "ptr", SourceBinding, "ptr*", DestinationBinding, "int")
+        SourceBindingMarshal := SourceBinding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingCopy", SourceBindingMarshal, SourceBinding, "ptr*", DestinationBinding, "int")
         return result
     }
 
@@ -1367,7 +1369,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetOption(hBinding, option, optionValue) {
-        result := DllCall("RPCRT4.dll\RpcBindingSetOption", "ptr", hBinding, "uint", option, "ptr", optionValue, "int")
+        hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingSetOption", hBindingMarshal, hBinding, "uint", option, "ptr", optionValue, "int")
         return result
     }
 
@@ -1417,7 +1421,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqOption(hBinding, option, pOptionValue) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqOption", "ptr", hBinding, "uint", option, "ptr*", pOptionValue, "int")
+        hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
+        pOptionValueMarshal := pOptionValue is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqOption", hBindingMarshal, hBinding, "uint", option, pOptionValueMarshal, pOptionValue, "int")
         return result
     }
 
@@ -1676,7 +1683,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static RpcSsGetContextBinding(ContextHandle, Binding) {
-        result := DllCall("RPCRT4.dll\RpcSsGetContextBinding", "ptr", ContextHandle, "ptr*", Binding, "int")
+        ContextHandleMarshal := ContextHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSsGetContextBinding", ContextHandleMarshal, ContextHandle, "ptr*", Binding, "int")
         return result
     }
 
@@ -1687,7 +1696,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static RpcBindingInqMaxCalls(Binding, MaxCalls) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqMaxCalls", "ptr", Binding, "uint*", MaxCalls, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        MaxCallsMarshal := MaxCalls is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqMaxCalls", BindingMarshal, Binding, MaxCallsMarshal, MaxCalls, "int")
         return result
     }
 
@@ -1733,7 +1745,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqObject(Binding, ObjectUuid) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqObject", "ptr", Binding, "ptr", ObjectUuid, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqObject", BindingMarshal, Binding, "ptr", ObjectUuid, "int")
         return result
     }
 
@@ -1788,7 +1802,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingReset(Binding) {
-        result := DllCall("RPCRT4.dll\RpcBindingReset", "ptr", Binding, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingReset", BindingMarshal, Binding, "int")
         return result
     }
 
@@ -1845,7 +1861,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetObject(Binding, ObjectUuid) {
-        result := DllCall("RPCRT4.dll\RpcBindingSetObject", "ptr", Binding, "ptr", ObjectUuid, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingSetObject", BindingMarshal, Binding, "ptr", ObjectUuid, "int")
         return result
     }
 
@@ -1891,7 +1909,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqDefaultProtectLevel(AuthnSvc, AuthnLevel) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqDefaultProtectLevel", "uint", AuthnSvc, "uint*", AuthnLevel, "int")
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtInqDefaultProtectLevel", "uint", AuthnSvc, AuthnLevelMarshal, AuthnLevel, "int")
         return result
     }
 
@@ -1943,7 +1963,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingToStringBindingA(Binding, StringBinding) {
-        result := DllCall("RPCRT4.dll\RpcBindingToStringBindingA", "ptr", Binding, "ptr", StringBinding, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingToStringBindingA", BindingMarshal, Binding, "ptr", StringBinding, "int")
         return result
     }
 
@@ -1995,7 +2017,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingToStringBindingW(Binding, StringBinding) {
-        result := DllCall("RPCRT4.dll\RpcBindingToStringBindingW", "ptr", Binding, "ptr", StringBinding, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingToStringBindingW", BindingMarshal, Binding, "ptr", StringBinding, "int")
         return result
     }
 
@@ -2451,7 +2475,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcIfInqId(RpcIfHandle, RpcIfId) {
-        result := DllCall("RPCRT4.dll\RpcIfInqId", "ptr", RpcIfHandle, "ptr", RpcIfId, "int")
+        RpcIfHandleMarshal := RpcIfHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcIfInqId", RpcIfHandleMarshal, RpcIfHandle, "ptr", RpcIfId, "int")
         return result
     }
 
@@ -2633,7 +2659,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqComTimeout(Binding, Timeout) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqComTimeout", "ptr", Binding, "uint*", Timeout, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        TimeoutMarshal := Timeout is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtInqComTimeout", BindingMarshal, Binding, TimeoutMarshal, Timeout, "int")
         return result
     }
 
@@ -2700,7 +2729,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtSetComTimeout(Binding, Timeout) {
-        result := DllCall("RPCRT4.dll\RpcMgmtSetComTimeout", "ptr", Binding, "uint", Timeout, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtSetComTimeout", BindingMarshal, Binding, "uint", Timeout, "int")
         return result
     }
 
@@ -3113,7 +3144,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static RpcServerInqBindingsEx(SecurityDescriptor, BindingVector) {
-        result := DllCall("RPCRT4.dll\RpcServerInqBindingsEx", "ptr", SecurityDescriptor, "ptr*", BindingVector, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInqBindingsEx", SecurityDescriptorMarshal, SecurityDescriptor, "ptr*", BindingVector, "int")
         return result
     }
 
@@ -3175,7 +3208,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerInqIf(IfSpec, MgrTypeUuid, MgrEpv) {
-        result := DllCall("RPCRT4.dll\RpcServerInqIf", "ptr", IfSpec, "ptr", MgrTypeUuid, "ptr*", MgrEpv, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInqIf", IfSpecMarshal, IfSpec, "ptr", MgrTypeUuid, "ptr*", MgrEpv, "int")
         return result
     }
 
@@ -3270,7 +3305,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerRegisterIf(IfSpec, MgrTypeUuid, MgrEpv) {
-        result := DllCall("RPCRT4.dll\RpcServerRegisterIf", "ptr", IfSpec, "ptr", MgrTypeUuid, "ptr", MgrEpv, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerRegisterIf", IfSpecMarshal, IfSpec, "ptr", MgrTypeUuid, MgrEpvMarshal, MgrEpv, "int")
         return result
     }
 
@@ -3300,7 +3338,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerRegisterIfEx(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, IfCallback) {
-        result := DllCall("RPCRT4.dll\RpcServerRegisterIfEx", "ptr", IfSpec, "ptr", MgrTypeUuid, "ptr", MgrEpv, "uint", Flags, "uint", MaxCalls, "ptr", IfCallback, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerRegisterIfEx", IfSpecMarshal, IfSpec, "ptr", MgrTypeUuid, MgrEpvMarshal, MgrEpv, "uint", Flags, "uint", MaxCalls, "ptr", IfCallback, "int")
         return result
     }
 
@@ -3331,7 +3372,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerRegisterIf2(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpcSize, IfCallbackFn) {
-        result := DllCall("RPCRT4.dll\RpcServerRegisterIf2", "ptr", IfSpec, "ptr", MgrTypeUuid, "ptr", MgrEpv, "uint", Flags, "uint", MaxCalls, "uint", MaxRpcSize, "ptr", IfCallbackFn, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerRegisterIf2", IfSpecMarshal, IfSpec, "ptr", MgrTypeUuid, MgrEpvMarshal, MgrEpv, "uint", Flags, "uint", MaxCalls, "uint", MaxRpcSize, "ptr", IfCallbackFn, "int")
         return result
     }
 
@@ -3363,7 +3407,11 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerRegisterIf3(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpcSize, IfCallback, SecurityDescriptor) {
-        result := DllCall("RPCRT4.dll\RpcServerRegisterIf3", "ptr", IfSpec, "ptr", MgrTypeUuid, "ptr", MgrEpv, "uint", Flags, "uint", MaxCalls, "uint", MaxRpcSize, "ptr", IfCallback, "ptr", SecurityDescriptor, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerRegisterIf3", IfSpecMarshal, IfSpec, "ptr", MgrTypeUuid, MgrEpvMarshal, MgrEpv, "uint", Flags, "uint", MaxCalls, "uint", MaxRpcSize, "ptr", IfCallback, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -3439,7 +3487,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUnregisterIf(IfSpec, MgrTypeUuid, WaitForCallsToComplete) {
-        result := DllCall("RPCRT4.dll\RpcServerUnregisterIf", "ptr", IfSpec, "ptr", MgrTypeUuid, "uint", WaitForCallsToComplete, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUnregisterIf", IfSpecMarshal, IfSpec, "ptr", MgrTypeUuid, "uint", WaitForCallsToComplete, "int")
         return result
     }
 
@@ -3472,7 +3522,9 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerUnregisterIfEx(IfSpec, MgrTypeUuid, RundownContextHandles) {
-        result := DllCall("RPCRT4.dll\RpcServerUnregisterIfEx", "ptr", IfSpec, "ptr", MgrTypeUuid, "int", RundownContextHandles, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUnregisterIfEx", IfSpecMarshal, IfSpec, "ptr", MgrTypeUuid, "int", RundownContextHandles, "int")
         return result
     }
 
@@ -3539,7 +3591,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseAllProtseqs(MaxCalls, SecurityDescriptor) {
-        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqs", "uint", MaxCalls, "ptr", SecurityDescriptor, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqs", "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -3608,7 +3662,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseAllProtseqsEx(MaxCalls, SecurityDescriptor, Policy) {
-        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsEx", "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsEx", "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -3709,7 +3765,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseAllProtseqsIf(MaxCalls, IfSpec, SecurityDescriptor) {
-        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIf", "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIf", "uint", MaxCalls, IfSpecMarshal, IfSpec, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -3812,7 +3871,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerUseAllProtseqsIfEx(MaxCalls, IfSpec, SecurityDescriptor, Policy) {
-        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIfEx", "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIfEx", "uint", MaxCalls, IfSpecMarshal, IfSpec, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -3893,7 +3955,9 @@ class Rpc {
     static RpcServerUseProtseqA(Protseq, MaxCalls, SecurityDescriptor) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqA", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqA", "ptr", Protseq, "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -3977,7 +4041,9 @@ class Rpc {
     static RpcServerUseProtseqExA(Protseq, MaxCalls, SecurityDescriptor, Policy) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqExA", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqExA", "ptr", Protseq, "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -4058,7 +4124,9 @@ class Rpc {
     static RpcServerUseProtseqW(Protseq, MaxCalls, SecurityDescriptor) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqW", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqW", "ptr", Protseq, "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -4142,7 +4210,9 @@ class Rpc {
     static RpcServerUseProtseqExW(Protseq, MaxCalls, SecurityDescriptor, Policy) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqExW", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqExW", "ptr", Protseq, "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -4247,7 +4317,9 @@ class Rpc {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
         Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -4362,7 +4434,9 @@ class Rpc {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
         Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -4467,7 +4541,9 @@ class Rpc {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
         Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -4582,7 +4658,9 @@ class Rpc {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
         Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -4686,7 +4764,10 @@ class Rpc {
     static RpcServerUseProtseqIfA(Protseq, MaxCalls, IfSpec, SecurityDescriptor) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfA", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfA", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -4792,7 +4873,10 @@ class Rpc {
     static RpcServerUseProtseqIfExA(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExA", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExA", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -4896,7 +4980,10 @@ class Rpc {
     static RpcServerUseProtseqIfW(Protseq, MaxCalls, IfSpec, SecurityDescriptor) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfW", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfW", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, SecurityDescriptorMarshal, SecurityDescriptor, "int")
         return result
     }
 
@@ -5002,7 +5089,10 @@ class Rpc {
     static RpcServerUseProtseqIfExW(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy) {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExW", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExW", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, SecurityDescriptorMarshal, SecurityDescriptor, "ptr", Policy, "int")
         return result
     }
 
@@ -5099,7 +5189,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqStats(Binding, Statistics) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqStats", "ptr", Binding, "ptr*", Statistics, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtInqStats", BindingMarshal, Binding, "ptr*", Statistics, "int")
         return result
     }
 
@@ -5173,7 +5265,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtIsServerListening(Binding) {
-        result := DllCall("RPCRT4.dll\RpcMgmtIsServerListening", "ptr", Binding, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtIsServerListening", BindingMarshal, Binding, "int")
         return result
     }
 
@@ -5228,7 +5322,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtStopServerListening(Binding) {
-        result := DllCall("RPCRT4.dll\RpcMgmtStopServerListening", "ptr", Binding, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtStopServerListening", BindingMarshal, Binding, "int")
         return result
     }
 
@@ -5475,7 +5571,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqIfIds(Binding, IfIdVector) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqIfIds", "ptr", Binding, "ptr*", IfIdVector, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtInqIfIds", BindingMarshal, Binding, "ptr*", IfIdVector, "int")
         return result
     }
 
@@ -5576,7 +5674,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqServerPrincNameA(Binding, AuthnSvc, ServerPrincName) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameA", "ptr", Binding, "uint", AuthnSvc, "ptr", ServerPrincName, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameA", BindingMarshal, Binding, "uint", AuthnSvc, "ptr", ServerPrincName, "int")
         return result
     }
 
@@ -5633,7 +5733,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqServerPrincNameW(Binding, AuthnSvc, ServerPrincName) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameW", "ptr", Binding, "uint", AuthnSvc, "ptr", ServerPrincName, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameW", BindingMarshal, Binding, "uint", AuthnSvc, "ptr", ServerPrincName, "int")
         return result
     }
 
@@ -5779,7 +5881,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpResolveBinding(Binding, IfSpec) {
-        result := DllCall("RPCRT4.dll\RpcEpResolveBinding", "ptr", Binding, "ptr", IfSpec, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcEpResolveBinding", BindingMarshal, Binding, IfSpecMarshal, IfSpec, "int")
         return result
     }
 
@@ -5883,7 +5988,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingInqEntryNameA(Binding, EntryNameSyntax, EntryName) {
-        result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameA", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameA", BindingMarshal, Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
 
@@ -5987,7 +6094,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingInqEntryNameW(Binding, EntryNameSyntax, EntryName) {
-        result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameW", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameW", BindingMarshal, Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
 
@@ -6203,7 +6312,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcImpersonateClient(BindingHandle) {
-        result := DllCall("RPCRT4.dll\RpcImpersonateClient", "ptr", BindingHandle, "int")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcImpersonateClient", BindingHandleMarshal, BindingHandle, "int")
         return result
     }
 
@@ -6213,7 +6324,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static RpcImpersonateClient2(BindingHandle) {
-        result := DllCall("RPCRT4.dll\RpcImpersonateClient2", "ptr", BindingHandle, "int")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcImpersonateClient2", BindingHandleMarshal, BindingHandle, "int")
         return result
     }
 
@@ -6292,7 +6405,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcRevertToSelfEx(BindingHandle) {
-        result := DllCall("RPCRT4.dll\RpcRevertToSelfEx", "ptr", BindingHandle, "int")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcRevertToSelfEx", BindingHandleMarshal, BindingHandle, "int")
         return result
     }
 
@@ -6380,7 +6495,9 @@ class Rpc {
      * @since windows10.0.10240
      */
     static RpcImpersonateClientContainer(BindingHandle) {
-        result := DllCall("RPCRT4.dll\RpcImpersonateClientContainer", "ptr", BindingHandle, "int")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcImpersonateClientContainer", BindingHandleMarshal, BindingHandle, "int")
         return result
     }
 
@@ -6482,7 +6599,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientA", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientA", ClientBindingMarshal, ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, "int")
         return result
     }
 
@@ -6573,7 +6695,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientW", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientW", ClientBindingMarshal, ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, "int")
         return result
     }
 
@@ -6688,7 +6815,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientExA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "uint", Flags, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", ClientBindingMarshal, ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, "uint", Flags, "int")
         return result
     }
 
@@ -6803,7 +6935,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientExW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "uint", Flags, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", ClientBindingMarshal, ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, "uint", Flags, "int")
         return result
     }
 
@@ -6896,7 +7033,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoA", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoA", BindingMarshal, Binding, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, "ptr*", AuthIdentity, AuthzSvcMarshal, AuthzSvc, "int")
         return result
     }
 
@@ -6989,7 +7131,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoW", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoW", BindingMarshal, Binding, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, "ptr*", AuthIdentity, AuthzSvcMarshal, AuthzSvc, "int")
         return result
     }
 
@@ -7092,7 +7239,10 @@ class Rpc {
     static RpcBindingSetAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
         ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, "int")
         return result
     }
 
@@ -7183,7 +7333,10 @@ class Rpc {
     static RpcBindingSetAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQos) {
         ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQos, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQos, "int")
         return result
     }
 
@@ -7283,7 +7436,10 @@ class Rpc {
     static RpcBindingSetAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
         ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, "int")
         return result
     }
 
@@ -7382,7 +7538,10 @@ class Rpc {
     static RpcBindingSetAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQOS) {
         ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQOS, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQOS, "int")
         return result
     }
 
@@ -7475,7 +7634,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", BindingMarshal, Binding, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, "ptr*", AuthIdentity, AuthzSvcMarshal, AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
         return result
     }
 
@@ -7568,7 +7732,12 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+        AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
+        AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", BindingMarshal, Binding, "ptr", ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, "ptr*", AuthIdentity, AuthzSvcMarshal, AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
         return result
     }
 
@@ -7585,7 +7754,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerCompleteSecurityCallback(BindingHandle, Status) {
-        result := DllCall("RPCRT4.dll\RpcServerCompleteSecurityCallback", "ptr", BindingHandle, "int", Status, "int")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerCompleteSecurityCallback", BindingHandleMarshal, BindingHandle, "int", Status, "int")
         return result
     }
 
@@ -7731,7 +7902,9 @@ class Rpc {
     static RpcServerRegisterAuthInfoA(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
         ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-        result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, "ptr", Arg, "int")
+        ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, ArgMarshal, Arg, "int")
         return result
     }
 
@@ -7877,7 +8050,9 @@ class Rpc {
     static RpcServerRegisterAuthInfoW(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
         ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-        result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, "ptr", Arg, "int")
+        ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, ArgMarshal, Arg, "int")
         return result
     }
 
@@ -7947,7 +8122,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingServerFromClient(ClientBinding, ServerBinding) {
-        result := DllCall("RPCRT4.dll\RpcBindingServerFromClient", "ptr", ClientBinding, "ptr*", ServerBinding, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingServerFromClient", ClientBindingMarshal, ClientBinding, "ptr*", ServerBinding, "int")
         return result
     }
 
@@ -8069,7 +8246,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerTestCancel(BindingHandle) {
-        result := DllCall("RPCRT4.dll\RpcServerTestCancel", "ptr", BindingHandle, "int")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerTestCancel", BindingHandleMarshal, BindingHandle, "int")
         return result
     }
 
@@ -8124,7 +8303,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcCancelThread(Thread) {
-        result := DllCall("RPCRT4.dll\RpcCancelThread", "ptr", Thread, "int")
+        ThreadMarshal := Thread is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcCancelThread", ThreadMarshal, Thread, "int")
         return result
     }
 
@@ -8180,7 +8361,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcCancelThreadEx(Thread, Timeout) {
-        result := DllCall("RPCRT4.dll\RpcCancelThreadEx", "ptr", Thread, "int", Timeout, "int")
+        ThreadMarshal := Thread is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcCancelThreadEx", ThreadMarshal, Thread, "int", Timeout, "int")
         return result
     }
 
@@ -8536,7 +8719,9 @@ class Rpc {
      * @since windows5.0
      */
     static UuidCompare(Uuid1, Uuid2, Status) {
-        result := DllCall("RPCRT4.dll\UuidCompare", "ptr", Uuid1, "ptr", Uuid2, "int*", Status, "int")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\UuidCompare", "ptr", Uuid1, "ptr", Uuid2, StatusMarshal, Status, "int")
         return result
     }
 
@@ -8600,7 +8785,9 @@ class Rpc {
      * @since windows5.0
      */
     static UuidEqual(Uuid1, Uuid2, Status) {
-        result := DllCall("RPCRT4.dll\UuidEqual", "ptr", Uuid1, "ptr", Uuid2, "int*", Status, "int")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\UuidEqual", "ptr", Uuid1, "ptr", Uuid2, StatusMarshal, Status, "int")
         return result
     }
 
@@ -8615,7 +8802,9 @@ class Rpc {
      * @since windows5.0
      */
     static UuidHash(Uuid, Status) {
-        result := DllCall("RPCRT4.dll\UuidHash", "ptr", Uuid, "int*", Status, "ushort")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\UuidHash", "ptr", Uuid, StatusMarshal, Status, "ushort")
         return result
     }
 
@@ -8630,7 +8819,9 @@ class Rpc {
      * @since windows5.0
      */
     static UuidIsNil(Uuid, Status) {
-        result := DllCall("RPCRT4.dll\UuidIsNil", "ptr", Uuid, "int*", Status, "int")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\UuidIsNil", "ptr", Uuid, StatusMarshal, Status, "int")
         return result
     }
 
@@ -8711,7 +8902,9 @@ class Rpc {
     static RpcEpRegisterNoReplaceA(IfSpec, BindingVector, UuidVector, Annotation) {
         Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-        result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceA", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceA", IfSpecMarshal, IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
 
@@ -8792,7 +8985,9 @@ class Rpc {
     static RpcEpRegisterNoReplaceW(IfSpec, BindingVector, UuidVector, Annotation) {
         Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-        result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceW", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceW", IfSpecMarshal, IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
 
@@ -8868,7 +9063,9 @@ class Rpc {
     static RpcEpRegisterA(IfSpec, BindingVector, UuidVector, Annotation) {
         Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-        result := DllCall("RPCRT4.dll\RpcEpRegisterA", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcEpRegisterA", IfSpecMarshal, IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
 
@@ -8944,7 +9141,9 @@ class Rpc {
     static RpcEpRegisterW(IfSpec, BindingVector, UuidVector, Annotation) {
         Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-        result := DllCall("RPCRT4.dll\RpcEpRegisterW", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcEpRegisterW", IfSpecMarshal, IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
     }
 
@@ -9018,7 +9217,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpUnregister(IfSpec, BindingVector, UuidVector) {
-        result := DllCall("RPCRT4.dll\RpcEpUnregister", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcEpUnregister", IfSpecMarshal, IfSpec, "ptr", BindingVector, "ptr", UuidVector, "int")
         return result
     }
 
@@ -9268,7 +9469,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtEpEltInqBegin(EpBinding, InquiryType, IfId, VersOption, ObjectUuid, InquiryContext) {
-        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", "ptr", EpBinding, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuid, "ptr*", InquiryContext, "int")
+        EpBindingMarshal := EpBinding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", EpBindingMarshal, EpBinding, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuid, "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -9423,7 +9626,10 @@ class Rpc {
      * @see https://docs.microsoft.com/windows/win32/api//rpcdce/nf-rpcdce-rpcmgmtepunregister
      */
     static RpcMgmtEpUnregister(EpBinding, IfId, Binding, ObjectUuid) {
-        result := DllCall("RPCRT4.dll\RpcMgmtEpUnregister", "ptr", EpBinding, "ptr", IfId, "ptr", Binding, "ptr", ObjectUuid, "int")
+        EpBindingMarshal := EpBinding is VarRef ? "ptr" : "ptr"
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcMgmtEpUnregister", EpBindingMarshal, EpBinding, "ptr", IfId, BindingMarshal, Binding, "ptr", ObjectUuid, "int")
         return result
     }
 
@@ -9540,7 +9746,9 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupCreateW(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateW", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, "ptr", IdleCallbackContext, "ptr*", IfGroup, "int")
+        IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateW", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, "ptr*", IfGroup, "int")
         return result
     }
 
@@ -9580,7 +9788,9 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupCreateA(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateA", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, "ptr", IdleCallbackContext, "ptr*", IfGroup, "int")
+        IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateA", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, "ptr*", IfGroup, "int")
         return result
     }
 
@@ -9624,7 +9834,9 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupClose(IfGroup) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupClose", "ptr", IfGroup, "int")
+        IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupClose", IfGroupMarshal, IfGroup, "int")
         return result
     }
 
@@ -9712,7 +9924,9 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupActivate(IfGroup) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupActivate", "ptr", IfGroup, "int")
+        IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupActivate", IfGroupMarshal, IfGroup, "int")
         return result
     }
 
@@ -9757,7 +9971,9 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupDeactivate(IfGroup, ForceDeactivation) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupDeactivate", "ptr", IfGroup, "uint", ForceDeactivation, "int")
+        IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupDeactivate", IfGroupMarshal, IfGroup, "uint", ForceDeactivation, "int")
         return result
     }
 
@@ -9802,7 +10018,9 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupInqBindings(IfGroup, BindingVector) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupInqBindings", "ptr", IfGroup, "ptr*", BindingVector, "int")
+        IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupInqBindings", IfGroupMarshal, IfGroup, "ptr*", BindingVector, "int")
         return result
     }
 
@@ -9914,7 +10132,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcClearMutex(Mutex) {
-        DllCall("RPCRT4.dll\I_RpcClearMutex", "ptr", Mutex)
+        MutexMarshal := Mutex is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\I_RpcClearMutex", MutexMarshal, Mutex)
     }
 
     /**
@@ -9923,7 +10143,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcDeleteMutex(Mutex) {
-        DllCall("RPCRT4.dll\I_RpcDeleteMutex", "ptr", Mutex)
+        MutexMarshal := Mutex is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\I_RpcDeleteMutex", MutexMarshal, Mutex)
     }
 
     /**
@@ -9942,7 +10164,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcFree(Object) {
-        DllCall("RPCRT4.dll\I_RpcFree", "ptr", Object)
+        ObjectMarshal := Object is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\I_RpcFree", ObjectMarshal, Object)
     }
 
     /**
@@ -9972,7 +10196,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcSystemHandleTypeSpecificWork(Handle, ActualType, IdlType, MarshalDirection) {
-        result := DllCall("RPCRT4.dll\I_RpcSystemHandleTypeSpecificWork", "ptr", Handle, "char", ActualType, "char", IdlType, "int", MarshalDirection, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcSystemHandleTypeSpecificWork", HandleMarshal, Handle, "char", ActualType, "char", IdlType, "int", MarshalDirection, "int")
         return result
     }
 
@@ -9993,7 +10219,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcNsInterfaceExported(EntryNameSyntax, EntryName, RpcInterfaceInformation) {
-        result := DllCall("RPCRT4.dll\I_RpcNsInterfaceExported", "uint", EntryNameSyntax, "ushort*", EntryName, "ptr", RpcInterfaceInformation, "int")
+        EntryNameMarshal := EntryName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcNsInterfaceExported", "uint", EntryNameSyntax, EntryNameMarshal, EntryName, "ptr", RpcInterfaceInformation, "int")
         return result
     }
 
@@ -10005,7 +10233,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcNsInterfaceUnexported(EntryNameSyntax, EntryName, RpcInterfaceInformation) {
-        result := DllCall("RPCRT4.dll\I_RpcNsInterfaceUnexported", "uint", EntryNameSyntax, "ushort*", EntryName, "ptr", RpcInterfaceInformation, "int")
+        EntryNameMarshal := EntryName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcNsInterfaceUnexported", "uint", EntryNameSyntax, EntryNameMarshal, EntryName, "ptr", RpcInterfaceInformation, "int")
         return result
     }
 
@@ -10016,7 +10246,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingToStaticStringBindingW(Binding, StringBinding) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingToStaticStringBindingW", "ptr", Binding, "ptr*", StringBinding, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingToStaticStringBindingW", BindingMarshal, Binding, "ptr*", StringBinding, "int")
         return result
     }
 
@@ -10027,7 +10259,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqSecurityContext(Binding, SecurityContextHandle) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContext", "ptr", Binding, "ptr*", SecurityContextHandle, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContext", BindingMarshal, Binding, "ptr*", SecurityContextHandle, "int")
         return result
     }
 
@@ -10038,7 +10272,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqSecurityContextKeyInfo(Binding, KeyInfo) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContextKeyInfo", "ptr", Binding, "ptr", KeyInfo, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        KeyInfoMarshal := KeyInfo is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContextKeyInfo", BindingMarshal, Binding, KeyInfoMarshal, KeyInfo, "int")
         return result
     }
 
@@ -10049,7 +10286,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqWireIdForSnego(Binding, WireId) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqWireIdForSnego", "ptr", Binding, "char*", WireId, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        WireIdMarshal := WireId is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqWireIdForSnego", BindingMarshal, Binding, WireIdMarshal, WireId, "int")
         return result
     }
 
@@ -10061,7 +10301,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqMarshalledTargetInfo(Binding, MarshalledTargetInfoSize, MarshalledTargetInfo) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqMarshalledTargetInfo", "ptr", Binding, "uint*", MarshalledTargetInfoSize, "ptr", MarshalledTargetInfo, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        MarshalledTargetInfoSizeMarshal := MarshalledTargetInfoSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqMarshalledTargetInfo", BindingMarshal, Binding, MarshalledTargetInfoSizeMarshal, MarshalledTargetInfoSize, "ptr", MarshalledTargetInfo, "int")
         return result
     }
 
@@ -10117,7 +10360,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static I_RpcBindingInqLocalClientPID(Binding, Pid) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqLocalClientPID", "ptr", Binding, "uint*", Pid, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        PidMarshal := Pid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqLocalClientPID", BindingMarshal, Binding, PidMarshal, Pid, "int")
         return result
     }
 
@@ -10128,7 +10374,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingHandleToAsyncHandle(Binding, AsyncHandle) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingHandleToAsyncHandle", "ptr", Binding, "ptr*", AsyncHandle, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingHandleToAsyncHandle", BindingMarshal, Binding, "ptr*", AsyncHandle, "int")
         return result
     }
 
@@ -10142,7 +10390,9 @@ class Rpc {
     static I_RpcNsBindingSetEntryNameW(Binding, EntryNameSyntax, EntryName) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameW", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameW", BindingMarshal, Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
 
@@ -10156,7 +10406,9 @@ class Rpc {
     static I_RpcNsBindingSetEntryNameA(Binding, EntryNameSyntax, EntryName) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameA", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameA", BindingMarshal, Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
     }
 
@@ -10175,7 +10427,10 @@ class Rpc {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
         Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+        PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, SecurityDescriptorMarshal, SecurityDescriptor, PolicyMarshal, Policy, "int")
         return result
     }
 
@@ -10194,7 +10449,10 @@ class Rpc {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
         Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+        PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, SecurityDescriptorMarshal, SecurityDescriptor, PolicyMarshal, Policy, "int")
         return result
     }
 
@@ -10211,7 +10469,10 @@ class Rpc {
         NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+        PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, PolicyMarshal, Policy, "int")
         return result
     }
 
@@ -10228,7 +10489,10 @@ class Rpc {
         NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
+        SecurityDescriptorMarshal := SecurityDescriptor is VarRef ? "ptr" : "ptr"
+        PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, SecurityDescriptorMarshal, SecurityDescriptor, PolicyMarshal, Policy, "int")
         return result
     }
 
@@ -10243,7 +10507,9 @@ class Rpc {
         Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
         Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-        result := DllCall("RPCRT4.dll\I_RpcServerStartService", "ptr", Protseq, "ptr", Endpoint, "ptr", IfSpec, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerStartService", "ptr", Protseq, "ptr", Endpoint, IfSpecMarshal, IfSpec, "int")
         return result
     }
 
@@ -10254,7 +10520,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqDynamicEndpointW(Binding, DynamicEndpoint) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointW", "ptr", Binding, "ptr", DynamicEndpoint, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointW", BindingMarshal, Binding, "ptr", DynamicEndpoint, "int")
         return result
     }
 
@@ -10265,7 +10533,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqDynamicEndpointA(Binding, DynamicEndpoint) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointA", "ptr", Binding, "ptr", DynamicEndpoint, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointA", BindingMarshal, Binding, "ptr", DynamicEndpoint, "int")
         return result
     }
 
@@ -10275,7 +10545,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerCheckClientRestriction(Context) {
-        result := DllCall("RPCRT4.dll\I_RpcServerCheckClientRestriction", "ptr", Context, "int")
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerCheckClientRestriction", ContextMarshal, Context, "int")
         return result
     }
 
@@ -10286,7 +10558,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqTransportType(Binding, Type) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqTransportType", "ptr", Binding, "uint*", Type, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        TypeMarshal := Type is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqTransportType", BindingMarshal, Binding, TypeMarshal, Type, "int")
         return result
     }
 
@@ -10299,7 +10574,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcIfInqTransferSyntaxes(RpcIfHandle, TransferSyntaxes, TransferSyntaxSize, TransferSyntaxCount) {
-        result := DllCall("RPCRT4.dll\I_RpcIfInqTransferSyntaxes", "ptr", RpcIfHandle, "ptr", TransferSyntaxes, "uint", TransferSyntaxSize, "uint*", TransferSyntaxCount, "int")
+        RpcIfHandleMarshal := RpcIfHandle is VarRef ? "ptr" : "ptr"
+        TransferSyntaxCountMarshal := TransferSyntaxCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcIfInqTransferSyntaxes", RpcIfHandleMarshal, RpcIfHandle, "ptr", TransferSyntaxes, "uint", TransferSyntaxSize, TransferSyntaxCountMarshal, TransferSyntaxCount, "int")
         return result
     }
 
@@ -10320,7 +10598,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingCopy(SourceBinding, DestinationBinding) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingCopy", "ptr", SourceBinding, "ptr*", DestinationBinding, "int")
+        SourceBindingMarshal := SourceBinding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingCopy", SourceBindingMarshal, SourceBinding, "ptr*", DestinationBinding, "int")
         return result
     }
 
@@ -10331,7 +10611,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingIsClientLocal(BindingHandle, ClientLocalFlag) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingIsClientLocal", "ptr", BindingHandle, "uint*", ClientLocalFlag, "int")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+        ClientLocalFlagMarshal := ClientLocalFlag is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingIsClientLocal", BindingHandleMarshal, BindingHandle, ClientLocalFlagMarshal, ClientLocalFlag, "int")
         return result
     }
 
@@ -10398,7 +10681,12 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerInqLocalConnAddress(Binding, Buffer, BufferSize, AddressFormat) {
-        result := DllCall("RPCRT4.dll\I_RpcServerInqLocalConnAddress", "ptr", Binding, "ptr", Buffer, "uint*", BufferSize, "uint*", AddressFormat, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+        AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerInqLocalConnAddress", BindingMarshal, Binding, BufferMarshal, Buffer, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, "int")
         return result
     }
 
@@ -10411,7 +10699,12 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerInqRemoteConnAddress(Binding, Buffer, BufferSize, AddressFormat) {
-        result := DllCall("RPCRT4.dll\I_RpcServerInqRemoteConnAddress", "ptr", Binding, "ptr", Buffer, "uint*", BufferSize, "uint*", AddressFormat, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+        AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerInqRemoteConnAddress", BindingMarshal, Binding, BufferMarshal, Buffer, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, "int")
         return result
     }
 
@@ -10438,7 +10731,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerInqTransportType(Type) {
-        result := DllCall("RPCRT4.dll\I_RpcServerInqTransportType", "uint*", Type, "int")
+        TypeMarshal := Type is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerInqTransportType", TypeMarshal, Type, "int")
         return result
     }
 
@@ -10460,7 +10755,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcRecordCalloutFailure(RpcStatus, CallOutState, DllName) {
-        DllCall("RPCRT4.dll\I_RpcRecordCalloutFailure", "int", RpcStatus, "ptr", CallOutState, "ushort*", DllName)
+        DllNameMarshal := DllName is VarRef ? "ushort*" : "ptr"
+
+        DllCall("RPCRT4.dll\I_RpcRecordCalloutFailure", "int", RpcStatus, "ptr", CallOutState, DllNameMarshal, DllName)
     }
 
     /**
@@ -10490,7 +10787,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcOpenClientProcess(Binding, DesiredAccess, ClientProcess) {
-        result := DllCall("RPCRT4.dll\I_RpcOpenClientProcess", "ptr", Binding, "uint", DesiredAccess, "ptr*", ClientProcess, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcOpenClientProcess", BindingMarshal, Binding, "uint", DesiredAccess, "ptr*", ClientProcess, "int")
         return result
     }
 
@@ -10501,7 +10800,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingIsServerLocal(Binding, ServerLocalFlag) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingIsServerLocal", "ptr", Binding, "uint*", ServerLocalFlag, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        ServerLocalFlagMarshal := ServerLocalFlag is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingIsServerLocal", BindingMarshal, Binding, ServerLocalFlagMarshal, ServerLocalFlag, "int")
         return result
     }
 
@@ -10513,7 +10815,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingSetPrivateOption(hBinding, option, optionValue) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingSetPrivateOption", "ptr", hBinding, "uint", option, "ptr", optionValue, "int")
+        hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingSetPrivateOption", hBindingMarshal, hBinding, "uint", option, "ptr", optionValue, "int")
         return result
     }
 
@@ -10524,7 +10828,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerSubscribeForDisconnectNotification(Binding, hEvent) {
-        result := DllCall("RPCRT4.dll\I_RpcServerSubscribeForDisconnectNotification", "ptr", Binding, "ptr", hEvent, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        hEventMarshal := hEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerSubscribeForDisconnectNotification", BindingMarshal, Binding, hEventMarshal, hEvent, "int")
         return result
     }
 
@@ -10535,7 +10842,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerGetAssociationID(Binding, AssociationID) {
-        result := DllCall("RPCRT4.dll\I_RpcServerGetAssociationID", "ptr", Binding, "uint*", AssociationID, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        AssociationIDMarshal := AssociationID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerGetAssociationID", BindingMarshal, Binding, AssociationIDMarshal, AssociationID, "int")
         return result
     }
 
@@ -10556,7 +10866,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerSubscribeForDisconnectNotification2(Binding, hEvent, SubscriptionId) {
-        result := DllCall("RPCRT4.dll\I_RpcServerSubscribeForDisconnectNotification2", "ptr", Binding, "ptr", hEvent, "ptr", SubscriptionId, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        hEventMarshal := hEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerSubscribeForDisconnectNotification2", BindingMarshal, Binding, hEventMarshal, hEvent, "ptr", SubscriptionId, "int")
         return result
     }
 
@@ -10567,7 +10880,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcServerUnsubscribeForDisconnectNotification(Binding, SubscriptionId) {
-        result := DllCall("RPCRT4.dll\I_RpcServerUnsubscribeForDisconnectNotification", "ptr", Binding, "ptr", SubscriptionId, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcServerUnsubscribeForDisconnectNotification", BindingMarshal, Binding, "ptr", SubscriptionId, "int")
         return result
     }
 
@@ -10699,7 +11014,9 @@ class Rpc {
     static RpcNsBindingExportA(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingExportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingExportA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
         return result
     }
 
@@ -10830,7 +11147,9 @@ class Rpc {
     static RpcNsBindingUnexportA(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectUuidVec, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjectUuidVec, "int")
         return result
     }
 
@@ -10962,7 +11281,9 @@ class Rpc {
     static RpcNsBindingExportW(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingExportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingExportW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
         return result
     }
 
@@ -11093,7 +11414,9 @@ class Rpc {
     static RpcNsBindingUnexportW(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectUuidVec, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjectUuidVec, "int")
         return result
     }
 
@@ -11229,7 +11552,9 @@ class Rpc {
     static RpcNsBindingExportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjectVector, "int")
         return result
     }
 
@@ -11360,7 +11685,9 @@ class Rpc {
     static RpcNsBindingUnexportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjectVector, "int")
         return result
     }
 
@@ -11496,7 +11823,9 @@ class Rpc {
     static RpcNsBindingExportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjectVector, "int")
         return result
     }
 
@@ -11627,7 +11956,9 @@ class Rpc {
     static RpcNsBindingUnexportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjectVector, "int")
         return result
     }
 
@@ -11758,7 +12089,9 @@ class Rpc {
     static RpcNsBindingLookupBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr*", LookupContext, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr*", LookupContext, "int")
         return result
     }
 
@@ -11889,7 +12222,9 @@ class Rpc {
     static RpcNsBindingLookupBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr*", LookupContext, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr*", LookupContext, "int")
         return result
     }
 
@@ -11946,7 +12281,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingLookupNext(LookupContext, BindingVec) {
-        result := DllCall("RPCNS4.dll\RpcNsBindingLookupNext", "ptr", LookupContext, "ptr*", BindingVec, "int")
+        LookupContextMarshal := LookupContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingLookupNext", LookupContextMarshal, LookupContext, "ptr*", BindingVec, "int")
         return result
     }
 
@@ -12467,7 +12804,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqNextA(InquiryContext, MemberName) {
-        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextA", "ptr", InquiryContext, "ptr", MemberName, "int")
+        InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextA", InquiryContextMarshal, InquiryContext, "ptr", MemberName, "int")
         return result
     }
 
@@ -12949,7 +13288,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqNextW(InquiryContext, MemberName) {
-        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextW", "ptr", InquiryContext, "ptr", MemberName, "int")
+        InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextW", InquiryContextMarshal, InquiryContext, "ptr", MemberName, "int")
         return result
     }
 
@@ -13639,7 +13980,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqNextA(InquiryContext, IfId, MemberName, Priority, Annotation) {
-        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextA", "ptr", InquiryContext, "ptr", IfId, "ptr", MemberName, "uint*", Priority, "ptr", Annotation, "int")
+        InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
+        PriorityMarshal := Priority is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextA", InquiryContextMarshal, InquiryContext, "ptr", IfId, "ptr", MemberName, PriorityMarshal, Priority, "ptr", Annotation, "int")
         return result
     }
 
@@ -14285,7 +14629,10 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqNextW(InquiryContext, IfId, MemberName, Priority, Annotation) {
-        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextW", "ptr", InquiryContext, "ptr", IfId, "ptr", MemberName, "uint*", Priority, "ptr", Annotation, "int")
+        InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
+        PriorityMarshal := Priority is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextW", InquiryContextMarshal, InquiryContext, "ptr", IfId, "ptr", MemberName, PriorityMarshal, Priority, "ptr", Annotation, "int")
         return result
     }
 
@@ -14600,7 +14947,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryObjectInqNext(InquiryContext, ObjUuid) {
-        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqNext", "ptr", InquiryContext, "ptr", ObjUuid, "int")
+        InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqNext", InquiryContextMarshal, InquiryContext, "ptr", ObjUuid, "int")
         return result
     }
 
@@ -15238,7 +15587,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtHandleSetExpAge(NsHandle, ExpirationAge) {
-        result := DllCall("RPCNS4.dll\RpcNsMgmtHandleSetExpAge", "ptr", NsHandle, "uint", ExpirationAge, "int")
+        NsHandleMarshal := NsHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsMgmtHandleSetExpAge", NsHandleMarshal, NsHandle, "uint", ExpirationAge, "int")
         return result
     }
 
@@ -15271,7 +15622,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtInqExpAge(ExpirationAge) {
-        result := DllCall("RPCNS4.dll\RpcNsMgmtInqExpAge", "uint*", ExpirationAge, "int")
+        ExpirationAgeMarshal := ExpirationAge is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsMgmtInqExpAge", ExpirationAgeMarshal, ExpirationAge, "int")
         return result
     }
 
@@ -16004,7 +16357,9 @@ class Rpc {
     static RpcNsBindingImportBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr*", ImportContext, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjUuid, "ptr*", ImportContext, "int")
         return result
     }
 
@@ -16139,7 +16494,9 @@ class Rpc {
     static RpcNsBindingImportBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr*", ImportContext, "int")
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, "ptr", ObjUuid, "ptr*", ImportContext, "int")
         return result
     }
 
@@ -16196,7 +16553,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingImportNext(ImportContext, Binding) {
-        result := DllCall("RPCNS4.dll\RpcNsBindingImportNext", "ptr", ImportContext, "ptr*", Binding, "int")
+        ImportContextMarshal := ImportContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCNS4.dll\RpcNsBindingImportNext", ImportContextMarshal, ImportContext, "ptr*", Binding, "int")
         return result
     }
 
@@ -16489,7 +16848,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcAsyncCompleteCall(pAsync, Reply) {
-        result := DllCall("RPCRT4.dll\RpcAsyncCompleteCall", "ptr", pAsync, "ptr", Reply, "int")
+        ReplyMarshal := Reply is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcAsyncCompleteCall", "ptr", pAsync, ReplyMarshal, Reply, "int")
         return result
     }
 
@@ -16683,7 +17044,9 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcErrorGetNumberOfRecords(EnumHandle, Records) {
-        result := DllCall("RPCRT4.dll\RpcErrorGetNumberOfRecords", "ptr", EnumHandle, "int*", Records, "int")
+        RecordsMarshal := Records is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcErrorGetNumberOfRecords", "ptr", EnumHandle, RecordsMarshal, Records, "int")
         return result
     }
 
@@ -16702,7 +17065,9 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcErrorSaveErrorInfo(EnumHandle, ErrorBlob, BlobSize) {
-        result := DllCall("RPCRT4.dll\RpcErrorSaveErrorInfo", "ptr", EnumHandle, "ptr*", ErrorBlob, "ptr*", BlobSize, "int")
+        BlobSizeMarshal := BlobSize is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcErrorSaveErrorInfo", "ptr", EnumHandle, "ptr*", ErrorBlob, BlobSizeMarshal, BlobSize, "int")
         return result
     }
 
@@ -16808,7 +17173,12 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcGetAuthorizationContextForClient(ClientBinding, ImpersonateOnReturn, Reserved1, pExpirationTime, Reserved2, Reserved3, Reserved4, pAuthzClientContext) {
-        result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", "ptr", ClientBinding, "int", ImpersonateOnReturn, "ptr", Reserved1, "int64*", pExpirationTime, "ptr", Reserved2, "uint", Reserved3, "ptr", Reserved4, "ptr*", pAuthzClientContext, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+        Reserved1Marshal := Reserved1 is VarRef ? "ptr" : "ptr"
+        pExpirationTimeMarshal := pExpirationTime is VarRef ? "int64*" : "ptr"
+        Reserved4Marshal := Reserved4 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", ClientBindingMarshal, ClientBinding, "int", ImpersonateOnReturn, Reserved1Marshal, Reserved1, pExpirationTimeMarshal, pExpirationTime, "ptr", Reserved2, "uint", Reserved3, Reserved4Marshal, Reserved4, "ptr*", pAuthzClientContext, "int")
         return result
     }
 
@@ -16847,7 +17217,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcSsContextLockExclusive(ServerBindingHandle, UserContext) {
-        result := DllCall("RPCRT4.dll\RpcSsContextLockExclusive", "ptr", ServerBindingHandle, "ptr", UserContext, "int")
+        ServerBindingHandleMarshal := ServerBindingHandle is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSsContextLockExclusive", ServerBindingHandleMarshal, ServerBindingHandle, UserContextMarshal, UserContext, "int")
         return result
     }
 
@@ -16870,7 +17243,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcSsContextLockShared(ServerBindingHandle, UserContext) {
-        result := DllCall("RPCRT4.dll\RpcSsContextLockShared", "ptr", ServerBindingHandle, "ptr", UserContext, "int")
+        ServerBindingHandleMarshal := ServerBindingHandle is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSsContextLockShared", ServerBindingHandleMarshal, ServerBindingHandle, UserContextMarshal, UserContext, "int")
         return result
     }
 
@@ -16890,7 +17266,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerInqCallAttributesW(ClientBinding, RpcCallAttributes) {
-        result := DllCall("RPCRT4.dll\RpcServerInqCallAttributesW", "ptr", ClientBinding, "ptr", RpcCallAttributes, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+        RpcCallAttributesMarshal := RpcCallAttributes is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInqCallAttributesW", ClientBindingMarshal, ClientBinding, RpcCallAttributesMarshal, RpcCallAttributes, "int")
         return result
     }
 
@@ -16910,7 +17289,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerInqCallAttributesA(ClientBinding, RpcCallAttributes) {
-        result := DllCall("RPCRT4.dll\RpcServerInqCallAttributesA", "ptr", ClientBinding, "ptr", RpcCallAttributes, "int")
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
+        RpcCallAttributesMarshal := RpcCallAttributes is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerInqCallAttributesA", ClientBindingMarshal, ClientBinding, RpcCallAttributesMarshal, RpcCallAttributes, "int")
         return result
     }
 
@@ -16937,7 +17319,9 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcServerSubscribeForNotification(Binding, Notification, NotificationType, NotificationInfo) {
-        result := DllCall("RPCRT4.dll\RpcServerSubscribeForNotification", "ptr", Binding, "int", Notification, "int", NotificationType, "ptr", NotificationInfo, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerSubscribeForNotification", BindingMarshal, Binding, "int", Notification, "int", NotificationType, "ptr", NotificationInfo, "int")
         return result
     }
 
@@ -16959,7 +17343,10 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcServerUnsubscribeForNotification(Binding, Notification, NotificationsQueued) {
-        result := DllCall("RPCRT4.dll\RpcServerUnsubscribeForNotification", "ptr", Binding, "int", Notification, "uint*", NotificationsQueued, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        NotificationsQueuedMarshal := NotificationsQueued is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcServerUnsubscribeForNotification", BindingMarshal, Binding, "int", Notification, NotificationsQueuedMarshal, NotificationsQueued, "int")
         return result
     }
 
@@ -17008,7 +17395,10 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcBindingBind(pAsync, Binding, IfSpec) {
-        result := DllCall("RPCRT4.dll\RpcBindingBind", "ptr", pAsync, "ptr", Binding, "ptr", IfSpec, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+        IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingBind", "ptr", pAsync, BindingMarshal, Binding, IfSpecMarshal, IfSpec, "int")
         return result
     }
 
@@ -17024,7 +17414,9 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcBindingUnbind(Binding) {
-        result := DllCall("RPCRT4.dll\RpcBindingUnbind", "ptr", Binding, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcBindingUnbind", BindingMarshal, Binding, "int")
         return result
     }
 
@@ -17090,7 +17482,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingInqClientTokenAttributes(Binding, TokenId, AuthenticationId, ModifiedId) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqClientTokenAttributes", "ptr", Binding, "ptr", TokenId, "ptr", AuthenticationId, "ptr", ModifiedId, "int")
+        BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqClientTokenAttributes", BindingMarshal, Binding, "ptr", TokenId, "ptr", AuthenticationId, "ptr", ModifiedId, "int")
         return result
     }
 
@@ -17152,7 +17546,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NDRCContextMarshall(CContext, pBuff) {
-        DllCall("RPCRT4.dll\NDRCContextMarshall", "ptr", CContext, "ptr", pBuff)
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NDRCContextMarshall", "ptr", CContext, pBuffMarshal, pBuff)
     }
 
     /**
@@ -17164,7 +17560,11 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NDRCContextUnmarshall(pCContext, hBinding, pBuff, DataRepresentation) {
-        DllCall("RPCRT4.dll\NDRCContextUnmarshall", "ptr*", pCContext, "ptr", hBinding, "ptr", pBuff, "uint", DataRepresentation)
+        pCContextMarshal := pCContext is VarRef ? "ptr*" : "ptr"
+        hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NDRCContextUnmarshall", pCContextMarshal, pCContext, hBindingMarshal, hBinding, pBuffMarshal, pBuff, "uint", DataRepresentation)
     }
 
     /**
@@ -17175,7 +17575,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NDRSContextMarshall(CContext, pBuff, userRunDownIn) {
-        DllCall("RPCRT4.dll\NDRSContextMarshall", "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn)
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NDRSContextMarshall", "ptr", CContext, pBuffMarshal, pBuff, "ptr", userRunDownIn)
     }
 
     /**
@@ -17185,7 +17587,9 @@ class Rpc {
      * @returns {Pointer<NDR_SCONTEXT>} 
      */
     static NDRSContextUnmarshall(pBuff, DataRepresentation) {
-        result := DllCall("RPCRT4.dll\NDRSContextUnmarshall", "ptr", pBuff, "uint", DataRepresentation, "ptr")
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NDRSContextUnmarshall", pBuffMarshal, pBuff, "uint", DataRepresentation, "ptr")
         return result
     }
 
@@ -17198,7 +17602,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NDRSContextMarshallEx(BindingHandle, CContext, pBuff, userRunDownIn) {
-        DllCall("RPCRT4.dll\NDRSContextMarshallEx", "ptr", BindingHandle, "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn)
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NDRSContextMarshallEx", BindingHandleMarshal, BindingHandle, "ptr", CContext, pBuffMarshal, pBuff, "ptr", userRunDownIn)
     }
 
     /**
@@ -17212,7 +17619,11 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NDRSContextMarshall2(BindingHandle, CContext, pBuff, userRunDownIn, CtxGuard, Flags) {
-        DllCall("RPCRT4.dll\NDRSContextMarshall2", "ptr", BindingHandle, "ptr", CContext, "ptr", pBuff, "ptr", userRunDownIn, "ptr", CtxGuard, "uint", Flags)
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+        CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NDRSContextMarshall2", BindingHandleMarshal, BindingHandle, "ptr", CContext, pBuffMarshal, pBuff, "ptr", userRunDownIn, CtxGuardMarshal, CtxGuard, "uint", Flags)
     }
 
     /**
@@ -17223,7 +17634,10 @@ class Rpc {
      * @returns {Pointer<NDR_SCONTEXT>} 
      */
     static NDRSContextUnmarshallEx(BindingHandle, pBuff, DataRepresentation) {
-        result := DllCall("RPCRT4.dll\NDRSContextUnmarshallEx", "ptr", BindingHandle, "ptr", pBuff, "uint", DataRepresentation, "ptr")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NDRSContextUnmarshallEx", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, "uint", DataRepresentation, "ptr")
         return result
     }
 
@@ -17237,7 +17651,11 @@ class Rpc {
      * @returns {Pointer<NDR_SCONTEXT>} 
      */
     static NDRSContextUnmarshall2(BindingHandle, pBuff, DataRepresentation, CtxGuard, Flags) {
-        result := DllCall("RPCRT4.dll\NDRSContextUnmarshall2", "ptr", BindingHandle, "ptr", pBuff, "uint", DataRepresentation, "ptr", CtxGuard, "uint", Flags, "ptr")
+        BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+        CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NDRSContextUnmarshall2", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, "uint", DataRepresentation, CtxGuardMarshal, CtxGuard, "uint", Flags, "ptr")
         return result
     }
 
@@ -17263,7 +17681,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrSimpleTypeMarshall(pStubMsg, pMemory, FormatChar) {
-        DllCall("RPCRT4.dll\NdrSimpleTypeMarshall", "ptr", pStubMsg, "char*", pMemory, "char", FormatChar)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrSimpleTypeMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, "char", FormatChar)
     }
 
     /**
@@ -17291,7 +17711,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrPointerMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrPointerMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrPointerMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17320,7 +17743,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrSimpleStructMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrSimpleStructMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrSimpleStructMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17332,7 +17758,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrConformantStructMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantStructMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantStructMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17344,7 +17773,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingStructMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17373,7 +17805,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexStructMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexStructMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrComplexStructMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17385,7 +17820,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrFixedArrayMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrFixedArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrFixedArrayMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17413,7 +17851,10 @@ class Rpc {
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrconformantarraymarshall
      */
     static NdrConformantArrayMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantArrayMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17425,7 +17866,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingArrayMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17437,7 +17881,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrVaryingArrayMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrVaryingArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrVaryingArrayMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17466,7 +17913,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexArrayMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrComplexArrayMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17478,7 +17928,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrNonConformantStringMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrNonConformantStringMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNonConformantStringMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17507,7 +17960,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConformantStringMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantStringMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantStringMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17519,7 +17975,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrEncapsulatedUnionMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17531,7 +17990,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrNonEncapsulatedUnionMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17543,7 +18005,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrByteCountPointerMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrByteCountPointerMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrByteCountPointerMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17555,7 +18020,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrXmitOrRepAsMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17584,7 +18052,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrUserMarshalMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrUserMarshalMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17613,7 +18084,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrInterfacePointerMarshall(pStubMsg, pMemory, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrInterfacePointerMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrInterfacePointerMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, "char*")
         return result
     }
 
@@ -17648,7 +18122,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrServerContextNewMarshall(pStubMsg, ContextHandle, RundownRoutine, pFormat) {
-        DllCall("RPCRT4.dll\NdrServerContextNewMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "ptr", RundownRoutine, "char*", pFormat)
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrServerContextNewMarshall", "ptr", pStubMsg, "ptr", ContextHandle, "ptr", RundownRoutine, pFormatMarshal, pFormat)
     }
 
     /**
@@ -17661,7 +18137,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrSimpleTypeUnmarshall(pStubMsg, pMemory, FormatChar) {
-        DllCall("RPCRT4.dll\NdrSimpleTypeUnmarshall", "ptr", pStubMsg, "char*", pMemory, "char", FormatChar)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrSimpleTypeUnmarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory, "char", FormatChar)
     }
 
     /**
@@ -17673,7 +18151,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrRangeUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17686,7 +18166,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrCorrelationInitialize(pStubMsg, pMemory, CacheSize, flags) {
-        DllCall("RPCRT4.dll\NdrCorrelationInitialize", "ptr", pStubMsg, "ptr", pMemory, "uint", CacheSize, "uint", flags)
+        pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrCorrelationInitialize", "ptr", pStubMsg, pMemoryMarshal, pMemory, "uint", CacheSize, "uint", flags)
     }
 
     /**
@@ -17741,7 +18223,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17779,7 +18263,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrSimpleStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17792,7 +18278,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrConformantStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17805,7 +18293,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17843,7 +18333,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17856,7 +18348,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrFixedArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17871,7 +18365,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConformantArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17884,7 +18380,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17897,7 +18395,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17935,7 +18435,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17948,7 +18450,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrNonConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17986,7 +18490,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17999,7 +18505,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18012,7 +18520,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrNonEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18025,7 +18535,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrByteCountPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18038,7 +18550,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrXmitOrRepAsUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18068,7 +18582,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrUserMarshalUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18106,7 +18622,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrInterfacePointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18118,7 +18636,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrClientContextUnmarshall(pStubMsg, pContextHandle, BindHandle) {
-        DllCall("RPCRT4.dll\NdrClientContextUnmarshall", "ptr", pStubMsg, "ptr*", pContextHandle, "ptr", BindHandle)
+        pContextHandleMarshal := pContextHandle is VarRef ? "ptr*" : "ptr"
+        BindHandleMarshal := BindHandle is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrClientContextUnmarshall", "ptr", pStubMsg, pContextHandleMarshal, pContextHandle, BindHandleMarshal, BindHandle)
     }
 
     /**
@@ -18140,7 +18661,9 @@ class Rpc {
      * @since windows5.1.2600
      */
     static NdrContextHandleInitialize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrContextHandleInitialize", "ptr", pStubMsg, "char*", pFormat, "ptr")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrContextHandleInitialize", "ptr", pStubMsg, pFormatMarshal, pFormat, "ptr")
         return result
     }
 
@@ -18151,7 +18674,9 @@ class Rpc {
      * @returns {Pointer<NDR_SCONTEXT>} 
      */
     static NdrServerContextNewUnmarshall(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrServerContextNewUnmarshall", "ptr", pStubMsg, "char*", pFormat, "ptr")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrServerContextNewUnmarshall", "ptr", pStubMsg, pFormatMarshal, pFormat, "ptr")
         return result
     }
 
@@ -18165,7 +18690,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrPointerBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrPointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrPointerBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18178,7 +18706,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrSimpleStructBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrSimpleStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrSimpleStructBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18189,7 +18720,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantStructBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantStructBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18200,7 +18734,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingStructBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantVaryingStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantVaryingStructBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18213,7 +18750,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexStructBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrComplexStructBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrComplexStructBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18224,7 +18764,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrFixedArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrFixedArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrFixedArrayBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18236,7 +18779,10 @@ class Rpc {
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrconformantarraybuffersize
      */
     static NdrConformantArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantArrayBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18247,7 +18793,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantVaryingArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantVaryingArrayBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18258,7 +18807,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrVaryingArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrVaryingArrayBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18271,7 +18823,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexArrayBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrComplexArrayBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrComplexArrayBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18284,7 +18839,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConformantStringBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantStringBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantStringBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18295,7 +18853,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonConformantStringBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrNonConformantStringBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrNonConformantStringBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18306,7 +18867,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrEncapsulatedUnionBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrEncapsulatedUnionBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18317,7 +18881,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18328,7 +18895,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrByteCountPointerBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrByteCountPointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrByteCountPointerBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18339,7 +18909,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrXmitOrRepAsBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrXmitOrRepAsBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrXmitOrRepAsBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18352,7 +18925,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrUserMarshalBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrUserMarshalBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrUserMarshalBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18365,7 +18941,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrInterfacePointerBufferSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrInterfacePointerBufferSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrInterfacePointerBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18378,7 +18957,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static NdrContextHandleSize(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrContextHandleSize", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrContextHandleSize", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18388,7 +18970,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrPointerMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrPointerMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrPointerMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18399,7 +18983,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrSimpleStructMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrSimpleStructMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrSimpleStructMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18410,7 +18996,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrConformantStructMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantStructMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantStructMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18421,7 +19009,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrConformantVaryingStructMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18432,7 +19022,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrComplexStructMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexStructMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrComplexStructMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18443,7 +19035,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrFixedArrayMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrFixedArrayMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrFixedArrayMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18454,7 +19048,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrConformantArrayMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantArrayMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantArrayMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18465,7 +19061,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrConformantVaryingArrayMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18476,7 +19074,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrVaryingArrayMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrVaryingArrayMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrVaryingArrayMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18487,7 +19087,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrComplexArrayMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrComplexArrayMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrComplexArrayMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18498,7 +19100,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrConformantStringMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrConformantStringMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrConformantStringMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18509,7 +19113,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrNonConformantStringMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrNonConformantStringMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNonConformantStringMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18520,7 +19126,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrEncapsulatedUnionMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18531,7 +19139,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrNonEncapsulatedUnionMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18542,7 +19152,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrXmitOrRepAsMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18553,7 +19165,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrUserMarshalMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrUserMarshalMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18564,7 +19178,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrInterfacePointerMemorySize(pStubMsg, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrInterfacePointerMemorySize", "ptr", pStubMsg, "char*", pFormat, "uint")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrInterfacePointerMemorySize", "ptr", pStubMsg, pFormatMarshal, pFormat, "uint")
         return result
     }
 
@@ -18578,7 +19194,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrPointerFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrPointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrPointerFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18589,7 +19208,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrSimpleStructFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrSimpleStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrSimpleStructFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18600,7 +19222,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantStructFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantStructFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18611,7 +19236,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingStructFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantVaryingStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantVaryingStructFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18622,7 +19250,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrComplexStructFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrComplexStructFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrComplexStructFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18633,7 +19264,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrFixedArrayFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrFixedArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrFixedArrayFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18644,7 +19278,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantArrayFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantArrayFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18655,7 +19292,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingArrayFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrConformantVaryingArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConformantVaryingArrayFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18666,7 +19306,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrVaryingArrayFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrVaryingArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrVaryingArrayFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18677,7 +19320,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrComplexArrayFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrComplexArrayFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrComplexArrayFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18688,7 +19334,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrEncapsulatedUnionFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrEncapsulatedUnionFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18699,7 +19348,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18710,7 +19362,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrByteCountPointerFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrByteCountPointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrByteCountPointerFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18721,7 +19376,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrXmitOrRepAsFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrXmitOrRepAsFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrXmitOrRepAsFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18738,7 +19396,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrUserMarshalFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrUserMarshalFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrUserMarshalFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18751,7 +19412,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrInterfacePointerFree(pStubMsg, pMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrInterfacePointerFree", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat)
+        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrInterfacePointerFree", "ptr", pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18762,7 +19426,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConvert2(pStubMsg, pFormat, NumberParams) {
-        DllCall("RPCRT4.dll\NdrConvert2", "ptr", pStubMsg, "char*", pFormat, "int", NumberParams)
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConvert2", "ptr", pStubMsg, pFormatMarshal, pFormat, "int", NumberParams)
     }
 
     /**
@@ -18774,7 +19440,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConvert(pStubMsg, pFormat) {
-        DllCall("RPCRT4.dll\NdrConvert", "ptr", pStubMsg, "char*", pFormat)
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrConvert", "ptr", pStubMsg, pFormatMarshal, pFormat)
     }
 
     /**
@@ -18785,7 +19453,10 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrUserMarshalSimpleTypeConvert(pFlags, pBuffer, FormatChar) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalSimpleTypeConvert", "uint*", pFlags, "char*", pBuffer, "char", FormatChar, "char*")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrUserMarshalSimpleTypeConvert", pFlagsMarshal, pFlags, pBufferMarshal, pBuffer, "char", FormatChar, "char*")
         return result
     }
 
@@ -18879,7 +19550,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrGetBuffer(pStubMsg, BufferLength, Handle) {
-        result := DllCall("RPCRT4.dll\NdrGetBuffer", "ptr", pStubMsg, "uint", BufferLength, "ptr", Handle, "char*")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrGetBuffer", "ptr", pStubMsg, "uint", BufferLength, HandleMarshal, Handle, "char*")
         return result
     }
 
@@ -18891,7 +19564,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrNsGetBuffer(pStubMsg, BufferLength, Handle) {
-        result := DllCall("RPCRT4.dll\NdrNsGetBuffer", "ptr", pStubMsg, "uint", BufferLength, "ptr", Handle, "char*")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNsGetBuffer", "ptr", pStubMsg, "uint", BufferLength, HandleMarshal, Handle, "char*")
         return result
     }
 
@@ -18902,7 +19577,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrSendReceive(pStubMsg, pBufferEnd) {
-        result := DllCall("RPCRT4.dll\NdrSendReceive", "ptr", pStubMsg, "char*", pBufferEnd, "char*")
+        pBufferEndMarshal := pBufferEnd is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrSendReceive", "ptr", pStubMsg, pBufferEndMarshal, pBufferEnd, "char*")
         return result
     }
 
@@ -18914,7 +19591,9 @@ class Rpc {
      * @returns {Pointer<Integer>} 
      */
     static NdrNsSendReceive(pStubMsg, pBufferEnd, pAutoHandle) {
-        result := DllCall("RPCRT4.dll\NdrNsSendReceive", "ptr", pStubMsg, "char*", pBufferEnd, "ptr*", pAutoHandle, "char*")
+        pBufferEndMarshal := pBufferEnd is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrNsSendReceive", "ptr", pStubMsg, pBufferEndMarshal, pBufferEnd, "ptr*", pAutoHandle, "char*")
         return result
     }
 
@@ -18952,7 +19631,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrClientCall2(pStubDescriptor, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrClientCall2", "ptr", pStubDescriptor, "char*", pFormat, "CDecl ptr")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrClientCall2", "ptr", pStubDescriptor, pFormatMarshal, pFormat, "CDecl ptr")
         return result
     }
 
@@ -18967,7 +19648,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrAsyncClientCall(pStubDescriptor, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrAsyncClientCall", "ptr", pStubDescriptor, "char*", pFormat, "CDecl ptr")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrAsyncClientCall", "ptr", pStubDescriptor, pFormatMarshal, pFormat, "CDecl ptr")
         return result
     }
 
@@ -18980,7 +19663,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrDcomAsyncClientCall(pStubDescriptor, pFormat) {
-        result := DllCall("RPCRT4.dll\NdrDcomAsyncClientCall", "ptr", pStubDescriptor, "char*", pFormat, "CDecl ptr")
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrDcomAsyncClientCall", "ptr", pStubDescriptor, pFormatMarshal, pFormat, "CDecl ptr")
         return result
     }
 
@@ -19004,7 +19689,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrDcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-        result := DllCall("RPCRT4.dll\NdrDcomAsyncStubCall", "ptr", pThis, "ptr", pChannel, "ptr", pRpcMsg, "uint*", pdwStubPhase, "int")
+        pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrDcomAsyncStubCall", "ptr", pThis, "ptr", pChannel, "ptr", pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, "int")
         return result
     }
 
@@ -19019,7 +19706,11 @@ class Rpc {
      * @since windows5.0
      */
     static NdrStubCall2(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-        result := DllCall("RPCRT4.dll\NdrStubCall2", "ptr", pThis, "ptr", pChannel, "ptr", pRpcMsg, "uint*", pdwStubPhase, "int")
+        pThisMarshal := pThis is VarRef ? "ptr" : "ptr"
+        pChannelMarshal := pChannel is VarRef ? "ptr" : "ptr"
+        pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrStubCall2", pThisMarshal, pThis, pChannelMarshal, pChannel, "ptr", pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, "int")
         return result
     }
 
@@ -19043,7 +19734,10 @@ class Rpc {
      * @returns {Integer} 
      */
     static NdrMapCommAndFaultStatus(pStubMsg, pCommStatus, pFaultStatus, Status) {
-        result := DllCall("RPCRT4.dll\NdrMapCommAndFaultStatus", "ptr", pStubMsg, "uint*", pCommStatus, "uint*", pFaultStatus, "int", Status, "int")
+        pCommStatusMarshal := pCommStatus is VarRef ? "uint*" : "ptr"
+        pFaultStatusMarshal := pFaultStatus is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMapCommAndFaultStatus", "ptr", pStubMsg, pCommStatusMarshal, pCommStatus, pFaultStatusMarshal, pFaultStatus, "int", Status, "int")
         return result
     }
 
@@ -19125,7 +19819,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSsFree(NodeToFree) {
-        DllCall("RPCRT4.dll\RpcSsFree", "ptr", NodeToFree)
+        NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\RpcSsFree", NodeToFreeMarshal, NodeToFree)
     }
 
     /**
@@ -19209,7 +19905,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSsSetThreadHandle(Id) {
-        DllCall("RPCRT4.dll\RpcSsSetThreadHandle", "ptr", Id)
+        IdMarshal := Id is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\RpcSsSetThreadHandle", IdMarshal, Id)
     }
 
     /**
@@ -19267,7 +19965,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmAllocate(Size, pStatus) {
-        result := DllCall("RPCRT4.dll\RpcSmAllocate", "ptr", Size, "int*", pStatus, "ptr")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSmAllocate", "ptr", Size, pStatusMarshal, pStatus, "ptr")
         return result
     }
 
@@ -19300,7 +20000,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmClientFree(pNodeToFree) {
-        result := DllCall("RPCRT4.dll\RpcSmClientFree", "ptr", pNodeToFree, "int")
+        pNodeToFreeMarshal := pNodeToFree is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSmClientFree", pNodeToFreeMarshal, pNodeToFree, "int")
         return result
     }
 
@@ -19457,7 +20159,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmFree(NodeToFree) {
-        result := DllCall("RPCRT4.dll\RpcSmFree", "ptr", NodeToFree, "int")
+        NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSmFree", NodeToFreeMarshal, NodeToFree, "int")
         return result
     }
 
@@ -19490,7 +20194,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmGetThreadHandle(pStatus) {
-        result := DllCall("RPCRT4.dll\RpcSmGetThreadHandle", "int*", pStatus, "ptr")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSmGetThreadHandle", pStatusMarshal, pStatus, "ptr")
         return result
     }
 
@@ -19569,7 +20275,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmSetThreadHandle(Id) {
-        result := DllCall("RPCRT4.dll\RpcSmSetThreadHandle", "ptr", Id, "int")
+        IdMarshal := Id is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\RpcSmSetThreadHandle", IdMarshal, Id, "int")
         return result
     }
 
@@ -19663,7 +20371,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrRpcSmClientFree(NodeToFree) {
-        DllCall("RPCRT4.dll\NdrRpcSmClientFree", "ptr", NodeToFree)
+        NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrRpcSmClientFree", NodeToFreeMarshal, NodeToFree)
     }
 
     /**
@@ -19682,7 +20392,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrRpcSsDefaultFree(NodeToFree) {
-        DllCall("RPCRT4.dll\NdrRpcSsDefaultFree", "ptr", NodeToFree)
+        NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrRpcSsDefaultFree", NodeToFreeMarshal, NodeToFree)
     }
 
     /**
@@ -19726,7 +20438,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrClearOutParameters(pStubMsg, pFormat, ArgAddr) {
-        DllCall("RPCRT4.dll\NdrClearOutParameters", "ptr", pStubMsg, "char*", pFormat, "ptr", ArgAddr)
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+        ArgAddrMarshal := ArgAddr is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrClearOutParameters", "ptr", pStubMsg, pFormatMarshal, pFormat, ArgAddrMarshal, ArgAddr)
     }
 
     /**
@@ -19749,7 +20464,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrOleFree(NodeToFree) {
-        DllCall("RPCRT4.dll\NdrOleFree", "ptr", NodeToFree)
+        NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrOleFree", NodeToFreeMarshal, NodeToFree)
     }
 
     /**
@@ -19800,7 +20517,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrGetUserMarshalInfo(pFlags, InformationLevel, pMarshalInfo) {
-        result := DllCall("RPCRT4.dll\NdrGetUserMarshalInfo", "uint*", pFlags, "uint", InformationLevel, "ptr", pMarshalInfo, "int")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrGetUserMarshalInfo", pFlagsMarshal, pFlags, "uint", InformationLevel, "ptr", pMarshalInfo, "int")
         return result
     }
 
@@ -19825,7 +20544,9 @@ class Rpc {
      * @since windows5.0
      */
     static NdrClientCall3(pProxyInfo, nProcNum, pReturnValue) {
-        result := DllCall("RPCRT4.dll\NdrClientCall3", "ptr", pProxyInfo, "uint", nProcNum, "ptr", pReturnValue, "CDecl ptr")
+        pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrClientCall3", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
         return result
     }
 
@@ -19839,7 +20560,9 @@ class Rpc {
      * @since windows5.1.2600
      */
     static Ndr64AsyncClientCall(pProxyInfo, nProcNum, pReturnValue) {
-        result := DllCall("RPCRT4.dll\Ndr64AsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, "ptr", pReturnValue, "CDecl ptr")
+        pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\Ndr64AsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
         return result
     }
 
@@ -19851,7 +20574,9 @@ class Rpc {
      * @returns {CLIENT_CALL_RETURN} 
      */
     static Ndr64DcomAsyncClientCall(pProxyInfo, nProcNum, pReturnValue) {
-        result := DllCall("RPCRT4.dll\Ndr64DcomAsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, "ptr", pReturnValue, "CDecl ptr")
+        pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\Ndr64DcomAsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
         return result
     }
 
@@ -19884,7 +20609,9 @@ class Rpc {
      * @returns {Integer} 
      */
     static Ndr64DcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-        result := DllCall("RPCRT4.dll\Ndr64DcomAsyncStubCall", "ptr", pThis, "ptr", pChannel, "ptr", pRpcMsg, "uint*", pdwStubPhase, "int")
+        pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\Ndr64DcomAsyncStubCall", "ptr", pThis, "ptr", pChannel, "ptr", pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, "int")
         return result
     }
 
@@ -19899,7 +20626,11 @@ class Rpc {
      * @since windows5.1.2600
      */
     static NdrStubCall3(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-        result := DllCall("RPCRT4.dll\NdrStubCall3", "ptr", pThis, "ptr", pChannel, "ptr", pRpcMsg, "uint*", pdwStubPhase, "int")
+        pThisMarshal := pThis is VarRef ? "ptr" : "ptr"
+        pChannelMarshal := pChannel is VarRef ? "ptr" : "ptr"
+        pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrStubCall3", pThisMarshal, pThis, pChannelMarshal, pChannel, "ptr", pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, "int")
         return result
     }
 
@@ -19930,7 +20661,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreClientMarshall(pStubMsg, pMemory) {
-        DllCall("RPCRT4.dll\NdrPartialIgnoreClientMarshall", "ptr", pStubMsg, "ptr", pMemory)
+        pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrPartialIgnoreClientMarshall", "ptr", pStubMsg, pMemoryMarshal, pMemory)
     }
 
     /**
@@ -19950,7 +20683,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreClientBufferSize(pStubMsg, pMemory) {
-        DllCall("RPCRT4.dll\NdrPartialIgnoreClientBufferSize", "ptr", pStubMsg, "ptr", pMemory)
+        pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrPartialIgnoreClientBufferSize", "ptr", pStubMsg, pMemoryMarshal, pMemory)
     }
 
     /**
@@ -19961,7 +20696,9 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreServerInitialize(pStubMsg, ppMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrPartialIgnoreServerInitialize", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat)
+        pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrPartialIgnoreServerInitialize", "ptr", pStubMsg, "ptr*", ppMemory, pFormatMarshal, pFormat)
     }
 
     /**
@@ -19973,7 +20710,10 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcUserFree(AsyncHandle, pBuffer) {
-        DllCall("RPCRT4.dll\RpcUserFree", "ptr", AsyncHandle, "ptr", pBuffer)
+        AsyncHandleMarshal := AsyncHandle is VarRef ? "ptr" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\RpcUserFree", AsyncHandleMarshal, AsyncHandle, pBufferMarshal, pBuffer)
     }
 
     /**
@@ -20030,7 +20770,9 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeIncrementalHandleCreate(UserState, AllocFn, WriteFn, pHandle) {
-        result := DllCall("RPCRT4.dll\MesEncodeIncrementalHandleCreate", "ptr", UserState, "ptr", AllocFn, "ptr", WriteFn, "ptr*", pHandle, "int")
+        UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesEncodeIncrementalHandleCreate", UserStateMarshal, UserState, "ptr", AllocFn, "ptr", WriteFn, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20087,7 +20829,9 @@ class Rpc {
      * @since windows5.0
      */
     static MesDecodeIncrementalHandleCreate(UserState, ReadFn, pHandle) {
-        result := DllCall("RPCRT4.dll\MesDecodeIncrementalHandleCreate", "ptr", UserState, "ptr", ReadFn, "ptr*", pHandle, "int")
+        UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesDecodeIncrementalHandleCreate", UserStateMarshal, UserState, "ptr", ReadFn, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20147,7 +20891,10 @@ class Rpc {
      * @since windows5.0
      */
     static MesIncrementalHandleReset(Handle, UserState, AllocFn, WriteFn, ReadFn, Operation) {
-        result := DllCall("RPCRT4.dll\MesIncrementalHandleReset", "ptr", Handle, "ptr", UserState, "ptr", AllocFn, "ptr", WriteFn, "ptr", ReadFn, "int", Operation, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesIncrementalHandleReset", HandleMarshal, Handle, UserStateMarshal, UserState, "ptr", AllocFn, "ptr", WriteFn, "ptr", ReadFn, "int", Operation, "int")
         return result
     }
 
@@ -20205,7 +20952,9 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeFixedBufferHandleCreate(pBuffer, BufferSize, pEncodedSize, pHandle) {
-        result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", "ptr", pBuffer, "uint", BufferSize, "uint*", pEncodedSize, "ptr*", pHandle, "int")
+        pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", "ptr", pBuffer, "uint", BufferSize, pEncodedSizeMarshal, pEncodedSize, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20262,7 +21011,9 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeDynBufferHandleCreate(pBuffer, pEncodedSize, pHandle) {
-        result := DllCall("RPCRT4.dll\MesEncodeDynBufferHandleCreate", "ptr*", pBuffer, "uint*", pEncodedSize, "ptr*", pHandle, "int")
+        pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesEncodeDynBufferHandleCreate", "ptr*", pBuffer, pEncodedSizeMarshal, pEncodedSize, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20388,7 +21139,10 @@ class Rpc {
      * @since windows5.0
      */
     static MesBufferHandleReset(Handle, HandleStyle, Operation, pBuffer, BufferSize, pEncodedSize) {
-        result := DllCall("RPCRT4.dll\MesBufferHandleReset", "ptr", Handle, "uint", HandleStyle, "int", Operation, "ptr", pBuffer, "uint", BufferSize, "uint*", pEncodedSize, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesBufferHandleReset", HandleMarshal, Handle, "uint", HandleStyle, "int", Operation, "ptr", pBuffer, "uint", BufferSize, pEncodedSizeMarshal, pEncodedSize, "int")
         return result
     }
 
@@ -20421,7 +21175,9 @@ class Rpc {
      * @since windows5.0
      */
     static MesHandleFree(Handle) {
-        result := DllCall("RPCRT4.dll\MesHandleFree", "ptr", Handle, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesHandleFree", HandleMarshal, Handle, "int")
         return result
     }
 
@@ -20534,7 +21290,10 @@ class Rpc {
      * @since windows5.0
      */
     static MesInqProcEncodingId(Handle, pInterfaceId, pProcNum) {
-        result := DllCall("RPCRT4.dll\MesInqProcEncodingId", "ptr", Handle, "ptr", pInterfaceId, "uint*", pProcNum, "int")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pProcNumMarshal := pProcNum is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\MesInqProcEncodingId", HandleMarshal, Handle, "ptr", pInterfaceId, pProcNumMarshal, pProcNum, "int")
         return result
     }
 
@@ -20544,7 +21303,9 @@ class Rpc {
      * @returns {Pointer} 
      */
     static NdrMesSimpleTypeAlignSize(param0) {
-        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeAlignSize", "ptr", param0, "ptr")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeAlignSize", param0Marshal, param0, "ptr")
         return result
     }
 
@@ -20556,7 +21317,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeDecode(Handle, pObject, Size) {
-        DllCall("RPCRT4.dll\NdrMesSimpleTypeDecode", "ptr", Handle, "ptr", pObject, "short", Size)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeDecode", HandleMarshal, Handle, pObjectMarshal, pObject, "short", Size)
     }
 
     /**
@@ -20568,7 +21332,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeEncode(Handle, pStubDesc, pObject, Size) {
-        DllCall("RPCRT4.dll\NdrMesSimpleTypeEncode", "ptr", Handle, "ptr", pStubDesc, "ptr", pObject, "short", Size)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeEncode", HandleMarshal, Handle, "ptr", pStubDesc, pObjectMarshal, pObject, "short", Size)
     }
 
     /**
@@ -20580,7 +21347,11 @@ class Rpc {
      * @returns {Pointer} 
      */
     static NdrMesTypeAlignSize(Handle, pStubDesc, pFormatString, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject, "ptr")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize", HandleMarshal, Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject, "ptr")
         return result
     }
 
@@ -20593,7 +21364,11 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode(Handle, pStubDesc, pFormatString, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeEncode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeEncode", HandleMarshal, Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
     }
 
     /**
@@ -20605,7 +21380,11 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode(Handle, pStubDesc, pFormatString, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeDecode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeDecode", HandleMarshal, Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
     }
 
     /**
@@ -20618,7 +21397,11 @@ class Rpc {
      * @returns {Pointer} 
      */
     static NdrMesTypeAlignSize2(Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject, "ptr")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize2", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject, "ptr")
         return result
     }
 
@@ -20632,7 +21415,11 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode2(Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeEncode2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeEncode2", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
     }
 
     /**
@@ -20645,7 +21432,11 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode2(Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeDecode2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeDecode2", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
     }
 
     /**
@@ -20658,7 +21449,11 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeFree2(Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeFree2", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, "char*", pFormatString, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeFree2", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
     }
 
     /**
@@ -20669,7 +21464,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesProcEncodeDecode(Handle, pStubDesc, pFormatString) {
-        DllCall("RPCRT4.dll\NdrMesProcEncodeDecode", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "CDecl ")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesProcEncodeDecode", HandleMarshal, Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, "CDecl ")
     }
 
     /**
@@ -20682,7 +21480,10 @@ class Rpc {
      * @since windows5.0
      */
     static NdrMesProcEncodeDecode2(Handle, pStubDesc, pFormatString) {
-        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode2", "ptr", Handle, "ptr", pStubDesc, "char*", pFormatString, "CDecl ptr")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode2", HandleMarshal, Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, "CDecl ptr")
         return result
     }
 
@@ -20697,7 +21498,10 @@ class Rpc {
      * @returns {Pointer} 
      */
     static NdrMesTypeAlignSize3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject, "ptr")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject, "ptr")
         return result
     }
 
@@ -20712,7 +21516,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeEncode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeEncode3", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject)
     }
 
     /**
@@ -20726,7 +21533,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeDecode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeDecode3", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject)
     }
 
     /**
@@ -20740,7 +21550,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeFree3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeFree3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesTypeFree3", HandleMarshal, Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject)
     }
 
     /**
@@ -20752,7 +21565,10 @@ class Rpc {
      * @returns {CLIENT_CALL_RETURN} 
      */
     static NdrMesProcEncodeDecode3(Handle, pProxyInfo, nProcNum, pReturnValue) {
-        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode3", "ptr", Handle, "ptr", pProxyInfo, "uint", nProcNum, "ptr", pReturnValue, "CDecl ptr")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode3", HandleMarshal, Handle, "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
         return result
     }
 
@@ -20765,7 +21581,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeDecodeAll(Handle, pProxyInfo, pObject, Size) {
-        DllCall("RPCRT4.dll\NdrMesSimpleTypeDecodeAll", "ptr", Handle, "ptr", pProxyInfo, "ptr", pObject, "short", Size)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeDecodeAll", HandleMarshal, Handle, "ptr", pProxyInfo, pObjectMarshal, pObject, "short", Size)
     }
 
     /**
@@ -20777,7 +21596,10 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesSimpleTypeEncodeAll(Handle, pProxyInfo, pObject, Size) {
-        DllCall("RPCRT4.dll\NdrMesSimpleTypeEncodeAll", "ptr", Handle, "ptr", pProxyInfo, "ptr", pObject, "short", Size)
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+
+        DllCall("RPCRT4.dll\NdrMesSimpleTypeEncodeAll", HandleMarshal, Handle, "ptr", pProxyInfo, pObjectMarshal, pObject, "short", Size)
     }
 
     /**
@@ -20787,7 +21609,9 @@ class Rpc {
      * @returns {Pointer} 
      */
     static NdrMesSimpleTypeAlignSizeAll(Handle, pProxyInfo) {
-        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeAlignSizeAll", "ptr", Handle, "ptr", pProxyInfo, "ptr")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("RPCRT4.dll\NdrMesSimpleTypeAlignSizeAll", HandleMarshal, Handle, "ptr", pProxyInfo, "ptr")
         return result
     }
 

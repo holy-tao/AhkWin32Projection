@@ -50,7 +50,10 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult{
      * @returns {HRESULT} 
      */
     GetXMLErrorInfo(LineNumber, ScriptLine, Source, Description, ResultCode, IsError) {
-        result := ComCall(18, this, "int*", LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, "int*", ResultCode, "ptr", IsError, "HRESULT")
+        LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
+        ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, "ptr", IsError, "HRESULT")
         return result
     }
 }

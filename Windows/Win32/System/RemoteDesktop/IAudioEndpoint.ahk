@@ -54,7 +54,9 @@ class IAudioEndpoint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getframesperpacket
      */
     GetFramesPerPacket(pFramesPerPacket) {
-        result := ComCall(4, this, "uint*", pFramesPerPacket, "HRESULT")
+        pFramesPerPacketMarshal := pFramesPerPacket is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pFramesPerPacketMarshal, pFramesPerPacket, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IAudioEndpoint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getlatency
      */
     GetLatency(pLatency) {
-        result := ComCall(5, this, "int64*", pLatency, "HRESULT")
+        pLatencyMarshal := pLatency is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, pLatencyMarshal, pLatency, "HRESULT")
         return result
     }
 

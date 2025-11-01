@@ -38,7 +38,9 @@ class ITAddress extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_state
      */
     get_State(pAddressState) {
-        result := ComCall(7, this, "int*", pAddressState, "HRESULT")
+        pAddressStateMarshal := pAddressState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pAddressStateMarshal, pAddressState, "HRESULT")
         return result
     }
 

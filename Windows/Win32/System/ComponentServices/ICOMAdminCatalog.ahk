@@ -72,7 +72,9 @@ class ICOMAdminCatalog extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-get_majorversion
      */
     get_MajorVersion(plMajorVersion) {
-        result := ComCall(9, this, "int*", plMajorVersion, "HRESULT")
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class ICOMAdminCatalog extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-get_minorversion
      */
     get_MinorVersion(plMinorVersion) {
-        result := ComCall(10, this, "int*", plMinorVersion, "HRESULT")
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
     }
 
@@ -346,7 +350,9 @@ class ICOMAdminCatalog extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-servicecheck
      */
     ServiceCheck(lService, plStatus) {
-        result := ComCall(29, this, "int", lService, "int*", plStatus, "HRESULT")
+        plStatusMarshal := plStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, "int", lService, plStatusMarshal, plStatus, "HRESULT")
         return result
     }
 

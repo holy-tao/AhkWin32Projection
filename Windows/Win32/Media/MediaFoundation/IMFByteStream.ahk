@@ -83,7 +83,9 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getcapabilities
      */
     GetCapabilities(pdwCapabilities) {
-        result := ComCall(3, this, "uint*", pdwCapabilities, "HRESULT")
+        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCapabilitiesMarshal, pdwCapabilities, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getlength
      */
     GetLength(pqwLength) {
-        result := ComCall(4, this, "uint*", pqwLength, "HRESULT")
+        pqwLengthMarshal := pqwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pqwLengthMarshal, pqwLength, "HRESULT")
         return result
     }
 
@@ -116,7 +120,9 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getcurrentposition
      */
     GetCurrentPosition(pqwPosition) {
-        result := ComCall(6, this, "uint*", pqwPosition, "HRESULT")
+        pqwPositionMarshal := pqwPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pqwPositionMarshal, pqwPosition, "HRESULT")
         return result
     }
 
@@ -151,7 +157,10 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-read
      */
     Read(pb, cb, pcbRead) {
-        result := ComCall(9, this, "char*", pb, "uint", cb, "uint*", pcbRead, "HRESULT")
+        pbMarshal := pb is VarRef ? "char*" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pbMarshal, pb, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -177,7 +186,9 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-endread
      */
     EndRead(pResult, pcbRead) {
-        result := ComCall(11, this, "ptr", pResult, "uint*", pcbRead, "HRESULT")
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pResult, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -190,7 +201,10 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-write
      */
     Write(pb, cb, pcbWritten) {
-        result := ComCall(12, this, "char*", pb, "uint", cb, "uint*", pcbWritten, "HRESULT")
+        pbMarshal := pb is VarRef ? "char*" : "ptr"
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pbMarshal, pb, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 
@@ -216,7 +230,9 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-endwrite
      */
     EndWrite(pResult, pcbWritten) {
-        result := ComCall(14, this, "ptr", pResult, "uint*", pcbWritten, "HRESULT")
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pResult, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 
@@ -230,7 +246,9 @@ class IMFByteStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-seek
      */
     Seek(SeekOrigin, llSeekOffset, dwSeekFlags, pqwCurrentPosition) {
-        result := ComCall(15, this, "int", SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, "uint*", pqwCurrentPosition, "HRESULT")
+        pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "int", SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
         return result
     }
 

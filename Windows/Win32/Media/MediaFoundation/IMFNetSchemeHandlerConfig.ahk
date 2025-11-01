@@ -37,7 +37,9 @@ class IMFNetSchemeHandlerConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetschemehandlerconfig-getnumberofsupportedprotocols
      */
     GetNumberOfSupportedProtocols(pcProtocols) {
-        result := ComCall(3, this, "uint*", pcProtocols, "HRESULT")
+        pcProtocolsMarshal := pcProtocols is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcProtocolsMarshal, pcProtocols, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IMFNetSchemeHandlerConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetschemehandlerconfig-getsupportedprotocoltype
      */
     GetSupportedProtocolType(nProtocolIndex, pnProtocolType) {
-        result := ComCall(4, this, "uint", nProtocolIndex, "int*", pnProtocolType, "HRESULT")
+        pnProtocolTypeMarshal := pnProtocolType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "uint", nProtocolIndex, pnProtocolTypeMarshal, pnProtocolType, "HRESULT")
         return result
     }
 

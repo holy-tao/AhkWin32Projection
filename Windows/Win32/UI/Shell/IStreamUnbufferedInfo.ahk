@@ -37,7 +37,9 @@ class IStreamUnbufferedInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamunbufferedinfo-getsectorsize
      */
     GetSectorSize(pcbSectorSize) {
-        result := ComCall(3, this, "uint*", pcbSectorSize, "HRESULT")
+        pcbSectorSizeMarshal := pcbSectorSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcbSectorSizeMarshal, pcbSectorSize, "HRESULT")
         return result
     }
 }

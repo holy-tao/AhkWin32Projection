@@ -77,7 +77,9 @@ class IUIAutomationCacheRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treescope
      */
     get_TreeScope(scope) {
-        result := ComCall(6, this, "int*", scope, "HRESULT")
+        scopeMarshal := scope is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, scopeMarshal, scope, "HRESULT")
         return result
     }
 
@@ -121,7 +123,9 @@ class IUIAutomationCacheRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_automationelementmode
      */
     get_AutomationElementMode(mode) {
-        result := ComCall(10, this, "int*", mode, "HRESULT")
+        modeMarshal := mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, modeMarshal, mode, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IKsDataTypeHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     KsCompleteIoOperation(Sample, StreamHeader, IoOperation, Cancelled) {
-        result := ComCall(3, this, "ptr", Sample, "ptr", StreamHeader, "int", IoOperation, "int", Cancelled, "HRESULT")
+        StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, "int", IoOperation, "int", Cancelled, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IKsDataTypeHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     KsIsMediaTypeInRanges(DataRanges) {
-        result := ComCall(4, this, "ptr", DataRanges, "HRESULT")
+        DataRangesMarshal := DataRanges is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, DataRangesMarshal, DataRanges, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IKsDataTypeHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     KsPrepareIoOperation(Sample, StreamHeader, IoOperation) {
-        result := ComCall(5, this, "ptr", Sample, "ptr", StreamHeader, "int", IoOperation, "HRESULT")
+        StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, "int", IoOperation, "HRESULT")
         return result
     }
 
@@ -69,7 +75,9 @@ class IKsDataTypeHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     KsQueryExtendedSize(ExtendedSize) {
-        result := ComCall(6, this, "uint*", ExtendedSize, "HRESULT")
+        ExtendedSizeMarshal := ExtendedSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, ExtendedSizeMarshal, ExtendedSize, "HRESULT")
         return result
     }
 

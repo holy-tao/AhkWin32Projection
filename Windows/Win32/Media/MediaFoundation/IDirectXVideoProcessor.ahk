@@ -51,7 +51,10 @@ class IDirectXVideoProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-getcreationparameters
      */
     GetCreationParameters(pDeviceGuid, pVideoDesc, pRenderTargetFormat, pMaxNumSubStreams) {
-        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, "uint*", pRenderTargetFormat, "uint*", pMaxNumSubStreams, "HRESULT")
+        pRenderTargetFormatMarshal := pRenderTargetFormat is VarRef ? "uint*" : "ptr"
+        pMaxNumSubStreamsMarshal := pMaxNumSubStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, pRenderTargetFormatMarshal, pRenderTargetFormat, pMaxNumSubStreamsMarshal, pMaxNumSubStreams, "HRESULT")
         return result
     }
 

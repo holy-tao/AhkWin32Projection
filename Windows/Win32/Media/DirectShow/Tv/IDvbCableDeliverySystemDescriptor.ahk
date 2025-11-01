@@ -48,7 +48,9 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcabledeliverysystemdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcabledeliverysystemdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcabledeliverysystemdescriptor-getfrequency
      */
     GetFrequency(pdwVal) {
-        result := ComCall(5, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcabledeliverysystemdescriptor-getfecouter
      */
     GetFECOuter(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -92,7 +100,9 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcabledeliverysystemdescriptor-getmodulation
      */
     GetModulation(pbVal) {
-        result := ComCall(7, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -103,7 +113,9 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcabledeliverysystemdescriptor-getsymbolrate
      */
     GetSymbolRate(pdwVal) {
-        result := ComCall(8, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -114,7 +126,9 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcabledeliverysystemdescriptor-getfecinner
      */
     GetFECInner(pbVal) {
-        result := ComCall(9, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

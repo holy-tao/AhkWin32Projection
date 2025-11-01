@@ -885,9 +885,13 @@ class GroupPolicy {
     static RsopAccessCheckByType(pSecurityDescriptor, pPrincipalSelfSid, pRsopToken, dwDesiredAccessMask, pObjectTypeList, ObjectTypeListLength, pGenericMapping, pPrivilegeSet, pdwPrivilegeSetLength, pdwGrantedAccessMask, pbAccessStatus) {
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
+        pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : "ptr"
+        pdwPrivilegeSetLengthMarshal := pdwPrivilegeSetLength is VarRef ? "uint*" : "ptr"
+        pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, "uint*", pdwPrivilegeSetLength, "uint*", pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
+        result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -911,7 +915,10 @@ class GroupPolicy {
     static RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGrantedAccessMask, pbAccessStatus) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "uint*", pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
+        pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : "ptr"
+        pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1008,7 +1015,9 @@ class GroupPolicy {
         Descriptor := Descriptor is String ? StrPtr(Descriptor) : Descriptor
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := DllCall("ADVAPI32.dll\CommandLineFromMsiDescriptor", "ptr", Descriptor, "ptr", CommandLine, "uint*", CommandLineLength, "uint")
+        CommandLineLengthMarshal := CommandLineLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\CommandLineFromMsiDescriptor", "ptr", Descriptor, "ptr", CommandLine, CommandLineLengthMarshal, CommandLineLength, "uint")
         return result
     }
 
@@ -1027,7 +1036,9 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetManagedApplications(pCategory, dwQueryFlags, dwInfoLevel, pdwApps, prgManagedApps) {
-        result := DllCall("ADVAPI32.dll\GetManagedApplications", "ptr", pCategory, "uint", dwQueryFlags, "uint", dwInfoLevel, "uint*", pdwApps, "ptr*", prgManagedApps, "uint")
+        pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetManagedApplications", "ptr", pCategory, "uint", dwQueryFlags, "uint", dwInfoLevel, pdwAppsMarshal, pdwApps, "ptr*", prgManagedApps, "uint")
         return result
     }
 
@@ -1042,7 +1053,9 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetLocalManagedApplications(bUserApps, pdwApps, prgLocalApps) {
-        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "int", bUserApps, "uint*", pdwApps, "ptr*", prgLocalApps, "uint")
+        pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "int", bUserApps, pdwAppsMarshal, pdwApps, "ptr*", prgLocalApps, "uint")
         return result
     }
 

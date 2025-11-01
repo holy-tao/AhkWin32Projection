@@ -106,7 +106,9 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
      * @returns {HRESULT} 
      */
     get_ColorKey(ColorKey) {
-        result := ComCall(26, this, "uint*", ColorKey, "HRESULT")
+        ColorKeyMarshal := ColorKey is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, ColorKeyMarshal, ColorKey, "HRESULT")
         return result
     }
 
@@ -177,7 +179,9 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
      * @returns {HRESULT} 
      */
     get_BorderColor(color) {
-        result := ComCall(33, this, "uint*", color, "HRESULT")
+        colorMarshal := color is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, colorMarshal, color, "HRESULT")
         return result
     }
 

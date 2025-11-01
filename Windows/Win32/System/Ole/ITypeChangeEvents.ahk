@@ -42,7 +42,9 @@ class ITypeChangeEvents extends IUnknown{
     RequestTypeChange(changeKind, pTInfoBefore, pStrName, pfCancel) {
         pStrName := pStrName is String ? StrPtr(pStrName) : pStrName
 
-        result := ComCall(3, this, "int", changeKind, "ptr", pTInfoBefore, "ptr", pStrName, "int*", pfCancel, "HRESULT")
+        pfCancelMarshal := pfCancel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", changeKind, "ptr", pTInfoBefore, "ptr", pStrName, pfCancelMarshal, pfCancel, "HRESULT")
         return result
     }
 

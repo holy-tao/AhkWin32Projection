@@ -113,7 +113,9 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {HRESULT} 
      */
     SpeakAudio(StartElement, Elements, Flags, StreamNumber) {
-        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, "int*", StreamNumber, "HRESULT")
+        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, StreamNumberMarshal, StreamNumber, "HRESULT")
         return result
     }
 
@@ -159,7 +161,9 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {HRESULT} 
      */
     GetXMLErrorInfo(LineNumber, ScriptLine, Source, Description, ResultCode, IsError) {
-        result := ComCall(18, this, "int*", LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, "ptr", ResultCode, "ptr", IsError, "HRESULT")
+        LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, "ptr", ResultCode, "ptr", IsError, "HRESULT")
         return result
     }
 

@@ -74,7 +74,9 @@ class ISchemaAttribute extends ISchemaItem{
      * @returns {HRESULT} 
      */
     get_use(use) {
-        result := ComCall(18, this, "int*", use, "HRESULT")
+        useMarshal := use is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, useMarshal, use, "HRESULT")
         return result
     }
 

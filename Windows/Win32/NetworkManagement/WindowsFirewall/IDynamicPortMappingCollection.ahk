@@ -61,7 +61,9 @@ class IDynamicPortMappingCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(pVal) {
-        result := ComCall(9, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

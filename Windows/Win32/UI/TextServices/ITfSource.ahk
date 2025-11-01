@@ -69,7 +69,9 @@ class ITfSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsource-advisesink
      */
     AdviseSink(riid, punk, pdwCookie) {
-        result := ComCall(3, this, "ptr", riid, "ptr", punk, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, "ptr", punk, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

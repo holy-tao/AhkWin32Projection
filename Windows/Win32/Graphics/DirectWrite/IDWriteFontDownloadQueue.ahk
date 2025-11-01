@@ -38,7 +38,9 @@ class IDWriteFontDownloadQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-addlistener
      */
     AddListener(listener, token) {
-        result := ComCall(3, this, "ptr", listener, "uint*", token, "HRESULT")
+        tokenMarshal := token is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", listener, tokenMarshal, token, "HRESULT")
         return result
     }
 

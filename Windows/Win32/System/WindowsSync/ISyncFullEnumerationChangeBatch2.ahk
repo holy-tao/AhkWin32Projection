@@ -40,7 +40,11 @@ class ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerationChangeBatch{
      * @returns {HRESULT} 
      */
     AddMergeTombstoneMetadataToGroup(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange, ppChangeBuilder) {
-        result := ComCall(20, this, "char*", pbOwnerReplicaId, "char*", pbWinnerItemId, "char*", pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr*", ppChangeBuilder, "HRESULT")
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
+        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr*", ppChangeBuilder, "HRESULT")
         return result
     }
 }

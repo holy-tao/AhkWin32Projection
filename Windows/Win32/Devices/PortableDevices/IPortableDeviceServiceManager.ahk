@@ -42,7 +42,9 @@ class IPortableDeviceServiceManager extends IUnknown{
     GetDeviceServices(pszPnPDeviceID, guidServiceCategory, pServices, pcServices) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
 
-        result := ComCall(3, this, "ptr", pszPnPDeviceID, "ptr", guidServiceCategory, "ptr", pServices, "uint*", pcServices, "HRESULT")
+        pcServicesMarshal := pcServices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszPnPDeviceID, "ptr", guidServiceCategory, "ptr", pServices, pcServicesMarshal, pcServices, "HRESULT")
         return result
     }
 

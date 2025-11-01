@@ -41,7 +41,9 @@ class AsyncIIdentityAuthentication extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_SetIdentityCredential(CredBuffer, CredBufferLength) {
-        result := ComCall(3, this, "char*", CredBuffer, "uint", CredBufferLength, "HRESULT")
+        CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class AsyncIIdentityAuthentication extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_ValidateIdentityCredential(CredBuffer, CredBufferLength, ppIdentityProperties) {
-        result := ComCall(5, this, "char*", CredBuffer, "uint", CredBufferLength, "ptr*", ppIdentityProperties, "HRESULT")
+        CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, "ptr*", ppIdentityProperties, "HRESULT")
         return result
     }
 

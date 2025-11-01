@@ -72,7 +72,9 @@ class IProgressItems extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_count
      */
     get_Count(Count) {
-        result := ComCall(9, this, "int*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, CountMarshal, Count, "HRESULT")
         return result
     }
 

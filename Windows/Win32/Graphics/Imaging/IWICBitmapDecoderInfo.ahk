@@ -40,7 +40,10 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-getpatterns
      */
     GetPatterns(cbSizePatterns, pPatterns, pcPatterns, pcbPatternsActual) {
-        result := ComCall(23, this, "uint", cbSizePatterns, "ptr", pPatterns, "uint*", pcPatterns, "uint*", pcbPatternsActual, "HRESULT")
+        pcPatternsMarshal := pcPatterns is VarRef ? "uint*" : "ptr"
+        pcbPatternsActualMarshal := pcbPatternsActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "uint", cbSizePatterns, "ptr", pPatterns, pcPatternsMarshal, pcPatterns, pcbPatternsActualMarshal, pcbPatternsActual, "HRESULT")
         return result
     }
 

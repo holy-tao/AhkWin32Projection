@@ -68,7 +68,9 @@ class IAMTimecodeReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettcrmode
      */
     GetTCRMode(Param, pValue) {
-        result := ComCall(3, this, "int", Param, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", Param, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -102,7 +104,9 @@ class IAMTimecodeReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-get_vitcline
      */
     get_VITCLine(pLine) {
-        result := ComCall(6, this, "int*", pLine, "HRESULT")
+        pLineMarshal := pLine is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pLineMarshal, pLine, "HRESULT")
         return result
     }
 

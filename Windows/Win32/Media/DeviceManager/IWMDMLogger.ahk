@@ -136,7 +136,10 @@ class IWMDMLogger extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-getsizeparams
      */
     GetSizeParams(pdwMaxSize, pdwShrinkToSize) {
-        result := ComCall(10, this, "uint*", pdwMaxSize, "uint*", pdwShrinkToSize, "HRESULT")
+        pdwMaxSizeMarshal := pdwMaxSize is VarRef ? "uint*" : "ptr"
+        pdwShrinkToSizeMarshal := pdwShrinkToSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwMaxSizeMarshal, pdwMaxSize, pdwShrinkToSizeMarshal, pdwShrinkToSize, "HRESULT")
         return result
     }
 

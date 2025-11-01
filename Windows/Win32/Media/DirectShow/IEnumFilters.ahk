@@ -39,7 +39,9 @@ class IEnumFilters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-next
      */
     Next(cFilters, ppFilter, pcFetched) {
-        result := ComCall(3, this, "uint", cFilters, "ptr*", ppFilter, "uint*", pcFetched, "int")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cFilters, "ptr*", ppFilter, pcFetchedMarshal, pcFetched, "int")
         return result
     }
 

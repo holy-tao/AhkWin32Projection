@@ -171,7 +171,9 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationRegisterForAppContainerChanges(flags, callback, context, registrationObject) {
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", "uint", flags, "ptr", callback, "ptr", context, "ptr", registrationObject, "uint")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", "uint", flags, "ptr", callback, contextMarshal, context, "ptr", registrationObject, "uint")
         return result
     }
 
@@ -251,7 +253,9 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationEnumAppContainers(Flags, pdwNumPublicAppCs, ppPublicAppCs) {
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationEnumAppContainers", "uint", Flags, "uint*", pdwNumPublicAppCs, "ptr*", ppPublicAppCs, "uint")
+        pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationEnumAppContainers", "uint", Flags, pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, "ptr*", ppPublicAppCs, "uint")
         return result
     }
 
@@ -270,7 +274,9 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationGetAppContainerConfig(pdwNumPublicAppCs, appContainerSids) {
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationGetAppContainerConfig", "uint*", pdwNumPublicAppCs, "ptr*", appContainerSids, "uint")
+        pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationGetAppContainerConfig", pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, "ptr*", appContainerSids, "uint")
         return result
     }
 
@@ -310,7 +316,9 @@ class WindowsFirewall {
     static NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName, netIsoError) {
         wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationDiagnoseConnectFailureAndGetInfo", "ptr", wszServerName, "int*", netIsoError, "uint")
+        netIsoErrorMarshal := netIsoError is VarRef ? "int*" : "ptr"
+
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationDiagnoseConnectFailureAndGetInfo", "ptr", wszServerName, netIsoErrorMarshal, netIsoError, "uint")
         return result
     }
 
@@ -386,7 +394,9 @@ class WindowsFirewall {
     static NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, context, callback, hOperation) {
         wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
-        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, "ptr", context, "ptr", callback, "ptr", hOperation, "uint")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, contextMarshal, context, "ptr", callback, "ptr", hOperation, "uint")
         return result
     }
 

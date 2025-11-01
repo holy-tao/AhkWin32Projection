@@ -146,7 +146,11 @@ class IXpsSignatureRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getspotlocation
      */
     GetSpotLocation(pageIndex, pagePartName, x, y) {
-        result := ComCall(11, this, "int*", pageIndex, "ptr*", pagePartName, "float*", x, "float*", y, "HRESULT")
+        pageIndexMarshal := pageIndex is VarRef ? "int*" : "ptr"
+        xMarshal := x is VarRef ? "float*" : "ptr"
+        yMarshal := y is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, pageIndexMarshal, pageIndex, "ptr*", pagePartName, xMarshal, x, yMarshal, y, "HRESULT")
         return result
     }
 

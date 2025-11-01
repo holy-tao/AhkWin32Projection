@@ -66,7 +66,9 @@ class IEventServerTrace extends IDispatch{
      * @returns {HRESULT} 
      */
     EnumTraceGuid(plCntGuids, pbstrGuidList) {
-        result := ComCall(9, this, "int*", plCntGuids, "ptr", pbstrGuidList, "HRESULT")
+        plCntGuidsMarshal := plCntGuids is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCntGuidsMarshal, plCntGuids, "ptr", pbstrGuidList, "HRESULT")
         return result
     }
 }

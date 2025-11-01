@@ -58,7 +58,9 @@ class IVisualTreeService3 extends IVisualTreeService2{
     GetDictionaryItem(dictionaryHandle, resourceName, resourceIsImplicitStyle, resourceHandle) {
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
 
-        result := ComCall(20, this, "uint", dictionaryHandle, "ptr", resourceName, "int", resourceIsImplicitStyle, "uint*", resourceHandle, "HRESULT")
+        resourceHandleMarshal := resourceHandle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", dictionaryHandle, "ptr", resourceName, "int", resourceIsImplicitStyle, resourceHandleMarshal, resourceHandle, "HRESULT")
         return result
     }
 

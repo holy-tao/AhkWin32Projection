@@ -1358,7 +1358,9 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDAllocateLinkedMemory(pParent, cbSize) {
-        result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", "ptr", pParent, "ptr", cbSize, "ptr")
+        pParentMarshal := pParent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", pParentMarshal, pParent, "ptr", cbSize, "ptr")
         return result
     }
 
@@ -1374,7 +1376,9 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDFreeLinkedMemory(pVoid) {
-        DllCall("wsdapi.dll\WSDFreeLinkedMemory", "ptr", pVoid)
+        pVoidMarshal := pVoid is VarRef ? "ptr" : "ptr"
+
+        DllCall("wsdapi.dll\WSDFreeLinkedMemory", pVoidMarshal, pVoid)
     }
 
     /**
@@ -1391,7 +1395,10 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDAttachLinkedMemory(pParent, pChild) {
-        DllCall("wsdapi.dll\WSDAttachLinkedMemory", "ptr", pParent, "ptr", pChild)
+        pParentMarshal := pParent is VarRef ? "ptr" : "ptr"
+        pChildMarshal := pChild is VarRef ? "ptr" : "ptr"
+
+        DllCall("wsdapi.dll\WSDAttachLinkedMemory", pParentMarshal, pParent, pChildMarshal, pChild)
     }
 
     /**
@@ -1406,7 +1413,9 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDDetachLinkedMemory(pVoid) {
-        DllCall("wsdapi.dll\WSDDetachLinkedMemory", "ptr", pVoid)
+        pVoidMarshal := pVoid is VarRef ? "ptr" : "ptr"
+
+        DllCall("wsdapi.dll\WSDDetachLinkedMemory", pVoidMarshal, pVoid)
     }
 
     /**
@@ -1895,7 +1904,9 @@ class WebServicesOnDevices {
     static WSDUriEncode(source, cchSource, destOut, cchDestOut) {
         source := source is String ? StrPtr(source) : source
 
-        result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, "ptr", destOut, "uint*", cchDestOut, "int")
+        cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, "ptr", destOut, cchDestOutMarshal, cchDestOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1966,7 +1977,9 @@ class WebServicesOnDevices {
     static WSDUriDecode(source, cchSource, destOut, cchDestOut) {
         source := source is String ? StrPtr(source) : source
 
-        result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, "ptr", destOut, "uint*", cchDestOut, "int")
+        cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, "ptr", destOut, cchDestOutMarshal, cchDestOut, "int")
         if(result != 0)
             throw OSError(result)
 

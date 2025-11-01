@@ -35,7 +35,10 @@ class IEnumItemIds extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(pbItemId, pcbItemIdSize) {
-        result := ComCall(3, this, "char*", pbItemId, "uint*", pcbItemIdSize, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "HRESULT")
         return result
     }
 }

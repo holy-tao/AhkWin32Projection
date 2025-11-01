@@ -34,7 +34,9 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     get_FormatTag(FormatTag) {
-        result := ComCall(7, this, "short*", FormatTag, "HRESULT")
+        FormatTagMarshal := FormatTag is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, FormatTagMarshal, FormatTag, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Channels(Channels) {
-        result := ComCall(9, this, "short*", Channels, "HRESULT")
+        ChannelsMarshal := Channels is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, ChannelsMarshal, Channels, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SamplesPerSec(SamplesPerSec) {
-        result := ComCall(11, this, "int*", SamplesPerSec, "HRESULT")
+        SamplesPerSecMarshal := SamplesPerSec is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, SamplesPerSecMarshal, SamplesPerSec, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AvgBytesPerSec(AvgBytesPerSec) {
-        result := ComCall(13, this, "int*", AvgBytesPerSec, "HRESULT")
+        AvgBytesPerSecMarshal := AvgBytesPerSec is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, AvgBytesPerSecMarshal, AvgBytesPerSec, "HRESULT")
         return result
     }
 
@@ -114,7 +122,9 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BlockAlign(BlockAlign) {
-        result := ComCall(15, this, "short*", BlockAlign, "HRESULT")
+        BlockAlignMarshal := BlockAlign is VarRef ? "short*" : "ptr"
+
+        result := ComCall(15, this, BlockAlignMarshal, BlockAlign, "HRESULT")
         return result
     }
 
@@ -134,7 +144,9 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BitsPerSample(BitsPerSample) {
-        result := ComCall(17, this, "short*", BitsPerSample, "HRESULT")
+        BitsPerSampleMarshal := BitsPerSample is VarRef ? "short*" : "ptr"
+
+        result := ComCall(17, this, BitsPerSampleMarshal, BitsPerSample, "HRESULT")
         return result
     }
 

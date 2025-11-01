@@ -63,7 +63,9 @@ class ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute{
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-updatedashes-overload
      */
     UpdateDashes1(dashes, dashesCount, startIndex) {
-        result := ComCall(8, this, "float*", dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, dashesMarshal, dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
         return result
     }
 
@@ -89,7 +91,9 @@ class ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute{
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-getdashes-overload
      */
     GetDashes1(dashes, dashesCount, startIndex) {
-        result := ComCall(10, this, "float*", dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, dashesMarshal, dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
         return result
     }
 

@@ -65,7 +65,9 @@ class IXAudio2VoiceCallback extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onbufferstart
      */
     OnBufferStart(pBufferContext) {
-        ComCall(3, this, "ptr", pBufferContext)
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+
+        ComCall(3, this, pBufferContextMarshal, pBufferContext)
     }
 
     /**
@@ -75,7 +77,9 @@ class IXAudio2VoiceCallback extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onbufferend
      */
     OnBufferEnd(pBufferContext) {
-        ComCall(4, this, "ptr", pBufferContext)
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+
+        ComCall(4, this, pBufferContextMarshal, pBufferContext)
     }
 
     /**
@@ -85,7 +89,9 @@ class IXAudio2VoiceCallback extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onloopend
      */
     OnLoopEnd(pBufferContext) {
-        ComCall(5, this, "ptr", pBufferContext)
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+
+        ComCall(5, this, pBufferContextMarshal, pBufferContext)
     }
 
     /**
@@ -96,6 +102,8 @@ class IXAudio2VoiceCallback extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onvoiceerror
      */
     OnVoiceError(pBufferContext, Error) {
-        ComCall(6, this, "ptr", pBufferContext, "int", Error)
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+
+        ComCall(6, this, pBufferContextMarshal, pBufferContext, "int", Error)
     }
 }

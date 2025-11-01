@@ -91,7 +91,9 @@ class IGameInputReading extends IUnknown{
      * @returns {Integer} 
      */
     GetControllerAxisState(stateArrayCount, stateArray) {
-        result := ComCall(9, this, "uint", stateArrayCount, "float*", stateArray, "uint")
+        stateArrayMarshal := stateArray is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, "uint")
         return result
     }
 
@@ -111,7 +113,9 @@ class IGameInputReading extends IUnknown{
      * @returns {Integer} 
      */
     GetControllerButtonState(stateArrayCount, stateArray) {
-        result := ComCall(11, this, "uint", stateArrayCount, "int*", stateArray, "uint")
+        stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, "uint")
         return result
     }
 
@@ -131,7 +135,9 @@ class IGameInputReading extends IUnknown{
      * @returns {Integer} 
      */
     GetControllerSwitchState(stateArrayCount, stateArray) {
-        result := ComCall(13, this, "uint", stateArrayCount, "int*", stateArray, "uint")
+        stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, "uint")
         return result
     }
 

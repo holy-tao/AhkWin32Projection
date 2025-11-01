@@ -97,7 +97,11 @@ class IWMDMDevice3 extends IWMDMDevice2{
      * @see https://docs.microsoft.com/windows/win32/api//ioapiset/nf-ioapiset-deviceiocontrol
      */
     DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, pnOutBufferSize) {
-        result := ComCall(21, this, "uint", dwIoControlCode, "char*", lpInBuffer, "uint", nInBufferSize, "char*", lpOutBuffer, "uint*", pnOutBufferSize, "HRESULT")
+        lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
+        lpOutBufferMarshal := lpOutBuffer is VarRef ? "char*" : "ptr"
+        pnOutBufferSizeMarshal := pnOutBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
         return result
     }
 

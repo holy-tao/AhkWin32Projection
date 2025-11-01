@@ -39,7 +39,9 @@ class IMLangFontLink extends IMLangCodePages{
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
         hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
 
-        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, "uint*", pdwCodePages, "HRESULT")
+        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
         return result
     }
 

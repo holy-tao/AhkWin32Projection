@@ -37,7 +37,9 @@ class IVdsVolumeShrink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeshrink-querymaxreclaimablebytes
      */
     QueryMaxReclaimableBytes(pullMaxNumberOfReclaimableBytes) {
-        result := ComCall(3, this, "uint*", pullMaxNumberOfReclaimableBytes, "HRESULT")
+        pullMaxNumberOfReclaimableBytesMarshal := pullMaxNumberOfReclaimableBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pullMaxNumberOfReclaimableBytesMarshal, pullMaxNumberOfReclaimableBytes, "HRESULT")
         return result
     }
 

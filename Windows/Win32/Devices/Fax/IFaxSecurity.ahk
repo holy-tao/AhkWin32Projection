@@ -71,7 +71,9 @@ class IFaxSecurity extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity-get_grantedrights
      */
     get_GrantedRights(pGrantedRights) {
-        result := ComCall(9, this, "int*", pGrantedRights, "HRESULT")
+        pGrantedRightsMarshal := pGrantedRights is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pGrantedRightsMarshal, pGrantedRights, "HRESULT")
         return result
     }
 
@@ -102,7 +104,9 @@ class IFaxSecurity extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity-get_informationtype
      */
     get_InformationType(plInformationType) {
-        result := ComCall(12, this, "int*", plInformationType, "HRESULT")
+        plInformationTypeMarshal := plInformationType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plInformationTypeMarshal, plInformationType, "HRESULT")
         return result
     }
 

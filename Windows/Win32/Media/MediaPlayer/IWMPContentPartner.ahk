@@ -99,7 +99,10 @@ class IWMPContentPartner extends IUnknown{
         location := location is String ? BSTR.Alloc(location).Value : location
         itemLocation := itemLocation is String ? BSTR.Alloc(itemLocation).Value : itemLocation
 
-        result := ComCall(7, this, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, "uint*", prgItemIDs, "uint*", pcItemIDs, "ptr*", pprgItems, "HRESULT")
+        prgItemIDsMarshal := prgItemIDs is VarRef ? "uint*" : "ptr"
+        pcItemIDsMarshal := pcItemIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, "ptr*", pprgItems, "HRESULT")
         return result
     }
 
@@ -118,7 +121,9 @@ class IWMPContentPartner extends IUnknown{
         location := location is String ? BSTR.Alloc(location).Value : location
         itemLocation := itemLocation is String ? BSTR.Alloc(itemLocation).Value : itemLocation
 
-        result := ComCall(8, this, "uint", dwCommandID, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, "uint*", rgItemIDs, "HRESULT")
+        rgItemIDsMarshal := rgItemIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwCommandID, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, rgItemIDsMarshal, rgItemIDs, "HRESULT")
         return result
     }
 
@@ -219,7 +224,9 @@ class IWMPContentPartner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcatalogurl
      */
     GetCatalogURL(dwCatalogVersion, dwCatalogSchemaVersion, catalogLCID, pdwNewCatalogVersion, pbstrCatalogURL, pExpirationDate) {
-        result := ComCall(15, this, "uint", dwCatalogVersion, "uint", dwCatalogSchemaVersion, "uint", catalogLCID, "uint*", pdwNewCatalogVersion, "ptr", pbstrCatalogURL, "ptr", pExpirationDate, "HRESULT")
+        pdwNewCatalogVersionMarshal := pdwNewCatalogVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwCatalogVersion, "uint", dwCatalogSchemaVersion, "uint", catalogLCID, pdwNewCatalogVersionMarshal, pdwNewCatalogVersion, "ptr", pbstrCatalogURL, "ptr", pExpirationDate, "HRESULT")
         return result
     }
 
@@ -243,7 +250,9 @@ class IWMPContentPartner extends IUnknown{
         bstrFilter := bstrFilter is String ? BSTR.Alloc(bstrFilter).Value : bstrFilter
         bstrViewParams := bstrViewParams is String ? BSTR.Alloc(bstrViewParams).Value : bstrViewParams
 
-        result := ComCall(16, this, "int", task, "ptr", location, "ptr", pContext, "ptr", clickLocation, "ptr", pClickContext, "ptr", bstrFilter, "ptr", bstrViewParams, "ptr", pbstrTemplateURL, "int*", pTemplateSize, "HRESULT")
+        pTemplateSizeMarshal := pTemplateSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "int", task, "ptr", location, "ptr", pContext, "ptr", clickLocation, "ptr", pClickContext, "ptr", bstrFilter, "ptr", bstrViewParams, "ptr", pbstrTemplateURL, pTemplateSizeMarshal, pTemplateSize, "HRESULT")
         return result
     }
 
@@ -360,7 +369,9 @@ class IWMPContentPartner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-comparecontainerlistprices
      */
     CompareContainerListPrices(pListBase, pListCompare, pResult) {
-        result := ComCall(24, this, "ptr", pListBase, "ptr", pListCompare, "int*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "ptr", pListBase, "ptr", pListCompare, pResultMarshal, pResult, "HRESULT")
         return result
     }
 

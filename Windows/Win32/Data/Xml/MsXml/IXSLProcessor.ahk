@@ -138,7 +138,9 @@ class IXSLProcessor extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyState(pReadyState) {
-        result := ComCall(17, this, "int*", pReadyState, "HRESULT")
+        pReadyStateMarshal := pReadyState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pReadyStateMarshal, pReadyState, "HRESULT")
         return result
     }
 

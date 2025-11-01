@@ -39,7 +39,9 @@ class ID3D12Object extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12object-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
-        result := ComCall(3, this, "ptr", guid, "uint*", pDataSize, "ptr", pData, "HRESULT")
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 

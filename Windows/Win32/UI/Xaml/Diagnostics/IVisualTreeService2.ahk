@@ -41,7 +41,9 @@ class IVisualTreeService2 extends IVisualTreeService{
     GetPropertyIndex(object, propertyName, pPropertyIndex) {
         propertyName := propertyName is String ? StrPtr(propertyName) : propertyName
 
-        result := ComCall(15, this, "uint", object, "ptr", propertyName, "uint*", pPropertyIndex, "HRESULT")
+        pPropertyIndexMarshal := pPropertyIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", object, "ptr", propertyName, pPropertyIndexMarshal, pPropertyIndex, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IVisualTreeService2 extends IVisualTreeService{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-getproperty
      */
     GetProperty(object, propertyIndex, pValue) {
-        result := ComCall(16, this, "uint", object, "uint", propertyIndex, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", object, "uint", propertyIndex, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

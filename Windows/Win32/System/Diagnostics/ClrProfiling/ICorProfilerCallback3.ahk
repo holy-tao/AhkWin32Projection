@@ -36,7 +36,9 @@ class ICorProfilerCallback3 extends ICorProfilerCallback2{
      * @returns {HRESULT} 
      */
     InitializeForAttach(pCorProfilerInfoUnk, pvClientData, cbClientData) {
-        result := ComCall(80, this, "ptr", pCorProfilerInfoUnk, "ptr", pvClientData, "uint", cbClientData, "HRESULT")
+        pvClientDataMarshal := pvClientData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(80, this, "ptr", pCorProfilerInfoUnk, pvClientDataMarshal, pvClientData, "uint", cbClientData, "HRESULT")
         return result
     }
 

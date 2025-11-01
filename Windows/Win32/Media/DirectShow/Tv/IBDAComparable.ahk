@@ -43,7 +43,9 @@ class IBDAComparable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-compareexact
      */
     CompareExact(CompareTo, Result) {
-        result := ComCall(3, this, "ptr", CompareTo, "int*", Result, "HRESULT")
+        ResultMarshal := Result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", CompareTo, ResultMarshal, Result, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IBDAComparable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-compareequivalent
      */
     CompareEquivalent(CompareTo, dwFlags, Result) {
-        result := ComCall(4, this, "ptr", CompareTo, "uint", dwFlags, "int*", Result, "HRESULT")
+        ResultMarshal := Result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", CompareTo, "uint", dwFlags, ResultMarshal, Result, "HRESULT")
         return result
     }
 
@@ -67,7 +71,9 @@ class IBDAComparable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-hashexact
      */
     HashExact(Result) {
-        result := ComCall(5, this, "int64*", Result, "HRESULT")
+        ResultMarshal := Result is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, ResultMarshal, Result, "HRESULT")
         return result
     }
 
@@ -79,7 +85,9 @@ class IBDAComparable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-hashexactincremental
      */
     HashExactIncremental(PartialResult, Result) {
-        result := ComCall(6, this, "int64", PartialResult, "int64*", Result, "HRESULT")
+        ResultMarshal := Result is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(6, this, "int64", PartialResult, ResultMarshal, Result, "HRESULT")
         return result
     }
 
@@ -91,7 +99,9 @@ class IBDAComparable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-hashequivalent
      */
     HashEquivalent(dwFlags, Result) {
-        result := ComCall(7, this, "uint", dwFlags, "int64*", Result, "HRESULT")
+        ResultMarshal := Result is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwFlags, ResultMarshal, Result, "HRESULT")
         return result
     }
 
@@ -104,7 +114,9 @@ class IBDAComparable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-hashequivalentincremental
      */
     HashEquivalentIncremental(PartialResult, dwFlags, Result) {
-        result := ComCall(8, this, "int64", PartialResult, "uint", dwFlags, "int64*", Result, "HRESULT")
+        ResultMarshal := Result is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, "int64", PartialResult, "uint", dwFlags, ResultMarshal, Result, "HRESULT")
         return result
     }
 }

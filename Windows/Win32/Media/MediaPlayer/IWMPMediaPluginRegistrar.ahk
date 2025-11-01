@@ -48,7 +48,9 @@ class IWMPMediaPluginRegistrar extends IUnknown{
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
         pwszUninstallString := pwszUninstallString is String ? StrPtr(pwszUninstallString) : pwszUninstallString
 
-        result := ComCall(3, this, "ptr", pwszFriendlyName, "ptr", pwszDescription, "ptr", pwszUninstallString, "uint", dwPriority, "ptr", guidPluginType, "ptr", clsid, "uint", cMediaTypes, "ptr", pMediaTypes, "HRESULT")
+        pMediaTypesMarshal := pMediaTypes is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwszFriendlyName, "ptr", pwszDescription, "ptr", pwszUninstallString, "uint", dwPriority, "ptr", guidPluginType, "ptr", clsid, "uint", cMediaTypes, pMediaTypesMarshal, pMediaTypes, "HRESULT")
         return result
     }
 

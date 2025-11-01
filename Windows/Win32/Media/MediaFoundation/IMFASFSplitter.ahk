@@ -228,7 +228,9 @@ class IMFASFSplitter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(5, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -240,7 +242,9 @@ class IMFASFSplitter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-selectstreams
      */
     SelectStreams(pwStreamNumbers, wNumStreams) {
-        result := ComCall(6, this, "ushort*", pwStreamNumbers, "ushort", wNumStreams, "HRESULT")
+        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pwStreamNumbersMarshal, pwStreamNumbers, "ushort", wNumStreams, "HRESULT")
         return result
     }
 
@@ -252,7 +256,10 @@ class IMFASFSplitter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getselectedstreams
      */
     GetSelectedStreams(pwStreamNumbers, pwNumStreams) {
-        result := ComCall(7, this, "ushort*", pwStreamNumbers, "ushort*", pwNumStreams, "HRESULT")
+        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
+        pwNumStreamsMarshal := pwNumStreams is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pwStreamNumbersMarshal, pwStreamNumbers, pwNumStreamsMarshal, pwNumStreams, "HRESULT")
         return result
     }
 
@@ -278,7 +285,10 @@ class IMFASFSplitter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getnextsample
      */
     GetNextSample(pdwStatusFlags, pwStreamNumber, ppISample) {
-        result := ComCall(9, this, "int*", pdwStatusFlags, "ushort*", pwStreamNumber, "ptr*", ppISample, "HRESULT")
+        pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "int*" : "ptr"
+        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, pdwStatusFlagsMarshal, pdwStatusFlags, pwStreamNumberMarshal, pwStreamNumber, "ptr*", ppISample, "HRESULT")
         return result
     }
 
@@ -299,7 +309,9 @@ class IMFASFSplitter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getlastsendtime
      */
     GetLastSendTime(pdwLastSendTime) {
-        result := ComCall(11, this, "uint*", pdwLastSendTime, "HRESULT")
+        pdwLastSendTimeMarshal := pdwLastSendTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwLastSendTimeMarshal, pdwLastSendTime, "HRESULT")
         return result
     }
 }

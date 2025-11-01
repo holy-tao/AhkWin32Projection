@@ -34,7 +34,9 @@ class ISpeechAudioStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_FreeBufferSpace(FreeBufferSpace) {
-        result := ComCall(7, this, "int*", FreeBufferSpace, "HRESULT")
+        FreeBufferSpaceMarshal := FreeBufferSpace is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, FreeBufferSpaceMarshal, FreeBufferSpace, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ISpeechAudioStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_NonBlockingIO(NonBlockingIO) {
-        result := ComCall(8, this, "int*", NonBlockingIO, "HRESULT")
+        NonBlockingIOMarshal := NonBlockingIO is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, NonBlockingIOMarshal, NonBlockingIO, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class ISpeechAudioStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(State) {
-        result := ComCall(9, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, StateMarshal, State, "HRESULT")
         return result
     }
 

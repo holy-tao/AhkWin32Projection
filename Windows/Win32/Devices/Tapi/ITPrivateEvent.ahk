@@ -70,7 +70,9 @@ class ITPrivateEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itprivateevent-get_eventcode
      */
     get_EventCode(plEventCode) {
-        result := ComCall(10, this, "int*", plEventCode, "HRESULT")
+        plEventCodeMarshal := plEventCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plEventCodeMarshal, plEventCode, "HRESULT")
         return result
     }
 

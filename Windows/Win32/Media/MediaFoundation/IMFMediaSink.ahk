@@ -37,7 +37,9 @@ class IMFMediaSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getcharacteristics
      */
     GetCharacteristics(pdwCharacteristics) {
-        result := ComCall(3, this, "uint*", pdwCharacteristics, "HRESULT")
+        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IMFMediaSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getstreamsinkcount
      */
     GetStreamSinkCount(pcStreamSinkCount) {
-        result := ComCall(6, this, "uint*", pcStreamSinkCount, "HRESULT")
+        pcStreamSinkCountMarshal := pcStreamSinkCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcStreamSinkCountMarshal, pcStreamSinkCount, "HRESULT")
         return result
     }
 

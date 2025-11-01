@@ -50,7 +50,9 @@ class IRawElementProviderSimple extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_provideroptions
      */
     get_ProviderOptions(pRetVal) {
-        result := ComCall(3, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

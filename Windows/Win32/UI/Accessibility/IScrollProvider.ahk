@@ -67,7 +67,9 @@ class IScrollProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_horizontalscrollpercent
      */
     get_HorizontalScrollPercent(pRetVal) {
-        result := ComCall(5, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class IScrollProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_verticalscrollpercent
      */
     get_VerticalScrollPercent(pRetVal) {
-        result := ComCall(6, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -89,7 +93,9 @@ class IScrollProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_horizontalviewsize
      */
     get_HorizontalViewSize(pRetVal) {
-        result := ComCall(7, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -100,7 +106,9 @@ class IScrollProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_verticalviewsize
      */
     get_VerticalViewSize(pRetVal) {
-        result := ComCall(8, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

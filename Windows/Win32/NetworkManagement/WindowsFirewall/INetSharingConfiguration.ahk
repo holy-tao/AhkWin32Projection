@@ -49,7 +49,9 @@ class INetSharingConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingconfiguration-get_sharingconnectiontype
      */
     get_SharingConnectionType(pType) {
-        result := ComCall(8, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 

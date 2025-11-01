@@ -38,7 +38,9 @@ class ITsSbSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_sessionid
      */
     get_SessionId(pVal) {
-        result := ComCall(3, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class ITsSbSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_state
      */
     get_State(pState) {
-        result := ComCall(8, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -206,7 +210,9 @@ class ITsSbSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_protocoltype
      */
     get_ProtocolType(pVal) {
-        result := ComCall(18, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

@@ -444,7 +444,9 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandlernativearray
      */
     AddPropertyChangedEventHandlerNativeArray(element, scope, cacheRequest, handler, propertyArray, propertyCount) {
-        result := ComCall(34, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "int*", propertyArray, "int", propertyCount, "HRESULT")
+        propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
         return result
     }
 
@@ -543,7 +545,9 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intnativearraytosafearray
      */
     IntNativeArrayToSafeArray(array, arrayCount, safeArray) {
-        result := ComCall(42, this, "int*", array, "int", arrayCount, "ptr*", safeArray, "HRESULT")
+        arrayMarshal := array is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, "ptr*", safeArray, "HRESULT")
         return result
     }
 
@@ -556,7 +560,9 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intsafearraytonativearray
      */
     IntSafeArrayToNativeArray(intArray, array, arrayCount) {
-        result := ComCall(43, this, "ptr", intArray, "ptr*", array, "int*", arrayCount, "HRESULT")
+        arrayCountMarshal := arrayCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, "ptr", intArray, "ptr*", array, arrayCountMarshal, arrayCount, "HRESULT")
         return result
     }
 
@@ -593,7 +599,9 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-safearraytorectnativearray
      */
     SafeArrayToRectNativeArray(rects, rectArray, rectArrayCount) {
-        result := ComCall(46, this, "ptr", rects, "ptr*", rectArray, "int*", rectArrayCount, "HRESULT")
+        rectArrayCountMarshal := rectArrayCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, "ptr", rects, "ptr*", rectArray, rectArrayCountMarshal, rectArrayCount, "HRESULT")
         return result
     }
 

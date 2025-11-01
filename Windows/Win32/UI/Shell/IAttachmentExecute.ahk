@@ -276,7 +276,9 @@ class IAttachmentExecute extends IUnknown{
     Prompt(hwnd, prompt, paction) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(10, this, "ptr", hwnd, "int", prompt, "int*", paction, "HRESULT")
+        pactionMarshal := paction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", hwnd, "int", prompt, pactionMarshal, paction, "HRESULT")
         return result
     }
 

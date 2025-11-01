@@ -43,7 +43,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getcount
      */
     GetCount(pcelt) {
-        result := ComCall(3, this, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 
@@ -130,7 +132,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getunsignedintegervalue
      */
     GetUnsignedIntegerValue(key, pValue) {
-        result := ComCall(10, this, "ptr", key, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -154,7 +158,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getsignedintegervalue
      */
     GetSignedIntegerValue(key, pValue) {
-        result := ComCall(12, this, "ptr", key, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -178,7 +184,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getunsignedlargeintegervalue
      */
     GetUnsignedLargeIntegerValue(key, pValue) {
-        result := ComCall(14, this, "ptr", key, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -202,7 +210,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getsignedlargeintegervalue
      */
     GetSignedLargeIntegerValue(key, pValue) {
-        result := ComCall(16, this, "ptr", key, "int64*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(16, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -226,7 +236,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getfloatvalue
      */
     GetFloatValue(key, pValue) {
-        result := ComCall(18, this, "ptr", key, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(18, this, "ptr", key, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -359,7 +371,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setbuffervalue
      */
     SetBufferValue(key, pValue, cbValue) {
-        result := ComCall(29, this, "ptr", key, "char*", pValue, "uint", cbValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(29, this, "ptr", key, pValueMarshal, pValue, "uint", cbValue, "HRESULT")
         return result
     }
 
@@ -372,7 +386,9 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getbuffervalue
      */
     GetBufferValue(key, ppValue, pcbValue) {
-        result := ComCall(30, this, "ptr", key, "ptr*", ppValue, "uint*", pcbValue, "HRESULT")
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "ptr", key, "ptr*", ppValue, pcbValueMarshal, pcbValue, "HRESULT")
         return result
     }
 

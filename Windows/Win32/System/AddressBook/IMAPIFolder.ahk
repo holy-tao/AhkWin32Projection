@@ -50,7 +50,9 @@ class IMAPIFolder extends IMAPIContainer{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-copymessages
      */
     CopyMessages(lpMsgList, lpInterface, lpDestFolder, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(20, this, "ptr", lpMsgList, "ptr", lpInterface, "ptr", lpDestFolder, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        lpDestFolderMarshal := lpDestFolder is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(20, this, "ptr", lpMsgList, "ptr", lpInterface, lpDestFolderMarshal, lpDestFolder, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -80,7 +82,10 @@ class IMAPIFolder extends IMAPIContainer{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-createfolder
      */
     CreateFolder(ulFolderType, lpszFolderName, lpszFolderComment, lpInterface, ulFlags, lppFolder) {
-        result := ComCall(22, this, "uint", ulFolderType, "char*", lpszFolderName, "char*", lpszFolderComment, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppFolder, "HRESULT")
+        lpszFolderNameMarshal := lpszFolderName is VarRef ? "char*" : "ptr"
+        lpszFolderCommentMarshal := lpszFolderComment is VarRef ? "char*" : "ptr"
+
+        result := ComCall(22, this, "uint", ulFolderType, lpszFolderNameMarshal, lpszFolderName, lpszFolderCommentMarshal, lpszFolderComment, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppFolder, "HRESULT")
         return result
     }
 
@@ -98,7 +103,10 @@ class IMAPIFolder extends IMAPIContainer{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-copyfolder
      */
     CopyFolder(cbEntryID, lpEntryID, lpInterface, lpDestFolder, lpszNewFolderName, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(23, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "ptr", lpDestFolder, "char*", lpszNewFolderName, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        lpDestFolderMarshal := lpDestFolder is VarRef ? "ptr" : "ptr"
+        lpszNewFolderNameMarshal := lpszNewFolderName is VarRef ? "char*" : "ptr"
+
+        result := ComCall(23, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, lpDestFolderMarshal, lpDestFolder, lpszNewFolderNameMarshal, lpszNewFolderName, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -141,7 +149,9 @@ class IMAPIFolder extends IMAPIContainer{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-getmessagestatus
      */
     GetMessageStatus(cbEntryID, lpEntryID, ulFlags, lpulMessageStatus) {
-        result := ComCall(26, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulFlags, "uint*", lpulMessageStatus, "HRESULT")
+        lpulMessageStatusMarshal := lpulMessageStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulFlags, lpulMessageStatusMarshal, lpulMessageStatus, "HRESULT")
         return result
     }
 
@@ -156,7 +166,9 @@ class IMAPIFolder extends IMAPIContainer{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-setmessagestatus
      */
     SetMessageStatus(cbEntryID, lpEntryID, ulNewStatus, ulNewStatusMask, lpulOldStatus) {
-        result := ComCall(27, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulNewStatus, "uint", ulNewStatusMask, "uint*", lpulOldStatus, "HRESULT")
+        lpulOldStatusMarshal := lpulOldStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulNewStatus, "uint", ulNewStatusMask, lpulOldStatusMarshal, lpulOldStatus, "HRESULT")
         return result
     }
 

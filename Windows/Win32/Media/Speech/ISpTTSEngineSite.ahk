@@ -45,7 +45,10 @@ class ISpTTSEngineSite extends ISpEventSink{
      * @returns {HRESULT} 
      */
     Write(pBuff, cb, pcbWritten) {
-        result := ComCall(6, this, "ptr", pBuff, "uint", cb, "uint*", pcbWritten, "HRESULT")
+        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pBuffMarshal, pBuff, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 
@@ -55,7 +58,9 @@ class ISpTTSEngineSite extends ISpEventSink{
      * @returns {HRESULT} 
      */
     GetRate(pRateAdjust) {
-        result := ComCall(7, this, "int*", pRateAdjust, "HRESULT")
+        pRateAdjustMarshal := pRateAdjust is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pRateAdjustMarshal, pRateAdjust, "HRESULT")
         return result
     }
 
@@ -65,7 +70,9 @@ class ISpTTSEngineSite extends ISpEventSink{
      * @returns {HRESULT} 
      */
     GetVolume(pusVolume) {
-        result := ComCall(8, this, "ushort*", pusVolume, "HRESULT")
+        pusVolumeMarshal := pusVolume is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pusVolumeMarshal, pusVolume, "HRESULT")
         return result
     }
 
@@ -76,7 +83,10 @@ class ISpTTSEngineSite extends ISpEventSink{
      * @returns {HRESULT} 
      */
     GetSkipInfo(peType, plNumItems) {
-        result := ComCall(9, this, "int*", peType, "int*", plNumItems, "HRESULT")
+        peTypeMarshal := peType is VarRef ? "int*" : "ptr"
+        plNumItemsMarshal := plNumItems is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, peTypeMarshal, peType, plNumItemsMarshal, plNumItems, "HRESULT")
         return result
     }
 

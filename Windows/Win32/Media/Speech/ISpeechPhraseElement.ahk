@@ -34,7 +34,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AudioTimeOffset(AudioTimeOffset) {
-        result := ComCall(7, this, "int*", AudioTimeOffset, "HRESULT")
+        AudioTimeOffsetMarshal := AudioTimeOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, AudioTimeOffsetMarshal, AudioTimeOffset, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AudioSizeTime(AudioSizeTime) {
-        result := ComCall(8, this, "int*", AudioSizeTime, "HRESULT")
+        AudioSizeTimeMarshal := AudioSizeTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, AudioSizeTimeMarshal, AudioSizeTime, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AudioStreamOffset(AudioStreamOffset) {
-        result := ComCall(9, this, "int*", AudioStreamOffset, "HRESULT")
+        AudioStreamOffsetMarshal := AudioStreamOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, AudioStreamOffsetMarshal, AudioStreamOffset, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AudioSizeBytes(AudioSizeBytes) {
-        result := ComCall(10, this, "int*", AudioSizeBytes, "HRESULT")
+        AudioSizeBytesMarshal := AudioSizeBytes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, AudioSizeBytesMarshal, AudioSizeBytes, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RetainedStreamOffset(RetainedStreamOffset) {
-        result := ComCall(11, this, "int*", RetainedStreamOffset, "HRESULT")
+        RetainedStreamOffsetMarshal := RetainedStreamOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, RetainedStreamOffsetMarshal, RetainedStreamOffset, "HRESULT")
         return result
     }
 
@@ -84,7 +94,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RetainedSizeBytes(RetainedSizeBytes) {
-        result := ComCall(12, this, "int*", RetainedSizeBytes, "HRESULT")
+        RetainedSizeBytesMarshal := RetainedSizeBytes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, RetainedSizeBytesMarshal, RetainedSizeBytes, "HRESULT")
         return result
     }
 
@@ -124,7 +136,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DisplayAttributes(DisplayAttributes) {
-        result := ComCall(16, this, "int*", DisplayAttributes, "HRESULT")
+        DisplayAttributesMarshal := DisplayAttributes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, DisplayAttributesMarshal, DisplayAttributes, "HRESULT")
         return result
     }
 
@@ -134,7 +148,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RequiredConfidence(RequiredConfidence) {
-        result := ComCall(17, this, "int*", RequiredConfidence, "HRESULT")
+        RequiredConfidenceMarshal := RequiredConfidence is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, RequiredConfidenceMarshal, RequiredConfidence, "HRESULT")
         return result
     }
 
@@ -144,7 +160,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ActualConfidence(ActualConfidence) {
-        result := ComCall(18, this, "int*", ActualConfidence, "HRESULT")
+        ActualConfidenceMarshal := ActualConfidence is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, ActualConfidenceMarshal, ActualConfidence, "HRESULT")
         return result
     }
 
@@ -154,7 +172,9 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EngineConfidence(EngineConfidence) {
-        result := ComCall(19, this, "float*", EngineConfidence, "HRESULT")
+        EngineConfidenceMarshal := EngineConfidence is VarRef ? "float*" : "ptr"
+
+        result := ComCall(19, this, EngineConfidenceMarshal, EngineConfidence, "HRESULT")
         return result
     }
 }

@@ -120,7 +120,9 @@ class IRdcComparator extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, rdc_ErrorCode) {
-        result := ComCall(3, this, "int", endOfInput, "ptr", endOfOutput, "ptr", inputBuffer, "ptr", outputBuffer, "int*", rdc_ErrorCode, "HRESULT")
+        rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", endOfInput, "ptr", endOfOutput, "ptr", inputBuffer, "ptr", outputBuffer, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
         return result
     }
 }

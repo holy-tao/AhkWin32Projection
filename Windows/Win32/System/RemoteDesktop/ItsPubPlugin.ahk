@@ -60,7 +60,9 @@ class ItsPubPlugin extends IUnknown{
     GetResourceList(userID, pceAppListSize, resourceList) {
         userID := userID is String ? StrPtr(userID) : userID
 
-        result := ComCall(3, this, "ptr", userID, "int*", pceAppListSize, "ptr*", resourceList, "HRESULT")
+        pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, "ptr*", resourceList, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class ItsPubPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tspubplugincom/nf-tspubplugincom-itspubplugin-getcachelastupdatetime
      */
     GetCacheLastUpdateTime(lastUpdateTime) {
-        result := ComCall(5, this, "uint*", lastUpdateTime, "HRESULT")
+        lastUpdateTimeMarshal := lastUpdateTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, lastUpdateTimeMarshal, lastUpdateTime, "HRESULT")
         return result
     }
 
@@ -128,7 +132,9 @@ class ItsPubPlugin extends IUnknown{
         userID := userID is String ? StrPtr(userID) : userID
         alias := alias is String ? StrPtr(alias) : alias
 
-        result := ComCall(8, this, "uint*", resourceType, "ptr", resourceLocation, "ptr", endPointName, "ptr", userID, "ptr", alias, "HRESULT")
+        resourceTypeMarshal := resourceType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, resourceTypeMarshal, resourceType, "ptr", resourceLocation, "ptr", endPointName, "ptr", userID, "ptr", alias, "HRESULT")
         return result
     }
 }

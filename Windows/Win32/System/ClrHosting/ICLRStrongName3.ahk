@@ -39,7 +39,9 @@ class ICLRStrongName3 extends IUnknown{
     StrongNameDigestGenerate(wszFilePath, ppbDigestBlob, pcbDigestBlob, dwFlags) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
-        result := ComCall(3, this, "ptr", wszFilePath, "ptr*", ppbDigestBlob, "uint*", pcbDigestBlob, "uint", dwFlags, "HRESULT")
+        pcbDigestBlobMarshal := pcbDigestBlob is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", wszFilePath, "ptr*", ppbDigestBlob, pcbDigestBlobMarshal, pcbDigestBlob, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -59,7 +61,11 @@ class ICLRStrongName3 extends IUnknown{
     StrongNameDigestSign(wszKeyContainer, pbKeyBlob, cbKeyBlob, pbDigestBlob, cbDigestBlob, hashAlgId, ppbSignatureBlob, pcbSignatureBlob, dwFlags) {
         wszKeyContainer := wszKeyContainer is String ? StrPtr(wszKeyContainer) : wszKeyContainer
 
-        result := ComCall(4, this, "ptr", wszKeyContainer, "char*", pbKeyBlob, "uint", cbKeyBlob, "char*", pbDigestBlob, "uint", cbDigestBlob, "uint", hashAlgId, "ptr*", ppbSignatureBlob, "uint*", pcbSignatureBlob, "uint", dwFlags, "HRESULT")
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
+        pbDigestBlobMarshal := pbDigestBlob is VarRef ? "char*" : "ptr"
+        pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, pbDigestBlobMarshal, pbDigestBlob, "uint", cbDigestBlob, "uint", hashAlgId, "ptr*", ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -73,7 +79,9 @@ class ICLRStrongName3 extends IUnknown{
     StrongNameDigestEmbed(wszFilePath, pbSignatureBlob, cbSignatureBlob) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
-        result := ComCall(5, this, "ptr", wszFilePath, "char*", pbSignatureBlob, "uint", cbSignatureBlob, "HRESULT")
+        pbSignatureBlobMarshal := pbSignatureBlob is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "ptr", wszFilePath, pbSignatureBlobMarshal, pbSignatureBlob, "uint", cbSignatureBlob, "HRESULT")
         return result
     }
 }

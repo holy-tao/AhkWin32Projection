@@ -102,7 +102,9 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     GetParentalLevel(lLevel) {
-        result := ComCall(11, this, "int*", lLevel, "HRESULT")
+        lLevelMarshal := lLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, lLevelMarshal, lLevel, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     GetParentalCountry(lCountry) {
-        result := ComCall(12, this, "int*", lCountry, "HRESULT")
+        lCountryMarshal := lCountry is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, lCountryMarshal, lCountry, "HRESULT")
         return result
     }
 
@@ -122,7 +126,9 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DefaultAudioLCID(pVal) {
-        result := ComCall(13, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -142,7 +148,9 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DefaultSubpictureLCID(pVal) {
-        result := ComCall(15, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -162,7 +170,9 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DefaultMenuLCID(pVal) {
-        result := ComCall(17, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

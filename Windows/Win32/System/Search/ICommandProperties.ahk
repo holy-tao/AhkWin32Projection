@@ -37,7 +37,9 @@ class ICommandProperties extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProperties(cPropertyIDSets, rgPropertyIDSets, pcPropertySets, prgPropertySets) {
-        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, "uint*", pcPropertySets, "ptr*", prgPropertySets, "HRESULT")
+        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", prgPropertySets, "HRESULT")
         return result
     }
 

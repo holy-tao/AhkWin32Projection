@@ -1080,7 +1080,9 @@ class Metadata {
     static RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImport, typeDefToken) {
         name := name is Win32Handle ? NumGet(name, "ptr") : name
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", "ptr", name, "ptr", metaDataDispenser, "ptr", metaDataFilePath, "ptr*", metaDataImport, "uint*", typeDefToken, "int")
+        typeDefTokenMarshal := typeDefToken is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", "ptr", name, "ptr", metaDataDispenser, "ptr", metaDataFilePath, "ptr*", metaDataImport, typeDefTokenMarshal, typeDefToken, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1147,7 +1149,9 @@ class Metadata {
     static RoParseTypeName(typeName, partsCount, typeNameParts) {
         typeName := typeName is Win32Handle ? NumGet(typeName, "ptr") : typeName
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, "uint*", partsCount, "ptr*", typeNameParts, "int")
+        partsCountMarshal := partsCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, partsCountMarshal, partsCount, "ptr*", typeNameParts, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1245,7 +1249,10 @@ class Metadata {
         name := name is Win32Handle ? NumGet(name, "ptr") : name
         windowsMetaDataDir := windowsMetaDataDir is Win32Handle ? NumGet(windowsMetaDataDir, "ptr") : windowsMetaDataDir
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, "uint*", metaDataFilePathsCount, "ptr*", metaDataFilePaths, "uint*", subNamespacesCount, "ptr*", subNamespaces, "int")
+        metaDataFilePathsCountMarshal := metaDataFilePathsCount is VarRef ? "uint*" : "ptr"
+        subNamespacesCountMarshal := subNamespacesCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, "ptr*", metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, "ptr*", subNamespaces, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -67,7 +67,11 @@ class ISpatialAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getstaticobjectposition
      */
     GetStaticObjectPosition(type, x, y, z) {
-        result := ComCall(3, this, "int", type, "float*", x, "float*", y, "float*", z, "HRESULT")
+        xMarshal := x is VarRef ? "float*" : "ptr"
+        yMarshal := y is VarRef ? "float*" : "ptr"
+        zMarshal := z is VarRef ? "float*" : "ptr"
+
+        result := ComCall(3, this, "int", type, xMarshal, x, yMarshal, y, zMarshal, z, "HRESULT")
         return result
     }
 
@@ -78,7 +82,9 @@ class ISpatialAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getnativestaticobjecttypemask
      */
     GetNativeStaticObjectTypeMask(mask) {
-        result := ComCall(4, this, "int*", mask, "HRESULT")
+        maskMarshal := mask is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, maskMarshal, mask, "HRESULT")
         return result
     }
 
@@ -89,7 +95,9 @@ class ISpatialAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxdynamicobjectcount
      */
     GetMaxDynamicObjectCount(value) {
-        result := ComCall(5, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -112,7 +120,9 @@ class ISpatialAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxframecount
      */
     GetMaxFrameCount(objectFormat, frameCountPerBuffer) {
-        result := ComCall(7, this, "ptr", objectFormat, "uint*", frameCountPerBuffer, "HRESULT")
+        frameCountPerBufferMarshal := frameCountPerBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", objectFormat, frameCountPerBufferMarshal, frameCountPerBuffer, "HRESULT")
         return result
     }
 

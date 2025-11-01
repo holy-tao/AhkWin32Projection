@@ -50,7 +50,9 @@ class IEnumEventObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-next
      */
     Next(cReqElem, ppInterface, cRetElem) {
-        result := ComCall(4, this, "uint", cReqElem, "ptr*", ppInterface, "uint*", cRetElem, "HRESULT")
+        cRetElemMarshal := cRetElem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", cReqElem, "ptr*", ppInterface, cRetElemMarshal, cRetElem, "HRESULT")
         return result
     }
 

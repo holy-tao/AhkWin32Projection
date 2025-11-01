@@ -44,7 +44,9 @@ class ISegmentList extends IUnknown{
      * @returns {HRESULT} 
      */
     GetType(peType) {
-        result := ComCall(4, this, "int*", peType, "HRESULT")
+        peTypeMarshal := peType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, peTypeMarshal, peType, "HRESULT")
         return result
     }
 

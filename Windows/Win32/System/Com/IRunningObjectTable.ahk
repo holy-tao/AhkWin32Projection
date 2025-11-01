@@ -49,7 +49,9 @@ class IRunningObjectTable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-register
      */
     Register(grfFlags, punkObject, pmkObjectName, pdwRegister) {
-        result := ComCall(3, this, "uint", grfFlags, "ptr", punkObject, "ptr", pmkObjectName, "uint*", pdwRegister, "HRESULT")
+        pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", grfFlags, "ptr", punkObject, "ptr", pmkObjectName, pdwRegisterMarshal, pdwRegister, "HRESULT")
         return result
     }
 

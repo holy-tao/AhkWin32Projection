@@ -44,7 +44,9 @@ class IMLOperatorTensor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetShape(dimensionCount, dimensions) {
-        result := ComCall(4, this, "uint", dimensionCount, "uint*", dimensions, "HRESULT")
+        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
         return result
     }
 

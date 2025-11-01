@@ -136,7 +136,9 @@ class IFaxOutgoingQueue extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retries
      */
     get_Retries(plRetries) {
-        result := ComCall(15, this, "int*", plRetries, "HRESULT")
+        plRetriesMarshal := plRetries is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plRetriesMarshal, plRetries, "HRESULT")
         return result
     }
 
@@ -158,7 +160,9 @@ class IFaxOutgoingQueue extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retrydelay
      */
     get_RetryDelay(plRetryDelay) {
-        result := ComCall(17, this, "int*", plRetryDelay, "HRESULT")
+        plRetryDelayMarshal := plRetryDelay is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plRetryDelayMarshal, plRetryDelay, "HRESULT")
         return result
     }
 
@@ -180,7 +184,9 @@ class IFaxOutgoingQueue extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountratestart
      */
     get_DiscountRateStart(pdateDiscountRateStart) {
-        result := ComCall(19, this, "double*", pdateDiscountRateStart, "HRESULT")
+        pdateDiscountRateStartMarshal := pdateDiscountRateStart is VarRef ? "double*" : "ptr"
+
+        result := ComCall(19, this, pdateDiscountRateStartMarshal, pdateDiscountRateStart, "HRESULT")
         return result
     }
 
@@ -202,7 +208,9 @@ class IFaxOutgoingQueue extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountrateend
      */
     get_DiscountRateEnd(pdateDiscountRateEnd) {
-        result := ComCall(21, this, "double*", pdateDiscountRateEnd, "HRESULT")
+        pdateDiscountRateEndMarshal := pdateDiscountRateEnd is VarRef ? "double*" : "ptr"
+
+        result := ComCall(21, this, pdateDiscountRateEndMarshal, pdateDiscountRateEnd, "HRESULT")
         return result
     }
 
@@ -224,7 +232,9 @@ class IFaxOutgoingQueue extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_agelimit
      */
     get_AgeLimit(plAgeLimit) {
-        result := ComCall(23, this, "int*", plAgeLimit, "HRESULT")
+        plAgeLimitMarshal := plAgeLimit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, plAgeLimitMarshal, plAgeLimit, "HRESULT")
         return result
     }
 

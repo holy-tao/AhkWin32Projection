@@ -41,7 +41,9 @@ class IMFContentProtectionDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-invokefunction
      */
     InvokeFunction(FunctionId, InputBufferByteCount, InputBuffer, OutputBufferByteCount, OutputBuffer) {
-        result := ComCall(3, this, "uint", FunctionId, "uint", InputBufferByteCount, "ptr", InputBuffer, "uint*", OutputBufferByteCount, "ptr", OutputBuffer, "HRESULT")
+        OutputBufferByteCountMarshal := OutputBufferByteCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", FunctionId, "uint", InputBufferByteCount, "ptr", InputBuffer, OutputBufferByteCountMarshal, OutputBufferByteCount, "ptr", OutputBuffer, "HRESULT")
         return result
     }
 
@@ -53,7 +55,10 @@ class IMFContentProtectionDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-getprivatedatabytecount
      */
     GetPrivateDataByteCount(PrivateInputByteCount, PrivateOutputByteCount) {
-        result := ComCall(4, this, "uint*", PrivateInputByteCount, "uint*", PrivateOutputByteCount, "HRESULT")
+        PrivateInputByteCountMarshal := PrivateInputByteCount is VarRef ? "uint*" : "ptr"
+        PrivateOutputByteCountMarshal := PrivateOutputByteCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, PrivateInputByteCountMarshal, PrivateInputByteCount, PrivateOutputByteCountMarshal, PrivateOutputByteCount, "HRESULT")
         return result
     }
 }

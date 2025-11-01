@@ -34,7 +34,9 @@ class IHTMLScreen3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_systemXDPI(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IHTMLScreen3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_systemYDPI(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 }

@@ -63,7 +63,9 @@ class IUIAutomationTextRange3 extends IUIAutomationTextRange2{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange3-getattributevalues
      */
     GetAttributeValues(attributeIds, attributeIdCount, attributeValues) {
-        result := ComCall(24, this, "int*", attributeIds, "int", attributeIdCount, "ptr*", attributeValues, "HRESULT")
+        attributeIdsMarshal := attributeIds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, attributeIdsMarshal, attributeIds, "int", attributeIdCount, "ptr*", attributeValues, "HRESULT")
         return result
     }
 }

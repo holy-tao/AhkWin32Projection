@@ -53,7 +53,9 @@ class ICategorizer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategorizer-getcategory
      */
     GetCategory(cidl, apidl, rgCategoryIds) {
-        result := ComCall(4, this, "uint", cidl, "ptr*", apidl, "uint*", rgCategoryIds, "HRESULT")
+        rgCategoryIdsMarshal := rgCategoryIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", cidl, "ptr*", apidl, rgCategoryIdsMarshal, rgCategoryIds, "HRESULT")
         return result
     }
 

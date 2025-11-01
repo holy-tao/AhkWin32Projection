@@ -38,7 +38,12 @@ class IWinInetHttpInfo extends IWinInetInfo{
      * @returns {HRESULT} 
      */
     QueryInfo(dwOption, pBuffer, pcbBuf, pdwFlags, pdwReserved) {
-        result := ComCall(4, this, "uint", dwOption, "ptr", pBuffer, "uint*", pcbBuf, "uint*", pdwFlags, "uint*", pdwReserved, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, pdwFlagsMarshal, pdwFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 }

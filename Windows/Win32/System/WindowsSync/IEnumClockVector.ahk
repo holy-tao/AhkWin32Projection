@@ -39,7 +39,9 @@ class IEnumClockVector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumclockvector-next
      */
     Next(cClockVectorElements, ppiClockVectorElements, pcFetched) {
-        result := ComCall(3, this, "uint", cClockVectorElements, "ptr*", ppiClockVectorElements, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cClockVectorElements, "ptr*", ppiClockVectorElements, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

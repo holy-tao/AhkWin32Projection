@@ -72,7 +72,9 @@ class IMFVideoProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getavailablevideoprocessormodes
      */
     GetAvailableVideoProcessorModes(lpdwNumProcessingModes, ppVideoProcessingModes) {
-        result := ComCall(3, this, "uint*", lpdwNumProcessingModes, "ptr*", ppVideoProcessingModes, "HRESULT")
+        lpdwNumProcessingModesMarshal := lpdwNumProcessingModes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, lpdwNumProcessingModesMarshal, lpdwNumProcessingModes, "ptr*", ppVideoProcessingModes, "HRESULT")
         return result
     }
 

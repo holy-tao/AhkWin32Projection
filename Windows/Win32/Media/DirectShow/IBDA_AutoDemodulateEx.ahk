@@ -44,7 +44,9 @@ class IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulateex-get_supporteddevicenodetypes
      */
     get_SupportedDeviceNodeTypes(ulcDeviceNodeTypesMax, pulcDeviceNodeTypes, pguidDeviceNodeTypes) {
-        result := ComCall(4, this, "uint", ulcDeviceNodeTypesMax, "uint*", pulcDeviceNodeTypes, "ptr", pguidDeviceNodeTypes, "HRESULT")
+        pulcDeviceNodeTypesMarshal := pulcDeviceNodeTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulcDeviceNodeTypesMax, pulcDeviceNodeTypesMarshal, pulcDeviceNodeTypes, "ptr", pguidDeviceNodeTypes, "HRESULT")
         return result
     }
 
@@ -56,7 +58,10 @@ class IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulateex-get_supportedvideoformats
      */
     get_SupportedVideoFormats(pulAMTunerModeType, pulAnalogVideoStandard) {
-        result := ComCall(5, this, "uint*", pulAMTunerModeType, "uint*", pulAnalogVideoStandard, "HRESULT")
+        pulAMTunerModeTypeMarshal := pulAMTunerModeType is VarRef ? "uint*" : "ptr"
+        pulAnalogVideoStandardMarshal := pulAnalogVideoStandard is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulAMTunerModeTypeMarshal, pulAMTunerModeType, pulAnalogVideoStandardMarshal, pulAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -68,7 +73,10 @@ class IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulateex-get_auxinputcount
      */
     get_AuxInputCount(pulCompositeCount, pulSvideoCount) {
-        result := ComCall(6, this, "uint*", pulCompositeCount, "uint*", pulSvideoCount, "HRESULT")
+        pulCompositeCountMarshal := pulCompositeCount is VarRef ? "uint*" : "ptr"
+        pulSvideoCountMarshal := pulSvideoCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulCompositeCountMarshal, pulCompositeCount, pulSvideoCountMarshal, pulSvideoCount, "HRESULT")
         return result
     }
 }

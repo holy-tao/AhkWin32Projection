@@ -251,7 +251,9 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(27, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pMarshal, p, "HRESULT")
         return result
     }
 

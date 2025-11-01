@@ -36,7 +36,9 @@ class IViewSort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSortOrder(pcValues, prgColumns, prgOrders) {
-        result := ComCall(3, this, "ptr*", pcValues, "ptr*", prgColumns, "ptr*", prgOrders, "HRESULT")
+        pcValuesMarshal := pcValues is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pcValuesMarshal, pcValues, "ptr*", prgColumns, "ptr*", prgOrders, "HRESULT")
         return result
     }
 
@@ -48,7 +50,10 @@ class IViewSort extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSortOrder(cValues, rgColumns, rgOrders) {
-        result := ComCall(4, this, "ptr", cValues, "ptr*", rgColumns, "uint*", rgOrders, "HRESULT")
+        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
+        rgOrdersMarshal := rgOrders is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", cValues, rgColumnsMarshal, rgColumns, rgOrdersMarshal, rgOrders, "HRESULT")
         return result
     }
 }

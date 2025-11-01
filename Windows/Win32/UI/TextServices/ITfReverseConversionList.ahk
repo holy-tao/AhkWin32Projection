@@ -41,7 +41,9 @@ class ITfReverseConversionList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversionlist-getlength
      */
     GetLength(puIndex) {
-        result := ComCall(3, this, "uint*", puIndex, "HRESULT")
+        puIndexMarshal := puIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puIndexMarshal, puIndex, "HRESULT")
         return result
     }
 

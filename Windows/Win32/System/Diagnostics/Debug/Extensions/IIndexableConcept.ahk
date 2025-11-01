@@ -35,7 +35,9 @@ class IIndexableConcept extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDimensionality(contextObject, dimensionality) {
-        result := ComCall(3, this, "ptr", contextObject, "uint*", dimensionality, "HRESULT")
+        dimensionalityMarshal := dimensionality is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", contextObject, dimensionalityMarshal, dimensionality, "HRESULT")
         return result
     }
 

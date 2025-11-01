@@ -50,7 +50,9 @@ class Column extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Width(Width) {
-        result := ComCall(8, this, "int*", Width, "HRESULT")
+        WidthMarshal := Width is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, WidthMarshal, Width, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class Column extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DisplayPosition(DisplayPosition) {
-        result := ComCall(10, this, "int*", DisplayPosition, "HRESULT")
+        DisplayPositionMarshal := DisplayPosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, DisplayPositionMarshal, DisplayPosition, "HRESULT")
         return result
     }
 

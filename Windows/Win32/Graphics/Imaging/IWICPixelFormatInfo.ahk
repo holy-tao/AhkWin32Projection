@@ -59,7 +59,9 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getbitsperpixel
      */
     GetBitsPerPixel(puiBitsPerPixel) {
-        result := ComCall(13, this, "uint*", puiBitsPerPixel, "HRESULT")
+        puiBitsPerPixelMarshal := puiBitsPerPixel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, puiBitsPerPixelMarshal, puiBitsPerPixel, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getchannelcount
      */
     GetChannelCount(puiChannelCount) {
-        result := ComCall(14, this, "uint*", puiChannelCount, "HRESULT")
+        puiChannelCountMarshal := puiChannelCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, puiChannelCountMarshal, puiChannelCount, "HRESULT")
         return result
     }
 
@@ -84,7 +88,10 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getchannelmask
      */
     GetChannelMask(uiChannelIndex, cbMaskBuffer, pbMaskBuffer, pcbActual) {
-        result := ComCall(15, this, "uint", uiChannelIndex, "uint", cbMaskBuffer, "char*", pbMaskBuffer, "uint*", pcbActual, "HRESULT")
+        pbMaskBufferMarshal := pbMaskBuffer is VarRef ? "char*" : "ptr"
+        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", uiChannelIndex, "uint", cbMaskBuffer, pbMaskBufferMarshal, pbMaskBuffer, pcbActualMarshal, pcbActual, "HRESULT")
         return result
     }
 }

@@ -34,7 +34,9 @@ class IPropertyKeyStore extends IUnknown{
      * @returns {HRESULT} 
      */
     GetKeyCount(keyCount) {
-        result := ComCall(3, this, "int*", keyCount, "HRESULT")
+        keyCountMarshal := keyCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, keyCountMarshal, keyCount, "HRESULT")
         return result
     }
 

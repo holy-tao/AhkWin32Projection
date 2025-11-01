@@ -1670,7 +1670,9 @@ class Urlmon {
     static MkParseDisplayNameEx(pbc, szDisplayName, pchEaten, ppmk) {
         szDisplayName := szDisplayName is String ? StrPtr(szDisplayName) : szDisplayName
 
-        result := DllCall("urlmon.dll\MkParseDisplayNameEx", "ptr", pbc, "ptr", szDisplayName, "uint*", pchEaten, "ptr*", ppmk, "int")
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\MkParseDisplayNameEx", "ptr", pbc, "ptr", szDisplayName, pchEatenMarshal, pchEaten, "ptr*", ppmk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1778,7 +1780,9 @@ class Urlmon {
      * @returns {HRESULT} 
      */
     static IEInstallScope(pdwScope) {
-        result := DllCall("urlmon.dll\IEInstallScope", "uint*", pdwScope, "int")
+        pdwScopeMarshal := pdwScope is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\IEInstallScope", pdwScopeMarshal, pdwScope, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1838,7 +1842,9 @@ class Urlmon {
      * @returns {HRESULT} 
      */
     static RegisterMediaTypes(ctypes, rgszTypes, rgcfTypes) {
-        result := DllCall("urlmon.dll\RegisterMediaTypes", "uint", ctypes, "ptr", rgszTypes, "ushort*", rgcfTypes, "int")
+        rgcfTypesMarshal := rgcfTypes is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("urlmon.dll\RegisterMediaTypes", "uint", ctypes, "ptr", rgszTypes, rgcfTypesMarshal, rgcfTypes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1854,7 +1860,9 @@ class Urlmon {
     static FindMediaType(rgszTypes, rgcfTypes) {
         rgszTypes := rgszTypes is String ? StrPtr(rgszTypes) : rgszTypes
 
-        result := DllCall("urlmon.dll\FindMediaType", "ptr", rgszTypes, "ushort*", rgcfTypes, "int")
+        rgcfTypesMarshal := rgcfTypes is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("urlmon.dll\FindMediaType", "ptr", rgszTypes, rgcfTypesMarshal, rgcfTypes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1988,7 +1996,9 @@ class Urlmon {
     static UrlMkGetSessionOption(dwOption, pBuffer, dwBufferLength, pdwBufferLengthOut) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("urlmon.dll\UrlMkGetSessionOption", "uint", dwOption, "ptr", pBuffer, "uint", dwBufferLength, "uint*", pdwBufferLengthOut, "uint", dwReserved, "int")
+        pdwBufferLengthOutMarshal := pdwBufferLengthOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\UrlMkGetSessionOption", "uint", dwOption, "ptr", pBuffer, "uint", dwBufferLength, pdwBufferLengthOutMarshal, pdwBufferLengthOut, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2029,7 +2039,9 @@ class Urlmon {
     static ObtainUserAgentString(dwOption, pszUAOut, cbSize) {
         pszUAOut := pszUAOut is String ? StrPtr(pszUAOut) : pszUAOut
 
-        result := DllCall("urlmon.dll\ObtainUserAgentString", "uint", dwOption, "ptr", pszUAOut, "uint*", cbSize, "int")
+        cbSizeMarshal := cbSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\ObtainUserAgentString", "uint", dwOption, "ptr", pszUAOut, cbSizeMarshal, cbSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2046,7 +2058,10 @@ class Urlmon {
      * @returns {HRESULT} 
      */
     static CompareSecurityIds(pbSecurityId1, dwLen1, pbSecurityId2, dwLen2, dwReserved) {
-        result := DllCall("urlmon.dll\CompareSecurityIds", "char*", pbSecurityId1, "uint", dwLen1, "char*", pbSecurityId2, "uint", dwLen2, "uint", dwReserved, "int")
+        pbSecurityId1Marshal := pbSecurityId1 is VarRef ? "char*" : "ptr"
+        pbSecurityId2Marshal := pbSecurityId2 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("urlmon.dll\CompareSecurityIds", pbSecurityId1Marshal, pbSecurityId1, "uint", dwLen1, pbSecurityId2Marshal, pbSecurityId2, "uint", dwLen2, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2061,7 +2076,10 @@ class Urlmon {
      * @returns {HRESULT} 
      */
     static CompatFlagsFromClsid(pclsid, pdwCompatFlags, pdwMiscStatusFlags) {
-        result := DllCall("urlmon.dll\CompatFlagsFromClsid", "ptr", pclsid, "uint*", pdwCompatFlags, "uint*", pdwMiscStatusFlags, "int")
+        pdwCompatFlagsMarshal := pdwCompatFlags is VarRef ? "uint*" : "ptr"
+        pdwMiscStatusFlagsMarshal := pdwMiscStatusFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\CompatFlagsFromClsid", "ptr", pclsid, pdwCompatFlagsMarshal, pdwCompatFlags, pdwMiscStatusFlagsMarshal, pdwMiscStatusFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2395,7 +2413,9 @@ class Urlmon {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pszResult := pszResult is String ? StrPtr(pszResult) : pszResult
 
-        result := DllCall("urlmon.dll\CoInternetParseUrl", "ptr", pwzUrl, "int", ParseAction, "uint", dwFlags, "ptr", pszResult, "uint", cchResult, "uint*", pcchResult, "uint", dwReserved, "int")
+        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\CoInternetParseUrl", "ptr", pwzUrl, "int", ParseAction, "uint", dwFlags, "ptr", pszResult, "uint", cchResult, pcchResultMarshal, pcchResult, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2417,7 +2437,9 @@ class Urlmon {
 
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := DllCall("urlmon.dll\CoInternetParseIUri", "ptr", pIUri, "int", ParseAction, "uint", dwFlags, "ptr", pwzResult, "uint", cchResult, "uint*", pcchResult, "ptr", dwReserved, "int")
+        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\CoInternetParseIUri", "ptr", pIUri, "int", ParseAction, "uint", dwFlags, "ptr", pwzResult, "uint", cchResult, pcchResultMarshal, pcchResult, "ptr", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2441,7 +2463,9 @@ class Urlmon {
         pwzRelativeUrl := pwzRelativeUrl is String ? StrPtr(pwzRelativeUrl) : pwzRelativeUrl
         pszResult := pszResult is String ? StrPtr(pszResult) : pszResult
 
-        result := DllCall("urlmon.dll\CoInternetCombineUrl", "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pszResult, "uint", cchResult, "uint*", pcchResult, "uint", dwReserved, "int")
+        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\CoInternetCombineUrl", "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pszResult, "uint", cchResult, pcchResultMarshal, pcchResult, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2512,7 +2536,9 @@ class Urlmon {
     static CoInternetGetProtocolFlags(pwzUrl, pdwFlags, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
 
-        result := DllCall("urlmon.dll\CoInternetGetProtocolFlags", "ptr", pwzUrl, "uint*", pdwFlags, "uint", dwReserved, "int")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\CoInternetGetProtocolFlags", "ptr", pwzUrl, pdwFlagsMarshal, pdwFlags, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2533,7 +2559,9 @@ class Urlmon {
     static CoInternetQueryInfo(pwzUrl, QueryOptions, dwQueryFlags, pvBuffer, cbBuffer, pcbBuffer, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
 
-        result := DllCall("urlmon.dll\CoInternetQueryInfo", "ptr", pwzUrl, "int", QueryOptions, "uint", dwQueryFlags, "ptr", pvBuffer, "uint", cbBuffer, "uint*", pcbBuffer, "uint", dwReserved, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("urlmon.dll\CoInternetQueryInfo", "ptr", pwzUrl, "int", QueryOptions, "uint", dwQueryFlags, "ptr", pvBuffer, "uint", cbBuffer, pcbBufferMarshal, pcbBuffer, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 

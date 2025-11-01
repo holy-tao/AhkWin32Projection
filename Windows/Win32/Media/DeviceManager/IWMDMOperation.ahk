@@ -86,7 +86,9 @@ class IWMDMOperation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-getobjectattributes
      */
     GetObjectAttributes(pdwAttributes, pFormat) {
-        result := ComCall(7, this, "uint*", pdwAttributes, "ptr", pFormat, "HRESULT")
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwAttributesMarshal, pdwAttributes, "ptr", pFormat, "HRESULT")
         return result
     }
 
@@ -110,7 +112,10 @@ class IWMDMOperation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-getobjecttotalsize
      */
     GetObjectTotalSize(pdwSize, pdwSizeHigh) {
-        result := ComCall(9, this, "uint*", pdwSize, "uint*", pdwSizeHigh, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pdwSizeHighMarshal := pdwSizeHigh is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwSizeMarshal, pdwSize, pdwSizeHighMarshal, pdwSizeHigh, "HRESULT")
         return result
     }
 
@@ -135,7 +140,11 @@ class IWMDMOperation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-transferobjectdata
      */
     TransferObjectData(pData, pdwSize, abMac) {
-        result := ComCall(11, this, "char*", pData, "uint*", pdwSize, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
         return result
     }
 

@@ -131,7 +131,9 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     get_DataPointCount(piDataPointCount) {
-        result := ComCall(88, this, "int*", piDataPointCount, "HRESULT")
+        piDataPointCountMarshal := piDataPointCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(88, this, piDataPointCountMarshal, piDataPointCount, "HRESULT")
         return result
     }
 
@@ -187,7 +189,9 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     get_LogSourceStartTime(pDate) {
-        result := ComCall(93, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(93, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -197,7 +201,9 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     get_LogSourceStopTime(pDate) {
-        result := ComCall(94, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(94, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -219,7 +225,10 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     GetLogViewRange(StartTime, StopTime) {
-        result := ComCall(96, this, "double*", StartTime, "double*", StopTime, "HRESULT")
+        StartTimeMarshal := StartTime is VarRef ? "double*" : "ptr"
+        StopTimeMarshal := StopTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(96, this, StartTimeMarshal, StartTime, StopTimeMarshal, StopTime, "HRESULT")
         return result
     }
 

@@ -194,7 +194,9 @@ class ISearchCrawlScopeManager extends IUnknown{
     IncludedInCrawlScopeEx(pszURL, pfIsIncluded, pReason) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(14, this, "ptr", pszURL, "ptr", pfIsIncluded, "int*", pReason, "HRESULT")
+        pReasonMarshal := pReason is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pszURL, "ptr", pfIsIncluded, pReasonMarshal, pReason, "HRESULT")
         return result
     }
 
@@ -228,7 +230,9 @@ class ISearchCrawlScopeManager extends IUnknown{
     GetParentScopeVersionId(pszURL, plScopeId) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(17, this, "ptr", pszURL, "int*", plScopeId, "HRESULT")
+        plScopeIdMarshal := plScopeId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "ptr", pszURL, plScopeIdMarshal, plScopeId, "HRESULT")
         return result
     }
 

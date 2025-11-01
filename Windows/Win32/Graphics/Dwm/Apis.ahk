@@ -210,7 +210,9 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmGetColorizationColor(pcrColorization, pfOpaqueBlend) {
-        result := DllCall("dwmapi.dll\DwmGetColorizationColor", "uint*", pcrColorization, "ptr", pfOpaqueBlend, "int")
+        pcrColorizationMarshal := pcrColorization is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dwmapi.dll\DwmGetColorizationColor", pcrColorizationMarshal, pcrColorization, "ptr", pfOpaqueBlend, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -330,7 +332,9 @@ class Dwm {
         hwndDestination := hwndDestination is Win32Handle ? NumGet(hwndDestination, "ptr") : hwndDestination
         hwndSource := hwndSource is Win32Handle ? NumGet(hwndSource, "ptr") : hwndSource
 
-        result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, "ptr*", phThumbnailId, "int")
+        phThumbnailIdMarshal := phThumbnailId is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, phThumbnailIdMarshal, phThumbnailId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -576,7 +580,9 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmGetTransportAttributes(pfIsRemoting, pfIsConnected, pDwGeneration) {
-        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", "ptr", pfIsRemoting, "ptr", pfIsConnected, "uint*", pDwGeneration, "int")
+        pDwGenerationMarshal := pDwGeneration is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", "ptr", pfIsRemoting, "ptr", pfIsConnected, pDwGenerationMarshal, pDwGeneration, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -612,7 +618,9 @@ class Dwm {
      * @since windows8.0
      */
     static DwmRenderGesture(gt, cContacts, pdwPointerID, pPoints) {
-        result := DllCall("dwmapi.dll\DwmRenderGesture", "int", gt, "uint", cContacts, "uint*", pdwPointerID, "ptr", pPoints, "int")
+        pdwPointerIDMarshal := pdwPointerID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dwmapi.dll\DwmRenderGesture", "int", gt, "uint", cContacts, pdwPointerIDMarshal, pdwPointerID, "ptr", pPoints, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -663,7 +671,9 @@ class Dwm {
     static DwmGetUnmetTabRequirements(appWindow, value) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, "int*", value, "int")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 

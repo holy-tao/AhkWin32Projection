@@ -38,7 +38,10 @@ class IDVB_EIT2 extends IDVB_EIT{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit2-getsegmentinfo
      */
     GetSegmentInfo(pbTid, pbSegment) {
-        result := ComCall(24, this, "char*", pbTid, "char*", pbSegment, "HRESULT")
+        pbTidMarshal := pbTid is VarRef ? "char*" : "ptr"
+        pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
+
+        result := ComCall(24, this, pbTidMarshal, pbTid, pbSegmentMarshal, pbSegment, "HRESULT")
         return result
     }
 
@@ -50,7 +53,9 @@ class IDVB_EIT2 extends IDVB_EIT{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit2-getrecordsection
      */
     GetRecordSection(dwRecordIndex, pbVal) {
-        result := ComCall(25, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(25, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

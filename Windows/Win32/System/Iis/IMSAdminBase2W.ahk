@@ -123,7 +123,10 @@ class IMSAdminBase2W extends IMSAdminBaseW{
     EnumHistory(pszMDHistoryLocation, pdwMDMajorVersion, pdwMDMinorVersion, pftMDHistoryTime, dwMDEnumIndex) {
         pszMDHistoryLocation := pszMDHistoryLocation is String ? StrPtr(pszMDHistoryLocation) : pszMDHistoryLocation
 
-        result := ComCall(39, this, "ptr", pszMDHistoryLocation, "uint*", pdwMDMajorVersion, "uint*", pdwMDMinorVersion, "ptr", pftMDHistoryTime, "uint", dwMDEnumIndex, "HRESULT")
+        pdwMDMajorVersionMarshal := pdwMDMajorVersion is VarRef ? "uint*" : "ptr"
+        pdwMDMinorVersionMarshal := pdwMDMinorVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, "ptr", pszMDHistoryLocation, pdwMDMajorVersionMarshal, pdwMDMajorVersion, pdwMDMinorVersionMarshal, pdwMDMinorVersion, "ptr", pftMDHistoryTime, "uint", dwMDEnumIndex, "HRESULT")
         return result
     }
 }

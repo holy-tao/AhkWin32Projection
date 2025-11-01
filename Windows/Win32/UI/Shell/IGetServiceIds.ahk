@@ -35,7 +35,9 @@ class IGetServiceIds extends IUnknown{
      * @returns {HRESULT} 
      */
     GetServiceIds(serviceIdCount, serviceIds) {
-        result := ComCall(3, this, "uint*", serviceIdCount, "ptr*", serviceIds, "HRESULT")
+        serviceIdCountMarshal := serviceIdCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, serviceIdCountMarshal, serviceIdCount, "ptr*", serviceIds, "HRESULT")
         return result
     }
 }

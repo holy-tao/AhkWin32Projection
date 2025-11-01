@@ -123,7 +123,9 @@ class IScriptEntry extends IScriptNode{
      * @returns {HRESULT} 
      */
     GetSignature(ppti, piMethod) {
-        result := ComCall(21, this, "ptr*", ppti, "uint*", piMethod, "HRESULT")
+        piMethodMarshal := piMethod is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr*", ppti, piMethodMarshal, piMethod, "HRESULT")
         return result
     }
 
@@ -145,7 +147,10 @@ class IScriptEntry extends IScriptNode{
      * @returns {HRESULT} 
      */
     GetRange(pichMin, pcch) {
-        result := ComCall(23, this, "uint*", pichMin, "uint*", pcch, "HRESULT")
+        pichMinMarshal := pichMin is VarRef ? "uint*" : "ptr"
+        pcchMarshal := pcch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, pichMinMarshal, pichMin, pcchMarshal, pcch, "HRESULT")
         return result
     }
 }

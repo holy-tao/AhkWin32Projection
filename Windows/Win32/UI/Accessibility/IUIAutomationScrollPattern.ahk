@@ -61,7 +61,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalscrollpercent
      */
     get_CurrentHorizontalScrollPercent(retVal) {
-        result := ComCall(5, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalscrollpercent
      */
     get_CurrentVerticalScrollPercent(retVal) {
-        result := ComCall(6, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -83,7 +87,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalviewsize
      */
     get_CurrentHorizontalViewSize(retVal) {
-        result := ComCall(7, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalviewsize
      */
     get_CurrentVerticalViewSize(retVal) {
-        result := ComCall(8, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -127,7 +135,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalscrollpercent
      */
     get_CachedHorizontalScrollPercent(retVal) {
-        result := ComCall(11, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -138,7 +148,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalscrollpercent
      */
     get_CachedVerticalScrollPercent(retVal) {
-        result := ComCall(12, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -149,7 +161,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalviewsize
      */
     get_CachedHorizontalViewSize(retVal) {
-        result := ComCall(13, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -160,7 +174,9 @@ class IUIAutomationScrollPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalviewsize
      */
     get_CachedVerticalViewSize(retVal) {
-        result := ComCall(14, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

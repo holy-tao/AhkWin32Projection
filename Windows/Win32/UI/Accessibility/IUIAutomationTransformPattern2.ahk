@@ -81,7 +81,9 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomlevel
      */
     get_CurrentZoomLevel(retVal) {
-        result := ComCall(16, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(16, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomlevel
      */
     get_CachedZoomLevel(retVal) {
-        result := ComCall(17, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(17, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -103,7 +107,9 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomminimum
      */
     get_CurrentZoomMinimum(retVal) {
-        result := ComCall(18, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(18, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomminimum
      */
     get_CachedZoomMinimum(retVal) {
-        result := ComCall(19, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(19, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -125,7 +133,9 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoommaximum
      */
     get_CurrentZoomMaximum(retVal) {
-        result := ComCall(20, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(20, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -136,7 +146,9 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoommaximum
      */
     get_CachedZoomMaximum(retVal) {
-        result := ComCall(21, this, "double*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(21, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

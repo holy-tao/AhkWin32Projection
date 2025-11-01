@@ -76,7 +76,9 @@ class IMFMediaType extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-isequal
      */
     IsEqual(pIMediaType, pdwFlags) {
-        result := ComCall(35, this, "ptr", pIMediaType, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, "ptr", pIMediaType, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -100,7 +102,9 @@ class IMFMediaType extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-freerepresentation
      */
     FreeRepresentation(guidRepresentation, pvRepresentation) {
-        result := ComCall(37, this, "ptr", guidRepresentation, "ptr", pvRepresentation, "HRESULT")
+        pvRepresentationMarshal := pvRepresentation is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(37, this, "ptr", guidRepresentation, pvRepresentationMarshal, pvRepresentation, "HRESULT")
         return result
     }
 }

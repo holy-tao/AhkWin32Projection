@@ -84,7 +84,9 @@ class IPinInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Direction(ppDirection) {
-        result := ComCall(12, this, "int*", ppDirection, "HRESULT")
+        ppDirectionMarshal := ppDirection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, ppDirectionMarshal, ppDirection, "HRESULT")
         return result
     }
 

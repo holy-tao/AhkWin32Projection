@@ -326,7 +326,9 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, "uint*", rgStoreIds, "uint", cStores, "ptr", riid, "ptr*", ppv, "int")
+        rgStoreIdsMarshal := rgStoreIds is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, "uint", cStores, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -388,7 +390,9 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, "int*", rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, "ptr*", ppv, "int")
+        rgflagsMarshal := rgflags is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, rgflagsMarshal, rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1550,7 +1554,9 @@ class PropertiesSystem {
     static PSPropertyBag_ReadInt(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadInt", "ptr", propBag, "ptr", propName, "int*", value, "int")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadInt", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1604,7 +1610,9 @@ class PropertiesSystem {
     static PSPropertyBag_ReadSHORT(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadSHORT", "ptr", propBag, "ptr", propName, "short*", value, "int")
+        valueMarshal := value is VarRef ? "short*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadSHORT", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1658,7 +1666,9 @@ class PropertiesSystem {
     static PSPropertyBag_ReadLONG(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadLONG", "ptr", propBag, "ptr", propName, "int*", value, "int")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadLONG", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1712,7 +1722,9 @@ class PropertiesSystem {
     static PSPropertyBag_ReadDWORD(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadDWORD", "ptr", propBag, "ptr", propName, "uint*", value, "int")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadDWORD", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2060,7 +2072,9 @@ class PropertiesSystem {
     static PSPropertyBag_ReadULONGLONG(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadULONGLONG", "ptr", propBag, "ptr", propName, "uint*", value, "int")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadULONGLONG", "ptr", propBag, "ptr", propName, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2484,7 +2498,9 @@ class PropertiesSystem {
      * @since windows5.0
      */
     static SHPropStgCreate(psstg, fmtid, pclsid, grfFlags, grfMode, dwDisposition, ppstg, puCodePage) {
-        result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, "ptr", fmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "uint", dwDisposition, "ptr*", ppstg, "uint*", puCodePage, "int")
+        puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, "ptr", fmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "uint", dwDisposition, "ptr*", ppstg, puCodePageMarshal, puCodePage, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2549,7 +2565,9 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static SHPropStgWriteMultiple(pps, puCodePage, cpspec, rgpspec, rgvar, propidNameFirst) {
-        result := DllCall("SHELL32.dll\SHPropStgWriteMultiple", "ptr", pps, "uint*", puCodePage, "uint", cpspec, "ptr", rgpspec, "ptr", rgvar, "uint", propidNameFirst, "int")
+        puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHPropStgWriteMultiple", "ptr", pps, puCodePageMarshal, puCodePage, "uint", cpspec, "ptr", rgpspec, "ptr", rgvar, "uint", propidNameFirst, "int")
         if(result != 0)
             throw OSError(result)
 

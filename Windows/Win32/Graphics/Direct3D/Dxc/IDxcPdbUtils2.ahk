@@ -44,7 +44,9 @@ class IDxcPdbUtils2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceCount(pCount) {
-        result := ComCall(4, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IDxcPdbUtils2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLibraryPDBCount(pCount) {
-        result := ComCall(7, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IDxcPdbUtils2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFlagCount(pCount) {
-        result := ComCall(9, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IDxcPdbUtils2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetArgCount(pCount) {
-        result := ComCall(11, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -140,7 +148,9 @@ class IDxcPdbUtils2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetArgPairCount(pCount) {
-        result := ComCall(13, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -162,7 +172,9 @@ class IDxcPdbUtils2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDefineCount(pCount) {
-        result := ComCall(15, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -243,7 +255,9 @@ class IDxcPdbUtils2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCustomToolchainID(pID) {
-        result := ComCall(23, this, "uint*", pID, "HRESULT")
+        pIDMarshal := pID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, pIDMarshal, pID, "HRESULT")
         return result
     }
 

@@ -64,7 +64,9 @@ class IOpenServiceActivityInput extends IUnknown{
      * @returns {HRESULT} 
      */
     GetType(pType) {
-        result := ComCall(5, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 }

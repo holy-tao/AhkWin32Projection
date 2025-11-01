@@ -139,7 +139,11 @@ class IMFSourceReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample
      */
     ReadSample(dwStreamIndex, dwControlFlags, pdwActualStreamIndex, pdwStreamFlags, pllTimestamp, ppSample) {
-        result := ComCall(9, this, "uint", dwStreamIndex, "uint", dwControlFlags, "uint*", pdwActualStreamIndex, "uint*", pdwStreamFlags, "int64*", pllTimestamp, "ptr*", ppSample, "HRESULT")
+        pdwActualStreamIndexMarshal := pdwActualStreamIndex is VarRef ? "uint*" : "ptr"
+        pdwStreamFlagsMarshal := pdwStreamFlags is VarRef ? "uint*" : "ptr"
+        pllTimestampMarshal := pllTimestamp is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwStreamIndex, "uint", dwControlFlags, pdwActualStreamIndexMarshal, pdwActualStreamIndex, pdwStreamFlagsMarshal, pdwStreamFlags, pllTimestampMarshal, pllTimestamp, "ptr*", ppSample, "HRESULT")
         return result
     }
 

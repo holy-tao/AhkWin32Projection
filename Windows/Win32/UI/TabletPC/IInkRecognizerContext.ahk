@@ -60,7 +60,9 @@ class IInkRecognizerContext extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_characterautocompletionmode
      */
     get_CharacterAutoCompletionMode(Mode) {
-        result := ComCall(9, this, "int*", Mode, "HRESULT")
+        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, ModeMarshal, Mode, "HRESULT")
         return result
     }
 
@@ -176,7 +178,9 @@ class IInkRecognizerContext extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_recognitionflags
      */
     get_RecognitionFlags(Modes) {
-        result := ComCall(19, this, "int*", Modes, "HRESULT")
+        ModesMarshal := Modes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, ModesMarshal, Modes, "HRESULT")
         return result
     }
 
@@ -232,7 +236,9 @@ class IInkRecognizerContext extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-recognize
      */
     Recognize(RecognitionStatus, RecognitionResult) {
-        result := ComCall(24, this, "int*", RecognitionStatus, "ptr*", RecognitionResult, "HRESULT")
+        RecognitionStatusMarshal := RecognitionStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, RecognitionStatusMarshal, RecognitionStatus, "ptr*", RecognitionResult, "HRESULT")
         return result
     }
 

@@ -40,7 +40,9 @@ class ILockBytes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-readat
      */
     ReadAt(ulOffset, pv, cb, pcbRead) {
-        result := ComCall(3, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", pcbRead, "HRESULT")
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulOffset, "ptr", pv, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ILockBytes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-writeat
      */
     WriteAt(ulOffset, pv, cb, pcbWritten) {
-        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", pcbWritten, "HRESULT")
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 

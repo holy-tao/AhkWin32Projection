@@ -37,7 +37,9 @@ class IWICBitmapSourceTransform2 extends IWICBitmapSourceTransform{
      * @returns {HRESULT} 
      */
     GetColorContextsForPixelFormat(pPixelFormat, cCount, ppIColorContexts, pcActualCount) {
-        result := ComCall(7, this, "ptr", pPixelFormat, "uint", cCount, "ptr*", ppIColorContexts, "uint*", pcActualCount, "HRESULT")
+        pcActualCountMarshal := pcActualCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pPixelFormat, "uint", cCount, "ptr*", ppIColorContexts, pcActualCountMarshal, pcActualCount, "HRESULT")
         return result
     }
 }

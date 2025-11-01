@@ -38,7 +38,9 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtable
      */
     SetRedTable(tableValues, count) {
-        result := ComCall(4, this, "float*", tableValues, "uint", count, "HRESULT")
+        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentable
      */
     SetGreenTable(tableValues, count) {
-        result := ComCall(5, this, "float*", tableValues, "uint", count, "HRESULT")
+        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
         return result
     }
 
@@ -62,7 +66,9 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetable
      */
     SetBlueTable(tableValues, count) {
-        result := ComCall(6, this, "float*", tableValues, "uint", count, "HRESULT")
+        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(6, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
         return result
     }
 
@@ -74,7 +80,9 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatable
      */
     SetAlphaTable(tableValues, count) {
-        result := ComCall(7, this, "float*", tableValues, "uint", count, "HRESULT")
+        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
         return result
     }
 

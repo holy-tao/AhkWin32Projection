@@ -186,7 +186,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_duration
      */
     get_Duration(seconds) {
-        result := ComCall(8, this, "uint*", seconds, "HRESULT")
+        secondsMarshal := seconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, secondsMarshal, seconds, "HRESULT")
         return result
     }
 
@@ -392,7 +394,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration
      */
     get_SegmentMaxDuration(seconds) {
-        result := ComCall(26, this, "uint*", seconds, "HRESULT")
+        secondsMarshal := seconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, secondsMarshal, seconds, "HRESULT")
         return result
     }
 
@@ -414,7 +418,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize
      */
     get_SegmentMaxSize(size) {
-        result := ComCall(28, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, sizeMarshal, size, "HRESULT")
         return result
     }
 
@@ -436,7 +442,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_serialnumber
      */
     get_SerialNumber(index) {
-        result := ComCall(30, this, "uint*", index, "HRESULT")
+        indexMarshal := index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, indexMarshal, index, "HRESULT")
         return result
     }
 
@@ -469,7 +477,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_status
      */
     get_Status(status) {
-        result := ComCall(33, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, statusMarshal, status, "HRESULT")
         return result
     }
 
@@ -504,7 +514,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat
      */
     get_SubdirectoryFormat(format) {
-        result := ComCall(36, this, "int*", format, "HRESULT")
+        formatMarshal := format is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, formatMarshal, format, "HRESULT")
         return result
     }
 

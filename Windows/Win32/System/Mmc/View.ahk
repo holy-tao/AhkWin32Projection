@@ -457,7 +457,9 @@ class View extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ListViewMode(Mode) {
-        result := ComCall(46, this, "int*", Mode, "HRESULT")
+        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, ModeMarshal, Mode, "HRESULT")
         return result
     }
 

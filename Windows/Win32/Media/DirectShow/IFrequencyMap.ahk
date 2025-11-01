@@ -43,7 +43,9 @@ class IFrequencyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_frequencymapping
      */
     get_FrequencyMapping(ulCount, ppulList) {
-        result := ComCall(3, this, "uint*", ulCount, "ptr*", ppulList, "HRESULT")
+        ulCountMarshal := ulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, ulCountMarshal, ulCount, "ptr*", ppulList, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IFrequencyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-put_frequencymapping
      */
     put_FrequencyMapping(ulCount, pList) {
-        result := ComCall(4, this, "uint", ulCount, "uint*", pList, "HRESULT")
+        pListMarshal := pList is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, pListMarshal, pList, "HRESULT")
         return result
     }
 
@@ -66,7 +70,9 @@ class IFrequencyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_countrycode
      */
     get_CountryCode(pulCountryCode) {
-        result := ComCall(5, this, "uint*", pulCountryCode, "HRESULT")
+        pulCountryCodeMarshal := pulCountryCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulCountryCodeMarshal, pulCountryCode, "HRESULT")
         return result
     }
 
@@ -90,7 +96,9 @@ class IFrequencyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_defaultfrequencymapping
      */
     get_DefaultFrequencyMapping(ulCountryCode, pulCount, ppulList) {
-        result := ComCall(7, this, "uint", ulCountryCode, "uint*", pulCount, "ptr*", ppulList, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", ulCountryCode, pulCountMarshal, pulCount, "ptr*", ppulList, "HRESULT")
         return result
     }
 
@@ -102,7 +110,9 @@ class IFrequencyMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_countrycodelist
      */
     get_CountryCodeList(pulCount, ppulList) {
-        result := ComCall(8, this, "uint*", pulCount, "ptr*", ppulList, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulCountMarshal, pulCount, "ptr*", ppulList, "HRESULT")
         return result
     }
 }

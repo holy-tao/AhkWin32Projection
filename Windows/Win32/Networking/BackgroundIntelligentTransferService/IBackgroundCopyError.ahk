@@ -38,7 +38,9 @@ class IBackgroundCopyError extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterror
      */
     GetError(pContext, pCode) {
-        result := ComCall(3, this, "int*", pContext, "ptr", pCode, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pContextMarshal, pContext, "ptr", pCode, "HRESULT")
         return result
     }
 

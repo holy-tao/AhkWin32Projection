@@ -37,7 +37,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentpositioninset
      */
     get_CurrentPositionInSet(retVal) {
-        result := ComCall(94, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(94, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentsizeofset
      */
     get_CurrentSizeOfSet(retVal) {
-        result := ComCall(95, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(95, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentlevel
      */
     get_CurrentLevel(retVal) {
-        result := ComCall(96, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(96, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedpositioninset
      */
     get_CachedPositionInSet(retVal) {
-        result := ComCall(99, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(99, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -103,7 +111,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedsizeofset
      */
     get_CachedSizeOfSet(retVal) {
-        result := ComCall(100, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(100, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -114,7 +124,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedlevel
      */
     get_CachedLevel(retVal) {
-        result := ComCall(101, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(101, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

@@ -50,7 +50,9 @@ class ID3D11ShaderTrace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-traceready
      */
     TraceReady(pTestCount) {
-        result := ComCall(3, this, "uint*", pTestCount, "HRESULT")
+        pTestCountMarshal := pTestCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pTestCountMarshal, pTestCount, "HRESULT")
         return result
     }
 

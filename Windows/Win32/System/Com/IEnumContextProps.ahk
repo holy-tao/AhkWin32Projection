@@ -39,7 +39,9 @@ class IEnumContextProps extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumcontextprops-next
      */
     Next(celt, pContextProperties, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", pContextProperties, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", pContextProperties, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IEnumContextProps extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumcontextprops-count
      */
     Count(pcelt) {
-        result := ComCall(7, this, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 }

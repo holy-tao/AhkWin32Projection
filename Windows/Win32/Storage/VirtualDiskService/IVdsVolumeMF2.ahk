@@ -49,7 +49,9 @@ class IVdsVolumeMF2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf2-queryfilesystemformatsupport
      */
     QueryFileSystemFormatSupport(ppFileSystemSupportProps, plNumberOfFileSystems) {
-        result := ComCall(4, this, "ptr*", ppFileSystemSupportProps, "int*", plNumberOfFileSystems, "HRESULT")
+        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
     }
 

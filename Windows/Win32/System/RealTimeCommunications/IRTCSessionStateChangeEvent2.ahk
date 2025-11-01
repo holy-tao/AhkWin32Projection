@@ -34,7 +34,9 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
      * @returns {HRESULT} 
      */
     get_MediaTypes(pMediaTypes) {
-        result := ComCall(11, this, "int*", pMediaTypes, "HRESULT")
+        pMediaTypesMarshal := pMediaTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMediaTypesMarshal, pMediaTypes, "HRESULT")
         return result
     }
 
@@ -45,7 +47,9 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
      * @returns {HRESULT} 
      */
     get_RemotePreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        result := ComCall(12, this, "int", enSecurityType, "int*", penSecurityLevel, "HRESULT")
+        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
         return result
     }
 

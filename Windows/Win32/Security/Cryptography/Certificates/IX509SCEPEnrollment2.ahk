@@ -51,7 +51,9 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
     ProcessResponseMessage2(Flags, strResponse, Encoding, pDisposition) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        result := ComCall(30, this, "int", Flags, "ptr", strResponse, "int", Encoding, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, "int", Flags, "ptr", strResponse, "int", Encoding, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      * @returns {HRESULT} 
      */
     get_DelayRetry(pValue) {
-        result := ComCall(32, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

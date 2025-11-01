@@ -48,7 +48,9 @@ class ICaptionServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getnumberofservices
      */
     GetNumberOfServices(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ICaptionServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getlanguagecode
      */
     GetLanguageCode(bIndex, LangCode) {
-        result := ComCall(4, this, "char", bIndex, "char*", LangCode, "HRESULT")
+        LangCodeMarshal := LangCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "char", bIndex, LangCodeMarshal, LangCode, "HRESULT")
         return result
     }
 
@@ -72,7 +76,9 @@ class ICaptionServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcaptionservicenumber
      */
     GetCaptionServiceNumber(bIndex, pbVal) {
-        result := ComCall(5, this, "char", bIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -84,7 +90,9 @@ class ICaptionServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcctype
      */
     GetCCType(bIndex, pbVal) {
-        result := ComCall(6, this, "char", bIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -96,7 +104,9 @@ class ICaptionServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-geteasyreader
      */
     GetEasyReader(bIndex, pbVal) {
-        result := ComCall(7, this, "char", bIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -108,7 +118,9 @@ class ICaptionServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getwideaspectratio
      */
     GetWideAspectRatio(bIndex, pbVal) {
-        result := ComCall(8, this, "char", bIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

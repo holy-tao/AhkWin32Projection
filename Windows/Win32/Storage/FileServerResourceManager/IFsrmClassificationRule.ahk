@@ -45,7 +45,9 @@ class IFsrmClassificationRule extends IFsrmRule{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_executionoption
      */
     get_ExecutionOption(executionOption) {
-        result := ComCall(24, this, "int*", executionOption, "HRESULT")
+        executionOptionMarshal := executionOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, executionOptionMarshal, executionOption, "HRESULT")
         return result
     }
 

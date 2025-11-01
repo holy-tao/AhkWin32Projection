@@ -59,7 +59,9 @@ class ICspStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_ordinal
      */
     get_Ordinal(pValue) {
-        result := ComCall(8, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

@@ -185,7 +185,9 @@ class ID3D11VideoDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfigcount
      */
     GetVideoDecoderConfigCount(pDesc, pCount) {
-        result := ComCall(14, this, "ptr", pDesc, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pDesc, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

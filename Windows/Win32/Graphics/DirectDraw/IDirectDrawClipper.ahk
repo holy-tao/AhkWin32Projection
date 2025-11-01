@@ -80,7 +80,9 @@ class IDirectDrawClipper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-getcliplist
      */
     GetClipList(param0, param1, param2) {
-        result := ComCall(3, this, "ptr", param0, "ptr", param1, "uint*", param2, "HRESULT")
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", param0, "ptr", param1, param2Marshal, param2, "HRESULT")
         return result
     }
 

@@ -45,7 +45,10 @@ class IBDA_TransportStreamSelector extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTSInformation(pulTSInformationBufferLen, pbTSInformationBuffer) {
-        result := ComCall(4, this, "uint*", pulTSInformationBufferLen, "char*", pbTSInformationBuffer, "HRESULT")
+        pulTSInformationBufferLenMarshal := pulTSInformationBufferLen is VarRef ? "uint*" : "ptr"
+        pbTSInformationBufferMarshal := pbTSInformationBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pulTSInformationBufferLenMarshal, pulTSInformationBufferLen, pbTSInformationBufferMarshal, pbTSInformationBuffer, "HRESULT")
         return result
     }
 }

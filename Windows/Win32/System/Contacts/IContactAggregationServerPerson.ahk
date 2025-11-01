@@ -118,7 +118,9 @@ class IContactAggregationServerPerson extends IUnknown{
      * @returns {HRESULT} 
      */
     get_FavoriteOrder(pFavoriteOrder) {
-        result := ComCall(11, this, "uint*", pFavoriteOrder, "HRESULT")
+        pFavoriteOrderMarshal := pFavoriteOrder is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pFavoriteOrderMarshal, pFavoriteOrder, "HRESULT")
         return result
     }
 
@@ -138,7 +140,9 @@ class IContactAggregationServerPerson extends IUnknown{
      * @returns {HRESULT} 
      */
     get_FavoriteOrderBaseline(pFavoriteOrder) {
-        result := ComCall(13, this, "uint*", pFavoriteOrder, "HRESULT")
+        pFavoriteOrderMarshal := pFavoriteOrder is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pFavoriteOrderMarshal, pFavoriteOrder, "HRESULT")
         return result
     }
 

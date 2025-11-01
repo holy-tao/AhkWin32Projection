@@ -73,7 +73,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-getdecoderbuffer
      */
     GetDecoderBuffer(pDecoder, Type, pBufferSize, ppBuffer) {
-        result := ComCall(7, this, "ptr", pDecoder, "int", Type, "uint*", pBufferSize, "ptr*", ppBuffer, "HRESULT")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pDecoder, "int", Type, pBufferSizeMarshal, pBufferSize, "ptr*", ppBuffer, "HRESULT")
         return result
     }
 
@@ -219,7 +221,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputextension
      */
     VideoProcessorSetOutputExtension(pVideoProcessor, pExtensionGuid, DataSize, pData) {
-        result := ComCall(19, this, "ptr", pVideoProcessor, "ptr", pExtensionGuid, "uint", DataSize, "ptr", pData, "int")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(19, this, "ptr", pVideoProcessor, "ptr", pExtensionGuid, "uint", DataSize, pDataMarshal, pData, "int")
         return result
     }
 
@@ -267,7 +271,10 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputalphafillmode
      */
     VideoProcessorGetOutputAlphaFillMode(pVideoProcessor, pAlphaFillMode, pStreamIndex) {
-        ComCall(23, this, "ptr", pVideoProcessor, "int*", pAlphaFillMode, "uint*", pStreamIndex)
+        pAlphaFillModeMarshal := pAlphaFillMode is VarRef ? "int*" : "ptr"
+        pStreamIndexMarshal := pStreamIndex is VarRef ? "uint*" : "ptr"
+
+        ComCall(23, this, "ptr", pVideoProcessor, pAlphaFillModeMarshal, pAlphaFillMode, pStreamIndexMarshal, pStreamIndex)
     }
 
     /**
@@ -394,7 +401,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreampalette
      */
     VideoProcessorSetStreamPalette(pVideoProcessor, StreamIndex, Count, pEntries) {
-        ComCall(33, this, "ptr", pVideoProcessor, "uint", StreamIndex, "uint", Count, "uint*", pEntries)
+        pEntriesMarshal := pEntries is VarRef ? "uint*" : "ptr"
+
+        ComCall(33, this, "ptr", pVideoProcessor, "uint", StreamIndex, "uint", Count, pEntriesMarshal, pEntries)
     }
 
     /**
@@ -479,7 +488,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamextension
      */
     VideoProcessorSetStreamExtension(pVideoProcessor, StreamIndex, pExtensionGuid, DataSize, pData) {
-        result := ComCall(39, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pExtensionGuid, "uint", DataSize, "ptr", pData, "int")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(39, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pExtensionGuid, "uint", DataSize, pDataMarshal, pData, "int")
         return result
     }
 
@@ -492,7 +503,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamframeformat
      */
     VideoProcessorGetStreamFrameFormat(pVideoProcessor, StreamIndex, pFrameFormat) {
-        ComCall(40, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int*", pFrameFormat)
+        pFrameFormatMarshal := pFrameFormat is VarRef ? "int*" : "ptr"
+
+        ComCall(40, this, "ptr", pVideoProcessor, "uint", StreamIndex, pFrameFormatMarshal, pFrameFormat)
     }
 
     /**
@@ -518,7 +531,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamoutputrate
      */
     VideoProcessorGetStreamOutputRate(pVideoProcessor, StreamIndex, pOutputRate, pRepeatFrame, pCustomRate) {
-        ComCall(42, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int*", pOutputRate, "ptr", pRepeatFrame, "ptr", pCustomRate)
+        pOutputRateMarshal := pOutputRate is VarRef ? "int*" : "ptr"
+
+        ComCall(42, this, "ptr", pVideoProcessor, "uint", StreamIndex, pOutputRateMarshal, pOutputRate, "ptr", pRepeatFrame, "ptr", pCustomRate)
     }
 
     /**
@@ -557,7 +572,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamalpha
      */
     VideoProcessorGetStreamAlpha(pVideoProcessor, StreamIndex, pEnabled, pAlpha) {
-        ComCall(45, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, "float*", pAlpha)
+        pAlphaMarshal := pAlpha is VarRef ? "float*" : "ptr"
+
+        ComCall(45, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, pAlphaMarshal, pAlpha)
     }
 
     /**
@@ -570,7 +587,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreampalette
      */
     VideoProcessorGetStreamPalette(pVideoProcessor, StreamIndex, Count, pEntries) {
-        ComCall(46, this, "ptr", pVideoProcessor, "uint", StreamIndex, "uint", Count, "uint*", pEntries)
+        pEntriesMarshal := pEntries is VarRef ? "uint*" : "ptr"
+
+        ComCall(46, this, "ptr", pVideoProcessor, "uint", StreamIndex, "uint", Count, pEntriesMarshal, pEntries)
     }
 
     /**
@@ -598,7 +617,10 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamlumakey
      */
     VideoProcessorGetStreamLumaKey(pVideoProcessor, StreamIndex, pEnabled, pLower, pUpper) {
-        ComCall(48, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, "float*", pLower, "float*", pUpper)
+        pLowerMarshal := pLower is VarRef ? "float*" : "ptr"
+        pUpperMarshal := pUpper is VarRef ? "float*" : "ptr"
+
+        ComCall(48, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, pLowerMarshal, pLower, pUpperMarshal, pUpper)
     }
 
     /**
@@ -615,7 +637,11 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamstereoformat
      */
     VideoProcessorGetStreamStereoFormat(pVideoProcessor, StreamIndex, pEnable, pFormat, pLeftViewFrame0, pBaseViewFrame0, pFlipMode, MonoOffset) {
-        ComCall(49, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnable, "int*", pFormat, "ptr", pLeftViewFrame0, "ptr", pBaseViewFrame0, "int*", pFlipMode, "int*", MonoOffset)
+        pFormatMarshal := pFormat is VarRef ? "int*" : "ptr"
+        pFlipModeMarshal := pFlipMode is VarRef ? "int*" : "ptr"
+        MonoOffsetMarshal := MonoOffset is VarRef ? "int*" : "ptr"
+
+        ComCall(49, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnable, pFormatMarshal, pFormat, "ptr", pLeftViewFrame0, "ptr", pBaseViewFrame0, pFlipModeMarshal, pFlipMode, MonoOffsetMarshal, MonoOffset)
     }
 
     /**
@@ -641,7 +667,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamfilter
      */
     VideoProcessorGetStreamFilter(pVideoProcessor, StreamIndex, Filter, pEnabled, pLevel) {
-        ComCall(51, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Filter, "ptr", pEnabled, "int*", pLevel)
+        pLevelMarshal := pLevel is VarRef ? "int*" : "ptr"
+
+        ComCall(51, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Filter, "ptr", pEnabled, pLevelMarshal, pLevel)
     }
 
     /**
@@ -818,6 +846,8 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamrotation
      */
     VideoProcessorGetStreamRotation(pVideoProcessor, StreamIndex, pEnable, pRotation) {
-        ComCall(64, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnable, "int*", pRotation)
+        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+
+        ComCall(64, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnable, pRotationMarshal, pRotation)
     }
 }

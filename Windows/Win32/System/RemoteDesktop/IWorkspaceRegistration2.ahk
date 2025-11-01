@@ -42,7 +42,9 @@ class IWorkspaceRegistration2 extends IWorkspaceRegistration{
     AddResourceEx(pUnk, bstrEventLogUploadAddress, pdwCookie, correlationId) {
         bstrEventLogUploadAddress := bstrEventLogUploadAddress is String ? BSTR.Alloc(bstrEventLogUploadAddress).Value : bstrEventLogUploadAddress
 
-        result := ComCall(5, this, "ptr", pUnk, "ptr", bstrEventLogUploadAddress, "uint*", pdwCookie, "ptr", correlationId, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pUnk, "ptr", bstrEventLogUploadAddress, pdwCookieMarshal, pdwCookie, "ptr", correlationId, "HRESULT")
         return result
     }
 

@@ -49,7 +49,10 @@ class ISyncSessionState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getinfoforchangeapplication
      */
     GetInfoForChangeApplication(pbChangeApplierInfo, pcbChangeApplierInfo) {
-        result := ComCall(4, this, "char*", pbChangeApplierInfo, "uint*", pcbChangeApplierInfo, "HRESULT")
+        pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : "ptr"
+        pcbChangeApplierInfoMarshal := pcbChangeApplierInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbChangeApplierInfoMarshal, pbChangeApplierInfo, pcbChangeApplierInfoMarshal, pcbChangeApplierInfo, "HRESULT")
         return result
     }
 
@@ -61,7 +64,9 @@ class ISyncSessionState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-loadinfofromchangeapplication
      */
     LoadInfoFromChangeApplication(pbChangeApplierInfo, cbChangeApplierInfo) {
-        result := ComCall(5, this, "char*", pbChangeApplierInfo, "uint", cbChangeApplierInfo, "HRESULT")
+        pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbChangeApplierInfoMarshal, pbChangeApplierInfo, "uint", cbChangeApplierInfo, "HRESULT")
         return result
     }
 
@@ -73,7 +78,10 @@ class ISyncSessionState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangestart
      */
     GetForgottenKnowledgeRecoveryRangeStart(pbRangeStart, pcbRangeStart) {
-        result := ComCall(6, this, "char*", pbRangeStart, "uint*", pcbRangeStart, "HRESULT")
+        pbRangeStartMarshal := pbRangeStart is VarRef ? "char*" : "ptr"
+        pcbRangeStartMarshal := pcbRangeStart is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pbRangeStartMarshal, pbRangeStart, pcbRangeStartMarshal, pcbRangeStart, "HRESULT")
         return result
     }
 
@@ -85,7 +93,10 @@ class ISyncSessionState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangeend
      */
     GetForgottenKnowledgeRecoveryRangeEnd(pbRangeEnd, pcbRangeEnd) {
-        result := ComCall(7, this, "char*", pbRangeEnd, "uint*", pcbRangeEnd, "HRESULT")
+        pbRangeEndMarshal := pbRangeEnd is VarRef ? "char*" : "ptr"
+        pcbRangeEndMarshal := pcbRangeEnd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pbRangeEndMarshal, pbRangeEnd, pcbRangeEndMarshal, pcbRangeEnd, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IMDFind extends IUnknown{
      * @returns {HRESULT} 
      */
     FindCell(ulStartingOrdinal, cMembers, rgpwszMember, pulCellOrdinal) {
-        result := ComCall(3, this, "ptr", ulStartingOrdinal, "ptr", cMembers, "ptr", rgpwszMember, "ptr*", pulCellOrdinal, "HRESULT")
+        pulCellOrdinalMarshal := pulCellOrdinal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ulStartingOrdinal, "ptr", cMembers, "ptr", rgpwszMember, pulCellOrdinalMarshal, pulCellOrdinal, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IMDFind extends IUnknown{
      * @returns {HRESULT} 
      */
     FindTuple(ulAxisIdentifier, ulStartingOrdinal, cMembers, rgpwszMember, pulTupleOrdinal) {
-        result := ComCall(4, this, "uint", ulAxisIdentifier, "ptr", ulStartingOrdinal, "ptr", cMembers, "ptr", rgpwszMember, "uint*", pulTupleOrdinal, "HRESULT")
+        pulTupleOrdinalMarshal := pulTupleOrdinal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulAxisIdentifier, "ptr", ulStartingOrdinal, "ptr", cMembers, "ptr", rgpwszMember, pulTupleOrdinalMarshal, pulTupleOrdinal, "HRESULT")
         return result
     }
 }

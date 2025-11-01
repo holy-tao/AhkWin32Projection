@@ -49,7 +49,9 @@ class IRowsetView extends IUnknown{
      * @returns {HRESULT} 
      */
     GetView(hChapter, riid, phChapterSource, ppView) {
-        result := ComCall(4, this, "ptr", hChapter, "ptr", riid, "ptr*", phChapterSource, "ptr*", ppView, "HRESULT")
+        phChapterSourceMarshal := phChapterSource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hChapter, "ptr", riid, phChapterSourceMarshal, phChapterSource, "ptr*", ppView, "HRESULT")
         return result
     }
 }

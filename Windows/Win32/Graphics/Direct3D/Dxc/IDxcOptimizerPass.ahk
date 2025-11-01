@@ -54,7 +54,9 @@ class IDxcOptimizerPass extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOptionArgCount(pCount) {
-        result := ComCall(5, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

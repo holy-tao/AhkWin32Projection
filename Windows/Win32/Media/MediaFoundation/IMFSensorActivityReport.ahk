@@ -41,7 +41,9 @@ class IMFSensorActivityReport extends IUnknown{
     GetFriendlyName(FriendlyName, cchFriendlyName, pcchWritten) {
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
 
-        result := ComCall(3, this, "ptr", FriendlyName, "uint", cchFriendlyName, "uint*", pcchWritten, "HRESULT")
+        pcchWrittenMarshal := pcchWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", FriendlyName, "uint", cchFriendlyName, pcchWrittenMarshal, pcchWritten, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IMFSensorActivityReport extends IUnknown{
     GetSymbolicLink(SymbolicLink, cchSymbolicLink, pcchWritten) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        result := ComCall(4, this, "ptr", SymbolicLink, "uint", cchSymbolicLink, "uint*", pcchWritten, "HRESULT")
+        pcchWrittenMarshal := pcchWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", SymbolicLink, "uint", cchSymbolicLink, pcchWrittenMarshal, pcchWritten, "HRESULT")
         return result
     }
 
@@ -67,7 +71,9 @@ class IMFSensorActivityReport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getprocesscount
      */
     GetProcessCount(pcCount) {
-        result := ComCall(5, this, "uint*", pcCount, "HRESULT")
+        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pcCountMarshal, pcCount, "HRESULT")
         return result
     }
 

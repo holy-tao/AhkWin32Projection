@@ -54,7 +54,9 @@ class IBDA_MUX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_mux-getpidlist
      */
     GetPidList(pulPidListCount, pbPidListBuffer) {
-        result := ComCall(4, this, "uint*", pulPidListCount, "ptr", pbPidListBuffer, "HRESULT")
+        pulPidListCountMarshal := pulPidListCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulPidListCountMarshal, pulPidListCount, "ptr", pbPidListBuffer, "HRESULT")
         return result
     }
 }

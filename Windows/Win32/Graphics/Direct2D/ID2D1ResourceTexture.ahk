@@ -42,7 +42,12 @@ class ID2D1ResourceTexture extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1resourcetexture-update
      */
     Update(minimumExtents, maximimumExtents, strides, dimensions, data, dataCount) {
-        result := ComCall(3, this, "uint*", minimumExtents, "uint*", maximimumExtents, "uint*", strides, "uint", dimensions, "char*", data, "uint", dataCount, "HRESULT")
+        minimumExtentsMarshal := minimumExtents is VarRef ? "uint*" : "ptr"
+        maximimumExtentsMarshal := maximimumExtents is VarRef ? "uint*" : "ptr"
+        stridesMarshal := strides is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, minimumExtentsMarshal, minimumExtents, maximimumExtentsMarshal, maximimumExtents, stridesMarshal, strides, "uint", dimensions, dataMarshal, data, "uint", dataCount, "HRESULT")
         return result
     }
 }

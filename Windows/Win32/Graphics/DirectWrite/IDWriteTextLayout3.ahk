@@ -71,7 +71,9 @@ class IDWriteTextLayout3 extends IDWriteTextLayout2{
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout3-getlinemetrics
      */
     GetLineMetrics(lineMetrics, maxLineCount, actualLineCount) {
-        result := ComCall(83, this, "ptr", lineMetrics, "uint", maxLineCount, "uint*", actualLineCount, "HRESULT")
+        actualLineCountMarshal := actualLineCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(83, this, "ptr", lineMetrics, "uint", maxLineCount, actualLineCountMarshal, actualLineCount, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,10 @@ class IValidateBinding extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIdentifier(guidLicensorID, pbEphemeron, cbEphemeron, ppbBlobValidationID, pcbBlobSize) {
-        result := ComCall(3, this, "ptr", guidLicensorID, "char*", pbEphemeron, "uint", cbEphemeron, "ptr*", ppbBlobValidationID, "uint*", pcbBlobSize, "HRESULT")
+        pbEphemeronMarshal := pbEphemeron is VarRef ? "char*" : "ptr"
+        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", guidLicensorID, pbEphemeronMarshal, pbEphemeron, "uint", cbEphemeron, "ptr*", ppbBlobValidationID, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return result
     }
 }

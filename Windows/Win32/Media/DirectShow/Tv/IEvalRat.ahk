@@ -50,7 +50,9 @@ class IEvalRat extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-get_blockedratingattributes
      */
     get_BlockedRatingAttributes(enSystem, enLevel, plbfAttrs) {
-        result := ComCall(7, this, "int", enSystem, "int", enLevel, "int*", plbfAttrs, "HRESULT")
+        plbfAttrsMarshal := plbfAttrs is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", enSystem, "int", enLevel, plbfAttrsMarshal, plbfAttrs, "HRESULT")
         return result
     }
 
@@ -104,7 +106,11 @@ class IEvalRat extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-mostrestrictiverating
      */
     MostRestrictiveRating(enSystem1, enEnLevel1, lbfEnAttr1, enSystem2, enEnLevel2, lbfEnAttr2, penSystem, penEnLevel, plbfEnAttr) {
-        result := ComCall(11, this, "int", enSystem1, "int", enEnLevel1, "int", lbfEnAttr1, "int", enSystem2, "int", enEnLevel2, "int", lbfEnAttr2, "int*", penSystem, "int*", penEnLevel, "int*", plbfEnAttr, "HRESULT")
+        penSystemMarshal := penSystem is VarRef ? "int*" : "ptr"
+        penEnLevelMarshal := penEnLevel is VarRef ? "int*" : "ptr"
+        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", enSystem1, "int", enEnLevel1, "int", lbfEnAttr1, "int", enSystem2, "int", enEnLevel2, "int", lbfEnAttr2, penSystemMarshal, penSystem, penEnLevelMarshal, penEnLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
     }
 

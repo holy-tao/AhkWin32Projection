@@ -34,7 +34,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CurrentStreamNumber(StreamNumber) {
-        result := ComCall(7, this, "int*", StreamNumber, "HRESULT")
+        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, StreamNumberMarshal, StreamNumber, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastStreamNumberQueued(StreamNumber) {
-        result := ComCall(8, this, "int*", StreamNumber, "HRESULT")
+        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, StreamNumberMarshal, StreamNumber, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastHResult(HResult) {
-        result := ComCall(9, this, "int*", HResult, "HRESULT")
+        HResultMarshal := HResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, HResultMarshal, HResult, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RunningState(State) {
-        result := ComCall(10, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, StateMarshal, State, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_InputWordPosition(Position) {
-        result := ComCall(11, this, "int*", Position, "HRESULT")
+        PositionMarshal := Position is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, PositionMarshal, Position, "HRESULT")
         return result
     }
 
@@ -84,7 +94,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_InputWordLength(Length) {
-        result := ComCall(12, this, "int*", Length, "HRESULT")
+        LengthMarshal := Length is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, LengthMarshal, Length, "HRESULT")
         return result
     }
 
@@ -94,7 +106,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_InputSentencePosition(Position) {
-        result := ComCall(13, this, "int*", Position, "HRESULT")
+        PositionMarshal := Position is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, PositionMarshal, Position, "HRESULT")
         return result
     }
 
@@ -104,7 +118,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_InputSentenceLength(Length) {
-        result := ComCall(14, this, "int*", Length, "HRESULT")
+        LengthMarshal := Length is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, LengthMarshal, Length, "HRESULT")
         return result
     }
 
@@ -124,7 +140,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastBookmarkId(BookmarkId) {
-        result := ComCall(16, this, "int*", BookmarkId, "HRESULT")
+        BookmarkIdMarshal := BookmarkId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, BookmarkIdMarshal, BookmarkId, "HRESULT")
         return result
     }
 
@@ -134,7 +152,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PhonemeId(PhoneId) {
-        result := ComCall(17, this, "short*", PhoneId, "HRESULT")
+        PhoneIdMarshal := PhoneId is VarRef ? "short*" : "ptr"
+
+        result := ComCall(17, this, PhoneIdMarshal, PhoneId, "HRESULT")
         return result
     }
 
@@ -144,7 +164,9 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {HRESULT} 
      */
     get_VisemeId(VisemeId) {
-        result := ComCall(18, this, "short*", VisemeId, "HRESULT")
+        VisemeIdMarshal := VisemeId is VarRef ? "short*" : "ptr"
+
+        result := ComCall(18, this, VisemeIdMarshal, VisemeId, "HRESULT")
         return result
     }
 }

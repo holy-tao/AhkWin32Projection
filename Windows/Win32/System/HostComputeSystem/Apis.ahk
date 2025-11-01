@@ -59,7 +59,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateOperation
      */
     static HcsCreateOperation(context, callback) {
-        result := DllCall("computecore.dll\HcsCreateOperation", "ptr", context, "ptr", callback, "ptr")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("computecore.dll\HcsCreateOperation", contextMarshal, context, "ptr", callback, "ptr")
         return HCS_OPERATION({Value: result}, True)
     }
 
@@ -71,7 +73,9 @@ class HostComputeSystem {
      * @returns {HCS_OPERATION} 
      */
     static HcsCreateOperationWithNotifications(eventTypes, context, callback) {
-        result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", "int", eventTypes, "ptr", context, "ptr", callback, "ptr")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", "int", eventTypes, contextMarshal, context, "ptr", callback, "ptr")
         return HCS_OPERATION({Value: result}, True)
     }
 
@@ -110,7 +114,9 @@ class HostComputeSystem {
     static HcsSetOperationContext(operation, context) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        result := DllCall("computecore.dll\HcsSetOperationContext", "ptr", operation, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("computecore.dll\HcsSetOperationContext", "ptr", operation, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -289,7 +295,9 @@ class HostComputeSystem {
     static HcsSetOperationCallback(operation, context, callback) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        result := DllCall("computecore.dll\HcsSetOperationCallback", "ptr", operation, "ptr", context, "ptr", callback, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("computecore.dll\HcsSetOperationCallback", "ptr", operation, contextMarshal, context, "ptr", callback, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -368,7 +376,9 @@ class HostComputeSystem {
         configuration := configuration is String ? StrPtr(configuration) : configuration
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        result := DllCall("computecore.dll\HcsCreateComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "ptr", configuration, "ptr", operation, "int*", options, "ptr", computeSystem, "int")
+        optionsMarshal := options is VarRef ? "int*" : "ptr"
+
+        result := DllCall("computecore.dll\HcsCreateComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "ptr", configuration, "ptr", operation, optionsMarshal, options, "ptr", computeSystem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -636,7 +646,9 @@ class HostComputeSystem {
     static HcsSetComputeSystemCallback(computeSystem, callbackOptions, context, callback) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
-        result := DllCall("computecore.dll\HcsSetComputeSystemCallback", "ptr", computeSystem, "int", callbackOptions, "ptr", context, "ptr", callback, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("computecore.dll\HcsSetComputeSystemCallback", "ptr", computeSystem, "int", callbackOptions, contextMarshal, context, "ptr", callback, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -882,7 +894,9 @@ class HostComputeSystem {
     static HcsSetProcessCallback(process, callbackOptions, context, callback) {
         process := process is Win32Handle ? NumGet(process, "ptr") : process
 
-        result := DllCall("computecore.dll\HcsSetProcessCallback", "ptr", process, "int", callbackOptions, "ptr", context, "ptr", callback, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("computecore.dll\HcsSetProcessCallback", "ptr", process, "int", callbackOptions, contextMarshal, context, "ptr", callback, "int")
         if(result != 0)
             throw OSError(result)
 

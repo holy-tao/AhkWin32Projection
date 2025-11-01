@@ -38,7 +38,9 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
     AddPropertyGetHandler(context, interfaceName, callback) {
         interfaceName := interfaceName is Win32Handle ? NumGet(interfaceName, "ptr") : interfaceName
 
-        result := ComCall(6, this, "ptr", context, "ptr", interfaceName, "ptr", callback, "HRESULT")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, contextMarshal, context, "ptr", interfaceName, "ptr", callback, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
     AddPropertySetHandler(context, interfaceName, callback) {
         interfaceName := interfaceName is Win32Handle ? NumGet(interfaceName, "ptr") : interfaceName
 
-        result := ComCall(7, this, "ptr", context, "ptr", interfaceName, "ptr", callback, "HRESULT")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, contextMarshal, context, "ptr", interfaceName, "ptr", callback, "HRESULT")
         return result
     }
 
@@ -62,7 +66,9 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
      * @returns {HRESULT} 
      */
     get_Win32Handle(value) {
-        result := ComCall(8, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

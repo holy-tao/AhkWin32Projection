@@ -45,7 +45,9 @@ class ISettingsEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespaces
      */
     GetNamespaces(Flags, Reserved, Namespaces) {
-        result := ComCall(3, this, "int", Flags, "ptr", Reserved, "ptr*", Namespaces, "HRESULT")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "int", Flags, ReservedMarshal, Reserved, "ptr*", Namespaces, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ISettingsEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespace
      */
     GetNamespace(SettingsID, Access, Reserved, NamespaceItem) {
-        result := ComCall(4, this, "ptr", SettingsID, "int", Access, "ptr", Reserved, "ptr*", NamespaceItem, "HRESULT")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", SettingsID, "int", Access, ReservedMarshal, Reserved, "ptr*", NamespaceItem, "HRESULT")
         return result
     }
 
@@ -94,7 +98,10 @@ class ISettingsEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getstorestatus
      */
     GetStoreStatus(Reserved, Status) {
-        result := ComCall(7, this, "ptr", Reserved, "int*", Status, "HRESULT")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, ReservedMarshal, Reserved, StatusMarshal, Status, "HRESULT")
         return result
     }
 
@@ -116,7 +123,9 @@ class ISettingsEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-unloadstore
      */
     UnloadStore(Reserved) {
-        result := ComCall(9, this, "ptr", Reserved, "HRESULT")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, ReservedMarshal, Reserved, "HRESULT")
         return result
     }
 
@@ -188,7 +197,9 @@ class ISettingsEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-createsettingscontext
      */
     CreateSettingsContext(Flags, Reserved, SettingsContext) {
-        result := ComCall(15, this, "uint", Flags, "ptr", Reserved, "ptr*", SettingsContext, "HRESULT")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(15, this, "uint", Flags, ReservedMarshal, Reserved, "ptr*", SettingsContext, "HRESULT")
         return result
     }
 
@@ -211,7 +222,9 @@ class ISettingsEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-applysettingscontext
      */
     ApplySettingsContext(SettingsContext, pppwzIdentities, pcIdentities) {
-        result := ComCall(17, this, "ptr", SettingsContext, "ptr*", pppwzIdentities, "ptr*", pcIdentities, "HRESULT")
+        pcIdentitiesMarshal := pcIdentities is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, "ptr", SettingsContext, "ptr*", pppwzIdentities, pcIdentitiesMarshal, pcIdentities, "HRESULT")
         return result
     }
 

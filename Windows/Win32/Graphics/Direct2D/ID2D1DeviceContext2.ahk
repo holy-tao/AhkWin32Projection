@@ -93,7 +93,11 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createlookuptable3d
      */
     CreateLookupTable3D(precision, extents, data, dataCount, strides, lookupTable) {
-        result := ComCall(99, this, "int", precision, "uint*", extents, "char*", data, "uint", dataCount, "uint*", strides, "ptr*", lookupTable, "HRESULT")
+        extentsMarshal := extents is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+        stridesMarshal := strides is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(99, this, "int", precision, extentsMarshal, extents, dataMarshal, data, "uint", dataCount, stridesMarshal, strides, "ptr*", lookupTable, "HRESULT")
         return result
     }
 

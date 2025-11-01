@@ -34,7 +34,9 @@ class IFeedsEnum extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(count) {
-        result := ComCall(7, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, countMarshal, count, "HRESULT")
         return result
     }
 

@@ -76,7 +76,9 @@ class ITraceEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setpayload
      */
     SetPayload(Payload, PayloadSize) {
-        result := ComCall(6, this, "char*", Payload, "uint", PayloadSize, "HRESULT")
+        PayloadMarshal := Payload is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, PayloadMarshal, Payload, "uint", PayloadSize, "HRESULT")
         return result
     }
 
@@ -154,7 +156,9 @@ class ITraceEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-settimestamp
      */
     SetTimeStamp(TimeStamp) {
-        result := ComCall(13, this, "int64*", TimeStamp, "HRESULT")
+        TimeStampMarshal := TimeStamp is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(13, this, TimeStampMarshal, TimeStamp, "HRESULT")
         return result
     }
 

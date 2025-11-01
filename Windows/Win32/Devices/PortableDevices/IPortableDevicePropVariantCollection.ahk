@@ -43,7 +43,9 @@ class IPortableDevicePropVariantCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection-getcount
      */
     GetCount(pcElems) {
-        result := ComCall(3, this, "uint*", pcElems, "HRESULT")
+        pcElemsMarshal := pcElems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcElemsMarshal, pcElems, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class IPortableDevicePropVariantCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection-gettype
      */
     GetType(pvt) {
-        result := ComCall(6, this, "ushort*", pvt, "HRESULT")
+        pvtMarshal := pvt is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pvtMarshal, pvt, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class INetworkCostManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkcostmanager-getcost
      */
     GetCost(pCost, pDestIPAddr) {
-        result := ComCall(3, this, "uint*", pCost, "ptr", pDestIPAddr, "HRESULT")
+        pCostMarshal := pCost is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCostMarshal, pCost, "ptr", pDestIPAddr, "HRESULT")
         return result
     }
 

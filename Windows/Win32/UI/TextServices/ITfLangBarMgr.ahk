@@ -42,7 +42,9 @@ class ITfLangBarMgr extends IUnknown{
     AdviseEventSink(pSink, hwnd, dwFlags, pdwCookie) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(3, this, "ptr", pSink, "ptr", hwnd, "uint", dwFlags, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pSink, "ptr", hwnd, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class ITfLangBarMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getthreadlangbaritemmgr
      */
     GetThreadLangBarItemMgr(dwThreadId, pplbi, pdwThreadid) {
-        result := ComCall(6, this, "uint", dwThreadId, "ptr*", pplbi, "uint*", pdwThreadid, "HRESULT")
+        pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwThreadId, "ptr*", pplbi, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class ITfLangBarMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getinputprocessorprofiles
      */
     GetInputProcessorProfiles(dwThreadId, ppaip, pdwThreadid) {
-        result := ComCall(7, this, "uint", dwThreadId, "ptr*", ppaip, "uint*", pdwThreadid, "HRESULT")
+        pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwThreadId, "ptr*", ppaip, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
     }
 
@@ -105,7 +111,9 @@ class ITfLangBarMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-restorelastfocus
      */
     RestoreLastFocus(pdwThreadId, fPrev) {
-        result := ComCall(8, this, "uint*", pdwThreadId, "int", fPrev, "HRESULT")
+        pdwThreadIdMarshal := pdwThreadId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwThreadIdMarshal, pdwThreadId, "int", fPrev, "HRESULT")
         return result
     }
 
@@ -140,7 +148,9 @@ class ITfLangBarMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getshowfloatingstatus
      */
     GetShowFloatingStatus(pdwFlags) {
-        result := ComCall(11, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

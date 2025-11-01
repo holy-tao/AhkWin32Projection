@@ -50,7 +50,9 @@ class IEnumITfCompositionView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumitfcompositionview-next
      */
     Next(ulCount, rgCompositionView, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", rgCompositionView, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", rgCompositionView, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

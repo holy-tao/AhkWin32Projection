@@ -38,7 +38,9 @@ class IHolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-allocresource
      */
     AllocResource(__MIDL__IHolder0000, __MIDL__IHolder0001) {
-        result := ComCall(3, this, "ptr", __MIDL__IHolder0000, "ptr*", __MIDL__IHolder0001, "HRESULT")
+        __MIDL__IHolder0001Marshal := __MIDL__IHolder0001 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", __MIDL__IHolder0000, __MIDL__IHolder0001Marshal, __MIDL__IHolder0001, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IHolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-trackresources
      */
     TrackResourceS(__MIDL__IHolder0004) {
-        result := ComCall(6, this, "ushort*", __MIDL__IHolder0004, "HRESULT")
+        __MIDL__IHolder0004Marshal := __MIDL__IHolder0004 is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, __MIDL__IHolder0004Marshal, __MIDL__IHolder0004, "HRESULT")
         return result
     }
 
@@ -99,7 +103,9 @@ class IHolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-untrackresources
      */
     UntrackResourceS(__MIDL__IHolder0007, __MIDL__IHolder0008) {
-        result := ComCall(8, this, "ushort*", __MIDL__IHolder0007, "int", __MIDL__IHolder0008, "HRESULT")
+        __MIDL__IHolder0007Marshal := __MIDL__IHolder0007 is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, __MIDL__IHolder0007Marshal, __MIDL__IHolder0007, "int", __MIDL__IHolder0008, "HRESULT")
         return result
     }
 

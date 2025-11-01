@@ -43,7 +43,9 @@ class ICreateProcessInputs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-getcreateflags
      */
     GetCreateFlags(pdwCreationFlags) {
-        result := ComCall(3, this, "uint*", pdwCreationFlags, "HRESULT")
+        pdwCreationFlagsMarshal := pdwCreationFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCreationFlagsMarshal, pdwCreationFlags, "HRESULT")
         return result
     }
 

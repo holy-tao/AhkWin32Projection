@@ -122,7 +122,9 @@ class IWriteEngine2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_startingsectorspersecond
      */
     get_StartingSectorsPerSecond(value) {
-        result := ComCall(14, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -144,7 +146,9 @@ class IWriteEngine2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_endingsectorspersecond
      */
     get_EndingSectorsPerSecond(value) {
-        result := ComCall(16, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -166,7 +170,9 @@ class IWriteEngine2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_bytespersector
      */
     get_BytesPerSector(value) {
-        result := ComCall(18, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, valueMarshal, value, "HRESULT")
         return result
     }
 

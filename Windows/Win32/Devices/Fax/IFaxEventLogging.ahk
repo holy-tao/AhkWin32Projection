@@ -47,7 +47,9 @@ class IFaxEventLogging extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_initeventslevel
      */
     get_InitEventsLevel(pInitEventLevel) {
-        result := ComCall(7, this, "int*", pInitEventLevel, "HRESULT")
+        pInitEventLevelMarshal := pInitEventLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pInitEventLevelMarshal, pInitEventLevel, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class IFaxEventLogging extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_inboundeventslevel
      */
     get_InboundEventsLevel(pInboundEventLevel) {
-        result := ComCall(9, this, "int*", pInboundEventLevel, "HRESULT")
+        pInboundEventLevelMarshal := pInboundEventLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pInboundEventLevelMarshal, pInboundEventLevel, "HRESULT")
         return result
     }
 
@@ -91,7 +95,9 @@ class IFaxEventLogging extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_outboundeventslevel
      */
     get_OutboundEventsLevel(pOutboundEventLevel) {
-        result := ComCall(11, this, "int*", pOutboundEventLevel, "HRESULT")
+        pOutboundEventLevelMarshal := pOutboundEventLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pOutboundEventLevelMarshal, pOutboundEventLevel, "HRESULT")
         return result
     }
 
@@ -113,7 +119,9 @@ class IFaxEventLogging extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_generaleventslevel
      */
     get_GeneralEventsLevel(pGeneralEventLevel) {
-        result := ComCall(13, this, "int*", pGeneralEventLevel, "HRESULT")
+        pGeneralEventLevelMarshal := pGeneralEventLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pGeneralEventLevelMarshal, pGeneralEventLevel, "HRESULT")
         return result
     }
 

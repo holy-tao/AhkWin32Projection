@@ -34,7 +34,9 @@ class ISpeechPhraseInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LanguageId(LanguageId) {
-        result := ComCall(7, this, "int*", LanguageId, "HRESULT")
+        LanguageIdMarshal := LanguageId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, LanguageIdMarshal, LanguageId, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class ISpeechPhraseInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AudioSizeBytes(pAudioSizeBytes) {
-        result := ComCall(11, this, "int*", pAudioSizeBytes, "HRESULT")
+        pAudioSizeBytesMarshal := pAudioSizeBytes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pAudioSizeBytesMarshal, pAudioSizeBytes, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class ISpeechPhraseInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RetainedSizeBytes(RetainedSizeBytes) {
-        result := ComCall(12, this, "int*", RetainedSizeBytes, "HRESULT")
+        RetainedSizeBytesMarshal := RetainedSizeBytes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, RetainedSizeBytesMarshal, RetainedSizeBytes, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class ISpeechPhraseInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AudioSizeTime(AudioSizeTime) {
-        result := ComCall(13, this, "int*", AudioSizeTime, "HRESULT")
+        AudioSizeTimeMarshal := AudioSizeTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, AudioSizeTimeMarshal, AudioSizeTime, "HRESULT")
         return result
     }
 
@@ -190,7 +198,9 @@ class ISpeechPhraseInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     GetDisplayAttributes(StartElement, Elements, UseReplacements, DisplayAttributes) {
-        result := ComCall(22, this, "int", StartElement, "int", Elements, "short", UseReplacements, "int*", DisplayAttributes, "HRESULT")
+        DisplayAttributesMarshal := DisplayAttributes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "int", StartElement, "int", Elements, "short", UseReplacements, DisplayAttributesMarshal, DisplayAttributes, "HRESULT")
         return result
     }
 }

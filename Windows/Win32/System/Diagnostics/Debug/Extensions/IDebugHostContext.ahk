@@ -35,7 +35,9 @@ class IDebugHostContext extends IUnknown{
      * @returns {HRESULT} 
      */
     IsEqualTo(pContext, pIsEqual) {
-        result := ComCall(3, this, "ptr", pContext, "int*", pIsEqual, "HRESULT")
+        pIsEqualMarshal := pIsEqual is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pContext, pIsEqualMarshal, pIsEqual, "HRESULT")
         return result
     }
 }

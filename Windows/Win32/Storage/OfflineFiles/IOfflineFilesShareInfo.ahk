@@ -48,7 +48,9 @@ class IOfflineFilesShareInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-getsharecachingmode
      */
     GetShareCachingMode(pCachingMode) {
-        result := ComCall(4, this, "int*", pCachingMode, "HRESULT")
+        pCachingModeMarshal := pCachingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pCachingModeMarshal, pCachingMode, "HRESULT")
         return result
     }
 

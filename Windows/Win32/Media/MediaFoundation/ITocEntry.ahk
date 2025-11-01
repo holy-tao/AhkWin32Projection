@@ -53,7 +53,9 @@ class ITocEntry extends IUnknown{
     GetTitle(pwTitleSize, pwszTitle) {
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
-        result := ComCall(4, this, "ushort*", pwTitleSize, "ptr", pwszTitle, "HRESULT")
+        pwTitleSizeMarshal := pwTitleSize is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pwTitleSizeMarshal, pwTitleSize, "ptr", pwszTitle, "HRESULT")
         return result
     }
 
@@ -87,7 +89,9 @@ class ITocEntry extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-setsubentries
      */
     SetSubEntries(dwNumSubEntries, pwSubEntryIndices) {
-        result := ComCall(7, this, "uint", dwNumSubEntries, "ushort*", pwSubEntryIndices, "HRESULT")
+        pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
         return result
     }
 
@@ -99,7 +103,10 @@ class ITocEntry extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-getsubentries
      */
     GetSubEntries(pdwNumSubEntries, pwSubEntryIndices) {
-        result := ComCall(8, this, "uint*", pdwNumSubEntries, "ushort*", pwSubEntryIndices, "HRESULT")
+        pdwNumSubEntriesMarshal := pdwNumSubEntries is VarRef ? "uint*" : "ptr"
+        pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pdwNumSubEntriesMarshal, pdwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
         return result
     }
 
@@ -112,7 +119,9 @@ class ITocEntry extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptiondata
      */
     SetDescriptionData(dwDescriptionDataSize, pbtDescriptionData, pguidType) {
-        result := ComCall(9, this, "uint", dwDescriptionDataSize, "char*", pbtDescriptionData, "ptr", pguidType, "HRESULT")
+        pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pguidType, "HRESULT")
         return result
     }
 
@@ -125,7 +134,10 @@ class ITocEntry extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-getdescriptiondata
      */
     GetDescriptionData(pdwDescriptionDataSize, pbtDescriptionData, pGuidType) {
-        result := ComCall(10, this, "uint*", pdwDescriptionDataSize, "char*", pbtDescriptionData, "ptr", pGuidType, "HRESULT")
+        pdwDescriptionDataSizeMarshal := pdwDescriptionDataSize is VarRef ? "uint*" : "ptr"
+        pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pdwDescriptionDataSizeMarshal, pdwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pGuidType, "HRESULT")
         return result
     }
 }

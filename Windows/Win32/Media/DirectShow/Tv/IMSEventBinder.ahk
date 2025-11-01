@@ -47,7 +47,9 @@ class IMSEventBinder extends IDispatch{
         EventName := EventName is String ? BSTR.Alloc(EventName).Value : EventName
         EventHandler := EventHandler is String ? BSTR.Alloc(EventHandler).Value : EventHandler
 
-        result := ComCall(7, this, "ptr", pEventObject, "ptr", EventName, "ptr", EventHandler, "int*", CancelID, "HRESULT")
+        CancelIDMarshal := CancelID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pEventObject, "ptr", EventName, "ptr", EventHandler, CancelIDMarshal, CancelID, "HRESULT")
         return result
     }
 

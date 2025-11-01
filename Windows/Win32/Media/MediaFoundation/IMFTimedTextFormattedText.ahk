@@ -61,7 +61,10 @@ class IMFTimedTextFormattedText extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-getsubformatting
      */
     GetSubformatting(index, firstChar, charLength, style) {
-        result := ComCall(5, this, "uint", index, "uint*", firstChar, "uint*", charLength, "ptr*", style, "HRESULT")
+        firstCharMarshal := firstChar is VarRef ? "uint*" : "ptr"
+        charLengthMarshal := charLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", index, firstCharMarshal, firstChar, charLengthMarshal, charLength, "ptr*", style, "HRESULT")
         return result
     }
 }

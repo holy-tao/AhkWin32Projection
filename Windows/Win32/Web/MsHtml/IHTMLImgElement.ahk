@@ -187,7 +187,9 @@ class IHTMLImgElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_vspace(p) {
-        result := ComCall(22, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -207,7 +209,9 @@ class IHTMLImgElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_hspace(p) {
-        result := ComCall(24, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -481,7 +485,9 @@ class IHTMLImgElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(50, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -501,7 +507,9 @@ class IHTMLImgElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(52, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, pMarshal, p, "HRESULT")
         return result
     }
 

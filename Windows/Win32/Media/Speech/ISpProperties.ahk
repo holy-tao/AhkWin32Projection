@@ -50,7 +50,9 @@ class ISpProperties extends IUnknown{
     GetPropertyNum(pName, plValue) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(4, this, "ptr", pName, "int*", plValue, "HRESULT")
+        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pName, plValueMarshal, plValue, "HRESULT")
         return result
     }
 

@@ -72,7 +72,9 @@ class IVdsIscsiInitiatorPortal extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatorportal-getipsecsecurity
      */
     GetIpsecSecurity(targetPortalId, pullSecurityFlags) {
-        result := ComCall(6, this, "ptr", targetPortalId, "uint*", pullSecurityFlags, "HRESULT")
+        pullSecurityFlagsMarshal := pullSecurityFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", targetPortalId, pullSecurityFlagsMarshal, pullSecurityFlags, "HRESULT")
         return result
     }
 

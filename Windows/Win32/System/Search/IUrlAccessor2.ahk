@@ -41,7 +41,9 @@ class IUrlAccessor2 extends IUrlAccessor{
     GetDisplayUrl(wszDocUrl, dwSize, pdwLength) {
         wszDocUrl := wszDocUrl is String ? StrPtr(wszDocUrl) : wszDocUrl
 
-        result := ComCall(16, this, "ptr", wszDocUrl, "uint", dwSize, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", wszDocUrl, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IUrlAccessor2 extends IUrlAccessor{
     GetCodePage(wszCodePage, dwSize, pdwLength) {
         wszCodePage := wszCodePage is String ? StrPtr(wszCodePage) : wszCodePage
 
-        result := ComCall(18, this, "ptr", wszCodePage, "uint", dwSize, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", wszCodePage, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 }

@@ -37,7 +37,9 @@ class IFeedClockVector extends IClockVector{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvector-getupdatecount
      */
     GetUpdateCount(pdwUpdateCount) {
-        result := ComCall(5, this, "uint*", pdwUpdateCount, "HRESULT")
+        pdwUpdateCountMarshal := pdwUpdateCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwUpdateCountMarshal, pdwUpdateCount, "HRESULT")
         return result
     }
 

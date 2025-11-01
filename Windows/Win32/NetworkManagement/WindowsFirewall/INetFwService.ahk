@@ -58,7 +58,9 @@ class INetFwService extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_type
      */
     get_Type(type) {
-        result := ComCall(8, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, typeMarshal, type, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class INetFwService extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_ipversion
      */
     get_IpVersion(ipVersion) {
-        result := ComCall(10, this, "int*", ipVersion, "HRESULT")
+        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, ipVersionMarshal, ipVersion, "HRESULT")
         return result
     }
 
@@ -102,7 +106,9 @@ class INetFwService extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_scope
      */
     get_Scope(scope) {
-        result := ComCall(12, this, "int*", scope, "HRESULT")
+        scopeMarshal := scope is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, scopeMarshal, scope, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IQualProp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_framesdroppedinrenderer
      */
     get_FramesDroppedInRenderer(pcFrames) {
-        result := ComCall(3, this, "int*", pcFrames, "HRESULT")
+        pcFramesMarshal := pcFrames is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pcFramesMarshal, pcFrames, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IQualProp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_framesdrawn
      */
     get_FramesDrawn(pcFramesDrawn) {
-        result := ComCall(4, this, "int*", pcFramesDrawn, "HRESULT")
+        pcFramesDrawnMarshal := pcFramesDrawn is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pcFramesDrawnMarshal, pcFramesDrawn, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IQualProp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_avgframerate
      */
     get_AvgFrameRate(piAvgFrameRate) {
-        result := ComCall(5, this, "int*", piAvgFrameRate, "HRESULT")
+        piAvgFrameRateMarshal := piAvgFrameRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, piAvgFrameRateMarshal, piAvgFrameRate, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IQualProp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_jitter
      */
     get_Jitter(iJitter) {
-        result := ComCall(6, this, "int*", iJitter, "HRESULT")
+        iJitterMarshal := iJitter is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, iJitterMarshal, iJitter, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IQualProp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_avgsyncoffset
      */
     get_AvgSyncOffset(piAvg) {
-        result := ComCall(7, this, "int*", piAvg, "HRESULT")
+        piAvgMarshal := piAvg is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, piAvgMarshal, piAvg, "HRESULT")
         return result
     }
 
@@ -92,7 +102,9 @@ class IQualProp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-iqualprop-get_devsyncoffset
      */
     get_DevSyncOffset(piDev) {
-        result := ComCall(8, this, "int*", piDev, "HRESULT")
+        piDevMarshal := piDev is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, piDevMarshal, piDev, "HRESULT")
         return result
     }
 }

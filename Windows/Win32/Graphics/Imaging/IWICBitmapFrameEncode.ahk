@@ -132,7 +132,9 @@ class IWICBitmapFrameEncode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-writepixels
      */
     WritePixels(lineCount, cbStride, cbBufferSize, pbPixels) {
-        result := ComCall(10, this, "uint", lineCount, "uint", cbStride, "uint", cbBufferSize, "char*", pbPixels, "HRESULT")
+        pbPixelsMarshal := pbPixels is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "uint", lineCount, "uint", cbStride, "uint", cbBufferSize, pbPixelsMarshal, pbPixels, "HRESULT")
         return result
     }
 

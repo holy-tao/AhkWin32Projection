@@ -37,7 +37,9 @@ class IWriteEngine2EventArgs extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_startlba
      */
     get_StartLba(value) {
-        result := ComCall(7, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWriteEngine2EventArgs extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_sectorcount
      */
     get_SectorCount(value) {
-        result := ComCall(8, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IWriteEngine2EventArgs extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_lastreadlba
      */
     get_LastReadLba(value) {
-        result := ComCall(9, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IWriteEngine2EventArgs extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_lastwrittenlba
      */
     get_LastWrittenLba(value) {
-        result := ComCall(10, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IWriteEngine2EventArgs extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_totalsystembuffer
      */
     get_TotalSystemBuffer(value) {
-        result := ComCall(11, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -92,7 +102,9 @@ class IWriteEngine2EventArgs extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_usedsystembuffer
      */
     get_UsedSystemBuffer(value) {
-        result := ComCall(12, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -103,7 +115,9 @@ class IWriteEngine2EventArgs extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_freesystembuffer
      */
     get_FreeSystemBuffer(value) {
-        result := ComCall(13, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

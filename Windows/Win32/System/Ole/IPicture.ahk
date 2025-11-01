@@ -136,7 +136,9 @@ class IPicture extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_type
      */
     get_Type(pType) {
-        result := ComCall(5, this, "short*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "short*" : "ptr"
+
+        result := ComCall(5, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -147,7 +149,9 @@ class IPicture extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_width
      */
     get_Width(pWidth) {
-        result := ComCall(6, this, "int*", pWidth, "HRESULT")
+        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pWidthMarshal, pWidth, "HRESULT")
         return result
     }
 
@@ -158,7 +162,9 @@ class IPicture extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_height
      */
     get_Height(pHeight) {
-        result := ComCall(7, this, "int*", pHeight, "HRESULT")
+        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pHeightMarshal, pHeight, "HRESULT")
         return result
     }
 
@@ -264,7 +270,9 @@ class IPicture extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-saveasfile
      */
     SaveAsFile(pStream, fSaveMemCopy, pCbSize) {
-        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, "int*", pCbSize, "HRESULT")
+        pCbSizeMarshal := pCbSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, pCbSizeMarshal, pCbSize, "HRESULT")
         return result
     }
 
@@ -275,7 +283,9 @@ class IPicture extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_attributes
      */
     get_Attributes(pDwAttr) {
-        result := ComCall(16, this, "uint*", pDwAttr, "HRESULT")
+        pDwAttrMarshal := pDwAttr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pDwAttrMarshal, pDwAttr, "HRESULT")
         return result
     }
 }

@@ -66,7 +66,9 @@ class ITAutomatedPhoneControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_tone
      */
     get_Tone(pTone) {
-        result := ComCall(9, this, "int*", pTone, "HRESULT")
+        pToneMarshal := pTone is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pToneMarshal, pTone, "HRESULT")
         return result
     }
 
@@ -143,7 +145,9 @@ class ITAutomatedPhoneControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autoendofnumbertimeout
      */
     get_AutoEndOfNumberTimeout(plTimeout) {
-        result := ComCall(16, this, "int*", plTimeout, "HRESULT")
+        plTimeoutMarshal := plTimeout is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plTimeoutMarshal, plTimeout, "HRESULT")
         return result
     }
 
@@ -253,7 +257,9 @@ class ITAutomatedPhoneControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autokeypadtonesminimumduration
      */
     get_AutoKeypadTonesMinimumDuration(plDuration) {
-        result := ComCall(26, this, "int*", plDuration, "HRESULT")
+        plDurationMarshal := plDuration is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, plDurationMarshal, plDuration, "HRESULT")
         return result
     }
 
@@ -297,7 +303,9 @@ class ITAutomatedPhoneControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrolstep
      */
     get_AutoVolumeControlStep(plStepSize) {
-        result := ComCall(30, this, "int*", plStepSize, "HRESULT")
+        plStepSizeMarshal := plStepSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, plStepSizeMarshal, plStepSize, "HRESULT")
         return result
     }
 
@@ -319,7 +327,9 @@ class ITAutomatedPhoneControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrolrepeatdelay
      */
     get_AutoVolumeControlRepeatDelay(plDelay) {
-        result := ComCall(32, this, "int*", plDelay, "HRESULT")
+        plDelayMarshal := plDelay is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, plDelayMarshal, plDelay, "HRESULT")
         return result
     }
 
@@ -341,7 +351,9 @@ class ITAutomatedPhoneControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-get_autovolumecontrolrepeatperiod
      */
     get_AutoVolumeControlRepeatPeriod(plPeriod) {
-        result := ComCall(34, this, "int*", plPeriod, "HRESULT")
+        plPeriodMarshal := plPeriod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, plPeriodMarshal, plPeriod, "HRESULT")
         return result
     }
 

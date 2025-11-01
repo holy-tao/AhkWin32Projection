@@ -116,7 +116,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_allowlogon
      */
     get_AllowLogon(pVal) {
-        result := ComCall(13, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -138,7 +140,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_enableremotecontrol
      */
     get_EnableRemoteControl(pVal) {
-        result := ComCall(15, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -160,7 +164,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_maxdisconnectiontime
      */
     get_MaxDisconnectionTime(pVal) {
-        result := ComCall(17, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -182,7 +188,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_maxconnectiontime
      */
     get_MaxConnectionTime(pVal) {
-        result := ComCall(19, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -204,7 +212,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_maxidletime
      */
     get_MaxIdleTime(pVal) {
-        result := ComCall(21, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -226,7 +236,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_reconnectionaction
      */
     get_ReconnectionAction(pNewVal) {
-        result := ComCall(23, this, "int*", pNewVal, "HRESULT")
+        pNewValMarshal := pNewVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pNewValMarshal, pNewVal, "HRESULT")
         return result
     }
 
@@ -248,7 +260,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_brokenconnectionaction
      */
     get_BrokenConnectionAction(pNewVal) {
-        result := ComCall(25, this, "int*", pNewVal, "HRESULT")
+        pNewValMarshal := pNewVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pNewValMarshal, pNewVal, "HRESULT")
         return result
     }
 
@@ -270,7 +284,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_connectclientdrivesatlogon
      */
     get_ConnectClientDrivesAtLogon(pNewVal) {
-        result := ComCall(27, this, "int*", pNewVal, "HRESULT")
+        pNewValMarshal := pNewVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pNewValMarshal, pNewVal, "HRESULT")
         return result
     }
 
@@ -292,7 +308,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_connectclientprintersatlogon
      */
     get_ConnectClientPrintersAtLogon(pVal) {
-        result := ComCall(29, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -314,7 +332,9 @@ class IADsTSUserEx extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_defaulttomainprinter
      */
     get_DefaultToMainPrinter(pVal) {
-        result := ComCall(31, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

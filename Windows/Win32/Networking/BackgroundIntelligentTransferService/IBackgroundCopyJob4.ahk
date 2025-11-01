@@ -48,7 +48,9 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getpeercachingflags
      */
     GetPeerCachingFlags(pFlags) {
-        result := ComCall(48, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(48, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerintegritylevel
      */
     GetOwnerIntegrityLevel(pLevel) {
-        result := ComCall(49, this, "uint*", pLevel, "HRESULT")
+        pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(49, this, pLevelMarshal, pLevel, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getmaximumdownloadtime
      */
     GetMaximumDownloadTime(pTimeout) {
-        result := ComCall(52, this, "uint*", pTimeout, "HRESULT")
+        pTimeoutMarshal := pTimeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(52, this, pTimeoutMarshal, pTimeout, "HRESULT")
         return result
     }
 }

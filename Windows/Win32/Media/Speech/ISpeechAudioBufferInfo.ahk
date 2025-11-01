@@ -34,7 +34,9 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MinNotification(MinNotification) {
-        result := ComCall(7, this, "int*", MinNotification, "HRESULT")
+        MinNotificationMarshal := MinNotification is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, MinNotificationMarshal, MinNotification, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BufferSize(BufferSize) {
-        result := ComCall(9, this, "int*", BufferSize, "HRESULT")
+        BufferSizeMarshal := BufferSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, BufferSizeMarshal, BufferSize, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EventBias(EventBias) {
-        result := ComCall(11, this, "int*", EventBias, "HRESULT")
+        EventBiasMarshal := EventBias is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, EventBiasMarshal, EventBias, "HRESULT")
         return result
     }
 

@@ -81,7 +81,9 @@ class IAudioSessionEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-onchannelvolumechanged
      */
     OnChannelVolumeChanged(ChannelCount, NewChannelVolumeArray, ChangedChannel, EventContext) {
-        result := ComCall(6, this, "uint", ChannelCount, "float*", NewChannelVolumeArray, "uint", ChangedChannel, "ptr", EventContext, "HRESULT")
+        NewChannelVolumeArrayMarshal := NewChannelVolumeArray is VarRef ? "float*" : "ptr"
+
+        result := ComCall(6, this, "uint", ChannelCount, NewChannelVolumeArrayMarshal, NewChannelVolumeArray, "uint", ChangedChannel, "ptr", EventContext, "HRESULT")
         return result
     }
 

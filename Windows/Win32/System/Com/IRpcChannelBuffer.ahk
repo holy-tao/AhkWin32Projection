@@ -50,7 +50,9 @@ class IRpcChannelBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-sendreceive
      */
     SendReceive(pMessage, pStatus) {
-        result := ComCall(4, this, "ptr", pMessage, "uint*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pMessage, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IRpcChannelBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-getdestctx
      */
     GetDestCtx(pdwDestContext, ppvDestContext) {
-        result := ComCall(6, this, "uint*", pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
+        pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwDestContextMarshal, pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
         return result
     }
 

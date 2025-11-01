@@ -98,7 +98,9 @@ class ICustomDestinationList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icustomdestinationlist-beginlist
      */
     BeginList(pcMinSlots, riid, ppv) {
-        result := ComCall(4, this, "uint*", pcMinSlots, "ptr", riid, "ptr*", ppv, "HRESULT")
+        pcMinSlotsMarshal := pcMinSlots is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcMinSlotsMarshal, pcMinSlots, "ptr", riid, "ptr*", ppv, "HRESULT")
         return result
     }
 

@@ -52,7 +52,9 @@ class IGetAppTrackerData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getapplicationprocesses
      */
     GetApplicationProcesses(PartitionId, ApplicationId, Flags, NumApplicationProcesses, ApplicationProcesses) {
-        result := ComCall(3, this, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, "uint*", NumApplicationProcesses, "ptr*", ApplicationProcesses, "HRESULT")
+        NumApplicationProcessesMarshal := NumApplicationProcesses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, "ptr*", ApplicationProcesses, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IGetAppTrackerData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getapplicationsinprocess
      */
     GetApplicationsInProcess(ApplicationInstanceId, ProcessId, PartitionId, Flags, NumApplicationsInProcess, Applications) {
-        result := ComCall(5, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "uint", Flags, "uint*", NumApplicationsInProcess, "ptr*", Applications, "HRESULT")
+        NumApplicationsInProcessMarshal := NumApplicationsInProcess is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "uint", Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, "ptr*", Applications, "HRESULT")
         return result
     }
 
@@ -102,7 +106,9 @@ class IGetAppTrackerData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getcomponentsinprocess
      */
     GetComponentsInProcess(ApplicationInstanceId, ProcessId, PartitionId, ApplicationId, Flags, NumComponentsInProcess, Components) {
-        result := ComCall(6, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, "uint*", NumComponentsInProcess, "ptr*", Components, "HRESULT")
+        NumComponentsInProcessMarshal := NumComponentsInProcess is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, "ptr*", Components, "HRESULT")
         return result
     }
 
@@ -141,7 +147,9 @@ class IGetAppTrackerData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getsuggestedpollinginterval
      */
     GetSuggestedPollingInterval(PollingIntervalInSeconds) {
-        result := ComCall(9, this, "uint*", PollingIntervalInSeconds, "HRESULT")
+        PollingIntervalInSecondsMarshal := PollingIntervalInSeconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, PollingIntervalInSecondsMarshal, PollingIntervalInSeconds, "HRESULT")
         return result
     }
 }

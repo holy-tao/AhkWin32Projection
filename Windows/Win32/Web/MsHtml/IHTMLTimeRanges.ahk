@@ -40,7 +40,9 @@ class IHTMLTimeRanges extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IHTMLTimeRanges extends IDispatch{
      * @returns {HRESULT} 
      */
     start(index, startTime) {
-        result := ComCall(8, this, "int", index, "float*", startTime, "HRESULT")
+        startTimeMarshal := startTime is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, "int", index, startTimeMarshal, startTime, "HRESULT")
         return result
     }
 
@@ -62,7 +66,9 @@ class IHTMLTimeRanges extends IDispatch{
      * @returns {HRESULT} 
      */
     end(index, endTime) {
-        result := ComCall(9, this, "int", index, "float*", endTime, "HRESULT")
+        endTimeMarshal := endTime is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, "int", index, endTimeMarshal, endTime, "HRESULT")
         return result
     }
 }

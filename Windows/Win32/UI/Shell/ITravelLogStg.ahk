@@ -87,7 +87,9 @@ class ITravelLogStg extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(flags, pcEntries) {
-        result := ComCall(7, this, "int", flags, "uint*", pcEntries, "HRESULT")
+        pcEntriesMarshal := pcEntries is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "int", flags, pcEntriesMarshal, pcEntries, "HRESULT")
         return result
     }
 

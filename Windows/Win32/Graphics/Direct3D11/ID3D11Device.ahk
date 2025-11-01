@@ -154,7 +154,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createinputlayout
      */
     CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength, ppInputLayout) {
-        result := ComCall(11, this, "ptr", pInputElementDescs, "uint", NumElements, "ptr", pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", ppInputLayout, "HRESULT")
+        pShaderBytecodeWithInputSignatureMarshal := pShaderBytecodeWithInputSignature is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, "ptr", pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", ppInputLayout, "HRESULT")
         return result
     }
 
@@ -168,7 +170,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createvertexshader
      */
     CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader) {
-        result := ComCall(12, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppVertexShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppVertexShader, "HRESULT")
         return result
     }
 
@@ -182,7 +186,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-creategeometryshader
      */
     CreateGeometryShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppGeometryShader) {
-        result := ComCall(13, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppGeometryShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(13, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppGeometryShader, "HRESULT")
         return result
     }
 
@@ -201,7 +207,10 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-creategeometryshaderwithstreamoutput
      */
     CreateGeometryShaderWithStreamOutput(pShaderBytecode, BytecodeLength, pSODeclaration, NumEntries, pBufferStrides, NumStrides, RasterizedStream, pClassLinkage, ppGeometryShader) {
-        result := ComCall(14, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, "uint*", pBufferStrides, "uint", NumStrides, "uint", RasterizedStream, "ptr", pClassLinkage, "ptr*", ppGeometryShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+        pBufferStridesMarshal := pBufferStrides is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, pBufferStridesMarshal, pBufferStrides, "uint", NumStrides, "uint", RasterizedStream, "ptr", pClassLinkage, "ptr*", ppGeometryShader, "HRESULT")
         return result
     }
 
@@ -215,7 +224,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createpixelshader
      */
     CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader) {
-        result := ComCall(15, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppPixelShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(15, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppPixelShader, "HRESULT")
         return result
     }
 
@@ -229,7 +240,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createhullshader
      */
     CreateHullShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppHullShader) {
-        result := ComCall(16, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppHullShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(16, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppHullShader, "HRESULT")
         return result
     }
 
@@ -243,7 +256,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createdomainshader
      */
     CreateDomainShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppDomainShader) {
-        result := ComCall(17, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppDomainShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(17, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppDomainShader, "HRESULT")
         return result
     }
 
@@ -257,7 +272,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createcomputeshader
      */
     CreateComputeShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppComputeShader) {
-        result := ComCall(18, this, "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppComputeShader, "HRESULT")
+        pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(18, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppComputeShader, "HRESULT")
         return result
     }
 
@@ -391,7 +408,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkformatsupport
      */
     CheckFormatSupport(Format, pFormatSupport) {
-        result := ComCall(29, this, "int", Format, "uint*", pFormatSupport, "HRESULT")
+        pFormatSupportMarshal := pFormatSupport is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "int", Format, pFormatSupportMarshal, pFormatSupport, "HRESULT")
         return result
     }
 
@@ -404,7 +423,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkmultisamplequalitylevels
      */
     CheckMultisampleQualityLevels(Format, SampleCount, pNumQualityLevels) {
-        result := ComCall(30, this, "int", Format, "uint", SampleCount, "uint*", pNumQualityLevels, "HRESULT")
+        pNumQualityLevelsMarshal := pNumQualityLevels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "int", Format, "uint", SampleCount, pNumQualityLevelsMarshal, pNumQualityLevels, "HRESULT")
         return result
     }
 
@@ -437,7 +458,13 @@ class ID3D11Device extends IUnknown{
         szUnits := szUnits is String ? StrPtr(szUnits) : szUnits
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
-        result := ComCall(32, this, "ptr", pDesc, "int*", pType, "uint*", pActiveCounters, "ptr", szName, "uint*", pNameLength, "ptr", szUnits, "uint*", pUnitsLength, "ptr", szDescription, "uint*", pDescriptionLength, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pActiveCountersMarshal := pActiveCounters is VarRef ? "uint*" : "ptr"
+        pNameLengthMarshal := pNameLength is VarRef ? "uint*" : "ptr"
+        pUnitsLengthMarshal := pUnitsLength is VarRef ? "uint*" : "ptr"
+        pDescriptionLengthMarshal := pDescriptionLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, "ptr", pDesc, pTypeMarshal, pType, pActiveCountersMarshal, pActiveCounters, "ptr", szName, pNameLengthMarshal, pNameLength, "ptr", szUnits, pUnitsLengthMarshal, pUnitsLength, "ptr", szDescription, pDescriptionLengthMarshal, pDescriptionLength, "HRESULT")
         return result
     }
 
@@ -463,7 +490,9 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
-        result := ComCall(34, this, "ptr", guid, "uint*", pDataSize, "ptr", pData, "HRESULT")
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 

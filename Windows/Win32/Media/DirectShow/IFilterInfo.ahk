@@ -88,7 +88,9 @@ class IFilterInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_IsFileSource(pbIsSource) {
-        result := ComCall(12, this, "int*", pbIsSource, "HRESULT")
+        pbIsSourceMarshal := pbIsSource is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pbIsSourceMarshal, pbIsSource, "HRESULT")
         return result
     }
 

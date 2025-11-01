@@ -36,7 +36,9 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     uniqueID(pNode, pID) {
-        result := ComCall(43, this, "ptr", pNode, "int*", pID, "HRESULT")
+        pIDMarshal := pID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, "ptr", pNode, pIDMarshal, pID, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     depth(pNode, pDepth) {
-        result := ComCall(44, this, "ptr", pNode, "int*", pDepth, "HRESULT")
+        pDepthMarshal := pDepth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, "ptr", pNode, pDepthMarshal, pDepth, "HRESULT")
         return result
     }
 
@@ -58,7 +62,9 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     childNumber(pNode, pNumber) {
-        result := ComCall(45, this, "ptr", pNode, "int*", pNumber, "HRESULT")
+        pNumberMarshal := pNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, "ptr", pNode, pNumberMarshal, pNumber, "HRESULT")
         return result
     }
 
@@ -72,7 +78,9 @@ class IXTLRuntime extends IXMLDOMNode{
     ancestorChildNumber(bstrNodeName, pNode, pNumber) {
         bstrNodeName := bstrNodeName is String ? BSTR.Alloc(bstrNodeName).Value : bstrNodeName
 
-        result := ComCall(46, this, "ptr", bstrNodeName, "ptr", pNode, "int*", pNumber, "HRESULT")
+        pNumberMarshal := pNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, "ptr", bstrNodeName, "ptr", pNode, pNumberMarshal, pNumber, "HRESULT")
         return result
     }
 
@@ -83,7 +91,9 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     absoluteChildNumber(pNode, pNumber) {
-        result := ComCall(47, this, "ptr", pNode, "int*", pNumber, "HRESULT")
+        pNumberMarshal := pNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, "ptr", pNode, pNumberMarshal, pNumber, "HRESULT")
         return result
     }
 

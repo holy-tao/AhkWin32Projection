@@ -50,7 +50,9 @@ class IHTMLAreasCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 

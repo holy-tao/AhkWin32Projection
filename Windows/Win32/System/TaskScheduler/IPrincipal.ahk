@@ -120,7 +120,9 @@ class IPrincipal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_logontype
      */
     get_LogonType(pLogon) {
-        result := ComCall(13, this, "int*", pLogon, "HRESULT")
+        pLogonMarshal := pLogon is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pLogonMarshal, pLogon, "HRESULT")
         return result
     }
 
@@ -166,7 +168,9 @@ class IPrincipal extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_runlevel
      */
     get_RunLevel(pRunLevel) {
-        result := ComCall(17, this, "int*", pRunLevel, "HRESULT")
+        pRunLevelMarshal := pRunLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pRunLevelMarshal, pRunLevel, "HRESULT")
         return result
     }
 

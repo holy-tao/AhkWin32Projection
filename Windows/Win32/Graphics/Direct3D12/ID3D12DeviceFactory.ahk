@@ -161,7 +161,10 @@ class ID3D12DeviceFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs, pConfigurationStructSizes) {
-        result := ComCall(8, this, "uint", NumFeatures, "ptr", pIIDs, "ptr", pConfigurationStructs, "uint*", pConfigurationStructSizes, "HRESULT")
+        pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
+        pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", NumFeatures, "ptr", pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
         return result
     }
 

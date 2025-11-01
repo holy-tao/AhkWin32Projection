@@ -75,7 +75,9 @@ class ISCluster extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Handle(phandle) {
-        result := ComCall(11, this, "ptr*", phandle, "HRESULT")
+        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, phandleMarshal, phandle, "HRESULT")
         return result
     }
 
@@ -149,7 +151,9 @@ class ISCluster extends IDispatch{
      * @returns {HRESULT} 
      */
     get_QuorumLogSize(pnLogSize) {
-        result := ComCall(18, this, "int*", pnLogSize, "HRESULT")
+        pnLogSizeMarshal := pnLogSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pnLogSizeMarshal, pnLogSize, "HRESULT")
         return result
     }
 

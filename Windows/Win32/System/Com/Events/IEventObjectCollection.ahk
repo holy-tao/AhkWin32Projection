@@ -74,7 +74,9 @@ class IEventObjectCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_count
      */
     get_Count(pCount) {
-        result := ComCall(10, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

@@ -71,7 +71,9 @@ class ISearchQueryHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querycontentlocale
      */
     get_QueryContentLocale(plcid) {
-        result := ComCall(5, this, "uint*", plcid, "HRESULT")
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class ISearchQueryHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querykeywordlocale
      */
     get_QueryKeywordLocale(plcid) {
-        result := ComCall(7, this, "uint*", plcid, "HRESULT")
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -115,7 +119,9 @@ class ISearchQueryHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querytermexpansion
      */
     get_QueryTermExpansion(pExpandTerms) {
-        result := ComCall(9, this, "int*", pExpandTerms, "HRESULT")
+        pExpandTermsMarshal := pExpandTerms is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pExpandTermsMarshal, pExpandTerms, "HRESULT")
         return result
     }
 
@@ -137,7 +143,9 @@ class ISearchQueryHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querysyntax
      */
     get_QuerySyntax(pQuerySyntax) {
-        result := ComCall(11, this, "int*", pQuerySyntax, "HRESULT")
+        pQuerySyntaxMarshal := pQuerySyntax is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pQuerySyntaxMarshal, pQuerySyntax, "HRESULT")
         return result
     }
 
@@ -284,7 +292,9 @@ class ISearchQueryHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querymaxresults
      */
     get_QueryMaxResults(pcMaxResults) {
-        result := ComCall(23, this, "int*", pcMaxResults, "HRESULT")
+        pcMaxResultsMarshal := pcMaxResults is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pcMaxResultsMarshal, pcMaxResults, "HRESULT")
         return result
     }
 }

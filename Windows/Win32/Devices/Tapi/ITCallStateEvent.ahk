@@ -48,7 +48,9 @@ class ITCallStateEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_state
      */
     get_State(pCallState) {
-        result := ComCall(8, this, "int*", pCallState, "HRESULT")
+        pCallStateMarshal := pCallState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pCallStateMarshal, pCallState, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITCallStateEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_cause
      */
     get_Cause(pCEC) {
-        result := ComCall(9, this, "int*", pCEC, "HRESULT")
+        pCECMarshal := pCEC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCECMarshal, pCEC, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class ITCallStateEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_callbackinstance
      */
     get_CallbackInstance(plCallbackInstance) {
-        result := ComCall(10, this, "int*", plCallbackInstance, "HRESULT")
+        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
         return result
     }
 }

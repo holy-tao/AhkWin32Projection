@@ -84,7 +84,9 @@ class ISClusNetInterface extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Handle(phandle) {
-        result := ComCall(12, this, "ptr*", phandle, "HRESULT")
+        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, phandleMarshal, phandle, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class ISClusNetInterface extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(dwState) {
-        result := ComCall(13, this, "int*", dwState, "HRESULT")
+        dwStateMarshal := dwState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, dwStateMarshal, dwState, "HRESULT")
         return result
     }
 

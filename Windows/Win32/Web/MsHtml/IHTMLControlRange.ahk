@@ -291,7 +291,9 @@ class IHTMLControlRange extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(21, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pMarshal, p, "HRESULT")
         return result
     }
 }

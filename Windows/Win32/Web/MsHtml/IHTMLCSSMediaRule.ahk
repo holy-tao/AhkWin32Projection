@@ -75,7 +75,9 @@ class IHTMLCSSMediaRule extends IDispatch{
     insertRule(bstrRule, lIndex, plNewIndex) {
         bstrRule := bstrRule is String ? BSTR.Alloc(bstrRule).Value : bstrRule
 
-        result := ComCall(10, this, "ptr", bstrRule, "int", lIndex, "int*", plNewIndex, "HRESULT")
+        plNewIndexMarshal := plNewIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", bstrRule, "int", lIndex, plNewIndexMarshal, plNewIndex, "HRESULT")
         return result
     }
 

@@ -45,7 +45,10 @@ class ISyncChangeBatchBase2 extends ISyncChangeBatchBase{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase2-serializewithoptions
      */
     SerializeWithOptions(targetFormatVersion, dwFlags, pbBuffer, pdwSerializedSize) {
-        result := ComCall(17, this, "int", targetFormatVersion, "uint", dwFlags, "char*", pbBuffer, "uint*", pdwSerializedSize, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
     }
 }

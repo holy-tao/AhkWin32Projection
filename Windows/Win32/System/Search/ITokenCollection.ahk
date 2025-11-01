@@ -37,7 +37,9 @@ class ITokenCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-itokencollection-numberoftokens
      */
     NumberOfTokens(pCount) {
-        result := ComCall(3, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -51,7 +53,10 @@ class ITokenCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-itokencollection-gettoken
      */
     GetToken(i, pBegin, pLength, ppsz) {
-        result := ComCall(4, this, "uint", i, "uint*", pBegin, "uint*", pLength, "ptr", ppsz, "HRESULT")
+        pBeginMarshal := pBegin is VarRef ? "uint*" : "ptr"
+        pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", i, pBeginMarshal, pBegin, pLengthMarshal, pLength, "ptr", ppsz, "HRESULT")
         return result
     }
 }

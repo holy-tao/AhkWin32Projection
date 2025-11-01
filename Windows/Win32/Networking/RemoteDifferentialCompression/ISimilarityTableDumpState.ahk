@@ -46,7 +46,9 @@ class ISimilarityTableDumpState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytabledumpstate-getnextdata
      */
     GetNextData(resultsSize, resultsUsed, eof, results) {
-        result := ComCall(3, this, "uint", resultsSize, "uint*", resultsUsed, "ptr", eof, "ptr", results, "HRESULT")
+        resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "ptr", eof, "ptr", results, "HRESULT")
         return result
     }
 }

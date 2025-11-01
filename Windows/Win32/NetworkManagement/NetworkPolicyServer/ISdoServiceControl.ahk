@@ -64,7 +64,9 @@ class ISdoServiceControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
      */
     GetServiceStatus(status) {
-        result := ComCall(9, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, statusMarshal, status, "HRESULT")
         return result
     }
 

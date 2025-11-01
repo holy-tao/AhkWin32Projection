@@ -37,7 +37,9 @@ class IEnumCERTVIEWROW extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-next
      */
     Next(pIndex) {
-        result := ComCall(7, this, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 
@@ -115,7 +117,9 @@ class IEnumCERTVIEWROW extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-getmaxindex
      */
     GetMaxIndex(pIndex) {
-        result := ComCall(14, this, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 }

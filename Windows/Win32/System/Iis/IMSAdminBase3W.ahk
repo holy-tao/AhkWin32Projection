@@ -41,7 +41,9 @@ class IMSAdminBase3W extends IMSAdminBase2W{
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(40, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", cchMDBufferSize, "ptr", pszBuffer, "uint*", pcchMDRequiredBufferSize, "HRESULT")
+        pcchMDRequiredBufferSizeMarshal := pcchMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", cchMDBufferSize, "ptr", pszBuffer, pcchMDRequiredBufferSizeMarshal, pcchMDRequiredBufferSize, "HRESULT")
         return result
     }
 }

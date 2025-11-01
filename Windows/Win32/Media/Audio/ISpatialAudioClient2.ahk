@@ -52,7 +52,9 @@ class ISpatialAudioClient2 extends ISpatialAudioClient{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient2-getmaxframecountforcategory
      */
     GetMaxFrameCountForCategory(category, offloadEnabled, objectFormat, frameCountPerBuffer) {
-        result := ComCall(12, this, "int", category, "int", offloadEnabled, "ptr", objectFormat, "uint*", frameCountPerBuffer, "HRESULT")
+        frameCountPerBufferMarshal := frameCountPerBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "int", category, "int", offloadEnabled, "ptr", objectFormat, frameCountPerBufferMarshal, frameCountPerBuffer, "HRESULT")
         return result
     }
 }

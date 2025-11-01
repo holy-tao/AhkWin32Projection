@@ -70,7 +70,10 @@ class IMFTimedTextStyle extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontsize
      */
     GetFontSize(fontSize, unitType) {
-        result := ComCall(6, this, "double*", fontSize, "int*", unitType, "HRESULT")
+        fontSizeMarshal := fontSize is VarRef ? "double*" : "ptr"
+        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, fontSizeMarshal, fontSize, unitTypeMarshal, unitType, "HRESULT")
         return result
     }
 
@@ -114,7 +117,9 @@ class IMFTimedTextStyle extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontstyle
      */
     GetFontStyle(fontStyle) {
-        result := ComCall(10, this, "int*", fontStyle, "HRESULT")
+        fontStyleMarshal := fontStyle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, fontStyleMarshal, fontStyle, "HRESULT")
         return result
     }
 
@@ -147,7 +152,9 @@ class IMFTimedTextStyle extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextalignment
      */
     GetTextAlignment(textAlign) {
-        result := ComCall(13, this, "int*", textAlign, "HRESULT")
+        textAlignMarshal := textAlign is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, textAlignMarshal, textAlign, "HRESULT")
         return result
     }
 
@@ -158,7 +165,9 @@ class IMFTimedTextStyle extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextdecoration
      */
     GetTextDecoration(textDecoration) {
-        result := ComCall(14, this, "uint*", textDecoration, "HRESULT")
+        textDecorationMarshal := textDecoration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, textDecorationMarshal, textDecoration, "HRESULT")
         return result
     }
 
@@ -172,7 +181,11 @@ class IMFTimedTextStyle extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextoutline
      */
     GetTextOutline(color, thickness, blurRadius, unitType) {
-        result := ComCall(15, this, "ptr", color, "double*", thickness, "double*", blurRadius, "int*", unitType, "HRESULT")
+        thicknessMarshal := thickness is VarRef ? "double*" : "ptr"
+        blurRadiusMarshal := blurRadius is VarRef ? "double*" : "ptr"
+        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "ptr", color, thicknessMarshal, thickness, blurRadiusMarshal, blurRadius, unitTypeMarshal, unitType, "HRESULT")
         return result
     }
 }

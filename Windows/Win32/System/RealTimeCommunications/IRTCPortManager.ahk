@@ -42,7 +42,10 @@ class IRTCPortManager extends IUnknown{
     GetMapping(bstrRemoteAddress, enPortType, pbstrInternalLocalAddress, plInternalLocalPort, pbstrExternalLocalAddress, plExternalLocalPort) {
         bstrRemoteAddress := bstrRemoteAddress is String ? BSTR.Alloc(bstrRemoteAddress).Value : bstrRemoteAddress
 
-        result := ComCall(3, this, "ptr", bstrRemoteAddress, "int", enPortType, "ptr", pbstrInternalLocalAddress, "int*", plInternalLocalPort, "ptr", pbstrExternalLocalAddress, "int*", plExternalLocalPort, "HRESULT")
+        plInternalLocalPortMarshal := plInternalLocalPort is VarRef ? "int*" : "ptr"
+        plExternalLocalPortMarshal := plExternalLocalPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", bstrRemoteAddress, "int", enPortType, "ptr", pbstrInternalLocalAddress, plInternalLocalPortMarshal, plInternalLocalPort, "ptr", pbstrExternalLocalAddress, plExternalLocalPortMarshal, plExternalLocalPort, "HRESULT")
         return result
     }
 

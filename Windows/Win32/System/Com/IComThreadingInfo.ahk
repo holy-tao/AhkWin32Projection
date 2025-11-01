@@ -41,7 +41,9 @@ class IComThreadingInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-getcurrentapartmenttype
      */
     GetCurrentApartmentType(pAptType) {
-        result := ComCall(3, this, "int*", pAptType, "HRESULT")
+        pAptTypeMarshal := pAptType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pAptTypeMarshal, pAptType, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IComThreadingInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icomthreadinginfo-getcurrentthreadtype
      */
     GetCurrentThreadType(pThreadType) {
-        result := ComCall(4, this, "int*", pThreadType, "HRESULT")
+        pThreadTypeMarshal := pThreadType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pThreadTypeMarshal, pThreadType, "HRESULT")
         return result
     }
 

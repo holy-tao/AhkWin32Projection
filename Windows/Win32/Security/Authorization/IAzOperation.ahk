@@ -110,7 +110,9 @@ class IAzOperation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_operationid
      */
     get_OperationID(plProp) {
-        result := ComCall(13, this, "int*", plProp, "HRESULT")
+        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plPropMarshal, plProp, "HRESULT")
         return result
     }
 

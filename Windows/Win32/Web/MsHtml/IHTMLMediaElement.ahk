@@ -83,7 +83,9 @@ class IHTMLMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_networkState(p) {
-        result := ComCall(11, this, "ushort*", p, "HRESULT")
+        pMarshal := p is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -167,7 +169,9 @@ class IHTMLMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_currentTime(p) {
-        result := ComCall(19, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(19, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -177,7 +181,9 @@ class IHTMLMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_initialTime(p) {
-        result := ComCall(20, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(20, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -187,7 +193,9 @@ class IHTMLMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_duration(p) {
-        result := ComCall(21, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(21, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -217,7 +225,9 @@ class IHTMLMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_defaultPlaybackRate(p) {
-        result := ComCall(24, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(24, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -237,7 +247,9 @@ class IHTMLMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_playbackRate(p) {
-        result := ComCall(26, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(26, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -365,7 +377,9 @@ class IHTMLMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_volume(p) {
-        result := ComCall(39, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(39, this, pMarshal, p, "HRESULT")
         return result
     }
 

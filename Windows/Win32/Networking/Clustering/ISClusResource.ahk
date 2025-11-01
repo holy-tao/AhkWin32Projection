@@ -75,7 +75,9 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Handle(phandle) {
-        result := ComCall(11, this, "ptr*", phandle, "HRESULT")
+        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, phandleMarshal, phandle, "HRESULT")
         return result
     }
 
@@ -107,7 +109,9 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(dwState) {
-        result := ComCall(14, this, "int*", dwState, "HRESULT")
+        dwStateMarshal := dwState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, dwStateMarshal, dwState, "HRESULT")
         return result
     }
 
@@ -117,7 +121,9 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CoreFlag(dwCoreFlag) {
-        result := ComCall(15, this, "int*", dwCoreFlag, "HRESULT")
+        dwCoreFlagMarshal := dwCoreFlag is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, dwCoreFlagMarshal, dwCoreFlag, "HRESULT")
         return result
     }
 
@@ -309,7 +315,9 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ClassInfo(prcClassInfo) {
-        result := ComCall(31, this, "int*", prcClassInfo, "HRESULT")
+        prcClassInfoMarshal := prcClassInfo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, prcClassInfoMarshal, prcClassInfo, "HRESULT")
         return result
     }
 

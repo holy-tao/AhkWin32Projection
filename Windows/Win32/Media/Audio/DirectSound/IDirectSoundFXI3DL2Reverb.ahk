@@ -64,7 +64,9 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPreset(pdwPreset) {
-        result := ComCall(6, this, "uint*", pdwPreset, "HRESULT")
+        pdwPresetMarshal := pdwPreset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwPresetMarshal, pdwPreset, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      * @returns {HRESULT} 
      */
     GetQuality(plQuality) {
-        result := ComCall(8, this, "int*", plQuality, "HRESULT")
+        plQualityMarshal := plQuality is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plQualityMarshal, plQuality, "HRESULT")
         return result
     }
 }

@@ -145,7 +145,9 @@ class IUIAnimationStoryboard extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-schedule
      */
     Schedule(timeNow, schedulingResult) {
-        result := ComCall(11, this, "double", timeNow, "int*", schedulingResult, "HRESULT")
+        schedulingResultMarshal := schedulingResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "double", timeNow, schedulingResultMarshal, schedulingResult, "HRESULT")
         return result
     }
 
@@ -200,7 +202,9 @@ class IUIAnimationStoryboard extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-gettag
      */
     GetTag(object, id) {
-        result := ComCall(16, this, "ptr*", object, "uint*", id, "HRESULT")
+        idMarshal := id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr*", object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -211,7 +215,9 @@ class IUIAnimationStoryboard extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-getstatus
      */
     GetStatus(status) {
-        result := ComCall(17, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, statusMarshal, status, "HRESULT")
         return result
     }
 
@@ -222,7 +228,9 @@ class IUIAnimationStoryboard extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-getelapsedtime
      */
     GetElapsedTime(elapsedTime) {
-        result := ComCall(18, this, "double*", elapsedTime, "HRESULT")
+        elapsedTimeMarshal := elapsedTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(18, this, elapsedTimeMarshal, elapsedTime, "HRESULT")
         return result
     }
 

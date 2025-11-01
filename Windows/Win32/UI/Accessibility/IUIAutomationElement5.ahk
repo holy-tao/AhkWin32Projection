@@ -37,7 +37,9 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype
      */
     get_CurrentLandmarkType(retVal) {
-        result := ComCall(104, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(104, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlandmarktype
      */
     get_CachedLandmarkType(retVal) {
-        result := ComCall(106, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(106, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

@@ -51,7 +51,9 @@ class IMFQualityAdvise2 extends IMFQualityAdvise{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise2-notifyqualityevent
      */
     NotifyQualityEvent(pEvent, pdwFlags) {
-        result := ComCall(8, this, "ptr", pEvent, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pEvent, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

@@ -37,7 +37,9 @@ class IMILBitmapEffectConnectorInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getindex
      */
     GetIndex(puiIndex) {
-        result := ComCall(3, this, "uint*", puiIndex, "HRESULT")
+        puiIndexMarshal := puiIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiIndexMarshal, puiIndex, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IMILBitmapEffectConnectorInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectorinfo-getnumberformats
      */
     GetNumberFormats(pulNumberFormats) {
-        result := ComCall(5, this, "uint*", pulNumberFormats, "HRESULT")
+        pulNumberFormatsMarshal := pulNumberFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulNumberFormatsMarshal, pulNumberFormats, "HRESULT")
         return result
     }
 

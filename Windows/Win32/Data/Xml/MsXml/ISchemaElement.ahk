@@ -104,7 +104,9 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {HRESULT} 
      */
     get_substitutionGroupExclusions(exclusions) {
-        result := ComCall(23, this, "int*", exclusions, "HRESULT")
+        exclusionsMarshal := exclusions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, exclusionsMarshal, exclusions, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {HRESULT} 
      */
     get_disallowedSubstitutions(disallowed) {
-        result := ComCall(24, this, "int*", disallowed, "HRESULT")
+        disallowedMarshal := disallowed is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, disallowedMarshal, disallowed, "HRESULT")
         return result
     }
 

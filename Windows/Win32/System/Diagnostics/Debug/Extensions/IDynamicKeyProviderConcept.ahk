@@ -40,7 +40,9 @@ class IDynamicKeyProviderConcept extends IUnknown{
     GetKey(contextObject, key, keyValue, metadata, hasKey) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(3, this, "ptr", contextObject, "ptr", key, "ptr*", keyValue, "ptr*", metadata, "int*", hasKey, "HRESULT")
+        hasKeyMarshal := hasKey is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", contextObject, "ptr", key, "ptr*", keyValue, "ptr*", metadata, hasKeyMarshal, hasKey, "HRESULT")
         return result
     }
 

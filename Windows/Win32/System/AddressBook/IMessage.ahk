@@ -61,7 +61,9 @@ class IMessage extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-createattach
      */
     CreateAttach(lpInterface, ulFlags, lpulAttachmentNum, lppAttach) {
-        result := ComCall(16, this, "ptr", lpInterface, "uint", ulFlags, "uint*", lpulAttachmentNum, "ptr*", lppAttach, "HRESULT")
+        lpulAttachmentNumMarshal := lpulAttachmentNum is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", lpInterface, "uint", ulFlags, lpulAttachmentNumMarshal, lpulAttachmentNum, "ptr*", lppAttach, "HRESULT")
         return result
     }
 

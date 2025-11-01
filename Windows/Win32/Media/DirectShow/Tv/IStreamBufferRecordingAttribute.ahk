@@ -48,7 +48,9 @@ class IStreamBufferRecordingAttribute extends IUnknown{
     SetAttribute(ulReserved, pszAttributeName, StreamBufferAttributeType, pbAttribute, cbAttributeLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(3, this, "uint", ulReserved, "ptr", pszAttributeName, "int", StreamBufferAttributeType, "char*", pbAttribute, "ushort", cbAttributeLength, "HRESULT")
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulReserved, "ptr", pszAttributeName, "int", StreamBufferAttributeType, pbAttributeMarshal, pbAttribute, "ushort", cbAttributeLength, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IStreamBufferRecordingAttribute extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-getattributecount
      */
     GetAttributeCount(ulReserved, pcAttributes) {
-        result := ComCall(4, this, "uint", ulReserved, "ushort*", pcAttributes, "HRESULT")
+        pcAttributesMarshal := pcAttributes is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulReserved, pcAttributesMarshal, pcAttributes, "HRESULT")
         return result
     }
 
@@ -77,7 +81,12 @@ class IStreamBufferRecordingAttribute extends IUnknown{
     GetAttributeByName(pszAttributeName, pulReserved, pStreamBufferAttributeType, pbAttribute, pcbLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(5, this, "ptr", pszAttributeName, "uint*", pulReserved, "int*", pStreamBufferAttributeType, "char*", pbAttribute, "ushort*", pcbLength, "HRESULT")
+        pulReservedMarshal := pulReserved is VarRef ? "uint*" : "ptr"
+        pStreamBufferAttributeTypeMarshal := pStreamBufferAttributeType is VarRef ? "int*" : "ptr"
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszAttributeName, pulReservedMarshal, pulReserved, pStreamBufferAttributeTypeMarshal, pStreamBufferAttributeType, pbAttributeMarshal, pbAttribute, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -96,7 +105,13 @@ class IStreamBufferRecordingAttribute extends IUnknown{
     GetAttributeByIndex(wIndex, pulReserved, pszAttributeName, pcchNameLength, pStreamBufferAttributeType, pbAttribute, pcbLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(6, this, "ushort", wIndex, "uint*", pulReserved, "ptr", pszAttributeName, "ushort*", pcchNameLength, "int*", pStreamBufferAttributeType, "char*", pbAttribute, "ushort*", pcbLength, "HRESULT")
+        pulReservedMarshal := pulReserved is VarRef ? "uint*" : "ptr"
+        pcchNameLengthMarshal := pcchNameLength is VarRef ? "ushort*" : "ptr"
+        pStreamBufferAttributeTypeMarshal := pStreamBufferAttributeType is VarRef ? "int*" : "ptr"
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ushort", wIndex, pulReservedMarshal, pulReserved, "ptr", pszAttributeName, pcchNameLengthMarshal, pcchNameLength, pStreamBufferAttributeTypeMarshal, pStreamBufferAttributeType, pbAttributeMarshal, pbAttribute, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 

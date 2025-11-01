@@ -37,7 +37,9 @@ class IReferenceClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-gettime
      */
     GetTime(pTime) {
-        result := ComCall(3, this, "int64*", pTime, "HRESULT")
+        pTimeMarshal := pTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, pTimeMarshal, pTime, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IReferenceClock extends IUnknown{
     AdviseTime(baseTime, streamTime, hEvent, pdwAdviseCookie) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(4, this, "int64", baseTime, "int64", streamTime, "ptr", hEvent, "ptr*", pdwAdviseCookie, "HRESULT")
+        pdwAdviseCookieMarshal := pdwAdviseCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "int64", baseTime, "int64", streamTime, "ptr", hEvent, pdwAdviseCookieMarshal, pdwAdviseCookie, "HRESULT")
         return result
     }
 
@@ -69,7 +73,9 @@ class IReferenceClock extends IUnknown{
     AdvisePeriodic(startTime, periodTime, hSemaphore, pdwAdviseCookie) {
         hSemaphore := hSemaphore is Win32Handle ? NumGet(hSemaphore, "ptr") : hSemaphore
 
-        result := ComCall(5, this, "int64", startTime, "int64", periodTime, "ptr", hSemaphore, "ptr*", pdwAdviseCookie, "HRESULT")
+        pdwAdviseCookieMarshal := pdwAdviseCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "int64", startTime, "int64", periodTime, "ptr", hSemaphore, pdwAdviseCookieMarshal, pdwAdviseCookie, "HRESULT")
         return result
     }
 

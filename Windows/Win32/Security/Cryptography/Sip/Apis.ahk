@@ -177,9 +177,13 @@ class Sip {
      * @since windows5.1.2600
      */
     static CryptSIPGetSignedDataMsg(pSubjectInfo, pdwEncodingType, dwIndex, pcbSignedDataMsg, pbSignedDataMsg) {
+        pdwEncodingTypeMarshal := pdwEncodingType is VarRef ? "uint*" : "ptr"
+        pcbSignedDataMsgMarshal := pcbSignedDataMsg is VarRef ? "uint*" : "ptr"
+        pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", "ptr", pSubjectInfo, "uint*", pdwEncodingType, "uint", dwIndex, "uint*", pcbSignedDataMsg, "char*", pbSignedDataMsg, "int")
+        result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", "ptr", pSubjectInfo, pdwEncodingTypeMarshal, pdwEncodingType, "uint", dwIndex, pcbSignedDataMsgMarshal, pcbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -250,9 +254,12 @@ class Sip {
      * @since windows5.1.2600
      */
     static CryptSIPPutSignedDataMsg(pSubjectInfo, dwEncodingType, pdwIndex, cbSignedDataMsg, pbSignedDataMsg) {
+        pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
+        pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", "ptr", pSubjectInfo, "uint", dwEncodingType, "uint*", pdwIndex, "uint", cbSignedDataMsg, "char*", pbSignedDataMsg, "int")
+        result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", "ptr", pSubjectInfo, "uint", dwEncodingType, pdwIndexMarshal, pdwIndex, "uint", cbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -336,9 +343,11 @@ class Sip {
      * @since windows5.1.2600
      */
     static CryptSIPCreateIndirectData(pSubjectInfo, pcbIndirectData, pIndirectData) {
+        pcbIndirectDataMarshal := pcbIndirectData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPCreateIndirectData", "ptr", pSubjectInfo, "uint*", pcbIndirectData, "ptr", pIndirectData, "int")
+        result := DllCall("WINTRUST.dll\CryptSIPCreateIndirectData", "ptr", pSubjectInfo, pcbIndirectDataMarshal, pcbIndirectData, "ptr", pIndirectData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -569,7 +578,11 @@ class Sip {
      * @returns {BOOL} 
      */
     static CryptSIPGetSealedDigest(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {
-        result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", "ptr", pSubjectInfo, "char*", pSig, "uint", dwSig, "char*", pbDigest, "uint*", pcbDigest, "int")
+        pSigMarshal := pSig is VarRef ? "char*" : "ptr"
+        pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
+        pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", "ptr", pSubjectInfo, pSigMarshal, pSig, "uint", dwSig, pbDigestMarshal, pbDigest, pcbDigestMarshal, pcbDigest, "int")
         return result
     }
 

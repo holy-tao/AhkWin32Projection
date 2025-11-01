@@ -37,7 +37,9 @@ class IDiscMasterProgressEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-querycancel
      */
     QueryCancel(pbCancel) {
-        result := ComCall(3, this, "char*", pbCancel, "HRESULT")
+        pbCancelMarshal := pbCancel is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbCancelMarshal, pbCancel, "HRESULT")
         return result
     }
 

@@ -35,7 +35,9 @@ class ILastResourceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     TransactionCommitted(pPrepInfo, cbPrepInfo) {
-        result := ComCall(3, this, "char*", pPrepInfo, "uint", cbPrepInfo, "HRESULT")
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "HRESULT")
         return result
     }
 

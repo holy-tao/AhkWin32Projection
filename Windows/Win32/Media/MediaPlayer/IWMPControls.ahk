@@ -102,7 +102,9 @@ class IWMPControls extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentposition
      */
     get_currentPosition(pdCurrentPosition) {
-        result := ComCall(13, this, "double*", pdCurrentPosition, "HRESULT")
+        pdCurrentPositionMarshal := pdCurrentPosition is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pdCurrentPositionMarshal, pdCurrentPosition, "HRESULT")
         return result
     }
 
@@ -177,7 +179,9 @@ class IWMPControls extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentmarker
      */
     get_currentMarker(plMarker) {
-        result := ComCall(20, this, "int*", plMarker, "HRESULT")
+        plMarkerMarshal := plMarker is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plMarkerMarshal, plMarker, "HRESULT")
         return result
     }
 

@@ -48,7 +48,9 @@ class IDXGISwapChain3 extends IDXGISwapChain2{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-checkcolorspacesupport
      */
     CheckColorSpaceSupport(ColorSpace, pColorSpaceSupport) {
-        result := ComCall(37, this, "int", ColorSpace, "uint*", pColorSpaceSupport, "HRESULT")
+        pColorSpaceSupportMarshal := pColorSpaceSupport is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "int", ColorSpace, pColorSpaceSupportMarshal, pColorSpaceSupport, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IDXGISwapChain3 extends IDXGISwapChain2{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-resizebuffers1
      */
     ResizeBuffers1(BufferCount, Width, Height, Format, SwapChainFlags, pCreationNodeMask, ppPresentQueue) {
-        result := ComCall(39, this, "uint", BufferCount, "uint", Width, "uint", Height, "int", Format, "uint", SwapChainFlags, "uint*", pCreationNodeMask, "ptr*", ppPresentQueue, "HRESULT")
+        pCreationNodeMaskMarshal := pCreationNodeMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, "uint", BufferCount, "uint", Width, "uint", Height, "int", Format, "uint", SwapChainFlags, pCreationNodeMaskMarshal, pCreationNodeMask, "ptr*", ppPresentQueue, "HRESULT")
         return result
     }
 }

@@ -39,7 +39,9 @@ class IMPEG2PIDMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-mappid
      */
     MapPID(culPID, pulPID, MediaSampleContent) {
-        result := ComCall(3, this, "uint", culPID, "uint*", pulPID, "int", MediaSampleContent, "HRESULT")
+        pulPIDMarshal := pulPID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", culPID, pulPIDMarshal, pulPID, "int", MediaSampleContent, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IMPEG2PIDMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-unmappid
      */
     UnmapPID(culPID, pulPID) {
-        result := ComCall(4, this, "uint", culPID, "uint*", pulPID, "HRESULT")
+        pulPIDMarshal := pulPID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", culPID, pulPIDMarshal, pulPID, "HRESULT")
         return result
     }
 

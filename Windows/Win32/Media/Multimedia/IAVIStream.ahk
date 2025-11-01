@@ -75,7 +75,9 @@ class IAVIStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-readformat
      */
     ReadFormat(lPos, lpFormat, lpcbFormat) {
-        result := ComCall(6, this, "int", lPos, "ptr", lpFormat, "int*", lpcbFormat, "HRESULT")
+        lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", lPos, "ptr", lpFormat, lpcbFormatMarshal, lpcbFormat, "HRESULT")
         return result
     }
 
@@ -104,7 +106,10 @@ class IAVIStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-read
      */
     Read(lStart, lSamples, lpBuffer, cbBuffer, plBytes, plSamples) {
-        result := ComCall(8, this, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "int*", plBytes, "int*", plSamples, "HRESULT")
+        plBytesMarshal := plBytes is VarRef ? "int*" : "ptr"
+        plSamplesMarshal := plSamples is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "HRESULT")
         return result
     }
 
@@ -121,7 +126,10 @@ class IAVIStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-write
      */
     Write(lStart, lSamples, lpBuffer, cbBuffer, dwFlags, plSampWritten, plBytesWritten) {
-        result := ComCall(9, this, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "uint", dwFlags, "int*", plSampWritten, "int*", plBytesWritten, "HRESULT")
+        plSampWrittenMarshal := plSampWritten is VarRef ? "int*" : "ptr"
+        plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "uint", dwFlags, plSampWrittenMarshal, plSampWritten, plBytesWrittenMarshal, plBytesWritten, "HRESULT")
         return result
     }
 
@@ -146,7 +154,9 @@ class IAVIStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-readdata
      */
     ReadData(fcc, lp, lpcb) {
-        result := ComCall(11, this, "uint", fcc, "ptr", lp, "int*", lpcb, "HRESULT")
+        lpcbMarshal := lpcb is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "uint", fcc, "ptr", lp, lpcbMarshal, lpcb, "HRESULT")
         return result
     }
 

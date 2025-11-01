@@ -64,7 +64,9 @@ class IUPnPDeviceFinder extends IDispatch{
     CreateAsyncFind(bstrTypeURI, dwFlags, punkDeviceFinderCallback, plFindData) {
         bstrTypeURI := bstrTypeURI is String ? BSTR.Alloc(bstrTypeURI).Value : bstrTypeURI
 
-        result := ComCall(8, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr", punkDeviceFinderCallback, "int*", plFindData, "HRESULT")
+        plFindDataMarshal := plFindData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr", punkDeviceFinderCallback, plFindDataMarshal, plFindData, "HRESULT")
         return result
     }
 

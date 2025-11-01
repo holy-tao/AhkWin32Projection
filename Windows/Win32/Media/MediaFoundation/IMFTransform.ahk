@@ -40,7 +40,12 @@ class IMFTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getstreamlimits
      */
     GetStreamLimits(pdwInputMinimum, pdwInputMaximum, pdwOutputMinimum, pdwOutputMaximum) {
-        result := ComCall(3, this, "uint*", pdwInputMinimum, "uint*", pdwInputMaximum, "uint*", pdwOutputMinimum, "uint*", pdwOutputMaximum, "HRESULT")
+        pdwInputMinimumMarshal := pdwInputMinimum is VarRef ? "uint*" : "ptr"
+        pdwInputMaximumMarshal := pdwInputMaximum is VarRef ? "uint*" : "ptr"
+        pdwOutputMinimumMarshal := pdwOutputMinimum is VarRef ? "uint*" : "ptr"
+        pdwOutputMaximumMarshal := pdwOutputMaximum is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwInputMinimumMarshal, pdwInputMinimum, pdwInputMaximumMarshal, pdwInputMaximum, pdwOutputMinimumMarshal, pdwOutputMinimum, pdwOutputMaximumMarshal, pdwOutputMaximum, "HRESULT")
         return result
     }
 
@@ -52,7 +57,10 @@ class IMFTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getstreamcount
      */
     GetStreamCount(pcInputStreams, pcOutputStreams) {
-        result := ComCall(4, this, "uint*", pcInputStreams, "uint*", pcOutputStreams, "HRESULT")
+        pcInputStreamsMarshal := pcInputStreams is VarRef ? "uint*" : "ptr"
+        pcOutputStreamsMarshal := pcOutputStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcInputStreamsMarshal, pcInputStreams, pcOutputStreamsMarshal, pcOutputStreams, "HRESULT")
         return result
     }
 
@@ -66,7 +74,10 @@ class IMFTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getstreamids
      */
     GetStreamIDs(dwInputIDArraySize, pdwInputIDs, dwOutputIDArraySize, pdwOutputIDs) {
-        result := ComCall(5, this, "uint", dwInputIDArraySize, "uint*", pdwInputIDs, "uint", dwOutputIDArraySize, "uint*", pdwOutputIDs, "HRESULT")
+        pdwInputIDsMarshal := pdwInputIDs is VarRef ? "uint*" : "ptr"
+        pdwOutputIDsMarshal := pdwOutputIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwInputIDArraySize, pdwInputIDsMarshal, pdwInputIDs, "uint", dwOutputIDArraySize, pdwOutputIDsMarshal, pdwOutputIDs, "HRESULT")
         return result
     }
 
@@ -148,7 +159,9 @@ class IMFTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-addinputstreams
      */
     AddInputStreams(cStreams, adwStreamIDs) {
-        result := ComCall(12, this, "uint", cStreams, "uint*", adwStreamIDs, "HRESULT")
+        adwStreamIDsMarshal := adwStreamIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", cStreams, adwStreamIDsMarshal, adwStreamIDs, "HRESULT")
         return result
     }
 
@@ -236,7 +249,9 @@ class IMFTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getinputstatus
      */
     GetInputStatus(dwInputStreamID, pdwFlags) {
-        result := ComCall(19, this, "uint", dwInputStreamID, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "uint", dwInputStreamID, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -247,7 +262,9 @@ class IMFTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getoutputstatus
      */
     GetOutputStatus(pdwFlags) {
-        result := ComCall(20, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -310,7 +327,9 @@ class IMFTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-processoutput
      */
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputSamples, pdwStatus) {
-        result := ComCall(25, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSamples, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSamples, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 }

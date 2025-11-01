@@ -2658,7 +2658,9 @@ class Etw {
     static StartTraceW(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StartTraceW", "uint*", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        TraceIdMarshal := TraceId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\StartTraceW", TraceIdMarshal, TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -2828,7 +2830,9 @@ class Etw {
     static StartTraceA(TraceId, InstanceName, Properties) {
         InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-        result := DllCall("ADVAPI32.dll\StartTraceA", "uint*", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
+        TraceIdMarshal := TraceId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\StartTraceA", TraceIdMarshal, TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
     }
 
@@ -3954,7 +3958,9 @@ class Etw {
      * @since windows5.0
      */
     static QueryAllTracesW(PropertyArray, PropertyArrayCount, LoggerCount) {
-        result := DllCall("ADVAPI32.dll\QueryAllTracesW", "ptr*", PropertyArray, "uint", PropertyArrayCount, "uint*", LoggerCount, "uint")
+        LoggerCountMarshal := LoggerCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\QueryAllTracesW", "ptr*", PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, "uint")
         return result
     }
 
@@ -4016,7 +4022,9 @@ class Etw {
      * @since windows5.0
      */
     static QueryAllTracesA(PropertyArray, PropertyArrayCount, LoggerCount) {
-        result := DllCall("ADVAPI32.dll\QueryAllTracesA", "ptr*", PropertyArray, "uint", PropertyArrayCount, "uint*", LoggerCount, "uint")
+        LoggerCountMarshal := LoggerCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\QueryAllTracesA", "ptr*", PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, "uint")
         return result
     }
 
@@ -4615,7 +4623,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static EnumerateTraceGuidsEx(TraceQueryInfoClass, InBuffer, InBufferSize, OutBuffer, OutBufferSize, ReturnLength) {
-        result := DllCall("ADVAPI32.dll\EnumerateTraceGuidsEx", "int", TraceQueryInfoClass, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", ReturnLength, "uint")
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\EnumerateTraceGuidsEx", "int", TraceQueryInfoClass, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, ReturnLengthMarshal, ReturnLength, "uint")
         return result
     }
 
@@ -4771,7 +4781,9 @@ class Etw {
      * @since windows8.0
      */
     static TraceQueryInformation(TraceId, InformationClass, TraceInformation, InformationLength, ReturnLength) {
-        result := DllCall("ADVAPI32.dll\TraceQueryInformation", "uint", TraceId, "int", InformationClass, "ptr", TraceInformation, "uint", InformationLength, "uint*", ReturnLength, "uint")
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\TraceQueryInformation", "uint", TraceId, "int", InformationClass, "ptr", TraceInformation, "uint", InformationLength, ReturnLengthMarshal, ReturnLength, "uint")
         return result
     }
 
@@ -5150,7 +5162,10 @@ class Etw {
         MofImagePath := MofImagePath is String ? StrPtr(MofImagePath) : MofImagePath
         MofResourceName := MofResourceName is String ? StrPtr(MofResourceName) : MofResourceName
 
-        result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", "ptr", RequestAddress, "ptr", RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, "uint*", RegistrationHandle, "uint")
+        RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
+        RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", "ptr", RequestAddress, RequestContextMarshal, RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, "uint")
         return result
     }
 
@@ -5223,7 +5238,10 @@ class Etw {
         MofImagePath := MofImagePath is String ? StrPtr(MofImagePath) : MofImagePath
         MofResourceName := MofResourceName is String ? StrPtr(MofResourceName) : MofResourceName
 
-        result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", "ptr", RequestAddress, "ptr", RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, "uint*", RegistrationHandle, "uint")
+        RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
+        RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", "ptr", RequestAddress, RequestContextMarshal, RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, "uint")
         return result
     }
 
@@ -5275,7 +5293,9 @@ class Etw {
      * @since windows5.1.2600
      */
     static EnumerateTraceGuids(GuidPropertiesArray, PropertyArrayCount, GuidCount) {
-        result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", "ptr*", GuidPropertiesArray, "uint", PropertyArrayCount, "uint*", GuidCount, "uint")
+        GuidCountMarshal := GuidCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", "ptr*", GuidPropertiesArray, "uint", PropertyArrayCount, GuidCountMarshal, GuidCount, "uint")
         return result
     }
 
@@ -5335,9 +5355,11 @@ class Etw {
      * @since windows5.0
      */
     static GetTraceLoggerHandle(Buffer) {
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetTraceLoggerHandle", "ptr", Buffer, "uint")
+        result := DllCall("ADVAPI32.dll\GetTraceLoggerHandle", BufferMarshal, Buffer, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -5700,7 +5722,9 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefrombufferstream
      */
     static OpenTraceFromBufferStream(Options, BufferCompletionCallback, BufferCompletionContext) {
-        result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", "ptr", Options, "ptr", BufferCompletionCallback, "ptr", BufferCompletionContext, "ptr")
+        BufferCompletionContextMarshal := BufferCompletionContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", "ptr", Options, "ptr", BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, "ptr")
         return PROCESSTRACE_HANDLE({Value: result}, True)
     }
 
@@ -5812,7 +5836,11 @@ class Etw {
     static QueryTraceProcessingHandle(ProcessingHandle, InformationClass, InBuffer, InBufferSize, OutBuffer, OutBufferSize, ReturnLength) {
         ProcessingHandle := ProcessingHandle is Win32Handle ? NumGet(ProcessingHandle, "ptr") : ProcessingHandle
 
-        result := DllCall("ADVAPI32.dll\QueryTraceProcessingHandle", "ptr", ProcessingHandle, "int", InformationClass, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", ReturnLength, "uint")
+        InBufferMarshal := InBuffer is VarRef ? "ptr" : "ptr"
+        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : "ptr"
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\QueryTraceProcessingHandle", "ptr", ProcessingHandle, "int", InformationClass, InBufferMarshal, InBuffer, "uint", InBufferSize, OutBufferMarshal, OutBuffer, "uint", OutBufferSize, ReturnLengthMarshal, ReturnLength, "uint")
         return result
     }
 
@@ -6210,7 +6238,9 @@ class Etw {
      * @since windows5.1.2600
      */
     static TraceMessageVa(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, MessageArgList) {
-        result := DllCall("ADVAPI32.dll\TraceMessageVa", "uint", LoggerHandle, "uint", MessageFlags, "ptr", MessageGuid, "ushort", MessageNumber, "char*", MessageArgList, "uint")
+        MessageArgListMarshal := MessageArgList is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\TraceMessageVa", "uint", LoggerHandle, "uint", MessageFlags, "ptr", MessageGuid, "ushort", MessageNumber, MessageArgListMarshal, MessageArgList, "uint")
         return result
     }
 
@@ -6244,7 +6274,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventRegister(ProviderId, EnableCallback, CallbackContext, RegHandle) {
-        result := DllCall("ADVAPI32.dll\EventRegister", "ptr", ProviderId, "ptr", EnableCallback, "ptr", CallbackContext, "ptr", RegHandle, "uint")
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\EventRegister", "ptr", ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, "ptr", RegHandle, "uint")
         return result
     }
 
@@ -6842,7 +6874,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventAccessQuery(Guid, Buffer, BufferSize) {
-        result := DllCall("ADVAPI32.dll\EventAccessQuery", "ptr", Guid, "ptr", Buffer, "uint*", BufferSize, "uint")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\EventAccessQuery", "ptr", Guid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7149,7 +7183,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static TdhGetEventInformation(Event, TdhContextCount, TdhContext, Buffer, BufferSize) {
-        result := DllCall("TDH.dll\TdhGetEventInformation", "ptr", Event, "uint", TdhContextCount, "ptr", TdhContext, "ptr", Buffer, "uint*", BufferSize, "uint")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhGetEventInformation", "ptr", Event, "uint", TdhContextCount, "ptr", TdhContext, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7228,7 +7264,9 @@ class Etw {
     static TdhGetEventMapInformation(pEvent, pMapName, pBuffer, pBufferSize) {
         pMapName := pMapName is String ? StrPtr(pMapName) : pMapName
 
-        result := DllCall("TDH.dll\TdhGetEventMapInformation", "ptr", pEvent, "ptr", pMapName, "ptr", pBuffer, "uint*", pBufferSize, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhGetEventMapInformation", "ptr", pEvent, "ptr", pMapName, "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, "uint")
         return result
     }
 
@@ -7302,7 +7340,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static TdhGetPropertySize(pEvent, TdhContextCount, pTdhContext, PropertyDataCount, pPropertyData, pPropertySize) {
-        result := DllCall("TDH.dll\TdhGetPropertySize", "ptr", pEvent, "uint", TdhContextCount, "ptr", pTdhContext, "uint", PropertyDataCount, "ptr", pPropertyData, "uint*", pPropertySize, "uint")
+        pPropertySizeMarshal := pPropertySize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhGetPropertySize", "ptr", pEvent, "uint", TdhContextCount, "ptr", pTdhContext, "uint", PropertyDataCount, "ptr", pPropertyData, pPropertySizeMarshal, pPropertySize, "uint")
         return result
     }
 
@@ -7428,7 +7468,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static TdhEnumerateProviders(pBuffer, pBufferSize) {
-        result := DllCall("TDH.dll\TdhEnumerateProviders", "ptr", pBuffer, "uint*", pBufferSize, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhEnumerateProviders", "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, "uint")
         return result
     }
 
@@ -7442,7 +7484,9 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhenumerateprovidersfordecodingsource
      */
     static TdhEnumerateProvidersForDecodingSource(filter, buffer, bufferSize, bufferRequired) {
-        result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", "int", filter, "ptr", buffer, "uint", bufferSize, "uint*", bufferRequired, "uint")
+        bufferRequiredMarshal := bufferRequired is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", "int", filter, "ptr", buffer, "uint", bufferSize, bufferRequiredMarshal, bufferRequired, "uint")
         return result
     }
 
@@ -7520,7 +7564,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static TdhQueryProviderFieldInformation(pGuid, EventFieldValue, EventFieldType, pBuffer, pBufferSize) {
-        result := DllCall("TDH.dll\TdhQueryProviderFieldInformation", "ptr", pGuid, "uint", EventFieldValue, "int", EventFieldType, "ptr", pBuffer, "uint*", pBufferSize, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhQueryProviderFieldInformation", "ptr", pGuid, "uint", EventFieldValue, "int", EventFieldType, "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, "uint")
         return result
     }
 
@@ -7597,7 +7643,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static TdhEnumerateProviderFieldInformation(pGuid, EventFieldType, pBuffer, pBufferSize) {
-        result := DllCall("TDH.dll\TdhEnumerateProviderFieldInformation", "ptr", pGuid, "int", EventFieldType, "ptr", pBuffer, "uint*", pBufferSize, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhEnumerateProviderFieldInformation", "ptr", pGuid, "int", EventFieldType, "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, "uint")
         return result
     }
 
@@ -7665,7 +7713,10 @@ class Etw {
      * @since windows6.1
      */
     static TdhEnumerateProviderFilters(Guid, TdhContextCount, TdhContext, FilterCount, Buffer, BufferSize) {
-        result := DllCall("tdh.dll\TdhEnumerateProviderFilters", "ptr", Guid, "uint", TdhContextCount, "ptr", TdhContext, "uint*", FilterCount, "ptr", Buffer, "uint*", BufferSize, "uint")
+        FilterCountMarshal := FilterCount is VarRef ? "uint*" : "ptr"
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tdh.dll\TdhEnumerateProviderFilters", "ptr", Guid, "uint", TdhContextCount, "ptr", TdhContext, FilterCountMarshal, FilterCount, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -7859,7 +7910,10 @@ class Etw {
      * @since windows6.1
      */
     static TdhFormatProperty(EventInfo, MapInfo, PointerSize, PropertyInType, PropertyOutType, PropertyLength, UserDataLength, UserData, BufferSize, Buffer, UserDataConsumed) {
-        result := DllCall("TDH.dll\TdhFormatProperty", "ptr", EventInfo, "ptr", MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", UserData, "uint*", BufferSize, "ptr", Buffer, "ushort*", UserDataConsumed, "uint")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+        UserDataConsumedMarshal := UserDataConsumed is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhFormatProperty", "ptr", EventInfo, "ptr", MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", UserData, BufferSizeMarshal, BufferSize, "ptr", Buffer, UserDataConsumedMarshal, UserDataConsumed, "uint")
         return result
     }
 
@@ -8077,7 +8131,9 @@ class Etw {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
         PropertyName := PropertyName is String ? StrPtr(PropertyName) : PropertyName
 
-        result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, "uint*", BufferSize, "ptr", Buffer, "uint")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -8144,7 +8200,9 @@ class Etw {
     static TdhGetWppMessage(Handle, EventRecord, BufferSize, Buffer) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
-        result := DllCall("tdh.dll\TdhGetWppMessage", "ptr", Handle, "ptr", EventRecord, "uint*", BufferSize, "ptr", Buffer, "uint")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("tdh.dll\TdhGetWppMessage", "ptr", Handle, "ptr", EventRecord, BufferSizeMarshal, BufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -8307,7 +8365,9 @@ class Etw {
      * @since windows8.1
      */
     static TdhEnumerateManifestProviderEvents(ProviderGuid, Buffer, BufferSize) {
-        result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", "ptr", ProviderGuid, "ptr", Buffer, "uint*", BufferSize, "uint")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", "ptr", ProviderGuid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -8384,7 +8444,9 @@ class Etw {
      * @since windows8.1
      */
     static TdhGetManifestEventInformation(ProviderGuid, EventDescriptor, Buffer, BufferSize) {
-        result := DllCall("TDH.dll\TdhGetManifestEventInformation", "ptr", ProviderGuid, "ptr", EventDescriptor, "ptr", Buffer, "uint*", BufferSize, "uint")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TDH.dll\TdhGetManifestEventInformation", "ptr", ProviderGuid, "ptr", EventDescriptor, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 

@@ -34,7 +34,9 @@ class ICanvasPixelArray extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(7, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 }

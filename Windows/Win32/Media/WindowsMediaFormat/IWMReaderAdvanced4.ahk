@@ -38,7 +38,9 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getlanguagecount
      */
     GetLanguageCount(dwOutputNum, pwLanguageCount) {
-        result := ComCall(40, this, "uint", dwOutputNum, "ushort*", pwLanguageCount, "HRESULT")
+        pwLanguageCountMarshal := pwLanguageCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(40, this, "uint", dwOutputNum, pwLanguageCountMarshal, pwLanguageCount, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     GetLanguage(dwOutputNum, wLanguage, pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        result := ComCall(41, this, "uint", dwOutputNum, "ushort", wLanguage, "ptr", pwszLanguageString, "ushort*", pcchLanguageStringLength, "HRESULT")
+        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(41, this, "uint", dwOutputNum, "ushort", wLanguage, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getmaxspeedfactor
      */
     GetMaxSpeedFactor(pdblFactor) {
-        result := ComCall(42, this, "double*", pdblFactor, "HRESULT")
+        pdblFactorMarshal := pdblFactor is VarRef ? "double*" : "ptr"
+
+        result := ComCall(42, this, pdblFactorMarshal, pdblFactor, "HRESULT")
         return result
     }
 
@@ -138,7 +144,9 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     GetURL(pwszURL, pcchURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(48, this, "ptr", pwszURL, "uint*", pcchURL, "HRESULT")
+        pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(48, this, "ptr", pwszURL, pcchURLMarshal, pcchURL, "HRESULT")
         return result
     }
 }

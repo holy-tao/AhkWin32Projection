@@ -46,7 +46,9 @@ class IHostThreadpoolManager extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
      */
     QueueUserWorkItem(Function, Context, Flags) {
-        result := ComCall(3, this, "ptr", Function, "ptr", Context, "uint", Flags, "HRESULT")
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", Function, ContextMarshal, Context, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxThreads(pdwMaxWorkerThreads) {
-        result := ComCall(5, this, "uint*", pdwMaxWorkerThreads, "HRESULT")
+        pdwMaxWorkerThreadsMarshal := pdwMaxWorkerThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwMaxWorkerThreadsMarshal, pdwMaxWorkerThreads, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAvailableThreads(pdwAvailableWorkerThreads) {
-        result := ComCall(6, this, "uint*", pdwAvailableWorkerThreads, "HRESULT")
+        pdwAvailableWorkerThreadsMarshal := pdwAvailableWorkerThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwAvailableWorkerThreadsMarshal, pdwAvailableWorkerThreads, "HRESULT")
         return result
     }
 
@@ -96,7 +102,9 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMinThreads(pdwMinIOCompletionThreads) {
-        result := ComCall(8, this, "uint*", pdwMinIOCompletionThreads, "HRESULT")
+        pdwMinIOCompletionThreadsMarshal := pdwMinIOCompletionThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwMinIOCompletionThreadsMarshal, pdwMinIOCompletionThreads, "HRESULT")
         return result
     }
 }

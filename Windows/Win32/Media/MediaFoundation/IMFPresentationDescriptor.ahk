@@ -49,7 +49,9 @@ class IMFPresentationDescriptor extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationdescriptor-getstreamdescriptorcount
      */
     GetStreamDescriptorCount(pdwDescriptorCount) {
-        result := ComCall(33, this, "uint*", pdwDescriptorCount, "HRESULT")
+        pdwDescriptorCountMarshal := pdwDescriptorCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pdwDescriptorCountMarshal, pdwDescriptorCount, "HRESULT")
         return result
     }
 

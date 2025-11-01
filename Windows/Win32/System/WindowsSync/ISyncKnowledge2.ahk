@@ -69,7 +69,10 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-serializewithoptions
      */
     SerializeWithOptions(targetFormatVersion, dwFlags, pbBuffer, pdwSerializedSize) {
-        result := ComCall(29, this, "int", targetFormatVersion, "uint", dwFlags, "char*", pbBuffer, "uint*", pdwSerializedSize, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
     }
 
@@ -82,7 +85,10 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getlowestuncontainedid
      */
     GetLowestUncontainedId(piSyncKnowledge, pbItemId, pcbItemIdSize) {
-        result := ComCall(30, this, "ptr", piSyncKnowledge, "char*", pbItemId, "uint*", pcbItemIdSize, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "ptr", piSyncKnowledge, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "HRESULT")
         return result
     }
 
@@ -105,7 +111,9 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getminimumsupportedversion
      */
     GetMinimumSupportedVersion(pVersion) {
-        result := ComCall(32, this, "int*", pVersion, "HRESULT")
+        pVersionMarshal := pVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pVersionMarshal, pVersion, "HRESULT")
         return result
     }
 
@@ -117,7 +125,9 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getstatistics
      */
     GetStatistics(which, pValue) {
-        result := ComCall(33, this, "int", which, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "int", which, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -129,7 +139,9 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-containsknowledgeforitem
      */
     ContainsKnowledgeForItem(pKnowledge, pbItemId) {
-        result := ComCall(34, this, "ptr", pKnowledge, "char*", pbItemId, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(34, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, "HRESULT")
         return result
     }
 
@@ -142,7 +154,10 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-containsknowledgeforchangeunit
      */
     ContainsKnowledgeForChangeUnit(pKnowledge, pbItemId, pbChangeUnitId) {
-        result := ComCall(35, this, "ptr", pKnowledge, "char*", pbItemId, "char*", pbChangeUnitId, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(35, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "HRESULT")
         return result
     }
 
@@ -201,7 +216,9 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-comparetoknowledgecookie
      */
     CompareToKnowledgeCookie(pKnowledgeCookie, pResult) {
-        result := ComCall(40, this, "ptr", pKnowledgeCookie, "int*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, "ptr", pKnowledgeCookie, pResultMarshal, pResult, "HRESULT")
         return result
     }
 }

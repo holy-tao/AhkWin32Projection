@@ -48,7 +48,9 @@ class IBackgroundCopyJob1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getprogress
      */
     GetProgress(dwFlags, pdwProgress) {
-        result := ComCall(4, this, "uint", dwFlags, "uint*", pdwProgress, "HRESULT")
+        pdwProgressMarshal := pdwProgress is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwFlags, pdwProgressMarshal, pdwProgress, "HRESULT")
         return result
     }
 
@@ -62,7 +64,12 @@ class IBackgroundCopyJob1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getstatus
      */
     GetStatus(pdwStatus, pdwWin32Result, pdwTransportResult, pdwNumOfRetries) {
-        result := ComCall(5, this, "uint*", pdwStatus, "uint*", pdwWin32Result, "uint*", pdwTransportResult, "uint*", pdwNumOfRetries, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        pdwWin32ResultMarshal := pdwWin32Result is VarRef ? "uint*" : "ptr"
+        pdwTransportResultMarshal := pdwTransportResult is VarRef ? "uint*" : "ptr"
+        pdwNumOfRetriesMarshal := pdwNumOfRetries is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwStatusMarshal, pdwStatus, pdwWin32ResultMarshal, pdwWin32Result, pdwTransportResultMarshal, pdwTransportResult, pdwNumOfRetriesMarshal, pdwNumOfRetries, "HRESULT")
         return result
     }
 
@@ -97,7 +104,9 @@ class IBackgroundCopyJob1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getfilecount
      */
     GetFileCount(pdwFileCount) {
-        result := ComCall(8, this, "uint*", pdwFileCount, "HRESULT")
+        pdwFileCountMarshal := pdwFileCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwFileCountMarshal, pdwFileCount, "HRESULT")
         return result
     }
 

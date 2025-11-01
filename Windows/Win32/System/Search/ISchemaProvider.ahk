@@ -118,7 +118,9 @@ class ISchemaProvider extends IUnknown{
     LookupAuthoredNamedEntity(pEntity, pszInputString, pTokenCollection, cTokensBegin, pcTokensLength, ppszValue) {
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
-        result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, "uint", cTokensBegin, "uint*", pcTokensLength, "ptr", ppszValue, "HRESULT")
+        pcTokensLengthMarshal := pcTokensLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, "uint", cTokensBegin, pcTokensLengthMarshal, pcTokensLength, "ptr", ppszValue, "HRESULT")
         return result
     }
 }

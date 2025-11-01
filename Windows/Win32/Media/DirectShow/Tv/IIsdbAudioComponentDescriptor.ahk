@@ -37,7 +37,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getstreamcontent
      */
     GetStreamContent(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getcomponenttype
      */
     GetComponentType(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +89,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getcomponenttag
      */
     GetComponentTag(pbVal) {
-        result := ComCall(7, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -92,7 +102,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getstreamtype
      */
     GetStreamType(pbVal) {
-        result := ComCall(8, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -103,7 +115,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getsimulcastgrouptag
      */
     GetSimulcastGroupTag(pbVal) {
-        result := ComCall(9, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -136,7 +150,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getqualityindicator
      */
     GetQualityIndicator(pbVal) {
-        result := ComCall(12, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(12, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -147,7 +163,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getsamplingrate
      */
     GetSamplingRate(pbVal) {
-        result := ComCall(13, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -158,7 +176,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getlanguagecode
      */
     GetLanguageCode(pszCode) {
-        result := ComCall(14, this, "char*", pszCode, "HRESULT")
+        pszCodeMarshal := pszCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(14, this, pszCodeMarshal, pszCode, "HRESULT")
         return result
     }
 
@@ -169,7 +189,9 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-getlanguagecode2
      */
     GetLanguageCode2(pszCode) {
-        result := ComCall(15, this, "char*", pszCode, "HRESULT")
+        pszCodeMarshal := pszCode is VarRef ? "char*" : "ptr"
+
+        result := ComCall(15, this, pszCodeMarshal, pszCode, "HRESULT")
         return result
     }
 

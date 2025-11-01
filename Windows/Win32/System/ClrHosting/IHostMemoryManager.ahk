@@ -60,7 +60,9 @@ class IHostMemoryManager extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-virtualalloc
      */
     VirtualAlloc(pAddress, dwSize, flAllocationType, flProtect, eCriticalLevel, ppMem) {
-        result := ComCall(4, this, "ptr", pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "int", eCriticalLevel, "ptr*", ppMem, "HRESULT")
+        pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "int", eCriticalLevel, "ptr*", ppMem, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IHostMemoryManager extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-virtualfree
      */
     VirtualFree(lpAddress, dwSize, dwFreeType) {
-        result := ComCall(5, this, "ptr", lpAddress, "ptr", dwSize, "uint", dwFreeType, "HRESULT")
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", dwFreeType, "HRESULT")
         return result
     }
 
@@ -112,7 +116,11 @@ class IHostMemoryManager extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-virtualquery
      */
     VirtualQuery(lpAddress, lpBuffer, dwLength, pResult) {
-        result := ComCall(6, this, "ptr", lpAddress, "ptr", lpBuffer, "ptr", dwLength, "ptr*", pResult, "HRESULT")
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        pResultMarshal := pResult is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, lpAddressMarshal, lpAddress, lpBufferMarshal, lpBuffer, "ptr", dwLength, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -147,7 +155,10 @@ class IHostMemoryManager extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-virtualprotect
      */
     VirtualProtect(lpAddress, dwSize, flNewProtect, pflOldProtect) {
-        result := ComCall(7, this, "ptr", lpAddress, "ptr", dwSize, "uint", flNewProtect, "uint*", pflOldProtect, "HRESULT")
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+        pflOldProtectMarshal := pflOldProtect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flNewProtect, pflOldProtectMarshal, pflOldProtect, "HRESULT")
         return result
     }
 
@@ -158,7 +169,10 @@ class IHostMemoryManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMemoryLoad(pMemoryLoad, pAvailableBytes) {
-        result := ComCall(8, this, "uint*", pMemoryLoad, "ptr*", pAvailableBytes, "HRESULT")
+        pMemoryLoadMarshal := pMemoryLoad is VarRef ? "uint*" : "ptr"
+        pAvailableBytesMarshal := pAvailableBytes is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, pMemoryLoadMarshal, pMemoryLoad, pAvailableBytesMarshal, pAvailableBytes, "HRESULT")
         return result
     }
 
@@ -179,7 +193,9 @@ class IHostMemoryManager extends IUnknown{
      * @returns {HRESULT} 
      */
     NeedsVirtualAddressSpace(startAddress, size) {
-        result := ComCall(10, this, "ptr", startAddress, "ptr", size, "HRESULT")
+        startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, startAddressMarshal, startAddress, "ptr", size, "HRESULT")
         return result
     }
 
@@ -190,7 +206,9 @@ class IHostMemoryManager extends IUnknown{
      * @returns {HRESULT} 
      */
     AcquiredVirtualAddressSpace(startAddress, size) {
-        result := ComCall(11, this, "ptr", startAddress, "ptr", size, "HRESULT")
+        startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, startAddressMarshal, startAddress, "ptr", size, "HRESULT")
         return result
     }
 
@@ -200,7 +218,9 @@ class IHostMemoryManager extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleasedVirtualAddressSpace(startAddress) {
-        result := ComCall(12, this, "ptr", startAddress, "HRESULT")
+        startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, startAddressMarshal, startAddress, "HRESULT")
         return result
     }
 }

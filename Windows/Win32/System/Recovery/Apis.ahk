@@ -53,7 +53,9 @@ class Recovery {
      * @since windows6.0.6000
      */
     static RegisterApplicationRecoveryCallback(pRecoveyCallback, pvParameter, dwPingInterval, dwFlags) {
-        result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", "ptr", pRecoveyCallback, "ptr", pvParameter, "uint", dwPingInterval, "uint", dwFlags, "int")
+        pvParameterMarshal := pvParameter is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", "ptr", pRecoveyCallback, pvParameterMarshal, pvParameter, "uint", dwPingInterval, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -216,7 +218,10 @@ class Recovery {
     static GetApplicationRecoveryCallback(hProcess, pRecoveryCallback, ppvParameter, pdwPingInterval, pdwFlags) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\GetApplicationRecoveryCallback", "ptr", hProcess, "ptr*", pRecoveryCallback, "ptr*", ppvParameter, "uint*", pdwPingInterval, "uint*", pdwFlags, "int")
+        pdwPingIntervalMarshal := pdwPingInterval is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetApplicationRecoveryCallback", "ptr", hProcess, "ptr*", pRecoveryCallback, "ptr*", ppvParameter, pdwPingIntervalMarshal, pdwPingInterval, pdwFlagsMarshal, pdwFlags, "int")
         return result
     }
 
@@ -280,7 +285,10 @@ class Recovery {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
 
-        result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, "uint*", pcchSize, "uint*", pdwFlags, "int")
+        pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, pcchSizeMarshal, pcchSize, pdwFlagsMarshal, pdwFlags, "int")
         if(result != 0)
             throw OSError(result)
 

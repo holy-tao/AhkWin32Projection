@@ -50,7 +50,9 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     get_startOffset(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     get_endOffset(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -194,7 +198,9 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     compareBoundaryPoints(how, sourceRange, compareResult) {
-        result := ComCall(22, this, "short", how, "ptr", sourceRange, "int*", compareResult, "HRESULT")
+        compareResultMarshal := compareResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "short", how, "ptr", sourceRange, compareResultMarshal, compareResult, "HRESULT")
         return result
     }
 

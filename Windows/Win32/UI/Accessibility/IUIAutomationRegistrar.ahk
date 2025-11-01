@@ -43,7 +43,9 @@ class IUIAutomationRegistrar extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerproperty
      */
     RegisterProperty(property, propertyId) {
-        result := ComCall(3, this, "ptr", property, "int*", propertyId, "HRESULT")
+        propertyIdMarshal := propertyId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", property, propertyIdMarshal, propertyId, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IUIAutomationRegistrar extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerevent
      */
     RegisterEvent(event, eventId) {
-        result := ComCall(4, this, "ptr", event, "int*", eventId, "HRESULT")
+        eventIdMarshal := eventId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", event, eventIdMarshal, eventId, "HRESULT")
         return result
     }
 
@@ -72,7 +76,12 @@ class IUIAutomationRegistrar extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerpattern
      */
     RegisterPattern(pattern, pPatternId, pPatternAvailablePropertyId, propertyIdCount, pPropertyIds, eventIdCount, pEventIds) {
-        result := ComCall(5, this, "ptr", pattern, "int*", pPatternId, "int*", pPatternAvailablePropertyId, "uint", propertyIdCount, "int*", pPropertyIds, "uint", eventIdCount, "int*", pEventIds, "HRESULT")
+        pPatternIdMarshal := pPatternId is VarRef ? "int*" : "ptr"
+        pPatternAvailablePropertyIdMarshal := pPatternAvailablePropertyId is VarRef ? "int*" : "ptr"
+        pPropertyIdsMarshal := pPropertyIds is VarRef ? "int*" : "ptr"
+        pEventIdsMarshal := pEventIds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pattern, pPatternIdMarshal, pPatternId, pPatternAvailablePropertyIdMarshal, pPatternAvailablePropertyId, "uint", propertyIdCount, pPropertyIdsMarshal, pPropertyIds, "uint", eventIdCount, pEventIdsMarshal, pEventIds, "HRESULT")
         return result
     }
 }

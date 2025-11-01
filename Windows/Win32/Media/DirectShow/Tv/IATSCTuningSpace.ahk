@@ -52,7 +52,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_minminorchannel
      */
     get_MinMinorChannel(MinMinorChannelVal) {
-        result := ComCall(34, this, "int*", MinMinorChannelVal, "HRESULT")
+        MinMinorChannelValMarshal := MinMinorChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, MinMinorChannelValMarshal, MinMinorChannelVal, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_maxminorchannel
      */
     get_MaxMinorChannel(MaxMinorChannelVal) {
-        result := ComCall(36, this, "int*", MaxMinorChannelVal, "HRESULT")
+        MaxMinorChannelValMarshal := MaxMinorChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, MaxMinorChannelValMarshal, MaxMinorChannelVal, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_minphysicalchannel
      */
     get_MinPhysicalChannel(MinPhysicalChannelVal) {
-        result := ComCall(38, this, "int*", MinPhysicalChannelVal, "HRESULT")
+        MinPhysicalChannelValMarshal := MinPhysicalChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, MinPhysicalChannelValMarshal, MinPhysicalChannelVal, "HRESULT")
         return result
     }
 
@@ -118,7 +124,9 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-get_maxphysicalchannel
      */
     get_MaxPhysicalChannel(MaxPhysicalChannelVal) {
-        result := ComCall(40, this, "int*", MaxPhysicalChannelVal, "HRESULT")
+        MaxPhysicalChannelValMarshal := MaxPhysicalChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, MaxPhysicalChannelValMarshal, MaxPhysicalChannelVal, "HRESULT")
         return result
     }
 

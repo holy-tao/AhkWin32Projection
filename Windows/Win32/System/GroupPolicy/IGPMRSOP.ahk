@@ -49,7 +49,9 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Mode(pVal) {
-        result := ComCall(7, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LoggingFlags(lVal) {
-        result := ComCall(14, this, "int*", lVal, "HRESULT")
+        lValMarshal := lVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, lValMarshal, lVal, "HRESULT")
         return result
     }
 
@@ -143,7 +147,9 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PlanningFlags(lVal) {
-        result := ComCall(16, this, "int*", lVal, "HRESULT")
+        lValMarshal := lVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, lValMarshal, lVal, "HRESULT")
         return result
     }
 

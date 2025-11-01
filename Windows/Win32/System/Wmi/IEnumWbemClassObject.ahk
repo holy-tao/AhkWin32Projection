@@ -56,7 +56,9 @@ class IEnumWbemClassObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-ienumwbemclassobject-next
      */
     Next(lTimeout, uCount, apObjects, puReturned) {
-        result := ComCall(4, this, "int", lTimeout, "uint", uCount, "ptr*", apObjects, "uint*", puReturned, "int")
+        puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", lTimeout, "uint", uCount, "ptr*", apObjects, puReturnedMarshal, puReturned, "int")
         return result
     }
 

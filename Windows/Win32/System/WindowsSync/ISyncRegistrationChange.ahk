@@ -37,7 +37,9 @@ class ISyncRegistrationChange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncregistrationchange-getevent
      */
     GetEvent(psreEvent) {
-        result := ComCall(3, this, "int*", psreEvent, "HRESULT")
+        psreEventMarshal := psreEvent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, psreEventMarshal, psreEvent, "HRESULT")
         return result
     }
 

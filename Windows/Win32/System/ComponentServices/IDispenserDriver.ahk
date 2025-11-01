@@ -39,7 +39,10 @@ class IDispenserDriver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-createresource
      */
     CreateResource(ResTypId, pResId, pSecsFreeBeforeDestroy) {
-        result := ComCall(3, this, "ptr", ResTypId, "ptr*", pResId, "int*", pSecsFreeBeforeDestroy, "HRESULT")
+        pResIdMarshal := pResId is VarRef ? "ptr*" : "ptr"
+        pSecsFreeBeforeDestroyMarshal := pSecsFreeBeforeDestroy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ResTypId, pResIdMarshal, pResId, pSecsFreeBeforeDestroyMarshal, pSecsFreeBeforeDestroy, "HRESULT")
         return result
     }
 
@@ -53,7 +56,9 @@ class IDispenserDriver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-rateresource
      */
     RateResource(ResTypId, ResId, fRequiresTransactionEnlistment, pRating) {
-        result := ComCall(4, this, "ptr", ResTypId, "ptr", ResId, "int", fRequiresTransactionEnlistment, "uint*", pRating, "HRESULT")
+        pRatingMarshal := pRating is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", ResTypId, "ptr", ResId, "int", fRequiresTransactionEnlistment, pRatingMarshal, pRating, "HRESULT")
         return result
     }
 
@@ -98,7 +103,9 @@ class IDispenserDriver extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-destroyresources
      */
     DestroyResourceS(ResId) {
-        result := ComCall(8, this, "ushort*", ResId, "HRESULT")
+        ResIdMarshal := ResId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, ResIdMarshal, ResId, "HRESULT")
         return result
     }
 }

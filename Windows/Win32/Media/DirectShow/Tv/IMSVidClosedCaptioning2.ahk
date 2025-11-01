@@ -42,7 +42,9 @@ class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning2-get_service
      */
     get_Service(On) {
-        result := ComCall(18, this, "int*", On, "HRESULT")
+        OnMarshal := On is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, OnMarshal, On, "HRESULT")
         return result
     }
 

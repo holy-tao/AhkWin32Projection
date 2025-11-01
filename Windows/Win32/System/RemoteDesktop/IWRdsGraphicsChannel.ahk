@@ -39,7 +39,9 @@ class IWRdsGraphicsChannel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-write
      */
     Write(cbSize, pBuffer, pContext) {
-        result := ComCall(3, this, "uint", cbSize, "char*", pBuffer, "ptr", pContext, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", cbSize, pBufferMarshal, pBuffer, "ptr", pContext, "HRESULT")
         return result
     }
 

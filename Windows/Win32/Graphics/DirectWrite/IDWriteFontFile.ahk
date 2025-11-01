@@ -38,7 +38,9 @@ class IDWriteFontFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfile-getreferencekey
      */
     GetReferenceKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        result := ComCall(3, this, "ptr*", fontFileReferenceKey, "uint*", fontFileReferenceKeySize, "HRESULT")
+        fontFileReferenceKeySizeMarshal := fontFileReferenceKeySize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", fontFileReferenceKey, fontFileReferenceKeySizeMarshal, fontFileReferenceKeySize, "HRESULT")
         return result
     }
 
@@ -63,7 +65,11 @@ class IDWriteFontFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfile-analyze
      */
     Analyze(isSupportedFontType, fontFileType, fontFaceType, numberOfFaces) {
-        result := ComCall(5, this, "ptr", isSupportedFontType, "int*", fontFileType, "int*", fontFaceType, "uint*", numberOfFaces, "HRESULT")
+        fontFileTypeMarshal := fontFileType is VarRef ? "int*" : "ptr"
+        fontFaceTypeMarshal := fontFaceType is VarRef ? "int*" : "ptr"
+        numberOfFacesMarshal := numberOfFaces is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", isSupportedFontType, fontFileTypeMarshal, fontFileType, fontFaceTypeMarshal, fontFaceType, numberOfFacesMarshal, numberOfFaces, "HRESULT")
         return result
     }
 }

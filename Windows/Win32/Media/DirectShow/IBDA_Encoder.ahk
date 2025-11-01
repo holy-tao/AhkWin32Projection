@@ -42,7 +42,10 @@ class IBDA_Encoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-querycapabilities
      */
     QueryCapabilities(NumAudioFmts, NumVideoFmts) {
-        result := ComCall(3, this, "uint*", NumAudioFmts, "uint*", NumVideoFmts, "HRESULT")
+        NumAudioFmtsMarshal := NumAudioFmts is VarRef ? "uint*" : "ptr"
+        NumVideoFmtsMarshal := NumVideoFmts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, NumAudioFmtsMarshal, NumAudioFmts, NumVideoFmtsMarshal, NumVideoFmts, "HRESULT")
         return result
     }
 
@@ -58,7 +61,13 @@ class IBDA_Encoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumaudiocapability
      */
     EnumAudioCapability(FmtIndex, MethodID, AlgorithmType, SamplingRate, BitDepth, NumChannels) {
-        result := ComCall(4, this, "uint", FmtIndex, "uint*", MethodID, "uint*", AlgorithmType, "uint*", SamplingRate, "uint*", BitDepth, "uint*", NumChannels, "HRESULT")
+        MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
+        AlgorithmTypeMarshal := AlgorithmType is VarRef ? "uint*" : "ptr"
+        SamplingRateMarshal := SamplingRate is VarRef ? "uint*" : "ptr"
+        BitDepthMarshal := BitDepth is VarRef ? "uint*" : "ptr"
+        NumChannelsMarshal := NumChannels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", FmtIndex, MethodIDMarshal, MethodID, AlgorithmTypeMarshal, AlgorithmType, SamplingRateMarshal, SamplingRate, BitDepthMarshal, BitDepth, NumChannelsMarshal, NumChannels, "HRESULT")
         return result
     }
 
@@ -76,7 +85,15 @@ class IBDA_Encoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumvideocapability
      */
     EnumVideoCapability(FmtIndex, MethodID, AlgorithmType, VerticalSize, HorizontalSize, AspectRatio, FrameRateCode, ProgressiveSequence) {
-        result := ComCall(5, this, "uint", FmtIndex, "uint*", MethodID, "uint*", AlgorithmType, "uint*", VerticalSize, "uint*", HorizontalSize, "uint*", AspectRatio, "uint*", FrameRateCode, "uint*", ProgressiveSequence, "HRESULT")
+        MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
+        AlgorithmTypeMarshal := AlgorithmType is VarRef ? "uint*" : "ptr"
+        VerticalSizeMarshal := VerticalSize is VarRef ? "uint*" : "ptr"
+        HorizontalSizeMarshal := HorizontalSize is VarRef ? "uint*" : "ptr"
+        AspectRatioMarshal := AspectRatio is VarRef ? "uint*" : "ptr"
+        FrameRateCodeMarshal := FrameRateCode is VarRef ? "uint*" : "ptr"
+        ProgressiveSequenceMarshal := ProgressiveSequence is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", FmtIndex, MethodIDMarshal, MethodID, AlgorithmTypeMarshal, AlgorithmType, VerticalSizeMarshal, VerticalSize, HorizontalSizeMarshal, HorizontalSize, AspectRatioMarshal, AspectRatio, FrameRateCodeMarshal, FrameRateCode, ProgressiveSequenceMarshal, ProgressiveSequence, "HRESULT")
         return result
     }
 
@@ -122,7 +139,26 @@ class IBDA_Encoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-getstate
      */
     GetState(AudioBitrateMax, AudioBitrateMin, AudioBitrateMode, AudioBitrateStepping, AudioBitrate, AudioMethodID, AvailableAudioPrograms, AudioProgram, VideoBitrateMax, VideoBitrateMin, VideoBitrateMode, VideoBitrate, VideoBitrateStepping, VideoMethodID, SignalSourceID, SignalFormat, SignalLock, SignalLevel, SignalToNoiseRatio) {
-        result := ComCall(7, this, "uint*", AudioBitrateMax, "uint*", AudioBitrateMin, "uint*", AudioBitrateMode, "uint*", AudioBitrateStepping, "uint*", AudioBitrate, "uint*", AudioMethodID, "uint*", AvailableAudioPrograms, "uint*", AudioProgram, "uint*", VideoBitrateMax, "uint*", VideoBitrateMin, "uint*", VideoBitrateMode, "uint*", VideoBitrate, "uint*", VideoBitrateStepping, "uint*", VideoMethodID, "uint*", SignalSourceID, "uint*", SignalFormat, "ptr", SignalLock, "int*", SignalLevel, "uint*", SignalToNoiseRatio, "HRESULT")
+        AudioBitrateMaxMarshal := AudioBitrateMax is VarRef ? "uint*" : "ptr"
+        AudioBitrateMinMarshal := AudioBitrateMin is VarRef ? "uint*" : "ptr"
+        AudioBitrateModeMarshal := AudioBitrateMode is VarRef ? "uint*" : "ptr"
+        AudioBitrateSteppingMarshal := AudioBitrateStepping is VarRef ? "uint*" : "ptr"
+        AudioBitrateMarshal := AudioBitrate is VarRef ? "uint*" : "ptr"
+        AudioMethodIDMarshal := AudioMethodID is VarRef ? "uint*" : "ptr"
+        AvailableAudioProgramsMarshal := AvailableAudioPrograms is VarRef ? "uint*" : "ptr"
+        AudioProgramMarshal := AudioProgram is VarRef ? "uint*" : "ptr"
+        VideoBitrateMaxMarshal := VideoBitrateMax is VarRef ? "uint*" : "ptr"
+        VideoBitrateMinMarshal := VideoBitrateMin is VarRef ? "uint*" : "ptr"
+        VideoBitrateModeMarshal := VideoBitrateMode is VarRef ? "uint*" : "ptr"
+        VideoBitrateMarshal := VideoBitrate is VarRef ? "uint*" : "ptr"
+        VideoBitrateSteppingMarshal := VideoBitrateStepping is VarRef ? "uint*" : "ptr"
+        VideoMethodIDMarshal := VideoMethodID is VarRef ? "uint*" : "ptr"
+        SignalSourceIDMarshal := SignalSourceID is VarRef ? "uint*" : "ptr"
+        SignalFormatMarshal := SignalFormat is VarRef ? "uint*" : "ptr"
+        SignalLevelMarshal := SignalLevel is VarRef ? "int*" : "ptr"
+        SignalToNoiseRatioMarshal := SignalToNoiseRatio is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, AudioBitrateMaxMarshal, AudioBitrateMax, AudioBitrateMinMarshal, AudioBitrateMin, AudioBitrateModeMarshal, AudioBitrateMode, AudioBitrateSteppingMarshal, AudioBitrateStepping, AudioBitrateMarshal, AudioBitrate, AudioMethodIDMarshal, AudioMethodID, AvailableAudioProgramsMarshal, AvailableAudioPrograms, AudioProgramMarshal, AudioProgram, VideoBitrateMaxMarshal, VideoBitrateMax, VideoBitrateMinMarshal, VideoBitrateMin, VideoBitrateModeMarshal, VideoBitrateMode, VideoBitrateMarshal, VideoBitrate, VideoBitrateSteppingMarshal, VideoBitrateStepping, VideoMethodIDMarshal, VideoMethodID, SignalSourceIDMarshal, SignalSourceID, SignalFormatMarshal, SignalFormat, "ptr", SignalLock, SignalLevelMarshal, SignalLevel, SignalToNoiseRatioMarshal, SignalToNoiseRatio, "HRESULT")
         return result
     }
 }

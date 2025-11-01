@@ -1161,7 +1161,10 @@ class StructuredStorage {
     static StgConvertVariantToProperty(pvar, CodePage, pprop, pcb, pid, pcIndirect) {
         static fReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("ole32.dll\StgConvertVariantToProperty", "ptr", pvar, "ushort", CodePage, "ptr", pprop, "uint*", pcb, "uint", pid, "char", fReserved, "uint*", pcIndirect, "ptr")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+        pcIndirectMarshal := pcIndirect is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\StgConvertVariantToProperty", "ptr", pvar, "ushort", CodePage, "ptr", pprop, pcbMarshal, pcb, "uint", pid, "char", fReserved, pcIndirectMarshal, pcIndirect, "ptr")
         return result
     }
 
@@ -1230,7 +1233,9 @@ class StructuredStorage {
      * @since windows5.0
      */
     static ReadFmtUserTypeStg(pstg, pcf, lplpszUserType) {
-        result := DllCall("OLE32.dll\ReadFmtUserTypeStg", "ptr", pstg, "ushort*", pcf, "ptr", lplpszUserType, "int")
+        pcfMarshal := pcf is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("OLE32.dll\ReadFmtUserTypeStg", "ptr", pstg, pcfMarshal, pcf, "ptr", lplpszUserType, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1331,7 +1336,12 @@ class StructuredStorage {
      * @since windows5.0
      */
     static OleConvertOLESTREAMToIStorageEx(polestm, pstg, pcfFormat, plwWidth, plHeight, pdwSize, pmedium) {
-        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx", "ptr", polestm, "ptr", pstg, "ushort*", pcfFormat, "int*", plwWidth, "int*", plHeight, "uint*", pdwSize, "ptr", pmedium, "int")
+        pcfFormatMarshal := pcfFormat is VarRef ? "ushort*" : "ptr"
+        plwWidthMarshal := plwWidth is VarRef ? "int*" : "ptr"
+        plHeightMarshal := plHeight is VarRef ? "int*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx", "ptr", polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, "ptr", pmedium, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1579,7 +1589,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromInt16Vector(prgn, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromInt16Vector", "short*", prgn, "uint", cElems, "ptr", ppropvar, "int")
+        prgnMarshal := prgn is VarRef ? "short*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitPropVariantFromInt16Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1604,7 +1616,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromUInt16Vector(prgn, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromUInt16Vector", "ushort*", prgn, "uint", cElems, "ptr", ppropvar, "int")
+        prgnMarshal := prgn is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitPropVariantFromUInt16Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1629,7 +1643,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromInt32Vector(prgn, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromInt32Vector", "int*", prgn, "uint", cElems, "ptr", ppropvar, "int")
+        prgnMarshal := prgn is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitPropVariantFromInt32Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1654,7 +1670,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromUInt32Vector(prgn, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromUInt32Vector", "uint*", prgn, "uint", cElems, "ptr", ppropvar, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitPropVariantFromUInt32Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1679,7 +1697,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromInt64Vector(prgn, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromInt64Vector", "int64*", prgn, "uint", cElems, "ptr", ppropvar, "int")
+        prgnMarshal := prgn is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitPropVariantFromInt64Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1704,7 +1724,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromUInt64Vector(prgn, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromUInt64Vector", "uint*", prgn, "uint", cElems, "ptr", ppropvar, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitPropVariantFromUInt64Vector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1729,7 +1751,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromDoubleVector(prgn, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromDoubleVector", "double*", prgn, "uint", cElems, "ptr", ppropvar, "int")
+        prgnMarshal := prgn is VarRef ? "double*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\InitPropVariantFromDoubleVector", prgnMarshal, prgn, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2020,7 +2044,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt16(propvarIn, piRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt16", "ptr", propvarIn, "short*", piRet, "int")
+        piRetMarshal := piRet is VarRef ? "short*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt16", "ptr", propvarIn, piRetMarshal, piRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2042,7 +2068,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt16(propvarIn, puiRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt16", "ptr", propvarIn, "ushort*", puiRet, "int")
+        puiRetMarshal := puiRet is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt16", "ptr", propvarIn, puiRetMarshal, puiRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2064,7 +2092,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt32(propvarIn, plRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt32", "ptr", propvarIn, "int*", plRet, "int")
+        plRetMarshal := plRet is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt32", "ptr", propvarIn, plRetMarshal, plRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2086,7 +2116,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt32(propvarIn, pulRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt32", "ptr", propvarIn, "uint*", pulRet, "int")
+        pulRetMarshal := pulRet is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt32", "ptr", propvarIn, pulRetMarshal, pulRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2108,7 +2140,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt64(propvarIn, pllRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt64", "ptr", propvarIn, "int64*", pllRet, "int")
+        pllRetMarshal := pllRet is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt64", "ptr", propvarIn, pllRetMarshal, pllRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2130,7 +2164,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt64(propvarIn, pullRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt64", "ptr", propvarIn, "uint*", pullRet, "int")
+        pullRetMarshal := pullRet is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt64", "ptr", propvarIn, pullRetMarshal, pullRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2152,7 +2188,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToDouble(propvarIn, pdblRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToDouble", "ptr", propvarIn, "double*", pdblRet, "int")
+        pdblRetMarshal := pdblRet is VarRef ? "double*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToDouble", "ptr", propvarIn, pdblRetMarshal, pdblRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2460,7 +2498,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToBooleanVector(propvar, prgf, crgf, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToBooleanVector", "ptr", propvar, "ptr", prgf, "uint", crgf, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToBooleanVector", "ptr", propvar, "ptr", prgf, "uint", crgf, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2528,7 +2568,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt16Vector(propvar, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt16Vector", "ptr", propvar, "short*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "short*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt16Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2596,7 +2639,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt16Vector(propvar, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt16Vector", "ptr", propvar, "ushort*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "ushort*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt16Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2664,7 +2710,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt32Vector(propvar, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt32Vector", "ptr", propvar, "int*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "int*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt32Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2732,7 +2781,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt32Vector(propvar, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt32Vector", "ptr", propvar, "uint*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt32Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2800,7 +2852,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt64Vector(propvar, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt64Vector", "ptr", propvar, "int64*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "int64*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt64Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2868,7 +2923,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt64Vector(propvar, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt64Vector", "ptr", propvar, "uint*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt64Vector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2896,7 +2954,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToDoubleVector(propvar, prgn, crgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToDoubleVector", "ptr", propvar, "double*", prgn, "uint", crgn, "uint*", pcElem, "int")
+        prgnMarshal := prgn is VarRef ? "double*" : "ptr"
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToDoubleVector", "ptr", propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2964,7 +3025,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToFileTimeVector(propvar, prgft, crgft, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToFileTimeVector", "ptr", propvar, "ptr", prgft, "uint", crgft, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToFileTimeVector", "ptr", propvar, "ptr", prgft, "uint", crgft, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3032,7 +3095,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToStringVector(propvar, prgsz, crgsz, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToStringVector", "ptr", propvar, "ptr", prgsz, "uint", crgsz, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToStringVector", "ptr", propvar, "ptr", prgsz, "uint", crgsz, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3086,7 +3151,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToBooleanVectorAlloc(propvar, pprgf, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToBooleanVectorAlloc", "ptr", propvar, "ptr*", pprgf, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToBooleanVectorAlloc", "ptr", propvar, "ptr*", pprgf, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3140,7 +3207,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt16VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt16VectorAlloc", "ptr", propvar, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt16VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3194,7 +3263,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt16VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt16VectorAlloc", "ptr", propvar, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt16VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3248,7 +3319,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt32VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt32VectorAlloc", "ptr", propvar, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt32VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3302,7 +3375,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt32VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt32VectorAlloc", "ptr", propvar, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt32VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3356,7 +3431,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt64VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt64VectorAlloc", "ptr", propvar, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToInt64VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3410,7 +3487,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt64VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt64VectorAlloc", "ptr", propvar, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToUInt64VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3435,7 +3514,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToDoubleVectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToDoubleVectorAlloc", "ptr", propvar, "ptr*", pprgn, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToDoubleVectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3489,7 +3570,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToFileTimeVectorAlloc(propvar, pprgft, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToFileTimeVectorAlloc", "ptr", propvar, "ptr*", pprgft, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToFileTimeVectorAlloc", "ptr", propvar, "ptr*", pprgft, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3543,7 +3626,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToStringVectorAlloc(propvar, pprgsz, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToStringVectorAlloc", "ptr", propvar, "ptr*", pprgsz, "uint*", pcElem, "int")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToStringVectorAlloc", "ptr", propvar, "ptr*", pprgsz, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3593,7 +3678,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetInt16Elem(propvar, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetInt16Elem", "ptr", propvar, "uint", iElem, "short*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "short*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantGetInt16Elem", "ptr", propvar, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3618,7 +3705,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetUInt16Elem(propvar, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetUInt16Elem", "ptr", propvar, "uint", iElem, "ushort*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantGetUInt16Elem", "ptr", propvar, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3643,7 +3732,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetInt32Elem(propvar, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetInt32Elem", "ptr", propvar, "uint", iElem, "int*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantGetInt32Elem", "ptr", propvar, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3668,7 +3759,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetUInt32Elem(propvar, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetUInt32Elem", "ptr", propvar, "uint", iElem, "uint*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantGetUInt32Elem", "ptr", propvar, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3693,7 +3786,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetInt64Elem(propvar, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetInt64Elem", "ptr", propvar, "uint", iElem, "int64*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantGetInt64Elem", "ptr", propvar, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3718,7 +3813,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetUInt64Elem(propvar, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetUInt64Elem", "ptr", propvar, "uint", iElem, "uint*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantGetUInt64Elem", "ptr", propvar, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3743,7 +3840,9 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetDoubleElem(propvar, iElem, pnVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetDoubleElem", "ptr", propvar, "uint", iElem, "double*", pnVal, "int")
+        pnValMarshal := pnVal is VarRef ? "double*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantGetDoubleElem", "ptr", propvar, "uint", iElem, pnValMarshal, pnVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3927,7 +4026,9 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgSerializePropVariant(ppropvar, ppProp, pcb) {
-        result := DllCall("PROPSYS.dll\StgSerializePropVariant", "ptr", ppropvar, "ptr*", ppProp, "uint*", pcb, "int")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\StgSerializePropVariant", "ptr", ppropvar, "ptr*", ppProp, pcbMarshal, pcb, "int")
         if(result != 0)
             throw OSError(result)
 

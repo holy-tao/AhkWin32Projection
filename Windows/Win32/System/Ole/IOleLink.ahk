@@ -48,7 +48,9 @@ class IOleLink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-getupdateoptions
      */
     GetUpdateOptions(pdwUpdateOpt) {
-        result := ComCall(4, this, "uint*", pdwUpdateOpt, "HRESULT")
+        pdwUpdateOptMarshal := pdwUpdateOpt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwUpdateOptMarshal, pdwUpdateOpt, "HRESULT")
         return result
     }
 

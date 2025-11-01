@@ -55,7 +55,9 @@ class IEVRFilterConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrfilterconfig-getnumberofstreams
      */
     GetNumberOfStreams(pdwMaxStreams) {
-        result := ComCall(4, this, "uint*", pdwMaxStreams, "HRESULT")
+        pdwMaxStreamsMarshal := pdwMaxStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwMaxStreamsMarshal, pdwMaxStreams, "HRESULT")
         return result
     }
 }

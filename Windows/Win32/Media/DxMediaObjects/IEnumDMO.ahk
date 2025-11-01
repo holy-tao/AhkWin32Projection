@@ -40,7 +40,9 @@ class IEnumDMO extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-ienumdmo-next
      */
     Next(cItemsToFetch, pCLSID, Names, pcItemsFetched) {
-        result := ComCall(3, this, "uint", cItemsToFetch, "ptr", pCLSID, "ptr", Names, "uint*", pcItemsFetched, "HRESULT")
+        pcItemsFetchedMarshal := pcItemsFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cItemsToFetch, "ptr", pCLSID, "ptr", Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
         return result
     }
 

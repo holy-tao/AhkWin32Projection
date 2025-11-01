@@ -72,7 +72,9 @@ class IWMPCore extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_openstate
      */
     get_openState(pwmpos) {
-        result := ComCall(10, this, "int*", pwmpos, "HRESULT")
+        pwmposMarshal := pwmpos is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pwmposMarshal, pwmpos, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class IWMPCore extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_playstate
      */
     get_playState(pwmpps) {
-        result := ComCall(11, this, "int*", pwmpps, "HRESULT")
+        pwmppsMarshal := pwmpps is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pwmppsMarshal, pwmpps, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class IMemoryData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-imemorydata-setbuffer
      */
     SetBuffer(cbSize, pbData, dwFlags) {
-        result := ComCall(3, this, "uint", cbSize, "char*", pbData, "uint", dwFlags, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", cbSize, pbDataMarshal, pbData, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -52,7 +54,10 @@ class IMemoryData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-imemorydata-getinfo
      */
     GetInfo(pdwLength, ppbData, pcbActualData) {
-        result := ComCall(4, this, "uint*", pdwLength, "ptr*", ppbData, "uint*", pcbActualData, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        pcbActualDataMarshal := pcbActualData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwLengthMarshal, pdwLength, "ptr*", ppbData, pcbActualDataMarshal, pcbActualData, "HRESULT")
         return result
     }
 

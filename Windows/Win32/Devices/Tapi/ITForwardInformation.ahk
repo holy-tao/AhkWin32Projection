@@ -49,7 +49,9 @@ class ITForwardInformation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-get_numringsnoanswer
      */
     get_NumRingsNoAnswer(plNumRings) {
-        result := ComCall(8, this, "int*", plNumRings, "HRESULT")
+        plNumRingsMarshal := plNumRings is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plNumRingsMarshal, plNumRings, "HRESULT")
         return result
     }
 

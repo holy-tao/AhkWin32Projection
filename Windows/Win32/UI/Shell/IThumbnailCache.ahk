@@ -57,7 +57,9 @@ class IThumbnailCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnail
      */
     GetThumbnail(pShellItem, cxyRequestedThumbSize, flags, ppvThumb, pOutFlags, pThumbnailID) {
-        result := ComCall(3, this, "ptr", pShellItem, "uint", cxyRequestedThumbSize, "int", flags, "ptr*", ppvThumb, "int*", pOutFlags, "ptr", pThumbnailID, "HRESULT")
+        pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pShellItem, "uint", cxyRequestedThumbSize, "int", flags, "ptr*", ppvThumb, pOutFlagsMarshal, pOutFlags, "ptr", pThumbnailID, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IThumbnailCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnailbyid
      */
     GetThumbnailByID(thumbnailID, cxyRequestedThumbSize, ppvThumb, pOutFlags) {
-        result := ComCall(4, this, "ptr", thumbnailID, "uint", cxyRequestedThumbSize, "ptr*", ppvThumb, "int*", pOutFlags, "HRESULT")
+        pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", thumbnailID, "uint", cxyRequestedThumbSize, "ptr*", ppvThumb, pOutFlagsMarshal, pOutFlags, "HRESULT")
         return result
     }
 }

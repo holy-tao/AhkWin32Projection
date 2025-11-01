@@ -123,7 +123,9 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getspreadmethod
      */
     GetSpreadMethod(spreadMethod) {
-        result := ComCall(13, this, "int*", spreadMethod, "HRESULT")
+        spreadMethodMarshal := spreadMethod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, spreadMethodMarshal, spreadMethod, "HRESULT")
         return result
     }
 
@@ -145,7 +147,9 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getcolorinterpolationmode
      */
     GetColorInterpolationMode(colorInterpolationMode) {
-        result := ComCall(15, this, "int*", colorInterpolationMode, "HRESULT")
+        colorInterpolationModeMarshal := colorInterpolationMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, colorInterpolationModeMarshal, colorInterpolationMode, "HRESULT")
         return result
     }
 

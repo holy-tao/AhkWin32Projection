@@ -34,7 +34,9 @@ class IRTCClientEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EventType(penEventType) {
-        result := ComCall(7, this, "int*", penEventType, "HRESULT")
+        penEventTypeMarshal := penEventType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, penEventTypeMarshal, penEventType, "HRESULT")
         return result
     }
 

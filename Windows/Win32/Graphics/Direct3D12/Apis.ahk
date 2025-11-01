@@ -2624,7 +2624,10 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12enableexperimentalfeatures
      */
     static D3D12EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs, pConfigurationStructSizes) {
-        result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", "uint", NumFeatures, "ptr", pIIDs, "ptr", pConfigurationStructs, "uint*", pConfigurationStructSizes, "int")
+        pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
+        pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", "uint", NumFeatures, "ptr", pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -40,7 +40,10 @@ class IAMWMBufferPassCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iamwmbufferpasscallback-notify
      */
     Notify(pNSSBuffer3, pPin, prtStart, prtEnd) {
-        result := ComCall(3, this, "ptr", pNSSBuffer3, "ptr", pPin, "int64*", prtStart, "int64*", prtEnd, "HRESULT")
+        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
+        prtEndMarshal := prtEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pNSSBuffer3, "ptr", pPin, prtStartMarshal, prtStart, prtEndMarshal, prtEnd, "HRESULT")
         return result
     }
 }

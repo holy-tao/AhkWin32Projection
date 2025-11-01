@@ -55,7 +55,9 @@ class IWbemQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
     SetLanguageFeatures(uFlags, uArraySize, puFeatures) {
-        result := ComCall(4, this, "uint", uFlags, "uint", uArraySize, "uint*", puFeatures, "HRESULT")
+        puFeaturesMarshal := puFeatures is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", uFlags, "uint", uArraySize, puFeaturesMarshal, puFeatures, "HRESULT")
         return result
     }
 
@@ -68,7 +70,10 @@ class IWbemQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
     TestLanguageFeatures(uFlags, uArraySize, puFeatures) {
-        result := ComCall(5, this, "uint", uFlags, "uint*", uArraySize, "uint*", puFeatures, "HRESULT")
+        uArraySizeMarshal := uArraySize is VarRef ? "uint*" : "ptr"
+        puFeaturesMarshal := puFeatures is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", uFlags, uArraySizeMarshal, uArraySize, puFeaturesMarshal, puFeatures, "HRESULT")
         return result
     }
 
@@ -108,7 +113,9 @@ class IWbemQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbemquery-freememory
      */
     FreeMemory(pMem) {
-        result := ComCall(8, this, "ptr", pMem, "HRESULT")
+        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, pMemMarshal, pMem, "HRESULT")
         return result
     }
 
@@ -122,7 +129,9 @@ class IWbemQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
     GetQueryInfo(uAnalysisType, uInfoId, uBufSize, pDestBuf) {
-        result := ComCall(9, this, "uint", uAnalysisType, "uint", uInfoId, "uint", uBufSize, "ptr", pDestBuf, "HRESULT")
+        pDestBufMarshal := pDestBuf is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "uint", uAnalysisType, "uint", uInfoId, "uint", uBufSize, pDestBufMarshal, pDestBuf, "HRESULT")
         return result
     }
 }

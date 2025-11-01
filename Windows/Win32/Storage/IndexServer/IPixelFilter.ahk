@@ -45,7 +45,9 @@ class IPixelFilter extends IFilter{
      * @returns {HRESULT} 
      */
     GetPixelsForImage(pixelBufferLength, pixelBuffer) {
-        result := ComCall(9, this, "uint*", pixelBufferLength, "ptr*", pixelBuffer, "HRESULT")
+        pixelBufferLengthMarshal := pixelBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pixelBufferLengthMarshal, pixelBufferLength, "ptr*", pixelBuffer, "HRESULT")
         return result
     }
 }

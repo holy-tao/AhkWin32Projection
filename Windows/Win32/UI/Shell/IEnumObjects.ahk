@@ -40,7 +40,9 @@ class IEnumObjects extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumobjects-next
      */
     Next(celt, riid, rgelt, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", riid, "ptr*", rgelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", riid, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

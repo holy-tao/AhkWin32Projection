@@ -39,7 +39,9 @@ class IMFSequencerSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-appendtopology
      */
     AppendTopology(pTopology, dwFlags, pdwId) {
-        result := ComCall(3, this, "ptr", pTopology, "uint", dwFlags, "uint*", pdwId, "HRESULT")
+        pdwIdMarshal := pdwId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pTopology, "uint", dwFlags, pdwIdMarshal, pdwId, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IMFSequencerSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-getpresentationcontext
      */
     GetPresentationContext(pPD, pId, ppTopology) {
-        result := ComCall(5, this, "ptr", pPD, "uint*", pId, "ptr*", ppTopology, "HRESULT")
+        pIdMarshal := pId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pPD, pIdMarshal, pId, "ptr*", ppTopology, "HRESULT")
         return result
     }
 

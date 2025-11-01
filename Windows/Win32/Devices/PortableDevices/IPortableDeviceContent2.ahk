@@ -42,7 +42,9 @@ class IPortableDeviceContent2 extends IPortableDeviceContent{
     UpdateObjectWithPropertiesAndData(pszObjectID, pProperties, ppData, pdwOptimalWriteBufferSize) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(13, this, "ptr", pszObjectID, "ptr", pProperties, "ptr*", ppData, "uint*", pdwOptimalWriteBufferSize, "HRESULT")
+        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pszObjectID, "ptr", pProperties, "ptr*", ppData, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "HRESULT")
         return result
     }
 }

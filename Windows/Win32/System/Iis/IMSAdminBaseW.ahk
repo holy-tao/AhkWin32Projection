@@ -141,7 +141,9 @@ class IMSAdminBaseW extends IUnknown{
     GetData(hMDHandle, pszMDPath, pmdrMDData, pdwMDRequiredDataLen) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(10, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "uint*", pdwMDRequiredDataLen, "HRESULT")
+        pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
@@ -172,7 +174,9 @@ class IMSAdminBaseW extends IUnknown{
     EnumData(hMDHandle, pszMDPath, pmdrMDData, dwMDEnumDataIndex, pdwMDRequiredDataLen) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(12, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "uint", dwMDEnumDataIndex, "uint*", pdwMDRequiredDataLen, "HRESULT")
+        pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "uint", dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
@@ -193,7 +197,12 @@ class IMSAdminBaseW extends IUnknown{
     GetAllData(hMDHandle, pszMDPath, dwMDAttributes, dwMDUserType, dwMDDataType, pdwMDNumDataEntries, pdwMDDataSetNumber, dwMDBufferSize, pbMDBuffer, pdwMDRequiredBufferSize) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(13, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, "uint*", pdwMDNumDataEntries, "uint*", pdwMDDataSetNumber, "uint", dwMDBufferSize, "char*", pbMDBuffer, "uint*", pdwMDRequiredBufferSize, "HRESULT")
+        pdwMDNumDataEntriesMarshal := pdwMDNumDataEntries is VarRef ? "uint*" : "ptr"
+        pdwMDDataSetNumberMarshal := pdwMDDataSetNumber is VarRef ? "uint*" : "ptr"
+        pbMDBufferMarshal := pbMDBuffer is VarRef ? "char*" : "ptr"
+        pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, pdwMDNumDataEntriesMarshal, pdwMDNumDataEntries, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, "uint", dwMDBufferSize, pbMDBufferMarshal, pbMDBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
         return result
     }
 
@@ -247,7 +256,9 @@ class IMSAdminBaseW extends IUnknown{
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(16, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", pdwMDRequiredBufferSize, "HRESULT")
+        pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "uint", dwMDBufferSize, "ptr", pszBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
         return result
     }
 
@@ -263,7 +274,9 @@ class IMSAdminBaseW extends IUnknown{
     OpenKey(hMDHandle, pszMDPath, dwMDAccessRequested, dwMDTimeOut, phMDNewHandle) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(17, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAccessRequested, "uint", dwMDTimeOut, "uint*", phMDNewHandle, "HRESULT")
+        phMDNewHandleMarshal := phMDNewHandle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAccessRequested, "uint", dwMDTimeOut, phMDNewHandleMarshal, phMDNewHandle, "HRESULT")
         return result
     }
 
@@ -315,7 +328,9 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSystemChangeNumber(pdwSystemChangeNumber) {
-        result := ComCall(22, this, "uint*", pdwSystemChangeNumber, "HRESULT")
+        pdwSystemChangeNumberMarshal := pdwSystemChangeNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pdwSystemChangeNumberMarshal, pdwSystemChangeNumber, "HRESULT")
         return result
     }
 
@@ -329,7 +344,9 @@ class IMSAdminBaseW extends IUnknown{
     GetDataSetNumber(hMDHandle, pszMDPath, pdwMDDataSetNumber) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(23, this, "uint", hMDHandle, "ptr", pszMDPath, "uint*", pdwMDDataSetNumber, "HRESULT")
+        pdwMDDataSetNumberMarshal := pdwMDDataSetNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "uint", hMDHandle, "ptr", pszMDPath, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, "HRESULT")
         return result
     }
 
@@ -420,7 +437,9 @@ class IMSAdminBaseW extends IUnknown{
     EnumBackups(pszMDBackupLocation, pdwMDVersion, pftMDBackupTime, dwMDEnumIndex) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(30, this, "ptr", pszMDBackupLocation, "uint*", pdwMDVersion, "ptr", pftMDBackupTime, "uint", dwMDEnumIndex, "HRESULT")
+        pdwMDVersionMarshal := pdwMDVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, "ptr", pftMDBackupTime, "uint", dwMDEnumIndex, "HRESULT")
         return result
     }
 

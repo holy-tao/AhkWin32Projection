@@ -54,7 +54,9 @@ class IRTCMessagingEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EventType(penEventType) {
-        result := ComCall(9, this, "int*", penEventType, "HRESULT")
+        penEventTypeMarshal := penEventType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, penEventTypeMarshal, penEventType, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class IRTCMessagingEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UserStatus(penUserStatus) {
-        result := ComCall(12, this, "int*", penUserStatus, "HRESULT")
+        penUserStatusMarshal := penUserStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, penUserStatusMarshal, penUserStatus, "HRESULT")
         return result
     }
 }

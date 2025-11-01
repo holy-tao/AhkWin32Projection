@@ -50,7 +50,9 @@ class IFhTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getnumericalproperty
      */
     GetNumericalProperty(PropertyType, PropertyValue) {
-        result := ComCall(4, this, "int", PropertyType, "uint*", PropertyValue, "HRESULT")
+        PropertyValueMarshal := PropertyValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", PropertyType, PropertyValueMarshal, PropertyValue, "HRESULT")
         return result
     }
 }

@@ -73,7 +73,9 @@ class ICertRequest3 extends ICertRequest2{
         strRequestId := strRequestId is String ? BSTR.Alloc(strRequestId).Value : strRequestId
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(22, this, "ptr", strConfig, "ptr", strRequestId, "ptr", strSerialNumber, "uint*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "ptr", strConfig, "ptr", strRequestId, "ptr", strSerialNumber, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 

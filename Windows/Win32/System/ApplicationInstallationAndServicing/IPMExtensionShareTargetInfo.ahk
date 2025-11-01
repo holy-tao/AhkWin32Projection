@@ -35,7 +35,9 @@ class IPMExtensionShareTargetInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AllFileTypes(pcTypes, ppTypes) {
-        result := ComCall(3, this, "uint*", pcTypes, "ptr*", ppTypes, "HRESULT")
+        pcTypesMarshal := pcTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcTypesMarshal, pcTypes, "ptr*", ppTypes, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class IPMExtensionShareTargetInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AllDataFormats(pcDataFormats, ppDataFormats) {
-        result := ComCall(4, this, "uint*", pcDataFormats, "ptr*", ppDataFormats, "HRESULT")
+        pcDataFormatsMarshal := pcDataFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcDataFormatsMarshal, pcDataFormats, "ptr*", ppDataFormats, "HRESULT")
         return result
     }
 

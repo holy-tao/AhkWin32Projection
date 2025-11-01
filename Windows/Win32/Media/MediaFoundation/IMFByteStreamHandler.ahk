@@ -63,7 +63,9 @@ class IMFByteStreamHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamhandler-endcreateobject
      */
     EndCreateObject(pResult, pObjectType, ppObject) {
-        result := ComCall(4, this, "ptr", pResult, "int*", pObjectType, "ptr*", ppObject, "HRESULT")
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, "ptr*", ppObject, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IMFByteStreamHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamhandler-getmaxnumberofbytesrequiredforresolution
      */
     GetMaxNumberOfBytesRequiredForResolution(pqwBytes) {
-        result := ComCall(6, this, "uint*", pqwBytes, "HRESULT")
+        pqwBytesMarshal := pqwBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pqwBytesMarshal, pqwBytes, "HRESULT")
         return result
     }
 }

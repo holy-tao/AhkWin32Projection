@@ -136,7 +136,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastWriteTime(lastWrite) {
-        result := ComCall(16, this, "double*", lastWrite, "HRESULT")
+        lastWriteMarshal := lastWrite is VarRef ? "double*" : "ptr"
+
+        result := ComCall(16, this, lastWriteMarshal, lastWrite, "HRESULT")
         return result
     }
 
@@ -182,7 +184,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SyncSetting(syncSetting) {
-        result := ComCall(21, this, "int*", syncSetting, "HRESULT")
+        syncSettingMarshal := syncSetting is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, syncSettingMarshal, syncSetting, "HRESULT")
         return result
     }
 
@@ -202,7 +206,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Interval(minutes) {
-        result := ComCall(23, this, "int*", minutes, "HRESULT")
+        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, minutesMarshal, minutes, "HRESULT")
         return result
     }
 
@@ -222,7 +228,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastDownloadTime(lastDownload) {
-        result := ComCall(25, this, "double*", lastDownload, "HRESULT")
+        lastDownloadMarshal := lastDownload is VarRef ? "double*" : "ptr"
+
+        result := ComCall(25, this, lastDownloadMarshal, lastDownload, "HRESULT")
         return result
     }
 
@@ -303,7 +311,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastBuildDate(lastBuildDate) {
-        result := ComCall(33, this, "double*", lastBuildDate, "HRESULT")
+        lastBuildDateMarshal := lastBuildDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(33, this, lastBuildDateMarshal, lastBuildDate, "HRESULT")
         return result
     }
 
@@ -313,7 +323,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PubDate(lastPopulateDate) {
-        result := ComCall(34, this, "double*", lastPopulateDate, "HRESULT")
+        lastPopulateDateMarshal := lastPopulateDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(34, this, lastPopulateDateMarshal, lastPopulateDate, "HRESULT")
         return result
     }
 
@@ -323,7 +335,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Ttl(ttl) {
-        result := ComCall(35, this, "int*", ttl, "HRESULT")
+        ttlMarshal := ttl is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, ttlMarshal, ttl, "HRESULT")
         return result
     }
 
@@ -353,7 +367,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MaxItemCount(count) {
-        result := ComCall(38, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -393,7 +409,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DownloadStatus(status) {
-        result := ComCall(42, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, statusMarshal, status, "HRESULT")
         return result
     }
 
@@ -403,7 +421,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastDownloadError(error) {
-        result := ComCall(43, this, "int*", error, "HRESULT")
+        errorMarshal := error is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, errorMarshal, error, "HRESULT")
         return result
     }
 
@@ -468,7 +488,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_UnreadItemCount(count) {
-        result := ComCall(49, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(49, this, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -478,7 +500,9 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ItemCount(count) {
-        result := ComCall(50, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(50, this, countMarshal, count, "HRESULT")
         return result
     }
 }

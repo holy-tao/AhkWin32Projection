@@ -50,7 +50,9 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-next
      */
     Next(ulCount, rgInfo, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", rgInfo, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", rgInfo, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

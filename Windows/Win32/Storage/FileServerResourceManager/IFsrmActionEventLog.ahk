@@ -48,7 +48,9 @@ class IFsrmActionEventLog extends IFsrmAction{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype
      */
     get_EventType(eventType) {
-        result := ComCall(12, this, "int*", eventType, "HRESULT")
+        eventTypeMarshal := eventType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, eventTypeMarshal, eventType, "HRESULT")
         return result
     }
 

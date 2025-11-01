@@ -37,7 +37,9 @@ class ICrmFormatLogRecords extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmformatlogrecords-getcolumncount
      */
     GetColumnCount(plColumnCount) {
-        result := ComCall(3, this, "int*", plColumnCount, "HRESULT")
+        plColumnCountMarshal := plColumnCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plColumnCountMarshal, plColumnCount, "HRESULT")
         return result
     }
 

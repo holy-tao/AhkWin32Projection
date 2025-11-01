@@ -45,7 +45,10 @@ class ICallIndirect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-callindirect
      */
     CallIndirect(phrReturn, iMethod, pvArgs, cbArgs) {
-        result := ComCall(3, this, "ptr", phrReturn, "uint", iMethod, "ptr", pvArgs, "uint*", cbArgs, "HRESULT")
+        pvArgsMarshal := pvArgs is VarRef ? "ptr" : "ptr"
+        cbArgsMarshal := cbArgs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", phrReturn, "uint", iMethod, pvArgsMarshal, pvArgs, cbArgsMarshal, cbArgs, "HRESULT")
         return result
     }
 
@@ -70,7 +73,9 @@ class ICallIndirect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getstacksize
      */
     GetStackSize(iMethod, cbArgs) {
-        result := ComCall(5, this, "uint", iMethod, "uint*", cbArgs, "HRESULT")
+        cbArgsMarshal := cbArgs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", iMethod, cbArgsMarshal, cbArgs, "HRESULT")
         return result
     }
 
@@ -84,7 +89,9 @@ class ICallIndirect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getiid
      */
     GetIID(piid, pfDerivesFromIDispatch, pcMethod, pwszInterface) {
-        result := ComCall(6, this, "ptr", piid, "ptr", pfDerivesFromIDispatch, "uint*", pcMethod, "ptr", pwszInterface, "HRESULT")
+        pcMethodMarshal := pcMethod is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", piid, "ptr", pfDerivesFromIDispatch, pcMethodMarshal, pcMethod, "ptr", pwszInterface, "HRESULT")
         return result
     }
 }

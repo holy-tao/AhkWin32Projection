@@ -37,7 +37,9 @@ class IWMDMStorageGlobals extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getcapabilities
      */
     GetCapabilities(pdwCapabilities) {
-        result := ComCall(3, this, "uint*", pdwCapabilities, "HRESULT")
+        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCapabilitiesMarshal, pdwCapabilities, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IWMDMStorageGlobals extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getserialnumber
      */
     GetSerialNumber(pSerialNum, abMac) {
-        result := ComCall(4, this, "ptr", pSerialNum, "char*", abMac, "HRESULT")
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pSerialNum, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -61,7 +65,10 @@ class IWMDMStorageGlobals extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalsize
      */
     GetTotalSize(pdwTotalSizeLow, pdwTotalSizeHigh) {
-        result := ComCall(5, this, "uint*", pdwTotalSizeLow, "uint*", pdwTotalSizeHigh, "HRESULT")
+        pdwTotalSizeLowMarshal := pdwTotalSizeLow is VarRef ? "uint*" : "ptr"
+        pdwTotalSizeHighMarshal := pdwTotalSizeHigh is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwTotalSizeLowMarshal, pdwTotalSizeLow, pdwTotalSizeHighMarshal, pdwTotalSizeHigh, "HRESULT")
         return result
     }
 
@@ -73,7 +80,10 @@ class IWMDMStorageGlobals extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalfree
      */
     GetTotalFree(pdwFreeLow, pdwFreeHigh) {
-        result := ComCall(6, this, "uint*", pdwFreeLow, "uint*", pdwFreeHigh, "HRESULT")
+        pdwFreeLowMarshal := pdwFreeLow is VarRef ? "uint*" : "ptr"
+        pdwFreeHighMarshal := pdwFreeHigh is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwFreeLowMarshal, pdwFreeLow, pdwFreeHighMarshal, pdwFreeHigh, "HRESULT")
         return result
     }
 
@@ -85,7 +95,10 @@ class IWMDMStorageGlobals extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalbad
      */
     GetTotalBad(pdwBadLow, pdwBadHigh) {
-        result := ComCall(7, this, "uint*", pdwBadLow, "uint*", pdwBadHigh, "HRESULT")
+        pdwBadLowMarshal := pdwBadLow is VarRef ? "uint*" : "ptr"
+        pdwBadHighMarshal := pdwBadHigh is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwBadLowMarshal, pdwBadLow, pdwBadHighMarshal, pdwBadHigh, "HRESULT")
         return result
     }
 
@@ -96,7 +109,9 @@ class IWMDMStorageGlobals extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getstatus
      */
     GetStatus(pdwStatus) {
-        result := ComCall(8, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 

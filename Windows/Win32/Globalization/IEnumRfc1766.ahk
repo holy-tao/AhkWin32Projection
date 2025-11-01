@@ -47,7 +47,9 @@ class IEnumRfc1766 extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, rgelt, pceltFetched) {
-        result := ComCall(4, this, "uint", celt, "ptr", rgelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", celt, "ptr", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

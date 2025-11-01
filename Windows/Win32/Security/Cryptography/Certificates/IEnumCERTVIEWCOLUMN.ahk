@@ -37,7 +37,9 @@ class IEnumCERTVIEWCOLUMN extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-next
      */
     Next(pIndex) {
-        result := ComCall(7, this, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IEnumCERTVIEWCOLUMN extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-gettype
      */
     GetType(pType) {
-        result := ComCall(10, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IEnumCERTVIEWCOLUMN extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-isindexed
      */
     IsIndexed(pIndexed) {
-        result := ComCall(11, this, "int*", pIndexed, "HRESULT")
+        pIndexedMarshal := pIndexed is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pIndexedMarshal, pIndexed, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IEnumCERTVIEWCOLUMN extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-getmaxlength
      */
     GetMaxLength(pMaxLength) {
-        result := ComCall(12, this, "int*", pMaxLength, "HRESULT")
+        pMaxLengthMarshal := pMaxLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pMaxLengthMarshal, pMaxLength, "HRESULT")
         return result
     }
 

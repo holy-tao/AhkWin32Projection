@@ -38,7 +38,9 @@ class IDebugHostMemory extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadBytes(context, location, buffer, bufferSize, bytesRead) {
-        result := ComCall(3, this, "ptr", context, "ptr", location, "ptr", buffer, "uint", bufferSize, "uint*", bytesRead, "HRESULT")
+        bytesReadMarshal := bytesRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", context, "ptr", location, "ptr", buffer, "uint", bufferSize, bytesReadMarshal, bytesRead, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IDebugHostMemory extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteBytes(context, location, buffer, bufferSize, bytesWritten) {
-        result := ComCall(4, this, "ptr", context, "ptr", location, "ptr", buffer, "uint", bufferSize, "uint*", bytesWritten, "HRESULT")
+        bytesWrittenMarshal := bytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", context, "ptr", location, "ptr", buffer, "uint", bufferSize, bytesWrittenMarshal, bytesWritten, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IDebugHostMemory extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadPointers(context, location, count, pointers) {
-        result := ComCall(5, this, "ptr", context, "ptr", location, "uint", count, "uint*", pointers, "HRESULT")
+        pointersMarshal := pointers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", context, "ptr", location, "uint", count, pointersMarshal, pointers, "HRESULT")
         return result
     }
 
@@ -78,7 +84,9 @@ class IDebugHostMemory extends IUnknown{
      * @returns {HRESULT} 
      */
     WritePointers(context, location, count, pointers) {
-        result := ComCall(6, this, "ptr", context, "ptr", location, "uint", count, "uint*", pointers, "HRESULT")
+        pointersMarshal := pointers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", context, "ptr", location, "uint", count, pointersMarshal, pointers, "HRESULT")
         return result
     }
 

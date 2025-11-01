@@ -40,7 +40,9 @@ class IWebGeocoordinates extends IDispatch{
      * @returns {HRESULT} 
      */
     get_latitude(p) {
-        result := ComCall(7, this, "double*", p, "HRESULT")
+        pMarshal := p is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IWebGeocoordinates extends IDispatch{
      * @returns {HRESULT} 
      */
     get_longitude(p) {
-        result := ComCall(8, this, "double*", p, "HRESULT")
+        pMarshal := p is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IWebGeocoordinates extends IDispatch{
      * @returns {HRESULT} 
      */
     get_accuracy(p) {
-        result := ComCall(10, this, "double*", p, "HRESULT")
+        pMarshal := p is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 

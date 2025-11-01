@@ -54,7 +54,9 @@ class IVssWMFiledesc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getrecursive
      */
     GetRecursive(pbRecursive) {
-        result := ComCall(5, this, "int*", pbRecursive, "HRESULT")
+        pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pbRecursiveMarshal, pbRecursive, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IVssWMFiledesc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getbackuptypemask
      */
     GetBackupTypeMask(pdwTypeMask) {
-        result := ComCall(7, this, "uint*", pdwTypeMask, "HRESULT")
+        pdwTypeMaskMarshal := pdwTypeMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwTypeMaskMarshal, pdwTypeMask, "HRESULT")
         return result
     }
 }

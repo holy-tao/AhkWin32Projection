@@ -64,7 +64,9 @@ class IUIAutomationTextRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-compareendpoints
      */
     CompareEndpoints(srcEndPoint, range, targetEndPoint, compValue) {
-        result := ComCall(5, this, "int", srcEndPoint, "ptr", range, "int", targetEndPoint, "int*", compValue, "HRESULT")
+        compValueMarshal := compValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", srcEndPoint, "ptr", range, "int", targetEndPoint, compValueMarshal, compValue, "HRESULT")
         return result
     }
 
@@ -164,7 +166,9 @@ class IUIAutomationTextRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-move
      */
     Move(unit, count, moved) {
-        result := ComCall(13, this, "int", unit, "int", count, "int*", moved, "HRESULT")
+        movedMarshal := moved is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "int", unit, "int", count, movedMarshal, moved, "HRESULT")
         return result
     }
 
@@ -178,7 +182,9 @@ class IUIAutomationTextRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-moveendpointbyunit
      */
     MoveEndpointByUnit(endpoint, unit, count, moved) {
-        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, "int*", moved, "HRESULT")
+        movedMarshal := moved is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, movedMarshal, moved, "HRESULT")
         return result
     }
 

@@ -44,7 +44,9 @@ class IDBPromptInitialize extends IUnknown{
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
         pwszszzProviderFilter := pwszszzProviderFilter is String ? StrPtr(pwszszzProviderFilter) : pwszszzProviderFilter
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hWndParent, "uint", dwPromptOptions, "uint", cSourceTypeFilter, "uint*", rgSourceTypeFilter, "ptr", pwszszzProviderFilter, "ptr", riid, "ptr*", ppDataSource, "HRESULT")
+        rgSourceTypeFilterMarshal := rgSourceTypeFilter is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hWndParent, "uint", dwPromptOptions, "uint", cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, "ptr", riid, "ptr*", ppDataSource, "HRESULT")
         return result
     }
 

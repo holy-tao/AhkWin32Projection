@@ -43,7 +43,9 @@ class IGPMSOMCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsomcollection-get_count
      */
     get_Count(pVal) {
-        result := ComCall(7, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

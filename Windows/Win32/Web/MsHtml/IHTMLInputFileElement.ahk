@@ -133,7 +133,9 @@ class IHTMLInputFileElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_size(p) {
-        result := ComCall(16, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -153,7 +155,9 @@ class IHTMLInputFileElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_maxLength(p) {
-        result := ComCall(18, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pMarshal, p, "HRESULT")
         return result
     }
 

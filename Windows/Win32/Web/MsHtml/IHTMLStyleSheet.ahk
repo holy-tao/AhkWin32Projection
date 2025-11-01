@@ -169,7 +169,9 @@ class IHTMLStyleSheet extends IDispatch{
     addImport(bstrURL, lIndex, plIndex) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(19, this, "ptr", bstrURL, "int", lIndex, "int*", plIndex, "HRESULT")
+        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "ptr", bstrURL, "int", lIndex, plIndexMarshal, plIndex, "HRESULT")
         return result
     }
 
@@ -185,7 +187,9 @@ class IHTMLStyleSheet extends IDispatch{
         bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
         bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
 
-        result := ComCall(20, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", plNewIndex, "HRESULT")
+        plNewIndexMarshal := plNewIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, plNewIndexMarshal, plNewIndex, "HRESULT")
         return result
     }
 

@@ -68,7 +68,9 @@ class IMFTimedText extends IUnknown{
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(5, this, "ptr", byteStream, "ptr", label, "ptr", language, "int", kind, "int", isDefault, "uint*", trackId, "HRESULT")
+        trackIdMarshal := trackId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", byteStream, "ptr", label, "ptr", language, "int", kind, "int", isDefault, trackIdMarshal, trackId, "HRESULT")
         return result
     }
 
@@ -88,7 +90,9 @@ class IMFTimedText extends IUnknown{
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(6, this, "ptr", url, "ptr", label, "ptr", language, "int", kind, "int", isDefault, "uint*", trackId, "HRESULT")
+        trackIdMarshal := trackId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", url, "ptr", label, "ptr", language, "int", kind, "int", isDefault, trackIdMarshal, trackId, "HRESULT")
         return result
     }
 
@@ -126,7 +130,9 @@ class IMFTimedText extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-getcuetimeoffset
      */
     GetCueTimeOffset(offset) {
-        result := ComCall(9, this, "double*", offset, "HRESULT")
+        offsetMarshal := offset is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, offsetMarshal, offset, "HRESULT")
         return result
     }
 

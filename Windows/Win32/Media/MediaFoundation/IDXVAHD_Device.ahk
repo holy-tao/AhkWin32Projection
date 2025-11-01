@@ -68,7 +68,9 @@ class IDXVAHD_Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessoroutputformats
      */
     GetVideoProcessorOutputFormats(Count, pFormats) {
-        result := ComCall(5, this, "uint", Count, "uint*", pFormats, "HRESULT")
+        pFormatsMarshal := pFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", Count, pFormatsMarshal, pFormats, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class IDXVAHD_Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorinputformats
      */
     GetVideoProcessorInputFormats(Count, pFormats) {
-        result := ComCall(6, this, "uint", Count, "uint*", pFormats, "HRESULT")
+        pFormatsMarshal := pFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", Count, pFormatsMarshal, pFormats, "HRESULT")
         return result
     }
 

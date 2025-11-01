@@ -53,7 +53,9 @@ class IBDA_NetworkProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-getsignalsource
      */
     GetSignalSource(pulSignalSource) {
-        result := ComCall(4, this, "uint*", pulSignalSource, "HRESULT")
+        pulSignalSourceMarshal := pulSignalSource is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulSignalSourceMarshal, pulSignalSource, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IBDA_NetworkProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-registerdevicefilter
      */
     RegisterDeviceFilter(pUnkFilterControl, ppvRegisitrationContext) {
-        result := ComCall(8, this, "ptr", pUnkFilterControl, "uint*", ppvRegisitrationContext, "HRESULT")
+        ppvRegisitrationContextMarshal := ppvRegisitrationContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pUnkFilterControl, ppvRegisitrationContextMarshal, ppvRegisitrationContext, "HRESULT")
         return result
     }
 

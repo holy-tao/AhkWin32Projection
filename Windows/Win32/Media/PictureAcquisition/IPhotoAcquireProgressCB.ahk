@@ -238,7 +238,9 @@ class IPhotoAcquireProgressCB extends IUnknown{
     ErrorAdvise(hr, pszErrorMessage, nMessageType, pnErrorAdviseResult) {
         pszErrorMessage := pszErrorMessage is String ? StrPtr(pszErrorMessage) : pszErrorMessage
 
-        result := ComCall(20, this, "int", hr, "ptr", pszErrorMessage, "int", nMessageType, "int*", pnErrorAdviseResult, "HRESULT")
+        pnErrorAdviseResultMarshal := pnErrorAdviseResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "int", hr, "ptr", pszErrorMessage, "int", nMessageType, pnErrorAdviseResultMarshal, pnErrorAdviseResult, "HRESULT")
         return result
     }
 

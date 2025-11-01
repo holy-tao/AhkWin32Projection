@@ -36,7 +36,9 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2{
      * @returns {HRESULT} 
      */
     ExtendHostContext(blobSize, identifier, blobId) {
-        result := ComCall(6, this, "uint", blobSize, "ptr", identifier, "uint*", blobId, "HRESULT")
+        blobIdMarshal := blobId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", blobSize, "ptr", identifier, blobIdMarshal, blobId, "HRESULT")
         return result
     }
 
@@ -48,7 +50,10 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2{
      * @returns {HRESULT} 
      */
     QueryHostContextExtension(identifier, blobId, blobSize) {
-        result := ComCall(7, this, "ptr", identifier, "uint*", blobId, "uint*", blobSize, "HRESULT")
+        blobIdMarshal := blobId is VarRef ? "uint*" : "ptr"
+        blobSizeMarshal := blobSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", identifier, blobIdMarshal, blobId, blobSizeMarshal, blobSize, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class ITfMouseTracker extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousetracker-advisemousesink
      */
     AdviseMouseSink(range, pSink, pdwCookie) {
-        result := ComCall(3, this, "ptr", range, "ptr", pSink, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", range, "ptr", pSink, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

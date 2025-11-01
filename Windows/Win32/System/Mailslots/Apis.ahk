@@ -176,9 +176,14 @@ class Mailslots {
     static GetMailslotInfo(hMailslot, lpMaxMessageSize, lpNextSize, lpMessageCount, lpReadTimeout) {
         hMailslot := hMailslot is Win32Handle ? NumGet(hMailslot, "ptr") : hMailslot
 
+        lpMaxMessageSizeMarshal := lpMaxMessageSize is VarRef ? "uint*" : "ptr"
+        lpNextSizeMarshal := lpNextSize is VarRef ? "uint*" : "ptr"
+        lpMessageCountMarshal := lpMessageCount is VarRef ? "uint*" : "ptr"
+        lpReadTimeoutMarshal := lpReadTimeout is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetMailslotInfo", "ptr", hMailslot, "uint*", lpMaxMessageSize, "uint*", lpNextSize, "uint*", lpMessageCount, "uint*", lpReadTimeout, "int")
+        result := DllCall("KERNEL32.dll\GetMailslotInfo", "ptr", hMailslot, lpMaxMessageSizeMarshal, lpMaxMessageSize, lpNextSizeMarshal, lpNextSize, lpMessageCountMarshal, lpMessageCount, lpReadTimeoutMarshal, lpReadTimeout, "int")
         if(A_LastError)
             throw OSError()
 

@@ -61,7 +61,9 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-allocatemore
      */
     AllocateMore(cbSize, lpObject, lppBuffer) {
-        result := ComCall(5, this, "uint", cbSize, "ptr", lpObject, "ptr*", lppBuffer, "HRESULT")
+        lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "uint", cbSize, lpObjectMarshal, lpObject, "ptr*", lppBuffer, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-freebuffer
      */
     FreeBuffer(lpBuffer) {
-        result := ComCall(6, this, "ptr", lpBuffer, "HRESULT")
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
     }
 
@@ -195,7 +199,9 @@ class IWABObject extends IUnknown{
     GetMe(lpIAB, ulFlags, lpdwAction, lpsbEID, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, "uint*", lpdwAction, "ptr", lpsbEID, "ptr", hwnd, "HRESULT")
+        lpdwActionMarshal := lpdwAction is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, lpdwActionMarshal, lpdwAction, "ptr", lpsbEID, "ptr", hwnd, "HRESULT")
         return result
     }
 

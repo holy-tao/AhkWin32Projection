@@ -54,7 +54,9 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      * @returns {HRESULT} 
      */
     get_DataType(pDataType) {
-        result := ComCall(13, this, "int*", pDataType, "HRESULT")
+        pDataTypeMarshal := pDataType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pDataTypeMarshal, pDataType, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      * @returns {HRESULT} 
      */
     get_RangeMin(pRangeMin) {
-        result := ComCall(14, this, "int*", pRangeMin, "HRESULT")
+        pRangeMinMarshal := pRangeMin is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pRangeMinMarshal, pRangeMin, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      * @returns {HRESULT} 
      */
     get_RangeMax(pRangeMax) {
-        result := ComCall(15, this, "int*", pRangeMax, "HRESULT")
+        pRangeMaxMarshal := pRangeMax is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pRangeMaxMarshal, pRangeMax, "HRESULT")
         return result
     }
 }

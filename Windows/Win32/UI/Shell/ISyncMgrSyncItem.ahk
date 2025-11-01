@@ -93,7 +93,9 @@ class ISyncMgrSyncItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities
      */
     GetCapabilities(pmCapabilities) {
-        result := ComCall(7, this, "int*", pmCapabilities, "HRESULT")
+        pmCapabilitiesMarshal := pmCapabilities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pmCapabilitiesMarshal, pmCapabilities, "HRESULT")
         return result
     }
 
@@ -104,7 +106,9 @@ class ISyncMgrSyncItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getpolicies
      */
     GetPolicies(pmPolicies) {
-        result := ComCall(8, this, "int*", pmPolicies, "HRESULT")
+        pmPoliciesMarshal := pmPolicies is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pmPoliciesMarshal, pmPolicies, "HRESULT")
         return result
     }
 

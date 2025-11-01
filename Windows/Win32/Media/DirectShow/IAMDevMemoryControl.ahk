@@ -57,7 +57,9 @@ class IAMDevMemoryControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemorycontrol-getdevid
      */
     GetDevId(pdwDevId) {
-        result := ComCall(5, this, "uint*", pdwDevId, "HRESULT")
+        pdwDevIdMarshal := pdwDevId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwDevIdMarshal, pdwDevId, "HRESULT")
         return result
     }
 }

@@ -79,7 +79,10 @@ class ISecurityInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getaccessrights
      */
     GetAccessRights(pguidObjectType, dwFlags, ppAccess, pcAccesses, piDefaultAccess) {
-        result := ComCall(6, this, "ptr", pguidObjectType, "uint", dwFlags, "ptr*", ppAccess, "uint*", pcAccesses, "uint*", piDefaultAccess, "HRESULT")
+        pcAccessesMarshal := pcAccesses is VarRef ? "uint*" : "ptr"
+        piDefaultAccessMarshal := piDefaultAccess is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pguidObjectType, "uint", dwFlags, "ptr*", ppAccess, pcAccessesMarshal, pcAccesses, piDefaultAccessMarshal, piDefaultAccess, "HRESULT")
         return result
     }
 
@@ -92,7 +95,10 @@ class ISecurityInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-mapgeneric
      */
     MapGeneric(pguidObjectType, pAceFlags, pMask) {
-        result := ComCall(7, this, "ptr", pguidObjectType, "char*", pAceFlags, "uint*", pMask, "HRESULT")
+        pAceFlagsMarshal := pAceFlags is VarRef ? "char*" : "ptr"
+        pMaskMarshal := pMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pguidObjectType, pAceFlagsMarshal, pAceFlags, pMaskMarshal, pMask, "HRESULT")
         return result
     }
 
@@ -104,7 +110,9 @@ class ISecurityInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getinherittypes
      */
     GetInheritTypes(ppInheritTypes, pcInheritTypes) {
-        result := ComCall(8, this, "ptr*", ppInheritTypes, "uint*", pcInheritTypes, "HRESULT")
+        pcInheritTypesMarshal := pcInheritTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr*", ppInheritTypes, pcInheritTypesMarshal, pcInheritTypes, "HRESULT")
         return result
     }
 

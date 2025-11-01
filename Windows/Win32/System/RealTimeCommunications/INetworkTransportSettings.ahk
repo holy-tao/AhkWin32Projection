@@ -38,7 +38,10 @@ class INetworkTransportSettings extends IUnknown{
      * @returns {HRESULT} 
      */
     ApplySetting(SettingId, LengthIn, ValueIn, LengthOut, ValueOut) {
-        result := ComCall(3, this, "ptr", SettingId, "uint", LengthIn, "char*", ValueIn, "uint*", LengthOut, "ptr*", ValueOut, "HRESULT")
+        ValueInMarshal := ValueIn is VarRef ? "char*" : "ptr"
+        LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, "ptr*", ValueOut, "HRESULT")
         return result
     }
 
@@ -52,7 +55,10 @@ class INetworkTransportSettings extends IUnknown{
      * @returns {HRESULT} 
      */
     QuerySetting(SettingId, LengthIn, ValueIn, LengthOut, ValueOut) {
-        result := ComCall(4, this, "ptr", SettingId, "uint", LengthIn, "char*", ValueIn, "uint*", LengthOut, "ptr*", ValueOut, "HRESULT")
+        ValueInMarshal := ValueIn is VarRef ? "char*" : "ptr"
+        LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, "ptr*", ValueOut, "HRESULT")
         return result
     }
 }

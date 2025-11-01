@@ -80,7 +80,9 @@ class IFaxAccount extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_registeredevents
      */
     get_RegisteredEvents(pRegisteredEvents) {
-        result := ComCall(10, this, "int*", pRegisteredEvents, "HRESULT")
+        pRegisteredEventsMarshal := pRegisteredEvents is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pRegisteredEventsMarshal, pRegisteredEvents, "HRESULT")
         return result
     }
 }

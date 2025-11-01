@@ -95,7 +95,9 @@ class IOleUndoManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getopenparentstate
      */
     GetOpenParentState(pdwState) {
-        result := ComCall(6, this, "uint*", pdwState, "HRESULT")
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwStateMarshal, pdwState, "HRESULT")
         return result
     }
 

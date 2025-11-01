@@ -38,7 +38,10 @@ class IAMCrossbar extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-get_pincounts
      */
     get_PinCounts(OutputPinCount, InputPinCount) {
-        result := ComCall(3, this, "int*", OutputPinCount, "int*", InputPinCount, "HRESULT")
+        OutputPinCountMarshal := OutputPinCount is VarRef ? "int*" : "ptr"
+        InputPinCountMarshal := InputPinCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, OutputPinCountMarshal, OutputPinCount, InputPinCountMarshal, InputPinCount, "HRESULT")
         return result
     }
 
@@ -74,7 +77,9 @@ class IAMCrossbar extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-get_isroutedto
      */
     get_IsRoutedTo(OutputPinIndex, InputPinIndex) {
-        result := ComCall(6, this, "int", OutputPinIndex, "int*", InputPinIndex, "HRESULT")
+        InputPinIndexMarshal := InputPinIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", OutputPinIndex, InputPinIndexMarshal, InputPinIndex, "HRESULT")
         return result
     }
 
@@ -88,7 +93,10 @@ class IAMCrossbar extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-get_crossbarpininfo
      */
     get_CrossbarPinInfo(IsInputPin, PinIndex, PinIndexRelated, PhysicalType) {
-        result := ComCall(7, this, "int", IsInputPin, "int", PinIndex, "int*", PinIndexRelated, "int*", PhysicalType, "HRESULT")
+        PinIndexRelatedMarshal := PinIndexRelated is VarRef ? "int*" : "ptr"
+        PhysicalTypeMarshal := PhysicalType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", IsInputPin, "int", PinIndex, PinIndexRelatedMarshal, PinIndexRelated, PhysicalTypeMarshal, PhysicalType, "HRESULT")
         return result
     }
 }

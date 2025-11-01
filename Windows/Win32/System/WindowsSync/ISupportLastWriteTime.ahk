@@ -54,7 +54,10 @@ class ISupportLastWriteTime extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportlastwritetime-getitemchangetime
      */
     GetItemChangeTime(pbItemId, pullTimestamp) {
-        result := ComCall(3, this, "char*", pbItemId, "uint*", pullTimestamp, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pullTimestampMarshal, pullTimestamp, "HRESULT")
         return result
     }
 
@@ -67,7 +70,11 @@ class ISupportLastWriteTime extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportlastwritetime-getchangeunitchangetime
      */
     GetChangeUnitChangeTime(pbItemId, pbChangeUnitId, pullTimestamp) {
-        result := ComCall(4, this, "char*", pbItemId, "char*", pbChangeUnitId, "uint*", pullTimestamp, "HRESULT")
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, pullTimestampMarshal, pullTimestamp, "HRESULT")
         return result
     }
 }

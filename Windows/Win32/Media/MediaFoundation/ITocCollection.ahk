@@ -37,7 +37,9 @@ class ITocCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-getentrycount
      */
     GetEntryCount(pdwEntryCount) {
-        result := ComCall(3, this, "uint*", pdwEntryCount, "HRESULT")
+        pdwEntryCountMarshal := pdwEntryCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwEntryCountMarshal, pdwEntryCount, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class ITocCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-addentry
      */
     AddEntry(pToc, pdwEntryIndex) {
-        result := ComCall(5, this, "ptr", pToc, "uint*", pdwEntryIndex, "HRESULT")
+        pdwEntryIndexMarshal := pdwEntryIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pToc, pdwEntryIndexMarshal, pdwEntryIndex, "HRESULT")
         return result
     }
 

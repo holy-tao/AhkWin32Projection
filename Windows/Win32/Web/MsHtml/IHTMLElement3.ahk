@@ -461,7 +461,9 @@ class IHTMLElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_glyphMode(p) {
-        result := ComCall(49, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(49, this, pMarshal, p, "HRESULT")
         return result
     }
 }

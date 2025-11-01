@@ -44,7 +44,9 @@ class IWMPDownloadItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_size(plSize) {
-        result := ComCall(8, this, "int*", plSize, "HRESULT")
+        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plSizeMarshal, plSize, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IWMPDownloadItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_progress(plProgress) {
-        result := ComCall(10, this, "int*", plProgress, "HRESULT")
+        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plProgressMarshal, plProgress, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IWMPDownloadItem extends IDispatch{
      * @returns {HRESULT} 
      */
     get_downloadState(pwmpsdls) {
-        result := ComCall(11, this, "int*", pwmpsdls, "HRESULT")
+        pwmpsdlsMarshal := pwmpsdls is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pwmpsdlsMarshal, pwmpsdls, "HRESULT")
         return result
     }
 

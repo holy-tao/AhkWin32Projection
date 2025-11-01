@@ -34,7 +34,9 @@ class ISpeechLexiconWord extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LangId(LangId) {
-        result := ComCall(7, this, "int*", LangId, "HRESULT")
+        LangIdMarshal := LangId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, LangIdMarshal, LangId, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ISpeechLexiconWord extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Type(WordType) {
-        result := ComCall(8, this, "int*", WordType, "HRESULT")
+        WordTypeMarshal := WordType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, WordTypeMarshal, WordType, "HRESULT")
         return result
     }
 

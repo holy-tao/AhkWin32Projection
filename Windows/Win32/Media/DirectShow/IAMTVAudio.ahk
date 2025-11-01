@@ -37,7 +37,9 @@ class IAMTVAudio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-gethardwaresupportedtvaudiomodes
      */
     GetHardwareSupportedTVAudioModes(plModes) {
-        result := ComCall(3, this, "int*", plModes, "HRESULT")
+        plModesMarshal := plModes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plModesMarshal, plModes, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IAMTVAudio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-getavailabletvaudiomodes
      */
     GetAvailableTVAudioModes(plModes) {
-        result := ComCall(4, this, "int*", plModes, "HRESULT")
+        plModesMarshal := plModes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plModesMarshal, plModes, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IAMTVAudio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-get_tvaudiomode
      */
     get_TVAudioMode(plMode) {
-        result := ComCall(5, this, "int*", plMode, "HRESULT")
+        plModeMarshal := plMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plModeMarshal, plMode, "HRESULT")
         return result
     }
 

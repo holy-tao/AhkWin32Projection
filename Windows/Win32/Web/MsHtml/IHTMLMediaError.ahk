@@ -40,7 +40,9 @@ class IHTMLMediaError extends IDispatch{
      * @returns {HRESULT} 
      */
     get_code(p) {
-        result := ComCall(7, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 }

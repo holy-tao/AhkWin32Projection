@@ -40,7 +40,10 @@ class IWMIndexer2 extends IWMIndexer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmindexer2-configure
      */
     Configure(wStreamNum, nIndexerType, pvInterval, pvIndexType) {
-        result := ComCall(5, this, "ushort", wStreamNum, "int", nIndexerType, "ptr", pvInterval, "ptr", pvIndexType, "HRESULT")
+        pvIntervalMarshal := pvInterval is VarRef ? "ptr" : "ptr"
+        pvIndexTypeMarshal := pvIndexType is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "ushort", wStreamNum, "int", nIndexerType, pvIntervalMarshal, pvInterval, pvIndexTypeMarshal, pvIndexType, "HRESULT")
         return result
     }
 }

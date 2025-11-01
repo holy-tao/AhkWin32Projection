@@ -42,7 +42,9 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//expandedresources/nf-expandedresources-getexpandedresourceexclusivecpucount
      */
     static GetExpandedResourceExclusiveCpuCount(exclusiveCpuCount) {
-        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\GetExpandedResourceExclusiveCpuCount", "uint*", exclusiveCpuCount, "int")
+        exclusiveCpuCountMarshal := exclusiveCpuCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\GetExpandedResourceExclusiveCpuCount", exclusiveCpuCountMarshal, exclusiveCpuCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -107,7 +109,9 @@ class Gaming {
         sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowGameInviteUI", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowGameInviteUI", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -151,7 +155,9 @@ class Gaming {
     static ShowPlayerPickerUI(promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context) {
         promptDisplayText := promptDisplayText is Win32Handle ? NumGet(promptDisplayText, "ptr") : promptDisplayText
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowPlayerPickerUI", "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowPlayerPickerUI", "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -177,7 +183,9 @@ class Gaming {
     static ShowProfileCardUI(targetUserXuid, completionRoutine, context) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowProfileCardUI", "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowProfileCardUI", "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -203,7 +211,9 @@ class Gaming {
     static ShowChangeFriendRelationshipUI(targetUserXuid, completionRoutine, context) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowChangeFriendRelationshipUI", "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowChangeFriendRelationshipUI", "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -227,7 +237,9 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-showtitleachievementsui
      */
     static ShowTitleAchievementsUI(titleId, completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowTitleAchievementsUI", "uint", titleId, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowTitleAchievementsUI", "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -294,7 +306,9 @@ class Gaming {
         policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
         friendlyMessage := friendlyMessage is Win32Handle ? NumGet(friendlyMessage, "ptr") : friendlyMessage
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeWithUI", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeWithUI", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -348,7 +362,9 @@ class Gaming {
         sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowGameInviteUIForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowGameInviteUIForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -372,7 +388,9 @@ class Gaming {
     static ShowPlayerPickerUIForUser(user, promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context) {
         promptDisplayText := promptDisplayText is Win32Handle ? NumGet(promptDisplayText, "ptr") : promptDisplayText
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowPlayerPickerUIForUser", "ptr", user, "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowPlayerPickerUIForUser", "ptr", user, "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -390,7 +408,9 @@ class Gaming {
     static ShowProfileCardUIForUser(user, targetUserXuid, completionRoutine, context) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowProfileCardUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowProfileCardUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -408,7 +428,9 @@ class Gaming {
     static ShowChangeFriendRelationshipUIForUser(user, targetUserXuid, completionRoutine, context) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowChangeFriendRelationshipUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowChangeFriendRelationshipUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -424,7 +446,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowTitleAchievementsUIForUser(user, titleId, completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowTitleAchievementsUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowTitleAchievementsUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -447,7 +471,9 @@ class Gaming {
         policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
         friendlyMessage := friendlyMessage is Win32Handle ? NumGet(friendlyMessage, "ptr") : friendlyMessage
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeWithUIForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeWithUIForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -492,7 +518,9 @@ class Gaming {
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
         customActivationContext := customActivationContext is Win32Handle ? NumGet(customActivationContext, "ptr") : customActivationContext
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContext", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContext", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -518,7 +546,9 @@ class Gaming {
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
         customActivationContext := customActivationContext is Win32Handle ? NumGet(customActivationContext, "ptr") : customActivationContext
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContextForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContextForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -533,7 +563,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowGameInfoUI(titleId, completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUI", "uint", titleId, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUI", "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -549,7 +581,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowGameInfoUIForUser(user, titleId, completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -563,7 +597,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowFindFriendsUI(completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUI", "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUI", "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -578,7 +614,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowFindFriendsUIForUser(user, completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUIForUser", "ptr", user, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUIForUser", "ptr", user, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -592,7 +630,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowCustomizeUserProfileUI(completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUI", "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUI", "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -607,7 +647,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowCustomizeUserProfileUIForUser(user, completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUIForUser", "ptr", user, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUIForUser", "ptr", user, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -621,7 +663,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowUserSettingsUI(completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUI", "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUI", "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -636,7 +680,9 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowUserSettingsUIForUser(user, completionRoutine, context) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUIForUser", "ptr", user, "ptr", completionRoutine, "ptr", context, "int")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUIForUser", "ptr", user, "ptr", completionRoutine, contextMarshal, context, "int")
         if(result != 0)
             throw OSError(result)
 

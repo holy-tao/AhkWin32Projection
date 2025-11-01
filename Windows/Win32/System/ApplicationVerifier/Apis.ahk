@@ -35,7 +35,9 @@ class ApplicationVerifier {
     static VerifierEnumerateResource(Process, Flags, ResourceType, ResourceCallback, EnumerationContext) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("verifier.dll\VerifierEnumerateResource", "ptr", Process, "uint", Flags, "uint", ResourceType, "ptr", ResourceCallback, "ptr", EnumerationContext, "uint")
+        EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("verifier.dll\VerifierEnumerateResource", "ptr", Process, "uint", Flags, "uint", ResourceType, "ptr", ResourceCallback, EnumerationContextMarshal, EnumerationContext, "uint")
         return result
     }
 

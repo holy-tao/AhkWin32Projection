@@ -45,7 +45,9 @@ class IOpcPartUri extends IOpcUri{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcparturi-compareparturi
      */
     ComparePartUri(partUri, comparisonResult) {
-        result := ComCall(31, this, "ptr", partUri, "int*", comparisonResult, "HRESULT")
+        comparisonResultMarshal := comparisonResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, "ptr", partUri, comparisonResultMarshal, comparisonResult, "HRESULT")
         return result
     }
 

@@ -472,7 +472,9 @@ class IHTMLElement5 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ariaPosinset(p) {
-        result := ComCall(46, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(46, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -492,7 +494,9 @@ class IHTMLElement5 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ariaSetsize(p) {
-        result := ComCall(48, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(48, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -512,7 +516,9 @@ class IHTMLElement5 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ariaLevel(p) {
-        result := ComCall(50, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(50, this, pMarshal, p, "HRESULT")
         return result
     }
 

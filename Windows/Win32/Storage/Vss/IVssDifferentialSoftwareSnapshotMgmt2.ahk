@@ -40,7 +40,10 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-changediffareamaximumsizeex
      */
     ChangeDiffAreaMaximumSizeEx(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace, bVolatile) {
-        result := ComCall(9, this, "ushort*", pwszVolumeName, "ushort*", pwszDiffAreaVolumeName, "int64", llMaximumDiffSpace, "int", bVolatile, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "int64", llMaximumDiffSpace, "int", bVolatile, "HRESULT")
         return result
     }
 
@@ -53,7 +56,11 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-migratediffareas
      */
     MigrateDiffAreas(pwszVolumeName, pwszDiffAreaVolumeName, pwszNewDiffAreaVolumeName) {
-        result := ComCall(10, this, "ushort*", pwszVolumeName, "ushort*", pwszDiffAreaVolumeName, "ushort*", pwszNewDiffAreaVolumeName, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszNewDiffAreaVolumeNameMarshal := pwszNewDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, pwszNewDiffAreaVolumeNameMarshal, pwszNewDiffAreaVolumeName, "HRESULT")
         return result
     }
 
@@ -66,7 +73,10 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-querymigrationstatus
      */
     QueryMigrationStatus(pwszVolumeName, pwszDiffAreaVolumeName, ppAsync) {
-        result := ComCall(11, this, "ushort*", pwszVolumeName, "ushort*", pwszDiffAreaVolumeName, "ptr*", ppAsync, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "ptr*", ppAsync, "HRESULT")
         return result
     }
 

@@ -73,7 +73,11 @@ class IJsDebugBreakPoint extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDocumentPosition(pDocumentId, pCharacterOffset, pStatementCharCount) {
-        result := ComCall(7, this, "uint*", pDocumentId, "uint*", pCharacterOffset, "uint*", pStatementCharCount, "HRESULT")
+        pDocumentIdMarshal := pDocumentId is VarRef ? "uint*" : "ptr"
+        pCharacterOffsetMarshal := pCharacterOffset is VarRef ? "uint*" : "ptr"
+        pStatementCharCountMarshal := pStatementCharCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pDocumentIdMarshal, pDocumentId, pCharacterOffsetMarshal, pCharacterOffset, pStatementCharCountMarshal, pStatementCharCount, "HRESULT")
         return result
     }
 }

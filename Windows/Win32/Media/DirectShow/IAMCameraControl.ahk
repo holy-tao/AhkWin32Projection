@@ -47,7 +47,13 @@ class IAMCameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcameracontrol-getrange
      */
     GetRange(Property, pMin, pMax, pSteppingDelta, pDefault, pCapsFlags) {
-        result := ComCall(3, this, "int", Property, "int*", pMin, "int*", pMax, "int*", pSteppingDelta, "int*", pDefault, "int*", pCapsFlags, "HRESULT")
+        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
+        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
+        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
+        pCapsFlagsMarshal := pCapsFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", Property, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagsMarshal, pCapsFlags, "HRESULT")
         return result
     }
 
@@ -73,7 +79,10 @@ class IAMCameraControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcameracontrol-get
      */
     Get(Property, lValue, Flags) {
-        result := ComCall(5, this, "int", Property, "int*", lValue, "int*", Flags, "HRESULT")
+        lValueMarshal := lValue is VarRef ? "int*" : "ptr"
+        FlagsMarshal := Flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", Property, lValueMarshal, lValue, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 }

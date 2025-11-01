@@ -34,7 +34,9 @@ class IDxcOptimizer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAvailablePassCount(pCount) {
-        result := ComCall(3, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

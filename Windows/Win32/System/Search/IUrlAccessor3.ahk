@@ -41,7 +41,9 @@ class IUrlAccessor3 extends IUrlAccessor2{
     GetImpersonationSidBlobs(pcwszURL, pcSidCount, ppSidBlobs) {
         pcwszURL := pcwszURL is String ? StrPtr(pcwszURL) : pcwszURL
 
-        result := ComCall(19, this, "ptr", pcwszURL, "uint*", pcSidCount, "ptr*", ppSidBlobs, "HRESULT")
+        pcSidCountMarshal := pcSidCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", pcwszURL, pcSidCountMarshal, pcSidCount, "ptr*", ppSidBlobs, "HRESULT")
         return result
     }
 }

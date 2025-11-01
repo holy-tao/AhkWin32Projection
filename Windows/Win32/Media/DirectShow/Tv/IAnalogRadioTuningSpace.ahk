@@ -48,7 +48,9 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-get_minfrequency
      */
     get_MinFrequency(MinFrequencyVal) {
-        result := ComCall(26, this, "int*", MinFrequencyVal, "HRESULT")
+        MinFrequencyValMarshal := MinFrequencyVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, MinFrequencyValMarshal, MinFrequencyVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-get_maxfrequency
      */
     get_MaxFrequency(MaxFrequencyVal) {
-        result := ComCall(28, this, "int*", MaxFrequencyVal, "HRESULT")
+        MaxFrequencyValMarshal := MaxFrequencyVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, MaxFrequencyValMarshal, MaxFrequencyVal, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-get_step
      */
     get_Step(StepVal) {
-        result := ComCall(30, this, "int*", StepVal, "HRESULT")
+        StepValMarshal := StepVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, StepValMarshal, StepVal, "HRESULT")
         return result
     }
 

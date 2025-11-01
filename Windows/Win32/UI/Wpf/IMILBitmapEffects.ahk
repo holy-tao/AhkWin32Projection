@@ -71,7 +71,9 @@ class IMILBitmapEffects extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-get_count
      */
     get_Count(puiCount) {
-        result := ComCall(6, this, "uint*", puiCount, "HRESULT")
+        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, puiCountMarshal, puiCount, "HRESULT")
         return result
     }
 }

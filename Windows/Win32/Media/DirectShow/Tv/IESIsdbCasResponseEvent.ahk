@@ -41,7 +41,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getrequestid
      */
     GetRequestId(pRequestId) {
-        result := ComCall(8, this, "uint*", pRequestId, "HRESULT")
+        pRequestIdMarshal := pRequestId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pRequestIdMarshal, pRequestId, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getstatus
      */
     GetStatus(pStatus) {
-        result := ComCall(9, this, "uint*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -63,7 +67,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getdatalength
      */
     GetDataLength(pRequestLength) {
-        result := ComCall(10, this, "uint*", pRequestLength, "HRESULT")
+        pRequestLengthMarshal := pRequestLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pRequestLengthMarshal, pRequestLength, "HRESULT")
         return result
     }
 

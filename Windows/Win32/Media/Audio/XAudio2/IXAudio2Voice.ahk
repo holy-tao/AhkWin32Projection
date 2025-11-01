@@ -183,7 +183,9 @@ class IXAudio2Voice extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-getvolume
      */
     GetVolume(pVolume) {
-        ComCall(13, this, "float*", pVolume)
+        pVolumeMarshal := pVolume is VarRef ? "float*" : "ptr"
+
+        ComCall(13, this, pVolumeMarshal, pVolume)
     }
 
     /**
@@ -195,7 +197,9 @@ class IXAudio2Voice extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setchannelvolumes
      */
     SetChannelVolumes(Channels, pVolumes, OperationSet) {
-        result := ComCall(14, this, "uint", Channels, "float*", pVolumes, "uint", OperationSet, "HRESULT")
+        pVolumesMarshal := pVolumes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(14, this, "uint", Channels, pVolumesMarshal, pVolumes, "uint", OperationSet, "HRESULT")
         return result
     }
 
@@ -207,7 +211,9 @@ class IXAudio2Voice extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-getchannelvolumes
      */
     GetChannelVolumes(Channels, pVolumes) {
-        ComCall(15, this, "uint", Channels, "float*", pVolumes)
+        pVolumesMarshal := pVolumes is VarRef ? "float*" : "ptr"
+
+        ComCall(15, this, "uint", Channels, pVolumesMarshal, pVolumes)
     }
 
     /**
@@ -221,7 +227,9 @@ class IXAudio2Voice extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setoutputmatrix
      */
     SetOutputMatrix(pDestinationVoice, SourceChannels, DestinationChannels, pLevelMatrix, OperationSet) {
-        result := ComCall(16, this, "ptr", pDestinationVoice, "uint", SourceChannels, "uint", DestinationChannels, "float*", pLevelMatrix, "uint", OperationSet, "HRESULT")
+        pLevelMatrixMarshal := pLevelMatrix is VarRef ? "float*" : "ptr"
+
+        result := ComCall(16, this, "ptr", pDestinationVoice, "uint", SourceChannels, "uint", DestinationChannels, pLevelMatrixMarshal, pLevelMatrix, "uint", OperationSet, "HRESULT")
         return result
     }
 
@@ -235,7 +243,9 @@ class IXAudio2Voice extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-getoutputmatrix
      */
     GetOutputMatrix(pDestinationVoice, SourceChannels, DestinationChannels, pLevelMatrix) {
-        ComCall(17, this, "ptr", pDestinationVoice, "uint", SourceChannels, "uint", DestinationChannels, "float*", pLevelMatrix)
+        pLevelMatrixMarshal := pLevelMatrix is VarRef ? "float*" : "ptr"
+
+        ComCall(17, this, "ptr", pDestinationVoice, "uint", SourceChannels, "uint", DestinationChannels, pLevelMatrixMarshal, pLevelMatrix)
     }
 
     /**

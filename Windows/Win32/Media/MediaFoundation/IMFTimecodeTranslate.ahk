@@ -58,7 +58,9 @@ class IMFTimecodeTranslate extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-endconverttimecodetohns
      */
     EndConvertTimecodeToHNS(pResult, phnsTime) {
-        result := ComCall(4, this, "ptr", pResult, "int64*", phnsTime, "HRESULT")
+        phnsTimeMarshal := phnsTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pResult, phnsTimeMarshal, phnsTime, "HRESULT")
         return result
     }
 

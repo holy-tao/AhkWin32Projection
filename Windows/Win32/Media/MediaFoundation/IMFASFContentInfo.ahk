@@ -38,7 +38,9 @@ class IMFASFContentInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-getheadersize
      */
     GetHeaderSize(pIStartOfContent, cbHeaderSize) {
-        result := ComCall(3, this, "ptr", pIStartOfContent, "uint*", cbHeaderSize, "HRESULT")
+        cbHeaderSizeMarshal := cbHeaderSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pIStartOfContent, cbHeaderSizeMarshal, cbHeaderSize, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IMFASFContentInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-generateheader
      */
     GenerateHeader(pIHeader, pcbHeader) {
-        result := ComCall(5, this, "ptr", pIHeader, "uint*", pcbHeader, "HRESULT")
+        pcbHeaderMarshal := pcbHeader is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pIHeader, pcbHeaderMarshal, pcbHeader, "HRESULT")
         return result
     }
 

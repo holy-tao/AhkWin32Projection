@@ -48,7 +48,9 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloat
      */
     GetFloat(pValue) {
-        result := ComCall(26, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setfloatarray
      */
     SetFloatArray(pData, Offset, Count) {
-        result := ComCall(27, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(27, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloatarray
      */
     GetFloatArray(pData, Offset, Count) {
-        result := ComCall(28, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(28, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -96,7 +102,9 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getint
      */
     GetInt(pValue) {
-        result := ComCall(30, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -109,7 +117,9 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setintarray
      */
     SetIntArray(pData, Offset, Count) {
-        result := ComCall(31, this, "int*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -122,7 +132,9 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getintarray
      */
     GetIntArray(pData, Offset, Count) {
-        result := ComCall(32, this, "int*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 

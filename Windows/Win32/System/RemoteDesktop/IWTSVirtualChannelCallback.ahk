@@ -38,7 +38,9 @@ class IWTSVirtualChannelCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-ondatareceived
      */
     OnDataReceived(cbSize, pBuffer) {
-        result := ComCall(3, this, "uint", cbSize, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", cbSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 

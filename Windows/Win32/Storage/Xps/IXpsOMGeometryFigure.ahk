@@ -93,7 +93,10 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentdata
      */
     GetSegmentData(dataCount, segmentData) {
-        result := ComCall(4, this, "uint*", dataCount, "float*", segmentData, "HRESULT")
+        dataCountMarshal := dataCount is VarRef ? "uint*" : "ptr"
+        segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, dataCountMarshal, dataCount, segmentDataMarshal, segmentData, "HRESULT")
         return result
     }
 
@@ -105,7 +108,10 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmenttypes
      */
     GetSegmentTypes(segmentCount, segmentTypes) {
-        result := ComCall(5, this, "uint*", segmentCount, "int*", segmentTypes, "HRESULT")
+        segmentCountMarshal := segmentCount is VarRef ? "uint*" : "ptr"
+        segmentTypesMarshal := segmentTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, segmentCountMarshal, segmentCount, segmentTypesMarshal, segmentTypes, "HRESULT")
         return result
     }
 
@@ -117,7 +123,9 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentstrokes
      */
     GetSegmentStrokes(segmentCount, segmentStrokes) {
-        result := ComCall(6, this, "uint*", segmentCount, "ptr", segmentStrokes, "HRESULT")
+        segmentCountMarshal := segmentCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, segmentCountMarshal, segmentCount, "ptr", segmentStrokes, "HRESULT")
         return result
     }
 
@@ -132,7 +140,10 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-setsegments
      */
     SetSegments(segmentCount, segmentDataCount, segmentTypes, segmentData, segmentStrokes) {
-        result := ComCall(7, this, "uint", segmentCount, "uint", segmentDataCount, "int*", segmentTypes, "float*", segmentData, "ptr", segmentStrokes, "HRESULT")
+        segmentTypesMarshal := segmentTypes is VarRef ? "int*" : "ptr"
+        segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, "uint", segmentCount, "uint", segmentDataCount, segmentTypesMarshal, segmentTypes, segmentDataMarshal, segmentData, "ptr", segmentStrokes, "HRESULT")
         return result
     }
 
@@ -209,7 +220,9 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentcount
      */
     GetSegmentCount(segmentCount) {
-        result := ComCall(14, this, "uint*", segmentCount, "HRESULT")
+        segmentCountMarshal := segmentCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, segmentCountMarshal, segmentCount, "HRESULT")
         return result
     }
 
@@ -220,7 +233,9 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentdatacount
      */
     GetSegmentDataCount(segmentDataCount) {
-        result := ComCall(15, this, "uint*", segmentDataCount, "HRESULT")
+        segmentDataCountMarshal := segmentDataCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, segmentDataCountMarshal, segmentDataCount, "HRESULT")
         return result
     }
 
@@ -231,7 +246,9 @@ class IXpsOMGeometryFigure extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentstrokepattern
      */
     GetSegmentStrokePattern(segmentStrokePattern) {
-        result := ComCall(16, this, "int*", segmentStrokePattern, "HRESULT")
+        segmentStrokePatternMarshal := segmentStrokePattern is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, segmentStrokePatternMarshal, segmentStrokePattern, "HRESULT")
         return result
     }
 

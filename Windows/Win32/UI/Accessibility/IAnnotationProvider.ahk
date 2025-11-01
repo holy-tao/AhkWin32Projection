@@ -37,7 +37,9 @@ class IAnnotationProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_annotationtypeid
      */
     get_AnnotationTypeId(retVal) {
-        result := ComCall(3, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

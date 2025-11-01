@@ -91,7 +91,9 @@ class IMFASFStreamConfig extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextensioncount
      */
     GetPayloadExtensionCount(pcPayloadExtensions) {
-        result := ComCall(38, this, "ushort*", pcPayloadExtensions, "HRESULT")
+        pcPayloadExtensionsMarshal := pcPayloadExtensions is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(38, this, pcPayloadExtensionsMarshal, pcPayloadExtensions, "HRESULT")
         return result
     }
 
@@ -106,7 +108,11 @@ class IMFASFStreamConfig extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextension
      */
     GetPayloadExtension(wPayloadExtensionNumber, pguidExtensionSystemID, pcbExtensionDataSize, pbExtensionSystemInfo, pcbExtensionSystemInfo) {
-        result := ComCall(39, this, "ushort", wPayloadExtensionNumber, "ptr", pguidExtensionSystemID, "ushort*", pcbExtensionDataSize, "char*", pbExtensionSystemInfo, "uint*", pcbExtensionSystemInfo, "HRESULT")
+        pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : "ptr"
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
+        pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, "ushort", wPayloadExtensionNumber, "ptr", pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
         return result
     }
 
@@ -120,7 +126,9 @@ class IMFASFStreamConfig extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-addpayloadextension
      */
     AddPayloadExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
-        result := ComCall(40, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, "char*", pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(40, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
         return result
     }
 

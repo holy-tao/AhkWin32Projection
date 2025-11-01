@@ -46,7 +46,9 @@ class IEnumSpeechCommands extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(ulCount, pSpCmds, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", pSpCmds, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", pSpCmds, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

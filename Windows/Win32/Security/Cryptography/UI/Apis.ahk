@@ -469,7 +469,10 @@ class UI {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, "ptr", pvContext, "ptr", hwnd, "ptr", pwszTitle, "uint", dwFlags, "ptr", pvReserved, "int")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, pvContextMarshal, pvContext, "ptr", hwnd, "ptr", pwszTitle, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
         return result
     }
 
@@ -563,7 +566,9 @@ class UI {
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
         pwszDisplayString := pwszDisplayString is String ? StrPtr(pwszDisplayString) : pwszDisplayString
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", "ptr", hCertStore, "ptr", hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, "ptr", pvReserved, "ptr")
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", "ptr", hCertStore, "ptr", hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr")
         return result
     }
 
@@ -579,7 +584,9 @@ class UI {
      * @since windows6.1
      */
     static CertSelectionGetSerializedBlob(pcsi, ppOutBuffer, pulOutBufferSize) {
-        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, "ptr*", ppOutBuffer, "uint*", pulOutBufferSize, "int")
+        pulOutBufferSizeMarshal := pulOutBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, "ptr*", ppOutBuffer, pulOutBufferSizeMarshal, pulOutBufferSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -713,9 +720,11 @@ class UI {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
 
+        pvoidMarshal := pvoid is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPTUI.dll\CryptUIWizExport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pExportInfo, "ptr", pvoid, "int")
+        result := DllCall("CRYPTUI.dll\CryptUIWizExport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pExportInfo, pvoidMarshal, pvoid, "int")
         if(A_LastError)
             throw OSError()
 

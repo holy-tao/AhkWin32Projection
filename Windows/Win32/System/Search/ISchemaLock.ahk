@@ -37,7 +37,9 @@ class ISchemaLock extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSchemaLock(pTableID, lmMode, phLockHandle, pTableVersion) {
-        result := ComCall(3, this, "ptr", pTableID, "uint", lmMode, "ptr", phLockHandle, "uint*", pTableVersion, "HRESULT")
+        pTableVersionMarshal := pTableVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pTableID, "uint", lmMode, "ptr", phLockHandle, pTableVersionMarshal, pTableVersion, "HRESULT")
         return result
     }
 

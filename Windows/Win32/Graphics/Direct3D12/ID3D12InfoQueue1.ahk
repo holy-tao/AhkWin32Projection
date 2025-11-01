@@ -37,7 +37,10 @@ class ID3D12InfoQueue1 extends ID3D12InfoQueue{
      * @returns {HRESULT} 
      */
     RegisterMessageCallback(CallbackFunc, CallbackFilterFlags, pContext, pCallbackCookie) {
-        result := ComCall(38, this, "ptr", CallbackFunc, "int", CallbackFilterFlags, "ptr", pContext, "uint*", pCallbackCookie, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pCallbackCookieMarshal := pCallbackCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(38, this, "ptr", CallbackFunc, "int", CallbackFilterFlags, pContextMarshal, pContext, pCallbackCookieMarshal, pCallbackCookie, "HRESULT")
         return result
     }
 

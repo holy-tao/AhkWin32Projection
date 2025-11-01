@@ -51,7 +51,9 @@ class IDOMProgressEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_loaded(p) {
-        result := ComCall(8, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class IDOMProgressEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_total(p) {
-        result := ComCall(9, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pMarshal, p, "HRESULT")
         return result
     }
 

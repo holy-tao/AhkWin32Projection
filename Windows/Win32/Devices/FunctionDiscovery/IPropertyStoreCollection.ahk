@@ -40,7 +40,9 @@ class IPropertyStoreCollection extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pdwCount) {
-        result := ComCall(3, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IPropertyStoreCollection extends IUnknown{
     Get(pszInstanceIdentity, pdwIndex, ppIPropertyStore) {
         pszInstanceIdentity := pszInstanceIdentity is String ? StrPtr(pszInstanceIdentity) : pszInstanceIdentity
 
-        result := ComCall(4, this, "ptr", pszInstanceIdentity, "uint*", pdwIndex, "ptr*", ppIPropertyStore, "HRESULT")
+        pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszInstanceIdentity, pdwIndexMarshal, pdwIndex, "ptr*", ppIPropertyStore, "HRESULT")
         return result
     }
 

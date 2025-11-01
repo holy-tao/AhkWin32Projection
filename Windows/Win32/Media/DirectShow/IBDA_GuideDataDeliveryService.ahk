@@ -55,7 +55,11 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getguidedata
      */
     GetGuideData(pulcbBufferLen, pbBuffer, pulGuideDataPercentageProgress) {
-        result := ComCall(4, this, "uint*", pulcbBufferLen, "char*", pbBuffer, "uint*", pulGuideDataPercentageProgress, "HRESULT")
+        pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pulGuideDataPercentageProgressMarshal := pulGuideDataPercentageProgress is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulcbBufferLenMarshal, pulcbBufferLen, pbBufferMarshal, pbBuffer, pulGuideDataPercentageProgressMarshal, pulGuideDataPercentageProgress, "HRESULT")
         return result
     }
 
@@ -89,7 +93,10 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getservices
      */
     GetServices(pulcbBufferLen, pbBuffer) {
-        result := ComCall(7, this, "uint*", pulcbBufferLen, "char*", pbBuffer, "HRESULT")
+        pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pulcbBufferLenMarshal, pulcbBufferLen, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 

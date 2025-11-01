@@ -52,7 +52,9 @@ class IESFileExpiryDateEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-getexpirydate
      */
     GetExpiryDate(pqwExpiryDate) {
-        result := ComCall(9, this, "uint*", pqwExpiryDate, "HRESULT")
+        pqwExpiryDateMarshal := pqwExpiryDate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pqwExpiryDateMarshal, pqwExpiryDate, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IESFileExpiryDateEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-getfinalexpirydate
      */
     GetFinalExpiryDate(pqwExpiryDate) {
-        result := ComCall(10, this, "uint*", pqwExpiryDate, "HRESULT")
+        pqwExpiryDateMarshal := pqwExpiryDate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pqwExpiryDateMarshal, pqwExpiryDate, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IESFileExpiryDateEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-getmaxrenewalcount
      */
     GetMaxRenewalCount(dwMaxRenewalCount) {
-        result := ComCall(11, this, "uint*", dwMaxRenewalCount, "HRESULT")
+        dwMaxRenewalCountMarshal := dwMaxRenewalCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, dwMaxRenewalCountMarshal, dwMaxRenewalCount, "HRESULT")
         return result
     }
 

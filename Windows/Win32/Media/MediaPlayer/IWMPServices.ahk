@@ -37,7 +37,9 @@ class IWMPServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpservices-getstreamtime
      */
     GetStreamTime(prt) {
-        result := ComCall(3, this, "int64*", prt, "HRESULT")
+        prtMarshal := prt is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, prtMarshal, prt, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWMPServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpservices-getstreamstate
      */
     GetStreamState(pState) {
-        result := ComCall(4, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

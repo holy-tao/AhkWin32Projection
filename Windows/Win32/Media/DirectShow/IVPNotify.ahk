@@ -53,7 +53,9 @@ class IVPNotify extends IVPBaseNotify{
      * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-getdeinterlacemode
      */
     GetDeinterlaceMode(pMode) {
-        result := ComCall(5, this, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 }

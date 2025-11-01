@@ -43,7 +43,9 @@ class IBDA_DRM extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_drm-getdrmpairingstatus
      */
     GetDRMPairingStatus(pdwStatus, phError) {
-        result := ComCall(3, this, "uint*", pdwStatus, "ptr", phError, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "ptr", phError, "HRESULT")
         return result
     }
 

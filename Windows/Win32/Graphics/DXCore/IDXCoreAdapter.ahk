@@ -88,7 +88,9 @@ class IDXCoreAdapter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getpropertysize
      */
     GetPropertySize(property, bufferSize) {
-        result := ComCall(7, this, "uint", property, "ptr*", bufferSize, "HRESULT")
+        bufferSizeMarshal := bufferSize is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "uint", property, bufferSizeMarshal, bufferSize, "HRESULT")
         return result
     }
 

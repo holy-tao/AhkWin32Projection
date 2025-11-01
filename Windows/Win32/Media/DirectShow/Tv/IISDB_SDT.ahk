@@ -38,7 +38,9 @@ class IISDB_SDT extends IDVB_SDT{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdt-getrecordeituserdefinedflags
      */
     GetRecordEITUserDefinedFlags(dwRecordIndex, pbVal) {
-        result := ComCall(21, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(21, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

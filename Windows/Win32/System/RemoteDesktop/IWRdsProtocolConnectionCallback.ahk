@@ -86,7 +86,9 @@ class IWRdsProtocolConnectionCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnectioncallback-getconnectionid
      */
     GetConnectionId(pConnectionId) {
-        result := ComCall(7, this, "uint*", pConnectionId, "HRESULT")
+        pConnectionIdMarshal := pConnectionId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pConnectionIdMarshal, pConnectionId, "HRESULT")
         return result
     }
 }

@@ -45,7 +45,11 @@ class ICorProfilerCallback10 extends ICorProfilerCallback9{
      * @returns {HRESULT} 
      */
     EventPipeEventDelivered(provider, eventId, eventVersion, cbMetadataBlob, metadataBlob, cbEventData, eventData, pActivityId, pRelatedActivityId, eventThread, numStackFrames, stackFrames) {
-        result := ComCall(95, this, "ptr", provider, "uint", eventId, "uint", eventVersion, "uint", cbMetadataBlob, "char*", metadataBlob, "uint", cbEventData, "char*", eventData, "ptr", pActivityId, "ptr", pRelatedActivityId, "ptr", eventThread, "uint", numStackFrames, "ptr*", stackFrames, "HRESULT")
+        metadataBlobMarshal := metadataBlob is VarRef ? "char*" : "ptr"
+        eventDataMarshal := eventData is VarRef ? "char*" : "ptr"
+        stackFramesMarshal := stackFrames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(95, this, "ptr", provider, "uint", eventId, "uint", eventVersion, "uint", cbMetadataBlob, metadataBlobMarshal, metadataBlob, "uint", cbEventData, eventDataMarshal, eventData, "ptr", pActivityId, "ptr", pRelatedActivityId, "ptr", eventThread, "uint", numStackFrames, stackFramesMarshal, stackFrames, "HRESULT")
         return result
     }
 

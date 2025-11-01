@@ -84,7 +84,9 @@ class ITfLangBarItemMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemsink
      */
     AdviseItemSink(punk, pdwCookie, rguidItem) {
-        result := ComCall(7, this, "ptr", punk, "uint*", pdwCookie, "ptr", rguidItem, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", punk, pdwCookieMarshal, pdwCookie, "ptr", rguidItem, "HRESULT")
         return result
     }
 
@@ -121,7 +123,9 @@ class ITfLangBarItemMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemsstatus
      */
     GetItemsStatus(ulCount, prgguid, pdwStatus) {
-        result := ComCall(10, this, "uint", ulCount, "ptr", prgguid, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", ulCount, "ptr", prgguid, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -132,7 +136,9 @@ class ITfLangBarItemMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemnum
      */
     GetItemNum(pulCount) {
-        result := ComCall(11, this, "uint*", pulCount, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 
@@ -147,7 +153,10 @@ class ITfLangBarItemMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitems
      */
     GetItems(ulCount, ppItem, pInfo, pdwStatus, pcFetched) {
-        result := ComCall(12, this, "uint", ulCount, "ptr*", ppItem, "ptr", pInfo, "uint*", pdwStatus, "uint*", pcFetched, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", ulCount, "ptr*", ppItem, "ptr", pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -161,7 +170,9 @@ class ITfLangBarItemMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemssink
      */
     AdviseItemsSink(ulCount, ppunk, pguidItem, pdwCookie) {
-        result := ComCall(13, this, "uint", ulCount, "ptr*", ppunk, "ptr", pguidItem, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", ulCount, "ptr*", ppunk, "ptr", pguidItem, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -173,7 +184,9 @@ class ITfLangBarItemMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemssink
      */
     UnadviseItemsSink(ulCount, pdwCookie) {
-        result := ComCall(14, this, "uint", ulCount, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", ulCount, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 }

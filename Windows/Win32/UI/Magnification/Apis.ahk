@@ -199,7 +199,9 @@ class Magnification {
     static MagGetWindowFilterList(hwnd, pdwFilterMode, count, pHWND) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", "ptr", hwnd, "uint*", pdwFilterMode, "int", count, "ptr", pHWND, "int")
+        pdwFilterModeMarshal := pdwFilterMode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", "ptr", hwnd, pdwFilterModeMarshal, pdwFilterMode, "int", count, "ptr", pHWND, "int")
         return result
     }
 
@@ -324,7 +326,11 @@ class Magnification {
      * @since windows8.0
      */
     static MagGetFullscreenTransform(pMagLevel, pxOffset, pyOffset) {
-        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenTransform", "float*", pMagLevel, "int*", pxOffset, "int*", pyOffset, "int")
+        pMagLevelMarshal := pMagLevel is VarRef ? "float*" : "ptr"
+        pxOffsetMarshal := pxOffset is VarRef ? "int*" : "ptr"
+        pyOffsetMarshal := pyOffset is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenTransform", pMagLevelMarshal, pMagLevel, pxOffsetMarshal, pxOffset, pyOffsetMarshal, pyOffset, "int")
         return result
     }
 

@@ -48,7 +48,9 @@ class IGenericDescriptor extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pbDesc, bCount) {
-        result := ComCall(3, this, "char*", pbDesc, "int", bCount, "HRESULT")
+        pbDescMarshal := pbDesc is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbDescMarshal, pbDesc, "int", bCount, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IGenericDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IGenericDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 

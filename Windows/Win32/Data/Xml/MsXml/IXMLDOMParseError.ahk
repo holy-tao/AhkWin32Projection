@@ -34,7 +34,9 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {HRESULT} 
      */
     get_errorCode(errorCode) {
-        result := ComCall(7, this, "int*", errorCode, "HRESULT")
+        errorCodeMarshal := errorCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, errorCodeMarshal, errorCode, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {HRESULT} 
      */
     get_line(lineNumber) {
-        result := ComCall(11, this, "int*", lineNumber, "HRESULT")
+        lineNumberMarshal := lineNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, lineNumberMarshal, lineNumber, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {HRESULT} 
      */
     get_linepos(linePosition) {
-        result := ComCall(12, this, "int*", linePosition, "HRESULT")
+        linePositionMarshal := linePosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, linePositionMarshal, linePosition, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {HRESULT} 
      */
     get_filepos(filePosition) {
-        result := ComCall(13, this, "int*", filePosition, "HRESULT")
+        filePositionMarshal := filePosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, filePositionMarshal, filePosition, "HRESULT")
         return result
     }
 }

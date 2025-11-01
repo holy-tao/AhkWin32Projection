@@ -70,7 +70,9 @@ class IUserInputString extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getstringtype
      */
     GetStringType(pnStringType) {
-        result := ComCall(6, this, "int*", pnStringType, "HRESULT")
+        pnStringTypeMarshal := pnStringType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pnStringTypeMarshal, pnStringType, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IUserInputString extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmaxlength
      */
     GetMaxLength(pcchMaxLength) {
-        result := ComCall(8, this, "uint*", pcchMaxLength, "HRESULT")
+        pcchMaxLengthMarshal := pcchMaxLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcchMaxLengthMarshal, pcchMaxLength, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IUserInputString extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmrucount
      */
     GetMruCount(pnMruCount) {
-        result := ComCall(10, this, "uint*", pnMruCount, "HRESULT")
+        pnMruCountMarshal := pnMruCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pnMruCountMarshal, pnMruCount, "HRESULT")
         return result
     }
 

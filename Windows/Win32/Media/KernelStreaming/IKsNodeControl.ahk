@@ -48,7 +48,9 @@ class IKsNodeControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iksnodecontrol-put_kscontrol
      */
     put_KsControl(pKsControl) {
-        result := ComCall(4, this, "ptr", pKsControl, "HRESULT")
+        pKsControlMarshal := pKsControl is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pKsControlMarshal, pKsControl, "HRESULT")
         return result
     }
 }

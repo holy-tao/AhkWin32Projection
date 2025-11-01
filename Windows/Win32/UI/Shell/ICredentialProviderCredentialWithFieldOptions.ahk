@@ -44,7 +44,9 @@ class ICredentialProviderCredentialWithFieldOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialwithfieldoptions-getfieldoptions
      */
     GetFieldOptions(fieldID, options) {
-        result := ComCall(3, this, "uint", fieldID, "int*", options, "HRESULT")
+        optionsMarshal := options is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", fieldID, optionsMarshal, options, "HRESULT")
         return result
     }
 }

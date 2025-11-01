@@ -35,7 +35,9 @@ class ITipHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     Pull(i_pszTxUrl, o_ppITransaction) {
-        result := ComCall(3, this, "char*", i_pszTxUrl, "ptr*", o_ppITransaction, "HRESULT")
+        i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr*", o_ppITransaction, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class ITipHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     PullAsync(i_pszTxUrl, i_pTipPullSink, o_ppITransaction) {
-        result := ComCall(4, this, "char*", i_pszTxUrl, "ptr", i_pTipPullSink, "ptr*", o_ppITransaction, "HRESULT")
+        i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr", i_pTipPullSink, "ptr*", o_ppITransaction, "HRESULT")
         return result
     }
 

@@ -52,7 +52,10 @@ class IImageList2 extends IImageList{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getoriginalsize
      */
     GetOriginalSize(iImage, dwFlags, pcx, pcy) {
-        result := ComCall(33, this, "int", iImage, "uint", dwFlags, "int*", pcx, "int*", pcy, "HRESULT")
+        pcxMarshal := pcx is VarRef ? "int*" : "ptr"
+        pcyMarshal := pcy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, "int", iImage, "uint", dwFlags, pcxMarshal, pcx, pcyMarshal, pcy, "HRESULT")
         return result
     }
 

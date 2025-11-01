@@ -38,7 +38,10 @@ class IKsControl extends IUnknown{
      * @returns {HRESULT} 
      */
     KsProperty(Property, PropertyLength, PropertyData, DataLength, BytesReturned) {
-        result := ComCall(3, this, "ptr", Property, "uint", PropertyLength, "ptr", PropertyData, "uint", DataLength, "uint*", BytesReturned, "HRESULT")
+        PropertyDataMarshal := PropertyData is VarRef ? "ptr" : "ptr"
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", Property, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
         return result
     }
 
@@ -52,7 +55,10 @@ class IKsControl extends IUnknown{
      * @returns {HRESULT} 
      */
     KsMethod(Method, MethodLength, MethodData, DataLength, BytesReturned) {
-        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, "ptr", MethodData, "uint", DataLength, "uint*", BytesReturned, "HRESULT")
+        MethodDataMarshal := MethodData is VarRef ? "ptr" : "ptr"
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, MethodDataMarshal, MethodData, "uint", DataLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
         return result
     }
 
@@ -66,7 +72,10 @@ class IKsControl extends IUnknown{
      * @returns {HRESULT} 
      */
     KsEvent(Event, EventLength, EventData, DataLength, BytesReturned) {
-        result := ComCall(5, this, "ptr", Event, "uint", EventLength, "ptr", EventData, "uint", DataLength, "uint*", BytesReturned, "HRESULT")
+        EventDataMarshal := EventData is VarRef ? "ptr" : "ptr"
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", Event, "uint", EventLength, EventDataMarshal, EventData, "uint", DataLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
         return result
     }
 }

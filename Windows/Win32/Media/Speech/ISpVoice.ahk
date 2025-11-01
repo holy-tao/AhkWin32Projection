@@ -114,7 +114,9 @@ class ISpVoice extends ISpEventSource{
     Speak(pwcs, dwFlags, pulStreamNumber) {
         pwcs := pwcs is String ? StrPtr(pwcs) : pwcs
 
-        result := ComCall(20, this, "ptr", pwcs, "uint", dwFlags, "uint*", pulStreamNumber, "HRESULT")
+        pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "ptr", pwcs, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
         return result
     }
 
@@ -126,7 +128,9 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SpeakStream(pStream, dwFlags, pulStreamNumber) {
-        result := ComCall(21, this, "ptr", pStream, "uint", dwFlags, "uint*", pulStreamNumber, "HRESULT")
+        pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr", pStream, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
         return result
     }
 
@@ -151,7 +155,9 @@ class ISpVoice extends ISpEventSource{
     Skip(pItemType, lNumItems, pulNumSkipped) {
         pItemType := pItemType is String ? StrPtr(pItemType) : pItemType
 
-        result := ComCall(23, this, "ptr", pItemType, "int", lNumItems, "uint*", pulNumSkipped, "HRESULT")
+        pulNumSkippedMarshal := pulNumSkipped is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "ptr", pItemType, "int", lNumItems, pulNumSkippedMarshal, pulNumSkipped, "HRESULT")
         return result
     }
 
@@ -171,7 +177,9 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetPriority(pePriority) {
-        result := ComCall(25, this, "int*", pePriority, "HRESULT")
+        pePriorityMarshal := pePriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pePriorityMarshal, pePriority, "HRESULT")
         return result
     }
 
@@ -191,7 +199,9 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetAlertBoundary(peBoundary) {
-        result := ComCall(27, this, "int*", peBoundary, "HRESULT")
+        peBoundaryMarshal := peBoundary is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, peBoundaryMarshal, peBoundary, "HRESULT")
         return result
     }
 
@@ -211,7 +221,9 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetRate(pRateAdjust) {
-        result := ComCall(29, this, "int*", pRateAdjust, "HRESULT")
+        pRateAdjustMarshal := pRateAdjust is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pRateAdjustMarshal, pRateAdjust, "HRESULT")
         return result
     }
 
@@ -231,7 +243,9 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetVolume(pusVolume) {
-        result := ComCall(31, this, "ushort*", pusVolume, "HRESULT")
+        pusVolumeMarshal := pusVolume is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(31, this, pusVolumeMarshal, pusVolume, "HRESULT")
         return result
     }
 
@@ -261,7 +275,9 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetSyncSpeakTimeout(pmsTimeout) {
-        result := ComCall(34, this, "uint*", pmsTimeout, "HRESULT")
+        pmsTimeoutMarshal := pmsTimeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, pmsTimeoutMarshal, pmsTimeout, "HRESULT")
         return result
     }
 
@@ -285,7 +301,9 @@ class ISpVoice extends ISpEventSource{
     IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, pfSupported) {
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        result := ComCall(36, this, "ptr", pszTypeOfUI, "ptr", pvExtraData, "uint", cbExtraData, "ptr", pfSupported, "HRESULT")
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", pfSupported, "HRESULT")
         return result
     }
 
@@ -303,7 +321,9 @@ class ISpVoice extends ISpEventSource{
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        result := ComCall(37, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, "ptr", pvExtraData, "uint", cbExtraData, "HRESULT")
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(37, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
         return result
     }
 }

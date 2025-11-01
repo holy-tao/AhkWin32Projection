@@ -54,7 +54,9 @@ class IWdsTransportClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_id
      */
     get_Id(pulId) {
-        result := ComCall(8, this, "uint*", pulId, "HRESULT")
+        pulIdMarshal := pulId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulIdMarshal, pulId, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IWdsTransportClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_percentcompletion
      */
     get_PercentCompletion(pulPercentCompletion) {
-        result := ComCall(12, this, "uint*", pulPercentCompletion, "HRESULT")
+        pulPercentCompletionMarshal := pulPercentCompletion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pulPercentCompletionMarshal, pulPercentCompletion, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class IWdsTransportClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_joinduration
      */
     get_JoinDuration(pulJoinDuration) {
-        result := ComCall(13, this, "uint*", pulJoinDuration, "HRESULT")
+        pulJoinDurationMarshal := pulJoinDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pulJoinDurationMarshal, pulJoinDuration, "HRESULT")
         return result
     }
 
@@ -120,7 +126,9 @@ class IWdsTransportClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_cpuutilization
      */
     get_CpuUtilization(pulCpuUtilization) {
-        result := ComCall(14, this, "uint*", pulCpuUtilization, "HRESULT")
+        pulCpuUtilizationMarshal := pulCpuUtilization is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pulCpuUtilizationMarshal, pulCpuUtilization, "HRESULT")
         return result
     }
 
@@ -131,7 +139,9 @@ class IWdsTransportClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_memoryutilization
      */
     get_MemoryUtilization(pulMemoryUtilization) {
-        result := ComCall(15, this, "uint*", pulMemoryUtilization, "HRESULT")
+        pulMemoryUtilizationMarshal := pulMemoryUtilization is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pulMemoryUtilizationMarshal, pulMemoryUtilization, "HRESULT")
         return result
     }
 
@@ -142,7 +152,9 @@ class IWdsTransportClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_networkutilization
      */
     get_NetworkUtilization(pulNetworkUtilization) {
-        result := ComCall(16, this, "uint*", pulNetworkUtilization, "HRESULT")
+        pulNetworkUtilizationMarshal := pulNetworkUtilization is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pulNetworkUtilizationMarshal, pulNetworkUtilization, "HRESULT")
         return result
     }
 

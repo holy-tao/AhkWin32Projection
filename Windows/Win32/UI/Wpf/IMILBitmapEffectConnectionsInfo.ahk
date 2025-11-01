@@ -41,7 +41,9 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberinputs
      */
     GetNumberInputs(puiNumInputs) {
-        result := ComCall(3, this, "uint*", puiNumInputs, "HRESULT")
+        puiNumInputsMarshal := puiNumInputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiNumInputsMarshal, puiNumInputs, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberoutputs
      */
     GetNumberOutputs(puiNumOutputs) {
-        result := ComCall(4, this, "uint*", puiNumOutputs, "HRESULT")
+        puiNumOutputsMarshal := puiNumOutputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, puiNumOutputsMarshal, puiNumOutputs, "HRESULT")
         return result
     }
 

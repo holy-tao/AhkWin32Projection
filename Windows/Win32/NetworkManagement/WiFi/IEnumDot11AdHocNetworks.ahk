@@ -39,7 +39,9 @@ class IEnumDot11AdHocNetworks extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocnetworks-next
      */
     Next(cElt, rgElt, pcEltFetched) {
-        result := ComCall(3, this, "uint", cElt, "ptr*", rgElt, "uint*", pcEltFetched, "HRESULT")
+        pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cElt, "ptr*", rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return result
     }
 

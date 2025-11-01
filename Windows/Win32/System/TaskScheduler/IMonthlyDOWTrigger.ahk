@@ -45,7 +45,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_daysofweek
      */
     get_DaysOfWeek(pDays) {
-        result := ComCall(20, this, "short*", pDays, "HRESULT")
+        pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
+
+        result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_weeksofmonth
      */
     get_WeeksOfMonth(pWeeks) {
-        result := ComCall(22, this, "short*", pWeeks, "HRESULT")
+        pWeeksMarshal := pWeeks is VarRef ? "short*" : "ptr"
+
+        result := ComCall(22, this, pWeeksMarshal, pWeeks, "HRESULT")
         return result
     }
 
@@ -89,7 +93,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_monthsofyear
      */
     get_MonthsOfYear(pMonths) {
-        result := ComCall(24, this, "short*", pMonths, "HRESULT")
+        pMonthsMarshal := pMonths is VarRef ? "short*" : "ptr"
+
+        result := ComCall(24, this, pMonthsMarshal, pMonths, "HRESULT")
         return result
     }
 

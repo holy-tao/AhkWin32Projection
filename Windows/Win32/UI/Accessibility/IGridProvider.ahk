@@ -63,7 +63,9 @@ class IGridProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount
      */
     get_RowCount(pRetVal) {
-        result := ComCall(4, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IGridProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount
      */
     get_ColumnCount(pRetVal) {
-        result := ComCall(5, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

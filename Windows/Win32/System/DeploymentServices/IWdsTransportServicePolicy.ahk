@@ -45,7 +45,9 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
      */
     get_IpAddressSource(AddressType, pSourceType) {
-        result := ComCall(11, this, "int", AddressType, "int*", pSourceType, "HRESULT")
+        pSourceTypeMarshal := pSourceType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", AddressType, pSourceTypeMarshal, pSourceType, "HRESULT")
         return result
     }
 
@@ -120,7 +122,9 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startport
      */
     get_StartPort(pulStartPort) {
-        result := ComCall(17, this, "uint*", pulStartPort, "HRESULT")
+        pulStartPortMarshal := pulStartPort is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pulStartPortMarshal, pulStartPort, "HRESULT")
         return result
     }
 
@@ -142,7 +146,9 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endport
      */
     get_EndPort(pulEndPort) {
-        result := ComCall(19, this, "uint*", pulEndPort, "HRESULT")
+        pulEndPortMarshal := pulEndPort is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pulEndPortMarshal, pulEndPort, "HRESULT")
         return result
     }
 
@@ -164,7 +170,9 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_networkprofile
      */
     get_NetworkProfile(pProfileType) {
-        result := ComCall(21, this, "int*", pProfileType, "HRESULT")
+        pProfileTypeMarshal := pProfileType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pProfileTypeMarshal, pProfileType, "HRESULT")
         return result
     }
 

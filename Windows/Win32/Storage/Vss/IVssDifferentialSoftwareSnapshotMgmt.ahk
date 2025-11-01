@@ -39,7 +39,10 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea
      */
     AddDiffArea(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace) {
-        result := ComCall(3, this, "ushort*", pwszVolumeName, "ushort*", pwszDiffAreaVolumeName, "int64", llMaximumDiffSpace, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "int64", llMaximumDiffSpace, "HRESULT")
         return result
     }
 
@@ -52,7 +55,10 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-changediffareamaximumsize
      */
     ChangeDiffAreaMaximumSize(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace) {
-        result := ComCall(4, this, "ushort*", pwszVolumeName, "ushort*", pwszDiffAreaVolumeName, "int64", llMaximumDiffSpace, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "int64", llMaximumDiffSpace, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-queryvolumessupportedfordiffareas
      */
     QueryVolumesSupportedForDiffAreas(pwszOriginalVolumeName, ppEnum) {
-        result := ComCall(5, this, "ushort*", pwszOriginalVolumeName, "ptr*", ppEnum, "HRESULT")
+        pwszOriginalVolumeNameMarshal := pwszOriginalVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwszOriginalVolumeNameMarshal, pwszOriginalVolumeName, "ptr*", ppEnum, "HRESULT")
         return result
     }
 
@@ -76,7 +84,9 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforvolume
      */
     QueryDiffAreasForVolume(pwszVolumeName, ppEnum) {
-        result := ComCall(6, this, "ushort*", pwszVolumeName, "ptr*", ppEnum, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", ppEnum, "HRESULT")
         return result
     }
 
@@ -88,7 +98,9 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasonvolume
      */
     QueryDiffAreasOnVolume(pwszVolumeName, ppEnum) {
-        result := ComCall(7, this, "ushort*", pwszVolumeName, "ptr*", ppEnum, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", ppEnum, "HRESULT")
         return result
     }
 

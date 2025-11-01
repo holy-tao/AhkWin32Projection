@@ -34,7 +34,9 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Type(Type) {
-        result := ComCall(7, this, "int*", Type, "HRESULT")
+        TypeMarshal := Type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, TypeMarshal, Type, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PropertyId(PropertyId) {
-        result := ComCall(12, this, "int*", PropertyId, "HRESULT")
+        PropertyIdMarshal := PropertyId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, PropertyIdMarshal, PropertyId, "HRESULT")
         return result
     }
 

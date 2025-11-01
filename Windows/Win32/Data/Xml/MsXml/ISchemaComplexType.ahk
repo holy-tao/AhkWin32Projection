@@ -64,7 +64,9 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {HRESULT} 
      */
     get_contentType(contentType) {
-        result := ComCall(34, this, "int*", contentType, "HRESULT")
+        contentTypeMarshal := contentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, contentTypeMarshal, contentType, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {HRESULT} 
      */
     get_prohibitedSubstitutions(prohibited) {
-        result := ComCall(36, this, "int*", prohibited, "HRESULT")
+        prohibitedMarshal := prohibited is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, prohibitedMarshal, prohibited, "HRESULT")
         return result
     }
 }

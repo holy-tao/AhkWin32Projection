@@ -55,7 +55,9 @@ class IEnhancedStorageSilo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getactions
      */
     GetActions(pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActions) {
-        result := ComCall(4, this, "ptr*", pppIEnhancedStorageSiloActions, "uint*", pcEnhancedStorageSiloActions, "HRESULT")
+        pcEnhancedStorageSiloActionsMarshal := pcEnhancedStorageSiloActions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActionsMarshal, pcEnhancedStorageSiloActions, "HRESULT")
         return result
     }
 
@@ -70,7 +72,11 @@ class IEnhancedStorageSilo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-sendcommand
      */
     SendCommand(Command, pbCommandBuffer, cbCommandBuffer, pbResponseBuffer, pcbResponseBuffer) {
-        result := ComCall(5, this, "char", Command, "char*", pbCommandBuffer, "uint", cbCommandBuffer, "char*", pbResponseBuffer, "uint*", pcbResponseBuffer, "HRESULT")
+        pbCommandBufferMarshal := pbCommandBuffer is VarRef ? "char*" : "ptr"
+        pbResponseBufferMarshal := pbResponseBuffer is VarRef ? "char*" : "ptr"
+        pcbResponseBufferMarshal := pcbResponseBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "char", Command, pbCommandBufferMarshal, pbCommandBuffer, "uint", cbCommandBuffer, pbResponseBufferMarshal, pbResponseBuffer, pcbResponseBufferMarshal, pcbResponseBuffer, "HRESULT")
         return result
     }
 

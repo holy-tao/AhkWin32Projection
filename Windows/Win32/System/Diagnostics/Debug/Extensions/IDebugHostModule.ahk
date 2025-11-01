@@ -59,7 +59,10 @@ class IDebugHostModule extends IDebugHostSymbol{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(fileVersion, productVersion) {
-        result := ComCall(12, this, "uint*", fileVersion, "uint*", productVersion, "HRESULT")
+        fileVersionMarshal := fileVersion is VarRef ? "uint*" : "ptr"
+        productVersionMarshal := productVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, fileVersionMarshal, fileVersion, productVersionMarshal, productVersion, "HRESULT")
         return result
     }
 

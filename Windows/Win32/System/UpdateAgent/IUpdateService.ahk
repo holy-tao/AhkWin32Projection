@@ -59,7 +59,9 @@ class IUpdateService extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_expirationdate
      */
     get_ExpirationDate(retval) {
-        result := ComCall(9, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IUpdateService extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_issuedate
      */
     get_IssueDate(retval) {
-        result := ComCall(12, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -41,7 +41,10 @@ class IDedupDataPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus(pStatus, pDataHeadroomMb) {
-        result := ComCall(3, this, "int*", pStatus, "uint*", pDataHeadroomMb, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        pDataHeadroomMbMarshal := pDataHeadroomMb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pStatusMarshal, pStatus, pDataHeadroomMbMarshal, pDataHeadroomMb, "HRESULT")
         return result
     }
 
@@ -67,7 +70,9 @@ class IDedupDataPort extends IUnknown{
      * @returns {HRESULT} 
      */
     InsertChunks(ChunkCount, pChunkMetadata, DataByteCount, pChunkData, pRequestId) {
-        result := ComCall(5, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, "char*", pChunkData, "ptr", pRequestId, "HRESULT")
+        pChunkDataMarshal := pChunkData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, pChunkDataMarshal, pChunkData, "ptr", pRequestId, "HRESULT")
         return result
     }
 
@@ -139,7 +144,11 @@ class IDedupDataPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStreamsResults(RequestId, MaxWaitMs, StreamEntryIndex, pStreamCount, ppStreams, pEntryCount, ppEntries, pStatus, ppItemResults) {
-        result := ComCall(10, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", StreamEntryIndex, "uint*", pStreamCount, "ptr*", ppStreams, "uint*", pEntryCount, "ptr*", ppEntries, "int*", pStatus, "ptr*", ppItemResults, "HRESULT")
+        pStreamCountMarshal := pStreamCount is VarRef ? "uint*" : "ptr"
+        pEntryCountMarshal := pEntryCount is VarRef ? "uint*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", StreamEntryIndex, pStreamCountMarshal, pStreamCount, "ptr*", ppStreams, pEntryCountMarshal, pEntryCount, "ptr*", ppEntries, pStatusMarshal, pStatus, "ptr*", ppItemResults, "HRESULT")
         return result
     }
 
@@ -169,7 +178,11 @@ class IDedupDataPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetChunksResults(RequestId, MaxWaitMs, ChunkIndex, pChunkCount, ppChunkMetadata, pDataByteCount, ppChunkData, pStatus, ppItemResults) {
-        result := ComCall(12, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", ChunkIndex, "uint*", pChunkCount, "ptr*", ppChunkMetadata, "uint*", pDataByteCount, "ptr*", ppChunkData, "int*", pStatus, "ptr*", ppItemResults, "HRESULT")
+        pChunkCountMarshal := pChunkCount is VarRef ? "uint*" : "ptr"
+        pDataByteCountMarshal := pDataByteCount is VarRef ? "uint*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", ChunkIndex, pChunkCountMarshal, pChunkCount, "ptr*", ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, "ptr*", ppChunkData, pStatusMarshal, pStatus, "ptr*", ppItemResults, "HRESULT")
         return result
     }
 
@@ -180,7 +193,9 @@ class IDedupDataPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRequestStatus(RequestId, pStatus) {
-        result := ComCall(13, this, "ptr", RequestId, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "ptr", RequestId, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -195,7 +210,10 @@ class IDedupDataPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRequestResults(RequestId, MaxWaitMs, pBatchResult, pBatchCount, pStatus, ppItemResults) {
-        result := ComCall(14, this, "ptr", RequestId, "uint", MaxWaitMs, "ptr", pBatchResult, "uint*", pBatchCount, "int*", pStatus, "ptr*", ppItemResults, "HRESULT")
+        pBatchCountMarshal := pBatchCount is VarRef ? "uint*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", RequestId, "uint", MaxWaitMs, "ptr", pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, "ptr*", ppItemResults, "HRESULT")
         return result
     }
 }

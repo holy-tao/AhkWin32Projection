@@ -44,7 +44,9 @@ class IAppxManifestQualifiedResource extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScale(scale) {
-        result := ComCall(4, this, "uint*", scale, "HRESULT")
+        scaleMarshal := scale is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, scaleMarshal, scale, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IAppxManifestQualifiedResource extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDXFeatureLevel(dxFeatureLevel) {
-        result := ComCall(5, this, "int*", dxFeatureLevel, "HRESULT")
+        dxFeatureLevelMarshal := dxFeatureLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, dxFeatureLevelMarshal, dxFeatureLevel, "HRESULT")
         return result
     }
 }

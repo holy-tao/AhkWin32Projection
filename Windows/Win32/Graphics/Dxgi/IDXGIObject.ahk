@@ -87,7 +87,9 @@ class IDXGIObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-getprivatedata
      */
     GetPrivateData(Name, pDataSize, pData) {
-        result := ComCall(5, this, "ptr", Name, "uint*", pDataSize, "ptr", pData, "HRESULT")
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", Name, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 

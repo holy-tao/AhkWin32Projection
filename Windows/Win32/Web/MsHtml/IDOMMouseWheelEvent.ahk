@@ -41,7 +41,9 @@ class IDOMMouseWheelEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_wheelDelta(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 

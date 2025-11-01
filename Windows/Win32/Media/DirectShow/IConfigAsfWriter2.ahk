@@ -38,7 +38,9 @@ class IConfigAsfWriter2 extends IConfigAsfWriter{
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter2-streamnumfrompin
      */
     StreamNumFromPin(pPin, pwStreamNum) {
-        result := ComCall(11, this, "ptr", pPin, "ushort*", pwStreamNum, "HRESULT")
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pPin, pwStreamNumMarshal, pwStreamNum, "HRESULT")
         return result
     }
 
@@ -64,7 +66,10 @@ class IConfigAsfWriter2 extends IConfigAsfWriter{
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter2-getparam
      */
     GetParam(dwParam, pdwParam1, pdwParam2) {
-        result := ComCall(13, this, "uint", dwParam, "uint*", pdwParam1, "uint*", pdwParam2, "HRESULT")
+        pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : "ptr"
+        pdwParam2Marshal := pdwParam2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwParam, pdwParam1Marshal, pdwParam1, pdwParam2Marshal, pdwParam2, "HRESULT")
         return result
     }
 

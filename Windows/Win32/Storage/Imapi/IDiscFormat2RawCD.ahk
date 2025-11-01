@@ -154,7 +154,9 @@ class IDiscFormat2RawCD extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_startofnextsession
      */
     get_StartOfNextSession(value) {
-        result := ComCall(22, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -165,7 +167,9 @@ class IDiscFormat2RawCD extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_lastpossiblestartofleadout
      */
     get_LastPossibleStartOfLeadout(value) {
-        result := ComCall(23, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -176,7 +180,9 @@ class IDiscFormat2RawCD extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType(value) {
-        result := ComCall(24, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -209,7 +215,9 @@ class IDiscFormat2RawCD extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_requestedsectortype
      */
     get_RequestedSectorType(value) {
-        result := ComCall(27, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -244,7 +252,9 @@ class IDiscFormat2RawCD extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_requestedwritespeed
      */
     get_RequestedWriteSpeed(value) {
-        result := ComCall(30, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -266,7 +276,9 @@ class IDiscFormat2RawCD extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_currentwritespeed
      */
     get_CurrentWriteSpeed(value) {
-        result := ComCall(32, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, valueMarshal, value, "HRESULT")
         return result
     }
 

@@ -108,7 +108,9 @@ class IX509CertificateRequestPkcs10V3 extends IX509CertificateRequestPkcs10V2{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-get_encryptionstrength
      */
     get_EncryptionStrength(pValue) {
-        result := ComCall(71, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(71, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

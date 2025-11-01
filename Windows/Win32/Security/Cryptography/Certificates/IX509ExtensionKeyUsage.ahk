@@ -63,7 +63,9 @@ class IX509ExtensionKeyUsage extends IX509Extension{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionkeyusage-get_keyusage
      */
     get_KeyUsage(pValue) {
-        result := ComCall(14, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

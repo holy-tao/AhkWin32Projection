@@ -80,7 +80,9 @@ class IFaxInboundRoutingExtension extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_majorversion
      */
     get_MajorVersion(plMajorVersion) {
-        result := ComCall(10, this, "int*", plMajorVersion, "HRESULT")
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
         return result
     }
 
@@ -91,7 +93,9 @@ class IFaxInboundRoutingExtension extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_minorversion
      */
     get_MinorVersion(plMinorVersion) {
-        result := ComCall(11, this, "int*", plMinorVersion, "HRESULT")
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
     }
 
@@ -102,7 +106,9 @@ class IFaxInboundRoutingExtension extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_majorbuild
      */
     get_MajorBuild(plMajorBuild) {
-        result := ComCall(12, this, "int*", plMajorBuild, "HRESULT")
+        plMajorBuildMarshal := plMajorBuild is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plMajorBuildMarshal, plMajorBuild, "HRESULT")
         return result
     }
 
@@ -113,7 +119,9 @@ class IFaxInboundRoutingExtension extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_minorbuild
      */
     get_MinorBuild(plMinorBuild) {
-        result := ComCall(13, this, "int*", plMinorBuild, "HRESULT")
+        plMinorBuildMarshal := plMinorBuild is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plMinorBuildMarshal, plMinorBuild, "HRESULT")
         return result
     }
 
@@ -135,7 +143,9 @@ class IFaxInboundRoutingExtension extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_status
      */
     get_Status(pStatus) {
-        result := ComCall(15, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -146,7 +156,9 @@ class IFaxInboundRoutingExtension extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_initerrorcode
      */
     get_InitErrorCode(plInitErrorCode) {
-        result := ComCall(16, this, "int*", plInitErrorCode, "HRESULT")
+        plInitErrorCodeMarshal := plInitErrorCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plInitErrorCodeMarshal, plInitErrorCode, "HRESULT")
         return result
     }
 

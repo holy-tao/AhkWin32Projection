@@ -61,7 +61,9 @@ class IVisualTreeService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getenums
      */
     GetEnums(pCount, ppEnums) {
-        result := ComCall(5, this, "uint*", pCount, "ptr*", ppEnums, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pCountMarshal, pCount, "ptr*", ppEnums, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class IVisualTreeService extends IUnknown{
         typeName := typeName is String ? BSTR.Alloc(typeName).Value : typeName
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(6, this, "ptr", typeName, "ptr", value, "uint*", pInstanceHandle, "HRESULT")
+        pInstanceHandleMarshal := pInstanceHandle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", typeName, "ptr", value, pInstanceHandleMarshal, pInstanceHandle, "HRESULT")
         return result
     }
 
@@ -92,7 +96,10 @@ class IVisualTreeService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getpropertyvalueschain
      */
     GetPropertyValuesChain(instanceHandle, pSourceCount, ppPropertySources, pPropertyCount, ppPropertyValues) {
-        result := ComCall(7, this, "uint", instanceHandle, "uint*", pSourceCount, "ptr*", ppPropertySources, "uint*", pPropertyCount, "ptr*", ppPropertyValues, "HRESULT")
+        pSourceCountMarshal := pSourceCount is VarRef ? "uint*" : "ptr"
+        pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", instanceHandle, pSourceCountMarshal, pSourceCount, "ptr*", ppPropertySources, pPropertyCountMarshal, pPropertyCount, "ptr*", ppPropertyValues, "HRESULT")
         return result
     }
 
@@ -129,7 +136,9 @@ class IVisualTreeService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getcollectioncount
      */
     GetCollectionCount(instanceHandle, pCollectionSize) {
-        result := ComCall(10, this, "uint", instanceHandle, "uint*", pCollectionSize, "HRESULT")
+        pCollectionSizeMarshal := pCollectionSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", instanceHandle, pCollectionSizeMarshal, pCollectionSize, "HRESULT")
         return result
     }
 
@@ -143,7 +152,9 @@ class IVisualTreeService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getcollectionelements
      */
     GetCollectionElements(instanceHandle, startIndex, pElementCount, ppElementValues) {
-        result := ComCall(11, this, "uint", instanceHandle, "uint", startIndex, "uint*", pElementCount, "ptr*", ppElementValues, "HRESULT")
+        pElementCountMarshal := pElementCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", instanceHandle, "uint", startIndex, pElementCountMarshal, pElementCount, "ptr*", ppElementValues, "HRESULT")
         return result
     }
 

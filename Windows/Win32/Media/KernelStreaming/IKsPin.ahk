@@ -70,7 +70,9 @@ class IKsPin extends IUnknown{
      * @returns {HRESULT} 
      */
     KsGetCurrentCommunication(Communication, Interface, Medium) {
-        result := ComCall(6, this, "int*", Communication, "ptr", Interface, "ptr", Medium, "HRESULT")
+        CommunicationMarshal := Communication is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, CommunicationMarshal, Communication, "ptr", Interface, "ptr", Medium, "HRESULT")
         return result
     }
 

@@ -92,7 +92,9 @@ class ICameraUIControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getcurrentviewtype
      */
     GetCurrentViewType(pViewType) {
-        result := ComCall(7, this, "int*", pViewType, "HRESULT")
+        pViewTypeMarshal := pViewType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pViewTypeMarshal, pViewType, "HRESULT")
         return result
     }
 

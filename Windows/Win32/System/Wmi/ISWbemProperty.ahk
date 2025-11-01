@@ -90,7 +90,9 @@ class ISWbemProperty extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CIMType(iCimType) {
-        result := ComCall(12, this, "int*", iCimType, "HRESULT")
+        iCimTypeMarshal := iCimType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, iCimTypeMarshal, iCimType, "HRESULT")
         return result
     }
 

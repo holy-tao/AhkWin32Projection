@@ -51,7 +51,9 @@ class INetFwPolicy2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes
      */
     get_CurrentProfileTypes(profileTypesBitmask) {
-        result := ComCall(7, this, "int*", profileTypesBitmask, "HRESULT")
+        profileTypesBitmaskMarshal := profileTypesBitmask is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, profileTypesBitmaskMarshal, profileTypesBitmask, "HRESULT")
         return result
     }
 
@@ -245,7 +247,9 @@ class INetFwPolicy2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultinboundaction
      */
     get_DefaultInboundAction(profileType, action) {
-        result := ComCall(23, this, "int", profileType, "int*", action, "HRESULT")
+        actionMarshal := action is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, "int", profileType, actionMarshal, action, "HRESULT")
         return result
     }
 
@@ -269,7 +273,9 @@ class INetFwPolicy2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultoutboundaction
      */
     get_DefaultOutboundAction(profileType, action) {
-        result := ComCall(25, this, "int", profileType, "int*", action, "HRESULT")
+        actionMarshal := action is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "int", profileType, actionMarshal, action, "HRESULT")
         return result
     }
 
@@ -306,7 +312,9 @@ class INetFwPolicy2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_localpolicymodifystate
      */
     get_LocalPolicyModifyState(modifyState) {
-        result := ComCall(28, this, "int*", modifyState, "HRESULT")
+        modifyStateMarshal := modifyState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, modifyStateMarshal, modifyState, "HRESULT")
         return result
     }
 }

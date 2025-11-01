@@ -82,7 +82,9 @@ class IDirectMusicSynthSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-sampletoreftime
      */
     SampleToRefTime(llSampleTime, prfTime) {
-        result := ComCall(7, this, "int64", llSampleTime, "int64*", prfTime, "HRESULT")
+        prfTimeMarshal := prfTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(7, this, "int64", llSampleTime, prfTimeMarshal, prfTime, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IDirectMusicSynthSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-reftimetosample
      */
     RefTimeToSample(rfTime, pllSampleTime) {
-        result := ComCall(8, this, "int64", rfTime, "int64*", pllSampleTime, "HRESULT")
+        pllSampleTimeMarshal := pllSampleTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, "int64", rfTime, pllSampleTimeMarshal, pllSampleTime, "HRESULT")
         return result
     }
 
@@ -117,7 +121,9 @@ class IDirectMusicSynthSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-getdesiredbuffersize
      */
     GetDesiredBufferSize(pdwBufferSizeInSamples) {
-        result := ComCall(10, this, "uint*", pdwBufferSizeInSamples, "HRESULT")
+        pdwBufferSizeInSamplesMarshal := pdwBufferSizeInSamples is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwBufferSizeInSamplesMarshal, pdwBufferSizeInSamples, "HRESULT")
         return result
     }
 }

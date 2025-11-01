@@ -70,7 +70,9 @@ class IContactAggregationLinkCollection extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Count(pCount) {
-        result := ComCall(6, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 }

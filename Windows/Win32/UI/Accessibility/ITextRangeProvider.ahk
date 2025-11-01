@@ -69,7 +69,9 @@ class ITextRangeProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-compareendpoints
      */
     CompareEndpoints(endpoint, targetRange, targetEndpoint, pRetVal) {
-        result := ComCall(5, this, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -169,7 +171,9 @@ class ITextRangeProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-move
      */
     Move(unit, count, pRetVal) {
-        result := ComCall(13, this, "int", unit, "int", count, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "int", unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -183,7 +187,9 @@ class ITextRangeProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-moveendpointbyunit
      */
     MoveEndpointByUnit(endpoint, unit, count, pRetVal) {
-        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

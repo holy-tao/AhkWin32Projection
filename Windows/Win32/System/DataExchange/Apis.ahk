@@ -504,7 +504,10 @@ class DataExchange {
      * @since windows5.0
      */
     static UnpackDDElParam(msg, lParam, puiLo, puiHi) {
-        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, "ptr*", puiLo, "ptr*", puiHi, "int")
+        puiLoMarshal := puiLo is VarRef ? "ptr*" : "ptr"
+        puiHiMarshal := puiHi is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, puiLoMarshal, puiLo, puiHiMarshal, puiHi, "int")
         return result
     }
 
@@ -590,7 +593,9 @@ class DataExchange {
     static DdeInitializeA(pidInst, pfnCallback, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("USER32.dll\DdeInitializeA", "uint*", pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
+        pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -621,7 +626,9 @@ class DataExchange {
     static DdeInitializeW(pidInst, pfnCallback, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("USER32.dll\DdeInitializeW", "uint*", pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
+        pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -1062,7 +1069,10 @@ class DataExchange {
         hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
         hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
 
-        result := DllCall("USER32.dll\DdeClientTransaction", "char*", pData, "uint", cbData, "ptr", hConv, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, "uint*", pdwResult, "ptr")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, "uint", cbData, "ptr", hConv, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, pdwResultMarshal, pdwResult, "ptr")
         return HDDEDATA({Value: result}, True)
     }
 
@@ -1198,7 +1208,9 @@ class DataExchange {
     static DdeAccessData(hData, pcbDataSize) {
         hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
-        result := DllCall("USER32.dll\DdeAccessData", "ptr", hData, "uint*", pcbDataSize, "char*")
+        pcbDataSizeMarshal := pcbDataSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\DdeAccessData", "ptr", hData, pcbDataSizeMarshal, pcbDataSize, "char*")
         return result
     }
 
@@ -2180,9 +2192,11 @@ class DataExchange {
      * @since windows5.0
      */
     static GetPriorityClipboardFormat(paFormatPriorityList, cFormats) {
+        paFormatPriorityListMarshal := paFormatPriorityList is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPriorityClipboardFormat", "uint*", paFormatPriorityList, "int", cFormats, "int")
+        result := DllCall("USER32.dll\GetPriorityClipboardFormat", paFormatPriorityListMarshal, paFormatPriorityList, "int", cFormats, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2271,9 +2285,12 @@ class DataExchange {
      * @since windows6.0.6000
      */
     static GetUpdatedClipboardFormats(lpuiFormats, cFormats, pcFormatsOut) {
+        lpuiFormatsMarshal := lpuiFormats is VarRef ? "uint*" : "ptr"
+        pcFormatsOutMarshal := pcFormatsOut is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUpdatedClipboardFormats", "uint*", lpuiFormats, "uint", cFormats, "uint*", pcFormatsOut, "int")
+        result := DllCall("USER32.dll\GetUpdatedClipboardFormats", lpuiFormatsMarshal, lpuiFormats, "uint", cFormats, pcFormatsOutMarshal, pcFormatsOut, "int")
         if(A_LastError)
             throw OSError()
 

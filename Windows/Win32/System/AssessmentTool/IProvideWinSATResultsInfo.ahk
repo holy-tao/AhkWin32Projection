@@ -49,7 +49,9 @@ class IProvideWinSATResultsInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentstate
      */
     get_AssessmentState(state) {
-        result := ComCall(8, this, "int*", state, "HRESULT")
+        stateMarshal := state is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, stateMarshal, state, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IProvideWinSATResultsInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_systemrating
      */
     get_SystemRating(level) {
-        result := ComCall(10, this, "float*", level, "HRESULT")
+        levelMarshal := level is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, levelMarshal, level, "HRESULT")
         return result
     }
 

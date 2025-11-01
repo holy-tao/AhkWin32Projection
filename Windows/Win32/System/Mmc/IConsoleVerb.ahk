@@ -78,7 +78,9 @@ class IConsoleVerb extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-getdefaultverb
      */
     GetDefaultVerb(peCmdID) {
-        result := ComCall(6, this, "int*", peCmdID, "HRESULT")
+        peCmdIDMarshal := peCmdID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, peCmdIDMarshal, peCmdID, "HRESULT")
         return result
     }
 }

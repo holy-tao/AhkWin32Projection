@@ -67,7 +67,9 @@ class IRDPSRAPIInvitationManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_count
      */
     get_Count(pRetVal) {
-        result := ComCall(9, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

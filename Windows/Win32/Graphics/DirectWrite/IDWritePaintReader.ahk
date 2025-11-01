@@ -38,7 +38,9 @@ class IDWritePaintReader extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCurrentGlyph(glyphIndex, paintElement, structSize, clipBox, glyphAttributes) {
-        result := ComCall(3, this, "uint", glyphIndex, "ptr", paintElement, "uint", structSize, "ptr", clipBox, "int*", glyphAttributes, "HRESULT")
+        glyphAttributesMarshal := glyphAttributes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", glyphIndex, "ptr", paintElement, "uint", structSize, "ptr", clipBox, glyphAttributesMarshal, glyphAttributes, "HRESULT")
         return result
     }
 

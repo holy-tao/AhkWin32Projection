@@ -39,7 +39,9 @@ class IEnumTerminalClass extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumterminalclass-next
      */
     Next(celt, pElements, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", pElements, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", pElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

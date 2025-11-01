@@ -43,7 +43,9 @@ class IFindSimilarResults extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getsize
      */
     GetSize(size) {
-        result := ComCall(3, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, sizeMarshal, size, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IFindSimilarResults extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getnextfileid
      */
     GetNextFileId(numTraitsMatched, similarityFileId) {
-        result := ComCall(4, this, "uint*", numTraitsMatched, "ptr", similarityFileId, "HRESULT")
+        numTraitsMatchedMarshal := numTraitsMatched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, numTraitsMatchedMarshal, numTraitsMatched, "ptr", similarityFileId, "HRESULT")
         return result
     }
 }

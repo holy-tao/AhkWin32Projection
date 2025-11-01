@@ -120,7 +120,9 @@ class ISpellChecker extends IUnknown{
     GetOptionValue(optionId, value) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
 
-        result := ComCall(9, this, "ptr", optionId, "char*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "ptr", optionId, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -165,7 +167,9 @@ class ISpellChecker extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-add_spellcheckerchanged
      */
     add_SpellCheckerChanged(handler, eventCookie) {
-        result := ComCall(13, this, "ptr", handler, "uint*", eventCookie, "HRESULT")
+        eventCookieMarshal := eventCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", handler, eventCookieMarshal, eventCookie, "HRESULT")
         return result
     }
 

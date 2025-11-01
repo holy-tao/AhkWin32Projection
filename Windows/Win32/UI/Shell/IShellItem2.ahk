@@ -143,7 +143,9 @@ class IShellItem2 extends IShellItem{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getint32
      */
     GetInt32(key, pi) {
-        result := ComCall(16, this, "ptr", key, "int*", pi, "HRESULT")
+        piMarshal := pi is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", key, piMarshal, pi, "HRESULT")
         return result
     }
 
@@ -167,7 +169,9 @@ class IShellItem2 extends IShellItem{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint32
      */
     GetUInt32(key, pui) {
-        result := ComCall(18, this, "ptr", key, "uint*", pui, "HRESULT")
+        puiMarshal := pui is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", key, puiMarshal, pui, "HRESULT")
         return result
     }
 
@@ -179,7 +183,9 @@ class IShellItem2 extends IShellItem{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint64
      */
     GetUInt64(key, pull) {
-        result := ComCall(19, this, "ptr", key, "uint*", pull, "HRESULT")
+        pullMarshal := pull is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", key, pullMarshal, pull, "HRESULT")
         return result
     }
 

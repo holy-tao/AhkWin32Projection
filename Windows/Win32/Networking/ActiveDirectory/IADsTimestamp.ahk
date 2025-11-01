@@ -36,7 +36,9 @@ class IADsTimestamp extends IDispatch{
      * @returns {HRESULT} 
      */
     get_WholeSeconds(retval) {
-        result := ComCall(7, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IADsTimestamp extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EventID(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -39,7 +39,9 @@ class ID2D1GdiMetafileSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gdimetafilesink-processrecord
      */
     ProcessRecord(recordType, recordData, recordDataSize) {
-        result := ComCall(3, this, "uint", recordType, "ptr", recordData, "uint", recordDataSize, "HRESULT")
+        recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", recordType, recordDataMarshal, recordData, "uint", recordDataSize, "HRESULT")
         return result
     }
 }

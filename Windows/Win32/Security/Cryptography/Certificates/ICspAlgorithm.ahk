@@ -50,7 +50,9 @@ class ICspAlgorithm extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_defaultlength
      */
     get_DefaultLength(pValue) {
-        result := ComCall(8, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class ICspAlgorithm extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_incrementlength
      */
     get_IncrementLength(pValue) {
-        result := ComCall(9, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -94,7 +98,9 @@ class ICspAlgorithm extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_maxlength
      */
     get_MaxLength(pValue) {
-        result := ComCall(12, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -105,7 +111,9 @@ class ICspAlgorithm extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_minlength
      */
     get_MinLength(pValue) {
-        result := ComCall(13, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -127,7 +135,9 @@ class ICspAlgorithm extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_type
      */
     get_Type(pValue) {
-        result := ComCall(15, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -138,7 +148,9 @@ class ICspAlgorithm extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_operations
      */
     get_Operations(pValue) {
-        result := ComCall(16, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

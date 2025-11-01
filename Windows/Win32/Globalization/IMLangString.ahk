@@ -44,7 +44,9 @@ class IMLangString extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLength(plLen) {
-        result := ComCall(4, this, "int*", plLen, "HRESULT")
+        plLenMarshal := plLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plLenMarshal, plLen, "HRESULT")
         return result
     }
 
@@ -75,7 +77,10 @@ class IMLangString extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMLStr(lSrcPos, lSrcLen, pUnkOuter, dwClsContext, piid, ppDestMLStr, plDestPos, plDestLen) {
-        result := ComCall(6, this, "int", lSrcPos, "int", lSrcLen, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", piid, "ptr*", ppDestMLStr, "int*", plDestPos, "int*", plDestLen, "HRESULT")
+        plDestPosMarshal := plDestPos is VarRef ? "int*" : "ptr"
+        plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", lSrcPos, "int", lSrcLen, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", piid, "ptr*", ppDestMLStr, plDestPosMarshal, plDestPos, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 }

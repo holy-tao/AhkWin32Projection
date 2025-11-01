@@ -64,7 +64,9 @@ class INSNetSourceCreator extends IUnknown{
     CreateNetSource(pszStreamName, pMonitor, pData, pUserContext, pCallback, qwContext) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
-        result := ComCall(4, this, "ptr", pszStreamName, "ptr", pMonitor, "char*", pData, "ptr", pUserContext, "ptr", pCallback, "uint", qwContext, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszStreamName, "ptr", pMonitor, pDataMarshal, pData, "ptr", pUserContext, "ptr", pCallback, "uint", qwContext, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class INSNetSourceCreator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
     GetNumProtocolsSupported(pcProtocols) {
-        result := ComCall(8, this, "uint*", pcProtocols, "HRESULT")
+        pcProtocolsMarshal := pcProtocols is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcProtocolsMarshal, pcProtocols, "HRESULT")
         return result
     }
 
@@ -129,7 +133,9 @@ class INSNetSourceCreator extends IUnknown{
     GetProtocolName(dwProtocolNum, pwszProtocolName, pcchProtocolName) {
         pwszProtocolName := pwszProtocolName is String ? StrPtr(pwszProtocolName) : pwszProtocolName
 
-        result := ComCall(9, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, "ushort*", pcchProtocolName, "HRESULT")
+        pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
         return result
     }
 

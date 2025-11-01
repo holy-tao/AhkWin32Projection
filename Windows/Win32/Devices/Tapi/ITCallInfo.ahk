@@ -49,7 +49,9 @@ class ITCallInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callstate
      */
     get_CallState(pCallState) {
-        result := ComCall(8, this, "int*", pCallState, "HRESULT")
+        pCallStateMarshal := pCallState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pCallStateMarshal, pCallState, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ITCallInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_privilege
      */
     get_Privilege(pPrivilege) {
-        result := ComCall(9, this, "int*", pPrivilege, "HRESULT")
+        pPrivilegeMarshal := pPrivilege is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pPrivilegeMarshal, pPrivilege, "HRESULT")
         return result
     }
 
@@ -83,7 +87,9 @@ class ITCallInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfolong
      */
     get_CallInfoLong(CallInfoLong, plCallInfoLongVal) {
-        result := ComCall(11, this, "int", CallInfoLong, "int*", plCallInfoLongVal, "HRESULT")
+        plCallInfoLongValMarshal := plCallInfoLongVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", CallInfoLong, plCallInfoLongValMarshal, plCallInfoLongVal, "HRESULT")
         return result
     }
 
@@ -158,7 +164,9 @@ class ITCallInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-getcallinfobuffer
      */
     GetCallInfoBuffer(CallInfoBuffer, pdwSize, ppCallInfoBuffer) {
-        result := ComCall(17, this, "int", CallInfoBuffer, "uint*", pdwSize, "ptr*", ppCallInfoBuffer, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "int", CallInfoBuffer, pdwSizeMarshal, pdwSize, "ptr*", ppCallInfoBuffer, "HRESULT")
         return result
     }
 
@@ -171,7 +179,9 @@ class ITCallInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-setcallinfobuffer
      */
     SetCallInfoBuffer(CallInfoBuffer, dwSize, pCallInfoBuffer) {
-        result := ComCall(18, this, "int", CallInfoBuffer, "uint", dwSize, "char*", pCallInfoBuffer, "HRESULT")
+        pCallInfoBufferMarshal := pCallInfoBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(18, this, "int", CallInfoBuffer, "uint", dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "HRESULT")
         return result
     }
 

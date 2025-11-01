@@ -48,7 +48,9 @@ class ITToneDetectionEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_appspecific
      */
     get_AppSpecific(plAppSpecific) {
-        result := ComCall(8, this, "int*", plAppSpecific, "HRESULT")
+        plAppSpecificMarshal := plAppSpecific is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plAppSpecificMarshal, plAppSpecific, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITToneDetectionEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_tickcount
      */
     get_TickCount(plTickCount) {
-        result := ComCall(9, this, "int*", plTickCount, "HRESULT")
+        plTickCountMarshal := plTickCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plTickCountMarshal, plTickCount, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class ITToneDetectionEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittonedetectionevent-get_callbackinstance
      */
     get_CallbackInstance(plCallbackInstance) {
-        result := ComCall(10, this, "int*", plCallbackInstance, "HRESULT")
+        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
         return result
     }
 }

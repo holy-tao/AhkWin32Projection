@@ -233,7 +233,9 @@ class ID3D11ShaderReflection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getminfeaturelevel
      */
     GetMinFeatureLevel(pLevel) {
-        result := ComCall(19, this, "int*", pLevel, "HRESULT")
+        pLevelMarshal := pLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pLevelMarshal, pLevel, "HRESULT")
         return result
     }
 
@@ -246,7 +248,11 @@ class ID3D11ShaderReflection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getthreadgroupsize
      */
     GetThreadGroupSize(pSizeX, pSizeY, pSizeZ) {
-        result := ComCall(20, this, "uint*", pSizeX, "uint*", pSizeY, "uint*", pSizeZ, "uint")
+        pSizeXMarshal := pSizeX is VarRef ? "uint*" : "ptr"
+        pSizeYMarshal := pSizeY is VarRef ? "uint*" : "ptr"
+        pSizeZMarshal := pSizeZ is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pSizeXMarshal, pSizeX, pSizeYMarshal, pSizeY, pSizeZMarshal, pSizeZ, "uint")
         return result
     }
 

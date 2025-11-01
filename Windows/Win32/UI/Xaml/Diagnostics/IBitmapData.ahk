@@ -40,7 +40,10 @@ class IBitmapData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-copybytesto
      */
     CopyBytesTo(sourceOffsetInBytes, maxBytesToCopy, pvBytes, numberOfBytesCopied) {
-        result := ComCall(3, this, "uint", sourceOffsetInBytes, "uint", maxBytesToCopy, "char*", pvBytes, "uint*", numberOfBytesCopied, "HRESULT")
+        pvBytesMarshal := pvBytes is VarRef ? "char*" : "ptr"
+        numberOfBytesCopiedMarshal := numberOfBytesCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", sourceOffsetInBytes, "uint", maxBytesToCopy, pvBytesMarshal, pvBytes, numberOfBytesCopiedMarshal, numberOfBytesCopied, "HRESULT")
         return result
     }
 
@@ -51,7 +54,9 @@ class IBitmapData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-getstride
      */
     GetStride(pStride) {
-        result := ComCall(4, this, "uint*", pStride, "HRESULT")
+        pStrideMarshal := pStride is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pStrideMarshal, pStride, "HRESULT")
         return result
     }
 

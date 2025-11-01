@@ -37,7 +37,9 @@ class IPointerInactive extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipointerinactive-getactivationpolicy
      */
     GetActivationPolicy(pdwPolicy) {
-        result := ComCall(3, this, "int*", pdwPolicy, "HRESULT")
+        pdwPolicyMarshal := pdwPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pdwPolicyMarshal, pdwPolicy, "HRESULT")
         return result
     }
 

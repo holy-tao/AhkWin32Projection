@@ -42,7 +42,10 @@ class IMetaDataAssemblyEmit extends IUnknown{
     DefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags, pma) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, "ptr", pMetaData, "uint", dwAssemblyFlags, "uint*", pma, "HRESULT")
+        pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
+        pmaMarshal := pma is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, "ptr", pMetaData, "uint", dwAssemblyFlags, pmaMarshal, pma, "HRESULT")
         return result
     }
 
@@ -61,7 +64,11 @@ class IMetaDataAssemblyEmit extends IUnknown{
     DefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, pmdar) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(4, this, "ptr", pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, "ptr", pMetaData, "ptr", pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, "uint*", pmdar, "HRESULT")
+        pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : "ptr"
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+        pmdarMarshal := pmdar is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, "ptr", pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, pmdarMarshal, pmdar, "HRESULT")
         return result
     }
 
@@ -77,7 +84,10 @@ class IMetaDataAssemblyEmit extends IUnknown{
     DefineFile(szName, pbHashValue, cbHashValue, dwFileFlags, pmdf) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(5, this, "ptr", szName, "ptr", pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, "uint*", pmdf, "HRESULT")
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+        pmdfMarshal := pmdf is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", szName, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, pmdfMarshal, pmdf, "HRESULT")
         return result
     }
 
@@ -93,7 +103,9 @@ class IMetaDataAssemblyEmit extends IUnknown{
     DefineExportedType(szName, tkImplementation, tkTypeDef, dwExportedTypeFlags, pmdct) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(6, this, "ptr", szName, "uint", tkImplementation, "uint", tkTypeDef, "uint", dwExportedTypeFlags, "uint*", pmdct, "HRESULT")
+        pmdctMarshal := pmdct is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", szName, "uint", tkImplementation, "uint", tkTypeDef, "uint", dwExportedTypeFlags, pmdctMarshal, pmdct, "HRESULT")
         return result
     }
 
@@ -109,7 +121,9 @@ class IMetaDataAssemblyEmit extends IUnknown{
     DefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, pmdmr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(7, this, "ptr", szName, "uint", tkImplementation, "uint", dwOffset, "uint", dwResourceFlags, "uint*", pmdmr, "HRESULT")
+        pmdmrMarshal := pmdmr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", szName, "uint", tkImplementation, "uint", dwOffset, "uint", dwResourceFlags, pmdmrMarshal, pmdmr, "HRESULT")
         return result
     }
 
@@ -127,7 +141,9 @@ class IMetaDataAssemblyEmit extends IUnknown{
     SetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(8, this, "uint", pma, "ptr", pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, "ptr", pMetaData, "uint", dwAssemblyFlags, "HRESULT")
+        pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "uint", pma, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, "ptr", pMetaData, "uint", dwAssemblyFlags, "HRESULT")
         return result
     }
 
@@ -146,7 +162,10 @@ class IMetaDataAssemblyEmit extends IUnknown{
     SetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(9, this, "uint", ar, "ptr", pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, "ptr", pMetaData, "ptr", pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, "HRESULT")
+        pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : "ptr"
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "uint", ar, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, "ptr", pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, "HRESULT")
         return result
     }
 
@@ -159,7 +178,9 @@ class IMetaDataAssemblyEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFileProps(file, pbHashValue, cbHashValue, dwFileFlags) {
-        result := ComCall(10, this, "uint", file, "ptr", pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, "HRESULT")
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "uint", file, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, "HRESULT")
         return result
     }
 

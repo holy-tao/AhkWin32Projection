@@ -41,7 +41,11 @@ class ITableCreation extends ITableDefinition{
      * @returns {HRESULT} 
      */
     GetTableDefinition(pTableID, pcColumnDescs, prgColumnDescs, pcPropertySets, prgPropertySets, pcConstraintDescs, prgConstraintDescs, ppwszStringBuffer) {
-        result := ComCall(7, this, "ptr", pTableID, "ptr*", pcColumnDescs, "ptr*", prgColumnDescs, "uint*", pcPropertySets, "ptr*", prgPropertySets, "uint*", pcConstraintDescs, "ptr*", prgConstraintDescs, "ptr*", ppwszStringBuffer, "HRESULT")
+        pcColumnDescsMarshal := pcColumnDescs is VarRef ? "ptr*" : "ptr"
+        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
+        pcConstraintDescsMarshal := pcConstraintDescs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pTableID, pcColumnDescsMarshal, pcColumnDescs, "ptr*", prgColumnDescs, pcPropertySetsMarshal, pcPropertySets, "ptr*", prgPropertySets, pcConstraintDescsMarshal, pcConstraintDescs, "ptr*", prgConstraintDescs, "ptr*", ppwszStringBuffer, "HRESULT")
         return result
     }
 }

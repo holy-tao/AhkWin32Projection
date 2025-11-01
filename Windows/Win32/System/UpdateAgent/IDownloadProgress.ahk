@@ -59,7 +59,9 @@ class IDownloadProgress extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdateindex
      */
     get_CurrentUpdateIndex(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IDownloadProgress extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_percentcomplete
      */
     get_PercentComplete(retval) {
-        result := ComCall(10, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -115,7 +119,9 @@ class IDownloadProgress extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatedownloadphase
      */
     get_CurrentUpdateDownloadPhase(retval) {
-        result := ComCall(14, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -126,7 +132,9 @@ class IDownloadProgress extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatepercentcomplete
      */
     get_CurrentUpdatePercentComplete(retval) {
-        result := ComCall(15, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

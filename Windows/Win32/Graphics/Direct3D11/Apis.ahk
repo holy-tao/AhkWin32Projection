@@ -2692,7 +2692,10 @@ class Direct3D11 {
     static D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr*", ppDevice, "int*", pFeatureLevel, "ptr*", ppImmediateContext, "int")
+        pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
+        pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
+
+        result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr*", ppDevice, pFeatureLevelMarshal, pFeatureLevel, "ptr*", ppImmediateContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2787,7 +2790,10 @@ class Direct3D11 {
     static D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, "int*", pFeatureLevel, "ptr*", ppImmediateContext, "int")
+        pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
+        pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
+
+        result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, pFeatureLevelMarshal, pFeatureLevel, "ptr*", ppImmediateContext, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -81,7 +81,9 @@ class ITransactionProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-getisolationlevel
      */
     GetIsolationLevel(__MIDL__ITransactionProxy0000) {
-        result := ComCall(7, this, "int*", __MIDL__ITransactionProxy0000, "HRESULT")
+        __MIDL__ITransactionProxy0000Marshal := __MIDL__ITransactionProxy0000 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, __MIDL__ITransactionProxy0000Marshal, __MIDL__ITransactionProxy0000, "HRESULT")
         return result
     }
 

@@ -1658,7 +1658,9 @@ class DirectSound {
      * @returns {HRESULT} 
      */
     static DirectSoundEnumerateA(pDSEnumCallback, pContext) {
-        result := DllCall("DSOUND.dll\DirectSoundEnumerateA", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DSOUND.dll\DirectSoundEnumerateA", "ptr", pDSEnumCallback, pContextMarshal, pContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1672,7 +1674,9 @@ class DirectSound {
      * @returns {HRESULT} 
      */
     static DirectSoundEnumerateW(pDSEnumCallback, pContext) {
-        result := DllCall("DSOUND.dll\DirectSoundEnumerateW", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DSOUND.dll\DirectSoundEnumerateW", "ptr", pDSEnumCallback, pContextMarshal, pContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1701,7 +1705,9 @@ class DirectSound {
      * @returns {HRESULT} 
      */
     static DirectSoundCaptureEnumerateA(pDSEnumCallback, pContext) {
-        result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", "ptr", pDSEnumCallback, pContextMarshal, pContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1715,7 +1721,9 @@ class DirectSound {
      * @returns {HRESULT} 
      */
     static DirectSoundCaptureEnumerateW(pDSEnumCallback, pContext) {
-        result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", "ptr", pDSEnumCallback, "ptr", pContext, "int")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", "ptr", pDSEnumCallback, pContextMarshal, pContext, "int")
         if(result != 0)
             throw OSError(result)
 

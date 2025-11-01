@@ -79,7 +79,9 @@ class IOpenServiceActivityManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetVersionCookie(pdwVersionCookie) {
-        result := ComCall(6, this, "uint*", pdwVersionCookie, "HRESULT")
+        pdwVersionCookieMarshal := pdwVersionCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwVersionCookieMarshal, pdwVersionCookie, "HRESULT")
         return result
     }
 }

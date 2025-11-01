@@ -34,7 +34,9 @@ class IXFeedsEnum extends IUnknown{
      * @returns {HRESULT} 
      */
     Count(puiCount) {
-        result := ComCall(3, this, "uint*", puiCount, "HRESULT")
+        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiCountMarshal, puiCount, "HRESULT")
         return result
     }
 

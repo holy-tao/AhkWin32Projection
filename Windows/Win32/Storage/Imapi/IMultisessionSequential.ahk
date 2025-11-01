@@ -57,7 +57,9 @@ class IMultisessionSequential extends IMultisession{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_startaddressofprevioussession
      */
     get_StartAddressOfPreviousSession(value) {
-        result := ComCall(12, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IMultisessionSequential extends IMultisession{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_lastwrittenaddressofprevioussession
      */
     get_LastWrittenAddressOfPreviousSession(value) {
-        result := ComCall(13, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -79,7 +83,9 @@ class IMultisessionSequential extends IMultisession{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_nextwritableaddress
      */
     get_NextWritableAddress(value) {
-        result := ComCall(14, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -90,7 +96,9 @@ class IMultisessionSequential extends IMultisession{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_freesectorsonmedia
      */
     get_FreeSectorsOnMedia(value) {
-        result := ComCall(15, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

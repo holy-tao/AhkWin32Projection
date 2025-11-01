@@ -48,7 +48,9 @@ class IXpsOMShareable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype
      */
     GetType(type) {
-        result := ComCall(4, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, typeMarshal, type, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IDVBSLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_signalpolarisation
      */
     get_SignalPolarisation(PolarisationVal) {
-        result := ComCall(22, this, "int*", PolarisationVal, "HRESULT")
+        PolarisationValMarshal := PolarisationVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, PolarisationValMarshal, PolarisationVal, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IDVBSLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_orbitalposition
      */
     get_OrbitalPosition(longitude) {
-        result := ComCall(26, this, "int*", longitude, "HRESULT")
+        longitudeMarshal := longitude is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, longitudeMarshal, longitude, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IDVBSLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_azimuth
      */
     get_Azimuth(Azimuth) {
-        result := ComCall(28, this, "int*", Azimuth, "HRESULT")
+        AzimuthMarshal := Azimuth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, AzimuthMarshal, Azimuth, "HRESULT")
         return result
     }
 
@@ -136,7 +142,9 @@ class IDVBSLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_elevation
      */
     get_Elevation(Elevation) {
-        result := ComCall(30, this, "int*", Elevation, "HRESULT")
+        ElevationMarshal := Elevation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, ElevationMarshal, Elevation, "HRESULT")
         return result
     }
 

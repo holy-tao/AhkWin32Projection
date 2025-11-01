@@ -37,7 +37,9 @@ class IRandomAccessStreamFileAccessMode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-irandomaccessstreamfileaccessmode-getmode
      */
     GetMode(fileAccessMode) {
-        result := ComCall(3, this, "uint*", fileAccessMode, "HRESULT")
+        fileAccessModeMarshal := fileAccessMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, fileAccessModeMarshal, fileAccessMode, "HRESULT")
         return result
     }
 }

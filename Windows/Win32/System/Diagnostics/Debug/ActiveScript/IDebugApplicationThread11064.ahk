@@ -34,7 +34,9 @@ class IDebugApplicationThread11064 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetActiveThreadRequestCount(puiThreadRequests) {
-        result := ComCall(3, this, "uint*", puiThreadRequests, "HRESULT")
+        puiThreadRequestsMarshal := puiThreadRequests is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiThreadRequestsMarshal, puiThreadRequests, "HRESULT")
         return result
     }
 

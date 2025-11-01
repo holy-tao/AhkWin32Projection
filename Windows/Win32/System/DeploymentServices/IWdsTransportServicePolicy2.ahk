@@ -37,7 +37,9 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_udpportpolicy
      */
     get_UdpPortPolicy(pUdpPortPolicy) {
-        result := ComCall(23, this, "int*", pUdpPortPolicy, "HRESULT")
+        pUdpPortPolicyMarshal := pUdpPortPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pUdpPortPolicyMarshal, pUdpPortPolicy, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_tftpmaximumblocksize
      */
     get_TftpMaximumBlockSize(pulTftpMaximumBlockSize) {
-        result := ComCall(25, this, "uint*", pulTftpMaximumBlockSize, "HRESULT")
+        pulTftpMaximumBlockSizeMarshal := pulTftpMaximumBlockSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, pulTftpMaximumBlockSizeMarshal, pulTftpMaximumBlockSize, "HRESULT")
         return result
     }
 

@@ -75,7 +75,9 @@ class ISearchScopeRule extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchscoperule-get_followflags
      */
     get_FollowFlags(pFollowFlags) {
-        result := ComCall(6, this, "uint*", pFollowFlags, "HRESULT")
+        pFollowFlagsMarshal := pFollowFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pFollowFlagsMarshal, pFollowFlags, "HRESULT")
         return result
     }
 }

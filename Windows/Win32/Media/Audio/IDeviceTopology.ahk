@@ -43,7 +43,9 @@ class IDeviceTopology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getconnectorcount
      */
     GetConnectorCount(pCount) {
-        result := ComCall(3, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IDeviceTopology extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getsubunitcount
      */
     GetSubunitCount(pCount) {
-        result := ComCall(5, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

@@ -40,7 +40,9 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     get_colorDepth(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     get_bufferDepth(p) {
-        result := ComCall(9, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -80,7 +86,9 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(11, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -100,7 +108,9 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     get_updateInterval(p) {
-        result := ComCall(13, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -110,7 +120,9 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     get_availHeight(p) {
-        result := ComCall(14, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -120,7 +132,9 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     get_availWidth(p) {
-        result := ComCall(15, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 

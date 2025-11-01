@@ -69,7 +69,9 @@ class IColumnManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumncount
      */
     GetColumnCount(dwFlags, puCount) {
-        result := ComCall(5, this, "int", dwFlags, "uint*", puCount, "HRESULT")
+        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", dwFlags, puCountMarshal, puCount, "HRESULT")
         return result
     }
 

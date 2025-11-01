@@ -41,7 +41,9 @@ class IHTMLStorage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IHTMLStorage extends IDispatch{
      * @returns {HRESULT} 
      */
     get_remainingSpace(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 

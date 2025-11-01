@@ -48,7 +48,9 @@ class IMediaBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-getmaxlength
      */
     GetMaxLength(pcbMaxLength) {
-        result := ComCall(4, this, "uint*", pcbMaxLength, "HRESULT")
+        pcbMaxLengthMarshal := pcbMaxLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcbMaxLengthMarshal, pcbMaxLength, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IMediaBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-getbufferandlength
      */
     GetBufferAndLength(ppBuffer, pcbLength) {
-        result := ComCall(5, this, "ptr*", ppBuffer, "uint*", pcbLength, "HRESULT")
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", ppBuffer, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 }

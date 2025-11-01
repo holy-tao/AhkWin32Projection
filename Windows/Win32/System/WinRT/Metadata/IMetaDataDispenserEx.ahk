@@ -79,7 +79,9 @@ class IMetaDataDispenserEx extends IMetaDataDispenser{
     GetCORSystemDirectory(szBuffer, cchBuffer, pchBuffer) {
         szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
 
-        result := ComCall(9, this, "ptr", szBuffer, "uint", cchBuffer, "uint*", pchBuffer, "HRESULT")
+        pchBufferMarshal := pchBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", szBuffer, "uint", cchBuffer, pchBufferMarshal, pchBuffer, "HRESULT")
         return result
     }
 
@@ -102,7 +104,9 @@ class IMetaDataDispenserEx extends IMetaDataDispenser{
         szAssemblyName := szAssemblyName is String ? StrPtr(szAssemblyName) : szAssemblyName
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(10, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szName, "uint", cchName, "uint*", pcName, "HRESULT")
+        pcNameMarshal := pcName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szName, "uint", cchName, pcNameMarshal, pcName, "HRESULT")
         return result
     }
 
@@ -127,7 +131,9 @@ class IMetaDataDispenserEx extends IMetaDataDispenser{
         szModuleName := szModuleName is String ? StrPtr(szModuleName) : szModuleName
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(11, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szModuleName, "ptr", szName, "uint", cchName, "uint*", pcName, "HRESULT")
+        pcNameMarshal := pcName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szModuleName, "ptr", szName, "uint", cchName, pcNameMarshal, pcName, "HRESULT")
         return result
     }
 }

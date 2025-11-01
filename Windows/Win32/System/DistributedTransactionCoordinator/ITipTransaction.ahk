@@ -35,7 +35,9 @@ class ITipTransaction extends IUnknown{
      * @returns {HRESULT} 
      */
     Push(i_pszRemoteTmUrl, o_ppszRemoteTxUrl) {
-        result := ComCall(3, this, "char*", i_pszRemoteTmUrl, "ptr", o_ppszRemoteTxUrl, "HRESULT")
+        i_pszRemoteTmUrlMarshal := i_pszRemoteTmUrl is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, i_pszRemoteTmUrlMarshal, i_pszRemoteTmUrl, "ptr", o_ppszRemoteTxUrl, "HRESULT")
         return result
     }
 

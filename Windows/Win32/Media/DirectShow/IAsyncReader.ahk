@@ -64,7 +64,9 @@ class IAsyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-waitfornext
      */
     WaitForNext(dwTimeout, ppSample, pdwUser) {
-        result := ComCall(5, this, "uint", dwTimeout, "ptr*", ppSample, "ptr*", pdwUser, "HRESULT")
+        pdwUserMarshal := pdwUser is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwTimeout, "ptr*", ppSample, pdwUserMarshal, pdwUser, "HRESULT")
         return result
     }
 
@@ -100,7 +102,10 @@ class IAsyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-length
      */
     Length(pTotal, pAvailable) {
-        result := ComCall(8, this, "int64*", pTotal, "int64*", pAvailable, "HRESULT")
+        pTotalMarshal := pTotal is VarRef ? "int64*" : "ptr"
+        pAvailableMarshal := pAvailable is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, pTotalMarshal, pTotal, pAvailableMarshal, pAvailable, "HRESULT")
         return result
     }
 

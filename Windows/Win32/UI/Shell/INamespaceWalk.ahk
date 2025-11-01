@@ -59,7 +59,9 @@ class INamespaceWalk extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalk-getidarrayresult
      */
     GetIDArrayResult(pcItems, prgpidl) {
-        result := ComCall(4, this, "uint*", pcItems, "ptr*", prgpidl, "HRESULT")
+        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcItemsMarshal, pcItems, "ptr*", prgpidl, "HRESULT")
         return result
     }
 }

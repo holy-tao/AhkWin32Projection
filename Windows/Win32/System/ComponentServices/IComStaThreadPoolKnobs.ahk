@@ -44,7 +44,9 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMinThreadCount(minThreads) {
-        result := ComCall(4, this, "uint*", minThreads, "HRESULT")
+        minThreadsMarshal := minThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, minThreadsMarshal, minThreads, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxThreadCount(maxThreads) {
-        result := ComCall(6, this, "uint*", maxThreads, "HRESULT")
+        maxThreadsMarshal := maxThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, maxThreadsMarshal, maxThreads, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     GetActivityPerThread(activitiesPerThread) {
-        result := ComCall(8, this, "uint*", activitiesPerThread, "HRESULT")
+        activitiesPerThreadMarshal := activitiesPerThread is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, activitiesPerThreadMarshal, activitiesPerThread, "HRESULT")
         return result
     }
 
@@ -104,7 +110,9 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     GetActivityRatio(activityRatio) {
-        result := ComCall(10, this, "double*", activityRatio, "HRESULT")
+        activityRatioMarshal := activityRatio is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, activityRatioMarshal, activityRatio, "HRESULT")
         return result
     }
 
@@ -114,7 +122,9 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadCount(pdwThreads) {
-        result := ComCall(11, this, "uint*", pdwThreads, "HRESULT")
+        pdwThreadsMarshal := pdwThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwThreadsMarshal, pdwThreads, "HRESULT")
         return result
     }
 
@@ -124,7 +134,9 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     GetQueueDepth(pdwQDepth) {
-        result := ComCall(12, this, "uint*", pdwQDepth, "HRESULT")
+        pdwQDepthMarshal := pdwQDepth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwQDepthMarshal, pdwQDepth, "HRESULT")
         return result
     }
 

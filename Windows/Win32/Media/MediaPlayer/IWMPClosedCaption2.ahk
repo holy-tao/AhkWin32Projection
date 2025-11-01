@@ -37,7 +37,9 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-get_samilangcount
      */
     get_SAMILangCount(plCount) {
-        result := ComCall(15, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamilangid
      */
     getSAMILangID(nIndex, plLangID) {
-        result := ComCall(17, this, "int", nIndex, "int*", plLangID, "HRESULT")
+        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "int", nIndex, plLangIDMarshal, plLangID, "HRESULT")
         return result
     }
 
@@ -72,7 +76,9 @@ class IWMPClosedCaption2 extends IWMPClosedCaption{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-get_samistylecount
      */
     get_SAMIStyleCount(plCount) {
-        result := ComCall(18, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

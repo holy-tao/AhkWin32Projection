@@ -38,7 +38,9 @@ class IOfflineFilesFileSysInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfilesysinfo-getattributes
      */
     GetAttributes(copy, pdwAttributes) {
-        result := ComCall(3, this, "int", copy, "uint*", pdwAttributes, "HRESULT")
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "int", copy, pdwAttributesMarshal, pdwAttributes, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IOfflineFilesFileSysInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
     GetFileSize(copy, pSize) {
-        result := ComCall(5, this, "int", copy, "int64*", pSize, "HRESULT")
+        pSizeMarshal := pSize is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, "int", copy, pSizeMarshal, pSize, "HRESULT")
         return result
     }
 }

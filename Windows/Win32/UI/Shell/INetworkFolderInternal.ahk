@@ -34,7 +34,9 @@ class INetworkFolderInternal extends IUnknown{
      * @returns {HRESULT} 
      */
     GetResourceDisplayType(displayType) {
-        result := ComCall(3, this, "uint*", displayType, "HRESULT")
+        displayTypeMarshal := displayType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, displayTypeMarshal, displayType, "HRESULT")
         return result
     }
 

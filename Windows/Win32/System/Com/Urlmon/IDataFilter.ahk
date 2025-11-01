@@ -42,7 +42,12 @@ class IDataFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     DoEncode(dwFlags, lInBufferSize, pbInBuffer, lOutBufferSize, pbOutBuffer, lInBytesAvailable, plInBytesRead, plOutBytesWritten, dwReserved) {
-        result := ComCall(3, this, "uint", dwFlags, "int", lInBufferSize, "char*", pbInBuffer, "int", lOutBufferSize, "char*", pbOutBuffer, "int", lInBytesAvailable, "int*", plInBytesRead, "int*", plOutBytesWritten, "uint", dwReserved, "HRESULT")
+        pbInBufferMarshal := pbInBuffer is VarRef ? "char*" : "ptr"
+        pbOutBufferMarshal := pbOutBuffer is VarRef ? "char*" : "ptr"
+        plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
+        plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -60,7 +65,12 @@ class IDataFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     DoDecode(dwFlags, lInBufferSize, pbInBuffer, lOutBufferSize, pbOutBuffer, lInBytesAvailable, plInBytesRead, plOutBytesWritten, dwReserved) {
-        result := ComCall(4, this, "uint", dwFlags, "int", lInBufferSize, "char*", pbInBuffer, "int", lOutBufferSize, "char*", pbOutBuffer, "int", lInBytesAvailable, "int*", plInBytesRead, "int*", plOutBytesWritten, "uint", dwReserved, "HRESULT")
+        pbInBufferMarshal := pbInBuffer is VarRef ? "char*" : "ptr"
+        pbOutBufferMarshal := pbOutBuffer is VarRef ? "char*" : "ptr"
+        plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
+        plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "HRESULT")
         return result
     }
 

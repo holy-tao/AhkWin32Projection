@@ -283,7 +283,9 @@ class IHTMLObjectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyState(p) {
-        result := ComCall(30, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -365,7 +367,9 @@ class IHTMLObjectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_vspace(p) {
-        result := ComCall(38, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -385,7 +389,9 @@ class IHTMLObjectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_hspace(p) {
-        result := ComCall(40, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, pMarshal, p, "HRESULT")
         return result
     }
 }

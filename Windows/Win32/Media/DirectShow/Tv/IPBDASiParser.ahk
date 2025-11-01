@@ -60,7 +60,9 @@ class IPBDASiParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-geteit
      */
     GetEIT(dwSize, pBuffer, ppEIT) {
-        result := ComCall(4, this, "uint", dwSize, "char*", pBuffer, "ptr*", ppEIT, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", ppEIT, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IPBDASiParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-getservices
      */
     GetServices(dwSize, pBuffer, ppServices) {
-        result := ComCall(5, this, "uint", dwSize, "char*", pBuffer, "ptr*", ppServices, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", ppServices, "HRESULT")
         return result
     }
 }

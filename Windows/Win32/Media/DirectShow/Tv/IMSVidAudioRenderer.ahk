@@ -59,7 +59,9 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-get_volume
      */
     get_Volume(lVol) {
-        result := ComCall(17, this, "int*", lVol, "HRESULT")
+        lVolMarshal := lVol is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, lVolMarshal, lVol, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-get_balance
      */
     get_Balance(lBal) {
-        result := ComCall(19, this, "int*", lBal, "HRESULT")
+        lBalMarshal := lBal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, lBalMarshal, lBal, "HRESULT")
         return result
     }
 }

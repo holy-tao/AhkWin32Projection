@@ -38,7 +38,9 @@ class IResultDataCompareEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdatacompareex-compare
      */
     Compare(prdc, pnResult) {
-        result := ComCall(3, this, "ptr", prdc, "int*", pnResult, "HRESULT")
+        pnResultMarshal := pnResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", prdc, pnResultMarshal, pnResult, "HRESULT")
         return result
     }
 }

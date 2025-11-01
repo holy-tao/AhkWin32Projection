@@ -43,7 +43,9 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_id
      */
     get_ID(ID) {
-        result := ComCall(7, this, "int*", ID, "HRESULT")
+        IDMarshal := ID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, IDMarshal, ID, "HRESULT")
         return result
     }
 
@@ -141,7 +143,9 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetcount
      */
     get_PacketCount(plCount) {
-        result := ComCall(16, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -152,7 +156,9 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetsize
      */
     get_PacketSize(plSize) {
-        result := ComCall(17, this, "int*", plSize, "HRESULT")
+        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plSizeMarshal, plSize, "HRESULT")
         return result
     }
 
@@ -249,7 +255,10 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-nearestpoint
      */
     NearestPoint(X, Y, Distance, Point) {
-        result := ComCall(25, this, "int", X, "int", Y, "float*", Distance, "float*", Point, "HRESULT")
+        DistanceMarshal := Distance is VarRef ? "float*" : "ptr"
+        PointMarshal := Point is VarRef ? "float*" : "ptr"
+
+        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, PointMarshal, Point, "HRESULT")
         return result
     }
 
@@ -278,7 +287,12 @@ class IInkStrokeDisp extends IDispatch{
     GetPacketDescriptionPropertyMetrics(PropertyName, Minimum, Maximum, Units, Resolution) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(27, this, "ptr", PropertyName, "int*", Minimum, "int*", Maximum, "int*", Units, "float*", Resolution, "HRESULT")
+        MinimumMarshal := Minimum is VarRef ? "int*" : "ptr"
+        MaximumMarshal := Maximum is VarRef ? "int*" : "ptr"
+        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
+        ResolutionMarshal := Resolution is VarRef ? "float*" : "ptr"
+
+        result := ComCall(27, this, "ptr", PropertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "HRESULT")
         return result
     }
 
@@ -305,7 +319,9 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-setpoints
      */
     SetPoints(Points, Index, Count, NumberOfPointsSet) {
-        result := ComCall(29, this, "ptr", Points, "int", Index, "int", Count, "int*", NumberOfPointsSet, "HRESULT")
+        NumberOfPointsSetMarshal := NumberOfPointsSet is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, "ptr", Points, "int", Index, "int", Count, NumberOfPointsSetMarshal, NumberOfPointsSet, "HRESULT")
         return result
     }
 
@@ -351,7 +367,9 @@ class IInkStrokeDisp extends IDispatch{
     SetPacketValuesByProperty(bstrPropertyName, PacketValues, Index, Count, NumberOfPacketsSet) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", PacketValues, "int", Index, "int", Count, "int*", NumberOfPacketsSet, "HRESULT")
+        NumberOfPacketsSetMarshal := NumberOfPacketsSet is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", PacketValues, "int", Index, "int", Count, NumberOfPacketsSetMarshal, NumberOfPacketsSet, "HRESULT")
         return result
     }
 

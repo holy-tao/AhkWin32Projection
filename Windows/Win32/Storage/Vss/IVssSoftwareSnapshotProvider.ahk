@@ -78,7 +78,9 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-deletesnapshots
      */
     DeleteSnapshots(SourceObjectId, eSourceObjectType, bForceDelete, plDeletedSnapshots, pNondeletedSnapshotID) {
-        result := ComCall(6, this, "ptr", SourceObjectId, "int", eSourceObjectType, "int", bForceDelete, "int*", plDeletedSnapshots, "ptr", pNondeletedSnapshotID, "HRESULT")
+        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", SourceObjectId, "int", eSourceObjectType, "int", bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, "ptr", pNondeletedSnapshotID, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, pwszVolumeName, lNewContext) {
-        result := ComCall(7, this, "ptr", SnapshotSetId, "ptr", SnapshotId, "ushort*", pwszVolumeName, "int", lNewContext, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "ptr", SnapshotSetId, "ptr", SnapshotId, pwszVolumeNameMarshal, pwszVolumeName, "int", lNewContext, "HRESULT")
         return result
     }
 
@@ -104,7 +108,9 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-isvolumesupported
      */
     IsVolumeSupported(pwszVolumeName, pbSupportedByThisProvider) {
-        result := ComCall(8, this, "ushort*", pwszVolumeName, "ptr", pbSupportedByThisProvider, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", pbSupportedByThisProvider, "HRESULT")
         return result
     }
 
@@ -227,7 +233,10 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//vsbackup/nf-vsbackup-isvolumesnapshotted
      */
     IsVolumeSnapshotted(pwszVolumeName, pbSnapshotsPresent, plSnapshotCompatibility) {
-        result := ComCall(9, this, "ushort*", pwszVolumeName, "ptr", pbSnapshotsPresent, "int*", plSnapshotCompatibility, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
         return result
     }
 
@@ -263,7 +272,9 @@ class IVssSoftwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-queryrevertstatus
      */
     QueryRevertStatus(pwszVolume, ppAsync) {
-        result := ComCall(12, this, "ushort*", pwszVolume, "ptr*", ppAsync, "HRESULT")
+        pwszVolumeMarshal := pwszVolume is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(12, this, pwszVolumeMarshal, pwszVolume, "ptr*", ppAsync, "HRESULT")
         return result
     }
 }

@@ -62,7 +62,9 @@ class IBackgroundCopyGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getprogress
      */
     GetProgress(dwFlags, pdwProgress) {
-        result := ComCall(5, this, "uint", dwFlags, "uint*", pdwProgress, "HRESULT")
+        pdwProgressMarshal := pdwProgress is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwFlags, pdwProgressMarshal, pdwProgress, "HRESULT")
         return result
     }
 
@@ -74,7 +76,10 @@ class IBackgroundCopyGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getstatus
      */
     GetStatus(pdwStatus, pdwJobIndex) {
-        result := ComCall(6, this, "uint*", pdwStatus, "uint*", pdwJobIndex, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        pdwJobIndexMarshal := pdwJobIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwStatusMarshal, pdwStatus, pdwJobIndexMarshal, pdwJobIndex, "HRESULT")
         return result
     }
 
@@ -127,7 +132,9 @@ class IBackgroundCopyGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-get_size
      */
     get_Size(pdwSize) {
-        result := ComCall(11, this, "uint*", pdwSize, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 

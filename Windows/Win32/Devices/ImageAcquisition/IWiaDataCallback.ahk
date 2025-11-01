@@ -73,7 +73,9 @@ class IWiaDataCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatacallback-bandeddatacallback
      */
     BandedDataCallback(lMessage, lStatus, lPercentComplete, lOffset, lLength, lReserved, lResLength, pbBuffer) {
-        result := ComCall(3, this, "int", lMessage, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, "int", lReserved, "int", lResLength, "char*", pbBuffer, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "int", lMessage, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, "int", lReserved, "int", lResLength, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 }

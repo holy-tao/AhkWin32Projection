@@ -75,7 +75,9 @@ class IX509ExtensionBasicConstraints extends IX509Extension{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-get_pathlenconstraint
      */
     get_PathLenConstraint(pValue) {
-        result := ComCall(15, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

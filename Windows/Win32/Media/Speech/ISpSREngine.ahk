@@ -92,7 +92,9 @@ class ISpSREngine extends IUnknown{
     OnCreateGrammar(pvEngineRecoContext, hSAPIGrammar, ppvEngineGrammarContext) {
         hSAPIGrammar := hSAPIGrammar is Win32Handle ? NumGet(hSAPIGrammar, "ptr") : hSAPIGrammar
 
-        result := ComCall(7, this, "ptr", pvEngineRecoContext, "ptr", hSAPIGrammar, "ptr*", ppvEngineGrammarContext, "HRESULT")
+        pvEngineRecoContextMarshal := pvEngineRecoContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, "ptr", hSAPIGrammar, "ptr*", ppvEngineGrammarContext, "HRESULT")
         return result
     }
 
@@ -102,7 +104,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDeleteGrammar(pvEngineGrammar) {
-        result := ComCall(8, this, "ptr", pvEngineGrammar, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, pvEngineGrammarMarshal, pvEngineGrammar, "HRESULT")
         return result
     }
 
@@ -119,7 +123,10 @@ class ISpSREngine extends IUnknown{
     LoadProprietaryGrammar(pvEngineGrammar, rguidParam, pszStringParam, pvDataParam, ulDataSize, Options) {
         pszStringParam := pszStringParam is String ? StrPtr(pszStringParam) : pszStringParam
 
-        result := ComCall(9, this, "ptr", pvEngineGrammar, "ptr", rguidParam, "ptr", pszStringParam, "ptr", pvDataParam, "uint", ulDataSize, "int", Options, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvDataParamMarshal := pvDataParam is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", rguidParam, "ptr", pszStringParam, pvDataParamMarshal, pvDataParam, "uint", ulDataSize, "int", Options, "HRESULT")
         return result
     }
 
@@ -129,7 +136,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     UnloadProprietaryGrammar(pvEngineGrammar) {
-        result := ComCall(10, this, "ptr", pvEngineGrammar, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, pvEngineGrammarMarshal, pvEngineGrammar, "HRESULT")
         return result
     }
 
@@ -145,7 +154,11 @@ class ISpSREngine extends IUnknown{
     SetProprietaryRuleState(pvEngineGrammar, pszName, pReserved, NewState, pcRulesChanged) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(11, this, "ptr", pvEngineGrammar, "ptr", pszName, "ptr", pReserved, "int", NewState, "uint*", pcRulesChanged, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+        pcRulesChangedMarshal := pcRulesChanged is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszName, pReservedMarshal, pReserved, "int", NewState, pcRulesChangedMarshal, pcRulesChanged, "HRESULT")
         return result
     }
 
@@ -157,7 +170,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     SetProprietaryRuleIdState(pvEngineGrammar, dwRuleId, NewState) {
-        result := ComCall(12, this, "ptr", pvEngineGrammar, "uint", dwRuleId, "int", NewState, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, pvEngineGrammarMarshal, pvEngineGrammar, "uint", dwRuleId, "int", NewState, "HRESULT")
         return result
     }
 
@@ -170,7 +185,9 @@ class ISpSREngine extends IUnknown{
     LoadSLM(pvEngineGrammar, pszTopicName) {
         pszTopicName := pszTopicName is String ? StrPtr(pszTopicName) : pszTopicName
 
-        result := ComCall(13, this, "ptr", pvEngineGrammar, "ptr", pszTopicName, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(13, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszTopicName, "HRESULT")
         return result
     }
 
@@ -180,7 +197,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     UnloadSLM(pvEngineGrammar) {
-        result := ComCall(14, this, "ptr", pvEngineGrammar, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(14, this, pvEngineGrammarMarshal, pvEngineGrammar, "HRESULT")
         return result
     }
 
@@ -191,7 +210,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSLMState(pvEngineGrammar, NewState) {
-        result := ComCall(15, this, "ptr", pvEngineGrammar, "int", NewState, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(15, this, pvEngineGrammarMarshal, pvEngineGrammar, "int", NewState, "HRESULT")
         return result
     }
 
@@ -206,7 +227,9 @@ class ISpSREngine extends IUnknown{
     SetWordSequenceData(pvEngineGrammar, pText, cchText, pInfo) {
         pText := pText is String ? StrPtr(pText) : pText
 
-        result := ComCall(16, this, "ptr", pvEngineGrammar, "ptr", pText, "uint", cchText, "ptr", pInfo, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(16, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pText, "uint", cchText, "ptr", pInfo, "HRESULT")
         return result
     }
 
@@ -217,7 +240,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTextSelection(pvEngineGrammar, pInfo) {
-        result := ComCall(17, this, "ptr", pvEngineGrammar, "ptr", pInfo, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(17, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pInfo, "HRESULT")
         return result
     }
 
@@ -231,7 +256,10 @@ class ISpSREngine extends IUnknown{
     IsPronounceable(pvEngineGrammar, pszWord, pWordPronounceable) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        result := ComCall(18, this, "ptr", pvEngineGrammar, "ptr", pszWord, "int*", pWordPronounceable, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pWordPronounceableMarshal := pWordPronounceable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszWord, pWordPronounceableMarshal, pWordPronounceable, "HRESULT")
         return result
     }
 
@@ -254,7 +282,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDeleteRecoContext(pvEngineContext) {
-        result := ComCall(20, this, "ptr", pvEngineContext, "HRESULT")
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(20, this, pvEngineContextMarshal, pvEngineContext, "HRESULT")
         return result
     }
 
@@ -266,7 +296,10 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     PrivateCall(pvEngineContext, pCallFrame, ulCallFrameSize) {
-        result := ComCall(21, this, "ptr", pvEngineContext, "ptr", pCallFrame, "uint", ulCallFrameSize, "HRESULT")
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+        pCallFrameMarshal := pCallFrame is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(21, this, pvEngineContextMarshal, pvEngineContext, pCallFrameMarshal, pCallFrame, "uint", ulCallFrameSize, "HRESULT")
         return result
     }
 
@@ -280,7 +313,9 @@ class ISpSREngine extends IUnknown{
     SetAdaptationData(pvEngineContext, pAdaptationData, cch) {
         pAdaptationData := pAdaptationData is String ? StrPtr(pAdaptationData) : pAdaptationData
 
-        result := ComCall(22, this, "ptr", pvEngineContext, "ptr", pAdaptationData, "uint", cch, "HRESULT")
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(22, this, pvEngineContextMarshal, pvEngineContext, "ptr", pAdaptationData, "uint", cch, "HRESULT")
         return result
     }
 
@@ -295,7 +330,9 @@ class ISpSREngine extends IUnknown{
     SetPropertyNum(eSrc, pvSrcObj, pName, lValue) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(23, this, "int", eSrc, "ptr", pvSrcObj, "ptr", pName, "int", lValue, "HRESULT")
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(23, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int", lValue, "HRESULT")
         return result
     }
 
@@ -310,7 +347,10 @@ class ISpSREngine extends IUnknown{
     GetPropertyNum(eSrc, pvSrcObj, pName, lValue) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(24, this, "int", eSrc, "ptr", pvSrcObj, "ptr", pName, "int*", lValue, "HRESULT")
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+        lValueMarshal := lValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, lValueMarshal, lValue, "HRESULT")
         return result
     }
 
@@ -326,7 +366,9 @@ class ISpSREngine extends IUnknown{
         pName := pName is String ? StrPtr(pName) : pName
         pValue := pValue is String ? StrPtr(pValue) : pValue
 
-        result := ComCall(25, this, "int", eSrc, "ptr", pvSrcObj, "ptr", pName, "ptr", pValue, "HRESULT")
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(25, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -341,7 +383,9 @@ class ISpSREngine extends IUnknown{
     GetPropertyString(eSrc, pvSrcObj, pName, ppCoMemValue) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(26, this, "int", eSrc, "ptr", pvSrcObj, "ptr", pName, "ptr", ppCoMemValue, "HRESULT")
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(26, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr", ppCoMemValue, "HRESULT")
         return result
     }
 
@@ -352,7 +396,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGrammarState(pvEngineGrammar, eGrammarState) {
-        result := ComCall(27, this, "ptr", pvEngineGrammar, "int", eGrammarState, "HRESULT")
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(27, this, pvEngineGrammarMarshal, pvEngineGrammar, "int", eGrammarState, "HRESULT")
         return result
     }
 
@@ -390,7 +436,11 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     PrivateCallEx(pvEngineContext, pInCallFrame, ulInCallFrameSize, ppvCoMemResponse, pulResponseSize) {
-        result := ComCall(30, this, "ptr", pvEngineContext, "ptr", pInCallFrame, "uint", ulInCallFrameSize, "ptr*", ppvCoMemResponse, "uint*", pulResponseSize, "HRESULT")
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+        pInCallFrameMarshal := pInCallFrame is VarRef ? "ptr" : "ptr"
+        pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, "ptr*", ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
         return result
     }
 
@@ -401,7 +451,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     SetContextState(pvEngineContext, eContextState) {
-        result := ComCall(31, this, "ptr", pvEngineContext, "int", eContextState, "HRESULT")
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(31, this, pvEngineContextMarshal, pvEngineContext, "int", eContextState, "HRESULT")
         return result
     }
 }

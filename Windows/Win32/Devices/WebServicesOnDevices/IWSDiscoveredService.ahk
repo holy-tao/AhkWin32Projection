@@ -81,7 +81,9 @@ class IWSDiscoveredService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getmetadataversion
      */
     GetMetadataVersion(pullMetadataVersion) {
-        result := ComCall(7, this, "uint*", pullMetadataVersion, "HRESULT")
+        pullMetadataVersionMarshal := pullMetadataVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pullMetadataVersionMarshal, pullMetadataVersion, "HRESULT")
         return result
     }
 
@@ -148,7 +150,9 @@ class IWSDiscoveredService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getinstanceid
      */
     GetInstanceId(pullInstanceId) {
-        result := ComCall(13, this, "uint*", pullInstanceId, "HRESULT")
+        pullInstanceIdMarshal := pullInstanceId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pullInstanceIdMarshal, pullInstanceId, "HRESULT")
         return result
     }
 }

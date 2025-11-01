@@ -37,7 +37,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getdimension
      */
     GetDimension(dimension) {
-        result := ComCall(3, this, "uint*", dimension, "HRESULT")
+        dimensionMarshal := dimension is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, dimensionMarshal, dimension, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvalue
      */
     GetValue(value) {
-        result := ComCall(4, this, "double*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvectorvalue
      */
     GetVectorValue(value, cDimension) {
-        result := ComCall(5, this, "double*", value, "uint", cDimension, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(5, this, valueMarshal, value, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalvalue
      */
     GetFinalValue(finalValue) {
-        result := ComCall(8, this, "double*", finalValue, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, finalValueMarshal, finalValue, "HRESULT")
         return result
     }
 
@@ -106,7 +114,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalvectorvalue
      */
     GetFinalVectorValue(finalValue, cDimension) {
-        result := ComCall(9, this, "double*", finalValue, "uint", cDimension, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, finalValueMarshal, finalValue, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -117,7 +127,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousvalue
      */
     GetPreviousValue(previousValue) {
-        result := ComCall(10, this, "double*", previousValue, "HRESULT")
+        previousValueMarshal := previousValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(10, this, previousValueMarshal, previousValue, "HRESULT")
         return result
     }
 
@@ -129,7 +141,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousvectorvalue
      */
     GetPreviousVectorValue(previousValue, cDimension) {
-        result := ComCall(11, this, "double*", previousValue, "uint", cDimension, "HRESULT")
+        previousValueMarshal := previousValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, previousValueMarshal, previousValue, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -140,7 +154,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getintegervalue
      */
     GetIntegerValue(value) {
-        result := ComCall(12, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -152,7 +168,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getintegervectorvalue
      */
     GetIntegerVectorValue(value, cDimension) {
-        result := ComCall(13, this, "int*", value, "uint", cDimension, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, valueMarshal, value, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -163,7 +181,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervalue
      */
     GetFinalIntegerValue(finalValue) {
-        result := ComCall(14, this, "int*", finalValue, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, finalValueMarshal, finalValue, "HRESULT")
         return result
     }
 
@@ -175,7 +195,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervectorvalue
      */
     GetFinalIntegerVectorValue(finalValue, cDimension) {
-        result := ComCall(15, this, "int*", finalValue, "uint", cDimension, "HRESULT")
+        finalValueMarshal := finalValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, finalValueMarshal, finalValue, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -186,7 +208,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervalue
      */
     GetPreviousIntegerValue(previousValue) {
-        result := ComCall(16, this, "int*", previousValue, "HRESULT")
+        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, previousValueMarshal, previousValue, "HRESULT")
         return result
     }
 
@@ -198,7 +222,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervectorvalue
      */
     GetPreviousIntegerVectorValue(previousValue, cDimension) {
-        result := ComCall(17, this, "int*", previousValue, "uint", cDimension, "HRESULT")
+        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, previousValueMarshal, previousValue, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -232,7 +258,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setlowerboundvector
      */
     SetLowerBoundVector(bound, cDimension) {
-        result := ComCall(20, this, "double*", bound, "uint", cDimension, "HRESULT")
+        boundMarshal := bound is VarRef ? "double*" : "ptr"
+
+        result := ComCall(20, this, boundMarshal, bound, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -255,7 +283,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setupperboundvector
      */
     SetUpperBoundVector(bound, cDimension) {
-        result := ComCall(22, this, "double*", bound, "uint", cDimension, "HRESULT")
+        boundMarshal := bound is VarRef ? "double*" : "ptr"
+
+        result := ComCall(22, this, boundMarshal, bound, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -290,7 +320,9 @@ class IUIAnimationVariable2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-gettag
      */
     GetTag(object, id) {
-        result := ComCall(25, this, "ptr*", object, "uint*", id, "HRESULT")
+        idMarshal := id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "ptr*", object, idMarshal, id, "HRESULT")
         return result
     }
 

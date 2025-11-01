@@ -61,7 +61,9 @@ class IMDSPStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-getattributes
      */
     GetAttributes(pdwAttributes, pFormat) {
-        result := ComCall(5, this, "uint*", pdwAttributes, "ptr", pFormat, "HRESULT")
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwAttributesMarshal, pdwAttributes, "ptr", pFormat, "HRESULT")
         return result
     }
 
@@ -98,7 +100,10 @@ class IMDSPStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-getsize
      */
     GetSize(pdwSizeLow, pdwSizeHigh) {
-        result := ComCall(8, this, "uint*", pdwSizeLow, "uint*", pdwSizeHigh, "HRESULT")
+        pdwSizeLowMarshal := pdwSizeLow is VarRef ? "uint*" : "ptr"
+        pdwSizeHighMarshal := pdwSizeHigh is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwSizeLowMarshal, pdwSizeLow, pdwSizeHighMarshal, pdwSizeHigh, "HRESULT")
         return result
     }
 
@@ -111,7 +116,10 @@ class IMDSPStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-getrights
      */
     GetRights(ppRights, pnRightsCount, abMac) {
-        result := ComCall(9, this, "ptr*", ppRights, "uint*", pnRightsCount, "char*", abMac, "HRESULT")
+        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "ptr*", ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
     }
 

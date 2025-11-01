@@ -78,7 +78,12 @@ class IMathInputControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-getposition
      */
     GetPosition(Left, Top, Right, Bottom) {
-        result := ComCall(10, this, "int*", Left, "int*", Top, "int*", Right, "int*", Bottom, "HRESULT")
+        LeftMarshal := Left is VarRef ? "int*" : "ptr"
+        TopMarshal := Top is VarRef ? "int*" : "ptr"
+        RightMarshal := Right is VarRef ? "int*" : "ptr"
+        BottomMarshal := Bottom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, LeftMarshal, Left, TopMarshal, Top, RightMarshal, Right, BottomMarshal, Bottom, "HRESULT")
         return result
     }
 
@@ -171,7 +176,9 @@ class IMathInputControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-getpreviewheight
      */
     GetPreviewHeight(Height) {
-        result := ComCall(18, this, "int*", Height, "HRESULT")
+        HeightMarshal := Height is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, HeightMarshal, Height, "HRESULT")
         return result
     }
 

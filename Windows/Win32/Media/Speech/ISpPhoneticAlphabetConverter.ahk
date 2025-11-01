@@ -40,7 +40,9 @@ class ISpPhoneticAlphabetConverter extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLangId(pLangID) {
-        result := ComCall(3, this, "ushort*", pLangID, "HRESULT")
+        pLangIDMarshal := pLangID is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, pLangIDMarshal, pLangID, "HRESULT")
         return result
     }
 
@@ -62,7 +64,10 @@ class ISpPhoneticAlphabetConverter extends IUnknown{
      * @returns {HRESULT} 
      */
     SAPI2UPS(pszSAPIId, pszUPSId, cMaxLength) {
-        result := ComCall(5, this, "ushort*", pszSAPIId, "ushort*", pszUPSId, "uint", cMaxLength, "HRESULT")
+        pszSAPIIdMarshal := pszSAPIId is VarRef ? "ushort*" : "ptr"
+        pszUPSIdMarshal := pszUPSId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pszSAPIIdMarshal, pszSAPIId, pszUPSIdMarshal, pszUPSId, "uint", cMaxLength, "HRESULT")
         return result
     }
 
@@ -74,7 +79,10 @@ class ISpPhoneticAlphabetConverter extends IUnknown{
      * @returns {HRESULT} 
      */
     UPS2SAPI(pszUPSId, pszSAPIId, cMaxLength) {
-        result := ComCall(6, this, "ushort*", pszUPSId, "ushort*", pszSAPIId, "uint", cMaxLength, "HRESULT")
+        pszUPSIdMarshal := pszUPSId is VarRef ? "ushort*" : "ptr"
+        pszSAPIIdMarshal := pszSAPIId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pszUPSIdMarshal, pszUPSId, pszSAPIIdMarshal, pszSAPIId, "uint", cMaxLength, "HRESULT")
         return result
     }
 
@@ -86,7 +94,9 @@ class ISpPhoneticAlphabetConverter extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxConvertLength(cSrcLength, bSAPI2UPS, pcMaxDestLength) {
-        result := ComCall(7, this, "uint", cSrcLength, "int", bSAPI2UPS, "uint*", pcMaxDestLength, "HRESULT")
+        pcMaxDestLengthMarshal := pcMaxDestLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", cSrcLength, "int", bSAPI2UPS, pcMaxDestLengthMarshal, pcMaxDestLength, "HRESULT")
         return result
     }
 }

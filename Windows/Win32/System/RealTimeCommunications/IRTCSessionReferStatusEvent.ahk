@@ -44,7 +44,9 @@ class IRTCSessionReferStatusEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ReferStatus(penReferStatus) {
-        result := ComCall(8, this, "int*", penReferStatus, "HRESULT")
+        penReferStatusMarshal := penReferStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, penReferStatusMarshal, penReferStatus, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IRTCSessionReferStatusEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_StatusCode(plStatusCode) {
-        result := ComCall(9, this, "int*", plStatusCode, "HRESULT")
+        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
         return result
     }
 

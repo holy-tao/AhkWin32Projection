@@ -46,7 +46,10 @@ class IWordBreakerConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLocaleInfo(pdwCodePageID, plcid) {
-        result := ComCall(4, this, "uint*", pdwCodePageID, "uint*", plcid, "HRESULT")
+        pdwCodePageIDMarshal := pdwCodePageID is VarRef ? "uint*" : "ptr"
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwCodePageIDMarshal, pdwCodePageID, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -66,7 +69,9 @@ class IWordBreakerConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBreakWordType(pdwBreakWordType) {
-        result := ComCall(6, this, "uint*", pdwBreakWordType, "HRESULT")
+        pdwBreakWordTypeMarshal := pdwBreakWordType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwBreakWordTypeMarshal, pdwBreakWordType, "HRESULT")
         return result
     }
 
@@ -88,7 +93,10 @@ class IWordBreakerConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     GetControlInfo(pgrfBreakFlags, pdwReserved) {
-        result := ComCall(8, this, "uint*", pgrfBreakFlags, "uint*", pdwReserved, "HRESULT")
+        pgrfBreakFlagsMarshal := pgrfBreakFlags is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pgrfBreakFlagsMarshal, pgrfBreakFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 

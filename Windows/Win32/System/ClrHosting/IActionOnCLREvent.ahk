@@ -35,7 +35,9 @@ class IActionOnCLREvent extends IUnknown{
      * @returns {HRESULT} 
      */
     OnEvent(event, data) {
-        result := ComCall(3, this, "int", event, "ptr", data, "HRESULT")
+        dataMarshal := data is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "int", event, dataMarshal, data, "HRESULT")
         return result
     }
 }

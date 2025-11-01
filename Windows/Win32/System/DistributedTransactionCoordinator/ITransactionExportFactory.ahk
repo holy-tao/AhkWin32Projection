@@ -46,7 +46,9 @@ class ITransactionExportFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     Create(cbWhereabouts, rgbWhereabouts, ppExport) {
-        result := ComCall(4, this, "uint", cbWhereabouts, "char*", rgbWhereabouts, "ptr*", ppExport, "HRESULT")
+        rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", ppExport, "HRESULT")
         return result
     }
 }

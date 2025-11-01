@@ -1116,7 +1116,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createtable
      */
     static CreateTable(lpInterface, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpvReserved, ulTableType, ulPropTagIndexColumn, lpSPropTagArrayColumns, lppTableData) {
-        result := DllCall("rtm.dll\CreateTable", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpvReserved, "uint", ulTableType, "uint", ulPropTagIndexColumn, "ptr", lpSPropTagArrayColumns, "ptr*", lppTableData, "int")
+        lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("rtm.dll\CreateTable", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, lpvReservedMarshal, lpvReserved, "uint", ulTableType, "uint", ulPropTagIndexColumn, "ptr", lpSPropTagArrayColumns, "ptr*", lppTableData, "int")
         return result
     }
 
@@ -1132,7 +1134,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createiprop
      */
     static CreateIProp(lpInterface, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpvReserved, lppPropData) {
-        result := DllCall("MAPI32.dll\CreateIProp", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpvReserved, "ptr*", lppPropData, "int")
+        lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\CreateIProp", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, lpvReservedMarshal, lpvReserved, "ptr*", lppPropData, "int")
         return result
     }
 
@@ -1143,7 +1147,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapiinitidle
      */
     static MAPIInitIdle(lpvReserved) {
-        result := DllCall("MAPI32.dll\MAPIInitIdle", "ptr", lpvReserved, "int")
+        lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\MAPIInitIdle", lpvReservedMarshal, lpvReserved, "int")
         return result
     }
 
@@ -1166,7 +1172,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftgregisteridleroutine
      */
     static FtgRegisterIdleRoutine(lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle) {
-        result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ptr")
+        lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", "ptr", lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ptr")
         return result
     }
 
@@ -1177,7 +1185,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/deregisteridleroutine
      */
     static DeregisterIdleRoutine(ftg) {
-        DllCall("MAPI32.dll\DeregisterIdleRoutine", "ptr", ftg)
+        ftgMarshal := ftg is VarRef ? "ptr" : "ptr"
+
+        DllCall("MAPI32.dll\DeregisterIdleRoutine", ftgMarshal, ftg)
     }
 
     /**
@@ -1188,7 +1198,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/enableidleroutine
      */
     static EnableIdleRoutine(ftg, fEnable) {
-        DllCall("MAPI32.dll\EnableIdleRoutine", "ptr", ftg, "int", fEnable)
+        ftgMarshal := ftg is VarRef ? "ptr" : "ptr"
+
+        DllCall("MAPI32.dll\EnableIdleRoutine", ftgMarshal, ftg, "int", fEnable)
     }
 
     /**
@@ -1204,7 +1216,10 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/changeidleroutine
      */
     static ChangeIdleRoutine(ftg, lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle, ircIdle) {
-        DllCall("MAPI32.dll\ChangeIdleRoutine", "ptr", ftg, "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ushort", ircIdle)
+        ftgMarshal := ftg is VarRef ? "ptr" : "ptr"
+        lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : "ptr"
+
+        DllCall("MAPI32.dll\ChangeIdleRoutine", ftgMarshal, ftg, "ptr", lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ushort", ircIdle)
     }
 
     /**
@@ -1229,7 +1244,10 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openstreamonfile
      */
     static OpenStreamOnFile(lpAllocateBuffer, lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix, lppStream) {
-        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, "char*", lpszFileName, "char*", lpszPrefix, "ptr*", lppStream, "int")
+        lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
+        lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
+
+        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", lppStream, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1246,7 +1264,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/propcopymore
      */
     static PropCopyMore(lpSPropValueDest, lpSPropValueSrc, lpfAllocMore, lpvObject) {
-        result := DllCall("MAPI32.dll\PropCopyMore", "ptr", lpSPropValueDest, "ptr", lpSPropValueSrc, "ptr", lpfAllocMore, "ptr", lpvObject, "int")
+        lpvObjectMarshal := lpvObject is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\PropCopyMore", "ptr", lpSPropValueDest, "ptr", lpSPropValueSrc, "ptr", lpfAllocMore, lpvObjectMarshal, lpvObject, "int")
         return result
     }
 
@@ -1355,7 +1375,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrallocadvisesink
      */
     static HrAllocAdviseSink(lpfnCallback, lpvContext, lppAdviseSink) {
-        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, "ptr", lpvContext, "ptr*", lppAdviseSink, "int")
+        lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", lppAdviseSink, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1425,7 +1447,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccountnotifications
      */
     static ScCountNotifications(cNotifications, lpNotifications, lpcb) {
-        result := DllCall("MAPI32.dll\ScCountNotifications", "int", cNotifications, "ptr", lpNotifications, "uint*", lpcb, "int")
+        lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScCountNotifications", "int", cNotifications, "ptr", lpNotifications, lpcbMarshal, lpcb, "int")
         return result
     }
 
@@ -1439,7 +1463,10 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccopynotifications
      */
     static ScCopyNotifications(cNotification, lpNotifications, lpvDst, lpcb) {
-        result := DllCall("MAPI32.dll\ScCopyNotifications", "int", cNotification, "ptr", lpNotifications, "ptr", lpvDst, "uint*", lpcb, "int")
+        lpvDstMarshal := lpvDst is VarRef ? "ptr" : "ptr"
+        lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScCopyNotifications", "int", cNotification, "ptr", lpNotifications, lpvDstMarshal, lpvDst, lpcbMarshal, lpcb, "int")
         return result
     }
 
@@ -1454,7 +1481,11 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/screlocnotifications
      */
     static ScRelocNotifications(cNotification, lpNotifications, lpvBaseOld, lpvBaseNew, lpcb) {
-        result := DllCall("MAPI32.dll\ScRelocNotifications", "int", cNotification, "ptr", lpNotifications, "ptr", lpvBaseOld, "ptr", lpvBaseNew, "uint*", lpcb, "int")
+        lpvBaseOldMarshal := lpvBaseOld is VarRef ? "ptr" : "ptr"
+        lpvBaseNewMarshal := lpvBaseNew is VarRef ? "ptr" : "ptr"
+        lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScRelocNotifications", "int", cNotification, "ptr", lpNotifications, lpvBaseOldMarshal, lpvBaseOld, lpvBaseNewMarshal, lpvBaseNew, lpcbMarshal, lpcb, "int")
         return result
     }
 
@@ -1467,7 +1498,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccountprops
      */
     static ScCountProps(cValues, lpPropArray, lpcb) {
-        result := DllCall("MAPI32.dll\ScCountProps", "int", cValues, "ptr", lpPropArray, "uint*", lpcb, "int")
+        lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScCountProps", "int", cValues, "ptr", lpPropArray, lpcbMarshal, lpcb, "int")
         return result
     }
 
@@ -1494,7 +1527,10 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccopyprops
      */
     static ScCopyProps(cValues, lpPropArray, lpvDst, lpcb) {
-        result := DllCall("MAPI32.dll\ScCopyProps", "int", cValues, "ptr", lpPropArray, "ptr", lpvDst, "uint*", lpcb, "int")
+        lpvDstMarshal := lpvDst is VarRef ? "ptr" : "ptr"
+        lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScCopyProps", "int", cValues, "ptr", lpPropArray, lpvDstMarshal, lpvDst, lpcbMarshal, lpcb, "int")
         return result
     }
 
@@ -1509,7 +1545,11 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/screlocprops
      */
     static ScRelocProps(cValues, lpPropArray, lpvBaseOld, lpvBaseNew, lpcb) {
-        result := DllCall("MAPI32.dll\ScRelocProps", "int", cValues, "ptr", lpPropArray, "ptr", lpvBaseOld, "ptr", lpvBaseNew, "uint*", lpcb, "int")
+        lpvBaseOldMarshal := lpvBaseOld is VarRef ? "ptr" : "ptr"
+        lpvBaseNewMarshal := lpvBaseNew is VarRef ? "ptr" : "ptr"
+        lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScRelocProps", "int", cValues, "ptr", lpPropArray, lpvBaseOldMarshal, lpvBaseOld, lpvBaseNewMarshal, lpvBaseNew, lpcbMarshal, lpcb, "int")
         return result
     }
 
@@ -1534,7 +1574,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/uladdref
      */
     static UlAddRef(lpunk) {
-        result := DllCall("MAPI32.dll\UlAddRef", "ptr", lpunk, "uint")
+        lpunkMarshal := lpunk is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\UlAddRef", lpunkMarshal, lpunk, "uint")
         return result
     }
 
@@ -1545,7 +1587,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ulrelease
      */
     static UlRelease(lpunk) {
-        result := DllCall("MAPI32.dll\UlRelease", "ptr", lpunk, "uint")
+        lpunkMarshal := lpunk is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MAPI32.dll\UlRelease", lpunkMarshal, lpunk, "uint")
         return result
     }
 
@@ -1652,7 +1696,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindch
      */
     static SzFindCh(lpsz, ch) {
-        result := DllCall("MAPI32.dll\SzFindCh", "char*", lpsz, "ushort", ch, "char*")
+        lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
+
+        result := DllCall("MAPI32.dll\SzFindCh", lpszMarshal, lpsz, "ushort", ch, "char*")
         return result
     }
 
@@ -1664,7 +1710,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindlastch
      */
     static SzFindLastCh(lpsz, ch) {
-        result := DllCall("MAPI32.dll\SzFindLastCh", "char*", lpsz, "ushort", ch, "char*")
+        lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
+
+        result := DllCall("MAPI32.dll\SzFindLastCh", lpszMarshal, lpsz, "ushort", ch, "char*")
         return result
     }
 
@@ -1676,7 +1724,10 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindsz
      */
     static SzFindSz(lpsz, lpszKey) {
-        result := DllCall("MAPI32.dll\SzFindSz", "char*", lpsz, "char*", lpszKey, "char*")
+        lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
+        lpszKeyMarshal := lpszKey is VarRef ? "char*" : "ptr"
+
+        result := DllCall("MAPI32.dll\SzFindSz", lpszMarshal, lpsz, lpszKeyMarshal, lpszKey, "char*")
         return result
     }
 
@@ -1687,7 +1738,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ufromsz
      */
     static UFromSz(lpsz) {
-        result := DllCall("MAPI32.dll\UFromSz", "char*", lpsz, "uint")
+        lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
+
+        result := DllCall("MAPI32.dll\UFromSz", lpszMarshal, lpsz, "uint")
         return result
     }
 
@@ -1792,7 +1845,10 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccreateconversationindex
      */
     static ScCreateConversationIndex(cbParent, lpbParent, lpcbConvIndex, lppbConvIndex) {
-        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, "char*", lpbParent, "uint*", lpcbConvIndex, "ptr*", lppbConvIndex, "int")
+        lpbParentMarshal := lpbParent is VarRef ? "char*" : "ptr"
+        lpcbConvIndexMarshal := lpcbConvIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, lpbParentMarshal, lpbParent, lpcbConvIndexMarshal, lpcbConvIndex, "ptr*", lppbConvIndex, "int")
         return result
     }
 
@@ -1808,7 +1864,10 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapstoreentryid
      */
     static WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lpcbWrappedEntry, lppWrappedEntry) {
-        result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, "char*", lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, "uint*", lpcbWrappedEntry, "ptr", lppWrappedEntry, "int")
+        lpszDLLNameMarshal := lpszDLLName is VarRef ? "char*" : "ptr"
+        lpcbWrappedEntryMarshal := lpcbWrappedEntry is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, lpszDLLNameMarshal, lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, lpcbWrappedEntryMarshal, lpcbWrappedEntry, "ptr", lppWrappedEntry, "int")
         if(result != 0)
             throw OSError(result)
 

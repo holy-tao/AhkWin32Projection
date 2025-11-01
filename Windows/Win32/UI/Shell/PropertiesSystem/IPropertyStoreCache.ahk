@@ -49,7 +49,9 @@ class IPropertyStoreCache extends IPropertyStore{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getstate
      */
     GetState(key, pstate) {
-        result := ComCall(8, this, "ptr", key, "int*", pstate, "HRESULT")
+        pstateMarshal := pstate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", key, pstateMarshal, pstate, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IPropertyStoreCache extends IPropertyStore{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getvalueandstate
      */
     GetValueAndState(key, ppropvar, pstate) {
-        result := ComCall(9, this, "ptr", key, "ptr", ppropvar, "int*", pstate, "HRESULT")
+        pstateMarshal := pstate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", key, "ptr", ppropvar, pstateMarshal, pstate, "HRESULT")
         return result
     }
 

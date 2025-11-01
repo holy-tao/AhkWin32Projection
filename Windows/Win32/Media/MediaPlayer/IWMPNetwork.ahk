@@ -38,7 +38,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bandwidth
      */
     get_bandWidth(plBandwidth) {
-        result := ComCall(7, this, "int*", plBandwidth, "HRESULT")
+        plBandwidthMarshal := plBandwidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plBandwidthMarshal, plBandwidth, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_recoveredpackets
      */
     get_recoveredPackets(plRecoveredPackets) {
-        result := ComCall(8, this, "int*", plRecoveredPackets, "HRESULT")
+        plRecoveredPacketsMarshal := plRecoveredPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plRecoveredPacketsMarshal, plRecoveredPackets, "HRESULT")
         return result
     }
 
@@ -71,7 +75,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_receivedpackets
      */
     get_receivedPackets(plReceivedPackets) {
-        result := ComCall(10, this, "int*", plReceivedPackets, "HRESULT")
+        plReceivedPacketsMarshal := plReceivedPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plReceivedPacketsMarshal, plReceivedPackets, "HRESULT")
         return result
     }
 
@@ -82,7 +88,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_lostpackets
      */
     get_lostPackets(plLostPackets) {
-        result := ComCall(11, this, "int*", plLostPackets, "HRESULT")
+        plLostPacketsMarshal := plLostPackets is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plLostPacketsMarshal, plLostPackets, "HRESULT")
         return result
     }
 
@@ -93,7 +101,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_receptionquality
      */
     get_receptionQuality(plReceptionQuality) {
-        result := ComCall(12, this, "int*", plReceptionQuality, "HRESULT")
+        plReceptionQualityMarshal := plReceptionQuality is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plReceptionQualityMarshal, plReceptionQuality, "HRESULT")
         return result
     }
 
@@ -104,7 +114,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bufferingcount
      */
     get_bufferingCount(plBufferingCount) {
-        result := ComCall(13, this, "int*", plBufferingCount, "HRESULT")
+        plBufferingCountMarshal := plBufferingCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plBufferingCountMarshal, plBufferingCount, "HRESULT")
         return result
     }
 
@@ -115,7 +127,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bufferingprogress
      */
     get_bufferingProgress(plBufferingProgress) {
-        result := ComCall(14, this, "int*", plBufferingProgress, "HRESULT")
+        plBufferingProgressMarshal := plBufferingProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plBufferingProgressMarshal, plBufferingProgress, "HRESULT")
         return result
     }
 
@@ -126,7 +140,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bufferingtime
      */
     get_bufferingTime(plBufferingTime) {
-        result := ComCall(15, this, "int*", plBufferingTime, "HRESULT")
+        plBufferingTimeMarshal := plBufferingTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plBufferingTimeMarshal, plBufferingTime, "HRESULT")
         return result
     }
 
@@ -148,7 +164,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_framerate
      */
     get_frameRate(plFrameRate) {
-        result := ComCall(17, this, "int*", plFrameRate, "HRESULT")
+        plFrameRateMarshal := plFrameRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plFrameRateMarshal, plFrameRate, "HRESULT")
         return result
     }
 
@@ -159,7 +177,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_maxbitrate
      */
     get_maxBitRate(plBitRate) {
-        result := ComCall(18, this, "int*", plBitRate, "HRESULT")
+        plBitRateMarshal := plBitRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, plBitRateMarshal, plBitRate, "HRESULT")
         return result
     }
 
@@ -170,7 +190,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bitrate
      */
     get_bitRate(plBitRate) {
-        result := ComCall(19, this, "int*", plBitRate, "HRESULT")
+        plBitRateMarshal := plBitRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plBitRateMarshal, plBitRate, "HRESULT")
         return result
     }
 
@@ -184,7 +206,9 @@ class IWMPNetwork extends IDispatch{
     getProxySettings(bstrProtocol, plProxySetting) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(20, this, "ptr", bstrProtocol, "int*", plProxySetting, "HRESULT")
+        plProxySettingMarshal := plProxySetting is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "ptr", bstrProtocol, plProxySettingMarshal, plProxySetting, "HRESULT")
         return result
     }
 
@@ -241,7 +265,9 @@ class IWMPNetwork extends IDispatch{
     getProxyPort(bstrProtocol, lProxyPort) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(24, this, "ptr", bstrProtocol, "int*", lProxyPort, "HRESULT")
+        lProxyPortMarshal := lProxyPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "ptr", bstrProtocol, lProxyPortMarshal, lProxyPort, "HRESULT")
         return result
     }
 
@@ -323,7 +349,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_maxbandwidth
      */
     get_maxBandwidth(lMaxBandwidth) {
-        result := ComCall(30, this, "int*", lMaxBandwidth, "HRESULT")
+        lMaxBandwidthMarshal := lMaxBandwidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, lMaxBandwidthMarshal, lMaxBandwidth, "HRESULT")
         return result
     }
 
@@ -345,7 +373,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_downloadprogress
      */
     get_downloadProgress(plDownloadProgress) {
-        result := ComCall(32, this, "int*", plDownloadProgress, "HRESULT")
+        plDownloadProgressMarshal := plDownloadProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, plDownloadProgressMarshal, plDownloadProgress, "HRESULT")
         return result
     }
 
@@ -356,7 +386,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_encodedframerate
      */
     get_encodedFrameRate(plFrameRate) {
-        result := ComCall(33, this, "int*", plFrameRate, "HRESULT")
+        plFrameRateMarshal := plFrameRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, plFrameRateMarshal, plFrameRate, "HRESULT")
         return result
     }
 
@@ -367,7 +399,9 @@ class IWMPNetwork extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_framesskipped
      */
     get_framesSkipped(plFrames) {
-        result := ComCall(34, this, "int*", plFrames, "HRESULT")
+        plFramesMarshal := plFrames is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, plFramesMarshal, plFrames, "HRESULT")
         return result
     }
 }

@@ -42,7 +42,9 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_availabletvformats
      */
     get_AvailableTVFormats(lAnalogVideoStandard) {
-        result := ComCall(3, this, "int*", lAnalogVideoStandard, "HRESULT")
+        lAnalogVideoStandardMarshal := lAnalogVideoStandard is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, lAnalogVideoStandardMarshal, lAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_tvformat
      */
     get_TVFormat(plAnalogVideoStandard) {
-        result := ComCall(5, this, "int*", plAnalogVideoStandard, "HRESULT")
+        plAnalogVideoStandardMarshal := plAnalogVideoStandard is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, plAnalogVideoStandardMarshal, plAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -75,7 +79,9 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_horizontallocked
      */
     get_HorizontalLocked(plLocked) {
-        result := ComCall(6, this, "int*", plLocked, "HRESULT")
+        plLockedMarshal := plLocked is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, plLockedMarshal, plLocked, "HRESULT")
         return result
     }
 
@@ -97,7 +103,9 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_vcrhorizontallocking
      */
     get_VCRHorizontalLocking(plVCRHorizontalLocking) {
-        result := ComCall(8, this, "int*", plVCRHorizontalLocking, "HRESULT")
+        plVCRHorizontalLockingMarshal := plVCRHorizontalLocking is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plVCRHorizontalLockingMarshal, plVCRHorizontalLocking, "HRESULT")
         return result
     }
 
@@ -108,7 +116,9 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_numberoflines
      */
     get_NumberOfLines(plNumberOfLines) {
-        result := ComCall(9, this, "int*", plNumberOfLines, "HRESULT")
+        plNumberOfLinesMarshal := plNumberOfLines is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plNumberOfLinesMarshal, plNumberOfLines, "HRESULT")
         return result
     }
 
@@ -130,7 +140,9 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-get_outputenable
      */
     get_OutputEnable(plOutputEnable) {
-        result := ComCall(11, this, "int*", plOutputEnable, "HRESULT")
+        plOutputEnableMarshal := plOutputEnable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plOutputEnableMarshal, plOutputEnable, "HRESULT")
         return result
     }
 }

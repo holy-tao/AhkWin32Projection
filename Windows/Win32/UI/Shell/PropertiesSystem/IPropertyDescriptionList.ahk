@@ -48,7 +48,9 @@ class IPropertyDescriptionList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionlist-getcount
      */
     GetCount(pcElem) {
-        result := ComCall(3, this, "uint*", pcElem, "HRESULT")
+        pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcElemMarshal, pcElem, "HRESULT")
         return result
     }
 

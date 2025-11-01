@@ -44,7 +44,9 @@ class IWbemLevel1Login extends IUnknown{
     EstablishPosition(wszLocaleList, dwNumLocales, reserved) {
         wszLocaleList := wszLocaleList is String ? StrPtr(wszLocaleList) : wszLocaleList
 
-        result := ComCall(3, this, "ptr", wszLocaleList, "uint", dwNumLocales, "uint*", reserved, "HRESULT")
+        reservedMarshal := reserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", wszLocaleList, "uint", dwNumLocales, reservedMarshal, reserved, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IWbemLevel1Login extends IUnknown{
         wszNetworkResource := wszNetworkResource is String ? StrPtr(wszNetworkResource) : wszNetworkResource
         wszUser := wszUser is String ? StrPtr(wszUser) : wszUser
 
-        result := ComCall(4, this, "ptr", wszNetworkResource, "ptr", wszUser, "char*", Nonce, "HRESULT")
+        NonceMarshal := Nonce is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", wszNetworkResource, "ptr", wszUser, NonceMarshal, Nonce, "HRESULT")
         return result
     }
 
@@ -75,7 +79,9 @@ class IWbemLevel1Login extends IUnknown{
     WBEMLogin(wszPreferredLocale, AccessToken, lFlags, pCtx, ppNamespace) {
         wszPreferredLocale := wszPreferredLocale is String ? StrPtr(wszPreferredLocale) : wszPreferredLocale
 
-        result := ComCall(5, this, "ptr", wszPreferredLocale, "char*", AccessToken, "int", lFlags, "ptr", pCtx, "ptr*", ppNamespace, "HRESULT")
+        AccessTokenMarshal := AccessToken is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "ptr", wszPreferredLocale, AccessTokenMarshal, AccessToken, "int", lFlags, "ptr", pCtx, "ptr*", ppNamespace, "HRESULT")
         return result
     }
 

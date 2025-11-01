@@ -36,7 +36,9 @@ class IEnumDiscMasterFormats extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(cFormats, lpiidFormatID, pcFetched) {
-        result := ComCall(3, this, "uint", cFormats, "ptr", lpiidFormatID, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cFormats, "ptr", lpiidFormatID, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

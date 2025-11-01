@@ -37,7 +37,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_hwnd
      */
     get_hWnd(CurrentWindow) {
-        result := ComCall(7, this, "ptr*", CurrentWindow, "HRESULT")
+        CurrentWindowMarshal := CurrentWindow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, CurrentWindowMarshal, CurrentWindow, "HRESULT")
         return result
     }
 
@@ -144,7 +146,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_collectionmode
      */
     get_CollectionMode(Mode) {
-        result := ComCall(17, this, "int*", Mode, "HRESULT")
+        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, ModeMarshal, Mode, "HRESULT")
         return result
     }
 
@@ -242,7 +246,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_mousepointer
      */
     get_MousePointer(MousePointer) {
-        result := ComCall(26, this, "int*", MousePointer, "HRESULT")
+        MousePointerMarshal := MousePointer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, MousePointerMarshal, MousePointer, "HRESULT")
         return result
     }
 
@@ -264,7 +270,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_editingmode
      */
     get_EditingMode(EditingMode) {
-        result := ComCall(28, this, "int*", EditingMode, "HRESULT")
+        EditingModeMarshal := EditingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, EditingModeMarshal, EditingMode, "HRESULT")
         return result
     }
 
@@ -308,7 +316,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_erasermode
      */
     get_EraserMode(EraserMode) {
-        result := ComCall(32, this, "int*", EraserMode, "HRESULT")
+        EraserModeMarshal := EraserMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, EraserModeMarshal, EraserMode, "HRESULT")
         return result
     }
 
@@ -330,7 +340,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_eraserwidth
      */
     get_EraserWidth(EraserWidth) {
-        result := ComCall(34, this, "int*", EraserWidth, "HRESULT")
+        EraserWidthMarshal := EraserWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, EraserWidthMarshal, EraserWidth, "HRESULT")
         return result
     }
 
@@ -395,7 +407,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_sizemode
      */
     get_SizeMode(smSizeMode) {
-        result := ComCall(40, this, "int*", smSizeMode, "HRESULT")
+        smSizeModeMarshal := smSizeMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(40, this, smSizeModeMarshal, smSizeMode, "HRESULT")
         return result
     }
 
@@ -417,7 +431,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_backcolor
      */
     get_BackColor(pColor) {
-        result := ComCall(42, this, "uint*", pColor, "HRESULT")
+        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(42, this, pColorMarshal, pColor, "HRESULT")
         return result
     }
 
@@ -439,7 +455,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_marginx
      */
     get_MarginX(MarginX) {
-        result := ComCall(44, this, "int*", MarginX, "HRESULT")
+        MarginXMarshal := MarginX is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, MarginXMarshal, MarginX, "HRESULT")
         return result
     }
 
@@ -461,7 +479,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_marginy
      */
     get_MarginY(MarginY) {
-        result := ComCall(46, this, "int*", MarginY, "HRESULT")
+        MarginYMarshal := MarginY is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, MarginYMarshal, MarginY, "HRESULT")
         return result
     }
 
@@ -540,7 +560,9 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-hittestselection
      */
     HitTestSelection(x, y, SelArea) {
-        result := ComCall(53, this, "int", x, "int", y, "int*", SelArea, "HRESULT")
+        SelAreaMarshal := SelArea is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, "int", x, "int", y, SelAreaMarshal, SelArea, "HRESULT")
         return result
     }
 

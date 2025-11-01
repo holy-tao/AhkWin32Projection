@@ -44,7 +44,9 @@ class IInkGesture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_confidence
      */
     get_Confidence(Confidence) {
-        result := ComCall(7, this, "int*", Confidence, "HRESULT")
+        ConfidenceMarshal := Confidence is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, ConfidenceMarshal, Confidence, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IInkGesture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_id
      */
     get_Id(Id) {
-        result := ComCall(8, this, "int*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -67,7 +71,10 @@ class IInkGesture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-gethotpoint
      */
     GetHotPoint(X, Y) {
-        result := ComCall(9, this, "int*", X, "int*", Y, "HRESULT")
+        XMarshal := X is VarRef ? "int*" : "ptr"
+        YMarshal := Y is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, XMarshal, X, YMarshal, Y, "HRESULT")
         return result
     }
 }

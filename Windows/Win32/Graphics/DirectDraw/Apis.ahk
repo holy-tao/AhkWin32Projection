@@ -4711,7 +4711,9 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawenumeratew
      */
     static DirectDrawEnumerateW(lpCallback, lpContext) {
-        result := DllCall("DDRAW.dll\DirectDrawEnumerateW", "ptr", lpCallback, "ptr", lpContext, "int")
+        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DDRAW.dll\DirectDrawEnumerateW", "ptr", lpCallback, lpContextMarshal, lpContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4728,7 +4730,9 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawenumeratea
      */
     static DirectDrawEnumerateA(lpCallback, lpContext) {
-        result := DllCall("DDRAW.dll\DirectDrawEnumerateA", "ptr", lpCallback, "ptr", lpContext, "int")
+        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DDRAW.dll\DirectDrawEnumerateA", "ptr", lpCallback, lpContextMarshal, lpContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4748,7 +4752,9 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawenumerateexw
      */
     static DirectDrawEnumerateExW(lpCallback, lpContext, dwFlags) {
-        result := DllCall("DDRAW.dll\DirectDrawEnumerateExW", "ptr", lpCallback, "ptr", lpContext, "uint", dwFlags, "int")
+        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DDRAW.dll\DirectDrawEnumerateExW", "ptr", lpCallback, lpContextMarshal, lpContext, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4768,7 +4774,9 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawenumerateexa
      */
     static DirectDrawEnumerateExA(lpCallback, lpContext, dwFlags) {
-        result := DllCall("DDRAW.dll\DirectDrawEnumerateExA", "ptr", lpCallback, "ptr", lpContext, "uint", dwFlags, "int")
+        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("DDRAW.dll\DirectDrawEnumerateExA", "ptr", lpCallback, lpContextMarshal, lpContext, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 

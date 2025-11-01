@@ -43,7 +43,9 @@ class IRawCDImageTrackInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_startinglba
      */
     get_StartingLba(value) {
-        result := ComCall(7, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IRawCDImageTrackInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectorcount
      */
     get_SectorCount(value) {
-        result := ComCall(8, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class IRawCDImageTrackInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_tracknumber
      */
     get_TrackNumber(value) {
-        result := ComCall(9, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -76,7 +82,9 @@ class IRawCDImageTrackInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectortype
      */
     get_SectorType(value) {
-        result := ComCall(10, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -111,7 +119,9 @@ class IRawCDImageTrackInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_digitalaudiocopysetting
      */
     get_DigitalAudioCopySetting(value) {
-        result := ComCall(13, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, valueMarshal, value, "HRESULT")
         return result
     }
 

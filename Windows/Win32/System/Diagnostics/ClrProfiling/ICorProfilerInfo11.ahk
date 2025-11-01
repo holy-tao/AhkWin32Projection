@@ -46,7 +46,9 @@ class ICorProfilerInfo11 extends ICorProfilerInfo10{
         szName := szName is String ? StrPtr(szName) : szName
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := ComCall(99, this, "ptr", szName, "uint", cchValue, "uint*", pcchValue, "ptr", szValue, "HRESULT")
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(99, this, "ptr", szName, "uint", cchValue, pcchValueMarshal, pcchValue, "ptr", szValue, "HRESULT")
         return result
     }
 

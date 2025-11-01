@@ -75,7 +75,9 @@ class IScriptNode extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIndexInParent(pisn) {
-        result := ComCall(6, this, "uint*", pisn, "HRESULT")
+        pisnMarshal := pisn is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pisnMarshal, pisn, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IScriptNode extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCookie(pdwCookie) {
-        result := ComCall(7, this, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -95,7 +99,9 @@ class IScriptNode extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberOfChildren(pcsn) {
-        result := ComCall(8, this, "uint*", pcsn, "HRESULT")
+        pcsnMarshal := pcsn is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcsnMarshal, pcsn, "HRESULT")
         return result
     }
 

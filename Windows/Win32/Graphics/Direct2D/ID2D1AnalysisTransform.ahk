@@ -42,7 +42,9 @@ class ID2D1AnalysisTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1analysistransform-processanalysisresults
      */
     ProcessAnalysisResults(analysisData, analysisDataCount) {
-        result := ComCall(3, this, "char*", analysisData, "uint", analysisDataCount, "HRESULT")
+        analysisDataMarshal := analysisData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, analysisDataMarshal, analysisData, "uint", analysisDataCount, "HRESULT")
         return result
     }
 }

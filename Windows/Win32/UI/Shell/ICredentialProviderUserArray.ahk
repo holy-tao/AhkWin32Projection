@@ -57,7 +57,9 @@ class ICredentialProviderUserArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getaccountoptions
      */
     GetAccountOptions(credentialProviderAccountOptions) {
-        result := ComCall(4, this, "int*", credentialProviderAccountOptions, "HRESULT")
+        credentialProviderAccountOptionsMarshal := credentialProviderAccountOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, credentialProviderAccountOptionsMarshal, credentialProviderAccountOptions, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class ICredentialProviderUserArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount
      */
     GetCount(userCount) {
-        result := ComCall(5, this, "uint*", userCount, "HRESULT")
+        userCountMarshal := userCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, userCountMarshal, userCount, "HRESULT")
         return result
     }
 

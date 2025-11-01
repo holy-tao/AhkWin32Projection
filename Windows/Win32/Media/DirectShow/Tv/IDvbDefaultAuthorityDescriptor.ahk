@@ -37,7 +37,9 @@ class IDvbDefaultAuthorityDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDvbDefaultAuthorityDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IDvbDefaultAuthorityDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-getdefaultauthority
      */
     GetDefaultAuthority(pbLength, ppbBytes) {
-        result := ComCall(5, this, "char*", pbLength, "ptr*", ppbBytes, "HRESULT")
+        pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbLengthMarshal, pbLength, "ptr*", ppbBytes, "HRESULT")
         return result
     }
 }

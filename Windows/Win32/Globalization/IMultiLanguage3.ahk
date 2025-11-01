@@ -44,7 +44,11 @@ class IMultiLanguage3 extends IMultiLanguage2{
         lpWideCharStr := lpWideCharStr is String ? StrPtr(lpWideCharStr) : lpWideCharStr
         lpSpecialChar := lpSpecialChar is String ? StrPtr(lpSpecialChar) : lpSpecialChar
 
-        result := ComCall(30, this, "uint", dwFlags, "ptr", lpWideCharStr, "uint", cchWideChar, "uint*", puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", puiDetectedCodePages, "uint*", pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
+        puiDetectedCodePagesMarshal := puiDetectedCodePages is VarRef ? "uint*" : "ptr"
+        pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "uint", dwFlags, "ptr", lpWideCharStr, "uint", cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, puiDetectedCodePagesMarshal, puiDetectedCodePages, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
         return result
     }
 
@@ -62,7 +66,11 @@ class IMultiLanguage3 extends IMultiLanguage2{
     DetectOutboundCodePageInIStream(dwFlags, pStrIn, puiPreferredCodePages, nPreferredCodePages, puiDetectedCodePages, pnDetectedCodePages, lpSpecialChar) {
         lpSpecialChar := lpSpecialChar is String ? StrPtr(lpSpecialChar) : lpSpecialChar
 
-        result := ComCall(31, this, "uint", dwFlags, "ptr", pStrIn, "uint*", puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", puiDetectedCodePages, "uint*", pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
+        puiDetectedCodePagesMarshal := puiDetectedCodePages is VarRef ? "uint*" : "ptr"
+        pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "uint", dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, puiDetectedCodePagesMarshal, puiDetectedCodePages, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
         return result
     }
 }

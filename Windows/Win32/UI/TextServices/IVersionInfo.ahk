@@ -38,7 +38,9 @@ class IVersionInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getsubcomponentcount
      */
     GetSubcomponentCount(ulSub, ulCount) {
-        result := ComCall(3, this, "uint", ulSub, "uint*", ulCount, "HRESULT")
+        ulCountMarshal := ulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulSub, ulCountMarshal, ulCount, "HRESULT")
         return result
     }
 
@@ -63,7 +65,10 @@ class IVersionInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getbuildversion
      */
     GetBuildVersion(ulSub, pdwMajor, pdwMinor) {
-        result := ComCall(5, this, "uint", ulSub, "uint*", pdwMajor, "uint*", pdwMinor, "HRESULT")
+        pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : "ptr"
+        pdwMinorMarshal := pdwMinor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulSub, pdwMajorMarshal, pdwMajor, pdwMinorMarshal, pdwMinor, "HRESULT")
         return result
     }
 

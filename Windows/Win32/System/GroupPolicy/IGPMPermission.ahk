@@ -339,7 +339,9 @@ class IGPMPermission extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Permission(pVal) {
-        result := ComCall(10, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

@@ -111,7 +111,9 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetUlong(Tag, Value) {
-        result := ComCall(10, this, "int", Tag, "uint*", Value, "ptr")
+        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "int", Tag, ValueMarshal, Value, "ptr")
         return result
     }
 
@@ -122,7 +124,9 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetUlong64(Tag, Value) {
-        result := ComCall(11, this, "int", Tag, "uint*", Value, "ptr")
+        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "int", Tag, ValueMarshal, Value, "ptr")
         return result
     }
 

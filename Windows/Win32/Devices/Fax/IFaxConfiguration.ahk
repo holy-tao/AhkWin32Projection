@@ -116,7 +116,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_highquotawatermark
      */
     get_HighQuotaWaterMark(plHighQuotaWaterMark) {
-        result := ComCall(13, this, "int*", plHighQuotaWaterMark, "HRESULT")
+        plHighQuotaWaterMarkMarshal := plHighQuotaWaterMark is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plHighQuotaWaterMarkMarshal, plHighQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -138,7 +140,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_lowquotawatermark
      */
     get_LowQuotaWaterMark(plLowQuotaWaterMark) {
-        result := ComCall(15, this, "int*", plLowQuotaWaterMark, "HRESULT")
+        plLowQuotaWaterMarkMarshal := plLowQuotaWaterMark is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plLowQuotaWaterMarkMarshal, plLowQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -160,7 +164,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archiveagelimit
      */
     get_ArchiveAgeLimit(plArchiveAgeLimit) {
-        result := ComCall(17, this, "int*", plArchiveAgeLimit, "HRESULT")
+        plArchiveAgeLimitMarshal := plArchiveAgeLimit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plArchiveAgeLimitMarshal, plArchiveAgeLimit, "HRESULT")
         return result
     }
 
@@ -182,7 +188,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizelow
      */
     get_ArchiveSizeLow(plSizeLow) {
-        result := ComCall(19, this, "int*", plSizeLow, "HRESULT")
+        plSizeLowMarshal := plSizeLow is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plSizeLowMarshal, plSizeLow, "HRESULT")
         return result
     }
 
@@ -193,7 +201,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizehigh
      */
     get_ArchiveSizeHigh(plSizeHigh) {
-        result := ComCall(20, this, "int*", plSizeHigh, "HRESULT")
+        plSizeHighMarshal := plSizeHigh is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plSizeHighMarshal, plSizeHigh, "HRESULT")
         return result
     }
 
@@ -292,7 +302,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_retries
      */
     get_Retries(plRetries) {
-        result := ComCall(29, this, "int*", plRetries, "HRESULT")
+        plRetriesMarshal := plRetries is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, plRetriesMarshal, plRetries, "HRESULT")
         return result
     }
 
@@ -314,7 +326,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_retrydelay
      */
     get_RetryDelay(plRetryDelay) {
-        result := ComCall(31, this, "int*", plRetryDelay, "HRESULT")
+        plRetryDelayMarshal := plRetryDelay is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, plRetryDelayMarshal, plRetryDelay, "HRESULT")
         return result
     }
 
@@ -336,7 +350,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_discountratestart
      */
     get_DiscountRateStart(pdateDiscountRateStart) {
-        result := ComCall(33, this, "double*", pdateDiscountRateStart, "HRESULT")
+        pdateDiscountRateStartMarshal := pdateDiscountRateStart is VarRef ? "double*" : "ptr"
+
+        result := ComCall(33, this, pdateDiscountRateStartMarshal, pdateDiscountRateStart, "HRESULT")
         return result
     }
 
@@ -358,7 +374,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_discountrateend
      */
     get_DiscountRateEnd(pdateDiscountRateEnd) {
-        result := ComCall(35, this, "double*", pdateDiscountRateEnd, "HRESULT")
+        pdateDiscountRateEndMarshal := pdateDiscountRateEnd is VarRef ? "double*" : "ptr"
+
+        result := ComCall(35, this, pdateDiscountRateEndMarshal, pdateDiscountRateEnd, "HRESULT")
         return result
     }
 
@@ -380,7 +398,9 @@ class IFaxConfiguration extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueueagelimit
      */
     get_OutgoingQueueAgeLimit(plOutgoingQueueAgeLimit) {
-        result := ComCall(37, this, "int*", plOutgoingQueueAgeLimit, "HRESULT")
+        plOutgoingQueueAgeLimitMarshal := plOutgoingQueueAgeLimit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, plOutgoingQueueAgeLimitMarshal, plOutgoingQueueAgeLimit, "HRESULT")
         return result
     }
 

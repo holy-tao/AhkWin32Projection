@@ -83,7 +83,9 @@ class IGPMBackup extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Timestamp(pVal) {
-        result := ComCall(11, this, "double*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

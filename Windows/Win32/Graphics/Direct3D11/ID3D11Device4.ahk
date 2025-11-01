@@ -40,7 +40,9 @@ class ID3D11Device4 extends ID3D11Device3{
     RegisterDeviceRemovedEvent(hEvent, pdwCookie) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(65, this, "ptr", hEvent, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(65, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

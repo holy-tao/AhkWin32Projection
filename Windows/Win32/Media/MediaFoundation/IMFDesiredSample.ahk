@@ -38,7 +38,10 @@ class IMFDesiredSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfdesiredsample-getdesiredsampletimeandduration
      */
     GetDesiredSampleTimeAndDuration(phnsSampleTime, phnsSampleDuration) {
-        result := ComCall(3, this, "int64*", phnsSampleTime, "int64*", phnsSampleDuration, "HRESULT")
+        phnsSampleTimeMarshal := phnsSampleTime is VarRef ? "int64*" : "ptr"
+        phnsSampleDurationMarshal := phnsSampleDuration is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, phnsSampleTimeMarshal, phnsSampleTime, phnsSampleDurationMarshal, phnsSampleDuration, "HRESULT")
         return result
     }
 

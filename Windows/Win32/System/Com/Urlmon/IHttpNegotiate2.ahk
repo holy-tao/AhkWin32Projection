@@ -36,7 +36,10 @@ class IHttpNegotiate2 extends IHttpNegotiate{
      * @returns {HRESULT} 
      */
     GetRootSecurityId(pbSecurityId, pcbSecurityId, dwReserved) {
-        result := ComCall(5, this, "char*", pbSecurityId, "uint*", pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
+        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
         return result
     }
 }

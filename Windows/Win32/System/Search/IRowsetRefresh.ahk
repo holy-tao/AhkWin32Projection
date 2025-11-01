@@ -40,7 +40,10 @@ class IRowsetRefresh extends IUnknown{
      * @returns {HRESULT} 
      */
     RefreshVisibleData(hChapter, cRows, rghRows, fOverWrite, pcRowsRefreshed, prghRowsRefreshed, prgRowStatus) {
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cRows, "ptr*", rghRows, "int", fOverWrite, "ptr*", pcRowsRefreshed, "ptr*", prghRowsRefreshed, "ptr*", prgRowStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        pcRowsRefreshedMarshal := pcRowsRefreshed is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cRows, rghRowsMarshal, rghRows, "int", fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, "ptr*", prghRowsRefreshed, "ptr*", prgRowStatus, "HRESULT")
         return result
     }
 
@@ -54,7 +57,9 @@ class IRowsetRefresh extends IUnknown{
     GetLastVisibleData(hRow, hAccessor, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 }

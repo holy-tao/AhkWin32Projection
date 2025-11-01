@@ -43,7 +43,9 @@ class IPortableDeviceKeyCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicekeycollection-getcount
      */
     GetCount(pcElems) {
-        result := ComCall(3, this, "uint*", pcElems, "HRESULT")
+        pcElemsMarshal := pcElems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcElemsMarshal, pcElems, "HRESULT")
         return result
     }
 

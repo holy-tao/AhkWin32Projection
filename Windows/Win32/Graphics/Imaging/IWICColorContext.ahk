@@ -57,7 +57,9 @@ class IWICColorContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-initializefrommemory
      */
     InitializeFromMemory(pbBuffer, cbBufferSize) {
-        result := ComCall(4, this, "char*", pbBuffer, "uint", cbBufferSize, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbBufferMarshal, pbBuffer, "uint", cbBufferSize, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IWICColorContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-gettype
      */
     GetType(pType) {
-        result := ComCall(6, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -92,7 +96,10 @@ class IWICColorContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-getprofilebytes
      */
     GetProfileBytes(cbBuffer, pbBuffer, pcbActual) {
-        result := ComCall(7, this, "uint", cbBuffer, "char*", pbBuffer, "uint*", pcbActual, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", cbBuffer, pbBufferMarshal, pbBuffer, pcbActualMarshal, pcbActual, "HRESULT")
         return result
     }
 
@@ -103,7 +110,9 @@ class IWICColorContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-getexifcolorspace
      */
     GetExifColorSpace(pValue) {
-        result := ComCall(8, this, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

@@ -163,7 +163,9 @@ class ITraceDataProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_filtertype
      */
     get_FilterType(pulType) {
-        result := ComCall(17, this, "uint*", pulType, "HRESULT")
+        pulTypeMarshal := pulType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pulTypeMarshal, pulType, "HRESULT")
         return result
     }
 

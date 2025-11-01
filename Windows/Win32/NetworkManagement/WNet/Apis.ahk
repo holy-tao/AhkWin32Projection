@@ -3077,7 +3077,9 @@ class WNet {
         lpLocalName := lpLocalName is String ? StrPtr(lpLocalName) : lpLocalName
         lpRemoteName := lpRemoteName is String ? StrPtr(lpRemoteName) : lpRemoteName
 
-        result := DllCall("MPR.dll\WNetGetConnectionA", "ptr", lpLocalName, "ptr", lpRemoteName, "uint*", lpnLength, "uint")
+        lpnLengthMarshal := lpnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetConnectionA", "ptr", lpLocalName, "ptr", lpRemoteName, lpnLengthMarshal, lpnLength, "uint")
         return result
     }
 
@@ -3182,7 +3184,9 @@ class WNet {
         lpLocalName := lpLocalName is String ? StrPtr(lpLocalName) : lpLocalName
         lpRemoteName := lpRemoteName is String ? StrPtr(lpRemoteName) : lpRemoteName
 
-        result := DllCall("MPR.dll\WNetGetConnectionW", "ptr", lpLocalName, "ptr", lpRemoteName, "uint*", lpnLength, "uint")
+        lpnLengthMarshal := lpnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetConnectionW", "ptr", lpLocalName, "ptr", lpRemoteName, lpnLengthMarshal, lpnLength, "uint")
         return result
     }
 
@@ -3512,7 +3516,10 @@ class WNet {
         lpUserId := lpUserId is String ? StrPtr(lpUserId) : lpUserId
         lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnectionA", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lpResultMarshal := lpResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetUseConnectionA", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, "uint")
         return result
     }
 
@@ -3842,7 +3849,10 @@ class WNet {
         lpUserId := lpUserId is String ? StrPtr(lpUserId) : lpUserId
         lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnectionW", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lpResultMarshal := lpResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetUseConnectionW", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, "uint")
         return result
     }
 
@@ -3864,7 +3874,10 @@ class WNet {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnection4A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lpResultMarshal := lpResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetUseConnection4A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, "uint")
         return result
     }
 
@@ -3886,7 +3899,10 @@ class WNet {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnection4W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lpResultMarshal := lpResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetUseConnection4W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, "uint")
         return result
     }
 
@@ -4765,7 +4781,10 @@ class WNet {
     static WNetEnumResourceA(hEnum, lpcCount, lpBuffer, lpBufferSize) {
         hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
 
-        result := DllCall("MPR.dll\WNetEnumResourceA", "ptr", hEnum, "uint*", lpcCount, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpcCountMarshal := lpcCount is VarRef ? "uint*" : "ptr"
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetEnumResourceA", "ptr", hEnum, lpcCountMarshal, lpcCount, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -4881,7 +4900,10 @@ class WNet {
     static WNetEnumResourceW(hEnum, lpcCount, lpBuffer, lpBufferSize) {
         hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
 
-        result := DllCall("MPR.dll\WNetEnumResourceW", "ptr", hEnum, "uint*", lpcCount, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpcCountMarshal := lpcCount is VarRef ? "uint*" : "ptr"
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetEnumResourceW", "ptr", hEnum, lpcCountMarshal, lpcCount, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -5080,7 +5102,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceParentA(lpNetResource, lpBuffer, lpcbBuffer) {
-        result := DllCall("MPR.dll\WNetGetResourceParentA", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "uint")
+        lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetResourceParentA", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, "uint")
         return result
     }
 
@@ -5220,7 +5244,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceParentW(lpNetResource, lpBuffer, lpcbBuffer) {
-        result := DllCall("MPR.dll\WNetGetResourceParentW", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "uint")
+        lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetResourceParentW", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, "uint")
         return result
     }
 
@@ -5330,7 +5356,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceInformationA(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
-        result := DllCall("MPR.dll\WNetGetResourceInformationA", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "ptr", lplpSystem, "uint")
+        lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetResourceInformationA", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, "ptr", lplpSystem, "uint")
         return result
     }
 
@@ -5440,7 +5468,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceInformationW(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
-        result := DllCall("MPR.dll\WNetGetResourceInformationW", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "ptr", lplpSystem, "uint")
+        lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetResourceInformationW", "ptr", lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, "ptr", lplpSystem, "uint")
         return result
     }
 
@@ -5563,7 +5593,9 @@ class WNet {
     static WNetGetUniversalNameA(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
         lpLocalPath := lpLocalPath is String ? StrPtr(lpLocalPath) : lpLocalPath
 
-        result := DllCall("MPR.dll\WNetGetUniversalNameA", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetUniversalNameA", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -5686,7 +5718,9 @@ class WNet {
     static WNetGetUniversalNameW(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
         lpLocalPath := lpLocalPath is String ? StrPtr(lpLocalPath) : lpLocalPath
 
-        result := DllCall("MPR.dll\WNetGetUniversalNameW", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetUniversalNameW", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -5771,7 +5805,9 @@ class WNet {
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("MPR.dll\WNetGetUserA", "ptr", lpName, "ptr", lpUserName, "uint*", lpnLength, "uint")
+        lpnLengthMarshal := lpnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetUserA", "ptr", lpName, "ptr", lpUserName, lpnLengthMarshal, lpnLength, "uint")
         return result
     }
 
@@ -5856,7 +5892,9 @@ class WNet {
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("MPR.dll\WNetGetUserW", "ptr", lpName, "ptr", lpUserName, "uint*", lpnLength, "uint")
+        lpnLengthMarshal := lpnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetUserW", "ptr", lpName, "ptr", lpUserName, lpnLengthMarshal, lpnLength, "uint")
         return result
     }
 
@@ -5925,7 +5963,9 @@ class WNet {
     static WNetGetProviderNameA(dwNetType, lpProviderName, lpBufferSize) {
         lpProviderName := lpProviderName is String ? StrPtr(lpProviderName) : lpProviderName
 
-        result := DllCall("MPR.dll\WNetGetProviderNameA", "uint", dwNetType, "ptr", lpProviderName, "uint*", lpBufferSize, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetProviderNameA", "uint", dwNetType, "ptr", lpProviderName, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -5994,7 +6034,9 @@ class WNet {
     static WNetGetProviderNameW(dwNetType, lpProviderName, lpBufferSize) {
         lpProviderName := lpProviderName is String ? StrPtr(lpProviderName) : lpProviderName
 
-        result := DllCall("MPR.dll\WNetGetProviderNameW", "uint", dwNetType, "ptr", lpProviderName, "uint*", lpBufferSize, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MPR.dll\WNetGetProviderNameW", "uint", dwNetType, "ptr", lpProviderName, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -6113,9 +6155,11 @@ class WNet {
         lpErrorBuf := lpErrorBuf is String ? StrPtr(lpErrorBuf) : lpErrorBuf
         lpNameBuf := lpNameBuf is String ? StrPtr(lpNameBuf) : lpNameBuf
 
+        lpErrorMarshal := lpError is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MPR.dll\WNetGetLastErrorA", "uint*", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
+        result := DllCall("MPR.dll\WNetGetLastErrorA", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -6139,9 +6183,11 @@ class WNet {
         lpErrorBuf := lpErrorBuf is String ? StrPtr(lpErrorBuf) : lpErrorBuf
         lpNameBuf := lpNameBuf is String ? StrPtr(lpNameBuf) : lpNameBuf
 
+        lpErrorMarshal := lpError is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MPR.dll\WNetGetLastErrorW", "uint*", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
+        result := DllCall("MPR.dll\WNetGetLastErrorW", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -6895,7 +6941,9 @@ class WNet {
         lpLocalName := lpLocalName is String ? StrPtr(lpLocalName) : lpLocalName
         lpRemoteName := lpRemoteName is String ? StrPtr(lpRemoteName) : lpRemoteName
 
-        result := DllCall("davclnt.dll\NPGetConnection", "ptr", lpLocalName, "ptr", lpRemoteName, "uint*", lpnBufferLen, "uint")
+        lpnBufferLenMarshal := lpnBufferLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\NPGetConnection", "ptr", lpLocalName, "ptr", lpRemoteName, lpnBufferLenMarshal, lpnBufferLen, "uint")
         return result
     }
 
@@ -6982,7 +7030,9 @@ class WNet {
     static NPGetConnection3(lpLocalName, dwLevel, lpBuffer, lpBufferSize) {
         lpLocalName := lpLocalName is String ? StrPtr(lpLocalName) : lpLocalName
 
-        result := DllCall("NTLANMAN.dll\NPGetConnection3", "ptr", lpLocalName, "uint", dwLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NTLANMAN.dll\NPGetConnection3", "ptr", lpLocalName, "uint", dwLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -7050,7 +7100,9 @@ class WNet {
     static NPGetUniversalName(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
         lpLocalPath := lpLocalPath is String ? StrPtr(lpLocalPath) : lpLocalPath
 
-        result := DllCall("davclnt.dll\NPGetUniversalName", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\NPGetUniversalName", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -7355,7 +7407,10 @@ class WNet {
     static NPEnumResource(hEnum, lpcCount, lpBuffer, lpBufferSize) {
         hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
 
-        result := DllCall("davclnt.dll\NPEnumResource", "ptr", hEnum, "uint*", lpcCount, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpcCountMarshal := lpcCount is VarRef ? "uint*" : "ptr"
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\NPEnumResource", "ptr", hEnum, lpcCountMarshal, lpcCount, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -7472,7 +7527,9 @@ class WNet {
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("davclnt.dll\NPGetUser", "ptr", lpName, "ptr", lpUserName, "uint*", lpnBufferLen, "uint")
+        lpnBufferLenMarshal := lpnBufferLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\NPGetUser", "ptr", lpName, "ptr", lpUserName, lpnBufferLenMarshal, lpnBufferLen, "uint")
         return result
     }
 
@@ -7488,7 +7545,9 @@ class WNet {
     static NPGetPersistentUseOptionsForConnection(lpRemotePath, lpReadUseOptions, cbReadUseOptions, lpWriteUseOptions, lpSizeWriteUseOptions) {
         lpRemotePath := lpRemotePath is String ? StrPtr(lpRemotePath) : lpRemotePath
 
-        result := DllCall("NTLANMAN.dll\NPGetPersistentUseOptionsForConnection", "ptr", lpRemotePath, "ptr", lpReadUseOptions, "uint", cbReadUseOptions, "ptr", lpWriteUseOptions, "uint*", lpSizeWriteUseOptions, "uint")
+        lpSizeWriteUseOptionsMarshal := lpSizeWriteUseOptions is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NTLANMAN.dll\NPGetPersistentUseOptionsForConnection", "ptr", lpRemotePath, "ptr", lpReadUseOptions, "uint", cbReadUseOptions, "ptr", lpWriteUseOptions, lpSizeWriteUseOptionsMarshal, lpSizeWriteUseOptions, "uint")
         return result
     }
 
@@ -7586,7 +7645,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetResourceParent(lpNetResource, lpBuffer, lpBufferSize) {
-        result := DllCall("davclnt.dll\NPGetResourceParent", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\NPGetResourceParent", "ptr", lpNetResource, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "uint")
         return result
     }
 
@@ -7690,7 +7751,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetResourceInformation(lpNetResource, lpBuffer, lpBufferSize, lplpSystem) {
-        result := DllCall("davclnt.dll\NPGetResourceInformation", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpBufferSize, "ptr", lplpSystem, "uint")
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\NPGetResourceInformation", "ptr", lpNetResource, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, "ptr", lplpSystem, "uint")
         return result
     }
 
@@ -7731,7 +7794,9 @@ class WNet {
         lpRemoteName := lpRemoteName is String ? StrPtr(lpRemoteName) : lpRemoteName
         lpFormattedName := lpFormattedName is String ? StrPtr(lpFormattedName) : lpFormattedName
 
-        result := DllCall("davclnt.dll\NPFormatNetworkName", "ptr", lpRemoteName, "ptr", lpFormattedName, "uint*", lpnLength, "uint", dwFlags, "uint", dwAveCharPerLine, "uint")
+        lpnLengthMarshal := lpnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("davclnt.dll\NPFormatNetworkName", "ptr", lpRemoteName, "ptr", lpFormattedName, lpnLengthMarshal, lpnLength, "uint", dwFlags, "uint", dwAveCharPerLine, "uint")
         return result
     }
 

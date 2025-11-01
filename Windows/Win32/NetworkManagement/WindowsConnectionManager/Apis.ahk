@@ -69,7 +69,9 @@ class WindowsConnectionManager {
 
         strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint*", pdwDataSize, "ptr*", ppData, "uint")
+        pdwDataSizeMarshal := pdwDataSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, pdwDataSizeMarshal, pdwDataSize, "ptr*", ppData, "uint")
         return result
     }
 
@@ -101,7 +103,9 @@ class WindowsConnectionManager {
 
         strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-        result := DllCall("wcmapi.dll\WcmSetProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint", dwDataSize, "char*", pbData, "uint")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := DllCall("wcmapi.dll\WcmSetProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint", dwDataSize, pbDataMarshal, pbData, "uint")
         return result
     }
 
@@ -155,7 +159,9 @@ class WindowsConnectionManager {
      * @since windows8.0
      */
     static WcmFreeMemory(pMemory) {
-        DllCall("wcmapi.dll\WcmFreeMemory", "ptr", pMemory)
+        pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+
+        DllCall("wcmapi.dll\WcmFreeMemory", pMemoryMarshal, pMemory)
     }
 
     /**
@@ -198,7 +204,9 @@ class WindowsConnectionManager {
     static OnDemandGetRoutingHint(destinationHostName, interfaceIndex) {
         destinationHostName := destinationHostName is String ? StrPtr(destinationHostName) : destinationHostName
 
-        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "uint*", interfaceIndex, "int")
+        interfaceIndexMarshal := interfaceIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, interfaceIndexMarshal, interfaceIndex, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -215,7 +223,9 @@ class WindowsConnectionManager {
      * @since windows8.1
      */
     static OnDemandRegisterNotification(callback, callbackContext, registrationHandle) {
-        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, "ptr", callbackContext, "ptr", registrationHandle, "int")
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, "ptr", registrationHandle, "int")
         if(result != 0)
             throw OSError(result)
 

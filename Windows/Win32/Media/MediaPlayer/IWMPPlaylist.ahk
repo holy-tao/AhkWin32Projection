@@ -38,7 +38,9 @@ class IWMPPlaylist extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_count
      */
     get_count(plCount) {
-        result := ComCall(7, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IWMPPlaylist extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_attributecount
      */
     get_attributeCount(plCount) {
-        result := ComCall(10, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

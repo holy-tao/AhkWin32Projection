@@ -73,7 +73,10 @@ class IPortableDeviceConnector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-getproperty
      */
     GetProperty(pPropertyKey, pPropertyType, ppData, pcbData) {
-        result := ComCall(6, this, "ptr", pPropertyKey, "uint*", pPropertyType, "ptr*", ppData, "uint*", pcbData, "HRESULT")
+        pPropertyTypeMarshal := pPropertyType is VarRef ? "uint*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pPropertyKey, pPropertyTypeMarshal, pPropertyType, "ptr*", ppData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 
@@ -87,7 +90,9 @@ class IPortableDeviceConnector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-setproperty
      */
     SetProperty(pPropertyKey, PropertyType, pData, cbData) {
-        result := ComCall(7, this, "ptr", pPropertyKey, "uint", PropertyType, "char*", pData, "uint", cbData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pPropertyKey, "uint", PropertyType, pDataMarshal, pData, "uint", cbData, "HRESULT")
         return result
     }
 

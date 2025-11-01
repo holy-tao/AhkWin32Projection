@@ -44,7 +44,9 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawglyphrun
      */
     DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, measuringMode, glyphRun, glyphRunDescription, clientDrawingEffect) {
-        result := ComCall(10, this, "ptr", clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "int", measuringMode, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "int", measuringMode, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawunderline
      */
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, underline, clientDrawingEffect) {
-        result := ComCall(11, this, "ptr", clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", underline, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", underline, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawstrikethrough
      */
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, strikethrough, clientDrawingEffect) {
-        result := ComCall(12, this, "ptr", clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", strikethrough, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", strikethrough, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawinlineobject
      */
     DrawInlineObject(clientDrawingContext, originX, originY, orientationAngle, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
-        result := ComCall(13, this, "ptr", clientDrawingContext, "float", originX, "float", originY, "int", orientationAngle, "ptr", inlineObject, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, "int", orientationAngle, "ptr", inlineObject, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 }

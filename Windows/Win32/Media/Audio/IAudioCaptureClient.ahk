@@ -41,7 +41,12 @@ class IAudioCaptureClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getbuffer
      */
     GetBuffer(ppData, pNumFramesToRead, pdwFlags, pu64DevicePosition, pu64QPCPosition) {
-        result := ComCall(3, this, "ptr*", ppData, "uint*", pNumFramesToRead, "uint*", pdwFlags, "uint*", pu64DevicePosition, "uint*", pu64QPCPosition, "HRESULT")
+        pNumFramesToReadMarshal := pNumFramesToRead is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pu64DevicePositionMarshal := pu64DevicePosition is VarRef ? "uint*" : "ptr"
+        pu64QPCPositionMarshal := pu64QPCPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", ppData, pNumFramesToReadMarshal, pNumFramesToRead, pdwFlagsMarshal, pdwFlags, pu64DevicePositionMarshal, pu64DevicePosition, pu64QPCPositionMarshal, pu64QPCPosition, "HRESULT")
         return result
     }
 
@@ -63,7 +68,9 @@ class IAudioCaptureClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getnextpacketsize
      */
     GetNextPacketSize(pNumFramesInNextPacket) {
-        result := ComCall(5, this, "uint*", pNumFramesInNextPacket, "HRESULT")
+        pNumFramesInNextPacketMarshal := pNumFramesInNextPacket is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pNumFramesInNextPacketMarshal, pNumFramesInNextPacket, "HRESULT")
         return result
     }
 }

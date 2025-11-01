@@ -37,7 +37,9 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getvolumechannelcount
      */
     GetVolumeChannelCount(pu32ChannelCount) {
-        result := ComCall(3, this, "uint*", pu32ChannelCount, "HRESULT")
+        pu32ChannelCountMarshal := pu32ChannelCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pu32ChannelCountMarshal, pu32ChannelCount, "HRESULT")
         return result
     }
 
@@ -51,7 +53,10 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-setchannelvolumes
      */
     SetChannelVolumes(u32ChannelCount, pf32Volumes, u32CurveType, pCurveDuration) {
-        result := ComCall(4, this, "uint", u32ChannelCount, "float*", pf32Volumes, "int", u32CurveType, "int64*", pCurveDuration, "HRESULT")
+        pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : "ptr"
+        pCurveDurationMarshal := pCurveDuration is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, "uint", u32ChannelCount, pf32VolumesMarshal, pf32Volumes, "int", u32CurveType, pCurveDurationMarshal, pCurveDuration, "HRESULT")
         return result
     }
 
@@ -63,7 +68,9 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getchannelvolumes
      */
     GetChannelVolumes(u32ChannelCount, pf32Volumes) {
-        result := ComCall(5, this, "uint", u32ChannelCount, "float*", pf32Volumes, "HRESULT")
+        pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "uint", u32ChannelCount, pf32VolumesMarshal, pf32Volumes, "HRESULT")
         return result
     }
 }

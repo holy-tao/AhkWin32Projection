@@ -54,7 +54,9 @@ class ISpeechRecoResultTimes extends IDispatch{
      * @returns {HRESULT} 
      */
     get_TickCount(TickCount) {
-        result := ComCall(9, this, "int*", TickCount, "HRESULT")
+        TickCountMarshal := TickCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, TickCountMarshal, TickCount, "HRESULT")
         return result
     }
 

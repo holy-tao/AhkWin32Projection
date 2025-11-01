@@ -72,7 +72,10 @@ class IExtractIconA extends IUnknown{
     GetIconLocation(uFlags, pszIconFile, cchMax, piIndex, pwFlags) {
         pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
-        result := ComCall(3, this, "uint", uFlags, "ptr", pszIconFile, "uint", cchMax, "int*", piIndex, "uint*", pwFlags, "HRESULT")
+        piIndexMarshal := piIndex is VarRef ? "int*" : "ptr"
+        pwFlagsMarshal := pwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", uFlags, "ptr", pszIconFile, "uint", cchMax, piIndexMarshal, piIndex, pwFlagsMarshal, pwFlags, "HRESULT")
         return result
     }
 

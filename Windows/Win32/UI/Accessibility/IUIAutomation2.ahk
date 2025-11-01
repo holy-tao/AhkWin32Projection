@@ -59,7 +59,9 @@ class IUIAutomation2 extends IUIAutomation{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_connectiontimeout
      */
     get_ConnectionTimeout(timeout) {
-        result := ComCall(60, this, "uint*", timeout, "HRESULT")
+        timeoutMarshal := timeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(60, this, timeoutMarshal, timeout, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IUIAutomation2 extends IUIAutomation{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_transactiontimeout
      */
     get_TransactionTimeout(timeout) {
-        result := ComCall(62, this, "uint*", timeout, "HRESULT")
+        timeoutMarshal := timeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(62, this, timeoutMarshal, timeout, "HRESULT")
         return result
     }
 

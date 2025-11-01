@@ -141,7 +141,9 @@ class IRTCClientProvisioning extends IUnknown{
      * @returns {HRESULT} 
      */
     get_SessionCapabilities(plSupportedSessions) {
-        result := ComCall(9, this, "int*", plSupportedSessions, "HRESULT")
+        plSupportedSessionsMarshal := plSupportedSessions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plSupportedSessionsMarshal, plSupportedSessions, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IAccountingProviderConfig extends IUnknown{
     Initialize(pszMachineName, puConnectionParam) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        result := ComCall(3, this, "ptr", pszMachineName, "ptr*", puConnectionParam, "HRESULT")
+        puConnectionParamMarshal := puConnectionParam is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszMachineName, puConnectionParamMarshal, puConnectionParam, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IMediaParamInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparamcount
      */
     GetParamCount(pdwParams) {
-        result := ComCall(3, this, "uint*", pdwParams, "HRESULT")
+        pdwParamsMarshal := pdwParams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwParamsMarshal, pdwParams, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IMediaParamInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getnumtimeformats
      */
     GetNumTimeFormats(pdwNumTimeFormats) {
-        result := ComCall(6, this, "uint*", pdwNumTimeFormats, "HRESULT")
+        pdwNumTimeFormatsMarshal := pdwNumTimeFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwNumTimeFormatsMarshal, pdwNumTimeFormats, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IMediaParamInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getcurrenttimeformat
      */
     GetCurrentTimeFormat(pguidTimeFormat, pTimeData) {
-        result := ComCall(8, this, "ptr", pguidTimeFormat, "uint*", pTimeData, "HRESULT")
+        pTimeDataMarshal := pTimeData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pguidTimeFormat, pTimeDataMarshal, pTimeData, "HRESULT")
         return result
     }
 }

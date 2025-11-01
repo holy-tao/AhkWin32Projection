@@ -48,7 +48,9 @@ class IWCWizardCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizardcallback-addwizardpage
      */
     AddWizardPage(hpage) {
-        result := ComCall(3, this, "int*", hpage, "HRESULT")
+        hpageMarshal := hpage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, hpageMarshal, hpage, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IWCWizardCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizardcallback-enablenext
      */
     EnableNext(hpage, bEnable) {
-        result := ComCall(4, this, "int*", hpage, "int", bEnable, "HRESULT")
+        hpageMarshal := hpage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, hpageMarshal, hpage, "int", bEnable, "HRESULT")
         return result
     }
 }

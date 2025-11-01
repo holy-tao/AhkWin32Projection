@@ -102,7 +102,9 @@ class ITextStoreAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getselection
      */
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
-        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -133,7 +135,9 @@ class ITextStoreAnchor extends IUnknown{
     GetText(dwFlags, paStart, paEnd, pchText, cchReq, pcch, fUpdateAnchor) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(10, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cchReq, "uint*", pcch, "int", fUpdateAnchor, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cchReq, pcchMarshal, pcch, "int", fUpdateAnchor, "HRESULT")
         return result
     }
 
@@ -250,7 +254,9 @@ class ITextStoreAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-findnextattrtransition
      */
     FindNextAttrTransition(paStart, paHalt, cFilterAttrs, paFilterAttrs, dwFlags, pfFound, plFoundOffset) {
-        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "ptr", pfFound, "int*", plFoundOffset, "HRESULT")
+        plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "ptr", pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
         return result
     }
 
@@ -263,7 +269,9 @@ class ITextStoreAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-retrieverequestedattrs
      */
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
-        result := ComCall(19, this, "uint", ulCount, "ptr", paAttrVals, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "uint", ulCount, "ptr", paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -296,7 +304,9 @@ class ITextStoreAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getactiveview
      */
     GetActiveView(pvcView) {
-        result := ComCall(22, this, "uint*", pvcView, "HRESULT")
+        pvcViewMarshal := pvcView is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pvcViewMarshal, pvcView, "HRESULT")
         return result
     }
 

@@ -52,7 +52,9 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-getlocalityfromkey
      */
     GetLocalityFromKey(fontFileReferenceKey, fontFileReferenceKeySize, locality) {
-        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "int*", locality, "HRESULT")
+        localityMarshal := locality is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, localityMarshal, locality, "HRESULT")
         return result
     }
 

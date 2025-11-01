@@ -41,7 +41,9 @@ class IDXGIOutput5 extends IDXGIOutput4{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgioutput5-duplicateoutput1
      */
     DuplicateOutput1(pDevice, Flags, SupportedFormatsCount, pSupportedFormats, ppOutputDuplication) {
-        result := ComCall(26, this, "ptr", pDevice, "uint", Flags, "uint", SupportedFormatsCount, "int*", pSupportedFormats, "ptr*", ppOutputDuplication, "HRESULT")
+        pSupportedFormatsMarshal := pSupportedFormats is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, "ptr", pDevice, "uint", Flags, "uint", SupportedFormatsCount, pSupportedFormatsMarshal, pSupportedFormats, "ptr*", ppOutputDuplication, "HRESULT")
         return result
     }
 }

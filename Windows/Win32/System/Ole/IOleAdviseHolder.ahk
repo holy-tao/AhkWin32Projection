@@ -38,7 +38,9 @@ class IOleAdviseHolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleadviseholder-advise
      */
     Advise(pAdvise, pdwConnection) {
-        result := ComCall(3, this, "ptr", pAdvise, "uint*", pdwConnection, "HRESULT")
+        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pAdvise, pdwConnectionMarshal, pdwConnection, "HRESULT")
         return result
     }
 

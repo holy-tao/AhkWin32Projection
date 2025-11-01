@@ -70,7 +70,9 @@ class ISyncMgrEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getlevel
      */
     GetLevel(pnLevel) {
-        result := ComCall(6, this, "int*", pnLevel, "HRESULT")
+        pnLevelMarshal := pnLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pnLevelMarshal, pnLevel, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class ISyncMgrEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getflags
      */
     GetFlags(pnFlags) {
-        result := ComCall(7, this, "int*", pnFlags, "HRESULT")
+        pnFlagsMarshal := pnFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pnFlagsMarshal, pnFlags, "HRESULT")
         return result
     }
 

@@ -55,7 +55,9 @@ class IWbemPath extends IUnknown{
     GetText(lFlags, puBuffLength, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(4, this, "int", lFlags, "uint*", puBuffLength, "ptr", pszText, "HRESULT")
+        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IWbemPath extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getinfo
      */
     GetInfo(uRequestedInfo, puResponse) {
-        result := ComCall(5, this, "uint", uRequestedInfo, "uint*", puResponse, "HRESULT")
+        puResponseMarshal := puResponse is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", uRequestedInfo, puResponseMarshal, puResponse, "HRESULT")
         return result
     }
 
@@ -94,7 +98,9 @@ class IWbemPath extends IUnknown{
     GetServer(puNameBufLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(7, this, "uint*", puNameBufLength, "ptr", pName, "HRESULT")
+        puNameBufLengthMarshal := puNameBufLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, puNameBufLengthMarshal, puNameBufLength, "ptr", pName, "HRESULT")
         return result
     }
 
@@ -105,7 +111,9 @@ class IWbemPath extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getnamespacecount
      */
     GetNamespaceCount(puCount) {
-        result := ComCall(8, this, "uint*", puCount, "HRESULT")
+        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, puCountMarshal, puCount, "HRESULT")
         return result
     }
 
@@ -134,7 +142,9 @@ class IWbemPath extends IUnknown{
     GetNamespaceAt(uIndex, puNameBufLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(10, this, "uint", uIndex, "uint*", puNameBufLength, "ptr", pName, "HRESULT")
+        puNameBufLengthMarshal := puNameBufLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", uIndex, puNameBufLengthMarshal, puNameBufLength, "ptr", pName, "HRESULT")
         return result
     }
 
@@ -166,7 +176,9 @@ class IWbemPath extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getscopecount
      */
     GetScopeCount(puCount) {
-        result := ComCall(13, this, "uint*", puCount, "HRESULT")
+        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, puCountMarshal, puCount, "HRESULT")
         return result
     }
 
@@ -210,7 +222,9 @@ class IWbemPath extends IUnknown{
     GetScope(uIndex, puClassNameBufSize, pszClass, pKeyList) {
         pszClass := pszClass is String ? StrPtr(pszClass) : pszClass
 
-        result := ComCall(16, this, "uint", uIndex, "uint*", puClassNameBufSize, "ptr", pszClass, "ptr*", pKeyList, "HRESULT")
+        puClassNameBufSizeMarshal := puClassNameBufSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", uIndex, puClassNameBufSizeMarshal, puClassNameBufSize, "ptr", pszClass, "ptr*", pKeyList, "HRESULT")
         return result
     }
 
@@ -225,7 +239,9 @@ class IWbemPath extends IUnknown{
     GetScopeAsText(uIndex, puTextBufSize, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(17, this, "uint", uIndex, "uint*", puTextBufSize, "ptr", pszText, "HRESULT")
+        puTextBufSizeMarshal := puTextBufSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", uIndex, puTextBufSizeMarshal, puTextBufSize, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -277,7 +293,9 @@ class IWbemPath extends IUnknown{
     GetClassName(puBuffLength, pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(21, this, "uint*", puBuffLength, "ptr", pszName, "HRESULT")
+        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, puBuffLengthMarshal, puBuffLength, "ptr", pszName, "HRESULT")
         return result
     }
 

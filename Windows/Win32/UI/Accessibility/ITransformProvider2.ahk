@@ -59,7 +59,9 @@ class ITransformProvider2 extends ITransformProvider{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomlevel
      */
     get_ZoomLevel(pRetVal) {
-        result := ComCall(11, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ITransformProvider2 extends ITransformProvider{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoomminimum
      */
     get_ZoomMinimum(pRetVal) {
-        result := ComCall(12, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ITransformProvider2 extends ITransformProvider{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-get_zoommaximum
      */
     get_ZoomMaximum(pRetVal) {
-        result := ComCall(13, this, "double*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

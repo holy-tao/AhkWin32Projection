@@ -78,7 +78,9 @@ class IVssSnapshotMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-querysnapshotsbyvolume
      */
     QuerySnapshotsByVolume(pwszVolumeName, ProviderId, ppEnum) {
-        result := ComCall(5, this, "ushort*", pwszVolumeName, "ptr", ProviderId, "ptr*", ppEnum, "HRESULT")
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr", ProviderId, "ptr*", ppEnum, "HRESULT")
         return result
     }
 }

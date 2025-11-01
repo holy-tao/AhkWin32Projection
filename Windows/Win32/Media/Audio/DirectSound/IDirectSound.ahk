@@ -89,7 +89,9 @@ class IDirectSound extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSpeakerConfig(pdwSpeakerConfig) {
-        result := ComCall(8, this, "uint*", pdwSpeakerConfig, "HRESULT")
+        pdwSpeakerConfigMarshal := pdwSpeakerConfig is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwSpeakerConfigMarshal, pdwSpeakerConfig, "HRESULT")
         return result
     }
 

@@ -243,7 +243,11 @@ class IDWriteTextFormat extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlinespacing
      */
     GetLineSpacing(lineSpacingMethod, lineSpacing, baseline) {
-        result := ComCall(18, this, "int*", lineSpacingMethod, "float*", lineSpacing, "float*", baseline, "HRESULT")
+        lineSpacingMethodMarshal := lineSpacingMethod is VarRef ? "int*" : "ptr"
+        lineSpacingMarshal := lineSpacing is VarRef ? "float*" : "ptr"
+        baselineMarshal := baseline is VarRef ? "float*" : "ptr"
+
+        result := ComCall(18, this, lineSpacingMethodMarshal, lineSpacingMethod, lineSpacingMarshal, lineSpacing, baselineMarshal, baseline, "HRESULT")
         return result
     }
 

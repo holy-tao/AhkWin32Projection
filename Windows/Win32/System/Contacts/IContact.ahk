@@ -71,7 +71,9 @@ class IContact extends IUnknown{
     GetContactID(pszContactID, cchContactID, pdwcchContactIDRequired) {
         pszContactID := pszContactID is String ? StrPtr(pszContactID) : pszContactID
 
-        result := ComCall(3, this, "ptr", pszContactID, "uint", cchContactID, "uint*", pdwcchContactIDRequired, "HRESULT")
+        pdwcchContactIDRequiredMarshal := pdwcchContactIDRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszContactID, "uint", cchContactID, pdwcchContactIDRequiredMarshal, pdwcchContactIDRequired, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class IContact extends IUnknown{
     GetPath(pszPath, cchPath, pdwcchPathRequired) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(4, this, "ptr", pszPath, "uint", cchPath, "uint*", pdwcchPathRequired, "HRESULT")
+        pdwcchPathRequiredMarshal := pdwcchPathRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszPath, "uint", cchPath, pdwcchPathRequiredMarshal, pdwcchPathRequired, "HRESULT")
         return result
     }
 

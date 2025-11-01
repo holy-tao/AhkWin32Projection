@@ -45,7 +45,9 @@ class ITfThreadMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-activate
      */
     Activate(ptid) {
-        result := ComCall(3, this, "uint*", ptid, "HRESULT")
+        ptidMarshal := ptid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, ptidMarshal, ptid, "HRESULT")
         return result
     }
 

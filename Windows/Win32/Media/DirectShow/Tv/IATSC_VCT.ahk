@@ -59,7 +59,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-gettransportstreamid
      */
     GetTransportStreamId(pwVal) {
-        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getprotocolversion
      */
     GetProtocolVersion(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords
      */
     GetCountOfRecords(pdwVal) {
-        result := ComCall(7, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -116,7 +124,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmajorchannelnumber
      */
     GetRecordMajorChannelNumber(dwRecordIndex, pwVal) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -128,7 +138,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordminorchannelnumber
      */
     GetRecordMinorChannelNumber(dwRecordIndex, pwVal) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -140,7 +152,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmodulationmode
      */
     GetRecordModulationMode(dwRecordIndex, pbVal) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -152,7 +166,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcarrierfrequency
      */
     GetRecordCarrierFrequency(dwRecordIndex, pdwVal) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -164,7 +180,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordtransportstreamid
      */
     GetRecordTransportStreamId(dwRecordIndex, pwVal) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -176,7 +194,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordprogramnumber
      */
     GetRecordProgramNumber(dwRecordIndex, pwVal) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(14, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -188,7 +208,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordetmlocation
      */
     GetRecordEtmLocation(dwRecordIndex, pbVal) {
-        result := ComCall(15, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -260,7 +282,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordservicetype
      */
     GetRecordServiceType(dwRecordIndex, pbVal) {
-        result := ComCall(21, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(21, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -272,7 +296,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordsourceid
      */
     GetRecordSourceId(dwRecordIndex, pwVal) {
-        result := ComCall(22, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(22, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -284,7 +310,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        result := ComCall(23, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -311,7 +339,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(25, this, "uint", dwRecordIndex, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 
@@ -322,7 +352,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(26, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -347,7 +379,9 @@ class IATSC_VCT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(28, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 }

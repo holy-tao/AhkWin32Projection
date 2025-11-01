@@ -47,7 +47,9 @@ class IDirectManipulationUpdateManager extends IUnknown{
     RegisterWaitHandleCallback(handle, eventHandler, cookie) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
-        result := ComCall(3, this, "ptr", handle, "ptr", eventHandler, "uint*", cookie, "HRESULT")
+        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", handle, "ptr", eventHandler, cookieMarshal, cookie, "HRESULT")
         return result
     }
 

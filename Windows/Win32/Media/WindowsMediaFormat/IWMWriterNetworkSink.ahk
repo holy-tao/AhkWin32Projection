@@ -48,7 +48,9 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getmaximumclients
      */
     GetMaximumClients(pdwMaxClients) {
-        result := ComCall(9, this, "uint*", pdwMaxClients, "HRESULT")
+        pdwMaxClientsMarshal := pdwMaxClients is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwMaxClientsMarshal, pdwMaxClients, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getnetworkprotocol
      */
     GetNetworkProtocol(pProtocol) {
-        result := ComCall(11, this, "int*", pProtocol, "HRESULT")
+        pProtocolMarshal := pProtocol is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pProtocolMarshal, pProtocol, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class IWMWriterNetworkSink extends IWMWriterSink{
     GetHostURL(pwszURL, pcchURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(12, this, "ptr", pwszURL, "uint*", pcchURL, "HRESULT")
+        pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pwszURL, pcchURLMarshal, pcchURL, "HRESULT")
         return result
     }
 
@@ -95,7 +101,9 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-open
      */
     Open(pdwPortNum) {
-        result := ComCall(13, this, "uint*", pdwPortNum, "HRESULT")
+        pdwPortNumMarshal := pdwPortNum is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwPortNumMarshal, pdwPortNum, "HRESULT")
         return result
     }
 

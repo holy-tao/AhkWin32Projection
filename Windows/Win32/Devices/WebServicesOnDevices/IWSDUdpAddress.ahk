@@ -91,7 +91,9 @@ class IWSDUdpAddress extends IWSDTransportAddress{
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getmessagetype
      */
     GetMessageType(pMessageType) {
-        result := ComCall(15, this, "int*", pMessageType, "HRESULT")
+        pMessageTypeMarshal := pMessageType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pMessageTypeMarshal, pMessageType, "HRESULT")
         return result
     }
 
@@ -113,7 +115,9 @@ class IWSDUdpAddress extends IWSDTransportAddress{
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getttl
      */
     GetTTL(pdwTTL) {
-        result := ComCall(17, this, "uint*", pdwTTL, "HRESULT")
+        pdwTTLMarshal := pdwTTL is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pdwTTLMarshal, pdwTTL, "HRESULT")
         return result
     }
 

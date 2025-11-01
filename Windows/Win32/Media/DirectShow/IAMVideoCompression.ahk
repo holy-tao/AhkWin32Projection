@@ -53,7 +53,9 @@ class IAMVideoCompression extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_keyframerate
      */
     get_KeyFrameRate(pKeyFrameRate) {
-        result := ComCall(4, this, "int*", pKeyFrameRate, "HRESULT")
+        pKeyFrameRateMarshal := pKeyFrameRate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pKeyFrameRateMarshal, pKeyFrameRate, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IAMVideoCompression extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_pframesperkeyframe
      */
     get_PFramesPerKeyFrame(pPFramesPerKeyFrame) {
-        result := ComCall(6, this, "int*", pPFramesPerKeyFrame, "HRESULT")
+        pPFramesPerKeyFrameMarshal := pPFramesPerKeyFrame is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pPFramesPerKeyFrameMarshal, pPFramesPerKeyFrame, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class IAMVideoCompression extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_quality
      */
     get_Quality(pQuality) {
-        result := ComCall(8, this, "double*", pQuality, "HRESULT")
+        pQualityMarshal := pQuality is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, pQualityMarshal, pQuality, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IAMVideoCompression extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-get_windowsize
      */
     get_WindowSize(pWindowSize) {
-        result := ComCall(10, this, "uint*", pWindowSize, "HRESULT")
+        pWindowSizeMarshal := pWindowSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pWindowSizeMarshal, pWindowSize, "HRESULT")
         return result
     }
 
@@ -137,7 +145,14 @@ class IAMVideoCompression extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-getinfo
      */
     GetInfo(pszVersion, pcbVersion, pszDescription, pcbDescription, pDefaultKeyFrameRate, pDefaultPFramesPerKey, pDefaultQuality, pCapabilities) {
-        result := ComCall(11, this, "ptr", pszVersion, "int*", pcbVersion, "ptr", pszDescription, "int*", pcbDescription, "int*", pDefaultKeyFrameRate, "int*", pDefaultPFramesPerKey, "double*", pDefaultQuality, "int*", pCapabilities, "HRESULT")
+        pcbVersionMarshal := pcbVersion is VarRef ? "int*" : "ptr"
+        pcbDescriptionMarshal := pcbDescription is VarRef ? "int*" : "ptr"
+        pDefaultKeyFrameRateMarshal := pDefaultKeyFrameRate is VarRef ? "int*" : "ptr"
+        pDefaultPFramesPerKeyMarshal := pDefaultPFramesPerKey is VarRef ? "int*" : "ptr"
+        pDefaultQualityMarshal := pDefaultQuality is VarRef ? "double*" : "ptr"
+        pCapabilitiesMarshal := pCapabilities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pszVersion, pcbVersionMarshal, pcbVersion, "ptr", pszDescription, pcbDescriptionMarshal, pcbDescription, pDefaultKeyFrameRateMarshal, pDefaultKeyFrameRate, pDefaultPFramesPerKeyMarshal, pDefaultPFramesPerKey, pDefaultQualityMarshal, pDefaultQuality, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
     }
 

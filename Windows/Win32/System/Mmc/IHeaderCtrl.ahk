@@ -103,7 +103,9 @@ class IHeaderCtrl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumnwidth
      */
     GetColumnWidth(nCol, pWidth) {
-        result := ComCall(8, this, "int", nCol, "int*", pWidth, "HRESULT")
+        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", nCol, pWidthMarshal, pWidth, "HRESULT")
         return result
     }
 }

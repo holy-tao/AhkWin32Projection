@@ -108,6 +108,10 @@ class ID3D12Device8 extends ID3D12Device7{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-getcopyablefootprints1
      */
     GetCopyableFootprints1(pResourceDesc, FirstSubresource, NumSubresources, BaseOffset, pLayouts, pNumRows, pRowSizeInBytes, pTotalBytes) {
-        ComCall(72, this, "ptr", pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, "ptr", pLayouts, "uint*", pNumRows, "uint*", pRowSizeInBytes, "uint*", pTotalBytes)
+        pNumRowsMarshal := pNumRows is VarRef ? "uint*" : "ptr"
+        pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : "ptr"
+        pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : "ptr"
+
+        ComCall(72, this, "ptr", pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, "ptr", pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 }

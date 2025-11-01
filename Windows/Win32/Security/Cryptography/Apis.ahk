@@ -16532,9 +16532,11 @@ class Cryptography {
         szContainer := szContainer is String ? StrPtr(szContainer) : szContainer
         szProvider := szProvider is String ? StrPtr(szProvider) : szProvider
 
+        phProvMarshal := phProv is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptAcquireContextA", "ptr*", phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptAcquireContextA", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16932,9 +16934,11 @@ class Cryptography {
         szContainer := szContainer is String ? StrPtr(szContainer) : szContainer
         szProvider := szProvider is String ? StrPtr(szProvider) : szProvider
 
+        phProvMarshal := phProv is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptAcquireContextW", "ptr*", phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptAcquireContextW", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17316,9 +17320,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptGenKey(hProv, Algid, dwFlags, phKey) {
+        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGenKey", "ptr", hProv, "uint", Algid, "uint", dwFlags, "ptr*", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptGenKey", "ptr", hProv, "uint", Algid, "uint", dwFlags, phKeyMarshal, phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17540,9 +17546,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptDeriveKey(hProv, Algid, hBaseData, dwFlags, phKey) {
+        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDeriveKey", "ptr", hProv, "uint", Algid, "ptr", hBaseData, "uint", dwFlags, "ptr*", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDeriveKey", "ptr", hProv, "uint", Algid, "ptr", hBaseData, "uint", dwFlags, phKeyMarshal, phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17745,9 +17753,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptSetKeyParam(hKey, dwParam, pbData, dwFlags) {
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey, "uint", dwParam, "char*", pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17861,9 +17871,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptGetKeyParam(hKey, dwParam, pbData, pdwDataLen, dwFlags) {
+        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, "uint*", pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17981,9 +17993,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptSetHashParam(hHash, dwParam, pbData, dwFlags) {
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetHashParam", "ptr", hHash, "uint", dwParam, "char*", pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetHashParam", "ptr", hHash, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18152,9 +18166,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptGetHashParam(hHash, dwParam, pbData, pdwDataLen, dwFlags) {
+        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetHashParam", "ptr", hHash, "uint", dwParam, "ptr", pbData, "uint*", pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetHashParam", "ptr", hHash, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18269,9 +18285,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptSetProvParam(hProv, dwParam, pbData, dwFlags) {
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetProvParam", "ptr", hProv, "uint", dwParam, "char*", pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetProvParam", "ptr", hProv, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18947,9 +18965,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptGetProvParam(hProv, dwParam, pbData, pdwDataLen, dwFlags) {
+        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetProvParam", "ptr", hProv, "uint", dwParam, "ptr", pbData, "uint*", pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetProvParam", "ptr", hProv, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19121,9 +19141,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptGetUserKey(hProv, dwKeySpec, phUserKey) {
+        phUserKeyMarshal := phUserKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetUserKey", "ptr", hProv, "uint", dwKeySpec, "ptr*", phUserKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetUserKey", "ptr", hProv, "uint", dwKeySpec, phUserKeyMarshal, phUserKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19365,9 +19387,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptExportKey(hKey, hExpKey, dwBlobType, dwFlags, pbData, pdwDataLen) {
+        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, "uint*", pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19509,9 +19533,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptImportKey(hProv, pbData, dwDataLen, hPubKey, dwFlags, phKey) {
+        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptImportKey", "ptr", hProv, "ptr", pbData, "uint", dwDataLen, "ptr", hPubKey, "uint", dwFlags, "ptr*", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptImportKey", "ptr", hProv, "ptr", pbData, "uint", dwDataLen, "ptr", hPubKey, "uint", dwFlags, phKeyMarshal, phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19731,9 +19757,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptEncrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen) {
+        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, "uint*", pdwDataLen, "uint", dwBufLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwBufLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19944,9 +19972,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptDecrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen) {
+        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, "uint*", pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20077,9 +20107,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptCreateHash(hProv, Algid, hKey, dwFlags, phHash) {
+        phHashMarshal := phHash is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey, "uint", dwFlags, "ptr*", phHash, "int")
+        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey, "uint", dwFlags, phHashMarshal, phHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20710,9 +20742,11 @@ class Cryptography {
     static CryptSignHashA(hHash, dwKeySpec, szDescription, dwFlags, pbSignature, pdwSigLen) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
+        pdwSigLenMarshal := pdwSigLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSignHashA", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, "uint*", pdwSigLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptSignHashA", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, pdwSigLenMarshal, pdwSigLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20913,9 +20947,11 @@ class Cryptography {
     static CryptSignHashW(hHash, dwKeySpec, szDescription, dwFlags, pbSignature, pdwSigLen) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
+        pdwSigLenMarshal := pdwSigLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSignHashW", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, "uint*", pdwSigLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptSignHashW", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, pdwSigLenMarshal, pdwSigLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21735,9 +21771,11 @@ class Cryptography {
     static CryptGetDefaultProviderA(dwProvType, dwFlags, pszProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        pcbProvNameMarshal := pcbProvName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderA", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, "uint*", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderA", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, pcbProvNameMarshal, pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21881,9 +21919,11 @@ class Cryptography {
     static CryptGetDefaultProviderW(dwProvType, dwFlags, pszProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        pcbProvNameMarshal := pcbProvName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderW", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, "uint*", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderW", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, pcbProvNameMarshal, pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21972,9 +22012,12 @@ class Cryptography {
     static CryptEnumProviderTypesA(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTypeName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        pdwProvTypeMarshal := pdwProvType is VarRef ? "uint*" : "ptr"
+        pcbTypeNameMarshal := pcbTypeName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szTypeName, "uint*", pcbTypeName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szTypeName, pcbTypeNameMarshal, pcbTypeName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22063,9 +22106,12 @@ class Cryptography {
     static CryptEnumProviderTypesW(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTypeName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        pdwProvTypeMarshal := pdwProvType is VarRef ? "uint*" : "ptr"
+        pcbTypeNameMarshal := pcbTypeName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szTypeName, "uint*", pcbTypeName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szTypeName, pcbTypeNameMarshal, pcbTypeName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22159,9 +22205,12 @@ class Cryptography {
     static CryptEnumProvidersA(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        pdwProvTypeMarshal := pdwProvType is VarRef ? "uint*" : "ptr"
+        pcbProvNameMarshal := pcbProvName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProvidersA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szProvName, "uint*", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProvidersA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szProvName, pcbProvNameMarshal, pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22255,9 +22304,12 @@ class Cryptography {
     static CryptEnumProvidersW(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        pdwProvTypeMarshal := pdwProvType is VarRef ? "uint*" : "ptr"
+        pcbProvNameMarshal := pcbProvName is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProvidersW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szProvName, "uint*", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProvidersW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szProvName, pcbProvNameMarshal, pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22363,9 +22415,11 @@ class Cryptography {
     static CryptDuplicateKey(hKey, dwFlags, phKey) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey, "uint*", pdwReserved, "uint", dwFlags, "ptr*", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey, "uint*", pdwReserved, "uint", dwFlags, phKeyMarshal, phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22429,9 +22483,11 @@ class Cryptography {
     static CryptDuplicateHash(hHash, dwFlags, phHash) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
+        phHashMarshal := phHash is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDuplicateHash", "ptr", hHash, "uint*", pdwReserved, "uint", dwFlags, "ptr*", phHash, "int")
+        result := DllCall("ADVAPI32.dll\CryptDuplicateHash", "ptr", hHash, "uint*", pdwReserved, "uint", dwFlags, phHashMarshal, phHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22609,7 +22665,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptEnumAlgorithms(dwAlgOperations, pAlgCount, ppAlgList, dwFlags) {
-        result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", "uint", dwAlgOperations, "uint*", pAlgCount, "ptr*", ppAlgList, "uint", dwFlags, "int")
+        pAlgCountMarshal := pAlgCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", "uint", dwAlgOperations, pAlgCountMarshal, pAlgCount, "ptr*", ppAlgList, "uint", dwFlags, "int")
         return result
     }
 
@@ -22671,7 +22729,9 @@ class Cryptography {
     static BCryptEnumProviders(pszAlgId, pImplCount, ppImplList, dwFlags) {
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-        result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, "uint*", pImplCount, "ptr*", ppImplList, "uint", dwFlags, "int")
+        pImplCountMarshal := pImplCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, pImplCountMarshal, pImplCount, "ptr*", ppImplList, "uint", dwFlags, "int")
         return result
     }
 
@@ -22758,7 +22818,9 @@ class Cryptography {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("bcrypt.dll\BCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -22901,7 +22963,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptFreeBuffer(pvBuffer) {
-        DllCall("bcrypt.dll\BCryptFreeBuffer", "ptr", pvBuffer)
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+
+        DllCall("bcrypt.dll\BCryptFreeBuffer", pvBufferMarshal, pvBuffer)
     }
 
     /**
@@ -23292,7 +23356,10 @@ class Cryptography {
     static BCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -23434,7 +23501,10 @@ class Cryptography {
     static BCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -23527,7 +23597,9 @@ class Cryptography {
         hExportKey := hExportKey is Win32Handle ? NumGet(hExportKey, "ptr") : hExportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24054,7 +24126,10 @@ class Cryptography {
     static BCryptSignHash(hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24143,7 +24218,9 @@ class Cryptography {
     static BCryptVerifySignature(hKey, pPaddingInfo, pbHash, cbHash, pbSignature, cbSignature, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
         return result
     }
 
@@ -24311,7 +24388,9 @@ class Cryptography {
         hSharedSecret := hSharedSecret is Win32Handle ? NumGet(hSharedSecret, "ptr") : hSharedSecret
         pwszKDF := pwszKDF is String ? StrPtr(pwszKDF) : pwszKDF
 
-        result := DllCall("bcrypt.dll\BCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24448,7 +24527,9 @@ class Cryptography {
     static BCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -25256,7 +25337,9 @@ class Cryptography {
     static BCryptQueryProviderRegistration(pszProvider, dwMode, dwInterface, pcbBuffer, ppBuffer) {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-        result := DllCall("bcrypt.dll\BCryptQueryProviderRegistration", "ptr", pszProvider, "uint", dwMode, "uint", dwInterface, "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptQueryProviderRegistration", "ptr", pszProvider, "uint", dwMode, "uint", dwInterface, pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -25323,7 +25406,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptEnumRegisteredProviders(pcbBuffer, ppBuffer) {
-        result := DllCall("bcrypt.dll\BCryptEnumRegisteredProviders", "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEnumRegisteredProviders", pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -25520,7 +25605,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptEnumContexts(dwTable, pcbBuffer, ppBuffer) {
-        result := DllCall("bcrypt.dll\BCryptEnumContexts", "uint", dwTable, "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEnumContexts", "uint", dwTable, pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -25673,7 +25760,9 @@ class Cryptography {
     static BCryptQueryContextConfiguration(dwTable, pszContext, pcbBuffer, ppBuffer) {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
-        result := DllCall("bcrypt.dll\BCryptQueryContextConfiguration", "uint", dwTable, "ptr", pszContext, "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptQueryContextConfiguration", "uint", dwTable, "ptr", pszContext, pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -25902,7 +25991,9 @@ class Cryptography {
     static BCryptEnumContextFunctions(dwTable, pszContext, dwInterface, pcbBuffer, ppBuffer) {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
-        result := DllCall("bcrypt.dll\BCryptEnumContextFunctions", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEnumContextFunctions", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -26061,7 +26152,9 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
-        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionConfiguration", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionConfiguration", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -26154,7 +26247,9 @@ class Cryptography {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
-        result := DllCall("bcrypt.dll\BCryptEnumContextFunctionProviders", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptEnumContextFunctionProviders", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -26338,7 +26433,9 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         return result
     }
 
@@ -26541,7 +26638,9 @@ class Cryptography {
         pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-        result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwMode, "uint", dwFlags, "uint*", pcbBuffer, "ptr*", ppBuffer, "int")
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwMode, "uint", dwFlags, pcbBufferMarshal, pcbBuffer, "ptr*", ppBuffer, "int")
         return result
     }
 
@@ -26587,7 +26686,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptGetFipsAlgorithmMode(pfEnabled) {
-        result := DllCall("bcrypt.dll\BCryptGetFipsAlgorithmMode", "char*", pfEnabled, "int")
+        pfEnabledMarshal := pfEnabled is VarRef ? "char*" : "ptr"
+
+        result := DllCall("bcrypt.dll\BCryptGetFipsAlgorithmMode", pfEnabledMarshal, pfEnabled, "int")
         return result
     }
 
@@ -26806,7 +26907,9 @@ class Cryptography {
     static NCryptEnumAlgorithms(hProvider, dwAlgOperations, pdwAlgCount, ppAlgList, dwFlags) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", hProvider, "uint", dwAlgOperations, "uint*", pdwAlgCount, "ptr*", ppAlgList, "uint", dwFlags, "int")
+        pdwAlgCountMarshal := pdwAlgCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", hProvider, "uint", dwAlgOperations, pdwAlgCountMarshal, pdwAlgCount, "ptr*", ppAlgList, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27115,7 +27218,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptEnumStorageProviders(pdwProviderCount, ppProviderList, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptEnumStorageProviders", "uint*", pdwProviderCount, "ptr*", ppProviderList, "uint", dwFlags, "int")
+        pdwProviderCountMarshal := pdwProviderCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptEnumStorageProviders", pdwProviderCountMarshal, pdwProviderCount, "ptr*", ppProviderList, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27164,7 +27269,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptFreeBuffer(pvInput) {
-        result := DllCall("ncrypt.dll\NCryptFreeBuffer", "ptr", pvInput, "int")
+        pvInputMarshal := pvInput is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptFreeBuffer", pvInputMarshal, pvInput, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27498,7 +27605,9 @@ class Cryptography {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("ncrypt.dll\NCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27765,7 +27874,10 @@ class Cryptography {
     static NCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27869,7 +27981,10 @@ class Cryptography {
     static NCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28077,7 +28192,9 @@ class Cryptography {
         hExportKey := hExportKey is Win32Handle ? NumGet(hExportKey, "ptr") : hExportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28185,7 +28302,10 @@ class Cryptography {
     static NCryptSignHash(hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", pcbResult, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28277,7 +28397,9 @@ class Cryptography {
     static NCryptVerifySignature(hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("ncrypt.dll\NCryptVerifySignature", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptVerifySignature", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28741,7 +28863,9 @@ class Cryptography {
         hSharedSecret := hSharedSecret is Win32Handle ? NumGet(hSharedSecret, "ptr") : hSharedSecret
         pwszKDF := pwszKDF is String ? StrPtr(pwszKDF) : pwszKDF
 
-        result := DllCall("ncrypt.dll\NCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28956,7 +29080,9 @@ class Cryptography {
     static NCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28981,7 +29107,9 @@ class Cryptography {
         hSubjectKey := hSubjectKey is Win32Handle ? NumGet(hSubjectKey, "ptr") : hSubjectKey
         hAuthorityKey := hAuthorityKey is Win32Handle ? NumGet(hAuthorityKey, "ptr") : hAuthorityKey
 
-        result := DllCall("ncrypt.dll\NCryptCreateClaim", "ptr", hSubjectKey, "ptr", hAuthorityKey, "uint", dwClaimType, "ptr", pParameterList, "ptr", pbClaimBlob, "uint", cbClaimBlob, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptCreateClaim", "ptr", hSubjectKey, "ptr", hAuthorityKey, "uint", dwClaimType, "ptr", pParameterList, "ptr", pbClaimBlob, "uint", cbClaimBlob, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29259,9 +29387,12 @@ class Cryptography {
     static CryptFormatObject(dwCertEncodingType, dwFormatType, dwFormatStrType, pFormatStruct, lpszStructType, pbEncoded, cbEncoded, pbFormat, pcbFormat) {
         lpszStructType := lpszStructType is String ? StrPtr(lpszStructType) : lpszStructType
 
+        pFormatStructMarshal := pFormatStruct is VarRef ? "ptr" : "ptr"
+        pcbFormatMarshal := pcbFormat is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptFormatObject", "uint", dwCertEncodingType, "uint", dwFormatType, "uint", dwFormatStrType, "ptr", pFormatStruct, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbFormat, "uint*", pcbFormat, "int")
+        result := DllCall("CRYPT32.dll\CryptFormatObject", "uint", dwCertEncodingType, "uint", dwFormatType, "uint", dwFormatStrType, pFormatStructMarshal, pFormatStruct, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbFormat, pcbFormatMarshal, pcbFormat, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29349,9 +29480,13 @@ class Cryptography {
     static CryptEncodeObjectEx(dwCertEncodingType, lpszStructType, pvStructInfo, dwFlags, pEncodePara, pvEncoded, pcbEncoded) {
         lpszStructType := lpszStructType is String ? StrPtr(lpszStructType) : lpszStructType
 
+        pvStructInfoMarshal := pvStructInfo is VarRef ? "ptr" : "ptr"
+        pvEncodedMarshal := pvEncoded is VarRef ? "ptr" : "ptr"
+        pcbEncodedMarshal := pcbEncoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEncodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "uint", dwFlags, "ptr", pEncodePara, "ptr", pvEncoded, "uint*", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptEncodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, "uint", dwFlags, "ptr", pEncodePara, pvEncodedMarshal, pvEncoded, pcbEncodedMarshal, pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29440,9 +29575,12 @@ class Cryptography {
     static CryptEncodeObject(dwCertEncodingType, lpszStructType, pvStructInfo, pbEncoded, pcbEncoded) {
         lpszStructType := lpszStructType is String ? StrPtr(lpszStructType) : lpszStructType
 
+        pvStructInfoMarshal := pvStructInfo is VarRef ? "ptr" : "ptr"
+        pcbEncodedMarshal := pcbEncoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEncodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptEncodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29622,9 +29760,12 @@ class Cryptography {
     static CryptDecodeObjectEx(dwCertEncodingType, lpszStructType, pbEncoded, cbEncoded, dwFlags, pDecodePara, pvStructInfo, pcbStructInfo) {
         lpszStructType := lpszStructType is String ? StrPtr(lpszStructType) : lpszStructType
 
+        pvStructInfoMarshal := pvStructInfo is VarRef ? "ptr" : "ptr"
+        pcbStructInfoMarshal := pcbStructInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pDecodePara, "ptr", pvStructInfo, "uint*", pcbStructInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptDecodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pDecodePara, pvStructInfoMarshal, pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29774,9 +29915,11 @@ class Cryptography {
     static CryptDecodeObject(dwCertEncodingType, lpszStructType, pbEncoded, cbEncoded, dwFlags, pvStructInfo, pcbStructInfo) {
         lpszStructType := lpszStructType is String ? StrPtr(lpszStructType) : lpszStructType
 
+        pcbStructInfoMarshal := pcbStructInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pvStructInfo, "uint*", pcbStructInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptDecodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29875,9 +30018,11 @@ class Cryptography {
     static CryptGetOIDFunctionAddress(hFuncSet, dwEncodingType, pszOID, dwFlags, ppvFuncAddr, phFuncAddr) {
         pszOID := pszOID is String ? StrPtr(pszOID) : pszOID
 
+        hFuncSetMarshal := hFuncSet is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetOIDFunctionAddress", "ptr", hFuncSet, "uint", dwEncodingType, "ptr", pszOID, "uint", dwFlags, "ptr*", ppvFuncAddr, "ptr*", phFuncAddr, "int")
+        result := DllCall("CRYPT32.dll\CryptGetOIDFunctionAddress", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pszOID, "uint", dwFlags, "ptr*", ppvFuncAddr, "ptr*", phFuncAddr, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29939,9 +30084,12 @@ class Cryptography {
     static CryptGetDefaultOIDDllList(hFuncSet, dwEncodingType, pwszDllList, pcchDllList) {
         pwszDllList := pwszDllList is String ? StrPtr(pwszDllList) : pwszDllList
 
+        hFuncSetMarshal := hFuncSet is VarRef ? "ptr" : "ptr"
+        pcchDllListMarshal := pcchDllList is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetDefaultOIDDllList", "ptr", hFuncSet, "uint", dwEncodingType, "ptr", pwszDllList, "uint*", pcchDllList, "int")
+        result := DllCall("CRYPT32.dll\CryptGetDefaultOIDDllList", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pwszDllList, pcchDllListMarshal, pcchDllList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29982,7 +30130,9 @@ class Cryptography {
     static CryptGetDefaultOIDFunctionAddress(hFuncSet, dwEncodingType, pwszDll, dwFlags, ppvFuncAddr, phFuncAddr) {
         pwszDll := pwszDll is String ? StrPtr(pwszDll) : pwszDll
 
-        result := DllCall("CRYPT32.dll\CryptGetDefaultOIDFunctionAddress", "ptr", hFuncSet, "uint", dwEncodingType, "ptr", pwszDll, "uint", dwFlags, "ptr*", ppvFuncAddr, "ptr*", phFuncAddr, "int")
+        hFuncSetMarshal := hFuncSet is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptGetDefaultOIDFunctionAddress", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pwszDll, "uint", dwFlags, "ptr*", ppvFuncAddr, "ptr*", phFuncAddr, "int")
         return result
     }
 
@@ -29999,7 +30149,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptFreeOIDFunctionAddress(hFuncAddr, dwFlags) {
-        result := DllCall("CRYPT32.dll\CryptFreeOIDFunctionAddress", "ptr", hFuncAddr, "uint", dwFlags, "int")
+        hFuncAddrMarshal := hFuncAddr is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptFreeOIDFunctionAddress", hFuncAddrMarshal, hFuncAddr, "uint", dwFlags, "int")
         return result
     }
 
@@ -30225,9 +30377,12 @@ class Cryptography {
         pszOID := pszOID is String ? StrPtr(pszOID) : pszOID
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
+        pdwValueTypeMarshal := pdwValueType is VarRef ? "uint*" : "ptr"
+        pcbValueDataMarshal := pcbValueData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetOIDFunctionValue", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, "uint*", pdwValueType, "ptr", pbValueData, "uint*", pcbValueData, "int")
+        result := DllCall("CRYPT32.dll\CryptGetOIDFunctionValue", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, pdwValueTypeMarshal, pdwValueType, "ptr", pbValueData, pcbValueDataMarshal, pcbValueData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30265,9 +30420,11 @@ class Cryptography {
         pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
         pszOID := pszOID is String ? StrPtr(pszOID) : pszOID
 
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEnumOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "uint", dwFlags, "ptr", pvArg, "ptr", pfnEnumOIDFunc, "int")
+        result := DllCall("CRYPT32.dll\CryptEnumOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnumOIDFunc, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30315,7 +30472,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptFindOIDInfo(dwKeyType, pvKey, dwGroupId) {
-        result := DllCall("CRYPT32.dll\CryptFindOIDInfo", "uint", dwKeyType, "ptr", pvKey, "uint", dwGroupId, "ptr")
+        pvKeyMarshal := pvKey is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptFindOIDInfo", "uint", dwKeyType, pvKeyMarshal, pvKey, "uint", dwGroupId, "ptr")
         return result
     }
 
@@ -30390,7 +30549,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptEnumOIDInfo(dwGroupId, dwFlags, pvArg, pfnEnumOIDInfo) {
-        result := DllCall("CRYPT32.dll\CryptEnumOIDInfo", "uint", dwGroupId, "uint", dwFlags, "ptr", pvArg, "ptr", pfnEnumOIDInfo, "int")
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptEnumOIDInfo", "uint", dwGroupId, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnumOIDInfo, "int")
         return result
     }
 
@@ -30619,9 +30780,11 @@ class Cryptography {
     static CryptMsgOpenToEncode(dwMsgEncodingType, dwFlags, dwMsgType, pvMsgEncodeInfo, pszInnerContentObjID, pStreamInfo) {
         pszInnerContentObjID := pszInnerContentObjID is String ? StrPtr(pszInnerContentObjID) : pszInnerContentObjID
 
+        pvMsgEncodeInfoMarshal := pvMsgEncodeInfo is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgOpenToEncode", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, "ptr", pvMsgEncodeInfo, "ptr", pszInnerContentObjID, "ptr", pStreamInfo, "ptr")
+        result := DllCall("CRYPT32.dll\CryptMsgOpenToEncode", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, pvMsgEncodeInfoMarshal, pvMsgEncodeInfo, "ptr", pszInnerContentObjID, "ptr", pStreamInfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -30834,9 +30997,11 @@ class Cryptography {
     static CryptMsgCalculateEncodedLength(dwMsgEncodingType, dwFlags, dwMsgType, pvMsgEncodeInfo, pszInnerContentObjID, cbData) {
         pszInnerContentObjID := pszInnerContentObjID is String ? StrPtr(pszInnerContentObjID) : pszInnerContentObjID
 
+        pvMsgEncodeInfoMarshal := pvMsgEncodeInfo is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgCalculateEncodedLength", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, "ptr", pvMsgEncodeInfo, "ptr", pszInnerContentObjID, "uint", cbData, "uint")
+        result := DllCall("CRYPT32.dll\CryptMsgCalculateEncodedLength", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, pvMsgEncodeInfoMarshal, pvMsgEncodeInfo, "ptr", pszInnerContentObjID, "uint", cbData, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -31045,7 +31210,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgDuplicate(hCryptMsg) {
-        result := DllCall("CRYPT32.dll\CryptMsgDuplicate", "ptr", hCryptMsg, "ptr")
+        hCryptMsgMarshal := hCryptMsg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptMsgDuplicate", hCryptMsgMarshal, hCryptMsg, "ptr")
         return result
     }
 
@@ -31060,9 +31227,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgClose(hCryptMsg) {
+        hCryptMsgMarshal := hCryptMsg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgClose", "ptr", hCryptMsg, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgClose", hCryptMsgMarshal, hCryptMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31212,9 +31381,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgUpdate(hCryptMsg, pbData, cbData, fFinal) {
+        hCryptMsgMarshal := hCryptMsg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgUpdate", "ptr", hCryptMsg, "ptr", pbData, "uint", cbData, "int", fFinal, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgUpdate", hCryptMsgMarshal, hCryptMsg, "ptr", pbData, "uint", cbData, "int", fFinal, "int")
         if(A_LastError)
             throw OSError()
 
@@ -31809,9 +31980,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgGetParam(hCryptMsg, dwParamType, dwIndex, pvData, pcbData) {
+        hCryptMsgMarshal := hCryptMsg is VarRef ? "ptr" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgGetParam", "ptr", hCryptMsg, "uint", dwParamType, "uint", dwIndex, "ptr", pvData, "uint*", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgGetParam", hCryptMsgMarshal, hCryptMsg, "uint", dwParamType, "uint", dwIndex, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32366,9 +32540,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgControl(hCryptMsg, dwFlags, dwCtrlType, pvCtrlPara) {
+        hCryptMsgMarshal := hCryptMsg is VarRef ? "ptr" : "ptr"
+        pvCtrlParaMarshal := pvCtrlPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgControl", "ptr", hCryptMsg, "uint", dwFlags, "uint", dwCtrlType, "ptr", pvCtrlPara, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgControl", hCryptMsgMarshal, hCryptMsg, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32698,9 +32875,12 @@ class Cryptography {
     static CryptMsgVerifyCountersignatureEncodedEx(hCryptProv, dwEncodingType, pbSignerInfo, cbSignerInfo, pbSignerInfoCountersignature, cbSignerInfoCountersignature, dwSignerType, pvSigner, dwFlags, pvExtra) {
         hCryptProv := hCryptProv is Win32Handle ? NumGet(hCryptProv, "ptr") : hCryptProv
 
+        pvSignerMarshal := pvSigner is VarRef ? "ptr" : "ptr"
+        pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncodedEx", "ptr", hCryptProv, "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "ptr", pbSignerInfoCountersignature, "uint", cbSignerInfoCountersignature, "uint", dwSignerType, "ptr", pvSigner, "uint", dwFlags, "ptr", pvExtra, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncodedEx", "ptr", hCryptProv, "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "ptr", pbSignerInfoCountersignature, "uint", cbSignerInfoCountersignature, "uint", dwSignerType, pvSignerMarshal, pvSigner, "uint", dwFlags, pvExtraMarshal, pvExtra, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32773,9 +32953,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgCountersign(hCryptMsg, dwIndex, cCountersigners, rgCountersigners) {
+        hCryptMsgMarshal := hCryptMsg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgCountersign", "ptr", hCryptMsg, "uint", dwIndex, "uint", cCountersigners, "ptr", rgCountersigners, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgCountersign", hCryptMsgMarshal, hCryptMsg, "uint", dwIndex, "uint", cCountersigners, "ptr", rgCountersigners, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32877,9 +33059,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgCountersignEncoded(dwEncodingType, pbSignerInfo, cbSignerInfo, cCountersigners, rgCountersigners, pbCountersignature, pcbCountersignature) {
+        pcbCountersignatureMarshal := pcbCountersignature is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgCountersignEncoded", "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "uint", cCountersigners, "ptr", rgCountersigners, "ptr", pbCountersignature, "uint*", pcbCountersignature, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgCountersignEncoded", "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "uint", cCountersigners, "ptr", rgCountersigners, "ptr", pbCountersignature, pcbCountersignatureMarshal, pcbCountersignature, "int")
         if(A_LastError)
             throw OSError()
 
@@ -33189,9 +33373,11 @@ class Cryptography {
         lpszStoreProvider := lpszStoreProvider is String ? StrPtr(lpszStoreProvider) : lpszStoreProvider
         hCryptProv := hCryptProv is Win32Handle ? NumGet(hCryptProv, "ptr") : hCryptProv
 
+        pvParaMarshal := pvPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertOpenStore", "ptr", lpszStoreProvider, "uint", dwEncodingType, "ptr", hCryptProv, "uint", dwFlags, "ptr", pvPara, "ptr")
+        result := DllCall("CRYPT32.dll\CertOpenStore", "ptr", lpszStoreProvider, "uint", dwEncodingType, "ptr", hCryptProv, "uint", dwFlags, pvParaMarshal, pvPara, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -33232,9 +33418,11 @@ class Cryptography {
     static CertSaveStore(hCertStore, dwEncodingType, dwSaveAs, dwSaveTo, pvSaveToPara, dwFlags) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pvSaveToParaMarshal := pvSaveToPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSaveStore", "ptr", hCertStore, "uint", dwEncodingType, "uint", dwSaveAs, "uint", dwSaveTo, "ptr", pvSaveToPara, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CertSaveStore", "ptr", hCertStore, "uint", dwEncodingType, "uint", dwSaveAs, "uint", dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -33487,9 +33675,11 @@ class Cryptography {
     static CertFindCertificateInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCertContext) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCertificateInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, "ptr", pvFindPara, "ptr", pPrevCertContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCertificateInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCertContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -33635,9 +33825,11 @@ class Cryptography {
     static CertGetIssuerCertificateFromStore(hCertStore, pSubjectContext, pPrevIssuerContext, pdwFlags) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", hCertStore, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, "uint*", pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", hCertStore, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, pdwFlagsMarshal, pdwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -33722,9 +33914,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertVerifySubjectCertificateContext(pSubject, pIssuer, pdwFlags) {
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertVerifySubjectCertificateContext", "ptr", pSubject, "ptr", pIssuer, "uint*", pdwFlags, "int")
+        result := DllCall("CRYPT32.dll\CertVerifySubjectCertificateContext", "ptr", pSubject, "ptr", pIssuer, pdwFlagsMarshal, pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -33852,9 +34046,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertSetCertificateContextProperty(pCertContext, dwPropId, dwFlags, pvData) {
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "uint", dwFlags, "ptr", pvData, "int")
+        result := DllCall("CRYPT32.dll\CertSetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -33923,9 +34119,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertGetCertificateContextProperty(pCertContext, dwPropId, pvData, pcbData) {
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -33970,9 +34168,11 @@ class Cryptography {
     static CertCreateCTLEntryFromCertificateContextProperties(pCertContext, cOptAttr, rgOptAttr, dwFlags, pCtlEntry, pcbCtlEntry) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        pcbCtlEntryMarshal := pcbCtlEntry is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertCreateCTLEntryFromCertificateContextProperties", "ptr", pCertContext, "uint", cOptAttr, "ptr", rgOptAttr, "uint", dwFlags, "ptr", pvReserved, "ptr", pCtlEntry, "uint*", pcbCtlEntry, "int")
+        result := DllCall("CRYPT32.dll\CertCreateCTLEntryFromCertificateContextProperties", "ptr", pCertContext, "uint", cOptAttr, "ptr", rgOptAttr, "uint", dwFlags, "ptr", pvReserved, "ptr", pCtlEntry, pcbCtlEntryMarshal, pcbCtlEntry, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34118,9 +34318,11 @@ class Cryptography {
     static CertGetCRLFromStore(hCertStore, pIssuerContext, pPrevCrlContext, pdwFlags) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", hCertStore, "ptr", pIssuerContext, "ptr", pPrevCrlContext, "uint*", pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", hCertStore, "ptr", pIssuerContext, "ptr", pPrevCrlContext, pdwFlagsMarshal, pdwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34359,9 +34561,11 @@ class Cryptography {
     static CertFindCRLInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCrlContext) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCRLInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, "ptr", pvFindPara, "ptr", pPrevCrlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCRLInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCrlContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34848,9 +35052,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertSetCRLContextProperty(pCrlContext, dwPropId, dwFlags, pvData) {
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "uint", dwFlags, "ptr", pvData, "int")
+        result := DllCall("CRYPT32.dll\CertSetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35266,9 +35472,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertGetCRLContextProperty(pCrlContext, dwPropId, pvData, pcbData) {
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35860,9 +36068,11 @@ class Cryptography {
     static CertAddSerializedElementToStore(hCertStore, pbElement, cbElement, dwAddDisposition, dwFlags, dwContextTypeFlags, pdwContextType, ppvContext) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pdwContextTypeMarshal := pdwContextType is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, "uint*", pdwContextType, "ptr*", ppvContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, "ptr*", ppvContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -36276,9 +36486,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertSerializeCertificateStoreElement(pCertContext, dwFlags, pbElement, pcbElement) {
+        pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSerializeCertificateStoreElement", "ptr", pCertContext, "uint", dwFlags, "ptr", pbElement, "uint*", pcbElement, "int")
+        result := DllCall("CRYPT32.dll\CertSerializeCertificateStoreElement", "ptr", pCertContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, "int")
         if(A_LastError)
             throw OSError()
 
@@ -36312,9 +36524,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertSerializeCRLStoreElement(pCrlContext, dwFlags, pbElement, pcbElement) {
+        pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSerializeCRLStoreElement", "ptr", pCrlContext, "uint", dwFlags, "ptr", pbElement, "uint*", pcbElement, "int")
+        result := DllCall("CRYPT32.dll\CertSerializeCRLStoreElement", "ptr", pCrlContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, "int")
         if(A_LastError)
             throw OSError()
 
@@ -36693,9 +36907,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertSetCTLContextProperty(pCtlContext, dwPropId, dwFlags, pvData) {
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "uint", dwFlags, "ptr", pvData, "int")
+        result := DllCall("CRYPT32.dll\CertSetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -37013,9 +37229,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertGetCTLContextProperty(pCtlContext, dwPropId, pvData, pcbData) {
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -37194,9 +37412,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertFindSubjectInCTL(dwEncodingType, dwSubjectType, pvSubject, pCtlContext, dwFlags) {
+        pvSubjectMarshal := pvSubject is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindSubjectInCTL", "uint", dwEncodingType, "uint", dwSubjectType, "ptr", pvSubject, "ptr", pCtlContext, "uint", dwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindSubjectInCTL", "uint", dwEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, "ptr", pCtlContext, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -37262,9 +37482,11 @@ class Cryptography {
     static CertFindCTLInStore(hCertStore, dwMsgAndCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCtlContext) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCTLInStore", "ptr", hCertStore, "uint", dwMsgAndCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, "ptr", pvFindPara, "ptr", pPrevCtlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCTLInStore", "ptr", hCertStore, "uint", dwMsgAndCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCtlContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -37608,9 +37830,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertSerializeCTLStoreElement(pCtlContext, dwFlags, pbElement, pcbElement) {
+        pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSerializeCTLStoreElement", "ptr", pCtlContext, "uint", dwFlags, "ptr", pbElement, "uint*", pcbElement, "int")
+        result := DllCall("CRYPT32.dll\CertSerializeCTLStoreElement", "ptr", pCtlContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38153,9 +38377,11 @@ class Cryptography {
     static CertControlStore(hCertStore, dwFlags, dwCtrlType, pvCtrlPara) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pvCtrlParaMarshal := pvCtrlPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertControlStore", "ptr", hCertStore, "uint", dwFlags, "uint", dwCtrlType, "ptr", pvCtrlPara, "int")
+        result := DllCall("CRYPT32.dll\CertControlStore", "ptr", hCertStore, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38187,7 +38413,9 @@ class Cryptography {
     static CertSetStoreProperty(hCertStore, dwPropId, dwFlags, pvData) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
-        result := DllCall("CRYPT32.dll\CertSetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "uint", dwFlags, "ptr", pvData, "int")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertSetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
         return result
     }
 
@@ -38214,9 +38442,11 @@ class Cryptography {
     static CertGetStoreProperty(hCertStore, dwPropId, pvData, pcbData) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38491,7 +38721,9 @@ class Cryptography {
     static CertRegisterSystemStore(pvSystemStore, dwFlags, pStoreInfo) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("CRYPT32.dll\CertRegisterSystemStore", "ptr", pvSystemStore, "uint", dwFlags, "ptr", pStoreInfo, "ptr", pvReserved, "int")
+        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertRegisterSystemStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, "ptr", pStoreInfo, "ptr", pvReserved, "int")
         return result
     }
 
@@ -38549,7 +38781,9 @@ class Cryptography {
 
         pwszStoreName := pwszStoreName is String ? StrPtr(pwszStoreName) : pwszStoreName
 
-        result := DllCall("CRYPT32.dll\CertRegisterPhysicalStore", "ptr", pvSystemStore, "uint", dwFlags, "ptr", pwszStoreName, "ptr", pStoreInfo, "ptr", pvReserved, "int")
+        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertRegisterPhysicalStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, "ptr", pwszStoreName, "ptr", pStoreInfo, "ptr", pvReserved, "int")
         return result
     }
 
@@ -38600,7 +38834,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertUnregisterSystemStore(pvSystemStore, dwFlags) {
-        result := DllCall("CRYPT32.dll\CertUnregisterSystemStore", "ptr", pvSystemStore, "uint", dwFlags, "int")
+        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertUnregisterSystemStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, "int")
         return result
     }
 
@@ -38659,7 +38895,9 @@ class Cryptography {
     static CertUnregisterPhysicalStore(pvSystemStore, dwFlags, pwszStoreName) {
         pwszStoreName := pwszStoreName is String ? StrPtr(pwszStoreName) : pwszStoreName
 
-        result := DllCall("CRYPT32.dll\CertUnregisterPhysicalStore", "ptr", pvSystemStore, "uint", dwFlags, "ptr", pwszStoreName, "int")
+        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertUnregisterPhysicalStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, "ptr", pwszStoreName, "int")
         return result
     }
 
@@ -38677,7 +38915,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertEnumSystemStoreLocation(dwFlags, pvArg, pfnEnum) {
-        result := DllCall("CRYPT32.dll\CertEnumSystemStoreLocation", "uint", dwFlags, "ptr", pvArg, "ptr", pfnEnum, "int")
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertEnumSystemStoreLocation", "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnum, "int")
         return result
     }
 
@@ -38719,7 +38959,10 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertEnumSystemStore(dwFlags, pvSystemStoreLocationPara, pvArg, pfnEnum) {
-        result := DllCall("CRYPT32.dll\CertEnumSystemStore", "uint", dwFlags, "ptr", pvSystemStoreLocationPara, "ptr", pvArg, "ptr", pfnEnum, "int")
+        pvSystemStoreLocationParaMarshal := pvSystemStoreLocationPara is VarRef ? "ptr" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertEnumSystemStore", "uint", dwFlags, pvSystemStoreLocationParaMarshal, pvSystemStoreLocationPara, pvArgMarshal, pvArg, "ptr", pfnEnum, "int")
         return result
     }
 
@@ -38754,9 +38997,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertEnumPhysicalStore(pvSystemStore, dwFlags, pvArg, pfnEnum) {
+        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertEnumPhysicalStore", "ptr", pvSystemStore, "uint", dwFlags, "ptr", pvArg, "ptr", pfnEnum, "int")
+        result := DllCall("CRYPT32.dll\CertEnumPhysicalStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnum, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38815,9 +39061,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertGetEnhancedKeyUsage(pCertContext, dwFlags, pUsage, pcbUsage) {
+        pcbUsageMarshal := pcbUsage is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetEnhancedKeyUsage", "ptr", pCertContext, "uint", dwFlags, "ptr", pUsage, "uint*", pcbUsage, "int")
+        result := DllCall("CRYPT32.dll\CertGetEnhancedKeyUsage", "ptr", pCertContext, "uint", dwFlags, "ptr", pUsage, pcbUsageMarshal, pcbUsage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38909,9 +39157,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertGetValidUsages(cCerts, rghCerts, cNumOIDs, rghOIDs, pcbOIDs) {
+        cNumOIDsMarshal := cNumOIDs is VarRef ? "int*" : "ptr"
+        pcbOIDsMarshal := pcbOIDs is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetValidUsages", "uint", cCerts, "ptr*", rghCerts, "int*", cNumOIDs, "ptr", rghOIDs, "uint*", pcbOIDs, "int")
+        result := DllCall("CRYPT32.dll\CertGetValidUsages", "uint", cCerts, "ptr*", rghCerts, cNumOIDsMarshal, cNumOIDs, "ptr", rghOIDs, pcbOIDsMarshal, pcbOIDs, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38976,9 +39227,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgGetAndVerifySigner(hCryptMsg, cSignerStore, rghSignerStore, dwFlags, ppSigner, pdwSignerIndex) {
+        hCryptMsgMarshal := hCryptMsg is VarRef ? "ptr" : "ptr"
+        pdwSignerIndexMarshal := pdwSignerIndex is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgGetAndVerifySigner", "ptr", hCryptMsg, "uint", cSignerStore, "ptr", rghSignerStore, "uint", dwFlags, "ptr*", ppSigner, "uint*", pdwSignerIndex, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgGetAndVerifySigner", hCryptMsgMarshal, hCryptMsg, "uint", cSignerStore, "ptr", rghSignerStore, "uint", dwFlags, "ptr*", ppSigner, pdwSignerIndexMarshal, pdwSignerIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39023,9 +39277,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgSignCTL(dwMsgEncodingType, pbCtlContent, cbCtlContent, pSignInfo, dwFlags, pbEncoded, pcbEncoded) {
+        pcbEncodedMarshal := pcbEncoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgSignCTL", "uint", dwMsgEncodingType, "ptr", pbCtlContent, "uint", cbCtlContent, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgSignCTL", "uint", dwMsgEncodingType, "ptr", pbCtlContent, "uint", cbCtlContent, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39072,9 +39328,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMsgEncodeAndSignCTL(dwMsgEncodingType, pCtlInfo, pSignInfo, dwFlags, pbEncoded, pcbEncoded) {
+        pcbEncodedMarshal := pcbEncoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgEncodeAndSignCTL", "uint", dwMsgEncodingType, "ptr", pCtlInfo, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgEncodeAndSignCTL", "uint", dwMsgEncodingType, "ptr", pCtlInfo, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39221,9 +39479,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertVerifyCTLUsage(dwEncodingType, dwSubjectType, pvSubject, pSubjectUsage, dwFlags, pVerifyUsagePara, pVerifyUsageStatus) {
+        pvSubjectMarshal := pvSubject is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertVerifyCTLUsage", "uint", dwEncodingType, "uint", dwSubjectType, "ptr", pvSubject, "ptr", pSubjectUsage, "uint", dwFlags, "ptr", pVerifyUsagePara, "ptr", pVerifyUsageStatus, "int")
+        result := DllCall("CRYPT32.dll\CertVerifyCTLUsage", "uint", dwEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, "ptr", pSubjectUsage, "uint", dwFlags, "ptr", pVerifyUsagePara, "ptr", pVerifyUsageStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39919,9 +40179,13 @@ class Cryptography {
     static CryptVerifyCertificateSignatureEx(hCryptProv, dwCertEncodingType, dwSubjectType, pvSubject, dwIssuerType, pvIssuer, dwFlags, pvExtra) {
         hCryptProv := hCryptProv is Win32Handle ? NumGet(hCryptProv, "ptr") : hCryptProv
 
+        pvSubjectMarshal := pvSubject is VarRef ? "ptr" : "ptr"
+        pvIssuerMarshal := pvIssuer is VarRef ? "ptr" : "ptr"
+        pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignatureEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "uint", dwSubjectType, "ptr", pvSubject, "uint", dwIssuerType, "ptr", pvIssuer, "uint", dwFlags, "ptr", pvExtra, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignatureEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, "uint", dwIssuerType, pvIssuerMarshal, pvIssuer, "uint", dwFlags, pvExtraMarshal, pvExtra, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40085,9 +40349,11 @@ class Cryptography {
     static CryptHashToBeSigned(hCryptProv, dwCertEncodingType, pbEncoded, cbEncoded, pbComputedHash, pcbComputedHash) {
         hCryptProv := hCryptProv is Win32Handle ? NumGet(hCryptProv, "ptr") : hCryptProv
 
+        pcbComputedHashMarshal := pcbComputedHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashToBeSigned", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashToBeSigned", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40140,9 +40406,11 @@ class Cryptography {
     static CryptHashCertificate(hCryptProv, Algid, dwFlags, pbEncoded, cbEncoded, pbComputedHash, pcbComputedHash) {
         hCryptProv := hCryptProv is Win32Handle ? NumGet(hCryptProv, "ptr") : hCryptProv
 
+        pcbComputedHashMarshal := pcbComputedHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashCertificate", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashCertificate", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40185,9 +40453,11 @@ class Cryptography {
 
         pwszCNGHashAlgid := pwszCNGHashAlgid is String ? StrPtr(pwszCNGHashAlgid) : pwszCNGHashAlgid
 
+        pcbComputedHashMarshal := pcbComputedHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashCertificate2", "ptr", pwszCNGHashAlgid, "uint", dwFlags, "ptr", pvReserved, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashCertificate2", "ptr", pwszCNGHashAlgid, "uint", dwFlags, "ptr", pvReserved, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40276,9 +40546,12 @@ class Cryptography {
     static CryptSignCertificate(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, pbEncodedToBeSigned, cbEncodedToBeSigned, pSignatureAlgorithm, pvHashAuxInfo, pbSignature, pcbSignature) {
         hCryptProvOrNCryptKey := hCryptProvOrNCryptKey is Win32Handle ? NumGet(hCryptProvOrNCryptKey, "ptr") : hCryptProvOrNCryptKey
 
+        pvHashAuxInfoMarshal := pvHashAuxInfo is VarRef ? "ptr" : "ptr"
+        pcbSignatureMarshal := pcbSignature is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pbEncodedToBeSigned, "uint", cbEncodedToBeSigned, "ptr", pSignatureAlgorithm, "ptr", pvHashAuxInfo, "ptr", pbSignature, "uint*", pcbSignature, "int")
+        result := DllCall("CRYPT32.dll\CryptSignCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pbEncodedToBeSigned, "uint", cbEncodedToBeSigned, "ptr", pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, "ptr", pbSignature, pcbSignatureMarshal, pcbSignature, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40451,9 +40724,13 @@ class Cryptography {
         hCryptProvOrNCryptKey := hCryptProvOrNCryptKey is Win32Handle ? NumGet(hCryptProvOrNCryptKey, "ptr") : hCryptProvOrNCryptKey
         lpszStructType := lpszStructType is String ? StrPtr(lpszStructType) : lpszStructType
 
+        pvStructInfoMarshal := pvStructInfo is VarRef ? "ptr" : "ptr"
+        pvHashAuxInfoMarshal := pvHashAuxInfo is VarRef ? "ptr" : "ptr"
+        pcbEncodedMarshal := pcbEncoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignAndEncodeCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "ptr", pSignatureAlgorithm, "ptr", pvHashAuxInfo, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptSignAndEncodeCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, "ptr", pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40671,9 +40948,11 @@ class Cryptography {
     static CryptInstallDefaultContext(hCryptProv, dwDefaultType, pvDefaultPara, dwFlags, phDefaultContext) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        pvDefaultParaMarshal := pvDefaultPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptInstallDefaultContext", "ptr", hCryptProv, "uint", dwDefaultType, "ptr", pvDefaultPara, "uint", dwFlags, "ptr", pvReserved, "ptr*", phDefaultContext, "int")
+        result := DllCall("CRYPT32.dll\CryptInstallDefaultContext", "ptr", hCryptProv, "uint", dwDefaultType, pvDefaultParaMarshal, pvDefaultPara, "uint", dwFlags, "ptr", pvReserved, "ptr*", phDefaultContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40692,9 +40971,11 @@ class Cryptography {
     static CryptUninstallDefaultContext(hDefaultContext, dwFlags) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hDefaultContextMarshal := hDefaultContext is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptUninstallDefaultContext", "ptr", hDefaultContext, "uint", dwFlags, "ptr", pvReserved, "int")
+        result := DllCall("CRYPT32.dll\CryptUninstallDefaultContext", hDefaultContextMarshal, hDefaultContext, "uint", dwFlags, "ptr", pvReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40774,9 +41055,11 @@ class Cryptography {
     static CryptExportPublicKeyInfo(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, pInfo, pcbInfo) {
         hCryptProvOrNCryptKey := hCryptProvOrNCryptKey is Win32Handle ? NumGet(hCryptProvOrNCryptKey, "ptr") : hCryptProvOrNCryptKey
 
+        pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfo", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pInfo, "uint*", pcbInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfo", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pInfo, pcbInfoMarshal, pcbInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40892,9 +41175,12 @@ class Cryptography {
         hCryptProvOrNCryptKey := hCryptProvOrNCryptKey is Win32Handle ? NumGet(hCryptProvOrNCryptKey, "ptr") : hCryptProvOrNCryptKey
         pszPublicKeyObjId := pszPublicKeyObjId is String ? StrPtr(pszPublicKeyObjId) : pszPublicKeyObjId
 
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+        pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoEx", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pInfo, "uint*", pcbInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoEx", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pInfo, pcbInfoMarshal, pcbInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40964,7 +41250,10 @@ class Cryptography {
         hBCryptKey := hBCryptKey is Win32Handle ? NumGet(hBCryptKey, "ptr") : hBCryptKey
         pszPublicKeyObjId := pszPublicKeyObjId is String ? StrPtr(pszPublicKeyObjId) : pszPublicKeyObjId
 
-        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoFromBCryptKeyHandle", "ptr", hBCryptKey, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pInfo, "uint*", pcbInfo, "int")
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+        pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoFromBCryptKeyHandle", "ptr", hBCryptKey, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pInfo, pcbInfoMarshal, pcbInfo, "int")
         return result
     }
 
@@ -41020,9 +41309,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptImportPublicKeyInfo(hCryptProv, dwCertEncodingType, pInfo, phKey) {
+        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfo", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "ptr*", phKey, "int")
+        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfo", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, phKeyMarshal, phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41086,9 +41377,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptImportPublicKeyInfoEx(hCryptProv, dwCertEncodingType, pInfo, aiKeyAlg, dwFlags, pvAuxInfo, phKey) {
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "uint", aiKeyAlg, "uint", dwFlags, "ptr", pvAuxInfo, "ptr*", phKey, "int")
+        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "uint", aiKeyAlg, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, phKeyMarshal, phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41164,9 +41458,11 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static CryptImportPublicKeyInfoEx2(dwCertEncodingType, pInfo, dwFlags, pvAuxInfo, phKey) {
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx2", "uint", dwCertEncodingType, "ptr", pInfo, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", phKey, "int")
+        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx2", "uint", dwCertEncodingType, "ptr", pInfo, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41233,9 +41529,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptAcquireCertificatePrivateKey(pCert, dwFlags, pvParameters, phCryptProvOrNCryptKey, pdwKeySpec, pfCallerFreeProvOrNCryptKey) {
+        pvParametersMarshal := pvParameters is VarRef ? "ptr" : "ptr"
+        pdwKeySpecMarshal := pdwKeySpec is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptAcquireCertificatePrivateKey", "ptr", pCert, "uint", dwFlags, "ptr", pvParameters, "ptr", phCryptProvOrNCryptKey, "uint*", pdwKeySpec, "ptr", pfCallerFreeProvOrNCryptKey, "int")
+        result := DllCall("CRYPT32.dll\CryptAcquireCertificatePrivateKey", "ptr", pCert, "uint", dwFlags, pvParametersMarshal, pvParameters, "ptr", phCryptProvOrNCryptKey, pdwKeySpecMarshal, pdwKeySpec, "ptr", pfCallerFreeProvOrNCryptKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41328,9 +41627,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptImportPKCS8(sPrivateKeyAndParams, dwFlags, phCryptProv, pvAuxInfo) {
+        phCryptProvMarshal := phCryptProv is VarRef ? "ptr*" : "ptr"
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptImportPKCS8", "ptr", sPrivateKeyAndParams, "uint", dwFlags, "ptr*", phCryptProv, "ptr", pvAuxInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptImportPKCS8", "ptr", sPrivateKeyAndParams, "uint", dwFlags, phCryptProvMarshal, phCryptProv, pvAuxInfoMarshal, pvAuxInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41426,9 +41728,12 @@ class Cryptography {
     static CryptExportPKCS8(hCryptProv, dwKeySpec, pszPrivateKeyObjId, dwFlags, pvAuxInfo, pbPrivateKeyBlob, pcbPrivateKeyBlob) {
         pszPrivateKeyObjId := pszPrivateKeyObjId is String ? StrPtr(pszPrivateKeyObjId) : pszPrivateKeyObjId
 
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+        pcbPrivateKeyBlobMarshal := pcbPrivateKeyBlob is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptExportPKCS8", "ptr", hCryptProv, "uint", dwKeySpec, "ptr", pszPrivateKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pbPrivateKeyBlob, "uint*", pcbPrivateKeyBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptExportPKCS8", "ptr", hCryptProv, "uint", dwKeySpec, "ptr", pszPrivateKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pbPrivateKeyBlob, pcbPrivateKeyBlobMarshal, pcbPrivateKeyBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41513,9 +41818,11 @@ class Cryptography {
     static CryptHashPublicKeyInfo(hCryptProv, Algid, dwFlags, dwCertEncodingType, pInfo, pbComputedHash, pcbComputedHash) {
         hCryptProv := hCryptProv is Win32Handle ? NumGet(hCryptProv, "ptr") : hCryptProv
 
+        pcbComputedHashMarshal := pcbComputedHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashPublicKeyInfo", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "uint", dwCertEncodingType, "ptr", pInfo, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashPublicKeyInfo", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "uint", dwCertEncodingType, "ptr", pInfo, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41723,9 +42030,11 @@ class Cryptography {
 
         pszX500 := pszX500 is String ? StrPtr(pszX500) : pszX500
 
+        pcbEncodedMarshal := pcbEncoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertStrToNameA", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, "uint*", pcbEncoded, "ptr", ppszError, "int")
+        result := DllCall("CRYPT32.dll\CertStrToNameA", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "ptr", ppszError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41809,9 +42118,11 @@ class Cryptography {
 
         pszX500 := pszX500 is String ? StrPtr(pszX500) : pszX500
 
+        pcbEncodedMarshal := pcbEncoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertStrToNameW", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, "uint*", pcbEncoded, "ptr", ppszError, "int")
+        result := DllCall("CRYPT32.dll\CertStrToNameW", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, "ptr", ppszError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42016,7 +42327,9 @@ class Cryptography {
     static CertGetNameStringA(pCertContext, dwType, dwFlags, pvTypePara, pszNameString, cchNameString) {
         pszNameString := pszNameString is String ? StrPtr(pszNameString) : pszNameString
 
-        result := DllCall("CRYPT32.dll\CertGetNameStringA", "ptr", pCertContext, "uint", dwType, "uint", dwFlags, "ptr", pvTypePara, "ptr", pszNameString, "uint", cchNameString, "uint")
+        pvTypeParaMarshal := pvTypePara is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertGetNameStringA", "ptr", pCertContext, "uint", dwType, "uint", dwFlags, pvTypeParaMarshal, pvTypePara, "ptr", pszNameString, "uint", cchNameString, "uint")
         return result
     }
 
@@ -42218,7 +42531,9 @@ class Cryptography {
     static CertGetNameStringW(pCertContext, dwType, dwFlags, pvTypePara, pszNameString, cchNameString) {
         pszNameString := pszNameString is String ? StrPtr(pszNameString) : pszNameString
 
-        result := DllCall("CRYPT32.dll\CertGetNameStringW", "ptr", pCertContext, "uint", dwType, "uint", dwFlags, "ptr", pvTypePara, "ptr", pszNameString, "uint", cchNameString, "uint")
+        pvTypeParaMarshal := pvTypePara is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertGetNameStringW", "ptr", pCertContext, "uint", dwType, "uint", dwFlags, pvTypeParaMarshal, pvTypePara, "ptr", pszNameString, "uint", cchNameString, "uint")
         return result
     }
 
@@ -42306,9 +42621,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptSignMessage(pSignPara, fDetachedSignature, cToBeSigned, rgpbToBeSigned, rgcbToBeSigned, pbSignedBlob, pcbSignedBlob) {
+        rgcbToBeSignedMarshal := rgcbToBeSigned is VarRef ? "uint*" : "ptr"
+        pcbSignedBlobMarshal := pcbSignedBlob is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignMessage", "ptr", pSignPara, "int", fDetachedSignature, "uint", cToBeSigned, "ptr*", rgpbToBeSigned, "uint*", rgcbToBeSigned, "ptr", pbSignedBlob, "uint*", pcbSignedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptSignMessage", "ptr", pSignPara, "int", fDetachedSignature, "uint", cToBeSigned, "ptr*", rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, "ptr", pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42432,9 +42750,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptVerifyMessageSignature(pVerifyPara, dwSignerIndex, pbSignedBlob, cbSignedBlob, pbDecoded, pcbDecoded, ppSignerCert) {
+        pcbDecodedMarshal := pcbDecoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, "uint*", pcbDecoded, "ptr*", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, "ptr*", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42657,9 +42977,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptVerifyDetachedMessageSignature(pVerifyPara, dwSignerIndex, pbDetachedSignBlob, cbDetachedSignBlob, cToBeSigned, rgpbToBeSigned, rgcbToBeSigned, ppSignerCert) {
+        rgcbToBeSignedMarshal := rgcbToBeSigned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbDetachedSignBlob, "uint", cbDetachedSignBlob, "uint", cToBeSigned, "ptr*", rgpbToBeSigned, "uint*", rgcbToBeSigned, "ptr*", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbDetachedSignBlob, "uint", cbDetachedSignBlob, "uint", cToBeSigned, "ptr*", rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, "ptr*", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42740,9 +43062,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptEncryptMessage(pEncryptPara, cRecipientCert, rgpRecipientCert, pbToBeEncrypted, cbToBeEncrypted, pbEncryptedBlob, pcbEncryptedBlob) {
+        pcbEncryptedBlobMarshal := pcbEncryptedBlob is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEncryptMessage", "ptr", pEncryptPara, "uint", cRecipientCert, "ptr*", rgpRecipientCert, "ptr", pbToBeEncrypted, "uint", cbToBeEncrypted, "ptr", pbEncryptedBlob, "uint*", pcbEncryptedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptEncryptMessage", "ptr", pEncryptPara, "uint", cRecipientCert, "ptr*", rgpRecipientCert, "ptr", pbToBeEncrypted, "uint", cbToBeEncrypted, "ptr", pbEncryptedBlob, pcbEncryptedBlobMarshal, pcbEncryptedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42849,9 +43173,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptDecryptMessage(pDecryptPara, pbEncryptedBlob, cbEncryptedBlob, pbDecrypted, pcbDecrypted, ppXchgCert) {
+        pcbDecryptedMarshal := pcbDecrypted is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecryptMessage", "ptr", pDecryptPara, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, "uint*", pcbDecrypted, "ptr*", ppXchgCert, "int")
+        result := DllCall("CRYPT32.dll\CryptDecryptMessage", "ptr", pDecryptPara, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, "ptr*", ppXchgCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42920,9 +43246,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptSignAndEncryptMessage(pSignPara, pEncryptPara, cRecipientCert, rgpRecipientCert, pbToBeSignedAndEncrypted, cbToBeSignedAndEncrypted, pbSignedAndEncryptedBlob, pcbSignedAndEncryptedBlob) {
+        pcbSignedAndEncryptedBlobMarshal := pcbSignedAndEncryptedBlob is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignAndEncryptMessage", "ptr", pSignPara, "ptr", pEncryptPara, "uint", cRecipientCert, "ptr*", rgpRecipientCert, "ptr", pbToBeSignedAndEncrypted, "uint", cbToBeSignedAndEncrypted, "ptr", pbSignedAndEncryptedBlob, "uint*", pcbSignedAndEncryptedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptSignAndEncryptMessage", "ptr", pSignPara, "ptr", pEncryptPara, "uint", cRecipientCert, "ptr*", rgpRecipientCert, "ptr", pbToBeSignedAndEncrypted, "uint", cbToBeSignedAndEncrypted, "ptr", pbSignedAndEncryptedBlob, pcbSignedAndEncryptedBlobMarshal, pcbSignedAndEncryptedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42987,9 +43315,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptDecryptAndVerifyMessageSignature(pDecryptPara, pVerifyPara, dwSignerIndex, pbEncryptedBlob, cbEncryptedBlob, pbDecrypted, pcbDecrypted, ppXchgCert, ppSignerCert) {
+        pcbDecryptedMarshal := pcbDecrypted is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecryptAndVerifyMessageSignature", "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, "uint*", pcbDecrypted, "ptr*", ppXchgCert, "ptr*", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptDecryptAndVerifyMessageSignature", "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, "ptr*", ppXchgCert, "ptr*", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43089,9 +43419,13 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptDecodeMessage(dwMsgTypeFlags, pDecryptPara, pVerifyPara, dwSignerIndex, pbEncodedBlob, cbEncodedBlob, dwPrevInnerContentType, pdwMsgType, pdwInnerContentType, pbDecoded, pcbDecoded, ppXchgCert, ppSignerCert) {
+        pdwMsgTypeMarshal := pdwMsgType is VarRef ? "uint*" : "ptr"
+        pdwInnerContentTypeMarshal := pdwInnerContentType is VarRef ? "uint*" : "ptr"
+        pcbDecodedMarshal := pcbDecoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecodeMessage", "uint", dwMsgTypeFlags, "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncodedBlob, "uint", cbEncodedBlob, "uint", dwPrevInnerContentType, "uint*", pdwMsgType, "uint*", pdwInnerContentType, "ptr", pbDecoded, "uint*", pcbDecoded, "ptr*", ppXchgCert, "ptr*", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptDecodeMessage", "uint", dwMsgTypeFlags, "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncodedBlob, "uint", cbEncodedBlob, "uint", dwPrevInnerContentType, pdwMsgTypeMarshal, pdwMsgType, pdwInnerContentTypeMarshal, pdwInnerContentType, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, "ptr*", ppXchgCert, "ptr*", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43177,9 +43511,13 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptHashMessage(pHashPara, fDetachedHash, cToBeHashed, rgpbToBeHashed, rgcbToBeHashed, pbHashedBlob, pcbHashedBlob, pbComputedHash, pcbComputedHash) {
+        rgcbToBeHashedMarshal := rgcbToBeHashed is VarRef ? "uint*" : "ptr"
+        pcbHashedBlobMarshal := pcbHashedBlob is VarRef ? "uint*" : "ptr"
+        pcbComputedHashMarshal := pcbComputedHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashMessage", "ptr", pHashPara, "int", fDetachedHash, "uint", cToBeHashed, "ptr*", rgpbToBeHashed, "uint*", rgcbToBeHashed, "ptr", pbHashedBlob, "uint*", pcbHashedBlob, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashMessage", "ptr", pHashPara, "int", fDetachedHash, "uint", cToBeHashed, "ptr*", rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, "ptr", pbHashedBlob, pcbHashedBlobMarshal, pcbHashedBlob, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43278,9 +43616,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptVerifyMessageHash(pHashPara, pbHashedBlob, cbHashedBlob, pbToBeHashed, pcbToBeHashed, pbComputedHash, pcbComputedHash) {
+        pcbToBeHashedMarshal := pcbToBeHashed is VarRef ? "uint*" : "ptr"
+        pcbComputedHashMarshal := pcbComputedHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyMessageHash", "ptr", pHashPara, "ptr", pbHashedBlob, "uint", cbHashedBlob, "ptr", pbToBeHashed, "uint*", pcbToBeHashed, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyMessageHash", "ptr", pHashPara, "ptr", pbHashedBlob, "uint", cbHashedBlob, "ptr", pbToBeHashed, pcbToBeHashedMarshal, pcbToBeHashed, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43373,9 +43714,12 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptVerifyDetachedMessageHash(pHashPara, pbDetachedHashBlob, cbDetachedHashBlob, cToBeHashed, rgpbToBeHashed, rgcbToBeHashed, pbComputedHash, pcbComputedHash) {
+        rgcbToBeHashedMarshal := rgcbToBeHashed is VarRef ? "uint*" : "ptr"
+        pcbComputedHashMarshal := pcbComputedHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageHash", "ptr", pHashPara, "ptr", pbDetachedHashBlob, "uint", cbDetachedHashBlob, "uint", cToBeHashed, "ptr*", rgpbToBeHashed, "uint*", rgcbToBeHashed, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageHash", "ptr", pHashPara, "ptr", pbDetachedHashBlob, "uint", cbDetachedHashBlob, "uint", cToBeHashed, "ptr*", rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43455,9 +43799,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptSignMessageWithKey(pSignPara, pbToBeSigned, cbToBeSigned, pbSignedBlob, pcbSignedBlob) {
+        pcbSignedBlobMarshal := pcbSignedBlob is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignMessageWithKey", "ptr", pSignPara, "ptr", pbToBeSigned, "uint", cbToBeSigned, "ptr", pbSignedBlob, "uint*", pcbSignedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptSignMessageWithKey", "ptr", pSignPara, "ptr", pbToBeSigned, "uint", cbToBeSigned, "ptr", pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43570,9 +43916,11 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptVerifyMessageSignatureWithKey(pVerifyPara, pPublicKeyInfo, pbSignedBlob, cbSignedBlob, pbDecoded, pcbDecoded) {
+        pcbDecodedMarshal := pcbDecoded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignatureWithKey", "ptr", pVerifyPara, "ptr", pPublicKeyInfo, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, "uint*", pcbDecoded, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignatureWithKey", "ptr", pVerifyPara, "ptr", pPublicKeyInfo, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43789,7 +44137,10 @@ class Cryptography {
     static FindCertsByIssuer(pCertChains, pcbCertChains, pcCertChains, pbEncodedIssuerName, cbEncodedIssuerName, pwszPurpose, dwKeySpec) {
         pwszPurpose := pwszPurpose is String ? StrPtr(pwszPurpose) : pwszPurpose
 
-        result := DllCall("WINTRUST.dll\FindCertsByIssuer", "ptr", pCertChains, "uint*", pcbCertChains, "uint*", pcCertChains, "ptr", pbEncodedIssuerName, "uint", cbEncodedIssuerName, "ptr", pwszPurpose, "uint", dwKeySpec, "int")
+        pcbCertChainsMarshal := pcbCertChains is VarRef ? "uint*" : "ptr"
+        pcCertChainsMarshal := pcCertChains is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINTRUST.dll\FindCertsByIssuer", "ptr", pCertChains, pcbCertChainsMarshal, pcbCertChains, pcCertChainsMarshal, pcCertChains, "ptr", pbEncodedIssuerName, "uint", cbEncodedIssuerName, "ptr", pwszPurpose, "uint", dwKeySpec, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -43920,9 +44271,14 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptQueryObject(dwObjectType, pvObject, dwExpectedContentTypeFlags, dwExpectedFormatTypeFlags, dwFlags, pdwMsgAndCertEncodingType, pdwContentType, pdwFormatType, phCertStore, phMsg, ppvContext) {
+        pvObjectMarshal := pvObject is VarRef ? "ptr" : "ptr"
+        pdwMsgAndCertEncodingTypeMarshal := pdwMsgAndCertEncodingType is VarRef ? "uint*" : "ptr"
+        pdwContentTypeMarshal := pdwContentType is VarRef ? "uint*" : "ptr"
+        pdwFormatTypeMarshal := pdwFormatType is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptQueryObject", "uint", dwObjectType, "ptr", pvObject, "uint", dwExpectedContentTypeFlags, "uint", dwExpectedFormatTypeFlags, "uint", dwFlags, "uint*", pdwMsgAndCertEncodingType, "uint*", pdwContentType, "uint*", pdwFormatType, "ptr", phCertStore, "ptr*", phMsg, "ptr*", ppvContext, "int")
+        result := DllCall("CRYPT32.dll\CryptQueryObject", "uint", dwObjectType, pvObjectMarshal, pvObject, "uint", dwExpectedContentTypeFlags, "uint", dwExpectedFormatTypeFlags, "uint", dwFlags, pdwMsgAndCertEncodingTypeMarshal, pdwMsgAndCertEncodingType, pdwContentTypeMarshal, pdwContentType, pdwFormatTypeMarshal, pdwFormatType, "ptr", phCertStore, "ptr*", phMsg, "ptr*", ppvContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43950,7 +44306,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMemRealloc(pv, cbSize) {
-        result := DllCall("CRYPT32.dll\CryptMemRealloc", "ptr", pv, "uint", cbSize, "ptr")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptMemRealloc", pvMarshal, pv, "uint", cbSize, "ptr")
         return result
     }
 
@@ -43962,7 +44320,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CryptMemFree(pv) {
-        DllCall("CRYPT32.dll\CryptMemFree", "ptr", pv)
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        DllCall("CRYPT32.dll\CryptMemFree", pvMarshal, pv)
     }
 
     /**
@@ -43990,7 +44350,9 @@ class Cryptography {
         hAsync := hAsync is Win32Handle ? NumGet(hAsync, "ptr") : hAsync
         pszParamOid := pszParamOid is String ? StrPtr(pszParamOid) : pszParamOid
 
-        result := DllCall("CRYPT32.dll\CryptSetAsyncParam", "ptr", hAsync, "ptr", pszParamOid, "ptr", pvParam, "ptr", pfnFree, "int")
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptSetAsyncParam", "ptr", hAsync, "ptr", pszParamOid, pvParamMarshal, pvParam, "ptr", pfnFree, "int")
         return result
     }
 
@@ -44257,7 +44619,9 @@ class Cryptography {
         pszObjectOid := pszObjectOid is String ? StrPtr(pszObjectOid) : pszObjectOid
         hAsyncRetrieve := hAsyncRetrieve is Win32Handle ? NumGet(hAsyncRetrieve, "ptr") : hAsyncRetrieve
 
-        result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlA", "ptr", pszUrl, "ptr", pszObjectOid, "uint", dwRetrievalFlags, "uint", dwTimeout, "ptr*", ppvObject, "ptr", hAsyncRetrieve, "ptr", pCredentials, "ptr", pvVerify, "ptr", pAuxInfo, "int")
+        pvVerifyMarshal := pvVerify is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlA", "ptr", pszUrl, "ptr", pszObjectOid, "uint", dwRetrievalFlags, "uint", dwTimeout, "ptr*", ppvObject, "ptr", hAsyncRetrieve, "ptr", pCredentials, pvVerifyMarshal, pvVerify, "ptr", pAuxInfo, "int")
         return result
     }
 
@@ -44494,7 +44858,9 @@ class Cryptography {
         pszObjectOid := pszObjectOid is String ? StrPtr(pszObjectOid) : pszObjectOid
         hAsyncRetrieve := hAsyncRetrieve is Win32Handle ? NumGet(hAsyncRetrieve, "ptr") : hAsyncRetrieve
 
-        result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlW", "ptr", pszUrl, "ptr", pszObjectOid, "uint", dwRetrievalFlags, "uint", dwTimeout, "ptr*", ppvObject, "ptr", hAsyncRetrieve, "ptr", pCredentials, "ptr", pvVerify, "ptr", pAuxInfo, "int")
+        pvVerifyMarshal := pvVerify is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlW", "ptr", pszUrl, "ptr", pszObjectOid, "uint", dwRetrievalFlags, "uint", dwTimeout, "ptr*", ppvObject, "ptr", hAsyncRetrieve, "ptr", pCredentials, pvVerifyMarshal, pvVerify, "ptr", pAuxInfo, "int")
         return result
     }
 
@@ -44508,7 +44874,9 @@ class Cryptography {
     static CryptInstallCancelRetrieval(pfnCancel, pvArg, dwFlags) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("CRYPTNET.dll\CryptInstallCancelRetrieval", "ptr", pfnCancel, "ptr", pvArg, "uint", dwFlags, "ptr", pvReserved, "int")
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTNET.dll\CryptInstallCancelRetrieval", "ptr", pfnCancel, pvArgMarshal, pvArg, "uint", dwFlags, "ptr", pvReserved, "int")
         return result
     }
 
@@ -44556,9 +44924,13 @@ class Cryptography {
 
         pszUrlOid := pszUrlOid is String ? StrPtr(pszUrlOid) : pszUrlOid
 
+        pvParaMarshal := pvPara is VarRef ? "ptr" : "ptr"
+        pcbUrlArrayMarshal := pcbUrlArray is VarRef ? "uint*" : "ptr"
+        pcbUrlInfoMarshal := pcbUrlInfo is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPTNET.dll\CryptGetObjectUrl", "ptr", pszUrlOid, "ptr", pvPara, "uint", dwFlags, "ptr", pUrlArray, "uint*", pcbUrlArray, "ptr", pUrlInfo, "uint*", pcbUrlInfo, "ptr", pvReserved, "int")
+        result := DllCall("CRYPTNET.dll\CryptGetObjectUrl", "ptr", pszUrlOid, pvParaMarshal, pvPara, "uint", dwFlags, "ptr", pUrlArray, pcbUrlArrayMarshal, pcbUrlArray, "ptr", pUrlInfo, pcbUrlInfoMarshal, pcbUrlInfo, "ptr", pvReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44673,9 +45045,11 @@ class Cryptography {
 
         pwszComputerName := pwszComputerName is String ? StrPtr(pwszComputerName) : pwszComputerName
 
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvData, "uint*", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CryptGetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44750,9 +45124,11 @@ class Cryptography {
 
         pwszComputerName := pwszComputerName is String ? StrPtr(pwszComputerName) : pwszComputerName
 
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvData, "int")
+        result := DllCall("CRYPT32.dll\CryptSetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvDataMarshal, pvData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44802,9 +45178,11 @@ class Cryptography {
 
         pwszComputerName := pwszComputerName is String ? StrPtr(pwszComputerName) : pwszComputerName
 
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEnumKeyIdentifierProperties", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvArg, "ptr", pfnEnum, "int")
+        result := DllCall("CRYPT32.dll\CryptEnumKeyIdentifierProperties", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvArgMarshal, pvArg, "ptr", pfnEnum, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44846,9 +45224,11 @@ class Cryptography {
 
         pszPubKeyOID := pszPubKeyOID is String ? StrPtr(pszPubKeyOID) : pszPubKeyOID
 
+        pcbHashMarshal := pcbHash is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptCreateKeyIdentifierFromCSP", "uint", dwCertEncodingType, "ptr", pszPubKeyOID, "ptr", pPubKeyStruc, "uint", cbPubKeyStruc, "uint", dwFlags, "ptr", pvReserved, "ptr", pbHash, "uint*", pcbHash, "int")
+        result := DllCall("CRYPT32.dll\CryptCreateKeyIdentifierFromCSP", "uint", dwCertEncodingType, "ptr", pszPubKeyOID, "ptr", pPubKeyStruc, "uint", cbPubKeyStruc, "uint", dwFlags, "ptr", pvReserved, "ptr", pbHash, pcbHashMarshal, pcbHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -45230,7 +45610,9 @@ class Cryptography {
     static CertFindChainInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevChainContext) {
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
 
-        result := DllCall("CRYPT32.dll\CertFindChainInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, "ptr", pvFindPara, "ptr", pPrevChainContext, "ptr")
+        pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertFindChainInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevChainContext, "ptr")
         return result
     }
 
@@ -45440,9 +45822,13 @@ class Cryptography {
     static CryptStringToBinaryA(pszString, cchString, dwFlags, pbBinary, pcbBinary, pdwSkip, pdwFlags) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
+        pcbBinaryMarshal := pcbBinary is VarRef ? "uint*" : "ptr"
+        pdwSkipMarshal := pdwSkip is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptStringToBinaryA", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, "uint*", pcbBinary, "uint*", pdwSkip, "uint*", pdwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptStringToBinaryA", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -45484,9 +45870,13 @@ class Cryptography {
     static CryptStringToBinaryW(pszString, cchString, dwFlags, pbBinary, pcbBinary, pdwSkip, pdwFlags) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
+        pcbBinaryMarshal := pcbBinary is VarRef ? "uint*" : "ptr"
+        pdwSkipMarshal := pdwSkip is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptStringToBinaryW", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, "uint*", pcbBinary, "uint*", pdwSkip, "uint*", pdwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptStringToBinaryW", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -45509,7 +45899,9 @@ class Cryptography {
     static CryptBinaryToStringA(pbBinary, cbBinary, dwFlags, pszString, pcchString) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("CRYPT32.dll\CryptBinaryToStringA", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, "uint*", pcchString, "int")
+        pcchStringMarshal := pcchString is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptBinaryToStringA", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, pcchStringMarshal, pcchString, "int")
         return result
     }
 
@@ -45529,7 +45921,9 @@ class Cryptography {
     static CryptBinaryToStringW(pbBinary, cbBinary, dwFlags, pszString, pcchString) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("CRYPT32.dll\CryptBinaryToStringW", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, "uint*", pcchString, "int")
+        pcchStringMarshal := pcchString is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CryptBinaryToStringW", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, pcchStringMarshal, pcchString, "int")
         return result
     }
 
@@ -45685,9 +46079,11 @@ class Cryptography {
         hStore := hStore is Win32Handle ? NumGet(hStore, "ptr") : hStore
         szPassword := szPassword is String ? StrPtr(szPassword) : szPassword
 
+        pvParaMarshal := pvPara is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\PFXExportCertStoreEx", "ptr", hStore, "ptr", pPFX, "ptr", szPassword, "ptr", pvPara, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\PFXExportCertStoreEx", "ptr", hStore, "ptr", pPFX, "ptr", szPassword, pvParaMarshal, pvPara, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -45819,7 +46215,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static CertAddRefServerOcspResponse(hServerOcspResponse) {
-        DllCall("CRYPT32.dll\CertAddRefServerOcspResponse", "ptr", hServerOcspResponse)
+        hServerOcspResponseMarshal := hServerOcspResponse is VarRef ? "ptr" : "ptr"
+
+        DllCall("CRYPT32.dll\CertAddRefServerOcspResponse", hServerOcspResponseMarshal, hServerOcspResponse)
     }
 
     /**
@@ -45836,7 +46234,9 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static CertCloseServerOcspResponse(hServerOcspResponse, dwFlags) {
-        DllCall("CRYPT32.dll\CertCloseServerOcspResponse", "ptr", hServerOcspResponse, "uint", dwFlags)
+        hServerOcspResponseMarshal := hServerOcspResponse is VarRef ? "ptr" : "ptr"
+
+        DllCall("CRYPT32.dll\CertCloseServerOcspResponse", hServerOcspResponseMarshal, hServerOcspResponse, "uint", dwFlags)
     }
 
     /**
@@ -45854,7 +46254,9 @@ class Cryptography {
     static CertGetServerOcspResponseContext(hServerOcspResponse, dwFlags) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("CRYPT32.dll\CertGetServerOcspResponseContext", "ptr", hServerOcspResponse, "uint", dwFlags, "ptr", pvReserved, "ptr")
+        hServerOcspResponseMarshal := hServerOcspResponse is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPT32.dll\CertGetServerOcspResponseContext", hServerOcspResponseMarshal, hServerOcspResponse, "uint", dwFlags, "ptr", pvReserved, "ptr")
         return result
     }
 
@@ -46044,9 +46446,11 @@ class Cryptography {
 
         lpszLogoOrBiometricType := lpszLogoOrBiometricType is String ? StrPtr(lpszLogoOrBiometricType) : lpszLogoOrBiometricType
 
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertRetrieveLogoOrBiometricInfo", "ptr", pCertContext, "ptr", lpszLogoOrBiometricType, "uint", dwRetrievalFlags, "uint", dwTimeout, "uint", dwFlags, "ptr", pvReserved, "ptr*", ppbData, "uint*", pcbData, "ptr", ppwszMimeType, "int")
+        result := DllCall("CRYPT32.dll\CertRetrieveLogoOrBiometricInfo", "ptr", pCertContext, "ptr", lpszLogoOrBiometricType, "uint", dwRetrievalFlags, "uint", dwTimeout, "uint", dwFlags, "ptr", pvReserved, "ptr*", ppbData, pcbDataMarshal, pcbData, "ptr", ppwszMimeType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46181,9 +46585,11 @@ class Cryptography {
     static CertSelectCertificateChains(pSelectionContext, dwFlags, pChainParameters, cCriteria, rgpCriteria, hStore, pcSelection, pprgpSelection) {
         hStore := hStore is Win32Handle ? NumGet(hStore, "ptr") : hStore
 
+        pcSelectionMarshal := pcSelection is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSelectCertificateChains", "ptr", pSelectionContext, "uint", dwFlags, "ptr", pChainParameters, "uint", cCriteria, "ptr", rgpCriteria, "ptr", hStore, "uint*", pcSelection, "ptr*", pprgpSelection, "int")
+        result := DllCall("CRYPT32.dll\CertSelectCertificateChains", "ptr", pSelectionContext, "uint", dwFlags, "ptr", pChainParameters, "uint", cCriteria, "ptr", rgpCriteria, "ptr", hStore, pcSelectionMarshal, pcSelection, "ptr*", pprgpSelection, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46531,9 +46937,12 @@ class Cryptography {
     static CryptUpdateProtectedState(pOldSid, pwszOldPassword, dwFlags, pdwSuccessCount, pdwFailureCount) {
         pwszOldPassword := pwszOldPassword is String ? StrPtr(pwszOldPassword) : pwszOldPassword
 
+        pdwSuccessCountMarshal := pdwSuccessCount is VarRef ? "uint*" : "ptr"
+        pdwFailureCountMarshal := pdwFailureCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptUpdateProtectedState", "ptr", pOldSid, "ptr", pwszOldPassword, "uint", dwFlags, "uint*", pdwSuccessCount, "uint*", pdwFailureCount, "int")
+        result := DllCall("CRYPT32.dll\CryptUpdateProtectedState", "ptr", pOldSid, "ptr", pwszOldPassword, "uint", dwFlags, pdwSuccessCountMarshal, pdwSuccessCount, pdwFailureCountMarshal, pdwFailureCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46589,9 +46998,11 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static CryptProtectMemory(pDataIn, cbDataIn, dwFlags) {
+        pDataInMarshal := pDataIn is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptProtectMemory", "ptr", pDataIn, "uint", cbDataIn, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptProtectMemory", pDataInMarshal, pDataIn, "uint", cbDataIn, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46647,9 +47058,11 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static CryptUnprotectMemory(pDataIn, cbDataIn, dwFlags) {
+        pDataInMarshal := pDataIn is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptUnprotectMemory", "ptr", pDataIn, "uint", cbDataIn, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptUnprotectMemory", pDataInMarshal, pDataIn, "uint", cbDataIn, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46770,7 +47183,9 @@ class Cryptography {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszDescriptorString := pwszDescriptorString is String ? StrPtr(pwszDescriptorString) : pwszDescriptorString
 
-        result := DllCall("ncrypt.dll\NCryptQueryProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, "ptr*", pcDescriptorString, "uint", dwFlags, "int")
+        pcDescriptorStringMarshal := pcDescriptorString is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptQueryProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, pcDescriptorStringMarshal, pcDescriptorString, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47092,7 +47507,9 @@ class Cryptography {
         hDescriptor := hDescriptor is Win32Handle ? NumGet(hDescriptor, "ptr") : hDescriptor
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", hWnd, "ptr*", ppbProtectedBlob, "uint*", pcbProtectedBlob, "int")
+        pcbProtectedBlobMarshal := pcbProtectedBlob is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", hWnd, "ptr*", ppbProtectedBlob, pcbProtectedBlobMarshal, pcbProtectedBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47158,7 +47575,9 @@ class Cryptography {
     static NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtectedBlob, pMemPara, hWnd, ppbData, pcbData) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", hWnd, "ptr*", ppbData, "uint*", pcbData, "int")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", hWnd, "ptr*", ppbData, pcbDataMarshal, pcbData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47553,7 +47972,9 @@ class Cryptography {
     static SignerSign(pSubjectInfo, pSignerCert, pSignatureInfo, pProviderInfo, pwszHttpTimeStamp, psRequest, pSipData) {
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
 
-        result := DllCall("Mssign32.dll\SignerSign", "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, "ptr", pSipData, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerSign", "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, pSipDataMarshal, pSipData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47577,7 +47998,9 @@ class Cryptography {
     static SignerSignEx(dwFlags, pSubjectInfo, pSignerCert, pSignatureInfo, pProviderInfo, pwszHttpTimeStamp, psRequest, pSipData, ppSignerContext) {
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
 
-        result := DllCall("Mssign32.dll\SignerSignEx", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, "ptr", pSipData, "ptr*", ppSignerContext, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerSignEx", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, pSipDataMarshal, pSipData, "ptr*", ppSignerContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47607,7 +48030,9 @@ class Cryptography {
         pszTimestampAlgorithmOid := pszTimestampAlgorithmOid is String ? StrPtr(pszTimestampAlgorithmOid) : pszTimestampAlgorithmOid
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
 
-        result := DllCall("Mssign32.dll\SignerSignEx2", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "uint", dwTimestampFlags, "ptr", pszTimestampAlgorithmOid, "ptr", pwszHttpTimeStamp, "ptr", psRequest, "ptr", pSipData, "ptr*", ppSignerContext, "ptr", pCryptoPolicy, "ptr", pReserved, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerSignEx2", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "uint", dwTimestampFlags, "ptr", pszTimestampAlgorithmOid, "ptr", pwszHttpTimeStamp, "ptr", psRequest, pSipDataMarshal, pSipData, "ptr*", ppSignerContext, "ptr", pCryptoPolicy, "ptr", pReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47638,7 +48063,9 @@ class Cryptography {
         pszTimestampAlgorithmOid := pszTimestampAlgorithmOid is String ? StrPtr(pszTimestampAlgorithmOid) : pszTimestampAlgorithmOid
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
 
-        result := DllCall("Mssign32.dll\SignerSignEx3", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "uint", dwTimestampFlags, "ptr", pszTimestampAlgorithmOid, "ptr", pwszHttpTimeStamp, "ptr", psRequest, "ptr", pSipData, "ptr*", ppSignerContext, "ptr", pCryptoPolicy, "ptr", pDigestSignInfo, "ptr", pReserved, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerSignEx3", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pSignerCert, "ptr", pSignatureInfo, "ptr", pProviderInfo, "uint", dwTimestampFlags, "ptr", pszTimestampAlgorithmOid, "ptr", pwszHttpTimeStamp, "ptr", psRequest, pSipDataMarshal, pSipData, "ptr*", ppSignerContext, "ptr", pCryptoPolicy, "ptr", pDigestSignInfo, "ptr", pReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47657,7 +48084,9 @@ class Cryptography {
     static SignerTimeStamp(pSubjectInfo, pwszHttpTimeStamp, psRequest, pSipData) {
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
 
-        result := DllCall("Mssign32.dll\SignerTimeStamp", "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, "ptr", pSipData, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerTimeStamp", "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, pSipDataMarshal, pSipData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47679,7 +48108,9 @@ class Cryptography {
 
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
 
-        result := DllCall("Mssign32.dll\SignerTimeStampEx", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, "ptr", pSipData, "ptr*", ppSignerContext, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerTimeStampEx", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", psRequest, pSipDataMarshal, pSipData, "ptr*", ppSignerContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47702,7 +48133,9 @@ class Cryptography {
 
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
 
-        result := DllCall("Mssign32.dll\SignerTimeStampEx2", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "uint", dwAlgId, "ptr", psRequest, "ptr", pSipData, "ptr*", ppSignerContext, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerTimeStampEx2", "uint", dwFlags, "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "uint", dwAlgId, "ptr", psRequest, pSipDataMarshal, pSipData, "ptr*", ppSignerContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47729,7 +48162,9 @@ class Cryptography {
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
         pszAlgorithmOid := pszAlgorithmOid is String ? StrPtr(pszAlgorithmOid) : pszAlgorithmOid
 
-        result := DllCall("Mssign32.dll\SignerTimeStampEx3", "uint", dwFlags, "uint", dwIndex, "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", pszAlgorithmOid, "ptr", psRequest, "ptr", pSipData, "ptr*", ppSignerContext, "ptr", pCryptoPolicy, "ptr", pReserved, "int")
+        pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("Mssign32.dll\SignerTimeStampEx3", "uint", dwFlags, "uint", dwIndex, "ptr", pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", pszAlgorithmOid, "ptr", psRequest, pSipDataMarshal, pSipData, "ptr*", ppSignerContext, "ptr", pCryptoPolicy, "ptr", pReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47746,7 +48181,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlClose(hCryptXml) {
-        result := DllCall("CRYPTXML.dll\CryptXmlClose", "ptr", hCryptXml, "int")
+        hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlClose", hCryptXmlMarshal, hCryptXml, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47859,7 +48296,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlAddObject(hSignatureOrObject, dwFlags, rgProperty, cProperty, pEncoded, ppObject) {
-        result := DllCall("CRYPTXML.dll\CryptXmlAddObject", "ptr", hSignatureOrObject, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", ppObject, "int")
+        hSignatureOrObjectMarshal := hSignatureOrObject is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlAddObject", hSignatureOrObjectMarshal, hSignatureOrObject, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", ppObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47920,7 +48359,9 @@ class Cryptography {
         wszURI := wszURI is String ? StrPtr(wszURI) : wszURI
         wszType := wszType is String ? StrPtr(wszType) : wszType
 
-        result := DllCall("CRYPTXML.dll\CryptXmlCreateReference", "ptr", hCryptXml, "uint", dwFlags, "ptr", wszId, "ptr", wszURI, "ptr", wszType, "ptr", pDigestMethod, "uint", cTransform, "ptr", rgTransform, "ptr*", phReference, "int")
+        hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlCreateReference", hCryptXmlMarshal, hCryptXml, "uint", dwFlags, "ptr", wszId, "ptr", wszURI, "ptr", wszType, "ptr", pDigestMethod, "uint", cTransform, "ptr", rgTransform, "ptr*", phReference, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47962,7 +48403,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlDigestReference(hReference, dwFlags, pDataProviderIn) {
-        result := DllCall("CRYPTXML.dll\CryptXmlDigestReference", "ptr", hReference, "uint", dwFlags, "ptr", pDataProviderIn, "int")
+        hReferenceMarshal := hReference is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlDigestReference", hReferenceMarshal, hReference, "uint", dwFlags, "ptr", pDataProviderIn, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -47982,7 +48425,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlSetHMACSecret(hSignature, pbSecret, cbSecret) {
-        result := DllCall("CRYPTXML.dll\CryptXmlSetHMACSecret", "ptr", hSignature, "ptr", pbSecret, "uint", cbSecret, "int")
+        hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlSetHMACSecret", hSignatureMarshal, hSignature, "ptr", pbSecret, "uint", cbSecret, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48046,7 +48491,10 @@ class Cryptography {
     static CryptXmlSign(hSignature, hKey, dwKeySpec, dwFlags, dwKeyInfoSpec, pvKeyInfoSpec, pSignatureMethod, pCanonicalization) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CRYPTXML.dll\CryptXmlSign", "ptr", hSignature, "ptr", hKey, "uint", dwKeySpec, "uint", dwFlags, "int", dwKeyInfoSpec, "ptr", pvKeyInfoSpec, "ptr", pSignatureMethod, "ptr", pCanonicalization, "int")
+        hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
+        pvKeyInfoSpecMarshal := pvKeyInfoSpec is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlSign", hSignatureMarshal, hSignature, "ptr", hKey, "uint", dwKeySpec, "uint", dwFlags, "int", dwKeyInfoSpec, pvKeyInfoSpecMarshal, pvKeyInfoSpec, "ptr", pSignatureMethod, "ptr", pCanonicalization, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48088,7 +48536,9 @@ class Cryptography {
     static CryptXmlVerifySignature(hSignature, hKey, dwFlags) {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("CRYPTXML.dll\CryptXmlVerifySignature", "ptr", hSignature, "ptr", hKey, "uint", dwFlags, "int")
+        hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlVerifySignature", hSignatureMarshal, hSignature, "ptr", hKey, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48106,7 +48556,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlGetDocContext(hCryptXml, ppStruct) {
-        result := DllCall("CRYPTXML.dll\CryptXmlGetDocContext", "ptr", hCryptXml, "ptr*", ppStruct, "int")
+        hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlGetDocContext", hCryptXmlMarshal, hCryptXml, "ptr*", ppStruct, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48124,7 +48576,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlGetSignature(hCryptXml, ppStruct) {
-        result := DllCall("CRYPTXML.dll\CryptXmlGetSignature", "ptr", hCryptXml, "ptr*", ppStruct, "int")
+        hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlGetSignature", hCryptXmlMarshal, hCryptXml, "ptr*", ppStruct, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48142,7 +48596,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlGetReference(hCryptXml, ppStruct) {
-        result := DllCall("CRYPTXML.dll\CryptXmlGetReference", "ptr", hCryptXml, "ptr*", ppStruct, "int")
+        hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlGetReference", hCryptXmlMarshal, hCryptXml, "ptr*", ppStruct, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48161,7 +48617,9 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlGetStatus(hCryptXml, pStatus) {
-        result := DllCall("CRYPTXML.dll\CryptXmlGetStatus", "ptr", hCryptXml, "ptr", pStatus, "int")
+        hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlGetStatus", hCryptXmlMarshal, hCryptXml, "ptr", pStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48183,7 +48641,10 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlEncode(hCryptXml, dwCharset, rgProperty, cProperty, pvCallbackState, pfnWrite) {
-        result := DllCall("CRYPTXML.dll\CryptXmlEncode", "ptr", hCryptXml, "int", dwCharset, "ptr", rgProperty, "uint", cProperty, "ptr", pvCallbackState, "ptr", pfnWrite, "int")
+        hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
+        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlEncode", hCryptXmlMarshal, hCryptXml, "int", dwCharset, "ptr", rgProperty, "uint", cProperty, pvCallbackStateMarshal, pvCallbackState, "ptr", pfnWrite, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48218,7 +48679,9 @@ class Cryptography {
      * @returns {Pointer<CRYPT_XML_ALGORITHM_INFO>} 
      */
     static CryptXmlFindAlgorithmInfo(dwFindByType, pvFindBy, dwGroupId, dwFlags) {
-        result := DllCall("CRYPTXML.dll\CryptXmlFindAlgorithmInfo", "uint", dwFindByType, "ptr", pvFindBy, "uint", dwGroupId, "uint", dwFlags, "ptr")
+        pvFindByMarshal := pvFindBy is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlFindAlgorithmInfo", "uint", dwFindByType, pvFindByMarshal, pvFindBy, "uint", dwGroupId, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -48231,7 +48694,9 @@ class Cryptography {
      * @returns {HRESULT} 
      */
     static CryptXmlEnumAlgorithmInfo(dwGroupId, dwFlags, pvArg, pfnEnumAlgInfo) {
-        result := DllCall("CRYPTXML.dll\CryptXmlEnumAlgorithmInfo", "uint", dwGroupId, "uint", dwFlags, "ptr", pvArg, "ptr", pfnEnumAlgInfo, "int")
+        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("CRYPTXML.dll\CryptXmlEnumAlgorithmInfo", "uint", dwGroupId, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnumAlgInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48293,7 +48758,9 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecProv/encrypt-win32-encryptablevolume
      */
     static Encrypt(hCrypto, fOAEP, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\Encrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
+        pcbOutDataMarshal := pcbOutData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\Encrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, pcbOutDataMarshal, pcbOutData, "ptr", ppOutData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48312,7 +48779,9 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecProv/decrypt-win32-encryptablevolume
      */
     static Decrypt(hCrypto, fOAEP, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\Decrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
+        pcbOutDataMarshal := pcbOutData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\Decrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, pcbOutDataMarshal, pcbOutData, "ptr", ppOutData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48332,7 +48801,9 @@ class Cryptography {
     static SignHash(hCrypto, cbHash, pHash, hashAlgOid, pcbSig, ppSig) {
         hashAlgOid := hashAlgOid is String ? StrPtr(hashAlgOid) : hashAlgOid
 
-        result := DllCall("infocardapi.dll\SignHash", "ptr", hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, "uint*", pcbSig, "ptr", ppSig, "int")
+        pcbSigMarshal := pcbSig is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\SignHash", "ptr", hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, pcbSigMarshal, pcbSig, "ptr", ppSig, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48404,7 +48875,9 @@ class Cryptography {
      * @returns {HRESULT} 
      */
     static TransformBlock(hCrypto, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\TransformBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
+        pcbOutDataMarshal := pcbOutData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\TransformBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, pcbOutDataMarshal, pcbOutData, "ptr", ppOutData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48421,7 +48894,9 @@ class Cryptography {
      * @returns {HRESULT} 
      */
     static TransformFinalBlock(hCrypto, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\TransformFinalBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
+        pcbOutDataMarshal := pcbOutData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\TransformFinalBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, pcbOutDataMarshal, pcbOutData, "ptr", ppOutData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48453,7 +48928,9 @@ class Cryptography {
      * @returns {HRESULT} 
      */
     static HashFinal(hCrypto, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\HashFinal", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
+        pcbOutDataMarshal := pcbOutData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\HashFinal", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, pcbOutDataMarshal, pcbOutData, "ptr", ppOutData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48500,7 +48977,9 @@ class Cryptography {
     static GenerateDerivedKey(hCrypto, cbLabel, pLabel, cbNonce, pNonce, derivedKeyLength, offset, algId, pcbKey, ppKey) {
         algId := algId is String ? StrPtr(algId) : algId
 
-        result := DllCall("infocardapi.dll\GenerateDerivedKey", "ptr", hCrypto, "uint", cbLabel, "ptr", pLabel, "uint", cbNonce, "ptr", pNonce, "uint", derivedKeyLength, "uint", offset, "ptr", algId, "uint*", pcbKey, "ptr", ppKey, "int")
+        pcbKeyMarshal := pcbKey is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\GenerateDerivedKey", "ptr", hCrypto, "uint", cbLabel, "ptr", pLabel, "uint", cbNonce, "ptr", pNonce, "uint", derivedKeyLength, "uint", offset, "ptr", algId, pcbKeyMarshal, pcbKey, "ptr", ppKey, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48516,7 +48995,10 @@ class Cryptography {
      * @returns {HRESULT} 
      */
     static GetBrowserToken(dwParamType, pParam, pcbToken, ppToken) {
-        result := DllCall("infocardapi.dll\GetBrowserToken", "uint", dwParamType, "ptr", pParam, "uint*", pcbToken, "ptr", ppToken, "int")
+        pParamMarshal := pParam is VarRef ? "ptr" : "ptr"
+        pcbTokenMarshal := pcbToken is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("infocardapi.dll\GetBrowserToken", "uint", dwParamType, pParamMarshal, pParam, pcbTokenMarshal, pcbToken, "ptr", ppToken, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48747,7 +49229,9 @@ class Cryptography {
         hHandshakeHash := hHandshakeHash is Win32Handle ? NumGet(hHandshakeHash, "ptr") : hHandshakeHash
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-        result := DllCall("ncrypt.dll\SslComputeClientAuthHash", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHandshakeHash, "ptr", pszAlgId, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslComputeClientAuthHash", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHandshakeHash, "ptr", pszAlgId, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48771,7 +49255,9 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hMasterKey := hMasterKey is Win32Handle ? NumGet(hMasterKey, "ptr") : hMasterKey
 
-        result := DllCall("ncrypt.dll\SslComputeEapKeyBlock", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", pbRandoms, "uint", cbRandoms, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslComputeEapKeyBlock", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", pbRandoms, "uint", cbRandoms, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48863,7 +49349,9 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", SequenceNumber, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", SequenceNumber, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48889,7 +49377,9 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
-        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48948,7 +49438,9 @@ class Cryptography {
     static SslEnumEccCurves(hSslProvider, pEccCurveCount, ppEccCurve, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
 
-        result := DllCall("ncrypt.dll\SslEnumEccCurves", "ptr", hSslProvider, "uint*", pEccCurveCount, "ptr*", ppEccCurve, "uint", dwFlags, "int")
+        pEccCurveCountMarshal := pEccCurveCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslEnumEccCurves", "ptr", hSslProvider, pEccCurveCountMarshal, pEccCurveCount, "ptr*", ppEccCurve, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48964,7 +49456,9 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslenumprotocolproviders
      */
     static SslEnumProtocolProviders(pdwProviderCount, ppProviderList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslEnumProtocolProviders", "uint*", pdwProviderCount, "ptr*", ppProviderList, "uint", dwFlags, "int")
+        pdwProviderCountMarshal := pdwProviderCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslEnumProtocolProviders", pdwProviderCountMarshal, pdwProviderCount, "ptr*", ppProviderList, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -48988,7 +49482,9 @@ class Cryptography {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -49002,7 +49498,9 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslfreebuffer
      */
     static SslFreeBuffer(pvInput) {
-        result := DllCall("ncrypt.dll\SslFreeBuffer", "ptr", pvInput, "int")
+        pvInputMarshal := pvInput is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslFreeBuffer", pvInputMarshal, pvInput, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -49047,7 +49545,9 @@ class Cryptography {
         hPrivateKey := hPrivateKey is Win32Handle ? NumGet(hPrivateKey, "ptr") : hPrivateKey
         hPublicKey := hPublicKey is Win32Handle ? NumGet(hPublicKey, "ptr") : hPublicKey
 
-        result := DllCall("ncrypt.dll\SslGenerateMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslGenerateMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -49090,7 +49590,9 @@ class Cryptography {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", hKey, "ptr", pszProperty, "ptr*", ppbOutput, "uint*", pcbOutput, "uint", dwFlags, "int")
+        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", hKey, "ptr", pszProperty, "ptr*", ppbOutput, pcbOutputMarshal, pcbOutput, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -49112,7 +49614,9 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("ncrypt.dll\SslGetProviderProperty", "ptr", hSslProvider, "ptr", pszProperty, "ptr*", ppbOutput, "uint*", pcbOutput, "ptr*", ppEnumState, "uint", dwFlags, "int")
+        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslGetProviderProperty", "ptr", hSslProvider, "ptr", pszProperty, "ptr*", ppbOutput, pcbOutputMarshal, pcbOutput, "ptr*", ppEnumState, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -49262,7 +49766,9 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPrivateKey := hPrivateKey is Win32Handle ? NumGet(hPrivateKey, "ptr") : hPrivateKey
 
-        result := DllCall("ncrypt.dll\SslSignHash", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslSignHash", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -49373,7 +49879,9 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hHandshakeHash := hHandshakeHash is Win32Handle ? NumGet(hHandshakeHash, "ptr") : hHandshakeHash
 
-        result := DllCall("ncrypt.dll\SslComputeSessionHash", "ptr", hSslProvider, "ptr", hHandshakeHash, "uint", dwProtocol, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslComputeSessionHash", "ptr", hSslProvider, "ptr", hHandshakeHash, "uint", dwProtocol, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -49398,7 +49906,9 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPublicKey := hPublicKey is Win32Handle ? NumGet(hPublicKey, "ptr") : hPublicKey
 
-        result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", "ptr", hSslProvider, "ptr", hPublicKey, "ptr", phPreMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", "ptr", hSslProvider, "ptr", hPublicKey, "ptr", phPreMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 

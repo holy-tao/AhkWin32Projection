@@ -34,7 +34,9 @@ class IHTMLRect2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(7, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IHTMLRect2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(8, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 }

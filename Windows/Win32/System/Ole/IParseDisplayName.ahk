@@ -42,7 +42,9 @@ class IParseDisplayName extends IUnknown{
     ParseDisplayName(pbc, pszDisplayName, pchEaten, ppmkOut) {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        result := ComCall(3, this, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", ppmkOut, "HRESULT")
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pbc, "ptr", pszDisplayName, pchEatenMarshal, pchEaten, "ptr*", ppmkOut, "HRESULT")
         return result
     }
 }

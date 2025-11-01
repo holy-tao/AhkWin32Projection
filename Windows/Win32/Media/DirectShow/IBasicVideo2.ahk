@@ -38,7 +38,10 @@ class IBasicVideo2 extends IBasicVideo{
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo2-getpreferredaspectratio
      */
     GetPreferredAspectRatio(plAspectX, plAspectY) {
-        result := ComCall(39, this, "int*", plAspectX, "int*", plAspectY, "HRESULT")
+        plAspectXMarshal := plAspectX is VarRef ? "int*" : "ptr"
+        plAspectYMarshal := plAspectY is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, plAspectXMarshal, plAspectX, plAspectYMarshal, plAspectY, "HRESULT")
         return result
     }
 }

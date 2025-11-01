@@ -134,7 +134,9 @@ class ObjectContext extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_count
      */
     get_Count(plCount) {
-        result := ComCall(15, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

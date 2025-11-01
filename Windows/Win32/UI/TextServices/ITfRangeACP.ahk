@@ -38,7 +38,10 @@ class ITfRangeACP extends ITfRange{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrangeacp-getextent
      */
     GetExtent(pacpAnchor, pcch) {
-        result := ComCall(25, this, "int*", pacpAnchor, "int*", pcch, "HRESULT")
+        pacpAnchorMarshal := pacpAnchor is VarRef ? "int*" : "ptr"
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pacpAnchorMarshal, pacpAnchor, pcchMarshal, pcch, "HRESULT")
         return result
     }
 

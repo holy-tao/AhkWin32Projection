@@ -135,7 +135,9 @@ class IMediaObjectInPlace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobjectinplace-getlatency
      */
     GetLatency(pLatencyTime) {
-        result := ComCall(5, this, "int64*", pLatencyTime, "HRESULT")
+        pLatencyTimeMarshal := pLatencyTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, pLatencyTimeMarshal, pLatencyTime, "HRESULT")
         return result
     }
 }

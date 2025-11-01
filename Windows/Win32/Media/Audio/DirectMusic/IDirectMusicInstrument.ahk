@@ -34,7 +34,9 @@ class IDirectMusicInstrument extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPatch(pdwPatch) {
-        result := ComCall(3, this, "uint*", pdwPatch, "HRESULT")
+        pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwPatchMarshal, pdwPatch, "HRESULT")
         return result
     }
 

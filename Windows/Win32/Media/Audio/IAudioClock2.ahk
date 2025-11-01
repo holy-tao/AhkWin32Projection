@@ -38,7 +38,10 @@ class IAudioClock2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclock2-getdeviceposition
      */
     GetDevicePosition(DevicePosition, QPCPosition) {
-        result := ComCall(3, this, "uint*", DevicePosition, "uint*", QPCPosition, "HRESULT")
+        DevicePositionMarshal := DevicePosition is VarRef ? "uint*" : "ptr"
+        QPCPositionMarshal := QPCPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, DevicePositionMarshal, DevicePosition, QPCPositionMarshal, QPCPosition, "HRESULT")
         return result
     }
 }

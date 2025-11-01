@@ -95,7 +95,9 @@ class IFsrmPipelineModuleConnector extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostingprocesspid
      */
     get_HostingProcessPid(pid) {
-        result := ComCall(10, this, "int*", pid, "HRESULT")
+        pidMarshal := pid is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pidMarshal, pid, "HRESULT")
         return result
     }
 

@@ -53,7 +53,9 @@ class IMFOutputSchema extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputschema-getconfigurationdata
      */
     GetConfigurationData(pdwVal) {
-        result := ComCall(34, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(34, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 

@@ -55,7 +55,10 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     RequestReJIT(cFunctions, moduleIds, methodIds) {
-        result := ComCall(73, this, "uint", cFunctions, "ptr*", moduleIds, "uint*", methodIds, "HRESULT")
+        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
+        methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(73, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
         return result
     }
 
@@ -68,7 +71,10 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     RequestRevert(cFunctions, moduleIds, methodIds, status) {
-        result := ComCall(74, this, "uint", cFunctions, "ptr*", moduleIds, "uint*", methodIds, "ptr", status, "HRESULT")
+        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
+        methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "ptr", status, "HRESULT")
         return result
     }
 
@@ -82,7 +88,9 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     GetCodeInfo3(functionID, reJitId, cCodeInfos, pcCodeInfos, codeInfos) {
-        result := ComCall(75, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeInfos, "uint*", pcCodeInfos, "ptr", codeInfos, "HRESULT")
+        pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(75, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "HRESULT")
         return result
     }
 
@@ -94,7 +102,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     GetFunctionFromIP2(ip, pFunctionId, pReJitId) {
-        result := ComCall(76, this, "char*", ip, "ptr*", pFunctionId, "ptr*", pReJitId, "HRESULT")
+        ipMarshal := ip is VarRef ? "char*" : "ptr"
+        pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : "ptr"
+        pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(76, this, ipMarshal, ip, pFunctionIdMarshal, pFunctionId, pReJitIdMarshal, pReJitId, "HRESULT")
         return result
     }
 
@@ -107,7 +119,10 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     GetReJITIDs(functionId, cReJitIds, pcReJitIds, reJitIds) {
-        result := ComCall(77, this, "ptr", functionId, "uint", cReJitIds, "uint*", pcReJitIds, "ptr*", reJitIds, "HRESULT")
+        pcReJitIdsMarshal := pcReJitIds is VarRef ? "uint*" : "ptr"
+        reJitIdsMarshal := reJitIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(77, this, "ptr", functionId, "uint", cReJitIds, pcReJitIdsMarshal, pcReJitIds, reJitIdsMarshal, reJitIds, "HRESULT")
         return result
     }
 
@@ -121,7 +136,9 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     GetILToNativeMapping2(functionId, reJitId, cMap, pcMap, map) {
-        result := ComCall(78, this, "ptr", functionId, "ptr", reJitId, "uint", cMap, "uint*", pcMap, "ptr", map, "HRESULT")
+        pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(78, this, "ptr", functionId, "ptr", reJitId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
         return result
     }
 
@@ -142,7 +159,9 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     GetObjectSize2(objectId, pcSize) {
-        result := ComCall(80, this, "ptr", objectId, "ptr*", pcSize, "HRESULT")
+        pcSizeMarshal := pcSize is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(80, this, "ptr", objectId, pcSizeMarshal, pcSize, "HRESULT")
         return result
     }
 }

@@ -97,7 +97,9 @@ class IWindowsDriverUpdate extends IUpdate{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driververdate
      */
     get_DriverVerDate(retval) {
-        result := ComCall(57, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(57, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IWindowsDriverUpdate extends IUpdate{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_deviceproblemnumber
      */
     get_DeviceProblemNumber(retval) {
-        result := ComCall(58, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -119,7 +123,9 @@ class IWindowsDriverUpdate extends IUpdate{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_devicestatus
      */
     get_DeviceStatus(retval) {
-        result := ComCall(59, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(59, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

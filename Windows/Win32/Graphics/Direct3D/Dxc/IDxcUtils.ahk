@@ -91,7 +91,9 @@ class IDxcUtils extends IUnknown{
     LoadFile(pFileName, pCodePage, ppBlobEncoding) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := ComCall(7, this, "ptr", pFileName, "uint*", pCodePage, "ptr*", ppBlobEncoding, "HRESULT")
+        pCodePageMarshal := pCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pFileName, pCodePageMarshal, pCodePage, "ptr*", ppBlobEncoding, "HRESULT")
         return result
     }
 
@@ -147,7 +149,9 @@ class IDxcUtils extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDxilContainerPart(pShader, DxcPart, ppPartData, pPartSizeInBytes) {
-        result := ComCall(12, this, "ptr", pShader, "uint", DxcPart, "ptr*", ppPartData, "uint*", pPartSizeInBytes, "HRESULT")
+        pPartSizeInBytesMarshal := pPartSizeInBytes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pShader, "uint", DxcPart, "ptr*", ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "HRESULT")
         return result
     }
 

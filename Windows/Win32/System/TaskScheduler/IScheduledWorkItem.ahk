@@ -47,7 +47,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-createtrigger
      */
     CreateTrigger(piNewTrigger, ppTrigger) {
-        result := ComCall(3, this, "ushort*", piNewTrigger, "ptr*", ppTrigger, "HRESULT")
+        piNewTriggerMarshal := piNewTrigger is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, piNewTriggerMarshal, piNewTrigger, "ptr*", ppTrigger, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggercount
      */
     GetTriggerCount(pwCount) {
-        result := ComCall(5, this, "ushort*", pwCount, "HRESULT")
+        pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, pwCountMarshal, pwCount, "HRESULT")
         return result
     }
 
@@ -107,7 +111,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getruntimes
      */
     GetRunTimes(pstBegin, pstEnd, pCount, rgstTaskTimes) {
-        result := ComCall(8, this, "ptr", pstBegin, "ptr", pstEnd, "ushort*", pCount, "ptr*", rgstTaskTimes, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pstBegin, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", rgstTaskTimes, "HRESULT")
         return result
     }
 
@@ -142,7 +148,10 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getidlewait
      */
     GetIdleWait(pwIdleMinutes, pwDeadlineMinutes) {
-        result := ComCall(11, this, "ushort*", pwIdleMinutes, "ushort*", pwDeadlineMinutes, "HRESULT")
+        pwIdleMinutesMarshal := pwIdleMinutes is VarRef ? "ushort*" : "ptr"
+        pwDeadlineMinutesMarshal := pwDeadlineMinutes is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, pwIdleMinutesMarshal, pwIdleMinutes, pwDeadlineMinutesMarshal, pwDeadlineMinutes, "HRESULT")
         return result
     }
 
@@ -209,7 +218,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getexitcode
      */
     GetExitCode(pdwExitCode) {
-        result := ComCall(17, this, "uint*", pdwExitCode, "HRESULT")
+        pdwExitCodeMarshal := pdwExitCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pdwExitCodeMarshal, pdwExitCode, "HRESULT")
         return result
     }
 
@@ -269,7 +280,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setworkitemdata
      */
     SetWorkItemData(cbData, rgbData) {
-        result := ComCall(22, this, "ushort", cbData, "char*", rgbData, "HRESULT")
+        rgbDataMarshal := rgbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(22, this, "ushort", cbData, rgbDataMarshal, rgbData, "HRESULT")
         return result
     }
 
@@ -281,7 +294,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getworkitemdata
      */
     GetWorkItemData(pcbData, prgbData) {
-        result := ComCall(23, this, "ushort*", pcbData, "ptr*", prgbData, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(23, this, pcbDataMarshal, pcbData, "ptr*", prgbData, "HRESULT")
         return result
     }
 
@@ -303,7 +318,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-geterrorretrycount
      */
     GetErrorRetryCount(pwRetryCount) {
-        result := ComCall(25, this, "ushort*", pwRetryCount, "HRESULT")
+        pwRetryCountMarshal := pwRetryCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(25, this, pwRetryCountMarshal, pwRetryCount, "HRESULT")
         return result
     }
 
@@ -325,7 +342,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-geterrorretryinterval
      */
     GetErrorRetryInterval(pwRetryInterval) {
-        result := ComCall(27, this, "ushort*", pwRetryInterval, "HRESULT")
+        pwRetryIntervalMarshal := pwRetryInterval is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(27, this, pwRetryIntervalMarshal, pwRetryInterval, "HRESULT")
         return result
     }
 
@@ -501,7 +520,9 @@ class IScheduledWorkItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(29, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

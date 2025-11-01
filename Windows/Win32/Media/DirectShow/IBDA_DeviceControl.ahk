@@ -72,7 +72,9 @@ class IBDA_DeviceControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_devicecontrol-getchangestate
      */
     GetChangeState(pState) {
-        result := ComCall(6, this, "uint*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

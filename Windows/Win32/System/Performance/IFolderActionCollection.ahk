@@ -41,7 +41,9 @@ class IFolderActionCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get_count
      */
     get_Count(Count) {
-        result := ComCall(7, this, "uint*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
         return result
     }
 

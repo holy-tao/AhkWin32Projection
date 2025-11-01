@@ -99,7 +99,9 @@ class IDataModelScriptDebug extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventFilter(eventFilter, isBreakEnabled) {
-        result := ComCall(9, this, "int", eventFilter, "int*", isBreakEnabled, "HRESULT")
+        isBreakEnabledMarshal := isBreakEnabled is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", eventFilter, isBreakEnabledMarshal, isBreakEnabled, "HRESULT")
         return result
     }
 

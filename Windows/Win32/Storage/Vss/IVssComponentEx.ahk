@@ -85,7 +85,9 @@ class IVssComponentEx extends IVssComponent{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getauthoritativerestore
      */
     GetAuthoritativeRestore(pbAuth) {
-        result := ComCall(45, this, "int*", pbAuth, "HRESULT")
+        pbAuthMarshal := pbAuth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, pbAuthMarshal, pbAuth, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ class IVssComponentEx extends IVssComponent{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrollforward
      */
     GetRollForward(pRollType, pbstrPoint) {
-        result := ComCall(46, this, "int*", pRollType, "ptr", pbstrPoint, "HRESULT")
+        pRollTypeMarshal := pRollType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, pRollTypeMarshal, pRollType, "ptr", pbstrPoint, "HRESULT")
         return result
     }
 

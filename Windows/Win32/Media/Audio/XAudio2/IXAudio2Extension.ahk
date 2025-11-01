@@ -35,7 +35,10 @@ class IXAudio2Extension extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     GetProcessingQuantum(quantumNumerator, quantumDenominator) {
-        ComCall(3, this, "uint*", quantumNumerator, "uint*", quantumDenominator)
+        quantumNumeratorMarshal := quantumNumerator is VarRef ? "uint*" : "ptr"
+        quantumDenominatorMarshal := quantumDenominator is VarRef ? "uint*" : "ptr"
+
+        ComCall(3, this, quantumNumeratorMarshal, quantumNumerator, quantumDenominatorMarshal, quantumDenominator)
     }
 
     /**
@@ -44,6 +47,8 @@ class IXAudio2Extension extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     GetProcessor(processor) {
-        ComCall(4, this, "uint*", processor)
+        processorMarshal := processor is VarRef ? "uint*" : "ptr"
+
+        ComCall(4, this, processorMarshal, processor)
     }
 }

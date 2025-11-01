@@ -37,7 +37,9 @@ class IOfflineFilesItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitem-getitemtype
      */
     GetItemType(pItemType) {
-        result := ComCall(3, this, "int*", pItemType, "HRESULT")
+        pItemTypeMarshal := pItemType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pItemTypeMarshal, pItemType, "HRESULT")
         return result
     }
 

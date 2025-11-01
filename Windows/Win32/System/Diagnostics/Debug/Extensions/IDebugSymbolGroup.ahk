@@ -34,7 +34,9 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberSymbols(Number) {
-        result := ComCall(3, this, "uint*", Number, "HRESULT")
+        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, NumberMarshal, Number, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IDebugSymbolGroup extends IUnknown{
     AddSymbol(Name, Index) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(4, this, "ptr", Name, "uint*", Index, "HRESULT")
+        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", Name, IndexMarshal, Index, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class IDebugSymbolGroup extends IUnknown{
     GetSymbolName(Index, Buffer, BufferSize, NameSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
         return result
     }
 

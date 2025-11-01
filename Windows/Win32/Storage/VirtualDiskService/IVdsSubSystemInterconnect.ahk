@@ -37,7 +37,9 @@ class IVdsSubSystemInterconnect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsysteminterconnect-getsupportedinterconnects
      */
     GetSupportedInterconnects(pulSupportedInterconnectsFlag) {
-        result := ComCall(3, this, "uint*", pulSupportedInterconnectsFlag, "HRESULT")
+        pulSupportedInterconnectsFlagMarshal := pulSupportedInterconnectsFlag is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulSupportedInterconnectsFlagMarshal, pulSupportedInterconnectsFlag, "HRESULT")
         return result
     }
 }

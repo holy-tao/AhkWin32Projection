@@ -68,7 +68,11 @@ class IMFByteStreamTimeSeek extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-gettimeseekresult
      */
     GetTimeSeekResult(pqwStartTime, pqwStopTime, pqwDuration) {
-        result := ComCall(5, this, "uint*", pqwStartTime, "uint*", pqwStopTime, "uint*", pqwDuration, "HRESULT")
+        pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : "ptr"
+        pqwStopTimeMarshal := pqwStopTime is VarRef ? "uint*" : "ptr"
+        pqwDurationMarshal := pqwDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pqwStartTimeMarshal, pqwStartTime, pqwStopTimeMarshal, pqwStopTime, pqwDurationMarshal, pqwDuration, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,9 @@ class IResultOwnerData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultownerdata-finditem
      */
     FindItem(pFindInfo, pnFoundIndex) {
-        result := ComCall(3, this, "ptr", pFindInfo, "int*", pnFoundIndex, "HRESULT")
+        pnFoundIndexMarshal := pnFoundIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pFindInfo, pnFoundIndexMarshal, pnFoundIndex, "HRESULT")
         return result
     }
 

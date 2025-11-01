@@ -82,7 +82,11 @@ class IWMPContentPartnerCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-getcatalogversion
      */
     GetCatalogVersion(pdwVersion, pdwSchemaVersion, plcid) {
-        result := ComCall(6, this, "uint*", pdwVersion, "uint*", pdwSchemaVersion, "uint*", plcid, "HRESULT")
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+        pdwSchemaVersionMarshal := pdwSchemaVersion is VarRef ? "uint*" : "ptr"
+        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwVersionMarshal, pdwVersion, pdwSchemaVersionMarshal, pdwSchemaVersion, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -125,7 +129,9 @@ class IWMPContentPartnerCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-addlistcontents
      */
     AddListContents(dwListCookie, cItems, prgItems) {
-        result := ComCall(9, this, "uint", dwListCookie, "uint", cItems, "uint*", prgItems, "HRESULT")
+        prgItemsMarshal := prgItems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", dwListCookie, "uint", cItems, prgItemsMarshal, prgItems, "HRESULT")
         return result
     }
 
@@ -166,7 +172,9 @@ class IWMPContentPartnerCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-getcontentidsinlibrary
      */
     GetContentIDsInLibrary(pcContentIDs, pprgIDs) {
-        result := ComCall(12, this, "uint*", pcContentIDs, "ptr*", pprgIDs, "HRESULT")
+        pcContentIDsMarshal := pcContentIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pcContentIDsMarshal, pcContentIDs, "ptr*", pprgIDs, "HRESULT")
         return result
     }
 

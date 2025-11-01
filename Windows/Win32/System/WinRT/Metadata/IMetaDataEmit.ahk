@@ -71,7 +71,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSaveSize(fSave, pdwSaveSize) {
-        result := ComCall(6, this, "int", fSave, "uint*", pdwSaveSize, "HRESULT")
+        pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
         return result
     }
 
@@ -87,7 +89,10 @@ class IMetaDataEmit extends IUnknown{
     DefineTypeDef(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, ptd) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
 
-        result := ComCall(7, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, "uint*", rtkImplements, "uint*", ptd, "HRESULT")
+        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
+        ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, ptdMarshal, ptd, "HRESULT")
         return result
     }
 
@@ -104,7 +109,10 @@ class IMetaDataEmit extends IUnknown{
     DefineNestedType(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, tdEncloser, ptd) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
 
-        result := ComCall(8, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, "uint*", rtkImplements, "uint", tdEncloser, "uint*", ptd, "HRESULT")
+        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
+        ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, "uint", tdEncloser, ptdMarshal, ptd, "HRESULT")
         return result
     }
 
@@ -133,7 +141,10 @@ class IMetaDataEmit extends IUnknown{
     DefineMethod(td, szName, dwMethodFlags, pvSigBlob, cbSigBlob, ulCodeRVA, dwImplFlags, pmd) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(10, this, "uint", td, "ptr", szName, "uint", dwMethodFlags, "char*", pvSigBlob, "uint", cbSigBlob, "uint", ulCodeRVA, "uint", dwImplFlags, "uint*", pmd, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", td, "ptr", szName, "uint", dwMethodFlags, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, "uint", ulCodeRVA, "uint", dwImplFlags, pmdMarshal, pmd, "HRESULT")
         return result
     }
 
@@ -159,7 +170,9 @@ class IMetaDataEmit extends IUnknown{
     DefineTypeRefByName(tkResolutionScope, szName, ptr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(12, this, "uint", tkResolutionScope, "ptr", szName, "uint*", ptr, "HRESULT")
+        ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "HRESULT")
         return result
     }
 
@@ -175,7 +188,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DefineImportType(pAssemImport, pbHashValue, cbHashValue, pImport, tdImport, pAssemEmit, ptr) {
-        result := ComCall(13, this, "ptr", pAssemImport, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", tdImport, "ptr", pAssemEmit, "uint*", ptr, "HRESULT")
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+        ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", tdImport, "ptr", pAssemEmit, ptrMarshal, ptr, "HRESULT")
         return result
     }
 
@@ -191,7 +207,10 @@ class IMetaDataEmit extends IUnknown{
     DefineMemberRef(tkImport, szName, pvSigBlob, cbSigBlob, pmr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(14, this, "uint", tkImport, "ptr", szName, "char*", pvSigBlob, "uint", cbSigBlob, "uint*", pmr, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", tkImport, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmrMarshal, pmr, "HRESULT")
         return result
     }
 
@@ -208,7 +227,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DefineImportMember(pAssemImport, pbHashValue, cbHashValue, pImport, mbMember, pAssemEmit, tkParent, pmr) {
-        result := ComCall(15, this, "ptr", pAssemImport, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", mbMember, "ptr", pAssemEmit, "uint", tkParent, "uint*", pmr, "HRESULT")
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+        pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", mbMember, "ptr", pAssemEmit, "uint", tkParent, pmrMarshal, pmr, "HRESULT")
         return result
     }
 
@@ -228,7 +250,10 @@ class IMetaDataEmit extends IUnknown{
     DefineEvent(td, szEvent, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods, pmdEvent) {
         szEvent := szEvent is String ? StrPtr(szEvent) : szEvent
 
-        result := ComCall(16, this, "uint", td, "ptr", szEvent, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, "uint*", rmdOtherMethods, "uint*", pmdEvent, "HRESULT")
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
+        pmdEventMarshal := pmdEvent is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", td, "ptr", szEvent, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, pmdEventMarshal, pmdEvent, "HRESULT")
         return result
     }
 
@@ -263,7 +288,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFieldMarshal(tk, pvNativeType, cbNativeType) {
-        result := ComCall(19, this, "uint", tk, "char*", pvNativeType, "uint", cbNativeType, "HRESULT")
+        pvNativeTypeMarshal := pvNativeType is VarRef ? "char*" : "ptr"
+
+        result := ComCall(19, this, "uint", tk, pvNativeTypeMarshal, pvNativeType, "uint", cbNativeType, "HRESULT")
         return result
     }
 
@@ -287,7 +314,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DefinePermissionSet(tk, dwAction, pvPermission, cbPermission, ppm) {
-        result := ComCall(21, this, "uint", tk, "uint", dwAction, "ptr", pvPermission, "uint", cbPermission, "uint*", ppm, "HRESULT")
+        pvPermissionMarshal := pvPermission is VarRef ? "ptr" : "ptr"
+        ppmMarshal := ppm is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", tk, "uint", dwAction, pvPermissionMarshal, pvPermission, "uint", cbPermission, ppmMarshal, ppm, "HRESULT")
         return result
     }
 
@@ -310,7 +340,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTokenFromSig(pvSig, cbSig, pmsig) {
-        result := ComCall(23, this, "char*", pvSig, "uint", cbSig, "uint*", pmsig, "HRESULT")
+        pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
+        pmsigMarshal := pmsig is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, pvSigMarshal, pvSig, "uint", cbSig, pmsigMarshal, pmsig, "HRESULT")
         return result
     }
 
@@ -323,7 +356,9 @@ class IMetaDataEmit extends IUnknown{
     DefineModuleRef(szName, pmur) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(24, this, "ptr", szName, "uint*", pmur, "HRESULT")
+        pmurMarshal := pmur is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "ptr", szName, pmurMarshal, pmur, "HRESULT")
         return result
     }
 
@@ -351,7 +386,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTokenFromTypeSpec(pvSig, cbSig, ptypespec) {
-        result := ComCall(26, this, "char*", pvSig, "uint", cbSig, "uint*", ptypespec, "HRESULT")
+        pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
+        ptypespecMarshal := ptypespec is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, pvSigMarshal, pvSig, "uint", cbSig, ptypespecMarshal, ptypespec, "HRESULT")
         return result
     }
 
@@ -362,7 +400,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SaveToMemory(pbData, cbData) {
-        result := ComCall(27, this, "ptr", pbData, "uint", cbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(27, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -376,7 +416,9 @@ class IMetaDataEmit extends IUnknown{
     DefineUserString(szString, cchString, pstk) {
         szString := szString is String ? StrPtr(szString) : szString
 
-        result := ComCall(28, this, "ptr", szString, "uint", cchString, "uint*", pstk, "HRESULT")
+        pstkMarshal := pstk is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, "ptr", szString, "uint", cchString, pstkMarshal, pstk, "HRESULT")
         return result
     }
 
@@ -412,7 +454,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTypeDefProps(td, dwTypeDefFlags, tkExtends, rtkImplements) {
-        result := ComCall(31, this, "uint", td, "uint", dwTypeDefFlags, "uint", tkExtends, "uint*", rtkImplements, "HRESULT")
+        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "uint", td, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, "HRESULT")
         return result
     }
 
@@ -428,7 +472,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEventProps(ev, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods) {
-        result := ComCall(32, this, "uint", ev, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, "uint*", rmdOtherMethods, "HRESULT")
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(32, this, "uint", ev, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, "HRESULT")
         return result
     }
 
@@ -442,7 +488,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPermissionSetProps(tk, dwAction, pvPermission, cbPermission, ppm) {
-        result := ComCall(33, this, "uint", tk, "uint", dwAction, "ptr", pvPermission, "uint", cbPermission, "uint*", ppm, "HRESULT")
+        pvPermissionMarshal := pvPermission is VarRef ? "ptr" : "ptr"
+        ppmMarshal := ppm is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "uint", tk, "uint", dwAction, pvPermissionMarshal, pvPermission, "uint", cbPermission, ppmMarshal, ppm, "HRESULT")
         return result
     }
 
@@ -496,7 +545,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DefineCustomAttribute(tkOwner, tkCtor, pCustomAttribute, cbCustomAttribute, pcv) {
-        result := ComCall(37, this, "uint", tkOwner, "uint", tkCtor, "ptr", pCustomAttribute, "uint", cbCustomAttribute, "uint*", pcv, "HRESULT")
+        pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : "ptr"
+        pcvMarshal := pcv is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "uint", tkOwner, "uint", tkCtor, pCustomAttributeMarshal, pCustomAttribute, "uint", cbCustomAttribute, pcvMarshal, pcv, "HRESULT")
         return result
     }
 
@@ -508,7 +560,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute) {
-        result := ComCall(38, this, "uint", pcv, "ptr", pCustomAttribute, "uint", cbCustomAttribute, "HRESULT")
+        pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(38, this, "uint", pcv, pCustomAttributeMarshal, pCustomAttribute, "uint", cbCustomAttribute, "HRESULT")
         return result
     }
 
@@ -528,7 +582,11 @@ class IMetaDataEmit extends IUnknown{
     DefineField(td, szName, dwFieldFlags, pvSigBlob, cbSigBlob, dwCPlusTypeFlag, pValue, cchValue, pmd) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(39, this, "uint", td, "ptr", szName, "uint", dwFieldFlags, "char*", pvSigBlob, "uint", cbSigBlob, "uint", dwCPlusTypeFlag, "ptr", pValue, "uint", cchValue, "uint*", pmd, "HRESULT")
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+        pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, "uint", td, "ptr", szName, "uint", dwFieldFlags, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, pmdMarshal, pmd, "HRESULT")
         return result
     }
 
@@ -551,7 +609,12 @@ class IMetaDataEmit extends IUnknown{
     DefineProperty(td, szProperty, dwPropFlags, pvSig, cbSig, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods, pmdProp) {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
 
-        result := ComCall(40, this, "uint", td, "ptr", szProperty, "uint", dwPropFlags, "char*", pvSig, "uint", cbSig, "uint", dwCPlusTypeFlag, "ptr", pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, "uint*", rmdOtherMethods, "uint*", pmdProp, "HRESULT")
+        pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
+        pmdPropMarshal := pmdProp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, "uint", td, "ptr", szProperty, "uint", dwPropFlags, pvSigMarshal, pvSig, "uint", cbSig, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, pmdPropMarshal, pmdProp, "HRESULT")
         return result
     }
 
@@ -570,7 +633,10 @@ class IMetaDataEmit extends IUnknown{
     DefineParam(md, ulParamSeq, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue, ppd) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(41, this, "uint", md, "uint", ulParamSeq, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, "ptr", pValue, "uint", cchValue, "uint*", ppd, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+        ppdMarshal := ppd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, "uint", md, "uint", ulParamSeq, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, ppdMarshal, ppd, "HRESULT")
         return result
     }
 
@@ -584,7 +650,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFieldProps(fd, dwFieldFlags, dwCPlusTypeFlag, pValue, cchValue) {
-        result := ComCall(42, this, "uint", fd, "uint", dwFieldFlags, "uint", dwCPlusTypeFlag, "ptr", pValue, "uint", cchValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(42, this, "uint", fd, "uint", dwFieldFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "HRESULT")
         return result
     }
 
@@ -601,7 +669,10 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPropertyProps(pr, dwPropFlags, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods) {
-        result := ComCall(43, this, "uint", pr, "uint", dwPropFlags, "uint", dwCPlusTypeFlag, "ptr", pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, "uint*", rmdOtherMethods, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, "uint", pr, "uint", dwPropFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, "HRESULT")
         return result
     }
 
@@ -618,7 +689,9 @@ class IMetaDataEmit extends IUnknown{
     SetParamProps(pd, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(44, this, "uint", pd, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, "ptr", pValue, "uint", cchValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(44, this, "uint", pd, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "HRESULT")
         return result
     }
 
@@ -631,7 +704,9 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DefineSecurityAttributeSet(tkObj, rSecAttrs, cSecAttrs, pulErrorAttr) {
-        result := ComCall(45, this, "uint", tkObj, "ptr", rSecAttrs, "uint", cSecAttrs, "uint*", pulErrorAttr, "HRESULT")
+        pulErrorAttrMarshal := pulErrorAttr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(45, this, "uint", tkObj, "ptr", rSecAttrs, "uint", cSecAttrs, pulErrorAttrMarshal, pulErrorAttr, "HRESULT")
         return result
     }
 
@@ -661,7 +736,12 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     TranslateSigWithScope(pAssemImport, pbHashValue, cbHashValue, import, pbSigBlob, cbSigBlob, pAssemEmit, emit, pvTranslatedSig, cbTranslatedSigMax, pcbTranslatedSig) {
-        result := ComCall(47, this, "ptr", pAssemImport, "ptr", pbHashValue, "uint", cbHashValue, "ptr", import, "char*", pbSigBlob, "uint", cbSigBlob, "ptr", pAssemEmit, "ptr", emit, "char*", pvTranslatedSig, "uint", cbTranslatedSigMax, "uint*", pcbTranslatedSig, "HRESULT")
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+        pbSigBlobMarshal := pbSigBlob is VarRef ? "char*" : "ptr"
+        pvTranslatedSigMarshal := pvTranslatedSig is VarRef ? "char*" : "ptr"
+        pcbTranslatedSigMarshal := pcbTranslatedSig is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(47, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", import, pbSigBlobMarshal, pbSigBlob, "uint", cbSigBlob, "ptr", pAssemEmit, "ptr", emit, pvTranslatedSigMarshal, pvTranslatedSig, "uint", cbTranslatedSigMax, pcbTranslatedSigMarshal, pcbTranslatedSig, "HRESULT")
         return result
     }
 

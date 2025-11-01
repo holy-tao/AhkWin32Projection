@@ -50,7 +50,10 @@ class IMFContentEnabler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenableurl
      */
     GetEnableURL(ppwszURL, pcchURL, pTrustStatus) {
-        result := ComCall(4, this, "ptr", ppwszURL, "uint*", pcchURL, "int*", pTrustStatus, "HRESULT")
+        pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
+        pTrustStatusMarshal := pTrustStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", ppwszURL, pcchURLMarshal, pcchURL, pTrustStatusMarshal, pTrustStatus, "HRESULT")
         return result
     }
 
@@ -62,7 +65,9 @@ class IMFContentEnabler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenabledata
      */
     GetEnableData(ppbData, pcbData) {
-        result := ComCall(5, this, "ptr*", ppbData, "uint*", pcbData, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 

@@ -65,7 +65,9 @@ class IWdsTransportTftpClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_timeout
      */
     get_Timeout(pulTimeout) {
-        result := ComCall(9, this, "uint*", pulTimeout, "HRESULT")
+        pulTimeoutMarshal := pulTimeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pulTimeoutMarshal, pulTimeout, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IWdsTransportTftpClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_currentfileoffset
      */
     get_CurrentFileOffset(pul64CurrentOffset) {
-        result := ComCall(10, this, "uint*", pul64CurrentOffset, "HRESULT")
+        pul64CurrentOffsetMarshal := pul64CurrentOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pul64CurrentOffsetMarshal, pul64CurrentOffset, "HRESULT")
         return result
     }
 
@@ -87,7 +91,9 @@ class IWdsTransportTftpClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filesize
      */
     get_FileSize(pul64FileSize) {
-        result := ComCall(11, this, "uint*", pul64FileSize, "HRESULT")
+        pul64FileSizeMarshal := pul64FileSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pul64FileSizeMarshal, pul64FileSize, "HRESULT")
         return result
     }
 
@@ -98,7 +104,9 @@ class IWdsTransportTftpClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_blocksize
      */
     get_BlockSize(pulBlockSize) {
-        result := ComCall(12, this, "uint*", pulBlockSize, "HRESULT")
+        pulBlockSizeMarshal := pulBlockSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pulBlockSizeMarshal, pulBlockSize, "HRESULT")
         return result
     }
 
@@ -109,7 +117,9 @@ class IWdsTransportTftpClient extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_windowsize
      */
     get_WindowSize(pulWindowSize) {
-        result := ComCall(13, this, "uint*", pulWindowSize, "HRESULT")
+        pulWindowSizeMarshal := pulWindowSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pulWindowSizeMarshal, pulWindowSize, "HRESULT")
         return result
     }
 }

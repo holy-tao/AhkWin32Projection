@@ -83,7 +83,9 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     ScaleConvertedToBaseOffset(ullOffsetConvertedStream, pullOffsetBaseStream) {
-        result := ComCall(19, this, "uint", ullOffsetConvertedStream, "uint*", pullOffsetBaseStream, "HRESULT")
+        pullOffsetBaseStreamMarshal := pullOffsetBaseStream is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "uint", ullOffsetConvertedStream, pullOffsetBaseStreamMarshal, pullOffsetBaseStream, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     ScaleBaseToConvertedOffset(ullOffsetBaseStream, pullOffsetConvertedStream) {
-        result := ComCall(20, this, "uint", ullOffsetBaseStream, "uint*", pullOffsetConvertedStream, "HRESULT")
+        pullOffsetConvertedStreamMarshal := pullOffsetConvertedStream is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", ullOffsetBaseStream, pullOffsetConvertedStreamMarshal, pullOffsetConvertedStream, "HRESULT")
         return result
     }
 }

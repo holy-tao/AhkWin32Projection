@@ -53,7 +53,9 @@ class IBDA_FrequencyFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_autotune
      */
     get_Autotune(pulTransponder) {
-        result := ComCall(4, this, "uint*", pulTransponder, "HRESULT")
+        pulTransponderMarshal := pulTransponder is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulTransponderMarshal, pulTransponder, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IBDA_FrequencyFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_frequency
      */
     get_Frequency(pulFrequency) {
-        result := ComCall(6, this, "uint*", pulFrequency, "HRESULT")
+        pulFrequencyMarshal := pulFrequency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulFrequencyMarshal, pulFrequency, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class IBDA_FrequencyFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_polarity
      */
     get_Polarity(pPolarity) {
-        result := ComCall(8, this, "int*", pPolarity, "HRESULT")
+        pPolarityMarshal := pPolarity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pPolarityMarshal, pPolarity, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IBDA_FrequencyFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_range
      */
     get_Range(pulRange) {
-        result := ComCall(10, this, "uint*", pulRange, "HRESULT")
+        pulRangeMarshal := pulRange is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pulRangeMarshal, pulRange, "HRESULT")
         return result
     }
 
@@ -141,7 +149,9 @@ class IBDA_FrequencyFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_bandwidth
      */
     get_Bandwidth(pulBandwidth) {
-        result := ComCall(12, this, "uint*", pulBandwidth, "HRESULT")
+        pulBandwidthMarshal := pulBandwidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pulBandwidthMarshal, pulBandwidth, "HRESULT")
         return result
     }
 
@@ -163,7 +173,9 @@ class IBDA_FrequencyFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_frequencymultiplier
      */
     get_FrequencyMultiplier(pulMultiplier) {
-        result := ComCall(14, this, "uint*", pulMultiplier, "HRESULT")
+        pulMultiplierMarshal := pulMultiplier is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pulMultiplierMarshal, pulMultiplier, "HRESULT")
         return result
     }
 }

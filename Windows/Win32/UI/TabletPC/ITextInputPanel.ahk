@@ -82,7 +82,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinteractionmode
      */
     get_CurrentInteractionMode(CurrentInteractionMode) {
-        result := ComCall(5, this, "int*", CurrentInteractionMode, "HRESULT")
+        CurrentInteractionModeMarshal := CurrentInteractionMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, CurrentInteractionModeMarshal, CurrentInteractionMode, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_defaultinplacestate
      */
     get_DefaultInPlaceState(State) {
-        result := ComCall(6, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, StateMarshal, State, "HRESULT")
         return result
     }
 
@@ -115,7 +119,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinplacestate
      */
     get_CurrentInPlaceState(State) {
-        result := ComCall(8, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, StateMarshal, State, "HRESULT")
         return result
     }
 
@@ -126,7 +132,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_defaultinputarea
      */
     get_DefaultInputArea(Area) {
-        result := ComCall(9, this, "int*", Area, "HRESULT")
+        AreaMarshal := Area is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, AreaMarshal, Area, "HRESULT")
         return result
     }
 
@@ -148,7 +156,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentinputarea
      */
     get_CurrentInputArea(Area) {
-        result := ComCall(11, this, "int*", Area, "HRESULT")
+        AreaMarshal := Area is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, AreaMarshal, Area, "HRESULT")
         return result
     }
 
@@ -159,7 +169,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentcorrectionmode
      */
     get_CurrentCorrectionMode(Mode) {
-        result := ComCall(12, this, "int*", Mode, "HRESULT")
+        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, ModeMarshal, Mode, "HRESULT")
         return result
     }
 
@@ -170,7 +182,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_preferredinplacedirection
      */
     get_PreferredInPlaceDirection(Direction) {
-        result := ComCall(13, this, "int*", Direction, "HRESULT")
+        DirectionMarshal := Direction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, DirectionMarshal, Direction, "HRESULT")
         return result
     }
 
@@ -247,7 +261,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_popupcorrectionheight
      */
     get_PopUpCorrectionHeight(Height) {
-        result := ComCall(20, this, "int*", Height, "HRESULT")
+        HeightMarshal := Height is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, HeightMarshal, Height, "HRESULT")
         return result
     }
 
@@ -258,7 +274,9 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_popdowncorrectionheight
      */
     get_PopDownCorrectionHeight(Height) {
-        result := ComCall(21, this, "int*", Height, "HRESULT")
+        HeightMarshal := Height is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, HeightMarshal, Height, "HRESULT")
         return result
     }
 

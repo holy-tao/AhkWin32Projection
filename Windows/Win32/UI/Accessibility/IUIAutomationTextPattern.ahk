@@ -94,7 +94,9 @@ class IUIAutomationTextPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_supportedtextselection
      */
     get_SupportedTextSelection(supportedTextSelection) {
-        result := ComCall(8, this, "int*", supportedTextSelection, "HRESULT")
+        supportedTextSelectionMarshal := supportedTextSelection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, supportedTextSelectionMarshal, supportedTextSelection, "HRESULT")
         return result
     }
 }

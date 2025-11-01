@@ -40,7 +40,9 @@ class IActiveScriptStringCompare extends IUnknown{
         bszStr1 := bszStr1 is String ? BSTR.Alloc(bszStr1).Value : bszStr1
         bszStr2 := bszStr2 is String ? BSTR.Alloc(bszStr2).Value : bszStr2
 
-        result := ComCall(3, this, "ptr", bszStr1, "ptr", bszStr2, "int*", iRet, "HRESULT")
+        iRetMarshal := iRet is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", bszStr1, "ptr", bszStr2, iRetMarshal, iRet, "HRESULT")
         return result
     }
 }

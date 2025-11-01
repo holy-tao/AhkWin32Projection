@@ -44,7 +44,9 @@ class IWSDEndpointProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendonewayrequest
      */
     SendOneWayRequest(pBody, pOperation) {
-        result := ComCall(3, this, "ptr", pBody, "ptr", pOperation, "HRESULT")
+        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pBodyMarshal, pBody, "ptr", pOperation, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IWSDEndpointProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequest
      */
     SendTwoWayRequest(pBody, pOperation, pResponseContext) {
-        result := ComCall(4, this, "ptr", pBody, "ptr", pOperation, "ptr", pResponseContext, "HRESULT")
+        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pResponseContext, "HRESULT")
         return result
     }
 
@@ -72,7 +76,9 @@ class IWSDEndpointProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequestasync
      */
     SendTwoWayRequestAsync(pBody, pOperation, pAsyncState, pCallback, pResult) {
-        result := ComCall(5, this, "ptr", pBody, "ptr", pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", pResult, "HRESULT")
+        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", pResult, "HRESULT")
         return result
     }
 

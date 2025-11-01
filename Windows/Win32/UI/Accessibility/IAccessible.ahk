@@ -49,7 +49,9 @@ class IAccessible extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accchildcount
      */
     get_accChildCount(pcountChildren) {
-        result := ComCall(8, this, "int*", pcountChildren, "HRESULT")
+        pcountChildrenMarshal := pcountChildren is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pcountChildrenMarshal, pcountChildren, "HRESULT")
         return result
     }
 
@@ -146,7 +148,9 @@ class IAccessible extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acchelptopic
      */
     get_accHelpTopic(pszHelpFile, varChild, pidTopic) {
-        result := ComCall(16, this, "ptr", pszHelpFile, "ptr", varChild, "int*", pidTopic, "HRESULT")
+        pidTopicMarshal := pidTopic is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", pszHelpFile, "ptr", varChild, pidTopicMarshal, pidTopic, "HRESULT")
         return result
     }
 
@@ -219,7 +223,12 @@ class IAccessible extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-acclocation
      */
     accLocation(pxLeft, pyTop, pcxWidth, pcyHeight, varChild) {
-        result := ComCall(22, this, "int*", pxLeft, "int*", pyTop, "int*", pcxWidth, "int*", pcyHeight, "ptr", varChild, "HRESULT")
+        pxLeftMarshal := pxLeft is VarRef ? "int*" : "ptr"
+        pyTopMarshal := pyTop is VarRef ? "int*" : "ptr"
+        pcxWidthMarshal := pcxWidth is VarRef ? "int*" : "ptr"
+        pcyHeightMarshal := pcyHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pxLeftMarshal, pxLeft, pyTopMarshal, pyTop, pcxWidthMarshal, pcxWidth, pcyHeightMarshal, pcyHeight, "ptr", varChild, "HRESULT")
         return result
     }
 

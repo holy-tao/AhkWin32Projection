@@ -37,7 +37,9 @@ class ISpPrivateEngineCallEx extends IUnknown{
      * @returns {HRESULT} 
      */
     CallEngineSynchronize(pInFrame, ulInFrameSize, ppCoMemOutFrame, pulOutFrameSize) {
-        result := ComCall(3, this, "ptr", pInFrame, "uint", ulInFrameSize, "ptr*", ppCoMemOutFrame, "uint*", pulOutFrameSize, "HRESULT")
+        pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pInFrame, "uint", ulInFrameSize, "ptr*", ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class ISpPrivateEngineCallEx extends IUnknown{
      * @returns {HRESULT} 
      */
     CallEngineImmediate(pInFrame, ulInFrameSize, ppCoMemOutFrame, pulOutFrameSize) {
-        result := ComCall(4, this, "ptr", pInFrame, "uint", ulInFrameSize, "ptr*", ppCoMemOutFrame, "uint*", pulOutFrameSize, "HRESULT")
+        pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pInFrame, "uint", ulInFrameSize, "ptr*", ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
         return result
     }
 }

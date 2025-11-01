@@ -94,7 +94,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_IntervalDuration(pIntervalDuration) {
-        result := ComCall(9, this, "uint*", pIntervalDuration, "HRESULT")
+        pIntervalDurationMarshal := pIntervalDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pIntervalDurationMarshal, pIntervalDuration, "HRESULT")
         return result
     }
 
@@ -134,7 +136,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_MaxRunCount(pMaxRunCount) {
-        result := ComCall(13, this, "uint*", pMaxRunCount, "HRESULT")
+        pMaxRunCountMarshal := pMaxRunCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pMaxRunCountMarshal, pMaxRunCount, "HRESULT")
         return result
     }
 
@@ -154,7 +158,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_RunCount(pRunCount) {
-        result := ComCall(15, this, "uint*", pRunCount, "HRESULT")
+        pRunCountMarshal := pRunCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pRunCountMarshal, pRunCount, "HRESULT")
         return result
     }
 
@@ -174,7 +180,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_RecurrenceType(pRecurrenceType) {
-        result := ComCall(17, this, "uint*", pRecurrenceType, "HRESULT")
+        pRecurrenceTypeMarshal := pRecurrenceType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pRecurrenceTypeMarshal, pRecurrenceType, "HRESULT")
         return result
     }
 
@@ -195,7 +203,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TileXML(pTileXml, pcbTileXml) {
-        result := ComCall(19, this, "ptr*", pTileXml, "uint*", pcbTileXml, "HRESULT")
+        pcbTileXmlMarshal := pcbTileXml is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr*", pTileXml, pcbTileXmlMarshal, pcbTileXml, "HRESULT")
         return result
     }
 
@@ -206,7 +216,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_TileXML(pTileXml, cbTileXml) {
-        result := ComCall(20, this, "char*", pTileXml, "uint", cbTileXml, "HRESULT")
+        pTileXmlMarshal := pTileXml is VarRef ? "char*" : "ptr"
+
+        result := ComCall(20, this, pTileXmlMarshal, pTileXml, "uint", cbTileXml, "HRESULT")
         return result
     }
 
@@ -217,7 +229,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_UrlXML(pUrlXML, pcbUrlXML) {
-        result := ComCall(21, this, "ptr*", pUrlXML, "uint*", pcbUrlXML, "HRESULT")
+        pcbUrlXMLMarshal := pcbUrlXML is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ptr*", pUrlXML, pcbUrlXMLMarshal, pcbUrlXML, "HRESULT")
         return result
     }
 
@@ -228,7 +242,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_UrlXML(pUrlXML, cbUrlXML) {
-        result := ComCall(22, this, "char*", pUrlXML, "uint", cbUrlXML, "HRESULT")
+        pUrlXMLMarshal := pUrlXML is VarRef ? "char*" : "ptr"
+
+        result := ComCall(22, this, pUrlXMLMarshal, pUrlXML, "uint", cbUrlXML, "HRESULT")
         return result
     }
 
@@ -238,7 +254,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AttemptCount(pAttemptCount) {
-        result := ComCall(23, this, "uint*", pAttemptCount, "HRESULT")
+        pAttemptCountMarshal := pAttemptCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, pAttemptCountMarshal, pAttemptCount, "HRESULT")
         return result
     }
 
@@ -258,7 +276,9 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DownloadState(pDownloadState) {
-        result := ComCall(25, this, "uint*", pDownloadState, "HRESULT")
+        pDownloadStateMarshal := pDownloadState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, pDownloadStateMarshal, pDownloadState, "HRESULT")
         return result
     }
 

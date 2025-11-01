@@ -98,7 +98,9 @@ class IAtscPsipParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getpmt
      */
     GetPMT(pid, pwProgramNumber, ppPMT) {
-        result := ComCall(6, this, "ushort", pid, "ushort*", pwProgramNumber, "ptr*", ppPMT, "HRESULT")
+        pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", ppPMT, "HRESULT")
         return result
     }
 
@@ -147,7 +149,9 @@ class IAtscPsipParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-geteit
      */
     GetEIT(pid, pwSourceId, dwTimeout, ppEIT) {
-        result := ComCall(10, this, "ushort", pid, "ushort*", pwSourceId, "uint", dwTimeout, "ptr*", ppEIT, "HRESULT")
+        pwSourceIdMarshal := pwSourceId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, "ushort", pid, pwSourceIdMarshal, pwSourceId, "uint", dwTimeout, "ptr*", ppEIT, "HRESULT")
         return result
     }
 
@@ -161,7 +165,10 @@ class IAtscPsipParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getett
      */
     GetETT(pid, wSourceId, pwEventId, ppETT) {
-        result := ComCall(11, this, "ushort", pid, "ushort*", wSourceId, "ushort*", pwEventId, "ptr*", ppETT, "HRESULT")
+        wSourceIdMarshal := wSourceId is VarRef ? "ushort*" : "ptr"
+        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, "ushort", pid, wSourceIdMarshal, wSourceId, pwEventIdMarshal, pwEventId, "ptr*", ppETT, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class IOfflineFilesEventsFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileseventsfilter-getpathfilter
      */
     GetPathFilter(ppszFilter, pMatch) {
-        result := ComCall(3, this, "ptr", ppszFilter, "int*", pMatch, "HRESULT")
+        pMatchMarshal := pMatch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ppszFilter, pMatchMarshal, pMatch, "HRESULT")
         return result
     }
 
@@ -51,7 +53,10 @@ class IOfflineFilesEventsFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileseventsfilter-getincludedevents
      */
     GetIncludedEvents(cElements, prgEvents, pcEvents) {
-        result := ComCall(4, this, "uint", cElements, "int*", prgEvents, "uint*", pcEvents, "HRESULT")
+        prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
+        pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
         return result
     }
 
@@ -64,7 +69,10 @@ class IOfflineFilesEventsFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileseventsfilter-getexcludedevents
      */
     GetExcludedEvents(cElements, prgEvents, pcEvents) {
-        result := ComCall(5, this, "uint", cElements, "int*", prgEvents, "uint*", pcEvents, "HRESULT")
+        prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
+        pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
         return result
     }
 }

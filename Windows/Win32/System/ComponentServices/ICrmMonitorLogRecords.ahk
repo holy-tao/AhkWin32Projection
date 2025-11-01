@@ -37,7 +37,9 @@ class ICrmMonitorLogRecords extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_count
      */
     get_Count(pVal) {
-        result := ComCall(3, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ICrmMonitorLogRecords extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_transactionstate
      */
     get_TransactionState(pVal) {
-        result := ComCall(4, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

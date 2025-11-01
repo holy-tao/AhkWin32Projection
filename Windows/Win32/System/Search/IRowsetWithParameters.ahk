@@ -36,7 +36,9 @@ class IRowsetWithParameters extends IUnknown{
      * @returns {HRESULT} 
      */
     GetParameterInfo(pcParams, prgParamInfo, ppNamesBuffer) {
-        result := ComCall(3, this, "ptr*", pcParams, "ptr*", prgParamInfo, "ptr*", ppNamesBuffer, "HRESULT")
+        pcParamsMarshal := pcParams is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pcParamsMarshal, pcParams, "ptr*", prgParamInfo, "ptr*", ppNamesBuffer, "HRESULT")
         return result
     }
 
@@ -48,7 +50,10 @@ class IRowsetWithParameters extends IUnknown{
      * @returns {HRESULT} 
      */
     Requery(pParams, pulErrorParam, phReserved) {
-        result := ComCall(4, this, "ptr", pParams, "uint*", pulErrorParam, "ptr*", phReserved, "HRESULT")
+        pulErrorParamMarshal := pulErrorParam is VarRef ? "uint*" : "ptr"
+        phReservedMarshal := phReserved is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pParams, pulErrorParamMarshal, pulErrorParam, phReservedMarshal, phReserved, "HRESULT")
         return result
     }
 }

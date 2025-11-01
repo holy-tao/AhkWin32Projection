@@ -43,7 +43,9 @@ class IWMPMedia3 extends IWMPMedia2{
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(26, this, "ptr", bstrType, "ptr", bstrLanguage, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, "ptr", bstrType, "ptr", bstrLanguage, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

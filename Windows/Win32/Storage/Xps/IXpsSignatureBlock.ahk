@@ -64,7 +64,9 @@ class IXpsSignatureBlock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getdocumentindex
      */
     GetDocumentIndex(fixedDocumentIndex) {
-        result := ComCall(5, this, "uint*", fixedDocumentIndex, "HRESULT")
+        fixedDocumentIndexMarshal := fixedDocumentIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, fixedDocumentIndexMarshal, fixedDocumentIndex, "HRESULT")
         return result
     }
 

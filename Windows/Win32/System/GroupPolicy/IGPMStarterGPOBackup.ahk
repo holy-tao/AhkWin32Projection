@@ -103,7 +103,9 @@ class IGPMStarterGPOBackup extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Timestamp(pTimestamp) {
-        result := ComCall(13, this, "double*", pTimestamp, "HRESULT")
+        pTimestampMarshal := pTimestamp is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pTimestampMarshal, pTimestamp, "HRESULT")
         return result
     }
 
@@ -113,7 +115,9 @@ class IGPMStarterGPOBackup extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Type(pType) {
-        result := ComCall(14, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 

@@ -43,7 +43,9 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_protocol
      */
     get_Protocol(plProtocol) {
-        result := ComCall(7, this, "int*", plProtocol, "HRESULT")
+        plProtocolMarshal := plProtocol is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plProtocolMarshal, plProtocol, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localport
      */
     get_LocalPort(plPort) {
-        result := ComCall(8, this, "int*", plPort, "HRESULT")
+        plPortMarshal := plPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plPortMarshal, plPort, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerport
      */
     get_PeerPort(plPort) {
-        result := ComCall(10, this, "int*", plPort, "HRESULT")
+        plPortMarshal := plPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plPortMarshal, plPort, "HRESULT")
         return result
     }
 

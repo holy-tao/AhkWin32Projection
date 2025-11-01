@@ -41,7 +41,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querysupportedcommands
      */
     QuerySupportedCommands(requestID) {
-        result := ComCall(3, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-opencommandsession
      */
     OpenCommandSession(requestID) {
-        result := ComCall(4, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -63,7 +67,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-closecommandsession
      */
     CloseCommandSession(requestID) {
-        result := ComCall(5, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -76,7 +82,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-setcommand
      */
     SetCommand(commandID, deviceServiceData, requestID) {
-        result := ComCall(6, this, "uint", commandID, "ptr", deviceServiceData, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", commandID, "ptr", deviceServiceData, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -89,7 +97,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querycommand
      */
     QueryCommand(commandID, deviceServiceData, requestID) {
-        result := ComCall(7, this, "uint", commandID, "ptr", deviceServiceData, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", commandID, "ptr", deviceServiceData, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -100,7 +110,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-opendatasession
      */
     OpenDataSession(requestID) {
-        result := ComCall(8, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -111,7 +123,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-closedatasession
      */
     CloseDataSession(requestID) {
-        result := ComCall(9, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -123,7 +137,9 @@ class IMbnDeviceService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-writedata
      */
     WriteData(deviceServiceData, requestID) {
-        result := ComCall(10, this, "ptr", deviceServiceData, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", deviceServiceData, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 

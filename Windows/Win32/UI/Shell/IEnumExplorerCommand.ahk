@@ -43,7 +43,9 @@ class IEnumExplorerCommand extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumexplorercommand-next
      */
     Next(celt, pUICommand, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", pUICommand, "uint*", pceltFetched, "int")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", pUICommand, pceltFetchedMarshal, pceltFetched, "int")
         return result
     }
 

@@ -38,7 +38,9 @@ class IAMStreamControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-startat
      */
     StartAt(ptStart, dwCookie) {
-        result := ComCall(3, this, "int64*", ptStart, "uint", dwCookie, "HRESULT")
+        ptStartMarshal := ptStart is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, ptStartMarshal, ptStart, "uint", dwCookie, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IAMStreamControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-stopat
      */
     StopAt(ptStop, bSendExtra, dwCookie) {
-        result := ComCall(4, this, "int64*", ptStop, "int", bSendExtra, "uint", dwCookie, "HRESULT")
+        ptStopMarshal := ptStop is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, ptStopMarshal, ptStop, "int", bSendExtra, "uint", dwCookie, "HRESULT")
         return result
     }
 

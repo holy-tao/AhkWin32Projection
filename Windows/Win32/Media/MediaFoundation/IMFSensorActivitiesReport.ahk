@@ -41,7 +41,9 @@ class IMFSensorActivitiesReport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivitiesreport-getcount
      */
     GetCount(pcCount) {
-        result := ComCall(3, this, "uint*", pcCount, "HRESULT")
+        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcCountMarshal, pcCount, "HRESULT")
         return result
     }
 

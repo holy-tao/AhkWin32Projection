@@ -49,7 +49,9 @@ class IShellItemFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemfilter-getenumflagsforitem
      */
     GetEnumFlagsForItem(psi, pgrfFlags) {
-        result := ComCall(4, this, "ptr", psi, "uint*", pgrfFlags, "HRESULT")
+        pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", psi, pgrfFlagsMarshal, pgrfFlags, "HRESULT")
         return result
     }
 }

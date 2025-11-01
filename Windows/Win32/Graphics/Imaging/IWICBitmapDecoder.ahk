@@ -94,7 +94,9 @@ class IWICBitmapDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-querycapability
      */
     QueryCapability(pIStream, pdwCapability) {
-        result := ComCall(3, this, "ptr", pIStream, "uint*", pdwCapability, "HRESULT")
+        pdwCapabilityMarshal := pdwCapability is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pIStream, pdwCapabilityMarshal, pdwCapability, "HRESULT")
         return result
     }
 
@@ -184,7 +186,9 @@ class IWICBitmapDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getcolorcontexts
      */
     GetColorContexts(cCount, ppIColorContexts, pcActualCount) {
-        result := ComCall(10, this, "uint", cCount, "ptr*", ppIColorContexts, "uint*", pcActualCount, "HRESULT")
+        pcActualCountMarshal := pcActualCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", cCount, "ptr*", ppIColorContexts, pcActualCountMarshal, pcActualCount, "HRESULT")
         return result
     }
 
@@ -206,7 +210,9 @@ class IWICBitmapDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframecount
      */
     GetFrameCount(pCount) {
-        result := ComCall(12, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

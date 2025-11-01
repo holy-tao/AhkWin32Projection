@@ -35,7 +35,9 @@ class ISpeechAudioFormat extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Type(AudioFormat) {
-        result := ComCall(7, this, "int*", AudioFormat, "HRESULT")
+        AudioFormatMarshal := AudioFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, AudioFormatMarshal, AudioFormat, "HRESULT")
         return result
     }
 

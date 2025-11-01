@@ -46,7 +46,11 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-updatetilemappings
      */
     UpdateTileMappings(pTiledResource, NumTiledResourceRegions, pTiledResourceRegionStartCoordinates, pTiledResourceRegionSizes, pTilePool, NumRanges, pRangeFlags, pTilePoolStartOffsets, pRangeTileCounts, Flags) {
-        result := ComCall(134, this, "ptr", pTiledResource, "uint", NumTiledResourceRegions, "ptr", pTiledResourceRegionStartCoordinates, "ptr", pTiledResourceRegionSizes, "ptr", pTilePool, "uint", NumRanges, "uint*", pRangeFlags, "uint*", pTilePoolStartOffsets, "uint*", pRangeTileCounts, "uint", Flags, "HRESULT")
+        pRangeFlagsMarshal := pRangeFlags is VarRef ? "uint*" : "ptr"
+        pTilePoolStartOffsetsMarshal := pTilePoolStartOffsets is VarRef ? "uint*" : "ptr"
+        pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(134, this, "ptr", pTiledResource, "uint", NumTiledResourceRegions, "ptr", pTiledResourceRegionStartCoordinates, "ptr", pTiledResourceRegionSizes, "ptr", pTilePool, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pTilePoolStartOffsetsMarshal, pTilePoolStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class ID3D11DeviceContext2 extends ID3D11DeviceContext1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-updatetiles
      */
     UpdateTiles(pDestTiledResource, pDestTileRegionStartCoordinate, pDestTileRegionSize, pSourceTileData, Flags) {
-        ComCall(137, this, "ptr", pDestTiledResource, "ptr", pDestTileRegionStartCoordinate, "ptr", pDestTileRegionSize, "ptr", pSourceTileData, "uint", Flags)
+        pSourceTileDataMarshal := pSourceTileData is VarRef ? "ptr" : "ptr"
+
+        ComCall(137, this, "ptr", pDestTiledResource, "ptr", pDestTileRegionStartCoordinate, "ptr", pDestTileRegionSize, pSourceTileDataMarshal, pSourceTileData, "uint", Flags)
     }
 
     /**

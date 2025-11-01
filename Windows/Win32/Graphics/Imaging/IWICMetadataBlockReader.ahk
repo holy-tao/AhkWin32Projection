@@ -57,7 +57,9 @@ class IWICMetadataBlockReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getcount
      */
     GetCount(pcCount) {
-        result := ComCall(4, this, "uint*", pcCount, "HRESULT")
+        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcCountMarshal, pcCount, "HRESULT")
         return result
     }
 

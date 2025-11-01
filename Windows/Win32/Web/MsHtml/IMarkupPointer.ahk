@@ -44,7 +44,9 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     Gravity(pGravity) {
-        result := ComCall(4, this, "int*", pGravity, "HRESULT")
+        pGravityMarshal := pGravity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pGravityMarshal, pGravity, "HRESULT")
         return result
     }
 
@@ -151,7 +153,10 @@ class IMarkupPointer extends IUnknown{
     Left(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(14, this, "int", fMove, "int*", pContext, "ptr*", ppElement, "int*", pcch, "ptr", pchText, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "int*" : "ptr"
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
         return result
     }
 
@@ -167,7 +172,10 @@ class IMarkupPointer extends IUnknown{
     Right(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(15, this, "int", fMove, "int*", pContext, "ptr*", ppElement, "int*", pcch, "ptr", pchText, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "int*" : "ptr"
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
         return result
     }
 

@@ -42,7 +42,9 @@ class IWMCodecInfo2 extends IWMCodecInfo{
     GetCodecName(guidType, dwCodecIndex, wszName, pcchName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(6, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", wszName, "uint*", pcchName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", wszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IWMCodecInfo2 extends IWMCodecInfo{
     GetCodecFormatDesc(guidType, dwCodecIndex, dwFormatIndex, ppIStreamConfig, wszDesc, pcchDesc) {
         wszDesc := wszDesc is String ? StrPtr(wszDesc) : wszDesc
 
-        result := ComCall(7, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", ppIStreamConfig, "ptr", wszDesc, "uint*", pcchDesc, "HRESULT")
+        pcchDescMarshal := pcchDesc is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", ppIStreamConfig, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
         return result
     }
 }

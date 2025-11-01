@@ -48,7 +48,9 @@ class ISendMethodEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isendmethodevents-sendmethodcall
      */
     SendMethodCall(pIdentity, riid, dwMeth) {
-        result := ComCall(3, this, "ptr", pIdentity, "ptr", riid, "uint", dwMeth, "HRESULT")
+        pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pIdentityMarshal, pIdentity, "ptr", riid, "uint", dwMeth, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ISendMethodEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isendmethodevents-sendmethodreturn
      */
     SendMethodReturn(pIdentity, riid, dwMeth, hrCall, hrServer) {
-        result := ComCall(4, this, "ptr", pIdentity, "ptr", riid, "uint", dwMeth, "int", hrCall, "int", hrServer, "HRESULT")
+        pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pIdentityMarshal, pIdentity, "ptr", riid, "uint", dwMeth, "int", hrCall, "int", hrServer, "HRESULT")
         return result
     }
 }

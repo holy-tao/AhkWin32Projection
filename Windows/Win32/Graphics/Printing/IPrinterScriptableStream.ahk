@@ -45,7 +45,9 @@ class IPrinterScriptableStream extends IPrinterScriptableSequentialStream{
      * @returns {HRESULT} 
      */
     Seek(lOffset, streamSeek, plPosition) {
-        result := ComCall(10, this, "int", lOffset, "uint", streamSeek, "int*", plPosition, "HRESULT")
+        plPositionMarshal := plPosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", lOffset, "uint", streamSeek, plPositionMarshal, plPosition, "HRESULT")
         return result
     }
 

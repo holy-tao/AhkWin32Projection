@@ -34,7 +34,9 @@ class IPrintSchemaNUpOption extends IPrintSchemaOption{
      * @returns {HRESULT} 
      */
     get_PagesPerSheet(pulPagesPerSheet) {
-        result := ComCall(14, this, "uint*", pulPagesPerSheet, "HRESULT")
+        pulPagesPerSheetMarshal := pulPagesPerSheet is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pulPagesPerSheetMarshal, pulPagesPerSheet, "HRESULT")
         return result
     }
 }

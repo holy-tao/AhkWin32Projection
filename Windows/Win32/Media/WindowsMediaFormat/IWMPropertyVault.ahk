@@ -37,7 +37,9 @@ class IWMPropertyVault extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertycount
      */
     GetPropertyCount(pdwCount) {
-        result := ComCall(3, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -53,7 +55,11 @@ class IWMPropertyVault extends IUnknown{
     GetPropertyByName(pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(4, this, "ptr", pszName, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -69,7 +75,9 @@ class IWMPropertyVault extends IUnknown{
     SetProperty(pszName, pType, pValue, dwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ptr", pszName, "int", pType, "char*", pValue, "uint", dwSize, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszName, "int", pType, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
         return result
     }
 
@@ -87,7 +95,12 @@ class IWMPropertyVault extends IUnknown{
     GetPropertyByIndex(dwIndex, pszName, pdwNameLen, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "uint", dwIndex, "ptr", pszName, "uint*", pdwNameLen, "int*", pType, "char*", pValue, "uint*", pdwSize, "HRESULT")
+        pdwNameLenMarshal := pdwNameLen is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwIndex, "ptr", pszName, pdwNameLenMarshal, pdwNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 

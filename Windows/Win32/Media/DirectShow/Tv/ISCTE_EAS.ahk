@@ -60,7 +60,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getsequencynumber
      */
     GetSequencyNumber(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -82,7 +86,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getprotocolversion
      */
     GetProtocolVersion(pbVal) {
-        result := ComCall(6, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -93,7 +99,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventid
      */
     GetEASEventID(pwVal) {
-        result := ComCall(7, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -104,7 +112,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getoriginatorcode
      */
     GetOriginatorCode(pbVal) {
-        result := ComCall(8, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -115,7 +125,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcodelen
      */
     GetEASEventCodeLen(pbVal) {
-        result := ComCall(9, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -126,7 +138,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcode
      */
     GetEASEventCode(pbVal) {
-        result := ComCall(10, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -137,7 +151,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtextlen
      */
     GetRawNatureOfActivationTextLen(pbVal) {
-        result := ComCall(11, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -148,7 +164,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtext
      */
     GetRawNatureOfActivationText(pbVal) {
-        result := ComCall(12, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(12, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -173,7 +191,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-gettimeremaining
      */
     GetTimeRemaining(pbVal) {
-        result := ComCall(14, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(14, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -184,7 +204,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getstarttime
      */
     GetStartTime(pdwVal) {
-        result := ComCall(15, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -195,7 +217,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getduration
      */
     GetDuration(pwVal) {
-        result := ComCall(16, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(16, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -206,7 +230,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getalertpriority
      */
     GetAlertPriority(pbVal) {
-        result := ComCall(17, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(17, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -217,7 +243,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsoobsourceid
      */
     GetDetailsOOBSourceID(pwVal) {
-        result := ComCall(18, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(18, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -228,7 +256,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsmajor
      */
     GetDetailsMajor(pwVal) {
-        result := ComCall(19, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(19, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -239,7 +269,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsminor
      */
     GetDetailsMinor(pwVal) {
-        result := ComCall(20, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(20, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -250,7 +282,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsaudiooobsourceid
      */
     GetDetailsAudioOOBSourceID(pwVal) {
-        result := ComCall(21, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(21, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -275,7 +309,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttextlen
      */
     GetRawAlertTextLen(pwVal) {
-        result := ComCall(23, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(23, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -286,7 +322,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttext
      */
     GetRawAlertText(pbVal) {
-        result := ComCall(24, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(24, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -297,7 +335,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getlocationcount
      */
     GetLocationCount(pbVal) {
-        result := ComCall(25, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(25, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -311,7 +351,11 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getlocationcodes
      */
     GetLocationCodes(bIndex, pbState, pbCountySubdivision, pwCounty) {
-        result := ComCall(26, this, "char", bIndex, "char*", pbState, "char*", pbCountySubdivision, "ushort*", pwCounty, "HRESULT")
+        pbStateMarshal := pbState is VarRef ? "char*" : "ptr"
+        pbCountySubdivisionMarshal := pbCountySubdivision is VarRef ? "char*" : "ptr"
+        pwCountyMarshal := pwCounty is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(26, this, "char", bIndex, pbStateMarshal, pbState, pbCountySubdivisionMarshal, pbCountySubdivision, pwCountyMarshal, pwCounty, "HRESULT")
         return result
     }
 
@@ -322,7 +366,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getexceptioncount
      */
     GetExceptionCount(pbVal) {
-        result := ComCall(27, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(27, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -336,7 +382,11 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getexceptionservice
      */
     GetExceptionService(bIndex, pbIBRef, pwFirst, pwSecond) {
-        result := ComCall(28, this, "char", bIndex, "char*", pbIBRef, "ushort*", pwFirst, "ushort*", pwSecond, "HRESULT")
+        pbIBRefMarshal := pbIBRef is VarRef ? "char*" : "ptr"
+        pwFirstMarshal := pwFirst is VarRef ? "ushort*" : "ptr"
+        pwSecondMarshal := pwSecond is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(28, this, "char", bIndex, pbIBRefMarshal, pbIBRef, pwFirstMarshal, pwFirst, pwSecondMarshal, pwSecond, "HRESULT")
         return result
     }
 
@@ -347,7 +397,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(29, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -372,7 +424,9 @@ class ISCTE_EAS extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(31, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 }

@@ -38,7 +38,9 @@ class IUPnPEventSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpeventsink-onstatechanged
      */
     OnStateChanged(cChanges, rgdispidChanges) {
-        result := ComCall(3, this, "uint", cChanges, "int*", rgdispidChanges, "HRESULT")
+        rgdispidChangesMarshal := rgdispidChanges is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", cChanges, rgdispidChangesMarshal, rgdispidChanges, "HRESULT")
         return result
     }
 

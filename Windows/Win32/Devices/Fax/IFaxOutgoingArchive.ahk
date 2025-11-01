@@ -116,7 +116,9 @@ class IFaxOutgoingArchive extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_highquotawatermark
      */
     get_HighQuotaWaterMark(plHighQuotaWaterMark) {
-        result := ComCall(13, this, "int*", plHighQuotaWaterMark, "HRESULT")
+        plHighQuotaWaterMarkMarshal := plHighQuotaWaterMark is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plHighQuotaWaterMarkMarshal, plHighQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -138,7 +140,9 @@ class IFaxOutgoingArchive extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_lowquotawatermark
      */
     get_LowQuotaWaterMark(plLowQuotaWaterMark) {
-        result := ComCall(15, this, "int*", plLowQuotaWaterMark, "HRESULT")
+        plLowQuotaWaterMarkMarshal := plLowQuotaWaterMark is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plLowQuotaWaterMarkMarshal, plLowQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -160,7 +164,9 @@ class IFaxOutgoingArchive extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_agelimit
      */
     get_AgeLimit(plAgeLimit) {
-        result := ComCall(17, this, "int*", plAgeLimit, "HRESULT")
+        plAgeLimitMarshal := plAgeLimit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plAgeLimitMarshal, plAgeLimit, "HRESULT")
         return result
     }
 
@@ -182,7 +188,9 @@ class IFaxOutgoingArchive extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_sizelow
      */
     get_SizeLow(plSizeLow) {
-        result := ComCall(19, this, "int*", plSizeLow, "HRESULT")
+        plSizeLowMarshal := plSizeLow is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plSizeLowMarshal, plSizeLow, "HRESULT")
         return result
     }
 
@@ -193,7 +201,9 @@ class IFaxOutgoingArchive extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-get_sizehigh
      */
     get_SizeHigh(plSizeHigh) {
-        result := ComCall(20, this, "int*", plSizeHigh, "HRESULT")
+        plSizeHighMarshal := plSizeHigh is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plSizeHighMarshal, plSizeHigh, "HRESULT")
         return result
     }
 

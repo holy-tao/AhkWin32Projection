@@ -101,7 +101,9 @@ class IAzAuthorizationStore extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_domaintimeout
      */
     get_DomainTimeout(plProp) {
-        result := ComCall(11, this, "int*", plProp, "HRESULT")
+        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plPropMarshal, plProp, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class IAzAuthorizationStore extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_scriptenginetimeout
      */
     get_ScriptEngineTimeout(plProp) {
-        result := ComCall(13, this, "int*", plProp, "HRESULT")
+        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plPropMarshal, plProp, "HRESULT")
         return result
     }
 
@@ -145,7 +149,9 @@ class IAzAuthorizationStore extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_maxscriptengines
      */
     get_MaxScriptEngines(plProp) {
-        result := ComCall(15, this, "int*", plProp, "HRESULT")
+        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plPropMarshal, plProp, "HRESULT")
         return result
     }
 

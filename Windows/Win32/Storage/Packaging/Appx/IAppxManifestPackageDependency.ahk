@@ -64,7 +64,9 @@ class IAppxManifestPackageDependency extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getminversion
      */
     GetMinVersion(minVersion) {
-        result := ComCall(5, this, "uint*", minVersion, "HRESULT")
+        minVersionMarshal := minVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, minVersionMarshal, minVersion, "HRESULT")
         return result
     }
 }

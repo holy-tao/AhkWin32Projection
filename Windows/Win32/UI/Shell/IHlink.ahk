@@ -46,7 +46,9 @@ class IHlink extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHlinkSite(ppihlSite, pdwSiteData) {
-        result := ComCall(4, this, "ptr*", ppihlSite, "uint*", pdwSiteData, "HRESULT")
+        pdwSiteDataMarshal := pdwSiteData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppihlSite, pdwSiteDataMarshal, pdwSiteData, "HRESULT")
         return result
     }
 
@@ -154,7 +156,9 @@ class IHlink extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMiscStatus(pdwStatus) {
-        result := ComCall(13, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 

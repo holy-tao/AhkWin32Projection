@@ -34,7 +34,9 @@ class IDirectSound8 extends IDirectSound{
      * @returns {HRESULT} 
      */
     VerifyCertification(pdwCertified) {
-        result := ComCall(11, this, "uint*", pdwCertified, "HRESULT")
+        pdwCertifiedMarshal := pdwCertified is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwCertifiedMarshal, pdwCertified, "HRESULT")
         return result
     }
 }

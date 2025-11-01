@@ -37,7 +37,9 @@ class IMFSensorStream extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorstream-getmediatypecount
      */
     GetMediaTypeCount(pdwCount) {
-        result := ComCall(33, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 

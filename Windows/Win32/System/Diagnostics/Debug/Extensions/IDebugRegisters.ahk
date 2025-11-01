@@ -34,7 +34,9 @@ class IDebugRegisters extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberRegisters(Number) {
-        result := ComCall(3, this, "uint*", Number, "HRESULT")
+        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, NumberMarshal, Number, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IDebugRegisters extends IUnknown{
     GetDescription(Register, NameBuffer, NameBufferSize, NameSize, Desc) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, "uint*", NameSize, "ptr", Desc, "HRESULT")
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, "ptr", Desc, "HRESULT")
         return result
     }
 
@@ -63,7 +67,9 @@ class IDebugRegisters extends IUnknown{
     GetIndexByName(Name, Index) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(5, this, "ptr", Name, "uint*", Index, "HRESULT")
+        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", Name, IndexMarshal, Index, "HRESULT")
         return result
     }
 
@@ -98,7 +104,9 @@ class IDebugRegisters extends IUnknown{
      * @returns {HRESULT} 
      */
     GetValues(Count, Indices, Start, Values) {
-        result := ComCall(8, this, "uint", Count, "uint*", Indices, "uint", Start, "ptr", Values, "HRESULT")
+        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
         return result
     }
 
@@ -111,7 +119,9 @@ class IDebugRegisters extends IUnknown{
      * @returns {HRESULT} 
      */
     SetValues(Count, Indices, Start, Values) {
-        result := ComCall(9, this, "uint", Count, "uint*", Indices, "uint", Start, "ptr", Values, "HRESULT")
+        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
         return result
     }
 
@@ -132,7 +142,9 @@ class IDebugRegisters extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInstructionOffset(Offset) {
-        result := ComCall(11, this, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -142,7 +154,9 @@ class IDebugRegisters extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStackOffset(Offset) {
-        result := ComCall(12, this, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -152,7 +166,9 @@ class IDebugRegisters extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFrameOffset(Offset) {
-        result := ComCall(13, this, "uint*", Offset, "HRESULT")
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 }

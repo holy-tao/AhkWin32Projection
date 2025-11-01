@@ -36,7 +36,9 @@ class IEnumSTATURL extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, rgelt, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", rgelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

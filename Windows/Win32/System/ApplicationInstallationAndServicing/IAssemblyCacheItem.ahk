@@ -44,7 +44,9 @@ class IAssemblyCacheItem extends IUnknown{
     CreateStream(dwFlags, pszStreamName, dwFormat, dwFormatFlags, ppIStream, puliMaxSize) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszStreamName, "uint", dwFormat, "uint", dwFormatFlags, "ptr*", ppIStream, "uint*", puliMaxSize, "HRESULT")
+        puliMaxSizeMarshal := puliMaxSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pszStreamName, "uint", dwFormat, "uint", dwFormatFlags, "ptr*", ppIStream, puliMaxSizeMarshal, puliMaxSize, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IAssemblyCacheItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycacheitem-commit
      */
     Commit(dwFlags, pulDisposition) {
-        result := ComCall(4, this, "uint", dwFlags, "uint*", pulDisposition, "HRESULT")
+        pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwFlags, pulDispositionMarshal, pulDisposition, "HRESULT")
         return result
     }
 

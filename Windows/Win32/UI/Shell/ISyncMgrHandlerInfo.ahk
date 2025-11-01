@@ -41,7 +41,9 @@ class ISyncMgrHandlerInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandlerinfo-gettype
      */
     GetType(pnType) {
-        result := ComCall(3, this, "int*", pnType, "HRESULT")
+        pnTypeMarshal := pnType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pnTypeMarshal, pnType, "HRESULT")
         return result
     }
 

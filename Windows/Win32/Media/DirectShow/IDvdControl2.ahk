@@ -340,7 +340,9 @@ class IDvdControl2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectparentalcountry
      */
     SelectParentalCountry(bCountry) {
-        result := ComCall(28, this, "char*", bCountry, "HRESULT")
+        bCountryMarshal := bCountry is VarRef ? "char*" : "ptr"
+
+        result := ComCall(28, this, bCountryMarshal, bCountry, "HRESULT")
         return result
     }
 

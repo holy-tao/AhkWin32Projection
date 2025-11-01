@@ -228,7 +228,13 @@ class IOfflineFilesCache extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-getdiskspaceinformation
      */
     GetDiskSpaceInformation(pcbVolumeTotal, pcbLimit, pcbUsed, pcbUnpinnedLimit, pcbUnpinnedUsed) {
-        result := ComCall(14, this, "uint*", pcbVolumeTotal, "uint*", pcbLimit, "uint*", pcbUsed, "uint*", pcbUnpinnedLimit, "uint*", pcbUnpinnedUsed, "HRESULT")
+        pcbVolumeTotalMarshal := pcbVolumeTotal is VarRef ? "uint*" : "ptr"
+        pcbLimitMarshal := pcbLimit is VarRef ? "uint*" : "ptr"
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
+        pcbUnpinnedLimitMarshal := pcbUnpinnedLimit is VarRef ? "uint*" : "ptr"
+        pcbUnpinnedUsedMarshal := pcbUnpinnedUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pcbVolumeTotalMarshal, pcbVolumeTotal, pcbLimitMarshal, pcbLimit, pcbUsedMarshal, pcbUsed, pcbUnpinnedLimitMarshal, pcbUnpinnedLimit, pcbUnpinnedUsedMarshal, pcbUnpinnedUsed, "HRESULT")
         return result
     }
 
@@ -292,7 +298,9 @@ class IOfflineFilesCache extends IUnknown{
     IsPathCacheable(pszPath, pbCacheable, pShareCachingMode) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(19, this, "ptr", pszPath, "ptr", pbCacheable, "int*", pShareCachingMode, "HRESULT")
+        pShareCachingModeMarshal := pShareCachingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "ptr", pszPath, "ptr", pbCacheable, pShareCachingModeMarshal, pShareCachingMode, "HRESULT")
         return result
     }
 }

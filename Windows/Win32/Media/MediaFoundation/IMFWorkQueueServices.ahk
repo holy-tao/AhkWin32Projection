@@ -92,7 +92,9 @@ class IMFWorkQueueServices extends IUnknown{
     GetTopologyWorkQueueMMCSSClass(dwTopologyWorkQueueId, pwszClass, pcchClass) {
         pwszClass := pwszClass is String ? StrPtr(pwszClass) : pwszClass
 
-        result := ComCall(7, this, "uint", dwTopologyWorkQueueId, "ptr", pwszClass, "uint*", pcchClass, "HRESULT")
+        pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwTopologyWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
         return result
     }
 
@@ -104,7 +106,9 @@ class IMFWorkQueueServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-gettopologyworkqueuemmcsstaskid
      */
     GetTopologyWorkQueueMMCSSTaskId(dwTopologyWorkQueueId, pdwTaskId) {
-        result := ComCall(8, this, "uint", dwTopologyWorkQueueId, "uint*", pdwTaskId, "HRESULT")
+        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwTopologyWorkQueueId, pdwTaskIdMarshal, pdwTaskId, "HRESULT")
         return result
     }
 
@@ -133,7 +137,9 @@ class IMFWorkQueueServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-endregisterplatformworkqueuewithmmcss
      */
     EndRegisterPlatformWorkQueueWithMMCSS(pResult, pdwTaskId) {
-        result := ComCall(10, this, "ptr", pResult, "uint*", pdwTaskId, "HRESULT")
+        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pResult, pdwTaskIdMarshal, pdwTaskId, "HRESULT")
         return result
     }
 
@@ -172,7 +178,9 @@ class IMFWorkQueueServices extends IUnknown{
     GetPlaftormWorkQueueMMCSSClass(dwPlatformWorkQueueId, pwszClass, pcchClass) {
         pwszClass := pwszClass is String ? StrPtr(pwszClass) : pwszClass
 
-        result := ComCall(13, this, "uint", dwPlatformWorkQueueId, "ptr", pwszClass, "uint*", pcchClass, "HRESULT")
+        pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwPlatformWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
         return result
     }
 
@@ -184,7 +192,9 @@ class IMFWorkQueueServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-getplatformworkqueuemmcsstaskid
      */
     GetPlatformWorkQueueMMCSSTaskId(dwPlatformWorkQueueId, pdwTaskId) {
-        result := ComCall(14, this, "uint", dwPlatformWorkQueueId, "uint*", pdwTaskId, "HRESULT")
+        pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", dwPlatformWorkQueueId, pdwTaskIdMarshal, pdwTaskId, "HRESULT")
         return result
     }
 }

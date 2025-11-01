@@ -53,7 +53,10 @@ class ISearchManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getindexerversion
      */
     GetIndexerVersion(pdwMajor, pdwMinor) {
-        result := ComCall(4, this, "uint*", pdwMajor, "uint*", pdwMinor, "HRESULT")
+        pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : "ptr"
+        pdwMinorMarshal := pdwMinor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwMajorMarshal, pdwMajor, pdwMinorMarshal, pdwMinor, "HRESULT")
         return result
     }
 
@@ -170,7 +173,9 @@ class ISearchManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_useproxy
      */
     get_UseProxy(pUseProxy) {
-        result := ComCall(13, this, "int*", pUseProxy, "HRESULT")
+        pUseProxyMarshal := pUseProxy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pUseProxyMarshal, pUseProxy, "HRESULT")
         return result
     }
 
@@ -192,7 +197,9 @@ class ISearchManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_portnumber
      */
     get_PortNumber(pdwPortNumber) {
-        result := ComCall(15, this, "uint*", pdwPortNumber, "HRESULT")
+        pdwPortNumberMarshal := pdwPortNumber is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pdwPortNumberMarshal, pdwPortNumber, "HRESULT")
         return result
     }
 }

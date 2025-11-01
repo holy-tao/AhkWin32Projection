@@ -37,7 +37,9 @@ class ICDBurnExt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburnext-getsupportedactiontypes
      */
     GetSupportedActionTypes(pdwActions) {
-        result := ComCall(3, this, "uint*", pdwActions, "HRESULT")
+        pdwActionsMarshal := pdwActions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwActionsMarshal, pdwActions, "HRESULT")
         return result
     }
 }

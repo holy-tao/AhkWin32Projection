@@ -61,7 +61,12 @@ class IEffectivePermission2 extends IUnknown{
     ComputeEffectivePermissionWithSecondarySecurity(pSid, pDeviceSid, pszServerName, pSecurityObjects, dwSecurityObjectCount, pUserGroups, pAuthzUserGroupsOperations, pDeviceGroups, pAuthzDeviceGroupsOperations, pAuthzUserClaims, pAuthzUserClaimsOperations, pAuthzDeviceClaims, pAuthzDeviceClaimsOperations, pEffpermResultLists) {
         pszServerName := pszServerName is String ? StrPtr(pszServerName) : pszServerName
 
-        result := ComCall(3, this, "ptr", pSid, "ptr", pDeviceSid, "ptr", pszServerName, "ptr", pSecurityObjects, "uint", dwSecurityObjectCount, "ptr", pUserGroups, "int*", pAuthzUserGroupsOperations, "ptr", pDeviceGroups, "int*", pAuthzDeviceGroupsOperations, "ptr", pAuthzUserClaims, "int*", pAuthzUserClaimsOperations, "ptr", pAuthzDeviceClaims, "int*", pAuthzDeviceClaimsOperations, "ptr", pEffpermResultLists, "HRESULT")
+        pAuthzUserGroupsOperationsMarshal := pAuthzUserGroupsOperations is VarRef ? "int*" : "ptr"
+        pAuthzDeviceGroupsOperationsMarshal := pAuthzDeviceGroupsOperations is VarRef ? "int*" : "ptr"
+        pAuthzUserClaimsOperationsMarshal := pAuthzUserClaimsOperations is VarRef ? "int*" : "ptr"
+        pAuthzDeviceClaimsOperationsMarshal := pAuthzDeviceClaimsOperations is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pSid, "ptr", pDeviceSid, "ptr", pszServerName, "ptr", pSecurityObjects, "uint", dwSecurityObjectCount, "ptr", pUserGroups, pAuthzUserGroupsOperationsMarshal, pAuthzUserGroupsOperations, "ptr", pDeviceGroups, pAuthzDeviceGroupsOperationsMarshal, pAuthzDeviceGroupsOperations, "ptr", pAuthzUserClaims, pAuthzUserClaimsOperationsMarshal, pAuthzUserClaimsOperations, "ptr", pAuthzDeviceClaims, pAuthzDeviceClaimsOperationsMarshal, pAuthzDeviceClaimsOperations, "ptr", pEffpermResultLists, "HRESULT")
         return result
     }
 }

@@ -91,7 +91,13 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getnextsample
      */
     GetNextSample(wStreamNum, ppSample, pcnsSampleTime, pcnsDuration, pdwFlags, pdwOutputNum, pwStreamNum) {
-        result := ComCall(7, this, "ushort", wStreamNum, "ptr*", ppSample, "uint*", pcnsSampleTime, "uint*", pcnsDuration, "uint*", pdwFlags, "uint*", pdwOutputNum, "ushort*", pwStreamNum, "HRESULT")
+        pcnsSampleTimeMarshal := pcnsSampleTime is VarRef ? "uint*" : "ptr"
+        pcnsDurationMarshal := pcnsDuration is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : "ptr"
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "ushort", wStreamNum, "ptr*", ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
         return result
     }
 
@@ -104,7 +110,10 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setstreamsselected
      */
     SetStreamsSelected(cStreamCount, pwStreamNumbers, pSelections) {
-        result := ComCall(8, this, "ushort", cStreamCount, "ushort*", pwStreamNumbers, "int*", pSelections, "HRESULT")
+        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
+        pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ushort", cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
         return result
     }
 
@@ -116,7 +125,9 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamselected
      */
     GetStreamSelected(wStreamNum, pSelection) {
-        result := ComCall(9, this, "ushort", wStreamNum, "int*", pSelection, "HRESULT")
+        pSelectionMarshal := pSelection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ushort", wStreamNum, pSelectionMarshal, pSelection, "HRESULT")
         return result
     }
 
@@ -157,7 +168,11 @@ class IWMSyncReader extends IUnknown{
     GetOutputSetting(dwOutputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(12, this, "uint", dwOutputNum, "ptr", pszName, "int*", pType, "char*", pValue, "ushort*", pcbLength, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -174,7 +189,9 @@ class IWMSyncReader extends IUnknown{
     SetOutputSetting(dwOutputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(13, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, "char*", pValue, "ushort", cbLength, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -185,7 +202,9 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputcount
      */
     GetOutputCount(pcOutputs) {
-        result := ComCall(14, this, "uint*", pcOutputs, "HRESULT")
+        pcOutputsMarshal := pcOutputs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pcOutputsMarshal, pcOutputs, "HRESULT")
         return result
     }
 
@@ -221,7 +240,9 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformatcount
      */
     GetOutputFormatCount(dwOutputNum, pcFormats) {
-        result := ComCall(17, this, "uint", dwOutputNum, "uint*", pcFormats, "HRESULT")
+        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwOutputNum, pcFormatsMarshal, pcFormats, "HRESULT")
         return result
     }
 
@@ -246,7 +267,9 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputnumberforstream
      */
     GetOutputNumberForStream(wStreamNum, pdwOutputNum) {
-        result := ComCall(19, this, "ushort", wStreamNum, "uint*", pdwOutputNum, "HRESULT")
+        pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ushort", wStreamNum, pdwOutputNumMarshal, pdwOutputNum, "HRESULT")
         return result
     }
 
@@ -258,7 +281,9 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamnumberforoutput
      */
     GetStreamNumberForOutput(dwOutputNum, pwStreamNum) {
-        result := ComCall(20, this, "uint", dwOutputNum, "ushort*", pwStreamNum, "HRESULT")
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(20, this, "uint", dwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
         return result
     }
 
@@ -270,7 +295,9 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxoutputsamplesize
      */
     GetMaxOutputSampleSize(dwOutput, pcbMax) {
-        result := ComCall(21, this, "uint", dwOutput, "uint*", pcbMax, "HRESULT")
+        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "uint", dwOutput, pcbMaxMarshal, pcbMax, "HRESULT")
         return result
     }
 
@@ -282,7 +309,9 @@ class IWMSyncReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxstreamsamplesize
      */
     GetMaxStreamSampleSize(wStream, pcbMax) {
-        result := ComCall(22, this, "ushort", wStream, "uint*", pcbMax, "HRESULT")
+        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "ushort", wStream, pcbMaxMarshal, pcbMax, "HRESULT")
         return result
     }
 

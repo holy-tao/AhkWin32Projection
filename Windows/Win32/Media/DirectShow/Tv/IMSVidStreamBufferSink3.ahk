@@ -43,7 +43,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-setminseek
      */
     SetMinSeek(pdwMin) {
-        result := ComCall(23, this, "int*", pdwMin, "HRESULT")
+        pdwMinMarshal := pdwMin is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pdwMinMarshal, pdwMin, "HRESULT")
         return result
     }
 

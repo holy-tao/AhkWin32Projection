@@ -46,7 +46,9 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
      * @returns {HRESULT} 
      */
     GetNonGCHeapBounds(cObjectRanges, pcObjectRanges, ranges) {
-        result := ComCall(112, this, "uint", cObjectRanges, "uint*", pcObjectRanges, "ptr", ranges, "HRESULT")
+        pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(112, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, "ptr", ranges, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
     EventPipeCreateProvider2(providerName, pCallback, pProvider) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        result := ComCall(113, this, "ptr", providerName, "ptr*", pCallback, "ptr*", pProvider, "HRESULT")
+        pProviderMarshal := pProvider is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(113, this, "ptr", providerName, "ptr*", pCallback, pProviderMarshal, pProvider, "HRESULT")
         return result
     }
 }

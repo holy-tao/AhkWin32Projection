@@ -34,7 +34,9 @@ class IActiveScriptErrorDebug110 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExceptionThrownKind(pExceptionKind) {
-        result := ComCall(3, this, "int*", pExceptionKind, "HRESULT")
+        pExceptionKindMarshal := pExceptionKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pExceptionKindMarshal, pExceptionKind, "HRESULT")
         return result
     }
 }

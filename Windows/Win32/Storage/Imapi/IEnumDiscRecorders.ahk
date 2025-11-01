@@ -36,7 +36,9 @@ class IEnumDiscRecorders extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(cRecorders, ppRecorder, pcFetched) {
-        result := ComCall(3, this, "uint", cRecorders, "ptr*", ppRecorder, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cRecorders, "ptr*", ppRecorder, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

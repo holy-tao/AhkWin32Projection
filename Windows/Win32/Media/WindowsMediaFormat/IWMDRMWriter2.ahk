@@ -39,7 +39,9 @@ class IWMDRMWriter2 extends IWMDRMWriter{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter2-setwmdrmnetencryption
      */
     SetWMDRMNetEncryption(fSamplesEncrypted, pbKeyID, cbKeyID) {
-        result := ComCall(7, this, "int", fSamplesEncrypted, "char*", pbKeyID, "uint", cbKeyID, "HRESULT")
+        pbKeyIDMarshal := pbKeyID is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "int", fSamplesEncrypted, pbKeyIDMarshal, pbKeyID, "uint", cbKeyID, "HRESULT")
         return result
     }
 }

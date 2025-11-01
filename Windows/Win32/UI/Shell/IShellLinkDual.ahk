@@ -123,7 +123,9 @@ class IShellLinkDual extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Hotkey(piHK) {
-        result := ComCall(15, this, "int*", piHK, "HRESULT")
+        piHKMarshal := piHK is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, piHKMarshal, piHK, "HRESULT")
         return result
     }
 
@@ -143,7 +145,9 @@ class IShellLinkDual extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ShowCommand(piShowCommand) {
-        result := ComCall(17, this, "int*", piShowCommand, "HRESULT")
+        piShowCommandMarshal := piShowCommand is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, piShowCommandMarshal, piShowCommand, "HRESULT")
         return result
     }
 
@@ -174,7 +178,9 @@ class IShellLinkDual extends IDispatch{
      * @returns {HRESULT} 
      */
     GetIconLocation(pbs, piIcon) {
-        result := ComCall(20, this, "ptr", pbs, "int*", piIcon, "HRESULT")
+        piIconMarshal := piIcon is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, "ptr", pbs, piIconMarshal, piIcon, "HRESULT")
         return result
     }
 

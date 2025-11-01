@@ -106,7 +106,9 @@ class IDXGIInfoQueue extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmessage
      */
     GetMessage(Producer, MessageIndex, pMessage, pMessageByteLength) {
-        result := ComCall(5, this, "ptr", Producer, "uint", MessageIndex, "ptr", pMessage, "ptr*", pMessageByteLength, "HRESULT")
+        pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", Producer, "uint", MessageIndex, "ptr", pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
         return result
     }
 
@@ -197,7 +199,9 @@ class IDXGIInfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getstoragefilter
      */
     GetStorageFilter(Producer, pFilter, pFilterByteLength) {
-        result := ComCall(13, this, "ptr", Producer, "ptr", pFilter, "ptr*", pFilterByteLength, "HRESULT")
+        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "ptr", Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -298,7 +302,9 @@ class IDXGIInfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getretrievalfilter
      */
     GetRetrievalFilter(Producer, pFilter, pFilterByteLength) {
-        result := ComCall(22, this, "ptr", Producer, "ptr", pFilter, "ptr*", pFilterByteLength, "HRESULT")
+        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, "ptr", Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 

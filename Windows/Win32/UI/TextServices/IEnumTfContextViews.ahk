@@ -48,7 +48,9 @@ class IEnumTfContextViews extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(ulCount, rgViews, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", rgViews, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", rgViews, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

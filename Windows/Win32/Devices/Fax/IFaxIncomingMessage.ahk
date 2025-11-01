@@ -60,7 +60,9 @@ class IFaxIncomingMessage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_pages
      */
     get_Pages(plPages) {
-        result := ComCall(8, this, "int*", plPages, "HRESULT")
+        plPagesMarshal := plPages is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plPagesMarshal, plPages, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IFaxIncomingMessage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_size
      */
     get_Size(plSize) {
-        result := ComCall(9, this, "int*", plSize, "HRESULT")
+        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plSizeMarshal, plSize, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class IFaxIncomingMessage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_retries
      */
     get_Retries(plRetries) {
-        result := ComCall(11, this, "int*", plRetries, "HRESULT")
+        plRetriesMarshal := plRetries is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plRetriesMarshal, plRetries, "HRESULT")
         return result
     }
 
@@ -104,7 +110,9 @@ class IFaxIncomingMessage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_transmissionstart
      */
     get_TransmissionStart(pdateTransmissionStart) {
-        result := ComCall(12, this, "double*", pdateTransmissionStart, "HRESULT")
+        pdateTransmissionStartMarshal := pdateTransmissionStart is VarRef ? "double*" : "ptr"
+
+        result := ComCall(12, this, pdateTransmissionStartMarshal, pdateTransmissionStart, "HRESULT")
         return result
     }
 
@@ -115,7 +123,9 @@ class IFaxIncomingMessage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_transmissionend
      */
     get_TransmissionEnd(pdateTransmissionEnd) {
-        result := ComCall(13, this, "double*", pdateTransmissionEnd, "HRESULT")
+        pdateTransmissionEndMarshal := pdateTransmissionEnd is VarRef ? "double*" : "ptr"
+
+        result := ComCall(13, this, pdateTransmissionEndMarshal, pdateTransmissionEnd, "HRESULT")
         return result
     }
 

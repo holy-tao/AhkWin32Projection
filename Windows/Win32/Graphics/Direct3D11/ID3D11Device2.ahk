@@ -65,7 +65,10 @@ class ID3D11Device2 extends ID3D11Device1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-getresourcetiling
      */
     GetResourceTiling(pTiledResource, pNumTilesForEntireResource, pPackedMipDesc, pStandardTileShapeForNonPackedMips, pNumSubresourceTilings, FirstSubresourceTilingToGet, pSubresourceTilingsForNonPackedMips) {
-        ComCall(52, this, "ptr", pTiledResource, "uint*", pNumTilesForEntireResource, "ptr", pPackedMipDesc, "ptr", pStandardTileShapeForNonPackedMips, "uint*", pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, "ptr", pSubresourceTilingsForNonPackedMips)
+        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
+        pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
+
+        ComCall(52, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, "ptr", pPackedMipDesc, "ptr", pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, "ptr", pSubresourceTilingsForNonPackedMips)
     }
 
     /**
@@ -78,7 +81,9 @@ class ID3D11Device2 extends ID3D11Device1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-checkmultisamplequalitylevels1
      */
     CheckMultisampleQualityLevels1(Format, SampleCount, Flags, pNumQualityLevels) {
-        result := ComCall(53, this, "int", Format, "uint", SampleCount, "uint", Flags, "uint*", pNumQualityLevels, "HRESULT")
+        pNumQualityLevelsMarshal := pNumQualityLevels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(53, this, "int", Format, "uint", SampleCount, "uint", Flags, pNumQualityLevelsMarshal, pNumQualityLevels, "HRESULT")
         return result
     }
 }

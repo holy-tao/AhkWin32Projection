@@ -79,7 +79,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_attachededitwindow
      */
     get_AttachedEditWindow(AttachedEditWindow) {
-        result := ComCall(10, this, "int*", AttachedEditWindow, "HRESULT")
+        AttachedEditWindowMarshal := AttachedEditWindow is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, AttachedEditWindowMarshal, AttachedEditWindow, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_currentpanel
      */
     get_CurrentPanel(CurrentPanel) {
-        result := ComCall(12, this, "int*", CurrentPanel, "HRESULT")
+        CurrentPanelMarshal := CurrentPanel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, CurrentPanelMarshal, CurrentPanel, "HRESULT")
         return result
     }
 
@@ -123,7 +127,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_defaultpanel
      */
     get_DefaultPanel(pDefaultPanel) {
-        result := ComCall(14, this, "int*", pDefaultPanel, "HRESULT")
+        pDefaultPanelMarshal := pDefaultPanel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pDefaultPanelMarshal, pDefaultPanel, "HRESULT")
         return result
     }
 
@@ -166,7 +172,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_top
      */
     get_Top(Top) {
-        result := ComCall(18, this, "int*", Top, "HRESULT")
+        TopMarshal := Top is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, TopMarshal, Top, "HRESULT")
         return result
     }
 
@@ -177,7 +185,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_left
      */
     get_Left(Left) {
-        result := ComCall(19, this, "int*", Left, "HRESULT")
+        LeftMarshal := Left is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, LeftMarshal, Left, "HRESULT")
         return result
     }
 
@@ -188,7 +198,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_width
      */
     get_Width(Width) {
-        result := ComCall(20, this, "int*", Width, "HRESULT")
+        WidthMarshal := Width is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, WidthMarshal, Width, "HRESULT")
         return result
     }
 
@@ -199,7 +211,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_height
      */
     get_Height(Height) {
-        result := ComCall(21, this, "int*", Height, "HRESULT")
+        HeightMarshal := Height is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, HeightMarshal, Height, "HRESULT")
         return result
     }
 
@@ -210,7 +224,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_verticaloffset
      */
     get_VerticalOffset(VerticalOffset) {
-        result := ComCall(22, this, "int*", VerticalOffset, "HRESULT")
+        VerticalOffsetMarshal := VerticalOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, VerticalOffsetMarshal, VerticalOffset, "HRESULT")
         return result
     }
 
@@ -232,7 +248,9 @@ class IPenInputPanel extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_horizontaloffset
      */
     get_HorizontalOffset(HorizontalOffset) {
-        result := ComCall(24, this, "int*", HorizontalOffset, "HRESULT")
+        HorizontalOffsetMarshal := HorizontalOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, HorizontalOffsetMarshal, HorizontalOffset, "HRESULT")
         return result
     }
 

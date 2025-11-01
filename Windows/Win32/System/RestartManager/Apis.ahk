@@ -128,7 +128,9 @@ class RestartManager {
 
         strSessionKey := strSessionKey is String ? StrPtr(strSessionKey) : strSessionKey
 
-        result := DllCall("rstrtmgr.dll\RmStartSession", "uint*", pSessionHandle, "uint", dwSessionFlags, "ptr", strSessionKey, "uint")
+        pSessionHandleMarshal := pSessionHandle is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("rstrtmgr.dll\RmStartSession", pSessionHandleMarshal, pSessionHandle, "uint", dwSessionFlags, "ptr", strSessionKey, "uint")
         return result
     }
 
@@ -234,7 +236,9 @@ class RestartManager {
     static RmJoinSession(pSessionHandle, strSessionKey) {
         strSessionKey := strSessionKey is String ? StrPtr(strSessionKey) : strSessionKey
 
-        result := DllCall("RstrtMgr.dll\RmJoinSession", "uint*", pSessionHandle, "ptr", strSessionKey, "uint")
+        pSessionHandleMarshal := pSessionHandle is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RstrtMgr.dll\RmJoinSession", pSessionHandleMarshal, pSessionHandle, "ptr", strSessionKey, "uint")
         return result
     }
 
@@ -529,7 +533,11 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmGetList(dwSessionHandle, pnProcInfoNeeded, pnProcInfo, rgAffectedApps, lpdwRebootReasons) {
-        result := DllCall("rstrtmgr.dll\RmGetList", "uint", dwSessionHandle, "uint*", pnProcInfoNeeded, "uint*", pnProcInfo, "ptr", rgAffectedApps, "uint*", lpdwRebootReasons, "uint")
+        pnProcInfoNeededMarshal := pnProcInfoNeeded is VarRef ? "uint*" : "ptr"
+        pnProcInfoMarshal := pnProcInfo is VarRef ? "uint*" : "ptr"
+        lpdwRebootReasonsMarshal := lpdwRebootReasons is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("rstrtmgr.dll\RmGetList", "uint", dwSessionHandle, pnProcInfoNeededMarshal, pnProcInfoNeeded, pnProcInfoMarshal, pnProcInfo, "ptr", rgAffectedApps, lpdwRebootReasonsMarshal, lpdwRebootReasons, "uint")
         return result
     }
 
@@ -1077,7 +1085,9 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmGetFilterList(dwSessionHandle, pbFilterBuf, cbFilterBuf, cbFilterBufNeeded) {
-        result := DllCall("RstrtMgr.dll\RmGetFilterList", "uint", dwSessionHandle, "ptr", pbFilterBuf, "uint", cbFilterBuf, "uint*", cbFilterBufNeeded, "uint")
+        cbFilterBufNeededMarshal := cbFilterBufNeeded is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("RstrtMgr.dll\RmGetFilterList", "uint", dwSessionHandle, "ptr", pbFilterBuf, "uint", cbFilterBuf, cbFilterBufNeededMarshal, cbFilterBufNeeded, "uint")
         return result
     }
 

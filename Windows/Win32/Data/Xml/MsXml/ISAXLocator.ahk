@@ -34,7 +34,9 @@ class ISAXLocator extends IUnknown{
      * @returns {HRESULT} 
      */
     getColumnNumber(pnColumn) {
-        result := ComCall(3, this, "int*", pnColumn, "HRESULT")
+        pnColumnMarshal := pnColumn is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pnColumnMarshal, pnColumn, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ISAXLocator extends IUnknown{
      * @returns {HRESULT} 
      */
     getLineNumber(pnLine) {
-        result := ComCall(4, this, "int*", pnLine, "HRESULT")
+        pnLineMarshal := pnLine is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pnLineMarshal, pnLine, "HRESULT")
         return result
     }
 

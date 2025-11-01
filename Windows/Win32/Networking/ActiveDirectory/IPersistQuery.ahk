@@ -93,7 +93,9 @@ class IPersistQuery extends IPersist{
         pSection := pSection is String ? StrPtr(pSection) : pSection
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        result := ComCall(7, this, "ptr", pSection, "ptr", pValueName, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pSection, "ptr", pValueName, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class IPersistQuery extends IPersist{
         pSection := pSection is String ? StrPtr(pSection) : pSection
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        result := ComCall(8, this, "ptr", pSection, "ptr", pValueName, "ptr", pStruct, "uint", cbStruct, "HRESULT")
+        pStructMarshal := pStruct is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, "uint", cbStruct, "HRESULT")
         return result
     }
 
@@ -127,7 +131,9 @@ class IPersistQuery extends IPersist{
         pSection := pSection is String ? StrPtr(pSection) : pSection
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        result := ComCall(9, this, "ptr", pSection, "ptr", pValueName, "ptr", pStruct, "uint", cbStruct, "HRESULT")
+        pStructMarshal := pStruct is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, "uint", cbStruct, "HRESULT")
         return result
     }
 

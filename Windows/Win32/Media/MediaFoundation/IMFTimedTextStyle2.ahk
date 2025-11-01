@@ -64,7 +64,9 @@ class IMFTimedTextStyle2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFontAngleInDegrees(value) {
-        result := ComCall(6, this, "double*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

@@ -47,7 +47,9 @@ class IMFMediaEngineExtension extends IUnknown{
     CanPlayType(AudioOnly, MimeType, pAnswer) {
         MimeType := MimeType is String ? BSTR.Alloc(MimeType).Value : MimeType
 
-        result := ComCall(3, this, "int", AudioOnly, "ptr", MimeType, "int*", pAnswer, "HRESULT")
+        pAnswerMarshal := pAnswer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", AudioOnly, "ptr", MimeType, pAnswerMarshal, pAnswer, "HRESULT")
         return result
     }
 

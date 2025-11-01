@@ -52,7 +52,9 @@ class ISettingsContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-deserialize
      */
     Deserialize(pStream, pTarget, pppResults, pcResultCount) {
-        result := ComCall(4, this, "ptr", pStream, "ptr", pTarget, "ptr*", pppResults, "ptr*", pcResultCount, "HRESULT")
+        pcResultCountMarshal := pcResultCount is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pStream, "ptr", pTarget, "ptr*", pppResults, pcResultCountMarshal, pcResultCount, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ISettingsContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-setuserdata
      */
     SetUserData(pUserData) {
-        result := ComCall(5, this, "ptr", pUserData, "HRESULT")
+        pUserDataMarshal := pUserData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pUserDataMarshal, pUserData, "HRESULT")
         return result
     }
 

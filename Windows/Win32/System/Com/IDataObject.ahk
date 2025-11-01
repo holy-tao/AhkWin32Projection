@@ -112,7 +112,9 @@ class IDataObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-dadvise
      */
     DAdvise(pformatetc, advf, pAdvSink, pdwConnection) {
-        result := ComCall(9, this, "ptr", pformatetc, "uint", advf, "ptr", pAdvSink, "uint*", pdwConnection, "HRESULT")
+        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pformatetc, "uint", advf, "ptr", pAdvSink, pdwConnectionMarshal, pdwConnection, "HRESULT")
         return result
     }
 

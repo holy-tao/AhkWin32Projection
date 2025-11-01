@@ -45,7 +45,9 @@ class ISdoCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-get_count
      */
     get_Count(pCount) {
-        result := ComCall(7, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

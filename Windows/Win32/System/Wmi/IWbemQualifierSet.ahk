@@ -51,7 +51,9 @@ class IWbemQualifierSet extends IUnknown{
     Get(wszName, lFlags, pVal, plFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(3, this, "ptr", wszName, "int", lFlags, "ptr", pVal, "int*", plFlavor, "HRESULT")
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", wszName, "int", lFlags, "ptr", pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -116,7 +118,9 @@ class IWbemQualifierSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-next
      */
     Next(lFlags, pstrName, pVal, plFlavor) {
-        result := ComCall(8, this, "int", lFlags, "ptr", pstrName, "ptr", pVal, "int*", plFlavor, "HRESULT")
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", lFlags, "ptr", pstrName, "ptr", pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 

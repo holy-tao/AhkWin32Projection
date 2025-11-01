@@ -74,7 +74,9 @@ class IMFSimpleAudioVolume extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmastervolume
      */
     GetMasterVolume(pfLevel) {
-        result := ComCall(4, this, "float*", pfLevel, "HRESULT")
+        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, pfLevelMarshal, pfLevel, "HRESULT")
         return result
     }
 

@@ -5765,7 +5765,11 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnumProtocols32(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCEnumProtocols32", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno, "int")
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCEnumProtocols32", lpiProtocolsMarshal, lpiProtocols, "ptr", lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -5831,7 +5835,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCDeinstallProvider32(lpProviderId, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCDeinstallProvider32", "ptr", lpProviderId, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCDeinstallProvider32", "ptr", lpProviderId, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -5923,7 +5929,9 @@ class WinSock {
     static WSCInstallProvider64_32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCInstallProvider64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCInstallProvider64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -5971,7 +5979,10 @@ class WinSock {
     static WSCGetProviderPath32(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCGetProviderPath32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno, "int")
+        lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCGetProviderPath32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, lpProviderDllPathLenMarshal, lpProviderDllPathLen, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -6042,7 +6053,9 @@ class WinSock {
     static WSCUpdateProvider32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCUpdateProvider32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCUpdateProvider32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -6121,7 +6134,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCSetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCSetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCSetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -6211,7 +6226,10 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCGetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCGetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno, "int")
+        InfoSizeMarshal := InfoSize is VarRef ? "ptr*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCGetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, InfoSizeMarshal, InfoSize, "uint", Flags, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -6272,7 +6290,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnumNameSpaceProviders32(lpdwBufferLength, lpnspBuffer) {
-        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProviders32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProviders32", lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpnspBuffer, "int")
         return result
     }
 
@@ -6333,7 +6353,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnumNameSpaceProvidersEx32(lpdwBufferLength, lpnspBuffer) {
-        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProvidersEx32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProvidersEx32", lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpnspBuffer, "int")
         return result
     }
 
@@ -6646,7 +6668,10 @@ class WinSock {
         lpszProviderDllPath32 := lpszProviderDllPath32 is String ? StrPtr(lpszProviderDllPath32) : lpszProviderDllPath32
         lpszLspName := lpszLspName is String ? StrPtr(lpszLspName) : lpszLspName
 
-        result := DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, "uint", dwServiceFlags, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "uint*", lpdwCatalogEntryId, "int*", lpErrno, "int")
+        lpdwCatalogEntryIdMarshal := lpdwCatalogEntryId is VarRef ? "uint*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, "uint", dwServiceFlags, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, lpdwCatalogEntryIdMarshal, lpdwCatalogEntryId, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -6711,7 +6736,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCWriteProviderOrder32(lpwdCatalogEntryId, dwNumberOfEntries) {
-        result := DllCall("WS2_32.dll\WSCWriteProviderOrder32", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries, "int")
+        lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCWriteProviderOrder32", lpwdCatalogEntryIdMarshal, lpwdCatalogEntryId, "uint", dwNumberOfEntries, "int")
         return result
     }
 
@@ -7000,9 +7027,11 @@ class WinSock {
     static accept(s, addr, addrlen) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        addrlenMarshal := addrlen is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\accept", "ptr", s, "ptr", addr, "int*", addrlen, "ptr")
+        result := DllCall("WS2_32.dll\accept", "ptr", s, "ptr", addr, addrlenMarshal, addrlen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7623,9 +7652,11 @@ class WinSock {
     static ioctlsocket(s, cmd, argp) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        argpMarshal := argp is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\ioctlsocket", "ptr", s, "int", cmd, "uint*", argp, "int")
+        result := DllCall("WS2_32.dll\ioctlsocket", "ptr", s, "int", cmd, argpMarshal, argp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7721,9 +7752,11 @@ class WinSock {
     static getpeername(s, name, namelen) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        namelenMarshal := namelen is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getpeername", "ptr", s, "ptr", name, "int*", namelen, "int")
+        result := DllCall("WS2_32.dll\getpeername", "ptr", s, "ptr", name, namelenMarshal, namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7821,9 +7854,11 @@ class WinSock {
     static getsockname(s, name, namelen) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        namelenMarshal := namelen is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getsockname", "ptr", s, "ptr", name, "int*", namelen, "int")
+        result := DllCall("WS2_32.dll\getsockname", "ptr", s, "ptr", name, namelenMarshal, namelen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7931,9 +7966,11 @@ class WinSock {
     static getsockopt(s, level, optname, optval, optlen) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        optlenMarshal := optlen is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int*", optlen, "int")
+        result := DllCall("WS2_32.dll\getsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, optlenMarshal, optlen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8618,9 +8655,11 @@ class WinSock {
     static recvfrom(s, buf, len, flags, from, fromlen) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        fromlenMarshal := fromlen is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\recvfrom", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", from, "int*", fromlen, "int")
+        result := DllCall("WS2_32.dll\recvfrom", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", from, fromlenMarshal, fromlen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12603,9 +12642,11 @@ class WinSock {
     static WSAAccept(s, addr, addrlen, lpfnCondition, dwCallbackData) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        addrlenMarshal := addrlen is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAccept", "ptr", s, "ptr", addr, "int*", addrlen, "ptr", lpfnCondition, "ptr", dwCallbackData, "ptr")
+        result := DllCall("WS2_32.dll\WSAAccept", "ptr", s, "ptr", addr, addrlenMarshal, addrlen, "ptr", lpfnCondition, "ptr", dwCallbackData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13074,9 +13115,12 @@ class WinSock {
         nodename := nodename is String ? StrPtr(nodename) : nodename
         servicename := servicename is String ? StrPtr(servicename) : servicename
 
+        LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : "ptr"
+        RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
+        result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, "ptr", LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13176,9 +13220,12 @@ class WinSock {
         nodename := nodename is String ? StrPtr(nodename) : nodename
         servicename := servicename is String ? StrPtr(servicename) : servicename
 
+        LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : "ptr"
+        RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByNameA", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
+        result := DllCall("WS2_32.dll\WSAConnectByNameA", "ptr", s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, "ptr", LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13300,9 +13347,12 @@ class WinSock {
 
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : "ptr"
+        RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByList", "ptr", s, "ptr", SocketAddress, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
+        result := DllCall("WS2_32.dll\WSAConnectByList", "ptr", s, "ptr", SocketAddress, LocalAddressLengthMarshal, LocalAddressLength, "ptr", LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13809,9 +13859,12 @@ class WinSock {
      * @since windows8.1
      */
     static WSAEnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
+        result := DllCall("WS2_32.dll\WSAEnumProtocolsA", lpiProtocolsMarshal, lpiProtocols, "ptr", lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13908,9 +13961,12 @@ class WinSock {
      * @since windows8.1
      */
     static WSAEnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
+        result := DllCall("WS2_32.dll\WSAEnumProtocolsW", lpiProtocolsMarshal, lpiProtocols, "ptr", lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14298,9 +14354,12 @@ class WinSock {
     static WSAGetOverlappedResult(s, lpOverlapped, lpcbTransfer, fWait, lpdwFlags) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpcbTransferMarshal := lpcbTransfer is VarRef ? "uint*" : "ptr"
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetOverlappedResult", "ptr", s, "ptr", lpOverlapped, "uint*", lpcbTransfer, "int", fWait, "uint*", lpdwFlags, "int")
+        result := DllCall("WS2_32.dll\WSAGetOverlappedResult", "ptr", s, "ptr", lpOverlapped, lpcbTransferMarshal, lpcbTransfer, "int", fWait, lpdwFlagsMarshal, lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14450,9 +14509,11 @@ class WinSock {
     static WSAHtonl(s, hostlong, lpnetlong) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpnetlongMarshal := lpnetlong is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAHtonl", "ptr", s, "uint", hostlong, "uint*", lpnetlong, "int")
+        result := DllCall("WS2_32.dll\WSAHtonl", "ptr", s, "uint", hostlong, lpnetlongMarshal, lpnetlong, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14525,9 +14586,11 @@ class WinSock {
     static WSAHtons(s, hostshort, lpnetshort) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpnetshortMarshal := lpnetshort is VarRef ? "ushort*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAHtons", "ptr", s, "ushort", hostshort, "ushort*", lpnetshort, "int")
+        result := DllCall("WS2_32.dll\WSAHtons", "ptr", s, "ushort", hostshort, lpnetshortMarshal, lpnetshort, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14665,9 +14728,11 @@ class WinSock {
     static WSAIoctl(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpOverlapped, lpCompletionRoutine) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAIoctl", "ptr", s, "uint", dwIoControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("WS2_32.dll\WSAIoctl", "ptr", s, "uint", dwIoControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15001,9 +15066,11 @@ class WinSock {
     static WSANtohl(s, netlong, lphostlong) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lphostlongMarshal := lphostlong is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSANtohl", "ptr", s, "uint", netlong, "uint*", lphostlong, "int")
+        result := DllCall("WS2_32.dll\WSANtohl", "ptr", s, "uint", netlong, lphostlongMarshal, lphostlong, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15078,9 +15145,11 @@ class WinSock {
     static WSANtohs(s, netshort, lphostshort) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lphostshortMarshal := lphostshort is VarRef ? "ushort*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSANtohs", "ptr", s, "ushort", netshort, "ushort*", lphostshort, "int")
+        result := DllCall("WS2_32.dll\WSANtohs", "ptr", s, "ushort", netshort, lphostshortMarshal, lphostshort, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15338,9 +15407,12 @@ class WinSock {
     static WSARecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
+        lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSARecv", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("WS2_32.dll\WSARecv", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15641,9 +15713,13 @@ class WinSock {
     static WSARecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
+        lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
+        lpFromlenMarshal := lpFromlen is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSARecvFrom", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpFrom, "int*", lpFromlen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("WS2_32.dll\WSARecvFrom", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, "ptr", lpFrom, lpFromlenMarshal, lpFromlen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15965,9 +16041,11 @@ class WinSock {
     static WSASend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASend", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("WS2_32.dll\WSASend", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16231,9 +16309,11 @@ class WinSock {
     static WSASendMsg(Handle, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lpCompletionRoutine) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
+        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASendMsg", "ptr", Handle, "ptr", lpMsg, "uint", dwFlags, "uint*", lpNumberOfBytesSent, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("WS2_32.dll\WSASendMsg", "ptr", Handle, "ptr", lpMsg, "uint", dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16636,9 +16716,11 @@ class WinSock {
     static WSASendTo(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpTo, iTolen, lpOverlapped, lpCompletionRoutine) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASendTo", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpTo, "int", iTolen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("WS2_32.dll\WSASendTo", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpTo, "int", iTolen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18284,9 +18366,11 @@ class WinSock {
     static WSAAddressToStringA(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength) {
         lpszAddressString := lpszAddressString is String ? StrPtr(lpszAddressString) : lpszAddressString
 
+        lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAddressToStringA", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength, "int")
+        result := DllCall("WS2_32.dll\WSAAddressToStringA", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18364,9 +18448,11 @@ class WinSock {
     static WSAAddressToStringW(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength) {
         lpszAddressString := lpszAddressString is String ? StrPtr(lpszAddressString) : lpszAddressString
 
+        lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAddressToStringW", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength, "int")
+        result := DllCall("WS2_32.dll\WSAAddressToStringW", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18445,9 +18531,11 @@ class WinSock {
     static WSAStringToAddressA(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
+        lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength, "int")
+        result := DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, lpAddressLengthMarshal, lpAddressLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18525,9 +18613,11 @@ class WinSock {
     static WSAStringToAddressW(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
+        lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength, "int")
+        result := DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, lpAddressLengthMarshal, lpAddressLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19393,9 +19483,11 @@ class WinSock {
     static WSALookupServiceNextA(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
         hLookup := hLookup is Win32Handle ? NumGet(hLookup, "ptr") : hLookup
 
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSALookupServiceNextA", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults, "int")
+        result := DllCall("WS2_32.dll\WSALookupServiceNextA", "ptr", hLookup, "uint", dwControlFlags, lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpqsResults, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19707,9 +19799,11 @@ class WinSock {
     static WSALookupServiceNextW(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
         hLookup := hLookup is Win32Handle ? NumGet(hLookup, "ptr") : hLookup
 
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSALookupServiceNextW", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults, "int")
+        result := DllCall("WS2_32.dll\WSALookupServiceNextW", "ptr", hLookup, "uint", dwControlFlags, lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpqsResults, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19846,9 +19940,11 @@ class WinSock {
     static WSANSPIoctl(hLookup, dwControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpCompletion) {
         hLookup := hLookup is Win32Handle ? NumGet(hLookup, "ptr") : hLookup
 
+        lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSANSPIoctl", "ptr", hLookup, "uint", dwControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpCompletion, "int")
+        result := DllCall("WS2_32.dll\WSANSPIoctl", "ptr", hLookup, "uint", dwControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, "ptr", lpCompletion, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20369,9 +20465,11 @@ class WinSock {
      * @since windows5.0
      */
     static WSAGetServiceClassInfoA(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
+        lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoA", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo, "int")
+        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoA", "ptr", lpProviderId, "ptr", lpServiceClassId, lpdwBufSizeMarshal, lpdwBufSize, "ptr", lpServiceClassInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20490,9 +20588,11 @@ class WinSock {
      * @since windows5.0
      */
     static WSAGetServiceClassInfoW(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
+        lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoW", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo, "int")
+        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoW", "ptr", lpProviderId, "ptr", lpServiceClassId, lpdwBufSizeMarshal, lpdwBufSize, "ptr", lpServiceClassInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20557,9 +20657,11 @@ class WinSock {
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersA(lpdwBufferLength, lpnspBuffer) {
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersA", lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20623,9 +20725,11 @@ class WinSock {
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersW(lpdwBufferLength, lpnspBuffer) {
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersW", lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20690,9 +20794,11 @@ class WinSock {
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersExA(lpdwBufferLength, lpnspBuffer) {
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExA", lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20756,9 +20862,11 @@ class WinSock {
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersExW(lpdwBufferLength, lpnspBuffer) {
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer, "int")
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExW", lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpnspBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20874,9 +20982,11 @@ class WinSock {
      * @since windows5.0
      */
     static WSAGetServiceClassNameByClassIdA(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdA", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength, "int")
+        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdA", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20991,9 +21101,11 @@ class WinSock {
      * @since windows5.0
      */
     static WSAGetServiceClassNameByClassIdW(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdW", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength, "int")
+        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdW", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21500,7 +21612,9 @@ class WinSock {
     static ProcessSocketNotifications(completionPort, registrationCount, registrationInfos, timeoutMs, completionCount, completionPortEntries, receivedEntryCount) {
         completionPort := completionPort is Win32Handle ? NumGet(completionPort, "ptr") : completionPort
 
-        result := DllCall("WS2_32.dll\ProcessSocketNotifications", "ptr", completionPort, "uint", registrationCount, "ptr", registrationInfos, "uint", timeoutMs, "uint", completionCount, "ptr", completionPortEntries, "uint*", receivedEntryCount, "uint")
+        receivedEntryCountMarshal := receivedEntryCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WS2_32.dll\ProcessSocketNotifications", "ptr", completionPort, "uint", registrationCount, "ptr", registrationInfos, "uint", timeoutMs, "uint", completionCount, "ptr", completionPortEntries, receivedEntryCountMarshal, receivedEntryCount, "uint")
         return result
     }
 
@@ -21564,7 +21678,9 @@ class WinSock {
     static RtlIpv4AddressToStringExA(Address, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExA", "ptr", Address, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
+        AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExA", "ptr", Address, "ushort", Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, "int")
         return result
     }
 
@@ -21631,7 +21747,9 @@ class WinSock {
     static RtlIpv4AddressToStringExW(Address, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExW", "ptr", Address, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
+        AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExW", "ptr", Address, "ushort", Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, "int")
         return result
     }
 
@@ -21720,7 +21838,9 @@ class WinSock {
     static RtlIpv4StringToAddressExA(AddressString, Strict, Address, Port) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, "char", Strict, "ptr", Address, "ushort*", Port, "int")
+        PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, "char", Strict, "ptr", Address, PortMarshal, Port, "int")
         return result
     }
 
@@ -21826,7 +21946,9 @@ class WinSock {
     static RtlIpv4StringToAddressExW(AddressString, Strict, Address, Port) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, "char", Strict, "ptr", Address, "ushort*", Port, "int")
+        PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, "char", Strict, "ptr", Address, PortMarshal, Port, "int")
         return result
     }
 
@@ -21890,7 +22012,9 @@ class WinSock {
     static RtlIpv6AddressToStringExA(Address, ScopeId, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExA", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
+        AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExA", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, "int")
         return result
     }
 
@@ -21958,7 +22082,9 @@ class WinSock {
     static RtlIpv6AddressToStringExW(Address, ScopeId, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExW", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
+        AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExW", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, "int")
         return result
     }
 
@@ -22056,7 +22182,10 @@ class WinSock {
     static RtlIpv6StringToAddressExA(AddressString, Address, ScopeId, Port) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExA", "ptr", AddressString, "ptr", Address, "uint*", ScopeId, "ushort*", Port, "int")
+        ScopeIdMarshal := ScopeId is VarRef ? "uint*" : "ptr"
+        PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExA", "ptr", AddressString, "ptr", Address, ScopeIdMarshal, ScopeId, PortMarshal, Port, "int")
         return result
     }
 
@@ -22158,7 +22287,10 @@ class WinSock {
     static RtlIpv6StringToAddressExW(AddressString, Address, ScopeId, Port) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExW", "ptr", AddressString, "ptr", Address, "uint*", ScopeId, "ushort*", Port, "int")
+        ScopeIdMarshal := ScopeId is VarRef ? "uint*" : "ptr"
+        PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExW", "ptr", AddressString, "ptr", Address, ScopeIdMarshal, ScopeId, PortMarshal, Port, "int")
         return result
     }
 
@@ -22496,9 +22628,11 @@ class WinSock {
     static WSARecvEx(s, buf, len, flags) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\WSARecvEx", "ptr", s, "ptr", buf, "int", len, "int*", flags, "int")
+        result := DllCall("MSWSOCK.dll\WSARecvEx", "ptr", s, "ptr", buf, "int", len, flagsMarshal, flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22823,7 +22957,10 @@ class WinSock {
         sListenSocket := sListenSocket is Win32Handle ? NumGet(sListenSocket, "ptr") : sListenSocket
         sAcceptSocket := sAcceptSocket is Win32Handle ? NumGet(sAcceptSocket, "ptr") : sAcceptSocket
 
-        result := DllCall("MSWSOCK.dll\AcceptEx", "ptr", sListenSocket, "ptr", sAcceptSocket, "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "uint*", lpdwBytesReceived, "ptr", lpOverlapped, "int")
+        lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : "ptr"
+        lpdwBytesReceivedMarshal := lpdwBytesReceived is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MSWSOCK.dll\AcceptEx", "ptr", sListenSocket, "ptr", sAcceptSocket, lpOutputBufferMarshal, lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, lpdwBytesReceivedMarshal, lpdwBytesReceived, "ptr", lpOverlapped, "int")
         return result
     }
 
@@ -22869,7 +23006,11 @@ class WinSock {
      * @since windows8.1
      */
     static GetAcceptExSockaddrs(lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, LocalSockaddr, LocalSockaddrLength, RemoteSockaddr, RemoteSockaddrLength) {
-        DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr*", LocalSockaddr, "int*", LocalSockaddrLength, "ptr*", RemoteSockaddr, "int*", RemoteSockaddrLength)
+        lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : "ptr"
+        LocalSockaddrLengthMarshal := LocalSockaddrLength is VarRef ? "int*" : "ptr"
+        RemoteSockaddrLengthMarshal := RemoteSockaddrLength is VarRef ? "int*" : "ptr"
+
+        DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", lpOutputBufferMarshal, lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr*", LocalSockaddr, LocalSockaddrLengthMarshal, LocalSockaddrLength, "ptr*", RemoteSockaddr, RemoteSockaddrLengthMarshal, RemoteSockaddrLength)
     }
 
     /**
@@ -22928,7 +23069,11 @@ class WinSock {
      * @since windows5.0
      */
     static WSCEnumProtocols(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCEnumProtocols", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno, "int")
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCEnumProtocols", lpiProtocolsMarshal, lpiProtocols, "ptr", lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -22996,7 +23141,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSCDeinstallProvider(lpProviderId, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCDeinstallProvider", "ptr", lpProviderId, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCDeinstallProvider", "ptr", lpProviderId, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23088,7 +23235,9 @@ class WinSock {
     static WSCInstallProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCInstallProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCInstallProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23136,7 +23285,10 @@ class WinSock {
     static WSCGetProviderPath(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCGetProviderPath", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno, "int")
+        lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCGetProviderPath", "ptr", lpProviderId, "ptr", lpszProviderDllPath, lpProviderDllPathLenMarshal, lpProviderDllPathLen, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23207,7 +23359,9 @@ class WinSock {
     static WSCUpdateProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        result := DllCall("WS2_32.dll\WSCUpdateProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCUpdateProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23286,7 +23440,9 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCSetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCSetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCSetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23376,7 +23532,10 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCGetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        result := DllCall("WS2_32.dll\WSCGetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno, "int")
+        InfoSizeMarshal := InfoSize is VarRef ? "ptr*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCGetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, InfoSizeMarshal, InfoSize, "uint", Flags, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23437,7 +23596,10 @@ class WinSock {
         Path := Path is String ? StrPtr(Path) : Path
         Extra := Extra is String ? StrPtr(Extra) : Extra
 
-        result := DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint", PermittedLspCategories, "uint*", pPrevPermLspCat, "int*", lpErrno, "int")
+        pPrevPermLspCatMarshal := pPrevPermLspCat is VarRef ? "uint*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint", PermittedLspCategories, pPrevPermLspCatMarshal, pPrevPermLspCat, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23511,7 +23673,10 @@ class WinSock {
         Path := Path is String ? StrPtr(Path) : Path
         Extra := Extra is String ? StrPtr(Extra) : Extra
 
-        result := DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint*", pPermittedLspCategories, "int*", lpErrno, "int")
+        pPermittedLspCategoriesMarshal := pPermittedLspCategories is VarRef ? "uint*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, pPermittedLspCategoriesMarshal, pPermittedLspCategories, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -23555,7 +23720,9 @@ class WinSock {
     static WPUCompleteOverlappedRequest(s, lpOverlapped, dwError, cbTransferred, lpErrno) {
         s := s is Win32Handle ? NumGet(s, "ptr") : s
 
-        result := DllCall("WS2_32.dll\WPUCompleteOverlappedRequest", "ptr", s, "ptr", lpOverlapped, "uint", dwError, "uint", cbTransferred, "int*", lpErrno, "int")
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WPUCompleteOverlappedRequest", "ptr", s, "ptr", lpOverlapped, "uint", dwError, "uint", cbTransferred, lpErrnoMarshal, lpErrno, "int")
         return result
     }
 
@@ -24172,9 +24339,12 @@ class WinSock {
      * @since windows5.0
      */
     static EnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\EnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
+        result := DllCall("MSWSOCK.dll\EnumProtocolsA", lpiProtocolsMarshal, lpiProtocols, "ptr", lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24295,9 +24465,12 @@ class WinSock {
      * @since windows5.0
      */
     static EnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\EnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int")
+        result := DllCall("MSWSOCK.dll\EnumProtocolsW", lpiProtocolsMarshal, lpiProtocols, "ptr", lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24488,9 +24661,13 @@ class WinSock {
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         lpAliasBuffer := lpAliasBuffer is String ? StrPtr(lpAliasBuffer) : lpAliasBuffer
 
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+        lpdwAliasBufferLengthMarshal := lpdwAliasBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetAddressByNameA", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength, "int")
+        result := DllCall("MSWSOCK.dll\GetAddressByNameA", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, lpiProtocolsMarshal, lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpAliasBuffer, lpdwAliasBufferLengthMarshal, lpdwAliasBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -24681,9 +24858,13 @@ class WinSock {
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         lpAliasBuffer := lpAliasBuffer is String ? StrPtr(lpAliasBuffer) : lpAliasBuffer
 
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+        lpdwAliasBufferLengthMarshal := lpdwAliasBufferLength is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetAddressByNameW", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength, "int")
+        result := DllCall("MSWSOCK.dll\GetAddressByNameW", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, lpiProtocolsMarshal, lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpAliasBuffer, lpdwAliasBufferLengthMarshal, lpdwAliasBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25001,9 +25182,11 @@ class WinSock {
      * @since windows5.0
      */
     static SetServiceA(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
+        lpdwStatusFlagsMarshal := lpdwStatusFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\SetServiceA", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags, "int")
+        result := DllCall("MSWSOCK.dll\SetServiceA", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, lpdwStatusFlagsMarshal, lpdwStatusFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25187,9 +25370,11 @@ class WinSock {
      * @since windows5.0
      */
     static SetServiceW(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
+        lpdwStatusFlagsMarshal := lpdwStatusFlags is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\SetServiceW", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags, "int")
+        result := DllCall("MSWSOCK.dll\SetServiceW", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, lpdwStatusFlagsMarshal, lpdwStatusFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25430,9 +25615,11 @@ class WinSock {
     static GetServiceA(dwNameSpace, lpGuid, lpServiceName, dwProperties, lpBuffer, lpdwBufferSize, lpServiceAsyncInfo) {
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
 
+        lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetServiceA", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo, "int")
+        result := DllCall("MSWSOCK.dll\GetServiceA", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, "ptr", lpServiceAsyncInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25673,9 +25860,11 @@ class WinSock {
     static GetServiceW(dwNameSpace, lpGuid, lpServiceName, dwProperties, lpBuffer, lpdwBufferSize, lpServiceAsyncInfo) {
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
 
+        lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("MSWSOCK.dll\GetServiceW", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo, "int")
+        result := DllCall("MSWSOCK.dll\GetServiceW", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, "ptr", lpServiceAsyncInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -27555,9 +27744,11 @@ class WinSock {
     static inet_pton(Family, pszAddrString, pAddrBuf) {
         pszAddrString := pszAddrString is String ? StrPtr(pszAddrString) : pszAddrString
 
+        pAddrBufMarshal := pAddrBuf is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_pton", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf, "int")
+        result := DllCall("WS2_32.dll\inet_pton", "int", Family, "ptr", pszAddrString, pAddrBufMarshal, pAddrBuf, "int")
         if(A_LastError)
             throw OSError()
 
@@ -27652,7 +27843,9 @@ class WinSock {
     static InetPtonW(Family, pszAddrString, pAddrBuf) {
         pszAddrString := pszAddrString is String ? StrPtr(pszAddrString) : pszAddrString
 
-        result := DllCall("WS2_32.dll\InetPtonW", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf, "int")
+        pAddrBufMarshal := pAddrBuf is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WS2_32.dll\InetPtonW", "int", Family, "ptr", pszAddrString, pAddrBufMarshal, pAddrBuf, "int")
         return result
     }
 
@@ -27669,9 +27862,11 @@ class WinSock {
     static inet_ntop(Family, pAddr, pStringBuf, StringBufSize) {
         pStringBuf := pStringBuf is String ? StrPtr(pStringBuf) : pStringBuf
 
+        pAddrMarshal := pAddr is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
+        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, pAddrMarshal, pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -27767,7 +27962,9 @@ class WinSock {
     static InetNtopW(Family, pAddr, pStringBuf, StringBufSize) {
         pStringBuf := pStringBuf is String ? StrPtr(pStringBuf) : pStringBuf
 
-        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
+        pAddrMarshal := pAddr is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, pAddrMarshal, pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
         return result
     }
 
@@ -27961,9 +28158,11 @@ class WinSock {
     static WSAQuerySocketSecurity(Socket, SecurityQueryTemplate, SecurityQueryTemplateLen, SecurityQueryInfo, SecurityQueryInfoLen, Overlapped, CompletionRoutine) {
         Socket := Socket is Win32Handle ? NumGet(Socket, "ptr") : Socket
 
+        SecurityQueryInfoLenMarshal := SecurityQueryInfoLen is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", "ptr", Socket, "ptr", SecurityQueryTemplate, "uint", SecurityQueryTemplateLen, "ptr", SecurityQueryInfo, "uint*", SecurityQueryInfoLen, "ptr", Overlapped, "ptr", CompletionRoutine, "int")
+        result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", "ptr", Socket, "ptr", SecurityQueryTemplate, "uint", SecurityQueryTemplateLen, "ptr", SecurityQueryInfo, SecurityQueryInfoLenMarshal, SecurityQueryInfoLen, "ptr", Overlapped, "ptr", CompletionRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -28346,7 +28545,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSCWriteProviderOrder(lpwdCatalogEntryId, dwNumberOfEntries) {
-        result := DllCall("WS2_32.dll\WSCWriteProviderOrder", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries, "int")
+        lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WS2_32.dll\WSCWriteProviderOrder", lpwdCatalogEntryIdMarshal, lpwdCatalogEntryId, "uint", dwNumberOfEntries, "int")
         return result
     }
 

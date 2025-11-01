@@ -56,7 +56,9 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     IsTransitionPoint(isTransitionPoint) {
-        result := ComCall(5, this, "int*", isTransitionPoint, "HRESULT")
+        isTransitionPointMarshal := isTransitionPoint is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, isTransitionPointMarshal, isTransitionPoint, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTransition(transitionScript, isTransitionContiguous) {
-        result := ComCall(6, this, "ptr*", transitionScript, "int*", isTransitionContiguous, "HRESULT")
+        isTransitionContiguousMarshal := isTransitionContiguous is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", transitionScript, isTransitionContiguousMarshal, isTransitionContiguous, "HRESULT")
         return result
     }
 

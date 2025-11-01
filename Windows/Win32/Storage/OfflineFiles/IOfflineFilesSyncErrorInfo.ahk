@@ -37,7 +37,9 @@ class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getsyncoperation
      */
     GetSyncOperation(pSyncOp) {
-        result := ComCall(5, this, "int*", pSyncOp, "HRESULT")
+        pSyncOpMarshal := pSyncOp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pSyncOpMarshal, pSyncOp, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-getitemchangeflags
      */
     GetItemChangeFlags(pdwItemChangeFlags) {
-        result := ComCall(6, this, "uint*", pdwItemChangeFlags, "HRESULT")
+        pdwItemChangeFlagsMarshal := pdwItemChangeFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwItemChangeFlagsMarshal, pdwItemChangeFlags, "HRESULT")
         return result
     }
 

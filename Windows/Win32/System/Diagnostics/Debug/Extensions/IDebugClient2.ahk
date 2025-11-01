@@ -51,7 +51,9 @@ class IDebugClient2 extends IUnknown{
     GetKernelConnectionOptions(Buffer, BufferSize, OptionsSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(4, this, "ptr", Buffer, "uint", BufferSize, "uint*", OptionsSize, "HRESULT")
+        OptionsSizeMarshal := OptionsSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", Buffer, "uint", BufferSize, OptionsSizeMarshal, OptionsSize, "HRESULT")
         return result
     }
 
@@ -91,7 +93,9 @@ class IDebugClient2 extends IUnknown{
     ConnectProcessServer(RemoteOptions, Server) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := ComCall(7, this, "ptr", RemoteOptions, "uint*", Server, "HRESULT")
+        ServerMarshal := Server is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", RemoteOptions, ServerMarshal, Server, "HRESULT")
         return result
     }
 
@@ -114,7 +118,10 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRunningProcessSystemIds(Server, Ids, Count, ActualCount) {
-        result := ComCall(9, this, "uint", Server, "uint*", Ids, "uint", Count, "uint*", ActualCount, "HRESULT")
+        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
+        ActualCountMarshal := ActualCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", Server, IdsMarshal, Ids, "uint", Count, ActualCountMarshal, ActualCount, "HRESULT")
         return result
     }
 
@@ -129,7 +136,9 @@ class IDebugClient2 extends IUnknown{
     GetRunningProcessSystemIdByExecutableName(Server, ExeName, Flags, Id) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := ComCall(10, this, "uint", Server, "ptr", ExeName, "uint", Flags, "uint*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", Server, "ptr", ExeName, "uint", Flags, IdMarshal, Id, "HRESULT")
         return result
     }
 
@@ -150,7 +159,10 @@ class IDebugClient2 extends IUnknown{
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
         Description := Description is String ? StrPtr(Description) : Description
 
-        result := ComCall(11, this, "uint", Server, "uint", SystemId, "uint", Flags, "ptr", ExeName, "uint", ExeNameSize, "uint*", ActualExeNameSize, "ptr", Description, "uint", DescriptionSize, "uint*", ActualDescriptionSize, "HRESULT")
+        ActualExeNameSizeMarshal := ActualExeNameSize is VarRef ? "uint*" : "ptr"
+        ActualDescriptionSizeMarshal := ActualDescriptionSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", Server, "uint", SystemId, "uint", Flags, "ptr", ExeName, "uint", ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, "uint", DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
         return result
     }
 
@@ -208,7 +220,9 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProcessOptions(Options) {
-        result := ComCall(15, this, "uint*", Options, "HRESULT")
+        OptionsMarshal := Options is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, OptionsMarshal, Options, "HRESULT")
         return result
     }
 
@@ -338,7 +352,9 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExitCode(Code) {
-        result := ComCall(27, this, "uint*", Code, "HRESULT")
+        CodeMarshal := Code is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, CodeMarshal, Code, "HRESULT")
         return result
     }
 
@@ -418,7 +434,9 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputMask(Mask) {
-        result := ComCall(35, this, "uint*", Mask, "HRESULT")
+        MaskMarshal := Mask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, MaskMarshal, Mask, "HRESULT")
         return result
     }
 
@@ -439,7 +457,9 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOtherOutputMask(Client, Mask) {
-        result := ComCall(37, this, "ptr", Client, "uint*", Mask, "HRESULT")
+        MaskMarshal := Mask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "ptr", Client, MaskMarshal, Mask, "HRESULT")
         return result
     }
 
@@ -460,7 +480,9 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputWidth(Columns) {
-        result := ComCall(39, this, "uint*", Columns, "HRESULT")
+        ColumnsMarshal := Columns is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, ColumnsMarshal, Columns, "HRESULT")
         return result
     }
 
@@ -484,7 +506,9 @@ class IDebugClient2 extends IUnknown{
     GetOutputLinePrefix(Buffer, BufferSize, PrefixSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(41, this, "ptr", Buffer, "uint", BufferSize, "uint*", PrefixSize, "HRESULT")
+        PrefixSizeMarshal := PrefixSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, "ptr", Buffer, "uint", BufferSize, PrefixSizeMarshal, PrefixSize, "HRESULT")
         return result
     }
 
@@ -510,7 +534,9 @@ class IDebugClient2 extends IUnknown{
     GetIdentity(Buffer, BufferSize, IdentitySize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := ComCall(43, this, "ptr", Buffer, "uint", BufferSize, "uint*", IdentitySize, "HRESULT")
+        IdentitySizeMarshal := IdentitySize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, "ptr", Buffer, "uint", BufferSize, IdentitySizeMarshal, IdentitySize, "HRESULT")
         return result
     }
 

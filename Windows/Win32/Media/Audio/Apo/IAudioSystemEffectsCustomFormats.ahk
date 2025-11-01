@@ -37,7 +37,9 @@ class IAudioSystemEffectsCustomFormats extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffectscustomformats-getformatcount
      */
     GetFormatCount(pcFormats) {
-        result := ComCall(3, this, "uint*", pcFormats, "HRESULT")
+        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcFormatsMarshal, pcFormats, "HRESULT")
         return result
     }
 

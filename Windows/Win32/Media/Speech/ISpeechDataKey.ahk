@@ -104,7 +104,9 @@ class ISpeechDataKey extends IDispatch{
     GetLongValue(ValueName, Value) {
         ValueName := ValueName is String ? BSTR.Alloc(ValueName).Value : ValueName
 
-        result := ComCall(12, this, "ptr", ValueName, "int*", Value, "HRESULT")
+        ValueMarshal := Value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", ValueName, ValueMarshal, Value, "HRESULT")
         return result
     }
 

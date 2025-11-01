@@ -48,7 +48,9 @@ class IUri extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPropertyLength(uriProp, pcchProperty, dwFlags) {
-        result := ComCall(4, this, "int", uriProp, "uint*", pcchProperty, "uint", dwFlags, "HRESULT")
+        pcchPropertyMarshal := pcchProperty is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", uriProp, pcchPropertyMarshal, pcchProperty, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IUri extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPropertyDWORD(uriProp, pdwProperty, dwFlags) {
-        result := ComCall(5, this, "int", uriProp, "uint*", pdwProperty, "uint", dwFlags, "HRESULT")
+        pdwPropertyMarshal := pdwProperty is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", uriProp, pdwPropertyMarshal, pdwProperty, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -232,7 +236,9 @@ class IUri extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHostType(pdwHostType) {
-        result := ComCall(22, this, "uint*", pdwHostType, "HRESULT")
+        pdwHostTypeMarshal := pdwHostType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, pdwHostTypeMarshal, pdwHostType, "HRESULT")
         return result
     }
 
@@ -242,7 +248,9 @@ class IUri extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPort(pdwPort) {
-        result := ComCall(23, this, "uint*", pdwPort, "HRESULT")
+        pdwPortMarshal := pdwPort is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, pdwPortMarshal, pdwPort, "HRESULT")
         return result
     }
 
@@ -252,7 +260,9 @@ class IUri extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScheme(pdwScheme) {
-        result := ComCall(24, this, "uint*", pdwScheme, "HRESULT")
+        pdwSchemeMarshal := pdwScheme is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, pdwSchemeMarshal, pdwScheme, "HRESULT")
         return result
     }
 
@@ -262,7 +272,9 @@ class IUri extends IUnknown{
      * @returns {HRESULT} 
      */
     GetZone(pdwZone) {
-        result := ComCall(25, this, "uint*", pdwZone, "HRESULT")
+        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, pdwZoneMarshal, pdwZone, "HRESULT")
         return result
     }
 
@@ -272,7 +284,9 @@ class IUri extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProperties(pdwFlags) {
-        result := ComCall(26, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

@@ -111,7 +111,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_state
      */
     get_State(pAgentState) {
-        result := ComCall(13, this, "int*", pAgentState, "HRESULT")
+        pAgentStateMarshal := pAgentState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pAgentStateMarshal, pAgentState, "HRESULT")
         return result
     }
 
@@ -133,7 +135,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_measurementperiod
      */
     get_MeasurementPeriod(plPeriod) {
-        result := ComCall(15, this, "int*", plPeriod, "HRESULT")
+        plPeriodMarshal := plPeriod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plPeriodMarshal, plPeriod, "HRESULT")
         return result
     }
 
@@ -155,7 +159,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofacdcalls
      */
     get_NumberOfACDCalls(plCalls) {
-        result := ComCall(17, this, "int*", plCalls, "HRESULT")
+        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plCallsMarshal, plCalls, "HRESULT")
         return result
     }
 
@@ -166,7 +172,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofincomingcalls
      */
     get_NumberOfIncomingCalls(plCalls) {
-        result := ComCall(18, this, "int*", plCalls, "HRESULT")
+        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, plCallsMarshal, plCalls, "HRESULT")
         return result
     }
 
@@ -177,7 +185,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_numberofoutgoingcalls
      */
     get_NumberOfOutgoingCalls(plCalls) {
-        result := ComCall(19, this, "int*", plCalls, "HRESULT")
+        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plCallsMarshal, plCalls, "HRESULT")
         return result
     }
 
@@ -188,7 +198,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalacdtalktime
      */
     get_TotalACDTalkTime(plTalkTime) {
-        result := ComCall(20, this, "int*", plTalkTime, "HRESULT")
+        plTalkTimeMarshal := plTalkTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, plTalkTimeMarshal, plTalkTime, "HRESULT")
         return result
     }
 
@@ -199,7 +211,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalacdcalltime
      */
     get_TotalACDCallTime(plCallTime) {
-        result := ComCall(21, this, "int*", plCallTime, "HRESULT")
+        plCallTimeMarshal := plCallTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, plCallTimeMarshal, plCallTime, "HRESULT")
         return result
     }
 
@@ -210,7 +224,9 @@ class ITAgent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_totalwrapuptime
      */
     get_TotalWrapUpTime(plWrapUpTime) {
-        result := ComCall(22, this, "int*", plWrapUpTime, "HRESULT")
+        plWrapUpTimeMarshal := plWrapUpTime is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, plWrapUpTimeMarshal, plWrapUpTime, "HRESULT")
         return result
     }
 

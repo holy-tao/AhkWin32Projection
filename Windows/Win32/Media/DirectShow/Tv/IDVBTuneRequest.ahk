@@ -48,7 +48,9 @@ class IDVBTuneRequest extends ITuneRequest{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_onid
      */
     get_ONID(ONID) {
-        result := ComCall(12, this, "int*", ONID, "HRESULT")
+        ONIDMarshal := ONID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, ONIDMarshal, ONID, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IDVBTuneRequest extends ITuneRequest{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_tsid
      */
     get_TSID(TSID) {
-        result := ComCall(14, this, "int*", TSID, "HRESULT")
+        TSIDMarshal := TSID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, TSIDMarshal, TSID, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IDVBTuneRequest extends ITuneRequest{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_sid
      */
     get_SID(SID) {
-        result := ComCall(16, this, "int*", SID, "HRESULT")
+        SIDMarshal := SID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, SIDMarshal, SID, "HRESULT")
         return result
     }
 

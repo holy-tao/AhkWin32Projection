@@ -34,7 +34,9 @@ class IDebugHostTypeSignature extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHashCode(hashCode) {
-        result := ComCall(3, this, "uint*", hashCode, "HRESULT")
+        hashCodeMarshal := hashCode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, hashCodeMarshal, hashCode, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class IDebugHostTypeSignature extends IUnknown{
      * @returns {HRESULT} 
      */
     IsMatch(type, isMatch, wildcardMatches) {
-        result := ComCall(4, this, "ptr", type, "int*", isMatch, "ptr*", wildcardMatches, "HRESULT")
+        isMatchMarshal := isMatch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", type, isMatchMarshal, isMatch, "ptr*", wildcardMatches, "HRESULT")
         return result
     }
 
@@ -57,7 +61,9 @@ class IDebugHostTypeSignature extends IUnknown{
      * @returns {HRESULT} 
      */
     CompareAgainst(typeSignature, result) {
-        result := ComCall(5, this, "ptr", typeSignature, "int*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", typeSignature, resultMarshal, result, "HRESULT")
         return result
     }
 }

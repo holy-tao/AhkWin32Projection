@@ -195,7 +195,9 @@ class IMarkupServices extends IUnknown{
      * @returns {HRESULT} 
      */
     GetElementTagId(pElement, ptagId) {
-        result := ComCall(16, this, "ptr", pElement, "int*", ptagId, "HRESULT")
+        ptagIdMarshal := ptagId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "ptr", pElement, ptagIdMarshal, ptagId, "HRESULT")
         return result
     }
 
@@ -208,7 +210,9 @@ class IMarkupServices extends IUnknown{
     GetTagIDForName(bstrName, ptagId) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(17, this, "ptr", bstrName, "int*", ptagId, "HRESULT")
+        ptagIdMarshal := ptagId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "ptr", bstrName, ptagIdMarshal, ptagId, "HRESULT")
         return result
     }
 

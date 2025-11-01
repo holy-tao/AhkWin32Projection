@@ -96,7 +96,9 @@ class ISelectionProvider2 extends ISelectionProvider{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_itemcount
      */
     get_ItemCount(retVal) {
-        result := ComCall(9, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

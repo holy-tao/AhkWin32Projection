@@ -43,7 +43,9 @@ class IWMReaderAllocatorEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex
      */
     AllocateForStreamEx(wStreamNum, cbBuffer, ppBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
-        result := ComCall(3, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IWMReaderAllocatorEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex
      */
     AllocateForOutputEx(dwOutputNum, cbBuffer, ppBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
-        result := ComCall(4, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", ppBuffer, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", ppBuffer, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

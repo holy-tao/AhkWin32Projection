@@ -35,7 +35,9 @@ class IColumnsRowset extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAvailableColumns(pcOptColumns, prgOptColumns) {
-        result := ComCall(3, this, "ptr*", pcOptColumns, "ptr*", prgOptColumns, "HRESULT")
+        pcOptColumnsMarshal := pcOptColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pcOptColumnsMarshal, pcOptColumns, "ptr*", prgOptColumns, "HRESULT")
         return result
     }
 

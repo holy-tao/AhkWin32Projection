@@ -871,7 +871,9 @@ class KeyboardAndMouse {
         pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
         dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
 
-        result := DllCall("USER32.dll\ToUnicodeEx", "uint", wVirtKey, "uint", wScanCode, "char*", lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, "ptr", dwhkl, "int")
+        lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+
+        result := DllCall("USER32.dll\ToUnicodeEx", "uint", wVirtKey, "uint", wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, "ptr", dwhkl, "int")
         return result
     }
 
@@ -1305,9 +1307,11 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyboardState(lpKeyState) {
+        lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyboardState", "char*", lpKeyState, "int")
+        result := DllCall("USER32.dll\GetKeyboardState", lpKeyStateMarshal, lpKeyState, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1328,9 +1332,11 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static SetKeyboardState(lpKeyState) {
+        lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetKeyboardState", "char*", lpKeyState, "int")
+        result := DllCall("USER32.dll\SetKeyboardState", lpKeyStateMarshal, lpKeyState, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1566,7 +1572,10 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static ToAscii(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags) {
-        result := DllCall("USER32.dll\ToAscii", "uint", uVirtKey, "uint", uScanCode, "char*", lpKeyState, "ushort*", lpChar, "uint", uFlags, "int")
+        lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+        lpCharMarshal := lpChar is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("USER32.dll\ToAscii", "uint", uVirtKey, "uint", uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, "uint", uFlags, "int")
         return result
     }
 
@@ -1641,7 +1650,10 @@ class KeyboardAndMouse {
     static ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl) {
         dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
 
-        result := DllCall("USER32.dll\ToAsciiEx", "uint", uVirtKey, "uint", uScanCode, "char*", lpKeyState, "ushort*", lpChar, "uint", uFlags, "ptr", dwhkl, "int")
+        lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+        lpCharMarshal := lpChar is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("USER32.dll\ToAsciiEx", "uint", uVirtKey, "uint", uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, "uint", uFlags, "ptr", dwhkl, "int")
         return result
     }
 
@@ -1733,7 +1745,9 @@ class KeyboardAndMouse {
     static ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags) {
         pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
-        result := DllCall("USER32.dll\ToUnicode", "uint", wVirtKey, "uint", wScanCode, "char*", lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, "int")
+        lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+
+        result := DllCall("USER32.dll\ToUnicode", "uint", wVirtKey, "uint", wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, "int")
         return result
     }
 

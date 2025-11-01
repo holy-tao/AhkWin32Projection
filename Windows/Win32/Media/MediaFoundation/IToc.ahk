@@ -75,7 +75,9 @@ class IToc extends IUnknown{
     GetDescription(pwDescriptionSize, pwszDescription) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(6, this, "ushort*", pwDescriptionSize, "ptr", pwszDescription, "HRESULT")
+        pwDescriptionSizeMarshal := pwDescriptionSize is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pwDescriptionSizeMarshal, pwDescriptionSize, "ptr", pwszDescription, "HRESULT")
         return result
     }
 
@@ -87,7 +89,9 @@ class IToc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-setcontext
      */
     SetContext(dwContextSize, pbtContext) {
-        result := ComCall(7, this, "uint", dwContextSize, "char*", pbtContext, "HRESULT")
+        pbtContextMarshal := pbtContext is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
         return result
     }
 
@@ -99,7 +103,10 @@ class IToc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-getcontext
      */
     GetContext(pdwContextSize, pbtContext) {
-        result := ComCall(8, this, "uint*", pdwContextSize, "char*", pbtContext, "HRESULT")
+        pdwContextSizeMarshal := pdwContextSize is VarRef ? "uint*" : "ptr"
+        pbtContextMarshal := pbtContext is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pdwContextSizeMarshal, pdwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
         return result
     }
 
@@ -110,7 +117,9 @@ class IToc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-getentrylistcount
      */
     GetEntryListCount(pwCount) {
-        result := ComCall(9, this, "ushort*", pwCount, "HRESULT")
+        pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, pwCountMarshal, pwCount, "HRESULT")
         return result
     }
 
@@ -134,7 +143,9 @@ class IToc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-addentrylist
      */
     AddEntryList(pEntryList, pwEntryListIndex) {
-        result := ComCall(11, this, "ptr", pEntryList, "ushort*", pwEntryListIndex, "HRESULT")
+        pwEntryListIndexMarshal := pwEntryListIndex is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pEntryList, pwEntryListIndexMarshal, pwEntryListIndex, "HRESULT")
         return result
     }
 

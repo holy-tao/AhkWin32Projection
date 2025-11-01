@@ -78,7 +78,9 @@ class IDXGIDevice1 extends IDXGIDevice{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice1-getmaximumframelatency
      */
     GetMaximumFrameLatency(pMaxLatency) {
-        result := ComCall(13, this, "uint*", pMaxLatency, "HRESULT")
+        pMaxLatencyMarshal := pMaxLatency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pMaxLatencyMarshal, pMaxLatency, "HRESULT")
         return result
     }
 }

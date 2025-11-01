@@ -44,7 +44,9 @@ class IPortableDeviceManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices
      */
     GetDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
-        result := ComCall(3, this, "ptr", pPnPDeviceIDs, "uint*", pcPnPDeviceIDs, "HRESULT")
+        pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IPortableDeviceManager extends IUnknown{
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pDeviceFriendlyName := pDeviceFriendlyName is String ? StrPtr(pDeviceFriendlyName) : pDeviceFriendlyName
 
-        result := ComCall(5, this, "ptr", pszPnPDeviceID, "ptr", pDeviceFriendlyName, "uint*", pcchDeviceFriendlyName, "HRESULT")
+        pcchDeviceFriendlyNameMarshal := pcchDeviceFriendlyName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszPnPDeviceID, "ptr", pDeviceFriendlyName, pcchDeviceFriendlyNameMarshal, pcchDeviceFriendlyName, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IPortableDeviceManager extends IUnknown{
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pDeviceDescription := pDeviceDescription is String ? StrPtr(pDeviceDescription) : pDeviceDescription
 
-        result := ComCall(6, this, "ptr", pszPnPDeviceID, "ptr", pDeviceDescription, "uint*", pcchDeviceDescription, "HRESULT")
+        pcchDeviceDescriptionMarshal := pcchDeviceDescription is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszPnPDeviceID, "ptr", pDeviceDescription, pcchDeviceDescriptionMarshal, pcchDeviceDescription, "HRESULT")
         return result
     }
 
@@ -102,7 +108,9 @@ class IPortableDeviceManager extends IUnknown{
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pDeviceManufacturer := pDeviceManufacturer is String ? StrPtr(pDeviceManufacturer) : pDeviceManufacturer
 
-        result := ComCall(7, this, "ptr", pszPnPDeviceID, "ptr", pDeviceManufacturer, "uint*", pcchDeviceManufacturer, "HRESULT")
+        pcchDeviceManufacturerMarshal := pcchDeviceManufacturer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszPnPDeviceID, "ptr", pDeviceManufacturer, pcchDeviceManufacturerMarshal, pcchDeviceManufacturer, "HRESULT")
         return result
     }
 
@@ -120,7 +128,11 @@ class IPortableDeviceManager extends IUnknown{
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pszDevicePropertyName := pszDevicePropertyName is String ? StrPtr(pszDevicePropertyName) : pszDevicePropertyName
 
-        result := ComCall(8, this, "ptr", pszPnPDeviceID, "ptr", pszDevicePropertyName, "char*", pData, "uint*", pcbData, "uint*", pdwType, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pszPnPDeviceID, "ptr", pszDevicePropertyName, pDataMarshal, pData, pcbDataMarshal, pcbData, pdwTypeMarshal, pdwType, "HRESULT")
         return result
     }
 
@@ -132,7 +144,9 @@ class IPortableDeviceManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getprivatedevices
      */
     GetPrivateDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
-        result := ComCall(9, this, "ptr", pPnPDeviceIDs, "uint*", pcPnPDeviceIDs, "HRESULT")
+        pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
         return result
     }
 }

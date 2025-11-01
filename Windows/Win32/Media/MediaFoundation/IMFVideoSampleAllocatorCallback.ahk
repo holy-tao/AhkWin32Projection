@@ -48,7 +48,9 @@ class IMFVideoSampleAllocatorCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatorcallback-getfreesamplecount
      */
     GetFreeSampleCount(plSamples) {
-        result := ComCall(4, this, "int*", plSamples, "HRESULT")
+        plSamplesMarshal := plSamples is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plSamplesMarshal, plSamples, "HRESULT")
         return result
     }
 }

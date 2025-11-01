@@ -53,7 +53,9 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-getid
      */
     GetID(pu32ID) {
-        result := ComCall(9, this, "uint*", pu32ID, "HRESULT")
+        pu32IDMarshal := pu32ID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pu32IDMarshal, pu32ID, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-gettype
      */
     GetType(pType) {
-        result := ComCall(11, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 

@@ -116,7 +116,9 @@ class IPhotoAcquireItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemcount
      */
     GetSubItemCount(pnCount) {
-        result := ComCall(10, this, "uint*", pnCount, "HRESULT")
+        pnCountMarshal := pnCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pnCountMarshal, pnCount, "HRESULT")
         return result
     }
 

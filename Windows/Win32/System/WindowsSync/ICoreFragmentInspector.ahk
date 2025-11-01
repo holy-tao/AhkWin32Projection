@@ -44,7 +44,9 @@ class ICoreFragmentInspector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragmentinspector-nextcorefragments
      */
     NextCoreFragments(requestedCount, ppiCoreFragments, pFetchedCount) {
-        result := ComCall(3, this, "uint", requestedCount, "ptr*", ppiCoreFragments, "uint*", pFetchedCount, "HRESULT")
+        pFetchedCountMarshal := pFetchedCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", requestedCount, "ptr*", ppiCoreFragments, pFetchedCountMarshal, pFetchedCount, "HRESULT")
         return result
     }
 

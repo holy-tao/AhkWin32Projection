@@ -44,7 +44,9 @@ class IAttributeSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeset-setattrib
      */
     SetAttrib(guidAttribute, pbAttribute, dwAttributeLength) {
-        result := ComCall(3, this, "ptr", guidAttribute, "char*", pbAttribute, "uint", dwAttributeLength, "HRESULT")
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", guidAttribute, pbAttributeMarshal, pbAttribute, "uint", dwAttributeLength, "HRESULT")
         return result
     }
 }

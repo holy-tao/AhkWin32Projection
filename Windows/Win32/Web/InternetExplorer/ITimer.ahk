@@ -39,7 +39,9 @@ class ITimer extends IUnknown{
      * @returns {HRESULT} 
      */
     Advise(vtimeMin, vtimeMax, vtimeInterval, dwFlags, pTimerSink, pdwCookie) {
-        result := ComCall(3, this, "ptr", vtimeMin, "ptr", vtimeMax, "ptr", vtimeInterval, "uint", dwFlags, "ptr", pTimerSink, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", vtimeMin, "ptr", vtimeMax, "ptr", vtimeInterval, "uint", dwFlags, "ptr", pTimerSink, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

@@ -1073,7 +1073,9 @@ class MessageQueuing {
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
         lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQCreateQueue", "ptr", pSecurityDescriptor, "ptr", pQueueProps, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
+        lpdwFormatNameLengthMarshal := lpdwFormatNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQCreateQueue", "ptr", pSecurityDescriptor, "ptr", pQueueProps, "ptr", lpwcsFormatName, lpdwFormatNameLengthMarshal, lpdwFormatNameLength, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1124,7 +1126,9 @@ class MessageQueuing {
     static MQLocateNext(hEnum, pcProps, aPropVar) {
         hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
 
-        result := DllCall("mqrt.dll\MQLocateNext", "ptr", hEnum, "uint*", pcProps, "ptr", aPropVar, "int")
+        pcPropsMarshal := pcProps is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQLocateNext", "ptr", hEnum, pcPropsMarshal, pcProps, "ptr", aPropVar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1157,7 +1161,9 @@ class MessageQueuing {
     static MQOpenQueue(lpwcsFormatName, dwAccess, dwShareMode, phQueue) {
         lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQOpenQueue", "ptr", lpwcsFormatName, "uint", dwAccess, "uint", dwShareMode, "ptr*", phQueue, "int")
+        phQueueMarshal := phQueue is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQOpenQueue", "ptr", lpwcsFormatName, "uint", dwAccess, "uint", dwShareMode, phQueueMarshal, phQueue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1306,7 +1312,9 @@ class MessageQueuing {
     static MQGetQueueSecurity(lpwcsFormatName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQGetQueueSecurity", "ptr", lpwcsFormatName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, "uint*", lpnLengthNeeded, "int")
+        lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQGetQueueSecurity", "ptr", lpwcsFormatName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1342,7 +1350,9 @@ class MessageQueuing {
         lpwcsPathName := lpwcsPathName is String ? StrPtr(lpwcsPathName) : lpwcsPathName
         lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQPathNameToFormatName", "ptr", lpwcsPathName, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
+        lpdwFormatNameLengthMarshal := lpdwFormatNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQPathNameToFormatName", "ptr", lpwcsPathName, "ptr", lpwcsFormatName, lpdwFormatNameLengthMarshal, lpdwFormatNameLength, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1359,7 +1369,9 @@ class MessageQueuing {
     static MQHandleToFormatName(hQueue, lpwcsFormatName, lpdwFormatNameLength) {
         lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQHandleToFormatName", "ptr", hQueue, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
+        lpdwFormatNameLengthMarshal := lpdwFormatNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQHandleToFormatName", "ptr", hQueue, "ptr", lpwcsFormatName, lpdwFormatNameLengthMarshal, lpdwFormatNameLength, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1376,7 +1388,9 @@ class MessageQueuing {
     static MQInstanceToFormatName(pGuid, lpwcsFormatName, lpdwFormatNameLength) {
         lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQInstanceToFormatName", "ptr", pGuid, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
+        lpdwFormatNameLengthMarshal := lpdwFormatNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQInstanceToFormatName", "ptr", pGuid, "ptr", lpwcsFormatName, lpdwFormatNameLengthMarshal, lpdwFormatNameLength, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1394,7 +1408,9 @@ class MessageQueuing {
         lpwcsADsPath := lpwcsADsPath is String ? StrPtr(lpwcsADsPath) : lpwcsADsPath
         lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQADsPathToFormatName", "ptr", lpwcsADsPath, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
+        lpdwFormatNameLengthMarshal := lpdwFormatNameLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mqrt.dll\MQADsPathToFormatName", "ptr", lpwcsADsPath, "ptr", lpwcsFormatName, lpdwFormatNameLengthMarshal, lpdwFormatNameLength, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1407,7 +1423,9 @@ class MessageQueuing {
      * @returns {String} Nothing - always returns an empty string
      */
     static MQFreeMemory(pvMemory) {
-        DllCall("mqrt.dll\MQFreeMemory", "ptr", pvMemory)
+        pvMemoryMarshal := pvMemory is VarRef ? "ptr" : "ptr"
+
+        DllCall("mqrt.dll\MQFreeMemory", pvMemoryMarshal, pvMemory)
     }
 
     /**
@@ -1476,7 +1494,9 @@ class MessageQueuing {
      * @returns {HRESULT} 
      */
     static MQRegisterCertificate(dwFlags, lpCertBuffer, dwCertBufferLength) {
-        result := DllCall("mqrt.dll\MQRegisterCertificate", "uint", dwFlags, "ptr", lpCertBuffer, "uint", dwCertBufferLength, "int")
+        lpCertBufferMarshal := lpCertBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mqrt.dll\MQRegisterCertificate", "uint", dwFlags, lpCertBufferMarshal, lpCertBuffer, "uint", dwCertBufferLength, "int")
         if(result != 0)
             throw OSError(result)
 

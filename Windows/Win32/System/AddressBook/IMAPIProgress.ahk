@@ -45,7 +45,9 @@ class IMAPIProgress extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-getflags
      */
     GetFlags(lpulFlags) {
-        result := ComCall(4, this, "uint*", lpulFlags, "HRESULT")
+        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, lpulFlagsMarshal, lpulFlags, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IMAPIProgress extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-getmax
      */
     GetMax(lpulMax) {
-        result := ComCall(5, this, "uint*", lpulMax, "HRESULT")
+        lpulMaxMarshal := lpulMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, lpulMaxMarshal, lpulMax, "HRESULT")
         return result
     }
 
@@ -67,7 +71,9 @@ class IMAPIProgress extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-getmin
      */
     GetMin(lpulMin) {
-        result := ComCall(6, this, "uint*", lpulMin, "HRESULT")
+        lpulMinMarshal := lpulMin is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, lpulMinMarshal, lpulMin, "HRESULT")
         return result
     }
 
@@ -80,7 +86,11 @@ class IMAPIProgress extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-setlimits
      */
     SetLimits(lpulMin, lpulMax, lpulFlags) {
-        result := ComCall(7, this, "uint*", lpulMin, "uint*", lpulMax, "uint*", lpulFlags, "HRESULT")
+        lpulMinMarshal := lpulMin is VarRef ? "uint*" : "ptr"
+        lpulMaxMarshal := lpulMax is VarRef ? "uint*" : "ptr"
+        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, lpulMinMarshal, lpulMin, lpulMaxMarshal, lpulMax, lpulFlagsMarshal, lpulFlags, "HRESULT")
         return result
     }
 }

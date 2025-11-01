@@ -35,7 +35,9 @@ class ISQLErrorInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSQLInfo(pbstrSQLState, plNativeError) {
-        result := ComCall(3, this, "ptr", pbstrSQLState, "int*", plNativeError, "HRESULT")
+        plNativeErrorMarshal := plNativeError is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pbstrSQLState, plNativeErrorMarshal, plNativeError, "HRESULT")
         return result
     }
 }

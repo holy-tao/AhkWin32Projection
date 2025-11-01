@@ -153,7 +153,9 @@ class ID3D11Device3 extends ID3D11Device2{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-writetosubresource
      */
     WriteToSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
-        ComCall(63, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, "ptr", pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        ComCall(63, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
     }
 
     /**
@@ -168,6 +170,8 @@ class ID3D11Device3 extends ID3D11Device2{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-readfromsubresource
      */
     ReadFromSubresource(pDstData, DstRowPitch, DstDepthPitch, pSrcResource, SrcSubresource, pSrcBox) {
-        ComCall(64, this, "ptr", pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "ptr", pSrcResource, "uint", SrcSubresource, "ptr", pSrcBox)
+        pDstDataMarshal := pDstData is VarRef ? "ptr" : "ptr"
+
+        ComCall(64, this, pDstDataMarshal, pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "ptr", pSrcResource, "uint", SrcSubresource, "ptr", pSrcBox)
     }
 }

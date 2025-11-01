@@ -34,7 +34,9 @@ class IFsrmFileCondition extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Type(pVal) {
-        result := ComCall(7, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

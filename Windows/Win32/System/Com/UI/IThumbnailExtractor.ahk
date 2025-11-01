@@ -39,7 +39,10 @@ class IThumbnailExtractor extends IUnknown{
      * @returns {HRESULT} 
      */
     ExtractThumbnail(pStg, ulLength, ulHeight, pulOutputLength, pulOutputHeight, phOutputBitmap) {
-        result := ComCall(3, this, "ptr", pStg, "uint", ulLength, "uint", ulHeight, "uint*", pulOutputLength, "uint*", pulOutputHeight, "ptr", phOutputBitmap, "HRESULT")
+        pulOutputLengthMarshal := pulOutputLength is VarRef ? "uint*" : "ptr"
+        pulOutputHeightMarshal := pulOutputHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pStg, "uint", ulLength, "uint", ulHeight, pulOutputLengthMarshal, pulOutputLength, pulOutputHeightMarshal, pulOutputHeight, "ptr", phOutputBitmap, "HRESULT")
         return result
     }
 

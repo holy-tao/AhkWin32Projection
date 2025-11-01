@@ -46,7 +46,10 @@ class IBackgroundCopyServerCertificateValidationCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits10_3/nf-bits10_3-ibackgroundcopyservercertificatevalidationcallback-validateservercertificate
      */
     ValidateServerCertificate(job, file, certLength, certData, certEncodingType, certStoreLength, certStoreData) {
-        result := ComCall(3, this, "ptr", job, "ptr", file, "uint", certLength, "char*", certData, "uint", certEncodingType, "uint", certStoreLength, "char*", certStoreData, "HRESULT")
+        certDataMarshal := certData is VarRef ? "char*" : "ptr"
+        certStoreDataMarshal := certStoreData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", job, "ptr", file, "uint", certLength, certDataMarshal, certData, "uint", certEncodingType, "uint", certStoreLength, certStoreDataMarshal, certStoreData, "HRESULT")
         return result
     }
 }

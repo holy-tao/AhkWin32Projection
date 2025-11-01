@@ -45,7 +45,9 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBufferSize(pdwBufferSize) {
-        result := ComCall(4, this, "uint*", pdwBufferSize, "HRESULT")
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
      * @returns {HRESULT} 
      */
     SerializeToBuffer(pbBuffer, pdwBufferSize) {
-        result := ComCall(5, this, "ptr", pbBuffer, "uint*", pdwBufferSize, "HRESULT")
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pbBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
     }
 
@@ -66,7 +70,9 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIntrinsicModelCount(pdwCount) {
-        result := ComCall(6, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 

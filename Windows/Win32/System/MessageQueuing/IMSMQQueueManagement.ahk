@@ -40,7 +40,9 @@ class IMSMQQueueManagement extends IMSMQManagement{
      * @returns {HRESULT} 
      */
     get_JournalMessageCount(plJournalMessageCount) {
-        result := ComCall(16, this, "int*", plJournalMessageCount, "HRESULT")
+        plJournalMessageCountMarshal := plJournalMessageCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plJournalMessageCountMarshal, plJournalMessageCount, "HRESULT")
         return result
     }
 

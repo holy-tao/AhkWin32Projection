@@ -35,7 +35,9 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     Send(pMsg, pulStatus) {
-        result := ComCall(9, this, "ptr", pMsg, "uint*", pulStatus, "HRESULT")
+        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pMsg, pulStatusMarshal, pulStatus, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     Receive(pMsg, ulSize, pulStatus) {
-        result := ComCall(10, this, "ptr", pMsg, "uint", ulSize, "uint*", pulStatus, "HRESULT")
+        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pMsg, "uint", ulSize, pulStatusMarshal, pulStatus, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     GetDestCtxEx(pMsg, pdwDestContext, ppvDestContext) {
-        result := ComCall(13, this, "ptr", pMsg, "uint*", pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
+        pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     GetState(pMsg, pState) {
-        result := ComCall(14, this, "ptr", pMsg, "uint*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pMsg, pStateMarshal, pState, "HRESULT")
         return result
     }
 

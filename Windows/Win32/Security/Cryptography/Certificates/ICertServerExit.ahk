@@ -108,7 +108,9 @@ class ICertServerExit extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getcertificateextensionflags
      */
     GetCertificateExtensionFlags(pExtFlags) {
-        result := ComCall(12, this, "int*", pExtFlags, "HRESULT")
+        pExtFlagsMarshal := pExtFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pExtFlagsMarshal, pExtFlags, "HRESULT")
         return result
     }
 

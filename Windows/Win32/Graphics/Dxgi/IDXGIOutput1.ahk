@@ -45,7 +45,9 @@ class IDXGIOutput1 extends IDXGIOutput{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutput1-getdisplaymodelist1
      */
     GetDisplayModeList1(EnumFormat, Flags, pNumModes, pDesc) {
-        result := ComCall(19, this, "int", EnumFormat, "uint", Flags, "uint*", pNumModes, "ptr", pDesc, "HRESULT")
+        pNumModesMarshal := pNumModes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "int", EnumFormat, "uint", Flags, pNumModesMarshal, pNumModes, "ptr", pDesc, "HRESULT")
         return result
     }
 

@@ -54,7 +54,9 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_minmajorchannel
      */
     get_MinMajorChannel(MinMajorChannelVal) {
-        result := ComCall(42, this, "int*", MinMajorChannelVal, "HRESULT")
+        MinMajorChannelValMarshal := MinMajorChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, MinMajorChannelValMarshal, MinMajorChannelVal, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_maxmajorchannel
      */
     get_MaxMajorChannel(MaxMajorChannelVal) {
-        result := ComCall(44, this, "int*", MaxMajorChannelVal, "HRESULT")
+        MaxMajorChannelValMarshal := MaxMajorChannelVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, MaxMajorChannelValMarshal, MaxMajorChannelVal, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_minsourceid
      */
     get_MinSourceID(MinSourceIDVal) {
-        result := ComCall(46, this, "int*", MinSourceIDVal, "HRESULT")
+        MinSourceIDValMarshal := MinSourceIDVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, MinSourceIDValMarshal, MinSourceIDVal, "HRESULT")
         return result
     }
 
@@ -120,7 +126,9 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_maxsourceid
      */
     get_MaxSourceID(MaxSourceIDVal) {
-        result := ComCall(48, this, "int*", MaxSourceIDVal, "HRESULT")
+        MaxSourceIDValMarshal := MaxSourceIDVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, MaxSourceIDValMarshal, MaxSourceIDVal, "HRESULT")
         return result
     }
 

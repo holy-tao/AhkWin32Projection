@@ -66,7 +66,9 @@ class IMultipleViewProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-get_currentview
      */
     get_CurrentView(pRetVal) {
-        result := ComCall(5, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

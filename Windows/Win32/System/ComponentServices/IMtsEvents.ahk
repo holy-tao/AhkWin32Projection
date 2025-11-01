@@ -81,7 +81,9 @@ class IMtsEvents extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsevents-getprocessid
      */
     GetProcessID(id) {
-        result := ComCall(11, this, "int*", id, "HRESULT")
+        idMarshal := id is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, idMarshal, id, "HRESULT")
         return result
     }
 }

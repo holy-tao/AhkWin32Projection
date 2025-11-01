@@ -641,9 +641,11 @@ class LibraryLoader {
      * @since windows8.0
      */
     static RemoveDllDirectory(Cookie) {
+        CookieMarshal := Cookie is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RemoveDllDirectory", "ptr", Cookie, "int")
+        result := DllCall("KERNEL32.dll\RemoveDllDirectory", CookieMarshal, Cookie, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1501,7 +1503,9 @@ class LibraryLoader {
     static LoadModule(lpModuleName, lpParameterBlock) {
         lpModuleName := lpModuleName is String ? StrPtr(lpModuleName) : lpModuleName
 
-        result := DllCall("KERNEL32.dll\LoadModule", "ptr", lpModuleName, "ptr", lpParameterBlock, "uint")
+        lpParameterBlockMarshal := lpParameterBlock is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\LoadModule", "ptr", lpModuleName, lpParameterBlockMarshal, lpParameterBlock, "uint")
         return result
     }
 

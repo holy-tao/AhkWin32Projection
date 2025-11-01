@@ -48,7 +48,9 @@ class IMarkupContainer2 extends IMarkupContainer{
      * @returns {HRESULT} 
      */
     RegisterForDirtyRange(pChangeSink, pdwCookie) {
-        result := ComCall(5, this, "ptr", pChangeSink, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pChangeSink, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

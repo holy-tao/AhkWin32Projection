@@ -38,7 +38,9 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getcch
      */
     GetCch(pcch) {
-        result := ComCall(68, this, "int*", pcch, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(68, this, pcchMarshal, pcch, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getcount
      */
     GetCount(pCount) {
-        result := ComCall(71, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(71, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -137,7 +141,9 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getgravity
      */
     GetGravity(pValue) {
-        result := ComCall(77, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(77, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -192,7 +198,9 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getstartpara
      */
     GetStartPara(pValue) {
-        result := ComCall(82, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(82, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -277,7 +285,9 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-find
      */
     Find(pRange, Count, Flags, pDelta) {
-        result := ComCall(89, this, "ptr", pRange, "int", Count, "int", Flags, "int*", pDelta, "HRESULT")
+        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
+
+        result := ComCall(89, this, "ptr", pRange, "int", Count, "int", Flags, pDeltaMarshal, pDelta, "HRESULT")
         return result
     }
 
@@ -289,7 +299,9 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getchar2
      */
     GetChar2(pChar, Offset) {
-        result := ComCall(90, this, "int*", pChar, "int", Offset, "HRESULT")
+        pCharMarshal := pChar is VarRef ? "int*" : "ptr"
+
+        result := ComCall(90, this, pCharMarshal, pChar, "int", Offset, "HRESULT")
         return result
     }
 
@@ -301,7 +313,10 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getdropcap
      */
     GetDropCap(pcLine, pPosition) {
-        result := ComCall(91, this, "int*", pcLine, "int*", pPosition, "HRESULT")
+        pcLineMarshal := pcLine is VarRef ? "int*" : "ptr"
+        pPositionMarshal := pPosition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(91, this, pcLineMarshal, pcLine, pPositionMarshal, pPosition, "HRESULT")
         return result
     }
 
@@ -320,7 +335,17 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getinlineobject
      */
     GetInlineObject(pType, pAlign, pChar, pChar1, pChar2, pCount, pTeXStyle, pcCol, pLevel) {
-        result := ComCall(92, this, "int*", pType, "int*", pAlign, "int*", pChar, "int*", pChar1, "int*", pChar2, "int*", pCount, "int*", pTeXStyle, "int*", pcCol, "int*", pLevel, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pAlignMarshal := pAlign is VarRef ? "int*" : "ptr"
+        pCharMarshal := pChar is VarRef ? "int*" : "ptr"
+        pChar1Marshal := pChar1 is VarRef ? "int*" : "ptr"
+        pChar2Marshal := pChar2 is VarRef ? "int*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+        pTeXStyleMarshal := pTeXStyle is VarRef ? "int*" : "ptr"
+        pcColMarshal := pcCol is VarRef ? "int*" : "ptr"
+        pLevelMarshal := pLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(92, this, pTypeMarshal, pType, pAlignMarshal, pAlign, pCharMarshal, pChar, pChar1Marshal, pChar1, pChar2Marshal, pChar2, pCountMarshal, pCount, pTeXStyleMarshal, pTeXStyle, pcColMarshal, pcCol, pLevelMarshal, pLevel, "HRESULT")
         return result
     }
 
@@ -332,7 +357,9 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getproperty
      */
     GetProperty(Type, pValue) {
-        result := ComCall(93, this, "int", Type, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(93, this, "int", Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -348,7 +375,13 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getrect
      */
     GetRect(Type, pLeft, pTop, pRight, pBottom, pHit) {
-        result := ComCall(94, this, "int", Type, "int*", pLeft, "int*", pTop, "int*", pRight, "int*", pBottom, "int*", pHit, "HRESULT")
+        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
+        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
+        pRightMarshal := pRight is VarRef ? "int*" : "ptr"
+        pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
+        pHitMarshal := pHit is VarRef ? "int*" : "ptr"
+
+        result := ComCall(94, this, "int", Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, pHitMarshal, pHit, "HRESULT")
         return result
     }
 
@@ -361,7 +394,10 @@ class ITextRange2 extends ITextSelection{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getsubrange
      */
     GetSubrange(iSubrange, pcpFirst, pcpLim) {
-        result := ComCall(95, this, "int", iSubrange, "int*", pcpFirst, "int*", pcpLim, "HRESULT")
+        pcpFirstMarshal := pcpFirst is VarRef ? "int*" : "ptr"
+        pcpLimMarshal := pcpLim is VarRef ? "int*" : "ptr"
+
+        result := ComCall(95, this, "int", iSubrange, pcpFirstMarshal, pcpFirst, pcpLimMarshal, pcpLim, "HRESULT")
         return result
     }
 
@@ -499,7 +535,9 @@ class ITextRange2 extends ITextSelection{
     GetMathFunctionType(bstr, pValue) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
 
-        result := ComCall(106, this, "ptr", bstr, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(106, this, "ptr", bstr, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

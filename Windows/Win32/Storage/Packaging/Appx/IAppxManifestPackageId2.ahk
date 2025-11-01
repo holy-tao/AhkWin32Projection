@@ -43,7 +43,9 @@ class IAppxManifestPackageId2 extends IAppxManifestPackageId{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid2-getarchitecture2
      */
     GetArchitecture2(architecture) {
-        result := ComCall(11, this, "int*", architecture, "HRESULT")
+        architectureMarshal := architecture is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, architectureMarshal, architecture, "HRESULT")
         return result
     }
 }

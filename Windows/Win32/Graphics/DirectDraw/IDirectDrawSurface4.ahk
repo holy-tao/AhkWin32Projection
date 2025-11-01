@@ -106,7 +106,9 @@ class IDirectDrawSurface4 extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumAttachedSurfaces(param0, param1) {
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
         return result
     }
 
@@ -118,7 +120,9 @@ class IDirectDrawSurface4 extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumOverlayZOrders(param0, param1, param2) {
-        result := ComCall(10, this, "uint", param0, "ptr", param1, "ptr", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "uint", param0, param1Marshal, param1, "ptr", param2, "HRESULT")
         return result
     }
 
@@ -215,7 +219,10 @@ class IDirectDrawSurface4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOverlayPosition(param0, param1) {
-        result := ComCall(19, this, "int*", param0, "int*", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -459,7 +466,9 @@ class IDirectDrawSurface4 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPrivateData(param0, param1, param2, param3) {
-        result := ComCall(40, this, "ptr", param0, "ptr", param1, "uint", param2, "uint", param3, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(40, this, "ptr", param0, param1Marshal, param1, "uint", param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -471,7 +480,10 @@ class IDirectDrawSurface4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPrivateData(param0, param1, param2) {
-        result := ComCall(41, this, "ptr", param0, "ptr", param1, "uint*", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, "ptr", param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
     }
 
@@ -491,7 +503,9 @@ class IDirectDrawSurface4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetUniquenessValue(param0) {
-        result := ComCall(43, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

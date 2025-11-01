@@ -47,7 +47,10 @@ class ID3D12CompilerFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumerateAdapterFamilyABIVersions(AdapterFamilyIndex, pNumABIVersions, pABIVersions) {
-        result := ComCall(4, this, "uint", AdapterFamilyIndex, "uint*", pNumABIVersions, "uint*", pABIVersions, "HRESULT")
+        pNumABIVersionsMarshal := pNumABIVersions is VarRef ? "uint*" : "ptr"
+        pABIVersionsMarshal := pABIVersions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, pABIVersionsMarshal, pABIVersions, "HRESULT")
         return result
     }
 

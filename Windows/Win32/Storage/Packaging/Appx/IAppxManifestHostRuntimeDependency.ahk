@@ -54,7 +54,9 @@ class IAppxManifestHostRuntimeDependency extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMinVersion(minVersion) {
-        result := ComCall(5, this, "uint*", minVersion, "HRESULT")
+        minVersionMarshal := minVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, minVersionMarshal, minVersion, "HRESULT")
         return result
     }
 }

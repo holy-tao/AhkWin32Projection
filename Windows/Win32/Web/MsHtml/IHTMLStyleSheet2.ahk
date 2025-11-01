@@ -51,7 +51,9 @@ class IHTMLStyleSheet2 extends IDispatch{
         bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
         bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
 
-        result := ComCall(8, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", plNewIndex, "HRESULT")
+        plNewIndexMarshal := plNewIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, plNewIndexMarshal, plNewIndex, "HRESULT")
         return result
     }
 }

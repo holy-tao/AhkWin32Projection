@@ -36,7 +36,9 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {HRESULT} 
      */
     SessionFlagUTF16(flags) {
-        result := ComCall(32, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IWSManEx3 extends IWSManEx2{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
      */
     SessionFlagUseCredSsp(flags) {
-        result := ComCall(33, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -57,7 +61,9 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {HRESULT} 
      */
     EnumerationFlagAssociationInstance(flags) {
-        result := ComCall(34, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -67,7 +73,9 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {HRESULT} 
      */
     EnumerationFlagAssociatedInstance(flags) {
-        result := ComCall(35, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -77,7 +85,9 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {HRESULT} 
      */
     SessionFlagSkipRevocationCheck(flags) {
-        result := ComCall(36, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -87,7 +97,9 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {HRESULT} 
      */
     SessionFlagAllowNegotiateImplicitCredentials(flags) {
-        result := ComCall(37, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -97,7 +109,9 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {HRESULT} 
      */
     SessionFlagUseSsl(flags) {
-        result := ComCall(38, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class ITQueueEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_event
      */
     get_Event(pEvent) {
-        result := ComCall(8, this, "int*", pEvent, "HRESULT")
+        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
         return result
     }
 }

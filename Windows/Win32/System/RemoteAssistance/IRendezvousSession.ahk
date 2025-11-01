@@ -46,7 +46,9 @@ class IRendezvousSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_state
      */
     get_State(pSessionState) {
-        result := ComCall(3, this, "int*", pSessionState, "HRESULT")
+        pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pSessionStateMarshal, pSessionState, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IRendezvousSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_flags
      */
     get_Flags(pFlags) {
-        result := ComCall(5, this, "int*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 

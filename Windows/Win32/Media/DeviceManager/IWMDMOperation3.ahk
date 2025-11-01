@@ -38,7 +38,10 @@ class IWMDMOperation3 extends IWMDMOperation{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation3-transferobjectdataonclearchannel
      */
     TransferObjectDataOnClearChannel(pData, pdwSize) {
-        result := ComCall(13, this, "char*", pData, "uint*", pdwSize, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 }

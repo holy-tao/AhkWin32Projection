@@ -68,7 +68,9 @@ class IRemoteDebugCriticalErrorEvent110 extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
      */
     GetErrorInfo(pbstrSource, pMessageId, pbstrMessage, ppLocation) {
-        result := ComCall(3, this, "ptr", pbstrSource, "int*", pMessageId, "ptr", pbstrMessage, "ptr*", ppLocation, "HRESULT")
+        pMessageIdMarshal := pMessageId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pbstrSource, pMessageIdMarshal, pMessageId, "ptr", pbstrMessage, "ptr*", ppLocation, "HRESULT")
         return result
     }
 }

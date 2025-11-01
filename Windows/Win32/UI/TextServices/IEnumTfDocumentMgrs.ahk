@@ -50,7 +50,9 @@ class IEnumTfDocumentMgrs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdocumentmgrs-next
      */
     Next(ulCount, rgDocumentMgr, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", rgDocumentMgr, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", rgDocumentMgr, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

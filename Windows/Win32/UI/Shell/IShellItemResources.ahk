@@ -37,7 +37,9 @@ class IShellItemResources extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getattributes
      */
     GetAttributes(pdwAttributes) {
-        result := ComCall(3, this, "uint*", pdwAttributes, "HRESULT")
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwAttributesMarshal, pdwAttributes, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IShellItemResources extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getsize
      */
     GetSize(pullSize) {
-        result := ComCall(4, this, "uint*", pullSize, "HRESULT")
+        pullSizeMarshal := pullSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pullSizeMarshal, pullSize, "HRESULT")
         return result
     }
 

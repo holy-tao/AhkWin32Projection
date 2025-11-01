@@ -54,7 +54,9 @@ class IServicePoolConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_maxpoolsize
      */
     get_MaxPoolSize(pdwMaxPool) {
-        result := ComCall(4, this, "uint*", pdwMaxPool, "HRESULT")
+        pdwMaxPoolMarshal := pdwMaxPool is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwMaxPoolMarshal, pdwMaxPool, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IServicePoolConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_minpoolsize
      */
     get_MinPoolSize(pdwMinPool) {
-        result := ComCall(6, this, "uint*", pdwMinPool, "HRESULT")
+        pdwMinPoolMarshal := pdwMinPool is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwMinPoolMarshal, pdwMinPool, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IServicePoolConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_creationtimeout
      */
     get_CreationTimeout(pdwCreationTimeout) {
-        result := ComCall(8, this, "uint*", pdwCreationTimeout, "HRESULT")
+        pdwCreationTimeoutMarshal := pdwCreationTimeout is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwCreationTimeoutMarshal, pdwCreationTimeout, "HRESULT")
         return result
     }
 

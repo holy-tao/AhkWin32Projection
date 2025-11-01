@@ -34,7 +34,9 @@ class IScriptInvocationContext extends IUnknown{
      * @returns {HRESULT} 
      */
     GetContextType(pInvocationContextType) {
-        result := ComCall(3, this, "int*", pInvocationContextType, "HRESULT")
+        pInvocationContextTypeMarshal := pInvocationContextType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pInvocationContextTypeMarshal, pInvocationContextType, "HRESULT")
         return result
     }
 

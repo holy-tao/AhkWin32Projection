@@ -125,7 +125,9 @@ class IDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-progressadvise
      */
     ProgressAdvise(pEvents, pvCookie) {
-        result := ComCall(11, this, "ptr", pEvents, "ptr*", pvCookie, "HRESULT")
+        pvCookieMarshal := pvCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pEvents, pvCookieMarshal, pvCookie, "HRESULT")
         return result
     }
 

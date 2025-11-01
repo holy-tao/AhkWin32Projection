@@ -36,7 +36,9 @@ class IChannelHook extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     ClientGetSize(uExtent, riid, pDataSize) {
-        ComCall(3, this, "ptr", uExtent, "ptr", riid, "uint*", pDataSize)
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+
+        ComCall(3, this, "ptr", uExtent, "ptr", riid, pDataSizeMarshal, pDataSize)
     }
 
     /**
@@ -48,7 +50,10 @@ class IChannelHook extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     ClientFillBuffer(uExtent, riid, pDataSize, pDataBuffer) {
-        ComCall(4, this, "ptr", uExtent, "ptr", riid, "uint*", pDataSize, "ptr", pDataBuffer)
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+
+        ComCall(4, this, "ptr", uExtent, "ptr", riid, pDataSizeMarshal, pDataSize, pDataBufferMarshal, pDataBuffer)
     }
 
     /**
@@ -62,7 +67,9 @@ class IChannelHook extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     ClientNotify(uExtent, riid, cbDataSize, pDataBuffer, lDataRep, hrFault) {
-        ComCall(5, this, "ptr", uExtent, "ptr", riid, "uint", cbDataSize, "ptr", pDataBuffer, "uint", lDataRep, "int", hrFault)
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+
+        ComCall(5, this, "ptr", uExtent, "ptr", riid, "uint", cbDataSize, pDataBufferMarshal, pDataBuffer, "uint", lDataRep, "int", hrFault)
     }
 
     /**
@@ -75,7 +82,9 @@ class IChannelHook extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     ServerNotify(uExtent, riid, cbDataSize, pDataBuffer, lDataRep) {
-        ComCall(6, this, "ptr", uExtent, "ptr", riid, "uint", cbDataSize, "ptr", pDataBuffer, "uint", lDataRep)
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+
+        ComCall(6, this, "ptr", uExtent, "ptr", riid, "uint", cbDataSize, pDataBufferMarshal, pDataBuffer, "uint", lDataRep)
     }
 
     /**
@@ -87,7 +96,9 @@ class IChannelHook extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     ServerGetSize(uExtent, riid, hrFault, pDataSize) {
-        ComCall(7, this, "ptr", uExtent, "ptr", riid, "int", hrFault, "uint*", pDataSize)
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+
+        ComCall(7, this, "ptr", uExtent, "ptr", riid, "int", hrFault, pDataSizeMarshal, pDataSize)
     }
 
     /**
@@ -100,6 +111,9 @@ class IChannelHook extends IUnknown{
      * @returns {String} Nothing - always returns an empty string
      */
     ServerFillBuffer(uExtent, riid, pDataSize, pDataBuffer, hrFault) {
-        ComCall(8, this, "ptr", uExtent, "ptr", riid, "uint*", pDataSize, "ptr", pDataBuffer, "int", hrFault)
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+
+        ComCall(8, this, "ptr", uExtent, "ptr", riid, pDataSizeMarshal, pDataSize, pDataBufferMarshal, pDataBuffer, "int", hrFault)
     }
 }

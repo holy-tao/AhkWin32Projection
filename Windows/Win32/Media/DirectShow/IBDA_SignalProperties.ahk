@@ -75,7 +75,9 @@ class IBDA_SignalProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalproperties-getsignalsource
      */
     GetSignalSource(pulSignalSource) {
-        result := ComCall(6, this, "uint*", pulSignalSource, "HRESULT")
+        pulSignalSourceMarshal := pulSignalSource is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulSignalSourceMarshal, pulSignalSource, "HRESULT")
         return result
     }
 

@@ -48,7 +48,9 @@ class ITQOSEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_event
      */
     get_Event(pQosEvent) {
-        result := ComCall(8, this, "int*", pQosEvent, "HRESULT")
+        pQosEventMarshal := pQosEvent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pQosEventMarshal, pQosEvent, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITQOSEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_mediatype
      */
     get_MediaType(plMediaType) {
-        result := ComCall(9, this, "int*", plMediaType, "HRESULT")
+        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plMediaTypeMarshal, plMediaType, "HRESULT")
         return result
     }
 }

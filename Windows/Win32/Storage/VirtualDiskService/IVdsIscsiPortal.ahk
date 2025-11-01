@@ -94,7 +94,9 @@ class IVdsIscsiPortal extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getipsecsecurity
      */
     GetIpsecSecurity(pInitiatorPortalAddress, pullSecurityFlags) {
-        result := ComCall(8, this, "ptr", pInitiatorPortalAddress, "uint*", pullSecurityFlags, "HRESULT")
+        pullSecurityFlagsMarshal := pullSecurityFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pInitiatorPortalAddress, pullSecurityFlagsMarshal, pullSecurityFlags, "HRESULT")
         return result
     }
 

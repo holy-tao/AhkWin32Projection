@@ -39,7 +39,11 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getiterationinfo
      */
     GetIterationInfo(pnCurrentConflict, pcConflicts, pcRemainingForApplyToAll) {
-        result := ComCall(3, this, "uint*", pnCurrentConflict, "uint*", pcConflicts, "uint*", pcRemainingForApplyToAll, "HRESULT")
+        pnCurrentConflictMarshal := pnCurrentConflict is VarRef ? "uint*" : "ptr"
+        pcConflictsMarshal := pcConflicts is VarRef ? "uint*" : "ptr"
+        pcRemainingForApplyToAllMarshal := pcRemainingForApplyToAll is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pnCurrentConflictMarshal, pnCurrentConflict, pcConflictsMarshal, pcConflicts, pcRemainingForApplyToAllMarshal, pcRemainingForApplyToAll, "HRESULT")
         return result
     }
 
@@ -50,7 +54,9 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenternextstep
      */
     GetPresenterNextStep(pnPresenterNextStep) {
-        result := ComCall(4, this, "int*", pnPresenterNextStep, "HRESULT")
+        pnPresenterNextStepMarshal := pnPresenterNextStep is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pnPresenterNextStepMarshal, pnPresenterNextStep, "HRESULT")
         return result
     }
 
@@ -62,7 +68,9 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenterchoice
      */
     GetPresenterChoice(pnPresenterChoice, pfApplyToAll) {
-        result := ComCall(5, this, "int*", pnPresenterChoice, "ptr", pfApplyToAll, "HRESULT")
+        pnPresenterChoiceMarshal := pnPresenterChoice is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pnPresenterChoiceMarshal, pnPresenterChoice, "ptr", pfApplyToAll, "HRESULT")
         return result
     }
 
@@ -73,7 +81,9 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoicecount
      */
     GetItemChoiceCount(pcChoices) {
-        result := ComCall(6, this, "uint*", pcChoices, "HRESULT")
+        pcChoicesMarshal := pcChoices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcChoicesMarshal, pcChoices, "HRESULT")
         return result
     }
 
@@ -85,7 +95,9 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoice
      */
     GetItemChoice(iChoice, piChoiceIndex) {
-        result := ComCall(7, this, "uint", iChoice, "uint*", piChoiceIndex, "HRESULT")
+        piChoiceIndexMarshal := piChoiceIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", iChoice, piChoiceIndexMarshal, piChoiceIndex, "HRESULT")
         return result
     }
 
@@ -120,7 +132,9 @@ class ISyncMgrConflictResolveInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setitemchoices
      */
     SetItemChoices(prgiConflictItemIndexes, cChoices) {
-        result := ComCall(10, this, "uint*", prgiConflictItemIndexes, "uint", cChoices, "HRESULT")
+        prgiConflictItemIndexesMarshal := prgiConflictItemIndexes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, prgiConflictItemIndexesMarshal, prgiConflictItemIndexes, "uint", cChoices, "HRESULT")
         return result
     }
 }

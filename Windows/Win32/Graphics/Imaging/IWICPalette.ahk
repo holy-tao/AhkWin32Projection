@@ -63,7 +63,9 @@ class IWICPalette extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializecustom
      */
     InitializeCustom(pColors, cCount) {
-        result := ComCall(4, this, "uint*", pColors, "uint", cCount, "HRESULT")
+        pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pColorsMarshal, pColors, "uint", cCount, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IWICPalette extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-gettype
      */
     GetType(pePaletteType) {
-        result := ComCall(7, this, "int*", pePaletteType, "HRESULT")
+        pePaletteTypeMarshal := pePaletteType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pePaletteTypeMarshal, pePaletteType, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class IWICPalette extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-getcolorcount
      */
     GetColorCount(pcCount) {
-        result := ComCall(8, this, "uint*", pcCount, "HRESULT")
+        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcCountMarshal, pcCount, "HRESULT")
         return result
     }
 
@@ -122,7 +128,10 @@ class IWICPalette extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-getcolors
      */
     GetColors(cCount, pColors, pcActualColors) {
-        result := ComCall(9, this, "uint", cCount, "uint*", pColors, "uint*", pcActualColors, "HRESULT")
+        pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
+        pcActualColorsMarshal := pcActualColors is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", cCount, pColorsMarshal, pColors, pcActualColorsMarshal, pcActualColors, "HRESULT")
         return result
     }
 

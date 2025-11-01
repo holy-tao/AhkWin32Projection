@@ -44,7 +44,9 @@ class IAppxManifestDriverConstraint extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMinVersion(minVersion) {
-        result := ComCall(4, this, "uint*", minVersion, "HRESULT")
+        minVersionMarshal := minVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, minVersionMarshal, minVersion, "HRESULT")
         return result
     }
 

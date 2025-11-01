@@ -40,7 +40,9 @@ class IDropTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idroptarget-dragenter
      */
     DragEnter(pDataObj, grfKeyState, pt, pdwEffect) {
-        result := ComCall(3, this, "ptr", pDataObj, "uint", grfKeyState, "ptr", pt, "uint*", pdwEffect, "HRESULT")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pDataObj, "uint", grfKeyState, "ptr", pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IDropTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idroptarget-dragover
      */
     DragOver(grfKeyState, pt, pdwEffect) {
-        result := ComCall(4, this, "uint", grfKeyState, "ptr", pt, "uint*", pdwEffect, "HRESULT")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", grfKeyState, "ptr", pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IDropTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idroptarget-drop
      */
     Drop(pDataObj, grfKeyState, pt, pdwEffect) {
-        result := ComCall(6, this, "ptr", pDataObj, "uint", grfKeyState, "ptr", pt, "uint*", pdwEffect, "HRESULT")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pDataObj, "uint", grfKeyState, "ptr", pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 }

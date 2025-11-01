@@ -76,7 +76,9 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob{
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getreplydata
      */
     GetReplyData(ppBuffer, pLength) {
-        result := ComCall(38, this, "ptr*", ppBuffer, "uint*", pLength, "HRESULT")
+        pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(38, this, "ptr*", ppBuffer, pLengthMarshal, pLength, "HRESULT")
         return result
     }
 

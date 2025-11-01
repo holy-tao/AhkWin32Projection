@@ -37,7 +37,11 @@ class IRowset extends IUnknown{
      * @returns {HRESULT} 
      */
     AddRefRows(cRows, rghRows, rgRefCounts, rgRowStatus) {
-        result := ComCall(3, this, "ptr", cRows, "ptr*", rghRows, "uint*", rgRefCounts, "uint*", rgRowStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : "ptr"
+        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", cRows, rghRowsMarshal, rghRows, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
@@ -51,7 +55,9 @@ class IRowset extends IUnknown{
     GetData(hRow, hAccessor, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -65,7 +71,9 @@ class IRowset extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNextRows(hReserved, lRowsOffset, cRows, pcRowsObtained, prghRows) {
-        result := ComCall(5, this, "ptr", hReserved, "ptr", lRowsOffset, "ptr", cRows, "ptr*", pcRowsObtained, "ptr*", prghRows, "HRESULT")
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hReserved, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", prghRows, "HRESULT")
         return result
     }
 
@@ -79,7 +87,12 @@ class IRowset extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleaseRows(cRows, rghRows, rgRowOptions, rgRefCounts, rgRowStatus) {
-        result := ComCall(6, this, "ptr", cRows, "ptr*", rghRows, "uint*", rgRowOptions, "uint*", rgRefCounts, "uint*", rgRowStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rgRowOptionsMarshal := rgRowOptions is VarRef ? "uint*" : "ptr"
+        rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : "ptr"
+        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", cRows, rghRowsMarshal, rghRows, rgRowOptionsMarshal, rgRowOptions, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 

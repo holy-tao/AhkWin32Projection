@@ -48,7 +48,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvector
      */
     SetIntVector(pData) {
-        result := ComCall(26, this, "int*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvector
      */
     SetFloatVector(pData) {
-        result := ComCall(27, this, "float*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(27, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvector
      */
     GetIntVector(pData) {
-        result := ComCall(29, this, "int*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvector
      */
     GetFloatVector(pData) {
-        result := ComCall(30, this, "float*", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(30, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -118,7 +126,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvectorarray
      */
     SetIntVectorArray(pData, Offset, Count) {
-        result := ComCall(32, this, "int*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -131,7 +141,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvectorarray
      */
     SetFloatVectorArray(pData, Offset, Count) {
-        result := ComCall(33, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(33, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -157,7 +169,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvectorarray
      */
     GetIntVectorArray(pData, Offset, Count) {
-        result := ComCall(35, this, "int*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -170,7 +184,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvectorarray
      */
     GetFloatVectorArray(pData, Offset, Count) {
-        result := ComCall(36, this, "float*", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+
+        result := ComCall(36, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 }

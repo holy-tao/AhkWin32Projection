@@ -107,7 +107,9 @@ class IWebBridge extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyState(p) {
-        result := ComCall(14, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pMarshal, p, "HRESULT")
         return result
     }
 

@@ -44,7 +44,9 @@ class IPrintDocumentPackageTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes
      */
     GetPackageTargetTypes(targetCount, targetTypes) {
-        result := ComCall(3, this, "uint*", targetCount, "ptr*", targetTypes, "HRESULT")
+        targetCountMarshal := targetCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, targetCountMarshal, targetCount, "ptr*", targetTypes, "HRESULT")
         return result
     }
 

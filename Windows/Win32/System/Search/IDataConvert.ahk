@@ -45,7 +45,11 @@ class IDataConvert extends IUnknown{
      * @returns {HRESULT} 
      */
     DataConvert(wSrcType, wDstType, cbSrcLength, pcbDstLength, pSrc, pDst, cbDstMaxLength, dbsSrcStatus, pdbsStatus, bPrecision, bScale, dwFlags) {
-        result := ComCall(3, this, "ushort", wSrcType, "ushort", wDstType, "ptr", cbSrcLength, "ptr*", pcbDstLength, "ptr", pSrc, "ptr", pDst, "ptr", cbDstMaxLength, "uint", dbsSrcStatus, "uint*", pdbsStatus, "char", bPrecision, "char", bScale, "uint", dwFlags, "HRESULT")
+        pcbDstLengthMarshal := pcbDstLength is VarRef ? "ptr*" : "ptr"
+        pDstMarshal := pDst is VarRef ? "ptr" : "ptr"
+        pdbsStatusMarshal := pdbsStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ushort", wSrcType, "ushort", wDstType, "ptr", cbSrcLength, pcbDstLengthMarshal, pcbDstLength, "ptr", pSrc, pDstMarshal, pDst, "ptr", cbDstMaxLength, "uint", dbsSrcStatus, pdbsStatusMarshal, pdbsStatus, "char", bPrecision, "char", bScale, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -70,7 +74,10 @@ class IDataConvert extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConversionSize(wSrcType, wDstType, pcbSrcLength, pcbDstLength, pSrc) {
-        result := ComCall(5, this, "ushort", wSrcType, "ushort", wDstType, "ptr*", pcbSrcLength, "ptr*", pcbDstLength, "ptr", pSrc, "HRESULT")
+        pcbSrcLengthMarshal := pcbSrcLength is VarRef ? "ptr*" : "ptr"
+        pcbDstLengthMarshal := pcbDstLength is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ushort", wSrcType, "ushort", wDstType, pcbSrcLengthMarshal, pcbSrcLength, pcbDstLengthMarshal, pcbDstLength, "ptr", pSrc, "HRESULT")
         return result
     }
 }

@@ -115,7 +115,10 @@ class IInkRenderer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspace
      */
     PixelToInkSpace(hDC, x, y) {
-        result := ComCall(13, this, "ptr", hDC, "int*", x, "int*", y, "HRESULT")
+        xMarshal := x is VarRef ? "int*" : "ptr"
+        yMarshal := y is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "ptr", hDC, xMarshal, x, yMarshal, y, "HRESULT")
         return result
     }
 
@@ -128,7 +131,10 @@ class IInkRenderer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixel
      */
     InkSpaceToPixel(hdcDisplay, x, y) {
-        result := ComCall(14, this, "ptr", hdcDisplay, "int*", x, "int*", y, "HRESULT")
+        xMarshal := x is VarRef ? "int*" : "ptr"
+        yMarshal := y is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", hdcDisplay, xMarshal, x, yMarshal, y, "HRESULT")
         return result
     }
 

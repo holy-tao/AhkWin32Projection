@@ -37,7 +37,9 @@ class IPBDAEntitlementDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IPBDAEntitlementDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-getlength
      */
     GetLength(pwVal) {
-        result := ComCall(4, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -60,7 +64,9 @@ class IPBDAEntitlementDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettoken
      */
     GetToken(ppbTokenBuffer, pdwTokenLength) {
-        result := ComCall(5, this, "ptr*", ppbTokenBuffer, "uint*", pdwTokenLength, "HRESULT")
+        pdwTokenLengthMarshal := pdwTokenLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", ppbTokenBuffer, pdwTokenLengthMarshal, pdwTokenLength, "HRESULT")
         return result
     }
 }

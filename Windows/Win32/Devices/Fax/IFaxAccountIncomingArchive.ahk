@@ -44,7 +44,9 @@ class IFaxAccountIncomingArchive extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountincomingarchive-get_sizelow
      */
     get_SizeLow(plSizeLow) {
-        result := ComCall(7, this, "int*", plSizeLow, "HRESULT")
+        plSizeLowMarshal := plSizeLow is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plSizeLowMarshal, plSizeLow, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IFaxAccountIncomingArchive extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountincomingarchive-get_sizehigh
      */
     get_SizeHigh(plSizeHigh) {
-        result := ComCall(8, this, "int*", plSizeHigh, "HRESULT")
+        plSizeHighMarshal := plSizeHigh is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plSizeHighMarshal, plSizeHigh, "HRESULT")
         return result
     }
 

@@ -59,7 +59,9 @@ class IVMRFilterConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrfilterconfig-getnumberofstreams
      */
     GetNumberOfStreams(pdwMaxStreams) {
-        result := ComCall(5, this, "uint*", pdwMaxStreams, "HRESULT")
+        pdwMaxStreamsMarshal := pdwMaxStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwMaxStreamsMarshal, pdwMaxStreams, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IVMRFilterConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrfilterconfig-getrenderingprefs
      */
     GetRenderingPrefs(pdwRenderFlags) {
-        result := ComCall(7, this, "uint*", pdwRenderFlags, "HRESULT")
+        pdwRenderFlagsMarshal := pdwRenderFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwRenderFlagsMarshal, pdwRenderFlags, "HRESULT")
         return result
     }
 
@@ -103,7 +107,9 @@ class IVMRFilterConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrfilterconfig-getrenderingmode
      */
     GetRenderingMode(pMode) {
-        result := ComCall(9, this, "uint*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 }

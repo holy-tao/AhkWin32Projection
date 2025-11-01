@@ -59,7 +59,9 @@ class IVssAsync extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vss/nf-vss-ivssasync-querystatus
      */
     QueryStatus(pHrResult, pReserved) {
-        result := ComCall(5, this, "ptr", pHrResult, "int*", pReserved, "HRESULT")
+        pReservedMarshal := pReserved is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pHrResult, pReservedMarshal, pReserved, "HRESULT")
         return result
     }
 }

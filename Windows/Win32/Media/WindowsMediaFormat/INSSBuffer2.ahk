@@ -38,7 +38,9 @@ class INSSBuffer2 extends INSSBuffer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
      */
     GetSampleProperties(cbProperties, pbProperties) {
-        result := ComCall(8, this, "uint", cbProperties, "char*", pbProperties, "HRESULT")
+        pbPropertiesMarshal := pbProperties is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "uint", cbProperties, pbPropertiesMarshal, pbProperties, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class INSSBuffer2 extends INSSBuffer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
      */
     SetSampleProperties(cbProperties, pbProperties) {
-        result := ComCall(9, this, "uint", cbProperties, "char*", pbProperties, "HRESULT")
+        pbPropertiesMarshal := pbProperties is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "uint", cbProperties, pbPropertiesMarshal, pbProperties, "HRESULT")
         return result
     }
 }

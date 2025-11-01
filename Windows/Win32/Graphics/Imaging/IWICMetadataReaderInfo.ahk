@@ -41,7 +41,10 @@ class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-getpatterns
      */
     GetPatterns(guidContainerFormat, cbSize, pPattern, pcCount, pcbActual) {
-        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pPattern, "uint*", pcCount, "uint*", pcbActual, "HRESULT")
+        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pPattern, pcCountMarshal, pcCount, pcbActualMarshal, pcbActual, "HRESULT")
         return result
     }
 

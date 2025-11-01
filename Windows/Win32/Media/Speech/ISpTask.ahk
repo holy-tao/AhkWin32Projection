@@ -29,7 +29,10 @@ class ISpTask extends Win32ComInterface{
      * @returns {HRESULT} 
      */
     Execute(pvTaskData, pfContinueProcessing) {
-        result := ComCall(0, this, "ptr", pvTaskData, "int*", pfContinueProcessing, "HRESULT")
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+        pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : "ptr"
+
+        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
         return result
     }
 }

@@ -37,7 +37,9 @@ class IAMLine21Decoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getdecoderlevel
      */
     GetDecoderLevel(lpLevel) {
-        result := ComCall(3, this, "int*", lpLevel, "HRESULT")
+        lpLevelMarshal := lpLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, lpLevelMarshal, lpLevel, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IAMLine21Decoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getcurrentservice
      */
     GetCurrentService(lpService) {
-        result := ComCall(4, this, "int*", lpService, "HRESULT")
+        lpServiceMarshal := lpService is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, lpServiceMarshal, lpService, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IAMLine21Decoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getservicestate
      */
     GetServiceState(lpState) {
-        result := ComCall(6, this, "int*", lpState, "HRESULT")
+        lpStateMarshal := lpState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, lpStateMarshal, lpState, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class IAMLine21Decoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getbackgroundcolor
      */
     GetBackgroundColor(pdwPhysColor) {
-        result := ComCall(10, this, "uint*", pdwPhysColor, "HRESULT")
+        pdwPhysColorMarshal := pdwPhysColor is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwPhysColorMarshal, pdwPhysColor, "HRESULT")
         return result
     }
 
@@ -158,7 +166,9 @@ class IAMLine21Decoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getdrawbackgroundmode
      */
     GetDrawBackgroundMode(lpMode) {
-        result := ComCall(14, this, "int*", lpMode, "HRESULT")
+        lpModeMarshal := lpMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, lpModeMarshal, lpMode, "HRESULT")
         return result
     }
 

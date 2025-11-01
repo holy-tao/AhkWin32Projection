@@ -84,7 +84,9 @@ class IHostIoCompletionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxThreads(pdwMaxIOCompletionThreads) {
-        result := ComCall(6, this, "uint*", pdwMaxIOCompletionThreads, "HRESULT")
+        pdwMaxIOCompletionThreadsMarshal := pdwMaxIOCompletionThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwMaxIOCompletionThreadsMarshal, pdwMaxIOCompletionThreads, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IHostIoCompletionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAvailableThreads(pdwAvailableIOCompletionThreads) {
-        result := ComCall(7, this, "uint*", pdwAvailableIOCompletionThreads, "HRESULT")
+        pdwAvailableIOCompletionThreadsMarshal := pdwAvailableIOCompletionThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwAvailableIOCompletionThreadsMarshal, pdwAvailableIOCompletionThreads, "HRESULT")
         return result
     }
 
@@ -104,7 +108,9 @@ class IHostIoCompletionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHostOverlappedSize(pcbSize) {
-        result := ComCall(8, this, "uint*", pcbSize, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -124,7 +130,9 @@ class IHostIoCompletionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     InitializeHostOverlapped(pvOverlapped) {
-        result := ComCall(10, this, "ptr", pvOverlapped, "HRESULT")
+        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, pvOverlappedMarshal, pvOverlapped, "HRESULT")
         return result
     }
 
@@ -158,7 +166,9 @@ class IHostIoCompletionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMinThreads(pdwMinIOCompletionThreads) {
-        result := ComCall(13, this, "uint*", pdwMinIOCompletionThreads, "HRESULT")
+        pdwMinIOCompletionThreadsMarshal := pdwMinIOCompletionThreads is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwMinIOCompletionThreadsMarshal, pdwMinIOCompletionThreads, "HRESULT")
         return result
     }
 }

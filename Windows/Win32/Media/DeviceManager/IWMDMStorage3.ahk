@@ -72,7 +72,9 @@ class IWMDMStorage3 extends IWMDMStorage2{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage3-setenumpreference
      */
     SetEnumPreference(pMode, nViews, pViews) {
-        result := ComCall(18, this, "int*", pMode, "uint", nViews, "ptr", pViews, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pModeMarshal, pMode, "uint", nViews, "ptr", pViews, "HRESULT")
         return result
     }
 }

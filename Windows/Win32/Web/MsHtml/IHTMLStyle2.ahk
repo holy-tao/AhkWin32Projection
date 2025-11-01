@@ -259,7 +259,9 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelBottom(p) {
-        result := ComCall(27, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -279,7 +281,9 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelRight(p) {
-        result := ComCall(29, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -299,7 +303,9 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_posBottom(p) {
-        result := ComCall(31, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(31, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -319,7 +325,9 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     get_posRight(p) {
-        result := ComCall(33, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(33, this, pMarshal, p, "HRESULT")
         return result
     }
 

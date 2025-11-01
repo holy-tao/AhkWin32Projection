@@ -3717,9 +3717,11 @@ class Display {
     static GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor, pdwNumberOfPhysicalMonitors) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwNumberOfPhysicalMonitorsMarshal := pdwNumberOfPhysicalMonitors is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint*", pdwNumberOfPhysicalMonitors, "int")
+        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, pdwNumberOfPhysicalMonitorsMarshal, pdwNumberOfPhysicalMonitors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3735,7 +3737,9 @@ class Display {
      * @since windows6.0.6000
      */
     static GetNumberOfPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9, pdwNumberOfPhysicalMonitors) {
-        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, "uint*", pdwNumberOfPhysicalMonitors, "int")
+        pdwNumberOfPhysicalMonitorsMarshal := pdwNumberOfPhysicalMonitors is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, pdwNumberOfPhysicalMonitorsMarshal, pdwNumberOfPhysicalMonitors, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3831,9 +3835,13 @@ class Display {
     static GetVCPFeatureAndVCPFeatureReply(hMonitor, bVCPCode, pvct, pdwCurrentValue, pdwMaximumValue) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pvctMarshal := pvct is VarRef ? "int*" : "ptr"
+        pdwCurrentValueMarshal := pdwCurrentValue is VarRef ? "uint*" : "ptr"
+        pdwMaximumValueMarshal := pdwMaximumValue is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", "ptr", hMonitor, "char", bVCPCode, "int*", pvct, "uint*", pdwCurrentValue, "uint*", pdwMaximumValue, "int")
+        result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", "ptr", hMonitor, "char", bVCPCode, pvctMarshal, pvct, pdwCurrentValueMarshal, pdwCurrentValue, pdwMaximumValueMarshal, pdwMaximumValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3886,9 +3894,11 @@ class Display {
     static GetCapabilitiesStringLength(hMonitor, pdwCapabilitiesStringLengthInCharacters) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwCapabilitiesStringLengthInCharactersMarshal := pdwCapabilitiesStringLengthInCharacters is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetCapabilitiesStringLength", "ptr", hMonitor, "uint*", pdwCapabilitiesStringLengthInCharacters, "int")
+        result := DllCall("dxva2.dll\GetCapabilitiesStringLength", "ptr", hMonitor, pdwCapabilitiesStringLengthInCharactersMarshal, pdwCapabilitiesStringLengthInCharacters, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3951,7 +3961,10 @@ class Display {
     static GetMonitorCapabilities(hMonitor, pdwMonitorCapabilities, pdwSupportedColorTemperatures) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
-        result := DllCall("dxva2.dll\GetMonitorCapabilities", "ptr", hMonitor, "uint*", pdwMonitorCapabilities, "uint*", pdwSupportedColorTemperatures, "int")
+        pdwMonitorCapabilitiesMarshal := pdwMonitorCapabilities is VarRef ? "uint*" : "ptr"
+        pdwSupportedColorTemperaturesMarshal := pdwSupportedColorTemperatures is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("dxva2.dll\GetMonitorCapabilities", "ptr", hMonitor, pdwMonitorCapabilitiesMarshal, pdwMonitorCapabilities, pdwSupportedColorTemperaturesMarshal, pdwSupportedColorTemperatures, "int")
         return result
     }
 
@@ -3985,9 +3998,11 @@ class Display {
     static GetMonitorTechnologyType(hMonitor, pdtyDisplayTechnologyType) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdtyDisplayTechnologyTypeMarshal := pdtyDisplayTechnologyType is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorTechnologyType", "ptr", hMonitor, "int*", pdtyDisplayTechnologyType, "int")
+        result := DllCall("dxva2.dll\GetMonitorTechnologyType", "ptr", hMonitor, pdtyDisplayTechnologyTypeMarshal, pdtyDisplayTechnologyType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4007,9 +4022,13 @@ class Display {
     static GetMonitorBrightness(hMonitor, pdwMinimumBrightness, pdwCurrentBrightness, pdwMaximumBrightness) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwMinimumBrightnessMarshal := pdwMinimumBrightness is VarRef ? "uint*" : "ptr"
+        pdwCurrentBrightnessMarshal := pdwCurrentBrightness is VarRef ? "uint*" : "ptr"
+        pdwMaximumBrightnessMarshal := pdwMaximumBrightness is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorBrightness", "ptr", hMonitor, "uint*", pdwMinimumBrightness, "uint*", pdwCurrentBrightness, "uint*", pdwMaximumBrightness, "int")
+        result := DllCall("dxva2.dll\GetMonitorBrightness", "ptr", hMonitor, pdwMinimumBrightnessMarshal, pdwMinimumBrightness, pdwCurrentBrightnessMarshal, pdwCurrentBrightness, pdwMaximumBrightnessMarshal, pdwMaximumBrightness, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4029,9 +4048,13 @@ class Display {
     static GetMonitorContrast(hMonitor, pdwMinimumContrast, pdwCurrentContrast, pdwMaximumContrast) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwMinimumContrastMarshal := pdwMinimumContrast is VarRef ? "uint*" : "ptr"
+        pdwCurrentContrastMarshal := pdwCurrentContrast is VarRef ? "uint*" : "ptr"
+        pdwMaximumContrastMarshal := pdwMaximumContrast is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorContrast", "ptr", hMonitor, "uint*", pdwMinimumContrast, "uint*", pdwCurrentContrast, "uint*", pdwMaximumContrast, "int")
+        result := DllCall("dxva2.dll\GetMonitorContrast", "ptr", hMonitor, pdwMinimumContrastMarshal, pdwMinimumContrast, pdwCurrentContrastMarshal, pdwCurrentContrast, pdwMaximumContrastMarshal, pdwMaximumContrast, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4049,9 +4072,11 @@ class Display {
     static GetMonitorColorTemperature(hMonitor, pctCurrentColorTemperature) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pctCurrentColorTemperatureMarshal := pctCurrentColorTemperature is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorColorTemperature", "ptr", hMonitor, "int*", pctCurrentColorTemperature, "int")
+        result := DllCall("dxva2.dll\GetMonitorColorTemperature", "ptr", hMonitor, pctCurrentColorTemperatureMarshal, pctCurrentColorTemperature, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4072,9 +4097,13 @@ class Display {
     static GetMonitorRedGreenOrBlueDrive(hMonitor, dtDriveType, pdwMinimumDrive, pdwCurrentDrive, pdwMaximumDrive) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwMinimumDriveMarshal := pdwMinimumDrive is VarRef ? "uint*" : "ptr"
+        pdwCurrentDriveMarshal := pdwCurrentDrive is VarRef ? "uint*" : "ptr"
+        pdwMaximumDriveMarshal := pdwMaximumDrive is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueDrive", "ptr", hMonitor, "int", dtDriveType, "uint*", pdwMinimumDrive, "uint*", pdwCurrentDrive, "uint*", pdwMaximumDrive, "int")
+        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueDrive", "ptr", hMonitor, "int", dtDriveType, pdwMinimumDriveMarshal, pdwMinimumDrive, pdwCurrentDriveMarshal, pdwCurrentDrive, pdwMaximumDriveMarshal, pdwMaximumDrive, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4095,9 +4124,13 @@ class Display {
     static GetMonitorRedGreenOrBlueGain(hMonitor, gtGainType, pdwMinimumGain, pdwCurrentGain, pdwMaximumGain) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwMinimumGainMarshal := pdwMinimumGain is VarRef ? "uint*" : "ptr"
+        pdwCurrentGainMarshal := pdwCurrentGain is VarRef ? "uint*" : "ptr"
+        pdwMaximumGainMarshal := pdwMaximumGain is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueGain", "ptr", hMonitor, "int", gtGainType, "uint*", pdwMinimumGain, "uint*", pdwCurrentGain, "uint*", pdwMaximumGain, "int")
+        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueGain", "ptr", hMonitor, "int", gtGainType, pdwMinimumGainMarshal, pdwMinimumGain, pdwCurrentGainMarshal, pdwCurrentGain, pdwMaximumGainMarshal, pdwMaximumGain, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4229,9 +4262,13 @@ class Display {
     static GetMonitorDisplayAreaSize(hMonitor, stSizeType, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeight) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwMinimumWidthOrHeightMarshal := pdwMinimumWidthOrHeight is VarRef ? "uint*" : "ptr"
+        pdwCurrentWidthOrHeightMarshal := pdwCurrentWidthOrHeight is VarRef ? "uint*" : "ptr"
+        pdwMaximumWidthOrHeightMarshal := pdwMaximumWidthOrHeight is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, "uint*", pdwMinimumWidthOrHeight, "uint*", pdwCurrentWidthOrHeight, "uint*", pdwMaximumWidthOrHeight, "int")
+        result := DllCall("dxva2.dll\GetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, pdwMinimumWidthOrHeightMarshal, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeightMarshal, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeightMarshal, pdwMaximumWidthOrHeight, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4252,9 +4289,13 @@ class Display {
     static GetMonitorDisplayAreaPosition(hMonitor, ptPositionType, pdwMinimumPosition, pdwCurrentPosition, pdwMaximumPosition) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
+        pdwMinimumPositionMarshal := pdwMinimumPosition is VarRef ? "uint*" : "ptr"
+        pdwCurrentPositionMarshal := pdwCurrentPosition is VarRef ? "uint*" : "ptr"
+        pdwMaximumPositionMarshal := pdwMaximumPosition is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, "uint*", pdwMinimumPosition, "uint*", pdwCurrentPosition, "uint*", pdwMaximumPosition, "int")
+        result := DllCall("dxva2.dll\GetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, pdwMinimumPositionMarshal, pdwMinimumPosition, pdwCurrentPositionMarshal, pdwCurrentPosition, pdwMaximumPositionMarshal, pdwMaximumPosition, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4475,7 +4516,9 @@ class Display {
      * @since windows5.0
      */
     static CLIPOBJ_bEnum(pco, cj, pul) {
-        result := DllCall("GDI32.dll\CLIPOBJ_bEnum", "ptr", pco, "uint", cj, "uint*", pul, "int")
+        pulMarshal := pul is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\CLIPOBJ_bEnum", "ptr", pco, "uint", cj, pulMarshal, pul, "int")
         return result
     }
 
@@ -4500,7 +4543,9 @@ class Display {
      * @since windows5.0
      */
     static FONTOBJ_cGetAllGlyphHandles(pfo, phg) {
-        result := DllCall("GDI32.dll\FONTOBJ_cGetAllGlyphHandles", "ptr", pfo, "uint*", phg, "uint")
+        phgMarshal := phg is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\FONTOBJ_cGetAllGlyphHandles", "ptr", pfo, phgMarshal, phg, "uint")
         return result
     }
 
@@ -4529,7 +4574,9 @@ class Display {
      * @since windows5.0
      */
     static FONTOBJ_cGetGlyphs(pfo, iMode, cGlyph, phg, ppvGlyph) {
-        result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", "ptr", pfo, "uint", iMode, "uint", cGlyph, "uint*", phg, "ptr*", ppvGlyph, "uint")
+        phgMarshal := phg is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", "ptr", pfo, "uint", iMode, "uint", cGlyph, phgMarshal, phg, "ptr*", ppvGlyph, "uint")
         return result
     }
 
@@ -4584,7 +4631,9 @@ class Display {
      * @since windows5.0
      */
     static FONTOBJ_pvTrueTypeFontFile(pfo, pcjFile) {
-        result := DllCall("GDI32.dll\FONTOBJ_pvTrueTypeFontFile", "ptr", pfo, "uint*", pcjFile, "ptr")
+        pcjFileMarshal := pcjFile is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\FONTOBJ_pvTrueTypeFontFile", "ptr", pfo, pcjFileMarshal, pcjFile, "ptr")
         return result
     }
 
@@ -4707,7 +4756,9 @@ class Display {
      * @since windows5.0
      */
     static STROBJ_bEnum(pstro, pc, ppgpos) {
-        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, "uint*", pc, "ptr*", ppgpos, "int")
+        pcMarshal := pc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, pcMarshal, pc, "ptr*", ppgpos, "int")
         return result
     }
 
@@ -4721,7 +4772,9 @@ class Display {
      * @since windows5.0
      */
     static STROBJ_bEnumPositionsOnly(pstro, pc, ppgpos) {
-        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, "uint*", pc, "ptr*", ppgpos, "int")
+        pcMarshal := pc is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, pcMarshal, pc, "ptr*", ppgpos, "int")
         return result
     }
 
@@ -4875,7 +4928,10 @@ class Display {
      * @since windows5.0
      */
     static XFORMOBJ_bApplyXform(pxo, iMode, cPoints, pvIn, pvOut) {
-        result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", "ptr", pxo, "uint", iMode, "uint", cPoints, "ptr", pvIn, "ptr", pvOut, "int")
+        pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
+        pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", "ptr", pxo, "uint", iMode, "uint", cPoints, pvInMarshal, pvIn, pvOutMarshal, pvOut, "int")
         return result
     }
 
@@ -4917,7 +4973,9 @@ class Display {
      * @since windows5.0
      */
     static XLATEOBJ_cGetPalette(pxlo, iPal, cPal, pPal) {
-        result := DllCall("GDI32.dll\XLATEOBJ_cGetPalette", "ptr", pxlo, "uint", iPal, "uint", cPal, "uint*", pPal, "uint")
+        pPalMarshal := pPal is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\XLATEOBJ_cGetPalette", "ptr", pxlo, "uint", iPal, "uint", cPal, pPalMarshal, pPal, "uint")
         return result
     }
 
@@ -4947,7 +5005,9 @@ class Display {
      * @since windows5.0
      */
     static EngCreateBitmap(sizl, lWidth, iFormat, fl, pvBits) {
-        result := DllCall("GDI32.dll\EngCreateBitmap", "ptr", sizl, "int", lWidth, "uint", iFormat, "uint", fl, "ptr", pvBits, "ptr")
+        pvBitsMarshal := pvBits is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GDI32.dll\EngCreateBitmap", "ptr", sizl, "int", lWidth, "uint", iFormat, "uint", fl, pvBitsMarshal, pvBits, "ptr")
         return HBITMAP({Value: result}, True)
     }
 
@@ -5103,7 +5163,9 @@ class Display {
      * @since windows5.0
      */
     static EngCreatePalette(iMode, cColors, pulColors, flRed, flGreen, flBlue) {
-        result := DllCall("GDI32.dll\EngCreatePalette", "uint", iMode, "uint", cColors, "uint*", pulColors, "uint", flRed, "uint", flGreen, "uint", flBlue, "ptr")
+        pulColorsMarshal := pulColors is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\EngCreatePalette", "uint", iMode, "uint", cColors, pulColorsMarshal, pulColors, "uint", flRed, "uint", flGreen, "uint", flBlue, "ptr")
         return HPALETTE({Value: result}, True)
     }
 
@@ -5381,7 +5443,9 @@ class Display {
      * @since windows5.0
      */
     static EngGradientFill(psoDest, pco, pxlo, pVertex, nVertex, pMesh, nMesh, prclExtents, pptlDitherOrg, ulMode) {
-        result := DllCall("GDI32.dll\EngGradientFill", "ptr", psoDest, "ptr", pco, "ptr", pxlo, "ptr", pVertex, "uint", nVertex, "ptr", pMesh, "uint", nMesh, "ptr", prclExtents, "ptr", pptlDitherOrg, "uint", ulMode, "int")
+        pMeshMarshal := pMesh is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("GDI32.dll\EngGradientFill", "ptr", psoDest, "ptr", pco, "ptr", pxlo, "ptr", pVertex, "uint", nVertex, pMeshMarshal, pMesh, "uint", nMesh, "ptr", prclExtents, "ptr", pptlDitherOrg, "uint", ulMode, "int")
         return result
     }
 
@@ -5659,7 +5723,9 @@ class Display {
     static EngFindResource(h, iName, iType, pulSize) {
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
-        result := DllCall("GDI32.dll\EngFindResource", "ptr", h, "int", iName, "int", iType, "uint*", pulSize, "ptr")
+        pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("GDI32.dll\EngFindResource", "ptr", h, "int", iName, "int", iType, pulSizeMarshal, pulSize, "ptr")
         return result
     }
 
@@ -5738,7 +5804,9 @@ class Display {
      * @since windows5.0
      */
     static EngMultiByteToUnicodeN(UnicodeString, MaxBytesInUnicodeString, BytesInUnicodeString, MultiByteString, BytesInMultiByteString) {
-        DllCall("GDI32.dll\EngMultiByteToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, "uint*", BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString)
+        BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : "ptr"
+
+        DllCall("GDI32.dll\EngMultiByteToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, BytesInUnicodeStringMarshal, BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString)
     }
 
     /**
@@ -5753,7 +5821,9 @@ class Display {
      * @since windows5.0
      */
     static EngUnicodeToMultiByteN(MultiByteString, MaxBytesInMultiByteString, BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
-        DllCall("GDI32.dll\EngUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, "uint*", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString)
+        BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
+
+        DllCall("GDI32.dll\EngUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString)
     }
 
     /**
@@ -5822,7 +5892,10 @@ class Display {
      * @since windows5.0
      */
     static EngGetCurrentCodePage(OemCodePage, AnsiCodePage) {
-        DllCall("GDI32.dll\EngGetCurrentCodePage", "ushort*", OemCodePage, "ushort*", AnsiCodePage)
+        OemCodePageMarshal := OemCodePage is VarRef ? "ushort*" : "ptr"
+        AnsiCodePageMarshal := AnsiCodePage is VarRef ? "ushort*" : "ptr"
+
+        DllCall("GDI32.dll\EngGetCurrentCodePage", OemCodePageMarshal, OemCodePage, AnsiCodePageMarshal, AnsiCodePage)
     }
 
     /**
@@ -5910,7 +5983,10 @@ class Display {
      * @since windows6.0.6000
      */
     static GetDisplayConfigBufferSizes(flags, numPathArrayElements, numModeInfoArrayElements) {
-        result := DllCall("USER32.dll\GetDisplayConfigBufferSizes", "uint", flags, "uint*", numPathArrayElements, "uint*", numModeInfoArrayElements, "uint")
+        numPathArrayElementsMarshal := numPathArrayElements is VarRef ? "uint*" : "ptr"
+        numModeInfoArrayElementsMarshal := numModeInfoArrayElements is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\GetDisplayConfigBufferSizes", "uint", flags, numPathArrayElementsMarshal, numPathArrayElements, numModeInfoArrayElementsMarshal, numModeInfoArrayElements, "uint")
         return result
     }
 
@@ -6093,7 +6169,11 @@ class Display {
      * @since windows6.1
      */
     static QueryDisplayConfig(flags, numPathArrayElements, pathArray, numModeInfoArrayElements, modeInfoArray, currentTopologyId) {
-        result := DllCall("USER32.dll\QueryDisplayConfig", "uint", flags, "uint*", numPathArrayElements, "ptr", pathArray, "uint*", numModeInfoArrayElements, "ptr", modeInfoArray, "int*", currentTopologyId, "uint")
+        numPathArrayElementsMarshal := numPathArrayElements is VarRef ? "uint*" : "ptr"
+        numModeInfoArrayElementsMarshal := numModeInfoArrayElements is VarRef ? "uint*" : "ptr"
+        currentTopologyIdMarshal := currentTopologyId is VarRef ? "int*" : "ptr"
+
+        result := DllCall("USER32.dll\QueryDisplayConfig", "uint", flags, numPathArrayElementsMarshal, numPathArrayElements, "ptr", pathArray, numModeInfoArrayElementsMarshal, numModeInfoArrayElements, "ptr", modeInfoArray, currentTopologyIdMarshal, currentTopologyId, "uint")
         return result
     }
 
@@ -6276,7 +6356,9 @@ class Display {
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getautorotationstate
      */
     static GetAutoRotationState(pState) {
-        result := DllCall("USER32.dll\GetAutoRotationState", "int*", pState, "int")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := DllCall("USER32.dll\GetAutoRotationState", pStateMarshal, pState, "int")
         return result
     }
 
@@ -6287,7 +6369,9 @@ class Display {
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdisplayautorotationpreferences
      */
     static GetDisplayAutoRotationPreferences(pOrientation) {
-        result := DllCall("USER32.dll\GetDisplayAutoRotationPreferences", "int*", pOrientation, "int")
+        pOrientationMarshal := pOrientation is VarRef ? "int*" : "ptr"
+
+        result := DllCall("USER32.dll\GetDisplayAutoRotationPreferences", pOrientationMarshal, pOrientation, "int")
         return result
     }
 

@@ -52,7 +52,9 @@ class IAMVfwCompressDialogs extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-getstate
      */
     GetState(pState, pcbState) {
-        result := ComCall(4, this, "ptr", pState, "int*", pcbState, "HRESULT")
+        pcbStateMarshal := pcbState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pState, pcbStateMarshal, pcbState, "HRESULT")
         return result
     }
 

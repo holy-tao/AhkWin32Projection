@@ -146,7 +146,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static WHvGetCapability(CapabilityCode, CapabilityBuffer, CapabilityBufferSizeInBytes, WrittenSizeInBytes) {
-        result := DllCall("WinHvPlatform.dll\WHvGetCapability", "int", CapabilityCode, "ptr", CapabilityBuffer, "uint", CapabilityBufferSizeInBytes, "uint*", WrittenSizeInBytes, "int")
+        WrittenSizeInBytesMarshal := WrittenSizeInBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetCapability", "int", CapabilityCode, "ptr", CapabilityBuffer, "uint", CapabilityBufferSizeInBytes, WrittenSizeInBytesMarshal, WrittenSizeInBytes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -223,7 +225,9 @@ class Hypervisor {
     static WHvGetPartitionProperty(Partition, PropertyCode, PropertyBuffer, PropertyBufferSizeInBytes, WrittenSizeInBytes) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetPartitionProperty", "ptr", Partition, "int", PropertyCode, "ptr", PropertyBuffer, "uint", PropertyBufferSizeInBytes, "uint*", WrittenSizeInBytes, "int")
+        WrittenSizeInBytesMarshal := WrittenSizeInBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetPartitionProperty", "ptr", Partition, "int", PropertyCode, "ptr", PropertyBuffer, "uint", PropertyBufferSizeInBytes, WrittenSizeInBytesMarshal, WrittenSizeInBytes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -290,7 +294,9 @@ class Hypervisor {
     static WHvMapGpaRange(Partition, SourceAddress, GuestAddress, SizeInBytes, Flags) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvMapGpaRange", "ptr", Partition, "ptr", SourceAddress, "uint", GuestAddress, "uint", SizeInBytes, "int", Flags, "int")
+        SourceAddressMarshal := SourceAddress is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvMapGpaRange", "ptr", Partition, SourceAddressMarshal, SourceAddress, "uint", GuestAddress, "uint", SizeInBytes, "int", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -311,7 +317,9 @@ class Hypervisor {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("WinHvPlatform.dll\WHvMapGpaRange2", "ptr", Partition, "ptr", Process, "ptr", SourceAddress, "uint", GuestAddress, "uint", SizeInBytes, "int", Flags, "int")
+        SourceAddressMarshal := SourceAddress is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvMapGpaRange2", "ptr", Partition, "ptr", Process, SourceAddressMarshal, SourceAddress, "uint", GuestAddress, "uint", SizeInBytes, "int", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -348,7 +356,9 @@ class Hypervisor {
     static WHvTranslateGva(Partition, VpIndex, Gva, TranslateFlags, TranslationResult, Gpa) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvTranslateGva", "ptr", Partition, "uint", VpIndex, "uint", Gva, "int", TranslateFlags, "ptr", TranslationResult, "uint*", Gpa, "int")
+        GpaMarshal := Gpa is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvTranslateGva", "ptr", Partition, "uint", VpIndex, "uint", Gva, "int", TranslateFlags, "ptr", TranslationResult, GpaMarshal, Gpa, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -453,7 +463,9 @@ class Hypervisor {
     static WHvGetVirtualProcessorRegisters(Partition, VpIndex, RegisterNames, RegisterCount, RegisterValues) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorRegisters", "ptr", Partition, "uint", VpIndex, "int*", RegisterNames, "uint", RegisterCount, "ptr", RegisterValues, "int")
+        RegisterNamesMarshal := RegisterNames is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorRegisters", "ptr", Partition, "uint", VpIndex, RegisterNamesMarshal, RegisterNames, "uint", RegisterCount, "ptr", RegisterValues, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -472,7 +484,9 @@ class Hypervisor {
     static WHvSetVirtualProcessorRegisters(Partition, VpIndex, RegisterNames, RegisterCount, RegisterValues) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorRegisters", "ptr", Partition, "uint", VpIndex, "int*", RegisterNames, "uint", RegisterCount, "ptr", RegisterValues, "int")
+        RegisterNamesMarshal := RegisterNames is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorRegisters", "ptr", Partition, "uint", VpIndex, RegisterNamesMarshal, RegisterNames, "uint", RegisterCount, "ptr", RegisterValues, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -491,7 +505,9 @@ class Hypervisor {
     static WHvGetVirtualProcessorInterruptControllerState(Partition, VpIndex, State, StateSize, WrittenSize) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState", "ptr", Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, "uint*", WrittenSize, "int")
+        WrittenSizeMarshal := WrittenSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState", "ptr", Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, WrittenSizeMarshal, WrittenSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -545,7 +561,9 @@ class Hypervisor {
     static WHvGetVirtualProcessorXsaveState(Partition, VpIndex, Buffer, BufferSizeInBytes, BytesWritten) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorXsaveState", "ptr", Partition, "uint", VpIndex, "ptr", Buffer, "uint", BufferSizeInBytes, "uint*", BytesWritten, "int")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorXsaveState", "ptr", Partition, "uint", VpIndex, "ptr", Buffer, "uint", BufferSizeInBytes, BytesWrittenMarshal, BytesWritten, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -601,7 +619,9 @@ class Hypervisor {
     static WHvGetPartitionCounters(Partition, CounterSet, Buffer, BufferSizeInBytes, BytesWritten) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetPartitionCounters", "ptr", Partition, "int", CounterSet, "ptr", Buffer, "uint", BufferSizeInBytes, "uint*", BytesWritten, "int")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetPartitionCounters", "ptr", Partition, "int", CounterSet, "ptr", Buffer, "uint", BufferSizeInBytes, BytesWrittenMarshal, BytesWritten, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -621,7 +641,9 @@ class Hypervisor {
     static WHvGetVirtualProcessorCounters(Partition, VpIndex, CounterSet, Buffer, BufferSizeInBytes, BytesWritten) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorCounters", "ptr", Partition, "uint", VpIndex, "int", CounterSet, "ptr", Buffer, "uint", BufferSizeInBytes, "uint*", BytesWritten, "int")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorCounters", "ptr", Partition, "uint", VpIndex, "int", CounterSet, "ptr", Buffer, "uint", BufferSizeInBytes, BytesWrittenMarshal, BytesWritten, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -640,7 +662,9 @@ class Hypervisor {
     static WHvGetVirtualProcessorInterruptControllerState2(Partition, VpIndex, State, StateSize, WrittenSize) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState2", "ptr", Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, "uint*", WrittenSize, "int")
+        WrittenSizeMarshal := WrittenSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState2", "ptr", Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, WrittenSizeMarshal, WrittenSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -789,7 +813,9 @@ class Hypervisor {
     static WHvGetVirtualProcessorState(Partition, VpIndex, StateType, Buffer, BufferSizeInBytes, BytesWritten) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorState", "ptr", Partition, "uint", VpIndex, "int", StateType, "ptr", Buffer, "uint", BufferSizeInBytes, "uint*", BytesWritten, "int")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorState", "ptr", Partition, "uint", VpIndex, "int", StateType, "ptr", Buffer, "uint", BufferSizeInBytes, BytesWrittenMarshal, BytesWritten, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -825,7 +851,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static WHvAllocateVpciResource(ProviderId, Flags, ResourceDescriptor, ResourceDescriptorSizeInBytes, VpciResource) {
-        result := DllCall("WinHvPlatform.dll\WHvAllocateVpciResource", "ptr", ProviderId, "int", Flags, "ptr", ResourceDescriptor, "uint", ResourceDescriptorSizeInBytes, "ptr", VpciResource, "int")
+        ResourceDescriptorMarshal := ResourceDescriptor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvAllocateVpciResource", "ptr", ProviderId, "int", Flags, ResourceDescriptorMarshal, ResourceDescriptor, "uint", ResourceDescriptorSizeInBytes, "ptr", VpciResource, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -882,7 +910,9 @@ class Hypervisor {
     static WHvGetVpciDeviceProperty(Partition, LogicalDeviceId, PropertyCode, PropertyBuffer, PropertyBufferSizeInBytes, WrittenSizeInBytes) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceProperty", "ptr", Partition, "uint", LogicalDeviceId, "int", PropertyCode, "ptr", PropertyBuffer, "uint", PropertyBufferSizeInBytes, "uint*", WrittenSizeInBytes, "int")
+        WrittenSizeInBytesMarshal := WrittenSizeInBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceProperty", "ptr", Partition, "uint", LogicalDeviceId, "int", PropertyCode, "ptr", PropertyBuffer, "uint", PropertyBufferSizeInBytes, WrittenSizeInBytesMarshal, WrittenSizeInBytes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -918,7 +948,9 @@ class Hypervisor {
     static WHvMapVpciDeviceMmioRanges(Partition, LogicalDeviceId, MappingCount, Mappings) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceMmioRanges", "ptr", Partition, "uint", LogicalDeviceId, "uint*", MappingCount, "ptr*", Mappings, "int")
+        MappingCountMarshal := MappingCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceMmioRanges", "ptr", Partition, "uint", LogicalDeviceId, MappingCountMarshal, MappingCount, "ptr*", Mappings, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -969,7 +1001,9 @@ class Hypervisor {
     static WHvReadVpciDeviceRegister(Partition, LogicalDeviceId, Register, Data) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvReadVpciDeviceRegister", "ptr", Partition, "uint", LogicalDeviceId, "ptr", Register, "ptr", Data, "int")
+        DataMarshal := Data is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvReadVpciDeviceRegister", "ptr", Partition, "uint", LogicalDeviceId, "ptr", Register, DataMarshal, Data, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -987,7 +1021,9 @@ class Hypervisor {
     static WHvWriteVpciDeviceRegister(Partition, LogicalDeviceId, Register, Data) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvWriteVpciDeviceRegister", "ptr", Partition, "uint", LogicalDeviceId, "ptr", Register, "ptr", Data, "int")
+        DataMarshal := Data is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvWriteVpciDeviceRegister", "ptr", Partition, "uint", LogicalDeviceId, "ptr", Register, DataMarshal, Data, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1008,7 +1044,10 @@ class Hypervisor {
     static WHvMapVpciDeviceInterrupt(Partition, LogicalDeviceId, Index, MessageCount, Target, MsiAddress, MsiData) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceInterrupt", "ptr", Partition, "uint", LogicalDeviceId, "uint", Index, "uint", MessageCount, "ptr", Target, "uint*", MsiAddress, "uint*", MsiData, "int")
+        MsiAddressMarshal := MsiAddress is VarRef ? "uint*" : "ptr"
+        MsiDataMarshal := MsiData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceInterrupt", "ptr", Partition, "uint", LogicalDeviceId, "uint", Index, "uint", MessageCount, "ptr", Target, MsiAddressMarshal, MsiAddress, MsiDataMarshal, MsiData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1083,7 +1122,9 @@ class Hypervisor {
     static WHvGetVpciDeviceInterruptTarget(Partition, LogicalDeviceId, Index, MultiMessageNumber, Target, TargetSizeInBytes, BytesWritten) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceInterruptTarget", "ptr", Partition, "uint", LogicalDeviceId, "uint", Index, "uint", MultiMessageNumber, "ptr", Target, "uint", TargetSizeInBytes, "uint*", BytesWritten, "int")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceInterruptTarget", "ptr", Partition, "uint", LogicalDeviceId, "uint", Index, "uint", MultiMessageNumber, "ptr", Target, "uint", TargetSizeInBytes, BytesWrittenMarshal, BytesWritten, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1118,7 +1159,9 @@ class Hypervisor {
     static WHvUpdateTriggerParameters(Partition, Parameters, TriggerHandle) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvUpdateTriggerParameters", "ptr", Partition, "ptr", Parameters, "ptr", TriggerHandle, "int")
+        TriggerHandleMarshal := TriggerHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvUpdateTriggerParameters", "ptr", Partition, "ptr", Parameters, TriggerHandleMarshal, TriggerHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1134,7 +1177,9 @@ class Hypervisor {
     static WHvDeleteTrigger(Partition, TriggerHandle) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvDeleteTrigger", "ptr", Partition, "ptr", TriggerHandle, "int")
+        TriggerHandleMarshal := TriggerHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvDeleteTrigger", "ptr", Partition, TriggerHandleMarshal, TriggerHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1171,7 +1216,9 @@ class Hypervisor {
     static WHvSetNotificationPortProperty(Partition, PortHandle, PropertyCode, PropertyValue) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvSetNotificationPortProperty", "ptr", Partition, "ptr", PortHandle, "int", PropertyCode, "uint", PropertyValue, "int")
+        PortHandleMarshal := PortHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvSetNotificationPortProperty", "ptr", Partition, PortHandleMarshal, PortHandle, "int", PropertyCode, "uint", PropertyValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1187,7 +1234,9 @@ class Hypervisor {
     static WHvDeleteNotificationPort(Partition, PortHandle) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvDeleteNotificationPort", "ptr", Partition, "ptr", PortHandle, "int")
+        PortHandleMarshal := PortHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvDeleteNotificationPort", "ptr", Partition, PortHandleMarshal, PortHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1245,7 +1294,10 @@ class Hypervisor {
     static WHvGetInterruptTargetVpSet(Partition, Destination, DestinationMode, TargetVps, VpCount, TargetVpCount) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        result := DllCall("WinHvPlatform.dll\WHvGetInterruptTargetVpSet", "ptr", Partition, "uint", Destination, "int", DestinationMode, "uint*", TargetVps, "uint", VpCount, "uint*", TargetVpCount, "int")
+        TargetVpsMarshal := TargetVps is VarRef ? "uint*" : "ptr"
+        TargetVpCountMarshal := TargetVpCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WinHvPlatform.dll\WHvGetInterruptTargetVpSet", "ptr", Partition, "uint", Destination, "int", DestinationMode, TargetVpsMarshal, TargetVps, "uint", VpCount, TargetVpCountMarshal, TargetVpCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1334,7 +1386,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static WHvEmulatorDestroyEmulator(Emulator) {
-        result := DllCall("WinHvEmulation.dll\WHvEmulatorDestroyEmulator", "ptr", Emulator, "int")
+        EmulatorMarshal := Emulator is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvEmulation.dll\WHvEmulatorDestroyEmulator", EmulatorMarshal, Emulator, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1351,7 +1405,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static WHvEmulatorTryIoEmulation(Emulator, Context, VpContext, IoInstructionContext, EmulatorReturnStatus) {
-        result := DllCall("WinHvEmulation.dll\WHvEmulatorTryIoEmulation", "ptr", Emulator, "ptr", Context, "ptr", VpContext, "ptr", IoInstructionContext, "ptr", EmulatorReturnStatus, "int")
+        EmulatorMarshal := Emulator is VarRef ? "ptr" : "ptr"
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvEmulation.dll\WHvEmulatorTryIoEmulation", EmulatorMarshal, Emulator, ContextMarshal, Context, "ptr", VpContext, "ptr", IoInstructionContext, "ptr", EmulatorReturnStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1368,7 +1425,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static WHvEmulatorTryMmioEmulation(Emulator, Context, VpContext, MmioInstructionContext, EmulatorReturnStatus) {
-        result := DllCall("WinHvEmulation.dll\WHvEmulatorTryMmioEmulation", "ptr", Emulator, "ptr", Context, "ptr", VpContext, "ptr", MmioInstructionContext, "ptr", EmulatorReturnStatus, "int")
+        EmulatorMarshal := Emulator is VarRef ? "ptr" : "ptr"
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WinHvEmulation.dll\WHvEmulatorTryMmioEmulation", EmulatorMarshal, Emulator, ContextMarshal, Context, "ptr", VpContext, "ptr", MmioInstructionContext, "ptr", EmulatorReturnStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1416,7 +1476,9 @@ class Hypervisor {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvTeardownDeviceHost
      */
     static HdvTeardownDeviceHost(deviceHostHandle) {
-        result := DllCall("vmdevicehost.dll\HdvTeardownDeviceHost", "ptr", deviceHostHandle, "int")
+        deviceHostHandleMarshal := deviceHostHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvTeardownDeviceHost", deviceHostHandleMarshal, deviceHostHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1436,7 +1498,11 @@ class Hypervisor {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvCreateDeviceInstance
      */
     static HdvCreateDeviceInstance(deviceHostHandle, deviceType, deviceClassId, deviceInstanceId, deviceInterface, deviceContext, deviceHandle) {
-        result := DllCall("vmdevicehost.dll\HdvCreateDeviceInstance", "ptr", deviceHostHandle, "int", deviceType, "ptr", deviceClassId, "ptr", deviceInstanceId, "ptr", deviceInterface, "ptr", deviceContext, "ptr*", deviceHandle, "int")
+        deviceHostHandleMarshal := deviceHostHandle is VarRef ? "ptr" : "ptr"
+        deviceInterfaceMarshal := deviceInterface is VarRef ? "ptr" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvCreateDeviceInstance", deviceHostHandleMarshal, deviceHostHandle, "int", deviceType, "ptr", deviceClassId, "ptr", deviceInstanceId, deviceInterfaceMarshal, deviceInterface, deviceContextMarshal, deviceContext, "ptr*", deviceHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1453,7 +1519,10 @@ class Hypervisor {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvReadGuestMemory
      */
     static HdvReadGuestMemory(requestor, guestPhysicalAddress, byteCount, buffer) {
-        result := DllCall("vmdevicehost.dll\HdvReadGuestMemory", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "char*", buffer, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvReadGuestMemory", requestorMarshal, requestor, "uint", guestPhysicalAddress, "uint", byteCount, bufferMarshal, buffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1470,7 +1539,10 @@ class Hypervisor {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvWriteGuestMemory
      */
     static HdvWriteGuestMemory(requestor, guestPhysicalAddress, byteCount, buffer) {
-        result := DllCall("vmdevicehost.dll\HdvWriteGuestMemory", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "char*", buffer, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvWriteGuestMemory", requestorMarshal, requestor, "uint", guestPhysicalAddress, "uint", byteCount, bufferMarshal, buffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1488,7 +1560,9 @@ class Hypervisor {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvCreateGuestMemoryAperture
      */
     static HdvCreateGuestMemoryAperture(requestor, guestPhysicalAddress, byteCount, writeProtected, mappedAddress) {
-        result := DllCall("vmdevicehost.dll\HdvCreateGuestMemoryAperture", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "int", writeProtected, "ptr*", mappedAddress, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvCreateGuestMemoryAperture", requestorMarshal, requestor, "uint", guestPhysicalAddress, "uint", byteCount, "int", writeProtected, "ptr*", mappedAddress, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1502,7 +1576,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static HdvDestroyGuestMemoryAperture(requestor, mappedAddress) {
-        result := DllCall("vmdevicehost.dll\HdvDestroyGuestMemoryAperture", "ptr", requestor, "ptr", mappedAddress, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+        mappedAddressMarshal := mappedAddress is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvDestroyGuestMemoryAperture", requestorMarshal, requestor, mappedAddressMarshal, mappedAddress, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1518,7 +1595,9 @@ class Hypervisor {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvDeliverGuestInterrupt
      */
     static HdvDeliverGuestInterrupt(requestor, msiAddress, msiData) {
-        result := DllCall("vmdevicehost.dll\HdvDeliverGuestInterrupt", "ptr", requestor, "uint", msiAddress, "uint", msiData, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvDeliverGuestInterrupt", requestorMarshal, requestor, "uint", msiAddress, "uint", msiData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1538,7 +1617,9 @@ class Hypervisor {
     static HdvRegisterDoorbell(requestor, BarIndex, BarOffset, TriggerValue, Flags, DoorbellEvent) {
         DoorbellEvent := DoorbellEvent is Win32Handle ? NumGet(DoorbellEvent, "ptr") : DoorbellEvent
 
-        result := DllCall("vmdevicehost.dll\HdvRegisterDoorbell", "ptr", requestor, "int", BarIndex, "uint", BarOffset, "uint", TriggerValue, "uint", Flags, "ptr", DoorbellEvent, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvRegisterDoorbell", requestorMarshal, requestor, "int", BarIndex, "uint", BarOffset, "uint", TriggerValue, "uint", Flags, "ptr", DoorbellEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1555,7 +1636,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static HdvUnregisterDoorbell(requestor, BarIndex, BarOffset, TriggerValue, Flags) {
-        result := DllCall("vmdevicehost.dll\HdvUnregisterDoorbell", "ptr", requestor, "int", BarIndex, "uint", BarOffset, "uint", TriggerValue, "uint", Flags, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvUnregisterDoorbell", requestorMarshal, requestor, "int", BarIndex, "uint", BarOffset, "uint", TriggerValue, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1576,7 +1659,9 @@ class Hypervisor {
     static HdvCreateSectionBackedMmioRange(requestor, barIndex, offsetInPages, lengthInPages, MappingFlags, sectionHandle, sectionOffsetInPages) {
         sectionHandle := sectionHandle is Win32Handle ? NumGet(sectionHandle, "ptr") : sectionHandle
 
-        result := DllCall("vmdevicehost.dll\HdvCreateSectionBackedMmioRange", "ptr", requestor, "int", barIndex, "uint", offsetInPages, "uint", lengthInPages, "int", MappingFlags, "ptr", sectionHandle, "uint", sectionOffsetInPages, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvCreateSectionBackedMmioRange", requestorMarshal, requestor, "int", barIndex, "uint", offsetInPages, "uint", lengthInPages, "int", MappingFlags, "ptr", sectionHandle, "uint", sectionOffsetInPages, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1591,7 +1676,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static HdvDestroySectionBackedMmioRange(requestor, barIndex, offsetInPages) {
-        result := DllCall("vmdevicehost.dll\HdvDestroySectionBackedMmioRange", "ptr", requestor, "int", barIndex, "uint", offsetInPages, "int")
+        requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("vmdevicehost.dll\HdvDestroySectionBackedMmioRange", requestorMarshal, requestor, "int", barIndex, "uint", offsetInPages, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1673,7 +1760,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ReleaseSavedStateFiles(vmSavedStateDumpHandle) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ReleaseSavedStateFiles", "ptr", vmSavedStateDumpHandle, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ReleaseSavedStateFiles", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1687,7 +1776,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetGuestEnabledVirtualTrustLevels(vmSavedStateDumpHandle, virtualTrustLevels) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestEnabledVirtualTrustLevels", "ptr", vmSavedStateDumpHandle, "uint*", virtualTrustLevels, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        virtualTrustLevelsMarshal := virtualTrustLevels is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestEnabledVirtualTrustLevels", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, virtualTrustLevelsMarshal, virtualTrustLevels, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1702,7 +1794,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetGuestOsInfo(vmSavedStateDumpHandle, virtualTrustLevel, guestOsInfo) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestOsInfo", "ptr", vmSavedStateDumpHandle, "char", virtualTrustLevel, "ptr", guestOsInfo, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestOsInfo", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "char", virtualTrustLevel, "ptr", guestOsInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1716,7 +1810,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetVpCount(vmSavedStateDumpHandle, vpCount) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetVpCount", "ptr", vmSavedStateDumpHandle, "uint*", vpCount, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        vpCountMarshal := vpCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetVpCount", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, vpCountMarshal, vpCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1731,7 +1828,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetArchitecture(vmSavedStateDumpHandle, vpId, architecture) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetArchitecture", "ptr", vmSavedStateDumpHandle, "uint", vpId, "int*", architecture, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        architectureMarshal := architecture is VarRef ? "int*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetArchitecture", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, architectureMarshal, architecture, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1746,7 +1846,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ForceArchitecture(vmSavedStateDumpHandle, vpId, architecture) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ForceArchitecture", "ptr", vmSavedStateDumpHandle, "uint", vpId, "int", architecture, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ForceArchitecture", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "int", architecture, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1761,7 +1863,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetActiveVirtualTrustLevel(vmSavedStateDumpHandle, vpId, virtualTrustLevel) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetActiveVirtualTrustLevel", "ptr", vmSavedStateDumpHandle, "uint", vpId, "char*", virtualTrustLevel, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        virtualTrustLevelMarshal := virtualTrustLevel is VarRef ? "char*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetActiveVirtualTrustLevel", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, virtualTrustLevelMarshal, virtualTrustLevel, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1776,7 +1881,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetEnabledVirtualTrustLevels(vmSavedStateDumpHandle, vpId, virtualTrustLevels) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetEnabledVirtualTrustLevels", "ptr", vmSavedStateDumpHandle, "uint", vpId, "uint*", virtualTrustLevels, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        virtualTrustLevelsMarshal := virtualTrustLevels is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetEnabledVirtualTrustLevels", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, virtualTrustLevelsMarshal, virtualTrustLevels, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1791,7 +1899,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ForceActiveVirtualTrustLevel(vmSavedStateDumpHandle, vpId, virtualTrustLevel) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ForceActiveVirtualTrustLevel", "ptr", vmSavedStateDumpHandle, "uint", vpId, "char", virtualTrustLevel, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ForceActiveVirtualTrustLevel", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "char", virtualTrustLevel, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1806,7 +1916,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static IsActiveVirtualTrustLevelEnabled(vmSavedStateDumpHandle, vpId, activeVirtualTrustLevelEnabled) {
-        result := DllCall("VmSavedStateDumpProvider.dll\IsActiveVirtualTrustLevelEnabled", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", activeVirtualTrustLevelEnabled, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\IsActiveVirtualTrustLevelEnabled", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", activeVirtualTrustLevelEnabled, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1820,7 +1932,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static IsNestedVirtualizationEnabled(vmSavedStateDumpHandle, enabled) {
-        result := DllCall("VmSavedStateDumpProvider.dll\IsNestedVirtualizationEnabled", "ptr", vmSavedStateDumpHandle, "ptr", enabled, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\IsNestedVirtualizationEnabled", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", enabled, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1835,7 +1949,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetNestedVirtualizationMode(vmSavedStateDumpHandle, vpId, enabled) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetNestedVirtualizationMode", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", enabled, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetNestedVirtualizationMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", enabled, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1851,7 +1967,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ForceNestedHostMode(vmSavedStateDumpHandle, vpId, hostMode, oldMode) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ForceNestedHostMode", "ptr", vmSavedStateDumpHandle, "uint", vpId, "int", hostMode, "ptr", oldMode, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ForceNestedHostMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "int", hostMode, "ptr", oldMode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1866,7 +1984,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static InKernelSpace(vmSavedStateDumpHandle, vpId, inKernelSpace) {
-        result := DllCall("VmSavedStateDumpProvider.dll\InKernelSpace", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", inKernelSpace, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\InKernelSpace", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", inKernelSpace, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1882,7 +2002,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetRegisterValue(vmSavedStateDumpHandle, vpId, registerId, registerValue) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetRegisterValue", "ptr", vmSavedStateDumpHandle, "uint", vpId, "uint", registerId, "ptr", registerValue, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetRegisterValue", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", registerId, "ptr", registerValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1897,7 +2019,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetPagingMode(vmSavedStateDumpHandle, vpId, pagingMode) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetPagingMode", "ptr", vmSavedStateDumpHandle, "uint", vpId, "int*", pagingMode, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        pagingModeMarshal := pagingMode is VarRef ? "int*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetPagingMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, pagingModeMarshal, pagingMode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1912,7 +2037,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ForcePagingMode(vmSavedStateDumpHandle, vpId, pagingMode) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ForcePagingMode", "ptr", vmSavedStateDumpHandle, "uint", vpId, "int", pagingMode, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ForcePagingMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "int", pagingMode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1929,7 +2056,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ReadGuestPhysicalAddress(vmSavedStateDumpHandle, physicalAddress, buffer, bufferSize, bytesRead) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestPhysicalAddress", "ptr", vmSavedStateDumpHandle, "uint", physicalAddress, "ptr", buffer, "uint", bufferSize, "uint*", bytesRead, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        bytesReadMarshal := bytesRead is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestPhysicalAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", physicalAddress, "ptr", buffer, "uint", bufferSize, bytesReadMarshal, bytesRead, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1946,7 +2076,11 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GuestVirtualAddressToPhysicalAddress(vmSavedStateDumpHandle, vpId, virtualAddress, physicalAddress, unmappedRegionSize) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GuestVirtualAddressToPhysicalAddress", "ptr", vmSavedStateDumpHandle, "uint", vpId, "uint", virtualAddress, "uint*", physicalAddress, "uint*", unmappedRegionSize, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        physicalAddressMarshal := physicalAddress is VarRef ? "uint*" : "ptr"
+        unmappedRegionSizeMarshal := unmappedRegionSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GuestVirtualAddressToPhysicalAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", virtualAddress, physicalAddressMarshal, physicalAddress, unmappedRegionSizeMarshal, unmappedRegionSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1962,7 +2096,11 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetGuestPhysicalMemoryChunks(vmSavedStateDumpHandle, memoryChunkPageSize, memoryChunks, memoryChunkCount) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestPhysicalMemoryChunks", "ptr", vmSavedStateDumpHandle, "uint*", memoryChunkPageSize, "ptr", memoryChunks, "uint*", memoryChunkCount, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        memoryChunkPageSizeMarshal := memoryChunkPageSize is VarRef ? "uint*" : "ptr"
+        memoryChunkCountMarshal := memoryChunkCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestPhysicalMemoryChunks", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, memoryChunkPageSizeMarshal, memoryChunkPageSize, "ptr", memoryChunks, memoryChunkCountMarshal, memoryChunkCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1977,7 +2115,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GuestPhysicalAddressToRawSavedMemoryOffset(vmSavedStateDumpHandle, physicalAddress, rawSavedMemoryOffset) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GuestPhysicalAddressToRawSavedMemoryOffset", "ptr", vmSavedStateDumpHandle, "uint", physicalAddress, "uint*", rawSavedMemoryOffset, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        rawSavedMemoryOffsetMarshal := rawSavedMemoryOffset is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GuestPhysicalAddressToRawSavedMemoryOffset", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", physicalAddress, rawSavedMemoryOffsetMarshal, rawSavedMemoryOffset, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1994,7 +2135,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ReadGuestRawSavedMemory(vmSavedStateDumpHandle, rawSavedMemoryOffset, buffer, bufferSize, bytesRead) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestRawSavedMemory", "ptr", vmSavedStateDumpHandle, "uint", rawSavedMemoryOffset, "ptr", buffer, "uint", bufferSize, "uint*", bytesRead, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        bytesReadMarshal := bytesRead is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestRawSavedMemory", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", rawSavedMemoryOffset, "ptr", buffer, "uint", bufferSize, bytesReadMarshal, bytesRead, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2008,7 +2152,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetGuestRawSavedMemorySize(vmSavedStateDumpHandle, guestRawSavedMemorySize) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestRawSavedMemorySize", "ptr", vmSavedStateDumpHandle, "uint*", guestRawSavedMemorySize, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        guestRawSavedMemorySizeMarshal := guestRawSavedMemorySize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetGuestRawSavedMemorySize", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, guestRawSavedMemorySizeMarshal, guestRawSavedMemorySize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2022,7 +2169,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static SetMemoryBlockCacheLimit(vmSavedStateDumpHandle, memoryBlockCacheLimit) {
-        result := DllCall("VmSavedStateDumpProvider.dll\SetMemoryBlockCacheLimit", "ptr", vmSavedStateDumpHandle, "uint", memoryBlockCacheLimit, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\SetMemoryBlockCacheLimit", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", memoryBlockCacheLimit, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2036,7 +2185,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static GetMemoryBlockCacheLimit(vmSavedStateDumpHandle, memoryBlockCacheLimit) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetMemoryBlockCacheLimit", "ptr", vmSavedStateDumpHandle, "uint*", memoryBlockCacheLimit, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        memoryBlockCacheLimitMarshal := memoryBlockCacheLimit is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetMemoryBlockCacheLimit", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, memoryBlockCacheLimitMarshal, memoryBlockCacheLimit, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2053,7 +2205,10 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ApplyGuestMemoryFix(vmSavedStateDumpHandle, vpId, virtualAddress, fixBuffer, fixBufferSize) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ApplyGuestMemoryFix", "ptr", vmSavedStateDumpHandle, "uint", vpId, "uint", virtualAddress, "ptr", fixBuffer, "uint", fixBufferSize, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        fixBufferMarshal := fixBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ApplyGuestMemoryFix", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", virtualAddress, fixBufferMarshal, fixBuffer, "uint", fixBufferSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2070,7 +2225,9 @@ class Hypervisor {
     static LoadSavedStateSymbolProvider(vmSavedStateDumpHandle, userSymbols, force) {
         userSymbols := userSymbols is String ? StrPtr(userSymbols) : userSymbols
 
-        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateSymbolProvider", "ptr", vmSavedStateDumpHandle, "ptr", userSymbols, "int", force, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateSymbolProvider", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", userSymbols, "int", force, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2083,7 +2240,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ReleaseSavedStateSymbolProvider(vmSavedStateDumpHandle) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ReleaseSavedStateSymbolProvider", "ptr", vmSavedStateDumpHandle, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ReleaseSavedStateSymbolProvider", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2096,7 +2255,9 @@ class Hypervisor {
      * @returns {HANDLE} 
      */
     static GetSavedStateSymbolProviderHandle(vmSavedStateDumpHandle) {
-        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolProviderHandle", "ptr", vmSavedStateDumpHandle, "ptr")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolProviderHandle", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -2107,7 +2268,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static SetSavedStateSymbolProviderDebugInfoCallback(vmSavedStateDumpHandle, Callback) {
-        result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", "ptr", vmSavedStateDumpHandle, "ptr", Callback, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", Callback, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2127,7 +2290,9 @@ class Hypervisor {
         imageName := imageName is String ? StrPtr(imageName) : imageName
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbols", "ptr", vmSavedStateDumpHandle, "ptr", imageName, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbols", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", imageName, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2148,7 +2313,9 @@ class Hypervisor {
         imageName := imageName is String ? StrPtr(imageName) : imageName
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbolsEx", "ptr", vmSavedStateDumpHandle, "ptr", imageName, "uint", imageTimestamp, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbolsEx", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", imageName, "uint", imageTimestamp, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2167,7 +2334,11 @@ class Hypervisor {
     static ResolveSavedStateGlobalVariableAddress(vmSavedStateDumpHandle, vpId, globalName, virtualAddress, size) {
         globalName := globalName is String ? StrPtr(globalName) : globalName
 
-        result := DllCall("VmSavedStateDumpProvider.dll\ResolveSavedStateGlobalVariableAddress", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, "uint*", virtualAddress, "uint*", size, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        virtualAddressMarshal := virtualAddress is VarRef ? "uint*" : "ptr"
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ResolveSavedStateGlobalVariableAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, virtualAddressMarshal, virtualAddress, sizeMarshal, size, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2186,7 +2357,10 @@ class Hypervisor {
     static ReadSavedStateGlobalVariable(vmSavedStateDumpHandle, vpId, globalName, buffer, bufferSize) {
         globalName := globalName is String ? StrPtr(globalName) : globalName
 
-        result := DllCall("VmSavedStateDumpProvider.dll\ReadSavedStateGlobalVariable", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, "ptr", buffer, "uint", bufferSize, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        bufferMarshal := buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ReadSavedStateGlobalVariable", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, bufferMarshal, buffer, "uint", bufferSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2204,7 +2378,10 @@ class Hypervisor {
     static GetSavedStateSymbolTypeSize(vmSavedStateDumpHandle, vpId, typeName, size) {
         typeName := typeName is String ? StrPtr(typeName) : typeName
 
-        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolTypeSize", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "uint*", size, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolTypeSize", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, sizeMarshal, size, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2225,7 +2402,10 @@ class Hypervisor {
         typeName := typeName is String ? StrPtr(typeName) : typeName
         fieldName := fieldName is String ? StrPtr(fieldName) : fieldName
 
-        result := DllCall("VmSavedStateDumpProvider.dll\FindSavedStateSymbolFieldInType", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", fieldName, "uint*", offset, "ptr", found, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        offsetMarshal := offset is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\FindSavedStateSymbolFieldInType", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", fieldName, offsetMarshal, offset, "ptr", found, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2243,7 +2423,9 @@ class Hypervisor {
     static GetSavedStateSymbolFieldInfo(vmSavedStateDumpHandle, vpId, typeName, typeFieldInfoMap) {
         typeName := typeName is String ? StrPtr(typeName) : typeName
 
-        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolFieldInfo", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", typeFieldInfoMap, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolFieldInfo", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", typeFieldInfoMap, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2263,7 +2445,11 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ScanMemoryForDosImages(vmSavedStateDumpHandle, vpId, startAddress, endAddress, callbackContext, foundImageCallback, standaloneAddress, standaloneAddressCount) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", "ptr", vmSavedStateDumpHandle, "uint", vpId, "uint", startAddress, "uint", endAddress, "ptr", callbackContext, "ptr", foundImageCallback, "uint*", standaloneAddress, "uint", standaloneAddressCount, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
+        standaloneAddressMarshal := standaloneAddress is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", startAddress, "uint", endAddress, callbackContextMarshal, callbackContext, "ptr", foundImageCallback, standaloneAddressMarshal, standaloneAddress, "uint", standaloneAddressCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2281,7 +2467,9 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static CallStackUnwind(vmSavedStateDumpHandle, vpId, imageInfo, imageInfoCount, frameCount, callStack) {
-        result := DllCall("VmSavedStateDumpProvider.dll\CallStackUnwind", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", imageInfo, "uint", imageInfoCount, "uint", frameCount, "ptr", callStack, "int")
+        vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("VmSavedStateDumpProvider.dll\CallStackUnwind", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", imageInfo, "uint", imageInfoCount, "uint", frameCount, "ptr", callStack, "int")
         if(result != 0)
             throw OSError(result)
 

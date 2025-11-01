@@ -71,7 +71,9 @@ class IBinding extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPriority(pnPriority) {
-        result := ComCall(7, this, "int*", pnPriority, "HRESULT")
+        pnPriorityMarshal := pnPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pnPriorityMarshal, pnPriority, "HRESULT")
         return result
     }
 
@@ -84,7 +86,10 @@ class IBinding extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBindResult(pclsidProtocol, pdwResult, pszResult, pdwReserved) {
-        result := ComCall(8, this, "ptr", pclsidProtocol, "uint*", pdwResult, "ptr", pszResult, "uint*", pdwReserved, "HRESULT")
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pclsidProtocol, pdwResultMarshal, pdwResult, "ptr", pszResult, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 }

@@ -45,7 +45,9 @@ class IADsFileShare extends IADs{
      * @returns {HRESULT} 
      */
     get_CurrentUserCount(retval) {
-        result := ComCall(20, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -121,7 +123,9 @@ class IADsFileShare extends IADs{
      * @returns {HRESULT} 
      */
     get_MaxUserCount(retval) {
-        result := ComCall(27, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

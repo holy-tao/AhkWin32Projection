@@ -44,7 +44,9 @@ class ISClusProperty extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Length(pLength) {
-        result := ComCall(8, this, "int*", pLength, "HRESULT")
+        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pLengthMarshal, pLength, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISClusProperty extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ValueCount(pCount) {
-        result := ComCall(9, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -94,7 +98,9 @@ class ISClusProperty extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Type(pType) {
-        result := ComCall(13, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class ISClusProperty extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Format(pFormat) {
-        result := ComCall(15, this, "int*", pFormat, "HRESULT")
+        pFormatMarshal := pFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pFormatMarshal, pFormat, "HRESULT")
         return result
     }
 

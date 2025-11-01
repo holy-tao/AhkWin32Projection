@@ -38,7 +38,9 @@ class IDirectXVideoMemoryConfiguration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideomemoryconfiguration-getavailablesurfacetypebyindex
      */
     GetAvailableSurfaceTypeByIndex(dwTypeIndex, pdwType) {
-        result := ComCall(3, this, "uint", dwTypeIndex, "int*", pdwType, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwTypeIndex, pdwTypeMarshal, pdwType, "HRESULT")
         return result
     }
 

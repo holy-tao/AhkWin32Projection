@@ -35,7 +35,10 @@ class IContactAggregationManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetVersionInfo(plMajorVersion, plMinorVersion) {
-        result := ComCall(3, this, "int*", plMajorVersion, "int*", plMinorVersion, "HRESULT")
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plMajorVersionMarshal, plMajorVersion, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
     }
 

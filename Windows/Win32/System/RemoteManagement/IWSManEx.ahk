@@ -52,7 +52,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagutf8
      */
     SessionFlagUTF8(flags) {
-        result := ComCall(12, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagcredusernamepassword
      */
     SessionFlagCredUsernamePassword(flags) {
-        result := ComCall(13, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagskipcacheck
      */
     SessionFlagSkipCACheck(flags) {
-        result := ComCall(14, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -85,7 +91,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagskipcncheck
      */
     SessionFlagSkipCNCheck(flags) {
-        result := ComCall(15, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -96,7 +104,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusedigest
      */
     SessionFlagUseDigest(flags) {
-        result := ComCall(16, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -107,7 +117,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusenegotiate
      */
     SessionFlagUseNegotiate(flags) {
-        result := ComCall(17, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -118,7 +130,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusebasic
      */
     SessionFlagUseBasic(flags) {
-        result := ComCall(18, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -129,7 +143,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusekerberos
      */
     SessionFlagUseKerberos(flags) {
-        result := ComCall(19, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -140,7 +156,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagnoencryption
      */
     SessionFlagNoEncryption(flags) {
-        result := ComCall(20, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -151,7 +169,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagenablespnserverport
      */
     SessionFlagEnableSPNServerPort(flags) {
-        result := ComCall(21, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -162,7 +182,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-sessionflagusenoauthentication
      */
     SessionFlagUseNoAuthentication(flags) {
-        result := ComCall(22, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -173,7 +195,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagnonxmltext
      */
     EnumerationFlagNonXmlText(flags) {
-        result := ComCall(23, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -184,7 +208,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagreturnepr
      */
     EnumerationFlagReturnEPR(flags) {
-        result := ComCall(24, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -195,7 +221,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagreturnobjectandepr
      */
     EnumerationFlagReturnObjectAndEPR(flags) {
-        result := ComCall(25, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -218,7 +246,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflaghierarchydeep
      */
     EnumerationFlagHierarchyDeep(flags) {
-        result := ComCall(27, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -229,7 +259,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflaghierarchyshallow
      */
     EnumerationFlagHierarchyShallow(flags) {
-        result := ComCall(28, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -240,7 +272,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflaghierarchydeepbasepropsonly
      */
     EnumerationFlagHierarchyDeepBasePropsOnly(flags) {
-        result := ComCall(29, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 
@@ -251,7 +285,9 @@ class IWSManEx extends IWSMan{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex-enumerationflagreturnobject
      */
     EnumerationFlagReturnObject(flags) {
-        result := ComCall(30, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 }

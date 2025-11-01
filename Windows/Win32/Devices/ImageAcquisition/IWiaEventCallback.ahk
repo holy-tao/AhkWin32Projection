@@ -79,7 +79,9 @@ class IWiaEventCallback extends IUnknown{
         bstrDeviceDescription := bstrDeviceDescription is String ? BSTR.Alloc(bstrDeviceDescription).Value : bstrDeviceDescription
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(3, this, "ptr", pEventGUID, "ptr", bstrEventDescription, "ptr", bstrDeviceID, "ptr", bstrDeviceDescription, "uint", dwDeviceType, "ptr", bstrFullItemName, "uint*", pulEventType, "uint", ulReserved, "HRESULT")
+        pulEventTypeMarshal := pulEventType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pEventGUID, "ptr", bstrEventDescription, "ptr", bstrDeviceID, "ptr", bstrDeviceDescription, "uint", dwDeviceType, "ptr", bstrFullItemName, pulEventTypeMarshal, pulEventType, "uint", ulReserved, "HRESULT")
         return result
     }
 }

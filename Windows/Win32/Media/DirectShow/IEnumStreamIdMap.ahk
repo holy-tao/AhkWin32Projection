@@ -39,7 +39,9 @@ class IEnumStreamIdMap extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumstreamidmap-next
      */
     Next(cRequest, pStreamIdMap, pcReceived) {
-        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamIdMap, "uint*", pcReceived, "HRESULT")
+        pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamIdMap, pcReceivedMarshal, pcReceived, "HRESULT")
         return result
     }
 

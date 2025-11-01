@@ -332,9 +332,11 @@ class AppLocker {
     static SaferGetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize, InfoBuffer, InfoBufferRetSize) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
+        InfoBufferRetSizeMarshal := InfoBufferRetSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "uint*", InfoBufferRetSize, "ptr", lpReserved, "int")
+        result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, InfoBufferRetSizeMarshal, InfoBufferRetSize, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -634,9 +636,11 @@ class AppLocker {
      * @since windows5.1.2600
      */
     static SaferIdentifyLevel(dwNumProperties, pCodeProperties, pLevelHandle, lpReserved) {
+        lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", "uint", dwNumProperties, "ptr", pCodeProperties, "ptr", pLevelHandle, "ptr", lpReserved, "int")
+        result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", "uint", dwNumProperties, "ptr", pCodeProperties, "ptr", pLevelHandle, lpReservedMarshal, lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -660,9 +664,11 @@ class AppLocker {
         LevelHandle := LevelHandle is Win32Handle ? NumGet(LevelHandle, "ptr") : LevelHandle
         InAccessToken := InAccessToken is Win32Handle ? NumGet(InAccessToken, "ptr") : InAccessToken
 
+        lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferComputeTokenFromLevel", "ptr", LevelHandle, "ptr", InAccessToken, "ptr", OutAccessToken, "uint", dwFlags, "ptr", lpReserved, "int")
+        result := DllCall("ADVAPI32.dll\SaferComputeTokenFromLevel", "ptr", LevelHandle, "ptr", InAccessToken, "ptr", OutAccessToken, "uint", dwFlags, lpReservedMarshal, lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -743,9 +749,11 @@ class AppLocker {
     static SaferGetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize, lpdwOutBufferSize) {
         LevelHandle := LevelHandle is Win32Handle ? NumGet(LevelHandle, "ptr") : LevelHandle
 
+        lpdwOutBufferSizeMarshal := lpdwOutBufferSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "uint*", lpdwOutBufferSize, "int")
+        result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, lpdwOutBufferSizeMarshal, lpdwOutBufferSize, "int")
         if(A_LastError)
             throw OSError()
 

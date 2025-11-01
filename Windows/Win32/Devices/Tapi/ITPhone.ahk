@@ -82,7 +82,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapslong
      */
     get_PhoneCapsLong(pclCap, plCapability) {
-        result := ComCall(11, this, "int", pclCap, "int*", plCapability, "HRESULT")
+        plCapabilityMarshal := plCapability is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", pclCap, plCapabilityMarshal, plCapability, "HRESULT")
         return result
     }
 
@@ -130,7 +132,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonmode
      */
     get_ButtonMode(lButtonID, pButtonMode) {
-        result := ComCall(15, this, "int", lButtonID, "int*", pButtonMode, "HRESULT")
+        pButtonModeMarshal := pButtonMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "int", lButtonID, pButtonModeMarshal, pButtonMode, "HRESULT")
         return result
     }
 
@@ -154,7 +158,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonfunction
      */
     get_ButtonFunction(lButtonID, pButtonFunction) {
-        result := ComCall(17, this, "int", lButtonID, "int*", pButtonFunction, "HRESULT")
+        pButtonFunctionMarshal := pButtonFunction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "int", lButtonID, pButtonFunctionMarshal, pButtonFunction, "HRESULT")
         return result
     }
 
@@ -204,7 +210,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonstate
      */
     get_ButtonState(lButtonID, pButtonState) {
-        result := ComCall(21, this, "int", lButtonID, "int*", pButtonState, "HRESULT")
+        pButtonStateMarshal := pButtonState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, "int", lButtonID, pButtonStateMarshal, pButtonState, "HRESULT")
         return result
     }
 
@@ -216,7 +224,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_hookswitchstate
      */
     get_HookSwitchState(HookSwitchDevice, pHookSwitchState) {
-        result := ComCall(22, this, "int", HookSwitchDevice, "int*", pHookSwitchState, "HRESULT")
+        pHookSwitchStateMarshal := pHookSwitchState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "int", HookSwitchDevice, pHookSwitchStateMarshal, pHookSwitchState, "HRESULT")
         return result
     }
 
@@ -250,7 +260,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_ringmode
      */
     get_RingMode(plRingMode) {
-        result := ComCall(25, this, "int*", plRingMode, "HRESULT")
+        plRingModeMarshal := plRingMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, plRingModeMarshal, plRingMode, "HRESULT")
         return result
     }
 
@@ -272,7 +284,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_ringvolume
      */
     get_RingVolume(plRingVolume) {
-        result := ComCall(27, this, "int*", plRingVolume, "HRESULT")
+        plRingVolumeMarshal := plRingVolume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, plRingVolumeMarshal, plRingVolume, "HRESULT")
         return result
     }
 
@@ -283,7 +297,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_privilege
      */
     get_Privilege(pPrivilege) {
-        result := ComCall(28, this, "int*", pPrivilege, "HRESULT")
+        pPrivilegeMarshal := pPrivilege is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pPrivilegeMarshal, pPrivilege, "HRESULT")
         return result
     }
 
@@ -296,7 +312,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-getphonecapsbuffer
      */
     GetPhoneCapsBuffer(pcbCaps, pdwSize, ppPhoneCapsBuffer) {
-        result := ComCall(29, this, "int", pcbCaps, "uint*", pdwSize, "ptr*", ppPhoneCapsBuffer, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, "int", pcbCaps, pdwSizeMarshal, pdwSize, "ptr*", ppPhoneCapsBuffer, "HRESULT")
         return result
     }
 
@@ -320,7 +338,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_lampmode
      */
     get_LampMode(lLampID, pLampMode) {
-        result := ComCall(31, this, "int", lLampID, "int*", pLampMode, "HRESULT")
+        pLampModeMarshal := pLampMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, "int", lLampID, pLampModeMarshal, pLampMode, "HRESULT")
         return result
     }
 
@@ -392,7 +412,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-devicespecific
      */
     DeviceSpecific(pParams, dwSize) {
-        result := ComCall(37, this, "char*", pParams, "uint", dwSize, "HRESULT")
+        pParamsMarshal := pParams is VarRef ? "char*" : "ptr"
+
+        result := ComCall(37, this, pParamsMarshal, pParams, "uint", dwSize, "HRESULT")
         return result
     }
 
@@ -416,7 +438,9 @@ class ITPhone extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-negotiateextversion
      */
     NegotiateExtVersion(lLowVersion, lHighVersion, plExtVersion) {
-        result := ComCall(39, this, "int", lLowVersion, "int", lHighVersion, "int*", plExtVersion, "HRESULT")
+        plExtVersionMarshal := plExtVersion is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, "int", lLowVersion, "int", lHighVersion, plExtVersionMarshal, plExtVersion, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IWSDHttpAuthParameters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getauthtype
      */
     GetAuthType(pAuthType) {
-        result := ComCall(4, this, "uint*", pAuthType, "HRESULT")
+        pAuthTypeMarshal := pAuthType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pAuthTypeMarshal, pAuthType, "HRESULT")
         return result
     }
 }

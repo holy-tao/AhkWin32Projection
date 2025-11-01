@@ -44,7 +44,9 @@ class IEnumSearchScopeRules extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ienumsearchscoperules-next
      */
     Next(celt, pprgelt, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", pprgelt, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", pprgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

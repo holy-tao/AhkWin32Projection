@@ -40,7 +40,10 @@ class IDebugDocumentHost extends IUnknown{
     GetDeferredText(dwTextStartCookie, pcharText, pstaTextAttr, pcNumChars, cMaxChars) {
         pcharText := pcharText is String ? StrPtr(pcharText) : pcharText
 
-        result := ComCall(3, this, "uint", dwTextStartCookie, "ptr", pcharText, "ushort*", pstaTextAttr, "uint*", pcNumChars, "uint", cMaxChars, "HRESULT")
+        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
+        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwTextStartCookie, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, "uint", cMaxChars, "HRESULT")
         return result
     }
 
@@ -57,7 +60,9 @@ class IDebugDocumentHost extends IUnknown{
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, "ushort*", pattr, "HRESULT")
+        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 

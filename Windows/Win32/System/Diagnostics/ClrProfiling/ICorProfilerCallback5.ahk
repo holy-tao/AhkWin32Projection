@@ -37,7 +37,11 @@ class ICorProfilerCallback5 extends ICorProfilerCallback4{
      * @returns {HRESULT} 
      */
     ConditionalWeakTableElementReferences(cRootRefs, keyRefIds, valueRefIds, rootIds) {
-        result := ComCall(89, this, "uint", cRootRefs, "ptr*", keyRefIds, "ptr*", valueRefIds, "ptr*", rootIds, "HRESULT")
+        keyRefIdsMarshal := keyRefIds is VarRef ? "ptr*" : "ptr"
+        valueRefIdsMarshal := valueRefIds is VarRef ? "ptr*" : "ptr"
+        rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(89, this, "uint", cRootRefs, keyRefIdsMarshal, keyRefIds, valueRefIdsMarshal, valueRefIds, rootIdsMarshal, rootIds, "HRESULT")
         return result
     }
 }

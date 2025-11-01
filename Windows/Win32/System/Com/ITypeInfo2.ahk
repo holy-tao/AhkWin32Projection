@@ -37,7 +37,9 @@ class ITypeInfo2 extends ITypeInfo{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-gettypekind
      */
     GetTypeKind(pTypeKind) {
-        result := ComCall(22, this, "int*", pTypeKind, "HRESULT")
+        pTypeKindMarshal := pTypeKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pTypeKindMarshal, pTypeKind, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ITypeInfo2 extends ITypeInfo{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-gettypeflags
      */
     GetTypeFlags(pTypeFlags) {
-        result := ComCall(23, this, "uint*", pTypeFlags, "HRESULT")
+        pTypeFlagsMarshal := pTypeFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, pTypeFlagsMarshal, pTypeFlags, "HRESULT")
         return result
     }
 
@@ -61,7 +65,9 @@ class ITypeInfo2 extends ITypeInfo{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfuncindexofmemid
      */
     GetFuncIndexOfMemId(memid, invKind, pFuncIndex) {
-        result := ComCall(24, this, "int", memid, "int", invKind, "uint*", pFuncIndex, "HRESULT")
+        pFuncIndexMarshal := pFuncIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "int", memid, "int", invKind, pFuncIndexMarshal, pFuncIndex, "HRESULT")
         return result
     }
 
@@ -73,7 +79,9 @@ class ITypeInfo2 extends ITypeInfo{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getvarindexofmemid
      */
     GetVarIndexOfMemId(memid, pVarIndex) {
-        result := ComCall(25, this, "int", memid, "uint*", pVarIndex, "HRESULT")
+        pVarIndexMarshal := pVarIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "int", memid, pVarIndexMarshal, pVarIndex, "HRESULT")
         return result
     }
 
@@ -153,7 +161,9 @@ class ITypeInfo2 extends ITypeInfo{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getdocumentation2
      */
     GetDocumentation2(memid, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
-        result := ComCall(31, this, "int", memid, "uint", lcid, "ptr", pbstrHelpString, "uint*", pdwHelpStringContext, "ptr", pbstrHelpStringDll, "HRESULT")
+        pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, "int", memid, "uint", lcid, "ptr", pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, "ptr", pbstrHelpStringDll, "HRESULT")
         return result
     }
 

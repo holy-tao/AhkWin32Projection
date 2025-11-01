@@ -41,7 +41,9 @@ class IMFSensorGroup extends IUnknown{
     GetSymbolicLink(SymbolicLink, cchSymbolicLink, pcchWritten) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        result := ComCall(3, this, "ptr", SymbolicLink, "int", cchSymbolicLink, "int*", pcchWritten, "HRESULT")
+        pcchWrittenMarshal := pcchWritten is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", SymbolicLink, "int", cchSymbolicLink, pcchWrittenMarshal, pcchWritten, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IMFSensorGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getflags
      */
     GetFlags(pFlags) {
-        result := ComCall(4, this, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IMFSensorGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getsensordevicecount
      */
     GetSensorDeviceCount(pdwCount) {
-        result := ComCall(6, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -108,7 +114,9 @@ class IMFSensorGroup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getdefaultsensordeviceindex
      */
     GetDefaultSensorDeviceIndex(pdwIndex) {
-        result := ComCall(9, this, "uint*", pdwIndex, "HRESULT")
+        pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwIndexMarshal, pdwIndex, "HRESULT")
         return result
     }
 

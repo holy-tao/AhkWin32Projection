@@ -34,7 +34,9 @@ class IRpcChannelBuffer2 extends IRpcChannelBuffer{
      * @returns {HRESULT} 
      */
     GetProtocolVersion(pdwVersion) {
-        result := ComCall(8, this, "uint*", pdwVersion, "HRESULT")
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
     }
 }

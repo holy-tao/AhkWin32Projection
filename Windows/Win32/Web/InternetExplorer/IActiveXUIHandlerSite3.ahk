@@ -164,7 +164,9 @@ class IActiveXUIHandlerSite3 extends IUnknown{
         text := text is String ? StrPtr(text) : text
         caption := caption is String ? StrPtr(caption) : caption
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", text, "ptr", caption, "uint", type, "int*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hwnd, "ptr", text, "ptr", caption, "uint", type, resultMarshal, result, "HRESULT")
         return result
     }
 }

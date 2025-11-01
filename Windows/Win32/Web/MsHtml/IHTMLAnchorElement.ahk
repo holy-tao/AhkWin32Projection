@@ -451,7 +451,9 @@ class IHTMLAnchorElement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_tabIndex(p) {
-        result := ComCall(45, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(45, this, pMarshal, p, "HRESULT")
         return result
     }
 

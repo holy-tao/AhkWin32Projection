@@ -37,7 +37,9 @@ class IXpsOMRemoteDictionaryResource1 extends IXpsOMRemoteDictionaryResource{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomremotedictionaryresource1-getdocumenttype
      */
     GetDocumentType(documentType) {
-        result := ComCall(7, this, "int*", documentType, "HRESULT")
+        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, documentTypeMarshal, documentType, "HRESULT")
         return result
     }
 

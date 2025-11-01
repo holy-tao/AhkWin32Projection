@@ -42,7 +42,9 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_tvformats
      */
     get_TVFormats(Formats) {
-        result := ComCall(31, this, "int*", Formats, "HRESULT")
+        FormatsMarshal := Formats is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, FormatsMarshal, Formats, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_tunermodes
      */
     get_TunerModes(Modes) {
-        result := ComCall(32, this, "int*", Modes, "HRESULT")
+        ModesMarshal := Modes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, ModesMarshal, Modes, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_numauxinputs
      */
     get_NumAuxInputs(Inputs) {
-        result := ComCall(33, this, "int*", Inputs, "HRESULT")
+        InputsMarshal := Inputs is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, InputsMarshal, Inputs, "HRESULT")
         return result
     }
 }

@@ -50,7 +50,9 @@ class IFsiFileItem extends IFsiItem{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize
      */
     get_DataSize(pVal) {
-        result := ComCall(19, this, "int64*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class IFsiFileItem extends IFsiItem{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bitlow
      */
     get_DataSize32BitLow(pVal) {
-        result := ComCall(20, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -72,7 +76,9 @@ class IFsiFileItem extends IFsiItem{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bithigh
      */
     get_DataSize32BitHigh(pVal) {
-        result := ComCall(21, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

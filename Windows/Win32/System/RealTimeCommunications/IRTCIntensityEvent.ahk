@@ -34,7 +34,9 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Level(plLevel) {
-        result := ComCall(7, this, "int*", plLevel, "HRESULT")
+        plLevelMarshal := plLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plLevelMarshal, plLevel, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Min(plMin) {
-        result := ComCall(8, this, "int*", plMin, "HRESULT")
+        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, plMinMarshal, plMin, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Max(plMax) {
-        result := ComCall(9, this, "int*", plMax, "HRESULT")
+        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plMaxMarshal, plMax, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Direction(penDirection) {
-        result := ComCall(10, this, "int*", penDirection, "HRESULT")
+        penDirectionMarshal := penDirection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, penDirectionMarshal, penDirection, "HRESULT")
         return result
     }
 }

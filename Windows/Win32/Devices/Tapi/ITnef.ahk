@@ -35,7 +35,9 @@ class ITnef extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-addprops
      */
     AddProps(ulFlags, ulElemID, lpvData, lpPropList) {
-        result := ComCall(3, this, "uint", ulFlags, "uint", ulElemID, "ptr", lpvData, "ptr", lpPropList, "HRESULT")
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", ulFlags, "uint", ulElemID, lpvDataMarshal, lpvData, "ptr", lpPropList, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class ITnef extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-finish
      */
     Finish(ulFlags, lpKey, lpProblems) {
-        result := ComCall(5, this, "uint", ulFlags, "ushort*", lpKey, "ptr*", lpProblems, "HRESULT")
+        lpKeyMarshal := lpKey is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulFlags, lpKeyMarshal, lpKey, "ptr*", lpProblems, "HRESULT")
         return result
     }
 

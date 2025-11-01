@@ -38,7 +38,9 @@ class ICLRReferenceAssemblyEnum extends IUnknown{
     Get(dwIndex, pwzBuffer, pcchBufferSize) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        result := ComCall(3, this, "uint", dwIndex, "ptr", pwzBuffer, "uint*", pcchBufferSize, "HRESULT")
+        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwIndex, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
         return result
     }
 }

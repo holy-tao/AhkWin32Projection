@@ -37,7 +37,9 @@ class IDWritePixelSnapping extends IUnknown{
      * @returns {HRESULT} 
      */
     IsPixelSnappingDisabled(clientDrawingContext, isDisabled) {
-        result := ComCall(3, this, "ptr", clientDrawingContext, "ptr", isDisabled, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", isDisabled, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class IDWritePixelSnapping extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getcurrenttransform
      */
     GetCurrentTransform(clientDrawingContext, transform) {
-        result := ComCall(4, this, "ptr", clientDrawingContext, "ptr", transform, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", transform, "HRESULT")
         return result
     }
 
@@ -61,7 +65,10 @@ class IDWritePixelSnapping extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getpixelsperdip
      */
     GetPixelsPerDip(clientDrawingContext, pixelsPerDip) {
-        result := ComCall(5, this, "ptr", clientDrawingContext, "float*", pixelsPerDip, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        pixelsPerDipMarshal := pixelsPerDip is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, clientDrawingContextMarshal, clientDrawingContext, pixelsPerDipMarshal, pixelsPerDip, "HRESULT")
         return result
     }
 }

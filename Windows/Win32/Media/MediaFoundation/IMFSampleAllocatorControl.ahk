@@ -56,7 +56,10 @@ class IMFSampleAllocatorControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleallocatorcontrol-getallocatorusage
      */
     GetAllocatorUsage(dwOutputStreamID, pdwInputStreamID, peUsage) {
-        result := ComCall(4, this, "uint", dwOutputStreamID, "uint*", pdwInputStreamID, "int*", peUsage, "HRESULT")
+        pdwInputStreamIDMarshal := pdwInputStreamID is VarRef ? "uint*" : "ptr"
+        peUsageMarshal := peUsage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwOutputStreamID, pdwInputStreamIDMarshal, pdwInputStreamID, peUsageMarshal, peUsage, "HRESULT")
         return result
     }
 }

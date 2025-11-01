@@ -79,9 +79,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerType(pointerId, pointerType) {
+        pointerTypeMarshal := pointerType is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerType", "uint", pointerId, "int*", pointerType, "int")
+        result := DllCall("USER32.dll\GetPointerType", "uint", pointerId, pointerTypeMarshal, pointerType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -99,9 +101,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerCursorId(pointerId, cursorId) {
+        cursorIdMarshal := cursorId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerCursorId", "uint", pointerId, "uint*", cursorId, "int")
+        result := DllCall("USER32.dll\GetPointerCursorId", "uint", pointerId, cursorIdMarshal, cursorId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -140,9 +144,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerInfoHistory(pointerId, entriesCount, pointerInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", pointerInfo, "int")
+        result := DllCall("USER32.dll\GetPointerInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, "ptr", pointerInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -161,9 +167,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerFrameInfo(pointerId, pointerCount, pointerInfo) {
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameInfo", "uint", pointerId, "uint*", pointerCount, "ptr", pointerInfo, "int")
+        result := DllCall("USER32.dll\GetPointerFrameInfo", "uint", pointerId, pointerCountMarshal, pointerCount, "ptr", pointerInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -185,9 +193,12 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerFrameInfoHistory(pointerId, entriesCount, pointerCount, pointerInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", pointerInfo, "int")
+        result := DllCall("USER32.dll\GetPointerFrameInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, "ptr", pointerInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -226,9 +237,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerTouchInfoHistory(pointerId, entriesCount, touchInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerTouchInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", touchInfo, "int")
+        result := DllCall("USER32.dll\GetPointerTouchInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, "ptr", touchInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -247,9 +260,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerFrameTouchInfo(pointerId, pointerCount, touchInfo) {
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameTouchInfo", "uint", pointerId, "uint*", pointerCount, "ptr", touchInfo, "int")
+        result := DllCall("USER32.dll\GetPointerFrameTouchInfo", "uint", pointerId, pointerCountMarshal, pointerCount, "ptr", touchInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -271,9 +286,12 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerFrameTouchInfoHistory(pointerId, entriesCount, pointerCount, touchInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameTouchInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", touchInfo, "int")
+        result := DllCall("USER32.dll\GetPointerFrameTouchInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, "ptr", touchInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -321,9 +339,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerPenInfoHistory(pointerId, entriesCount, penInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerPenInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", penInfo, "int")
+        result := DllCall("USER32.dll\GetPointerPenInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, "ptr", penInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -342,9 +362,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerFramePenInfo(pointerId, pointerCount, penInfo) {
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFramePenInfo", "uint", pointerId, "uint*", pointerCount, "ptr", penInfo, "int")
+        result := DllCall("USER32.dll\GetPointerFramePenInfo", "uint", pointerId, pointerCountMarshal, pointerCount, "ptr", penInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -367,9 +389,12 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerFramePenInfoHistory(pointerId, entriesCount, pointerCount, penInfo) {
+        entriesCountMarshal := entriesCount is VarRef ? "uint*" : "ptr"
+        pointerCountMarshal := pointerCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFramePenInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", penInfo, "int")
+        result := DllCall("USER32.dll\GetPointerFramePenInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, "ptr", penInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -509,9 +534,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetPointerDevices(deviceCount, pointerDevices) {
+        deviceCountMarshal := deviceCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDevices", "uint*", deviceCount, "ptr", pointerDevices, "int")
+        result := DllCall("USER32.dll\GetPointerDevices", deviceCountMarshal, deviceCount, "ptr", pointerDevices, "int")
         if(A_LastError)
             throw OSError()
 
@@ -558,9 +585,11 @@ class Pointer {
     static GetPointerDeviceProperties(device, propertyCount, pointerProperties) {
         device := device is Win32Handle ? NumGet(device, "ptr") : device
 
+        propertyCountMarshal := propertyCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDeviceProperties", "ptr", device, "uint*", propertyCount, "ptr", pointerProperties, "int")
+        result := DllCall("USER32.dll\GetPointerDeviceProperties", "ptr", device, propertyCountMarshal, propertyCount, "ptr", pointerProperties, "int")
         if(A_LastError)
             throw OSError()
 
@@ -600,9 +629,11 @@ class Pointer {
     static GetPointerDeviceCursors(device, cursorCount, deviceCursors) {
         device := device is Win32Handle ? NumGet(device, "ptr") : device
 
+        cursorCountMarshal := cursorCount is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDeviceCursors", "ptr", device, "uint*", cursorCount, "ptr", deviceCursors, "int")
+        result := DllCall("USER32.dll\GetPointerDeviceCursors", "ptr", device, cursorCountMarshal, cursorCount, "ptr", deviceCursors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -621,9 +652,11 @@ class Pointer {
      * @since windows8.0
      */
     static GetRawPointerDeviceData(pointerId, historyCount, propertiesCount, pProperties, pValues) {
+        pValuesMarshal := pValues is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetRawPointerDeviceData", "uint", pointerId, "uint", historyCount, "uint", propertiesCount, "ptr", pProperties, "int*", pValues, "int")
+        result := DllCall("USER32.dll\GetRawPointerDeviceData", "uint", pointerId, "uint", historyCount, "uint", propertiesCount, "ptr", pProperties, pValuesMarshal, pValues, "int")
         if(A_LastError)
             throw OSError()
 

@@ -55,7 +55,9 @@ class IInkDivisionUnit extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionunit-get_divisiontype
      */
     get_DivisionType(divisionType) {
-        result := ComCall(8, this, "int*", divisionType, "HRESULT")
+        divisionTypeMarshal := divisionType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, divisionTypeMarshal, divisionType, "HRESULT")
         return result
     }
 

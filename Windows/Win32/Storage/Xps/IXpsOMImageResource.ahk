@@ -116,7 +116,9 @@ class IXpsOMImageResource extends IXpsOMResource{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getimagetype
      */
     GetImageType(imageType) {
-        result := ComCall(7, this, "int*", imageType, "HRESULT")
+        imageTypeMarshal := imageType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, imageTypeMarshal, imageType, "HRESULT")
         return result
     }
 }

@@ -84,7 +84,9 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
      * @returns {HRESULT} 
      */
     GetInputTensorDimensionCount(inputIndex, dimensionCount) {
-        result := ComCall(12, this, "uint", inputIndex, "uint*", dimensionCount, "HRESULT")
+        dimensionCountMarshal := dimensionCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", inputIndex, dimensionCountMarshal, dimensionCount, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
      * @returns {HRESULT} 
      */
     GetInputTensorShape(inputIndex, dimensionCount, dimensions) {
-        result := ComCall(13, this, "uint", inputIndex, "uint", dimensionCount, "uint*", dimensions, "HRESULT")
+        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", inputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
         return result
     }
 
@@ -108,7 +112,9 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
      * @returns {HRESULT} 
      */
     SetOutputTensorShape(outputIndex, dimensionCount, dimensions) {
-        result := ComCall(14, this, "uint", outputIndex, "uint", dimensionCount, "uint*", dimensions, "HRESULT")
+        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", outputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
         return result
     }
 }

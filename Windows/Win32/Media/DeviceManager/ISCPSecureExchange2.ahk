@@ -41,7 +41,11 @@ class ISCPSecureExchange2 extends ISCPSecureExchange{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange2-transfercontainerdata2
      */
     TransferContainerData2(pData, dwSize, pProgressCallback, pfuReadyFlags, abMac) {
-        result := ComCall(6, this, "char*", pData, "uint", dwSize, "ptr", pProgressCallback, "uint*", pfuReadyFlags, "char*", abMac, "HRESULT")
+        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pfuReadyFlagsMarshal := pfuReadyFlags is VarRef ? "uint*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, pfuReadyFlagsMarshal, pfuReadyFlags, abMacMarshal, abMac, "HRESULT")
         return result
     }
 }

@@ -72,7 +72,9 @@ class IScriptErrorList extends IDispatch{
      * @returns {HRESULT} 
      */
     getErrorLine(plLine) {
-        result := ComCall(11, this, "int*", plLine, "HRESULT")
+        plLineMarshal := plLine is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plLineMarshal, plLine, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IScriptErrorList extends IDispatch{
      * @returns {HRESULT} 
      */
     getErrorChar(plChar) {
-        result := ComCall(12, this, "int*", plChar, "HRESULT")
+        plCharMarshal := plChar is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plCharMarshal, plChar, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IScriptErrorList extends IDispatch{
      * @returns {HRESULT} 
      */
     getErrorCode(plCode) {
-        result := ComCall(13, this, "int*", plCode, "HRESULT")
+        plCodeMarshal := plCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plCodeMarshal, plCode, "HRESULT")
         return result
     }
 

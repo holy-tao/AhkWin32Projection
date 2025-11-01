@@ -91,7 +91,9 @@ class IRemoteDesktopClientTouchPointer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_pointerspeed
      */
     get_PointerSpeed(pointerSpeed) {
-        result := ComCall(12, this, "uint*", pointerSpeed, "HRESULT")
+        pointerSpeedMarshal := pointerSpeed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pointerSpeedMarshal, pointerSpeed, "HRESULT")
         return result
     }
 }

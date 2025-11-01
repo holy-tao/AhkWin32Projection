@@ -50,7 +50,9 @@ class ISVGPreserveAspectRatio extends IDispatch{
      * @returns {HRESULT} 
      */
     get_align(p) {
-        result := ComCall(8, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ISVGPreserveAspectRatio extends IDispatch{
      * @returns {HRESULT} 
      */
     get_meetOrSlice(p) {
-        result := ComCall(10, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 }

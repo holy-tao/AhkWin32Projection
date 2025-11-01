@@ -113,7 +113,9 @@ class IAppxManifestReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getcapabilities
      */
     GetCapabilities(capabilities) {
-        result := ComCall(6, this, "int*", capabilities, "HRESULT")
+        capabilitiesMarshal := capabilities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, capabilitiesMarshal, capabilities, "HRESULT")
         return result
     }
 
@@ -149,7 +151,9 @@ class IAppxManifestReader extends IUnknown{
     GetPrerequisite(name, value) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(9, this, "ptr", name, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", name, valueMarshal, value, "HRESULT")
         return result
     }
 

@@ -83,7 +83,9 @@ class IMediaStreamFilter extends IBaseFilter{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-referencetimetostreamtime
      */
     ReferenceTimeToStreamTime(pTime) {
-        result := ComCall(19, this, "int64*", pTime, "HRESULT")
+        pTimeMarshal := pTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(19, this, pTimeMarshal, pTime, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IMediaStreamFilter extends IBaseFilter{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-getcurrentstreamtime
      */
     GetCurrentStreamTime(pCurrentStreamTime) {
-        result := ComCall(20, this, "int64*", pCurrentStreamTime, "HRESULT")
+        pCurrentStreamTimeMarshal := pCurrentStreamTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(20, this, pCurrentStreamTimeMarshal, pCurrentStreamTime, "HRESULT")
         return result
     }
 

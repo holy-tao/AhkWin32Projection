@@ -73,7 +73,9 @@ class IExpDispSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupport-oninvoke
      */
     OnInvoke(dispidMember, iid, lcid, wFlags, pdispparams, pVarResult, pexcepinfo, puArgErr) {
-        result := ComCall(5, this, "int", dispidMember, "ptr", iid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pVarResult, "ptr", pexcepinfo, "uint*", puArgErr, "HRESULT")
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", dispidMember, "ptr", iid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pVarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 }

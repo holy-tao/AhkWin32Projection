@@ -37,7 +37,9 @@ class IAMVideoDecimationProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideodecimationproperties-querydecimationusage
      */
     QueryDecimationUsage(lpUsage) {
-        result := ComCall(3, this, "int*", lpUsage, "HRESULT")
+        lpUsageMarshal := lpUsage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, lpUsageMarshal, lpUsage, "HRESULT")
         return result
     }
 

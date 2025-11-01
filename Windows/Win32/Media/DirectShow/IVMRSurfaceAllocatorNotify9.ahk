@@ -86,7 +86,9 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-allocatesurfacehelper
      */
     AllocateSurfaceHelper(lpAllocInfo, lpNumBuffers, lplpSurface) {
-        result := ComCall(6, this, "ptr", lpAllocInfo, "uint*", lpNumBuffers, "ptr*", lplpSurface, "HRESULT")
+        lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "ptr*", lplpSurface, "HRESULT")
         return result
     }
 

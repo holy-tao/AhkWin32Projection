@@ -17424,7 +17424,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbindcol-function
      */
     static SQLBindCol(StatementHandle, ColumnNumber, TargetType, TargetValue, BufferLength, StrLen_or_Ind) {
-        result := DllCall("ODBC32.dll\SQLBindCol", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "int64*", StrLen_or_Ind, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        TargetValueMarshal := TargetValue is VarRef ? "ptr" : "ptr"
+        StrLen_or_IndMarshal := StrLen_or_Ind is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLBindCol", StatementHandleMarshal, StatementHandle, "ushort", ColumnNumber, "short", TargetType, TargetValueMarshal, TargetValue, "int64", BufferLength, StrLen_or_IndMarshal, StrLen_or_Ind, "short")
         return result
     }
 
@@ -17442,7 +17446,11 @@ class Search {
      * @deprecated
      */
     static SQLBindParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {
-        result := DllCall("ODBC32.dll\SQLBindParam", "ptr", StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, "ptr", ParameterValue, "int64*", StrLen_or_Ind, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ParameterValueMarshal := ParameterValue is VarRef ? "ptr" : "ptr"
+        StrLen_or_IndMarshal := StrLen_or_Ind is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLBindParam", StatementHandleMarshal, StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, ParameterValueMarshal, ParameterValue, StrLen_or_IndMarshal, StrLen_or_Ind, "short")
         return result
     }
 
@@ -17459,7 +17467,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolattribute-function
      */
     static SQLColAttribute(StatementHandle, ColumnNumber, FieldIdentifier, CharacterAttribute, BufferLength, StringLength, NumericAttribute) {
-        result := DllCall("ODBC32.dll\SQLColAttribute", "ptr", StatementHandle, "ushort", ColumnNumber, "ushort", FieldIdentifier, "ptr", CharacterAttribute, "short", BufferLength, "short*", StringLength, "int64*", NumericAttribute, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "short*" : "ptr"
+        NumericAttributeMarshal := NumericAttribute is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColAttribute", StatementHandleMarshal, StatementHandle, "ushort", ColumnNumber, "ushort", FieldIdentifier, "ptr", CharacterAttribute, "short", BufferLength, StringLengthMarshal, StringLength, NumericAttributeMarshal, NumericAttribute, "short")
         return result
     }
 
@@ -17478,7 +17490,15 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldescribecol-function
      */
     static SQLDescribeCol(StatementHandle, ColumnNumber, ColumnName, BufferLength, NameLength, DataType, ColumnSize, DecimalDigits, Nullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeCol", "ptr", StatementHandle, "ushort", ColumnNumber, "char*", ColumnName, "short", BufferLength, "short*", NameLength, "short*", DataType, "uint*", ColumnSize, "short*", DecimalDigits, "short*", Nullable, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ColumnNameMarshal := ColumnName is VarRef ? "char*" : "ptr"
+        NameLengthMarshal := NameLength is VarRef ? "short*" : "ptr"
+        DataTypeMarshal := DataType is VarRef ? "short*" : "ptr"
+        ColumnSizeMarshal := ColumnSize is VarRef ? "uint*" : "ptr"
+        DecimalDigitsMarshal := DecimalDigits is VarRef ? "short*" : "ptr"
+        NullableMarshal := Nullable is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDescribeCol", StatementHandleMarshal, StatementHandle, "ushort", ColumnNumber, ColumnNameMarshal, ColumnName, "short", BufferLength, NameLengthMarshal, NameLength, DataTypeMarshal, DataType, ColumnSizeMarshal, ColumnSize, DecimalDigitsMarshal, DecimalDigits, NullableMarshal, Nullable, "short")
         return result
     }
 
@@ -17491,7 +17511,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfetchscroll-function
      */
     static SQLFetchScroll(StatementHandle, FetchOrientation, FetchOffset) {
-        result := DllCall("ODBC32.dll\SQLFetchScroll", "ptr", StatementHandle, "short", FetchOrientation, "int64", FetchOffset, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLFetchScroll", StatementHandleMarshal, StatementHandle, "short", FetchOrientation, "int64", FetchOffset, "short")
         return result
     }
 
@@ -17507,7 +17529,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdata-function
      */
     static SQLGetData(StatementHandle, ColumnNumber, TargetType, TargetValue, BufferLength, StrLen_or_IndPtr) {
-        result := DllCall("ODBC32.dll\SQLGetData", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "int64*", StrLen_or_IndPtr, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        TargetValueMarshal := TargetValue is VarRef ? "ptr" : "ptr"
+        StrLen_or_IndPtrMarshal := StrLen_or_IndPtr is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetData", StatementHandleMarshal, StatementHandle, "ushort", ColumnNumber, "short", TargetType, TargetValueMarshal, TargetValue, "int64", BufferLength, StrLen_or_IndPtrMarshal, StrLen_or_IndPtr, "short")
         return result
     }
 
@@ -17528,7 +17554,17 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdescrec-function
      */
     static SQLGetDescRec(DescriptorHandle, RecNumber, Name, BufferLength, StringLengthPtr, TypePtr, SubTypePtr, LengthPtr, PrecisionPtr, ScalePtr, NullablePtr) {
-        result := DllCall("ODBC32.dll\SQLGetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "char*", Name, "short", BufferLength, "short*", StringLengthPtr, "short*", TypePtr, "short*", SubTypePtr, "int64*", LengthPtr, "short*", PrecisionPtr, "short*", ScalePtr, "short*", NullablePtr, "short")
+        DescriptorHandleMarshal := DescriptorHandle is VarRef ? "ptr" : "ptr"
+        NameMarshal := Name is VarRef ? "char*" : "ptr"
+        StringLengthPtrMarshal := StringLengthPtr is VarRef ? "short*" : "ptr"
+        TypePtrMarshal := TypePtr is VarRef ? "short*" : "ptr"
+        SubTypePtrMarshal := SubTypePtr is VarRef ? "short*" : "ptr"
+        LengthPtrMarshal := LengthPtr is VarRef ? "int64*" : "ptr"
+        PrecisionPtrMarshal := PrecisionPtr is VarRef ? "short*" : "ptr"
+        ScalePtrMarshal := ScalePtr is VarRef ? "short*" : "ptr"
+        NullablePtrMarshal := NullablePtr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDescRec", DescriptorHandleMarshal, DescriptorHandle, "short", RecNumber, NameMarshal, Name, "short", BufferLength, StringLengthPtrMarshal, StringLengthPtr, TypePtrMarshal, TypePtr, SubTypePtrMarshal, SubTypePtr, LengthPtrMarshal, LengthPtr, PrecisionPtrMarshal, PrecisionPtr, ScalePtrMarshal, ScalePtr, NullablePtrMarshal, NullablePtr, "short")
         return result
     }
 
@@ -17541,7 +17577,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlputdata-function
      */
     static SQLPutData(StatementHandle, Data, StrLen_or_Ind) {
-        result := DllCall("ODBC32.dll\SQLPutData", "ptr", StatementHandle, "ptr", Data, "int64", StrLen_or_Ind, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        DataMarshal := Data is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLPutData", StatementHandleMarshal, StatementHandle, DataMarshal, Data, "int64", StrLen_or_Ind, "short")
         return result
     }
 
@@ -17553,7 +17592,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlrowcount-function
      */
     static SQLRowCount(StatementHandle, RowCount) {
-        result := DllCall("ODBC32.dll\SQLRowCount", "ptr", StatementHandle, "int64*", RowCount, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        RowCountMarshal := RowCount is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLRowCount", StatementHandleMarshal, StatementHandle, RowCountMarshal, RowCount, "short")
         return result
     }
 
@@ -17567,7 +17609,9 @@ class Search {
      * @deprecated
      */
     static SQLSetConnectOption(ConnectionHandle, Option, Value) {
-        result := DllCall("ODBC32.dll\SQLSetConnectOption", "ptr", ConnectionHandle, "ushort", Option, "uint", Value, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetConnectOption", ConnectionHandleMarshal, ConnectionHandle, "ushort", Option, "uint", Value, "short")
         return result
     }
 
@@ -17587,7 +17631,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetdescrec-function
      */
     static SQLSetDescRec(DescriptorHandle, RecNumber, Type, SubType, Length, Precision, Scale, Data, StringLength, Indicator) {
-        result := DllCall("ODBC32.dll\SQLSetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "short", Type, "short", SubType, "int64", Length, "short", Precision, "short", Scale, "ptr", Data, "int64*", StringLength, "int64*", Indicator, "short")
+        DescriptorHandleMarshal := DescriptorHandle is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "int64*" : "ptr"
+        IndicatorMarshal := Indicator is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetDescRec", DescriptorHandleMarshal, DescriptorHandle, "short", RecNumber, "short", Type, "short", SubType, "int64", Length, "short", Precision, "short", Scale, "ptr", Data, StringLengthMarshal, StringLength, IndicatorMarshal, Indicator, "short")
         return result
     }
 
@@ -17606,7 +17654,11 @@ class Search {
      * @deprecated
      */
     static SQLSetParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {
-        result := DllCall("ODBC32.dll\SQLSetParam", "ptr", StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, "ptr", ParameterValue, "int64*", StrLen_or_Ind, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ParameterValueMarshal := ParameterValue is VarRef ? "ptr" : "ptr"
+        StrLen_or_IndMarshal := StrLen_or_Ind is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetParam", StatementHandleMarshal, StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, ParameterValueMarshal, ParameterValue, StrLen_or_IndMarshal, StrLen_or_Ind, "short")
         return result
     }
 
@@ -17620,7 +17672,9 @@ class Search {
      * @deprecated
      */
     static SQLSetStmtOption(StatementHandle, Option, Value) {
-        result := DllCall("ODBC32.dll\SQLSetStmtOption", "ptr", StatementHandle, "ushort", Option, "uint", Value, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetStmtOption", StatementHandleMarshal, StatementHandle, "ushort", Option, "uint", Value, "short")
         return result
     }
 
@@ -17637,7 +17691,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolattributes-function
      */
     static SQLColAttributes(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
-        result := DllCall("ODBC32.dll\SQLColAttributes", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "short*", pcbDesc, "int64*", pfDesc, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        rgbDescMarshal := rgbDesc is VarRef ? "ptr" : "ptr"
+        pcbDescMarshal := pcbDesc is VarRef ? "short*" : "ptr"
+        pfDescMarshal := pfDesc is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColAttributes", hstmtMarshal, hstmt, "ushort", icol, "ushort", fDescType, rgbDescMarshal, rgbDesc, "short", cbDescMax, pcbDescMarshal, pcbDesc, pfDescMarshal, pfDesc, "short")
         return result
     }
 
@@ -17653,7 +17712,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldescribeparam-function
      */
     static SQLDescribeParam(hstmt, ipar, pfSqlType, pcbParamDef, pibScale, pfNullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeParam", "ptr", hstmt, "ushort", ipar, "short*", pfSqlType, "uint*", pcbParamDef, "short*", pibScale, "short*", pfNullable, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pfSqlTypeMarshal := pfSqlType is VarRef ? "short*" : "ptr"
+        pcbParamDefMarshal := pcbParamDef is VarRef ? "uint*" : "ptr"
+        pibScaleMarshal := pibScale is VarRef ? "short*" : "ptr"
+        pfNullableMarshal := pfNullable is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDescribeParam", hstmtMarshal, hstmt, "ushort", ipar, pfSqlTypeMarshal, pfSqlType, pcbParamDefMarshal, pcbParamDef, pibScaleMarshal, pibScale, pfNullableMarshal, pfNullable, "short")
         return result
     }
 
@@ -17668,7 +17733,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlextendedfetch-function
      */
     static SQLExtendedFetch(hstmt, fFetchType, irow, pcrow, rgfRowStatus) {
-        result := DllCall("ODBC32.dll\SQLExtendedFetch", "ptr", hstmt, "ushort", fFetchType, "int64", irow, "uint*", pcrow, "ushort*", rgfRowStatus, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pcrowMarshal := pcrow is VarRef ? "uint*" : "ptr"
+        rgfRowStatusMarshal := rgfRowStatus is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLExtendedFetch", hstmtMarshal, hstmt, "ushort", fFetchType, "int64", irow, pcrowMarshal, pcrow, rgfRowStatusMarshal, rgfRowStatus, "short")
         return result
     }
 
@@ -17681,7 +17750,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlparamoptions-function
      */
     static SQLParamOptions(hstmt, crow, pirow) {
-        result := DllCall("ODBC32.dll\SQLParamOptions", "ptr", hstmt, "uint", crow, "uint*", pirow, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pirowMarshal := pirow is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLParamOptions", hstmtMarshal, hstmt, "uint", crow, pirowMarshal, pirow, "short")
         return result
     }
 
@@ -17695,7 +17767,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetpos-function
      */
     static SQLSetPos(hstmt, irow, fOption, fLock) {
-        result := DllCall("ODBC32.dll\SQLSetPos", "ptr", hstmt, "uint", irow, "ushort", fOption, "ushort", fLock, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetPos", hstmtMarshal, hstmt, "uint", irow, "ushort", fOption, "ushort", fLock, "short")
         return result
     }
 
@@ -17715,7 +17789,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbindparameter-function
      */
     static SQLBindParameter(hstmt, ipar, fParamType, fCType, fSqlType, cbColDef, ibScale, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLBindParameter", "ptr", hstmt, "ushort", ipar, "short", fParamType, "short", fCType, "short", fSqlType, "uint", cbColDef, "short", ibScale, "ptr", rgbValue, "int64", cbValueMax, "int64*", pcbValue, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLBindParameter", hstmtMarshal, hstmt, "ushort", ipar, "short", fParamType, "short", fCType, "short", fSqlType, "uint", cbColDef, "short", ibScale, rgbValueMarshal, rgbValue, "int64", cbValueMax, pcbValueMarshal, pcbValue, "short")
         return result
     }
 
@@ -17729,7 +17807,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetscrolloptions-function
      */
     static SQLSetScrollOptions(hstmt, fConcurrency, crowKeyset, crowRowset) {
-        result := DllCall("ODBC32.dll\SQLSetScrollOptions", "ptr", hstmt, "ushort", fConcurrency, "int64", crowKeyset, "ushort", crowRowset, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetScrollOptions", hstmtMarshal, hstmt, "ushort", fConcurrency, "int64", crowKeyset, "ushort", crowRowset, "short")
         return result
     }
 
@@ -17745,7 +17825,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColAttributeW(hstmt, iCol, iField, pCharAttr, cbDescMax, pcbCharAttr, pNumAttr) {
-        result := DllCall("ODBC32.dll\SQLColAttributeW", "ptr", hstmt, "ushort", iCol, "ushort", iField, "ptr", pCharAttr, "short", cbDescMax, "short*", pcbCharAttr, "int64*", pNumAttr, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pcbCharAttrMarshal := pcbCharAttr is VarRef ? "short*" : "ptr"
+        pNumAttrMarshal := pNumAttr is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColAttributeW", hstmtMarshal, hstmt, "ushort", iCol, "ushort", iField, "ptr", pCharAttr, "short", cbDescMax, pcbCharAttrMarshal, pcbCharAttr, pNumAttrMarshal, pNumAttr, "short")
         return result
     }
 
@@ -17761,7 +17845,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColAttributesW(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
-        result := DllCall("ODBC32.dll\SQLColAttributesW", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "short*", pcbDesc, "int64*", pfDesc, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pcbDescMarshal := pcbDesc is VarRef ? "short*" : "ptr"
+        pfDescMarshal := pfDesc is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColAttributesW", hstmtMarshal, hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, pcbDescMarshal, pcbDesc, pfDescMarshal, pfDesc, "short")
         return result
     }
 
@@ -17779,7 +17867,15 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDescribeColW(hstmt, icol, szColName, cchColNameMax, pcchColName, pfSqlType, pcbColDef, pibScale, pfNullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeColW", "ptr", hstmt, "ushort", icol, "ushort*", szColName, "short", cchColNameMax, "short*", pcchColName, "short*", pfSqlType, "uint*", pcbColDef, "short*", pibScale, "short*", pfNullable, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szColNameMarshal := szColName is VarRef ? "ushort*" : "ptr"
+        pcchColNameMarshal := pcchColName is VarRef ? "short*" : "ptr"
+        pfSqlTypeMarshal := pfSqlType is VarRef ? "short*" : "ptr"
+        pcbColDefMarshal := pcbColDef is VarRef ? "uint*" : "ptr"
+        pibScaleMarshal := pibScale is VarRef ? "short*" : "ptr"
+        pfNullableMarshal := pfNullable is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDescribeColW", hstmtMarshal, hstmt, "ushort", icol, szColNameMarshal, szColName, "short", cchColNameMax, pcchColNameMarshal, pcchColName, pfSqlTypeMarshal, pfSqlType, pcbColDefMarshal, pcbColDef, pibScaleMarshal, pibScale, pfNullableMarshal, pfNullable, "short")
         return result
     }
 
@@ -17799,7 +17895,17 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescRecW(hdesc, iRecord, szName, cchNameMax, pcchName, pfType, pfSubType, pLength, pPrecision, pScale, pNullable) {
-        result := DllCall("ODBC32.dll\SQLGetDescRecW", "ptr", hdesc, "short", iRecord, "ushort*", szName, "short", cchNameMax, "short*", pcchName, "short*", pfType, "short*", pfSubType, "int64*", pLength, "short*", pPrecision, "short*", pScale, "short*", pNullable, "short")
+        hdescMarshal := hdesc is VarRef ? "ptr" : "ptr"
+        szNameMarshal := szName is VarRef ? "ushort*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "short*" : "ptr"
+        pfTypeMarshal := pfType is VarRef ? "short*" : "ptr"
+        pfSubTypeMarshal := pfSubType is VarRef ? "short*" : "ptr"
+        pLengthMarshal := pLength is VarRef ? "int64*" : "ptr"
+        pPrecisionMarshal := pPrecision is VarRef ? "short*" : "ptr"
+        pScaleMarshal := pScale is VarRef ? "short*" : "ptr"
+        pNullableMarshal := pNullable is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDescRecW", hdescMarshal, hdesc, "short", iRecord, szNameMarshal, szName, "short", cchNameMax, pcchNameMarshal, pcchName, pfTypeMarshal, pfType, pfSubTypeMarshal, pfSubType, pLengthMarshal, pLength, pPrecisionMarshal, pPrecision, pScaleMarshal, pScale, pNullableMarshal, pNullable, "short")
         return result
     }
 
@@ -17811,7 +17917,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetConnectOptionW(hdbc, fOption, vParam) {
-        result := DllCall("ODBC32.dll\SQLSetConnectOptionW", "ptr", hdbc, "ushort", fOption, "uint", vParam, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetConnectOptionW", hdbcMarshal, hdbc, "ushort", fOption, "uint", vParam, "short")
         return result
     }
 
@@ -17827,7 +17935,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColAttributeA(hstmt, iCol, iField, pCharAttr, cbCharAttrMax, pcbCharAttr, pNumAttr) {
-        result := DllCall("ODBC32.dll\SQLColAttributeA", "ptr", hstmt, "short", iCol, "short", iField, "ptr", pCharAttr, "short", cbCharAttrMax, "short*", pcbCharAttr, "int64*", pNumAttr, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pcbCharAttrMarshal := pcbCharAttr is VarRef ? "short*" : "ptr"
+        pNumAttrMarshal := pNumAttr is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColAttributeA", hstmtMarshal, hstmt, "short", iCol, "short", iField, "ptr", pCharAttr, "short", cbCharAttrMax, pcbCharAttrMarshal, pcbCharAttr, pNumAttrMarshal, pNumAttr, "short")
         return result
     }
 
@@ -17843,7 +17955,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColAttributesA(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
-        result := DllCall("ODBC32.dll\SQLColAttributesA", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "short*", pcbDesc, "int64*", pfDesc, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pcbDescMarshal := pcbDesc is VarRef ? "short*" : "ptr"
+        pfDescMarshal := pfDesc is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColAttributesA", hstmtMarshal, hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, pcbDescMarshal, pcbDesc, pfDescMarshal, pfDesc, "short")
         return result
     }
 
@@ -17861,7 +17977,15 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDescribeColA(hstmt, icol, szColName, cbColNameMax, pcbColName, pfSqlType, pcbColDef, pibScale, pfNullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeColA", "ptr", hstmt, "ushort", icol, "char*", szColName, "short", cbColNameMax, "short*", pcbColName, "short*", pfSqlType, "uint*", pcbColDef, "short*", pibScale, "short*", pfNullable, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szColNameMarshal := szColName is VarRef ? "char*" : "ptr"
+        pcbColNameMarshal := pcbColName is VarRef ? "short*" : "ptr"
+        pfSqlTypeMarshal := pfSqlType is VarRef ? "short*" : "ptr"
+        pcbColDefMarshal := pcbColDef is VarRef ? "uint*" : "ptr"
+        pibScaleMarshal := pibScale is VarRef ? "short*" : "ptr"
+        pfNullableMarshal := pfNullable is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDescribeColA", hstmtMarshal, hstmt, "ushort", icol, szColNameMarshal, szColName, "short", cbColNameMax, pcbColNameMarshal, pcbColName, pfSqlTypeMarshal, pfSqlType, pcbColDefMarshal, pcbColDef, pibScaleMarshal, pibScale, pfNullableMarshal, pfNullable, "short")
         return result
     }
 
@@ -17881,7 +18005,17 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescRecA(hdesc, iRecord, szName, cbNameMax, pcbName, pfType, pfSubType, pLength, pPrecision, pScale, pNullable) {
-        result := DllCall("ODBC32.dll\SQLGetDescRecA", "ptr", hdesc, "short", iRecord, "char*", szName, "short", cbNameMax, "short*", pcbName, "short*", pfType, "short*", pfSubType, "int64*", pLength, "short*", pPrecision, "short*", pScale, "short*", pNullable, "short")
+        hdescMarshal := hdesc is VarRef ? "ptr" : "ptr"
+        szNameMarshal := szName is VarRef ? "char*" : "ptr"
+        pcbNameMarshal := pcbName is VarRef ? "short*" : "ptr"
+        pfTypeMarshal := pfType is VarRef ? "short*" : "ptr"
+        pfSubTypeMarshal := pfSubType is VarRef ? "short*" : "ptr"
+        pLengthMarshal := pLength is VarRef ? "int64*" : "ptr"
+        pPrecisionMarshal := pPrecision is VarRef ? "short*" : "ptr"
+        pScaleMarshal := pScale is VarRef ? "short*" : "ptr"
+        pNullableMarshal := pNullable is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDescRecA", hdescMarshal, hdesc, "short", iRecord, szNameMarshal, szName, "short", cbNameMax, pcbNameMarshal, pcbName, pfTypeMarshal, pfType, pfSubTypeMarshal, pfSubType, pLengthMarshal, pLength, pPrecisionMarshal, pPrecision, pScaleMarshal, pScale, pNullableMarshal, pNullable, "short")
         return result
     }
 
@@ -17893,7 +18027,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetConnectOptionA(hdbc, fOption, vParam) {
-        result := DllCall("ODBC32.dll\SQLSetConnectOptionA", "ptr", hdbc, "ushort", fOption, "uint", vParam, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetConnectOptionA", hdbcMarshal, hdbc, "ushort", fOption, "uint", vParam, "short")
         return result
     }
 
@@ -17905,7 +18041,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallocconnect-function
      */
     static SQLAllocConnect(EnvironmentHandle, ConnectionHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocConnect", "ptr", EnvironmentHandle, "ptr*", ConnectionHandle, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLAllocConnect", EnvironmentHandleMarshal, EnvironmentHandle, "ptr*", ConnectionHandle, "short")
         return result
     }
 
@@ -17929,7 +18067,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallochandle-function
      */
     static SQLAllocHandle(HandleType, InputHandle, OutputHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", HandleType, "ptr", InputHandle, "ptr*", OutputHandle, "short")
+        InputHandleMarshal := InputHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", HandleType, InputHandleMarshal, InputHandle, "ptr*", OutputHandle, "short")
         return result
     }
 
@@ -17941,7 +18081,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallocstmt-function
      */
     static SQLAllocStmt(ConnectionHandle, StatementHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocStmt", "ptr", ConnectionHandle, "ptr*", StatementHandle, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLAllocStmt", ConnectionHandleMarshal, ConnectionHandle, "ptr*", StatementHandle, "short")
         return result
     }
 
@@ -17952,7 +18094,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcancel-function
      */
     static SQLCancel(StatementHandle) {
-        result := DllCall("ODBC32.dll\SQLCancel", "ptr", StatementHandle, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLCancel", StatementHandleMarshal, StatementHandle, "short")
         return result
     }
 
@@ -17964,7 +18108,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcancelhandle-function
      */
     static SQLCancelHandle(HandleType, InputHandle) {
-        result := DllCall("ODBC32.dll\SQLCancelHandle", "short", HandleType, "ptr", InputHandle, "short")
+        InputHandleMarshal := InputHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLCancelHandle", "short", HandleType, InputHandleMarshal, InputHandle, "short")
         return result
     }
 
@@ -17975,7 +18121,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlclosecursor-function
      */
     static SQLCloseCursor(StatementHandle) {
-        result := DllCall("ODBC32.dll\SQLCloseCursor", "ptr", StatementHandle, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLCloseCursor", StatementHandleMarshal, StatementHandle, "short")
         return result
     }
 
@@ -17994,7 +18142,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolumns-function
      */
     static SQLColumns(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, ColumnName, NameLength4) {
-        result := DllCall("ODBC32.dll\SQLColumns", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "char*", ColumnName, "short", NameLength4, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        CatalogNameMarshal := CatalogName is VarRef ? "char*" : "ptr"
+        SchemaNameMarshal := SchemaName is VarRef ? "char*" : "ptr"
+        TableNameMarshal := TableName is VarRef ? "char*" : "ptr"
+        ColumnNameMarshal := ColumnName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColumns", StatementHandleMarshal, StatementHandle, CatalogNameMarshal, CatalogName, "short", NameLength1, SchemaNameMarshal, SchemaName, "short", NameLength2, TableNameMarshal, TableName, "short", NameLength3, ColumnNameMarshal, ColumnName, "short", NameLength4, "short")
         return result
     }
 
@@ -18007,7 +18161,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcompleteasync-function
      */
     static SQLCompleteAsync(HandleType, Handle, AsyncRetCodePtr) {
-        result := DllCall("ODBC32.dll\SQLCompleteAsync", "short", HandleType, "ptr", Handle, "short*", AsyncRetCodePtr, "short")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        AsyncRetCodePtrMarshal := AsyncRetCodePtr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLCompleteAsync", "short", HandleType, HandleMarshal, Handle, AsyncRetCodePtrMarshal, AsyncRetCodePtr, "short")
         return result
     }
 
@@ -18024,7 +18181,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlconnect-function
      */
     static SQLConnect(ConnectionHandle, ServerName, NameLength1, UserName, NameLength2, Authentication, NameLength3) {
-        result := DllCall("ODBC32.dll\SQLConnect", "ptr", ConnectionHandle, "char*", ServerName, "short", NameLength1, "char*", UserName, "short", NameLength2, "char*", Authentication, "short", NameLength3, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+        ServerNameMarshal := ServerName is VarRef ? "char*" : "ptr"
+        UserNameMarshal := UserName is VarRef ? "char*" : "ptr"
+        AuthenticationMarshal := Authentication is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLConnect", ConnectionHandleMarshal, ConnectionHandle, ServerNameMarshal, ServerName, "short", NameLength1, UserNameMarshal, UserName, "short", NameLength2, AuthenticationMarshal, Authentication, "short", NameLength3, "short")
         return result
     }
 
@@ -18036,7 +18198,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcopydesc-function
      */
     static SQLCopyDesc(SourceDescHandle, TargetDescHandle) {
-        result := DllCall("ODBC32.dll\SQLCopyDesc", "ptr", SourceDescHandle, "ptr", TargetDescHandle, "short")
+        SourceDescHandleMarshal := SourceDescHandle is VarRef ? "ptr" : "ptr"
+        TargetDescHandleMarshal := TargetDescHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLCopyDesc", SourceDescHandleMarshal, SourceDescHandle, TargetDescHandleMarshal, TargetDescHandle, "short")
         return result
     }
 
@@ -18054,7 +18219,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldatasources-function
      */
     static SQLDataSources(EnvironmentHandle, Direction, ServerName, BufferLength1, NameLength1Ptr, Description, BufferLength2, NameLength2Ptr) {
-        result := DllCall("ODBC32.dll\SQLDataSources", "ptr", EnvironmentHandle, "ushort", Direction, "char*", ServerName, "short", BufferLength1, "short*", NameLength1Ptr, "char*", Description, "short", BufferLength2, "short*", NameLength2Ptr, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+        ServerNameMarshal := ServerName is VarRef ? "char*" : "ptr"
+        NameLength1PtrMarshal := NameLength1Ptr is VarRef ? "short*" : "ptr"
+        DescriptionMarshal := Description is VarRef ? "char*" : "ptr"
+        NameLength2PtrMarshal := NameLength2Ptr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDataSources", EnvironmentHandleMarshal, EnvironmentHandle, "ushort", Direction, ServerNameMarshal, ServerName, "short", BufferLength1, NameLength1PtrMarshal, NameLength1Ptr, DescriptionMarshal, Description, "short", BufferLength2, NameLength2PtrMarshal, NameLength2Ptr, "short")
         return result
     }
 
@@ -18065,7 +18236,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldisconnect-function
      */
     static SQLDisconnect(ConnectionHandle) {
-        result := DllCall("ODBC32.dll\SQLDisconnect", "ptr", ConnectionHandle, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDisconnect", ConnectionHandleMarshal, ConnectionHandle, "short")
         return result
     }
 
@@ -18078,7 +18251,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlendtran-function
      */
     static SQLEndTran(HandleType, Handle, CompletionType) {
-        result := DllCall("ODBC32.dll\SQLEndTran", "short", HandleType, "ptr", Handle, "short", CompletionType, "short")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLEndTran", "short", HandleType, HandleMarshal, Handle, "short", CompletionType, "short")
         return result
     }
 
@@ -18096,7 +18271,15 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlerror-function
      */
     static SQLError(EnvironmentHandle, ConnectionHandle, StatementHandle, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
-        result := DllCall("ODBC32.dll\SQLError", "ptr", EnvironmentHandle, "ptr", ConnectionHandle, "ptr", StatementHandle, "char*", Sqlstate, "int*", NativeError, "char*", MessageText, "short", BufferLength, "short*", TextLength, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        SqlstateMarshal := Sqlstate is VarRef ? "char*" : "ptr"
+        NativeErrorMarshal := NativeError is VarRef ? "int*" : "ptr"
+        MessageTextMarshal := MessageText is VarRef ? "char*" : "ptr"
+        TextLengthMarshal := TextLength is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLError", EnvironmentHandleMarshal, EnvironmentHandle, ConnectionHandleMarshal, ConnectionHandle, StatementHandleMarshal, StatementHandle, SqlstateMarshal, Sqlstate, NativeErrorMarshal, NativeError, MessageTextMarshal, MessageText, "short", BufferLength, TextLengthMarshal, TextLength, "short")
         return result
     }
 
@@ -18109,7 +18292,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlexecdirect-function
      */
     static SQLExecDirect(StatementHandle, StatementText, TextLength) {
-        result := DllCall("ODBC32.dll\SQLExecDirect", "ptr", StatementHandle, "char*", StatementText, "int", TextLength, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        StatementTextMarshal := StatementText is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLExecDirect", StatementHandleMarshal, StatementHandle, StatementTextMarshal, StatementText, "int", TextLength, "short")
         return result
     }
 
@@ -18120,7 +18306,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlexecute-function
      */
     static SQLExecute(StatementHandle) {
-        result := DllCall("ODBC32.dll\SQLExecute", "ptr", StatementHandle, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLExecute", StatementHandleMarshal, StatementHandle, "short")
         return result
     }
 
@@ -18131,7 +18319,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfetch-function
      */
     static SQLFetch(StatementHandle) {
-        result := DllCall("ODBC32.dll\SQLFetch", "ptr", StatementHandle, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLFetch", StatementHandleMarshal, StatementHandle, "short")
         return result
     }
 
@@ -18142,7 +18332,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreeconnect-function
      */
     static SQLFreeConnect(ConnectionHandle) {
-        result := DllCall("ODBC32.dll\SQLFreeConnect", "ptr", ConnectionHandle, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLFreeConnect", ConnectionHandleMarshal, ConnectionHandle, "short")
         return result
     }
 
@@ -18153,7 +18345,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreeenv-function
      */
     static SQLFreeEnv(EnvironmentHandle) {
-        result := DllCall("ODBC32.dll\SQLFreeEnv", "ptr", EnvironmentHandle, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLFreeEnv", EnvironmentHandleMarshal, EnvironmentHandle, "short")
         return result
     }
 
@@ -18165,7 +18359,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreehandle-function
      */
     static SQLFreeHandle(HandleType, Handle) {
-        result := DllCall("ODBC32.dll\SQLFreeHandle", "short", HandleType, "ptr", Handle, "short")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLFreeHandle", "short", HandleType, HandleMarshal, Handle, "short")
         return result
     }
 
@@ -18177,7 +18373,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreestmt-function
      */
     static SQLFreeStmt(StatementHandle, Option) {
-        result := DllCall("ODBC32.dll\SQLFreeStmt", "ptr", StatementHandle, "ushort", Option, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLFreeStmt", StatementHandleMarshal, StatementHandle, "ushort", Option, "short")
         return result
     }
 
@@ -18192,7 +18390,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetconnectattr-function
      */
     static SQLGetConnectAttr(ConnectionHandle, Attribute, Value, BufferLength, StringLengthPtr) {
-        result := DllCall("ODBC32.dll\SQLGetConnectAttr", "ptr", ConnectionHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLengthPtr, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+        StringLengthPtrMarshal := StringLengthPtr is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetConnectAttr", ConnectionHandleMarshal, ConnectionHandle, "int", Attribute, ValueMarshal, Value, "int", BufferLength, StringLengthPtrMarshal, StringLengthPtr, "short")
         return result
     }
 
@@ -18206,7 +18408,10 @@ class Search {
      * @deprecated
      */
     static SQLGetConnectOption(ConnectionHandle, Option, Value) {
-        result := DllCall("ODBC32.dll\SQLGetConnectOption", "ptr", ConnectionHandle, "ushort", Option, "ptr", Value, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetConnectOption", ConnectionHandleMarshal, ConnectionHandle, "ushort", Option, ValueMarshal, Value, "short")
         return result
     }
 
@@ -18220,7 +18425,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetcursorname-function
      */
     static SQLGetCursorName(StatementHandle, CursorName, BufferLength, NameLengthPtr) {
-        result := DllCall("ODBC32.dll\SQLGetCursorName", "ptr", StatementHandle, "char*", CursorName, "short", BufferLength, "short*", NameLengthPtr, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        CursorNameMarshal := CursorName is VarRef ? "char*" : "ptr"
+        NameLengthPtrMarshal := NameLengthPtr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetCursorName", StatementHandleMarshal, StatementHandle, CursorNameMarshal, CursorName, "short", BufferLength, NameLengthPtrMarshal, NameLengthPtr, "short")
         return result
     }
 
@@ -18236,7 +18445,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdescfield-function
      */
     static SQLGetDescField(DescriptorHandle, RecNumber, FieldIdentifier, Value, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDescField", "ptr", DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
+        DescriptorHandleMarshal := DescriptorHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDescField", DescriptorHandleMarshal, DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, ValueMarshal, Value, "int", BufferLength, StringLengthMarshal, StringLength, "short")
         return result
     }
 
@@ -18253,7 +18466,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagfield-function
      */
     static SQLGetDiagField(HandleType, Handle, RecNumber, DiagIdentifier, DiagInfo, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDiagField", "short", HandleType, "ptr", Handle, "short", RecNumber, "short", DiagIdentifier, "ptr", DiagInfo, "short", BufferLength, "short*", StringLength, "short")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        DiagInfoMarshal := DiagInfo is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDiagField", "short", HandleType, HandleMarshal, Handle, "short", RecNumber, "short", DiagIdentifier, DiagInfoMarshal, DiagInfo, "short", BufferLength, StringLengthMarshal, StringLength, "short")
         return result
     }
 
@@ -18271,7 +18488,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagrec-function
      */
     static SQLGetDiagRec(HandleType, Handle, RecNumber, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
-        result := DllCall("ODBC32.dll\SQLGetDiagRec", "short", HandleType, "ptr", Handle, "short", RecNumber, "char*", Sqlstate, "int*", NativeError, "char*", MessageText, "short", BufferLength, "short*", TextLength, "short")
+        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        SqlstateMarshal := Sqlstate is VarRef ? "char*" : "ptr"
+        NativeErrorMarshal := NativeError is VarRef ? "int*" : "ptr"
+        MessageTextMarshal := MessageText is VarRef ? "char*" : "ptr"
+        TextLengthMarshal := TextLength is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDiagRec", "short", HandleType, HandleMarshal, Handle, "short", RecNumber, SqlstateMarshal, Sqlstate, NativeErrorMarshal, NativeError, MessageTextMarshal, MessageText, "short", BufferLength, TextLengthMarshal, TextLength, "short")
         return result
     }
 
@@ -18286,7 +18509,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetenvattr-function
      */
     static SQLGetEnvAttr(EnvironmentHandle, Attribute, Value, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetEnvAttr", "ptr", EnvironmentHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetEnvAttr", EnvironmentHandleMarshal, EnvironmentHandle, "int", Attribute, ValueMarshal, Value, "int", BufferLength, StringLengthMarshal, StringLength, "short")
         return result
     }
 
@@ -18299,7 +18526,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetfunctions-function
      */
     static SQLGetFunctions(ConnectionHandle, FunctionId, Supported) {
-        result := DllCall("ODBC32.dll\SQLGetFunctions", "ptr", ConnectionHandle, "ushort", FunctionId, "ushort*", Supported, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+        SupportedMarshal := Supported is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetFunctions", ConnectionHandleMarshal, ConnectionHandle, "ushort", FunctionId, SupportedMarshal, Supported, "short")
         return result
     }
 
@@ -18314,7 +18544,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetinfo-function
      */
     static SQLGetInfo(ConnectionHandle, InfoType, InfoValue, BufferLength, StringLengthPtr) {
-        result := DllCall("ODBC32.dll\SQLGetInfo", "ptr", ConnectionHandle, "ushort", InfoType, "ptr", InfoValue, "short", BufferLength, "short*", StringLengthPtr, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+        StringLengthPtrMarshal := StringLengthPtr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetInfo", ConnectionHandleMarshal, ConnectionHandle, "ushort", InfoType, "ptr", InfoValue, "short", BufferLength, StringLengthPtrMarshal, StringLengthPtr, "short")
         return result
     }
 
@@ -18329,7 +18562,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetstmtattr-function
      */
     static SQLGetStmtAttr(StatementHandle, Attribute, Value, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetStmtAttr", "ptr", StatementHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetStmtAttr", StatementHandleMarshal, StatementHandle, "int", Attribute, ValueMarshal, Value, "int", BufferLength, StringLengthMarshal, StringLength, "short")
         return result
     }
 
@@ -18343,7 +18580,10 @@ class Search {
      * @deprecated
      */
     static SQLGetStmtOption(StatementHandle, Option, Value) {
-        result := DllCall("ODBC32.dll\SQLGetStmtOption", "ptr", StatementHandle, "ushort", Option, "ptr", Value, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetStmtOption", StatementHandleMarshal, StatementHandle, "ushort", Option, ValueMarshal, Value, "short")
         return result
     }
 
@@ -18355,7 +18595,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgettypeinfo-function
      */
     static SQLGetTypeInfo(StatementHandle, DataType) {
-        result := DllCall("ODBC32.dll\SQLGetTypeInfo", "ptr", StatementHandle, "short", DataType, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetTypeInfo", StatementHandleMarshal, StatementHandle, "short", DataType, "short")
         return result
     }
 
@@ -18367,7 +18609,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnumresultcols-function
      */
     static SQLNumResultCols(StatementHandle, ColumnCount) {
-        result := DllCall("ODBC32.dll\SQLNumResultCols", "ptr", StatementHandle, "short*", ColumnCount, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ColumnCountMarshal := ColumnCount is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLNumResultCols", StatementHandleMarshal, StatementHandle, ColumnCountMarshal, ColumnCount, "short")
         return result
     }
 
@@ -18379,7 +18624,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlparamdata-function
      */
     static SQLParamData(StatementHandle, Value) {
-        result := DllCall("ODBC32.dll\SQLParamData", "ptr", StatementHandle, "ptr*", Value, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLParamData", StatementHandleMarshal, StatementHandle, "ptr*", Value, "short")
         return result
     }
 
@@ -18392,7 +18639,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprepare-function
      */
     static SQLPrepare(StatementHandle, StatementText, TextLength) {
-        result := DllCall("ODBC32.dll\SQLPrepare", "ptr", StatementHandle, "char*", StatementText, "int", TextLength, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        StatementTextMarshal := StatementText is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLPrepare", StatementHandleMarshal, StatementHandle, StatementTextMarshal, StatementText, "int", TextLength, "short")
         return result
     }
 
@@ -18406,7 +18656,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetconnectattr-function
      */
     static SQLSetConnectAttr(ConnectionHandle, Attribute, Value, StringLength) {
-        result := DllCall("ODBC32.dll\SQLSetConnectAttr", "ptr", ConnectionHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetConnectAttr", ConnectionHandleMarshal, ConnectionHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
         return result
     }
 
@@ -18419,7 +18671,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetcursorname-function
      */
     static SQLSetCursorName(StatementHandle, CursorName, NameLength) {
-        result := DllCall("ODBC32.dll\SQLSetCursorName", "ptr", StatementHandle, "char*", CursorName, "short", NameLength, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        CursorNameMarshal := CursorName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetCursorName", StatementHandleMarshal, StatementHandle, CursorNameMarshal, CursorName, "short", NameLength, "short")
         return result
     }
 
@@ -18434,7 +18689,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetdescfield-function
      */
     static SQLSetDescField(DescriptorHandle, RecNumber, FieldIdentifier, Value, BufferLength) {
-        result := DllCall("ODBC32.dll\SQLSetDescField", "ptr", DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, "ptr", Value, "int", BufferLength, "short")
+        DescriptorHandleMarshal := DescriptorHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetDescField", DescriptorHandleMarshal, DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, ValueMarshal, Value, "int", BufferLength, "short")
         return result
     }
 
@@ -18448,7 +18706,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetenvattr-function
      */
     static SQLSetEnvAttr(EnvironmentHandle, Attribute, Value, StringLength) {
-        result := DllCall("ODBC32.dll\SQLSetEnvAttr", "ptr", EnvironmentHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetEnvAttr", EnvironmentHandleMarshal, EnvironmentHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
         return result
     }
 
@@ -18462,7 +18722,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetstmtattr-function
      */
     static SQLSetStmtAttr(StatementHandle, Attribute, Value, StringLength) {
-        result := DllCall("ODBC32.dll\SQLSetStmtAttr", "ptr", StatementHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetStmtAttr", StatementHandleMarshal, StatementHandle, "int", Attribute, ValueMarshal, Value, "int", StringLength, "short")
         return result
     }
 
@@ -18482,7 +18745,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlspecialcolumns-function
      */
     static SQLSpecialColumns(StatementHandle, IdentifierType, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, Scope, Nullable) {
-        result := DllCall("ODBC32.dll\SQLSpecialColumns", "ptr", StatementHandle, "ushort", IdentifierType, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "ushort", Scope, "ushort", Nullable, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        CatalogNameMarshal := CatalogName is VarRef ? "char*" : "ptr"
+        SchemaNameMarshal := SchemaName is VarRef ? "char*" : "ptr"
+        TableNameMarshal := TableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSpecialColumns", StatementHandleMarshal, StatementHandle, "ushort", IdentifierType, CatalogNameMarshal, CatalogName, "short", NameLength1, SchemaNameMarshal, SchemaName, "short", NameLength2, TableNameMarshal, TableName, "short", NameLength3, "ushort", Scope, "ushort", Nullable, "short")
         return result
     }
 
@@ -18501,7 +18769,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlstatistics-function
      */
     static SQLStatistics(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, Unique, Reserved) {
-        result := DllCall("ODBC32.dll\SQLStatistics", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "ushort", Unique, "ushort", Reserved, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        CatalogNameMarshal := CatalogName is VarRef ? "char*" : "ptr"
+        SchemaNameMarshal := SchemaName is VarRef ? "char*" : "ptr"
+        TableNameMarshal := TableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLStatistics", StatementHandleMarshal, StatementHandle, CatalogNameMarshal, CatalogName, "short", NameLength1, SchemaNameMarshal, SchemaName, "short", NameLength2, TableNameMarshal, TableName, "short", NameLength3, "ushort", Unique, "ushort", Reserved, "short")
         return result
     }
 
@@ -18520,7 +18793,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltables-function
      */
     static SQLTables(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, TableType, NameLength4) {
-        result := DllCall("ODBC32.dll\SQLTables", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "char*", TableType, "short", NameLength4, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        CatalogNameMarshal := CatalogName is VarRef ? "char*" : "ptr"
+        SchemaNameMarshal := SchemaName is VarRef ? "char*" : "ptr"
+        TableNameMarshal := TableName is VarRef ? "char*" : "ptr"
+        TableTypeMarshal := TableType is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLTables", StatementHandleMarshal, StatementHandle, CatalogNameMarshal, CatalogName, "short", NameLength1, SchemaNameMarshal, SchemaName, "short", NameLength2, TableNameMarshal, TableName, "short", NameLength3, TableTypeMarshal, TableType, "short", NameLength4, "short")
         return result
     }
 
@@ -18533,7 +18812,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltransact-function
      */
     static SQLTransact(EnvironmentHandle, ConnectionHandle, CompletionType) {
-        result := DllCall("ODBC32.dll\SQLTransact", "ptr", EnvironmentHandle, "ptr", ConnectionHandle, "ushort", CompletionType, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLTransact", EnvironmentHandleMarshal, EnvironmentHandle, ConnectionHandleMarshal, ConnectionHandle, "ushort", CompletionType, "short")
         return result
     }
 
@@ -18544,7 +18826,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-batch
      */
     static bcp_batch(param0) {
-        result := DllCall("odbcbcp.dll\bcp_batch", "ptr", param0, "int")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_batch", param0Marshal, param0, "int")
         return result
     }
 
@@ -18562,7 +18846,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-bind
      */
     static bcp_bind(param0, param1, param2, param3, param4, param5, param6, param7) {
-        result := DllCall("odbcbcp.dll\bcp_bind", "ptr", param0, "char*", param1, "int", param2, "int", param3, "char*", param4, "int", param5, "int", param6, "int", param7, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param4Marshal := param4 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_bind", param0Marshal, param0, param1Marshal, param1, "int", param2, "int", param3, param4Marshal, param4, "int", param5, "int", param6, "int", param7, "short")
         return result
     }
 
@@ -18580,7 +18868,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-colfmt
      */
     static bcp_colfmt(param0, param1, param2, param3, param4, param5, param6, param7) {
-        result := DllCall("odbcbcp.dll\bcp_colfmt", "ptr", param0, "int", param1, "char", param2, "int", param3, "int", param4, "char*", param5, "int", param6, "int", param7, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param5Marshal := param5 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_colfmt", param0Marshal, param0, "int", param1, "char", param2, "int", param3, "int", param4, param5Marshal, param5, "int", param6, "int", param7, "short")
         return result
     }
 
@@ -18593,7 +18884,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-collen
      */
     static bcp_collen(param0, param1, param2) {
-        result := DllCall("odbcbcp.dll\bcp_collen", "ptr", param0, "int", param1, "int", param2, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_collen", param0Marshal, param0, "int", param1, "int", param2, "short")
         return result
     }
 
@@ -18606,7 +18899,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-colptr
      */
     static bcp_colptr(param0, param1, param2) {
-        result := DllCall("odbcbcp.dll\bcp_colptr", "ptr", param0, "char*", param1, "int", param2, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_colptr", param0Marshal, param0, param1Marshal, param1, "int", param2, "short")
         return result
     }
 
@@ -18618,7 +18914,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-columns
      */
     static bcp_columns(param0, param1) {
-        result := DllCall("odbcbcp.dll\bcp_columns", "ptr", param0, "int", param1, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_columns", param0Marshal, param0, "int", param1, "short")
         return result
     }
 
@@ -18631,7 +18929,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-control
      */
     static bcp_control(param0, param1, param2) {
-        result := DllCall("odbcbcp.dll\bcp_control", "ptr", param0, "int", param1, "ptr", param2, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_control", param0Marshal, param0, "int", param1, param2Marshal, param2, "short")
         return result
     }
 
@@ -18642,7 +18943,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-done
      */
     static bcp_done(param0) {
-        result := DllCall("odbcbcp.dll\bcp_done", "ptr", param0, "int")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_done", param0Marshal, param0, "int")
         return result
     }
 
@@ -18654,7 +18957,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-exec
      */
     static bcp_exec(param0, param1) {
-        result := DllCall("odbcbcp.dll\bcp_exec", "ptr", param0, "int*", param1, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_exec", param0Marshal, param0, param1Marshal, param1, "short")
         return result
     }
 
@@ -18670,7 +18976,11 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-getcolfmt
      */
     static bcp_getcolfmt(param0, param1, param2, param3, param4, param5) {
-        result := DllCall("odbcbcp.dll\bcp_getcolfmt", "ptr", param0, "int", param1, "int", param2, "ptr", param3, "int", param4, "int*", param5, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param5Marshal := param5 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_getcolfmt", param0Marshal, param0, "int", param1, "int", param2, param3Marshal, param3, "int", param4, param5Marshal, param5, "short")
         return result
     }
 
@@ -18688,7 +18998,9 @@ class Search {
         param2 := param2 is String ? StrPtr(param2) : param2
         param3 := param3 is String ? StrPtr(param3) : param3
 
-        result := DllCall("odbcbcp.dll\bcp_initA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_initA", param0Marshal, param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
         return result
     }
 
@@ -18706,7 +19018,9 @@ class Search {
         param2 := param2 is String ? StrPtr(param2) : param2
         param3 := param3 is String ? StrPtr(param3) : param3
 
-        result := DllCall("odbcbcp.dll\bcp_initW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_initW", param0Marshal, param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
         return result
     }
 
@@ -18719,7 +19033,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-moretext
      */
     static bcp_moretext(param0, param1, param2) {
-        result := DllCall("odbcbcp.dll\bcp_moretext", "ptr", param0, "int", param1, "char*", param2, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "char*" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_moretext", param0Marshal, param0, "int", param1, param2Marshal, param2, "short")
         return result
     }
 
@@ -18732,7 +19049,9 @@ class Search {
     static bcp_readfmtA(param0, param1) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("odbcbcp.dll\bcp_readfmtA", "ptr", param0, "ptr", param1, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_readfmtA", param0Marshal, param0, "ptr", param1, "short")
         return result
     }
 
@@ -18745,7 +19064,9 @@ class Search {
     static bcp_readfmtW(param0, param1) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("odbcbcp.dll\bcp_readfmtW", "ptr", param0, "ptr", param1, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_readfmtW", param0Marshal, param0, "ptr", param1, "short")
         return result
     }
 
@@ -18756,7 +19077,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-sendrow
      */
     static bcp_sendrow(param0) {
-        result := DllCall("odbcbcp.dll\bcp_sendrow", "ptr", param0, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_sendrow", param0Marshal, param0, "short")
         return result
     }
 
@@ -18771,7 +19094,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-setcolfmt
      */
     static bcp_setcolfmt(param0, param1, param2, param3, param4) {
-        result := DllCall("odbcbcp.dll\bcp_setcolfmt", "ptr", param0, "int", param1, "int", param2, "ptr", param3, "int", param4, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_setcolfmt", param0Marshal, param0, "int", param1, "int", param2, param3Marshal, param3, "int", param4, "short")
         return result
     }
 
@@ -18784,7 +19110,9 @@ class Search {
     static bcp_writefmtA(param0, param1) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("odbcbcp.dll\bcp_writefmtA", "ptr", param0, "ptr", param1, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_writefmtA", param0Marshal, param0, "ptr", param1, "short")
         return result
     }
 
@@ -18797,7 +19125,9 @@ class Search {
     static bcp_writefmtW(param0, param1) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("odbcbcp.dll\bcp_writefmtW", "ptr", param0, "ptr", param1, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\bcp_writefmtW", param0Marshal, param0, "ptr", param1, "short")
         return result
     }
 
@@ -18827,7 +19157,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLLinkedServers(param0) {
-        result := DllCall("odbcbcp.dll\SQLLinkedServers", "ptr", param0, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\SQLLinkedServers", param0Marshal, param0, "short")
         return result
     }
 
@@ -18841,7 +19173,9 @@ class Search {
     static SQLLinkedCatalogsA(param0, param1, param2) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("odbcbcp.dll\SQLLinkedCatalogsA", "ptr", param0, "ptr", param1, "short", param2, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\SQLLinkedCatalogsA", param0Marshal, param0, "ptr", param1, "short", param2, "short")
         return result
     }
 
@@ -18855,7 +19189,9 @@ class Search {
     static SQLLinkedCatalogsW(param0, param1, param2) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("odbcbcp.dll\SQLLinkedCatalogsW", "ptr", param0, "ptr", param1, "short", param2, "short")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("odbcbcp.dll\SQLLinkedCatalogsW", param0Marshal, param0, "ptr", param1, "short", param2, "short")
         return result
     }
 
@@ -18883,7 +19219,10 @@ class Search {
     static SQLGetNextEnumeration(hEnumHandle, prgEnumData, piEnumLength) {
         hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
 
-        result := DllCall("odbcbcp.dll\SQLGetNextEnumeration", "ptr", hEnumHandle, "char*", prgEnumData, "int*", piEnumLength, "short")
+        prgEnumDataMarshal := prgEnumData is VarRef ? "char*" : "ptr"
+        piEnumLengthMarshal := piEnumLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("odbcbcp.dll\SQLGetNextEnumeration", "ptr", hEnumHandle, prgEnumDataMarshal, prgEnumData, piEnumLengthMarshal, piEnumLength, "short")
         return result
     }
 
@@ -18913,7 +19252,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldriverconnect-function
      */
     static SQLDriverConnect(hdbc, hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
-        result := DllCall("ODBC32.dll\SQLDriverConnect", "ptr", hdbc, "ptr", hwnd, "char*", szConnStrIn, "short", cchConnStrIn, "char*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "ushort", fDriverCompletion, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szConnStrInMarshal := szConnStrIn is VarRef ? "char*" : "ptr"
+        szConnStrOutMarshal := szConnStrOut is VarRef ? "char*" : "ptr"
+        pcchConnStrOutMarshal := pcchConnStrOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDriverConnect", hdbcMarshal, hdbc, "ptr", hwnd, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -18929,7 +19273,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbrowseconnect-function
      */
     static SQLBrowseConnect(hdbc, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut) {
-        result := DllCall("ODBC32.dll\SQLBrowseConnect", "ptr", hdbc, "char*", szConnStrIn, "short", cchConnStrIn, "char*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szConnStrInMarshal := szConnStrIn is VarRef ? "char*" : "ptr"
+        szConnStrOutMarshal := szConnStrOut is VarRef ? "char*" : "ptr"
+        pcchConnStrOutMarshal := pcchConnStrOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLBrowseConnect", hdbcMarshal, hdbc, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "short")
         return result
     }
 
@@ -18941,7 +19290,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbulkoperations-function
      */
     static SQLBulkOperations(StatementHandle, Operation) {
-        result := DllCall("ODBC32.dll\SQLBulkOperations", "ptr", StatementHandle, "short", Operation, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLBulkOperations", StatementHandleMarshal, StatementHandle, "short", Operation, "short")
         return result
     }
 
@@ -18960,7 +19311,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolumnprivileges-function
      */
     static SQLColumnPrivileges(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnPrivileges", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "char*", szColumnName, "short", cchColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColumnPrivileges", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, szColumnNameMarshal, szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -18983,7 +19340,15 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlforeignkeys-function
      */
     static SQLForeignKeys(hstmt, szPkCatalogName, cchPkCatalogName, szPkSchemaName, cchPkSchemaName, szPkTableName, cchPkTableName, szFkCatalogName, cchFkCatalogName, szFkSchemaName, cchFkSchemaName, szFkTableName, cchFkTableName) {
-        result := DllCall("ODBC32.dll\SQLForeignKeys", "ptr", hstmt, "char*", szPkCatalogName, "short", cchPkCatalogName, "char*", szPkSchemaName, "short", cchPkSchemaName, "char*", szPkTableName, "short", cchPkTableName, "char*", szFkCatalogName, "short", cchFkCatalogName, "char*", szFkSchemaName, "short", cchFkSchemaName, "char*", szFkTableName, "short", cchFkTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szPkCatalogNameMarshal := szPkCatalogName is VarRef ? "char*" : "ptr"
+        szPkSchemaNameMarshal := szPkSchemaName is VarRef ? "char*" : "ptr"
+        szPkTableNameMarshal := szPkTableName is VarRef ? "char*" : "ptr"
+        szFkCatalogNameMarshal := szFkCatalogName is VarRef ? "char*" : "ptr"
+        szFkSchemaNameMarshal := szFkSchemaName is VarRef ? "char*" : "ptr"
+        szFkTableNameMarshal := szFkTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLForeignKeys", hstmtMarshal, hstmt, szPkCatalogNameMarshal, szPkCatalogName, "short", cchPkCatalogName, szPkSchemaNameMarshal, szPkSchemaName, "short", cchPkSchemaName, szPkTableNameMarshal, szPkTableName, "short", cchPkTableName, szFkCatalogNameMarshal, szFkCatalogName, "short", cchFkCatalogName, szFkSchemaNameMarshal, szFkSchemaName, "short", cchFkSchemaName, szFkTableNameMarshal, szFkTableName, "short", cchFkTableName, "short")
         return result
     }
 
@@ -18994,7 +19359,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlmoreresults-function
      */
     static SQLMoreResults(hstmt) {
-        result := DllCall("ODBC32.dll\SQLMoreResults", "ptr", hstmt, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLMoreResults", hstmtMarshal, hstmt, "short")
         return result
     }
 
@@ -19010,7 +19377,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnativesql-function
      */
     static SQLNativeSql(hdbc, szSqlStrIn, cchSqlStrIn, szSqlStr, cchSqlStrMax, pcbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLNativeSql", "ptr", hdbc, "char*", szSqlStrIn, "int", cchSqlStrIn, "char*", szSqlStr, "int", cchSqlStrMax, "int*", pcbSqlStr, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szSqlStrInMarshal := szSqlStrIn is VarRef ? "char*" : "ptr"
+        szSqlStrMarshal := szSqlStr is VarRef ? "char*" : "ptr"
+        pcbSqlStrMarshal := pcbSqlStr is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLNativeSql", hdbcMarshal, hdbc, szSqlStrInMarshal, szSqlStrIn, "int", cchSqlStrIn, szSqlStrMarshal, szSqlStr, "int", cchSqlStrMax, pcbSqlStrMarshal, pcbSqlStr, "short")
         return result
     }
 
@@ -19022,7 +19394,10 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnumparams-function
      */
     static SQLNumParams(hstmt, pcpar) {
-        result := DllCall("ODBC32.dll\SQLNumParams", "ptr", hstmt, "short*", pcpar, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        pcparMarshal := pcpar is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLNumParams", hstmtMarshal, hstmt, pcparMarshal, pcpar, "short")
         return result
     }
 
@@ -19039,7 +19414,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprimarykeys-function
      */
     static SQLPrimaryKeys(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLPrimaryKeys", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLPrimaryKeys", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -19058,7 +19438,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprocedurecolumns-function
      */
     static SQLProcedureColumns(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLProcedureColumns", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szProcName, "short", cchProcName, "char*", szColumnName, "short", cchColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szProcNameMarshal := szProcName is VarRef ? "char*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLProcedureColumns", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szProcNameMarshal, szProcName, "short", cchProcName, szColumnNameMarshal, szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -19075,7 +19461,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprocedures-function
      */
     static SQLProcedures(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName) {
-        result := DllCall("ODBC32.dll\SQLProcedures", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szProcName, "short", cchProcName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szProcNameMarshal := szProcName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLProcedures", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szProcNameMarshal, szProcName, "short", cchProcName, "short")
         return result
     }
 
@@ -19092,7 +19483,12 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltableprivileges-function
      */
     static SQLTablePrivileges(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLTablePrivileges", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLTablePrivileges", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -19110,7 +19506,13 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldrivers-function
      */
     static SQLDrivers(henv, fDirection, szDriverDesc, cchDriverDescMax, pcchDriverDesc, szDriverAttributes, cchDrvrAttrMax, pcchDrvrAttr) {
-        result := DllCall("ODBC32.dll\SQLDrivers", "ptr", henv, "ushort", fDirection, "char*", szDriverDesc, "short", cchDriverDescMax, "short*", pcchDriverDesc, "char*", szDriverAttributes, "short", cchDrvrAttrMax, "short*", pcchDrvrAttr, "short")
+        henvMarshal := henv is VarRef ? "ptr" : "ptr"
+        szDriverDescMarshal := szDriverDesc is VarRef ? "char*" : "ptr"
+        pcchDriverDescMarshal := pcchDriverDesc is VarRef ? "short*" : "ptr"
+        szDriverAttributesMarshal := szDriverAttributes is VarRef ? "char*" : "ptr"
+        pcchDrvrAttrMarshal := pcchDrvrAttr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDrivers", henvMarshal, henv, "ushort", fDirection, szDriverDescMarshal, szDriverDesc, "short", cchDriverDescMax, pcchDriverDescMarshal, pcchDriverDesc, szDriverAttributesMarshal, szDriverAttributes, "short", cchDrvrAttrMax, pcchDrvrAttrMarshal, pcchDrvrAttr, "short")
         return result
     }
 
@@ -19122,7 +19524,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLAllocHandleStd(fHandleType, hInput, phOutput) {
-        result := DllCall("ODBC32.dll\SQLAllocHandleStd", "short", fHandleType, "ptr", hInput, "ptr*", phOutput, "short")
+        hInputMarshal := hInput is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLAllocHandleStd", "short", fHandleType, hInputMarshal, hInput, "ptr*", phOutput, "short")
         return result
     }
 
@@ -19157,7 +19561,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLConnectW(hdbc, szDSN, cchDSN, szUID, cchUID, szAuthStr, cchAuthStr) {
-        result := DllCall("ODBC32.dll\SQLConnectW", "ptr", hdbc, "ushort*", szDSN, "short", cchDSN, "ushort*", szUID, "short", cchUID, "ushort*", szAuthStr, "short", cchAuthStr, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szDSNMarshal := szDSN is VarRef ? "ushort*" : "ptr"
+        szUIDMarshal := szUID is VarRef ? "ushort*" : "ptr"
+        szAuthStrMarshal := szAuthStr is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLConnectW", hdbcMarshal, hdbc, szDSNMarshal, szDSN, "short", cchDSN, szUIDMarshal, szUID, "short", cchUID, szAuthStrMarshal, szAuthStr, "short", cchAuthStr, "short")
         return result
     }
 
@@ -19174,7 +19583,15 @@ class Search {
      * @returns {Integer} 
      */
     static SQLErrorW(henv, hdbc, hstmt, wszSqlState, pfNativeError, wszErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLErrorW", "ptr", henv, "ptr", hdbc, "ptr", hstmt, "ushort*", wszSqlState, "int*", pfNativeError, "ushort*", wszErrorMsg, "short", cchErrorMsgMax, "short*", pcchErrorMsg, "short")
+        henvMarshal := henv is VarRef ? "ptr" : "ptr"
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        wszSqlStateMarshal := wszSqlState is VarRef ? "ushort*" : "ptr"
+        pfNativeErrorMarshal := pfNativeError is VarRef ? "int*" : "ptr"
+        wszErrorMsgMarshal := wszErrorMsg is VarRef ? "ushort*" : "ptr"
+        pcchErrorMsgMarshal := pcchErrorMsg is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLErrorW", henvMarshal, henv, hdbcMarshal, hdbc, hstmtMarshal, hstmt, wszSqlStateMarshal, wszSqlState, pfNativeErrorMarshal, pfNativeError, wszErrorMsgMarshal, wszErrorMsg, "short", cchErrorMsgMax, pcchErrorMsgMarshal, pcchErrorMsg, "short")
         return result
     }
 
@@ -19186,7 +19603,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLExecDirectW(hstmt, szSqlStr, TextLength) {
-        result := DllCall("ODBC32.dll\SQLExecDirectW", "ptr", hstmt, "ushort*", szSqlStr, "int", TextLength, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szSqlStrMarshal := szSqlStr is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLExecDirectW", hstmtMarshal, hstmt, szSqlStrMarshal, szSqlStr, "int", TextLength, "short")
         return result
     }
 
@@ -19200,7 +19620,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetConnectAttrW(hdbc, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetConnectAttrW", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetConnectAttrW", hdbcMarshal, hdbc, "int", fAttribute, rgbValueMarshal, rgbValue, "int", cbValueMax, pcbValueMarshal, pcbValue, "short")
         return result
     }
 
@@ -19213,7 +19637,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetCursorNameW(hstmt, szCursor, cchCursorMax, pcchCursor) {
-        result := DllCall("ODBC32.dll\SQLGetCursorNameW", "ptr", hstmt, "ushort*", szCursor, "short", cchCursorMax, "short*", pcchCursor, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCursorMarshal := szCursor is VarRef ? "ushort*" : "ptr"
+        pcchCursorMarshal := pcchCursor is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetCursorNameW", hstmtMarshal, hstmt, szCursorMarshal, szCursor, "short", cchCursorMax, pcchCursorMarshal, pcchCursor, "short")
         return result
     }
 
@@ -19227,7 +19655,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetDescFieldW(DescriptorHandle, RecNumber, FieldIdentifier, Value, BufferLength) {
-        result := DllCall("ODBC32.dll\SQLSetDescFieldW", "ptr", DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, "ptr", Value, "int", BufferLength, "short")
+        DescriptorHandleMarshal := DescriptorHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetDescFieldW", DescriptorHandleMarshal, DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, ValueMarshal, Value, "int", BufferLength, "short")
         return result
     }
 
@@ -19242,7 +19673,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescFieldW(hdesc, iRecord, iField, rgbValue, cbBufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDescFieldW", "ptr", hdesc, "short", iRecord, "short", iField, "ptr", rgbValue, "int", cbBufferLength, "int*", StringLength, "short")
+        hdescMarshal := hdesc is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDescFieldW", hdescMarshal, hdesc, "short", iRecord, "short", iField, rgbValueMarshal, rgbValue, "int", cbBufferLength, StringLengthMarshal, StringLength, "short")
         return result
     }
 
@@ -19258,7 +19693,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagFieldW(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbBufferLength, pcbStringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDiagFieldW", "short", fHandleType, "ptr", handle, "short", iRecord, "short", fDiagField, "ptr", rgbDiagInfo, "short", cbBufferLength, "short*", pcbStringLength, "short")
+        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+        rgbDiagInfoMarshal := rgbDiagInfo is VarRef ? "ptr" : "ptr"
+        pcbStringLengthMarshal := pcbStringLength is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDiagFieldW", "short", fHandleType, handleMarshal, handle, "short", iRecord, "short", fDiagField, rgbDiagInfoMarshal, rgbDiagInfo, "short", cbBufferLength, pcbStringLengthMarshal, pcbStringLength, "short")
         return result
     }
 
@@ -19275,7 +19714,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagRecW(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLGetDiagRecW", "short", fHandleType, "ptr", handle, "short", iRecord, "ushort*", szSqlState, "int*", pfNativeError, "ushort*", szErrorMsg, "short", cchErrorMsgMax, "short*", pcchErrorMsg, "short")
+        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+        szSqlStateMarshal := szSqlState is VarRef ? "ushort*" : "ptr"
+        pfNativeErrorMarshal := pfNativeError is VarRef ? "int*" : "ptr"
+        szErrorMsgMarshal := szErrorMsg is VarRef ? "ushort*" : "ptr"
+        pcchErrorMsgMarshal := pcchErrorMsg is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDiagRecW", "short", fHandleType, handleMarshal, handle, "short", iRecord, szSqlStateMarshal, szSqlState, pfNativeErrorMarshal, pfNativeError, szErrorMsgMarshal, szErrorMsg, "short", cchErrorMsgMax, pcchErrorMsgMarshal, pcchErrorMsg, "short")
         return result
     }
 
@@ -19287,7 +19732,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrepareW(hstmt, szSqlStr, cchSqlStr) {
-        result := DllCall("ODBC32.dll\SQLPrepareW", "ptr", hstmt, "ushort*", szSqlStr, "int", cchSqlStr, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szSqlStrMarshal := szSqlStr is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLPrepareW", hstmtMarshal, hstmt, szSqlStrMarshal, szSqlStr, "int", cchSqlStr, "short")
         return result
     }
 
@@ -19300,7 +19748,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetConnectAttrW(hdbc, fAttribute, rgbValue, cbValue) {
-        result := DllCall("ODBC32.dll\SQLSetConnectAttrW", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValue, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetConnectAttrW", hdbcMarshal, hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValue, "short")
         return result
     }
 
@@ -19312,7 +19762,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetCursorNameW(hstmt, szCursor, cchCursor) {
-        result := DllCall("ODBC32.dll\SQLSetCursorNameW", "ptr", hstmt, "ushort*", szCursor, "short", cchCursor, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCursorMarshal := szCursor is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetCursorNameW", hstmtMarshal, hstmt, szCursorMarshal, szCursor, "short", cchCursor, "short")
         return result
     }
 
@@ -19330,7 +19783,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnsW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnsW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort*", szColumnName, "short", cchColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColumnsW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, szColumnNameMarshal, szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -19342,7 +19801,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetConnectOptionW(hdbc, fOption, pvParam) {
-        result := DllCall("ODBC32.dll\SQLGetConnectOptionW", "ptr", hdbc, "ushort", fOption, "ptr", pvParam, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetConnectOptionW", hdbcMarshal, hdbc, "ushort", fOption, pvParamMarshal, pvParam, "short")
         return result
     }
 
@@ -19356,7 +19818,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetInfoW(hdbc, fInfoType, rgbInfoValue, cbInfoValueMax, pcbInfoValue) {
-        result := DllCall("ODBC32.dll\SQLGetInfoW", "ptr", hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, "short*", pcbInfoValue, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        pcbInfoValueMarshal := pcbInfoValue is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetInfoW", hdbcMarshal, hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, pcbInfoValueMarshal, pcbInfoValue, "short")
         return result
     }
 
@@ -19367,7 +19832,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetTypeInfoW(StatementHandle, DataType) {
-        result := DllCall("ODBC32.dll\SQLGetTypeInfoW", "ptr", StatementHandle, "short", DataType, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetTypeInfoW", StatementHandleMarshal, StatementHandle, "short", DataType, "short")
         return result
     }
 
@@ -19386,7 +19853,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSpecialColumnsW(hstmt, fColType, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, fScope, fNullable) {
-        result := DllCall("ODBC32.dll\SQLSpecialColumnsW", "ptr", hstmt, "ushort", fColType, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort", fScope, "ushort", fNullable, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSpecialColumnsW", hstmtMarshal, hstmt, "ushort", fColType, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, "ushort", fScope, "ushort", fNullable, "short")
         return result
     }
 
@@ -19404,7 +19876,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLStatisticsW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, fUnique, fAccuracy) {
-        result := DllCall("ODBC32.dll\SQLStatisticsW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLStatisticsW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
         return result
     }
 
@@ -19422,7 +19899,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablesW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szTableType, cchTableType) {
-        result := DllCall("ODBC32.dll\SQLTablesW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort*", szTableType, "short", cchTableType, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+        szTableTypeMarshal := szTableType is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLTablesW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, szTableTypeMarshal, szTableType, "short", cchTableType, "short")
         return result
     }
 
@@ -19439,7 +19922,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDataSourcesW(henv, fDirection, szDSN, cchDSNMax, pcchDSN, wszDescription, cchDescriptionMax, pcchDescription) {
-        result := DllCall("ODBC32.dll\SQLDataSourcesW", "ptr", henv, "ushort", fDirection, "ushort*", szDSN, "short", cchDSNMax, "short*", pcchDSN, "ushort*", wszDescription, "short", cchDescriptionMax, "short*", pcchDescription, "short")
+        henvMarshal := henv is VarRef ? "ptr" : "ptr"
+        szDSNMarshal := szDSN is VarRef ? "ushort*" : "ptr"
+        pcchDSNMarshal := pcchDSN is VarRef ? "short*" : "ptr"
+        wszDescriptionMarshal := wszDescription is VarRef ? "ushort*" : "ptr"
+        pcchDescriptionMarshal := pcchDescription is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDataSourcesW", henvMarshal, henv, "ushort", fDirection, szDSNMarshal, szDSN, "short", cchDSNMax, pcchDSNMarshal, pcchDSN, wszDescriptionMarshal, wszDescription, "short", cchDescriptionMax, pcchDescriptionMarshal, pcchDescription, "short")
         return result
     }
 
@@ -19456,7 +19945,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriverConnectW(hdbc, hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
-        result := DllCall("ODBC32.dll\SQLDriverConnectW", "ptr", hdbc, "ptr", hwnd, "ushort*", szConnStrIn, "short", cchConnStrIn, "ushort*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "ushort", fDriverCompletion, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szConnStrInMarshal := szConnStrIn is VarRef ? "ushort*" : "ptr"
+        szConnStrOutMarshal := szConnStrOut is VarRef ? "ushort*" : "ptr"
+        pcchConnStrOutMarshal := pcchConnStrOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDriverConnectW", hdbcMarshal, hdbc, "ptr", hwnd, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -19471,7 +19965,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLBrowseConnectW(hdbc, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut) {
-        result := DllCall("ODBC32.dll\SQLBrowseConnectW", "ptr", hdbc, "ushort*", szConnStrIn, "short", cchConnStrIn, "ushort*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szConnStrInMarshal := szConnStrIn is VarRef ? "ushort*" : "ptr"
+        szConnStrOutMarshal := szConnStrOut is VarRef ? "ushort*" : "ptr"
+        pcchConnStrOutMarshal := pcchConnStrOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLBrowseConnectW", hdbcMarshal, hdbc, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "short")
         return result
     }
 
@@ -19489,7 +19988,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnPrivilegesW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnPrivilegesW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort*", szColumnName, "short", cchColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColumnPrivilegesW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, szColumnNameMarshal, szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -19503,7 +20008,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetStmtAttrW(hstmt, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetStmtAttrW", "ptr", hstmt, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetStmtAttrW", hstmtMarshal, hstmt, "int", fAttribute, rgbValueMarshal, rgbValue, "int", cbValueMax, pcbValueMarshal, pcbValue, "short")
         return result
     }
 
@@ -19516,7 +20025,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetStmtAttrW(hstmt, fAttribute, rgbValue, cbValueMax) {
-        result := DllCall("ODBC32.dll\SQLSetStmtAttrW", "ptr", hstmt, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetStmtAttrW", hstmtMarshal, hstmt, "int", fAttribute, rgbValueMarshal, rgbValue, "int", cbValueMax, "short")
         return result
     }
 
@@ -19538,7 +20050,15 @@ class Search {
      * @returns {Integer} 
      */
     static SQLForeignKeysW(hstmt, szPkCatalogName, cchPkCatalogName, szPkSchemaName, cchPkSchemaName, szPkTableName, cchPkTableName, szFkCatalogName, cchFkCatalogName, szFkSchemaName, cchFkSchemaName, szFkTableName, cchFkTableName) {
-        result := DllCall("ODBC32.dll\SQLForeignKeysW", "ptr", hstmt, "ushort*", szPkCatalogName, "short", cchPkCatalogName, "ushort*", szPkSchemaName, "short", cchPkSchemaName, "ushort*", szPkTableName, "short", cchPkTableName, "ushort*", szFkCatalogName, "short", cchFkCatalogName, "ushort*", szFkSchemaName, "short", cchFkSchemaName, "ushort*", szFkTableName, "short", cchFkTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szPkCatalogNameMarshal := szPkCatalogName is VarRef ? "ushort*" : "ptr"
+        szPkSchemaNameMarshal := szPkSchemaName is VarRef ? "ushort*" : "ptr"
+        szPkTableNameMarshal := szPkTableName is VarRef ? "ushort*" : "ptr"
+        szFkCatalogNameMarshal := szFkCatalogName is VarRef ? "ushort*" : "ptr"
+        szFkSchemaNameMarshal := szFkSchemaName is VarRef ? "ushort*" : "ptr"
+        szFkTableNameMarshal := szFkTableName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLForeignKeysW", hstmtMarshal, hstmt, szPkCatalogNameMarshal, szPkCatalogName, "short", cchPkCatalogName, szPkSchemaNameMarshal, szPkSchemaName, "short", cchPkSchemaName, szPkTableNameMarshal, szPkTableName, "short", cchPkTableName, szFkCatalogNameMarshal, szFkCatalogName, "short", cchFkCatalogName, szFkSchemaNameMarshal, szFkSchemaName, "short", cchFkSchemaName, szFkTableNameMarshal, szFkTableName, "short", cchFkTableName, "short")
         return result
     }
 
@@ -19553,7 +20073,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLNativeSqlW(hdbc, szSqlStrIn, cchSqlStrIn, szSqlStr, cchSqlStrMax, pcchSqlStr) {
-        result := DllCall("ODBC32.dll\SQLNativeSqlW", "ptr", hdbc, "ushort*", szSqlStrIn, "int", cchSqlStrIn, "ushort*", szSqlStr, "int", cchSqlStrMax, "int*", pcchSqlStr, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szSqlStrInMarshal := szSqlStrIn is VarRef ? "ushort*" : "ptr"
+        szSqlStrMarshal := szSqlStr is VarRef ? "ushort*" : "ptr"
+        pcchSqlStrMarshal := pcchSqlStr is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLNativeSqlW", hdbcMarshal, hdbc, szSqlStrInMarshal, szSqlStrIn, "int", cchSqlStrIn, szSqlStrMarshal, szSqlStr, "int", cchSqlStrMax, pcchSqlStrMarshal, pcchSqlStr, "short")
         return result
     }
 
@@ -19569,7 +20094,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrimaryKeysW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLPrimaryKeysW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLPrimaryKeysW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -19587,7 +20117,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProcedureColumnsW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLProcedureColumnsW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szProcName, "short", cchProcName, "ushort*", szColumnName, "short", cchColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szProcNameMarshal := szProcName is VarRef ? "ushort*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLProcedureColumnsW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szProcNameMarshal, szProcName, "short", cchProcName, szColumnNameMarshal, szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -19603,7 +20139,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProceduresW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName) {
-        result := DllCall("ODBC32.dll\SQLProceduresW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szProcName, "short", cchProcName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szProcNameMarshal := szProcName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLProceduresW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szProcNameMarshal, szProcName, "short", cchProcName, "short")
         return result
     }
 
@@ -19619,7 +20160,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablePrivilegesW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLTablePrivilegesW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "ushort*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "ushort*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLTablePrivilegesW", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cchCatalogName, szSchemaNameMarshal, szSchemaName, "short", cchSchemaName, szTableNameMarshal, szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -19636,7 +20182,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriversW(henv, fDirection, szDriverDesc, cchDriverDescMax, pcchDriverDesc, szDriverAttributes, cchDrvrAttrMax, pcchDrvrAttr) {
-        result := DllCall("ODBC32.dll\SQLDriversW", "ptr", henv, "ushort", fDirection, "ushort*", szDriverDesc, "short", cchDriverDescMax, "short*", pcchDriverDesc, "ushort*", szDriverAttributes, "short", cchDrvrAttrMax, "short*", pcchDrvrAttr, "short")
+        henvMarshal := henv is VarRef ? "ptr" : "ptr"
+        szDriverDescMarshal := szDriverDesc is VarRef ? "ushort*" : "ptr"
+        pcchDriverDescMarshal := pcchDriverDesc is VarRef ? "short*" : "ptr"
+        szDriverAttributesMarshal := szDriverAttributes is VarRef ? "ushort*" : "ptr"
+        pcchDrvrAttrMarshal := pcchDrvrAttr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDriversW", henvMarshal, henv, "ushort", fDirection, szDriverDescMarshal, szDriverDesc, "short", cchDriverDescMax, pcchDriverDescMarshal, pcchDriverDesc, szDriverAttributesMarshal, szDriverAttributes, "short", cchDrvrAttrMax, pcchDrvrAttrMarshal, pcchDrvrAttr, "short")
         return result
     }
 
@@ -19652,7 +20204,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLConnectA(hdbc, szDSN, cbDSN, szUID, cbUID, szAuthStr, cbAuthStr) {
-        result := DllCall("ODBC32.dll\SQLConnectA", "ptr", hdbc, "char*", szDSN, "short", cbDSN, "char*", szUID, "short", cbUID, "char*", szAuthStr, "short", cbAuthStr, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szDSNMarshal := szDSN is VarRef ? "char*" : "ptr"
+        szUIDMarshal := szUID is VarRef ? "char*" : "ptr"
+        szAuthStrMarshal := szAuthStr is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLConnectA", hdbcMarshal, hdbc, szDSNMarshal, szDSN, "short", cbDSN, szUIDMarshal, szUID, "short", cbUID, szAuthStrMarshal, szAuthStr, "short", cbAuthStr, "short")
         return result
     }
 
@@ -19669,7 +20226,15 @@ class Search {
      * @returns {Integer} 
      */
     static SQLErrorA(henv, hdbc, hstmt, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLErrorA", "ptr", henv, "ptr", hdbc, "ptr", hstmt, "char*", szSqlState, "int*", pfNativeError, "char*", szErrorMsg, "short", cbErrorMsgMax, "short*", pcbErrorMsg, "short")
+        henvMarshal := henv is VarRef ? "ptr" : "ptr"
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szSqlStateMarshal := szSqlState is VarRef ? "char*" : "ptr"
+        pfNativeErrorMarshal := pfNativeError is VarRef ? "int*" : "ptr"
+        szErrorMsgMarshal := szErrorMsg is VarRef ? "char*" : "ptr"
+        pcbErrorMsgMarshal := pcbErrorMsg is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLErrorA", henvMarshal, henv, hdbcMarshal, hdbc, hstmtMarshal, hstmt, szSqlStateMarshal, szSqlState, pfNativeErrorMarshal, pfNativeError, szErrorMsgMarshal, szErrorMsg, "short", cbErrorMsgMax, pcbErrorMsgMarshal, pcbErrorMsg, "short")
         return result
     }
 
@@ -19681,7 +20246,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLExecDirectA(hstmt, szSqlStr, cbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLExecDirectA", "ptr", hstmt, "char*", szSqlStr, "int", cbSqlStr, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szSqlStrMarshal := szSqlStr is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLExecDirectA", hstmtMarshal, hstmt, szSqlStrMarshal, szSqlStr, "int", cbSqlStr, "short")
         return result
     }
 
@@ -19695,7 +20263,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetConnectAttrA(hdbc, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetConnectAttrA", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetConnectAttrA", hdbcMarshal, hdbc, "int", fAttribute, rgbValueMarshal, rgbValue, "int", cbValueMax, pcbValueMarshal, pcbValue, "short")
         return result
     }
 
@@ -19708,7 +20280,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetCursorNameA(hstmt, szCursor, cbCursorMax, pcbCursor) {
-        result := DllCall("ODBC32.dll\SQLGetCursorNameA", "ptr", hstmt, "char*", szCursor, "short", cbCursorMax, "short*", pcbCursor, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCursorMarshal := szCursor is VarRef ? "char*" : "ptr"
+        pcbCursorMarshal := pcbCursor is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetCursorNameA", hstmtMarshal, hstmt, szCursorMarshal, szCursor, "short", cbCursorMax, pcbCursorMarshal, pcbCursor, "short")
         return result
     }
 
@@ -19723,7 +20299,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescFieldA(hdesc, iRecord, iField, rgbValue, cbBufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDescFieldA", "ptr", hdesc, "short", iRecord, "short", iField, "ptr", rgbValue, "int", cbBufferLength, "int*", StringLength, "short")
+        hdescMarshal := hdesc is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+        StringLengthMarshal := StringLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDescFieldA", hdescMarshal, hdesc, "short", iRecord, "short", iField, rgbValueMarshal, rgbValue, "int", cbBufferLength, StringLengthMarshal, StringLength, "short")
         return result
     }
 
@@ -19739,7 +20319,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagFieldA(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbDiagInfoMax, pcbDiagInfo) {
-        result := DllCall("ODBC32.dll\SQLGetDiagFieldA", "short", fHandleType, "ptr", handle, "short", iRecord, "short", fDiagField, "ptr", rgbDiagInfo, "short", cbDiagInfoMax, "short*", pcbDiagInfo, "short")
+        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+        rgbDiagInfoMarshal := rgbDiagInfo is VarRef ? "ptr" : "ptr"
+        pcbDiagInfoMarshal := pcbDiagInfo is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDiagFieldA", "short", fHandleType, handleMarshal, handle, "short", iRecord, "short", fDiagField, rgbDiagInfoMarshal, rgbDiagInfo, "short", cbDiagInfoMax, pcbDiagInfoMarshal, pcbDiagInfo, "short")
         return result
     }
 
@@ -19756,7 +20340,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagRecA(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLGetDiagRecA", "short", fHandleType, "ptr", handle, "short", iRecord, "char*", szSqlState, "int*", pfNativeError, "char*", szErrorMsg, "short", cbErrorMsgMax, "short*", pcbErrorMsg, "short")
+        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+        szSqlStateMarshal := szSqlState is VarRef ? "char*" : "ptr"
+        pfNativeErrorMarshal := pfNativeError is VarRef ? "int*" : "ptr"
+        szErrorMsgMarshal := szErrorMsg is VarRef ? "char*" : "ptr"
+        pcbErrorMsgMarshal := pcbErrorMsg is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetDiagRecA", "short", fHandleType, handleMarshal, handle, "short", iRecord, szSqlStateMarshal, szSqlState, pfNativeErrorMarshal, pfNativeError, szErrorMsgMarshal, szErrorMsg, "short", cbErrorMsgMax, pcbErrorMsgMarshal, pcbErrorMsg, "short")
         return result
     }
 
@@ -19770,7 +20360,11 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetStmtAttrA(hstmt, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetStmtAttrA", "ptr", hstmt, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        rgbValueMarshal := rgbValue is VarRef ? "ptr" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetStmtAttrA", hstmtMarshal, hstmt, "int", fAttribute, rgbValueMarshal, rgbValue, "int", cbValueMax, pcbValueMarshal, pcbValue, "short")
         return result
     }
 
@@ -19781,7 +20375,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetTypeInfoA(StatementHandle, DataType) {
-        result := DllCall("ODBC32.dll\SQLGetTypeInfoA", "ptr", StatementHandle, "short", DataType, "short")
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetTypeInfoA", StatementHandleMarshal, StatementHandle, "short", DataType, "short")
         return result
     }
 
@@ -19793,7 +20389,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrepareA(hstmt, szSqlStr, cbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLPrepareA", "ptr", hstmt, "char*", szSqlStr, "int", cbSqlStr, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szSqlStrMarshal := szSqlStr is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLPrepareA", hstmtMarshal, hstmt, szSqlStrMarshal, szSqlStr, "int", cbSqlStr, "short")
         return result
     }
 
@@ -19806,7 +20405,9 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetConnectAttrA(hdbc, fAttribute, rgbValue, cbValue) {
-        result := DllCall("ODBC32.dll\SQLSetConnectAttrA", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValue, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetConnectAttrA", hdbcMarshal, hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValue, "short")
         return result
     }
 
@@ -19818,7 +20419,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetCursorNameA(hstmt, szCursor, cbCursor) {
-        result := DllCall("ODBC32.dll\SQLSetCursorNameA", "ptr", hstmt, "char*", szCursor, "short", cbCursor, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCursorMarshal := szCursor is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSetCursorNameA", hstmtMarshal, hstmt, szCursorMarshal, szCursor, "short", cbCursor, "short")
         return result
     }
 
@@ -19836,7 +20440,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnsA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, szColumnName, cbColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnsA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "char*", szColumnName, "short", cbColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColumnsA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szTableNameMarshal, szTableName, "short", cbTableName, szColumnNameMarshal, szColumnName, "short", cbColumnName, "short")
         return result
     }
 
@@ -19848,7 +20458,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetConnectOptionA(hdbc, fOption, pvParam) {
-        result := DllCall("ODBC32.dll\SQLGetConnectOptionA", "ptr", hdbc, "ushort", fOption, "ptr", pvParam, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetConnectOptionA", hdbcMarshal, hdbc, "ushort", fOption, pvParamMarshal, pvParam, "short")
         return result
     }
 
@@ -19862,7 +20475,10 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetInfoA(hdbc, fInfoType, rgbInfoValue, cbInfoValueMax, pcbInfoValue) {
-        result := DllCall("ODBC32.dll\SQLGetInfoA", "ptr", hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, "short*", pcbInfoValue, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        pcbInfoValueMarshal := pcbInfoValue is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLGetInfoA", hdbcMarshal, hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, pcbInfoValueMarshal, pcbInfoValue, "short")
         return result
     }
 
@@ -19881,7 +20497,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSpecialColumnsA(hstmt, fColType, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, fScope, fNullable) {
-        result := DllCall("ODBC32.dll\SQLSpecialColumnsA", "ptr", hstmt, "ushort", fColType, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "ushort", fScope, "ushort", fNullable, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLSpecialColumnsA", hstmtMarshal, hstmt, "ushort", fColType, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szTableNameMarshal, szTableName, "short", cbTableName, "ushort", fScope, "ushort", fNullable, "short")
         return result
     }
 
@@ -19899,7 +20520,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLStatisticsA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, fUnique, fAccuracy) {
-        result := DllCall("ODBC32.dll\SQLStatisticsA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLStatisticsA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szTableNameMarshal, szTableName, "short", cbTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
         return result
     }
 
@@ -19917,7 +20543,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablesA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, szTableType, cbTableType) {
-        result := DllCall("ODBC32.dll\SQLTablesA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "char*", szTableType, "short", cbTableType, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+        szTableTypeMarshal := szTableType is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLTablesA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szTableNameMarshal, szTableName, "short", cbTableName, szTableTypeMarshal, szTableType, "short", cbTableType, "short")
         return result
     }
 
@@ -19934,7 +20566,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDataSourcesA(henv, fDirection, szDSN, cbDSNMax, pcbDSN, szDescription, cbDescriptionMax, pcbDescription) {
-        result := DllCall("ODBC32.dll\SQLDataSourcesA", "ptr", henv, "ushort", fDirection, "char*", szDSN, "short", cbDSNMax, "short*", pcbDSN, "char*", szDescription, "short", cbDescriptionMax, "short*", pcbDescription, "short")
+        henvMarshal := henv is VarRef ? "ptr" : "ptr"
+        szDSNMarshal := szDSN is VarRef ? "char*" : "ptr"
+        pcbDSNMarshal := pcbDSN is VarRef ? "short*" : "ptr"
+        szDescriptionMarshal := szDescription is VarRef ? "char*" : "ptr"
+        pcbDescriptionMarshal := pcbDescription is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDataSourcesA", henvMarshal, henv, "ushort", fDirection, szDSNMarshal, szDSN, "short", cbDSNMax, pcbDSNMarshal, pcbDSN, szDescriptionMarshal, szDescription, "short", cbDescriptionMax, pcbDescriptionMarshal, pcbDescription, "short")
         return result
     }
 
@@ -19951,7 +20589,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriverConnectA(hdbc, hwnd, szConnStrIn, cbConnStrIn, szConnStrOut, cbConnStrOutMax, pcbConnStrOut, fDriverCompletion) {
-        result := DllCall("ODBC32.dll\SQLDriverConnectA", "ptr", hdbc, "ptr", hwnd, "char*", szConnStrIn, "short", cbConnStrIn, "char*", szConnStrOut, "short", cbConnStrOutMax, "short*", pcbConnStrOut, "ushort", fDriverCompletion, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szConnStrInMarshal := szConnStrIn is VarRef ? "char*" : "ptr"
+        szConnStrOutMarshal := szConnStrOut is VarRef ? "char*" : "ptr"
+        pcbConnStrOutMarshal := pcbConnStrOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDriverConnectA", hdbcMarshal, hdbc, "ptr", hwnd, szConnStrInMarshal, szConnStrIn, "short", cbConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cbConnStrOutMax, pcbConnStrOutMarshal, pcbConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -19966,7 +20609,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLBrowseConnectA(hdbc, szConnStrIn, cbConnStrIn, szConnStrOut, cbConnStrOutMax, pcbConnStrOut) {
-        result := DllCall("ODBC32.dll\SQLBrowseConnectA", "ptr", hdbc, "char*", szConnStrIn, "short", cbConnStrIn, "char*", szConnStrOut, "short", cbConnStrOutMax, "short*", pcbConnStrOut, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szConnStrInMarshal := szConnStrIn is VarRef ? "char*" : "ptr"
+        szConnStrOutMarshal := szConnStrOut is VarRef ? "char*" : "ptr"
+        pcbConnStrOutMarshal := pcbConnStrOut is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLBrowseConnectA", hdbcMarshal, hdbc, szConnStrInMarshal, szConnStrIn, "short", cbConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cbConnStrOutMax, pcbConnStrOutMarshal, pcbConnStrOut, "short")
         return result
     }
 
@@ -19984,7 +20632,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnPrivilegesA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, szColumnName, cbColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnPrivilegesA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "char*", szColumnName, "short", cbColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLColumnPrivilegesA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szTableNameMarshal, szTableName, "short", cbTableName, szColumnNameMarshal, szColumnName, "short", cbColumnName, "short")
         return result
     }
 
@@ -20006,7 +20660,15 @@ class Search {
      * @returns {Integer} 
      */
     static SQLForeignKeysA(hstmt, szPkCatalogName, cbPkCatalogName, szPkSchemaName, cbPkSchemaName, szPkTableName, cbPkTableName, szFkCatalogName, cbFkCatalogName, szFkSchemaName, cbFkSchemaName, szFkTableName, cbFkTableName) {
-        result := DllCall("ODBC32.dll\SQLForeignKeysA", "ptr", hstmt, "char*", szPkCatalogName, "short", cbPkCatalogName, "char*", szPkSchemaName, "short", cbPkSchemaName, "char*", szPkTableName, "short", cbPkTableName, "char*", szFkCatalogName, "short", cbFkCatalogName, "char*", szFkSchemaName, "short", cbFkSchemaName, "char*", szFkTableName, "short", cbFkTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szPkCatalogNameMarshal := szPkCatalogName is VarRef ? "char*" : "ptr"
+        szPkSchemaNameMarshal := szPkSchemaName is VarRef ? "char*" : "ptr"
+        szPkTableNameMarshal := szPkTableName is VarRef ? "char*" : "ptr"
+        szFkCatalogNameMarshal := szFkCatalogName is VarRef ? "char*" : "ptr"
+        szFkSchemaNameMarshal := szFkSchemaName is VarRef ? "char*" : "ptr"
+        szFkTableNameMarshal := szFkTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLForeignKeysA", hstmtMarshal, hstmt, szPkCatalogNameMarshal, szPkCatalogName, "short", cbPkCatalogName, szPkSchemaNameMarshal, szPkSchemaName, "short", cbPkSchemaName, szPkTableNameMarshal, szPkTableName, "short", cbPkTableName, szFkCatalogNameMarshal, szFkCatalogName, "short", cbFkCatalogName, szFkSchemaNameMarshal, szFkSchemaName, "short", cbFkSchemaName, szFkTableNameMarshal, szFkTableName, "short", cbFkTableName, "short")
         return result
     }
 
@@ -20021,7 +20683,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLNativeSqlA(hdbc, szSqlStrIn, cbSqlStrIn, szSqlStr, cbSqlStrMax, pcbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLNativeSqlA", "ptr", hdbc, "char*", szSqlStrIn, "int", cbSqlStrIn, "char*", szSqlStr, "int", cbSqlStrMax, "int*", pcbSqlStr, "short")
+        hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
+        szSqlStrInMarshal := szSqlStrIn is VarRef ? "char*" : "ptr"
+        szSqlStrMarshal := szSqlStr is VarRef ? "char*" : "ptr"
+        pcbSqlStrMarshal := pcbSqlStr is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLNativeSqlA", hdbcMarshal, hdbc, szSqlStrInMarshal, szSqlStrIn, "int", cbSqlStrIn, szSqlStrMarshal, szSqlStr, "int", cbSqlStrMax, pcbSqlStrMarshal, pcbSqlStr, "short")
         return result
     }
 
@@ -20037,7 +20704,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrimaryKeysA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName) {
-        result := DllCall("ODBC32.dll\SQLPrimaryKeysA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLPrimaryKeysA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szTableNameMarshal, szTableName, "short", cbTableName, "short")
         return result
     }
 
@@ -20055,7 +20727,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProcedureColumnsA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szProcName, cbProcName, szColumnName, cbColumnName) {
-        result := DllCall("ODBC32.dll\SQLProcedureColumnsA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szProcName, "short", cbProcName, "char*", szColumnName, "short", cbColumnName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szProcNameMarshal := szProcName is VarRef ? "char*" : "ptr"
+        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLProcedureColumnsA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szProcNameMarshal, szProcName, "short", cbProcName, szColumnNameMarshal, szColumnName, "short", cbColumnName, "short")
         return result
     }
 
@@ -20071,7 +20749,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProceduresA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szProcName, cbProcName) {
-        result := DllCall("ODBC32.dll\SQLProceduresA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szProcName, "short", cbProcName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szProcNameMarshal := szProcName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLProceduresA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szProcNameMarshal, szProcName, "short", cbProcName, "short")
         return result
     }
 
@@ -20087,7 +20770,12 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablePrivilegesA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName) {
-        result := DllCall("ODBC32.dll\SQLTablePrivilegesA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "short")
+        hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
+        szCatalogNameMarshal := szCatalogName is VarRef ? "char*" : "ptr"
+        szSchemaNameMarshal := szSchemaName is VarRef ? "char*" : "ptr"
+        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLTablePrivilegesA", hstmtMarshal, hstmt, szCatalogNameMarshal, szCatalogName, "short", cbCatalogName, szSchemaNameMarshal, szSchemaName, "short", cbSchemaName, szTableNameMarshal, szTableName, "short", cbTableName, "short")
         return result
     }
 
@@ -20104,7 +20792,13 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriversA(henv, fDirection, szDriverDesc, cbDriverDescMax, pcbDriverDesc, szDriverAttributes, cbDrvrAttrMax, pcbDrvrAttr) {
-        result := DllCall("ODBC32.dll\SQLDriversA", "ptr", henv, "ushort", fDirection, "char*", szDriverDesc, "short", cbDriverDescMax, "short*", pcbDriverDesc, "char*", szDriverAttributes, "short", cbDrvrAttrMax, "short*", pcbDrvrAttr, "short")
+        henvMarshal := henv is VarRef ? "ptr" : "ptr"
+        szDriverDescMarshal := szDriverDesc is VarRef ? "char*" : "ptr"
+        pcbDriverDescMarshal := pcbDriverDesc is VarRef ? "short*" : "ptr"
+        szDriverAttributesMarshal := szDriverAttributes is VarRef ? "char*" : "ptr"
+        pcbDrvrAttrMarshal := pcbDrvrAttr is VarRef ? "short*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLDriversA", henvMarshal, henv, "ushort", fDirection, szDriverDescMarshal, szDriverDesc, "short", cbDriverDescMax, pcbDriverDescMarshal, pcbDriverDesc, szDriverAttributesMarshal, szDriverAttributes, "short", cbDrvrAttrMax, pcbDrvrAttrMarshal, pcbDrvrAttr, "short")
         return result
     }
 

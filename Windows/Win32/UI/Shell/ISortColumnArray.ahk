@@ -34,7 +34,9 @@ class ISortColumnArray extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(columnCount) {
-        result := ComCall(3, this, "uint*", columnCount, "HRESULT")
+        columnCountMarshal := columnCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, columnCountMarshal, columnCount, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class ISortColumnArray extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSortType(type) {
-        result := ComCall(5, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, typeMarshal, type, "HRESULT")
         return result
     }
 }

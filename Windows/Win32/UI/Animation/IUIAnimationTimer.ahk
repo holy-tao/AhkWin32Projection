@@ -106,7 +106,9 @@ class IUIAnimationTimer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-gettime
      */
     GetTime(seconds) {
-        result := ComCall(8, this, "double*", seconds, "HRESULT")
+        secondsMarshal := seconds is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, secondsMarshal, seconds, "HRESULT")
         return result
     }
 

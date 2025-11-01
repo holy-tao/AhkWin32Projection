@@ -50,7 +50,11 @@ class IStreamSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-getsampletimes
      */
     GetSampleTimes(pStartTime, pEndTime, pCurrentTime) {
-        result := ComCall(4, this, "int64*", pStartTime, "int64*", pEndTime, "int64*", pCurrentTime, "HRESULT")
+        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
+        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
+        pCurrentTimeMarshal := pCurrentTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, pCurrentTimeMarshal, pCurrentTime, "HRESULT")
         return result
     }
 
@@ -62,7 +66,10 @@ class IStreamSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-setsampletimes
      */
     SetSampleTimes(pStartTime, pEndTime) {
-        result := ComCall(5, this, "int64*", pStartTime, "int64*", pEndTime, "HRESULT")
+        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
+        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, "HRESULT")
         return result
     }
 

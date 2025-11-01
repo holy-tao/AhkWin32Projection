@@ -36,7 +36,9 @@ class ISClusPartitionEx extends ISClusPartition{
      * @returns {HRESULT} 
      */
     get_TotalSize(plTotalSize) {
-        result := ComCall(14, this, "int*", plTotalSize, "HRESULT")
+        plTotalSizeMarshal := plTotalSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plTotalSizeMarshal, plTotalSize, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class ISClusPartitionEx extends ISClusPartition{
      * @returns {HRESULT} 
      */
     get_FreeSpace(plFreeSpace) {
-        result := ComCall(15, this, "int*", plFreeSpace, "HRESULT")
+        plFreeSpaceMarshal := plFreeSpace is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plFreeSpaceMarshal, plFreeSpace, "HRESULT")
         return result
     }
 
@@ -56,7 +60,9 @@ class ISClusPartitionEx extends ISClusPartition{
      * @returns {HRESULT} 
      */
     get_DeviceNumber(plDeviceNumber) {
-        result := ComCall(16, this, "int*", plDeviceNumber, "HRESULT")
+        plDeviceNumberMarshal := plDeviceNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plDeviceNumberMarshal, plDeviceNumber, "HRESULT")
         return result
     }
 
@@ -66,7 +72,9 @@ class ISClusPartitionEx extends ISClusPartition{
      * @returns {HRESULT} 
      */
     get_PartitionNumber(plPartitionNumber) {
-        result := ComCall(17, this, "int*", plPartitionNumber, "HRESULT")
+        plPartitionNumberMarshal := plPartitionNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plPartitionNumberMarshal, plPartitionNumber, "HRESULT")
         return result
     }
 

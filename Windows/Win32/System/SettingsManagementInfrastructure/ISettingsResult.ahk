@@ -70,7 +70,9 @@ class ISettingsResult extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getline
      */
     GetLine(dwLine) {
-        result := ComCall(6, this, "uint*", dwLine, "HRESULT")
+        dwLineMarshal := dwLine is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, dwLineMarshal, dwLine, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class ISettingsResult extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getcolumn
      */
     GetColumn(dwColumn) {
-        result := ComCall(7, this, "uint*", dwColumn, "HRESULT")
+        dwColumnMarshal := dwColumn is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, dwColumnMarshal, dwColumn, "HRESULT")
         return result
     }
 

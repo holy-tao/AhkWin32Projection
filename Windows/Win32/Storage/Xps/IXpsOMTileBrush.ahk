@@ -155,7 +155,9 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettilemode
      */
     GetTileMode(tileMode) {
-        result := ComCall(16, this, "int*", tileMode, "HRESULT")
+        tileModeMarshal := tileMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, tileModeMarshal, tileMode, "HRESULT")
         return result
     }
 

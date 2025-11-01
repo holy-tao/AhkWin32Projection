@@ -62,7 +62,9 @@ class IRTCSession2 extends IRTCSession{
      * @returns {HRESULT} 
      */
     get_PreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        result := ComCall(25, this, "int", enSecurityType, "int*", penSecurityLevel, "HRESULT")
+        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
         return result
     }
 

@@ -42,7 +42,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_BackupTypeGPO(pVal) {
-        result := ComCall(67, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(67, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_BackupTypeStarterGPO(pVal) {
-        result := ComCall(68, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(68, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -62,7 +66,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_StarterGPOTypeSystem(pVal) {
-        result := ComCall(69, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(69, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -72,7 +78,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_StarterGPOTypeCustom(pVal) {
-        result := ComCall(70, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(70, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -82,7 +90,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_SearchPropertyStarterGPOPermissions(pVal) {
-        result := ComCall(71, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(71, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -92,7 +102,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_SearchPropertyStarterGPOEffectivePermissions(pVal) {
-        result := ComCall(72, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(72, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -102,7 +114,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_SearchPropertyStarterGPODisplayName(pVal) {
-        result := ComCall(73, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(73, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -112,7 +126,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_SearchPropertyStarterGPOID(pVal) {
-        result := ComCall(74, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(74, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -122,7 +138,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_SearchPropertyStarterGPODomain(pVal) {
-        result := ComCall(75, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(75, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -132,7 +150,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_PermStarterGPORead(pVal) {
-        result := ComCall(76, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(76, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -142,7 +162,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_PermStarterGPOEdit(pVal) {
-        result := ComCall(77, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(77, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -152,7 +174,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_PermStarterGPOFullControl(pVal) {
-        result := ComCall(78, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(78, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -162,7 +186,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_PermStarterGPOCustom(pVal) {
-        result := ComCall(79, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(79, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -172,7 +198,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_ReportLegacy(pVal) {
-        result := ComCall(80, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(80, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -182,7 +210,9 @@ class IGPMConstants2 extends IGPMConstants{
      * @returns {HRESULT} 
      */
     get_ReportComments(pVal) {
-        result := ComCall(81, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(81, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 }

@@ -272,7 +272,9 @@ class IXpsOMPath extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashcap
      */
     GetStrokeDashCap(strokeDashCap) {
-        result := ComCall(47, this, "int*", strokeDashCap, "HRESULT")
+        strokeDashCapMarshal := strokeDashCap is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, strokeDashCapMarshal, strokeDashCap, "HRESULT")
         return result
     }
 
@@ -294,7 +296,9 @@ class IXpsOMPath extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashoffset
      */
     GetStrokeDashOffset(strokeDashOffset) {
-        result := ComCall(49, this, "float*", strokeDashOffset, "HRESULT")
+        strokeDashOffsetMarshal := strokeDashOffset is VarRef ? "float*" : "ptr"
+
+        result := ComCall(49, this, strokeDashOffsetMarshal, strokeDashOffset, "HRESULT")
         return result
     }
 
@@ -316,7 +320,9 @@ class IXpsOMPath extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokestartlinecap
      */
     GetStrokeStartLineCap(strokeStartLineCap) {
-        result := ComCall(51, this, "int*", strokeStartLineCap, "HRESULT")
+        strokeStartLineCapMarshal := strokeStartLineCap is VarRef ? "int*" : "ptr"
+
+        result := ComCall(51, this, strokeStartLineCapMarshal, strokeStartLineCap, "HRESULT")
         return result
     }
 
@@ -338,7 +344,9 @@ class IXpsOMPath extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokeendlinecap
      */
     GetStrokeEndLineCap(strokeEndLineCap) {
-        result := ComCall(53, this, "int*", strokeEndLineCap, "HRESULT")
+        strokeEndLineCapMarshal := strokeEndLineCap is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, strokeEndLineCapMarshal, strokeEndLineCap, "HRESULT")
         return result
     }
 
@@ -360,7 +368,9 @@ class IXpsOMPath extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokelinejoin
      */
     GetStrokeLineJoin(strokeLineJoin) {
-        result := ComCall(55, this, "int*", strokeLineJoin, "HRESULT")
+        strokeLineJoinMarshal := strokeLineJoin is VarRef ? "int*" : "ptr"
+
+        result := ComCall(55, this, strokeLineJoinMarshal, strokeLineJoin, "HRESULT")
         return result
     }
 
@@ -382,7 +392,9 @@ class IXpsOMPath extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokemiterlimit
      */
     GetStrokeMiterLimit(strokeMiterLimit) {
-        result := ComCall(57, this, "float*", strokeMiterLimit, "HRESULT")
+        strokeMiterLimitMarshal := strokeMiterLimit is VarRef ? "float*" : "ptr"
+
+        result := ComCall(57, this, strokeMiterLimitMarshal, strokeMiterLimit, "HRESULT")
         return result
     }
 
@@ -404,7 +416,9 @@ class IXpsOMPath extends IXpsOMVisual{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokethickness
      */
     GetStrokeThickness(strokeThickness) {
-        result := ComCall(59, this, "float*", strokeThickness, "HRESULT")
+        strokeThicknessMarshal := strokeThickness is VarRef ? "float*" : "ptr"
+
+        result := ComCall(59, this, strokeThicknessMarshal, strokeThickness, "HRESULT")
         return result
     }
 

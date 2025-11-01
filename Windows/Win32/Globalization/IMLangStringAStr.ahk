@@ -42,7 +42,10 @@ class IMLangStringAStr extends IMLangString{
     SetAStr(lDestPos, lDestLen, uCodePage, pszSrc, cchSrc, pcchActual, plActualLen) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := ComCall(7, this, "int", lDestPos, "int", lDestLen, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int*", pcchActual, "int*", plActualLen, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", lDestPos, "int", lDestLen, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -57,7 +60,10 @@ class IMLangStringAStr extends IMLangString{
      * @returns {HRESULT} 
      */
     SetStrBufA(lDestPos, lDestLen, uCodePage, pSrcBuf, pcchActual, plActualLen) {
-        result := ComCall(8, this, "int", lDestPos, "int", lDestLen, "uint", uCodePage, "ptr", pSrcBuf, "int*", pcchActual, "int*", plActualLen, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", lDestPos, "int", lDestLen, "uint", uCodePage, "ptr", pSrcBuf, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -77,7 +83,10 @@ class IMLangStringAStr extends IMLangString{
 
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
 
-        result := ComCall(9, this, "int", lSrcPos, "int", lSrcLen, "uint", uCodePageIn, "uint*", puCodePageOut, "ptr", pszDest, "int", cchDest, "int*", pcchActual, "int*", plActualLen, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", lSrcPos, "int", lSrcLen, "uint", uCodePageIn, "uint*", puCodePageOut, "ptr", pszDest, "int", cchDest, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -91,7 +100,10 @@ class IMLangStringAStr extends IMLangString{
      * @returns {HRESULT} 
      */
     GetStrBufA(lSrcPos, lSrcMaxLen, puDestCodePage, ppDestBuf, plDestLen) {
-        result := ComCall(10, this, "int", lSrcPos, "int", lSrcMaxLen, "uint*", puDestCodePage, "ptr*", ppDestBuf, "int*", plDestLen, "HRESULT")
+        puDestCodePageMarshal := puDestCodePage is VarRef ? "uint*" : "ptr"
+        plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", lSrcPos, "int", lSrcMaxLen, puDestCodePageMarshal, puDestCodePage, "ptr*", ppDestBuf, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 
@@ -109,7 +121,11 @@ class IMLangStringAStr extends IMLangString{
      * @returns {HRESULT} 
      */
     LockAStr(lSrcPos, lSrcLen, lFlags, uCodePageIn, cchRequest, puCodePageOut, ppszDest, pcchDest, plDestLen) {
-        result := ComCall(11, this, "int", lSrcPos, "int", lSrcLen, "int", lFlags, "uint", uCodePageIn, "int", cchRequest, "uint*", puCodePageOut, "ptr", ppszDest, "int*", pcchDest, "int*", plDestLen, "HRESULT")
+        puCodePageOutMarshal := puCodePageOut is VarRef ? "uint*" : "ptr"
+        pcchDestMarshal := pcchDest is VarRef ? "int*" : "ptr"
+        plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", lSrcPos, "int", lSrcLen, "int", lFlags, "uint", uCodePageIn, "int", cchRequest, puCodePageOutMarshal, puCodePageOut, "ptr", ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 
@@ -124,7 +140,10 @@ class IMLangStringAStr extends IMLangString{
     UnlockAStr(pszSrc, cchSrc, pcchActual, plActualLen) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := ComCall(12, this, "ptr", pszSrc, "int", cchSrc, "int*", pcchActual, "int*", plActualLen, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pszSrc, "int", cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -150,7 +169,11 @@ class IMLangStringAStr extends IMLangString{
      * @returns {HRESULT} 
      */
     GetLocale(lSrcPos, lSrcMaxLen, plocale, plLocalePos, plLocaleLen) {
-        result := ComCall(14, this, "int", lSrcPos, "int", lSrcMaxLen, "uint*", plocale, "int*", plLocalePos, "int*", plLocaleLen, "HRESULT")
+        plocaleMarshal := plocale is VarRef ? "uint*" : "ptr"
+        plLocalePosMarshal := plLocalePos is VarRef ? "int*" : "ptr"
+        plLocaleLenMarshal := plLocaleLen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "int", lSrcPos, "int", lSrcMaxLen, plocaleMarshal, plocale, plLocalePosMarshal, plLocalePos, plLocaleLenMarshal, plLocaleLen, "HRESULT")
         return result
     }
 }

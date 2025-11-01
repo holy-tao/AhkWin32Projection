@@ -40,7 +40,11 @@ class IAudioEndpointVolumeEx extends IAudioEndpointVolume{
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolumeex-getvolumerangechannel
      */
     GetVolumeRangeChannel(iChannel, pflVolumeMindB, pflVolumeMaxdB, pflVolumeIncrementdB) {
-        result := ComCall(21, this, "uint", iChannel, "float*", pflVolumeMindB, "float*", pflVolumeMaxdB, "float*", pflVolumeIncrementdB, "HRESULT")
+        pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : "ptr"
+        pflVolumeMaxdBMarshal := pflVolumeMaxdB is VarRef ? "float*" : "ptr"
+        pflVolumeIncrementdBMarshal := pflVolumeIncrementdB is VarRef ? "float*" : "ptr"
+
+        result := ComCall(21, this, "uint", iChannel, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "HRESULT")
         return result
     }
 }

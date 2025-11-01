@@ -42,7 +42,9 @@ class IAuxInTuningSpace2 extends IAuxInTuningSpace{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iauxintuningspace2-get_countrycode
      */
     get_CountryCode(CountryCodeVal) {
-        result := ComCall(26, this, "int*", CountryCodeVal, "HRESULT")
+        CountryCodeValMarshal := CountryCodeVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, CountryCodeValMarshal, CountryCodeVal, "HRESULT")
         return result
     }
 

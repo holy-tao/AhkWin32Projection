@@ -44,7 +44,9 @@ class IAutomaticUpdatesSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel
      */
     get_NotificationLevel(retval) {
-        result := ComCall(7, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -88,7 +90,9 @@ class IAutomaticUpdatesSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationday
      */
     get_ScheduledInstallationDay(retval) {
-        result := ComCall(11, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -110,7 +114,9 @@ class IAutomaticUpdatesSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationtime
      */
     get_ScheduledInstallationTime(retval) {
-        result := ComCall(13, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -35,7 +35,9 @@ class ISpeechGrammarRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Attributes(Attributes) {
-        result := ComCall(7, this, "int*", Attributes, "HRESULT")
+        AttributesMarshal := Attributes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, AttributesMarshal, Attributes, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class ISpeechGrammarRule extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Id(Id) {
-        result := ComCall(10, this, "int*", Id, "HRESULT")
+        IdMarshal := Id is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, IdMarshal, Id, "HRESULT")
         return result
     }
 

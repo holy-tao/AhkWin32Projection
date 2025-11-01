@@ -66,7 +66,9 @@ class IDXGIDevice4 extends IDXGIDevice3{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-reclaimresources1
      */
     ReclaimResources1(NumResources, ppResources, pResults) {
-        result := ComCall(19, this, "uint", NumResources, "ptr*", ppResources, "int*", pResults, "HRESULT")
+        pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "uint", NumResources, "ptr*", ppResources, pResultsMarshal, pResults, "HRESULT")
         return result
     }
 }

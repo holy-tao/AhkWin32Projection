@@ -104,7 +104,9 @@ class IPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-querydirection
      */
     QueryDirection(pPinDir) {
-        result := ComCall(9, this, "int*", pPinDir, "HRESULT")
+        pPinDirMarshal := pPinDir is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pPinDirMarshal, pPinDir, "HRESULT")
         return result
     }
 
@@ -149,7 +151,9 @@ class IPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-queryinternalconnections
      */
     QueryInternalConnections(apPin, nPin) {
-        result := ComCall(13, this, "ptr*", apPin, "uint*", nPin, "HRESULT")
+        nPinMarshal := nPin is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr*", apPin, nPinMarshal, nPin, "HRESULT")
         return result
     }
 

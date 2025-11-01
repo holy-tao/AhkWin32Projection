@@ -76,7 +76,9 @@ class IDispError extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHelpInfo(pbstrFileName, pdwContext) {
-        result := ComCall(7, this, "ptr", pbstrFileName, "uint*", pdwContext, "HRESULT")
+        pdwContextMarshal := pdwContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pbstrFileName, pdwContextMarshal, pdwContext, "HRESULT")
         return result
     }
 

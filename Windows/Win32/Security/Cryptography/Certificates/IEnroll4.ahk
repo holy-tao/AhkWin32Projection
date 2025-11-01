@@ -99,7 +99,10 @@ class IEnroll4 extends IEnroll2{
     stringToBinaryBlob(Flags, pwszString, pblobBinary, pdwSkip, pdwFlags) {
         pwszString := pwszString is String ? StrPtr(pwszString) : pwszString
 
-        result := ComCall(96, this, "int", Flags, "ptr", pwszString, "ptr", pblobBinary, "int*", pdwSkip, "int*", pdwFlags, "HRESULT")
+        pdwSkipMarshal := pdwSkip is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(96, this, "int", Flags, "ptr", pwszString, "ptr", pblobBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -310,7 +313,9 @@ class IEnroll4 extends IEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-enumpendingrequestwstr
      */
     enumPendingRequestWStr(lIndex, lDesiredProperty, ppProperty) {
-        result := ComCall(111, this, "int", lIndex, "int", lDesiredProperty, "ptr", ppProperty, "HRESULT")
+        ppPropertyMarshal := ppProperty is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(111, this, "int", lIndex, "int", lDesiredProperty, ppPropertyMarshal, ppProperty, "HRESULT")
         return result
     }
 
@@ -334,7 +339,9 @@ class IEnroll4 extends IEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-getkeylenex
      */
     GetKeyLenEx(lSizeSpec, lKeySpec, pdwKeySize) {
-        result := ComCall(113, this, "int", lSizeSpec, "int", lKeySpec, "int*", pdwKeySize, "HRESULT")
+        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(113, this, "int", lSizeSpec, "int", lKeySpec, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
         return result
     }
 
@@ -346,7 +353,9 @@ class IEnroll4 extends IEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-installpkcs7blobex
      */
     InstallPKCS7BlobEx(pBlobPKCS7, plCertInstalled) {
-        result := ComCall(114, this, "ptr", pBlobPKCS7, "int*", plCertInstalled, "HRESULT")
+        plCertInstalledMarshal := plCertInstalled is VarRef ? "int*" : "ptr"
+
+        result := ComCall(114, this, "ptr", pBlobPKCS7, plCertInstalledMarshal, plCertInstalled, "HRESULT")
         return result
     }
 
@@ -377,7 +386,9 @@ class IEnroll4 extends IEnroll2{
     getProviderTypeWStr(pwszProvName, plProvType) {
         pwszProvName := pwszProvName is String ? StrPtr(pwszProvName) : pwszProvName
 
-        result := ComCall(116, this, "ptr", pwszProvName, "int*", plProvType, "HRESULT")
+        plProvTypeMarshal := plProvType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(116, this, "ptr", pwszProvName, plProvTypeMarshal, plProvType, "HRESULT")
         return result
     }
 
@@ -423,7 +434,9 @@ class IEnroll4 extends IEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-get_clientid
      */
     get_ClientId(plClientId) {
-        result := ComCall(120, this, "int*", plClientId, "HRESULT")
+        plClientIdMarshal := plClientId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(120, this, plClientIdMarshal, plClientId, "HRESULT")
         return result
     }
 

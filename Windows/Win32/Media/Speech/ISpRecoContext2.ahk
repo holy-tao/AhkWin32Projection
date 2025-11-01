@@ -44,7 +44,9 @@ class ISpRecoContext2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGrammarOptions(peGrammarOptions) {
-        result := ComCall(4, this, "uint*", peGrammarOptions, "HRESULT")
+        peGrammarOptionsMarshal := peGrammarOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, peGrammarOptionsMarshal, peGrammarOptions, "HRESULT")
         return result
     }
 

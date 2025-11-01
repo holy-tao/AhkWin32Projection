@@ -35,7 +35,9 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(nLength) {
-        result := ComCall(7, this, "int*", nLength, "HRESULT")
+        nLengthMarshal := nLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, nLengthMarshal, nLength, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class IVBSAXAttributes extends IDispatch{
         strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
         strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
 
-        result := ComCall(11, this, "ptr", strURI, "ptr", strLocalName, "int*", nIndex, "HRESULT")
+        nIndexMarshal := nIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", strURI, "ptr", strLocalName, nIndexMarshal, nIndex, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IVBSAXAttributes extends IDispatch{
     getIndexFromQName(strQName, nIndex) {
         strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
 
-        result := ComCall(12, this, "ptr", strQName, "int*", nIndex, "HRESULT")
+        nIndexMarshal := nIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", strQName, nIndexMarshal, nIndex, "HRESULT")
         return result
     }
 

@@ -45,7 +45,9 @@ class IUMSInitialize extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pUMS) {
-        result := ComCall(3, this, "ptr", pUMS, "HRESULT")
+        pUMSMarshal := pUMS is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pUMSMarshal, pUMS, "HRESULT")
         return result
     }
 }

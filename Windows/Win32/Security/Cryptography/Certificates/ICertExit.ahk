@@ -102,7 +102,9 @@ class ICertExit extends IDispatch{
     Initialize(strConfig, pEventMask) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(7, this, "ptr", strConfig, "uint*", pEventMask, "HRESULT")
+        pEventMaskMarshal := pEventMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", strConfig, pEventMaskMarshal, pEventMask, "HRESULT")
         return result
     }
 

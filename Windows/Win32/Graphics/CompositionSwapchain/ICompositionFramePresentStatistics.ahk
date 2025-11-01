@@ -58,6 +58,8 @@ class ICompositionFramePresentStatistics extends IPresentStatistics{
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-icompositionframepresentstatistics-getdisplayinstancearray
      */
     GetDisplayInstanceArray(displayInstanceArrayCount, displayInstanceArray) {
-        ComCall(7, this, "uint*", displayInstanceArrayCount, "ptr*", displayInstanceArray)
+        displayInstanceArrayCountMarshal := displayInstanceArrayCount is VarRef ? "uint*" : "ptr"
+
+        ComCall(7, this, displayInstanceArrayCountMarshal, displayInstanceArrayCount, "ptr*", displayInstanceArray)
     }
 }

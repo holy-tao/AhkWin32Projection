@@ -34,7 +34,9 @@ class IImageBytes extends IUnknown{
      * @returns {HRESULT} 
      */
     CountBytes(pcb) {
-        result := ComCall(3, this, "uint*", pcb, "HRESULT")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IImageBytes extends IUnknown{
      * @returns {HRESULT} 
      */
     UnlockBytes(pvBytes, cb, ulOffset) {
-        result := ComCall(5, this, "ptr", pvBytes, "uint", cb, "uint", ulOffset, "HRESULT")
+        pvBytesMarshal := pvBytes is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pvBytesMarshal, pvBytes, "uint", cb, "uint", ulOffset, "HRESULT")
         return result
     }
 }

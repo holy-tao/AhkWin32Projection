@@ -35,7 +35,9 @@ class IHTMLTimeRanges2 extends IDispatch{
      * @returns {HRESULT} 
      */
     startDouble(index, startTime) {
-        result := ComCall(7, this, "int", index, "double*", startTime, "HRESULT")
+        startTimeMarshal := startTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, "int", index, startTimeMarshal, startTime, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class IHTMLTimeRanges2 extends IDispatch{
      * @returns {HRESULT} 
      */
     endDouble(index, endTime) {
-        result := ComCall(8, this, "int", index, "double*", endTime, "HRESULT")
+        endTimeMarshal := endTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, "int", index, endTimeMarshal, endTime, "HRESULT")
         return result
     }
 }

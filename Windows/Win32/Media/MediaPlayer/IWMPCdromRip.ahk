@@ -37,7 +37,9 @@ class IWMPCdromRip extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromrip-get_ripstate
      */
     get_ripState(pwmprs) {
-        result := ComCall(3, this, "int*", pwmprs, "HRESULT")
+        pwmprsMarshal := pwmprs is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pwmprsMarshal, pwmprs, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWMPCdromRip extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromrip-get_ripprogress
      */
     get_ripProgress(plProgress) {
-        result := ComCall(4, this, "int*", plProgress, "HRESULT")
+        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plProgressMarshal, plProgress, "HRESULT")
         return result
     }
 

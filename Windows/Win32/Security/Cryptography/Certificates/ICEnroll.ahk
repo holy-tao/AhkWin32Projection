@@ -203,7 +203,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystoreflags
      */
     get_MyStoreFlags(pdwFlags) {
-        result := ComCall(19, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -273,7 +275,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castoreflags
      */
     get_CAStoreFlags(pdwFlags) {
-        result := ComCall(25, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -343,7 +347,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstoreflags
      */
     get_RootStoreFlags(pdwFlags) {
-        result := ComCall(31, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -413,7 +419,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststoreflags
      */
     get_RequestStoreFlags(pdwFlags) {
-        result := ComCall(37, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -483,7 +491,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providertype
      */
     get_ProviderType(pdwType) {
-        result := ComCall(43, this, "int*", pdwType, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(43, this, pdwTypeMarshal, pdwType, "HRESULT")
         return result
     }
 
@@ -505,7 +515,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_keyspec
      */
     get_KeySpec(pdw) {
-        result := ComCall(45, this, "int*", pdw, "HRESULT")
+        pdwMarshal := pdw is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, pdwMarshal, pdw, "HRESULT")
         return result
     }
 
@@ -527,7 +539,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providerflags
      */
     get_ProviderFlags(pdwFlags) {
-        result := ComCall(47, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(47, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -571,7 +585,9 @@ class ICEnroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_genkeyflags
      */
     get_GenKeyFlags(pdwFlags) {
-        result := ComCall(51, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(51, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

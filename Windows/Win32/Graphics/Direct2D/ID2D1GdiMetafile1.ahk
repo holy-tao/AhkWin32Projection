@@ -38,7 +38,10 @@ class ID2D1GdiMetafile1 extends ID2D1GdiMetafile{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getdpi
      */
     GetDpi(dpiX, dpiY) {
-        result := ComCall(6, this, "float*", dpiX, "float*", dpiY, "HRESULT")
+        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
+        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+
+        result := ComCall(6, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY, "HRESULT")
         return result
     }
 

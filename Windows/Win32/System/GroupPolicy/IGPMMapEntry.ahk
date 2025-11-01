@@ -62,7 +62,9 @@ class IGPMMapEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DestinationOption(pgpmDestOption) {
-        result := ComCall(9, this, "int*", pgpmDestOption, "HRESULT")
+        pgpmDestOptionMarshal := pgpmDestOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pgpmDestOptionMarshal, pgpmDestOption, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IGPMMapEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EntryType(pgpmEntryType) {
-        result := ComCall(10, this, "int*", pgpmEntryType, "HRESULT")
+        pgpmEntryTypeMarshal := pgpmEntryType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pgpmEntryTypeMarshal, pgpmEntryType, "HRESULT")
         return result
     }
 }

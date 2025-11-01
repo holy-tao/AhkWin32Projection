@@ -60,7 +60,9 @@ class IPropertyBag2 extends IUnknown{
      * @returns {HRESULT} 
      */
     CountProperties(pcProperties) {
-        result := ComCall(5, this, "uint*", pcProperties, "HRESULT")
+        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pcPropertiesMarshal, pcProperties, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IPropertyBag2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPropertyInfo(iProperty, cProperties, pPropBag, pcProperties) {
-        result := ComCall(6, this, "uint", iProperty, "uint", cProperties, "ptr", pPropBag, "uint*", pcProperties, "HRESULT")
+        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", iProperty, "uint", cProperties, "ptr", pPropBag, pcPropertiesMarshal, pcProperties, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class IRowsetResynch extends IUnknown{
     GetVisibleData(hRow, hAccessor, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(3, this, "ptr", hRow, "ptr", hAccessor, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -52,7 +54,10 @@ class IRowsetResynch extends IUnknown{
      * @returns {HRESULT} 
      */
     ResynchRows(cRows, rghRows, pcRowsResynched, prghRowsResynched, prgRowStatus) {
-        result := ComCall(4, this, "ptr", cRows, "ptr*", rghRows, "ptr*", pcRowsResynched, "ptr*", prghRowsResynched, "ptr*", prgRowStatus, "HRESULT")
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        pcRowsResynchedMarshal := pcRowsResynched is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, "ptr*", prghRowsResynched, "ptr*", prgRowStatus, "HRESULT")
         return result
     }
 }

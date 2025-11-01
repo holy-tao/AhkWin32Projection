@@ -48,7 +48,9 @@ class IDVBTLocator2 extends IDVBTLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator2-get_physicallayerpipeid
      */
     get_PhysicalLayerPipeId(PhysicalLayerPipeIdVal) {
-        result := ComCall(36, this, "int*", PhysicalLayerPipeIdVal, "HRESULT")
+        PhysicalLayerPipeIdValMarshal := PhysicalLayerPipeIdVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, PhysicalLayerPipeIdValMarshal, PhysicalLayerPipeIdVal, "HRESULT")
         return result
     }
 

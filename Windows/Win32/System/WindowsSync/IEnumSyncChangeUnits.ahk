@@ -39,7 +39,9 @@ class IEnumSyncChangeUnits extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchangeunits-next
      */
     Next(cChanges, ppChangeUnit, pcFetched) {
-        result := ComCall(3, this, "uint", cChanges, "ptr*", ppChangeUnit, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cChanges, "ptr*", ppChangeUnit, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

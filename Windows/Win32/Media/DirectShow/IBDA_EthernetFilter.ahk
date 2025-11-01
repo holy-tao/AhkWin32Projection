@@ -42,7 +42,9 @@ class IBDA_EthernetFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastlistsize
      */
     GetMulticastListSize(pulcbAddresses) {
-        result := ComCall(3, this, "uint*", pulcbAddresses, "HRESULT")
+        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IBDA_EthernetFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-putmulticastlist
      */
     PutMulticastList(ulcbAddresses, pAddressList) {
-        result := ComCall(4, this, "uint", ulcbAddresses, "char*", pAddressList, "HRESULT")
+        pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
         return result
     }
 
@@ -66,7 +70,10 @@ class IBDA_EthernetFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastlist
      */
     GetMulticastList(pulcbAddresses, pAddressList) {
-        result := ComCall(5, this, "uint*", pulcbAddresses, "char*", pAddressList, "HRESULT")
+        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
+        pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pulcbAddressesMarshal, pulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
         return result
     }
 
@@ -88,7 +95,9 @@ class IBDA_EthernetFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastmode
      */
     GetMulticastMode(pulModeMask) {
-        result := ComCall(7, this, "uint*", pulModeMask, "HRESULT")
+        pulModeMaskMarshal := pulModeMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulModeMaskMarshal, pulModeMask, "HRESULT")
         return result
     }
 }

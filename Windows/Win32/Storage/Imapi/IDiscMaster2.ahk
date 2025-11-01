@@ -66,7 +66,9 @@ class IDiscMaster2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_count
      */
     get_Count(value) {
-        result := ComCall(9, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, valueMarshal, value, "HRESULT")
         return result
     }
 

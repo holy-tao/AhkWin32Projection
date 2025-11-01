@@ -199,7 +199,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_BadLoginCount(retval) {
-        result := ComCall(21, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -209,7 +211,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_LastLogin(retval) {
-        result := ComCall(22, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(22, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -219,7 +223,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_LastLogoff(retval) {
-        result := ComCall(23, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(23, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -229,7 +235,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_LastFailedLogin(retval) {
-        result := ComCall(24, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(24, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -239,7 +247,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_PasswordLastChanged(retval) {
-        result := ComCall(25, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(25, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -713,7 +723,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_AccountExpirationDate(retval) {
-        result := ComCall(70, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(70, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -733,7 +745,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_GraceLoginsAllowed(retval) {
-        result := ComCall(72, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(72, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -753,7 +767,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_GraceLoginsRemaining(retval) {
-        result := ComCall(74, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(74, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -833,7 +849,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_MaxLogins(retval) {
-        result := ComCall(82, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(82, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -853,7 +871,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_MaxStorage(retval) {
-        result := ComCall(84, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(84, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -873,7 +893,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_PasswordExpirationDate(retval) {
-        result := ComCall(86, this, "double*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "double*" : "ptr"
+
+        result := ComCall(86, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -893,7 +915,9 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     get_PasswordMinimumLength(retval) {
-        result := ComCall(88, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(88, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

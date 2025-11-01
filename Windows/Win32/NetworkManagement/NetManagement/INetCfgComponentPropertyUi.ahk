@@ -60,7 +60,10 @@ class INetCfgComponentPropertyUi extends IUnknown{
     MergePropPages(pdwDefPages, pahpspPrivate, pcPages, hwndParent, pszStartPage) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(5, this, "uint*", pdwDefPages, "ptr*", pahpspPrivate, "uint*", pcPages, "ptr", hwndParent, "ptr", pszStartPage, "HRESULT")
+        pdwDefPagesMarshal := pdwDefPages is VarRef ? "uint*" : "ptr"
+        pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, "ptr*", pahpspPrivate, pcPagesMarshal, pcPages, "ptr", hwndParent, "ptr", pszStartPage, "HRESULT")
         return result
     }
 

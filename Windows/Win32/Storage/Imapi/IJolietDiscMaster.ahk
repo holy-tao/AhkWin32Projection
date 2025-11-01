@@ -37,7 +37,9 @@ class IJolietDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-gettotaldatablocks
      */
     GetTotalDataBlocks(pnBlocks) {
-        result := ComCall(3, this, "int*", pnBlocks, "HRESULT")
+        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pnBlocksMarshal, pnBlocks, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IJolietDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-getuseddatablocks
      */
     GetUsedDataBlocks(pnBlocks) {
-        result := ComCall(4, this, "int*", pnBlocks, "HRESULT")
+        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pnBlocksMarshal, pnBlocks, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IJolietDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-getdatablocksize
      */
     GetDataBlockSize(pnBlockBytes) {
-        result := ComCall(5, this, "int*", pnBlockBytes, "HRESULT")
+        pnBlockBytesMarshal := pnBlockBytes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pnBlockBytesMarshal, pnBlockBytes, "HRESULT")
         return result
     }
 

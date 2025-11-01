@@ -39,7 +39,9 @@ class IEnumResources extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumresources-next
      */
     Next(celt, psir, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", psir, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", psir, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

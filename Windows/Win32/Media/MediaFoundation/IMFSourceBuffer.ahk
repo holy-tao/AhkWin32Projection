@@ -139,7 +139,9 @@ class IMFSourceBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-appendbytestream
      */
     AppendByteStream(pStream, pMaxLen) {
-        result := ComCall(12, this, "ptr", pStream, "uint*", pMaxLen, "HRESULT")
+        pMaxLenMarshal := pMaxLen is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pStream, pMaxLenMarshal, pMaxLen, "HRESULT")
         return result
     }
 

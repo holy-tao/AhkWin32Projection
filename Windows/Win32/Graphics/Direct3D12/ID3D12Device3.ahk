@@ -44,7 +44,9 @@ class ID3D12Device3 extends ID3D12Device2{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device3-openexistingheapfromaddress
      */
     OpenExistingHeapFromAddress(pAddress, riid, ppvHeap) {
-        result := ComCall(48, this, "ptr", pAddress, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
+        pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(48, this, pAddressMarshal, pAddress, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
         return result
     }
 

@@ -268,7 +268,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txactivate
      */
     TxActivate(plOldState) {
-        result := ComCall(22, this, "int*", plOldState, "HRESULT")
+        plOldStateMarshal := plOldState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, plOldStateMarshal, plOldState, "HRESULT")
         return result
     }
 
@@ -345,7 +347,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetbackstyle
      */
     TxGetBackStyle(pstyle) {
-        result := ComCall(29, this, "int*", pstyle, "HRESULT")
+        pstyleMarshal := pstyle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pstyleMarshal, pstyle, "HRESULT")
         return result
     }
 
@@ -356,7 +360,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetmaxlength
      */
     TxGetMaxLength(plength) {
-        result := ComCall(30, this, "uint*", plength, "HRESULT")
+        plengthMarshal := plength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, plengthMarshal, plength, "HRESULT")
         return result
     }
 
@@ -367,7 +373,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetscrollbars
      */
     TxGetScrollBars(pdwScrollBar) {
-        result := ComCall(31, this, "uint*", pdwScrollBar, "HRESULT")
+        pdwScrollBarMarshal := pdwScrollBar is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, pdwScrollBarMarshal, pdwScrollBar, "HRESULT")
         return result
     }
 
@@ -378,7 +386,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetpasswordchar
      */
     TxGetPasswordChar(pch) {
-        result := ComCall(32, this, "char*", pch, "HRESULT")
+        pchMarshal := pch is VarRef ? "char*" : "ptr"
+
+        result := ComCall(32, this, pchMarshal, pch, "HRESULT")
         return result
     }
 
@@ -389,7 +399,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetacceleratorpos
      */
     TxGetAcceleratorPos(pcp) {
-        result := ComCall(33, this, "int*", pcp, "HRESULT")
+        pcpMarshal := pcp is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pcpMarshal, pcp, "HRESULT")
         return result
     }
 
@@ -434,7 +446,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetpropertybits
      */
     TxGetPropertyBits(dwMask, pdwBits) {
-        result := ComCall(37, this, "uint", dwMask, "uint*", pdwBits, "HRESULT")
+        pdwBitsMarshal := pdwBits is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(37, this, "uint", dwMask, pdwBitsMarshal, pdwBits, "HRESULT")
         return result
     }
 
@@ -446,7 +460,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txnotify
      */
     TxNotify(iNotify, pv) {
-        result := ComCall(38, this, "uint", iNotify, "ptr", pv, "HRESULT")
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(38, this, "uint", iNotify, pvMarshal, pv, "HRESULT")
         return result
     }
 
@@ -479,7 +495,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetselectionbarwidth
      */
     TxGetSelectionBarWidth(lSelBarWidth) {
-        result := ComCall(41, this, "int*", lSelBarWidth, "HRESULT")
+        lSelBarWidthMarshal := lSelBarWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, lSelBarWidthMarshal, lSelBarWidth, "HRESULT")
         return result
     }
 }

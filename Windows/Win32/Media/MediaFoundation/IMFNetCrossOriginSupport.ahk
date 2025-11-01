@@ -41,7 +41,9 @@ class IMFNetCrossOriginSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcrossoriginsupport-getcrossoriginpolicy
      */
     GetCrossOriginPolicy(pPolicy) {
-        result := ComCall(3, this, "int*", pPolicy, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pPolicyMarshal, pPolicy, "HRESULT")
         return result
     }
 

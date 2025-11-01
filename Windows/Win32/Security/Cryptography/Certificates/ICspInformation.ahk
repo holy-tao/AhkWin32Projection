@@ -130,7 +130,9 @@ class ICspInformation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_maxkeycontainernamelength
      */
     get_MaxKeyContainerNameLength(pValue) {
-        result := ComCall(15, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -152,7 +154,9 @@ class ICspInformation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_type
      */
     get_Type(pValue) {
-        result := ComCall(17, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -163,7 +167,9 @@ class ICspInformation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_version
      */
     get_Version(pValue) {
-        result := ComCall(18, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -174,7 +180,9 @@ class ICspInformation extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_keyspec
      */
     get_KeySpec(pValue) {
-        result := ComCall(19, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

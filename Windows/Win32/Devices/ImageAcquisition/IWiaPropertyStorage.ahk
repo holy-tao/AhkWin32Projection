@@ -189,7 +189,9 @@ class IWiaPropertyStorage extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadPropertyNames(cpropid, rgpropid, rglpwstrName) {
-        result := ComCall(6, this, "uint", cpropid, "uint*", rgpropid, "ptr", rglpwstrName, "HRESULT")
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
         return result
     }
 
@@ -201,7 +203,9 @@ class IWiaPropertyStorage extends IUnknown{
      * @returns {HRESULT} 
      */
     WritePropertyNames(cpropid, rgpropid, rglpwstrName) {
-        result := ComCall(7, this, "uint", cpropid, "uint*", rgpropid, "ptr", rglpwstrName, "HRESULT")
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
         return result
     }
 
@@ -212,7 +216,9 @@ class IWiaPropertyStorage extends IUnknown{
      * @returns {HRESULT} 
      */
     DeletePropertyNames(cpropid, rgpropid) {
-        result := ComCall(8, this, "uint", cpropid, "uint*", rgpropid, "HRESULT")
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", cpropid, rgpropidMarshal, rgpropid, "HRESULT")
         return result
     }
 
@@ -287,7 +293,9 @@ class IWiaPropertyStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getpropertyattributes
      */
     GetPropertyAttributes(cpspec, rgpspec, rgflags, rgpropvar) {
-        result := ComCall(15, this, "uint", cpspec, "ptr", rgpspec, "uint*", rgflags, "ptr", rgpropvar, "HRESULT")
+        rgflagsMarshal := rgflags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", cpspec, "ptr", rgpspec, rgflagsMarshal, rgflags, "ptr", rgpropvar, "HRESULT")
         return result
     }
 
@@ -298,7 +306,9 @@ class IWiaPropertyStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getcount
      */
     GetCount(pulNumProps) {
-        result := ComCall(16, this, "uint*", pulNumProps, "HRESULT")
+        pulNumPropsMarshal := pulNumProps is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pulNumPropsMarshal, pulNumProps, "HRESULT")
         return result
     }
 

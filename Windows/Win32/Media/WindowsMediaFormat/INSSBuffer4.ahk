@@ -37,7 +37,9 @@ class INSSBuffer4 extends INSSBuffer3{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertycount
      */
     GetPropertyCount(pcBufferProperties) {
-        result := ComCall(12, this, "uint*", pcBufferProperties, "HRESULT")
+        pcBufferPropertiesMarshal := pcBufferProperties is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pcBufferPropertiesMarshal, pcBufferProperties, "HRESULT")
         return result
     }
 
@@ -51,7 +53,10 @@ class INSSBuffer4 extends INSSBuffer3{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertybyindex
      */
     GetPropertyByIndex(dwBufferPropertyIndex, pguidBufferProperty, pvBufferProperty, pdwBufferPropertySize) {
-        result := ComCall(13, this, "uint", dwBufferPropertyIndex, "ptr", pguidBufferProperty, "ptr", pvBufferProperty, "uint*", pdwBufferPropertySize, "HRESULT")
+        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
+        pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwBufferPropertyIndex, "ptr", pguidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
         return result
     }
 }

@@ -51,7 +51,9 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     get_rowSpan(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     get_colSpan(p) {
-        result := ComCall(10, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -287,7 +291,9 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     get_cellIndex(p) {
-        result := ComCall(31, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pMarshal, p, "HRESULT")
         return result
     }
 }

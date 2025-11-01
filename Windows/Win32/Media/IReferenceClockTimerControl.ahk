@@ -58,7 +58,9 @@ class IReferenceClockTimerControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ireferenceclocktimercontrol-getdefaulttimerresolution
      */
     GetDefaultTimerResolution(pTimerResolution) {
-        result := ComCall(4, this, "int64*", pTimerResolution, "HRESULT")
+        pTimerResolutionMarshal := pTimerResolution is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, pTimerResolutionMarshal, pTimerResolution, "HRESULT")
         return result
     }
 }

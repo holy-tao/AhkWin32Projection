@@ -70,7 +70,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_currentitemcount
      */
     get_CurrentItemCount(retVal) {
-        result := ComCall(12, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IUIAutomationSelectionPattern2 extends IUIAutomationSelectionPattern{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern2-get_cacheditemcount
      */
     get_CachedItemCount(retVal) {
-        result := ComCall(16, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

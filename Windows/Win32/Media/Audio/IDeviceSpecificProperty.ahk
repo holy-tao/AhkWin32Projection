@@ -37,7 +37,9 @@ class IDeviceSpecificProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-gettype
      */
     GetType(pVType) {
-        result := ComCall(3, this, "ushort*", pVType, "HRESULT")
+        pVTypeMarshal := pVType is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, pVTypeMarshal, pVType, "HRESULT")
         return result
     }
 
@@ -49,7 +51,10 @@ class IDeviceSpecificProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-getvalue
      */
     GetValue(pvValue, pcbValue) {
-        result := ComCall(4, this, "ptr", pvValue, "uint*", pcbValue, "HRESULT")
+        pvValueMarshal := pvValue is VarRef ? "ptr" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pvValueMarshal, pvValue, pcbValueMarshal, pcbValue, "HRESULT")
         return result
     }
 
@@ -62,7 +67,9 @@ class IDeviceSpecificProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-setvalue
      */
     SetValue(pvValue, cbValue, pguidEventContext) {
-        result := ComCall(5, this, "ptr", pvValue, "uint", cbValue, "ptr", pguidEventContext, "HRESULT")
+        pvValueMarshal := pvValue is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pvValueMarshal, pvValue, "uint", cbValue, "ptr", pguidEventContext, "HRESULT")
         return result
     }
 
@@ -75,7 +82,11 @@ class IDeviceSpecificProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-get4brange
      */
     Get4BRange(plMin, plMax, plStepping) {
-        result := ComCall(6, this, "int*", plMin, "int*", plMax, "int*", plStepping, "HRESULT")
+        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
+        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
+        plSteppingMarshal := plStepping is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plSteppingMarshal, plStepping, "HRESULT")
         return result
     }
 }

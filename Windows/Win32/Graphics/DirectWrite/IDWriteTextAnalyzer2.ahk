@@ -59,7 +59,10 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
     GetTypographicFeatures(fontFace, scriptAnalysis, localeName, maxTagCount, actualTagCount, tags) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(20, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", maxTagCount, "uint*", actualTagCount, "uint*", tags, "HRESULT")
+        actualTagCountMarshal := actualTagCount is VarRef ? "uint*" : "ptr"
+        tagsMarshal := tags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", maxTagCount, actualTagCountMarshal, actualTagCount, tagsMarshal, tags, "HRESULT")
         return result
     }
 
@@ -78,7 +81,10 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
     CheckTypographicFeature(fontFace, scriptAnalysis, localeName, featureTag, glyphCount, glyphIndices, featureApplies) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(21, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", featureTag, "uint", glyphCount, "ushort*", glyphIndices, "char*", featureApplies, "HRESULT")
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        featureAppliesMarshal := featureApplies is VarRef ? "char*" : "ptr"
+
+        result := ComCall(21, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", featureTag, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, featureAppliesMarshal, featureApplies, "HRESULT")
         return result
     }
 }

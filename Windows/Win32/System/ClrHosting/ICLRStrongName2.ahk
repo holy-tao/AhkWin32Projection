@@ -42,7 +42,10 @@ class ICLRStrongName2 extends IUnknown{
     StrongNameGetPublicKeyEx(pwzKeyContainer, pbKeyBlob, cbKeyBlob, ppbPublicKeyBlob, pcbPublicKeyBlob, uHashAlgId, uReserved) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
-        result := ComCall(3, this, "ptr", pwzKeyContainer, "char*", pbKeyBlob, "uint", cbKeyBlob, "ptr*", ppbPublicKeyBlob, "uint*", pcbPublicKeyBlob, "uint", uHashAlgId, "uint", uReserved, "HRESULT")
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
+        pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, "ptr*", ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "uint", uHashAlgId, "uint", uReserved, "HRESULT")
         return result
     }
 
@@ -58,7 +61,10 @@ class ICLRStrongName2 extends IUnknown{
     StrongNameSignatureVerificationEx2(wszFilePath, fForceVerification, pbEcmaPublicKey, cbEcmaPublicKey, pfWasVerified) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
-        result := ComCall(4, this, "ptr", wszFilePath, "char", fForceVerification, "char*", pbEcmaPublicKey, "uint", cbEcmaPublicKey, "char*", pfWasVerified, "HRESULT")
+        pbEcmaPublicKeyMarshal := pbEcmaPublicKey is VarRef ? "char*" : "ptr"
+        pfWasVerifiedMarshal := pfWasVerified is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "ptr", wszFilePath, "char", fForceVerification, pbEcmaPublicKeyMarshal, pbEcmaPublicKey, "uint", cbEcmaPublicKey, pfWasVerifiedMarshal, pfWasVerified, "HRESULT")
         return result
     }
 }

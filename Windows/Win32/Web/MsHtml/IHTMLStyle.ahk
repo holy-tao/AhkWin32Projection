@@ -1661,7 +1661,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelTop(p) {
-        result := ComCall(161, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(161, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -1681,7 +1683,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelLeft(p) {
-        result := ComCall(163, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(163, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -1701,7 +1705,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelWidth(p) {
-        result := ComCall(165, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(165, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -1721,7 +1727,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_pixelHeight(p) {
-        result := ComCall(167, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(167, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -1741,7 +1749,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_posTop(p) {
-        result := ComCall(169, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(169, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -1761,7 +1771,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_posLeft(p) {
-        result := ComCall(171, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(171, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -1781,7 +1793,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_posWidth(p) {
-        result := ComCall(173, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(173, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -1801,7 +1815,9 @@ class IHTMLStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_posHeight(p) {
-        result := ComCall(175, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(175, this, pMarshal, p, "HRESULT")
         return result
     }
 

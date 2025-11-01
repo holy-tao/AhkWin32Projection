@@ -34,7 +34,9 @@ class IRTCCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(lCount) {
-        result := ComCall(7, this, "int*", lCount, "HRESULT")
+        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, lCountMarshal, lCount, "HRESULT")
         return result
     }
 

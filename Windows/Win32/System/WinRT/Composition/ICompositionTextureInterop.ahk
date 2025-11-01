@@ -36,7 +36,9 @@ class ICompositionTextureInterop extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAvailableFence(fenceValue, iid, availableFence) {
-        result := ComCall(3, this, "uint*", fenceValue, "ptr", iid, "ptr*", availableFence, "HRESULT")
+        fenceValueMarshal := fenceValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, fenceValueMarshal, fenceValue, "ptr", iid, "ptr*", availableFence, "HRESULT")
         return result
     }
 }

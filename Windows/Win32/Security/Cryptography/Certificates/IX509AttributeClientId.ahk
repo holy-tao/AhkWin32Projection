@@ -70,7 +70,9 @@ class IX509AttributeClientId extends IX509Attribute{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_clientid
      */
     get_ClientId(pValue) {
-        result := ComCall(12, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

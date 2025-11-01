@@ -84,7 +84,9 @@ class ITypeLib extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfotype
      */
     GetTypeInfoType(index, pTKind) {
-        result := ComCall(5, this, "uint", index, "int*", pTKind, "HRESULT")
+        pTKindMarshal := pTKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "uint", index, pTKindMarshal, pTKind, "HRESULT")
         return result
     }
 
@@ -133,7 +135,9 @@ class ITypeLib extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-getdocumentation
      */
     GetDocumentation(index, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
-        result := ComCall(9, this, "int", index, "ptr", pBstrName, "ptr", pBstrDocString, "uint*", pdwHelpContext, "ptr", pBstrHelpFile, "HRESULT")
+        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "int", index, "ptr", pBstrName, "ptr", pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, "ptr", pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -165,7 +169,10 @@ class ITypeLib extends IUnknown{
     FindName(szNameBuf, lHashVal, ppTInfo, rgMemId, pcFound) {
         szNameBuf := szNameBuf is String ? StrPtr(szNameBuf) : szNameBuf
 
-        result := ComCall(11, this, "ptr", szNameBuf, "uint", lHashVal, "ptr*", ppTInfo, "int*", rgMemId, "ushort*", pcFound, "HRESULT")
+        rgMemIdMarshal := rgMemId is VarRef ? "int*" : "ptr"
+        pcFoundMarshal := pcFound is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(11, this, "ptr", szNameBuf, "uint", lHashVal, "ptr*", ppTInfo, rgMemIdMarshal, rgMemId, pcFoundMarshal, pcFound, "HRESULT")
         return result
     }
 

@@ -43,7 +43,9 @@ class IRDPSRAPIWindow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_id
      */
     get_Id(pRetVal) {
-        result := ComCall(7, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IRDPSRAPIWindow extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_flags
      */
     get_Flags(pdwFlags) {
-        result := ComCall(13, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

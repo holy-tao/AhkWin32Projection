@@ -43,7 +43,9 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     TotalTime(prtTime) {
-        result := ComCall(4, this, "int64*", prtTime, "HRESULT")
+        prtTimeMarshal := prtTime is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(4, this, prtTimeMarshal, prtTime, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     PackUnstructured(rt, dwChannelGroup, cb, lpb) {
-        result := ComCall(6, this, "int64", rt, "uint", dwChannelGroup, "uint", cb, "char*", lpb, "HRESULT")
+        lpbMarshal := lpb is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "int64", rt, "uint", dwChannelGroup, "uint", cb, lpbMarshal, lpb, "HRESULT")
         return result
     }
 
@@ -90,7 +94,11 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNextEvent(prt, pdwChannelGroup, pdwLength, ppData) {
-        result := ComCall(8, this, "int64*", prt, "uint*", pdwChannelGroup, "uint*", pdwLength, "ptr*", ppData, "HRESULT")
+        prtMarshal := prt is VarRef ? "int64*" : "ptr"
+        pdwChannelGroupMarshal := pdwChannelGroup is VarRef ? "uint*" : "ptr"
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, prtMarshal, prt, pdwChannelGroupMarshal, pdwChannelGroup, pdwLengthMarshal, pdwLength, "ptr*", ppData, "HRESULT")
         return result
     }
 
@@ -110,7 +118,9 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStartTime(prt) {
-        result := ComCall(10, this, "int64*", prt, "HRESULT")
+        prtMarshal := prt is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(10, this, prtMarshal, prt, "HRESULT")
         return result
     }
 
@@ -120,7 +130,9 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetUsedBytes(pcb) {
-        result := ComCall(11, this, "uint*", pcb, "HRESULT")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 
@@ -130,7 +142,9 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMaxBytes(pcb) {
-        result := ComCall(12, this, "uint*", pcb, "HRESULT")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 

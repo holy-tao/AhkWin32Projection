@@ -41,7 +41,9 @@ class IHTMLXMLHttpRequest extends IDispatch{
      * @returns {HRESULT} 
      */
     get_readyState(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IHTMLXMLHttpRequest extends IDispatch{
      * @returns {HRESULT} 
      */
     get_status(p) {
-        result := ComCall(11, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 

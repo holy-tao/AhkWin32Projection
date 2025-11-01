@@ -48,7 +48,9 @@ class IShellApp extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ishellapp-getpossibleactions
      */
     GetPossibleActions(pdwActions) {
-        result := ComCall(4, this, "uint*", pdwActions, "HRESULT")
+        pdwActionsMarshal := pdwActions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwActionsMarshal, pdwActions, "HRESULT")
         return result
     }
 

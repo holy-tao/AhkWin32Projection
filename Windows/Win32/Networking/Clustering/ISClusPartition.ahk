@@ -34,7 +34,9 @@ class ISClusPartition extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Flags(plFlags) {
-        result := ComCall(7, this, "int*", plFlags, "HRESULT")
+        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plFlagsMarshal, plFlags, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class ISClusPartition extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SerialNumber(plSerialNumber) {
-        result := ComCall(10, this, "int*", plSerialNumber, "HRESULT")
+        plSerialNumberMarshal := plSerialNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plSerialNumberMarshal, plSerialNumber, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class ISClusPartition extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MaximumComponentLength(plMaximumComponentLength) {
-        result := ComCall(11, this, "int*", plMaximumComponentLength, "HRESULT")
+        plMaximumComponentLengthMarshal := plMaximumComponentLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plMaximumComponentLengthMarshal, plMaximumComponentLength, "HRESULT")
         return result
     }
 
@@ -84,7 +90,9 @@ class ISClusPartition extends IDispatch{
      * @returns {HRESULT} 
      */
     get_FileSystemFlags(plFileSystemFlags) {
-        result := ComCall(12, this, "int*", plFileSystemFlags, "HRESULT")
+        plFileSystemFlagsMarshal := plFileSystemFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plFileSystemFlagsMarshal, plFileSystemFlags, "HRESULT")
         return result
     }
 

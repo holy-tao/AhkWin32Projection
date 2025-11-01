@@ -53,7 +53,9 @@ class ID3D11VideoContext2 extends ID3D11VideoContext1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorgetoutputhdrmetadata
      */
     VideoProcessorGetOutputHDRMetaData(pVideoProcessor, pType, Size, pMetaData) {
-        ComCall(80, this, "ptr", pVideoProcessor, "int*", pType, "uint", Size, "ptr", pMetaData)
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        ComCall(80, this, "ptr", pVideoProcessor, pTypeMarshal, pType, "uint", Size, "ptr", pMetaData)
     }
 
     /**
@@ -81,6 +83,8 @@ class ID3D11VideoContext2 extends ID3D11VideoContext1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorgetstreamhdrmetadata
      */
     VideoProcessorGetStreamHDRMetaData(pVideoProcessor, StreamIndex, pType, Size, pMetaData) {
-        ComCall(82, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int*", pType, "uint", Size, "ptr", pMetaData)
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        ComCall(82, this, "ptr", pVideoProcessor, "uint", StreamIndex, pTypeMarshal, pType, "uint", Size, "ptr", pMetaData)
     }
 }

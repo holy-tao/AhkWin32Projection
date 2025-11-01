@@ -59,7 +59,9 @@ class ITextDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getstorycount
      */
     GetStoryCount(pCount) {
-        result := ComCall(9, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class ITextDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getsaved
      */
     GetSaved(pValue) {
-        result := ComCall(11, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -103,7 +107,9 @@ class ITextDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getdefaulttabstop
      */
     GetDefaultTabStop(pValue) {
-        result := ComCall(13, this, "float*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
+
+        result := ComCall(13, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -161,7 +167,9 @@ class ITextDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-freeze
      */
     Freeze(pCount) {
-        result := ComCall(18, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -172,7 +180,9 @@ class ITextDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-unfreeze
      */
     Unfreeze(pCount) {
-        result := ComCall(19, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -204,7 +214,9 @@ class ITextDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-undo
      */
     Undo(Count, pCount) {
-        result := ComCall(22, this, "int", Count, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "int", Count, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -216,7 +228,9 @@ class ITextDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-redo
      */
     Redo(Count, pCount) {
-        result := ComCall(23, this, "int", Count, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, "int", Count, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

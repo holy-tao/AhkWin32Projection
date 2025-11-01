@@ -53,7 +53,9 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginsendrequest
      */
     BeginSendRequest(pbPayload, cbPayload, pCallback, punkState) {
-        result := ComCall(4, this, "char*", pbPayload, "uint", cbPayload, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        pbPayloadMarshal := pbPayload is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbPayloadMarshal, pbPayload, "uint", cbPayload, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload
      */
     BeginReadPayload(pb, cb, pCallback, punkState) {
-        result := ComCall(8, this, "char*", pb, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        pbMarshal := pb is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, pbMarshal, pb, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return result
     }
 
@@ -114,7 +118,10 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreadpayload
      */
     EndReadPayload(pResult, pqwOffset, pcbRead) {
-        result := ComCall(9, this, "ptr", pResult, "uint*", pqwOffset, "uint*", pcbRead, "HRESULT")
+        pqwOffsetMarshal := pqwOffset is VarRef ? "uint*" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pResult, pqwOffsetMarshal, pqwOffset, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -164,7 +171,11 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gettimeseekresult
      */
     GetTimeSeekResult(pqwStartTime, pqwStopTime, pqwDuration) {
-        result := ComCall(13, this, "uint*", pqwStartTime, "uint*", pqwStopTime, "uint*", pqwDuration, "HRESULT")
+        pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : "ptr"
+        pqwStopTimeMarshal := pqwStopTime is VarRef ? "uint*" : "ptr"
+        pqwDurationMarshal := pqwDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pqwStartTimeMarshal, pqwStartTime, pqwStopTimeMarshal, pqwStopTime, pqwDurationMarshal, pqwDuration, "HRESULT")
         return result
     }
 
@@ -175,7 +186,9 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gethttpstatus
      */
     GetHttpStatus(pdwHttpStatus) {
-        result := ComCall(14, this, "uint*", pdwHttpStatus, "HRESULT")
+        pdwHttpStatusMarshal := pdwHttpStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwHttpStatusMarshal, pdwHttpStatus, "HRESULT")
         return result
     }
 
@@ -197,7 +210,9 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gettotallength
      */
     GetTotalLength(pqwTotalLength) {
-        result := ComCall(16, this, "uint*", pqwTotalLength, "HRESULT")
+        pqwTotalLengthMarshal := pqwTotalLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pqwTotalLengthMarshal, pqwTotalLength, "HRESULT")
         return result
     }
 
@@ -208,7 +223,9 @@ class IMFHttpDownloadRequest extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-getrangeendoffset
      */
     GetRangeEndOffset(pqwRangeEnd) {
-        result := ComCall(17, this, "uint*", pqwRangeEnd, "HRESULT")
+        pqwRangeEndMarshal := pqwRangeEnd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pqwRangeEndMarshal, pqwRangeEnd, "HRESULT")
         return result
     }
 

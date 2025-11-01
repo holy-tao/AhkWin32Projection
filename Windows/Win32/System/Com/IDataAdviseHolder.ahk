@@ -41,7 +41,9 @@ class IDataAdviseHolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataadviseholder-advise
      */
     Advise(pDataObject, pFetc, advf, pAdvise, pdwConnection) {
-        result := ComCall(3, this, "ptr", pDataObject, "ptr", pFetc, "uint", advf, "ptr", pAdvise, "uint*", pdwConnection, "HRESULT")
+        pdwConnectionMarshal := pdwConnection is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pDataObject, "ptr", pFetc, "uint", advf, "ptr", pAdvise, pdwConnectionMarshal, pdwConnection, "HRESULT")
         return result
     }
 

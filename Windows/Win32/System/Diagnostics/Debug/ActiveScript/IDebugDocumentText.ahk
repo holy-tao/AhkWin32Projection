@@ -34,7 +34,9 @@ class IDebugDocumentText extends IDebugDocument{
      * @returns {HRESULT} 
      */
     GetDocumentAttributes(ptextdocattr) {
-        result := ComCall(5, this, "uint*", ptextdocattr, "HRESULT")
+        ptextdocattrMarshal := ptextdocattr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, ptextdocattrMarshal, ptextdocattr, "HRESULT")
         return result
     }
 
@@ -45,7 +47,10 @@ class IDebugDocumentText extends IDebugDocument{
      * @returns {HRESULT} 
      */
     GetSize(pcNumLines, pcNumChars) {
-        result := ComCall(6, this, "uint*", pcNumLines, "uint*", pcNumChars, "HRESULT")
+        pcNumLinesMarshal := pcNumLines is VarRef ? "uint*" : "ptr"
+        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcNumLinesMarshal, pcNumLines, pcNumCharsMarshal, pcNumChars, "HRESULT")
         return result
     }
 
@@ -56,7 +61,9 @@ class IDebugDocumentText extends IDebugDocument{
      * @returns {HRESULT} 
      */
     GetPositionOfLine(cLineNumber, pcCharacterPosition) {
-        result := ComCall(7, this, "uint", cLineNumber, "uint*", pcCharacterPosition, "HRESULT")
+        pcCharacterPositionMarshal := pcCharacterPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", cLineNumber, pcCharacterPositionMarshal, pcCharacterPosition, "HRESULT")
         return result
     }
 
@@ -68,7 +75,10 @@ class IDebugDocumentText extends IDebugDocument{
      * @returns {HRESULT} 
      */
     GetLineOfPosition(cCharacterPosition, pcLineNumber, pcCharacterOffsetInLine) {
-        result := ComCall(8, this, "uint", cCharacterPosition, "uint*", pcLineNumber, "uint*", pcCharacterOffsetInLine, "HRESULT")
+        pcLineNumberMarshal := pcLineNumber is VarRef ? "uint*" : "ptr"
+        pcCharacterOffsetInLineMarshal := pcCharacterOffsetInLine is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", cCharacterPosition, pcLineNumberMarshal, pcLineNumber, pcCharacterOffsetInLineMarshal, pcCharacterOffsetInLine, "HRESULT")
         return result
     }
 
@@ -84,7 +94,10 @@ class IDebugDocumentText extends IDebugDocument{
     GetText(cCharacterPosition, pcharText, pstaTextAttr, pcNumChars, cMaxChars) {
         pcharText := pcharText is String ? StrPtr(pcharText) : pcharText
 
-        result := ComCall(9, this, "uint", cCharacterPosition, "ptr", pcharText, "ushort*", pstaTextAttr, "uint*", pcNumChars, "uint", cMaxChars, "HRESULT")
+        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
+        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", cCharacterPosition, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, "uint", cMaxChars, "HRESULT")
         return result
     }
 
@@ -96,7 +109,10 @@ class IDebugDocumentText extends IDebugDocument{
      * @returns {HRESULT} 
      */
     GetPositionOfContext(psc, pcCharacterPosition, cNumChars) {
-        result := ComCall(10, this, "ptr", psc, "uint*", pcCharacterPosition, "uint*", cNumChars, "HRESULT")
+        pcCharacterPositionMarshal := pcCharacterPosition is VarRef ? "uint*" : "ptr"
+        cNumCharsMarshal := cNumChars is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", psc, pcCharacterPositionMarshal, pcCharacterPosition, cNumCharsMarshal, cNumChars, "HRESULT")
         return result
     }
 

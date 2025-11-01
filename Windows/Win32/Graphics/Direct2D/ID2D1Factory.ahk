@@ -78,7 +78,10 @@ class ID2D1Factory extends IUnknown{
      * @deprecated
      */
     GetDesktopDpi(dpiX, dpiY) {
-        ComCall(4, this, "float*", dpiX, "float*", dpiY)
+        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
+        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+
+        ComCall(4, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY)
     }
 
     /**
@@ -165,7 +168,9 @@ class ID2D1Factory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createstrokestyle
      */
     CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount, strokeStyle) {
-        result := ComCall(11, this, "ptr", strokeStyleProperties, "float*", dashes, "uint", dashesCount, "ptr*", strokeStyle, "HRESULT")
+        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, "ptr", strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", strokeStyle, "HRESULT")
         return result
     }
 

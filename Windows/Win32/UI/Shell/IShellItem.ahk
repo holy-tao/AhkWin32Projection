@@ -99,7 +99,9 @@ class IShellItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getattributes
      */
     GetAttributes(sfgaoMask, psfgaoAttribs) {
-        result := ComCall(6, this, "uint", sfgaoMask, "uint*", psfgaoAttribs, "HRESULT")
+        psfgaoAttribsMarshal := psfgaoAttribs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", sfgaoMask, psfgaoAttribsMarshal, psfgaoAttribs, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class IShellItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-compare
      */
     Compare(psi, hint, piOrder) {
-        result := ComCall(7, this, "ptr", psi, "uint", hint, "int*", piOrder, "HRESULT")
+        piOrderMarshal := piOrder is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", psi, "uint", hint, piOrderMarshal, piOrder, "HRESULT")
         return result
     }
 }

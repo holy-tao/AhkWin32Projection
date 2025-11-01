@@ -50,7 +50,9 @@ class IDirectInput8W extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumDevices(param0, param1, param2, param3) {
-        result := ComCall(4, this, "uint", param0, "ptr", param1, "ptr", param2, "uint", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -127,7 +129,9 @@ class IDirectInput8W extends IUnknown{
     EnumDevicesBySemantics(param0, param1, param2, param3, param4) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "uint", param4, "HRESULT")
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "ptr", param0, "ptr", param1, "ptr", param2, param3Marshal, param3, "uint", param4, "HRESULT")
         return result
     }
 
@@ -140,7 +144,9 @@ class IDirectInput8W extends IUnknown{
      * @returns {HRESULT} 
      */
     ConfigureDevices(param0, param1, param2, param3) {
-        result := ComCall(10, this, "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "HRESULT")
+        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "ptr", param0, "ptr", param1, "uint", param2, param3Marshal, param3, "HRESULT")
         return result
     }
 }

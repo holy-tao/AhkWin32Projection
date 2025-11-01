@@ -52,7 +52,9 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache{
         pcwszVolume := pcwszVolume is String ? StrPtr(pcwszVolume) : pcwszVolume
         pcwszKeyName := pcwszKeyName is String ? StrPtr(pcwszKeyName) : pcwszKeyName
 
-        result := ComCall(8, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", pcwszKeyName, "ptr", ppwszDisplayName, "ptr", ppwszDescription, "ptr", ppwszBtnText, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", pcwszKeyName, "ptr", ppwszDisplayName, "ptr", ppwszDescription, "ptr", ppwszBtnText, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

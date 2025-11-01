@@ -70,7 +70,9 @@ class INetworkConnection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getconnectivity
      */
     GetConnectivity(pConnectivity) {
-        result := ComCall(10, this, "int*", pConnectivity, "HRESULT")
+        pConnectivityMarshal := pConnectivity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pConnectivityMarshal, pConnectivity, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ class INetworkConnection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getdomaintype
      */
     GetDomainType(pDomainType) {
-        result := ComCall(13, this, "int*", pDomainType, "HRESULT")
+        pDomainTypeMarshal := pDomainType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pDomainTypeMarshal, pDomainType, "HRESULT")
         return result
     }
 }

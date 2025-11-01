@@ -132,7 +132,9 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getnextupdatetime
      */
     GetNextUpdateTime(pDate) {
-        result := ComCall(14, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -143,7 +145,9 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getlastupdatetime
      */
     GetLastUpdateTime(pDate) {
-        result := ComCall(15, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(15, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -242,7 +246,9 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getauthflags
      */
     GetAuthFlags(pValue) {
-        result := ComCall(24, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -304,7 +310,9 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-get_cost
      */
     get_Cost(pValue) {
-        result := ComCall(29, this, "uint*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

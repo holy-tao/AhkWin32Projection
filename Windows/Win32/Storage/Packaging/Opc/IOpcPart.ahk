@@ -142,7 +142,9 @@ class IOpcPart extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpart-getcompressionoptions
      */
     GetCompressionOptions(compressionOptions) {
-        result := ComCall(7, this, "int*", compressionOptions, "HRESULT")
+        compressionOptionsMarshal := compressionOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, compressionOptionsMarshal, compressionOptions, "HRESULT")
         return result
     }
 }

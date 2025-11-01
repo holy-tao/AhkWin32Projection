@@ -63,7 +63,9 @@ class IHeaderCtrl2 extends IHeaderCtrl{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl2-getcolumnfilter
      */
     GetColumnFilter(nColumn, pdwType, pFilterData) {
-        result := ComCall(11, this, "uint", nColumn, "uint*", pdwType, "ptr", pFilterData, "HRESULT")
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", nColumn, pdwTypeMarshal, pdwType, "ptr", pFilterData, "HRESULT")
         return result
     }
 }

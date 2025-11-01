@@ -34,7 +34,9 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCountOfRecords(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -65,7 +71,9 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRecordServiceId(bRecordIndex, pwVal) {
-        result := ComCall(6, this, "char", bRecordIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 

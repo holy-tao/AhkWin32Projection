@@ -50,7 +50,9 @@ class IEnumTfPropertyValue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfpropertyvalue-next
      */
     Next(ulCount, rgValues, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr", rgValues, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr", rgValues, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

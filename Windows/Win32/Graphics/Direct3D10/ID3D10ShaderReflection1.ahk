@@ -134,7 +134,9 @@ class ID3D10ShaderReflection1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovinstructioncount
      */
     GetMovInstructionCount(pCount) {
-        result := ComCall(11, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -145,7 +147,9 @@ class ID3D10ShaderReflection1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getmovcinstructioncount
      */
     GetMovcInstructionCount(pCount) {
-        result := ComCall(12, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -156,7 +160,9 @@ class ID3D10ShaderReflection1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getconversioninstructioncount
      */
     GetConversionInstructionCount(pCount) {
-        result := ComCall(13, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -167,7 +173,9 @@ class ID3D10ShaderReflection1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getbitwiseinstructioncount
      */
     GetBitwiseInstructionCount(pCount) {
-        result := ComCall(14, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -178,7 +186,9 @@ class ID3D10ShaderReflection1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getgsinputprimitive
      */
     GetGSInputPrimitive(pPrim) {
-        result := ComCall(15, this, "int*", pPrim, "HRESULT")
+        pPrimMarshal := pPrim is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pPrimMarshal, pPrim, "HRESULT")
         return result
     }
 

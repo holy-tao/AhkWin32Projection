@@ -61,7 +61,9 @@ class IXpsDocumentPackageTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpstype
      */
     GetXpsType(documentType) {
-        result := ComCall(5, this, "int*", documentType, "HRESULT")
+        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, documentTypeMarshal, documentType, "HRESULT")
         return result
     }
 }

@@ -167,7 +167,9 @@ class IFaxDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_scheduletime
      */
     get_ScheduleTime(pdateScheduleTime) {
-        result := ComCall(17, this, "double*", pdateScheduleTime, "HRESULT")
+        pdateScheduleTimeMarshal := pdateScheduleTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(17, this, pdateScheduleTimeMarshal, pdateScheduleTime, "HRESULT")
         return result
     }
 
@@ -236,7 +238,9 @@ class IFaxDocument extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CallHandle(plCallHandle) {
-        result := ComCall(23, this, "int*", plCallHandle, "HRESULT")
+        plCallHandleMarshal := plCallHandle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, plCallHandleMarshal, plCallHandle, "HRESULT")
         return result
     }
 
@@ -257,7 +261,9 @@ class IFaxDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpagetype
      */
     get_CoverPageType(pCoverPageType) {
-        result := ComCall(25, this, "int*", pCoverPageType, "HRESULT")
+        pCoverPageTypeMarshal := pCoverPageType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pCoverPageTypeMarshal, pCoverPageType, "HRESULT")
         return result
     }
 
@@ -279,7 +285,9 @@ class IFaxDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_scheduletype
      */
     get_ScheduleType(pScheduleType) {
-        result := ComCall(27, this, "int*", pScheduleType, "HRESULT")
+        pScheduleTypeMarshal := pScheduleType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pScheduleTypeMarshal, pScheduleType, "HRESULT")
         return result
     }
 
@@ -301,7 +309,9 @@ class IFaxDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receipttype
      */
     get_ReceiptType(pReceiptType) {
-        result := ComCall(29, this, "int*", pReceiptType, "HRESULT")
+        pReceiptTypeMarshal := pReceiptType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pReceiptTypeMarshal, pReceiptType, "HRESULT")
         return result
     }
 
@@ -345,7 +355,9 @@ class IFaxDocument extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_priority
      */
     get_Priority(pPriority) {
-        result := ComCall(33, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 

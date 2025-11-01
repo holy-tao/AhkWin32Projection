@@ -37,7 +37,9 @@ class IEnumCERTVIEWATTRIBUTE extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewattribute-next
      */
     Next(pIndex) {
-        result := ComCall(7, this, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 

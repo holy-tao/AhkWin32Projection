@@ -37,7 +37,9 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getsearchinfoflags
      */
     GetSearchInfoFlags(ppdsiFlags) {
-        result := ComCall(24, this, "int*", ppdsiFlags, "HRESULT")
+        ppdsiFlagsMarshal := ppdsiFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, ppdsiFlagsMarshal, ppdsiFlags, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getcolumnindextype
      */
     GetColumnIndexType(ppdciType) {
-        result := ComCall(25, this, "int*", ppdciType, "HRESULT")
+        ppdciTypeMarshal := ppdciType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, ppdciTypeMarshal, ppdciType, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getmaxsize
      */
     GetMaxSize(pcbMaxSize) {
-        result := ComCall(27, this, "uint*", pcbMaxSize, "HRESULT")
+        pcbMaxSizeMarshal := pcbMaxSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(27, this, pcbMaxSizeMarshal, pcbMaxSize, "HRESULT")
         return result
     }
 }

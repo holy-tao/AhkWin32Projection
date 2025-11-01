@@ -36,7 +36,9 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
      * @returns {HRESULT} 
      */
     get_KeyStatuses(pKeyStatusesArray, puSize) {
-        result := ComCall(8, this, "ptr*", pKeyStatusesArray, "uint*", puSize, "HRESULT")
+        puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr*", pKeyStatusesArray, puSizeMarshal, puSize, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
      * @returns {HRESULT} 
      */
     get_Expiration(dblExpiration) {
-        result := ComCall(11, this, "double*", dblExpiration, "HRESULT")
+        dblExpirationMarshal := dblExpiration is VarRef ? "double*" : "ptr"
+
+        result := ComCall(11, this, dblExpirationMarshal, dblExpiration, "HRESULT")
         return result
     }
 

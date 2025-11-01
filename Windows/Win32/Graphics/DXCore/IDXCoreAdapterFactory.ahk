@@ -79,7 +79,10 @@ class IDXCoreAdapterFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-registereventnotification
      */
     RegisterEventNotification(dxCoreObject, notificationType, callbackFunction, callbackContext, eventCookie) {
-        result := ComCall(6, this, "ptr", dxCoreObject, "uint", notificationType, "ptr", callbackFunction, "ptr", callbackContext, "uint*", eventCookie, "HRESULT")
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
+        eventCookieMarshal := eventCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", dxCoreObject, "uint", notificationType, "ptr", callbackFunction, callbackContextMarshal, callbackContext, eventCookieMarshal, eventCookie, "HRESULT")
         return result
     }
 

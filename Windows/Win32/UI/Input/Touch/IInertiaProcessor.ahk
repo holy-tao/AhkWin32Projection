@@ -37,7 +37,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialoriginx
      */
     get_InitialOriginX(x) {
-        result := ComCall(3, this, "float*", x, "HRESULT")
+        xMarshal := x is VarRef ? "float*" : "ptr"
+
+        result := ComCall(3, this, xMarshal, x, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialoriginy
      */
     get_InitialOriginY(y) {
-        result := ComCall(5, this, "float*", y, "HRESULT")
+        yMarshal := y is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, yMarshal, y, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialvelocityx
      */
     get_InitialVelocityX(x) {
-        result := ComCall(7, this, "float*", x, "HRESULT")
+        xMarshal := x is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, xMarshal, x, "HRESULT")
         return result
     }
 
@@ -103,7 +109,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialvelocityy
      */
     get_InitialVelocityY(y) {
-        result := ComCall(9, this, "float*", y, "HRESULT")
+        yMarshal := y is VarRef ? "float*" : "ptr"
+
+        result := ComCall(9, this, yMarshal, y, "HRESULT")
         return result
     }
 
@@ -125,7 +133,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialangularvelocity
      */
     get_InitialAngularVelocity(velocity) {
-        result := ComCall(11, this, "float*", velocity, "HRESULT")
+        velocityMarshal := velocity is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, velocityMarshal, velocity, "HRESULT")
         return result
     }
 
@@ -147,7 +157,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialexpansionvelocity
      */
     get_InitialExpansionVelocity(velocity) {
-        result := ComCall(13, this, "float*", velocity, "HRESULT")
+        velocityMarshal := velocity is VarRef ? "float*" : "ptr"
+
+        result := ComCall(13, this, velocityMarshal, velocity, "HRESULT")
         return result
     }
 
@@ -169,7 +181,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialradius
      */
     get_InitialRadius(radius) {
-        result := ComCall(15, this, "float*", radius, "HRESULT")
+        radiusMarshal := radius is VarRef ? "float*" : "ptr"
+
+        result := ComCall(15, this, radiusMarshal, radius, "HRESULT")
         return result
     }
 
@@ -191,7 +205,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundaryleft
      */
     get_BoundaryLeft(left) {
-        result := ComCall(17, this, "float*", left, "HRESULT")
+        leftMarshal := left is VarRef ? "float*" : "ptr"
+
+        result := ComCall(17, this, leftMarshal, left, "HRESULT")
         return result
     }
 
@@ -213,7 +229,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundarytop
      */
     get_BoundaryTop(top) {
-        result := ComCall(19, this, "float*", top, "HRESULT")
+        topMarshal := top is VarRef ? "float*" : "ptr"
+
+        result := ComCall(19, this, topMarshal, top, "HRESULT")
         return result
     }
 
@@ -235,7 +253,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundaryright
      */
     get_BoundaryRight(right) {
-        result := ComCall(21, this, "float*", right, "HRESULT")
+        rightMarshal := right is VarRef ? "float*" : "ptr"
+
+        result := ComCall(21, this, rightMarshal, right, "HRESULT")
         return result
     }
 
@@ -257,7 +277,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundarybottom
      */
     get_BoundaryBottom(bottom) {
-        result := ComCall(23, this, "float*", bottom, "HRESULT")
+        bottomMarshal := bottom is VarRef ? "float*" : "ptr"
+
+        result := ComCall(23, this, bottomMarshal, bottom, "HRESULT")
         return result
     }
 
@@ -279,7 +301,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmarginleft
      */
     get_ElasticMarginLeft(left) {
-        result := ComCall(25, this, "float*", left, "HRESULT")
+        leftMarshal := left is VarRef ? "float*" : "ptr"
+
+        result := ComCall(25, this, leftMarshal, left, "HRESULT")
         return result
     }
 
@@ -301,7 +325,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmargintop
      */
     get_ElasticMarginTop(top) {
-        result := ComCall(27, this, "float*", top, "HRESULT")
+        topMarshal := top is VarRef ? "float*" : "ptr"
+
+        result := ComCall(27, this, topMarshal, top, "HRESULT")
         return result
     }
 
@@ -323,7 +349,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmarginright
      */
     get_ElasticMarginRight(right) {
-        result := ComCall(29, this, "float*", right, "HRESULT")
+        rightMarshal := right is VarRef ? "float*" : "ptr"
+
+        result := ComCall(29, this, rightMarshal, right, "HRESULT")
         return result
     }
 
@@ -345,7 +373,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmarginbottom
      */
     get_ElasticMarginBottom(bottom) {
-        result := ComCall(31, this, "float*", bottom, "HRESULT")
+        bottomMarshal := bottom is VarRef ? "float*" : "ptr"
+
+        result := ComCall(31, this, bottomMarshal, bottom, "HRESULT")
         return result
     }
 
@@ -367,7 +397,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desireddisplacement
      */
     get_DesiredDisplacement(displacement) {
-        result := ComCall(33, this, "float*", displacement, "HRESULT")
+        displacementMarshal := displacement is VarRef ? "float*" : "ptr"
+
+        result := ComCall(33, this, displacementMarshal, displacement, "HRESULT")
         return result
     }
 
@@ -389,7 +421,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredrotation
      */
     get_DesiredRotation(rotation) {
-        result := ComCall(35, this, "float*", rotation, "HRESULT")
+        rotationMarshal := rotation is VarRef ? "float*" : "ptr"
+
+        result := ComCall(35, this, rotationMarshal, rotation, "HRESULT")
         return result
     }
 
@@ -411,7 +445,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredexpansion
      */
     get_DesiredExpansion(expansion) {
-        result := ComCall(37, this, "float*", expansion, "HRESULT")
+        expansionMarshal := expansion is VarRef ? "float*" : "ptr"
+
+        result := ComCall(37, this, expansionMarshal, expansion, "HRESULT")
         return result
     }
 
@@ -433,7 +469,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desireddeceleration
      */
     get_DesiredDeceleration(deceleration) {
-        result := ComCall(39, this, "float*", deceleration, "HRESULT")
+        decelerationMarshal := deceleration is VarRef ? "float*" : "ptr"
+
+        result := ComCall(39, this, decelerationMarshal, deceleration, "HRESULT")
         return result
     }
 
@@ -455,7 +493,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredangulardeceleration
      */
     get_DesiredAngularDeceleration(deceleration) {
-        result := ComCall(41, this, "float*", deceleration, "HRESULT")
+        decelerationMarshal := deceleration is VarRef ? "float*" : "ptr"
+
+        result := ComCall(41, this, decelerationMarshal, deceleration, "HRESULT")
         return result
     }
 
@@ -477,7 +517,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredexpansiondeceleration
      */
     get_DesiredExpansionDeceleration(deceleration) {
-        result := ComCall(43, this, "float*", deceleration, "HRESULT")
+        decelerationMarshal := deceleration is VarRef ? "float*" : "ptr"
+
+        result := ComCall(43, this, decelerationMarshal, deceleration, "HRESULT")
         return result
     }
 
@@ -499,7 +541,9 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialtimestamp
      */
     get_InitialTimestamp(timestamp) {
-        result := ComCall(45, this, "uint*", timestamp, "HRESULT")
+        timestampMarshal := timestamp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(45, this, timestampMarshal, timestamp, "HRESULT")
         return result
     }
 

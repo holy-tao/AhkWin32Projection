@@ -129,7 +129,9 @@ class IShellFolderViewDual extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_viewoptions
      */
     get_ViewOptions(plViewOptions) {
-        result := ComCall(15, this, "int*", plViewOptions, "HRESULT")
+        plViewOptionsMarshal := plViewOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plViewOptionsMarshal, plViewOptions, "HRESULT")
         return result
     }
 }

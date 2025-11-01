@@ -219,7 +219,9 @@ class IGroupPolicyObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getoptions
      */
     GetOptions(dwOptions) {
-        result := ComCall(16, this, "uint*", dwOptions, "HRESULT")
+        dwOptionsMarshal := dwOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, dwOptionsMarshal, dwOptions, "HRESULT")
         return result
     }
 
@@ -242,7 +244,9 @@ class IGroupPolicyObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-gettype
      */
     GetType(gpoType) {
-        result := ComCall(18, this, "int*", gpoType, "HRESULT")
+        gpoTypeMarshal := gpoType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, gpoTypeMarshal, gpoType, "HRESULT")
         return result
     }
 
@@ -268,7 +272,9 @@ class IGroupPolicyObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getpropertysheetpages
      */
     GetPropertySheetPages(hPages, uPageCount) {
-        result := ComCall(20, this, "ptr*", hPages, "uint*", uPageCount, "HRESULT")
+        uPageCountMarshal := uPageCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "ptr*", hPages, uPageCountMarshal, uPageCount, "HRESULT")
         return result
     }
 }

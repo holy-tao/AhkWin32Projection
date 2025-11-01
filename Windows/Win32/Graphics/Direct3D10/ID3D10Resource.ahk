@@ -42,7 +42,9 @@ class ID3D10Resource extends ID3D10DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10resource-gettype
      */
     GetType(rType) {
-        ComCall(7, this, "int*", rType)
+        rTypeMarshal := rType is VarRef ? "int*" : "ptr"
+
+        ComCall(7, this, rTypeMarshal, rType)
     }
 
     /**

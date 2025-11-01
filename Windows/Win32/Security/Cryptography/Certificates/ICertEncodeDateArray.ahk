@@ -51,7 +51,9 @@ class ICertEncodeDateArray extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-getcount
      */
     GetCount(pCount) {
-        result := ComCall(8, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ICertEncodeDateArray extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-getvalue
      */
     GetValue(Index, pValue) {
-        result := ComCall(9, this, "int", Index, "double*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, "int", Index, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

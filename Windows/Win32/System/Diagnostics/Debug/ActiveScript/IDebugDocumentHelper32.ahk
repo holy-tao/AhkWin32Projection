@@ -118,7 +118,9 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     DefineScriptBlock(ulCharOffset, cChars, pas, fScriptlet, pdwSourceContext) {
-        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, "int", fScriptlet, "uint*", pdwSourceContext, "HRESULT")
+        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, "int", fScriptlet, pdwSourceContextMarshal, pdwSourceContext, "HRESULT")
         return result
     }
 
@@ -140,7 +142,9 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTextAttributes(ulCharOffset, cChars, pstaTextAttr) {
-        result := ComCall(12, this, "uint", ulCharOffset, "uint", cChars, "ushort*", pstaTextAttr, "HRESULT")
+        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(12, this, "uint", ulCharOffset, "uint", cChars, pstaTextAttrMarshal, pstaTextAttr, "HRESULT")
         return result
     }
 
@@ -197,7 +201,10 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScriptBlockInfo(dwSourceContext, ppasd, piCharPos, pcChars) {
-        result := ComCall(17, this, "uint", dwSourceContext, "ptr*", ppasd, "uint*", piCharPos, "uint*", pcChars, "HRESULT")
+        piCharPosMarshal := piCharPos is VarRef ? "uint*" : "ptr"
+        pcCharsMarshal := pcChars is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwSourceContext, "ptr*", ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "HRESULT")
         return result
     }
 

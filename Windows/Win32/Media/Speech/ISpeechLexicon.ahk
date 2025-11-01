@@ -35,7 +35,9 @@ class ISpeechLexicon extends IDispatch{
      * @returns {HRESULT} 
      */
     get_GenerationId(GenerationId) {
-        result := ComCall(7, this, "int*", GenerationId, "HRESULT")
+        GenerationIdMarshal := GenerationId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, GenerationIdMarshal, GenerationId, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class ISpeechLexicon extends IDispatch{
      * @returns {HRESULT} 
      */
     GetWords(Flags, GenerationID, Words) {
-        result := ComCall(8, this, "int", Flags, "int*", GenerationID, "ptr*", Words, "HRESULT")
+        GenerationIDMarshal := GenerationID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "int", Flags, GenerationIDMarshal, GenerationID, "ptr*", Words, "HRESULT")
         return result
     }
 
@@ -135,7 +139,9 @@ class ISpeechLexicon extends IDispatch{
      * @returns {HRESULT} 
      */
     GetGenerationChange(GenerationID, ppWords) {
-        result := ComCall(14, this, "int*", GenerationID, "ptr*", ppWords, "HRESULT")
+        GenerationIDMarshal := GenerationID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, GenerationIDMarshal, GenerationID, "ptr*", ppWords, "HRESULT")
         return result
     }
 }

@@ -29,9 +29,11 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static EnumProcesses(lpidProcess, cb, lpcbNeeded) {
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumProcesses", "ptr", lpidProcess, "uint", cb, "uint*", lpcbNeeded, "int")
+        result := DllCall("PSAPI.dll\EnumProcesses", "ptr", lpidProcess, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -55,9 +57,11 @@ class ProcessStatus {
     static EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "int")
+        result := DllCall("PSAPI.dll\EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -81,9 +85,11 @@ class ProcessStatus {
     static EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "uint", dwFilterFlag, "int")
+        result := DllCall("PSAPI.dll\EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "uint", dwFilterFlag, "int")
         if(A_LastError)
             throw OSError()
 
@@ -338,9 +344,11 @@ class ProcessStatus {
     static GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        cbMarshal := cb is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, "uint*", cb, "int")
+        result := DllCall("PSAPI.dll\GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, cbMarshal, cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -364,9 +372,11 @@ class ProcessStatus {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
+        lpvMarshal := lpv is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetMappedFileNameW", "ptr", hProcess, "ptr", lpv, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetMappedFileNameW", "ptr", hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -390,9 +400,11 @@ class ProcessStatus {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
+        lpvMarshal := lpv is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetMappedFileNameA", "ptr", hProcess, "ptr", lpv, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetMappedFileNameA", "ptr", hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -412,9 +424,11 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, "uint*", lpcbNeeded, "int")
+        result := DllCall("PSAPI.dll\EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -438,9 +452,11 @@ class ProcessStatus {
     static GetDeviceDriverBaseNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameA", "ptr", ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -464,9 +480,11 @@ class ProcessStatus {
     static GetDeviceDriverBaseNameW(ImageBase, lpBaseName, nSize) {
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameW", "ptr", ImageBase, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameW", ImageBaseMarshal, ImageBase, "ptr", lpBaseName, "uint", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -488,9 +506,11 @@ class ProcessStatus {
     static GetDeviceDriverFileNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetDeviceDriverFileNameA", "ptr", ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetDeviceDriverFileNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -512,9 +532,11 @@ class ProcessStatus {
     static GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetDeviceDriverFileNameW", "ptr", ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetDeviceDriverFileNameW", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -641,9 +663,11 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static EnumPageFilesW(pCallBackRoutine, pContext) {
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, "ptr", pContext, "int")
+        result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -662,9 +686,11 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static EnumPageFilesA(pCallBackRoutine, pContext) {
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, "ptr", pContext, "int")
+        result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -734,7 +760,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocesses
      */
     static K32EnumProcesses(lpidProcess, cb, lpcbNeeded) {
-        result := DllCall("KERNEL32.dll\K32EnumProcesses", "ptr", lpidProcess, "uint", cb, "uint*", lpcbNeeded, "int")
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32EnumProcesses", "ptr", lpidProcess, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
         return result
     }
 
@@ -750,7 +778,9 @@ class ProcessStatus {
     static K32EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "int")
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
         return result
     }
 
@@ -767,7 +797,9 @@ class ProcessStatus {
     static K32EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "uint", dwFilterFlag, "int")
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "uint", dwFilterFlag, "int")
         return result
     }
 
@@ -912,7 +944,9 @@ class ProcessStatus {
     static K32GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, "uint*", cb, "int")
+        cbMarshal := cb is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, cbMarshal, cb, "int")
         return result
     }
 
@@ -929,7 +963,9 @@ class ProcessStatus {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetMappedFileNameW", "ptr", hProcess, "ptr", lpv, "ptr", lpFilename, "uint", nSize, "uint")
+        lpvMarshal := lpv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32GetMappedFileNameW", "ptr", hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -946,7 +982,9 @@ class ProcessStatus {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetMappedFileNameA", "ptr", hProcess, "ptr", lpv, "ptr", lpFilename, "uint", nSize, "uint")
+        lpvMarshal := lpv is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32GetMappedFileNameA", "ptr", hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -959,7 +997,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumdevicedrivers
      */
     static K32EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
-        result := DllCall("KERNEL32.dll\K32EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, "uint*", lpcbNeeded, "int")
+        lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "int")
         return result
     }
 
@@ -974,7 +1014,9 @@ class ProcessStatus {
     static K32GetDeviceDriverBaseNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameA", "ptr", ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -989,7 +1031,9 @@ class ProcessStatus {
     static K32GetDeviceDriverBaseNameW(ImageBase, lpBaseName, nSize) {
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-        result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameW", "ptr", ImageBase, "ptr", lpBaseName, "uint", nSize, "uint")
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameW", ImageBaseMarshal, ImageBase, "ptr", lpBaseName, "uint", nSize, "uint")
         return result
     }
 
@@ -1004,7 +1048,9 @@ class ProcessStatus {
     static K32GetDeviceDriverFileNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameA", "ptr", ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -1019,7 +1065,9 @@ class ProcessStatus {
     static K32GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameW", "ptr", ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
+        ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameW", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -1088,7 +1136,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesa
      */
     static K32EnumPageFilesW(pCallBackRoutine, pContext) {
-        result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, "ptr", pContext, "int")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, "int")
         return result
     }
 
@@ -1100,7 +1150,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesa
      */
     static K32EnumPageFilesA(pCallBackRoutine, pContext) {
-        result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, "ptr", pContext, "int")
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, "int")
         return result
     }
 

@@ -48,7 +48,9 @@ class IDVBTLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_bandwidth
      */
     get_Bandwidth(BandWidthVal) {
-        result := ComCall(22, this, "int*", BandWidthVal, "HRESULT")
+        BandWidthValMarshal := BandWidthVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, BandWidthValMarshal, BandWidthVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IDVBTLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_lpinnerfec
      */
     get_LPInnerFEC(FEC) {
-        result := ComCall(24, this, "int*", FEC, "HRESULT")
+        FECMarshal := FEC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, FECMarshal, FEC, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IDVBTLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_lpinnerfecrate
      */
     get_LPInnerFECRate(FEC) {
-        result := ComCall(26, this, "int*", FEC, "HRESULT")
+        FECMarshal := FEC is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, FECMarshal, FEC, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class IDVBTLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_halpha
      */
     get_HAlpha(Alpha) {
-        result := ComCall(28, this, "int*", Alpha, "HRESULT")
+        AlphaMarshal := Alpha is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, AlphaMarshal, Alpha, "HRESULT")
         return result
     }
 
@@ -136,7 +144,9 @@ class IDVBTLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_guard
      */
     get_Guard(GI) {
-        result := ComCall(30, this, "int*", GI, "HRESULT")
+        GIMarshal := GI is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, GIMarshal, GI, "HRESULT")
         return result
     }
 
@@ -158,7 +168,9 @@ class IDVBTLocator extends IDigitalLocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_mode
      */
     get_Mode(mode) {
-        result := ComCall(32, this, "int*", mode, "HRESULT")
+        modeMarshal := mode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, modeMarshal, mode, "HRESULT")
         return result
     }
 

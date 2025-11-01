@@ -75,7 +75,9 @@ class IInkRecognitionResult extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topconfidence
      */
     get_TopConfidence(TopConfidence) {
-        result := ComCall(9, this, "int*", TopConfidence, "HRESULT")
+        TopConfidenceMarshal := TopConfidence is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, TopConfidenceMarshal, TopConfidence, "HRESULT")
         return result
     }
 

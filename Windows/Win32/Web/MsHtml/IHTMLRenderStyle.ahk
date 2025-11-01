@@ -177,7 +177,9 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     get_renderingPriority(p) {
-        result := ComCall(20, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pMarshal, p, "HRESULT")
         return result
     }
 

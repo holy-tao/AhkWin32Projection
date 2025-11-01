@@ -45,7 +45,9 @@ class ISecurityInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetObjectTypes(cObjectTypes, rgObjectTypes) {
-        result := ComCall(4, this, "uint*", cObjectTypes, "ptr*", rgObjectTypes, "HRESULT")
+        cObjectTypesMarshal := cObjectTypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, cObjectTypesMarshal, cObjectTypes, "ptr*", rgObjectTypes, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class ISecurityInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPermissions(ObjectType, pPermissions) {
-        result := ComCall(5, this, "ptr", ObjectType, "uint*", pPermissions, "HRESULT")
+        pPermissionsMarshal := pPermissions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", ObjectType, pPermissionsMarshal, pPermissions, "HRESULT")
         return result
     }
 }

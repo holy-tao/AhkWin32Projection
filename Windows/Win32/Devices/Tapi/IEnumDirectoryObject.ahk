@@ -39,7 +39,9 @@ class IEnumDirectoryObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectoryobject-next
      */
     Next(celt, pVal, pcFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", pVal, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", pVal, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

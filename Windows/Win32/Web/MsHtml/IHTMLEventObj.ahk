@@ -144,7 +144,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_keyCode(p) {
-        result := ComCall(18, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -154,7 +156,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_button(p) {
-        result := ComCall(19, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -184,7 +188,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_reason(p) {
-        result := ComCall(22, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -194,7 +200,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_x(p) {
-        result := ComCall(23, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -204,7 +212,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_y(p) {
-        result := ComCall(24, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -214,7 +224,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientX(p) {
-        result := ComCall(25, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -224,7 +236,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_clientY(p) {
-        result := ComCall(26, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -234,7 +248,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetX(p) {
-        result := ComCall(27, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -244,7 +260,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_offsetY(p) {
-        result := ComCall(28, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -254,7 +272,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenX(p) {
-        result := ComCall(29, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -264,7 +284,9 @@ class IHTMLEventObj extends IDispatch{
      * @returns {HRESULT} 
      */
     get_screenY(p) {
-        result := ComCall(30, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pMarshal, p, "HRESULT")
         return result
     }
 

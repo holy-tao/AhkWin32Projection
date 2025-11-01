@@ -83,7 +83,9 @@ class ISpShortcut extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGeneration(pdwGeneration) {
-        result := ComCall(6, this, "uint*", pdwGeneration, "HRESULT")
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwGenerationMarshal, pdwGeneration, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class ISpShortcut extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWordsFromGenerationChange(pdwGeneration, pWordList) {
-        result := ComCall(7, this, "uint*", pdwGeneration, "ptr", pWordList, "HRESULT")
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwGenerationMarshal, pdwGeneration, "ptr", pWordList, "HRESULT")
         return result
     }
 
@@ -106,7 +110,10 @@ class ISpShortcut extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWords(pdwGeneration, pdwCookie, pWordList) {
-        result := ComCall(8, this, "uint*", pdwGeneration, "uint*", pdwCookie, "ptr", pWordList, "HRESULT")
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pWordList, "HRESULT")
         return result
     }
 
@@ -118,7 +125,10 @@ class ISpShortcut extends IUnknown{
      * @returns {HRESULT} 
      */
     GetShortcutsForGeneration(pdwGeneration, pdwCookie, pShortcutpairList) {
-        result := ComCall(9, this, "uint*", pdwGeneration, "uint*", pdwCookie, "ptr", pShortcutpairList, "HRESULT")
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pShortcutpairList, "HRESULT")
         return result
     }
 
@@ -129,7 +139,9 @@ class ISpShortcut extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGenerationChange(pdwGeneration, pShortcutpairList) {
-        result := ComCall(10, this, "uint*", pdwGeneration, "ptr", pShortcutpairList, "HRESULT")
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwGenerationMarshal, pdwGeneration, "ptr", pShortcutpairList, "HRESULT")
         return result
     }
 }

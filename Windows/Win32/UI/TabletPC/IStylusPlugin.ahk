@@ -44,7 +44,9 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-realtimestylusenabled
      */
     RealTimeStylusEnabled(piRtsSrc, cTcidCount, pTcids) {
-        result := ComCall(3, this, "ptr", piRtsSrc, "uint", cTcidCount, "uint*", pTcids, "HRESULT")
+        pTcidsMarshal := pTcids is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", piRtsSrc, "uint", cTcidCount, pTcidsMarshal, pTcids, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-realtimestylusdisabled
      */
     RealTimeStylusDisabled(piRtsSrc, cTcidCount, pTcids) {
-        result := ComCall(4, this, "ptr", piRtsSrc, "uint", cTcidCount, "uint*", pTcids, "HRESULT")
+        pTcidsMarshal := pTcids is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", piRtsSrc, "uint", cTcidCount, pTcidsMarshal, pTcids, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusdown
      */
     StylusDown(piRtsSrc, pStylusInfo, cPropCountPerPkt, pPacket, ppInOutPkt) {
-        result := ComCall(7, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, "int*", pPacket, "ptr*", ppInOutPkt, "HRESULT")
+        pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, "ptr*", ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -113,7 +119,9 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusup
      */
     StylusUp(piRtsSrc, pStylusInfo, cPropCountPerPkt, pPacket, ppInOutPkt) {
-        result := ComCall(8, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, "int*", pPacket, "ptr*", ppInOutPkt, "HRESULT")
+        pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, "ptr*", ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -158,7 +166,10 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-inairpackets
      */
     InAirPackets(piRtsSrc, pStylusInfo, cPktCount, cPktBuffLength, pPackets, pcInOutPkts, ppInOutPkts) {
-        result := ComCall(11, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, "int*", pPackets, "uint*", pcInOutPkts, "ptr*", ppInOutPkts, "HRESULT")
+        pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
+        pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, "ptr*", ppInOutPkts, "HRESULT")
         return result
     }
 
@@ -175,7 +186,10 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-packets
      */
     Packets(piRtsSrc, pStylusInfo, cPktCount, cPktBuffLength, pPackets, pcInOutPkts, ppInOutPkts) {
-        result := ComCall(12, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, "int*", pPackets, "uint*", pcInOutPkts, "ptr*", ppInOutPkts, "HRESULT")
+        pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
+        pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, "ptr*", ppInOutPkts, "HRESULT")
         return result
     }
 
@@ -189,7 +203,9 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-customstylusdataadded
      */
     CustomStylusDataAdded(piRtsSrc, pGuidId, cbData, pbData) {
-        result := ComCall(13, this, "ptr", piRtsSrc, "ptr", pGuidId, "uint", cbData, "char*", pbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "ptr", piRtsSrc, "ptr", pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 
@@ -243,7 +259,9 @@ class IStylusPlugin extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//timeprov/nc-timeprov-logtimeproveventfunc
      */
     Error(piRtsSrc, piPlugin, dataInterest, hrErrorCode, lptrKey) {
-        result := ComCall(17, this, "ptr", piRtsSrc, "ptr", piPlugin, "int", dataInterest, "int", hrErrorCode, "ptr*", lptrKey, "HRESULT")
+        lptrKeyMarshal := lptrKey is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, "ptr", piRtsSrc, "ptr", piPlugin, "int", dataInterest, "int", hrErrorCode, lptrKeyMarshal, lptrKey, "HRESULT")
         return result
     }
 
@@ -265,7 +283,9 @@ class IStylusPlugin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-datainterest
      */
     DataInterest(pDataInterest) {
-        result := ComCall(19, this, "int*", pDataInterest, "HRESULT")
+        pDataInterestMarshal := pDataInterest is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, pDataInterestMarshal, pDataInterest, "HRESULT")
         return result
     }
 }

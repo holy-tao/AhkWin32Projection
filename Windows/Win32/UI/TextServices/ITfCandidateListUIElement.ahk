@@ -37,7 +37,9 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getupdatedflags
      */
     GetUpdatedFlags(pdwFlags) {
-        result := ComCall(7, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getcount
      */
     GetCount(puCount) {
-        result := ComCall(9, this, "uint*", puCount, "HRESULT")
+        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, puCountMarshal, puCount, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getselection
      */
     GetSelection(puIndex) {
-        result := ComCall(10, this, "uint*", puIndex, "HRESULT")
+        puIndexMarshal := puIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, puIndexMarshal, puIndex, "HRESULT")
         return result
     }
 
@@ -95,7 +101,10 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getpageindex
      */
     GetPageIndex(pIndex, uSize, puPageCnt) {
-        result := ComCall(12, this, "uint*", pIndex, "uint", uSize, "uint*", puPageCnt, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
+        puPageCntMarshal := puPageCnt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pIndexMarshal, pIndex, "uint", uSize, puPageCntMarshal, puPageCnt, "HRESULT")
         return result
     }
 
@@ -107,7 +116,9 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-setpageindex
      */
     SetPageIndex(pIndex, uPageCnt) {
-        result := ComCall(13, this, "uint*", pIndex, "uint", uPageCnt, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pIndexMarshal, pIndex, "uint", uPageCnt, "HRESULT")
         return result
     }
 
@@ -118,7 +129,9 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getcurrentpage
      */
     GetCurrentPage(puPage) {
-        result := ComCall(14, this, "uint*", puPage, "HRESULT")
+        puPageMarshal := puPage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, puPageMarshal, puPage, "HRESULT")
         return result
     }
 }

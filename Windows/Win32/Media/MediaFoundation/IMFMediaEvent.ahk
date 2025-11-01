@@ -49,7 +49,9 @@ class IMFMediaEvent extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaevent-gettype
      */
     GetType(pmet) {
-        result := ComCall(33, this, "uint*", pmet, "HRESULT")
+        pmetMarshal := pmet is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pmetMarshal, pmet, "HRESULT")
         return result
     }
 

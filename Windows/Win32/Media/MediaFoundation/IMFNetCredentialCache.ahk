@@ -44,7 +44,9 @@ class IMFNetCredentialCache extends IUnknown{
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszRealm := pszRealm is String ? StrPtr(pszRealm) : pszRealm
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszRealm, "uint", dwAuthenticationFlags, "ptr*", ppCred, "uint*", pdwRequirementsFlags, "HRESULT")
+        pdwRequirementsFlagsMarshal := pdwRequirementsFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszRealm, "uint", dwAuthenticationFlags, "ptr*", ppCred, pdwRequirementsFlagsMarshal, pdwRequirementsFlags, "HRESULT")
         return result
     }
 

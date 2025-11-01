@@ -70,7 +70,9 @@ class IRecoverableErrorData extends IUnknown{
     GetItemDisplayName(pszItemDisplayName, pcchItemDisplayName) {
         pszItemDisplayName := pszItemDisplayName is String ? StrPtr(pszItemDisplayName) : pszItemDisplayName
 
-        result := ComCall(4, this, "ptr", pszItemDisplayName, "uint*", pcchItemDisplayName, "HRESULT")
+        pcchItemDisplayNameMarshal := pcchItemDisplayName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszItemDisplayName, pcchItemDisplayNameMarshal, pcchItemDisplayName, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class IRecoverableErrorData extends IUnknown{
     GetErrorDescription(pszErrorDescription, pcchErrorDescription) {
         pszErrorDescription := pszErrorDescription is String ? StrPtr(pszErrorDescription) : pszErrorDescription
 
-        result := ComCall(5, this, "ptr", pszErrorDescription, "uint*", pcchErrorDescription, "HRESULT")
+        pcchErrorDescriptionMarshal := pcchErrorDescription is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszErrorDescription, pcchErrorDescriptionMarshal, pcchErrorDescription, "HRESULT")
         return result
     }
 }

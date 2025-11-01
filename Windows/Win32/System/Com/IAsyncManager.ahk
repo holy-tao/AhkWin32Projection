@@ -55,7 +55,9 @@ class IAsyncManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetState(pulStateFlags) {
-        result := ComCall(5, this, "uint*", pulStateFlags, "HRESULT")
+        pulStateFlagsMarshal := pulStateFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulStateFlagsMarshal, pulStateFlags, "HRESULT")
         return result
     }
 }

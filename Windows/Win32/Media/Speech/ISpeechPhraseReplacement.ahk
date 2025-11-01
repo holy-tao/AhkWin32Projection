@@ -34,7 +34,9 @@ class ISpeechPhraseReplacement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DisplayAttributes(DisplayAttributes) {
-        result := ComCall(7, this, "int*", DisplayAttributes, "HRESULT")
+        DisplayAttributesMarshal := DisplayAttributes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, DisplayAttributesMarshal, DisplayAttributes, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISpeechPhraseReplacement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_FirstElement(FirstElement) {
-        result := ComCall(9, this, "int*", FirstElement, "HRESULT")
+        FirstElementMarshal := FirstElement is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, FirstElementMarshal, FirstElement, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class ISpeechPhraseReplacement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_NumberOfElements(NumberOfElements) {
-        result := ComCall(10, this, "int*", NumberOfElements, "HRESULT")
+        NumberOfElementsMarshal := NumberOfElements is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, NumberOfElementsMarshal, NumberOfElements, "HRESULT")
         return result
     }
 }

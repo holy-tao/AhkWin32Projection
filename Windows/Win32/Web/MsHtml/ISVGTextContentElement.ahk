@@ -80,7 +80,9 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getNumberOfChars(pResult) {
-        result := ComCall(11, this, "int*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -90,7 +92,9 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getComputedTextLength(pResult) {
-        result := ComCall(12, this, "float*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
+
+        result := ComCall(12, this, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -102,7 +106,9 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getSubStringLength(charnum, nchars, pResult) {
-        result := ComCall(13, this, "int", charnum, "int", nchars, "float*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
+
+        result := ComCall(13, this, "int", charnum, "int", nchars, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -146,7 +152,9 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getRotationOfChar(charnum, pResult) {
-        result := ComCall(17, this, "int", charnum, "float*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
+
+        result := ComCall(17, this, "int", charnum, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -157,7 +165,9 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     getCharNumAtPosition(point, pResult) {
-        result := ComCall(18, this, "ptr", point, "int*", pResult, "HRESULT")
+        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, "ptr", point, pResultMarshal, pResult, "HRESULT")
         return result
     }
 

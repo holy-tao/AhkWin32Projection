@@ -43,7 +43,9 @@ class IInternetProtocolInfo extends IUnknown{
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(3, this, "ptr", pwzUrl, "int", ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", pcchResult, "uint", dwReserved, "HRESULT")
+        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwzUrl, "int", ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, pcchResultMarshal, pcchResult, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IInternetProtocolInfo extends IUnknown{
         pwzRelativeUrl := pwzRelativeUrl is String ? StrPtr(pwzRelativeUrl) : pwzRelativeUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pwzResult, "uint", cchResult, "uint*", pcchResult, "uint", dwReserved, "HRESULT")
+        pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pwzResult, "uint", cchResult, pcchResultMarshal, pcchResult, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -96,7 +100,10 @@ class IInternetProtocolInfo extends IUnknown{
     QueryInfo(pwzUrl, OueryOption, dwQueryFlags, pBuffer, cbBuffer, pcbBuf, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
 
-        result := ComCall(6, this, "ptr", pwzUrl, "int", OueryOption, "uint", dwQueryFlags, "ptr", pBuffer, "uint", cbBuffer, "uint*", pcbBuf, "uint", dwReserved, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwzUrl, "int", OueryOption, "uint", dwQueryFlags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufMarshal, pcbBuf, "uint", dwReserved, "HRESULT")
         return result
     }
 }

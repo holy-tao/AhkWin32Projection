@@ -59,7 +59,9 @@ class IMFRateControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratecontrol-getrate
      */
     GetRate(pfThin, pflRate) {
-        result := ComCall(4, this, "ptr", pfThin, "float*", pflRate, "HRESULT")
+        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pfThin, pflRateMarshal, pflRate, "HRESULT")
         return result
     }
 }

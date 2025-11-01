@@ -55,7 +55,9 @@ class IFeedEnclosure extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Length(length) {
-        result := ComCall(9, this, "int*", length, "HRESULT")
+        lengthMarshal := length is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, lengthMarshal, length, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class IFeedEnclosure extends IDispatch{
      * @returns {HRESULT} 
      */
     get_DownloadStatus(status) {
-        result := ComCall(12, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, statusMarshal, status, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class IFeedEnclosure extends IDispatch{
      * @returns {HRESULT} 
      */
     get_LastDownloadError(error) {
-        result := ComCall(13, this, "int*", error, "HRESULT")
+        errorMarshal := error is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, errorMarshal, error, "HRESULT")
         return result
     }
 

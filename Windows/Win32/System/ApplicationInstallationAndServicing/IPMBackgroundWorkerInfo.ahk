@@ -64,7 +64,9 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_MaxStartupLatency(pMaxStartupLatency) {
-        result := ComCall(6, this, "uint*", pMaxStartupLatency, "HRESULT")
+        pMaxStartupLatencyMarshal := pMaxStartupLatency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pMaxStartupLatencyMarshal, pMaxStartupLatency, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ExpectedRuntime(pExpectedRuntime) {
-        result := ComCall(7, this, "uint*", pExpectedRuntime, "HRESULT")
+        pExpectedRuntimeMarshal := pExpectedRuntime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pExpectedRuntimeMarshal, pExpectedRuntime, "HRESULT")
         return result
     }
 

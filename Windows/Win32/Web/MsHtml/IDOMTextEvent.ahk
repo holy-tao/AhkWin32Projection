@@ -51,7 +51,9 @@ class IDOMTextEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_inputMethod(p) {
-        result := ComCall(8, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 

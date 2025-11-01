@@ -35,7 +35,9 @@ class IWiaDrvItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetItemFlags(__MIDL__IWiaDrvItem0000) {
-        result := ComCall(3, this, "int*", __MIDL__IWiaDrvItem0000, "HRESULT")
+        __MIDL__IWiaDrvItem0000Marshal := __MIDL__IWiaDrvItem0000 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, __MIDL__IWiaDrvItem0000Marshal, __MIDL__IWiaDrvItem0000, "HRESULT")
         return result
     }
 

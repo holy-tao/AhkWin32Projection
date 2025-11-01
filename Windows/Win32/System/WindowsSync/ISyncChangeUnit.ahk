@@ -49,7 +49,10 @@ class ISyncChangeUnit extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
-        result := ComCall(4, this, "char*", pbChangeUnitId, "uint*", pcbIdSize, "HRESULT")
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 
@@ -61,7 +64,9 @@ class ISyncChangeUnit extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitversion
      */
     GetChangeUnitVersion(pbCurrentReplicaId, pVersion) {
-        result := ComCall(5, this, "char*", pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
+        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
         return result
     }
 }

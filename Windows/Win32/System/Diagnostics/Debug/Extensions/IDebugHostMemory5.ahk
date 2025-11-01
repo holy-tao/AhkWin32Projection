@@ -39,7 +39,9 @@ class IDebugHostMemory5 extends IDebugHostMemory4{
      * @returns {HRESULT} 
      */
     ReadIntrinsics(context, location, vt, count, vals, intrinsicsRead) {
-        result := ComCall(12, this, "ptr", context, "ptr", location, "ushort", vt, "uint", count, "ptr", vals, "uint*", intrinsicsRead, "HRESULT")
+        intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", context, "ptr", location, "ushort", vt, "uint", count, "ptr", vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IDebugHostMemory5 extends IDebugHostMemory4{
      * @returns {HRESULT} 
      */
     ReadOrdinalIntrinsics(context, location, ordinalSize, ordinalIsSigned, count, vals, intrinsicsRead) {
-        result := ComCall(13, this, "ptr", context, "ptr", location, "uint", ordinalSize, "char", ordinalIsSigned, "uint", count, "ptr", vals, "uint*", intrinsicsRead, "HRESULT")
+        intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", context, "ptr", location, "uint", ordinalSize, "char", ordinalIsSigned, "uint", count, "ptr", vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
         return result
     }
 }

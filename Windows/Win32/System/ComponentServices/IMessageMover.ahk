@@ -92,7 +92,9 @@ class IMessageMover extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-get_commitbatchsize
      */
     get_CommitBatchSize(pVal) {
-        result := ComCall(11, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IMessageMover extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-movemessages
      */
     MoveMessages(plMessagesMoved) {
-        result := ComCall(13, this, "int*", plMessagesMoved, "HRESULT")
+        plMessagesMovedMarshal := plMessagesMoved is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, plMessagesMovedMarshal, plMessagesMoved, "HRESULT")
         return result
     }
 }

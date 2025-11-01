@@ -74,7 +74,9 @@ class IMFPMediaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getuserdata
      */
     GetUserData(pdwUserData) {
-        result := ComCall(6, this, "ptr*", pdwUserData, "HRESULT")
+        pdwUserDataMarshal := pdwUserData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pdwUserDataMarshal, pdwUserData, "HRESULT")
         return result
     }
 
@@ -171,7 +173,9 @@ class IMFPMediaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getnumberofstreams
      */
     GetNumberOfStreams(pdwStreamCount) {
-        result := ComCall(14, this, "uint*", pdwStreamCount, "HRESULT")
+        pdwStreamCountMarshal := pdwStreamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pdwStreamCountMarshal, pdwStreamCount, "HRESULT")
         return result
     }
 
@@ -231,7 +235,9 @@ class IMFPMediaItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getcharacteristics
      */
     GetCharacteristics(pCharacteristics) {
-        result := ComCall(19, this, "uint*", pCharacteristics, "HRESULT")
+        pCharacteristicsMarshal := pCharacteristics is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pCharacteristicsMarshal, pCharacteristics, "HRESULT")
         return result
     }
 

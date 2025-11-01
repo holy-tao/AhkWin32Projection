@@ -59,7 +59,10 @@ class IMediaSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample-gettime
      */
     GetTime(pTimeStart, pTimeEnd) {
-        result := ComCall(5, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(5, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -71,7 +74,10 @@ class IMediaSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample-settime
      */
     SetTime(pTimeStart, pTimeEnd) {
-        result := ComCall(6, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(6, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -189,7 +195,10 @@ class IMediaSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample-getmediatime
      */
     GetMediaTime(pTimeStart, pTimeEnd) {
-        result := ComCall(17, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(17, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -201,7 +210,10 @@ class IMediaSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample-setmediatime
      */
     SetMediaTime(pTimeStart, pTimeEnd) {
-        result := ComCall(18, this, "int64*", pTimeStart, "int64*", pTimeEnd, "HRESULT")
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(18, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 }

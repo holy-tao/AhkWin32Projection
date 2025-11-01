@@ -34,7 +34,9 @@ class IVBSAXLocator extends IDispatch{
      * @returns {HRESULT} 
      */
     get_columnNumber(nColumn) {
-        result := ComCall(7, this, "int*", nColumn, "HRESULT")
+        nColumnMarshal := nColumn is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, nColumnMarshal, nColumn, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IVBSAXLocator extends IDispatch{
      * @returns {HRESULT} 
      */
     get_lineNumber(nLine) {
-        result := ComCall(8, this, "int*", nLine, "HRESULT")
+        nLineMarshal := nLine is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, nLineMarshal, nLine, "HRESULT")
         return result
     }
 

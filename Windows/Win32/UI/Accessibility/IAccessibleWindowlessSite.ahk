@@ -44,7 +44,9 @@ class IAccessibleWindowlessSite extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-acquireobjectidrange
      */
     AcquireObjectIdRange(rangeSize, pRangeOwner, pRangeBase) {
-        result := ComCall(3, this, "int", rangeSize, "ptr", pRangeOwner, "int*", pRangeBase, "HRESULT")
+        pRangeBaseMarshal := pRangeBase is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "int", rangeSize, "ptr", pRangeOwner, pRangeBaseMarshal, pRangeBase, "HRESULT")
         return result
     }
 

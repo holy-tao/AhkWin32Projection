@@ -81,7 +81,9 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     Enroll(ProcessFlags, pDisposition) {
-        result := ComCall(9, this, "int", ProcessFlags, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", ProcessFlags, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IX509SCEPEnrollmentHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     FetchPending(ProcessFlags, pDisposition) {
-        result := ComCall(10, this, "int", ProcessFlags, "int*", pDisposition, "HRESULT")
+        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", ProcessFlags, pDispositionMarshal, pDisposition, "HRESULT")
         return result
     }
 

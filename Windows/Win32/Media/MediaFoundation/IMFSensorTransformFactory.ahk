@@ -60,7 +60,9 @@ class IMFSensorTransformFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-gettransformcount
      */
     GetTransformCount(pdwCount) {
-        result := ComCall(5, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 

@@ -2471,7 +2471,9 @@ class Audio {
     static waveOutGetVolume(hwo, pdwVolume) {
         hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
 
-        result := DllCall("WINMM.dll\waveOutGetVolume", "ptr", hwo, "uint*", pdwVolume, "uint")
+        pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\waveOutGetVolume", "ptr", hwo, pdwVolumeMarshal, pdwVolume, "uint")
         return result
     }
 
@@ -3364,7 +3366,9 @@ class Audio {
     static waveOutGetPitch(hwo, pdwPitch) {
         hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
 
-        result := DllCall("WINMM.dll\waveOutGetPitch", "ptr", hwo, "uint*", pdwPitch, "uint")
+        pdwPitchMarshal := pdwPitch is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\waveOutGetPitch", "ptr", hwo, pdwPitchMarshal, pdwPitch, "uint")
         return result
     }
 
@@ -3500,7 +3504,9 @@ class Audio {
     static waveOutGetPlaybackRate(hwo, pdwRate) {
         hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
 
-        result := DllCall("WINMM.dll\waveOutGetPlaybackRate", "ptr", hwo, "uint*", pdwRate, "uint")
+        pdwRateMarshal := pdwRate is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\waveOutGetPlaybackRate", "ptr", hwo, pdwRateMarshal, pdwRate, "uint")
         return result
     }
 
@@ -3623,7 +3629,9 @@ class Audio {
     static waveOutGetID(hwo, puDeviceID) {
         hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
 
-        result := DllCall("WINMM.dll\waveOutGetID", "ptr", hwo, "uint*", puDeviceID, "uint")
+        puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\waveOutGetID", "ptr", hwo, puDeviceIDMarshal, puDeviceID, "uint")
         return result
     }
 
@@ -4378,7 +4386,9 @@ class Audio {
     static waveInGetID(hwi, puDeviceID) {
         hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
 
-        result := DllCall("WINMM.dll\waveInGetID", "ptr", hwi, "uint*", puDeviceID, "uint")
+        puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\waveInGetID", "ptr", hwi, puDeviceIDMarshal, puDeviceID, "uint")
         return result
     }
 
@@ -4492,7 +4502,9 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamOpen(phms, puDeviceID, cMidi, dwCallback, dwInstance, fdwOpen) {
-        result := DllCall("WINMM.dll\midiStreamOpen", "ptr", phms, "uint*", puDeviceID, "uint", cMidi, "ptr", dwCallback, "ptr", dwInstance, "uint", fdwOpen, "uint")
+        puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\midiStreamOpen", "ptr", phms, puDeviceIDMarshal, puDeviceID, "uint", cMidi, "ptr", dwCallback, "ptr", dwInstance, "uint", fdwOpen, "uint")
         return result
     }
 
@@ -4594,7 +4606,9 @@ class Audio {
     static midiStreamProperty(hms, lppropdata, dwProperty) {
         hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
 
-        result := DllCall("WINMM.dll\midiStreamProperty", "ptr", hms, "char*", lppropdata, "uint", dwProperty, "uint")
+        lppropdataMarshal := lppropdata is VarRef ? "char*" : "ptr"
+
+        result := DllCall("WINMM.dll\midiStreamProperty", "ptr", hms, lppropdataMarshal, lppropdata, "uint", dwProperty, "uint")
         return result
     }
 
@@ -4859,7 +4873,9 @@ class Audio {
         hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
         hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
 
-        result := DllCall("WINMM.dll\midiConnect", "ptr", hmi, "ptr", hmo, "ptr", pReserved, "uint")
+        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WINMM.dll\midiConnect", "ptr", hmi, "ptr", hmo, pReservedMarshal, pReserved, "uint")
         return result
     }
 
@@ -4894,7 +4910,9 @@ class Audio {
         hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
         hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
 
-        result := DllCall("WINMM.dll\midiDisconnect", "ptr", hmi, "ptr", hmo, "ptr", pReserved, "uint")
+        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WINMM.dll\midiDisconnect", "ptr", hmi, "ptr", hmo, pReservedMarshal, pReserved, "uint")
         return result
     }
 
@@ -5098,7 +5116,9 @@ class Audio {
     static midiOutGetVolume(hmo, pdwVolume) {
         hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
 
-        result := DllCall("WINMM.dll\midiOutGetVolume", "ptr", hmo, "uint*", pdwVolume, "uint")
+        pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\midiOutGetVolume", "ptr", hmo, pdwVolumeMarshal, pdwVolume, "uint")
         return result
     }
 
@@ -5844,7 +5864,9 @@ class Audio {
     static midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
         hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
 
-        result := DllCall("WINMM.dll\midiOutCachePatches", "ptr", hmo, "uint", uBank, "ushort*", pwpa, "uint", fuCache, "uint")
+        pwpaMarshal := pwpa is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("WINMM.dll\midiOutCachePatches", "ptr", hmo, "uint", uBank, pwpaMarshal, pwpa, "uint", fuCache, "uint")
         return result
     }
 
@@ -5948,7 +5970,9 @@ class Audio {
     static midiOutCacheDrumPatches(hmo, uPatch, pwkya, fuCache) {
         hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
 
-        result := DllCall("WINMM.dll\midiOutCacheDrumPatches", "ptr", hmo, "uint", uPatch, "ushort*", pwkya, "uint", fuCache, "uint")
+        pwkyaMarshal := pwkya is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("WINMM.dll\midiOutCacheDrumPatches", "ptr", hmo, "uint", uPatch, pwkyaMarshal, pwkya, "uint", fuCache, "uint")
         return result
     }
 
@@ -6003,7 +6027,9 @@ class Audio {
     static midiOutGetID(hmo, puDeviceID) {
         hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
 
-        result := DllCall("WINMM.dll\midiOutGetID", "ptr", hmo, "uint*", puDeviceID, "uint")
+        puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\midiOutGetID", "ptr", hmo, puDeviceIDMarshal, puDeviceID, "uint")
         return result
     }
 
@@ -6782,7 +6808,9 @@ class Audio {
     static midiInGetID(hmi, puDeviceID) {
         hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
 
-        result := DllCall("WINMM.dll\midiInGetID", "ptr", hmi, "uint*", puDeviceID, "uint")
+        puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\midiInGetID", "ptr", hmi, puDeviceIDMarshal, puDeviceID, "uint")
         return result
     }
 
@@ -6968,7 +6996,9 @@ class Audio {
      * @since windows5.0
      */
     static auxGetVolume(uDeviceID, pdwVolume) {
-        result := DllCall("WINMM.dll\auxGetVolume", "uint", uDeviceID, "uint*", pdwVolume, "uint")
+        pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\auxGetVolume", "uint", uDeviceID, pdwVolumeMarshal, pdwVolume, "uint")
         return result
     }
 
@@ -7828,7 +7858,9 @@ class Audio {
     static mixerGetID(hmxobj, puMxId, fdwId) {
         hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
 
-        result := DllCall("WINMM.dll\mixerGetID", "ptr", hmxobj, "uint*", puMxId, "uint", fdwId, "uint")
+        puMxIdMarshal := puMxId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\mixerGetID", "ptr", hmxobj, puMxIdMarshal, puMxId, "uint", fdwId, "uint")
         return result
     }
 
@@ -8941,7 +8973,9 @@ class Audio {
     static acmMetrics(hao, uMetric, pMetric) {
         hao := hao is Win32Handle ? NumGet(hao, "ptr") : hao
 
-        result := DllCall("MSACM32.dll\acmMetrics", "ptr", hao, "uint", uMetric, "ptr", pMetric, "uint")
+        pMetricMarshal := pMetric is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSACM32.dll\acmMetrics", "ptr", hao, "uint", uMetric, pMetricMarshal, pMetric, "uint")
         return result
     }
 
@@ -11710,7 +11744,9 @@ class Audio {
     static acmStreamSize(has, cbInput, pdwOutputBytes, fdwSize) {
         has := has is Win32Handle ? NumGet(has, "ptr") : has
 
-        result := DllCall("MSACM32.dll\acmStreamSize", "ptr", has, "uint", cbInput, "uint*", pdwOutputBytes, "uint", fdwSize, "uint")
+        pdwOutputBytesMarshal := pdwOutputBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MSACM32.dll\acmStreamSize", "ptr", has, "uint", cbInput, pdwOutputBytesMarshal, pdwOutputBytes, "uint", fdwSize, "uint")
         return result
     }
 

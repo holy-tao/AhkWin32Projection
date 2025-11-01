@@ -37,7 +37,9 @@ class IMsmError extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_type
      */
     get_Type(ErrorType) {
-        result := ComCall(7, this, "int*", ErrorType, "HRESULT")
+        ErrorTypeMarshal := ErrorType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, ErrorTypeMarshal, ErrorType, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IMsmError extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_language
      */
     get_Language(ErrorLanguage) {
-        result := ComCall(9, this, "short*", ErrorLanguage, "HRESULT")
+        ErrorLanguageMarshal := ErrorLanguage is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, ErrorLanguageMarshal, ErrorLanguage, "HRESULT")
         return result
     }
 

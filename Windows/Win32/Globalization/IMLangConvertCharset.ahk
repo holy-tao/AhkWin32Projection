@@ -57,7 +57,9 @@ class IMLangConvertCharset extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceCodePage(puiSrcCodePage) {
-        result := ComCall(4, this, "uint*", puiSrcCodePage, "HRESULT")
+        puiSrcCodePageMarshal := puiSrcCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, puiSrcCodePageMarshal, puiSrcCodePage, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IMLangConvertCharset extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDestinationCodePage(puiDstCodePage) {
-        result := ComCall(5, this, "uint*", puiDstCodePage, "HRESULT")
+        puiDstCodePageMarshal := puiDstCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, puiDstCodePageMarshal, puiDstCodePage, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IMLangConvertCharset extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProperty(pdwProperty) {
-        result := ComCall(6, this, "uint*", pdwProperty, "HRESULT")
+        pdwPropertyMarshal := pdwProperty is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwPropertyMarshal, pdwProperty, "HRESULT")
         return result
     }
 
@@ -90,7 +96,10 @@ class IMLangConvertCharset extends IUnknown{
      * @returns {HRESULT} 
      */
     DoConversion(pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
-        result := ComCall(7, this, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "HRESULT")
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -105,7 +114,10 @@ class IMLangConvertCharset extends IUnknown{
     DoConversionToUnicode(pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pDstStr := pDstStr is String ? StrPtr(pDstStr) : pDstStr
 
-        result := ComCall(8, this, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "HRESULT")
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -120,7 +132,10 @@ class IMLangConvertCharset extends IUnknown{
     DoConversionFromUnicode(pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pSrcStr := pSrcStr is String ? StrPtr(pSrcStr) : pSrcStr
 
-        result := ComCall(9, this, "ptr", pSrcStr, "uint*", pcSrcSize, "ptr", pDstStr, "uint*", pcDstSize, "HRESULT")
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 }

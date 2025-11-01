@@ -60,7 +60,9 @@ class IBidiRequestContainer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRequestCount(puCount) {
-        result := ComCall(5, this, "uint*", puCount, "HRESULT")
+        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, puCountMarshal, puCount, "HRESULT")
         return result
     }
 }

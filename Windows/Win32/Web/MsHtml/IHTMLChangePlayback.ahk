@@ -35,7 +35,9 @@ class IHTMLChangePlayback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExecChange(pbRecord, fForward) {
-        result := ComCall(3, this, "char*", pbRecord, "int", fForward, "HRESULT")
+        pbRecordMarshal := pbRecord is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbRecordMarshal, pbRecord, "int", fForward, "HRESULT")
         return result
     }
 }

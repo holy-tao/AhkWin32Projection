@@ -104,7 +104,9 @@ class IRichEditOleCallback extends IUnknown{
     QueryAcceptData(lpdataobj, lpcfFormat, reco, fReally, hMetaPict) {
         hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
 
-        result := ComCall(8, this, "ptr", lpdataobj, "ushort*", lpcfFormat, "uint", reco, "int", fReally, "ptr", hMetaPict, "HRESULT")
+        lpcfFormatMarshal := lpcfFormat is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "ptr", lpdataobj, lpcfFormatMarshal, lpcfFormat, "uint", reco, "int", fReally, "ptr", hMetaPict, "HRESULT")
         return result
     }
 
@@ -145,7 +147,9 @@ class IRichEditOleCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-getdragdropeffect
      */
     GetDragDropEffect(fDrag, grfKeyState, pdwEffect) {
-        result := ComCall(11, this, "int", fDrag, "uint", grfKeyState, "uint*", pdwEffect, "HRESULT")
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "int", fDrag, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 

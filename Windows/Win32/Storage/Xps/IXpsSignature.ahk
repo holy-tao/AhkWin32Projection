@@ -56,7 +56,9 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignaturevalue
      */
     GetSignatureValue(signatureHashValue, count) {
-        result := ComCall(4, this, "ptr*", signatureHashValue, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", signatureHashValue, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -89,7 +91,9 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsigningtimeformat
      */
     GetSigningTimeFormat(timeFormat) {
-        result := ComCall(7, this, "int*", timeFormat, "HRESULT")
+        timeFormatMarshal := timeFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, timeFormatMarshal, timeFormat, "HRESULT")
         return result
     }
 
@@ -112,7 +116,9 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-verify
      */
     Verify(x509Certificate, sigStatus) {
-        result := ComCall(9, this, "ptr", x509Certificate, "int*", sigStatus, "HRESULT")
+        sigStatusMarshal := sigStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", x509Certificate, sigStatusMarshal, sigStatus, "HRESULT")
         return result
     }
 
@@ -123,7 +129,9 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getpolicy
      */
     GetPolicy(policy) {
-        result := ComCall(10, this, "int*", policy, "HRESULT")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, policyMarshal, policy, "HRESULT")
         return result
     }
 
@@ -157,7 +165,9 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignaturexml
      */
     GetSignatureXml(signatureXml, count) {
-        result := ComCall(13, this, "ptr*", signatureXml, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr*", signatureXml, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -169,7 +179,9 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-setsignaturexml
      */
     SetSignatureXml(signatureXml, count) {
-        result := ComCall(14, this, "char*", signatureXml, "uint", count, "HRESULT")
+        signatureXmlMarshal := signatureXml is VarRef ? "char*" : "ptr"
+
+        result := ComCall(14, this, signatureXmlMarshal, signatureXml, "uint", count, "HRESULT")
         return result
     }
 }

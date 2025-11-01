@@ -2792,7 +2792,9 @@ class RemoteManagement {
         languageCode := languageCode is String ? StrPtr(languageCode) : languageCode
         message := message is String ? StrPtr(message) : message
 
-        result := DllCall("WsmSvc.dll\WSManGetErrorMessage", "ptr", apiHandle, "uint", flags, "ptr", languageCode, "uint", errorCode, "uint", messageLength, "ptr", message, "uint*", messageLengthUsed, "uint")
+        messageLengthUsedMarshal := messageLengthUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManGetErrorMessage", "ptr", apiHandle, "uint", flags, "ptr", languageCode, "uint", errorCode, "uint", messageLength, "ptr", message, messageLengthUsedMarshal, messageLengthUsed, "uint")
         return result
     }
 
@@ -2905,7 +2907,9 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManGetSessionOptionAsDword(session, option, value) {
-        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsDword", "ptr", session, "int", option, "uint*", value, "uint")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsDword", "ptr", session, "int", option, valueMarshal, value, "uint")
         return result
     }
 
@@ -2923,7 +2927,9 @@ class RemoteManagement {
     static WSManGetSessionOptionAsString(session, option, stringLength, string, stringLengthUsed) {
         string := string is String ? StrPtr(string) : string
 
-        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", "ptr", session, "int", option, "uint", stringLength, "ptr", string, "uint*", stringLengthUsed, "uint")
+        stringLengthUsedMarshal := stringLengthUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", "ptr", session, "int", option, "uint", stringLength, "ptr", string, stringLengthUsedMarshal, stringLengthUsed, "uint")
         return result
     }
 
@@ -3241,7 +3247,9 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManPluginReportContext(requestDetails, flags, context) {
-        result := DllCall("WsmSvc.dll\WSManPluginReportContext", "ptr", requestDetails, "uint", flags, "ptr", context, "uint")
+        contextMarshal := context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManPluginReportContext", "ptr", requestDetails, "uint", flags, contextMarshal, context, "uint")
         return result
     }
 
@@ -3304,7 +3312,9 @@ class RemoteManagement {
      * @returns {Integer} 
      */
     static WSManPluginGetConfiguration(pluginContext, flags, data) {
-        result := DllCall("WsmSvc.dll\WSManPluginGetConfiguration", "ptr", pluginContext, "uint", flags, "ptr", data, "uint")
+        pluginContextMarshal := pluginContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManPluginGetConfiguration", pluginContextMarshal, pluginContext, "uint", flags, "ptr", data, "uint")
         return result
     }
 
@@ -3315,7 +3325,9 @@ class RemoteManagement {
      * @returns {Integer} 
      */
     static WSManPluginReportCompletion(pluginContext, flags) {
-        result := DllCall("WsmSvc.dll\WSManPluginReportCompletion", "ptr", pluginContext, "uint", flags, "uint")
+        pluginContextMarshal := pluginContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManPluginReportCompletion", pluginContextMarshal, pluginContext, "uint", flags, "uint")
         return result
     }
 
@@ -3351,7 +3363,9 @@ class RemoteManagement {
         impersonationToken := impersonationToken is Win32Handle ? NumGet(impersonationToken, "ptr") : impersonationToken
         extendedErrorInformation := extendedErrorInformation is String ? StrPtr(extendedErrorInformation) : extendedErrorInformation
 
-        result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", "ptr", senderDetails, "uint", flags, "ptr", userAuthorizationContext, "ptr", impersonationToken, "int", userIsAdministrator, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
+        userAuthorizationContextMarshal := userAuthorizationContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", "ptr", senderDetails, "uint", flags, userAuthorizationContextMarshal, userAuthorizationContext, "ptr", impersonationToken, "int", userIsAdministrator, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
         return result
     }
 
@@ -3369,7 +3383,9 @@ class RemoteManagement {
     static WSManPluginAuthzOperationComplete(senderDetails, flags, userAuthorizationContext, errorCode, extendedErrorInformation) {
         extendedErrorInformation := extendedErrorInformation is String ? StrPtr(extendedErrorInformation) : extendedErrorInformation
 
-        result := DllCall("WsmSvc.dll\WSManPluginAuthzOperationComplete", "ptr", senderDetails, "uint", flags, "ptr", userAuthorizationContext, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
+        userAuthorizationContextMarshal := userAuthorizationContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManPluginAuthzOperationComplete", "ptr", senderDetails, "uint", flags, userAuthorizationContextMarshal, userAuthorizationContext, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
         return result
     }
 

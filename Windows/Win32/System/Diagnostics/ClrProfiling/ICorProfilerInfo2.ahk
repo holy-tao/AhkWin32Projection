@@ -39,7 +39,10 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     DoStackSnapshot(thread, callback, infoFlags, clientData, context, contextSize) {
-        result := ComCall(36, this, "ptr", thread, "ptr*", callback, "uint", infoFlags, "ptr", clientData, "char*", context, "uint", contextSize, "HRESULT")
+        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+        contextMarshal := context is VarRef ? "char*" : "ptr"
+
+        result := ComCall(36, this, "ptr", thread, "ptr*", callback, "uint", infoFlags, clientDataMarshal, clientData, contextMarshal, context, "uint", contextSize, "HRESULT")
         return result
     }
 
@@ -68,7 +71,13 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetFunctionInfo2(funcId, frameInfo, pClassId, pModuleId, pToken, cTypeArgs, pcTypeArgs, typeArgs) {
-        result := ComCall(38, this, "ptr", funcId, "ptr", frameInfo, "ptr*", pClassId, "ptr*", pModuleId, "uint*", pToken, "uint", cTypeArgs, "uint*", pcTypeArgs, "ptr*", typeArgs, "HRESULT")
+        pClassIdMarshal := pClassId is VarRef ? "ptr*" : "ptr"
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
+        pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
+        pcTypeArgsMarshal := pcTypeArgs is VarRef ? "uint*" : "ptr"
+        typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(38, this, "ptr", funcId, "ptr", frameInfo, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "uint", cTypeArgs, pcTypeArgsMarshal, pcTypeArgs, typeArgsMarshal, typeArgs, "HRESULT")
         return result
     }
 
@@ -80,7 +89,11 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetStringLayout(pBufferLengthOffset, pStringLengthOffset, pBufferOffset) {
-        result := ComCall(39, this, "uint*", pBufferLengthOffset, "uint*", pStringLengthOffset, "uint*", pBufferOffset, "HRESULT")
+        pBufferLengthOffsetMarshal := pBufferLengthOffset is VarRef ? "uint*" : "ptr"
+        pStringLengthOffsetMarshal := pStringLengthOffset is VarRef ? "uint*" : "ptr"
+        pBufferOffsetMarshal := pBufferOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, pBufferLengthOffsetMarshal, pBufferLengthOffset, pStringLengthOffsetMarshal, pStringLengthOffset, pBufferOffsetMarshal, pBufferOffset, "HRESULT")
         return result
     }
 
@@ -94,7 +107,10 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetClassLayout(classID, rFieldOffset, cFieldOffset, pcFieldOffset, pulClassSize) {
-        result := ComCall(40, this, "ptr", classID, "ptr", rFieldOffset, "uint", cFieldOffset, "uint*", pcFieldOffset, "uint*", pulClassSize, "HRESULT")
+        pcFieldOffsetMarshal := pcFieldOffset is VarRef ? "uint*" : "ptr"
+        pulClassSizeMarshal := pulClassSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, "ptr", classID, "ptr", rFieldOffset, "uint", cFieldOffset, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
         return result
     }
 
@@ -110,7 +126,13 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetClassIDInfo2(classId, pModuleId, pTypeDefToken, pParentClassId, cNumTypeArgs, pcNumTypeArgs, typeArgs) {
-        result := ComCall(41, this, "ptr", classId, "ptr*", pModuleId, "uint*", pTypeDefToken, "ptr*", pParentClassId, "uint", cNumTypeArgs, "uint*", pcNumTypeArgs, "ptr*", typeArgs, "HRESULT")
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
+        pTypeDefTokenMarshal := pTypeDefToken is VarRef ? "uint*" : "ptr"
+        pParentClassIdMarshal := pParentClassId is VarRef ? "ptr*" : "ptr"
+        pcNumTypeArgsMarshal := pcNumTypeArgs is VarRef ? "uint*" : "ptr"
+        typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(41, this, "ptr", classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, pParentClassIdMarshal, pParentClassId, "uint", cNumTypeArgs, pcNumTypeArgsMarshal, pcNumTypeArgs, typeArgsMarshal, typeArgs, "HRESULT")
         return result
     }
 
@@ -123,7 +145,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetCodeInfo2(functionID, cCodeInfos, pcCodeInfos, codeInfos) {
-        result := ComCall(42, this, "ptr", functionID, "uint", cCodeInfos, "uint*", pcCodeInfos, "ptr", codeInfos, "HRESULT")
+        pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(42, this, "ptr", functionID, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "HRESULT")
         return result
     }
 
@@ -137,7 +161,10 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetClassFromTokenAndTypeArgs(moduleID, typeDef, cTypeArgs, typeArgs, pClassID) {
-        result := ComCall(43, this, "ptr", moduleID, "uint", typeDef, "uint", cTypeArgs, "ptr*", typeArgs, "ptr*", pClassID, "HRESULT")
+        typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
+        pClassIDMarshal := pClassID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(43, this, "ptr", moduleID, "uint", typeDef, "uint", cTypeArgs, typeArgsMarshal, typeArgs, pClassIDMarshal, pClassID, "HRESULT")
         return result
     }
 
@@ -152,7 +179,10 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetFunctionFromTokenAndTypeArgs(moduleID, funcDef, classId, cTypeArgs, typeArgs, pFunctionID) {
-        result := ComCall(44, this, "ptr", moduleID, "uint", funcDef, "ptr", classId, "uint", cTypeArgs, "ptr*", typeArgs, "ptr*", pFunctionID, "HRESULT")
+        typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
+        pFunctionIDMarshal := pFunctionID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(44, this, "ptr", moduleID, "uint", funcDef, "ptr", classId, "uint", cTypeArgs, typeArgsMarshal, typeArgs, pFunctionIDMarshal, pFunctionID, "HRESULT")
         return result
     }
 
@@ -177,7 +207,10 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetArrayObjectInfo(objectId, cDimensions, pDimensionSizes, pDimensionLowerBounds, ppData) {
-        result := ComCall(46, this, "ptr", objectId, "uint", cDimensions, "uint*", pDimensionSizes, "int*", pDimensionLowerBounds, "ptr*", ppData, "HRESULT")
+        pDimensionSizesMarshal := pDimensionSizes is VarRef ? "uint*" : "ptr"
+        pDimensionLowerBoundsMarshal := pDimensionLowerBounds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(46, this, "ptr", objectId, "uint", cDimensions, pDimensionSizesMarshal, pDimensionSizes, pDimensionLowerBoundsMarshal, pDimensionLowerBounds, "ptr*", ppData, "HRESULT")
         return result
     }
 
@@ -188,7 +221,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetBoxClassLayout(classId, pBufferOffset) {
-        result := ComCall(47, this, "ptr", classId, "uint*", pBufferOffset, "HRESULT")
+        pBufferOffsetMarshal := pBufferOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(47, this, "ptr", classId, pBufferOffsetMarshal, pBufferOffset, "HRESULT")
         return result
     }
 
@@ -199,7 +234,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetThreadAppDomain(threadId, pAppDomainId) {
-        result := ComCall(48, this, "ptr", threadId, "ptr*", pAppDomainId, "HRESULT")
+        pAppDomainIdMarshal := pAppDomainId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(48, this, "ptr", threadId, pAppDomainIdMarshal, pAppDomainId, "HRESULT")
         return result
     }
 
@@ -262,7 +299,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetStaticFieldInfo(classId, fieldToken, pFieldInfo) {
-        result := ComCall(53, this, "ptr", classId, "uint", fieldToken, "int*", pFieldInfo, "HRESULT")
+        pFieldInfoMarshal := pFieldInfo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(53, this, "ptr", classId, "uint", fieldToken, pFieldInfoMarshal, pFieldInfo, "HRESULT")
         return result
     }
 
@@ -274,7 +313,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetGenerationBounds(cObjectRanges, pcObjectRanges, ranges) {
-        result := ComCall(54, this, "uint", cObjectRanges, "uint*", pcObjectRanges, "ptr", ranges, "HRESULT")
+        pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(54, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, "ptr", ranges, "HRESULT")
         return result
     }
 

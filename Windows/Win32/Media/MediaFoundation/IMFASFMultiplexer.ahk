@@ -223,7 +223,9 @@ class IMFASFMultiplexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(5, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -248,7 +250,9 @@ class IMFASFMultiplexer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket
      */
     GetNextPacket(pdwStatusFlags, ppIPacket) {
-        result := ComCall(7, this, "uint*", pdwStatusFlags, "ptr*", ppIPacket, "HRESULT")
+        pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwStatusFlagsMarshal, pdwStatusFlags, "ptr*", ppIPacket, "HRESULT")
         return result
     }
 

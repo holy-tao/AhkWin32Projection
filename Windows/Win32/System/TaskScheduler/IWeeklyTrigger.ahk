@@ -45,7 +45,9 @@ class IWeeklyTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-get_daysofweek
      */
     get_DaysOfWeek(pDays) {
-        result := ComCall(20, this, "short*", pDays, "HRESULT")
+        pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
+
+        result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IWeeklyTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-get_weeksinterval
      */
     get_WeeksInterval(pWeeks) {
-        result := ComCall(22, this, "short*", pWeeks, "HRESULT")
+        pWeeksMarshal := pWeeks is VarRef ? "short*" : "ptr"
+
+        result := ComCall(22, this, pWeeksMarshal, pWeeks, "HRESULT")
         return result
     }
 

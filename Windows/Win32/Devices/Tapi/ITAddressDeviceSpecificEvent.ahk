@@ -59,7 +59,9 @@ class ITAddressDeviceSpecificEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_lparam1
      */
     get_lParam1(pParam1) {
-        result := ComCall(9, this, "int*", pParam1, "HRESULT")
+        pParam1Marshal := pParam1 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pParam1Marshal, pParam1, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ITAddressDeviceSpecificEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_lparam2
      */
     get_lParam2(pParam2) {
-        result := ComCall(10, this, "int*", pParam2, "HRESULT")
+        pParam2Marshal := pParam2 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pParam2Marshal, pParam2, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ITAddressDeviceSpecificEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_lparam3
      */
     get_lParam3(pParam3) {
-        result := ComCall(11, this, "int*", pParam3, "HRESULT")
+        pParam3Marshal := pParam3 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pParam3Marshal, pParam3, "HRESULT")
         return result
     }
 }

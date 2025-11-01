@@ -47,7 +47,9 @@ class IRDPSRAPIAudioStream extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pnPeriodInHundredNsIntervals) {
-        result := ComCall(3, this, "int64*", pnPeriodInHundredNsIntervals, "HRESULT")
+        pnPeriodInHundredNsIntervalsMarshal := pnPeriodInHundredNsIntervals is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, pnPeriodInHundredNsIntervalsMarshal, pnPeriodInHundredNsIntervals, "HRESULT")
         return result
     }
 
@@ -80,7 +82,10 @@ class IRDPSRAPIAudioStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer
      */
     GetBuffer(ppbData, pcbData, pTimestamp) {
-        result := ComCall(6, this, "ptr*", ppbData, "uint*", pcbData, "uint*", pTimestamp, "HRESULT")
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pTimestampMarshal := pTimestamp is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", ppbData, pcbDataMarshal, pcbData, pTimestampMarshal, pTimestamp, "HRESULT")
         return result
     }
 

@@ -130,7 +130,9 @@ class IValueMapItem extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_valuemaptype
      */
     get_ValueMapType(type) {
-        result := ComCall(15, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, typeMarshal, type, "HRESULT")
         return result
     }
 

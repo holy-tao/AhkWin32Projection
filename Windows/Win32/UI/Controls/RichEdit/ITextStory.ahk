@@ -38,7 +38,9 @@ class ITextStory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getactive
      */
     GetActive(pValue) {
-        result := ComCall(3, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class ITextStory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getindex
      */
     GetIndex(pValue) {
-        result := ComCall(6, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -82,7 +86,9 @@ class ITextStory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-gettype
      */
     GetType(pValue) {
-        result := ComCall(7, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -105,7 +111,9 @@ class ITextStory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getproperty
      */
     GetProperty(Type, pValue) {
-        result := ComCall(9, this, "int", Type, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

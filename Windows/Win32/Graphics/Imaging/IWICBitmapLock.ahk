@@ -44,7 +44,10 @@ class IWICBitmapLock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getsize
      */
     GetSize(puiWidth, puiHeight) {
-        result := ComCall(3, this, "uint*", puiWidth, "uint*", puiHeight, "HRESULT")
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
     }
 
@@ -55,7 +58,9 @@ class IWICBitmapLock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getstride
      */
     GetStride(pcbStride) {
-        result := ComCall(4, this, "uint*", pcbStride, "HRESULT")
+        pcbStrideMarshal := pcbStride is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcbStrideMarshal, pcbStride, "HRESULT")
         return result
     }
 
@@ -67,7 +72,9 @@ class IWICBitmapLock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getdatapointer
      */
     GetDataPointer(pcbBufferSize, ppbData) {
-        result := ComCall(5, this, "uint*", pcbBufferSize, "ptr*", ppbData, "HRESULT")
+        pcbBufferSizeMarshal := pcbBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pcbBufferSizeMarshal, pcbBufferSize, "ptr*", ppbData, "HRESULT")
         return result
     }
 

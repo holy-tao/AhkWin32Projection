@@ -57,7 +57,9 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     get_length(dataLength) {
-        result := ComCall(45, this, "int*", dataLength, "HRESULT")
+        dataLengthMarshal := dataLength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, dataLengthMarshal, dataLength, "HRESULT")
         return result
     }
 

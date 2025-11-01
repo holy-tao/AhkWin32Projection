@@ -44,7 +44,10 @@ class IDtcLuSubordinateDtcFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     Create(pucLuPair, cbLuPair, punkTransactionOuter, isoLevel, isoFlags, pOptions, ppTransaction, pTransId, cbTransId, pSubordinateDtcSink, ppSubordinateDtc) {
-        result := ComCall(3, this, "char*", pucLuPair, "uint", cbLuPair, "ptr", punkTransactionOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", ppTransaction, "char*", pTransId, "uint", cbTransId, "ptr", pSubordinateDtcSink, "ptr*", ppSubordinateDtc, "HRESULT")
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+        pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", punkTransactionOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", ppTransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pSubordinateDtcSink, "ptr*", ppSubordinateDtc, "HRESULT")
         return result
     }
 }

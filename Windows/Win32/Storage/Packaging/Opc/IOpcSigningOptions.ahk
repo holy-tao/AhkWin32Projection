@@ -127,7 +127,9 @@ class IOpcSigningOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcertificateembeddingoption
      */
     GetCertificateEmbeddingOption(embeddingOption) {
-        result := ComCall(9, this, "int*", embeddingOption, "HRESULT")
+        embeddingOptionMarshal := embeddingOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, embeddingOptionMarshal, embeddingOption, "HRESULT")
         return result
     }
 
@@ -149,7 +151,9 @@ class IOpcSigningOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-gettimeformat
      */
     GetTimeFormat(timeFormat) {
-        result := ComCall(11, this, "int*", timeFormat, "HRESULT")
+        timeFormatMarshal := timeFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, timeFormatMarshal, timeFormat, "HRESULT")
         return result
     }
 

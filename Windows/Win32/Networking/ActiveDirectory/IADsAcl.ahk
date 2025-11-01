@@ -81,7 +81,9 @@ class IADsAcl extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Privileges(retval) {
-        result := ComCall(11, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

@@ -34,7 +34,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTagExtension(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -64,7 +70,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCentreFrequency(pdwVal) {
-        result := ComCall(6, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -74,7 +82,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPLPId(pbVal) {
-        result := ComCall(7, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -84,7 +94,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetT2SystemId(pwVal) {
-        result := ComCall(8, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -94,7 +106,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMultipleInputMode(pbVal) {
-        result := ComCall(9, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -104,7 +118,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBandwidth(pbVal) {
-        result := ComCall(10, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -114,7 +130,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGuardInterval(pbVal) {
-        result := ComCall(11, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -124,7 +142,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTransmissionMode(pbVal) {
-        result := ComCall(12, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(12, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -134,7 +154,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCellId(pwVal) {
-        result := ComCall(13, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(13, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -144,7 +166,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOtherFrequencyFlag(pbVal) {
-        result := ComCall(14, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(14, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -154,7 +178,9 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTFSFlag(pbVal) {
-        result := ComCall(15, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(15, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 }

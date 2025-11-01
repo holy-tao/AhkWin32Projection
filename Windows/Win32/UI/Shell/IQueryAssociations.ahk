@@ -79,7 +79,9 @@ class IQueryAssociations extends IUnknown{
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-        result := ComCall(4, this, "uint", flags, "int", str, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "HRESULT")
+        pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", flags, "int", str, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class IQueryAssociations extends IUnknown{
     GetData(flags, data, pszExtra, pvOut, pcbOut) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        result := ComCall(6, this, "uint", flags, "int", data, "ptr", pszExtra, "ptr", pvOut, "uint*", pcbOut, "HRESULT")
+        pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", flags, "int", data, "ptr", pszExtra, "ptr", pvOut, pcbOutMarshal, pcbOut, "HRESULT")
         return result
     }
 

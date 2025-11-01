@@ -51,7 +51,9 @@ class IOpcSignatureCustomObjectSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectset-create
      */
     Create(xmlMarkup, count, customObject) {
-        result := ComCall(3, this, "char*", xmlMarkup, "uint", count, "ptr*", customObject, "HRESULT")
+        xmlMarkupMarshal := xmlMarkup is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, "uint", count, "ptr*", customObject, "HRESULT")
         return result
     }
 

@@ -66,7 +66,9 @@ class IBackgroundCopyFile6 extends IBackgroundCopyFile5{
      * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-getfilledfileranges
      */
     GetFilledFileRanges(rangeCount, ranges) {
-        result := ComCall(17, this, "uint*", rangeCount, "ptr*", ranges, "HRESULT")
+        rangeCountMarshal := rangeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, rangeCountMarshal, rangeCount, "ptr*", ranges, "HRESULT")
         return result
     }
 }

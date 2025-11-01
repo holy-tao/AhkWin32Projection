@@ -78,7 +78,9 @@ class IPropertyStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-readpropertynames
      */
     ReadPropertyNames(cpropid, rgpropid, rglpwstrName) {
-        result := ComCall(6, this, "uint", cpropid, "uint*", rgpropid, "ptr", rglpwstrName, "HRESULT")
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
         return result
     }
 
@@ -91,7 +93,9 @@ class IPropertyStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-writepropertynames
      */
     WritePropertyNames(cpropid, rgpropid, rglpwstrName) {
-        result := ComCall(7, this, "uint", cpropid, "uint*", rgpropid, "ptr", rglpwstrName, "HRESULT")
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, "ptr", rglpwstrName, "HRESULT")
         return result
     }
 
@@ -103,7 +107,9 @@ class IPropertyStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-deletepropertynames
      */
     DeletePropertyNames(cpropid, rgpropid) {
-        result := ComCall(8, this, "uint", cpropid, "uint*", rgpropid, "HRESULT")
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", cpropid, rgpropidMarshal, rgpropid, "HRESULT")
         return result
     }
 

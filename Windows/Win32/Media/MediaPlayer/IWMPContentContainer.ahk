@@ -37,7 +37,9 @@ class IWMPContentContainer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getid
      */
     GetID(pContentID) {
-        result := ComCall(3, this, "uint*", pContentID, "HRESULT")
+        pContentIDMarshal := pContentID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pContentIDMarshal, pContentID, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IWMPContentContainer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentcount
      */
     GetContentCount(pcContent) {
-        result := ComCall(6, this, "uint*", pcContent, "HRESULT")
+        pcContentMarshal := pcContent is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcContentMarshal, pcContent, "HRESULT")
         return result
     }
 
@@ -94,7 +98,9 @@ class IWMPContentContainer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentid
      */
     GetContentID(idxContent, pContentID) {
-        result := ComCall(8, this, "uint", idxContent, "uint*", pContentID, "HRESULT")
+        pContentIDMarshal := pContentID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", idxContent, pContentIDMarshal, pContentID, "HRESULT")
         return result
     }
 }

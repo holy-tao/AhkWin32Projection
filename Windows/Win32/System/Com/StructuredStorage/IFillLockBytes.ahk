@@ -39,7 +39,9 @@ class IFillLockBytes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillappend
      */
     FillAppend(pv, cb, pcbWritten) {
-        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", pcbWritten, "HRESULT")
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IFillLockBytes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillat
      */
     FillAt(ulOffset, pv, cb, pcbWritten) {
-        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", pcbWritten, "HRESULT")
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 

@@ -290,7 +290,9 @@ class INetFwRule extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_protocol
      */
     get_Protocol(protocol) {
-        result := ComCall(15, this, "int*", protocol, "HRESULT")
+        protocolMarshal := protocol is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, protocolMarshal, protocol, "HRESULT")
         return result
     }
 
@@ -432,7 +434,9 @@ class INetFwRule extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_direction
      */
     get_Direction(dir) {
-        result := ComCall(27, this, "int*", dir, "HRESULT")
+        dirMarshal := dir is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, dirMarshal, dir, "HRESULT")
         return result
     }
 
@@ -546,7 +550,9 @@ class INetFwRule extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_profiles
      */
     get_Profiles(profileTypesBitmask) {
-        result := ComCall(37, this, "int*", profileTypesBitmask, "HRESULT")
+        profileTypesBitmaskMarshal := profileTypesBitmask is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, profileTypesBitmaskMarshal, profileTypesBitmask, "HRESULT")
         return result
     }
 
@@ -590,7 +596,9 @@ class INetFwRule extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_action
      */
     get_Action(action) {
-        result := ComCall(41, this, "int*", action, "HRESULT")
+        actionMarshal := action is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, actionMarshal, action, "HRESULT")
         return result
     }
 

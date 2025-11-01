@@ -44,7 +44,9 @@ class IRdcLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-computedefaultrecursiondepth
      */
     ComputeDefaultRecursionDepth(fileSize, depth) {
-        result := ComCall(3, this, "uint", fileSize, "uint*", depth, "HRESULT")
+        depthMarshal := depth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", fileSize, depthMarshal, depth, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IRdcLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-opengeneratorparameters
      */
     OpenGeneratorParameters(size, parametersBlob, iGeneratorParameters) {
-        result := ComCall(5, this, "uint", size, "char*", parametersBlob, "ptr*", iGeneratorParameters, "HRESULT")
+        parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "uint", size, parametersBlobMarshal, parametersBlob, "ptr*", iGeneratorParameters, "HRESULT")
         return result
     }
 
@@ -120,7 +124,10 @@ class IRdcLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-getrdcversion
      */
     GetRDCVersion(currentVersion, minimumCompatibleAppVersion) {
-        result := ComCall(9, this, "uint*", currentVersion, "uint*", minimumCompatibleAppVersion, "HRESULT")
+        currentVersionMarshal := currentVersion is VarRef ? "uint*" : "ptr"
+        minimumCompatibleAppVersionMarshal := minimumCompatibleAppVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, currentVersionMarshal, currentVersion, minimumCompatibleAppVersionMarshal, minimumCompatibleAppVersion, "HRESULT")
         return result
     }
 }

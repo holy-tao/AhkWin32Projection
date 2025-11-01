@@ -59,7 +59,9 @@ class IADsTypedName extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Level(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IADsTypedName extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Interval(retval) {
-        result := ComCall(11, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

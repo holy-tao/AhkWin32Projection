@@ -125,7 +125,9 @@ class ITsSbTaskInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_status
      */
     get_Status(pStatus) {
-        result := ComCall(11, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 }

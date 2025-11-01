@@ -65,7 +65,10 @@ class Direct3D11on12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d11on12/nf-d3d11on12-d3d11on12createdevice
      */
     static D3D11On12CreateDevice(pDevice, Flags, pFeatureLevels, FeatureLevels, ppCommandQueues, NumQueues, NodeMask, ppDevice, ppImmediateContext, pChosenFeatureLevel) {
-        result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "ptr*", ppCommandQueues, "uint", NumQueues, "uint", NodeMask, "ptr*", ppDevice, "ptr*", ppImmediateContext, "int*", pChosenFeatureLevel, "int")
+        pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
+        pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
+
+        result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "ptr*", ppCommandQueues, "uint", NumQueues, "uint", NodeMask, "ptr*", ppDevice, "ptr*", ppImmediateContext, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "int")
         if(result != 0)
             throw OSError(result)
 

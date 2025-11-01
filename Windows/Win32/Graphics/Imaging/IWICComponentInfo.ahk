@@ -37,7 +37,9 @@ class IWICComponentInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getcomponenttype
      */
     GetComponentType(pType) {
-        result := ComCall(3, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IWICComponentInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getsigningstatus
      */
     GetSigningStatus(pStatus) {
-        result := ComCall(5, this, "uint*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IWICComponentInfo extends IUnknown{
     GetAuthor(cchAuthor, wzAuthor, pcchActual) {
         wzAuthor := wzAuthor is String ? StrPtr(wzAuthor) : wzAuthor
 
-        result := ComCall(6, this, "uint", cchAuthor, "ptr", wzAuthor, "uint*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", cchAuthor, "ptr", wzAuthor, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 
@@ -102,7 +108,9 @@ class IWICComponentInfo extends IUnknown{
     GetVersion(cchVersion, wzVersion, pcchActual) {
         wzVersion := wzVersion is String ? StrPtr(wzVersion) : wzVersion
 
-        result := ComCall(8, this, "uint", cchVersion, "ptr", wzVersion, "uint*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", cchVersion, "ptr", wzVersion, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 
@@ -117,7 +125,9 @@ class IWICComponentInfo extends IUnknown{
     GetSpecVersion(cchSpecVersion, wzSpecVersion, pcchActual) {
         wzSpecVersion := wzSpecVersion is String ? StrPtr(wzSpecVersion) : wzSpecVersion
 
-        result := ComCall(9, this, "uint", cchSpecVersion, "ptr", wzSpecVersion, "uint*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", cchSpecVersion, "ptr", wzSpecVersion, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 
@@ -132,7 +142,9 @@ class IWICComponentInfo extends IUnknown{
     GetFriendlyName(cchFriendlyName, wzFriendlyName, pcchActual) {
         wzFriendlyName := wzFriendlyName is String ? StrPtr(wzFriendlyName) : wzFriendlyName
 
-        result := ComCall(10, this, "uint", cchFriendlyName, "ptr", wzFriendlyName, "uint*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "uint", cchFriendlyName, "ptr", wzFriendlyName, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 }

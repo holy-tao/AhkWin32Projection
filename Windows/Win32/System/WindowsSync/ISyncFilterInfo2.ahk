@@ -42,7 +42,9 @@ class ISyncFilterInfo2 extends ISyncFilterInfo{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfilterinfo2-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(4, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

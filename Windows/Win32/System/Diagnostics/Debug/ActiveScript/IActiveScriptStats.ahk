@@ -36,7 +36,10 @@ class IActiveScriptStats extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStat(stid, pluHi, pluLo) {
-        result := ComCall(3, this, "uint", stid, "uint*", pluHi, "uint*", pluLo, "HRESULT")
+        pluHiMarshal := pluHi is VarRef ? "uint*" : "ptr"
+        pluLoMarshal := pluLo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", stid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "HRESULT")
         return result
     }
 
@@ -48,7 +51,10 @@ class IActiveScriptStats extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatEx(guid, pluHi, pluLo) {
-        result := ComCall(4, this, "ptr", guid, "uint*", pluHi, "uint*", pluLo, "HRESULT")
+        pluHiMarshal := pluHi is VarRef ? "uint*" : "ptr"
+        pluLoMarshal := pluLo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", guid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "HRESULT")
         return result
     }
 

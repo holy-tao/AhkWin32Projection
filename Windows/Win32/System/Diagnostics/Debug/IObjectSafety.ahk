@@ -36,7 +36,10 @@ class IObjectSafety extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInterfaceSafetyOptions(riid, pdwSupportedOptions, pdwEnabledOptions) {
-        result := ComCall(3, this, "ptr", riid, "uint*", pdwSupportedOptions, "uint*", pdwEnabledOptions, "HRESULT")
+        pdwSupportedOptionsMarshal := pdwSupportedOptions is VarRef ? "uint*" : "ptr"
+        pdwEnabledOptionsMarshal := pdwEnabledOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, pdwSupportedOptionsMarshal, pdwSupportedOptions, pdwEnabledOptionsMarshal, pdwEnabledOptions, "HRESULT")
         return result
     }
 

@@ -41,7 +41,9 @@ class IPrintOemUIMXDC extends IUnknown{
     AdjustImageableArea(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, prclImageableArea) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(3, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, "ptr", pOEMDM, "ptr", prclImageableArea, "HRESULT")
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, "ptr", prclImageableArea, "HRESULT")
         return result
     }
 
@@ -58,7 +60,10 @@ class IPrintOemUIMXDC extends IUnknown{
     AdjustImageCompression(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, pCompressionMode) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(4, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, "ptr", pOEMDM, "int*", pCompressionMode, "HRESULT")
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+        pCompressionModeMarshal := pCompressionMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "HRESULT")
         return result
     }
 
@@ -75,7 +80,10 @@ class IPrintOemUIMXDC extends IUnknown{
     AdjustDPI(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, pDPI) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(5, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, "ptr", pOEMDM, "int*", pDPI, "HRESULT")
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+        pDPIMarshal := pDPI is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "HRESULT")
         return result
     }
 }

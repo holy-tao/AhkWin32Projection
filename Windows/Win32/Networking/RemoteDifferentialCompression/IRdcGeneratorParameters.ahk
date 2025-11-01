@@ -43,7 +43,9 @@ class IRdcGeneratorParameters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getgeneratorparameterstype
      */
     GetGeneratorParametersType(parametersType) {
-        result := ComCall(3, this, "int*", parametersType, "HRESULT")
+        parametersTypeMarshal := parametersType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, parametersTypeMarshal, parametersType, "HRESULT")
         return result
     }
 
@@ -55,7 +57,10 @@ class IRdcGeneratorParameters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getparametersversion
      */
     GetParametersVersion(currentVersion, minimumCompatibleAppVersion) {
-        result := ComCall(4, this, "uint*", currentVersion, "uint*", minimumCompatibleAppVersion, "HRESULT")
+        currentVersionMarshal := currentVersion is VarRef ? "uint*" : "ptr"
+        minimumCompatibleAppVersionMarshal := minimumCompatibleAppVersion is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, currentVersionMarshal, currentVersion, minimumCompatibleAppVersionMarshal, minimumCompatibleAppVersion, "HRESULT")
         return result
     }
 
@@ -66,7 +71,9 @@ class IRdcGeneratorParameters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
      */
     GetSerializeSize(size) {
-        result := ComCall(5, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, sizeMarshal, size, "HRESULT")
         return result
     }
 
@@ -79,7 +86,10 @@ class IRdcGeneratorParameters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize
      */
     Serialize(size, parametersBlob, bytesWritten) {
-        result := ComCall(6, this, "uint", size, "char*", parametersBlob, "uint*", bytesWritten, "HRESULT")
+        parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
+        bytesWrittenMarshal := bytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", size, parametersBlobMarshal, parametersBlob, bytesWrittenMarshal, bytesWritten, "HRESULT")
         return result
     }
 }

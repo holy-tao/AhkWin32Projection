@@ -7370,7 +7370,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaRegisterLogonProcess(LogonProcessName, LsaHandle, SecurityMode) {
-        result := DllCall("SECUR32.dll\LsaRegisterLogonProcess", "ptr", LogonProcessName, "ptr", LsaHandle, "uint*", SecurityMode, "int")
+        SecurityModeMarshal := SecurityMode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\LsaRegisterLogonProcess", "ptr", LogonProcessName, "ptr", LsaHandle, SecurityModeMarshal, SecurityMode, "int")
         return result
     }
 
@@ -7782,7 +7784,10 @@ class Identity {
     static LsaLogonUser(LsaHandle, OriginName, LogonType, AuthenticationPackage, AuthenticationInformation, AuthenticationInformationLength, LocalGroups, SourceContext, ProfileBuffer, ProfileBufferLength, LogonId, Token, Quotas, SubStatus) {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
-        result := DllCall("SECUR32.dll\LsaLogonUser", "ptr", LsaHandle, "ptr", OriginName, "int", LogonType, "uint", AuthenticationPackage, "ptr", AuthenticationInformation, "uint", AuthenticationInformationLength, "ptr", LocalGroups, "ptr", SourceContext, "ptr*", ProfileBuffer, "uint*", ProfileBufferLength, "ptr", LogonId, "ptr", Token, "ptr", Quotas, "int*", SubStatus, "int")
+        ProfileBufferLengthMarshal := ProfileBufferLength is VarRef ? "uint*" : "ptr"
+        SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SECUR32.dll\LsaLogonUser", "ptr", LsaHandle, "ptr", OriginName, "int", LogonType, "uint", AuthenticationPackage, "ptr", AuthenticationInformation, "uint", AuthenticationInformationLength, "ptr", LocalGroups, "ptr", SourceContext, "ptr*", ProfileBuffer, ProfileBufferLengthMarshal, ProfileBufferLength, "ptr", LogonId, "ptr", Token, "ptr", Quotas, SubStatusMarshal, SubStatus, "int")
         return result
     }
 
@@ -7876,7 +7881,9 @@ class Identity {
     static LsaLookupAuthenticationPackage(LsaHandle, PackageName, AuthenticationPackage) {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
-        result := DllCall("SECUR32.dll\LsaLookupAuthenticationPackage", "ptr", LsaHandle, "ptr", PackageName, "uint*", AuthenticationPackage, "int")
+        AuthenticationPackageMarshal := AuthenticationPackage is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\LsaLookupAuthenticationPackage", "ptr", LsaHandle, "ptr", PackageName, AuthenticationPackageMarshal, AuthenticationPackage, "int")
         return result
     }
 
@@ -7894,7 +7901,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaFreeReturnBuffer(Buffer) {
-        result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", "ptr", Buffer, "int")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", BufferMarshal, Buffer, "int")
         return result
     }
 
@@ -7983,7 +7992,10 @@ class Identity {
     static LsaCallAuthenticationPackage(LsaHandle, AuthenticationPackage, ProtocolSubmitBuffer, SubmitBufferLength, ProtocolReturnBuffer, ReturnBufferLength, ProtocolStatus) {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
-        result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", "ptr", LsaHandle, "uint", AuthenticationPackage, "ptr", ProtocolSubmitBuffer, "uint", SubmitBufferLength, "ptr*", ProtocolReturnBuffer, "uint*", ReturnBufferLength, "int*", ProtocolStatus, "int")
+        ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : "ptr"
+        ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", "ptr", LsaHandle, "uint", AuthenticationPackage, "ptr", ProtocolSubmitBuffer, "uint", SubmitBufferLength, "ptr*", ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, "int")
         return result
     }
 
@@ -8060,7 +8072,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaFreeMemory(Buffer) {
-        result := DllCall("ADVAPI32.dll\LsaFreeMemory", "ptr", Buffer, "int")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaFreeMemory", BufferMarshal, Buffer, "int")
         return result
     }
 
@@ -8098,7 +8112,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaEnumerateLogonSessions(LogonSessionCount, LogonSessionList) {
-        result := DllCall("SECUR32.dll\LsaEnumerateLogonSessions", "uint*", LogonSessionCount, "ptr*", LogonSessionList, "int")
+        LogonSessionCountMarshal := LogonSessionCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\LsaEnumerateLogonSessions", LogonSessionCountMarshal, LogonSessionCount, "ptr*", LogonSessionList, "int")
         return result
     }
 
@@ -8170,7 +8186,9 @@ class Identity {
      * @since windows8.0
      */
     static LsaGetAppliedCAPIDs(SystemName, CAPIDs, CAPIDCount) {
-        result := DllCall("ADVAPI32.dll\LsaGetAppliedCAPIDs", "ptr", SystemName, "ptr*", CAPIDs, "uint*", CAPIDCount, "int")
+        CAPIDCountMarshal := CAPIDCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaGetAppliedCAPIDs", "ptr", SystemName, "ptr*", CAPIDs, CAPIDCountMarshal, CAPIDCount, "int")
         return result
     }
 
@@ -8187,7 +8205,9 @@ class Identity {
      * @since windows8.0
      */
     static LsaQueryCAPs(CAPIDs, CAPIDCount, CAPs, CAPCount) {
-        result := DllCall("ADVAPI32.dll\LsaQueryCAPs", "ptr", CAPIDs, "uint", CAPIDCount, "ptr*", CAPs, "uint*", CAPCount, "int")
+        CAPCountMarshal := CAPCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaQueryCAPs", "ptr", CAPIDs, "uint", CAPIDCount, "ptr*", CAPs, CAPCountMarshal, CAPCount, "int")
         return result
     }
 
@@ -8239,7 +8259,9 @@ class Identity {
     static LsaSetInformationPolicy(PolicyHandle, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, BufferMarshal, Buffer, "int")
         return result
     }
 
@@ -8371,7 +8393,9 @@ class Identity {
     static LsaSetDomainInformationPolicy(PolicyHandle, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, BufferMarshal, Buffer, "int")
         return result
     }
 
@@ -8487,7 +8511,10 @@ class Identity {
     static LsaEnumerateTrustedDomains(PolicyHandle, EnumerationContext, Buffer, PreferedMaximumLength, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr*", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "int")
+        EnumerationContextMarshal := EnumerationContext is VarRef ? "uint*" : "ptr"
+        CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, "ptr*", Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
         return result
     }
 
@@ -9013,7 +9040,9 @@ class Identity {
     static LsaEnumerateAccountsWithUserRight(PolicyHandle, UserRight, Buffer, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, "ptr*", Buffer, "uint*", CountReturned, "int")
+        CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, "ptr*", Buffer, CountReturnedMarshal, CountReturned, "int")
         return result
     }
 
@@ -9040,7 +9069,9 @@ class Identity {
     static LsaEnumerateAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRights) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr*", UserRights, "uint*", CountOfRights, "int")
+        CountOfRightsMarshal := CountOfRights is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr*", UserRights, CountOfRightsMarshal, CountOfRights, "int")
         return result
     }
 
@@ -9257,7 +9288,9 @@ class Identity {
     static LsaSetTrustedDomainInformation(PolicyHandle, TrustedDomainSid, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, "ptr", Buffer, "int")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, BufferMarshal, Buffer, "int")
         return result
     }
 
@@ -9365,7 +9398,9 @@ class Identity {
     static LsaSetTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, "ptr", Buffer, "int")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, BufferMarshal, Buffer, "int")
         return result
     }
 
@@ -9428,7 +9463,10 @@ class Identity {
     static LsaEnumerateTrustedDomainsEx(PolicyHandle, EnumerationContext, Buffer, PreferedMaximumLength, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr*", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "int")
+        EnumerationContextMarshal := EnumerationContext is VarRef ? "uint*" : "ptr"
+        CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, "ptr*", Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
         return result
     }
 
@@ -10260,9 +10298,11 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditEnumerateCategories(ppAuditCategoriesArray, pdwCountReturned) {
+        pdwCountReturnedMarshal := pdwCountReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditEnumerateCategories", "ptr*", ppAuditCategoriesArray, "uint*", pdwCountReturned, "char")
+        result := DllCall("ADVAPI32.dll\AuditEnumerateCategories", "ptr*", ppAuditCategoriesArray, pdwCountReturnedMarshal, pdwCountReturned, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10285,9 +10325,11 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditEnumerateSubCategories(pAuditCategoryGuid, bRetrieveAllSubCategories, ppAuditSubCategoriesArray, pdwCountReturned) {
+        pdwCountReturnedMarshal := pdwCountReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditEnumerateSubCategories", "ptr", pAuditCategoryGuid, "char", bRetrieveAllSubCategories, "ptr*", ppAuditSubCategoriesArray, "uint*", pdwCountReturned, "char")
+        result := DllCall("ADVAPI32.dll\AuditEnumerateSubCategories", "ptr", pAuditCategoryGuid, "char", bRetrieveAllSubCategories, "ptr*", ppAuditSubCategoriesArray, pdwCountReturnedMarshal, pdwCountReturned, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10398,9 +10440,11 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupCategoryIdFromCategoryGuid(pAuditCategoryGuid, pAuditCategoryId) {
+        pAuditCategoryIdMarshal := pAuditCategoryId is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupCategoryIdFromCategoryGuid", "ptr", pAuditCategoryGuid, "int*", pAuditCategoryId, "char")
+        result := DllCall("ADVAPI32.dll\AuditLookupCategoryIdFromCategoryGuid", "ptr", pAuditCategoryGuid, pAuditCategoryIdMarshal, pAuditCategoryId, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10758,7 +10802,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditFree(Buffer) {
-        DllCall("ADVAPI32.dll\AuditFree", "ptr", Buffer)
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        DllCall("ADVAPI32.dll\AuditFree", BufferMarshal, Buffer)
     }
 
     /**
@@ -10855,7 +10901,12 @@ class Identity {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pvLogonId, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", phCredential, "int64*", ptsExpiry, "int")
+        pvLogonIdMarshal := pvLogonId is VarRef ? "ptr" : "ptr"
+        pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
+        pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10962,7 +11013,12 @@ class Identity {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pvLogonId, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", phCredential, "int64*", ptsExpiry, "int")
+        pvLogonIdMarshal := pvLogonId is VarRef ? "ptr" : "ptr"
+        pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
+        pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11022,7 +11078,11 @@ class Identity {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "int64*", ptsExpiry, "int")
+        pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
+        pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, ptsExpiryMarshal, ptsExpiry, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11046,7 +11106,11 @@ class Identity {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "int64*", ptsExpiry, "int")
+        pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
+        pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, ptsExpiryMarshal, ptsExpiry, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11070,7 +11134,13 @@ class Identity {
      * @since windows6.0.6000
      */
     static ChangeAccountPasswordW(pszPackageName, pszDomainName, pszAccountName, pszOldPassword, pszNewPassword, bImpersonating, dwReserved, pOutput) {
-        result := DllCall("SECUR32.dll\ChangeAccountPasswordW", "ushort*", pszPackageName, "ushort*", pszDomainName, "ushort*", pszAccountName, "ushort*", pszOldPassword, "ushort*", pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
+        pszPackageNameMarshal := pszPackageName is VarRef ? "ushort*" : "ptr"
+        pszDomainNameMarshal := pszDomainName is VarRef ? "ushort*" : "ptr"
+        pszAccountNameMarshal := pszAccountName is VarRef ? "ushort*" : "ptr"
+        pszOldPasswordMarshal := pszOldPassword is VarRef ? "ushort*" : "ptr"
+        pszNewPasswordMarshal := pszNewPassword is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("SECUR32.dll\ChangeAccountPasswordW", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11094,7 +11164,13 @@ class Identity {
      * @since windows6.0.6000
      */
     static ChangeAccountPasswordA(pszPackageName, pszDomainName, pszAccountName, pszOldPassword, pszNewPassword, bImpersonating, dwReserved, pOutput) {
-        result := DllCall("SECUR32.dll\ChangeAccountPasswordA", "char*", pszPackageName, "char*", pszDomainName, "char*", pszAccountName, "char*", pszOldPassword, "char*", pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
+        pszPackageNameMarshal := pszPackageName is VarRef ? "char*" : "ptr"
+        pszDomainNameMarshal := pszDomainName is VarRef ? "char*" : "ptr"
+        pszAccountNameMarshal := pszAccountName is VarRef ? "char*" : "ptr"
+        pszOldPasswordMarshal := pszOldPassword is VarRef ? "char*" : "ptr"
+        pszNewPasswordMarshal := pszNewPassword is VarRef ? "char*" : "ptr"
+
+        result := DllCall("SECUR32.dll\ChangeAccountPasswordA", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11516,7 +11592,11 @@ class Identity {
      * @since windows5.1.2600
      */
     static InitializeSecurityContextW(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
-        result := DllCall("SECUR32.dll\InitializeSecurityContextW", "ptr", phCredential, "ptr", phContext, "ushort*", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
+        pszTargetNameMarshal := pszTargetName is VarRef ? "ushort*" : "ptr"
+        pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\InitializeSecurityContextW", "ptr", phCredential, "ptr", phContext, pszTargetNameMarshal, pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
         return result
     }
 
@@ -11935,7 +12015,11 @@ class Identity {
      * @since windows5.1.2600
      */
     static InitializeSecurityContextA(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
-        result := DllCall("SECUR32.dll\InitializeSecurityContextA", "ptr", phCredential, "ptr", phContext, "char*", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
+        pszTargetNameMarshal := pszTargetName is VarRef ? "char*" : "ptr"
+        pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\InitializeSecurityContextA", "ptr", phCredential, "ptr", phContext, pszTargetNameMarshal, pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
         return result
     }
 
@@ -12140,7 +12224,10 @@ class Identity {
      * @since windows6.0.6000
      */
     static AcceptSecurityContext(phCredential, phContext, pInput, fContextReq, TargetDataRep, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
-        result := DllCall("SECUR32.dll\AcceptSecurityContext", "ptr", phCredential, "ptr", phContext, "ptr", pInput, "uint", fContextReq, "uint", TargetDataRep, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
+        pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\AcceptSecurityContext", "ptr", phCredential, "ptr", phContext, "ptr", pInput, "uint", fContextReq, "uint", TargetDataRep, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
         return result
     }
 
@@ -12458,7 +12545,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static QueryContextAttributesW(phContext, ulAttribute, pBuffer) {
-        result := DllCall("SECUR32.dll\QueryContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "int")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\QueryContextAttributesW", "ptr", phContext, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12528,7 +12617,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static QueryContextAttributesA(phContext, ulAttribute, pBuffer) {
-        result := DllCall("SECUR32.dll\QueryContextAttributesA", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "int")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\QueryContextAttributesA", "ptr", phContext, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12762,7 +12853,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static QueryCredentialsAttributesW(phCredential, ulAttribute, pBuffer) {
-        result := DllCall("SECUR32.dll\QueryCredentialsAttributesW", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "int")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\QueryCredentialsAttributesW", "ptr", phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12917,7 +13010,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static QueryCredentialsAttributesA(phCredential, ulAttribute, pBuffer) {
-        result := DllCall("SECUR32.dll\QueryCredentialsAttributesA", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "int")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\QueryCredentialsAttributesA", "ptr", phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13215,7 +13310,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static FreeContextBuffer(pvContextBuffer) {
-        result := DllCall("SECUR32.dll\FreeContextBuffer", "ptr", pvContextBuffer, "int")
+        pvContextBufferMarshal := pvContextBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\FreeContextBuffer", pvContextBufferMarshal, pvContextBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13230,7 +13327,9 @@ class Identity {
      * @returns {HRESULT} 
      */
     static SecAllocateAndSetIPAddress(lpIpAddress, cchIpAddress, FreeCallContext) {
-        result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, "int*", FreeCallContext, "int")
+        FreeCallContextMarshal := FreeCallContext is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, FreeCallContextMarshal, FreeCallContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13248,7 +13347,9 @@ class Identity {
     static SecAllocateAndSetCallTarget(lpIpAddress, cchIpAddress, TargetName, FreeCallContext) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-        result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, "int*", FreeCallContext, "int")
+        FreeCallContextMarshal := FreeCallContext is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, FreeCallContextMarshal, FreeCallContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13566,7 +13667,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static VerifySignature(phContext, pMessage, MessageSeqNo, pfQOP) {
-        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", pfQOP, "int")
+        pfQOPMarshal := pfQOP is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, pfQOPMarshal, pfQOP, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13829,7 +13932,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static DecryptMessage(phContext, pMessage, MessageSeqNo, pfQOP) {
-        result := DllCall("SECUR32.dll\DecryptMessage", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", pfQOP, "int")
+        pfQOPMarshal := pfQOP is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\DecryptMessage", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, pfQOPMarshal, pfQOP, "int")
         return result
     }
 
@@ -13890,7 +13995,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static EnumerateSecurityPackagesW(pcPackages, ppPackageInfo) {
-        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesW", "uint*", pcPackages, "ptr*", ppPackageInfo, "int")
+        pcPackagesMarshal := pcPackages is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesW", pcPackagesMarshal, pcPackages, "ptr*", ppPackageInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13954,7 +14061,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static EnumerateSecurityPackagesA(pcPackages, ppPackageInfo) {
-        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesA", "uint*", pcPackages, "ptr*", ppPackageInfo, "int")
+        pcPackagesMarshal := pcPackages is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesA", pcPackagesMarshal, pcPackages, "ptr*", ppPackageInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14143,7 +14252,9 @@ class Identity {
     static ImportSecurityContextW(pszPackage, pPackedContext, Token, phContext) {
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("SECUR32.dll\ImportSecurityContextW", "ptr", pszPackage, "ptr", pPackedContext, "ptr", Token, "ptr", phContext, "int")
+        TokenMarshal := Token is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\ImportSecurityContextW", "ptr", pszPackage, "ptr", pPackedContext, TokenMarshal, Token, "ptr", phContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14227,7 +14338,9 @@ class Identity {
     static ImportSecurityContextA(pszPackage, pPackedContext, Token, phContext) {
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("SECUR32.dll\ImportSecurityContextA", "ptr", pszPackage, "ptr", pPackedContext, "ptr", Token, "ptr", phContext, "int")
+        TokenMarshal := Token is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\ImportSecurityContextA", "ptr", pszPackage, "ptr", pPackedContext, TokenMarshal, Token, "ptr", phContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14273,7 +14386,9 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslEnumerateProfilesA(ProfileList, ProfileCount) {
-        result := DllCall("SECUR32.dll\SaslEnumerateProfilesA", "ptr", ProfileList, "uint*", ProfileCount, "int")
+        ProfileCountMarshal := ProfileCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SaslEnumerateProfilesA", "ptr", ProfileList, ProfileCountMarshal, ProfileCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14291,7 +14406,9 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslEnumerateProfilesW(ProfileList, ProfileCount) {
-        result := DllCall("SECUR32.dll\SaslEnumerateProfilesW", "ptr", ProfileList, "uint*", ProfileCount, "int")
+        ProfileCountMarshal := ProfileCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SaslEnumerateProfilesW", "ptr", ProfileList, ProfileCountMarshal, ProfileCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14598,7 +14715,10 @@ class Identity {
     static SaslInitializeSecurityContextW(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SECUR32.dll\SaslInitializeSecurityContextW", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
+        pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SaslInitializeSecurityContextW", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
         return result
     }
 
@@ -14772,7 +14892,10 @@ class Identity {
     static SaslInitializeSecurityContextA(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SECUR32.dll\SaslInitializeSecurityContextA", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
+        pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SaslInitializeSecurityContextA", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
         return result
     }
 
@@ -14877,7 +15000,10 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslAcceptSecurityContext(phCredential, phContext, pInput, fContextReq, TargetDataRep, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
-        result := DllCall("SECUR32.dll\SaslAcceptSecurityContext", "ptr", phCredential, "ptr", phContext, "ptr", pInput, "uint", fContextReq, "uint", TargetDataRep, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
+        pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
+        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SaslAcceptSecurityContext", "ptr", phCredential, "ptr", phContext, "ptr", pInput, "uint", fContextReq, "uint", TargetDataRep, "ptr", phNewContext, "ptr", pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, "int")
         return result
     }
 
@@ -14987,7 +15113,9 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslSetContextOption(ContextHandle, Option, Value, Size) {
-        result := DllCall("SECUR32.dll\SaslSetContextOption", "ptr", ContextHandle, "uint", Option, "ptr", Value, "uint", Size, "int")
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SaslSetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15101,7 +15229,10 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslGetContextOption(ContextHandle, Option, Value, Size, Needed) {
-        result := DllCall("SECUR32.dll\SaslGetContextOption", "ptr", ContextHandle, "uint", Option, "ptr", Value, "uint", Size, "uint*", Needed, "int")
+        ValueMarshal := Value is VarRef ? "ptr" : "ptr"
+        NeededMarshal := Needed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SaslGetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, NeededMarshal, Needed, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15171,7 +15302,11 @@ class Identity {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("credui.dll\SspiPromptForCredentialsW", "ptr", pszTargetName, "ptr", pUiInfo, "uint", dwAuthError, "ptr", pszPackage, "ptr", pInputAuthIdentity, "ptr*", ppAuthIdentity, "int*", pfSave, "uint", dwFlags, "uint")
+        pUiInfoMarshal := pUiInfo is VarRef ? "ptr" : "ptr"
+        pInputAuthIdentityMarshal := pInputAuthIdentity is VarRef ? "ptr" : "ptr"
+        pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+
+        result := DllCall("credui.dll\SspiPromptForCredentialsW", "ptr", pszTargetName, pUiInfoMarshal, pUiInfo, "uint", dwAuthError, "ptr", pszPackage, pInputAuthIdentityMarshal, pInputAuthIdentity, "ptr*", ppAuthIdentity, pfSaveMarshal, pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -15238,7 +15373,11 @@ class Identity {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
-        result := DllCall("credui.dll\SspiPromptForCredentialsA", "ptr", pszTargetName, "ptr", pUiInfo, "uint", dwAuthError, "ptr", pszPackage, "ptr", pInputAuthIdentity, "ptr*", ppAuthIdentity, "int*", pfSave, "uint", dwFlags, "uint")
+        pUiInfoMarshal := pUiInfo is VarRef ? "ptr" : "ptr"
+        pInputAuthIdentityMarshal := pInputAuthIdentity is VarRef ? "ptr" : "ptr"
+        pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+
+        result := DllCall("credui.dll\SspiPromptForCredentialsA", "ptr", pszTargetName, pUiInfoMarshal, pUiInfo, "uint", dwAuthError, "ptr", pszPackage, pInputAuthIdentityMarshal, pInputAuthIdentity, "ptr*", ppAuthIdentity, pfSaveMarshal, pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -15257,7 +15396,10 @@ class Identity {
     static SspiPrepareForCredRead(AuthIdentity, pszTargetName, pCredmanCredentialType, ppszCredmanTargetName) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SECUR32.dll\SspiPrepareForCredRead", "ptr", AuthIdentity, "ptr", pszTargetName, "uint*", pCredmanCredentialType, "ptr", ppszCredmanTargetName, "int")
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+        pCredmanCredentialTypeMarshal := pCredmanCredentialType is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiPrepareForCredRead", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, "ptr", ppszCredmanTargetName, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15284,7 +15426,11 @@ class Identity {
     static SspiPrepareForCredWrite(AuthIdentity, pszTargetName, pCredmanCredentialType, ppszCredmanTargetName, ppszCredmanUserName, ppCredentialBlob, pCredentialBlobSize) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", "ptr", AuthIdentity, "ptr", pszTargetName, "uint*", pCredmanCredentialType, "ptr", ppszCredmanTargetName, "ptr", ppszCredmanUserName, "ptr*", ppCredentialBlob, "uint*", pCredentialBlobSize, "int")
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+        pCredmanCredentialTypeMarshal := pCredmanCredentialType is VarRef ? "uint*" : "ptr"
+        pCredentialBlobSizeMarshal := pCredentialBlobSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, "ptr", ppszCredmanTargetName, "ptr", ppszCredmanUserName, "ptr*", ppCredentialBlob, pCredentialBlobSizeMarshal, pCredentialBlobSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15301,7 +15447,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiEncryptAuthIdentity(AuthData) {
-        result := DllCall("SECUR32.dll\SspiEncryptAuthIdentity", "ptr", AuthData, "int")
+        AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiEncryptAuthIdentity", AuthDataMarshal, AuthData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15319,7 +15467,9 @@ class Identity {
      * @since windows8.0
      */
     static SspiEncryptAuthIdentityEx(Options, AuthData) {
-        result := DllCall("SspiCli.dll\SspiEncryptAuthIdentityEx", "uint", Options, "ptr", AuthData, "int")
+        AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SspiCli.dll\SspiEncryptAuthIdentityEx", "uint", Options, AuthDataMarshal, AuthData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15336,7 +15486,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiDecryptAuthIdentity(EncryptedAuthData) {
-        result := DllCall("SECUR32.dll\SspiDecryptAuthIdentity", "ptr", EncryptedAuthData, "int")
+        EncryptedAuthDataMarshal := EncryptedAuthData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiDecryptAuthIdentity", EncryptedAuthDataMarshal, EncryptedAuthData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15354,7 +15506,9 @@ class Identity {
      * @since windows8.0
      */
     static SspiDecryptAuthIdentityEx(Options, EncryptedAuthData) {
-        result := DllCall("SspiCli.dll\SspiDecryptAuthIdentityEx", "uint", Options, "ptr", EncryptedAuthData, "int")
+        EncryptedAuthDataMarshal := EncryptedAuthData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SspiCli.dll\SspiDecryptAuthIdentityEx", "uint", Options, EncryptedAuthDataMarshal, EncryptedAuthData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15369,7 +15523,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiIsAuthIdentityEncrypted(EncryptedAuthData) {
-        result := DllCall("SECUR32.dll\SspiIsAuthIdentityEncrypted", "ptr", EncryptedAuthData, "char")
+        EncryptedAuthDataMarshal := EncryptedAuthData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiIsAuthIdentityEncrypted", EncryptedAuthDataMarshal, EncryptedAuthData, "char")
         return result
     }
 
@@ -15411,7 +15567,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiEncodeAuthIdentityAsStrings(pAuthIdentity, ppszUserName, ppszDomainName, ppszPackedCredentialsString) {
-        result := DllCall("SECUR32.dll\SspiEncodeAuthIdentityAsStrings", "ptr", pAuthIdentity, "ptr", ppszUserName, "ptr", ppszDomainName, "ptr", ppszPackedCredentialsString, "int")
+        pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiEncodeAuthIdentityAsStrings", pAuthIdentityMarshal, pAuthIdentity, "ptr", ppszUserName, "ptr", ppszDomainName, "ptr", ppszPackedCredentialsString, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15428,7 +15586,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiValidateAuthIdentity(AuthData) {
-        result := DllCall("SECUR32.dll\SspiValidateAuthIdentity", "ptr", AuthData, "int")
+        AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiValidateAuthIdentity", AuthDataMarshal, AuthData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15446,7 +15606,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiCopyAuthIdentity(AuthData, AuthDataCopy) {
-        result := DllCall("SECUR32.dll\SspiCopyAuthIdentity", "ptr", AuthData, "ptr*", AuthDataCopy, "int")
+        AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiCopyAuthIdentity", AuthDataMarshal, AuthData, "ptr*", AuthDataCopy, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15461,7 +15623,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiFreeAuthIdentity(AuthData) {
-        DllCall("SECUR32.dll\SspiFreeAuthIdentity", "ptr", AuthData)
+        AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
+
+        DllCall("SECUR32.dll\SspiFreeAuthIdentity", AuthDataMarshal, AuthData)
     }
 
     /**
@@ -15472,7 +15636,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiZeroAuthIdentity(AuthData) {
-        DllCall("SECUR32.dll\SspiZeroAuthIdentity", "ptr", AuthData)
+        AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
+
+        DllCall("SECUR32.dll\SspiZeroAuthIdentity", AuthDataMarshal, AuthData)
     }
 
     /**
@@ -15483,7 +15649,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiLocalFree(DataBuffer) {
-        DllCall("SECUR32.dll\SspiLocalFree", "ptr", DataBuffer)
+        DataBufferMarshal := DataBuffer is VarRef ? "ptr" : "ptr"
+
+        DllCall("SECUR32.dll\SspiLocalFree", DataBufferMarshal, DataBuffer)
     }
 
     /**
@@ -15525,7 +15693,10 @@ class Identity {
      * @since windows6.1
      */
     static SspiCompareAuthIdentities(AuthIdentity1, AuthIdentity2, SameSuppliedUser, SameSuppliedIdentity) {
-        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", "ptr", AuthIdentity1, "ptr", AuthIdentity2, "ptr", SameSuppliedUser, "ptr", SameSuppliedIdentity, "int")
+        AuthIdentity1Marshal := AuthIdentity1 is VarRef ? "ptr" : "ptr"
+        AuthIdentity2Marshal := AuthIdentity2 is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", AuthIdentity1Marshal, AuthIdentity1, AuthIdentity2Marshal, AuthIdentity2, "ptr", SameSuppliedUser, "ptr", SameSuppliedIdentity, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15544,7 +15715,10 @@ class Identity {
      * @since windows6.1
      */
     static SspiMarshalAuthIdentity(AuthIdentity, AuthIdentityLength, AuthIdentityByteArray) {
-        result := DllCall("SECUR32.dll\SspiMarshalAuthIdentity", "ptr", AuthIdentity, "uint*", AuthIdentityLength, "ptr*", AuthIdentityByteArray, "int")
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+        AuthIdentityLengthMarshal := AuthIdentityLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiMarshalAuthIdentity", AuthIdentityMarshal, AuthIdentity, AuthIdentityLengthMarshal, AuthIdentityLength, "ptr*", AuthIdentityByteArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15616,7 +15790,9 @@ class Identity {
     static SspiExcludePackage(AuthIdentity, pszPackageName, ppNewAuthIdentity) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        result := DllCall("SECUR32.dll\SspiExcludePackage", "ptr", AuthIdentity, "ptr", pszPackageName, "ptr*", ppNewAuthIdentity, "int")
+        AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SECUR32.dll\SspiExcludePackage", AuthIdentityMarshal, AuthIdentity, "ptr", pszPackageName, "ptr*", ppNewAuthIdentity, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15727,7 +15903,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static CredMarshalTargetInfo(InTargetInfo, Buffer, BufferSize) {
-        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, "ptr*", Buffer, "uint*", BufferSize, "int")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, "ptr*", Buffer, BufferSizeMarshal, BufferSize, "int")
         return result
     }
 
@@ -15740,7 +15918,9 @@ class Identity {
      * @returns {NTSTATUS} 
      */
     static CredUnmarshalTargetInfo(Buffer, BufferSize, RetTargetInfo, RetActualSize) {
-        result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", Buffer, "uint", BufferSize, "ptr*", RetTargetInfo, "uint*", RetActualSize, "int")
+        RetActualSizeMarshal := RetActualSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", Buffer, "uint", BufferSize, "ptr*", RetTargetInfo, RetActualSizeMarshal, RetActualSize, "int")
         return result
     }
 
@@ -15781,7 +15961,9 @@ class Identity {
      * @returns {String} Nothing - always returns an empty string
      */
     static SslGenerateRandomBits(pRandomData, cRandomData) {
-        DllCall("SCHANNEL.dll\SslGenerateRandomBits", "char*", pRandomData, "int", cRandomData)
+        pRandomDataMarshal := pRandomData is VarRef ? "char*" : "ptr"
+
+        DllCall("SCHANNEL.dll\SslGenerateRandomBits", pRandomDataMarshal, pRandomData, "int", cRandomData)
     }
 
     /**
@@ -15797,7 +15979,9 @@ class Identity {
      * @since windows5.1.2600
      */
     static SslCrackCertificate(pbCertificate, cbCertificate, dwFlags, ppCertificate) {
-        result := DllCall("SCHANNEL.dll\SslCrackCertificate", "char*", pbCertificate, "uint", cbCertificate, "uint", dwFlags, "ptr*", ppCertificate, "int")
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
+
+        result := DllCall("SCHANNEL.dll\SslCrackCertificate", pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "uint", dwFlags, "ptr*", ppCertificate, "int")
         return result
     }
 
@@ -15874,7 +16058,9 @@ class Identity {
      * @since windows8.0
      */
     static SslGetServerIdentity(ClientHello, ClientHelloSize, ServerIdentity, ServerIdentitySize, Flags) {
-        result := DllCall("SCHANNEL.dll\SslGetServerIdentity", "ptr", ClientHello, "uint", ClientHelloSize, "ptr*", ServerIdentity, "uint*", ServerIdentitySize, "uint", Flags, "int")
+        ServerIdentitySizeMarshal := ServerIdentitySize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SCHANNEL.dll\SslGetServerIdentity", "ptr", ClientHello, "uint", ClientHelloSize, "ptr*", ServerIdentity, ServerIdentitySizeMarshal, ServerIdentitySize, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15892,7 +16078,10 @@ class Identity {
      * @returns {HRESULT} 
      */
     static SslGetExtensions(clientHello, clientHelloByteSize, genericExtensions, genericExtensionsCount, bytesToRead, flags) {
-        result := DllCall("SCHANNEL.dll\SslGetExtensions", "char*", clientHello, "uint", clientHelloByteSize, "ptr", genericExtensions, "char", genericExtensionsCount, "uint*", bytesToRead, "int", flags, "int")
+        clientHelloMarshal := clientHello is VarRef ? "char*" : "ptr"
+        bytesToReadMarshal := bytesToRead is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SCHANNEL.dll\SslGetExtensions", clientHelloMarshal, clientHello, "uint", clientHelloByteSize, "ptr", genericExtensions, "char", genericExtensionsCount, bytesToReadMarshal, bytesToRead, "int", flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15932,7 +16121,10 @@ class Identity {
     static TokenBindingGenerateBinding(keyType, targetURL, bindingType, tlsEKM, tlsEKMSize, extensionFormat, extensionData, tokenBinding, tokenBindingSize, resultData) {
         targetURL := targetURL is String ? StrPtr(targetURL) : targetURL
 
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", "int", keyType, "ptr", targetURL, "int", bindingType, "ptr", tlsEKM, "uint", tlsEKMSize, "int", extensionFormat, "ptr", extensionData, "ptr*", tokenBinding, "uint*", tokenBindingSize, "ptr*", resultData, "int")
+        extensionDataMarshal := extensionData is VarRef ? "ptr" : "ptr"
+        tokenBindingSizeMarshal := tokenBindingSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", "int", keyType, "ptr", targetURL, "int", bindingType, "ptr", tlsEKM, "uint", tlsEKMSize, "int", extensionFormat, extensionDataMarshal, extensionData, "ptr*", tokenBinding, tokenBindingSizeMarshal, tokenBindingSize, "ptr*", resultData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15951,7 +16143,10 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingGenerateMessage(tokenBindings, tokenBindingsSize, tokenBindingsCount, tokenBindingMessage, tokenBindingMessageSize) {
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateMessage", "ptr*", tokenBindings, "uint*", tokenBindingsSize, "uint", tokenBindingsCount, "ptr*", tokenBindingMessage, "uint*", tokenBindingMessageSize, "int")
+        tokenBindingsSizeMarshal := tokenBindingsSize is VarRef ? "uint*" : "ptr"
+        tokenBindingMessageSizeMarshal := tokenBindingMessageSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateMessage", "ptr*", tokenBindings, tokenBindingsSizeMarshal, tokenBindingsSize, "uint", tokenBindingsCount, "ptr*", tokenBindingMessage, tokenBindingMessageSizeMarshal, tokenBindingMessageSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16087,7 +16282,10 @@ class Identity {
      * @returns {HRESULT} 
      */
     static TokenBindingGetHighestSupportedVersion(majorVersion, minorVersion) {
-        result := DllCall("TOKENBINDING.dll\TokenBindingGetHighestSupportedVersion", "char*", majorVersion, "char*", minorVersion, "int")
+        majorVersionMarshal := majorVersion is VarRef ? "char*" : "ptr"
+        minorVersionMarshal := minorVersion is VarRef ? "char*" : "ptr"
+
+        result := DllCall("TOKENBINDING.dll\TokenBindingGetHighestSupportedVersion", majorVersionMarshal, majorVersion, minorVersionMarshal, minorVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16155,9 +16353,11 @@ class Identity {
     static GetUserNameExA(NameFormat, lpNameBuffer, nSize) {
         lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetUserNameExA", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
+        result := DllCall("SECUR32.dll\GetUserNameExA", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16225,9 +16425,11 @@ class Identity {
     static GetUserNameExW(NameFormat, lpNameBuffer, nSize) {
         lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetUserNameExW", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
+        result := DllCall("SECUR32.dll\GetUserNameExW", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16255,9 +16457,11 @@ class Identity {
     static GetComputerObjectNameA(NameFormat, lpNameBuffer, nSize) {
         lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetComputerObjectNameA", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
+        result := DllCall("SECUR32.dll\GetComputerObjectNameA", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16285,9 +16489,11 @@ class Identity {
     static GetComputerObjectNameW(NameFormat, lpNameBuffer, nSize) {
         lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetComputerObjectNameW", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
+        result := DllCall("SECUR32.dll\GetComputerObjectNameW", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16321,9 +16527,11 @@ class Identity {
         lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
         lpTranslatedName := lpTranslatedName is String ? StrPtr(lpTranslatedName) : lpTranslatedName
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\TranslateNameA", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "uint*", nSize, "char")
+        result := DllCall("SECUR32.dll\TranslateNameA", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, nSizeMarshal, nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16357,9 +16565,11 @@ class Identity {
         lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
         lpTranslatedName := lpTranslatedName is String ? StrPtr(lpTranslatedName) : lpTranslatedName
 
+        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\TranslateNameW", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "uint*", nSize, "char")
+        result := DllCall("SECUR32.dll\TranslateNameW", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, nSizeMarshal, nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16435,7 +16645,9 @@ class Identity {
      * @since windows8.0
      */
     static SLClose(hSLC) {
-        result := DllCall("SLC.dll\SLClose", "ptr", hSLC, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLClose", hSLCMarshal, hSLC, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16551,7 +16763,9 @@ class Identity {
         pwszPKeyAlgorithm := pwszPKeyAlgorithm is String ? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
         pwszPKeyString := pwszPKeyString is String ? StrPtr(pwszPKeyString) : pwszPKeyString
 
-        result := DllCall("SLC.dll\SLInstallProofOfPurchase", "ptr", hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPkeyId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLInstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPkeyId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16628,7 +16842,9 @@ class Identity {
      * @since windows8.0
      */
     static SLUninstallProofOfPurchase(hSLC, pPKeyId) {
-        result := DllCall("SLC.dll\SLUninstallProofOfPurchase", "ptr", hSLC, "ptr", pPKeyId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLUninstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pPKeyId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16711,7 +16927,9 @@ class Identity {
      * @since windows8.0
      */
     static SLInstallLicense(hSLC, cbLicenseBlob, pbLicenseBlob, pLicenseFileId) {
-        result := DllCall("SLC.dll\SLInstallLicense", "ptr", hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLInstallLicense", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16788,7 +17006,9 @@ class Identity {
      * @since windows8.0
      */
     static SLUninstallLicense(hSLC, pLicenseFileId) {
-        result := DllCall("SLC.dll\SLUninstallLicense", "ptr", hSLC, "ptr", pLicenseFileId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLUninstallLicense", hSLCMarshal, hSLC, "ptr", pLicenseFileId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16865,7 +17085,9 @@ class Identity {
 
         pwszRightName := pwszRightName is String ? StrPtr(pwszRightName) : pwszRightName
 
-        result := DllCall("SLC.dll\SLConsumeRight", "ptr", hSLC, "ptr", pAppId, "ptr", pProductSkuId, "ptr", pwszRightName, "ptr", pvReserved, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLConsumeRight", hSLCMarshal, hSLC, "ptr", pAppId, "ptr", pProductSkuId, "ptr", pwszRightName, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17013,7 +17235,11 @@ class Identity {
     static SLGetProductSkuInformation(hSLC, pProductSkuId, pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetProductSkuInformation", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetProductSkuInformation", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17195,7 +17421,11 @@ class Identity {
     static SLGetPKeyInformation(hSLC, pPKeyId, pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetPKeyInformation", "ptr", hSLC, "ptr", pPKeyId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetPKeyInformation", hSLCMarshal, hSLC, "ptr", pPKeyId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17343,7 +17573,11 @@ class Identity {
     static SLGetLicenseInformation(hSLC, pSLLicenseId, pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetLicenseInformation", "ptr", hSLC, "ptr", pSLLicenseId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetLicenseInformation", hSLCMarshal, hSLC, "ptr", pSLLicenseId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17540,7 +17774,10 @@ class Identity {
     static SLGetLicensingStatusInformation(hSLC, pAppID, pProductSkuId, pwszRightName, pnStatusCount, ppLicensingStatus) {
         pwszRightName := pwszRightName is String ? StrPtr(pwszRightName) : pwszRightName
 
-        result := DllCall("SLC.dll\SLGetLicensingStatusInformation", "ptr", hSLC, "ptr", pAppID, "ptr", pProductSkuId, "ptr", pwszRightName, "uint*", pnStatusCount, "ptr*", ppLicensingStatus, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        pnStatusCountMarshal := pnStatusCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetLicensingStatusInformation", hSLCMarshal, hSLC, "ptr", pAppID, "ptr", pProductSkuId, "ptr", pwszRightName, pnStatusCountMarshal, pnStatusCount, "ptr*", ppLicensingStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17657,7 +17894,11 @@ class Identity {
     static SLGetPolicyInformation(hSLC, pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetPolicyInformation", "ptr", hSLC, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetPolicyInformation", hSLCMarshal, hSLC, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17740,7 +17981,10 @@ class Identity {
     static SLGetPolicyInformationDWORD(hSLC, pwszValueName, pdwValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", "ptr", hSLC, "ptr", pwszValueName, "uint*", pdwValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", hSLCMarshal, hSLC, "ptr", pwszValueName, pdwValueMarshal, pdwValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17919,7 +18163,11 @@ class Identity {
     static SLGetServiceInformation(hSLC, pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetServiceInformation", "ptr", hSLC, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetServiceInformation", hSLCMarshal, hSLC, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18153,7 +18401,11 @@ class Identity {
     static SLGetApplicationInformation(hSLC, pApplicationId, pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetApplicationInformation", "ptr", hSLC, "ptr", pApplicationId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetApplicationInformation", hSLCMarshal, hSLC, "ptr", pApplicationId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18249,7 +18501,10 @@ class Identity {
     static SLActivateProduct(hSLC, pProductSkuId, cbAppSpecificData, pvAppSpecificData, pActivationInfo, pwszProxyServer, wProxyPort) {
         pwszProxyServer := pwszProxyServer is String ? StrPtr(pwszProxyServer) : pwszProxyServer
 
-        result := DllCall("slcext.dll\SLActivateProduct", "ptr", hSLC, "ptr", pProductSkuId, "uint", cbAppSpecificData, "ptr", pvAppSpecificData, "ptr", pActivationInfo, "ptr", pwszProxyServer, "ushort", wProxyPort, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        pvAppSpecificDataMarshal := pvAppSpecificData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("slcext.dll\SLActivateProduct", hSLCMarshal, hSLC, "ptr", pProductSkuId, "uint", cbAppSpecificData, pvAppSpecificDataMarshal, pvAppSpecificData, "ptr", pActivationInfo, "ptr", pwszProxyServer, "ushort", wProxyPort, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18360,7 +18615,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGenerateOfflineInstallationId(hSLC, pProductSkuId, ppwszInstallationId) {
-        result := DllCall("SLC.dll\SLGenerateOfflineInstallationId", "ptr", hSLC, "ptr", pProductSkuId, "ptr", ppwszInstallationId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLGenerateOfflineInstallationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", ppwszInstallationId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18420,7 +18677,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGenerateOfflineInstallationIdEx(hSLC, pProductSkuId, pActivationInfo, ppwszInstallationId) {
-        result := DllCall("SLC.dll\SLGenerateOfflineInstallationIdEx", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", ppwszInstallationId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLGenerateOfflineInstallationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", ppwszInstallationId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18494,7 +18753,9 @@ class Identity {
         pwszInstallationId := pwszInstallationId is String ? StrPtr(pwszInstallationId) : pwszInstallationId
         pwszConfirmationId := pwszConfirmationId is String ? StrPtr(pwszConfirmationId) : pwszConfirmationId
 
-        result := DllCall("SLC.dll\SLDepositOfflineConfirmationId", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLDepositOfflineConfirmationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18571,7 +18832,9 @@ class Identity {
         pwszInstallationId := pwszInstallationId is String ? StrPtr(pwszInstallationId) : pwszInstallationId
         pwszConfirmationId := pwszConfirmationId is String ? StrPtr(pwszConfirmationId) : pwszConfirmationId
 
-        result := DllCall("SLC.dll\SLDepositOfflineConfirmationIdEx", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLDepositOfflineConfirmationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18625,7 +18888,9 @@ class Identity {
         pwszPKeyAlgorithm := pwszPKeyAlgorithm is String ? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
         pwszPKeyString := pwszPKeyString is String ? StrPtr(pwszPKeyString) : pwszPKeyString
 
-        result := DllCall("SLC.dll\SLGetPKeyId", "ptr", hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPKeyId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetPKeyId", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPKeyId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18672,7 +18937,10 @@ class Identity {
      * @since windows8.0
      */
     static SLGetInstalledProductKeyIds(hSLC, pProductSkuId, pnProductKeyIds, ppProductKeyIds) {
-        result := DllCall("SLC.dll\SLGetInstalledProductKeyIds", "ptr", hSLC, "ptr", pProductSkuId, "uint*", pnProductKeyIds, "ptr*", ppProductKeyIds, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        pnProductKeyIdsMarshal := pnProductKeyIds is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetInstalledProductKeyIds", hSLCMarshal, hSLC, "ptr", pProductSkuId, pnProductKeyIdsMarshal, pnProductKeyIds, "ptr*", ppProductKeyIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18740,7 +19008,9 @@ class Identity {
      * @since windows8.0
      */
     static SLSetCurrentProductKey(hSLC, pProductSkuId, pProductKeyId) {
-        result := DllCall("SLC.dll\SLSetCurrentProductKey", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pProductKeyId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLSetCurrentProductKey", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pProductKeyId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18817,7 +19087,10 @@ class Identity {
      * @since windows8.0
      */
     static SLGetSLIDList(hSLC, eQueryIdType, pQueryId, eReturnIdType, pnReturnIds, ppReturnIds) {
-        result := DllCall("SLC.dll\SLGetSLIDList", "ptr", hSLC, "int", eQueryIdType, "ptr", pQueryId, "int", eReturnIdType, "uint*", pnReturnIds, "ptr*", ppReturnIds, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        pnReturnIdsMarshal := pnReturnIds is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetSLIDList", hSLCMarshal, hSLC, "int", eQueryIdType, "ptr", pQueryId, "int", eReturnIdType, pnReturnIdsMarshal, pnReturnIds, "ptr*", ppReturnIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18878,7 +19151,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetLicenseFileId(hSLC, cbLicenseBlob, pbLicenseBlob, pLicenseFileId) {
-        result := DllCall("SLC.dll\SLGetLicenseFileId", "ptr", hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetLicenseFileId", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18937,7 +19212,10 @@ class Identity {
      * @since windows8.0
      */
     static SLGetLicense(hSLC, pLicenseFileId, pcbLicenseFile, ppbLicenseFile) {
-        result := DllCall("SLC.dll\SLGetLicense", "ptr", hSLC, "ptr", pLicenseFileId, "uint*", pcbLicenseFile, "ptr*", ppbLicenseFile, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+        pcbLicenseFileMarshal := pcbLicenseFile is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetLicense", hSLCMarshal, hSLC, "ptr", pLicenseFileId, pcbLicenseFileMarshal, pcbLicenseFile, "ptr*", ppbLicenseFile, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19007,7 +19285,9 @@ class Identity {
     static SLFireEvent(hSLC, pwszEventId, pApplicationId) {
         pwszEventId := pwszEventId is String ? StrPtr(pwszEventId) : pwszEventId
 
-        result := DllCall("SLC.dll\SLFireEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLFireEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19057,7 +19337,9 @@ class Identity {
         pwszEventId := pwszEventId is String ? StrPtr(pwszEventId) : pwszEventId
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("SLC.dll\SLRegisterEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLRegisterEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19131,7 +19413,9 @@ class Identity {
         pwszEventId := pwszEventId is String ? StrPtr(pwszEventId) : pwszEventId
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("SLC.dll\SLUnregisterEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("SLC.dll\SLUnregisterEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19188,7 +19472,10 @@ class Identity {
     static SLGetWindowsInformation(pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetWindowsInformation", "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetWindowsInformation", "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19241,7 +19528,9 @@ class Identity {
     static SLGetWindowsInformationDWORD(pwszValueName, pdwValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, "uint*", pdwValue, "int")
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, pdwValueMarshal, pdwValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19260,7 +19549,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLIsGenuineLocal(pAppId, pGenuineState, pUIOptions) {
-        result := DllCall("SLWGA.dll\SLIsGenuineLocal", "ptr", pAppId, "int*", pGenuineState, "ptr", pUIOptions, "int")
+        pGenuineStateMarshal := pGenuineState is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SLWGA.dll\SLIsGenuineLocal", "ptr", pAppId, pGenuineStateMarshal, pGenuineState, "ptr", pUIOptions, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19285,7 +19576,9 @@ class Identity {
         pwszServerUrl := pwszServerUrl is String ? StrPtr(pwszServerUrl) : pwszServerUrl
         pwszClientToken := pwszClientToken is String ? StrPtr(pwszClientToken) : pwszClientToken
 
-        result := DllCall("slcext.dll\SLAcquireGenuineTicket", "ptr*", ppTicketBlob, "uint*", pcbTicketBlob, "ptr", pwszTemplateId, "ptr", pwszServerUrl, "ptr", pwszClientToken, "int")
+        pcbTicketBlobMarshal := pcbTicketBlob is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("slcext.dll\SLAcquireGenuineTicket", "ptr*", ppTicketBlob, pcbTicketBlobMarshal, pcbTicketBlob, "ptr", pwszTemplateId, "ptr", pwszServerUrl, "ptr", pwszClientToken, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19589,7 +19882,9 @@ class Identity {
     static SLGetReferralInformation(hSLC, eReferralType, pSkuOrAppId, pwszValueName, ppwszValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("slcext.dll\SLGetReferralInformation", "ptr", hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr", ppwszValue, "int")
+        hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("slcext.dll\SLGetReferralInformation", hSLCMarshal, hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr", ppwszValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19694,7 +19989,10 @@ class Identity {
     static SLGetGenuineInformation(pQueryId, pwszValueName, peDataType, pcbValue, ppbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr*", ppbValue, "int")
+        peDataTypeMarshal := peDataType is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("SLC.dll\SLGetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, "ptr*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19768,7 +20066,10 @@ class Identity {
     static SLQueryLicenseValueFromApp(valueName, valueType, dataBuffer, dataSize, resultDataSize) {
         valueName := valueName is String ? StrPtr(valueName) : valueName
 
-        result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", valueName, "uint*", valueType, "ptr", dataBuffer, "uint", dataSize, "uint*", resultDataSize, "int")
+        valueTypeMarshal := valueType is VarRef ? "uint*" : "ptr"
+        resultDataSizeMarshal := resultDataSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", valueName, valueTypeMarshal, valueType, "ptr", dataBuffer, "uint", dataSize, resultDataSizeMarshal, resultDataSize, "int")
         if(result != 0)
             throw OSError(result)
 

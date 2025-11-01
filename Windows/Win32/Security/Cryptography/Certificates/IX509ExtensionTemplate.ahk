@@ -76,7 +76,9 @@ class IX509ExtensionTemplate extends IX509Extension{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensiontemplate-get_majorversion
      */
     get_MajorVersion(pValue) {
-        result := ComCall(15, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -87,7 +89,9 @@ class IX509ExtensionTemplate extends IX509Extension{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensiontemplate-get_minorversion
      */
     get_MinorVersion(pValue) {
-        result := ComCall(16, this, "int*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 }

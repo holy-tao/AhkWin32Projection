@@ -114,7 +114,9 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {HRESULT} 
      */
     get_fontWeight(p) {
-        result := ComCall(11, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -124,7 +126,9 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {HRESULT} 
      */
     get_fontSize(p) {
-        result := ComCall(12, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -134,7 +138,9 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {HRESULT} 
      */
     get_fontName(p) {
-        result := ComCall(13, this, "char*", p, "HRESULT")
+        pMarshal := p is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -154,7 +160,9 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {HRESULT} 
      */
     get_textColor(p) {
-        result := ComCall(15, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -164,7 +172,9 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {HRESULT} 
      */
     get_backgroundColor(p) {
-        result := ComCall(16, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 

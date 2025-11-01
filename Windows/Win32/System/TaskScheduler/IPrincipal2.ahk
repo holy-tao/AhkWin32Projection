@@ -44,7 +44,9 @@ class IPrincipal2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-get_processtokensidtype
      */
     get_ProcessTokenSidType(pProcessTokenSidType) {
-        result := ComCall(7, this, "int*", pProcessTokenSidType, "HRESULT")
+        pProcessTokenSidTypeMarshal := pProcessTokenSidType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pProcessTokenSidTypeMarshal, pProcessTokenSidType, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IPrincipal2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-get_requiredprivilegecount
      */
     get_RequiredPrivilegeCount(pCount) {
-        result := ComCall(9, this, "int*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

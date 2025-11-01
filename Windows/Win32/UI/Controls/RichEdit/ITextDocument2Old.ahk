@@ -66,7 +66,9 @@ class ITextDocument2Old extends ITextDocument{
      * @returns {HRESULT} 
      */
     GetCaretType(pCaretType) {
-        result := ComCall(29, this, "int*", pCaretType, "HRESULT")
+        pCaretTypeMarshal := pCaretType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, pCaretTypeMarshal, pCaretType, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class ITextDocument2Old extends ITextDocument{
      * @returns {HRESULT} 
      */
     GetImmContext(pContext) {
-        result := ComCall(31, this, "int64*", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(31, this, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -113,7 +117,10 @@ class ITextDocument2Old extends ITextDocument{
      * @returns {HRESULT} 
      */
     GetPreferredFont(cp, CharRep, Option, CharRepCur, curFontSize, pbstr, pPitchAndFamily, pNewFontSize) {
-        result := ComCall(33, this, "int", cp, "int", CharRep, "int", Option, "int", CharRepCur, "int", curFontSize, "ptr", pbstr, "int*", pPitchAndFamily, "int*", pNewFontSize, "HRESULT")
+        pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
+        pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, "int", cp, "int", CharRep, "int", Option, "int", CharRepCur, "int", curFontSize, "ptr", pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
         return result
     }
 
@@ -123,7 +130,9 @@ class ITextDocument2Old extends ITextDocument{
      * @returns {HRESULT} 
      */
     GetNotificationMode(pMode) {
-        result := ComCall(34, this, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, pModeMarshal, pMode, "HRESULT")
         return result
     }
 
@@ -152,7 +161,12 @@ class ITextDocument2Old extends ITextDocument{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getclientrect
      */
     GetClientRect(Type, pLeft, pTop, pRight, pBottom) {
-        result := ComCall(36, this, "int", Type, "int*", pLeft, "int*", pTop, "int*", pRight, "int*", pBottom, "HRESULT")
+        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
+        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
+        pRightMarshal := pRight is VarRef ? "int*" : "ptr"
+        pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, "int", Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, "HRESULT")
         return result
     }
 
@@ -175,7 +189,9 @@ class ITextDocument2Old extends ITextDocument{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
      */
     GetWindow(phWnd) {
-        result := ComCall(38, this, "int*", phWnd, "HRESULT")
+        phWndMarshal := phWnd is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, phWndMarshal, phWnd, "HRESULT")
         return result
     }
 
@@ -185,7 +201,9 @@ class ITextDocument2Old extends ITextDocument{
      * @returns {HRESULT} 
      */
     GetFEFlags(pFlags) {
-        result := ComCall(39, this, "int*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(39, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 
@@ -208,7 +226,9 @@ class ITextDocument2Old extends ITextDocument{
      * @returns {HRESULT} 
      */
     CheckTextLimit(cch, pcch) {
-        result := ComCall(41, this, "int", cch, "int*", pcch, "HRESULT")
+        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+
+        result := ComCall(41, this, "int", cch, pcchMarshal, pcch, "HRESULT")
         return result
     }
 

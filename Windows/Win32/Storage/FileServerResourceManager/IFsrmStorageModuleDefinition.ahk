@@ -37,7 +37,9 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_capabilities
      */
     get_Capabilities(capabilities) {
-        result := ComCall(31, this, "int*", capabilities, "HRESULT")
+        capabilitiesMarshal := capabilities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, capabilitiesMarshal, capabilities, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_storagetype
      */
     get_StorageType(storageType) {
-        result := ComCall(33, this, "int*", storageType, "HRESULT")
+        storageTypeMarshal := storageType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, storageTypeMarshal, storageType, "HRESULT")
         return result
     }
 

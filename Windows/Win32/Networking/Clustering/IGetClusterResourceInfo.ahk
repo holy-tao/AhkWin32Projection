@@ -93,7 +93,9 @@ class IGetClusterResourceInfo extends IUnknown{
     GetResourceTypeName(lObjIndex, lpszResTypeName, pcchResTypeName) {
         lpszResTypeName := lpszResTypeName is String ? BSTR.Alloc(lpszResTypeName).Value : lpszResTypeName
 
-        result := ComCall(4, this, "int", lObjIndex, "ptr", lpszResTypeName, "int*", pcchResTypeName, "HRESULT")
+        pcchResTypeNameMarshal := pcchResTypeName is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", lObjIndex, "ptr", lpszResTypeName, pcchResTypeNameMarshal, pcchResTypeName, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IGetClusterResourceInfo extends IUnknown{
     GetResourceNetworkName(lObjIndex, lpszNetName, pcchNetName) {
         lpszNetName := lpszNetName is String ? BSTR.Alloc(lpszNetName).Value : lpszNetName
 
-        result := ComCall(5, this, "int", lObjIndex, "ptr", lpszNetName, "uint*", pcchNetName, "int")
+        pcchNetNameMarshal := pcchNetName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", lObjIndex, "ptr", lpszNetName, pcchNetNameMarshal, pcchNetName, "int")
         return result
     }
 }

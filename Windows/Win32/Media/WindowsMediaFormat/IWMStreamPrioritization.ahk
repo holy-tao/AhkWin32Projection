@@ -38,7 +38,9 @@ class IWMStreamPrioritization extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-getpriorityrecords
      */
     GetPriorityRecords(pRecordArray, pcRecords) {
-        result := ComCall(3, this, "ptr", pRecordArray, "ushort*", pcRecords, "HRESULT")
+        pcRecordsMarshal := pcRecords is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pRecordArray, pcRecordsMarshal, pcRecords, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class IRowsetFastLoad extends IUnknown{
     InsertRow(hAccessor, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(3, this, "ptr", hAccessor, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 

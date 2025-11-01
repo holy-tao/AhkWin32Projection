@@ -560,7 +560,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphFreeData(pvData) {
-        DllCall("P2PGRAPH.dll\PeerGraphFreeData", "ptr", pvData)
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        DllCall("P2PGRAPH.dll\PeerGraphFreeData", pvDataMarshal, pvData)
     }
 
     /**
@@ -613,7 +615,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphGetItemCount(hPeerEnum, pCount) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphGetItemCount", "ptr", hPeerEnum, "uint*", pCount, "int")
+        hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphGetItemCount", hPeerEnumMarshal, hPeerEnum, pCountMarshal, pCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -676,7 +681,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphGetNextItem(hPeerEnum, pCount, pppvItems) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphGetNextItem", "ptr", hPeerEnum, "uint*", pCount, "ptr*", pppvItems, "int")
+        hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphGetNextItem", hPeerEnumMarshal, hPeerEnum, pCountMarshal, pCount, "ptr*", pppvItems, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -721,7 +729,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphEndEnumeration(hPeerEnum) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphEndEnumeration", "ptr", hPeerEnum, "int")
+        hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphEndEnumeration", hPeerEnumMarshal, hPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1011,7 +1021,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphListen(hGraph, dwScope, dwScopeId, wPort) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphListen", "ptr", hGraph, "uint", dwScope, "uint", dwScopeId, "ushort", wPort, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphListen", hGraphMarshal, hGraph, "uint", dwScope, "uint", dwScopeId, "ushort", wPort, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1094,7 +1106,10 @@ class P2P {
     static PeerGraphConnect(hGraph, pwzPeerId, pAddress, pullConnectionId) {
         pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphConnect", "ptr", hGraph, "ptr", pwzPeerId, "ptr", pAddress, "uint*", pullConnectionId, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+        pullConnectionIdMarshal := pullConnectionId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphConnect", hGraphMarshal, hGraph, "ptr", pwzPeerId, "ptr", pAddress, pullConnectionIdMarshal, pullConnectionId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1161,7 +1176,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphClose(hGraph) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphClose", "ptr", hGraph, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphClose", hGraphMarshal, hGraph, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1291,7 +1308,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphGetStatus(hGraph, pdwStatus) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphGetStatus", "ptr", hGraph, "uint*", pdwStatus, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphGetStatus", hGraphMarshal, hGraph, pdwStatusMarshal, pdwStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1370,7 +1390,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphGetProperties(hGraph, ppGraphProperties) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphGetProperties", "ptr", hGraph, "ptr*", ppGraphProperties, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphGetProperties", hGraphMarshal, hGraph, "ptr*", ppGraphProperties, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1447,7 +1469,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphSetProperties(hGraph, pGraphProperties) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphSetProperties", "ptr", hGraph, "ptr", pGraphProperties, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphSetProperties", hGraphMarshal, hGraph, "ptr", pGraphProperties, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1520,7 +1544,9 @@ class P2P {
     static PeerGraphRegisterEvent(hGraph, hEvent, cEventRegistrations, pEventRegistrations, phPeerEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphRegisterEvent", "ptr", hGraph, "ptr", hEvent, "uint", cEventRegistrations, "ptr", pEventRegistrations, "ptr*", phPeerEvent, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphRegisterEvent", hGraphMarshal, hGraph, "ptr", hEvent, "uint", cEventRegistrations, "ptr", pEventRegistrations, "ptr*", phPeerEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1565,7 +1591,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphUnregisterEvent(hPeerEvent) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphUnregisterEvent", "ptr", hPeerEvent, "int")
+        hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphUnregisterEvent", hPeerEventMarshal, hPeerEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1633,7 +1661,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphGetEventData(hPeerEvent, ppEventData) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphGetEventData", "ptr", hPeerEvent, "ptr*", ppEventData, "int")
+        hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphGetEventData", hPeerEventMarshal, hPeerEvent, "ptr*", ppEventData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1713,7 +1743,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphGetRecord(hGraph, pRecordId, ppRecord) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphGetRecord", "ptr", hGraph, "ptr", pRecordId, "ptr*", ppRecord, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphGetRecord", hGraphMarshal, hGraph, "ptr", pRecordId, "ptr*", ppRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1838,7 +1870,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphAddRecord(hGraph, pRecord, pRecordId) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphAddRecord", "ptr", hGraph, "ptr", pRecord, "ptr", pRecordId, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphAddRecord", hGraphMarshal, hGraph, "ptr", pRecord, "ptr", pRecordId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1917,7 +1951,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphUpdateRecord(hGraph, pRecord) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphUpdateRecord", "ptr", hGraph, "ptr", pRecord, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphUpdateRecord", hGraphMarshal, hGraph, "ptr", pRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2000,7 +2036,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphDeleteRecord(hGraph, pRecordId, fLocal) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphDeleteRecord", "ptr", hGraph, "ptr", pRecordId, "int", fLocal, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphDeleteRecord", hGraphMarshal, hGraph, "ptr", pRecordId, "int", fLocal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2072,7 +2110,9 @@ class P2P {
     static PeerGraphEnumRecords(hGraph, pRecordType, pwzPeerId, phPeerEnum) {
         pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphEnumRecords", "ptr", hGraph, "ptr", pRecordType, "ptr", pwzPeerId, "ptr*", phPeerEnum, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphEnumRecords", hGraphMarshal, hGraph, "ptr", pRecordType, "ptr", pwzPeerId, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2154,7 +2194,9 @@ class P2P {
     static PeerGraphSearchRecords(hGraph, pwzCriteria, phPeerEnum) {
         pwzCriteria := pwzCriteria is String ? StrPtr(pwzCriteria) : pwzCriteria
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphSearchRecords", "ptr", hGraph, "ptr", pwzCriteria, "ptr*", phPeerEnum, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphSearchRecords", hGraphMarshal, hGraph, "ptr", pwzCriteria, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2224,7 +2266,9 @@ class P2P {
     static PeerGraphExportDatabase(hGraph, pwzFilePath) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphExportDatabase", "ptr", hGraph, "ptr", pwzFilePath, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphExportDatabase", hGraphMarshal, hGraph, "ptr", pwzFilePath, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2305,7 +2349,9 @@ class P2P {
     static PeerGraphImportDatabase(hGraph, pwzFilePath) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphImportDatabase", "ptr", hGraph, "ptr", pwzFilePath, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphImportDatabase", hGraphMarshal, hGraph, "ptr", pwzFilePath, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2374,7 +2420,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphValidateDeferredRecords(hGraph, cRecordIds, pRecordIds) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphValidateDeferredRecords", "ptr", hGraph, "uint", cRecordIds, "ptr", pRecordIds, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphValidateDeferredRecords", hGraphMarshal, hGraph, "uint", cRecordIds, "ptr", pRecordIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2424,7 +2472,10 @@ class P2P {
     static PeerGraphOpenDirectConnection(hGraph, pwzPeerId, pAddress, pullConnectionId) {
         pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphOpenDirectConnection", "ptr", hGraph, "ptr", pwzPeerId, "ptr", pAddress, "uint*", pullConnectionId, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+        pullConnectionIdMarshal := pullConnectionId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphOpenDirectConnection", hGraphMarshal, hGraph, "ptr", pwzPeerId, "ptr", pAddress, pullConnectionIdMarshal, pullConnectionId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2495,7 +2546,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphSendData(hGraph, ullConnectionId, pType, cbData, pvData) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphSendData", "ptr", hGraph, "uint", ullConnectionId, "ptr", pType, "uint", cbData, "ptr", pvData, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphSendData", hGraphMarshal, hGraph, "uint", ullConnectionId, "ptr", pType, "uint", cbData, "ptr", pvData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2563,7 +2616,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphCloseDirectConnection(hGraph, ullConnectionId) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphCloseDirectConnection", "ptr", hGraph, "uint", ullConnectionId, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphCloseDirectConnection", hGraphMarshal, hGraph, "uint", ullConnectionId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2632,7 +2687,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphEnumConnections(hGraph, dwFlags, phPeerEnum) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphEnumConnections", "ptr", hGraph, "uint", dwFlags, "ptr*", phPeerEnum, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphEnumConnections", hGraphMarshal, hGraph, "uint", dwFlags, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2725,7 +2782,9 @@ class P2P {
     static PeerGraphEnumNodes(hGraph, pwzPeerId, phPeerEnum) {
         pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphEnumNodes", "ptr", hGraph, "ptr", pwzPeerId, "ptr*", phPeerEnum, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphEnumNodes", hGraphMarshal, hGraph, "ptr", pwzPeerId, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2785,7 +2844,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphSetPresence(hGraph, fPresent) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphSetPresence", "ptr", hGraph, "int", fPresent, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphSetPresence", hGraphMarshal, hGraph, "int", fPresent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2865,7 +2926,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphGetNodeInfo(hGraph, ullNodeId, ppNodeInfo) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphGetNodeInfo", "ptr", hGraph, "uint", ullNodeId, "ptr*", ppNodeInfo, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphGetNodeInfo", hGraphMarshal, hGraph, "uint", ullNodeId, "ptr*", ppNodeInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2935,7 +2998,9 @@ class P2P {
     static PeerGraphSetNodeAttributes(hGraph, pwzAttributes) {
         pwzAttributes := pwzAttributes is String ? StrPtr(pwzAttributes) : pwzAttributes
 
-        result := DllCall("P2PGRAPH.dll\PeerGraphSetNodeAttributes", "ptr", hGraph, "ptr", pwzAttributes, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphSetNodeAttributes", hGraphMarshal, hGraph, "ptr", pwzAttributes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2993,7 +3058,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphPeerTimeToUniversalTime(hGraph, pftPeerTime, pftUniversalTime) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphPeerTimeToUniversalTime", "ptr", hGraph, "ptr", pftPeerTime, "ptr", pftUniversalTime, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphPeerTimeToUniversalTime", hGraphMarshal, hGraph, "ptr", pftPeerTime, "ptr", pftUniversalTime, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3051,7 +3118,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphUniversalTimeToPeerTime(hGraph, pftUniversalTime, pftPeerTime) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphUniversalTimeToPeerTime", "ptr", hGraph, "ptr", pftUniversalTime, "ptr", pftPeerTime, "int")
+        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2PGRAPH.dll\PeerGraphUniversalTimeToPeerTime", hGraphMarshal, hGraph, "ptr", pftUniversalTime, "ptr", pftPeerTime, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3067,7 +3136,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerFreeData(pvData) {
-        DllCall("P2P.dll\PeerFreeData", "ptr", pvData)
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        DllCall("P2P.dll\PeerFreeData", pvDataMarshal, pvData)
     }
 
     /**
@@ -3109,7 +3180,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGetItemCount(hPeerEnum, pCount) {
-        result := DllCall("P2P.dll\PeerGetItemCount", "ptr", hPeerEnum, "uint*", pCount, "int")
+        hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGetItemCount", hPeerEnumMarshal, hPeerEnum, pCountMarshal, pCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3156,7 +3230,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGetNextItem(hPeerEnum, pCount, pppvItems) {
-        result := DllCall("P2P.dll\PeerGetNextItem", "ptr", hPeerEnum, "uint*", pCount, "ptr*", pppvItems, "int")
+        hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGetNextItem", hPeerEnumMarshal, hPeerEnum, pCountMarshal, pCount, "ptr*", pppvItems, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3190,7 +3267,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerEndEnumeration(hPeerEnum) {
-        result := DllCall("P2P.dll\PeerEndEnumeration", "ptr", hPeerEnum, "int")
+        hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerEndEnumeration", hPeerEnumMarshal, hPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3838,7 +3917,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupConnect(hGroup) {
-        result := DllCall("P2P.dll\PeerGroupConnect", "ptr", hGroup, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupConnect", hGroupMarshal, hGroup, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3877,7 +3958,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupConnectByAddress(hGroup, cAddresses, pAddresses) {
-        result := DllCall("P2P.dll\PeerGroupConnectByAddress", "ptr", hGroup, "uint", cAddresses, "ptr", pAddresses, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupConnectByAddress", hGroupMarshal, hGroup, "uint", cAddresses, "ptr", pAddresses, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3914,7 +3997,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupClose(hGroup) {
-        result := DllCall("P2P.dll\PeerGroupClose", "ptr", hGroup, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupClose", hGroupMarshal, hGroup, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4131,7 +4216,9 @@ class P2P {
     static PeerGroupCreateInvitation(hGroup, pwzIdentityInfo, pftExpiration, cRoles, pRoles, ppwzInvitation) {
         pwzIdentityInfo := pwzIdentityInfo is String ? StrPtr(pwzIdentityInfo) : pwzIdentityInfo
 
-        result := DllCall("P2P.dll\PeerGroupCreateInvitation", "ptr", hGroup, "ptr", pwzIdentityInfo, "ptr", pftExpiration, "uint", cRoles, "ptr", pRoles, "ptr", ppwzInvitation, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupCreateInvitation", hGroupMarshal, hGroup, "ptr", pwzIdentityInfo, "ptr", pftExpiration, "uint", cRoles, "ptr", pRoles, "ptr", ppwzInvitation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4242,7 +4329,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupCreatePasswordInvitation(hGroup, ppwzInvitation) {
-        result := DllCall("P2P.dll\PeerGroupCreatePasswordInvitation", "ptr", hGroup, "ptr", ppwzInvitation, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupCreatePasswordInvitation", hGroupMarshal, hGroup, "ptr", ppwzInvitation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4375,7 +4464,10 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupGetStatus(hGroup, pdwStatus) {
-        result := DllCall("P2P.dll\PeerGroupGetStatus", "ptr", hGroup, "uint*", pdwStatus, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupGetStatus", hGroupMarshal, hGroup, pdwStatusMarshal, pdwStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4446,7 +4538,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupGetProperties(hGroup, ppProperties) {
-        result := DllCall("P2P.dll\PeerGroupGetProperties", "ptr", hGroup, "ptr*", ppProperties, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupGetProperties", hGroupMarshal, hGroup, "ptr*", ppProperties, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4548,7 +4642,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupSetProperties(hGroup, pProperties) {
-        result := DllCall("P2P.dll\PeerGroupSetProperties", "ptr", hGroup, "ptr", pProperties, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupSetProperties", hGroupMarshal, hGroup, "ptr", pProperties, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4630,7 +4726,9 @@ class P2P {
     static PeerGroupEnumMembers(hGroup, dwFlags, pwzIdentity, phPeerEnum) {
         pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-        result := DllCall("P2P.dll\PeerGroupEnumMembers", "ptr", hGroup, "uint", dwFlags, "ptr", pwzIdentity, "ptr*", phPeerEnum, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupEnumMembers", hGroupMarshal, hGroup, "uint", dwFlags, "ptr", pwzIdentity, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4706,7 +4804,10 @@ class P2P {
     static PeerGroupOpenDirectConnection(hGroup, pwzIdentity, pAddress, pullConnectionId) {
         pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-        result := DllCall("P2P.dll\PeerGroupOpenDirectConnection", "ptr", hGroup, "ptr", pwzIdentity, "ptr", pAddress, "uint*", pullConnectionId, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        pullConnectionIdMarshal := pullConnectionId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupOpenDirectConnection", hGroupMarshal, hGroup, "ptr", pwzIdentity, "ptr", pAddress, pullConnectionIdMarshal, pullConnectionId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4755,7 +4856,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupCloseDirectConnection(hGroup, ullConnectionId) {
-        result := DllCall("P2P.dll\PeerGroupCloseDirectConnection", "ptr", hGroup, "uint", ullConnectionId, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupCloseDirectConnection", hGroupMarshal, hGroup, "uint", ullConnectionId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4817,7 +4920,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupEnumConnections(hGroup, dwFlags, phPeerEnum) {
-        result := DllCall("P2P.dll\PeerGroupEnumConnections", "ptr", hGroup, "uint", dwFlags, "ptr*", phPeerEnum, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupEnumConnections", hGroupMarshal, hGroup, "uint", dwFlags, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4869,7 +4974,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupSendData(hGroup, ullConnectionId, pType, cbData, pvData) {
-        result := DllCall("P2P.dll\PeerGroupSendData", "ptr", hGroup, "uint", ullConnectionId, "ptr", pType, "uint", cbData, "ptr", pvData, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupSendData", hGroupMarshal, hGroup, "uint", ullConnectionId, "ptr", pType, "uint", cbData, "ptr", pvData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4935,7 +5042,9 @@ class P2P {
     static PeerGroupRegisterEvent(hGroup, hEvent, cEventRegistration, pEventRegistrations, phPeerEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("P2P.dll\PeerGroupRegisterEvent", "ptr", hGroup, "ptr", hEvent, "uint", cEventRegistration, "ptr", pEventRegistrations, "ptr*", phPeerEvent, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupRegisterEvent", hGroupMarshal, hGroup, "ptr", hEvent, "uint", cEventRegistration, "ptr", pEventRegistrations, "ptr*", phPeerEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4972,7 +5081,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupUnregisterEvent(hPeerEvent) {
-        result := DllCall("P2P.dll\PeerGroupUnregisterEvent", "ptr", hPeerEvent, "int")
+        hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupUnregisterEvent", hPeerEventMarshal, hPeerEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5021,7 +5132,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupGetEventData(hPeerEvent, ppEventData) {
-        result := DllCall("P2P.dll\PeerGroupGetEventData", "ptr", hPeerEvent, "ptr*", ppEventData, "int")
+        hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupGetEventData", hPeerEventMarshal, hPeerEvent, "ptr*", ppEventData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5104,7 +5217,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupGetRecord(hGroup, pRecordId, ppRecord) {
-        result := DllCall("P2P.dll\PeerGroupGetRecord", "ptr", hGroup, "ptr", pRecordId, "ptr*", ppRecord, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupGetRecord", hGroupMarshal, hGroup, "ptr", pRecordId, "ptr*", ppRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5252,7 +5367,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupAddRecord(hGroup, pRecord, pRecordId) {
-        result := DllCall("P2P.dll\PeerGroupAddRecord", "ptr", hGroup, "ptr", pRecord, "ptr", pRecordId, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupAddRecord", hGroupMarshal, hGroup, "ptr", pRecord, "ptr", pRecordId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5361,7 +5478,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupUpdateRecord(hGroup, pRecord) {
-        result := DllCall("P2P.dll\PeerGroupUpdateRecord", "ptr", hGroup, "ptr", pRecord, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupUpdateRecord", hGroupMarshal, hGroup, "ptr", pRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5432,7 +5551,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupDeleteRecord(hGroup, pRecordId) {
-        result := DllCall("P2P.dll\PeerGroupDeleteRecord", "ptr", hGroup, "ptr", pRecordId, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupDeleteRecord", hGroupMarshal, hGroup, "ptr", pRecordId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5494,7 +5615,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupEnumRecords(hGroup, pRecordType, phPeerEnum) {
-        result := DllCall("P2P.dll\PeerGroupEnumRecords", "ptr", hGroup, "ptr", pRecordType, "ptr*", phPeerEnum, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupEnumRecords", hGroupMarshal, hGroup, "ptr", pRecordType, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5558,7 +5681,9 @@ class P2P {
     static PeerGroupSearchRecords(hGroup, pwzCriteria, phPeerEnum) {
         pwzCriteria := pwzCriteria is String ? StrPtr(pwzCriteria) : pwzCriteria
 
-        result := DllCall("P2P.dll\PeerGroupSearchRecords", "ptr", hGroup, "ptr", pwzCriteria, "ptr*", phPeerEnum, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupSearchRecords", hGroupMarshal, hGroup, "ptr", pwzCriteria, "ptr*", phPeerEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5611,7 +5736,9 @@ class P2P {
     static PeerGroupExportDatabase(hGroup, pwzFilePath) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := DllCall("P2P.dll\PeerGroupExportDatabase", "ptr", hGroup, "ptr", pwzFilePath, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupExportDatabase", hGroupMarshal, hGroup, "ptr", pwzFilePath, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5675,7 +5802,9 @@ class P2P {
     static PeerGroupImportDatabase(hGroup, pwzFilePath) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := DllCall("P2P.dll\PeerGroupImportDatabase", "ptr", hGroup, "ptr", pwzFilePath, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupImportDatabase", hGroupMarshal, hGroup, "ptr", pwzFilePath, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5785,7 +5914,9 @@ class P2P {
     static PeerGroupIssueCredentials(hGroup, pwzSubjectIdentity, pCredentialInfo, dwFlags, ppwzInvitation) {
         pwzSubjectIdentity := pwzSubjectIdentity is String ? StrPtr(pwzSubjectIdentity) : pwzSubjectIdentity
 
-        result := DllCall("P2P.dll\PeerGroupIssueCredentials", "ptr", hGroup, "ptr", pwzSubjectIdentity, "ptr", pCredentialInfo, "uint", dwFlags, "ptr", ppwzInvitation, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupIssueCredentials", hGroupMarshal, hGroup, "ptr", pwzSubjectIdentity, "ptr", pCredentialInfo, "uint", dwFlags, "ptr", ppwzInvitation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5849,7 +5980,9 @@ class P2P {
     static PeerGroupExportConfig(hGroup, pwzPassword, ppwzXML) {
         pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
 
-        result := DllCall("P2P.dll\PeerGroupExportConfig", "ptr", hGroup, "ptr", pwzPassword, "ptr", ppwzXML, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupExportConfig", hGroupMarshal, hGroup, "ptr", pwzPassword, "ptr", ppwzXML, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5976,7 +6109,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupPeerTimeToUniversalTime(hGroup, pftPeerTime, pftUniversalTime) {
-        result := DllCall("P2P.dll\PeerGroupPeerTimeToUniversalTime", "ptr", hGroup, "ptr", pftPeerTime, "ptr", pftUniversalTime, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupPeerTimeToUniversalTime", hGroupMarshal, hGroup, "ptr", pftPeerTime, "ptr", pftUniversalTime, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6037,7 +6172,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGroupUniversalTimeToPeerTime(hGroup, pftUniversalTime, pftPeerTime) {
-        result := DllCall("P2P.dll\PeerGroupUniversalTimeToPeerTime", "ptr", hGroup, "ptr", pftUniversalTime, "ptr", pftPeerTime, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupUniversalTimeToPeerTime", hGroupMarshal, hGroup, "ptr", pftUniversalTime, "ptr", pftPeerTime, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6052,7 +6189,10 @@ class P2P {
      * @deprecated
      */
     static PeerGroupResumePasswordAuthentication(hGroup, hPeerEventHandle) {
-        result := DllCall("P2P.dll\PeerGroupResumePasswordAuthentication", "ptr", hGroup, "ptr", hPeerEventHandle, "int")
+        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hPeerEventHandleMarshal := hPeerEventHandle is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerGroupResumePasswordAuthentication", hGroupMarshal, hGroup, hPeerEventHandleMarshal, hPeerEventHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6362,7 +6502,9 @@ class P2P {
     static PeerIdentityGetCryptKey(pwzIdentity, phCryptProv) {
         pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-        result := DllCall("P2P.dll\PeerIdentityGetCryptKey", "ptr", pwzIdentity, "ptr*", phCryptProv, "int")
+        phCryptProvMarshal := phCryptProv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerIdentityGetCryptKey", "ptr", pwzIdentity, phCryptProvMarshal, phCryptProv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7133,7 +7275,9 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabGetSigninOptions(pdwSigninOptions) {
-        result := DllCall("P2P.dll\PeerCollabGetSigninOptions", "uint*", pdwSigninOptions, "int")
+        pdwSigninOptionsMarshal := pdwSigninOptions is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerCollabGetSigninOptions", pdwSigninOptionsMarshal, pdwSigninOptions, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8860,7 +9004,9 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabGetEventData(hPeerEvent, ppEventData) {
-        result := DllCall("P2P.dll\PeerCollabGetEventData", "ptr", hPeerEvent, "ptr*", ppEventData, "int")
+        hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerCollabGetEventData", hPeerEventMarshal, hPeerEvent, "ptr*", ppEventData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8905,7 +9051,9 @@ class P2P {
      * @since windows6.0.6000
      */
     static PeerCollabUnregisterEvent(hPeerEvent) {
-        result := DllCall("P2P.dll\PeerCollabUnregisterEvent", "ptr", hPeerEvent, "int")
+        hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerCollabUnregisterEvent", hPeerEventMarshal, hPeerEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9684,7 +9832,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpUpdateRegistration(hRegistration, pRegistrationInfo) {
-        result := DllCall("P2P.dll\PeerPnrpUpdateRegistration", "ptr", hRegistration, "ptr", pRegistrationInfo, "int")
+        hRegistrationMarshal := hRegistration is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerPnrpUpdateRegistration", hRegistrationMarshal, hRegistration, "ptr", pRegistrationInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9729,7 +9879,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpUnregister(hRegistration) {
-        result := DllCall("P2P.dll\PeerPnrpUnregister", "ptr", hRegistration, "int")
+        hRegistrationMarshal := hRegistration is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerPnrpUnregister", hRegistrationMarshal, hRegistration, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9780,7 +9932,9 @@ class P2P {
         pcwzPeerName := pcwzPeerName is String ? StrPtr(pcwzPeerName) : pcwzPeerName
         pcwzCloudName := pcwzCloudName is String ? StrPtr(pcwzCloudName) : pcwzCloudName
 
-        result := DllCall("P2P.dll\PeerPnrpResolve", "ptr", pcwzPeerName, "ptr", pcwzCloudName, "uint*", pcEndpoints, "ptr*", ppEndpoints, "int")
+        pcEndpointsMarshal := pcEndpoints is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerPnrpResolve", "ptr", pcwzPeerName, "ptr", pcwzCloudName, pcEndpointsMarshal, pcEndpoints, "ptr*", ppEndpoints, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9881,7 +10035,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpGetCloudInfo(pcNumClouds, ppCloudInfo) {
-        result := DllCall("P2P.dll\PeerPnrpGetCloudInfo", "uint*", pcNumClouds, "ptr*", ppCloudInfo, "int")
+        pcNumCloudsMarshal := pcNumClouds is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("P2P.dll\PeerPnrpGetCloudInfo", pcNumCloudsMarshal, pcNumClouds, "ptr*", ppCloudInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9940,7 +10096,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpGetEndpoint(hResolve, ppEndpoint) {
-        result := DllCall("P2P.dll\PeerPnrpGetEndpoint", "ptr", hResolve, "ptr*", ppEndpoint, "int")
+        hResolveMarshal := hResolve is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerPnrpGetEndpoint", hResolveMarshal, hResolve, "ptr*", ppEndpoint, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9985,7 +10143,9 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerPnrpEndResolve(hResolve) {
-        result := DllCall("P2P.dll\PeerPnrpEndResolve", "ptr", hResolve, "int")
+        hResolveMarshal := hResolve is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("P2P.dll\PeerPnrpEndResolve", hResolveMarshal, hResolve, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10218,7 +10378,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtCreateIpv6UdpTransport(scope, dwScopeId, dwLocalityThreshold, pwPort, phTransport) {
-        result := DllCall("drttransport.dll\DrtCreateIpv6UdpTransport", "int", scope, "uint", dwScopeId, "uint", dwLocalityThreshold, "ushort*", pwPort, "ptr*", phTransport, "int")
+        pwPortMarshal := pwPort is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("drttransport.dll\DrtCreateIpv6UdpTransport", "int", scope, "uint", dwScopeId, "uint", dwLocalityThreshold, pwPortMarshal, pwPort, "ptr*", phTransport, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10288,7 +10450,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtDeleteIpv6UdpTransport(hTransport) {
-        result := DllCall("drttransport.dll\DrtDeleteIpv6UdpTransport", "ptr", hTransport, "int")
+        hTransportMarshal := hTransport is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drttransport.dll\DrtDeleteIpv6UdpTransport", hTransportMarshal, hTransport, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10735,7 +10899,9 @@ class P2P {
     static DrtOpen(pSettings, hEvent, pvContext, phDrt) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("drt.dll\DrtOpen", "ptr", pSettings, "ptr", hEvent, "ptr", pvContext, "ptr*", phDrt, "int")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtOpen", "ptr", pSettings, "ptr", hEvent, pvContextMarshal, pvContext, "ptr*", phDrt, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10750,7 +10916,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtClose(hDrt) {
-        DllCall("drt.dll\DrtClose", "ptr", hDrt)
+        hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+
+        DllCall("drt.dll\DrtClose", hDrtMarshal, hDrt)
     }
 
     /**
@@ -10813,7 +10981,10 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetEventDataSize(hDrt, pulEventDataLen) {
-        result := DllCall("drt.dll\DrtGetEventDataSize", "ptr", hDrt, "uint*", pulEventDataLen, "int")
+        hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+        pulEventDataLenMarshal := pulEventDataLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetEventDataSize", hDrtMarshal, hDrt, pulEventDataLenMarshal, pulEventDataLen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10881,7 +11052,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetEventData(hDrt, ulEventDataLen, pEventData) {
-        result := DllCall("drt.dll\DrtGetEventData", "ptr", hDrt, "uint", ulEventDataLen, "ptr", pEventData, "int")
+        hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetEventData", hDrtMarshal, hDrt, "uint", ulEventDataLen, "ptr", pEventData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11105,7 +11278,10 @@ class P2P {
      * @since windows6.1
      */
     static DrtRegisterKey(hDrt, pRegistration, pvKeyContext, phKeyRegistration) {
-        result := DllCall("drt.dll\DrtRegisterKey", "ptr", hDrt, "ptr", pRegistration, "ptr", pvKeyContext, "ptr*", phKeyRegistration, "int")
+        hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+        pvKeyContextMarshal := pvKeyContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtRegisterKey", hDrtMarshal, hDrt, "ptr", pRegistration, pvKeyContextMarshal, pvKeyContext, "ptr*", phKeyRegistration, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11165,7 +11341,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtUpdateKey(hKeyRegistration, pAppData) {
-        result := DllCall("drt.dll\DrtUpdateKey", "ptr", hKeyRegistration, "ptr", pAppData, "int")
+        hKeyRegistrationMarshal := hKeyRegistration is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtUpdateKey", hKeyRegistrationMarshal, hKeyRegistration, "ptr", pAppData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11187,7 +11365,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtUnregisterKey(hKeyRegistration) {
-        DllCall("drt.dll\DrtUnregisterKey", "ptr", hKeyRegistration)
+        hKeyRegistrationMarshal := hKeyRegistration is VarRef ? "ptr" : "ptr"
+
+        DllCall("drt.dll\DrtUnregisterKey", hKeyRegistrationMarshal, hKeyRegistration)
     }
 
     /**
@@ -11332,7 +11512,10 @@ class P2P {
     static DrtStartSearch(hDrt, pKey, pInfo, timeout, hEvent, pvContext, hSearchContext) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("drt.dll\DrtStartSearch", "ptr", hDrt, "ptr", pKey, "ptr", pInfo, "uint", timeout, "ptr", hEvent, "ptr", pvContext, "ptr*", hSearchContext, "int")
+        hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtStartSearch", hDrtMarshal, hDrt, "ptr", pKey, "ptr", pInfo, "uint", timeout, "ptr", hEvent, pvContextMarshal, pvContext, "ptr*", hSearchContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11376,7 +11559,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtContinueSearch(hSearchContext) {
-        result := DllCall("drt.dll\DrtContinueSearch", "ptr", hSearchContext, "int")
+        hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtContinueSearch", hSearchContextMarshal, hSearchContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11465,7 +11650,10 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetSearchResultSize(hSearchContext, pulSearchResultSize) {
-        result := DllCall("drt.dll\DrtGetSearchResultSize", "ptr", hSearchContext, "uint*", pulSearchResultSize, "int")
+        hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+        pulSearchResultSizeMarshal := pulSearchResultSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetSearchResultSize", hSearchContextMarshal, hSearchContext, pulSearchResultSizeMarshal, pulSearchResultSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11566,7 +11754,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetSearchResult(hSearchContext, ulSearchResultSize, pSearchResult) {
-        result := DllCall("drt.dll\DrtGetSearchResult", "ptr", hSearchContext, "uint", ulSearchResultSize, "ptr", pSearchResult, "int")
+        hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetSearchResult", hSearchContextMarshal, hSearchContext, "uint", ulSearchResultSize, "ptr", pSearchResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11582,7 +11772,10 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetSearchPathSize(hSearchContext, pulSearchPathSize) {
-        result := DllCall("drt.dll\DrtGetSearchPathSize", "ptr", hSearchContext, "uint*", pulSearchPathSize, "int")
+        hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+        pulSearchPathSizeMarshal := pulSearchPathSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetSearchPathSize", hSearchContextMarshal, hSearchContext, pulSearchPathSizeMarshal, pulSearchPathSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11599,7 +11792,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetSearchPath(hSearchContext, ulSearchPathSize, pSearchPath) {
-        result := DllCall("drt.dll\DrtGetSearchPath", "ptr", hSearchContext, "uint", ulSearchPathSize, "ptr", pSearchPath, "int")
+        hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetSearchPath", hSearchContextMarshal, hSearchContext, "uint", ulSearchPathSize, "ptr", pSearchPath, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11643,7 +11838,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtEndSearch(hSearchContext) {
-        result := DllCall("drt.dll\DrtEndSearch", "ptr", hSearchContext, "int")
+        hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtEndSearch", hSearchContextMarshal, hSearchContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11700,7 +11897,9 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetInstanceName(hDrt, ulcbInstanceNameSize, pwzDrtInstanceName) {
-        result := DllCall("drt.dll\DrtGetInstanceName", "ptr", hDrt, "uint", ulcbInstanceNameSize, "ptr", pwzDrtInstanceName, "int")
+        hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetInstanceName", hDrtMarshal, hDrt, "uint", ulcbInstanceNameSize, "ptr", pwzDrtInstanceName, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11745,7 +11944,10 @@ class P2P {
      * @since windows6.1
      */
     static DrtGetInstanceNameSize(hDrt, pulcbInstanceNameSize) {
-        result := DllCall("drt.dll\DrtGetInstanceNameSize", "ptr", hDrt, "uint*", pulcbInstanceNameSize, "int")
+        hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+        pulcbInstanceNameSizeMarshal := pulcbInstanceNameSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("drt.dll\DrtGetInstanceNameSize", hDrtMarshal, hDrt, pulcbInstanceNameSizeMarshal, pulcbInstanceNameSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11791,7 +11993,10 @@ class P2P {
      * @since windows6.1
      */
     static PeerDistStartup(dwVersionRequested, phPeerDist, pdwSupportedVersion) {
-        result := DllCall("PeerDist.dll\PeerDistStartup", "uint", dwVersionRequested, "ptr*", phPeerDist, "uint*", pdwSupportedVersion, "uint")
+        phPeerDistMarshal := phPeerDist is VarRef ? "ptr*" : "ptr"
+        pdwSupportedVersionMarshal := pdwSupportedVersion is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistStartup", "uint", dwVersionRequested, phPeerDistMarshal, phPeerDist, pdwSupportedVersionMarshal, pdwSupportedVersion, "uint")
         return result
     }
 
@@ -11834,7 +12039,9 @@ class P2P {
      * @since windows6.1
      */
     static PeerDistGetStatus(hPeerDist, pPeerDistStatus) {
-        result := DllCall("PeerDist.dll\PeerDistGetStatus", "ptr", hPeerDist, "int*", pPeerDistStatus, "uint")
+        pPeerDistStatusMarshal := pPeerDistStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistGetStatus", "ptr", hPeerDist, pPeerDistStatusMarshal, pPeerDistStatus, "uint")
         return result
     }
 
@@ -11881,7 +12088,9 @@ class P2P {
     static PeerDistRegisterForStatusChangeNotification(hPeerDist, hCompletionPort, ulCompletionKey, lpOverlapped, pPeerDistStatus) {
         hCompletionPort := hCompletionPort is Win32Handle ? NumGet(hCompletionPort, "ptr") : hCompletionPort
 
-        result := DllCall("PeerDist.dll\PeerDistRegisterForStatusChangeNotification", "ptr", hPeerDist, "ptr", hCompletionPort, "ptr", ulCompletionKey, "ptr", lpOverlapped, "int*", pPeerDistStatus, "uint")
+        pPeerDistStatusMarshal := pPeerDistStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistRegisterForStatusChangeNotification", "ptr", hPeerDist, "ptr", hCompletionPort, "ptr", ulCompletionKey, "ptr", lpOverlapped, pPeerDistStatusMarshal, pPeerDistStatus, "uint")
         return result
     }
 
@@ -12010,7 +12219,9 @@ class P2P {
     static PeerDistServerPublishStream(hPeerDist, cbContentIdentifier, pContentIdentifier, cbContentLength, pPublishOptions, hCompletionPort, ulCompletionKey, phStream) {
         hCompletionPort := hCompletionPort is Win32Handle ? NumGet(hCompletionPort, "ptr") : hCompletionPort
 
-        result := DllCall("PeerDist.dll\PeerDistServerPublishStream", "ptr", hPeerDist, "uint", cbContentIdentifier, "ptr", pContentIdentifier, "uint", cbContentLength, "ptr", pPublishOptions, "ptr", hCompletionPort, "ptr", ulCompletionKey, "ptr*", phStream, "uint")
+        phStreamMarshal := phStream is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistServerPublishStream", "ptr", hPeerDist, "uint", cbContentIdentifier, "ptr", pContentIdentifier, "uint", cbContentLength, "ptr", pPublishOptions, "ptr", hCompletionPort, "ptr", ulCompletionKey, phStreamMarshal, phStream, "uint")
         return result
     }
 
@@ -12354,7 +12565,9 @@ class P2P {
     static PeerDistServerOpenContentInformation(hPeerDist, cbContentIdentifier, pContentIdentifier, ullContentOffset, cbContentLength, hCompletionPort, ulCompletionKey, phContentInfo) {
         hCompletionPort := hCompletionPort is Win32Handle ? NumGet(hCompletionPort, "ptr") : hCompletionPort
 
-        result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformation", "ptr", hPeerDist, "uint", cbContentIdentifier, "ptr", pContentIdentifier, "uint", ullContentOffset, "uint", cbContentLength, "ptr", hCompletionPort, "ptr", ulCompletionKey, "ptr*", phContentInfo, "uint")
+        phContentInfoMarshal := phContentInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformation", "ptr", hPeerDist, "uint", cbContentIdentifier, "ptr", pContentIdentifier, "uint", ullContentOffset, "uint", cbContentLength, "ptr", hCompletionPort, "ptr", ulCompletionKey, phContentInfoMarshal, phContentInfo, "uint")
         return result
     }
 
@@ -12625,7 +12838,9 @@ class P2P {
     static PeerDistClientOpenContent(hPeerDist, pContentTag, hCompletionPort, ulCompletionKey, phContentHandle) {
         hCompletionPort := hCompletionPort is Win32Handle ? NumGet(hCompletionPort, "ptr") : hCompletionPort
 
-        result := DllCall("PeerDist.dll\PeerDistClientOpenContent", "ptr", hPeerDist, "ptr", pContentTag, "ptr", hCompletionPort, "ptr", ulCompletionKey, "ptr*", phContentHandle, "uint")
+        phContentHandleMarshal := phContentHandle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistClientOpenContent", "ptr", hPeerDist, "ptr", pContentTag, "ptr", hCompletionPort, "ptr", ulCompletionKey, phContentHandleMarshal, phContentHandle, "uint")
         return result
     }
 
@@ -13253,7 +13468,9 @@ class P2P {
      * @since windows8.0
      */
     static PeerDistGetOverlappedResult(lpOverlapped, lpNumberOfBytesTransferred, bWait) {
-        result := DllCall("PeerDist.dll\PeerDistGetOverlappedResult", "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "int", bWait, "int")
+        lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistGetOverlappedResult", "ptr", lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, "int", bWait, "int")
         return result
     }
 
@@ -13275,7 +13492,9 @@ class P2P {
     static PeerDistServerOpenContentInformationEx(hPeerDist, cbContentIdentifier, pContentIdentifier, ullContentOffset, cbContentLength, pRetrievalOptions, hCompletionPort, ulCompletionKey, phContentInfo) {
         hCompletionPort := hCompletionPort is Win32Handle ? NumGet(hCompletionPort, "ptr") : hCompletionPort
 
-        result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformationEx", "ptr", hPeerDist, "uint", cbContentIdentifier, "ptr", pContentIdentifier, "uint", ullContentOffset, "uint", cbContentLength, "ptr", pRetrievalOptions, "ptr", hCompletionPort, "ptr", ulCompletionKey, "ptr*", phContentInfo, "uint")
+        phContentInfoMarshal := phContentInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformationEx", "ptr", hPeerDist, "uint", cbContentIdentifier, "ptr", pContentIdentifier, "uint", ullContentOffset, "uint", cbContentLength, "ptr", pRetrievalOptions, "ptr", hCompletionPort, "ptr", ulCompletionKey, phContentInfoMarshal, phContentInfo, "uint")
         return result
     }
 

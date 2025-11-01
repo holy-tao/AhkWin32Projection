@@ -37,7 +37,9 @@ class IMMDeviceCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevicecollection-getcount
      */
     GetCount(pcDevices) {
-        result := ComCall(3, this, "uint*", pcDevices, "HRESULT")
+        pcDevicesMarshal := pcDevices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcDevicesMarshal, pcDevices, "HRESULT")
         return result
     }
 

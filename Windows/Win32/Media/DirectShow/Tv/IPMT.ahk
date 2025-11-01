@@ -59,7 +59,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getprogramnumber
      */
     GetProgramNumber(pwVal) {
-        result := ComCall(4, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getpcrpid
      */
     GetPcrPid(pPidVal) {
-        result := ComCall(6, this, "ushort*", pPidVal, "HRESULT")
+        pPidValMarshal := pPidVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pPidValMarshal, pPidVal, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        result := ComCall(7, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -117,7 +125,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(9, this, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 
@@ -128,7 +138,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getcountofrecords
      */
     GetCountOfRecords(pwVal) {
-        result := ComCall(10, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(10, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -140,7 +152,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordstreamtype
      */
     GetRecordStreamType(dwRecordIndex, pbVal) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -152,7 +166,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordelementarypid
      */
     GetRecordElementaryPid(dwRecordIndex, pPidVal) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "ushort*", pPidVal, "HRESULT")
+        pPidValMarshal := pPidVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwRecordIndex, pPidValMarshal, pPidVal, "HRESULT")
         return result
     }
 
@@ -164,7 +180,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -191,7 +209,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
-        result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 
@@ -203,7 +223,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-queryservicegatewayinfo
      */
     QueryServiceGatewayInfo(ppDSMCCList, puiCount) {
-        result := ComCall(16, this, "ptr*", ppDSMCCList, "uint*", puiCount, "HRESULT")
+        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr*", ppDSMCCList, puiCountMarshal, puiCount, "HRESULT")
         return result
     }
 
@@ -215,7 +237,9 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-querympeinfo
      */
     QueryMPEInfo(ppMPEList, puiCount) {
-        result := ComCall(17, this, "ptr*", ppMPEList, "uint*", puiCount, "HRESULT")
+        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "ptr*", ppMPEList, puiCountMarshal, puiCount, "HRESULT")
         return result
     }
 

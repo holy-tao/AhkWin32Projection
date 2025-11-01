@@ -49,7 +49,9 @@ class IComponentType extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_category
      */
     get_Category(Category) {
-        result := ComCall(7, this, "int*", Category, "HRESULT")
+        CategoryMarshal := Category is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, CategoryMarshal, Category, "HRESULT")
         return result
     }
 

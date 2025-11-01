@@ -145,7 +145,9 @@ class IOpcSignatureReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-gettransformmethod
      */
     GetTransformMethod(transformMethod) {
-        result := ComCall(6, this, "int*", transformMethod, "HRESULT")
+        transformMethodMarshal := transformMethod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, transformMethodMarshal, transformMethod, "HRESULT")
         return result
     }
 
@@ -168,7 +170,9 @@ class IOpcSignatureReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
-        result := ComCall(8, this, "ptr*", digestValue, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr*", digestValue, countMarshal, count, "HRESULT")
         return result
     }
 }

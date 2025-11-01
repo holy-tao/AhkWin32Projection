@@ -50,7 +50,9 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatesegmentdata
      */
     UpdateSegmentData(data, dataCount, startIndex) {
-        result := ComCall(7, this, "float*", data, "uint", dataCount, "uint", startIndex, "HRESULT")
+        dataMarshal := data is VarRef ? "float*" : "ptr"
+
+        result := ComCall(7, this, dataMarshal, data, "uint", dataCount, "uint", startIndex, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdata
      */
     GetSegmentData(data, dataCount, startIndex) {
-        result := ComCall(8, this, "float*", data, "uint", dataCount, "uint", startIndex, "HRESULT")
+        dataMarshal := data is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, dataMarshal, data, "uint", dataCount, "uint", startIndex, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatecommands
      */
     UpdateCommands(commands, commandsCount, startIndex) {
-        result := ComCall(11, this, "int*", commands, "uint", commandsCount, "uint", startIndex, "HRESULT")
+        commandsMarshal := commands is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, commandsMarshal, commands, "uint", commandsCount, "uint", startIndex, "HRESULT")
         return result
     }
 
@@ -110,7 +116,9 @@ class ID2D1SvgPathData extends ID2D1SvgAttribute{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommands
      */
     GetCommands(commands, commandsCount, startIndex) {
-        result := ComCall(12, this, "int*", commands, "uint", commandsCount, "uint", startIndex, "HRESULT")
+        commandsMarshal := commands is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, commandsMarshal, commands, "uint", commandsCount, "uint", startIndex, "HRESULT")
         return result
     }
 

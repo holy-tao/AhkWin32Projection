@@ -69,7 +69,9 @@ class IDebugHostFunctionIntrospection extends IUnknown{
      * @returns {HRESULT} 
      */
     FindSourceLocationByRVA(rva, sourceFile, sourceLine) {
-        result := ComCall(6, this, "uint", rva, "ptr", sourceFile, "uint*", sourceLine, "HRESULT")
+        sourceLineMarshal := sourceLine is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", rva, "ptr", sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
         return result
     }
 }

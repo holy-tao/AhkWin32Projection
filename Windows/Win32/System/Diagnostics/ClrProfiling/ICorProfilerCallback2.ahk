@@ -62,7 +62,10 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * @returns {HRESULT} 
      */
     SurvivingReferences(cSurvivingObjectIDRanges, objectIDRangeStart, cObjectIDRangeLength) {
-        result := ComCall(74, this, "uint", cSurvivingObjectIDRanges, "ptr*", objectIDRangeStart, "uint*", cObjectIDRangeLength, "HRESULT")
+        objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(74, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
@@ -96,7 +99,12 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * @returns {HRESULT} 
      */
     RootReferences2(cRootRefs, rootRefIds, rootKinds, rootFlags, rootIds) {
-        result := ComCall(77, this, "uint", cRootRefs, "ptr*", rootRefIds, "int*", rootKinds, "int*", rootFlags, "ptr*", rootIds, "HRESULT")
+        rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : "ptr"
+        rootKindsMarshal := rootKinds is VarRef ? "int*" : "ptr"
+        rootFlagsMarshal := rootFlags is VarRef ? "int*" : "ptr"
+        rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(77, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, rootKindsMarshal, rootKinds, rootFlagsMarshal, rootFlags, rootIdsMarshal, rootIds, "HRESULT")
         return result
     }
 

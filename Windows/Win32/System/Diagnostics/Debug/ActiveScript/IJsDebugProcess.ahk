@@ -69,7 +69,9 @@ class IJsDebugProcess extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExternalStepAddress(pCodeAddress) {
-        result := ComCall(6, this, "uint*", pCodeAddress, "HRESULT")
+        pCodeAddressMarshal := pCodeAddress is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pCodeAddressMarshal, pCodeAddress, "HRESULT")
         return result
     }
 }

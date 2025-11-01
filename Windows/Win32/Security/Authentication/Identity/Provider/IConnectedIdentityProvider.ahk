@@ -38,7 +38,9 @@ class IConnectedIdentityProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
      */
     ConnectIdentity(AuthBuffer, AuthBufferSize) {
-        result := ComCall(3, this, "char*", AuthBuffer, "uint", AuthBufferSize, "HRESULT")
+        AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, "uint", AuthBufferSize, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAccountState(pState) {
-        result := ComCall(7, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 }

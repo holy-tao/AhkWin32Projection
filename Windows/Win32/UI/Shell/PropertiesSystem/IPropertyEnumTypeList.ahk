@@ -37,7 +37,9 @@ class IPropertyEnumTypeList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getcount
      */
     GetCount(pctypes) {
-        result := ComCall(3, this, "uint*", pctypes, "HRESULT")
+        pctypesMarshal := pctypes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pctypesMarshal, pctypes, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IPropertyEnumTypeList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-findmatchingindex
      */
     FindMatchingIndex(propvarCmp, pnIndex) {
-        result := ComCall(6, this, "ptr", propvarCmp, "uint*", pnIndex, "HRESULT")
+        pnIndexMarshal := pnIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", propvarCmp, pnIndexMarshal, pnIndex, "HRESULT")
         return result
     }
 }

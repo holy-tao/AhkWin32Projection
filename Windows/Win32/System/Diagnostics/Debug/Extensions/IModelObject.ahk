@@ -44,7 +44,9 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     GetKind(kind) {
-        result := ComCall(4, this, "int*", kind, "HRESULT")
+        kindMarshal := kind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, kindMarshal, kind, "HRESULT")
         return result
     }
 
@@ -202,7 +204,9 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNumberOfParentModels(numModels) {
-        result := ComCall(18, this, "uint*", numModels, "HRESULT")
+        numModelsMarshal := numModels is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, numModelsMarshal, numModels, "HRESULT")
         return result
     }
 
@@ -399,7 +403,9 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     IsEqualTo(other, equal) {
-        result := ComCall(35, this, "ptr", other, "int*", equal, "HRESULT")
+        equalMarshal := equal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, "ptr", other, equalMarshal, equal, "HRESULT")
         return result
     }
 }

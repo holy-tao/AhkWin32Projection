@@ -122,7 +122,9 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getsessioncapabilities
      */
     GetSessionCapabilities(pdwCaps) {
-        result := ComCall(15, this, "uint*", pdwCaps, "HRESULT")
+        pdwCapsMarshal := pdwCaps is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pdwCapsMarshal, pdwCaps, "HRESULT")
         return result
     }
 

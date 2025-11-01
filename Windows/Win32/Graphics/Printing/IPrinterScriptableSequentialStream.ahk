@@ -46,7 +46,9 @@ class IPrinterScriptableSequentialStream extends IDispatch{
      * @returns {HRESULT} 
      */
     Write(pArray, pcbWritten) {
-        result := ComCall(8, this, "ptr", pArray, "int*", pcbWritten, "HRESULT")
+        pcbWrittenMarshal := pcbWritten is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pArray, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 }

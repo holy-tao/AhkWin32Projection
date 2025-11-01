@@ -111,7 +111,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getnames
      */
     GetNames(memid, rgBstrNames, cMaxNames, pcNames) {
-        result := ComCall(7, this, "int", memid, "ptr", rgBstrNames, "uint", cMaxNames, "uint*", pcNames, "HRESULT")
+        pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "int", memid, "ptr", rgBstrNames, "uint", cMaxNames, pcNamesMarshal, pcNames, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getreftypeofimpltype
      */
     GetRefTypeOfImplType(index, pRefType) {
-        result := ComCall(8, this, "uint", index, "uint*", pRefType, "HRESULT")
+        pRefTypeMarshal := pRefType is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", index, pRefTypeMarshal, pRefType, "HRESULT")
         return result
     }
 
@@ -135,7 +139,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getimpltypeflags
      */
     GetImplTypeFlags(index, pImplTypeFlags) {
-        result := ComCall(9, this, "uint", index, "int*", pImplTypeFlags, "HRESULT")
+        pImplTypeFlagsMarshal := pImplTypeFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "uint", index, pImplTypeFlagsMarshal, pImplTypeFlags, "HRESULT")
         return result
     }
 
@@ -148,7 +154,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getidsofnames
      */
     GetIDsOfNames(rgszNames, cNames, pMemId) {
-        result := ComCall(10, this, "ptr", rgszNames, "uint", cNames, "int*", pMemId, "HRESULT")
+        pMemIdMarshal := pMemId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", rgszNames, "uint", cNames, pMemIdMarshal, pMemId, "HRESULT")
         return result
     }
 
@@ -165,7 +173,10 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-invoke
      */
     Invoke(pvInstance, memid, wFlags, pDispParams, pVarResult, pExcepInfo, puArgErr) {
-        result := ComCall(11, this, "ptr", pvInstance, "int", memid, "ushort", wFlags, "ptr", pDispParams, "ptr", pVarResult, "ptr", pExcepInfo, "uint*", puArgErr, "HRESULT")
+        pvInstanceMarshal := pvInstance is VarRef ? "ptr" : "ptr"
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pvInstanceMarshal, pvInstance, "int", memid, "ushort", wFlags, "ptr", pDispParams, "ptr", pVarResult, "ptr", pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 
@@ -180,7 +191,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getdocumentation
      */
     GetDocumentation(memid, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
-        result := ComCall(12, this, "int", memid, "ptr", pBstrName, "ptr", pBstrDocString, "uint*", pdwHelpContext, "ptr", pBstrHelpFile, "HRESULT")
+        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "int", memid, "ptr", pBstrName, "ptr", pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, "ptr", pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -195,7 +208,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getdllentry
      */
     GetDllEntry(memid, invKind, pBstrDllName, pBstrName, pwOrdinal) {
-        result := ComCall(13, this, "int", memid, "int", invKind, "ptr", pBstrDllName, "ptr", pBstrName, "ushort*", pwOrdinal, "HRESULT")
+        pwOrdinalMarshal := pwOrdinal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(13, this, "int", memid, "int", invKind, "ptr", pBstrDllName, "ptr", pBstrName, pwOrdinalMarshal, pwOrdinal, "HRESULT")
         return result
     }
 
@@ -257,7 +272,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getcontainingtypelib
      */
     GetContainingTypeLib(ppTLib, pIndex) {
-        result := ComCall(18, this, "ptr*", ppTLib, "uint*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr*", ppTLib, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 

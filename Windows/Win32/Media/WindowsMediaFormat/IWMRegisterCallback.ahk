@@ -38,7 +38,9 @@ class IWMRegisterCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistercallback-advise
      */
     Advise(pCallback, pvContext) {
-        result := ComCall(3, this, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IWMRegisterCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistercallback-unadvise
      */
     Unadvise(pCallback, pvContext) {
-        result := ComCall(4, this, "ptr", pCallback, "ptr", pvContext, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

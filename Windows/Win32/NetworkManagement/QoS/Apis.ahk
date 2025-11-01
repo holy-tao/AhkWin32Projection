@@ -2713,7 +2713,9 @@ class QoS {
     static QOSEnumerateFlows(QOSHandle, Size, Buffer) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, "uint*", Size, "ptr", Buffer, "int")
+        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, SizeMarshal, Size, "ptr", Buffer, "int")
         return result
     }
 
@@ -2884,7 +2886,9 @@ class QoS {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
         Socket := Socket is Win32Handle ? NumGet(Socket, "ptr") : Socket
 
-        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket, "ptr", DestAddr, "int", TrafficType, "uint", Flags, "uint*", FlowId, "int")
+        FlowIdMarshal := FlowId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket, "ptr", DestAddr, "int", TrafficType, "uint", Flags, FlowIdMarshal, FlowId, "int")
         return result
     }
 
@@ -3515,7 +3519,9 @@ class QoS {
     static QOSQueryFlow(QOSHandle, FlowId, Operation, Size, Buffer, Flags, Overlapped) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
+        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, SizeMarshal, Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
         return result
     }
 
@@ -3714,7 +3720,9 @@ class QoS {
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
+        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, SizeMarshal, Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
         return result
     }
 
@@ -3984,7 +3992,9 @@ class QoS {
     static TcEnumerateInterfaces(ClientHandle, pBufferSize, InterfaceBuffer) {
         ClientHandle := ClientHandle is Win32Handle ? NumGet(ClientHandle, "ptr") : ClientHandle
 
-        result := DllCall("TRAFFIC.dll\TcEnumerateInterfaces", "ptr", ClientHandle, "uint*", pBufferSize, "ptr", InterfaceBuffer, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TRAFFIC.dll\TcEnumerateInterfaces", "ptr", ClientHandle, pBufferSizeMarshal, pBufferSize, "ptr", InterfaceBuffer, "uint")
         return result
     }
 
@@ -4304,7 +4314,9 @@ class QoS {
     static TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, Buffer) {
         IfcHandle := IfcHandle is Win32Handle ? NumGet(IfcHandle, "ptr") : IfcHandle
 
-        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "char", NotifyChange, "uint*", pBufferSize, "ptr", Buffer, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "char", NotifyChange, pBufferSizeMarshal, pBufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -4483,7 +4495,9 @@ class QoS {
     static TcQueryFlowA(pFlowName, pGuidParam, pBufferSize, Buffer) {
         pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-        result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, "ptr", pGuidParam, "uint*", pBufferSize, "ptr", Buffer, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, "ptr", pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -4572,7 +4586,9 @@ class QoS {
     static TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, Buffer) {
         pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-        result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, "ptr", pGuidParam, "uint*", pBufferSize, "ptr", Buffer, "uint")
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, "ptr", pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -5777,7 +5793,10 @@ class QoS {
     static TcEnumerateFlows(IfcHandle, pEnumHandle, pFlowCount, pBufSize, Buffer) {
         IfcHandle := IfcHandle is Win32Handle ? NumGet(IfcHandle, "ptr") : IfcHandle
 
-        result := DllCall("TRAFFIC.dll\TcEnumerateFlows", "ptr", IfcHandle, "ptr", pEnumHandle, "uint*", pFlowCount, "uint*", pBufSize, "ptr", Buffer, "uint")
+        pFlowCountMarshal := pFlowCount is VarRef ? "uint*" : "ptr"
+        pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("TRAFFIC.dll\TcEnumerateFlows", "ptr", IfcHandle, "ptr", pEnumHandle, pFlowCountMarshal, pFlowCount, pBufSizeMarshal, pBufSize, "ptr", Buffer, "uint")
         return result
     }
 

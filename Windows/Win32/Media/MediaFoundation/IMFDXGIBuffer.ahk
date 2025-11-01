@@ -54,7 +54,9 @@ class IMFDXGIBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getsubresourceindex
      */
     GetSubresourceIndex(puSubresource) {
-        result := ComCall(4, this, "uint*", puSubresource, "HRESULT")
+        puSubresourceMarshal := puSubresource is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, puSubresourceMarshal, puSubresource, "HRESULT")
         return result
     }
 

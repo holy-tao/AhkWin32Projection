@@ -187,7 +187,9 @@ class NetShell {
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
         pwcArg := pwcArg is String ? StrPtr(pwcArg) : pwcArg
 
-        result := DllCall("NETSH.dll\MatchEnumTag", "ptr", hModule, "ptr", pwcArg, "uint", dwNumArg, "ptr", pEnumTable, "uint*", pdwValue, "uint")
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETSH.dll\MatchEnumTag", "ptr", hModule, "ptr", pwcArg, "uint", dwNumArg, "ptr", pEnumTable, pdwValueMarshal, pdwValue, "uint")
         return result
     }
 
@@ -302,7 +304,9 @@ class NetShell {
     static PreprocessCommand(hModule, ppwcArguments, dwCurrentIndex, dwArgCount, pttTags, dwTagCount, dwMinArgs, dwMaxArgs, pdwTagType) {
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
-        result := DllCall("NETSH.dll\PreprocessCommand", "ptr", hModule, "ptr", ppwcArguments, "uint", dwCurrentIndex, "uint", dwArgCount, "ptr", pttTags, "uint", dwTagCount, "uint", dwMinArgs, "uint", dwMaxArgs, "uint*", pdwTagType, "uint")
+        pdwTagTypeMarshal := pdwTagType is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NETSH.dll\PreprocessCommand", "ptr", hModule, "ptr", ppwcArguments, "uint", dwCurrentIndex, "uint", dwArgCount, "ptr", pttTags, "uint", dwTagCount, "uint", dwMinArgs, "uint", dwMaxArgs, pdwTagTypeMarshal, pdwTagType, "uint")
         return result
     }
 

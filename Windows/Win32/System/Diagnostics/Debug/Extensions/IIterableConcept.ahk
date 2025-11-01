@@ -35,7 +35,9 @@ class IIterableConcept extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDefaultIndexDimensionality(contextObject, dimensionality) {
-        result := ComCall(3, this, "ptr", contextObject, "uint*", dimensionality, "HRESULT")
+        dimensionalityMarshal := dimensionality is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", contextObject, dimensionalityMarshal, dimensionality, "HRESULT")
         return result
     }
 

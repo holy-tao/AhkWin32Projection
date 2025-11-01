@@ -40,7 +40,9 @@ class IOfflineFilesSyncProgress extends IOfflineFilesProgress{
     SyncItemBegin(pszFile, pResponse) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(6, this, "ptr", pszFile, "int*", pResponse, "HRESULT")
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszFile, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IOfflineFilesSyncProgress extends IOfflineFilesProgress{
     SyncItemResult(pszFile, hrResult, pErrorInfo, pResponse) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "ptr", pErrorInfo, "int*", pResponse, "HRESULT")
+        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "ptr", pErrorInfo, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 }

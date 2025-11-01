@@ -88,7 +88,9 @@ class IADsProperty extends IADs{
      * @returns {HRESULT} 
      */
     get_MaxRange(retval) {
-        result := ComCall(24, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IADsProperty extends IADs{
      * @returns {HRESULT} 
      */
     get_MinRange(retval) {
-        result := ComCall(26, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

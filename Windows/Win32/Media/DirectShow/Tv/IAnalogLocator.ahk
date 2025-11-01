@@ -48,7 +48,9 @@ class IAnalogLocator extends ILocator{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianaloglocator-get_videostandard
      */
     get_VideoStandard(AVS) {
-        result := ComCall(22, this, "int*", AVS, "HRESULT")
+        AVSMarshal := AVS is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, AVSMarshal, AVS, "HRESULT")
         return result
     }
 

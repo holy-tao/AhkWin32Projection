@@ -43,7 +43,9 @@ class IEnumVARIANT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-next
      */
     Next(celt, rgVar, pCeltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr", rgVar, "uint*", pCeltFetched, "int")
+        pCeltFetchedMarshal := pCeltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr", rgVar, pCeltFetchedMarshal, pCeltFetched, "int")
         return result
     }
 

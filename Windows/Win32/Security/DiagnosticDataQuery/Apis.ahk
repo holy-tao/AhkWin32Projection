@@ -63,7 +63,9 @@ class DiagnosticDataQuery {
     static DdqGetSessionAccessLevel(hSession, accessLevel) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetSessionAccessLevel", "ptr", hSession, "int*", accessLevel, "int")
+        accessLevelMarshal := accessLevel is VarRef ? "int*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetSessionAccessLevel", "ptr", hSession, accessLevelMarshal, accessLevel, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -80,7 +82,9 @@ class DiagnosticDataQuery {
      * @since windows10.0.19041
      */
     static DdqGetDiagnosticDataAccessLevelAllowed(accessLevel) {
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticDataAccessLevelAllowed", "int*", accessLevel, "int")
+        accessLevelMarshal := accessLevel is VarRef ? "int*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticDataAccessLevelAllowed", accessLevelMarshal, accessLevel, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -107,7 +111,11 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordStats(hSession, searchCriteria, recordCount, minRowId, maxRowId) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordStats", "ptr", hSession, "ptr", searchCriteria, "uint*", recordCount, "int64*", minRowId, "int64*", maxRowId, "int")
+        recordCountMarshal := recordCount is VarRef ? "uint*" : "ptr"
+        minRowIdMarshal := minRowId is VarRef ? "int64*" : "ptr"
+        maxRowIdMarshal := maxRowId is VarRef ? "int64*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordStats", "ptr", hSession, "ptr", searchCriteria, recordCountMarshal, recordCount, minRowIdMarshal, minRowId, maxRowIdMarshal, maxRowId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -213,7 +221,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordLocaleTagCount(hTagDescription, tagDescriptionCount) {
         hTagDescription := hTagDescription is Win32Handle ? NumGet(hTagDescription, "ptr") : hTagDescription
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTagCount", "ptr", hTagDescription, "uint*", tagDescriptionCount, "int")
+        tagDescriptionCountMarshal := tagDescriptionCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTagCount", "ptr", hTagDescription, tagDescriptionCountMarshal, tagDescriptionCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -297,7 +307,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordProducerCount(hProducerDescription, producerDescriptionCount) {
         hProducerDescription := hProducerDescription is Win32Handle ? NumGet(hProducerDescription, "ptr") : hProducerDescription
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerCount", "ptr", hProducerDescription, "uint*", producerDescriptionCount, "int")
+        producerDescriptionCountMarshal := producerDescriptionCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerCount", "ptr", hProducerDescription, producerDescriptionCountMarshal, producerDescriptionCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -384,7 +396,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordCategoryCount(hCategoryDescription, categoryDescriptionCount) {
         hCategoryDescription := hCategoryDescription is Win32Handle ? NumGet(hCategoryDescription, "ptr") : hCategoryDescription
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCategoryCount", "ptr", hCategoryDescription, "uint*", categoryDescriptionCount, "int")
+        categoryDescriptionCountMarshal := categoryDescriptionCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCategoryCount", "ptr", hCategoryDescription, categoryDescriptionCountMarshal, categoryDescriptionCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -421,7 +435,11 @@ class DiagnosticDataQuery {
         providerName := providerName is String ? StrPtr(providerName) : providerName
         eventName := eventName is String ? StrPtr(eventName) : eventName
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqIsDiagnosticRecordSampledIn", "ptr", hSession, "ptr", providerGroup, "ptr", providerId, "ptr", providerName, "uint*", eventId, "ptr", eventName, "uint*", eventVersion, "uint*", eventKeywords, "ptr", isSampledIn, "int")
+        eventIdMarshal := eventId is VarRef ? "uint*" : "ptr"
+        eventVersionMarshal := eventVersion is VarRef ? "uint*" : "ptr"
+        eventKeywordsMarshal := eventKeywords is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqIsDiagnosticRecordSampledIn", "ptr", hSession, "ptr", providerGroup, "ptr", providerId, "ptr", providerName, eventIdMarshal, eventId, "ptr", eventName, eventVersionMarshal, eventVersion, eventKeywordsMarshal, eventKeywords, "ptr", isSampledIn, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -513,7 +531,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordCount(hRecord, recordCount) {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCount", "ptr", hRecord, "uint*", recordCount, "int")
+        recordCountMarshal := recordCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCount", "ptr", hRecord, recordCountMarshal, recordCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -536,7 +556,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticReportStoreReportCount(hSession, reportStoreType, reportCount) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportStoreReportCount", "ptr", hSession, "uint", reportStoreType, "uint*", reportCount, "int")
+        reportCountMarshal := reportCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportStoreReportCount", "ptr", hSession, "uint", reportStoreType, reportCountMarshal, reportCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -641,7 +663,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticReportCount(hReport, reportCount) {
         hReport := hReport is Win32Handle ? NumGet(hReport, "ptr") : hReport
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportCount", "ptr", hReport, "uint*", reportCount, "int")
+        reportCountMarshal := reportCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportCount", "ptr", hReport, reportCountMarshal, reportCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -695,7 +719,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordTagDistribution(hSession, producerNames, producerNameCount, tagStats, statCount) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "ptr*", tagStats, "uint*", statCount, "int")
+        statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "ptr*", tagStats, statCountMarshal, statCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -724,7 +750,9 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordBinaryDistribution(hSession, producerNames, producerNameCount, topNBinaries, binaryStats, statCount) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "uint", topNBinaries, "ptr*", binaryStats, "uint*", statCount, "int")
+        statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "uint", topNBinaries, "ptr*", binaryStats, statCountMarshal, statCount, "int")
         if(result != 0)
             throw OSError(result)
 

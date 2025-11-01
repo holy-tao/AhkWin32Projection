@@ -77,7 +77,9 @@ class IMbnInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getreadystate
      */
     GetReadyState(readyState) {
-        result := ComCall(6, this, "int*", readyState, "HRESULT")
+        readyStateMarshal := readyState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, readyStateMarshal, readyState, "HRESULT")
         return result
     }
 
@@ -122,7 +124,9 @@ class IMbnInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-setpreferredproviders
      */
     SetPreferredProviders(preferredProviders, requestID) {
-        result := ComCall(10, this, "ptr", preferredProviders, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", preferredProviders, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -134,7 +138,9 @@ class IMbnInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getvisibleproviders
      */
     GetVisibleProviders(age, visibleProviders) {
-        result := ComCall(11, this, "uint*", age, "ptr*", visibleProviders, "HRESULT")
+        ageMarshal := age is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, ageMarshal, age, "ptr*", visibleProviders, "HRESULT")
         return result
     }
 
@@ -145,7 +151,9 @@ class IMbnInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-scannetwork
      */
     ScanNetwork(requestID) {
-        result := ComCall(12, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 

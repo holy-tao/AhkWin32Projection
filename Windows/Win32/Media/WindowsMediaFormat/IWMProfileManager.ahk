@@ -79,7 +79,9 @@ class IWMProfileManager extends IUnknown{
     SaveProfile(pIWMProfile, pwszProfile, pdwLength) {
         pwszProfile := pwszProfile is String ? StrPtr(pwszProfile) : pwszProfile
 
-        result := ComCall(6, this, "ptr", pIWMProfile, "ptr", pwszProfile, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pIWMProfile, "ptr", pwszProfile, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -90,7 +92,9 @@ class IWMProfileManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager-getsystemprofilecount
      */
     GetSystemProfileCount(pcProfiles) {
-        result := ComCall(7, this, "uint*", pcProfiles, "HRESULT")
+        pcProfilesMarshal := pcProfiles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pcProfilesMarshal, pcProfiles, "HRESULT")
         return result
     }
 

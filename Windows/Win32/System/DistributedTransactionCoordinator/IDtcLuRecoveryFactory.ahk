@@ -36,7 +36,9 @@ class IDtcLuRecoveryFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     Create(pucLuPair, cbLuPair, ppRecovery) {
-        result := ComCall(3, this, "char*", pucLuPair, "uint", cbLuPair, "ptr*", ppRecovery, "HRESULT")
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr*", ppRecovery, "HRESULT")
         return result
     }
 }

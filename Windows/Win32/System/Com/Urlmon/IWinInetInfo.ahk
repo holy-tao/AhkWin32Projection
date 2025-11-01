@@ -36,7 +36,10 @@ class IWinInetInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryOption(dwOption, pBuffer, pcbBuf) {
-        result := ComCall(3, this, "uint", dwOption, "ptr", pBuffer, "uint*", pcbBuf, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, "HRESULT")
         return result
     }
 }

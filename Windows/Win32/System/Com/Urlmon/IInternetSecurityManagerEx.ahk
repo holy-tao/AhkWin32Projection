@@ -44,7 +44,11 @@ class IInternetSecurityManagerEx extends IInternetSecurityManager{
     ProcessUrlActionEx(pwszUrl, dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved, pdwOutFlags) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(11, this, "ptr", pwszUrl, "uint", dwAction, "char*", pPolicy, "uint", cbPolicy, "char*", pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "uint*", pdwOutFlags, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pwszUrl, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 }

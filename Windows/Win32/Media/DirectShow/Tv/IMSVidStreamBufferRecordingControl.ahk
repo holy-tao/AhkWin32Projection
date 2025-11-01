@@ -48,7 +48,9 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_starttime
      */
     get_StartTime(rtStart) {
-        result := ComCall(7, this, "int*", rtStart, "HRESULT")
+        rtStartMarshal := rtStart is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, rtStartMarshal, rtStart, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_stoptime
      */
     get_StopTime(rtStop) {
-        result := ComCall(9, this, "int*", rtStop, "HRESULT")
+        rtStopMarshal := rtStop is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, rtStopMarshal, rtStop, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingtype
      */
     get_RecordingType(dwType) {
-        result := ComCall(13, this, "int*", dwType, "HRESULT")
+        dwTypeMarshal := dwType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, dwTypeMarshal, dwType, "HRESULT")
         return result
     }
 

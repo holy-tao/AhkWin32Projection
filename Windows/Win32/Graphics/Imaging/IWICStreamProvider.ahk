@@ -48,7 +48,9 @@ class IWICStreamProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicstreamprovider-getpersistoptions
      */
     GetPersistOptions(pdwPersistOptions) {
-        result := ComCall(4, this, "uint*", pdwPersistOptions, "HRESULT")
+        pdwPersistOptionsMarshal := pdwPersistOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwPersistOptionsMarshal, pdwPersistOptions, "HRESULT")
         return result
     }
 

@@ -69,7 +69,9 @@ class IFaxOutgoingMessageIterator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessageiterator-get_prefetchsize
      */
     get_PrefetchSize(plPrefetchSize) {
-        result := ComCall(9, this, "int*", plPrefetchSize, "HRESULT")
+        plPrefetchSizeMarshal := plPrefetchSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plPrefetchSizeMarshal, plPrefetchSize, "HRESULT")
         return result
     }
 

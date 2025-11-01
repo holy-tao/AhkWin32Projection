@@ -46,7 +46,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getdimension
      */
     GetDimension(dimension) {
-        result := ComCall(3, this, "uint*", dimension, "HRESULT")
+        dimensionMarshal := dimension is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, dimensionMarshal, dimension, "HRESULT")
         return result
     }
 
@@ -59,7 +61,10 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity
      */
     SetInitialValueAndVelocity(initialValue, initialVelocity, cDimension) {
-        result := ComCall(4, this, "double*", initialValue, "double*", initialVelocity, "uint", cDimension, "HRESULT")
+        initialValueMarshal := initialValue is VarRef ? "double*" : "ptr"
+        initialVelocityMarshal := initialVelocity is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, initialValueMarshal, initialValue, initialVelocityMarshal, initialVelocity, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -81,7 +86,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getduration
      */
     GetDuration(duration) {
-        result := ComCall(6, this, "double*", duration, "HRESULT")
+        durationMarshal := duration is VarRef ? "double*" : "ptr"
+
+        result := ComCall(6, this, durationMarshal, duration, "HRESULT")
         return result
     }
 
@@ -93,7 +100,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getfinalvalue
      */
     GetFinalValue(value, cDimension) {
-        result := ComCall(7, this, "double*", value, "uint", cDimension, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(7, this, valueMarshal, value, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -106,7 +115,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevalue
      */
     InterpolateValue(offset, value, cDimension) {
-        result := ComCall(8, this, "double", offset, "double*", value, "uint", cDimension, "HRESULT")
+        valueMarshal := value is VarRef ? "double*" : "ptr"
+
+        result := ComCall(8, this, "double", offset, valueMarshal, value, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -119,7 +130,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevelocity
      */
     InterpolateVelocity(offset, velocity, cDimension) {
-        result := ComCall(9, this, "double", offset, "double*", velocity, "uint", cDimension, "HRESULT")
+        velocityMarshal := velocity is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, "double", offset, velocityMarshal, velocity, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -144,7 +157,11 @@ class IUIAnimationInterpolator2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getdependencies
      */
     GetDependencies(initialValueDependencies, initialVelocityDependencies, durationDependencies) {
-        result := ComCall(11, this, "int*", initialValueDependencies, "int*", initialVelocityDependencies, "int*", durationDependencies, "HRESULT")
+        initialValueDependenciesMarshal := initialValueDependencies is VarRef ? "int*" : "ptr"
+        initialVelocityDependenciesMarshal := initialVelocityDependencies is VarRef ? "int*" : "ptr"
+        durationDependenciesMarshal := durationDependencies is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, initialValueDependenciesMarshal, initialValueDependencies, initialVelocityDependenciesMarshal, initialVelocityDependencies, durationDependenciesMarshal, durationDependencies, "HRESULT")
         return result
     }
 }

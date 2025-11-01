@@ -78,7 +78,9 @@ class IDirectDrawPalette extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-getcaps
      */
     GetCaps(param0) {
-        result := ComCall(3, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

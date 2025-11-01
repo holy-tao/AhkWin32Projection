@@ -45,7 +45,9 @@ class IMultisessionRandomWrite extends IMultisession{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_writeunitsize
      */
     get_WriteUnitSize(value) {
-        result := ComCall(11, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IMultisessionRandomWrite extends IMultisession{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_lastwrittenaddress
      */
     get_LastWrittenAddress(value) {
-        result := ComCall(12, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -67,7 +71,9 @@ class IMultisessionRandomWrite extends IMultisession{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionrandomwrite-get_totalsectorsonmedia
      */
     get_TotalSectorsOnMedia(value) {
-        result := ComCall(13, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

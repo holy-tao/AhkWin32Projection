@@ -38,7 +38,10 @@ class IRangeException extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irangeexception-getclosedrangestart
      */
     GetClosedRangeStart(pbClosedRangeStart, pcbIdSize) {
-        result := ComCall(3, this, "char*", pbClosedRangeStart, "uint*", pcbIdSize, "HRESULT")
+        pbClosedRangeStartMarshal := pbClosedRangeStart is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbClosedRangeStartMarshal, pbClosedRangeStart, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 
@@ -50,7 +53,10 @@ class IRangeException extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irangeexception-getclosedrangeend
      */
     GetClosedRangeEnd(pbClosedRangeEnd, pcbIdSize) {
-        result := ComCall(4, this, "char*", pbClosedRangeEnd, "uint*", pcbIdSize, "HRESULT")
+        pbClosedRangeEndMarshal := pbClosedRangeEnd is VarRef ? "char*" : "ptr"
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbClosedRangeEndMarshal, pbClosedRangeEnd, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 

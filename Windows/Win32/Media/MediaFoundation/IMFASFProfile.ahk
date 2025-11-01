@@ -37,7 +37,9 @@ class IMFASFProfile extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreamcount
      */
     GetStreamCount(pcStreams) {
-        result := ComCall(33, this, "uint*", pcStreams, "HRESULT")
+        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pcStreamsMarshal, pcStreams, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IMFASFProfile extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstream
      */
     GetStream(dwStreamIndex, pwStreamNumber, ppIStream) {
-        result := ComCall(34, this, "uint", dwStreamIndex, "ushort*", pwStreamNumber, "ptr*", ppIStream, "HRESULT")
+        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(34, this, "uint", dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, "ptr*", ppIStream, "HRESULT")
         return result
     }
 
@@ -107,7 +111,9 @@ class IMFASFProfile extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusioncount
      */
     GetMutualExclusionCount(pcMutexs) {
-        result := ComCall(39, this, "uint*", pcMutexs, "HRESULT")
+        pcMutexsMarshal := pcMutexs is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(39, this, pcMutexsMarshal, pcMutexs, "HRESULT")
         return result
     }
 

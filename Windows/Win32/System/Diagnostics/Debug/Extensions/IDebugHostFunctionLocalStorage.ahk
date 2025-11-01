@@ -36,7 +36,11 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
      * @returns {HRESULT} 
      */
     GetValidRange(start, end, guaranteed) {
-        result := ComCall(3, this, "uint*", start, "uint*", end, "int*", guaranteed, "HRESULT")
+        startMarshal := start is VarRef ? "uint*" : "ptr"
+        endMarshal := end is VarRef ? "uint*" : "ptr"
+        guaranteedMarshal := guaranteed is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, startMarshal, start, endMarshal, end, guaranteedMarshal, guaranteed, "HRESULT")
         return result
     }
 
@@ -46,7 +50,9 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStorageKind(kind) {
-        result := ComCall(4, this, "int*", kind, "HRESULT")
+        kindMarshal := kind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, kindMarshal, kind, "HRESULT")
         return result
     }
 
@@ -56,7 +62,9 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRegister(registerId) {
-        result := ComCall(5, this, "uint*", registerId, "HRESULT")
+        registerIdMarshal := registerId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, registerIdMarshal, registerId, "HRESULT")
         return result
     }
 
@@ -66,7 +74,9 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOffset(offset) {
-        result := ComCall(6, this, "int64*", offset, "HRESULT")
+        offsetMarshal := offset is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(6, this, offsetMarshal, offset, "HRESULT")
         return result
     }
 }

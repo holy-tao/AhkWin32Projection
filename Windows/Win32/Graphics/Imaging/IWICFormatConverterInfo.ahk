@@ -39,7 +39,9 @@ class IWICFormatConverterInfo extends IWICComponentInfo{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-getpixelformats
      */
     GetPixelFormats(cFormats, pPixelFormatGUIDs, pcActual) {
-        result := ComCall(11, this, "uint", cFormats, "ptr", pPixelFormatGUIDs, "uint*", pcActual, "HRESULT")
+        pcActualMarshal := pcActual is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", cFormats, "ptr", pPixelFormatGUIDs, pcActualMarshal, pcActual, "HRESULT")
         return result
     }
 

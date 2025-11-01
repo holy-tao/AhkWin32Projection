@@ -40,7 +40,12 @@ class IVMRWindowlessControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getnativevideosize
      */
     GetNativeVideoSize(lpWidth, lpHeight, lpARWidth, lpARHeight) {
-        result := ComCall(3, this, "int*", lpWidth, "int*", lpHeight, "int*", lpARWidth, "int*", lpARHeight, "HRESULT")
+        lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
+        lpHeightMarshal := lpHeight is VarRef ? "int*" : "ptr"
+        lpARWidthMarshal := lpARWidth is VarRef ? "int*" : "ptr"
+        lpARHeightMarshal := lpARHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, lpWidthMarshal, lpWidth, lpHeightMarshal, lpHeight, lpARWidthMarshal, lpARWidth, lpARHeightMarshal, lpARHeight, "HRESULT")
         return result
     }
 
@@ -52,7 +57,10 @@ class IVMRWindowlessControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getminidealvideosize
      */
     GetMinIdealVideoSize(lpWidth, lpHeight) {
-        result := ComCall(4, this, "int*", lpWidth, "int*", lpHeight, "HRESULT")
+        lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
+        lpHeightMarshal := lpHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, lpWidthMarshal, lpWidth, lpHeightMarshal, lpHeight, "HRESULT")
         return result
     }
 
@@ -64,7 +72,10 @@ class IVMRWindowlessControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getmaxidealvideosize
      */
     GetMaxIdealVideoSize(lpWidth, lpHeight) {
-        result := ComCall(5, this, "int*", lpWidth, "int*", lpHeight, "HRESULT")
+        lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
+        lpHeightMarshal := lpHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, lpWidthMarshal, lpWidth, lpHeightMarshal, lpHeight, "HRESULT")
         return result
     }
 
@@ -99,7 +110,9 @@ class IVMRWindowlessControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getaspectratiomode
      */
     GetAspectRatioMode(lpAspectRatioMode) {
-        result := ComCall(8, this, "uint*", lpAspectRatioMode, "HRESULT")
+        lpAspectRatioModeMarshal := lpAspectRatioMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, lpAspectRatioModeMarshal, lpAspectRatioMode, "HRESULT")
         return result
     }
 

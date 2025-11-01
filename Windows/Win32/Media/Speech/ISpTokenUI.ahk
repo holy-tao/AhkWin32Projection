@@ -40,7 +40,9 @@ class ISpTokenUI extends IUnknown{
     IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, punkObject, pfSupported) {
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        result := ComCall(3, this, "ptr", pszTypeOfUI, "ptr", pvExtraData, "uint", cbExtraData, "ptr", punkObject, "ptr", pfSupported, "HRESULT")
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "ptr", pfSupported, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ISpTokenUI extends IUnknown{
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        result := ComCall(4, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, "ptr", pvExtraData, "uint", cbExtraData, "ptr", pToken, "ptr", punkObject, "HRESULT")
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", pToken, "ptr", punkObject, "HRESULT")
         return result
     }
 }

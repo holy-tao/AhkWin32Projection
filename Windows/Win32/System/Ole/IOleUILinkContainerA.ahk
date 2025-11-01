@@ -62,7 +62,9 @@ class IOleUILinkContainerA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainera-getlinkupdateoptions
      */
     GetLinkUpdateOptions(dwLink, lpdwUpdateOpt) {
-        result := ComCall(5, this, "uint", dwLink, "uint*", lpdwUpdateOpt, "HRESULT")
+        lpdwUpdateOptMarshal := lpdwUpdateOpt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwLink, lpdwUpdateOptMarshal, lpdwUpdateOpt, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IOleUILinkContainerA extends IUnknown{
     SetLinkSource(dwLink, lpszDisplayName, lenFileName, pchEaten, fValidateSource) {
         lpszDisplayName := lpszDisplayName is String ? StrPtr(lpszDisplayName) : lpszDisplayName
 
-        result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, "uint*", pchEaten, "int", fValidateSource, "HRESULT")
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, pchEatenMarshal, pchEaten, "int", fValidateSource, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IOleUILinkContainerA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainera-getlinksource
      */
     GetLinkSource(dwLink, lplpszDisplayName, lplenFileName, lplpszFullLinkType, lplpszShortLinkType, lpfSourceAvailable, lpfIsSelected) {
-        result := ComCall(7, this, "uint", dwLink, "ptr", lplpszDisplayName, "uint*", lplenFileName, "ptr", lplpszFullLinkType, "ptr", lplpszShortLinkType, "ptr", lpfSourceAvailable, "ptr", lpfIsSelected, "HRESULT")
+        lplenFileNameMarshal := lplenFileName is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwLink, "ptr", lplpszDisplayName, lplenFileNameMarshal, lplenFileName, "ptr", lplpszFullLinkType, "ptr", lplpszShortLinkType, "ptr", lpfSourceAvailable, "ptr", lpfIsSelected, "HRESULT")
         return result
     }
 

@@ -54,7 +54,9 @@ class IAppActivationUIInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetShowCommand(value) {
-        result := ComCall(5, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IAppActivationUIInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getkeystate
      */
     GetKeyState(value) {
-        result := ComCall(7, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

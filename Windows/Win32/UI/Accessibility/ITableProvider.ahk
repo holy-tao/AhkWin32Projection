@@ -69,7 +69,9 @@ class ITableProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-get_roworcolumnmajor
      */
     get_RowOrColumnMajor(pRetVal) {
-        result := ComCall(5, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

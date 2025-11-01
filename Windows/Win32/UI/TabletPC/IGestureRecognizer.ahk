@@ -74,7 +74,9 @@ class IGestureRecognizer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-get_maxstrokecount
      */
     get_MaxStrokeCount(pcStrokes) {
-        result := ComCall(5, this, "int*", pcStrokes, "HRESULT")
+        pcStrokesMarshal := pcStrokes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pcStrokesMarshal, pcStrokes, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ class IGestureRecognizer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-enablegestures
      */
     EnableGestures(cGestures, pGestures) {
-        result := ComCall(7, this, "uint", cGestures, "int*", pGestures, "HRESULT")
+        pGesturesMarshal := pGestures is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "uint", cGestures, pGesturesMarshal, pGestures, "HRESULT")
         return result
     }
 

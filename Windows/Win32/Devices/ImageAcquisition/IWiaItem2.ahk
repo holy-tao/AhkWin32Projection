@@ -103,7 +103,9 @@ class IWiaItem2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getitemtype
      */
     GetItemType(pItemType) {
-        result := ComCall(8, this, "int*", pItemType, "HRESULT")
+        pItemTypeMarshal := pItemType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pItemTypeMarshal, pItemType, "HRESULT")
         return result
     }
 
@@ -124,7 +126,9 @@ class IWiaItem2 extends IUnknown{
         bstrFolderName := bstrFolderName is String ? BSTR.Alloc(bstrFolderName).Value : bstrFolderName
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
-        result := ComCall(9, this, "int", lFlags, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, "int*", plNumFiles, "ptr*", ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
+        plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", lFlags, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, plNumFilesMarshal, plNumFiles, "ptr*", ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
         return result
     }
 
@@ -240,7 +244,9 @@ class IWiaItem2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-diagnostic
      */
     Diagnostic(ulSize, pBuffer) {
-        result := ComCall(18, this, "uint", ulSize, "char*", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(18, this, "uint", ulSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 }

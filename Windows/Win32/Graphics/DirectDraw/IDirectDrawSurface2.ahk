@@ -106,7 +106,9 @@ class IDirectDrawSurface2 extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumAttachedSurfaces(param0, param1) {
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
         return result
     }
 
@@ -118,7 +120,9 @@ class IDirectDrawSurface2 extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumOverlayZOrders(param0, param1, param2) {
-        result := ComCall(10, this, "uint", param0, "ptr", param1, "ptr", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "uint", param0, param1Marshal, param1, "ptr", param2, "HRESULT")
         return result
     }
 
@@ -215,7 +219,10 @@ class IDirectDrawSurface2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOverlayPosition(param0, param1) {
-        result := ComCall(19, this, "int*", param0, "int*", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -370,7 +377,9 @@ class IDirectDrawSurface2 extends IUnknown{
      * @returns {HRESULT} 
      */
     Unlock(param0) {
-        result := ComCall(32, this, "ptr", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(32, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

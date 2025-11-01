@@ -42,7 +42,9 @@ class IAssemblyCache extends IUnknown{
     UninstallAssembly(dwFlags, pszAssemblyName, pRefData, pulDisposition) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pRefData, "uint*", pulDisposition, "HRESULT")
+        pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pRefData, pulDispositionMarshal, pulDisposition, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IAssemblyCache extends IUnknown{
     CreateAssemblyCacheItem(dwFlags, pvReserved, ppAsmItem, pszAssemblyName) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
-        result := ComCall(5, this, "uint", dwFlags, "ptr", pvReserved, "ptr*", ppAsmItem, "ptr", pszAssemblyName, "HRESULT")
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr*", ppAsmItem, "ptr", pszAssemblyName, "HRESULT")
         return result
     }
 

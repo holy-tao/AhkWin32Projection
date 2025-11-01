@@ -37,7 +37,9 @@ class IWMDeviceManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager-getrevision
      */
     GetRevision(pdwRevision) {
-        result := ComCall(3, this, "uint*", pdwRevision, "HRESULT")
+        pdwRevisionMarshal := pdwRevision is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwRevisionMarshal, pdwRevision, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWMDeviceManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager-getdevicecount
      */
     GetDeviceCount(pdwCount) {
-        result := ComCall(4, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 

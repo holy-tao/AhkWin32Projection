@@ -39,7 +39,9 @@ class IWMDMDeviceSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicesession-beginsession
      */
     BeginSession(type, pCtx, dwSizeCtx) {
-        result := ComCall(3, this, "int", type, "char*", pCtx, "uint", dwSizeCtx, "HRESULT")
+        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "int", type, pCtxMarshal, pCtx, "uint", dwSizeCtx, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IWMDMDeviceSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicesession-endsession
      */
     EndSession(type, pCtx, dwSizeCtx) {
-        result := ComCall(4, this, "int", type, "char*", pCtx, "uint", dwSizeCtx, "HRESULT")
+        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "int", type, pCtxMarshal, pCtx, "uint", dwSizeCtx, "HRESULT")
         return result
     }
 }

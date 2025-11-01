@@ -52,7 +52,9 @@ class IWMDeviceRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-registerdevice
      */
     RegisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber, ppDevice) {
-        result := ComCall(3, this, "uint", dwRegisterType, "char*", pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", ppDevice, "HRESULT")
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", ppDevice, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IWMDeviceRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-unregisterdevice
      */
     UnregisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
-        result := ComCall(4, this, "uint", dwRegisterType, "char*", pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "HRESULT")
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "HRESULT")
         return result
     }
 
@@ -78,7 +82,9 @@ class IWMDeviceRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getregistrationstats
      */
     GetRegistrationStats(dwRegisterType, pcRegisteredDevices) {
-        result := ComCall(5, this, "uint", dwRegisterType, "uint*", pcRegisteredDevices, "HRESULT")
+        pcRegisteredDevicesMarshal := pcRegisteredDevices is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwRegisterType, pcRegisteredDevicesMarshal, pcRegisteredDevices, "HRESULT")
         return result
     }
 
@@ -116,7 +122,9 @@ class IWMDeviceRegistration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getregistereddevicebyid
      */
     GetRegisteredDeviceByID(dwRegisterType, pbCertificate, cbCertificate, SerialNumber, ppDevice) {
-        result := ComCall(8, this, "uint", dwRegisterType, "char*", pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", ppDevice, "HRESULT")
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", ppDevice, "HRESULT")
         return result
     }
 }

@@ -45,7 +45,10 @@ class IBDA_ConditionalAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_smartcardstatus
      */
     get_SmartCardStatus(pCardStatus, pCardAssociation, pbstrCardError, pfOOBLocked) {
-        result := ComCall(3, this, "int*", pCardStatus, "int*", pCardAssociation, "ptr", pbstrCardError, "ptr", pfOOBLocked, "HRESULT")
+        pCardStatusMarshal := pCardStatus is VarRef ? "int*" : "ptr"
+        pCardAssociationMarshal := pCardAssociation is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pCardStatusMarshal, pCardStatus, pCardAssociationMarshal, pCardAssociation, "ptr", pbstrCardError, "ptr", pfOOBLocked, "HRESULT")
         return result
     }
 
@@ -62,7 +65,10 @@ class IBDA_ConditionalAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_smartcardinfo
      */
     get_SmartCardInfo(pbstrCardName, pbstrCardManufacturer, pfDaylightSavings, pbyRatingRegion, plTimeZoneOffsetMinutes, pbstrLanguage, pEALocationCode) {
-        result := ComCall(4, this, "ptr", pbstrCardName, "ptr", pbstrCardManufacturer, "ptr", pfDaylightSavings, "char*", pbyRatingRegion, "int*", plTimeZoneOffsetMinutes, "ptr", pbstrLanguage, "ptr", pEALocationCode, "HRESULT")
+        pbyRatingRegionMarshal := pbyRatingRegion is VarRef ? "char*" : "ptr"
+        plTimeZoneOffsetMinutesMarshal := plTimeZoneOffsetMinutes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pbstrCardName, "ptr", pbstrCardManufacturer, "ptr", pfDaylightSavings, pbyRatingRegionMarshal, pbyRatingRegion, plTimeZoneOffsetMinutesMarshal, plTimeZoneOffsetMinutes, "ptr", pbstrLanguage, "ptr", pEALocationCode, "HRESULT")
         return result
     }
 
@@ -75,7 +81,9 @@ class IBDA_ConditionalAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_smartcardapplications
      */
     get_SmartCardApplications(pulcApplications, ulcApplicationsMax, rgApplications) {
-        result := ComCall(5, this, "uint*", pulcApplications, "uint", ulcApplicationsMax, "ptr", rgApplications, "HRESULT")
+        pulcApplicationsMarshal := pulcApplications is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulcApplicationsMarshal, pulcApplications, "uint", ulcApplicationsMax, "ptr", rgApplications, "HRESULT")
         return result
     }
 
@@ -87,7 +95,9 @@ class IBDA_ConditionalAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_entitlement
      */
     get_Entitlement(usVirtualChannel, pEntitlement) {
-        result := ComCall(6, this, "ushort", usVirtualChannel, "int*", pEntitlement, "HRESULT")
+        pEntitlementMarshal := pEntitlement is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ushort", usVirtualChannel, pEntitlementMarshal, pEntitlement, "HRESULT")
         return result
     }
 

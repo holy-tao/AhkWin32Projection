@@ -49,7 +49,10 @@ class IWMCodecPrivateData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecprivatedata-getprivatedata
      */
     GetPrivateData(pbData, pcbData) {
-        result := ComCall(4, this, "char*", pbData, "uint*", pcbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 }

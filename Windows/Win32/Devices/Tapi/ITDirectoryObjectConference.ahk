@@ -73,7 +73,9 @@ class ITDirectoryObjectConference extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_advertisingscope
      */
     get_AdvertisingScope(pAdvertisingScope) {
-        result := ComCall(10, this, "int*", pAdvertisingScope, "HRESULT")
+        pAdvertisingScopeMarshal := pAdvertisingScope is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pAdvertisingScopeMarshal, pAdvertisingScope, "HRESULT")
         return result
     }
 
@@ -165,7 +167,9 @@ class ITDirectoryObjectConference extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_starttime
      */
     get_StartTime(pDate) {
-        result := ComCall(18, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(18, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 
@@ -187,7 +191,9 @@ class ITDirectoryObjectConference extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_stoptime
      */
     get_StopTime(pDate) {
-        result := ComCall(20, this, "double*", pDate, "HRESULT")
+        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
+
+        result := ComCall(20, this, pDateMarshal, pDate, "HRESULT")
         return result
     }
 

@@ -123,7 +123,9 @@ class ITargetFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFrameOptions(pdwFlags) {
-        result := ComCall(11, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -145,7 +147,10 @@ class ITargetFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFrameMargins(pdwWidth, pdwHeight) {
-        result := ComCall(13, this, "uint*", pdwWidth, "uint*", pdwHeight, "HRESULT")
+        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
+        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
         return result
     }
 
@@ -156,7 +161,9 @@ class ITargetFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoteNavigate(cLength, pulData) {
-        result := ComCall(14, this, "uint", cLength, "uint*", pulData, "HRESULT")
+        pulDataMarshal := pulData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", cLength, pulDataMarshal, pulData, "HRESULT")
         return result
     }
 

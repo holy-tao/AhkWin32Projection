@@ -205,7 +205,9 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     get_OfferWatcherMode(penMode) {
-        result := ComCall(17, this, "int*", penMode, "HRESULT")
+        penModeMarshal := penMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, penModeMarshal, penMode, "HRESULT")
         return result
     }
 
@@ -225,7 +227,9 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PrivacyMode(penMode) {
-        result := ComCall(19, this, "int*", penMode, "HRESULT")
+        penModeMarshal := penMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, penModeMarshal, penMode, "HRESULT")
         return result
     }
 

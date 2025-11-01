@@ -50,7 +50,9 @@ class ISVGPathSegLinetoVerticalAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     get_y(p) {
-        result := ComCall(8, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 }

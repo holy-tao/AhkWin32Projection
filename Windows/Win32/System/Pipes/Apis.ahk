@@ -216,9 +216,13 @@ class Pipes {
     static SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpCollectDataTimeout) {
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
 
+        lpModeMarshal := lpMode is VarRef ? "uint*" : "ptr"
+        lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : "ptr"
+        lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetNamedPipeHandleState", "ptr", hNamedPipe, "uint*", lpMode, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "int")
+        result := DllCall("KERNEL32.dll\SetNamedPipeHandleState", "ptr", hNamedPipe, lpModeMarshal, lpMode, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, "int")
         if(A_LastError)
             throw OSError()
 
@@ -246,9 +250,13 @@ class Pipes {
     static PeekNamedPipe(hNamedPipe, lpBuffer, nBufferSize, lpBytesRead, lpTotalBytesAvail, lpBytesLeftThisMessage) {
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
 
+        lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
+        lpTotalBytesAvailMarshal := lpTotalBytesAvail is VarRef ? "uint*" : "ptr"
+        lpBytesLeftThisMessageMarshal := lpBytesLeftThisMessage is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PeekNamedPipe", "ptr", hNamedPipe, "ptr", lpBuffer, "uint", nBufferSize, "uint*", lpBytesRead, "uint*", lpTotalBytesAvail, "uint*", lpBytesLeftThisMessage, "int")
+        result := DllCall("KERNEL32.dll\PeekNamedPipe", "ptr", hNamedPipe, "ptr", lpBuffer, "uint", nBufferSize, lpBytesReadMarshal, lpBytesRead, lpTotalBytesAvailMarshal, lpTotalBytesAvail, lpBytesLeftThisMessageMarshal, lpBytesLeftThisMessage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -311,9 +319,11 @@ class Pipes {
     static TransactNamedPipe(hNamedPipe, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, lpOverlapped) {
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
 
+        lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TransactNamedPipe", "ptr", hNamedPipe, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\TransactNamedPipe", "ptr", hNamedPipe, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReadMarshal, lpBytesRead, "ptr", lpOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -703,9 +713,14 @@ class Pipes {
     static GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lpMaxInstances) {
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
 
+        lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
+        lpOutBufferSizeMarshal := lpOutBufferSize is VarRef ? "uint*" : "ptr"
+        lpInBufferSizeMarshal := lpInBufferSize is VarRef ? "uint*" : "ptr"
+        lpMaxInstancesMarshal := lpMaxInstances is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeInfo", "ptr", hNamedPipe, "uint*", lpFlags, "uint*", lpOutBufferSize, "uint*", lpInBufferSize, "uint*", lpMaxInstances, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeInfo", "ptr", hNamedPipe, lpFlagsMarshal, lpFlags, lpOutBufferSizeMarshal, lpOutBufferSize, lpInBufferSizeMarshal, lpInBufferSize, lpMaxInstancesMarshal, lpMaxInstances, "int")
         if(A_LastError)
             throw OSError()
 
@@ -736,7 +751,12 @@ class Pipes {
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
+        lpStateMarshal := lpState is VarRef ? "uint*" : "ptr"
+        lpCurInstancesMarshal := lpCurInstances is VarRef ? "uint*" : "ptr"
+        lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : "ptr"
+        lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, lpStateMarshal, lpState, lpCurInstancesMarshal, lpCurInstances, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
         return result
     }
 
@@ -801,7 +821,9 @@ class Pipes {
     static CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
         lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
-        result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "int")
+        lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReadMarshal, lpBytesRead, "uint", nTimeOut, "int")
         return result
     }
 
@@ -1152,9 +1174,14 @@ class Pipes {
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
+        lpStateMarshal := lpState is VarRef ? "uint*" : "ptr"
+        lpCurInstancesMarshal := lpCurInstances is VarRef ? "uint*" : "ptr"
+        lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : "ptr"
+        lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, lpStateMarshal, lpState, lpCurInstancesMarshal, lpCurInstances, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1225,9 +1252,11 @@ class Pipes {
     static CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
         lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
+        lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "int")
+        result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReadMarshal, lpBytesRead, "uint", nTimeOut, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1302,9 +1331,11 @@ class Pipes {
     static GetNamedPipeClientProcessId(Pipe, ClientProcessId) {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
+        ClientProcessIdMarshal := ClientProcessId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientProcessId", "ptr", Pipe, "uint*", ClientProcessId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientProcessId", "ptr", Pipe, ClientProcessIdMarshal, ClientProcessId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1326,9 +1357,11 @@ class Pipes {
     static GetNamedPipeClientSessionId(Pipe, ClientSessionId) {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
+        ClientSessionIdMarshal := ClientSessionId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientSessionId", "ptr", Pipe, "uint*", ClientSessionId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientSessionId", "ptr", Pipe, ClientSessionIdMarshal, ClientSessionId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1350,9 +1383,11 @@ class Pipes {
     static GetNamedPipeServerProcessId(Pipe, ServerProcessId) {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
+        ServerProcessIdMarshal := ServerProcessId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeServerProcessId", "ptr", Pipe, "uint*", ServerProcessId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeServerProcessId", "ptr", Pipe, ServerProcessIdMarshal, ServerProcessId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1374,9 +1409,11 @@ class Pipes {
     static GetNamedPipeServerSessionId(Pipe, ServerSessionId) {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
+        ServerSessionIdMarshal := ServerSessionId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeServerSessionId", "ptr", Pipe, "uint*", ServerSessionId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeServerSessionId", "ptr", Pipe, ServerSessionIdMarshal, ServerSessionId, "int")
         if(A_LastError)
             throw OSError()
 

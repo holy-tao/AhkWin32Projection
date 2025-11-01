@@ -44,7 +44,9 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDistanceFactor(pflDistanceFactor) {
-        result := ComCall(4, this, "float*", pflDistanceFactor, "HRESULT")
+        pflDistanceFactorMarshal := pflDistanceFactor is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, pflDistanceFactorMarshal, pflDistanceFactor, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDopplerFactor(pflDopplerFactor) {
-        result := ComCall(5, this, "float*", pflDopplerFactor, "HRESULT")
+        pflDopplerFactorMarshal := pflDopplerFactor is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, pflDopplerFactorMarshal, pflDopplerFactor, "HRESULT")
         return result
     }
 
@@ -85,7 +89,9 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRolloffFactor(pflRolloffFactor) {
-        result := ComCall(8, this, "float*", pflRolloffFactor, "HRESULT")
+        pflRolloffFactorMarshal := pflRolloffFactor is VarRef ? "float*" : "ptr"
+
+        result := ComCall(8, this, pflRolloffFactorMarshal, pflRolloffFactor, "HRESULT")
         return result
     }
 

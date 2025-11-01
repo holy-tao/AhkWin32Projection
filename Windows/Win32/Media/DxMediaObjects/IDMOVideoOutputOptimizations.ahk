@@ -75,7 +75,9 @@ class IDMOVideoOutputOptimizations extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-queryoperationmodepreferences
      */
     QueryOperationModePreferences(ulOutputStreamIndex, pdwRequestedCapabilities) {
-        result := ComCall(3, this, "uint", ulOutputStreamIndex, "uint*", pdwRequestedCapabilities, "HRESULT")
+        pdwRequestedCapabilitiesMarshal := pdwRequestedCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulOutputStreamIndex, pdwRequestedCapabilitiesMarshal, pdwRequestedCapabilities, "HRESULT")
         return result
     }
 
@@ -99,7 +101,9 @@ class IDMOVideoOutputOptimizations extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentoperationmode
      */
     GetCurrentOperationMode(ulOutputStreamIndex, pdwEnabledFeatures) {
-        result := ComCall(5, this, "uint", ulOutputStreamIndex, "uint*", pdwEnabledFeatures, "HRESULT")
+        pdwEnabledFeaturesMarshal := pdwEnabledFeatures is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulOutputStreamIndex, pdwEnabledFeaturesMarshal, pdwEnabledFeatures, "HRESULT")
         return result
     }
 
@@ -111,7 +115,9 @@ class IDMOVideoOutputOptimizations extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentsamplerequirements
      */
     GetCurrentSampleRequirements(ulOutputStreamIndex, pdwRequestedFeatures) {
-        result := ComCall(6, this, "uint", ulOutputStreamIndex, "uint*", pdwRequestedFeatures, "HRESULT")
+        pdwRequestedFeaturesMarshal := pdwRequestedFeatures is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", ulOutputStreamIndex, pdwRequestedFeaturesMarshal, pdwRequestedFeatures, "HRESULT")
         return result
     }
 }

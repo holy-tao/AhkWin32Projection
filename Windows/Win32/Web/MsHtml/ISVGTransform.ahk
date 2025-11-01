@@ -50,7 +50,9 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     get_type(p) {
-        result := ComCall(8, this, "short*", p, "HRESULT")
+        pMarshal := p is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -90,7 +92,9 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     get_angle(p) {
-        result := ComCall(12, this, "float*", p, "HRESULT")
+        pMarshal := p is VarRef ? "float*" : "ptr"
+
+        result := ComCall(12, this, pMarshal, p, "HRESULT")
         return result
     }
 

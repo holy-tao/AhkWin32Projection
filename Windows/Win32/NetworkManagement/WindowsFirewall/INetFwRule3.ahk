@@ -158,7 +158,9 @@ class INetFwRule3 extends INetFwRule2{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_secureflags
      */
     get_SecureFlags(lOptions) {
-        result := ComCall(55, this, "int*", lOptions, "HRESULT")
+        lOptionsMarshal := lOptions is VarRef ? "int*" : "ptr"
+
+        result := ComCall(55, this, lOptionsMarshal, lOptions, "HRESULT")
         return result
     }
 

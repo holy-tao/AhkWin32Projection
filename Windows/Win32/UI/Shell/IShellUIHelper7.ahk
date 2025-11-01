@@ -77,7 +77,9 @@ class IShellUIHelper7 extends IShellUIHelper6{
     GetExperimentalValue(bstrValueString, pdwValue) {
         bstrValueString := bstrValueString is String ? BSTR.Alloc(bstrValueString).Value : bstrValueString
 
-        result := ComCall(91, this, "ptr", bstrValueString, "uint*", pdwValue, "HRESULT")
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(91, this, "ptr", bstrValueString, pdwValueMarshal, pdwValue, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class ISyncChangeBuilder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebuilder-addchangeunitmetadata
      */
     AddChangeUnitMetadata(pbChangeUnitId, pChangeUnitVersion) {
-        result := ComCall(3, this, "char*", pbChangeUnitId, "ptr", pChangeUnitVersion, "HRESULT")
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", pChangeUnitVersion, "HRESULT")
         return result
     }
 }

@@ -52,7 +52,11 @@ class IAMTuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_channel
      */
     get_Channel(plChannel, plVideoSubChannel, plAudioSubChannel) {
-        result := ComCall(4, this, "int*", plChannel, "int*", plVideoSubChannel, "int*", plAudioSubChannel, "HRESULT")
+        plChannelMarshal := plChannel is VarRef ? "int*" : "ptr"
+        plVideoSubChannelMarshal := plVideoSubChannel is VarRef ? "int*" : "ptr"
+        plAudioSubChannelMarshal := plAudioSubChannel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plChannelMarshal, plChannel, plVideoSubChannelMarshal, plVideoSubChannel, plAudioSubChannelMarshal, plAudioSubChannel, "HRESULT")
         return result
     }
 
@@ -64,7 +68,10 @@ class IAMTuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-channelminmax
      */
     ChannelMinMax(lChannelMin, lChannelMax) {
-        result := ComCall(5, this, "int*", lChannelMin, "int*", lChannelMax, "HRESULT")
+        lChannelMinMarshal := lChannelMin is VarRef ? "int*" : "ptr"
+        lChannelMaxMarshal := lChannelMax is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, lChannelMinMarshal, lChannelMin, lChannelMaxMarshal, lChannelMax, "HRESULT")
         return result
     }
 
@@ -86,7 +93,9 @@ class IAMTuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_countrycode
      */
     get_CountryCode(plCountryCode) {
-        result := ComCall(7, this, "int*", plCountryCode, "HRESULT")
+        plCountryCodeMarshal := plCountryCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plCountryCodeMarshal, plCountryCode, "HRESULT")
         return result
     }
 
@@ -108,7 +117,9 @@ class IAMTuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_tuningspace
      */
     get_TuningSpace(plTuningSpace) {
-        result := ComCall(9, this, "int*", plTuningSpace, "HRESULT")
+        plTuningSpaceMarshal := plTuningSpace is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plTuningSpaceMarshal, plTuningSpace, "HRESULT")
         return result
     }
 
@@ -142,7 +153,9 @@ class IAMTuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-signalpresent
      */
     SignalPresent(plSignalStrength) {
-        result := ComCall(12, this, "int*", plSignalStrength, "HRESULT")
+        plSignalStrengthMarshal := plSignalStrength is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plSignalStrengthMarshal, plSignalStrength, "HRESULT")
         return result
     }
 
@@ -164,7 +177,9 @@ class IAMTuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_mode
      */
     get_Mode(plMode) {
-        result := ComCall(14, this, "int*", plMode, "HRESULT")
+        plModeMarshal := plMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plModeMarshal, plMode, "HRESULT")
         return result
     }
 
@@ -175,7 +190,9 @@ class IAMTuner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-getavailablemodes
      */
     GetAvailableModes(plModes) {
-        result := ComCall(15, this, "int*", plModes, "HRESULT")
+        plModesMarshal := plModes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, plModesMarshal, plModes, "HRESULT")
         return result
     }
 

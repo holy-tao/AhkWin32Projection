@@ -50,7 +50,10 @@ class IWbemEventProviderQuerySink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventproviderquerysink-newquery
      */
     NewQuery(dwId, wszQueryLanguage, wszQuery) {
-        result := ComCall(3, this, "uint", dwId, "ushort*", wszQueryLanguage, "ushort*", wszQuery, "HRESULT")
+        wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"
+        wszQueryMarshal := wszQuery is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwId, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "HRESULT")
         return result
     }
 

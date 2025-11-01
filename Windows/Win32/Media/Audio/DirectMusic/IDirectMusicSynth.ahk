@@ -71,7 +71,9 @@ class IDirectMusicSynth extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-download
      */
     Download(phDownload, pvData, pbFree) {
-        result := ComCall(6, this, "ptr", phDownload, "ptr", pvData, "ptr", pbFree, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", phDownload, pvDataMarshal, pvData, "ptr", pbFree, "HRESULT")
         return result
     }
 
@@ -100,7 +102,9 @@ class IDirectMusicSynth extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-playbuffer
      */
     PlayBuffer(rt, pbBuffer, cbBuffer) {
-        result := ComCall(8, this, "int64", rt, "char*", pbBuffer, "uint", cbBuffer, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "int64", rt, pbBufferMarshal, pbBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -179,7 +183,9 @@ class IDirectMusicSynth extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-render
      */
     Render(pBuffer, dwLength, llPosition) {
-        result := ComCall(15, this, "short*", pBuffer, "uint", dwLength, "int64", llPosition, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "short*" : "ptr"
+
+        result := ComCall(15, this, pBufferMarshal, pBuffer, "uint", dwLength, "int64", llPosition, "HRESULT")
         return result
     }
 
@@ -205,7 +211,9 @@ class IDirectMusicSynth extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getchannelpriority
      */
     GetChannelPriority(dwChannelGroup, dwChannel, pdwPriority) {
-        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, "uint*", pdwPriority, "HRESULT")
+        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
         return result
     }
 
@@ -217,7 +225,9 @@ class IDirectMusicSynth extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getformat
      */
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize) {
-        result := ComCall(18, this, "ptr", pWaveFormatEx, "uint*", pdwWaveFormatExSize, "HRESULT")
+        pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, "ptr", pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, "HRESULT")
         return result
     }
 
@@ -228,7 +238,9 @@ class IDirectMusicSynth extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getappend
      */
     GetAppend(pdwAppend) {
-        result := ComCall(19, this, "uint*", pdwAppend, "HRESULT")
+        pdwAppendMarshal := pdwAppend is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, pdwAppendMarshal, pdwAppend, "HRESULT")
         return result
     }
 }

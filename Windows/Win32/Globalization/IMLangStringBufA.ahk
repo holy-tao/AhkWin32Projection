@@ -36,7 +36,10 @@ class IMLangStringBufA extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus(plFlags, pcchBuf) {
-        result := ComCall(3, this, "int*", plFlags, "int*", pcchBuf, "HRESULT")
+        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
+        pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plFlagsMarshal, plFlags, pcchBufMarshal, pcchBuf, "HRESULT")
         return result
     }
 
@@ -49,7 +52,9 @@ class IMLangStringBufA extends IUnknown{
      * @returns {HRESULT} 
      */
     LockBuf(cchOffset, cchMaxLock, ppszBuf, pcchBuf) {
-        result := ComCall(4, this, "int", cchOffset, "int", cchMaxLock, "ptr*", ppszBuf, "int*", pcchBuf, "HRESULT")
+        pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", cchOffset, "int", cchMaxLock, "ptr*", ppszBuf, pcchBufMarshal, pcchBuf, "HRESULT")
         return result
     }
 
@@ -75,7 +80,9 @@ class IMLangStringBufA extends IUnknown{
      * @returns {HRESULT} 
      */
     Insert(cchOffset, cchMaxInsert, pcchActual) {
-        result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, "int*", pcchActual, "HRESULT")
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, pcchActualMarshal, pcchActual, "HRESULT")
         return result
     }
 

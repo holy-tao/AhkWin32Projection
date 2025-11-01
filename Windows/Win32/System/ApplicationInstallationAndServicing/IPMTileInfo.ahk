@@ -55,7 +55,9 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TemplateType(pTemplateType) {
-        result := ComCall(5, this, "int*", pTemplateType, "HRESULT")
+        pTemplateTypeMarshal := pTemplateType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pTemplateTypeMarshal, pTemplateType, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_HubPosition(HubType, pPosition) {
-        result := ComCall(7, this, "int", HubType, "uint*", pPosition, "HRESULT")
+        pPositionMarshal := pPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "int", HubType, pPositionMarshal, pPosition, "HRESULT")
         return result
     }
 
@@ -117,7 +121,9 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TileType(pStartTileType) {
-        result := ComCall(11, this, "int*", pStartTileType, "HRESULT")
+        pStartTileTypeMarshal := pStartTileType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pStartTileTypeMarshal, pStartTileType, "HRESULT")
         return result
     }
 
@@ -170,7 +176,9 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_HubTileSize(HubType, pSize) {
-        result := ComCall(16, this, "int", HubType, "int*", pSize, "HRESULT")
+        pSizeMarshal := pSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, "int", HubType, pSizeMarshal, pSize, "HRESULT")
         return result
     }
 

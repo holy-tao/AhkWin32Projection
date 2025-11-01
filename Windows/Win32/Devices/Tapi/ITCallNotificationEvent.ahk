@@ -48,7 +48,9 @@ class ITCallNotificationEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallnotificationevent-get_event
      */
     get_Event(pCallNotificationEvent) {
-        result := ComCall(8, this, "int*", pCallNotificationEvent, "HRESULT")
+        pCallNotificationEventMarshal := pCallNotificationEvent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pCallNotificationEventMarshal, pCallNotificationEvent, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class ITCallNotificationEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallnotificationevent-get_callbackinstance
      */
     get_CallbackInstance(plCallbackInstance) {
-        result := ComCall(9, this, "int*", plCallbackInstance, "HRESULT")
+        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
         return result
     }
 }

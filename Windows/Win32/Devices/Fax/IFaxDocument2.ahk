@@ -80,7 +80,9 @@ class IFaxDocument2 extends IFaxDocument{
     Submit2(bstrFaxServerName, pvFaxOutgoingJobIDs, plErrorBodyFile) {
         bstrFaxServerName := bstrFaxServerName is String ? BSTR.Alloc(bstrFaxServerName).Value : bstrFaxServerName
 
-        result := ComCall(44, this, "ptr", bstrFaxServerName, "ptr", pvFaxOutgoingJobIDs, "int*", plErrorBodyFile, "HRESULT")
+        plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : "ptr"
+
+        result := ComCall(44, this, "ptr", bstrFaxServerName, "ptr", pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class IFaxDocument2 extends IFaxDocument{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-connectedsubmit2
      */
     ConnectedSubmit2(pFaxServer, pvFaxOutgoingJobIDs, plErrorBodyFile) {
-        result := ComCall(45, this, "ptr", pFaxServer, "ptr", pvFaxOutgoingJobIDs, "int*", plErrorBodyFile, "HRESULT")
+        plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : "ptr"
+
+        result := ComCall(45, this, "ptr", pFaxServer, "ptr", pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
         return result
     }
 }

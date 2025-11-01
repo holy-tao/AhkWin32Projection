@@ -101,6 +101,8 @@ class IRpcStubBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcstubbuffer-debugserverrelease
      */
     DebugServerRelease(pv) {
-        ComCall(9, this, "ptr", pv)
+        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+
+        ComCall(9, this, pvMarshal, pv)
     }
 }

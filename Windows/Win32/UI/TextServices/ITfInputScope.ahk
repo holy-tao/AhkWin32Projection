@@ -48,7 +48,9 @@ class ITfInputScope extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getinputscopes
      */
     GetInputScopes(pprgInputScopes, pcCount) {
-        result := ComCall(3, this, "ptr*", pprgInputScopes, "uint*", pcCount, "HRESULT")
+        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr*", pprgInputScopes, pcCountMarshal, pcCount, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class ITfInputScope extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getphrase
      */
     GetPhrase(ppbstrPhrases, pcCount) {
-        result := ComCall(4, this, "ptr*", ppbstrPhrases, "uint*", pcCount, "HRESULT")
+        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppbstrPhrases, pcCountMarshal, pcCount, "HRESULT")
         return result
     }
 

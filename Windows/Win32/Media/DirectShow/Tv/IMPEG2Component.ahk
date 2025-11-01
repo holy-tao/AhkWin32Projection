@@ -48,7 +48,9 @@ class IMPEG2Component extends IComponent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2component-get_pid
      */
     get_PID(PID) {
-        result := ComCall(16, this, "int*", PID, "HRESULT")
+        PIDMarshal := PID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, PIDMarshal, PID, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IMPEG2Component extends IComponent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2component-get_pcrpid
      */
     get_PCRPID(PCRPID) {
-        result := ComCall(18, this, "int*", PCRPID, "HRESULT")
+        PCRPIDMarshal := PCRPID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, PCRPIDMarshal, PCRPID, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IMPEG2Component extends IComponent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2component-get_programnumber
      */
     get_ProgramNumber(ProgramNumber) {
-        result := ComCall(20, this, "int*", ProgramNumber, "HRESULT")
+        ProgramNumberMarshal := ProgramNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, ProgramNumberMarshal, ProgramNumber, "HRESULT")
         return result
     }
 

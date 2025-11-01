@@ -84,7 +84,9 @@ class IRTCUserSearchQuery extends IUnknown{
      * @returns {HRESULT} 
      */
     get_SearchPreference(enPreference, plValue) {
-        result := ComCall(7, this, "int", enPreference, "int*", plValue, "HRESULT")
+        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", enPreference, plValueMarshal, plValue, "HRESULT")
         return result
     }
 

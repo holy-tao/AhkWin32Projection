@@ -62,7 +62,9 @@ class ID2D1SvgGlyphStyle extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-setstroke
      */
     SetStroke(brush, strokeWidth, dashes, dashesCount, dashOffset) {
-        result := ComCall(6, this, "ptr", brush, "float", strokeWidth, "float*", dashes, "uint", dashesCount, "float", dashOffset, "HRESULT")
+        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+
+        result := ComCall(6, this, "ptr", brush, "float", strokeWidth, dashesMarshal, dashes, "uint", dashesCount, "float", dashOffset, "HRESULT")
         return result
     }
 
@@ -87,6 +89,10 @@ class ID2D1SvgGlyphStyle extends ID2D1Resource{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getstroke
      */
     GetStroke(brush, strokeWidth, dashes, dashesCount, dashOffset) {
-        ComCall(8, this, "ptr*", brush, "float*", strokeWidth, "float*", dashes, "uint", dashesCount, "float*", dashOffset)
+        strokeWidthMarshal := strokeWidth is VarRef ? "float*" : "ptr"
+        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+        dashOffsetMarshal := dashOffset is VarRef ? "float*" : "ptr"
+
+        ComCall(8, this, "ptr*", brush, strokeWidthMarshal, strokeWidth, dashesMarshal, dashes, "uint", dashesCount, dashOffsetMarshal, dashOffset)
     }
 }

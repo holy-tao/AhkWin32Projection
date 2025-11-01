@@ -62,7 +62,9 @@ class IMFSchemeHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfschemehandler-endcreateobject
      */
     EndCreateObject(pResult, pObjectType, ppObject) {
-        result := ComCall(4, this, "ptr", pResult, "int*", pObjectType, "ptr*", ppObject, "HRESULT")
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, "ptr*", ppObject, "HRESULT")
         return result
     }
 

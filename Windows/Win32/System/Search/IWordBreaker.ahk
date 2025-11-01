@@ -80,7 +80,9 @@ class IWordBreaker extends IUnknown{
         pwcModifier := pwcModifier is String ? StrPtr(pwcModifier) : pwcModifier
         pwcPhrase := pwcPhrase is String ? StrPtr(pwcPhrase) : pwcPhrase
 
-        result := ComCall(5, this, "ptr", pwcNoun, "uint", cwcNoun, "ptr", pwcModifier, "uint", cwcModifier, "uint", ulAttachmentType, "ptr", pwcPhrase, "uint*", pcwcPhrase, "HRESULT")
+        pcwcPhraseMarshal := pcwcPhrase is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwcNoun, "uint", cwcNoun, "ptr", pwcModifier, "uint", cwcModifier, "uint", ulAttachmentType, "ptr", pwcPhrase, pcwcPhraseMarshal, pcwcPhrase, "HRESULT")
         return result
     }
 

@@ -99,7 +99,9 @@ class IFsrmPropertyBag extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumeindex
      */
     get_VolumeIndex(volumeId) {
-        result := ComCall(11, this, "uint*", volumeId, "HRESULT")
+        volumeIdMarshal := volumeId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, volumeIdMarshal, volumeId, "HRESULT")
         return result
     }
 
@@ -187,7 +189,9 @@ class IFsrmPropertyBag extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_attributes
      */
     get_Attributes(attributes) {
-        result := ComCall(19, this, "uint*", attributes, "HRESULT")
+        attributesMarshal := attributes is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, attributesMarshal, attributes, "HRESULT")
         return result
     }
 
@@ -231,7 +235,9 @@ class IFsrmPropertyBag extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_propertybagflags
      */
     get_PropertyBagFlags(flags) {
-        result := ComCall(23, this, "uint*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(23, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 

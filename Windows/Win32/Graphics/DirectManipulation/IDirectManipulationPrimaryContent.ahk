@@ -58,7 +58,9 @@ class IDirectManipulationPrimaryContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnappoints
      */
     SetSnapPoints(motion, points, pointCount) {
-        result := ComCall(4, this, "int", motion, "float*", points, "uint", pointCount, "HRESULT")
+        pointsMarshal := points is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, "int", motion, pointsMarshal, points, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -129,7 +131,9 @@ class IDirectManipulationPrimaryContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-getinertiaendtransform
      */
     GetInertiaEndTransform(matrix, pointCount) {
-        result := ComCall(10, this, "float*", matrix, "uint", pointCount, "HRESULT")
+        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+
+        result := ComCall(10, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -141,7 +145,10 @@ class IDirectManipulationPrimaryContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-getcenterpoint
      */
     GetCenterPoint(centerX, centerY) {
-        result := ComCall(11, this, "float*", centerX, "float*", centerY, "HRESULT")
+        centerXMarshal := centerX is VarRef ? "float*" : "ptr"
+        centerYMarshal := centerY is VarRef ? "float*" : "ptr"
+
+        result := ComCall(11, this, centerXMarshal, centerX, centerYMarshal, centerY, "HRESULT")
         return result
     }
 }

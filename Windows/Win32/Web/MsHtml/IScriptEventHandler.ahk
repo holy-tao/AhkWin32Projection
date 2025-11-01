@@ -74,7 +74,9 @@ class IScriptEventHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     Cookie(pullCookie) {
-        result := ComCall(7, this, "uint*", pullCookie, "HRESULT")
+        pullCookieMarshal := pullCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pullCookieMarshal, pullCookie, "HRESULT")
         return result
     }
 }

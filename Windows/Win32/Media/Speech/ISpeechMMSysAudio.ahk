@@ -34,7 +34,9 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {HRESULT} 
      */
     get_DeviceId(DeviceId) {
-        result := ComCall(21, this, "int*", DeviceId, "HRESULT")
+        DeviceIdMarshal := DeviceId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, DeviceIdMarshal, DeviceId, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {HRESULT} 
      */
     get_LineId(LineId) {
-        result := ComCall(23, this, "int*", LineId, "HRESULT")
+        LineIdMarshal := LineId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, LineIdMarshal, LineId, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {HRESULT} 
      */
     get_MMHandle(Handle) {
-        result := ComCall(25, this, "int*", Handle, "HRESULT")
+        HandleMarshal := Handle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, HandleMarshal, Handle, "HRESULT")
         return result
     }
 }

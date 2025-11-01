@@ -55,7 +55,9 @@ class IAppVisibility extends IUnknown{
     GetAppVisibilityOnMonitor(hMonitor, pMode) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
-        result := ComCall(3, this, "ptr", hMonitor, "int*", pMode, "HRESULT")
+        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hMonitor, pModeMarshal, pMode, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class IAppVisibility extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibility-advise
      */
     Advise(pCallback, pdwCookie) {
-        result := ComCall(5, this, "ptr", pCallback, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pCallback, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

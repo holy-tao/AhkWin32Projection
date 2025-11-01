@@ -36,7 +36,9 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
      * @returns {HRESULT} 
      */
     EnumerateObjectReferences(objectId, callback, clientData) {
-        result := ComCall(93, this, "ptr", objectId, "ptr", callback, "ptr", clientData, "HRESULT")
+        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(93, this, "ptr", objectId, "ptr", callback, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
      * @returns {HRESULT} 
      */
     GetLOHObjectSizeThreshold(pThreshold) {
-        result := ComCall(95, this, "uint*", pThreshold, "HRESULT")
+        pThresholdMarshal := pThreshold is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(95, this, pThresholdMarshal, pThreshold, "HRESULT")
         return result
     }
 
@@ -70,7 +74,10 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
      * @returns {HRESULT} 
      */
     RequestReJITWithInliners(dwRejitFlags, cFunctions, moduleIds, methodIds) {
-        result := ComCall(96, this, "uint", dwRejitFlags, "uint", cFunctions, "ptr*", moduleIds, "uint*", methodIds, "HRESULT")
+        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
+        methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(96, this, "uint", dwRejitFlags, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
         return result
     }
 

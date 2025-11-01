@@ -50,7 +50,9 @@ class IDDVideoPortContainer extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumVideoPorts(param0, param1, param2, param3) {
-        result := ComCall(4, this, "uint", param0, "ptr", param1, "ptr", param2, "ptr", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IDDVideoPortContainer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetVideoPortConnectInfo(param0, pcInfo, param2) {
-        result := ComCall(5, this, "uint", param0, "uint*", pcInfo, "ptr", param2, "HRESULT")
+        pcInfoMarshal := pcInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", param0, pcInfoMarshal, pcInfo, "ptr", param2, "HRESULT")
         return result
     }
 

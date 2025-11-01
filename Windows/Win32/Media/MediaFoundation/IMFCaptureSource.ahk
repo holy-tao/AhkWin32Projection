@@ -151,7 +151,9 @@ class IMFCaptureSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcount
      */
     GetDeviceStreamCount(pdwStreamCount) {
-        result := ComCall(12, this, "uint*", pdwStreamCount, "HRESULT")
+        pdwStreamCountMarshal := pdwStreamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwStreamCountMarshal, pdwStreamCount, "HRESULT")
         return result
     }
 
@@ -163,7 +165,9 @@ class IMFCaptureSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcategory
      */
     GetDeviceStreamCategory(dwSourceStreamIndex, pStreamCategory) {
-        result := ComCall(13, this, "uint", dwSourceStreamIndex, "int*", pStreamCategory, "HRESULT")
+        pStreamCategoryMarshal := pStreamCategory is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwSourceStreamIndex, pStreamCategoryMarshal, pStreamCategory, "HRESULT")
         return result
     }
 
@@ -199,7 +203,9 @@ class IMFCaptureSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getstreamindexfromfriendlyname
      */
     GetStreamIndexFromFriendlyName(uifriendlyName, pdwActualStreamIndex) {
-        result := ComCall(16, this, "uint", uifriendlyName, "uint*", pdwActualStreamIndex, "HRESULT")
+        pdwActualStreamIndexMarshal := pdwActualStreamIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", uifriendlyName, pdwActualStreamIndexMarshal, pdwActualStreamIndex, "HRESULT")
         return result
     }
 }

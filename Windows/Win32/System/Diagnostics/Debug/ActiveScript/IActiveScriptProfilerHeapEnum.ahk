@@ -36,7 +36,9 @@ class IActiveScriptProfilerHeapEnum extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, heapObjects, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", heapObjects, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", heapObjects, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IActiveScriptProfilerHeapEnum extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNameIdMap(pNameList, pcelt) {
-        result := ComCall(6, this, "ptr*", pNameList, "uint*", pcelt, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", pNameList, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 }

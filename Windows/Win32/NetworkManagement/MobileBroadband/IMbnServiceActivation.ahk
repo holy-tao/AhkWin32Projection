@@ -42,7 +42,9 @@ class IMbnServiceActivation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnserviceactivation-activate
      */
     Activate(vendorSpecificData, requestID) {
-        result := ComCall(3, this, "ptr", vendorSpecificData, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", vendorSpecificData, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 }

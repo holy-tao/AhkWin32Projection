@@ -67,7 +67,9 @@ class ICatalog extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MajorVersion(retval) {
-        result := ComCall(9, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class ICatalog extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MinorVersion(retval) {
-        result := ComCall(10, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

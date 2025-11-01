@@ -48,7 +48,9 @@ class IMSVidFeatures extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfeatures-get_count
      */
     get_Count(lCount) {
-        result := ComCall(7, this, "int*", lCount, "HRESULT")
+        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, lCountMarshal, lCount, "HRESULT")
         return result
     }
 

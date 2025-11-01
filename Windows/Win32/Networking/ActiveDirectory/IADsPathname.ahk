@@ -75,7 +75,9 @@ class IADsPathname extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-getnumelements
      */
     GetNumElements(plnNumPathElements) {
-        result := ComCall(10, this, "int*", plnNumPathElements, "HRESULT")
+        plnNumPathElementsMarshal := plnNumPathElements is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plnNumPathElementsMarshal, plnNumPathElements, "HRESULT")
         return result
     }
 
@@ -146,7 +148,9 @@ class IADsPathname extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EscapedMode(retval) {
-        result := ComCall(16, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 

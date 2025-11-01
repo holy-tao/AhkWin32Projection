@@ -146,7 +146,9 @@ class IXFeedItem extends IUnknown{
      * @returns {HRESULT} 
      */
     LocalId(puiId) {
-        result := ComCall(14, this, "uint*", puiId, "HRESULT")
+        puiIdMarshal := puiId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, puiIdMarshal, puiId, "HRESULT")
         return result
     }
 

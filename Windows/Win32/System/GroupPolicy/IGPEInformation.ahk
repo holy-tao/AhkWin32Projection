@@ -113,7 +113,9 @@ class IGPEInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-getoptions
      */
     GetOptions(dwOptions) {
-        result := ComCall(8, this, "uint*", dwOptions, "HRESULT")
+        dwOptionsMarshal := dwOptions is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, dwOptionsMarshal, dwOptions, "HRESULT")
         return result
     }
 
@@ -124,7 +126,9 @@ class IGPEInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-gettype
      */
     GetType(gpoType) {
-        result := ComCall(9, this, "int*", gpoType, "HRESULT")
+        gpoTypeMarshal := gpoType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, gpoTypeMarshal, gpoType, "HRESULT")
         return result
     }
 
@@ -135,7 +139,9 @@ class IGPEInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-gethint
      */
     GetHint(gpHint) {
-        result := ComCall(10, this, "int*", gpHint, "HRESULT")
+        gpHintMarshal := gpHint is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, gpHintMarshal, gpHint, "HRESULT")
         return result
     }
 

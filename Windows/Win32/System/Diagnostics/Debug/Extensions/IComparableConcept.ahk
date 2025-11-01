@@ -36,7 +36,9 @@ class IComparableConcept extends IUnknown{
      * @returns {HRESULT} 
      */
     CompareObjects(contextObject, otherObject, comparisonResult) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", comparisonResult, "HRESULT")
+        comparisonResultMarshal := comparisonResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, comparisonResultMarshal, comparisonResult, "HRESULT")
         return result
     }
 }

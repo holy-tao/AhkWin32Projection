@@ -46,7 +46,9 @@ class IViewChapter extends IUnknown{
      * @returns {HRESULT} 
      */
     OpenViewChapter(hSource, phViewChapter) {
-        result := ComCall(4, this, "ptr", hSource, "ptr*", phViewChapter, "HRESULT")
+        phViewChapterMarshal := phViewChapter is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hSource, phViewChapterMarshal, phViewChapter, "HRESULT")
         return result
     }
 }

@@ -42,7 +42,10 @@ class IPropertyUI extends IUnknown{
     ParsePropertyName(pszName, pfmtid, ppid, pchEaten) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "ptr", pszName, "ptr", pfmtid, "uint*", ppid, "uint*", pchEaten, "HRESULT")
+        ppidMarshal := ppid is VarRef ? "uint*" : "ptr"
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszName, "ptr", pfmtid, ppidMarshal, ppid, pchEatenMarshal, pchEaten, "HRESULT")
         return result
     }
 
@@ -103,7 +106,9 @@ class IPropertyUI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getdefaultwidth
      */
     GetDefaultWidth(fmtid, pid, pcxChars) {
-        result := ComCall(7, this, "ptr", fmtid, "uint", pid, "uint*", pcxChars, "HRESULT")
+        pcxCharsMarshal := pcxChars is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", fmtid, "uint", pid, pcxCharsMarshal, pcxChars, "HRESULT")
         return result
     }
 
@@ -116,7 +121,9 @@ class IPropertyUI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getflags
      */
     GetFlags(fmtid, pid, pflags) {
-        result := ComCall(8, this, "ptr", fmtid, "uint", pid, "int*", pflags, "HRESULT")
+        pflagsMarshal := pflags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ptr", fmtid, "uint", pid, pflagsMarshal, pflags, "HRESULT")
         return result
     }
 
@@ -151,7 +158,9 @@ class IPropertyUI extends IUnknown{
     GetHelpInfo(fmtid, pid, pwszHelpFile, cch, puHelpID) {
         pwszHelpFile := pwszHelpFile is String ? StrPtr(pwszHelpFile) : pwszHelpFile
 
-        result := ComCall(10, this, "ptr", fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, "uint*", puHelpID, "HRESULT")
+        puHelpIDMarshal := puHelpID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, puHelpIDMarshal, puHelpID, "HRESULT")
         return result
     }
 }

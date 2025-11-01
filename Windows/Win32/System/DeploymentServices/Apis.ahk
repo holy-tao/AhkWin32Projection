@@ -1122,7 +1122,9 @@ class DeploymentServices {
     static WdsCliGetEnumerationFlags(Handle, pdwFlags) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, "uint*", pdwFlags, "int")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, pdwFlagsMarshal, pdwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1407,7 +1409,9 @@ class DeploymentServices {
     static WdsCliGetImageType(hIfh, pImageType) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageType", "ptr", hIfh, "int*", pImageType, "int")
+        pImageTypeMarshal := pImageType is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageType", "ptr", hIfh, pImageTypeMarshal, pImageType, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1424,7 +1428,9 @@ class DeploymentServices {
     static WdsCliGetImageFiles(hIfh, pppwszFiles, pdwCount) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr*", pppwszFiles, "uint*", pdwCount, "int")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr*", pppwszFiles, pdwCountMarshal, pdwCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1464,7 +1470,9 @@ class DeploymentServices {
     static WdsCliGetImageLanguages(hIfh, pppszValues, pdwNumValues) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "ptr*", pppszValues, "uint*", pdwNumValues, "int")
+        pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "ptr*", pppszValues, pdwNumValuesMarshal, pdwNumValues, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1519,7 +1527,9 @@ class DeploymentServices {
     static WdsCliGetImageIndex(hIfh, pdwValue) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageIndex", "ptr", hIfh, "uint*", pdwValue, "int")
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageIndex", "ptr", hIfh, pdwValueMarshal, pdwValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1537,7 +1547,9 @@ class DeploymentServices {
     static WdsCliGetImageArchitecture(hIfh, pdwValue) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageArchitecture", "ptr", hIfh, "uint*", pdwValue, "int")
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageArchitecture", "ptr", hIfh, pdwValueMarshal, pdwValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1573,7 +1585,9 @@ class DeploymentServices {
     static WdsCliGetImageSize(hIfh, pullValue) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageSize", "ptr", hIfh, "uint*", pullValue, "int")
+        pullValueMarshal := pullValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageSize", "ptr", hIfh, pullValueMarshal, pullValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1666,7 +1680,9 @@ class DeploymentServices {
     static WdsCliGetTransferSize(hIfh, pullValue) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetTransferSize", "ptr", hIfh, "uint*", pullValue, "int")
+        pullValueMarshal := pullValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetTransferSize", "ptr", hIfh, pullValueMarshal, pullValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1716,7 +1732,9 @@ class DeploymentServices {
         hImage := hImage is Win32Handle ? NumGet(hImage, "ptr") : hImage
         pwszLocalPath := pwszLocalPath is String ? StrPtr(pwszLocalPath) : pwszLocalPath
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, "ptr", pvUserData, "ptr", phTransfer, "int")
+        pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1761,7 +1779,9 @@ class DeploymentServices {
         pwszRemoteFilePath := pwszRemoteFilePath is String ? StrPtr(pwszRemoteFilePath) : pwszRemoteFilePath
         pwszLocalFilePath := pwszLocalFilePath is String ? StrPtr(pwszLocalFilePath) : pwszLocalFilePath
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, "ptr", pvUserData, "ptr", phTransfer, "int")
+        pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1817,7 +1837,9 @@ class DeploymentServices {
     static WdsCliObtainDriverPackages(hImage, ppwszServerName, pppwszDriverPackages, pulCount) {
         hImage := hImage is Win32Handle ? NumGet(hImage, "ptr") : hImage
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, "uint*", pulCount, "int")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, pulCountMarshal, pulCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1839,7 +1861,9 @@ class DeploymentServices {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         pwszMachineInfo := pwszMachineInfo is String ? StrPtr(pwszMachineInfo) : pwszMachineInfo
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, "uint*", pulCount, "int")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, pulCountMarshal, pulCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1944,7 +1968,9 @@ class DeploymentServices {
     static PxeProviderQueryIndex(pszProviderName, puIndex) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
-        result := DllCall("WDSPXE.dll\PxeProviderQueryIndex", "ptr", pszProviderName, "uint*", puIndex, "uint")
+        puIndexMarshal := puIndex is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeProviderQueryIndex", "ptr", pszProviderName, puIndexMarshal, puIndex, "uint")
         return result
     }
 
@@ -2085,7 +2111,10 @@ class DeploymentServices {
     static PxeRegisterCallback(hProvider, CallbackType, pCallbackFunction, pContext) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        result := DllCall("WDSPXE.dll\PxeRegisterCallback", "ptr", hProvider, "uint", CallbackType, "ptr", pCallbackFunction, "ptr", pContext, "uint")
+        pCallbackFunctionMarshal := pCallbackFunction is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeRegisterCallback", "ptr", hProvider, "uint", CallbackType, pCallbackFunctionMarshal, pCallbackFunction, pContextMarshal, pContext, "uint")
         return result
     }
 
@@ -2278,7 +2307,9 @@ class DeploymentServices {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
 
-        result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "char*", Params, "uint")
+        ParamsMarshal := Params is VarRef ? "char*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, ParamsMarshal, Params, "uint")
         return result
     }
 
@@ -2323,7 +2354,9 @@ class DeploymentServices {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         hClientRequest := hClientRequest is Win32Handle ? NumGet(hClientRequest, "ptr") : hClientRequest
 
-        result := DllCall("WDSPXE.dll\PxePacketFree", "ptr", hProvider, "ptr", hClientRequest, "ptr", pPacket, "uint")
+        pPacketMarshal := pPacket is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxePacketFree", "ptr", hProvider, "ptr", hClientRequest, pPacketMarshal, pPacket, "uint")
         return result
     }
 
@@ -2401,7 +2434,9 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpInitialize(pRecvPacket, uRecvPacketLen, pReplyPacket, uMaxReplyPacketLen, puReplyPacketLen) {
-        result := DllCall("WDSPXE.dll\PxeDhcpInitialize", "ptr", pRecvPacket, "uint", uRecvPacketLen, "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "uint*", puReplyPacketLen, "uint")
+        puReplyPacketLenMarshal := puReplyPacketLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpInitialize", "ptr", pRecvPacket, "uint", uRecvPacketLen, "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, puReplyPacketLenMarshal, puReplyPacketLen, "uint")
         return result
     }
 
@@ -2420,7 +2455,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6Initialize(pRequest, cbRequest, pReply, cbReply, pcbReplyUsed) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6Initialize", "ptr", pRequest, "uint", cbRequest, "ptr", pReply, "uint", cbReply, "uint*", pcbReplyUsed, "uint")
+        pcbReplyUsedMarshal := pcbReplyUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpv6Initialize", "ptr", pRequest, "uint", cbRequest, "ptr", pReply, "uint", cbReply, pcbReplyUsedMarshal, pcbReplyUsed, "uint")
         return result
     }
 
@@ -2441,7 +2478,9 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpAppendOption(pReplyPacket, uMaxReplyPacketLen, puReplyPacketLen, bOption, bOptionLen, pValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpAppendOption", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "uint*", puReplyPacketLen, "char", bOption, "char", bOptionLen, "ptr", pValue, "uint")
+        puReplyPacketLenMarshal := puReplyPacketLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpAppendOption", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, puReplyPacketLenMarshal, puReplyPacketLen, "char", bOption, "char", bOptionLen, "ptr", pValue, "uint")
         return result
     }
 
@@ -2459,7 +2498,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6AppendOption(pReply, cbReply, pcbReplyUsed, wOptionType, cbOption, pOption) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOption", "ptr", pReply, "uint", cbReply, "uint*", pcbReplyUsed, "ushort", wOptionType, "ushort", cbOption, "ptr", pOption, "uint")
+        pcbReplyUsedMarshal := pcbReplyUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOption", "ptr", pReply, "uint", cbReply, pcbReplyUsedMarshal, pcbReplyUsed, "ushort", wOptionType, "ushort", cbOption, "ptr", pOption, "uint")
         return result
     }
 
@@ -2477,7 +2518,9 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpAppendOptionRaw(pReplyPacket, uMaxReplyPacketLen, puReplyPacketLen, uBufferLen, pBuffer) {
-        result := DllCall("WDSPXE.dll\PxeDhcpAppendOptionRaw", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "uint*", puReplyPacketLen, "ushort", uBufferLen, "ptr", pBuffer, "uint")
+        puReplyPacketLenMarshal := puReplyPacketLen is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpAppendOptionRaw", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, puReplyPacketLenMarshal, puReplyPacketLen, "ushort", uBufferLen, "ptr", pBuffer, "uint")
         return result
     }
 
@@ -2496,7 +2539,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6AppendOptionRaw(pReply, cbReply, pcbReplyUsed, cbBuffer, pBuffer) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOptionRaw", "ptr", pReply, "uint", cbReply, "uint*", pcbReplyUsed, "ushort", cbBuffer, "ptr", pBuffer, "uint")
+        pcbReplyUsedMarshal := pcbReplyUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOptionRaw", "ptr", pReply, "uint", cbReply, pcbReplyUsedMarshal, pcbReplyUsed, "ushort", cbBuffer, "ptr", pBuffer, "uint")
         return result
     }
 
@@ -2655,7 +2700,9 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpGetOptionValue(pPacket, uPacketLen, uInstance, bOption, pbOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, "char*", pbOptionLen, "ptr*", ppOptionValue, "uint")
+        pbOptionLenMarshal := pbOptionLen is VarRef ? "char*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, pbOptionLenMarshal, pbOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2721,7 +2768,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6GetOptionValue(pPacket, uPacketLen, uInstance, wOption, pwOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, "ushort*", pwOptionLen, "ptr*", ppOptionValue, "uint")
+        pwOptionLenMarshal := pwOptionLen is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, pwOptionLenMarshal, pwOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2787,7 +2836,9 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpGetVendorOptionValue(pPacket, uPacketLen, bOption, uInstance, pbOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, "char*", pbOptionLen, "ptr*", ppOptionValue, "uint")
+        pbOptionLenMarshal := pbOptionLen is VarRef ? "char*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, pbOptionLenMarshal, pbOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2856,7 +2907,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6GetVendorOptionValue(pPacket, uPacketLen, dwEnterpriseNumber, wOption, uInstance, pwOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, "ushort*", pwOptionLen, "ptr*", ppOptionValue, "uint")
+        pwOptionLenMarshal := pwOptionLen is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, pwOptionLenMarshal, pwOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2874,7 +2927,10 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6ParseRelayForw(pRelayForwPacket, uRelayForwPacketLen, pRelayMessages, nRelayMessages, pnRelayMessages, ppInnerPacket, pcbInnerPacket) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, "uint*", pnRelayMessages, "ptr*", ppInnerPacket, "uint*", pcbInnerPacket, "uint")
+        pnRelayMessagesMarshal := pnRelayMessages is VarRef ? "uint*" : "ptr"
+        pcbInnerPacketMarshal := pcbInnerPacket is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, pnRelayMessagesMarshal, pnRelayMessages, "ptr*", ppInnerPacket, pcbInnerPacketMarshal, pcbInnerPacket, "uint")
         return result
     }
 
@@ -2892,7 +2948,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6CreateRelayRepl(pRelayMessages, nRelayMessages, pInnerPacket, cbInnerPacket, pReplyBuffer, cbReplyBuffer, pcbReplyBuffer) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6CreateRelayRepl", "ptr", pRelayMessages, "uint", nRelayMessages, "ptr", pInnerPacket, "uint", cbInnerPacket, "ptr", pReplyBuffer, "uint", cbReplyBuffer, "uint*", pcbReplyBuffer, "uint")
+        pcbReplyBufferMarshal := pcbReplyBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeDhcpv6CreateRelayRepl", "ptr", pRelayMessages, "uint", nRelayMessages, "ptr", pInnerPacket, "uint", cbInnerPacket, "ptr", pReplyBuffer, "uint", cbReplyBuffer, pcbReplyBufferMarshal, pcbReplyBuffer, "uint")
         return result
     }
 
@@ -2972,7 +3030,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeGetServerInfoEx(uInfoType, pBuffer, uBufferLen, puBufferUsed) {
-        result := DllCall("WDSPXE.dll\PxeGetServerInfoEx", "uint", uInfoType, "ptr", pBuffer, "uint", uBufferLen, "uint*", puBufferUsed, "uint")
+        puBufferUsedMarshal := puBufferUsed is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeGetServerInfoEx", "uint", uInfoType, "ptr", pBuffer, "uint", uBufferLen, puBufferUsedMarshal, puBufferUsed, "uint")
         return result
     }
 
@@ -2988,7 +3048,9 @@ class DeploymentServices {
     static WdsTransportServerRegisterCallback(hProvider, CallbackId, pfnCallback) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        result := DllCall("WDSMC.dll\WdsTransportServerRegisterCallback", "ptr", hProvider, "int", CallbackId, "ptr", pfnCallback, "int")
+        pfnCallbackMarshal := pfnCallback is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSMC.dll\WdsTransportServerRegisterCallback", "ptr", hProvider, "int", CallbackId, pfnCallbackMarshal, pfnCallback, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3008,7 +3070,9 @@ class DeploymentServices {
     static WdsTransportServerCompleteRead(hProvider, ulBytesRead, pvUserData, hReadResult) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        result := DllCall("WDSMC.dll\WdsTransportServerCompleteRead", "ptr", hProvider, "uint", ulBytesRead, "ptr", pvUserData, "int", hReadResult, "int")
+        pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSMC.dll\WdsTransportServerCompleteRead", "ptr", hProvider, "uint", ulBytesRead, pvUserDataMarshal, pvUserData, "int", hReadResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3049,7 +3113,9 @@ class DeploymentServices {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
-        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "char*", Params, "int")
+        ParamsMarshal := Params is VarRef ? "char*" : "ptr"
+
+        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, ParamsMarshal, Params, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3082,7 +3148,9 @@ class DeploymentServices {
     static WdsTransportServerFreeBuffer(hProvider, pvBuffer) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        result := DllCall("WDSMC.dll\WdsTransportServerFreeBuffer", "ptr", hProvider, "ptr", pvBuffer, "int")
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSMC.dll\WdsTransportServerFreeBuffer", "ptr", hProvider, pvBufferMarshal, pvBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3110,7 +3178,9 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsTransportClientInitializeSession(pSessionRequest, pCallerData, hSessionKey) {
-        result := DllCall("WDSTPTC.dll\WdsTransportClientInitializeSession", "ptr", pSessionRequest, "ptr", pCallerData, "ptr", hSessionKey, "uint")
+        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSTPTC.dll\WdsTransportClientInitializeSession", "ptr", pSessionRequest, pCallerDataMarshal, pCallerData, "ptr", hSessionKey, "uint")
         return result
     }
 
@@ -3177,7 +3247,9 @@ class DeploymentServices {
     static WdsTransportClientRegisterCallback(hSessionKey, CallbackId, pfnCallback) {
         hSessionKey := hSessionKey is Win32Handle ? NumGet(hSessionKey, "ptr") : hSessionKey
 
-        result := DllCall("WDSTPTC.dll\WdsTransportClientRegisterCallback", "ptr", hSessionKey, "int", CallbackId, "ptr", pfnCallback, "uint")
+        pfnCallbackMarshal := pfnCallback is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSTPTC.dll\WdsTransportClientRegisterCallback", "ptr", hSessionKey, "int", CallbackId, pfnCallbackMarshal, pfnCallback, "uint")
         return result
     }
 
@@ -3207,7 +3279,9 @@ class DeploymentServices {
     static WdsTransportClientCompleteReceive(hSessionKey, ulSize, pullOffset) {
         hSessionKey := hSessionKey is Win32Handle ? NumGet(hSessionKey, "ptr") : hSessionKey
 
-        result := DllCall("WDSTPTC.dll\WdsTransportClientCompleteReceive", "ptr", hSessionKey, "uint", ulSize, "uint*", pullOffset, "uint")
+        pullOffsetMarshal := pullOffset is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSTPTC.dll\WdsTransportClientCompleteReceive", "ptr", hSessionKey, "uint", ulSize, pullOffsetMarshal, pullOffset, "uint")
         return result
     }
 
@@ -3265,7 +3339,10 @@ class DeploymentServices {
     static WdsTransportClientQueryStatus(hSessionKey, puStatus, puErrorCode) {
         hSessionKey := hSessionKey is Win32Handle ? NumGet(hSessionKey, "ptr") : hSessionKey
 
-        result := DllCall("WDSTPTC.dll\WdsTransportClientQueryStatus", "ptr", hSessionKey, "uint*", puStatus, "uint*", puErrorCode, "uint")
+        puStatusMarshal := puStatus is VarRef ? "uint*" : "ptr"
+        puErrorCodeMarshal := puErrorCode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSTPTC.dll\WdsTransportClientQueryStatus", "ptr", hSessionKey, puStatusMarshal, puStatus, puErrorCodeMarshal, puErrorCode, "uint")
         return result
     }
 
@@ -3291,7 +3368,9 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsTransportClientAddRefBuffer(pvBuffer) {
-        result := DllCall("WDSTPTC.dll\WdsTransportClientAddRefBuffer", "ptr", pvBuffer, "uint")
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSTPTC.dll\WdsTransportClientAddRefBuffer", pvBufferMarshal, pvBuffer, "uint")
         return result
     }
 
@@ -3303,7 +3382,9 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsTransportClientReleaseBuffer(pvBuffer) {
-        result := DllCall("WDSTPTC.dll\WdsTransportClientReleaseBuffer", "ptr", pvBuffer, "uint")
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WDSTPTC.dll\WdsTransportClientReleaseBuffer", pvBufferMarshal, pvBuffer, "uint")
         return result
     }
 
@@ -3369,7 +3450,9 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsBpParseInitialize(pPacket, uPacketLen, pbPacketType, phHandle) {
-        result := DllCall("WDSBP.dll\WdsBpParseInitialize", "ptr", pPacket, "uint", uPacketLen, "char*", pbPacketType, "ptr", phHandle, "uint")
+        pbPacketTypeMarshal := pbPacketType is VarRef ? "char*" : "ptr"
+
+        result := DllCall("WDSBP.dll\WdsBpParseInitialize", "ptr", pPacket, "uint", uPacketLen, pbPacketTypeMarshal, pbPacketType, "ptr", phHandle, "uint")
         return result
     }
 
@@ -3435,7 +3518,9 @@ class DeploymentServices {
      * @since windows8.0
      */
     static WdsBpParseInitializev6(pPacket, uPacketLen, pbPacketType, phHandle) {
-        result := DllCall("WDSBP.dll\WdsBpParseInitializev6", "ptr", pPacket, "uint", uPacketLen, "char*", pbPacketType, "ptr", phHandle, "uint")
+        pbPacketTypeMarshal := pbPacketType is VarRef ? "char*" : "ptr"
+
+        result := DllCall("WDSBP.dll\WdsBpParseInitializev6", "ptr", pPacket, "uint", uPacketLen, pbPacketTypeMarshal, pbPacketType, "ptr", phHandle, "uint")
         return result
     }
 
@@ -3480,7 +3565,9 @@ class DeploymentServices {
     static WdsBpQueryOption(hHandle, uOption, uValueLen, pValue, puBytes) {
         hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle
 
-        result := DllCall("WDSBP.dll\WdsBpQueryOption", "ptr", hHandle, "uint", uOption, "uint", uValueLen, "ptr", pValue, "uint*", puBytes, "uint")
+        puBytesMarshal := puBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSBP.dll\WdsBpQueryOption", "ptr", hHandle, "uint", uOption, "uint", uValueLen, "ptr", pValue, puBytesMarshal, puBytes, "uint")
         return result
     }
 
@@ -3514,7 +3601,9 @@ class DeploymentServices {
     static WdsBpGetOptionBuffer(hHandle, uBufferLen, pBuffer, puBytes) {
         hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle
 
-        result := DllCall("WDSBP.dll\WdsBpGetOptionBuffer", "ptr", hHandle, "uint", uBufferLen, "ptr", pBuffer, "uint*", puBytes, "uint")
+        puBytesMarshal := puBytes is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WDSBP.dll\WdsBpGetOptionBuffer", "ptr", hHandle, "uint", uBufferLen, "ptr", pBuffer, puBytesMarshal, puBytes, "uint")
         return result
     }
 

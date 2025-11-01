@@ -51,7 +51,9 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_location(p) {
-        result := ComCall(8, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -147,7 +149,9 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_keyCode(p) {
-        result := ComCall(16, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -157,7 +161,9 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_charCode(p) {
-        result := ComCall(17, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -167,7 +173,9 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_which(p) {
-        result := ComCall(18, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, pMarshal, p, "HRESULT")
         return result
     }
 

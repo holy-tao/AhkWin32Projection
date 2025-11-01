@@ -53,7 +53,10 @@ class IMFAsyncCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfasynccallback-getparameters
      */
     GetParameters(pdwFlags, pdwQueue) {
-        result := ComCall(3, this, "uint*", pdwFlags, "uint*", pdwQueue, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwQueueMarshal := pdwQueue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, pdwQueueMarshal, pdwQueue, "HRESULT")
         return result
     }
 

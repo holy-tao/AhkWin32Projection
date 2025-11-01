@@ -38,7 +38,9 @@ class IGraphConfigCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfigcallback-reconfigure
      */
     Reconfigure(pvContext, dwFlags) {
-        result := ComCall(3, this, "ptr", pvContext, "uint", dwFlags, "HRESULT")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pvContextMarshal, pvContext, "uint", dwFlags, "HRESULT")
         return result
     }
 }

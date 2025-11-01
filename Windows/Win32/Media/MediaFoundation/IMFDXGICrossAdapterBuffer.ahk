@@ -47,7 +47,9 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSubresourceIndexForDevice(pUnkDevice, puSubresource) {
-        result := ComCall(4, this, "ptr", pUnkDevice, "uint*", puSubresource, "HRESULT")
+        puSubresourceMarshal := puSubresource is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pUnkDevice, puSubresourceMarshal, puSubresource, "HRESULT")
         return result
     }
 

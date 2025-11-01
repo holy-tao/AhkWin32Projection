@@ -43,7 +43,9 @@ class IOleUIObjInfoA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-getobjectinfo
      */
     GetObjectInfo(dwObject, lpdwObjSize, lplpszLabel, lplpszType, lplpszShortType, lplpszLocation) {
-        result := ComCall(3, this, "uint", dwObject, "uint*", lpdwObjSize, "ptr", lplpszLabel, "ptr", lplpszType, "ptr", lplpszShortType, "ptr", lplpszLocation, "HRESULT")
+        lpdwObjSizeMarshal := lpdwObjSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwObject, lpdwObjSizeMarshal, lpdwObjSize, "ptr", lplpszLabel, "ptr", lplpszType, "ptr", lplpszShortType, "ptr", lplpszLocation, "HRESULT")
         return result
     }
 
@@ -59,7 +61,10 @@ class IOleUIObjInfoA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-getconvertinfo
      */
     GetConvertInfo(dwObject, lpClassID, lpwFormat, lpConvertDefaultClassID, lplpClsidExclude, lpcClsidExclude) {
-        result := ComCall(4, this, "uint", dwObject, "ptr", lpClassID, "ushort*", lpwFormat, "ptr", lpConvertDefaultClassID, "ptr*", lplpClsidExclude, "uint*", lpcClsidExclude, "HRESULT")
+        lpwFormatMarshal := lpwFormat is VarRef ? "ushort*" : "ptr"
+        lpcClsidExcludeMarshal := lpcClsidExclude is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwObject, "ptr", lpClassID, lpwFormatMarshal, lpwFormat, "ptr", lpConvertDefaultClassID, "ptr*", lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
         return result
     }
 
@@ -85,7 +90,10 @@ class IOleUIObjInfoA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-getviewinfo
      */
     GetViewInfo(dwObject, phMetaPict, pdvAspect, pnCurrentScale) {
-        result := ComCall(6, this, "uint", dwObject, "ptr", phMetaPict, "uint*", pdvAspect, "int*", pnCurrentScale, "HRESULT")
+        pdvAspectMarshal := pdvAspect is VarRef ? "uint*" : "ptr"
+        pnCurrentScaleMarshal := pnCurrentScale is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwObject, "ptr", phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
         return result
     }
 

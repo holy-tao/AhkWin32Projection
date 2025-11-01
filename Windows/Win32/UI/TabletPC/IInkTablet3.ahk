@@ -48,7 +48,9 @@ class IInkTablet3 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet3-get_maximumcursors
      */
     get_MaximumCursors(pMaximumCursors) {
-        result := ComCall(8, this, "uint*", pMaximumCursors, "HRESULT")
+        pMaximumCursorsMarshal := pMaximumCursors is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pMaximumCursorsMarshal, pMaximumCursors, "HRESULT")
         return result
     }
 }

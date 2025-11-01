@@ -74,7 +74,9 @@ class IWbemCallResult extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcallresult-getcallstatus
      */
     GetCallStatus(lTimeout, plStatus) {
-        result := ComCall(6, this, "int", lTimeout, "int*", plStatus, "HRESULT")
+        plStatusMarshal := plStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "int", lTimeout, plStatusMarshal, plStatus, "HRESULT")
         return result
     }
 }

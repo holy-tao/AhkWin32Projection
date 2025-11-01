@@ -84,7 +84,9 @@ class IMemInputPin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imeminputpin-receivemultiple
      */
     ReceiveMultiple(pSamples, nSamples, nSamplesProcessed) {
-        result := ComCall(7, this, "ptr*", pSamples, "int", nSamples, "int*", nSamplesProcessed, "HRESULT")
+        nSamplesProcessedMarshal := nSamplesProcessed is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr*", pSamples, "int", nSamples, nSamplesProcessedMarshal, nSamplesProcessed, "HRESULT")
         return result
     }
 

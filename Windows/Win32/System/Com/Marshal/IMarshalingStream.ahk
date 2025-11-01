@@ -43,7 +43,9 @@ class IMarshalingStream extends IStream{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshalingstream-getmarshalingcontextattribute
      */
     GetMarshalingContextAttribute(attribute, pAttributeValue) {
-        result := ComCall(14, this, "int", attribute, "ptr*", pAttributeValue, "HRESULT")
+        pAttributeValueMarshal := pAttributeValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "int", attribute, pAttributeValueMarshal, pAttributeValue, "HRESULT")
         return result
     }
 }

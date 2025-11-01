@@ -301,7 +301,9 @@ class IFont extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_weight
      */
     get_Weight(pWeight) {
-        result := ComCall(15, this, "short*", pWeight, "HRESULT")
+        pWeightMarshal := pWeight is VarRef ? "short*" : "ptr"
+
+        result := ComCall(15, this, pWeightMarshal, pWeight, "HRESULT")
         return result
     }
 
@@ -323,7 +325,9 @@ class IFont extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_charset
      */
     get_Charset(pCharset) {
-        result := ComCall(17, this, "short*", pCharset, "HRESULT")
+        pCharsetMarshal := pCharset is VarRef ? "short*" : "ptr"
+
+        result := ComCall(17, this, pCharsetMarshal, pCharset, "HRESULT")
         return result
     }
 

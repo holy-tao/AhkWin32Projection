@@ -45,7 +45,9 @@ class IWpdSerializer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getiportabledevicevaluesfrombuffer
      */
     GetIPortableDeviceValuesFromBuffer(pBuffer, dwInputBufferLength, ppParams) {
-        result := ComCall(3, this, "char*", pBuffer, "uint", dwInputBufferLength, "ptr*", ppParams, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwInputBufferLength, "ptr*", ppParams, "HRESULT")
         return result
     }
 
@@ -59,7 +61,10 @@ class IWpdSerializer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-writeiportabledevicevaluestobuffer
      */
     WriteIPortableDeviceValuesToBuffer(dwOutputBufferLength, pResults, pBuffer, pdwBytesWritten) {
-        result := ComCall(4, this, "uint", dwOutputBufferLength, "ptr", pResults, "char*", pBuffer, "uint*", pdwBytesWritten, "HRESULT")
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pdwBytesWrittenMarshal := pdwBytesWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwOutputBufferLength, "ptr", pResults, pBufferMarshal, pBuffer, pdwBytesWrittenMarshal, pdwBytesWritten, "HRESULT")
         return result
     }
 
@@ -72,7 +77,9 @@ class IWpdSerializer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getbufferfromiportabledevicevalues
      */
     GetBufferFromIPortableDeviceValues(pSource, ppBuffer, pdwBufferSize) {
-        result := ComCall(5, this, "ptr", pSource, "ptr*", ppBuffer, "uint*", pdwBufferSize, "HRESULT")
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pSource, "ptr*", ppBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
     }
 
@@ -84,7 +91,9 @@ class IWpdSerializer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getserializedsize
      */
     GetSerializedSize(pSource, pdwSize) {
-        result := ComCall(6, this, "ptr", pSource, "uint*", pdwSize, "HRESULT")
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pSource, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 }

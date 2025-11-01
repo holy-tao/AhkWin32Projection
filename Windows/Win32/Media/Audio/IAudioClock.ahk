@@ -37,7 +37,9 @@ class IAudioClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclock-getfrequency
      */
     GetFrequency(pu64Frequency) {
-        result := ComCall(3, this, "uint*", pu64Frequency, "HRESULT")
+        pu64FrequencyMarshal := pu64Frequency is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pu64FrequencyMarshal, pu64Frequency, "HRESULT")
         return result
     }
 
@@ -49,7 +51,10 @@ class IAudioClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclock-getposition
      */
     GetPosition(pu64Position, pu64QPCPosition) {
-        result := ComCall(4, this, "uint*", pu64Position, "uint*", pu64QPCPosition, "HRESULT")
+        pu64PositionMarshal := pu64Position is VarRef ? "uint*" : "ptr"
+        pu64QPCPositionMarshal := pu64QPCPosition is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pu64PositionMarshal, pu64Position, pu64QPCPositionMarshal, pu64QPCPosition, "HRESULT")
         return result
     }
 
@@ -60,7 +65,9 @@ class IAudioClock extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclock-getcharacteristics
      */
     GetCharacteristics(pdwCharacteristics) {
-        result := ComCall(5, this, "uint*", pdwCharacteristics, "HRESULT")
+        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
         return result
     }
 }

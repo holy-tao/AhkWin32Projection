@@ -44,7 +44,9 @@ class IMFTimedTextRuby extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRubyPosition(value) {
-        result := ComCall(4, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IMFTimedTextRuby extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRubyAlign(value) {
-        result := ComCall(5, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IMFTimedTextRuby extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRubyReserve(value) {
-        result := ComCall(6, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

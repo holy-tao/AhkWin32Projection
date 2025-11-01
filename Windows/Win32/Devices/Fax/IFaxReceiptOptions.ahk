@@ -48,7 +48,9 @@ class IFaxReceiptOptions extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_authenticationtype
      */
     get_AuthenticationType(pType) {
-        result := ComCall(7, this, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -94,7 +96,9 @@ class IFaxReceiptOptions extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpport
      */
     get_SMTPPort(plSMTPPort) {
-        result := ComCall(11, this, "int*", plSMTPPort, "HRESULT")
+        plSMTPPortMarshal := plSMTPPort is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plSMTPPortMarshal, plSMTPPort, "HRESULT")
         return result
     }
 
@@ -164,7 +168,9 @@ class IFaxReceiptOptions extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_allowedreceipts
      */
     get_AllowedReceipts(pAllowedReceipts) {
-        result := ComCall(17, this, "int*", pAllowedReceipts, "HRESULT")
+        pAllowedReceiptsMarshal := pAllowedReceipts is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pAllowedReceiptsMarshal, pAllowedReceipts, "HRESULT")
         return result
     }
 

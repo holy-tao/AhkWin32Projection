@@ -51,7 +51,9 @@ class ISpatialAudioMetadataCopier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-copymetadataforframes
      */
     CopyMetadataForFrames(copyFrameCount, copyMode, dstMetadataItems, itemsCopied) {
-        result := ComCall(4, this, "ushort", copyFrameCount, "int", copyMode, "ptr", dstMetadataItems, "ushort*", itemsCopied, "HRESULT")
+        itemsCopiedMarshal := itemsCopied is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "ushort", copyFrameCount, "int", copyMode, "ptr", dstMetadataItems, itemsCopiedMarshal, itemsCopied, "HRESULT")
         return result
     }
 

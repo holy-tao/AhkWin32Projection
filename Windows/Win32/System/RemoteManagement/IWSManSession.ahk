@@ -154,7 +154,9 @@ class IWSManSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get_batchitems
      */
     get_BatchItems(value) {
-        result := ComCall(15, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -176,7 +178,9 @@ class IWSManSession extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get_timeout
      */
     get_Timeout(value) {
-        result := ComCall(17, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, valueMarshal, value, "HRESULT")
         return result
     }
 

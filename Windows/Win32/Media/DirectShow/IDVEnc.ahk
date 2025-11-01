@@ -41,7 +41,11 @@ class IDVEnc extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvenc-get_iformatresolution
      */
     get_IFormatResolution(VideoFormat, DVFormat, Resolution, fDVInfo, sDVInfo) {
-        result := ComCall(3, this, "int*", VideoFormat, "int*", DVFormat, "int*", Resolution, "char", fDVInfo, "ptr", sDVInfo, "HRESULT")
+        VideoFormatMarshal := VideoFormat is VarRef ? "int*" : "ptr"
+        DVFormatMarshal := DVFormat is VarRef ? "int*" : "ptr"
+        ResolutionMarshal := Resolution is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, VideoFormatMarshal, VideoFormat, DVFormatMarshal, DVFormat, ResolutionMarshal, Resolution, "char", fDVInfo, "ptr", sDVInfo, "HRESULT")
         return result
     }
 

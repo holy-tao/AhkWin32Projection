@@ -51,7 +51,9 @@ class IHTMLTable extends IDispatch{
      * @returns {HRESULT} 
      */
     get_cols(p) {
-        result := ComCall(8, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -358,7 +360,9 @@ class IHTMLTable extends IDispatch{
      * @returns {HRESULT} 
      */
     get_dataPageSize(p) {
-        result := ComCall(38, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(38, this, pMarshal, p, "HRESULT")
         return result
     }
 

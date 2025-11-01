@@ -44,7 +44,9 @@ class IExtensionValidation extends IUnknown{
     Validate(extensionGuid, extensionModulePath, extensionFileVersionMS, extensionFileVersionLS, htmlDocumentTop, htmlDocumentSubframe, htmlElement, contexts, results) {
         extensionModulePath := extensionModulePath is String ? StrPtr(extensionModulePath) : extensionModulePath
 
-        result := ComCall(3, this, "ptr", extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, "int", contexts, "int*", results, "HRESULT")
+        resultsMarshal := results is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, "int", contexts, resultsMarshal, results, "HRESULT")
         return result
     }
 

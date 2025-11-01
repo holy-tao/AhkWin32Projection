@@ -40,7 +40,9 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
      * @returns {HRESULT} 
      */
     get_State(plState) {
-        result := ComCall(16, this, "int*", plState, "HRESULT")
+        plStateMarshal := plState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, plStateMarshal, plState, "HRESULT")
         return result
     }
 

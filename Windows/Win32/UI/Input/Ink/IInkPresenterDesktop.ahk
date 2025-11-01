@@ -61,7 +61,10 @@ class IInkPresenterDesktop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-getsize
      */
     GetSize(width, height) {
-        result := ComCall(5, this, "float*", width, "float*", height, "HRESULT")
+        widthMarshal := width is VarRef ? "float*" : "ptr"
+        heightMarshal := height is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, widthMarshal, width, heightMarshal, height, "HRESULT")
         return result
     }
 

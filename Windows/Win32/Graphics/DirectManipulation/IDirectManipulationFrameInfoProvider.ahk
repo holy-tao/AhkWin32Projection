@@ -39,7 +39,11 @@ class IDirectManipulationFrameInfoProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationframeinfoprovider-getnextframeinfo
      */
     GetNextFrameInfo(time, processTime, compositionTime) {
-        result := ComCall(3, this, "uint*", time, "uint*", processTime, "uint*", compositionTime, "HRESULT")
+        timeMarshal := time is VarRef ? "uint*" : "ptr"
+        processTimeMarshal := processTime is VarRef ? "uint*" : "ptr"
+        compositionTimeMarshal := compositionTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, timeMarshal, time, processTimeMarshal, processTime, compositionTimeMarshal, compositionTime, "HRESULT")
         return result
     }
 }

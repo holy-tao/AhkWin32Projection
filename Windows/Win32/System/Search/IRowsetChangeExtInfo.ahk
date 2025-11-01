@@ -36,7 +36,9 @@ class IRowsetChangeExtInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOriginalRow(hReserved, hRow, phRowOriginal) {
-        result := ComCall(3, this, "ptr", hReserved, "ptr", hRow, "ptr*", phRowOriginal, "HRESULT")
+        phRowOriginalMarshal := phRowOriginal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hReserved, "ptr", hRow, phRowOriginalMarshal, phRowOriginal, "HRESULT")
         return result
     }
 
@@ -50,7 +52,10 @@ class IRowsetChangeExtInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPendingColumns(hReserved, hRow, cColumnOrdinals, rgiOrdinals, rgColumnStatus) {
-        result := ComCall(4, this, "ptr", hReserved, "ptr", hRow, "uint", cColumnOrdinals, "uint*", rgiOrdinals, "uint*", rgColumnStatus, "HRESULT")
+        rgiOrdinalsMarshal := rgiOrdinals is VarRef ? "uint*" : "ptr"
+        rgColumnStatusMarshal := rgColumnStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hReserved, "ptr", hRow, "uint", cColumnOrdinals, rgiOrdinalsMarshal, rgiOrdinals, rgColumnStatusMarshal, rgColumnStatus, "HRESULT")
         return result
     }
 }

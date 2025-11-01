@@ -72,7 +72,9 @@ class IMSMQManagement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_MessageCount(plMessageCount) {
-        result := ComCall(10, this, "int*", plMessageCount, "HRESULT")
+        plMessageCountMarshal := plMessageCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plMessageCountMarshal, plMessageCount, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class IMSMQManagement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_ForeignStatus(plForeignStatus) {
-        result := ComCall(11, this, "int*", plForeignStatus, "HRESULT")
+        plForeignStatusMarshal := plForeignStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, plForeignStatusMarshal, plForeignStatus, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class IMSMQManagement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_QueueType(plQueueType) {
-        result := ComCall(12, this, "int*", plQueueType, "HRESULT")
+        plQueueTypeMarshal := plQueueType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, plQueueTypeMarshal, plQueueType, "HRESULT")
         return result
     }
 
@@ -112,7 +118,9 @@ class IMSMQManagement extends IDispatch{
      * @returns {HRESULT} 
      */
     get_TransactionalStatus(plTransactionalStatus) {
-        result := ComCall(14, this, "int*", plTransactionalStatus, "HRESULT")
+        plTransactionalStatusMarshal := plTransactionalStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, plTransactionalStatusMarshal, plTransactionalStatus, "HRESULT")
         return result
     }
 

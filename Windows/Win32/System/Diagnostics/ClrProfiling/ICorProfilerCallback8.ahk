@@ -37,7 +37,9 @@ class ICorProfilerCallback8 extends ICorProfilerCallback7{
      * @returns {HRESULT} 
      */
     DynamicMethodJITCompilationStarted(functionId, fIsSafeToBlock, pILHeader, cbILHeader) {
-        result := ComCall(92, this, "ptr", functionId, "int", fIsSafeToBlock, "char*", pILHeader, "uint", cbILHeader, "HRESULT")
+        pILHeaderMarshal := pILHeader is VarRef ? "char*" : "ptr"
+
+        result := ComCall(92, this, "ptr", functionId, "int", fIsSafeToBlock, pILHeaderMarshal, pILHeader, "uint", cbILHeader, "HRESULT")
         return result
     }
 

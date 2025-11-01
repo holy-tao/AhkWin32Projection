@@ -66,7 +66,9 @@ class ISearchLanguageSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadwordbreaker
      */
     LoadWordBreaker(lcid, riid, ppWordBreaker, pLcidUsed) {
-        result := ComCall(5, this, "uint", lcid, "ptr", riid, "ptr*", ppWordBreaker, "uint*", pLcidUsed, "HRESULT")
+        pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", lcid, "ptr", riid, "ptr*", ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 
@@ -80,7 +82,9 @@ class ISearchLanguageSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadstemmer
      */
     LoadStemmer(lcid, riid, ppStemmer, pLcidUsed) {
-        result := ComCall(6, this, "uint", lcid, "ptr", riid, "ptr*", ppStemmer, "uint*", pLcidUsed, "HRESULT")
+        pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", lcid, "ptr", riid, "ptr*", ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class ISearchLanguageSupport extends IUnknown{
         pwcsQueryToken := pwcsQueryToken is String ? StrPtr(pwcsQueryToken) : pwcsQueryToken
         pwcsDocumentToken := pwcsDocumentToken is String ? StrPtr(pwcsDocumentToken) : pwcsDocumentToken
 
-        result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, "uint*", pulPrefixLength, "HRESULT")
+        pulPrefixLengthMarshal := pulPrefixLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, pulPrefixLengthMarshal, pulPrefixLength, "HRESULT")
         return result
     }
 }

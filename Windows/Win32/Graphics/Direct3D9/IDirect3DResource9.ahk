@@ -91,7 +91,9 @@ class IDirect3DResource9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-setprivatedata
      */
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
-        result := ComCall(4, this, "ptr", refguid, "ptr", pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", refguid, pDataMarshal, pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -104,7 +106,10 @@ class IDirect3DResource9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-getprivatedata
      */
     GetPrivateData(refguid, pData, pSizeOfData) {
-        result := ComCall(5, this, "ptr", refguid, "ptr", pData, "uint*", pSizeOfData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", refguid, pDataMarshal, pData, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
     }
 

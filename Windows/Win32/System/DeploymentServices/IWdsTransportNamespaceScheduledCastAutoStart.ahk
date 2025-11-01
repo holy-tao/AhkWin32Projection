@@ -43,7 +43,9 @@ class IWdsTransportNamespaceScheduledCastAutoStart extends IWdsTransportNamespac
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-get_minimumclients
      */
     get_MinimumClients(pulMinimumClients) {
-        result := ComCall(29, this, "uint*", pulMinimumClients, "HRESULT")
+        pulMinimumClientsMarshal := pulMinimumClients is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(29, this, pulMinimumClientsMarshal, pulMinimumClients, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IWdsTransportNamespaceScheduledCastAutoStart extends IWdsTransportNamespac
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-get_starttime
      */
     get_StartTime(pStartTime) {
-        result := ComCall(31, this, "double*", pStartTime, "HRESULT")
+        pStartTimeMarshal := pStartTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(31, this, pStartTimeMarshal, pStartTime, "HRESULT")
         return result
     }
 

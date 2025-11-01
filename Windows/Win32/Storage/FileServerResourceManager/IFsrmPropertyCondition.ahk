@@ -66,7 +66,9 @@ class IFsrmPropertyCondition extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_type
      */
     get_Type(type) {
-        result := ComCall(9, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, typeMarshal, type, "HRESULT")
         return result
     }
 

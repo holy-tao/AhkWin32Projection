@@ -46,7 +46,9 @@ class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-gettopologyworkqueuemmcsspriority
      */
     GetTopologyWorkQueueMMCSSPriority(dwTopologyWorkQueueId, plPriority) {
-        result := ComCall(15, this, "uint", dwTopologyWorkQueueId, "int*", plPriority, "HRESULT")
+        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwTopologyWorkQueueId, plPriorityMarshal, plPriority, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-getplatformworkqueuemmcsspriority
      */
     GetPlatformWorkQueueMMCSSPriority(dwPlatformWorkQueueId, plPriority) {
-        result := ComCall(17, this, "uint", dwPlatformWorkQueueId, "int*", plPriority, "HRESULT")
+        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, "uint", dwPlatformWorkQueueId, plPriorityMarshal, plPriority, "HRESULT")
         return result
     }
 }

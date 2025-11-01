@@ -35,7 +35,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetClassFromObject(objectId, pClassId) {
-        result := ComCall(3, this, "ptr", objectId, "ptr*", pClassId, "HRESULT")
+        pClassIdMarshal := pClassId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", objectId, pClassIdMarshal, pClassId, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetClassFromToken(moduleId, typeDef, pClassId) {
-        result := ComCall(4, this, "ptr", moduleId, "uint", typeDef, "ptr*", pClassId, "HRESULT")
+        pClassIdMarshal := pClassId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", moduleId, "uint", typeDef, pClassIdMarshal, pClassId, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCodeInfo(functionId, pStart, pcSize) {
-        result := ComCall(5, this, "ptr", functionId, "ptr*", pStart, "uint*", pcSize, "HRESULT")
+        pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", functionId, "ptr*", pStart, pcSizeMarshal, pcSize, "HRESULT")
         return result
     }
 
@@ -69,7 +75,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventMask(pdwEvents) {
-        result := ComCall(6, this, "uint*", pdwEvents, "HRESULT")
+        pdwEventsMarshal := pdwEvents is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwEventsMarshal, pdwEvents, "HRESULT")
         return result
     }
 
@@ -80,7 +88,10 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFunctionFromIP(ip, pFunctionId) {
-        result := ComCall(7, this, "char*", ip, "ptr*", pFunctionId, "HRESULT")
+        ipMarshal := ip is VarRef ? "char*" : "ptr"
+        pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, ipMarshal, ip, pFunctionIdMarshal, pFunctionId, "HRESULT")
         return result
     }
 
@@ -92,7 +103,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFunctionFromToken(moduleId, token, pFunctionId) {
-        result := ComCall(8, this, "ptr", moduleId, "uint", token, "ptr*", pFunctionId, "HRESULT")
+        pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", moduleId, "uint", token, pFunctionIdMarshal, pFunctionId, "HRESULT")
         return result
     }
 
@@ -114,7 +127,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetObjectSize(objectId, pcSize) {
-        result := ComCall(10, this, "ptr", objectId, "uint*", pcSize, "HRESULT")
+        pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", objectId, pcSizeMarshal, pcSize, "HRESULT")
         return result
     }
 
@@ -127,7 +142,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     IsArrayClass(classId, pBaseElemType, pBaseClassId, pcRank) {
-        result := ComCall(11, this, "ptr", classId, "char*", pBaseElemType, "ptr*", pBaseClassId, "uint*", pcRank, "HRESULT")
+        pBaseElemTypeMarshal := pBaseElemType is VarRef ? "char*" : "ptr"
+        pBaseClassIdMarshal := pBaseClassId is VarRef ? "ptr*" : "ptr"
+        pcRankMarshal := pcRank is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", classId, pBaseElemTypeMarshal, pBaseElemType, pBaseClassIdMarshal, pBaseClassId, pcRankMarshal, pcRank, "HRESULT")
         return result
     }
 
@@ -138,7 +157,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetThreadInfo(threadId, pdwWin32ThreadId) {
-        result := ComCall(12, this, "ptr", threadId, "uint*", pdwWin32ThreadId, "HRESULT")
+        pdwWin32ThreadIdMarshal := pdwWin32ThreadId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", threadId, pdwWin32ThreadIdMarshal, pdwWin32ThreadId, "HRESULT")
         return result
     }
 
@@ -148,7 +169,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentThreadID(pThreadId) {
-        result := ComCall(13, this, "ptr*", pThreadId, "HRESULT")
+        pThreadIdMarshal := pThreadId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, pThreadIdMarshal, pThreadId, "HRESULT")
         return result
     }
 
@@ -160,7 +183,10 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetClassIDInfo(classId, pModuleId, pTypeDefToken) {
-        result := ComCall(14, this, "ptr", classId, "ptr*", pModuleId, "uint*", pTypeDefToken, "HRESULT")
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
+        pTypeDefTokenMarshal := pTypeDefToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, "HRESULT")
         return result
     }
 
@@ -173,7 +199,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFunctionInfo(functionId, pClassId, pModuleId, pToken) {
-        result := ComCall(15, this, "ptr", functionId, "ptr*", pClassId, "ptr*", pModuleId, "uint*", pToken, "HRESULT")
+        pClassIdMarshal := pClassId is VarRef ? "ptr*" : "ptr"
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
+        pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", functionId, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "HRESULT")
         return result
     }
 
@@ -218,7 +248,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTokenAndMetaDataFromFunction(functionId, riid, ppImport, pToken) {
-        result := ComCall(19, this, "ptr", functionId, "ptr", riid, "ptr*", ppImport, "uint*", pToken, "HRESULT")
+        pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, "ptr", functionId, "ptr", riid, "ptr*", ppImport, pTokenMarshal, pToken, "HRESULT")
         return result
     }
 
@@ -235,7 +267,10 @@ class ICorProfilerInfo extends IUnknown{
     GetModuleInfo(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(20, this, "ptr", moduleId, "ptr*", ppBaseLoadAddress, "uint", cchName, "uint*", pcchName, "ptr", szName, "ptr*", pAssemblyId, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+        pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(20, this, "ptr", moduleId, "ptr*", ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "HRESULT")
         return result
     }
 
@@ -261,7 +296,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetILFunctionBody(moduleId, methodId, ppMethodHeader, pcbMethodSize) {
-        result := ComCall(22, this, "ptr", moduleId, "uint", methodId, "ptr*", ppMethodHeader, "uint*", pcbMethodSize, "HRESULT")
+        pcbMethodSizeMarshal := pcbMethodSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "ptr", moduleId, "uint", methodId, "ptr*", ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "HRESULT")
         return result
     }
 
@@ -284,7 +321,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     SetILFunctionBody(moduleId, methodid, pbNewILMethodHeader) {
-        result := ComCall(24, this, "ptr", moduleId, "uint", methodid, "char*", pbNewILMethodHeader, "HRESULT")
+        pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
+
+        result := ComCall(24, this, "ptr", moduleId, "uint", methodid, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
         return result
     }
 
@@ -300,7 +339,10 @@ class ICorProfilerInfo extends IUnknown{
     GetAppDomainInfo(appDomainId, cchName, pcchName, szName, pProcessId) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(25, this, "ptr", appDomainId, "uint", cchName, "uint*", pcchName, "ptr", szName, "ptr*", pProcessId, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+        pProcessIdMarshal := pProcessId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(25, this, "ptr", appDomainId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pProcessIdMarshal, pProcessId, "HRESULT")
         return result
     }
 
@@ -317,7 +359,11 @@ class ICorProfilerInfo extends IUnknown{
     GetAssemblyInfo(assemblyId, cchName, pcchName, szName, pAppDomainId, pModuleId) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(26, this, "ptr", assemblyId, "uint", cchName, "uint*", pcchName, "ptr", szName, "ptr*", pAppDomainId, "ptr*", pModuleId, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+        pAppDomainIdMarshal := pAppDomainId is VarRef ? "ptr*" : "ptr"
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(26, this, "ptr", assemblyId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAppDomainIdMarshal, pAppDomainId, pModuleIdMarshal, pModuleId, "HRESULT")
         return result
     }
 
@@ -383,7 +429,9 @@ class ICorProfilerInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId, pContextId) {
-        result := ComCall(32, this, "ptr", threadId, "ptr*", pContextId, "HRESULT")
+        pContextIdMarshal := pContextId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(32, this, "ptr", threadId, pContextIdMarshal, pContextId, "HRESULT")
         return result
     }
 
@@ -394,7 +442,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     BeginInprocDebugging(fThisThreadOnly, pdwProfilerContext) {
-        result := ComCall(33, this, "int", fThisThreadOnly, "uint*", pdwProfilerContext, "HRESULT")
+        pdwProfilerContextMarshal := pdwProfilerContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, "int", fThisThreadOnly, pdwProfilerContextMarshal, pdwProfilerContext, "HRESULT")
         return result
     }
 
@@ -417,7 +467,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetILToNativeMapping(functionId, cMap, pcMap, map) {
-        result := ComCall(35, this, "ptr", functionId, "uint", cMap, "uint*", pcMap, "ptr", map, "HRESULT")
+        pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, "ptr", functionId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
         return result
     }
 }

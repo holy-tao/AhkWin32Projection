@@ -41,7 +41,9 @@ class IMbnRadio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_softwareradiostate
      */
     get_SoftwareRadioState(SoftwareRadioState) {
-        result := ComCall(3, this, "int*", SoftwareRadioState, "HRESULT")
+        SoftwareRadioStateMarshal := SoftwareRadioState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, SoftwareRadioStateMarshal, SoftwareRadioState, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class IMbnRadio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_hardwareradiostate
      */
     get_HardwareRadioState(HardwareRadioState) {
-        result := ComCall(4, this, "int*", HardwareRadioState, "HRESULT")
+        HardwareRadioStateMarshal := HardwareRadioState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, HardwareRadioStateMarshal, HardwareRadioState, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IMbnRadio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-setsoftwareradiostate
      */
     SetSoftwareRadioState(radioState, requestID) {
-        result := ComCall(5, this, "int", radioState, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", radioState, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 }

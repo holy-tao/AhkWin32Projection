@@ -53,7 +53,9 @@ class ISyncMgrSyncCallback extends IUnknown{
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
         pszProgressText := pszProgressText is String ? StrPtr(pszProgressText) : pszProgressText
 
-        result := ComCall(3, this, "ptr", pszItemID, "ptr", pszProgressText, "int", nStatus, "uint", uCurrentStep, "uint", uMaxStep, "int*", pnCancelRequest, "HRESULT")
+        pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszItemID, "ptr", pszProgressText, "int", nStatus, "uint", uCurrentStep, "uint", uMaxStep, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class ISyncMgrSyncCallback extends IUnknown{
     SetHandlerProgressText(pszProgressText, pnCancelRequest) {
         pszProgressText := pszProgressText is String ? StrPtr(pszProgressText) : pszProgressText
 
-        result := ComCall(4, this, "ptr", pszProgressText, "int*", pnCancelRequest, "HRESULT")
+        pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszProgressText, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
         return result
     }
 

@@ -45,7 +45,9 @@ class IObjectArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getcount
      */
     GetCount(pcObjects) {
-        result := ComCall(3, this, "uint*", pcObjects, "HRESULT")
+        pcObjectsMarshal := pcObjects is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcObjectsMarshal, pcObjects, "HRESULT")
         return result
     }
 

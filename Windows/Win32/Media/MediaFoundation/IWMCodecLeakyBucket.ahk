@@ -48,7 +48,9 @@ class IWMCodecLeakyBucket extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbuffersizebits
      */
     GetBufferSizeBits(pulBufferSize) {
-        result := ComCall(4, this, "uint*", pulBufferSize, "HRESULT")
+        pulBufferSizeMarshal := pulBufferSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pulBufferSizeMarshal, pulBufferSize, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IWMCodecLeakyBucket extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbufferfullnessbits
      */
     GetBufferFullnessBits(pulBufferFullness) {
-        result := ComCall(6, this, "uint*", pulBufferFullness, "HRESULT")
+        pulBufferFullnessMarshal := pulBufferFullness is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pulBufferFullnessMarshal, pulBufferFullness, "HRESULT")
         return result
     }
 }

@@ -39,7 +39,9 @@ class IDtcToXaHelperSinglePipe extends IUnknown{
         pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN
         pszClientDll := pszClientDll is String ? StrPtr(pszClientDll) : pszClientDll
 
-        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDll, "uint*", pdwRMCookie, "HRESULT")
+        pdwRMCookieMarshal := pdwRMCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDll, pdwRMCookieMarshal, pdwRMCookie, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IDtcToXaHelperSinglePipe extends IUnknown{
      * @returns {HRESULT} 
      */
     ConvertTridToXID(pdwITrans, dwRMCookie, pxid) {
-        result := ComCall(4, this, "uint*", pdwITrans, "uint", dwRMCookie, "ptr", pxid, "HRESULT")
+        pdwITransMarshal := pdwITrans is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwITransMarshal, pdwITrans, "uint", dwRMCookie, "ptr", pxid, "HRESULT")
         return result
     }
 

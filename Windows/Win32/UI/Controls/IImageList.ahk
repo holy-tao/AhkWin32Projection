@@ -42,7 +42,9 @@ class IImageList extends IUnknown{
         hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
         hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
 
-        result := ComCall(3, this, "ptr", hbmImage, "ptr", hbmMask, "int*", pi, "HRESULT")
+        piMarshal := pi is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hbmImage, "ptr", hbmMask, piMarshal, pi, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IImageList extends IUnknown{
     ReplaceIcon(i, hicon, pi) {
         hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
 
-        result := ComCall(4, this, "int", i, "ptr", hicon, "int*", pi, "HRESULT")
+        piMarshal := pi is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", i, "ptr", hicon, piMarshal, pi, "HRESULT")
         return result
     }
 
@@ -100,7 +104,9 @@ class IImageList extends IUnknown{
     AddMasked(hbmImage, crMask, pi) {
         hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
 
-        result := ComCall(7, this, "ptr", hbmImage, "uint", crMask, "int*", pi, "HRESULT")
+        piMarshal := pi is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hbmImage, "uint", crMask, piMarshal, pi, "HRESULT")
         return result
     }
 
@@ -214,7 +220,10 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-geticonsize
      */
     GetIconSize(cx, cy) {
-        result := ComCall(16, this, "int*", cx, "int*", cy, "HRESULT")
+        cxMarshal := cx is VarRef ? "int*" : "ptr"
+        cyMarshal := cy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, cxMarshal, cx, cyMarshal, cy, "HRESULT")
         return result
     }
 
@@ -237,7 +246,9 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getimagecount
      */
     GetImageCount(pi) {
-        result := ComCall(18, this, "int*", pi, "HRESULT")
+        piMarshal := pi is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, piMarshal, pi, "HRESULT")
         return result
     }
 
@@ -389,7 +400,9 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getitemflags
      */
     GetItemFlags(i, dwFlags) {
-        result := ComCall(30, this, "int", i, "uint*", dwFlags, "HRESULT")
+        dwFlagsMarshal := dwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, "int", i, dwFlagsMarshal, dwFlags, "HRESULT")
         return result
     }
 
@@ -401,7 +414,9 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getoverlayimage
      */
     GetOverlayImage(iOverlay, piIndex) {
-        result := ComCall(31, this, "int", iOverlay, "int*", piIndex, "HRESULT")
+        piIndexMarshal := piIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, "int", iOverlay, piIndexMarshal, piIndex, "HRESULT")
         return result
     }
 }

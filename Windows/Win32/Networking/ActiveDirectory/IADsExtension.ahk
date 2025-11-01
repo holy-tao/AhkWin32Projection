@@ -55,7 +55,9 @@ class IADsExtension extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-privategetidsofnames
      */
     PrivateGetIDsOfNames(riid, rgszNames, cNames, lcid, rgDispid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", rgszNames, "uint", cNames, "uint", lcid, "int*", rgDispid, "HRESULT")
+        rgDispidMarshal := rgDispid is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, "ptr*", rgszNames, "uint", cNames, "uint", lcid, rgDispidMarshal, rgDispid, "HRESULT")
         return result
     }
 
@@ -73,7 +75,9 @@ class IADsExtension extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-privateinvoke
      */
     PrivateInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
-        result := ComCall(5, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, "uint*", puArgErr, "HRESULT")
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 }

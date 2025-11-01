@@ -39,7 +39,9 @@ class IActiveIME extends IUnknown{
     Inquire(dwSystemInfoFlags, pIMEInfo, szWndClass, pdwPrivate) {
         szWndClass := szWndClass is String ? StrPtr(szWndClass) : szWndClass
 
-        result := ComCall(3, this, "uint", dwSystemInfoFlags, "ptr", pIMEInfo, "ptr", szWndClass, "uint*", pdwPrivate, "HRESULT")
+        pdwPrivateMarshal := pdwPrivate is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwSystemInfoFlags, "ptr", pIMEInfo, "ptr", szWndClass, pdwPrivateMarshal, pdwPrivate, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IActiveIME extends IUnknown{
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
         szSource := szSource is String ? StrPtr(szSource) : szSource
 
-        result := ComCall(4, this, "ptr", hIMC, "ptr", szSource, "uint", uFlag, "uint", uBufLen, "ptr", pDest, "uint*", puCopied, "HRESULT")
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hIMC, "ptr", szSource, "uint", uFlag, "uint", uBufLen, "ptr", pDest, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -101,7 +105,9 @@ class IActiveIME extends IUnknown{
     Escape(hIMC, uEscape, pData, plResult) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(7, this, "ptr", hIMC, "uint", uEscape, "ptr", pData, "ptr", plResult, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", hIMC, "uint", uEscape, pDataMarshal, pData, "ptr", plResult, "HRESULT")
         return result
     }
 
@@ -129,7 +135,9 @@ class IActiveIME extends IUnknown{
     ProcessKey(hIMC, uVirKey, lParam, pbKeyState) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(9, this, "ptr", hIMC, "uint", uVirKey, "uint", lParam, "char*", pbKeyState, "HRESULT")
+        pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "ptr", hIMC, "uint", uVirKey, "uint", lParam, pbKeyStateMarshal, pbKeyState, "HRESULT")
         return result
     }
 
@@ -174,7 +182,10 @@ class IActiveIME extends IUnknown{
     SetCompositionString(hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(12, this, "ptr", hIMC, "uint", dwIndex, "ptr", pComp, "uint", dwCompLen, "ptr", pRead, "uint", dwReadLen, "HRESULT")
+        pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
+        pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, "ptr", hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
         return result
     }
 
@@ -237,7 +248,11 @@ class IActiveIME extends IUnknown{
     ToAsciiEx(uVirKey, uScanCode, pbKeyState, fuState, hIMC, pdwTransBuf, puSize) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(13, this, "uint", uVirKey, "uint", uScanCode, "char*", pbKeyState, "uint", fuState, "ptr", hIMC, "uint*", pdwTransBuf, "uint*", puSize, "HRESULT")
+        pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : "ptr"
+        pdwTransBufMarshal := pdwTransBuf is VarRef ? "uint*" : "ptr"
+        puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", uVirKey, "uint", uScanCode, pbKeyStateMarshal, pbKeyState, "uint", fuState, "ptr", hIMC, pdwTransBufMarshal, pdwTransBuf, puSizeMarshal, puSize, "HRESULT")
         return result
     }
 
@@ -279,7 +294,9 @@ class IActiveIME extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRegisterWordStyle(nItem, pStyleBuf, puBufSize) {
-        result := ComCall(16, this, "uint", nItem, "ptr", pStyleBuf, "uint*", puBufSize, "HRESULT")
+        puBufSizeMarshal := puBufSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "uint", nItem, "ptr", pStyleBuf, puBufSizeMarshal, puBufSize, "HRESULT")
         return result
     }
 
@@ -296,7 +313,9 @@ class IActiveIME extends IUnknown{
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        result := ComCall(17, this, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "ptr", pData, "ptr*", ppEnum, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(17, this, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", ppEnum, "HRESULT")
         return result
     }
 
@@ -306,7 +325,9 @@ class IActiveIME extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCodePageA(uCodePage) {
-        result := ComCall(18, this, "uint*", uCodePage, "HRESULT")
+        uCodePageMarshal := uCodePage is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, uCodePageMarshal, uCodePage, "HRESULT")
         return result
     }
 
@@ -316,7 +337,9 @@ class IActiveIME extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLangId(plid) {
-        result := ComCall(19, this, "ushort*", plid, "HRESULT")
+        plidMarshal := plid is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(19, this, plidMarshal, plid, "HRESULT")
         return result
     }
 }

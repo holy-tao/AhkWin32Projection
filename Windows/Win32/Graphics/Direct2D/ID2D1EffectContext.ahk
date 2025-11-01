@@ -45,7 +45,10 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-getdpi
      */
     GetDpi(dpiX, dpiY) {
-        ComCall(3, this, "float*", dpiX, "float*", dpiY)
+        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
+        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+
+        ComCall(3, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY)
     }
 
     /**
@@ -69,7 +72,10 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-getmaximumsupportedfeaturelevel
      */
     GetMaximumSupportedFeatureLevel(featureLevels, featureLevelsCount, maximumSupportedFeatureLevel) {
-        result := ComCall(5, this, "int*", featureLevels, "uint", featureLevelsCount, "int*", maximumSupportedFeatureLevel, "HRESULT")
+        featureLevelsMarshal := featureLevels is VarRef ? "int*" : "ptr"
+        maximumSupportedFeatureLevelMarshal := maximumSupportedFeatureLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, featureLevelsMarshal, featureLevels, "uint", featureLevelsCount, maximumSupportedFeatureLevelMarshal, maximumSupportedFeatureLevel, "HRESULT")
         return result
     }
 
@@ -144,7 +150,9 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-loadpixelshader
      */
     LoadPixelShader(shaderId, shaderBuffer, shaderBufferCount) {
-        result := ComCall(11, this, "ptr", shaderId, "char*", shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "ptr", shaderId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -157,7 +165,9 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-loadvertexshader
      */
     LoadVertexShader(resourceId, shaderBuffer, shaderBufferCount) {
-        result := ComCall(12, this, "ptr", resourceId, "char*", shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(12, this, "ptr", resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -170,7 +180,9 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-loadcomputeshader
      */
     LoadComputeShader(resourceId, shaderBuffer, shaderBufferCount) {
-        result := ComCall(13, this, "ptr", resourceId, "char*", shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "ptr", resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -197,7 +209,10 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createresourcetexture
      */
     CreateResourceTexture(resourceId, resourceTextureProperties, data, strides, dataSize, resourceTexture) {
-        result := ComCall(15, this, "ptr", resourceId, "ptr", resourceTextureProperties, "char*", data, "uint*", strides, "uint", dataSize, "ptr*", resourceTexture, "HRESULT")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+        stridesMarshal := strides is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", resourceId, "ptr", resourceTextureProperties, dataMarshal, data, stridesMarshal, strides, "uint", dataSize, "ptr*", resourceTexture, "HRESULT")
         return result
     }
 
@@ -249,7 +264,9 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createcolorcontext
      */
     CreateColorContext(space, profile, profileSize, colorContext) {
-        result := ComCall(19, this, "int", space, "char*", profile, "uint", profileSize, "ptr*", colorContext, "HRESULT")
+        profileMarshal := profile is VarRef ? "char*" : "ptr"
+
+        result := ComCall(19, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", colorContext, "HRESULT")
         return result
     }
 

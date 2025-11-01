@@ -38,7 +38,10 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getstreamcount
      */
     GetStreamCount(pcInputStreams, pcOutputStreams) {
-        result := ComCall(3, this, "uint*", pcInputStreams, "uint*", pcOutputStreams, "HRESULT")
+        pcInputStreamsMarshal := pcInputStreams is VarRef ? "uint*" : "ptr"
+        pcOutputStreamsMarshal := pcOutputStreams is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcInputStreamsMarshal, pcInputStreams, pcOutputStreamsMarshal, pcOutputStreams, "HRESULT")
         return result
     }
 
@@ -50,7 +53,9 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputstreaminfo
      */
     GetInputStreamInfo(dwInputStreamIndex, pdwFlags) {
-        result := ComCall(4, this, "uint", dwInputStreamIndex, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwInputStreamIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -62,7 +67,9 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getoutputstreaminfo
      */
     GetOutputStreamInfo(dwOutputStreamIndex, pdwFlags) {
-        result := ComCall(5, this, "uint", dwOutputStreamIndex, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwOutputStreamIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -152,7 +159,11 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputsizeinfo
      */
     GetInputSizeInfo(dwInputStreamIndex, pcbSize, pcbMaxLookahead, pcbAlignment) {
-        result := ComCall(12, this, "uint", dwInputStreamIndex, "uint*", pcbSize, "uint*", pcbMaxLookahead, "uint*", pcbAlignment, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pcbMaxLookaheadMarshal := pcbMaxLookahead is VarRef ? "uint*" : "ptr"
+        pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwInputStreamIndex, pcbSizeMarshal, pcbSize, pcbMaxLookaheadMarshal, pcbMaxLookahead, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
         return result
     }
 
@@ -165,7 +176,10 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getoutputsizeinfo
      */
     GetOutputSizeInfo(dwOutputStreamIndex, pcbSize, pcbAlignment) {
-        result := ComCall(13, this, "uint", dwOutputStreamIndex, "uint*", pcbSize, "uint*", pcbAlignment, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwOutputStreamIndex, pcbSizeMarshal, pcbSize, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
         return result
     }
 
@@ -177,7 +191,9 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputmaxlatency
      */
     GetInputMaxLatency(dwInputStreamIndex, prtMaxLatency) {
-        result := ComCall(14, this, "uint", dwInputStreamIndex, "int64*", prtMaxLatency, "HRESULT")
+        prtMaxLatencyMarshal := prtMaxLatency is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(14, this, "uint", dwInputStreamIndex, prtMaxLatencyMarshal, prtMaxLatency, "HRESULT")
         return result
     }
 
@@ -242,7 +258,9 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputstatus
      */
     GetInputStatus(dwInputStreamIndex, dwFlags) {
-        result := ComCall(20, this, "uint", dwInputStreamIndex, "uint*", dwFlags, "HRESULT")
+        dwFlagsMarshal := dwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", dwInputStreamIndex, dwFlagsMarshal, dwFlags, "HRESULT")
         return result
     }
 
@@ -271,7 +289,9 @@ class IMediaObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-processoutput
      */
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputBuffers, pdwStatus) {
-        result := ComCall(22, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputBuffers, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(22, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputBuffers, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 

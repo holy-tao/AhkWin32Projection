@@ -1652,9 +1652,11 @@ class Fax {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentA", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "uint*", FaxJobId, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentA", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, FaxJobIdMarshal, FaxJobId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1767,9 +1769,11 @@ class Fax {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentW", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "uint*", FaxJobId, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentW", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, FaxJobIdMarshal, FaxJobId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1862,9 +1866,12 @@ class Fax {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, "uint*", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1957,9 +1964,12 @@ class Fax {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, "uint*", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2028,9 +2038,11 @@ class Fax {
     static FaxEnumJobsA(FaxHandle, JobEntry, JobsReturned) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumJobsA", "ptr", FaxHandle, "ptr*", JobEntry, "uint*", JobsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumJobsA", "ptr", FaxHandle, "ptr*", JobEntry, JobsReturnedMarshal, JobsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2099,9 +2111,11 @@ class Fax {
     static FaxEnumJobsW(FaxHandle, JobEntry, JobsReturned) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumJobsW", "ptr", FaxHandle, "ptr*", JobEntry, "uint*", JobsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumJobsW", "ptr", FaxHandle, "ptr*", JobEntry, JobsReturnedMarshal, JobsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2385,7 +2399,11 @@ class Fax {
     static FaxGetPageData(FaxHandle, JobId, Buffer, BufferSize, ImageWidth, ImageHeight) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
-        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, "ptr*", Buffer, "uint*", BufferSize, "uint*", ImageWidth, "uint*", ImageHeight, "int")
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+        ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : "ptr"
+        ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, "ptr*", Buffer, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, "int")
         return result
     }
 
@@ -2876,9 +2894,11 @@ class Fax {
     static FaxGetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesA", "ptr", FaxHandle, "ptr*", Categories, "uint*", NumberCategories, "int")
+        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesA", "ptr", FaxHandle, "ptr*", Categories, NumberCategoriesMarshal, NumberCategories, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2951,9 +2971,11 @@ class Fax {
     static FaxGetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesW", "ptr", FaxHandle, "ptr*", Categories, "uint*", NumberCategories, "int")
+        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesW", "ptr", FaxHandle, "ptr*", Categories, NumberCategoriesMarshal, NumberCategories, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3186,9 +3208,11 @@ class Fax {
     static FaxEnumPortsA(FaxHandle, PortInfo, PortsReturned) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        PortsReturnedMarshal := PortsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumPortsA", "ptr", FaxHandle, "ptr*", PortInfo, "uint*", PortsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumPortsA", "ptr", FaxHandle, "ptr*", PortInfo, PortsReturnedMarshal, PortsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3257,9 +3281,11 @@ class Fax {
     static FaxEnumPortsW(FaxHandle, PortInfo, PortsReturned) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        PortsReturnedMarshal := PortsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumPortsW", "ptr", FaxHandle, "ptr*", PortInfo, "uint*", PortsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumPortsW", "ptr", FaxHandle, "ptr*", PortInfo, PortsReturnedMarshal, PortsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3604,9 +3630,11 @@ class Fax {
     static FaxEnumRoutingMethodsA(FaxPortHandle, RoutingMethod, MethodsReturned) {
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
 
+        MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsA", "ptr", FaxPortHandle, "ptr*", RoutingMethod, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsA", "ptr", FaxPortHandle, "ptr*", RoutingMethod, MethodsReturnedMarshal, MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3679,9 +3707,11 @@ class Fax {
     static FaxEnumRoutingMethodsW(FaxPortHandle, RoutingMethod, MethodsReturned) {
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
 
+        MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsW", "ptr", FaxPortHandle, "ptr*", RoutingMethod, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsW", "ptr", FaxPortHandle, "ptr*", RoutingMethod, MethodsReturnedMarshal, MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3902,9 +3932,11 @@ class Fax {
     static FaxEnumGlobalRoutingInfoA(FaxHandle, RoutingInfo, MethodsReturned) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoA", "ptr", FaxHandle, "ptr*", RoutingInfo, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoA", "ptr", FaxHandle, "ptr*", RoutingInfo, MethodsReturnedMarshal, MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3973,9 +4005,11 @@ class Fax {
     static FaxEnumGlobalRoutingInfoW(FaxHandle, RoutingInfo, MethodsReturned) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
+        MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoW", "ptr", FaxHandle, "ptr*", RoutingInfo, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoW", "ptr", FaxHandle, "ptr*", RoutingInfo, MethodsReturnedMarshal, MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4199,9 +4233,11 @@ class Fax {
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
         RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
+        RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr*", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr*", RoutingInfoBuffer, RoutingInfoBufferSizeMarshal, RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4289,9 +4325,11 @@ class Fax {
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
         RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
+        RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr*", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr*", RoutingInfoBuffer, RoutingInfoBufferSizeMarshal, RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4368,9 +4406,11 @@ class Fax {
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
         RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
+        RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "char*", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4447,9 +4487,11 @@ class Fax {
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
         RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
+        RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "char*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "char*", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4480,7 +4522,9 @@ class Fax {
      * @returns {String} Nothing - always returns an empty string
      */
     static FaxFreeBuffer(Buffer) {
-        DllCall("WINFAX.dll\FaxFreeBuffer", "ptr", Buffer)
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        DllCall("WINFAX.dll\FaxFreeBuffer", BufferMarshal, Buffer)
     }
 
     /**
@@ -4580,9 +4624,11 @@ class Fax {
     static FaxStartPrintJobA(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
         PrinterName := PrinterName is String ? StrPtr(PrinterName) : PrinterName
 
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxStartPrintJobA", "ptr", PrinterName, "ptr", PrintInfo, "uint*", FaxJobId, "ptr", FaxContextInfo, "int")
+        result := DllCall("WINFAX.dll\FaxStartPrintJobA", "ptr", PrinterName, "ptr", PrintInfo, FaxJobIdMarshal, FaxJobId, "ptr", FaxContextInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4686,9 +4732,11 @@ class Fax {
     static FaxStartPrintJobW(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
         PrinterName := PrinterName is String ? StrPtr(PrinterName) : PrinterName
 
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxStartPrintJobW", "ptr", PrinterName, "ptr", PrintInfo, "uint*", FaxJobId, "ptr", FaxContextInfo, "int")
+        result := DllCall("WINFAX.dll\FaxStartPrintJobW", "ptr", PrinterName, "ptr", PrintInfo, FaxJobIdMarshal, FaxJobId, "ptr", FaxContextInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4957,9 +5005,11 @@ class Fax {
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
+        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, "ptr", Context, "int")
+        result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, ContextMarshal, Context, "int")
         if(A_LastError)
             throw OSError()
 

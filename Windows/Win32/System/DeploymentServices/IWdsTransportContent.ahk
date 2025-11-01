@@ -54,7 +54,9 @@ class IWdsTransportContent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_id
      */
     get_Id(pulId) {
-        result := ComCall(8, this, "uint*", pulId, "HRESULT")
+        pulIdMarshal := pulId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pulIdMarshal, pulId, "HRESULT")
         return result
     }
 

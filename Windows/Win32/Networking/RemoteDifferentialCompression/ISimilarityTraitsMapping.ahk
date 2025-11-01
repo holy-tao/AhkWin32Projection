@@ -77,7 +77,9 @@ class ISimilarityTraitsMapping extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
     GetFileSize(fileSize) {
-        result := ComCall(5, this, "uint*", fileSize, "HRESULT")
+        fileSizeMarshal := fileSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, fileSizeMarshal, fileSize, "HRESULT")
         return result
     }
 
@@ -91,7 +93,9 @@ class ISimilarityTraitsMapping extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-openmapping
      */
     OpenMapping(accessMode, begin, end, actualEnd) {
-        result := ComCall(6, this, "int", accessMode, "uint", begin, "uint", end, "uint*", actualEnd, "HRESULT")
+        actualEndMarshal := actualEnd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "int", accessMode, "uint", begin, "uint", end, actualEndMarshal, actualEnd, "HRESULT")
         return result
     }
 
@@ -105,7 +109,9 @@ class ISimilarityTraitsMapping extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-resizemapping
      */
     ResizeMapping(accessMode, begin, end, actualEnd) {
-        result := ComCall(7, this, "int", accessMode, "uint", begin, "uint", end, "uint*", actualEnd, "HRESULT")
+        actualEndMarshal := actualEnd is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "int", accessMode, "uint", begin, "uint", end, actualEndMarshal, actualEnd, "HRESULT")
         return result
     }
 
@@ -116,7 +122,9 @@ class ISimilarityTraitsMapping extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-getpagesize
      */
     GetPageSize(pageSize) {
-        ComCall(8, this, "uint*", pageSize)
+        pageSizeMarshal := pageSize is VarRef ? "uint*" : "ptr"
+
+        ComCall(8, this, pageSizeMarshal, pageSize)
     }
 
     /**

@@ -43,7 +43,9 @@ class IXblIdpAuthTokenResult extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthtokenresult-getstatus
      */
     GetStatus(status) {
-        result := ComCall(3, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, statusMarshal, status, "HRESULT")
         return result
     }
 

@@ -44,7 +44,9 @@ class ITransactionTransmitter extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPropagationTokenSize(pcbToken) {
-        result := ComCall(4, this, "uint*", pcbToken, "HRESULT")
+        pcbTokenMarshal := pcbToken is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pcbTokenMarshal, pcbToken, "HRESULT")
         return result
     }
 
@@ -56,7 +58,10 @@ class ITransactionTransmitter extends IUnknown{
      * @returns {HRESULT} 
      */
     MarshalPropagationToken(cbToken, rgbToken, pcbUsed) {
-        result := ComCall(5, this, "uint", cbToken, "char*", rgbToken, "uint*", pcbUsed, "HRESULT")
+        rgbTokenMarshal := rgbToken is VarRef ? "char*" : "ptr"
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", cbToken, rgbTokenMarshal, rgbToken, pcbUsedMarshal, pcbUsed, "HRESULT")
         return result
     }
 
@@ -67,7 +72,9 @@ class ITransactionTransmitter extends IUnknown{
      * @returns {HRESULT} 
      */
     UnmarshalReturnToken(cbReturnToken, rgbReturnToken) {
-        result := ComCall(6, this, "uint", cbReturnToken, "char*", rgbReturnToken, "HRESULT")
+        rgbReturnTokenMarshal := rgbReturnToken is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "uint", cbReturnToken, rgbReturnTokenMarshal, rgbReturnToken, "HRESULT")
         return result
     }
 

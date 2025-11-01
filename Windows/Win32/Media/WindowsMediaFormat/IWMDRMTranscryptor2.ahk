@@ -57,7 +57,9 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor{
      * @returns {HRESULT} 
      */
     GetSeekStartTime(pcnsTime) {
-        result := ComCall(9, this, "uint*", pcnsTime, "HRESULT")
+        pcnsTimeMarshal := pcnsTime is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pcnsTimeMarshal, pcnsTime, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor{
      * @returns {HRESULT} 
      */
     GetDuration(pcnsDuration) {
-        result := ComCall(10, this, "uint*", pcnsDuration, "HRESULT")
+        pcnsDurationMarshal := pcnsDuration is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcnsDurationMarshal, pcnsDuration, "HRESULT")
         return result
     }
 }

@@ -65,7 +65,9 @@ class IMbnSmsConfiguration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_maxmessageindex
      */
     get_MaxMessageIndex(index) {
-        result := ComCall(5, this, "uint*", index, "HRESULT")
+        indexMarshal := index is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, indexMarshal, index, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IMbnSmsConfiguration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_cdmashortmsgsize
      */
     get_CdmaShortMsgSize(shortMsgSize) {
-        result := ComCall(6, this, "uint*", shortMsgSize, "HRESULT")
+        shortMsgSizeMarshal := shortMsgSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, shortMsgSizeMarshal, shortMsgSize, "HRESULT")
         return result
     }
 
@@ -87,7 +91,9 @@ class IMbnSmsConfiguration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsconfiguration-get_smsformat
      */
     get_SmsFormat(smsFormat) {
-        result := ComCall(7, this, "int*", smsFormat, "HRESULT")
+        smsFormatMarshal := smsFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, smsFormatMarshal, smsFormat, "HRESULT")
         return result
     }
 

@@ -36,7 +36,9 @@ class IEnumDebugApplicationNodes extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(celt, pprddp, pceltFetched) {
-        result := ComCall(3, this, "uint", celt, "ptr*", pprddp, "uint*", pceltFetched, "HRESULT")
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", celt, "ptr*", pprddp, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

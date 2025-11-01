@@ -36,7 +36,9 @@ class IEnumTravelLogEntry extends IUnknown{
      * @returns {HRESULT} 
      */
     Next(cElt, rgElt, pcEltFetched) {
-        result := ComCall(3, this, "uint", cElt, "ptr*", rgElt, "uint*", pcEltFetched, "HRESULT")
+        pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", cElt, "ptr*", rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return result
     }
 

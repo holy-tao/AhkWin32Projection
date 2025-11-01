@@ -111,7 +111,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_currentmediastatus
      */
     get_CurrentMediaStatus(value) {
-        result := ComCall(18, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -122,7 +124,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_writeprotectstatus
      */
     get_WriteProtectStatus(value) {
-        result := ComCall(19, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -133,7 +137,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_totalsectorsonmedia
      */
     get_TotalSectorsOnMedia(value) {
-        result := ComCall(20, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -144,7 +150,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_freesectorsonmedia
      */
     get_FreeSectorsOnMedia(value) {
-        result := ComCall(21, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -155,7 +163,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_nextwritableaddress
      */
     get_NextWritableAddress(value) {
-        result := ComCall(22, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -166,7 +176,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_startaddressofprevioussession
      */
     get_StartAddressOfPreviousSession(value) {
-        result := ComCall(23, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -177,7 +189,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_lastwrittenaddressofprevioussession
      */
     get_LastWrittenAddressOfPreviousSession(value) {
-        result := ComCall(24, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -232,7 +246,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType(value) {
-        result := ComCall(29, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -267,7 +283,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_requestedwritespeed
      */
     get_RequestedWriteSpeed(value) {
-        result := ComCall(32, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -289,7 +307,9 @@ class IDiscFormat2Data extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_currentwritespeed
      */
     get_CurrentWriteSpeed(value) {
-        result := ComCall(34, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, valueMarshal, value, "HRESULT")
         return result
     }
 

@@ -114,7 +114,9 @@ class IMFCaptureSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream
      */
     AddStream(dwSourceStreamIndex, pMediaType, pAttributes, pdwSinkStreamIndex) {
-        result := ComCall(5, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, "uint*", pdwSinkStreamIndex, "HRESULT")
+        pdwSinkStreamIndexMarshal := pdwSinkStreamIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, pdwSinkStreamIndexMarshal, pdwSinkStreamIndex, "HRESULT")
         return result
     }
 

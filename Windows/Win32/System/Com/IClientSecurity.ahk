@@ -51,7 +51,13 @@ class IClientSecurity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iclientsecurity-queryblanket
      */
     QueryBlanket(pProxy, pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
-        result := ComCall(3, this, "ptr", pProxy, "uint*", pAuthnSvc, "uint*", pAuthzSvc, "ptr*", pServerPrincName, "uint*", pAuthnLevel, "uint*", pImpLevel, "ptr*", pAuthInfo, "uint*", pCapabilites, "HRESULT")
+        pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
+        pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
+        pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
+        pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
+        pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pProxy, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr*", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, "ptr*", pAuthInfo, pCapabilitesMarshal, pCapabilites, "HRESULT")
         return result
     }
 
@@ -71,7 +77,9 @@ class IClientSecurity extends IUnknown{
     SetBlanket(pProxy, dwAuthnSvc, dwAuthzSvc, pServerPrincName, dwAuthnLevel, dwImpLevel, pAuthInfo, dwCapabilities) {
         pServerPrincName := pServerPrincName is String ? StrPtr(pServerPrincName) : pServerPrincName
 
-        result := ComCall(4, this, "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, "ptr", pAuthInfo, "uint", dwCapabilities, "HRESULT")
+        pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "HRESULT")
         return result
     }
 

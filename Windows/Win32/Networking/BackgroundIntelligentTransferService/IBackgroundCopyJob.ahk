@@ -126,7 +126,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-gettype
      */
     GetType(pVal) {
-        result := ComCall(11, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -159,7 +161,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getstate
      */
     GetState(pVal) {
-        result := ComCall(14, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -251,7 +255,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getpriority
      */
     GetPriority(pVal) {
-        result := ComCall(22, this, "int*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -273,7 +279,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getnotifyflags
      */
     GetNotifyFlags(pVal) {
-        result := ComCall(24, this, "uint*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -317,7 +325,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getminimumretrydelay
      */
     GetMinimumRetryDelay(Seconds) {
-        result := ComCall(28, this, "uint*", Seconds, "HRESULT")
+        SecondsMarshal := Seconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, SecondsMarshal, Seconds, "HRESULT")
         return result
     }
 
@@ -339,7 +349,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getnoprogresstimeout
      */
     GetNoProgressTimeout(Seconds) {
-        result := ComCall(30, this, "uint*", Seconds, "HRESULT")
+        SecondsMarshal := Seconds is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, SecondsMarshal, Seconds, "HRESULT")
         return result
     }
 
@@ -350,7 +362,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-geterrorcount
      */
     GetErrorCount(Errors) {
-        result := ComCall(31, this, "uint*", Errors, "HRESULT")
+        ErrorsMarshal := Errors is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(31, this, ErrorsMarshal, Errors, "HRESULT")
         return result
     }
 
@@ -379,7 +393,9 @@ class IBackgroundCopyJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getproxysettings
      */
     GetProxySettings(pProxyUsage, pProxyList, pProxyBypassList) {
-        result := ComCall(33, this, "int*", pProxyUsage, "ptr", pProxyList, "ptr", pProxyBypassList, "HRESULT")
+        pProxyUsageMarshal := pProxyUsage is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pProxyUsageMarshal, pProxyUsage, "ptr", pProxyList, "ptr", pProxyBypassList, "HRESULT")
         return result
     }
 

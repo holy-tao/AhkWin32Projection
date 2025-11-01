@@ -76,7 +76,9 @@ class IGetFrame extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-igetframe-setformat
      */
     SetFormat(lpbi, lpBits, x, y, dx, dy) {
-        result := ComCall(6, this, "ptr", lpbi, "ptr", lpBits, "int", x, "int", y, "int", dx, "int", dy, "HRESULT")
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", lpbi, lpBitsMarshal, lpBits, "int", x, "int", y, "int", dx, "int", dy, "HRESULT")
         return result
     }
 }

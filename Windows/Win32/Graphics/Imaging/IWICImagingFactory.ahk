@@ -282,7 +282,9 @@ class IWICImagingFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfrommemory
      */
     CreateBitmapFromMemory(uiWidth, uiHeight, pixelFormat, cbStride, cbBufferSize, pbBuffer, ppIBitmap) {
-        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "uint", cbStride, "uint", cbBufferSize, "char*", pbBuffer, "ptr*", ppIBitmap, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", ppIBitmap, "HRESULT")
         return result
     }
 

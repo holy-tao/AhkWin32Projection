@@ -53,7 +53,9 @@ class ICLRMetaHost extends IUnknown{
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        result := ComCall(4, this, "ptr", pwzFilePath, "ptr", pwzBuffer, "uint*", pcchBuffer, "HRESULT")
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pwzFilePath, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
         return result
     }
 

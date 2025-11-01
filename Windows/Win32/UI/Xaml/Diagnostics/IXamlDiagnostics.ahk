@@ -83,7 +83,9 @@ class IXamlDiagnostics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-gethandlefromiinspectable
      */
     GetHandleFromIInspectable(pInstance, pHandle) {
-        result := ComCall(7, this, "ptr", pInstance, "uint*", pHandle, "HRESULT")
+        pHandleMarshal := pHandle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pInstance, pHandleMarshal, pHandle, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class IXamlDiagnostics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-hittest
      */
     HitTest(rect, pCount, ppInstanceHandles) {
-        result := ComCall(8, this, "ptr", rect, "uint*", pCount, "ptr*", ppInstanceHandles, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", rect, pCountMarshal, pCount, "ptr*", ppInstanceHandles, "HRESULT")
         return result
     }
 
@@ -108,7 +112,9 @@ class IXamlDiagnostics extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-registerinstance
      */
     RegisterInstance(pInstance, pInstanceHandle) {
-        result := ComCall(9, this, "ptr", pInstance, "uint*", pInstanceHandle, "HRESULT")
+        pInstanceHandleMarshal := pInstanceHandle is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pInstance, pInstanceHandleMarshal, pInstanceHandle, "HRESULT")
         return result
     }
 

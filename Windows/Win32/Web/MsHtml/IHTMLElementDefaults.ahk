@@ -115,7 +115,9 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollSegmentX(p) {
-        result := ComCall(15, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -135,7 +137,9 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     get_scrollSegmentY(p) {
-        result := ComCall(17, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pMarshal, p, "HRESULT")
         return result
     }
 

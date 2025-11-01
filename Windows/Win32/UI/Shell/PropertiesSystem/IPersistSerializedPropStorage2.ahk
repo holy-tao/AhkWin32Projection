@@ -47,7 +47,9 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragesize
      */
     GetPropertyStorageSize(pcb) {
-        result := ComCall(6, this, "uint*", pcb, "HRESULT")
+        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragebuffer
      */
     GetPropertyStorageBuffer(psps, cb, pcbWritten) {
-        result := ComCall(7, this, "ptr", psps, "uint", cb, "uint*", pcbWritten, "HRESULT")
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", psps, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 }

@@ -61,7 +61,9 @@ class ICEnroll3 extends ICEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getsupportedkeyspec
      */
     GetSupportedKeySpec(pdwKeySpec) {
-        result := ComCall(71, this, "int*", pdwKeySpec, "HRESULT")
+        pdwKeySpecMarshal := pdwKeySpec is VarRef ? "int*" : "ptr"
+
+        result := ComCall(71, this, pdwKeySpecMarshal, pdwKeySpec, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class ICEnroll3 extends ICEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getkeylen
      */
     GetKeyLen(fMin, fExchange, pdwKeySize) {
-        result := ComCall(72, this, "int", fMin, "int", fExchange, "int*", pdwKeySize, "HRESULT")
+        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(72, this, "int", fMin, "int", fExchange, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
         return result
     }
 
@@ -87,7 +91,9 @@ class ICEnroll3 extends ICEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-enumalgs
      */
     EnumAlgs(dwIndex, algClass, pdwAlgID) {
-        result := ComCall(73, this, "int", dwIndex, "int", algClass, "int*", pdwAlgID, "HRESULT")
+        pdwAlgIDMarshal := pdwAlgID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(73, this, "int", dwIndex, "int", algClass, pdwAlgIDMarshal, pdwAlgID, "HRESULT")
         return result
     }
 
@@ -143,7 +149,9 @@ class ICEnroll3 extends ICEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_hashalgid
      */
     get_HashAlgID(hashAlgID) {
-        result := ComCall(78, this, "int*", hashAlgID, "HRESULT")
+        hashAlgIDMarshal := hashAlgID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(78, this, hashAlgIDMarshal, hashAlgID, "HRESULT")
         return result
     }
 

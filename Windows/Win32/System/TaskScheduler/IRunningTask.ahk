@@ -70,7 +70,9 @@ class IRunningTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_state
      */
     get_State(pState) {
-        result := ComCall(10, this, "int*", pState, "HRESULT")
+        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class IRunningTask extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_enginepid
      */
     get_EnginePID(pPID) {
-        result := ComCall(14, this, "uint*", pPID, "HRESULT")
+        pPIDMarshal := pPID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, pPIDMarshal, pPID, "HRESULT")
         return result
     }
 }

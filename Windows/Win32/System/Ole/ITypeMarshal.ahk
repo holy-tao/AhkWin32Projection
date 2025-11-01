@@ -38,7 +38,11 @@ class ITypeMarshal extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-size
      */
     Size(pvType, dwDestContext, pvDestContext, pSize) {
-        result := ComCall(3, this, "ptr", pvType, "uint", dwDestContext, "ptr", pvDestContext, "uint*", pSize, "HRESULT")
+        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
+        pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
+        pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, pSizeMarshal, pSize, "HRESULT")
         return result
     }
 
@@ -53,7 +57,11 @@ class ITypeMarshal extends IUnknown{
      * @returns {HRESULT} 
      */
     Marshal(pvType, dwDestContext, pvDestContext, cbBufferLength, pBuffer, pcbWritten) {
-        result := ComCall(4, this, "ptr", pvType, "uint", dwDestContext, "ptr", pvDestContext, "uint", cbBufferLength, "ptr", pBuffer, "uint*", pcbWritten, "HRESULT")
+        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
+        pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", cbBufferLength, "ptr", pBuffer, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 
@@ -67,7 +75,11 @@ class ITypeMarshal extends IUnknown{
      * @returns {HRESULT} 
      */
     Unmarshal(pvType, dwFlags, cbBufferLength, pBuffer, pcbRead) {
-        result := ComCall(5, this, "ptr", pvType, "uint", dwFlags, "uint", cbBufferLength, "char*", pBuffer, "uint*", pcbRead, "HRESULT")
+        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pvTypeMarshal, pvType, "uint", dwFlags, "uint", cbBufferLength, pBufferMarshal, pBuffer, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -77,7 +89,9 @@ class ITypeMarshal extends IUnknown{
      * @returns {HRESULT} 
      */
     Free(pvType) {
-        result := ComCall(6, this, "ptr", pvType, "HRESULT")
+        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, pvTypeMarshal, pvType, "HRESULT")
         return result
     }
 }

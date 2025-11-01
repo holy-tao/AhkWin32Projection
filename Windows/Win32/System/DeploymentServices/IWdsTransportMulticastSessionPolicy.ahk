@@ -43,7 +43,9 @@ class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-get_slowclienthandling
      */
     get_SlowClientHandling(pSlowClientHandling) {
-        result := ComCall(11, this, "int*", pSlowClientHandling, "HRESULT")
+        pSlowClientHandlingMarshal := pSlowClientHandling is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pSlowClientHandlingMarshal, pSlowClientHandling, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-get_autodisconnectthreshold
      */
     get_AutoDisconnectThreshold(pulThreshold) {
-        result := ComCall(13, this, "uint*", pulThreshold, "HRESULT")
+        pulThresholdMarshal := pulThreshold is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pulThresholdMarshal, pulThreshold, "HRESULT")
         return result
     }
 
@@ -87,7 +91,9 @@ class IWdsTransportMulticastSessionPolicy extends IWdsTransportCacheable{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-get_multistreamstreamcount
      */
     get_MultistreamStreamCount(pulStreamCount) {
-        result := ComCall(15, this, "uint*", pulStreamCount, "HRESULT")
+        pulStreamCountMarshal := pulStreamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pulStreamCountMarshal, pulStreamCount, "HRESULT")
         return result
     }
 

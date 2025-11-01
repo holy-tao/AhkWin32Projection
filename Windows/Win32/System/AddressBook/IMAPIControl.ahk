@@ -60,7 +60,9 @@ class IMAPIControl extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontrol-getstate
      */
     GetState(ulFlags, lpulState) {
-        result := ComCall(5, this, "uint", ulFlags, "uint*", lpulState, "HRESULT")
+        lpulStateMarshal := lpulState is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulFlags, lpulStateMarshal, lpulState, "HRESULT")
         return result
     }
 }

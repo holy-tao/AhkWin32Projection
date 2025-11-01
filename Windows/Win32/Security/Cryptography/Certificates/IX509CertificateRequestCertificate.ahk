@@ -71,7 +71,9 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_notbefore
      */
     get_NotBefore(pValue) {
-        result := ComCall(63, this, "double*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(63, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_notafter
      */
     get_NotAfter(pValue) {
-        result := ComCall(65, this, "double*", pValue, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(65, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

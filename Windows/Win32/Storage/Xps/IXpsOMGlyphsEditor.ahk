@@ -71,7 +71,9 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphindexcount
      */
     GetGlyphIndexCount(indexCount) {
-        result := ComCall(6, this, "uint*", indexCount, "HRESULT")
+        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, indexCountMarshal, indexCount, "HRESULT")
         return result
     }
 
@@ -83,7 +85,9 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphindices
      */
     GetGlyphIndices(indexCount, glyphIndices) {
-        result := ComCall(7, this, "uint*", indexCount, "ptr", glyphIndices, "HRESULT")
+        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, indexCountMarshal, indexCount, "ptr", glyphIndices, "HRESULT")
         return result
     }
 
@@ -106,7 +110,9 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphmappingcount
      */
     GetGlyphMappingCount(glyphMappingCount) {
-        result := ComCall(9, this, "uint*", glyphMappingCount, "HRESULT")
+        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, glyphMappingCountMarshal, glyphMappingCount, "HRESULT")
         return result
     }
 
@@ -118,7 +124,9 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphmappings
      */
     GetGlyphMappings(glyphMappingCount, glyphMappings) {
-        result := ComCall(10, this, "uint*", glyphMappingCount, "ptr", glyphMappings, "HRESULT")
+        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, glyphMappingCountMarshal, glyphMappingCount, "ptr", glyphMappings, "HRESULT")
         return result
     }
 
@@ -141,7 +149,9 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getprohibitedcaretstopcount
      */
     GetProhibitedCaretStopCount(prohibitedCaretStopCount) {
-        result := ComCall(12, this, "uint*", prohibitedCaretStopCount, "HRESULT")
+        prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, "HRESULT")
         return result
     }
 
@@ -153,7 +163,10 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getprohibitedcaretstops
      */
     GetProhibitedCaretStops(count, prohibitedCaretStops) {
-        result := ComCall(13, this, "uint*", count, "uint*", prohibitedCaretStops, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+        prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, countMarshal, count, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
         return result
     }
 
@@ -165,7 +178,9 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setprohibitedcaretstops
      */
     SetProhibitedCaretStops(count, prohibitedCaretStops) {
-        result := ComCall(14, this, "uint", count, "uint*", prohibitedCaretStops, "HRESULT")
+        prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "uint", count, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
         return result
     }
 
@@ -176,7 +191,9 @@ class IXpsOMGlyphsEditor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getbidilevel
      */
     GetBidiLevel(bidiLevel) {
-        result := ComCall(15, this, "uint*", bidiLevel, "HRESULT")
+        bidiLevelMarshal := bidiLevel is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, bidiLevelMarshal, bidiLevel, "HRESULT")
         return result
     }
 

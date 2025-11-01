@@ -3383,7 +3383,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetExternalUIA(puiHandler, dwMessageFilter, pvContext) {
-        result := DllCall("msi.dll\MsiSetExternalUIA", "ptr", puiHandler, "uint", dwMessageFilter, "ptr", pvContext, "ptr")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("msi.dll\MsiSetExternalUIA", "ptr", puiHandler, "uint", dwMessageFilter, pvContextMarshal, pvContext, "ptr")
         return result
     }
 
@@ -3593,7 +3595,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetExternalUIW(puiHandler, dwMessageFilter, pvContext) {
-        result := DllCall("msi.dll\MsiSetExternalUIW", "ptr", puiHandler, "uint", dwMessageFilter, "ptr", pvContext, "ptr")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("msi.dll\MsiSetExternalUIW", "ptr", puiHandler, "uint", dwMessageFilter, pvContextMarshal, pvContext, "ptr")
         return result
     }
 
@@ -3848,7 +3852,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetExternalUIRecord(puiHandler, dwMessageFilter, pvContext, ppuiPrevHandler) {
-        result := DllCall("msi.dll\MsiSetExternalUIRecord", "ptr", puiHandler, "uint", dwMessageFilter, "ptr", pvContext, "ptr", ppuiPrevHandler, "uint")
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("msi.dll\MsiSetExternalUIRecord", "ptr", puiHandler, "uint", dwMessageFilter, pvContextMarshal, pvContext, "ptr", ppuiPrevHandler, "uint")
         return result
     }
 
@@ -4502,7 +4508,9 @@ class ApplicationInstallationAndServicing {
         szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
-        result := DllCall("msi.dll\MsiGetProductInfoA", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductInfoA", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -4858,7 +4866,9 @@ class ApplicationInstallationAndServicing {
         szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
-        result := DllCall("msi.dll\MsiGetProductInfoW", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductInfoW", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -5314,7 +5324,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := DllCall("msi.dll\MsiGetProductInfoExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductInfoExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, pcchValueMarshal, pcchValue, "uint")
         return result
     }
 
@@ -5770,7 +5782,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := DllCall("msi.dll\MsiGetProductInfoExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductInfoExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, pcchValueMarshal, pcchValue, "uint")
         return result
     }
 
@@ -7359,7 +7373,12 @@ class ApplicationInstallationAndServicing {
         lpNameBuf := lpNameBuf is String ? StrPtr(lpNameBuf) : lpNameBuf
         lpPackageBuf := lpPackageBuf is String ? StrPtr(lpPackageBuf) : lpPackageBuf
 
-        result := DllCall("msi.dll\MsiGetProductInfoFromScriptA", "ptr", szScriptFile, "ptr", lpProductBuf39, "ushort*", plgidLanguage, "uint*", pdwVersion, "ptr", lpNameBuf, "uint*", pcchNameBuf, "ptr", lpPackageBuf, "uint*", pcchPackageBuf, "uint")
+        plgidLanguageMarshal := plgidLanguage is VarRef ? "ushort*" : "ptr"
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+        pcchNameBufMarshal := pcchNameBuf is VarRef ? "uint*" : "ptr"
+        pcchPackageBufMarshal := pcchPackageBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductInfoFromScriptA", "ptr", szScriptFile, "ptr", lpProductBuf39, plgidLanguageMarshal, plgidLanguage, pdwVersionMarshal, pdwVersion, "ptr", lpNameBuf, pcchNameBufMarshal, pcchNameBuf, "ptr", lpPackageBuf, pcchPackageBufMarshal, pcchPackageBuf, "uint")
         return result
     }
 
@@ -7444,7 +7463,12 @@ class ApplicationInstallationAndServicing {
         lpNameBuf := lpNameBuf is String ? StrPtr(lpNameBuf) : lpNameBuf
         lpPackageBuf := lpPackageBuf is String ? StrPtr(lpPackageBuf) : lpPackageBuf
 
-        result := DllCall("msi.dll\MsiGetProductInfoFromScriptW", "ptr", szScriptFile, "ptr", lpProductBuf39, "ushort*", plgidLanguage, "uint*", pdwVersion, "ptr", lpNameBuf, "uint*", pcchNameBuf, "ptr", lpPackageBuf, "uint*", pcchPackageBuf, "uint")
+        plgidLanguageMarshal := plgidLanguage is VarRef ? "ushort*" : "ptr"
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+        pcchNameBufMarshal := pcchNameBuf is VarRef ? "uint*" : "ptr"
+        pcchPackageBufMarshal := pcchPackageBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductInfoFromScriptW", "ptr", szScriptFile, "ptr", lpProductBuf39, plgidLanguageMarshal, plgidLanguage, pdwVersionMarshal, pdwVersion, "ptr", lpNameBuf, pcchNameBufMarshal, pcchNameBuf, "ptr", lpPackageBuf, pcchPackageBufMarshal, pcchPackageBuf, "uint")
         return result
     }
 
@@ -7691,7 +7715,11 @@ class ApplicationInstallationAndServicing {
         lpOrgNameBuf := lpOrgNameBuf is String ? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
         lpSerialBuf := lpSerialBuf is String ? StrPtr(lpSerialBuf) : lpSerialBuf
 
-        result := DllCall("msi.dll\MsiGetUserInfoA", "ptr", szProduct, "ptr", lpUserNameBuf, "uint*", pcchUserNameBuf, "ptr", lpOrgNameBuf, "uint*", pcchOrgNameBuf, "ptr", lpSerialBuf, "uint*", pcchSerialBuf, "int")
+        pcchUserNameBufMarshal := pcchUserNameBuf is VarRef ? "uint*" : "ptr"
+        pcchOrgNameBufMarshal := pcchOrgNameBuf is VarRef ? "uint*" : "ptr"
+        pcchSerialBufMarshal := pcchSerialBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetUserInfoA", "ptr", szProduct, "ptr", lpUserNameBuf, pcchUserNameBufMarshal, pcchUserNameBuf, "ptr", lpOrgNameBuf, pcchOrgNameBufMarshal, pcchOrgNameBuf, "ptr", lpSerialBuf, pcchSerialBufMarshal, pcchSerialBuf, "int")
         return result
     }
 
@@ -7778,7 +7806,11 @@ class ApplicationInstallationAndServicing {
         lpOrgNameBuf := lpOrgNameBuf is String ? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
         lpSerialBuf := lpSerialBuf is String ? StrPtr(lpSerialBuf) : lpSerialBuf
 
-        result := DllCall("msi.dll\MsiGetUserInfoW", "ptr", szProduct, "ptr", lpUserNameBuf, "uint*", pcchUserNameBuf, "ptr", lpOrgNameBuf, "uint*", pcchOrgNameBuf, "ptr", lpSerialBuf, "uint*", pcchSerialBuf, "int")
+        pcchUserNameBufMarshal := pcchUserNameBuf is VarRef ? "uint*" : "ptr"
+        pcchOrgNameBufMarshal := pcchOrgNameBuf is VarRef ? "uint*" : "ptr"
+        pcchSerialBufMarshal := pcchSerialBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetUserInfoW", "ptr", szProduct, "ptr", lpUserNameBuf, pcchUserNameBufMarshal, pcchUserNameBuf, "ptr", lpOrgNameBuf, pcchOrgNameBufMarshal, pcchOrgNameBuf, "ptr", lpSerialBuf, pcchSerialBufMarshal, pcchSerialBuf, "int")
         return result
     }
 
@@ -8298,7 +8330,9 @@ class ApplicationInstallationAndServicing {
         szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
-        result := DllCall("msi.dll\MsiGetPatchInfoA", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPatchInfoA", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -8418,7 +8452,9 @@ class ApplicationInstallationAndServicing {
         szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
-        result := DllCall("msi.dll\MsiGetPatchInfoW", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPatchInfoW", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -8499,7 +8535,9 @@ class ApplicationInstallationAndServicing {
         lpPatchBuf := lpPatchBuf is String ? StrPtr(lpPatchBuf) : lpPatchBuf
         lpTransformsBuf := lpTransformsBuf is String ? StrPtr(lpTransformsBuf) : lpTransformsBuf
 
-        result := DllCall("msi.dll\MsiEnumPatchesA", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, "uint*", pcchTransformsBuf, "uint")
+        pcchTransformsBufMarshal := pcchTransformsBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumPatchesA", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, pcchTransformsBufMarshal, pcchTransformsBuf, "uint")
         return result
     }
 
@@ -8580,7 +8618,9 @@ class ApplicationInstallationAndServicing {
         lpPatchBuf := lpPatchBuf is String ? StrPtr(lpPatchBuf) : lpPatchBuf
         lpTransformsBuf := lpTransformsBuf is String ? StrPtr(lpTransformsBuf) : lpTransformsBuf
 
-        result := DllCall("msi.dll\MsiEnumPatchesW", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, "uint*", pcchTransformsBuf, "uint")
+        pcchTransformsBufMarshal := pcchTransformsBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumPatchesW", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, pcchTransformsBufMarshal, pcchTransformsBuf, "uint")
         return result
     }
 
@@ -8999,7 +9039,9 @@ class ApplicationInstallationAndServicing {
         szPatchPath := szPatchPath is String ? StrPtr(szPatchPath) : szPatchPath
         szXMLData := szXMLData is String ? StrPtr(szXMLData) : szXMLData
 
-        result := DllCall("msi.dll\MsiExtractPatchXMLDataA", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, "uint*", pcchXMLData, "uint")
+        pcchXMLDataMarshal := pcchXMLData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiExtractPatchXMLDataA", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, pcchXMLDataMarshal, pcchXMLData, "uint")
         return result
     }
 
@@ -9108,7 +9150,9 @@ class ApplicationInstallationAndServicing {
         szPatchPath := szPatchPath is String ? StrPtr(szPatchPath) : szPatchPath
         szXMLData := szXMLData is String ? StrPtr(szXMLData) : szXMLData
 
-        result := DllCall("msi.dll\MsiExtractPatchXMLDataW", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, "uint*", pcchXMLData, "uint")
+        pcchXMLDataMarshal := pcchXMLData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiExtractPatchXMLDataW", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, pcchXMLDataMarshal, pcchXMLData, "uint")
         return result
     }
 
@@ -9403,7 +9447,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
-        result := DllCall("msi.dll\MsiGetPatchInfoExA", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, "uint*", pcchValue, "uint")
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPatchInfoExA", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, pcchValueMarshal, pcchValue, "uint")
         return result
     }
 
@@ -9698,7 +9744,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
-        result := DllCall("msi.dll\MsiGetPatchInfoExW", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, "uint*", pcchValue, "uint")
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPatchInfoExW", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, pcchValueMarshal, pcchValue, "uint")
         return result
     }
 
@@ -10899,7 +10947,10 @@ class ApplicationInstallationAndServicing {
         szTargetProductCode := szTargetProductCode is String ? StrPtr(szTargetProductCode) : szTargetProductCode
         szTargetUserSid := szTargetUserSid is String ? StrPtr(szTargetUserSid) : szTargetUserSid
 
-        result := DllCall("msi.dll\MsiEnumPatchesExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, "int*", pdwTargetProductContext, "ptr", szTargetUserSid, "uint*", pcchTargetUserSid, "uint")
+        pdwTargetProductContextMarshal := pdwTargetProductContext is VarRef ? "int*" : "ptr"
+        pcchTargetUserSidMarshal := pcchTargetUserSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumPatchesExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, pdwTargetProductContextMarshal, pdwTargetProductContext, "ptr", szTargetUserSid, pcchTargetUserSidMarshal, pcchTargetUserSid, "uint")
         return result
     }
 
@@ -11160,7 +11211,10 @@ class ApplicationInstallationAndServicing {
         szTargetProductCode := szTargetProductCode is String ? StrPtr(szTargetProductCode) : szTargetProductCode
         szTargetUserSid := szTargetUserSid is String ? StrPtr(szTargetUserSid) : szTargetUserSid
 
-        result := DllCall("msi.dll\MsiEnumPatchesExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, "int*", pdwTargetProductContext, "ptr", szTargetUserSid, "uint*", pcchTargetUserSid, "uint")
+        pdwTargetProductContextMarshal := pdwTargetProductContext is VarRef ? "int*" : "ptr"
+        pcchTargetUserSidMarshal := pcchTargetUserSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumPatchesExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, pdwTargetProductContextMarshal, pdwTargetProductContext, "ptr", szTargetUserSid, pcchTargetUserSidMarshal, pcchTargetUserSid, "uint")
         return result
     }
 
@@ -11557,7 +11611,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiQueryFeatureStateExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, "int*", pdwState, "uint")
+        pdwStateMarshal := pdwState is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiQueryFeatureStateExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, pdwStateMarshal, pdwState, "uint")
         return result
     }
 
@@ -11772,7 +11828,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiQueryFeatureStateExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, "int*", pdwState, "uint")
+        pdwStateMarshal := pdwState is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiQueryFeatureStateExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, pdwStateMarshal, pdwState, "uint")
         return result
     }
 
@@ -12273,7 +12331,10 @@ class ApplicationInstallationAndServicing {
         szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureUsageA", "ptr", szProduct, "ptr", szFeature, "uint*", pdwUseCount, "ushort*", pwDateUsed, "uint")
+        pdwUseCountMarshal := pdwUseCount is VarRef ? "uint*" : "ptr"
+        pwDateUsedMarshal := pwDateUsed is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureUsageA", "ptr", szProduct, "ptr", szFeature, pdwUseCountMarshal, pdwUseCount, pwDateUsedMarshal, pwDateUsed, "uint")
         return result
     }
 
@@ -12374,7 +12435,10 @@ class ApplicationInstallationAndServicing {
         szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureUsageW", "ptr", szProduct, "ptr", szFeature, "uint*", pdwUseCount, "ushort*", pwDateUsed, "uint")
+        pdwUseCountMarshal := pdwUseCount is VarRef ? "uint*" : "ptr"
+        pwDateUsedMarshal := pwDateUsed is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureUsageW", "ptr", szProduct, "ptr", szFeature, pdwUseCountMarshal, pdwUseCount, pwDateUsedMarshal, pwDateUsed, "uint")
         return result
     }
 
@@ -12893,7 +12957,9 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideComponentA", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideComponentA", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -13050,7 +13116,9 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideComponentW", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideComponentW", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -13149,7 +13217,9 @@ class ApplicationInstallationAndServicing {
         szQualifier := szQualifier is String ? StrPtr(szQualifier) : szQualifier
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideQualifiedComponentA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideQualifiedComponentA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -13248,7 +13318,9 @@ class ApplicationInstallationAndServicing {
         szQualifier := szQualifier is String ? StrPtr(szQualifier) : szQualifier
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideQualifiedComponentW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideQualifiedComponentW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -13352,7 +13424,9 @@ class ApplicationInstallationAndServicing {
         szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideQualifiedComponentExA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideQualifiedComponentExA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -13456,7 +13530,9 @@ class ApplicationInstallationAndServicing {
         szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideQualifiedComponentExW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideQualifiedComponentExW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -13621,7 +13697,9 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiGetComponentPathA", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
+        pcchBufMarshal := pcchBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetComponentPathA", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, pcchBufMarshal, pcchBuf, "int")
         return result
     }
 
@@ -13786,7 +13864,9 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiGetComponentPathW", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
+        pcchBufMarshal := pcchBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetComponentPathW", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, pcchBufMarshal, pcchBuf, "int")
         return result
     }
 
@@ -14012,7 +14092,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         lpOutPathBuffer := lpOutPathBuffer is String ? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
 
-        result := DllCall("msi.dll\MsiGetComponentPathExA", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, "uint*", pcchOutPathBuffer, "int")
+        pcchOutPathBufferMarshal := pcchOutPathBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetComponentPathExA", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, pcchOutPathBufferMarshal, pcchOutPathBuffer, "int")
         return result
     }
 
@@ -14238,7 +14320,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         lpOutPathBuffer := lpOutPathBuffer is String ? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
 
-        result := DllCall("msi.dll\MsiGetComponentPathExW", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, "uint*", pcchOutPathBuffer, "int")
+        pcchOutPathBufferMarshal := pcchOutPathBuffer is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetComponentPathExW", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, pcchOutPathBufferMarshal, pcchOutPathBuffer, "int")
         return result
     }
 
@@ -14416,7 +14500,9 @@ class ApplicationInstallationAndServicing {
         szAppContext := szAppContext is String ? StrPtr(szAppContext) : szAppContext
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideAssemblyA", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideAssemblyA", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -14594,7 +14680,9 @@ class ApplicationInstallationAndServicing {
         szAppContext := szAppContext is String ? StrPtr(szAppContext) : szAppContext
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiProvideAssemblyW", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiProvideAssemblyW", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -14808,7 +14896,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
 
-        result := DllCall("msi.dll\MsiQueryComponentStateA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, "int*", pdwState, "uint")
+        pdwStateMarshal := pdwState is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiQueryComponentStateA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, pdwStateMarshal, pdwState, "uint")
         return result
     }
 
@@ -15022,7 +15112,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
 
-        result := DllCall("msi.dll\MsiQueryComponentStateW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, "int*", pdwState, "uint")
+        pdwStateMarshal := pdwState is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiQueryComponentStateW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, pdwStateMarshal, pdwState, "uint")
         return result
     }
 
@@ -15382,7 +15474,10 @@ class ApplicationInstallationAndServicing {
         szInstalledProductCode := szInstalledProductCode is String ? StrPtr(szInstalledProductCode) : szInstalledProductCode
         szSid := szSid is String ? StrPtr(szSid) : szSid
 
-        result := DllCall("msi.dll\MsiEnumProductsExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
+        pdwInstalledContextMarshal := pdwInstalledContext is VarRef ? "int*" : "ptr"
+        pcchSidMarshal := pcchSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumProductsExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, pdwInstalledContextMarshal, pdwInstalledContext, "ptr", szSid, pcchSidMarshal, pcchSid, "uint")
         return result
     }
 
@@ -15590,7 +15685,10 @@ class ApplicationInstallationAndServicing {
         szInstalledProductCode := szInstalledProductCode is String ? StrPtr(szInstalledProductCode) : szInstalledProductCode
         szSid := szSid is String ? StrPtr(szSid) : szSid
 
-        result := DllCall("msi.dll\MsiEnumProductsExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
+        pdwInstalledContextMarshal := pdwInstalledContext is VarRef ? "int*" : "ptr"
+        pcchSidMarshal := pcchSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumProductsExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, pdwInstalledContextMarshal, pdwInstalledContext, "ptr", szSid, pcchSidMarshal, pcchSid, "uint")
         return result
     }
 
@@ -16373,7 +16471,10 @@ class ApplicationInstallationAndServicing {
         szInstalledComponentCode := szInstalledComponentCode is String ? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
         szSid := szSid is String ? StrPtr(szSid) : szSid
 
-        result := DllCall("msi.dll\MsiEnumComponentsExA", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
+        pdwInstalledContextMarshal := pdwInstalledContext is VarRef ? "int*" : "ptr"
+        pcchSidMarshal := pcchSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumComponentsExA", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, pdwInstalledContextMarshal, pdwInstalledContext, "ptr", szSid, pcchSidMarshal, pcchSid, "uint")
         return result
     }
 
@@ -16644,7 +16745,10 @@ class ApplicationInstallationAndServicing {
         szInstalledComponentCode := szInstalledComponentCode is String ? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
         szSid := szSid is String ? StrPtr(szSid) : szSid
 
-        result := DllCall("msi.dll\MsiEnumComponentsExW", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
+        pdwInstalledContextMarshal := pdwInstalledContext is VarRef ? "int*" : "ptr"
+        pcchSidMarshal := pcchSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumComponentsExW", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, pdwInstalledContextMarshal, pdwInstalledContext, "ptr", szSid, pcchSidMarshal, pcchSid, "uint")
         return result
     }
 
@@ -17010,7 +17114,10 @@ class ApplicationInstallationAndServicing {
         szProductBuf := szProductBuf is String ? StrPtr(szProductBuf) : szProductBuf
         szSid := szSid is String ? StrPtr(szSid) : szSid
 
-        result := DllCall("msi.dll\MsiEnumClientsExA", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
+        pdwInstalledContextMarshal := pdwInstalledContext is VarRef ? "int*" : "ptr"
+        pcchSidMarshal := pcchSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumClientsExA", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, pdwInstalledContextMarshal, pdwInstalledContext, "ptr", szSid, pcchSidMarshal, pcchSid, "uint")
         return result
     }
 
@@ -17198,7 +17305,10 @@ class ApplicationInstallationAndServicing {
         szProductBuf := szProductBuf is String ? StrPtr(szProductBuf) : szProductBuf
         szSid := szSid is String ? StrPtr(szSid) : szSid
 
-        result := DllCall("msi.dll\MsiEnumClientsExW", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
+        pdwInstalledContextMarshal := pdwInstalledContext is VarRef ? "int*" : "ptr"
+        pcchSidMarshal := pcchSid is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumClientsExW", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, pdwInstalledContextMarshal, pdwInstalledContext, "ptr", szSid, pcchSidMarshal, pcchSid, "uint")
         return result
     }
 
@@ -17302,7 +17412,10 @@ class ApplicationInstallationAndServicing {
         lpQualifierBuf := lpQualifierBuf is String ? StrPtr(lpQualifierBuf) : lpQualifierBuf
         lpApplicationDataBuf := lpApplicationDataBuf is String ? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
 
-        result := DllCall("msi.dll\MsiEnumComponentQualifiersA", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, "uint*", pcchQualifierBuf, "ptr", lpApplicationDataBuf, "uint*", pcchApplicationDataBuf, "uint")
+        pcchQualifierBufMarshal := pcchQualifierBuf is VarRef ? "uint*" : "ptr"
+        pcchApplicationDataBufMarshal := pcchApplicationDataBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumComponentQualifiersA", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, pcchQualifierBufMarshal, pcchQualifierBuf, "ptr", lpApplicationDataBuf, pcchApplicationDataBufMarshal, pcchApplicationDataBuf, "uint")
         return result
     }
 
@@ -17406,7 +17519,10 @@ class ApplicationInstallationAndServicing {
         lpQualifierBuf := lpQualifierBuf is String ? StrPtr(lpQualifierBuf) : lpQualifierBuf
         lpApplicationDataBuf := lpApplicationDataBuf is String ? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
 
-        result := DllCall("msi.dll\MsiEnumComponentQualifiersW", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, "uint*", pcchQualifierBuf, "ptr", lpApplicationDataBuf, "uint*", pcchApplicationDataBuf, "uint")
+        pcchQualifierBufMarshal := pcchQualifierBuf is VarRef ? "uint*" : "ptr"
+        pcchApplicationDataBufMarshal := pcchApplicationDataBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumComponentQualifiersW", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, pcchQualifierBufMarshal, pcchQualifierBuf, "ptr", lpApplicationDataBuf, pcchApplicationDataBufMarshal, pcchApplicationDataBuf, "uint")
         return result
     }
 
@@ -18004,7 +18120,9 @@ class ApplicationInstallationAndServicing {
         szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
         szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
-        result := DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr*", pphFileRecords, "uint")
+        pcFilesMarshal := pcFiles is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, pcFilesMarshal, pcFiles, "ptr*", pphFileRecords, "uint")
         return result
     }
 
@@ -18062,7 +18180,9 @@ class ApplicationInstallationAndServicing {
         szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
         szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
-        result := DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr*", pphFileRecords, "uint")
+        pcFilesMarshal := pcFiles is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, pcFilesMarshal, pcFiles, "ptr*", pphFileRecords, "uint")
         return result
     }
 
@@ -18143,7 +18263,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
-        result := DllCall("msi.dll\MsiGetProductPropertyA", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductPropertyA", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -18224,7 +18346,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
-        result := DllCall("msi.dll\MsiGetProductPropertyW", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetProductPropertyW", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -18445,7 +18569,11 @@ class ApplicationInstallationAndServicing {
         lpTitleBuf := lpTitleBuf is String ? StrPtr(lpTitleBuf) : lpTitleBuf
         lpHelpBuf := lpHelpBuf is String ? StrPtr(lpHelpBuf) : lpHelpBuf
 
-        result := DllCall("msi.dll\MsiGetFeatureInfoA", "ptr", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
+        lpAttributesMarshal := lpAttributes is VarRef ? "uint*" : "ptr"
+        pcchTitleBufMarshal := pcchTitleBuf is VarRef ? "uint*" : "ptr"
+        pcchHelpBufMarshal := pcchHelpBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureInfoA", "ptr", hProduct, "ptr", szFeature, lpAttributesMarshal, lpAttributes, "ptr", lpTitleBuf, pcchTitleBufMarshal, pcchTitleBuf, "ptr", lpHelpBuf, pcchHelpBufMarshal, pcchHelpBuf, "uint")
         return result
     }
 
@@ -18532,7 +18660,11 @@ class ApplicationInstallationAndServicing {
         lpTitleBuf := lpTitleBuf is String ? StrPtr(lpTitleBuf) : lpTitleBuf
         lpHelpBuf := lpHelpBuf is String ? StrPtr(lpHelpBuf) : lpHelpBuf
 
-        result := DllCall("msi.dll\MsiGetFeatureInfoW", "ptr", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
+        lpAttributesMarshal := lpAttributes is VarRef ? "uint*" : "ptr"
+        pcchTitleBufMarshal := pcchTitleBuf is VarRef ? "uint*" : "ptr"
+        pcchHelpBufMarshal := pcchHelpBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureInfoW", "ptr", hProduct, "ptr", szFeature, lpAttributesMarshal, lpAttributes, "ptr", lpTitleBuf, pcchTitleBufMarshal, pcchTitleBuf, "ptr", lpHelpBuf, pcchHelpBufMarshal, pcchHelpBuf, "uint")
         return result
     }
 
@@ -19102,7 +19234,9 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiLocateComponentA", "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
+        pcchBufMarshal := pcchBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiLocateComponentA", "ptr", szComponent, "ptr", lpPathBuf, pcchBufMarshal, pcchBuf, "int")
         return result
     }
 
@@ -19218,7 +19352,9 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
-        result := DllCall("msi.dll\MsiLocateComponentW", "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
+        pcchBufMarshal := pcchBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiLocateComponentW", "ptr", szComponent, "ptr", lpPathBuf, pcchBufMarshal, pcchBuf, "int")
         return result
     }
 
@@ -22668,7 +22804,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := DllCall("msi.dll\MsiSourceListGetInfoA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSourceListGetInfoA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, pcchValueMarshal, pcchValue, "uint")
         return result
     }
 
@@ -22870,7 +23008,9 @@ class ApplicationInstallationAndServicing {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := DllCall("msi.dll\MsiSourceListGetInfoW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
+        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSourceListGetInfoW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, pcchValueMarshal, pcchValue, "uint")
         return result
     }
 
@@ -23098,7 +23238,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         szSource := szSource is String ? StrPtr(szSource) : szSource
 
-        result := DllCall("msi.dll\MsiSourceListEnumSourcesA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, "uint*", pcchSource, "uint")
+        pcchSourceMarshal := pcchSource is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSourceListEnumSourcesA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, pcchSourceMarshal, pcchSource, "uint")
         return result
     }
 
@@ -23326,7 +23468,9 @@ class ApplicationInstallationAndServicing {
         szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
         szSource := szSource is String ? StrPtr(szSource) : szSource
 
-        result := DllCall("msi.dll\MsiSourceListEnumSourcesW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, "uint*", pcchSource, "uint")
+        pcchSourceMarshal := pcchSource is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSourceListEnumSourcesW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, pcchSourceMarshal, pcchSource, "uint")
         return result
     }
 
@@ -23544,7 +23688,11 @@ class ApplicationInstallationAndServicing {
         szVolumeLabel := szVolumeLabel is String ? StrPtr(szVolumeLabel) : szVolumeLabel
         szDiskPrompt := szDiskPrompt is String ? StrPtr(szDiskPrompt) : szDiskPrompt
 
-        result := DllCall("msi.dll\MsiSourceListEnumMediaDisksA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "uint*", pdwDiskId, "ptr", szVolumeLabel, "uint*", pcchVolumeLabel, "ptr", szDiskPrompt, "uint*", pcchDiskPrompt, "uint")
+        pdwDiskIdMarshal := pdwDiskId is VarRef ? "uint*" : "ptr"
+        pcchVolumeLabelMarshal := pcchVolumeLabel is VarRef ? "uint*" : "ptr"
+        pcchDiskPromptMarshal := pcchDiskPrompt is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSourceListEnumMediaDisksA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, pdwDiskIdMarshal, pdwDiskId, "ptr", szVolumeLabel, pcchVolumeLabelMarshal, pcchVolumeLabel, "ptr", szDiskPrompt, pcchDiskPromptMarshal, pcchDiskPrompt, "uint")
         return result
     }
 
@@ -23762,7 +23910,11 @@ class ApplicationInstallationAndServicing {
         szVolumeLabel := szVolumeLabel is String ? StrPtr(szVolumeLabel) : szVolumeLabel
         szDiskPrompt := szDiskPrompt is String ? StrPtr(szDiskPrompt) : szDiskPrompt
 
-        result := DllCall("msi.dll\MsiSourceListEnumMediaDisksW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "uint*", pdwDiskId, "ptr", szVolumeLabel, "uint*", pcchVolumeLabel, "ptr", szDiskPrompt, "uint*", pcchDiskPrompt, "uint")
+        pdwDiskIdMarshal := pdwDiskId is VarRef ? "uint*" : "ptr"
+        pcchVolumeLabelMarshal := pcchVolumeLabel is VarRef ? "uint*" : "ptr"
+        pcchDiskPromptMarshal := pcchDiskPrompt is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSourceListEnumMediaDisksW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, pdwDiskIdMarshal, pdwDiskId, "ptr", szVolumeLabel, pcchVolumeLabelMarshal, pcchVolumeLabel, "ptr", szDiskPrompt, pcchDiskPromptMarshal, pcchDiskPrompt, "uint")
         return result
     }
 
@@ -23861,7 +24013,10 @@ class ApplicationInstallationAndServicing {
         lpVersionBuf := lpVersionBuf is String ? StrPtr(lpVersionBuf) : lpVersionBuf
         lpLangBuf := lpLangBuf is String ? StrPtr(lpLangBuf) : lpLangBuf
 
-        result := DllCall("msi.dll\MsiGetFileVersionA", "ptr", szFilePath, "ptr", lpVersionBuf, "uint*", pcchVersionBuf, "ptr", lpLangBuf, "uint*", pcchLangBuf, "uint")
+        pcchVersionBufMarshal := pcchVersionBuf is VarRef ? "uint*" : "ptr"
+        pcchLangBufMarshal := pcchLangBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFileVersionA", "ptr", szFilePath, "ptr", lpVersionBuf, pcchVersionBufMarshal, pcchVersionBuf, "ptr", lpLangBuf, pcchLangBufMarshal, pcchLangBuf, "uint")
         return result
     }
 
@@ -23960,7 +24115,10 @@ class ApplicationInstallationAndServicing {
         lpVersionBuf := lpVersionBuf is String ? StrPtr(lpVersionBuf) : lpVersionBuf
         lpLangBuf := lpLangBuf is String ? StrPtr(lpLangBuf) : lpLangBuf
 
-        result := DllCall("msi.dll\MsiGetFileVersionW", "ptr", szFilePath, "ptr", lpVersionBuf, "uint*", pcchVersionBuf, "ptr", lpLangBuf, "uint*", pcchLangBuf, "uint")
+        pcchVersionBufMarshal := pcchVersionBuf is VarRef ? "uint*" : "ptr"
+        pcchLangBufMarshal := pcchLangBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFileVersionW", "ptr", szFilePath, "ptr", lpVersionBuf, pcchVersionBufMarshal, pcchVersionBuf, "ptr", lpLangBuf, pcchLangBufMarshal, pcchLangBuf, "uint")
         return result
     }
 
@@ -24278,7 +24436,9 @@ class ApplicationInstallationAndServicing {
     static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
+        pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -24461,7 +24621,9 @@ class ApplicationInstallationAndServicing {
     static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
+        pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25642,7 +25804,9 @@ class ApplicationInstallationAndServicing {
         hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
         szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
 
-        result := DllCall("msi.dll\MsiViewGetErrorA", "ptr", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
+        pcchBufMarshal := pcchBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiViewGetErrorA", "ptr", hView, "ptr", szColumnNameBuffer, pcchBufMarshal, pcchBuf, "int")
         return result
     }
 
@@ -26039,7 +26203,9 @@ class ApplicationInstallationAndServicing {
         hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
         szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
 
-        result := DllCall("msi.dll\MsiViewGetErrorW", "ptr", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
+        pcchBufMarshal := pcchBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiViewGetErrorW", "ptr", hView, "ptr", szColumnNameBuffer, pcchBufMarshal, pcchBuf, "int")
         return result
     }
 
@@ -26242,7 +26408,9 @@ class ApplicationInstallationAndServicing {
     static MsiSummaryInfoGetPropertyCount(hSummaryInfo, puiPropertyCount) {
         hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
 
-        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyCount", "ptr", hSummaryInfo, "uint*", puiPropertyCount, "uint")
+        puiPropertyCountMarshal := puiPropertyCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyCount", "ptr", hSummaryInfo, puiPropertyCountMarshal, puiPropertyCount, "uint")
         return result
     }
 
@@ -26309,7 +26477,11 @@ class ApplicationInstallationAndServicing {
         hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
-        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyA", "ptr", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        puiDataTypeMarshal := puiDataType is VarRef ? "uint*" : "ptr"
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyA", "ptr", hSummaryInfo, "uint", uiProperty, puiDataTypeMarshal, puiDataType, piValueMarshal, piValue, "ptr", pftValue, "ptr", szValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -26332,7 +26504,11 @@ class ApplicationInstallationAndServicing {
         hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
-        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyW", "ptr", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        puiDataTypeMarshal := puiDataType is VarRef ? "uint*" : "ptr"
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyW", "ptr", hSummaryInfo, "uint", uiProperty, puiDataTypeMarshal, puiDataType, piValueMarshal, piValue, "ptr", pftValue, "ptr", szValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -27342,7 +27518,9 @@ class ApplicationInstallationAndServicing {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
-        result := DllCall("msi.dll\MsiRecordGetStringA", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiRecordGetStringA", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -27361,7 +27539,9 @@ class ApplicationInstallationAndServicing {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
-        result := DllCall("msi.dll\MsiRecordGetStringW", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiRecordGetStringW", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -27428,7 +27608,9 @@ class ApplicationInstallationAndServicing {
     static MsiRecordReadStream(hRecord, iField, szDataBuf, pcbDataBuf) {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordReadStream", "ptr", hRecord, "uint", iField, "ptr", szDataBuf, "uint*", pcbDataBuf, "uint")
+        pcbDataBufMarshal := pcbDataBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiRecordReadStream", "ptr", hRecord, "uint", iField, "ptr", szDataBuf, pcbDataBufMarshal, pcbDataBuf, "uint")
         return result
     }
 
@@ -27511,7 +27693,9 @@ class ApplicationInstallationAndServicing {
         szName := szName is String ? StrPtr(szName) : szName
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
-        result := DllCall("msi.dll\MsiGetPropertyA", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPropertyA", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -27530,7 +27714,9 @@ class ApplicationInstallationAndServicing {
         szName := szName is String ? StrPtr(szName) : szName
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
-        result := DllCall("msi.dll\MsiGetPropertyW", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        pcchValueBufMarshal := pcchValueBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetPropertyW", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, pcchValueBufMarshal, pcchValueBuf, "uint")
         return result
     }
 
@@ -27599,7 +27785,9 @@ class ApplicationInstallationAndServicing {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
         szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
 
-        result := DllCall("msi.dll\MsiFormatRecordA", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
+        pcchResultBufMarshal := pcchResultBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiFormatRecordA", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, pcchResultBufMarshal, pcchResultBuf, "uint")
         return result
     }
 
@@ -27619,7 +27807,9 @@ class ApplicationInstallationAndServicing {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
         szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
 
-        result := DllCall("msi.dll\MsiFormatRecordW", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
+        pcchResultBufMarshal := pcchResultBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiFormatRecordW", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, pcchResultBufMarshal, pcchResultBuf, "uint")
         return result
     }
 
@@ -27902,7 +28092,10 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureStateA", "ptr", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
+        piInstalledMarshal := piInstalled is VarRef ? "int*" : "ptr"
+        piActionMarshal := piAction is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureStateA", "ptr", hInstall, "ptr", szFeature, piInstalledMarshal, piInstalled, piActionMarshal, piAction, "uint")
         return result
     }
 
@@ -27921,7 +28114,10 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureStateW", "ptr", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
+        piInstalledMarshal := piInstalled is VarRef ? "int*" : "ptr"
+        piActionMarshal := piAction is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureStateW", "ptr", hInstall, "ptr", szFeature, piInstalledMarshal, piInstalled, piActionMarshal, piAction, "uint")
         return result
     }
 
@@ -28172,7 +28368,10 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
-        result := DllCall("msi.dll\MsiGetComponentStateA", "ptr", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
+        piInstalledMarshal := piInstalled is VarRef ? "int*" : "ptr"
+        piActionMarshal := piAction is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetComponentStateA", "ptr", hInstall, "ptr", szComponent, piInstalledMarshal, piInstalled, piActionMarshal, piAction, "uint")
         return result
     }
 
@@ -28191,7 +28390,10 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
-        result := DllCall("msi.dll\MsiGetComponentStateW", "ptr", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
+        piInstalledMarshal := piInstalled is VarRef ? "int*" : "ptr"
+        piActionMarshal := piAction is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetComponentStateW", "ptr", hInstall, "ptr", szComponent, piInstalledMarshal, piInstalled, piActionMarshal, piAction, "uint")
         return result
     }
 
@@ -28247,7 +28449,9 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureCostA", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
+        piCostMarshal := piCost is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureCostA", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, piCostMarshal, piCost, "uint")
         return result
     }
 
@@ -28267,7 +28471,9 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureCostW", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
+        piCostMarshal := piCost is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureCostW", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, piCostMarshal, piCost, "uint")
         return result
     }
 
@@ -28390,7 +28596,11 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         szDriveBuf := szDriveBuf is String ? StrPtr(szDriveBuf) : szDriveBuf
 
-        result := DllCall("msi.dll\MsiEnumComponentCostsA", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
+        pcchDriveBufMarshal := pcchDriveBuf is VarRef ? "uint*" : "ptr"
+        piCostMarshal := piCost is VarRef ? "int*" : "ptr"
+        piTempCostMarshal := piTempCost is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumComponentCostsA", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, pcchDriveBufMarshal, pcchDriveBuf, piCostMarshal, piCost, piTempCostMarshal, piTempCost, "uint")
         return result
     }
 
@@ -28513,7 +28723,11 @@ class ApplicationInstallationAndServicing {
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         szDriveBuf := szDriveBuf is String ? StrPtr(szDriveBuf) : szDriveBuf
 
-        result := DllCall("msi.dll\MsiEnumComponentCostsW", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
+        pcchDriveBufMarshal := pcchDriveBuf is VarRef ? "uint*" : "ptr"
+        piCostMarshal := piCost is VarRef ? "int*" : "ptr"
+        piTempCostMarshal := piTempCost is VarRef ? "int*" : "ptr"
+
+        result := DllCall("msi.dll\MsiEnumComponentCostsW", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, pcchDriveBufMarshal, pcchDriveBuf, piCostMarshal, piCost, piTempCostMarshal, piTempCost, "uint")
         return result
     }
 
@@ -28547,7 +28761,9 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureValidStatesA", "ptr", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
+        lpInstallStatesMarshal := lpInstallStates is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureValidStatesA", "ptr", hInstall, "ptr", szFeature, lpInstallStatesMarshal, lpInstallStates, "uint")
         return result
     }
 
@@ -28565,7 +28781,9 @@ class ApplicationInstallationAndServicing {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
-        result := DllCall("msi.dll\MsiGetFeatureValidStatesW", "ptr", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
+        lpInstallStatesMarshal := lpInstallStates is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetFeatureValidStatesW", "ptr", hInstall, "ptr", szFeature, lpInstallStatesMarshal, lpInstallStates, "uint")
         return result
     }
 
@@ -28586,7 +28804,9 @@ class ApplicationInstallationAndServicing {
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
 
-        result := DllCall("msi.dll\MsiGetSourcePathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetSourcePathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -28607,7 +28827,9 @@ class ApplicationInstallationAndServicing {
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
 
-        result := DllCall("msi.dll\MsiGetSourcePathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetSourcePathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -28628,7 +28850,9 @@ class ApplicationInstallationAndServicing {
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
 
-        result := DllCall("msi.dll\MsiGetTargetPathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetTargetPathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -28649,7 +28873,9 @@ class ApplicationInstallationAndServicing {
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
 
-        result := DllCall("msi.dll\MsiGetTargetPathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        pcchPathBufMarshal := pcchPathBuf is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("msi.dll\MsiGetTargetPathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, pcchPathBufMarshal, pcchPathBuf, "uint")
         return result
     }
 
@@ -29004,7 +29230,9 @@ class ApplicationInstallationAndServicing {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileExA", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatchc.dll\CreatePatchFileExA", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -29025,7 +29253,9 @@ class ApplicationInstallationAndServicing {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileExW", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatchc.dll\CreatePatchFileExW", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -29045,7 +29275,9 @@ class ApplicationInstallationAndServicing {
         NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
         PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
 
-        result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -29149,7 +29381,9 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static TestApplyPatchToFileByBuffers(PatchFileBuffer, PatchFileSize, OldFileBuffer, OldFileSize, NewFileSize, ApplyOptionFlags) {
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileByBuffers", "ptr", PatchFileBuffer, "uint", PatchFileSize, "ptr", OldFileBuffer, "uint", OldFileSize, "uint*", NewFileSize, "uint", ApplyOptionFlags, "int")
+        NewFileSizeMarshal := NewFileSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileByBuffers", "ptr", PatchFileBuffer, "uint", PatchFileSize, "ptr", OldFileBuffer, "uint", OldFileSize, NewFileSizeMarshal, NewFileSize, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29219,7 +29453,9 @@ class ApplicationInstallationAndServicing {
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -29238,7 +29474,9 @@ class ApplicationInstallationAndServicing {
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -29257,7 +29495,9 @@ class ApplicationInstallationAndServicing {
         OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
         NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -29277,7 +29517,10 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static ApplyPatchToFileByBuffers(PatchFileMapped, PatchFileSize, OldFileMapped, OldFileSize, NewFileBuffer, NewFileBufferSize, NewFileActualSize, NewFileTime, ApplyOptionFlags, ProgressCallback, CallbackContext) {
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", "ptr", PatchFileMapped, "uint", PatchFileSize, "ptr", OldFileMapped, "uint", OldFileSize, "ptr", NewFileBuffer, "uint", NewFileBufferSize, "uint*", NewFileActualSize, "ptr", NewFileTime, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        NewFileActualSizeMarshal := NewFileActualSize is VarRef ? "uint*" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", "ptr", PatchFileMapped, "uint", PatchFileSize, "ptr", OldFileMapped, "uint", OldFileSize, "ptr", NewFileBuffer, "uint", NewFileBufferSize, NewFileActualSizeMarshal, NewFileActualSize, "ptr", NewFileTime, "uint", ApplyOptionFlags, "ptr", ProgressCallback, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -29297,7 +29540,9 @@ class ApplicationInstallationAndServicing {
     static GetFilePatchSignatureA(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureA", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        OptionDataMarshal := OptionData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureA", "ptr", FileName, "uint", OptionFlags, OptionDataMarshal, OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29317,7 +29562,9 @@ class ApplicationInstallationAndServicing {
     static GetFilePatchSignatureW(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureW", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        OptionDataMarshal := OptionData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureW", "ptr", FileName, "uint", OptionFlags, OptionDataMarshal, OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29337,7 +29584,9 @@ class ApplicationInstallationAndServicing {
     static GetFilePatchSignatureByHandle(FileHandle, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureByHandle", "ptr", FileHandle, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        OptionDataMarshal := OptionData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureByHandle", "ptr", FileHandle, "uint", OptionFlags, OptionDataMarshal, OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29356,7 +29605,9 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static GetFilePatchSignatureByBuffer(FileBufferWritable, FileSize, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureByBuffer", "ptr", FileBufferWritable, "uint", FileSize, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        OptionDataMarshal := OptionData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureByBuffer", "ptr", FileBufferWritable, "uint", FileSize, "uint", OptionFlags, OptionDataMarshal, OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29632,7 +29883,9 @@ class ApplicationInstallationAndServicing {
      * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-deltafree
      */
     static DeltaFree(lpMemory) {
-        result := DllCall("msdelta.dll\DeltaFree", "ptr", lpMemory, "int")
+        lpMemoryMarshal := lpMemory is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("msdelta.dll\DeltaFree", lpMemoryMarshal, lpMemory, "int")
         return result
     }
 
@@ -29756,9 +30009,11 @@ class ApplicationInstallationAndServicing {
     static ActivateActCtx(hActCtx, lpCookie) {
         hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
 
+        lpCookieMarshal := lpCookie is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, "ptr*", lpCookie, "int")
+        result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, lpCookieMarshal, lpCookie, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30248,9 +30503,12 @@ class ApplicationInstallationAndServicing {
     static QueryActCtxW(dwFlags, hActCtx, pvSubInstance, ulInfoClass, pvBuffer, cbBuffer, pcbWrittenOrRequired) {
         hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
 
+        pvSubInstanceMarshal := pvSubInstance is VarRef ? "ptr" : "ptr"
+        pcbWrittenOrRequiredMarshal := pcbWrittenOrRequired is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, "ptr", pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, "ptr*", pcbWrittenOrRequired, "int")
+        result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, pvSubInstanceMarshal, pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, pcbWrittenOrRequiredMarshal, pcbWrittenOrRequired, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30283,9 +30541,11 @@ class ApplicationInstallationAndServicing {
         settingsNameSpace := settingsNameSpace is String ? StrPtr(settingsNameSpace) : settingsNameSpace
         settingName := settingName is String ? StrPtr(settingName) : settingName
 
+        pdwWrittenOrRequiredMarshal := pdwWrittenOrRequired is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, "ptr*", pdwWrittenOrRequired, "int")
+        result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, pdwWrittenOrRequiredMarshal, pdwWrittenOrRequired, "int")
         if(A_LastError)
             throw OSError()
 

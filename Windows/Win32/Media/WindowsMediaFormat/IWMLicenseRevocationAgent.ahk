@@ -47,7 +47,12 @@ class IWMLicenseRevocationAgent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserevocationagent-getlrbchallenge
      */
     GetLRBChallenge(pMachineID, dwMachineIDLength, pChallenge, dwChallengeLength, pChallengeOutput, pdwChallengeOutputLength) {
-        result := ComCall(3, this, "char*", pMachineID, "uint", dwMachineIDLength, "char*", pChallenge, "uint", dwChallengeLength, "char*", pChallengeOutput, "uint*", pdwChallengeOutputLength, "HRESULT")
+        pMachineIDMarshal := pMachineID is VarRef ? "char*" : "ptr"
+        pChallengeMarshal := pChallenge is VarRef ? "char*" : "ptr"
+        pChallengeOutputMarshal := pChallengeOutput is VarRef ? "char*" : "ptr"
+        pdwChallengeOutputLengthMarshal := pdwChallengeOutputLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pMachineIDMarshal, pMachineID, "uint", dwMachineIDLength, pChallengeMarshal, pChallenge, "uint", dwChallengeLength, pChallengeOutputMarshal, pChallengeOutput, pdwChallengeOutputLengthMarshal, pdwChallengeOutputLength, "HRESULT")
         return result
     }
 
@@ -61,7 +66,11 @@ class IWMLicenseRevocationAgent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserevocationagent-processlrb
      */
     ProcessLRB(pSignedLRB, dwSignedLRBLength, pSignedACK, pdwSignedACKLength) {
-        result := ComCall(4, this, "char*", pSignedLRB, "uint", dwSignedLRBLength, "char*", pSignedACK, "uint*", pdwSignedACKLength, "HRESULT")
+        pSignedLRBMarshal := pSignedLRB is VarRef ? "char*" : "ptr"
+        pSignedACKMarshal := pSignedACK is VarRef ? "char*" : "ptr"
+        pdwSignedACKLengthMarshal := pdwSignedACKLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pSignedLRBMarshal, pSignedLRB, "uint", dwSignedLRBLength, pSignedACKMarshal, pSignedACK, pdwSignedACKLengthMarshal, pdwSignedACKLength, "HRESULT")
         return result
     }
 }

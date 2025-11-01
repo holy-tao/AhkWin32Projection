@@ -57,7 +57,9 @@ class IAppxBlockMapFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getlocalfileheadersize
      */
     GetLocalFileHeaderSize(lfhSize) {
-        result := ComCall(4, this, "uint*", lfhSize, "HRESULT")
+        lfhSizeMarshal := lfhSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, lfhSizeMarshal, lfhSize, "HRESULT")
         return result
     }
 
@@ -79,7 +81,9 @@ class IAppxBlockMapFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getuncompressedsize
      */
     GetUncompressedSize(size) {
-        result := ComCall(6, this, "uint*", size, "HRESULT")
+        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, sizeMarshal, size, "HRESULT")
         return result
     }
 

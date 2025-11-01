@@ -38,7 +38,9 @@ class ITAddressCapabilities extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapability
      */
     get_AddressCapability(AddressCap, plCapability) {
-        result := ComCall(7, this, "int", AddressCap, "int*", plCapability, "HRESULT")
+        plCapabilityMarshal := plCapability is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "int", AddressCap, plCapabilityMarshal, plCapability, "HRESULT")
         return result
     }
 

@@ -90,7 +90,9 @@ class IShellLinkDataList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-adddatablock
      */
     AddDataBlock(pDataBlock) {
-        result := ComCall(3, this, "ptr", pDataBlock, "HRESULT")
+        pDataBlockMarshal := pDataBlock is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, pDataBlockMarshal, pDataBlock, "HRESULT")
         return result
     }
 
@@ -124,7 +126,9 @@ class IShellLinkDataList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(6, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

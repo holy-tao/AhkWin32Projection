@@ -182,7 +182,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     SyncSetting(pfss) {
-        result := ComCall(17, this, "int*", pfss, "HRESULT")
+        pfssMarshal := pfss is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pfssMarshal, pfss, "HRESULT")
         return result
     }
 
@@ -202,7 +204,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     Interval(puiInterval) {
-        result := ComCall(19, this, "uint*", puiInterval, "HRESULT")
+        puiIntervalMarshal := puiInterval is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, puiIntervalMarshal, puiInterval, "HRESULT")
         return result
     }
 
@@ -273,7 +277,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     MaxItemCount(puiMaxItemCount) {
-        result := ComCall(26, this, "uint*", puiMaxItemCount, "HRESULT")
+        puiMaxItemCountMarshal := puiMaxItemCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(26, this, puiMaxItemCountMarshal, puiMaxItemCount, "HRESULT")
         return result
     }
 
@@ -313,7 +319,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     DownloadStatus(pfds) {
-        result := ComCall(30, this, "int*", pfds, "HRESULT")
+        pfdsMarshal := pfds is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, pfdsMarshal, pfds, "HRESULT")
         return result
     }
 
@@ -323,7 +331,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     LastDownloadError(pfde) {
-        result := ComCall(31, this, "int*", pfde, "HRESULT")
+        pfdeMarshal := pfde is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pfdeMarshal, pfde, "HRESULT")
         return result
     }
 
@@ -417,7 +427,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     Ttl(puiTtl) {
-        result := ComCall(40, this, "uint*", puiTtl, "HRESULT")
+        puiTtlMarshal := puiTtl is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(40, this, puiTtlMarshal, puiTtl, "HRESULT")
         return result
     }
 
@@ -470,7 +482,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     UnreadItemCount(puiUnreadItemCount) {
-        result := ComCall(45, this, "uint*", puiUnreadItemCount, "HRESULT")
+        puiUnreadItemCountMarshal := puiUnreadItemCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(45, this, puiUnreadItemCountMarshal, puiUnreadItemCount, "HRESULT")
         return result
     }
 
@@ -480,7 +494,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     ItemCount(puiItemCount) {
-        result := ComCall(46, this, "uint*", puiItemCount, "HRESULT")
+        puiItemCountMarshal := puiItemCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(46, this, puiItemCountMarshal, puiItemCount, "HRESULT")
         return result
     }
 }

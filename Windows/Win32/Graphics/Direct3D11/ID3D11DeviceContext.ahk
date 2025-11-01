@@ -172,7 +172,10 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-iasetvertexbuffers
      */
     IASetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets) {
-        ComCall(18, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, "uint*", pStrides, "uint*", pOffsets)
+        pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
+        pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
+
+        ComCall(18, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -366,7 +369,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omsetrendertargetsandunorderedaccessviews
      */
     OMSetRenderTargetsAndUnorderedAccessViews(NumRTVs, ppRenderTargetViews, pDepthStencilView, UAVStartSlot, NumUAVs, ppUnorderedAccessViews, pUAVInitialCounts) {
-        ComCall(34, this, "uint", NumRTVs, "ptr*", ppRenderTargetViews, "ptr", pDepthStencilView, "uint", UAVStartSlot, "uint", NumUAVs, "ptr*", ppUnorderedAccessViews, "uint*", pUAVInitialCounts)
+        pUAVInitialCountsMarshal := pUAVInitialCounts is VarRef ? "uint*" : "ptr"
+
+        ComCall(34, this, "uint", NumRTVs, "ptr*", ppRenderTargetViews, "ptr", pDepthStencilView, "uint", UAVStartSlot, "uint", NumUAVs, "ptr*", ppUnorderedAccessViews, pUAVInitialCountsMarshal, pUAVInitialCounts)
     }
 
     /**
@@ -378,7 +383,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omsetblendstate
      */
     OMSetBlendState(pBlendState, BlendFactor, SampleMask) {
-        ComCall(35, this, "ptr", pBlendState, "float*", BlendFactor, "uint", SampleMask)
+        BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
+
+        ComCall(35, this, "ptr", pBlendState, BlendFactorMarshal, BlendFactor, "uint", SampleMask)
     }
 
     /**
@@ -401,7 +408,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-sosettargets
      */
     SOSetTargets(NumBuffers, ppSOTargets, pOffsets) {
-        ComCall(37, this, "uint", NumBuffers, "ptr*", ppSOTargets, "uint*", pOffsets)
+        pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
+
+        ComCall(37, this, "uint", NumBuffers, "ptr*", ppSOTargets, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -530,7 +539,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-updatesubresource
      */
     UpdateSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
-        ComCall(48, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, "ptr", pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        ComCall(48, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
     }
 
     /**
@@ -553,7 +564,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-clearrendertargetview
      */
     ClearRenderTargetView(pRenderTargetView, ColorRGBA) {
-        ComCall(50, this, "ptr", pRenderTargetView, "float*", ColorRGBA)
+        ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
+
+        ComCall(50, this, "ptr", pRenderTargetView, ColorRGBAMarshal, ColorRGBA)
     }
 
     /**
@@ -564,7 +577,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-clearunorderedaccessviewuint
      */
     ClearUnorderedAccessViewUint(pUnorderedAccessView, Values) {
-        ComCall(51, this, "ptr", pUnorderedAccessView, "uint*", Values)
+        ValuesMarshal := Values is VarRef ? "uint*" : "ptr"
+
+        ComCall(51, this, "ptr", pUnorderedAccessView, ValuesMarshal, Values)
     }
 
     /**
@@ -575,7 +590,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-clearunorderedaccessviewfloat
      */
     ClearUnorderedAccessViewFloat(pUnorderedAccessView, Values) {
-        ComCall(52, this, "ptr", pUnorderedAccessView, "float*", Values)
+        ValuesMarshal := Values is VarRef ? "float*" : "ptr"
+
+        ComCall(52, this, "ptr", pUnorderedAccessView, ValuesMarshal, Values)
     }
 
     /**
@@ -766,7 +783,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-cssetunorderedaccessviews
      */
     CSSetUnorderedAccessViews(StartSlot, NumUAVs, ppUnorderedAccessViews, pUAVInitialCounts) {
-        ComCall(68, this, "uint", StartSlot, "uint", NumUAVs, "ptr*", ppUnorderedAccessViews, "uint*", pUAVInitialCounts)
+        pUAVInitialCountsMarshal := pUAVInitialCounts is VarRef ? "uint*" : "ptr"
+
+        ComCall(68, this, "uint", StartSlot, "uint", NumUAVs, "ptr*", ppUnorderedAccessViews, pUAVInitialCountsMarshal, pUAVInitialCounts)
     }
 
     /**
@@ -838,7 +857,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-psgetshader
      */
     PSGetShader(ppPixelShader, ppClassInstances, pNumClassInstances) {
-        ComCall(74, this, "ptr*", ppPixelShader, "ptr*", ppClassInstances, "uint*", pNumClassInstances)
+        pNumClassInstancesMarshal := pNumClassInstances is VarRef ? "uint*" : "ptr"
+
+        ComCall(74, this, "ptr*", ppPixelShader, "ptr*", ppClassInstances, pNumClassInstancesMarshal, pNumClassInstances)
     }
 
     /**
@@ -862,7 +883,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vsgetshader
      */
     VSGetShader(ppVertexShader, ppClassInstances, pNumClassInstances) {
-        ComCall(76, this, "ptr*", ppVertexShader, "ptr*", ppClassInstances, "uint*", pNumClassInstances)
+        pNumClassInstancesMarshal := pNumClassInstances is VarRef ? "uint*" : "ptr"
+
+        ComCall(76, this, "ptr*", ppVertexShader, "ptr*", ppClassInstances, pNumClassInstancesMarshal, pNumClassInstances)
     }
 
     /**
@@ -898,7 +921,10 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-iagetvertexbuffers
      */
     IAGetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets) {
-        ComCall(79, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, "uint*", pStrides, "uint*", pOffsets)
+        pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
+        pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
+
+        ComCall(79, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -910,7 +936,10 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-iagetindexbuffer
      */
     IAGetIndexBuffer(pIndexBuffer, Format, Offset) {
-        ComCall(80, this, "ptr*", pIndexBuffer, "int*", Format, "uint*", Offset)
+        FormatMarshal := Format is VarRef ? "int*" : "ptr"
+        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+
+        ComCall(80, this, "ptr*", pIndexBuffer, FormatMarshal, Format, OffsetMarshal, Offset)
     }
 
     /**
@@ -934,7 +963,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gsgetshader
      */
     GSGetShader(ppGeometryShader, ppClassInstances, pNumClassInstances) {
-        ComCall(82, this, "ptr*", ppGeometryShader, "ptr*", ppClassInstances, "uint*", pNumClassInstances)
+        pNumClassInstancesMarshal := pNumClassInstances is VarRef ? "uint*" : "ptr"
+
+        ComCall(82, this, "ptr*", ppGeometryShader, "ptr*", ppClassInstances, pNumClassInstancesMarshal, pNumClassInstances)
     }
 
     /**
@@ -944,7 +975,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-iagetprimitivetopology
      */
     IAGetPrimitiveTopology(pTopology) {
-        ComCall(83, this, "int*", pTopology)
+        pTopologyMarshal := pTopology is VarRef ? "int*" : "ptr"
+
+        ComCall(83, this, pTopologyMarshal, pTopology)
     }
 
     /**
@@ -1042,7 +1075,10 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omgetblendstate
      */
     OMGetBlendState(ppBlendState, BlendFactor, pSampleMask) {
-        ComCall(91, this, "ptr*", ppBlendState, "float*", BlendFactor, "uint*", pSampleMask)
+        BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
+        pSampleMaskMarshal := pSampleMask is VarRef ? "uint*" : "ptr"
+
+        ComCall(91, this, "ptr*", ppBlendState, BlendFactorMarshal, BlendFactor, pSampleMaskMarshal, pSampleMask)
     }
 
     /**
@@ -1053,7 +1089,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omgetdepthstencilstate
      */
     OMGetDepthStencilState(ppDepthStencilState, pStencilRef) {
-        ComCall(92, this, "ptr*", ppDepthStencilState, "uint*", pStencilRef)
+        pStencilRefMarshal := pStencilRef is VarRef ? "uint*" : "ptr"
+
+        ComCall(92, this, "ptr*", ppDepthStencilState, pStencilRefMarshal, pStencilRef)
     }
 
     /**
@@ -1085,7 +1123,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-rsgetviewports
      */
     RSGetViewports(pNumViewports, pViewports) {
-        ComCall(95, this, "uint*", pNumViewports, "ptr", pViewports)
+        pNumViewportsMarshal := pNumViewports is VarRef ? "uint*" : "ptr"
+
+        ComCall(95, this, pNumViewportsMarshal, pNumViewports, "ptr", pViewports)
     }
 
     /**
@@ -1096,7 +1136,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-rsgetscissorrects
      */
     RSGetScissorRects(pNumRects, pRects) {
-        ComCall(96, this, "uint*", pNumRects, "ptr", pRects)
+        pNumRectsMarshal := pNumRects is VarRef ? "uint*" : "ptr"
+
+        ComCall(96, this, pNumRectsMarshal, pNumRects, "ptr", pRects)
     }
 
     /**
@@ -1120,7 +1162,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hsgetshader
      */
     HSGetShader(ppHullShader, ppClassInstances, pNumClassInstances) {
-        ComCall(98, this, "ptr*", ppHullShader, "ptr*", ppClassInstances, "uint*", pNumClassInstances)
+        pNumClassInstancesMarshal := pNumClassInstances is VarRef ? "uint*" : "ptr"
+
+        ComCall(98, this, "ptr*", ppHullShader, "ptr*", ppClassInstances, pNumClassInstancesMarshal, pNumClassInstances)
     }
 
     /**
@@ -1168,7 +1212,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dsgetshader
      */
     DSGetShader(ppDomainShader, ppClassInstances, pNumClassInstances) {
-        ComCall(102, this, "ptr*", ppDomainShader, "ptr*", ppClassInstances, "uint*", pNumClassInstances)
+        pNumClassInstancesMarshal := pNumClassInstances is VarRef ? "uint*" : "ptr"
+
+        ComCall(102, this, "ptr*", ppDomainShader, "ptr*", ppClassInstances, pNumClassInstancesMarshal, pNumClassInstances)
     }
 
     /**
@@ -1228,7 +1274,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-csgetshader
      */
     CSGetShader(ppComputeShader, ppClassInstances, pNumClassInstances) {
-        ComCall(107, this, "ptr*", ppComputeShader, "ptr*", ppClassInstances, "uint*", pNumClassInstances)
+        pNumClassInstancesMarshal := pNumClassInstances is VarRef ? "uint*" : "ptr"
+
+        ComCall(107, this, "ptr*", ppComputeShader, "ptr*", ppClassInstances, pNumClassInstancesMarshal, pNumClassInstances)
     }
 
     /**

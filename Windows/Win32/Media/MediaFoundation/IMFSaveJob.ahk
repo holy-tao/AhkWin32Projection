@@ -71,7 +71,9 @@ class IMFSaveJob extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsavejob-getprogress
      */
     GetProgress(pdwPercentComplete) {
-        result := ComCall(6, this, "uint*", pdwPercentComplete, "HRESULT")
+        pdwPercentCompleteMarshal := pdwPercentComplete is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwPercentCompleteMarshal, pdwPercentComplete, "HRESULT")
         return result
     }
 }

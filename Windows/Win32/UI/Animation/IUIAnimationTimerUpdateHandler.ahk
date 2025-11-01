@@ -43,7 +43,9 @@ class IUIAnimationTimerUpdateHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimerupdatehandler-onupdate
      */
     OnUpdate(timeNow, result) {
-        result := ComCall(3, this, "double", timeNow, "int*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "double", timeNow, resultMarshal, result, "HRESULT")
         return result
     }
 

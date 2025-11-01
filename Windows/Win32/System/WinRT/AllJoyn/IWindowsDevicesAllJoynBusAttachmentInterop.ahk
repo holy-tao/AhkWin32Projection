@@ -36,7 +36,9 @@ class IWindowsDevicesAllJoynBusAttachmentInterop extends IInspectable{
      * @returns {HRESULT} 
      */
     get_Win32Handle(value) {
-        result := ComCall(6, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

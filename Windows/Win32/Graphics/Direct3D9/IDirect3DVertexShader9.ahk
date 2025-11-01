@@ -61,7 +61,10 @@ class IDirect3DVertexShader9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexshader9-getfunction
      */
     GetFunction(param0, pSizeOfData) {
-        result := ComCall(4, this, "ptr", param0, "uint*", pSizeOfData, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, param0Marshal, param0, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
     }
 }

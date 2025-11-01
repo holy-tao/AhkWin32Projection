@@ -44,7 +44,9 @@ class IContactProperties extends IUnknown{
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(3, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszValue, "uint", cchValue, "uint*", pdwcchPropertyValueRequired, "HRESULT")
+        pdwcchPropertyValueRequiredMarshal := pdwcchPropertyValueRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszValue, "uint", cchValue, pdwcchPropertyValueRequiredMarshal, pdwcchPropertyValueRequired, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class IContactProperties extends IUnknown{
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszContentType, "uint", cchContentType, "uint*", pdwcchContentTypeRequired, "ptr*", ppStream, "HRESULT")
+        pdwcchContentTypeRequiredMarshal := pdwcchContentTypeRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszContentType, "uint", cchContentType, pdwcchContentTypeRequiredMarshal, pdwcchContentTypeRequired, "ptr*", ppStream, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IContactProperties extends IUnknown{
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
         pszLabels := pszLabels is String ? StrPtr(pszLabels) : pszLabels
 
-        result := ComCall(6, this, "ptr", pszArrayElementName, "uint", dwFlags, "ptr", pszLabels, "uint", cchLabels, "uint*", pdwcchLabelsRequired, "HRESULT")
+        pdwcchLabelsRequiredMarshal := pdwcchLabelsRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszArrayElementName, "uint", dwFlags, "ptr", pszLabels, "uint", cchLabels, pdwcchLabelsRequiredMarshal, pdwcchLabelsRequired, "HRESULT")
         return result
     }
 
@@ -179,7 +185,9 @@ class IContactProperties extends IUnknown{
         pszArrayName := pszArrayName is String ? StrPtr(pszArrayName) : pszArrayName
         pszNewArrayElementName := pszNewArrayElementName is String ? StrPtr(pszNewArrayElementName) : pszNewArrayElementName
 
-        result := ComCall(11, this, "ptr", pszArrayName, "uint", dwFlags, "int", fAppend, "ptr", pszNewArrayElementName, "uint", cchNewArrayElementName, "uint*", pdwcchNewArrayElementNameRequired, "HRESULT")
+        pdwcchNewArrayElementNameRequiredMarshal := pdwcchNewArrayElementNameRequired is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pszArrayName, "uint", dwFlags, "int", fAppend, "ptr", pszNewArrayElementName, "uint", cchNewArrayElementName, pdwcchNewArrayElementNameRequiredMarshal, pdwcchNewArrayElementNameRequired, "HRESULT")
         return result
     }
 

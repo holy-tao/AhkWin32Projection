@@ -38,7 +38,9 @@ class ITfThreadMgrEx extends ITfThreadMgr{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgrex-activateex
      */
     ActivateEx(ptid, dwFlags) {
-        result := ComCall(14, this, "uint*", ptid, "uint", dwFlags, "HRESULT")
+        ptidMarshal := ptid is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, ptidMarshal, ptid, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -49,7 +51,9 @@ class ITfThreadMgrEx extends ITfThreadMgr{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgrex-getactiveflags
      */
     GetActiveFlags(lpdwFlags) {
-        result := ComCall(15, this, "uint*", lpdwFlags, "HRESULT")
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, lpdwFlagsMarshal, lpdwFlags, "HRESULT")
         return result
     }
 }

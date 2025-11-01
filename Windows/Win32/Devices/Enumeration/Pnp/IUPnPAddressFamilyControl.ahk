@@ -48,7 +48,9 @@ class IUPnPAddressFamilyControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpaddressfamilycontrol-getaddressfamily
      */
     GetAddressFamily(pdwFlags) {
-        result := ComCall(4, this, "int*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

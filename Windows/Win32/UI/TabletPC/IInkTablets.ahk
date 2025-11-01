@@ -43,7 +43,9 @@ class IInkTablets extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-get_count
      */
     get_Count(Count) {
-        result := ComCall(7, this, "int*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
         return result
     }
 

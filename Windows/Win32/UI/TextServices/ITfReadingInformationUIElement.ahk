@@ -37,7 +37,9 @@ class ITfReadingInformationUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getupdatedflags
      */
     GetUpdatedFlags(pdwFlags) {
-        result := ComCall(7, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ITfReadingInformationUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getmaxreadingstringlength
      */
     GetMaxReadingStringLength(pcchMax) {
-        result := ComCall(10, this, "uint*", pcchMax, "HRESULT")
+        pcchMaxMarshal := pcchMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pcchMaxMarshal, pcchMax, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class ITfReadingInformationUIElement extends ITfUIElement{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-geterrorindex
      */
     GetErrorIndex(pErrorIndex) {
-        result := ComCall(11, this, "uint*", pErrorIndex, "HRESULT")
+        pErrorIndexMarshal := pErrorIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pErrorIndexMarshal, pErrorIndex, "HRESULT")
         return result
     }
 

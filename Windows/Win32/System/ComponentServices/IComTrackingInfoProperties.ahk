@@ -37,7 +37,9 @@ class IComTrackingInfoProperties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoproperties-propcount
      */
     PropCount(pCount) {
-        result := ComCall(3, this, "uint*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

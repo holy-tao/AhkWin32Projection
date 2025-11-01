@@ -34,7 +34,9 @@ class IRTCBuddyGroupEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EventType(pEventType) {
-        result := ComCall(7, this, "int*", pEventType, "HRESULT")
+        pEventTypeMarshal := pEventType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pEventTypeMarshal, pEventType, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IRTCBuddyGroupEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_StatusCode(plStatusCode) {
-        result := ComCall(10, this, "int*", plStatusCode, "HRESULT")
+        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
         return result
     }
 }

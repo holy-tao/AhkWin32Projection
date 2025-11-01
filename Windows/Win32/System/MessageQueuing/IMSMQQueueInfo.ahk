@@ -139,7 +139,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_IsTransactional(pisTransactional) {
-        result := ComCall(16, this, "short*", pisTransactional, "HRESULT")
+        pisTransactionalMarshal := pisTransactional is VarRef ? "short*" : "ptr"
+
+        result := ComCall(16, this, pisTransactionalMarshal, pisTransactional, "HRESULT")
         return result
     }
 
@@ -149,7 +151,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_PrivLevel(plPrivLevel) {
-        result := ComCall(17, this, "int*", plPrivLevel, "HRESULT")
+        plPrivLevelMarshal := plPrivLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, plPrivLevelMarshal, plPrivLevel, "HRESULT")
         return result
     }
 
@@ -169,7 +173,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Journal(plJournal) {
-        result := ComCall(19, this, "int*", plJournal, "HRESULT")
+        plJournalMarshal := plJournal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, plJournalMarshal, plJournal, "HRESULT")
         return result
     }
 
@@ -189,7 +195,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Quota(plQuota) {
-        result := ComCall(21, this, "int*", plQuota, "HRESULT")
+        plQuotaMarshal := plQuota is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, plQuotaMarshal, plQuota, "HRESULT")
         return result
     }
 
@@ -209,7 +217,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_BasePriority(plBasePriority) {
-        result := ComCall(23, this, "int*", plBasePriority, "HRESULT")
+        plBasePriorityMarshal := plBasePriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, plBasePriorityMarshal, plBasePriority, "HRESULT")
         return result
     }
 
@@ -249,7 +259,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Authenticate(plAuthenticate) {
-        result := ComCall(27, this, "int*", plAuthenticate, "HRESULT")
+        plAuthenticateMarshal := plAuthenticate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, plAuthenticateMarshal, plAuthenticate, "HRESULT")
         return result
     }
 
@@ -269,7 +281,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_JournalQuota(plJournalQuota) {
-        result := ComCall(29, this, "int*", plJournalQuota, "HRESULT")
+        plJournalQuotaMarshal := plJournalQuota is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, plJournalQuotaMarshal, plJournalQuota, "HRESULT")
         return result
     }
 
@@ -289,7 +303,9 @@ class IMSMQQueueInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     get_IsWorldReadable(pisWorldReadable) {
-        result := ComCall(31, this, "short*", pisWorldReadable, "HRESULT")
+        pisWorldReadableMarshal := pisWorldReadable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(31, this, pisWorldReadableMarshal, pisWorldReadable, "HRESULT")
         return result
     }
 

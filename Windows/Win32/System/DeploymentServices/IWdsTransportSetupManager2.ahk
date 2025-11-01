@@ -37,7 +37,9 @@ class IWdsTransportSetupManager2 extends IWdsTransportSetupManager{
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_tftpcapabilities
      */
     get_TftpCapabilities(pulTftpCapabilities) {
-        result := ComCall(12, this, "uint*", pulTftpCapabilities, "HRESULT")
+        pulTftpCapabilitiesMarshal := pulTftpCapabilities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pulTftpCapabilitiesMarshal, pulTftpCapabilities, "HRESULT")
         return result
     }
 

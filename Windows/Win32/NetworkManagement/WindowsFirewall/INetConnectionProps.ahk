@@ -70,7 +70,9 @@ class INetConnectionProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_status
      */
     get_Status(pStatus) {
-        result := ComCall(10, this, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class INetConnectionProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_mediatype
      */
     get_MediaType(pMediaType) {
-        result := ComCall(11, this, "int*", pMediaType, "HRESULT")
+        pMediaTypeMarshal := pMediaType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pMediaTypeMarshal, pMediaType, "HRESULT")
         return result
     }
 
@@ -92,7 +96,9 @@ class INetConnectionProps extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_characteristics
      */
     get_Characteristics(pdwFlags) {
-        result := ComCall(12, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 }

@@ -70,7 +70,9 @@ class ITrusteeGroupAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMembers(pMembershipTrustee, pcMembers, prgMembers) {
-        result := ComCall(6, this, "ptr", pMembershipTrustee, "uint*", pcMembers, "ptr*", prgMembers, "HRESULT")
+        pcMembersMarshal := pcMembers is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pMembershipTrustee, pcMembersMarshal, pcMembers, "ptr*", prgMembers, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ class ITrusteeGroupAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMemberships(pTrustee, pcMemberships, prgMemberships) {
-        result := ComCall(7, this, "ptr", pTrustee, "uint*", pcMemberships, "ptr*", prgMemberships, "HRESULT")
+        pcMembershipsMarshal := pcMemberships is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pTrustee, pcMembershipsMarshal, pcMemberships, "ptr*", prgMemberships, "HRESULT")
         return result
     }
 }

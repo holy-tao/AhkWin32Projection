@@ -101,7 +101,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_restartcount
      */
     get_RestartCount(pRestartCount) {
-        result := ComCall(11, this, "int*", pRestartCount, "HRESULT")
+        pRestartCountMarshal := pRestartCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pRestartCountMarshal, pRestartCount, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_multipleinstances
      */
     get_MultipleInstances(pPolicy) {
-        result := ComCall(13, this, "int*", pPolicy, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pPolicyMarshal, pPolicy, "HRESULT")
         return result
     }
 
@@ -348,7 +352,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_priority
      */
     get_Priority(pPriority) {
-        result := ComCall(33, this, "int*", pPriority, "HRESULT")
+        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(33, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
     }
 
@@ -370,7 +376,9 @@ class ITaskSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-get_compatibility
      */
     get_Compatibility(pCompatLevel) {
-        result := ComCall(35, this, "int*", pCompatLevel, "HRESULT")
+        pCompatLevelMarshal := pCompatLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(35, this, pCompatLevelMarshal, pCompatLevel, "HRESULT")
         return result
     }
 

@@ -57,7 +57,9 @@ class ID3D11DeviceChild extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
-        result := ComCall(4, this, "ptr", guid, "uint*", pDataSize, "ptr", pData, "HRESULT")
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 

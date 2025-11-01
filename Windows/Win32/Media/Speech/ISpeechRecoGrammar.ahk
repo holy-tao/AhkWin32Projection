@@ -65,7 +65,9 @@ class ISpeechRecoGrammar extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(State) {
-        result := ComCall(10, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, StateMarshal, State, "HRESULT")
         return result
     }
 
@@ -247,7 +249,9 @@ class ISpeechRecoGrammar extends IDispatch{
     IsPronounceable(Word, WordPronounceable) {
         Word := Word is String ? BSTR.Alloc(Word).Value : Word
 
-        result := ComCall(25, this, "ptr", Word, "int*", WordPronounceable, "HRESULT")
+        WordPronounceableMarshal := WordPronounceable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, "ptr", Word, WordPronounceableMarshal, WordPronounceable, "HRESULT")
         return result
     }
 }

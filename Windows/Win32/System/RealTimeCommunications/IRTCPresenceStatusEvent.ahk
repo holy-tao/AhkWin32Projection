@@ -34,7 +34,9 @@ class IRTCPresenceStatusEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     get_StatusCode(plStatusCode) {
-        result := ComCall(7, this, "int*", plStatusCode, "HRESULT")
+        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IRTCPresenceStatusEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     GetLocalPresenceInfo(penStatus, pbstrNotes) {
-        result := ComCall(9, this, "int*", penStatus, "ptr", pbstrNotes, "HRESULT")
+        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, penStatusMarshal, penStatus, "ptr", pbstrNotes, "HRESULT")
         return result
     }
 }

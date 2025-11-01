@@ -37,7 +37,9 @@ class IScheduleCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-get_count
      */
     get_Count(retVal) {
-        result := ComCall(7, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

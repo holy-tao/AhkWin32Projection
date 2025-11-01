@@ -38,7 +38,9 @@ class IMbnMultiCarrier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-sethomeprovider
      */
     SetHomeProvider(homeProvider, requestID) {
-        result := ComCall(3, this, "ptr", homeProvider, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", homeProvider, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class IMbnMultiCarrier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getvisibleproviders
      */
     GetVisibleProviders(age, visibleProviders) {
-        result := ComCall(5, this, "uint*", age, "ptr*", visibleProviders, "HRESULT")
+        ageMarshal := age is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, ageMarshal, age, "ptr*", visibleProviders, "HRESULT")
         return result
     }
 
@@ -83,7 +87,9 @@ class IMbnMultiCarrier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getcurrentcellularclass
      */
     GetCurrentCellularClass(currentCellularClass) {
-        result := ComCall(7, this, "int*", currentCellularClass, "HRESULT")
+        currentCellularClassMarshal := currentCellularClass is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, currentCellularClassMarshal, currentCellularClass, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IMbnMultiCarrier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-scannetwork
      */
     ScanNetwork(requestID) {
-        result := ComCall(8, this, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 }

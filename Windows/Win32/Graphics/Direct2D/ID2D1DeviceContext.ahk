@@ -68,7 +68,9 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbitmap
      */
     CreateBitmap(size, sourceData, pitch, bitmapProperties, bitmap) {
-        result := ComCall(57, this, "ptr", size, "ptr", sourceData, "uint", pitch, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
+        sourceDataMarshal := sourceData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(57, this, "ptr", size, sourceDataMarshal, sourceData, "uint", pitch, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
         return result
     }
 
@@ -95,7 +97,9 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createcolorcontext
      */
     CreateColorContext(space, profile, profileSize, colorContext) {
-        result := ComCall(59, this, "int", space, "char*", profile, "uint", profileSize, "ptr*", colorContext, "HRESULT")
+        profileMarshal := profile is VarRef ? "char*" : "ptr"
+
+        result := ComCall(59, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", colorContext, "HRESULT")
         return result
     }
 
@@ -443,7 +447,9 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectinvalidrectanglecount
      */
     GetEffectInvalidRectangleCount(effect, rectangleCount) {
-        result := ComCall(88, this, "ptr", effect, "uint*", rectangleCount, "HRESULT")
+        rectangleCountMarshal := rectangleCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(88, this, "ptr", effect, rectangleCountMarshal, rectangleCount, "HRESULT")
         return result
     }
 

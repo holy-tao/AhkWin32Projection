@@ -34,7 +34,9 @@ class IFeedItem2 extends IFeedItem{
      * @returns {HRESULT} 
      */
     get_EffectiveId(effectiveId) {
-        result := ComCall(24, this, "int*", effectiveId, "HRESULT")
+        effectiveIdMarshal := effectiveId is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, effectiveIdMarshal, effectiveId, "HRESULT")
         return result
     }
 }

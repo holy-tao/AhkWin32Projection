@@ -42,7 +42,9 @@ class IWriteSpeedDescriptor extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_mediatype
      */
     get_MediaType(value) {
-        result := ComCall(7, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IWriteSpeedDescriptor extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_writespeed
      */
     get_WriteSpeed(value) {
-        result := ComCall(9, this, "int*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

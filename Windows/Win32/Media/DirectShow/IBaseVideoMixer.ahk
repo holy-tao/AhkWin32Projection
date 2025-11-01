@@ -44,7 +44,9 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLeadPin(piPin) {
-        result := ComCall(4, this, "int*", piPin, "HRESULT")
+        piPinMarshal := piPin is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, piPinMarshal, piPin, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInputPinCount(piPinCount) {
-        result := ComCall(5, this, "int*", piPinCount, "HRESULT")
+        piPinCountMarshal := piPinCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, piPinCountMarshal, piPinCount, "HRESULT")
         return result
     }
 
@@ -64,7 +68,9 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {HRESULT} 
      */
     IsUsingClock(pbValue) {
-        result := ComCall(6, this, "int*", pbValue, "HRESULT")
+        pbValueMarshal := pbValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pbValueMarshal, pbValue, "HRESULT")
         return result
     }
 
@@ -84,7 +90,9 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetClockPeriod(pbValue) {
-        result := ComCall(8, this, "int*", pbValue, "HRESULT")
+        pbValueMarshal := pbValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pbValueMarshal, pbValue, "HRESULT")
         return result
     }
 

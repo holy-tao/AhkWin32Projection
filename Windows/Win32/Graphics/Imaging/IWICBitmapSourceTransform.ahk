@@ -48,7 +48,9 @@ class IWICBitmapSourceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-copypixels
      */
     CopyPixels(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, nStride, cbBufferSize, pbBuffer) {
-        result := ComCall(3, this, "ptr", prc, "uint", uiWidth, "uint", uiHeight, "ptr", pguidDstFormat, "int", dstTransform, "uint", nStride, "uint", cbBufferSize, "char*", pbBuffer, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", prc, "uint", uiWidth, "uint", uiHeight, "ptr", pguidDstFormat, "int", dstTransform, "uint", nStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -60,7 +62,10 @@ class IWICBitmapSourceTransform extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-getclosestsize
      */
     GetClosestSize(puiWidth, puiHeight) {
-        result := ComCall(4, this, "uint*", puiWidth, "uint*", puiHeight, "HRESULT")
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
     }
 

@@ -37,7 +37,9 @@ class ITCallHubEvent extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_event
      */
     get_Event(pEvent) {
-        result := ComCall(7, this, "int*", pEvent, "HRESULT")
+        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pEventMarshal, pEvent, "HRESULT")
         return result
     }
 

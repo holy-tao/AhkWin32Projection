@@ -22,7 +22,10 @@ class SecurityCenter {
      * @since windows6.0.6000
      */
     static WscRegisterForChanges(Reserved, phCallbackRegistration, lpCallbackAddress, pContext) {
-        result := DllCall("WSCAPI.dll\WscRegisterForChanges", "ptr", Reserved, "ptr", phCallbackRegistration, "ptr", lpCallbackAddress, "ptr", pContext, "int")
+        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, "ptr", phCallbackRegistration, "ptr", lpCallbackAddress, pContextMarshal, pContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -67,7 +70,9 @@ class SecurityCenter {
      * @since windows6.0.6000
      */
     static WscGetSecurityProviderHealth(Providers, pHealth) {
-        result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", "uint", Providers, "int*", pHealth, "int")
+        pHealthMarshal := pHealth is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", "uint", Providers, pHealthMarshal, pHealth, "int")
         if(result != 0)
             throw OSError(result)
 

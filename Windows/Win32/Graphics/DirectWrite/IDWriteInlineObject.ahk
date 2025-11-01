@@ -43,7 +43,9 @@ class IDWriteInlineObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-draw
      */
     Draw(clientDrawingContext, renderer, originX, originY, isSideways, isRightToLeft, clientDrawingEffect) {
-        result := ComCall(3, this, "ptr", clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -77,7 +79,10 @@ class IDWriteInlineObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-getbreakconditions
      */
     GetBreakConditions(breakConditionBefore, breakConditionAfter) {
-        result := ComCall(6, this, "int*", breakConditionBefore, "int*", breakConditionAfter, "HRESULT")
+        breakConditionBeforeMarshal := breakConditionBefore is VarRef ? "int*" : "ptr"
+        breakConditionAfterMarshal := breakConditionAfter is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, breakConditionBeforeMarshal, breakConditionBefore, breakConditionAfterMarshal, breakConditionAfter, "HRESULT")
         return result
     }
 }

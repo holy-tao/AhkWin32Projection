@@ -414,7 +414,9 @@ class DistributedTransactionCoordinator {
         i_pszHost := i_pszHost is String ? StrPtr(i_pszHost) : i_pszHost
         i_pszTmName := i_pszTmName is String ? StrPtr(i_pszTmName) : i_pszTmName
 
-        result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExA", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_grfOptions, "ptr", i_pvConfigParams, "ptr*", o_ppvObject, "CDecl int")
+        i_pvConfigParamsMarshal := i_pvConfigParams is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExA", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, "ptr*", o_ppvObject, "CDecl int")
         if(result != 0)
             throw OSError(result)
 
@@ -435,7 +437,9 @@ class DistributedTransactionCoordinator {
         i_pwszHost := i_pwszHost is String ? StrPtr(i_pwszHost) : i_pwszHost
         i_pwszTmName := i_pwszTmName is String ? StrPtr(i_pwszTmName) : i_pwszTmName
 
-        result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExW", "ptr", i_pwszHost, "ptr", i_pwszTmName, "ptr", i_riid, "uint", i_grfOptions, "ptr", i_pvConfigParams, "ptr*", o_ppvObject, "CDecl int")
+        i_pvConfigParamsMarshal := i_pvConfigParams is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExW", "ptr", i_pwszHost, "ptr", i_pwszTmName, "ptr", i_riid, "uint", i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, "ptr*", o_ppvObject, "CDecl int")
         if(result != 0)
             throw OSError(result)
 

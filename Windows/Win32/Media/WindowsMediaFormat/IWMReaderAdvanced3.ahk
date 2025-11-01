@@ -52,7 +52,11 @@ class IWMReaderAdvanced3 extends IWMReaderAdvanced2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced3-startatposition
      */
     StartAtPosition(wStreamNum, pvOffsetStart, pvDuration, dwOffsetFormat, fRate, pvContext) {
-        result := ComCall(39, this, "ushort", wStreamNum, "ptr", pvOffsetStart, "ptr", pvDuration, "int", dwOffsetFormat, "float", fRate, "ptr", pvContext, "HRESULT")
+        pvOffsetStartMarshal := pvOffsetStart is VarRef ? "ptr" : "ptr"
+        pvDurationMarshal := pvDuration is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(39, this, "ushort", wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, "int", dwOffsetFormat, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

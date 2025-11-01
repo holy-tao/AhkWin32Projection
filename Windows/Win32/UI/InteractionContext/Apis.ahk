@@ -61,7 +61,9 @@ class InteractionContext {
     static RegisterOutputCallbackInteractionContext(interactionContext, outputCallback, clientData) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext", "ptr", interactionContext, "ptr", outputCallback, "ptr", clientData, "int")
+        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext", "ptr", interactionContext, "ptr", outputCallback, clientDataMarshal, clientData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -78,7 +80,9 @@ class InteractionContext {
     static RegisterOutputCallbackInteractionContext2(interactionContext, outputCallback, clientData) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext2", "ptr", interactionContext, "ptr", outputCallback, "ptr", clientData, "int")
+        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext2", "ptr", interactionContext, "ptr", outputCallback, clientDataMarshal, clientData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -257,7 +261,9 @@ class InteractionContext {
     static GetPropertyInteractionContext(interactionContext, contextProperty, value) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetPropertyInteractionContext", "ptr", interactionContext, "int", contextProperty, "uint*", value, "int")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("NInput.dll\GetPropertyInteractionContext", "ptr", interactionContext, "int", contextProperty, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -313,7 +319,9 @@ class InteractionContext {
     static GetInertiaParameterInteractionContext(interactionContext, inertiaParameter, value) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetInertiaParameterInteractionContext", "ptr", interactionContext, "int", inertiaParameter, "float*", value, "int")
+        valueMarshal := value is VarRef ? "float*" : "ptr"
+
+        result := DllCall("NInput.dll\GetInertiaParameterInteractionContext", "ptr", interactionContext, "int", inertiaParameter, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -355,7 +363,9 @@ class InteractionContext {
     static GetCrossSlideParameterInteractionContext(interactionContext, threshold, distance) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetCrossSlideParameterInteractionContext", "ptr", interactionContext, "int", threshold, "float*", distance, "int")
+        distanceMarshal := distance is VarRef ? "float*" : "ptr"
+
+        result := DllCall("NInput.dll\GetCrossSlideParameterInteractionContext", "ptr", interactionContext, "int", threshold, distanceMarshal, distance, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -389,7 +399,9 @@ class InteractionContext {
     static GetTapParameterInteractionContext(interactionContext, parameter, value) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetTapParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", value, "int")
+        valueMarshal := value is VarRef ? "float*" : "ptr"
+
+        result := DllCall("NInput.dll\GetTapParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -423,7 +435,9 @@ class InteractionContext {
     static GetHoldParameterInteractionContext(interactionContext, parameter, value) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetHoldParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", value, "int")
+        valueMarshal := value is VarRef ? "float*" : "ptr"
+
+        result := DllCall("NInput.dll\GetHoldParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -457,7 +471,9 @@ class InteractionContext {
     static GetTranslationParameterInteractionContext(interactionContext, parameter, value) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetTranslationParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", value, "int")
+        valueMarshal := value is VarRef ? "float*" : "ptr"
+
+        result := DllCall("NInput.dll\GetTranslationParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -499,7 +515,9 @@ class InteractionContext {
     static GetMouseWheelParameterInteractionContext(interactionContext, parameter, value) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetMouseWheelParameterInteractionContext", "ptr", interactionContext, "int", parameter, "float*", value, "int")
+        valueMarshal := value is VarRef ? "float*" : "ptr"
+
+        result := DllCall("NInput.dll\GetMouseWheelParameterInteractionContext", "ptr", interactionContext, "int", parameter, valueMarshal, value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -539,7 +557,9 @@ class InteractionContext {
     static GetStateInteractionContext(interactionContext, pointerInfo, state) {
         interactionContext := interactionContext is Win32Handle ? NumGet(interactionContext, "ptr") : interactionContext
 
-        result := DllCall("NInput.dll\GetStateInteractionContext", "ptr", interactionContext, "ptr", pointerInfo, "int*", state, "int")
+        stateMarshal := state is VarRef ? "int*" : "ptr"
+
+        result := DllCall("NInput.dll\GetStateInteractionContext", "ptr", interactionContext, "ptr", pointerInfo, stateMarshal, state, "int")
         if(result != 0)
             throw OSError(result)
 

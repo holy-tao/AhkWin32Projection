@@ -65,7 +65,9 @@ class ITfCandidateList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidatenum
      */
     GetCandidateNum(pnCnt) {
-        result := ComCall(5, this, "uint*", pnCnt, "HRESULT")
+        pnCntMarshal := pnCnt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pnCntMarshal, pnCnt, "HRESULT")
         return result
     }
 

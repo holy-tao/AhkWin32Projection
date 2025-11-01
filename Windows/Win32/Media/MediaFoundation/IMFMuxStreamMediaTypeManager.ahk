@@ -37,7 +37,9 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamcount
      */
     GetStreamCount(pdwMuxStreamCount) {
-        result := ComCall(3, this, "uint*", pdwMuxStreamCount, "HRESULT")
+        pdwMuxStreamCountMarshal := pdwMuxStreamCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwMuxStreamCountMarshal, pdwMuxStreamCount, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamconfigurationcount
      */
     GetStreamConfigurationCount(pdwCount) {
-        result := ComCall(5, this, "uint*", pdwCount, "HRESULT")
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -94,7 +98,9 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamconfiguration
      */
     GetStreamConfiguration(ulIndex, pullStreamMask) {
-        result := ComCall(8, this, "uint", ulIndex, "uint*", pullStreamMask, "HRESULT")
+        pullStreamMaskMarshal := pullStreamMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "uint", ulIndex, pullStreamMaskMarshal, pullStreamMask, "HRESULT")
         return result
     }
 }

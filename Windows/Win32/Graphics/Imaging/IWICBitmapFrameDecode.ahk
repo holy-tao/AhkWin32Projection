@@ -50,7 +50,9 @@ class IWICBitmapFrameDecode extends IWICBitmapSource{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getcolorcontexts
      */
     GetColorContexts(cCount, ppIColorContexts, pcActualCount) {
-        result := ComCall(9, this, "uint", cCount, "ptr*", ppIColorContexts, "uint*", pcActualCount, "HRESULT")
+        pcActualCountMarshal := pcActualCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "uint", cCount, "ptr*", ppIColorContexts, pcActualCountMarshal, pcActualCount, "HRESULT")
         return result
     }
 

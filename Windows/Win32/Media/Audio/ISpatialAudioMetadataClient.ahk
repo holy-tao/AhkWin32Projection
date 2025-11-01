@@ -52,7 +52,9 @@ class ISpatialAudioMetadataClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-getspatialaudiometadataitemsbufferlength
      */
     GetSpatialAudioMetadataItemsBufferLength(maxItemCount, bufferLength) {
-        result := ComCall(4, this, "ushort", maxItemCount, "uint*", bufferLength, "HRESULT")
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ushort", maxItemCount, bufferLengthMarshal, bufferLength, "HRESULT")
         return result
     }
 

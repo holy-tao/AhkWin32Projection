@@ -55,7 +55,9 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     SetFunctionIDMapper2(pFunc, clientData) {
-        result := ComCall(59, this, "ptr*", pFunc, "ptr", clientData, "HRESULT")
+        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(59, this, "ptr*", pFunc, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 
@@ -66,7 +68,10 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     GetStringLayout2(pStringLengthOffset, pBufferOffset) {
-        result := ComCall(60, this, "uint*", pStringLengthOffset, "uint*", pBufferOffset, "HRESULT")
+        pStringLengthOffsetMarshal := pStringLengthOffset is VarRef ? "uint*" : "ptr"
+        pBufferOffsetMarshal := pBufferOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(60, this, pStringLengthOffsetMarshal, pStringLengthOffset, pBufferOffsetMarshal, pBufferOffset, "HRESULT")
         return result
     }
 
@@ -104,7 +109,10 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     GetFunctionEnter3Info(functionId, eltInfo, pFrameInfo, pcbArgumentInfo, pArgumentInfo) {
-        result := ComCall(63, this, "ptr", functionId, "ptr", eltInfo, "ptr*", pFrameInfo, "uint*", pcbArgumentInfo, "ptr", pArgumentInfo, "HRESULT")
+        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
+        pcbArgumentInfoMarshal := pcbArgumentInfo is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(63, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, pcbArgumentInfoMarshal, pcbArgumentInfo, "ptr", pArgumentInfo, "HRESULT")
         return result
     }
 
@@ -117,7 +125,9 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     GetFunctionLeave3Info(functionId, eltInfo, pFrameInfo, pRetvalRange) {
-        result := ComCall(64, this, "ptr", functionId, "ptr", eltInfo, "ptr*", pFrameInfo, "ptr", pRetvalRange, "HRESULT")
+        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(64, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, "ptr", pRetvalRange, "HRESULT")
         return result
     }
 
@@ -129,7 +139,9 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     GetFunctionTailcall3Info(functionId, eltInfo, pFrameInfo) {
-        result := ComCall(65, this, "ptr", functionId, "ptr", eltInfo, "ptr*", pFrameInfo, "HRESULT")
+        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(65, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, "HRESULT")
         return result
     }
 
@@ -159,7 +171,15 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
     GetRuntimeInformation(pClrInstanceId, pRuntimeType, pMajorVersion, pMinorVersion, pBuildNumber, pQFEVersion, cchVersionString, pcchVersionString, szVersionString) {
         szVersionString := szVersionString is String ? StrPtr(szVersionString) : szVersionString
 
-        result := ComCall(67, this, "ushort*", pClrInstanceId, "int*", pRuntimeType, "ushort*", pMajorVersion, "ushort*", pMinorVersion, "ushort*", pBuildNumber, "ushort*", pQFEVersion, "uint", cchVersionString, "uint*", pcchVersionString, "ptr", szVersionString, "HRESULT")
+        pClrInstanceIdMarshal := pClrInstanceId is VarRef ? "ushort*" : "ptr"
+        pRuntimeTypeMarshal := pRuntimeType is VarRef ? "int*" : "ptr"
+        pMajorVersionMarshal := pMajorVersion is VarRef ? "ushort*" : "ptr"
+        pMinorVersionMarshal := pMinorVersion is VarRef ? "ushort*" : "ptr"
+        pBuildNumberMarshal := pBuildNumber is VarRef ? "ushort*" : "ptr"
+        pQFEVersionMarshal := pQFEVersion is VarRef ? "ushort*" : "ptr"
+        pcchVersionStringMarshal := pcchVersionString is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(67, this, pClrInstanceIdMarshal, pClrInstanceId, pRuntimeTypeMarshal, pRuntimeType, pMajorVersionMarshal, pMajorVersion, pMinorVersionMarshal, pMinorVersion, pBuildNumberMarshal, pBuildNumber, pQFEVersionMarshal, pQFEVersion, "uint", cchVersionString, pcchVersionStringMarshal, pcchVersionString, "ptr", szVersionString, "HRESULT")
         return result
     }
 
@@ -186,7 +206,10 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     GetAppDomainsContainingModule(moduleId, cAppDomainIds, pcAppDomainIds, appDomainIds) {
-        result := ComCall(69, this, "ptr", moduleId, "uint", cAppDomainIds, "uint*", pcAppDomainIds, "ptr*", appDomainIds, "HRESULT")
+        pcAppDomainIdsMarshal := pcAppDomainIds is VarRef ? "uint*" : "ptr"
+        appDomainIdsMarshal := appDomainIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(69, this, "ptr", moduleId, "uint", cAppDomainIds, pcAppDomainIdsMarshal, pcAppDomainIds, appDomainIdsMarshal, appDomainIds, "HRESULT")
         return result
     }
 
@@ -204,7 +227,11 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
     GetModuleInfo2(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId, pdwModuleFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(70, this, "ptr", moduleId, "ptr*", ppBaseLoadAddress, "uint", cchName, "uint*", pcchName, "ptr", szName, "ptr*", pAssemblyId, "uint*", pdwModuleFlags, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+        pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
+        pdwModuleFlagsMarshal := pdwModuleFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(70, this, "ptr", moduleId, "ptr*", ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, pdwModuleFlagsMarshal, pdwModuleFlags, "HRESULT")
         return result
     }
 }

@@ -46,7 +46,9 @@ class IDeconstructableConcept extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConstructorArgumentCount(contextObject, argCount) {
-        result := ComCall(4, this, "ptr", contextObject, "uint*", argCount, "HRESULT")
+        argCountMarshal := argCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", contextObject, argCountMarshal, argCount, "HRESULT")
         return result
     }
 

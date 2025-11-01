@@ -38,7 +38,10 @@ class IAMOpenProgress extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamopenprogress-queryprogress
      */
     QueryProgress(pllTotal, pllCurrent) {
-        result := ComCall(3, this, "int64*", pllTotal, "int64*", pllCurrent, "HRESULT")
+        pllTotalMarshal := pllTotal is VarRef ? "int64*" : "ptr"
+        pllCurrentMarshal := pllCurrent is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(3, this, pllTotalMarshal, pllTotal, pllCurrentMarshal, pllCurrent, "HRESULT")
         return result
     }
 

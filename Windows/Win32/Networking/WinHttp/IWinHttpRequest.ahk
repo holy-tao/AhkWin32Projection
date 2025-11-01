@@ -140,7 +140,9 @@ class IWinHttpRequest extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-status
      */
     get_Status(Status) {
-        result := ComCall(14, this, "int*", Status, "HRESULT")
+        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, StatusMarshal, Status, "HRESULT")
         return result
     }
 

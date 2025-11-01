@@ -75,7 +75,9 @@ class IOpenControlPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopencontrolpanel-getcurrentview
      */
     GetCurrentView(pView) {
-        result := ComCall(5, this, "int*", pView, "HRESULT")
+        pViewMarshal := pView is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pViewMarshal, pView, "HRESULT")
         return result
     }
 }

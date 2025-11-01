@@ -72,7 +72,11 @@ class IShellMenu extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmenuinfo
      */
     GetMenuInfo(ppsmc, puId, puIdAncestor, pdwFlags) {
-        result := ComCall(4, this, "ptr*", ppsmc, "uint*", puId, "uint*", puIdAncestor, "uint*", pdwFlags, "HRESULT")
+        puIdMarshal := puId is VarRef ? "uint*" : "ptr"
+        puIdAncestorMarshal := puIdAncestor is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppsmc, puIdMarshal, puId, puIdAncestorMarshal, puIdAncestor, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -102,7 +106,9 @@ class IShellMenu extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-getshellfolder
      */
     GetShellFolder(pdwFlags, ppidl, riid, ppv) {
-        result := ComCall(6, this, "uint*", pdwFlags, "ptr*", ppidl, "ptr", riid, "ptr*", ppv, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, "ptr*", ppidl, "ptr", riid, "ptr*", ppv, "HRESULT")
         return result
     }
 
@@ -137,7 +143,9 @@ class IShellMenu extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmenu
      */
     GetMenu(phmenu, phwnd, pdwFlags) {
-        result := ComCall(8, this, "ptr", phmenu, "ptr", phwnd, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", phmenu, "ptr", phwnd, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

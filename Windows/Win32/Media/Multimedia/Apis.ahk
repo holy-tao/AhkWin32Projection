@@ -23426,7 +23426,9 @@ class Multimedia {
      * @returns {Pointer<YIELDPROC>} 
      */
     static mciGetYieldProc(mciId, pdwYieldData) {
-        result := DllCall("WINMM.dll\mciGetYieldProc", "uint", mciId, "uint*", pdwYieldData, "ptr")
+        pdwYieldDataMarshal := pdwYieldData is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\mciGetYieldProc", "uint", mciId, pdwYieldDataMarshal, pdwYieldData, "ptr")
         return result
     }
 
@@ -24977,7 +24979,9 @@ class Multimedia {
      * @since windows5.0
      */
     static joyGetThreshold(uJoyID, puThreshold) {
-        result := DllCall("WINMM.dll\joyGetThreshold", "uint", uJoyID, "uint*", puThreshold, "uint")
+        puThresholdMarshal := puThreshold is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("WINMM.dll\joyGetThreshold", "uint", uJoyID, puThresholdMarshal, puThreshold, "uint")
         return result
     }
 
@@ -25392,7 +25396,13 @@ class Multimedia {
     static ICCompress(hic, dwFlags, lpbiOutput, lpData, lpbiInput, lpBits, lpckid, lpdwFlags, lFrameNum, dwFrameSize, dwQuality, lpbiPrev, lpPrev) {
         hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
 
-        result := DllCall("MSVFW32.dll\ICCompress", "ptr", hic, "uint", dwFlags, "ptr", lpbiOutput, "ptr", lpData, "ptr", lpbiInput, "ptr", lpBits, "uint*", lpckid, "uint*", lpdwFlags, "int", lFrameNum, "uint", dwFrameSize, "uint", dwQuality, "ptr", lpbiPrev, "ptr", lpPrev, "CDecl uint")
+        lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+        lpckidMarshal := lpckid is VarRef ? "uint*" : "ptr"
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+        lpPrevMarshal := lpPrev is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSVFW32.dll\ICCompress", "ptr", hic, "uint", dwFlags, "ptr", lpbiOutput, lpDataMarshal, lpData, "ptr", lpbiInput, lpBitsMarshal, lpBits, lpckidMarshal, lpckid, lpdwFlagsMarshal, lpdwFlags, "int", lFrameNum, "uint", dwFrameSize, "uint", dwQuality, "ptr", lpbiPrev, lpPrevMarshal, lpPrev, "CDecl uint")
         return result
     }
 
@@ -25440,7 +25450,10 @@ class Multimedia {
     static ICDecompress(hic, dwFlags, lpbiFormat, lpData, lpbi, lpBits) {
         hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
 
-        result := DllCall("MSVFW32.dll\ICDecompress", "ptr", hic, "uint", dwFlags, "ptr", lpbiFormat, "ptr", lpData, "ptr", lpbi, "ptr", lpBits, "CDecl uint")
+        lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSVFW32.dll\ICDecompress", "ptr", hic, "uint", dwFlags, "ptr", lpbiFormat, lpDataMarshal, lpData, "ptr", lpbi, lpBitsMarshal, lpBits, "CDecl uint")
         return result
     }
 
@@ -25558,7 +25571,9 @@ class Multimedia {
     static ICDraw(hic, dwFlags, lpFormat, lpData, cbData, lTime) {
         hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
 
-        result := DllCall("MSVFW32.dll\ICDraw", "ptr", hic, "uint", dwFlags, "ptr", lpFormat, "ptr", lpData, "uint", cbData, "int", lTime, "CDecl uint")
+        lpFormatMarshal := lpFormat is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSVFW32.dll\ICDraw", "ptr", hic, "uint", dwFlags, lpFormatMarshal, lpFormat, "ptr", lpData, "uint", cbData, "int", lTime, "CDecl uint")
         return result
     }
 
@@ -25677,7 +25692,10 @@ class Multimedia {
     static ICImageCompress(hic, uiFlags, lpbiIn, lpBits, lpbiOut, lQuality, plSize) {
         hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
 
-        result := DllCall("MSVFW32.dll\ICImageCompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, "ptr", lpBits, "ptr", lpbiOut, "int", lQuality, "int*", plSize, "ptr")
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MSVFW32.dll\ICImageCompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "int", lQuality, plSizeMarshal, plSize, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -25695,7 +25713,9 @@ class Multimedia {
     static ICImageDecompress(hic, uiFlags, lpbiIn, lpBits, lpbiOut) {
         hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
 
-        result := DllCall("MSVFW32.dll\ICImageDecompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, "ptr", lpBits, "ptr", lpbiOut, "ptr")
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSVFW32.dll\ICImageDecompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -25740,7 +25760,10 @@ class Multimedia {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-        result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", hwnd, "uint", uiFlags, "ptr", pvIn, "ptr", lpData, "ptr", pc, "ptr", lpszTitle, "int")
+        pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
+        lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", hwnd, "uint", uiFlags, pvInMarshal, pvIn, lpDataMarshal, lpData, "ptr", pc, "ptr", lpszTitle, "int")
         return result
     }
 
@@ -25781,7 +25804,10 @@ class Multimedia {
     static ICSeqCompressFrame(pc, lpBits, pfKey, plSize) {
         static uiFlags := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("MSVFW32.dll\ICSeqCompressFrame", "ptr", pc, "uint", uiFlags, "ptr", lpBits, "ptr", pfKey, "int*", plSize, "ptr")
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MSVFW32.dll\ICSeqCompressFrame", "ptr", pc, "uint", uiFlags, lpBitsMarshal, lpBits, "ptr", pfKey, plSizeMarshal, plSize, "ptr")
         return result
     }
 
@@ -26058,7 +26084,9 @@ class Multimedia {
     static DrawDibDraw(hdd, hdc, xDst, yDst, dxDst, dyDst, lpbi, lpBits, xSrc, ySrc, dxSrc, dySrc, wFlags) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("MSVFW32.dll\DrawDibDraw", "ptr", hdd, "ptr", hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, "ptr", lpBits, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("MSVFW32.dll\DrawDibDraw", "ptr", hdd, "ptr", hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, lpBitsMarshal, lpBits, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
         return result
     }
 
@@ -26632,7 +26660,9 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIFileReadData(pfile, ckid, lpData, lpcbData) {
-        result := DllCall("AVIFIL32.dll\AVIFileReadData", "ptr", pfile, "uint", ckid, "ptr", lpData, "int*", lpcbData, "int")
+        lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVIFileReadData", "ptr", pfile, "uint", ckid, "ptr", lpData, lpcbDataMarshal, lpcbData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26778,7 +26808,9 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamReadFormat(pavi, lPos, lpFormat, lpcbFormat) {
-        result := DllCall("AVIFIL32.dll\AVIStreamReadFormat", "ptr", pavi, "int", lPos, "ptr", lpFormat, "int*", lpcbFormat, "int")
+        lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVIStreamReadFormat", "ptr", pavi, "int", lPos, "ptr", lpFormat, lpcbFormatMarshal, lpcbFormat, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26814,7 +26846,9 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamReadData(pavi, fcc, lp, lpcb) {
-        result := DllCall("AVIFIL32.dll\AVIStreamReadData", "ptr", pavi, "uint", fcc, "ptr", lp, "int*", lpcb, "int")
+        lpcbMarshal := lpcb is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVIStreamReadData", "ptr", pavi, "uint", fcc, "ptr", lp, lpcbMarshal, lpcb, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26893,7 +26927,10 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamRead(pavi, lStart, lSamples, lpBuffer, cbBuffer, plBytes, plSamples) {
-        result := DllCall("AVIFIL32.dll\AVIStreamRead", "ptr", pavi, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "int*", plBytes, "int*", plSamples, "int")
+        plBytesMarshal := plBytes is VarRef ? "int*" : "ptr"
+        plSamplesMarshal := plSamples is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVIStreamRead", "ptr", pavi, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26932,7 +26969,10 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamWrite(pavi, lStart, lSamples, lpBuffer, cbBuffer, dwFlags, plSampWritten, plBytesWritten) {
-        result := DllCall("AVIFIL32.dll\AVIStreamWrite", "ptr", pavi, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "uint", dwFlags, "int*", plSampWritten, "int*", plBytesWritten, "int")
+        plSampWrittenMarshal := plSampWritten is VarRef ? "int*" : "ptr"
+        plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVIStreamWrite", "ptr", pavi, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "uint", dwFlags, plSampWrittenMarshal, plSampWritten, plBytesWrittenMarshal, plBytesWritten, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27583,7 +27623,10 @@ class Multimedia {
      * @since windows5.0
      */
     static EditStreamCut(pavi, plStart, plLength, ppResult) {
-        result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, "int*", plStart, "int*", plLength, "ptr*", ppResult, "int")
+        plStartMarshal := plStart is VarRef ? "int*" : "ptr"
+        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27601,7 +27644,10 @@ class Multimedia {
      * @since windows5.0
      */
     static EditStreamCopy(pavi, plStart, plLength, ppResult) {
-        result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, "int*", plStart, "int*", plLength, "ptr*", ppResult, "int")
+        plStartMarshal := plStart is VarRef ? "int*" : "ptr"
+        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27621,7 +27667,10 @@ class Multimedia {
      * @since windows5.0
      */
     static EditStreamPaste(pavi, plPos, plLength, pstream, lStart, lEnd) {
-        result := DllCall("AVIFIL32.dll\EditStreamPaste", "ptr", pavi, "int*", plPos, "int*", plLength, "ptr", pstream, "int", lStart, "int", lEnd, "int")
+        plPosMarshal := plPos is VarRef ? "int*" : "ptr"
+        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\EditStreamPaste", "ptr", pavi, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, "int", lStart, "int", lEnd, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -38,7 +38,9 @@ class ITransferSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-advise
      */
     Advise(psink, pdwCookie) {
-        result := ComCall(3, this, "ptr", psink, "uint*", pdwCookie, "HRESULT")
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", psink, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

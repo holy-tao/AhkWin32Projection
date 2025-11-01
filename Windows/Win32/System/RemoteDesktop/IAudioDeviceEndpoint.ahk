@@ -80,7 +80,10 @@ class IAudioDeviceEndpoint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-writeexclusivemodeparameterstosharedmemory
      */
     WriteExclusiveModeParametersToSharedMemory(hTargetProcess, hnsPeriod, hnsBufferDuration, u32LatencyCoefficient, pu32SharedMemorySize, phSharedMemory) {
-        result := ComCall(6, this, "ptr", hTargetProcess, "int64", hnsPeriod, "int64", hnsBufferDuration, "uint", u32LatencyCoefficient, "uint*", pu32SharedMemorySize, "ptr*", phSharedMemory, "HRESULT")
+        pu32SharedMemorySizeMarshal := pu32SharedMemorySize is VarRef ? "uint*" : "ptr"
+        phSharedMemoryMarshal := phSharedMemory is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", hTargetProcess, "int64", hnsPeriod, "int64", hnsBufferDuration, "uint", u32LatencyCoefficient, pu32SharedMemorySizeMarshal, pu32SharedMemorySize, phSharedMemoryMarshal, phSharedMemory, "HRESULT")
         return result
     }
 }

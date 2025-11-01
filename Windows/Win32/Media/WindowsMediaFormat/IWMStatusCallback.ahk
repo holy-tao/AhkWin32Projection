@@ -67,7 +67,10 @@ class IWMStatusCallback extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus
      */
     OnStatus(Status, hr, dwType, pValue, pvContext) {
-        result := ComCall(3, this, "int", Status, "int", hr, "int", dwType, "char*", pValue, "ptr", pvContext, "HRESULT")
+        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "int", Status, "int", hr, "int", dwType, pValueMarshal, pValue, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

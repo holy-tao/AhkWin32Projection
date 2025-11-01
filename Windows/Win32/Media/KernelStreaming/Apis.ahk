@@ -3397,7 +3397,9 @@ class KernelStreaming {
     static KsSynchronousDeviceControl(Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
-        result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, "uint*", BytesReturned, "int")
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, BytesReturnedMarshal, BytesReturned, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3432,7 +3434,9 @@ class KernelStreaming {
     static KsGetMediaTypeCount(FilterHandle, PinFactoryId, MediaTypeCount) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
-        result := DllCall("ksproxy.ax\KsGetMediaTypeCount", "ptr", FilterHandle, "uint", PinFactoryId, "uint*", MediaTypeCount, "int")
+        MediaTypeCountMarshal := MediaTypeCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ksproxy.ax\KsGetMediaTypeCount", "ptr", FilterHandle, "uint", PinFactoryId, MediaTypeCountMarshal, MediaTypeCount, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -34,7 +34,9 @@ class IDebugHostPublic extends IDebugHostSymbol{
      * @returns {HRESULT} 
      */
     GetLocationKind(locationKind) {
-        result := ComCall(10, this, "int*", locationKind, "HRESULT")
+        locationKindMarshal := locationKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, locationKindMarshal, locationKind, "HRESULT")
         return result
     }
 

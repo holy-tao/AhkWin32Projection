@@ -38,7 +38,9 @@ class IWMPSettings2 extends IWMPSettings{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings2-get_defaultaudiolanguage
      */
     get_defaultAudioLanguage(plLangID) {
-        result := ComCall(30, this, "int*", plLangID, "HRESULT")
+        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(30, this, plLangIDMarshal, plLangID, "HRESULT")
         return result
     }
 

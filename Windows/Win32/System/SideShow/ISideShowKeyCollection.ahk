@@ -70,7 +70,9 @@ class ISideShowKeyCollection extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCount(pcElems) {
-        result := ComCall(6, this, "uint*", pcElems, "HRESULT")
+        pcElemsMarshal := pcElems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pcElemsMarshal, pcElems, "HRESULT")
         return result
     }
 

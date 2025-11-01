@@ -335,7 +335,9 @@ class ID2D1Properties extends IUnknown{
     SetValueByName(name, type, data, dataSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(8, this, "ptr", name, "int", type, "char*", data, "uint", dataSize, "HRESULT")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "ptr", name, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
         return result
     }
 
@@ -349,7 +351,9 @@ class ID2D1Properties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-setvalue(u_constbyte_uint32)
      */
     SetValue(index, type, data, dataSize) {
-        result := ComCall(9, this, "uint", index, "int", type, "char*", data, "uint", dataSize, "HRESULT")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "uint", index, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
         return result
     }
 
@@ -365,7 +369,9 @@ class ID2D1Properties extends IUnknown{
     GetValueByName(name, type, data, dataSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, "ptr", name, "int", type, "char*", data, "uint", dataSize, "HRESULT")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "ptr", name, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
         return result
     }
 
@@ -379,7 +385,9 @@ class ID2D1Properties extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvalue(u_t)
      */
     GetValue(index, type, data, dataSize) {
-        result := ComCall(11, this, "uint", index, "int", type, "char*", data, "uint", dataSize, "HRESULT")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "uint", index, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
         return result
     }
 

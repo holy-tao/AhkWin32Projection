@@ -37,7 +37,9 @@ class IMFTopology extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-gettopologyid
      */
     GetTopologyID(pID) {
-        result := ComCall(33, this, "uint*", pID, "HRESULT")
+        pIDMarshal := pID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, pIDMarshal, pID, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IMFTopology extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getnodecount
      */
     GetNodeCount(pwNodes) {
-        result := ComCall(36, this, "ushort*", pwNodes, "HRESULT")
+        pwNodesMarshal := pwNodes is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(36, this, pwNodesMarshal, pwNodes, "HRESULT")
         return result
     }
 

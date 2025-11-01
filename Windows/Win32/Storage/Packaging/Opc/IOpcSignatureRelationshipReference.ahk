@@ -74,7 +74,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
-        result := ComCall(5, this, "ptr*", digestValue, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr*", digestValue, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-gettransformmethod
      */
     GetTransformMethod(transformMethod) {
-        result := ComCall(6, this, "int*", transformMethod, "HRESULT")
+        transformMethodMarshal := transformMethod is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, transformMethodMarshal, transformMethod, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ class IOpcSignatureRelationshipReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipsigningoption
      */
     GetRelationshipSigningOption(relationshipSigningOption) {
-        result := ComCall(7, this, "int*", relationshipSigningOption, "HRESULT")
+        relationshipSigningOptionMarshal := relationshipSigningOption is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, relationshipSigningOptionMarshal, relationshipSigningOption, "HRESULT")
         return result
     }
 

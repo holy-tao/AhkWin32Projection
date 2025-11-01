@@ -43,7 +43,9 @@ class IApoAuxiliaryInputConfiguration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iapoauxiliaryinputconfiguration-addauxiliaryinput
      */
     AddAuxiliaryInput(dwInputId, cbDataSize, pbyData, pInputConnection) {
-        result := ComCall(3, this, "uint", dwInputId, "uint", cbDataSize, "char*", pbyData, "ptr", pInputConnection, "HRESULT")
+        pbyDataMarshal := pbyData is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwInputId, "uint", cbDataSize, pbyDataMarshal, pbyData, "ptr", pInputConnection, "HRESULT")
         return result
     }
 

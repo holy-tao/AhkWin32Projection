@@ -105,7 +105,12 @@ class SubsystemForLinux {
     static WslGetDistributionConfiguration(distributionName, distributionVersion, defaultUID, wslDistributionFlags, defaultEnvironmentVariables, defaultEnvironmentVariableCount) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, "uint*", distributionVersion, "uint*", defaultUID, "int*", wslDistributionFlags, "ptr*", defaultEnvironmentVariables, "uint*", defaultEnvironmentVariableCount, "int")
+        distributionVersionMarshal := distributionVersion is VarRef ? "uint*" : "ptr"
+        defaultUIDMarshal := defaultUID is VarRef ? "uint*" : "ptr"
+        wslDistributionFlagsMarshal := wslDistributionFlags is VarRef ? "int*" : "ptr"
+        defaultEnvironmentVariableCountMarshal := defaultEnvironmentVariableCount is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, distributionVersionMarshal, distributionVersion, defaultUIDMarshal, defaultUID, wslDistributionFlagsMarshal, wslDistributionFlags, "ptr*", defaultEnvironmentVariables, defaultEnvironmentVariableCountMarshal, defaultEnvironmentVariableCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -125,7 +130,9 @@ class SubsystemForLinux {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
         command := command is String ? StrPtr(command) : command
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "uint*", exitCode, "int")
+        exitCodeMarshal := exitCode is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, exitCodeMarshal, exitCode, "int")
         if(result != 0)
             throw OSError(result)
 

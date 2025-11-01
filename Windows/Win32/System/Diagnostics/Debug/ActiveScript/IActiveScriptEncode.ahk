@@ -41,7 +41,9 @@ class IActiveScriptEncode extends IUnknown{
         pchIn := pchIn is String ? StrPtr(pchIn) : pchIn
         pchOut := pchOut is String ? StrPtr(pchOut) : pchOut
 
-        result := ComCall(3, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, "uint*", pcchRet, "HRESULT")
+        pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IActiveScriptEncode extends IUnknown{
         pchIn := pchIn is String ? StrPtr(pchIn) : pchIn
         pchOut := pchOut is String ? StrPtr(pchOut) : pchOut
 
-        result := ComCall(4, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, "uint*", pcchRet, "HRESULT")
+        pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "HRESULT")
         return result
     }
 

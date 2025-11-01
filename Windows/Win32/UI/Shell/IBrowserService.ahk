@@ -194,7 +194,9 @@ class IBrowserService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getnavigatestate
      */
     GetNavigateState(pbnstate) {
-        result := ComCall(15, this, "int*", pbnstate, "HRESULT")
+        pbnstateMarshal := pbnstate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, pbnstateMarshal, pbnstate, "HRESULT")
         return result
     }
 
@@ -404,7 +406,9 @@ class IBrowserService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getflags
      */
     GetFlags(pdwFlags) {
-        result := ComCall(20, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

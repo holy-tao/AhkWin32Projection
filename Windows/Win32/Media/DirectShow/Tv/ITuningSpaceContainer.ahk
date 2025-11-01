@@ -43,7 +43,9 @@ class ITuningSpaceContainer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_count
      */
     get_Count(Count) {
-        result := ComCall(7, this, "int*", Count, "HRESULT")
+        CountMarshal := Count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
         return result
     }
 
@@ -129,7 +131,9 @@ class ITuningSpaceContainer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-findid
      */
     FindID(TuningSpace, ID) {
-        result := ComCall(14, this, "ptr", TuningSpace, "int*", ID, "HRESULT")
+        IDMarshal := ID is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, "ptr", TuningSpace, IDMarshal, ID, "HRESULT")
         return result
     }
 
@@ -174,7 +178,9 @@ class ITuningSpaceContainer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-get_maxcount
      */
     get_MaxCount(MaxCount) {
-        result := ComCall(18, this, "int*", MaxCount, "HRESULT")
+        MaxCountMarshal := MaxCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, MaxCountMarshal, MaxCount, "HRESULT")
         return result
     }
 

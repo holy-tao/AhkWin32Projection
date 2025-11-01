@@ -11964,7 +11964,10 @@ class Controls {
     static ImageList_GetIconSize(himl, cx, cy) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_GetIconSize", "ptr", himl, "int*", cx, "int*", cy, "int")
+        cxMarshal := cx is VarRef ? "int*" : "ptr"
+        cyMarshal := cy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\ImageList_GetIconSize", "ptr", himl, cxMarshal, cx, cyMarshal, cy, "int")
         return result
     }
 
@@ -12461,7 +12464,9 @@ class Controls {
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         hwndStatus := hwndStatus is Win32Handle ? NumGet(hwndStatus, "ptr") : hwndStatus
 
-        DllCall("COMCTL32.dll\MenuHelp", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr", hMainMenu, "ptr", hInst, "ptr", hwndStatus, "uint*", lpwIDs)
+        lpwIDsMarshal := lpwIDs is VarRef ? "uint*" : "ptr"
+
+        DllCall("COMCTL32.dll\MenuHelp", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr", hMainMenu, "ptr", hInst, "ptr", hwndStatus, lpwIDsMarshal, lpwIDs)
     }
 
     /**
@@ -12484,7 +12489,9 @@ class Controls {
     static ShowHideMenuCtl(hWnd, uFlags, lpInfo) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("COMCTL32.dll\ShowHideMenuCtl", "ptr", hWnd, "ptr", uFlags, "int*", lpInfo, "int")
+        lpInfoMarshal := lpInfo is VarRef ? "int*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\ShowHideMenuCtl", "ptr", hWnd, "ptr", uFlags, lpInfoMarshal, lpInfo, "int")
         return result
     }
 
@@ -12511,7 +12518,9 @@ class Controls {
     static GetEffectiveClientRect(hWnd, lprc, lpInfo) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        DllCall("COMCTL32.dll\GetEffectiveClientRect", "ptr", hWnd, "ptr", lprc, "int*", lpInfo)
+        lpInfoMarshal := lpInfo is VarRef ? "int*" : "ptr"
+
+        DllCall("COMCTL32.dll\GetEffectiveClientRect", "ptr", hWnd, "ptr", lprc, lpInfoMarshal, lpInfo)
     }
 
     /**
@@ -12703,7 +12712,10 @@ class Controls {
      * @since windows6.0.6000
      */
     static TaskDialogIndirect(pTaskConfig, pnButton, pnRadioButton, pfVerificationFlagChecked) {
-        result := DllCall("COMCTL32.dll\TaskDialogIndirect", "ptr", pTaskConfig, "int*", pnButton, "int*", pnRadioButton, "ptr", pfVerificationFlagChecked, "int")
+        pnButtonMarshal := pnButton is VarRef ? "int*" : "ptr"
+        pnRadioButtonMarshal := pnRadioButton is VarRef ? "int*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\TaskDialogIndirect", "ptr", pTaskConfig, pnButtonMarshal, pnButton, pnRadioButtonMarshal, pnRadioButton, "ptr", pfVerificationFlagChecked, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12916,7 +12928,9 @@ class Controls {
         pszContent := pszContent is String ? StrPtr(pszContent) : pszContent
         pszIcon := pszIcon is String ? StrPtr(pszIcon) : pszIcon
 
-        result := DllCall("COMCTL32.dll\TaskDialog", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, "int", dwCommonButtons, "ptr", pszIcon, "int*", pnButton, "int")
+        pnButtonMarshal := pnButton is VarRef ? "int*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\TaskDialog", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, "int", dwCommonButtons, "ptr", pszIcon, pnButtonMarshal, pnButton, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13010,7 +13024,9 @@ class Controls {
     static DSA_DestroyCallback(hdsa, pfnCB, pData) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        DllCall("COMCTL32.dll\DSA_DestroyCallback", "ptr", hdsa, "ptr", pfnCB, "ptr", pData)
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        DllCall("COMCTL32.dll\DSA_DestroyCallback", "ptr", hdsa, "ptr", pfnCB, pDataMarshal, pData)
     }
 
     /**
@@ -13070,7 +13086,9 @@ class Controls {
     static DSA_EnumCallback(hdsa, pfnCB, pData) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        DllCall("COMCTL32.dll\DSA_EnumCallback", "ptr", hdsa, "ptr", pfnCB, "ptr", pData)
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        DllCall("COMCTL32.dll\DSA_EnumCallback", "ptr", hdsa, "ptr", pfnCB, pDataMarshal, pData)
     }
 
     /**
@@ -13093,7 +13111,9 @@ class Controls {
     static DSA_InsertItem(hdsa, i, pitem) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_InsertItem", "ptr", hdsa, "int", i, "ptr", pitem, "int")
+        pitemMarshal := pitem is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DSA_InsertItem", "ptr", hdsa, "int", i, pitemMarshal, pitem, "int")
         return result
     }
 
@@ -13136,7 +13156,9 @@ class Controls {
     static DSA_GetItem(hdsa, i, pitem) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_GetItem", "ptr", hdsa, "int", i, "ptr", pitem, "int")
+        pitemMarshal := pitem is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DSA_GetItem", "ptr", hdsa, "int", i, pitemMarshal, pitem, "int")
         return result
     }
 
@@ -13160,7 +13182,9 @@ class Controls {
     static DSA_SetItem(hdsa, i, pitem) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_SetItem", "ptr", hdsa, "int", i, "ptr", pitem, "int")
+        pitemMarshal := pitem is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DSA_SetItem", "ptr", hdsa, "int", i, pitemMarshal, pitem, "int")
         return result
     }
 
@@ -13323,7 +13347,9 @@ class Controls {
     static DPA_DestroyCallback(hdpa, pfnCB, pData) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        DllCall("COMCTL32.dll\DPA_DestroyCallback", "ptr", hdpa, "ptr", pfnCB, "ptr", pData)
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        DllCall("COMCTL32.dll\DPA_DestroyCallback", "ptr", hdpa, "ptr", pfnCB, pDataMarshal, pData)
     }
 
     /**
@@ -13381,7 +13407,9 @@ class Controls {
     static DPA_EnumCallback(hdpa, pfnCB, pData) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        DllCall("COMCTL32.dll\DPA_EnumCallback", "ptr", hdpa, "ptr", pfnCB, "ptr", pData)
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        DllCall("COMCTL32.dll\DPA_EnumCallback", "ptr", hdpa, "ptr", pfnCB, pDataMarshal, pData)
     }
 
     /**
@@ -13425,7 +13453,9 @@ class Controls {
     static DPA_InsertPtr(hdpa, i, p) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_InsertPtr", "ptr", hdpa, "int", i, "ptr", p, "int")
+        pMarshal := p is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DPA_InsertPtr", "ptr", hdpa, "int", i, pMarshal, p, "int")
         return result
     }
 
@@ -13452,7 +13482,9 @@ class Controls {
     static DPA_SetPtr(hdpa, i, p) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_SetPtr", "ptr", hdpa, "int", i, "ptr", p, "int")
+        pMarshal := p is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DPA_SetPtr", "ptr", hdpa, "int", i, pMarshal, p, "int")
         return result
     }
 
@@ -13492,7 +13524,9 @@ class Controls {
     static DPA_GetPtrIndex(hdpa, p) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_GetPtrIndex", "ptr", hdpa, "ptr", p, "int")
+        pMarshal := p is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DPA_GetPtrIndex", "ptr", hdpa, pMarshal, p, "int")
         return result
     }
 
@@ -13621,7 +13655,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static DPA_LoadStream(phdpa, pfn, pstream, pvInstData) {
-        result := DllCall("COMCTL32.dll\DPA_LoadStream", "ptr", phdpa, "ptr", pfn, "ptr", pstream, "ptr", pvInstData, "int")
+        pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DPA_LoadStream", "ptr", phdpa, "ptr", pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13691,7 +13727,9 @@ class Controls {
     static DPA_SaveStream(hdpa, pfn, pstream, pvInstData) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_SaveStream", "ptr", hdpa, "ptr", pfn, "ptr", pstream, "ptr", pvInstData, "int")
+        pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DPA_SaveStream", "ptr", hdpa, "ptr", pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13861,7 +13899,9 @@ class Controls {
     static DPA_Search(hdpa, pFind, iStart, pfnCompare, lParam, options) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_Search", "ptr", hdpa, "ptr", pFind, "int", iStart, "ptr", pfnCompare, "ptr", lParam, "uint", options, "int")
+        pFindMarshal := pFind is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("COMCTL32.dll\DPA_Search", "ptr", hdpa, pFindMarshal, pFind, "int", iStart, "ptr", pfnCompare, "ptr", lParam, "uint", options, "int")
         return result
     }
 
@@ -13937,7 +13977,10 @@ class Controls {
     static FlatSB_GetScrollRange(param0, code, param2, param3) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_GetScrollRange", "ptr", param0, "int", code, "int*", param2, "int*", param3, "int")
+        param2Marshal := param2 is VarRef ? "int*" : "ptr"
+        param3Marshal := param3 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\FlatSB_GetScrollRange", "ptr", param0, "int", code, param2Marshal, param2, param3Marshal, param3, "int")
         return result
     }
 
@@ -13993,7 +14036,9 @@ class Controls {
     static FlatSB_GetScrollProp(param0, propIndex, param2) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_GetScrollProp", "ptr", param0, "int", propIndex, "int*", param2, "int")
+        param2Marshal := param2 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\FlatSB_GetScrollProp", "ptr", param0, "int", propIndex, param2Marshal, param2, "int")
         return result
     }
 
@@ -14571,7 +14616,9 @@ class Controls {
     static GetThemeAnimationProperty(hTheme, iStoryboardId, iTargetId, eProperty, pvProperty, cbSize, pcbSizeOut) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "int", eProperty, "ptr", pvProperty, "uint", cbSize, "uint*", pcbSizeOut, "int")
+        pcbSizeOutMarshal := pcbSizeOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "int", eProperty, "ptr", pvProperty, "uint", cbSize, pcbSizeOutMarshal, pcbSizeOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14594,7 +14641,9 @@ class Controls {
     static GetThemeAnimationTransform(hTheme, iStoryboardId, iTargetId, dwTransformIndex, pTransform, cbSize, pcbSizeOut) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "uint", dwTransformIndex, "ptr", pTransform, "uint", cbSize, "uint*", pcbSizeOut, "int")
+        pcbSizeOutMarshal := pcbSizeOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "uint", dwTransformIndex, "ptr", pTransform, "uint", cbSize, pcbSizeOutMarshal, pcbSizeOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14616,7 +14665,9 @@ class Controls {
     static GetThemeTimingFunction(hTheme, iTimingFunctionId, pTimingFunction, cbSize, pcbSizeOut) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UXTHEME.dll\GetThemeTimingFunction", "ptr", hTheme, "int", iTimingFunctionId, "ptr", pTimingFunction, "uint", cbSize, "uint*", pcbSizeOut, "int")
+        pcbSizeOutMarshal := pcbSizeOut is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetThemeTimingFunction", "ptr", hTheme, "int", iTimingFunctionId, "ptr", pTimingFunction, "uint", cbSize, pcbSizeOutMarshal, pcbSizeOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15084,7 +15135,9 @@ class Controls {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
-        result := DllCall("UxTheme.dll\HitTestThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "uint", dwOptions, "ptr", pRect, "ptr", hrgn, "ptr", ptTest, "ushort*", pwHitTestCode, "int")
+        pwHitTestCodeMarshal := pwHitTestCode is VarRef ? "ushort*" : "ptr"
+
+        result := DllCall("UxTheme.dll\HitTestThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "uint", dwOptions, "ptr", pRect, "ptr", hrgn, "ptr", ptTest, pwHitTestCodeMarshal, pwHitTestCode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15435,7 +15488,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("UXTHEME.dll\GetThemeMetric", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "int*", piVal, "int")
+        piValMarshal := piVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetThemeMetric", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, piValMarshal, piVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15536,7 +15591,9 @@ class Controls {
     static GetThemeInt(hTheme, iPartId, iStateId, iPropId, piVal) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UXTHEME.dll\GetThemeInt", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", piVal, "int")
+        piValMarshal := piVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetThemeInt", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, piValMarshal, piVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15569,7 +15626,9 @@ class Controls {
     static GetThemeEnumValue(hTheme, iPartId, iStateId, iPropId, piVal) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UXTHEME.dll\GetThemeEnumValue", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", piVal, "int")
+        piValMarshal := piVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetThemeEnumValue", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, piValMarshal, piVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15776,7 +15835,9 @@ class Controls {
     static GetThemePropertyOrigin(hTheme, iPartId, iStateId, iPropId, pOrigin) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UxTheme.dll\GetThemePropertyOrigin", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", pOrigin, "int")
+        pOriginMarshal := pOrigin is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UxTheme.dll\GetThemePropertyOrigin", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, pOriginMarshal, pOrigin, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16146,7 +16207,9 @@ class Controls {
     static GetThemeSysInt(hTheme, iIntId, piValue) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UxTheme.dll\GetThemeSysInt", "ptr", hTheme, "int", iIntId, "int*", piValue, "int")
+        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UxTheme.dll\GetThemeSysInt", "ptr", hTheme, "int", iIntId, piValueMarshal, piValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16807,7 +16870,9 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
-        result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr*", ppvStream, "uint*", pcbStream, "ptr", hInst, "int")
+        pcbStreamMarshal := pcbStream is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr*", ppvStream, pcbStreamMarshal, pcbStream, "ptr", hInst, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16979,7 +17044,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetBufferedPaintBits(hBufferedPaint, ppbBuffer, pcxRow) {
-        result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, "ptr*", ppbBuffer, "int*", pcxRow, "int")
+        pcxRowMarshal := pcxRow is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, "ptr*", ppbBuffer, pcxRowMarshal, pcxRow, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17180,7 +17247,9 @@ class Controls {
     static GetThemeTransitionDuration(hTheme, iPartId, iStateIdFrom, iStateIdTo, iPropId, pdwDuration) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UxTheme.dll\GetThemeTransitionDuration", "ptr", hTheme, "int", iPartId, "int", iStateIdFrom, "int", iStateIdTo, "int", iPropId, "uint*", pdwDuration, "int")
+        pdwDurationMarshal := pdwDuration is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("UxTheme.dll\GetThemeTransitionDuration", "ptr", hTheme, "int", iPartId, "int", iStateIdFrom, "int", iStateIdTo, "int", iPropId, pdwDurationMarshal, pdwDuration, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17441,7 +17510,9 @@ class Controls {
     static GetWindowFeedbackSetting(hwnd, feedback, dwFlags, pSize, config) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\GetWindowFeedbackSetting", "ptr", hwnd, "int", feedback, "uint", dwFlags, "uint*", pSize, "ptr", config, "int")
+        pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("USER32.dll\GetWindowFeedbackSetting", "ptr", hwnd, "int", feedback, "uint", dwFlags, pSizeMarshal, pSize, "ptr", config, "int")
         return result
     }
 

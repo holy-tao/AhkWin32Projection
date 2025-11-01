@@ -42,7 +42,10 @@ class IVssAdmin extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsadmin/nf-vsadmin-ivssadmin-registerprovider
      */
     RegisterProvider(pProviderId, ClassId, pwszProviderName, eProviderType, pwszProviderVersion, ProviderVersionId) {
-        result := ComCall(3, this, "ptr", pProviderId, "ptr", ClassId, "ushort*", pwszProviderName, "int", eProviderType, "ushort*", pwszProviderVersion, "ptr", ProviderVersionId, "HRESULT")
+        pwszProviderNameMarshal := pwszProviderName is VarRef ? "ushort*" : "ptr"
+        pwszProviderVersionMarshal := pwszProviderVersion is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pProviderId, "ptr", ClassId, pwszProviderNameMarshal, pwszProviderName, "int", eProviderType, pwszProviderVersionMarshal, pwszProviderVersion, "ptr", ProviderVersionId, "HRESULT")
         return result
     }
 

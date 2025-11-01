@@ -51,7 +51,9 @@ class ITocParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettoccount
      */
     GetTocCount(enumTocPosType, pdwTocCount) {
-        result := ComCall(4, this, "int", enumTocPosType, "uint*", pdwTocCount, "HRESULT")
+        pdwTocCountMarshal := pdwTocCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "int", enumTocPosType, pdwTocCountMarshal, pdwTocCount, "HRESULT")
         return result
     }
 
@@ -90,7 +92,9 @@ class ITocParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-addtoc
      */
     AddToc(enumTocPosType, pToc, pdwTocIndex) {
-        result := ComCall(7, this, "int", enumTocPosType, "ptr", pToc, "uint*", pdwTocIndex, "HRESULT")
+        pdwTocIndexMarshal := pdwTocIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "int", enumTocPosType, "ptr", pToc, pdwTocIndexMarshal, pdwTocIndex, "HRESULT")
         return result
     }
 

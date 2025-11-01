@@ -45,7 +45,9 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     get_State(penState) {
-        result := ComCall(4, this, "int*", penState, "HRESULT")
+        penStateMarshal := penState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, penStateMarshal, penState, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Type(penType) {
-        result := ComCall(5, this, "int*", penType, "HRESULT")
+        penTypeMarshal := penType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, penTypeMarshal, penType, "HRESULT")
         return result
     }
 

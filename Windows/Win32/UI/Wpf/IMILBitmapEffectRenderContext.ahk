@@ -105,7 +105,10 @@ class IMILBitmapEffectRenderContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-getoutputdpi
      */
     GetOutputDPI(pdblDpiX, pdblDpiY) {
-        result := ComCall(9, this, "double*", pdblDpiX, "double*", pdblDpiY, "HRESULT")
+        pdblDpiXMarshal := pdblDpiX is VarRef ? "double*" : "ptr"
+        pdblDpiYMarshal := pdblDpiY is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, pdblDpiXMarshal, pdblDpiX, pdblDpiYMarshal, pdblDpiY, "HRESULT")
         return result
     }
 

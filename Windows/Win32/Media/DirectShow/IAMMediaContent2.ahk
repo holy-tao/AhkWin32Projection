@@ -72,7 +72,9 @@ class IAMMediaContent2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iammediacontent2-get_playlistcount
      */
     get_PlaylistCount(pNumberEntries) {
-        result := ComCall(9, this, "int*", pNumberEntries, "HRESULT")
+        pNumberEntriesMarshal := pNumberEntries is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pNumberEntriesMarshal, pNumberEntries, "HRESULT")
         return result
     }
 }

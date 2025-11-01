@@ -39,7 +39,9 @@ class IWCNDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-setpassword
      */
     SetPassword(Type, dwPasswordLength, pbPassword) {
-        result := ComCall(3, this, "int", Type, "uint", dwPasswordLength, "char*", pbPassword, "HRESULT")
+        pbPasswordMarshal := pbPassword is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "int", Type, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "HRESULT")
         return result
     }
 
@@ -64,7 +66,10 @@ class IWCNDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getattribute
      */
     GetAttribute(AttributeType, dwMaxBufferSize, pbBuffer, pdwBufferUsed) {
-        result := ComCall(5, this, "int", AttributeType, "uint", dwMaxBufferSize, "char*", pbBuffer, "uint*", pdwBufferUsed, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "int", AttributeType, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
     }
 
@@ -76,7 +81,9 @@ class IWCNDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getintegerattribute
      */
     GetIntegerAttribute(AttributeType, puInteger) {
-        result := ComCall(6, this, "int", AttributeType, "uint*", puInteger, "HRESULT")
+        puIntegerMarshal := puInteger is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "int", AttributeType, puIntegerMarshal, puInteger, "HRESULT")
         return result
     }
 
@@ -132,7 +139,10 @@ class IWCNDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getvendorextension
      */
     GetVendorExtension(pVendorExtSpec, dwMaxBufferSize, pbBuffer, pdwBufferUsed) {
-        result := ComCall(10, this, "ptr", pVendorExtSpec, "uint", dwMaxBufferSize, "char*", pbBuffer, "uint*", pdwBufferUsed, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pVendorExtSpec, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
     }
 
@@ -145,7 +155,9 @@ class IWCNDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-setvendorextension
      */
     SetVendorExtension(pVendorExtSpec, cbBuffer, pbBuffer) {
-        result := ComCall(11, this, "ptr", pVendorExtSpec, "uint", cbBuffer, "char*", pbBuffer, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pVendorExtSpec, "uint", cbBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -172,7 +184,11 @@ class IWCNDevice extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNFCPasswordParams(Type, dwOOBPasswordID, dwPasswordLength, pbPassword, dwRemotePublicKeyHashLength, pbRemotePublicKeyHash, dwDHKeyBlobLength, pbDHKeyBlob) {
-        result := ComCall(13, this, "int", Type, "uint", dwOOBPasswordID, "uint", dwPasswordLength, "char*", pbPassword, "uint", dwRemotePublicKeyHashLength, "char*", pbRemotePublicKeyHash, "uint", dwDHKeyBlobLength, "char*", pbDHKeyBlob, "HRESULT")
+        pbPasswordMarshal := pbPassword is VarRef ? "char*" : "ptr"
+        pbRemotePublicKeyHashMarshal := pbRemotePublicKeyHash is VarRef ? "char*" : "ptr"
+        pbDHKeyBlobMarshal := pbDHKeyBlob is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "int", Type, "uint", dwOOBPasswordID, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "uint", dwRemotePublicKeyHashLength, pbRemotePublicKeyHashMarshal, pbRemotePublicKeyHash, "uint", dwDHKeyBlobLength, pbDHKeyBlobMarshal, pbDHKeyBlob, "HRESULT")
         return result
     }
 }

@@ -40,7 +40,9 @@ class ISceSvcAttachmentPersistInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-save
      */
     Save(lpTemplateName, scesvcHandle, ppvData, pbOverwriteAll) {
-        result := ComCall(3, this, "char*", lpTemplateName, "ptr*", scesvcHandle, "ptr*", ppvData, "ptr", pbOverwriteAll, "HRESULT")
+        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, lpTemplateNameMarshal, lpTemplateName, "ptr*", scesvcHandle, "ptr*", ppvData, "ptr", pbOverwriteAll, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class ISceSvcAttachmentPersistInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-isdirty
      */
     IsDirty(lpTemplateName) {
-        result := ComCall(4, this, "char*", lpTemplateName, "int")
+        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, lpTemplateNameMarshal, lpTemplateName, "int")
         return result
     }
 
@@ -62,7 +66,9 @@ class ISceSvcAttachmentPersistInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-freebuffer
      */
     FreeBuffer(pvData) {
-        result := ComCall(5, this, "ptr", pvData, "HRESULT")
+        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pvDataMarshal, pvData, "HRESULT")
         return result
     }
 }

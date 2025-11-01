@@ -99,7 +99,9 @@ class ISectionList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-getnumberofsections
      */
     GetNumberOfSections(pCount) {
-        result := ComCall(6, this, "ushort*", pCount, "HRESULT")
+        pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(6, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class ISectionList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-getsectiondata
      */
     GetSectionData(sectionNumber, pdwRawPacketLength, ppSection) {
-        result := ComCall(7, this, "ushort", sectionNumber, "uint*", pdwRawPacketLength, "ptr*", ppSection, "HRESULT")
+        pdwRawPacketLengthMarshal := pdwRawPacketLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ushort", sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, "ptr*", ppSection, "HRESULT")
         return result
     }
 
@@ -123,7 +127,9 @@ class ISectionList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-getprogramidentifier
      */
     GetProgramIdentifier(pPid) {
-        result := ComCall(8, this, "ushort*", pPid, "HRESULT")
+        pPidMarshal := pPid is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, pPidMarshal, pPid, "HRESULT")
         return result
     }
 
@@ -134,7 +140,9 @@ class ISectionList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-gettableidentifier
      */
     GetTableIdentifier(pTableId) {
-        result := ComCall(9, this, "char*", pTableId, "HRESULT")
+        pTableIdMarshal := pTableId is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, pTableIdMarshal, pTableId, "HRESULT")
         return result
     }
 }

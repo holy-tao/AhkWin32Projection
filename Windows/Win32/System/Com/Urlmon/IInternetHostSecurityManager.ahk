@@ -36,7 +36,10 @@ class IInternetHostSecurityManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSecurityId(pbSecurityId, pcbSecurityId, dwReserved) {
-        result := ComCall(3, this, "char*", pbSecurityId, "uint*", pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
+        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
         return result
     }
 
@@ -52,7 +55,10 @@ class IInternetHostSecurityManager extends IUnknown{
      * @returns {HRESULT} 
      */
     ProcessUrlAction(dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
-        result := ComCall(4, this, "uint", dwAction, "char*", pPolicy, "uint", cbPolicy, "char*", pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -67,7 +73,10 @@ class IInternetHostSecurityManager extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryCustomPolicy(guidKey, ppPolicy, pcbPolicy, pContext, cbContext, dwReserved) {
-        result := ComCall(5, this, "ptr", guidKey, "ptr*", ppPolicy, "uint*", pcbPolicy, "char*", pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
+        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "ptr", guidKey, "ptr*", ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
         return result
     }
 }

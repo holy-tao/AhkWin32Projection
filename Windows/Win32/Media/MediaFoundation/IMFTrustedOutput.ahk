@@ -42,7 +42,9 @@ class IMFTrustedOutput extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritycount
      */
     GetOutputTrustAuthorityCount(pcOutputTrustAuthorities) {
-        result := ComCall(3, this, "uint*", pcOutputTrustAuthorities, "HRESULT")
+        pcOutputTrustAuthoritiesMarshal := pcOutputTrustAuthorities is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pcOutputTrustAuthoritiesMarshal, pcOutputTrustAuthorities, "HRESULT")
         return result
     }
 

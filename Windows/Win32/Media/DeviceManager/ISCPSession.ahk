@@ -39,7 +39,9 @@ class ISCPSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-beginsession
      */
     BeginSession(pIDevice, pCtx, dwSizeCtx) {
-        result := ComCall(3, this, "ptr", pIDevice, "char*", pCtx, "uint", dwSizeCtx, "HRESULT")
+        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pIDevice, pCtxMarshal, pCtx, "uint", dwSizeCtx, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class ISCPSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-endsession
      */
     EndSession(pCtx, dwSizeCtx) {
-        result := ComCall(4, this, "char*", pCtx, "uint", dwSizeCtx, "HRESULT")
+        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pCtxMarshal, pCtx, "uint", dwSizeCtx, "HRESULT")
         return result
     }
 

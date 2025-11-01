@@ -94,7 +94,10 @@ class IWMReaderAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setstreamsselected
      */
     SetStreamsSelected(cStreamCount, pwStreamNumbers, pSelections) {
-        result := ComCall(8, this, "ushort", cStreamCount, "ushort*", pwStreamNumbers, "int*", pSelections, "HRESULT")
+        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
+        pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, "ushort", cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
         return result
     }
 
@@ -106,7 +109,9 @@ class IWMReaderAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getstreamselected
      */
     GetStreamSelected(wStreamNum, pSelection) {
-        result := ComCall(9, this, "ushort", wStreamNum, "int*", pSelection, "HRESULT")
+        pSelectionMarshal := pSelection is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ushort", wStreamNum, pSelectionMarshal, pSelection, "HRESULT")
         return result
     }
 
@@ -234,7 +239,9 @@ class IWMReaderAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxoutputsamplesize
      */
     GetMaxOutputSampleSize(dwOutput, pcbMax) {
-        result := ComCall(20, this, "uint", dwOutput, "uint*", pcbMax, "HRESULT")
+        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, "uint", dwOutput, pcbMaxMarshal, pcbMax, "HRESULT")
         return result
     }
 
@@ -246,7 +253,9 @@ class IWMReaderAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxstreamsamplesize
      */
     GetMaxStreamSampleSize(wStream, pcbMax) {
-        result := ComCall(21, this, "ushort", wStream, "uint*", pcbMax, "HRESULT")
+        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(21, this, "ushort", wStream, pcbMaxMarshal, pcbMax, "HRESULT")
         return result
     }
 

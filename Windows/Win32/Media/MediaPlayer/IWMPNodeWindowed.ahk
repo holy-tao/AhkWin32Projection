@@ -44,7 +44,9 @@ class IWMPNodeWindowed extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOwnerWindow(phwnd) {
-        result := ComCall(4, this, "ptr*", phwnd, "HRESULT")
+        phwndMarshal := phwnd is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, phwndMarshal, phwnd, "HRESULT")
         return result
     }
 }

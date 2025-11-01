@@ -43,7 +43,10 @@ class ISyncFilterInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfilterinfo-serialize
      */
     Serialize(pbBuffer, pcbBuffer) {
-        result := ComCall(3, this, "char*", pbBuffer, "uint*", pcbBuffer, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pbBufferMarshal, pbBuffer, pcbBufferMarshal, pcbBuffer, "HRESULT")
         return result
     }
 }

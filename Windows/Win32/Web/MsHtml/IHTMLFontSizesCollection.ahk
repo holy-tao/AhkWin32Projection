@@ -34,7 +34,9 @@ class IHTMLFontSizesCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_length(p) {
-        result := ComCall(7, this, "int*", p, "HRESULT")
+        pMarshal := p is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IHTMLFontSizesCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     item(index, plSize) {
-        result := ComCall(10, this, "int", index, "int*", plSize, "HRESULT")
+        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "int", index, plSizeMarshal, plSize, "HRESULT")
         return result
     }
 }

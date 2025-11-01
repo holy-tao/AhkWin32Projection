@@ -59,7 +59,9 @@ class IPAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-gettransportstreamid
      */
     GetTransportStreamId(pwVal) {
-        result := ComCall(4, this, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IPAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getversionnumber
      */
     GetVersionNumber(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IPAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getcountofrecords
      */
     GetCountOfRecords(pdwVal) {
-        result := ComCall(6, this, "uint*", pdwVal, "HRESULT")
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
     }
 
@@ -93,7 +99,9 @@ class IPAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogramnumber
      */
     GetRecordProgramNumber(dwIndex, pwVal) {
-        result := ComCall(7, this, "uint", dwIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(7, this, "uint", dwIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -105,7 +113,9 @@ class IPAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogrammappid
      */
     GetRecordProgramMapPid(dwIndex, pwVal) {
-        result := ComCall(8, this, "uint", dwIndex, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwIndex, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 
@@ -117,7 +127,9 @@ class IPAT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-findrecordprogrammappid
      */
     FindRecordProgramMapPid(wProgramNumber, pwVal) {
-        result := ComCall(9, this, "ushort", wProgramNumber, "ushort*", pwVal, "HRESULT")
+        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(9, this, "ushort", wProgramNumber, pwValMarshal, pwVal, "HRESULT")
         return result
     }
 

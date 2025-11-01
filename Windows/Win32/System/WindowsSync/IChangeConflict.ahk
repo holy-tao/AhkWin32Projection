@@ -81,7 +81,9 @@ class IChangeConflict extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getresolveactionforchange
      */
     GetResolveActionForChange(pResolveAction) {
-        result := ComCall(7, this, "int*", pResolveAction, "HRESULT")
+        pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pResolveActionMarshal, pResolveAction, "HRESULT")
         return result
     }
 
@@ -104,7 +106,9 @@ class IChangeConflict extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getresolveactionforchangeunit
      */
     GetResolveActionForChangeUnit(pChangeUnit, pResolveAction) {
-        result := ComCall(9, this, "ptr", pChangeUnit, "int*", pResolveAction, "HRESULT")
+        pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pChangeUnit, pResolveActionMarshal, pResolveAction, "HRESULT")
         return result
     }
 

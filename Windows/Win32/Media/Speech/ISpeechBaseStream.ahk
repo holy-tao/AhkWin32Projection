@@ -56,7 +56,9 @@ class ISpeechBaseStream extends IDispatch{
      * @returns {HRESULT} 
      */
     Read(Buffer, NumberOfBytes, BytesRead) {
-        result := ComCall(9, this, "ptr", Buffer, "int", NumberOfBytes, "int*", BytesRead, "HRESULT")
+        BytesReadMarshal := BytesRead is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", Buffer, "int", NumberOfBytes, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class ISpeechBaseStream extends IDispatch{
      * @returns {HRESULT} 
      */
     Write(Buffer, BytesWritten) {
-        result := ComCall(10, this, "ptr", Buffer, "int*", BytesWritten, "HRESULT")
+        BytesWrittenMarshal := BytesWritten is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", Buffer, BytesWrittenMarshal, BytesWritten, "HRESULT")
         return result
     }
 

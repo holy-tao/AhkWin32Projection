@@ -45,7 +45,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandnodata
      */
     SendCommandNoData(Cdb, CdbSize, SenseBuffer, Timeout) {
-        result := ComCall(3, this, "char*", Cdb, "uint", CdbSize, "char*", SenseBuffer, "uint", Timeout, "HRESULT")
+        CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
+        SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, "HRESULT")
         return result
     }
 
@@ -61,7 +64,11 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice
      */
     SendCommandSendDataToDevice(Cdb, CdbSize, SenseBuffer, Timeout, Buffer, BufferSize) {
-        result := ComCall(4, this, "char*", Cdb, "uint", CdbSize, "char*", SenseBuffer, "uint", Timeout, "char*", Buffer, "uint", BufferSize, "HRESULT")
+        CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
+        SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
+        BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, BufferMarshal, Buffer, "uint", BufferSize, "HRESULT")
         return result
     }
 
@@ -78,7 +85,12 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandgetdatafromdevice
      */
     SendCommandGetDataFromDevice(Cdb, CdbSize, SenseBuffer, Timeout, Buffer, BufferSize, BufferFetched) {
-        result := ComCall(5, this, "char*", Cdb, "uint", CdbSize, "char*", SenseBuffer, "uint", Timeout, "char*", Buffer, "uint", BufferSize, "uint*", BufferFetched, "HRESULT")
+        CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
+        SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
+        BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
+        BufferFetchedMarshal := BufferFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, BufferMarshal, Buffer, "uint", BufferSize, BufferFetchedMarshal, BufferFetched, "HRESULT")
         return result
     }
 
@@ -94,7 +106,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-readdvdstructure
      */
     ReadDvdStructure(format, address, layer, agid, data, count) {
-        result := ComCall(6, this, "uint", format, "uint", address, "uint", layer, "uint", agid, "ptr*", data, "uint*", count, "HRESULT")
+        countMarshal := count is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "uint", format, "uint", address, "uint", layer, "uint", agid, "ptr*", data, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -107,7 +121,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-senddvdstructure
      */
     SendDvdStructure(format, data, count) {
-        result := ComCall(7, this, "uint", format, "char*", data, "uint", count, "HRESULT")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "uint", format, dataMarshal, data, "uint", count, "HRESULT")
         return result
     }
 
@@ -119,7 +135,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getadapterdescriptor
      */
     GetAdapterDescriptor(data, byteSize) {
-        result := ComCall(8, this, "ptr*", data, "uint*", byteSize, "HRESULT")
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr*", data, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -131,7 +149,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getdevicedescriptor
      */
     GetDeviceDescriptor(data, byteSize) {
-        result := ComCall(9, this, "ptr*", data, "uint*", byteSize, "HRESULT")
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr*", data, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -143,7 +163,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getdiscinformation
      */
     GetDiscInformation(discInformation, byteSize) {
-        result := ComCall(10, this, "ptr*", discInformation, "uint*", byteSize, "HRESULT")
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr*", discInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -157,7 +179,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-gettrackinformation
      */
     GetTrackInformation(address, addressType, trackInformation, byteSize) {
-        result := ComCall(11, this, "uint", address, "int", addressType, "ptr*", trackInformation, "uint*", byteSize, "HRESULT")
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "uint", address, "int", addressType, "ptr*", trackInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -171,7 +195,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getfeaturepage
      */
     GetFeaturePage(requestedFeature, currentFeatureOnly, featureData, byteSize) {
-        result := ComCall(12, this, "int", requestedFeature, "char", currentFeatureOnly, "ptr*", featureData, "uint*", byteSize, "HRESULT")
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "int", requestedFeature, "char", currentFeatureOnly, "ptr*", featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -185,7 +211,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getmodepage
      */
     GetModePage(requestedModePage, requestType, modePageData, byteSize) {
-        result := ComCall(13, this, "int", requestedModePage, "int", requestType, "ptr*", modePageData, "uint*", byteSize, "HRESULT")
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "int", requestedModePage, "int", requestType, "ptr*", modePageData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -198,7 +226,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-setmodepage
      */
     SetModePage(requestType, data, byteSize) {
-        result := ComCall(14, this, "int", requestType, "char*", data, "uint", byteSize, "HRESULT")
+        dataMarshal := data is VarRef ? "char*" : "ptr"
+
+        result := ComCall(14, this, "int", requestType, dataMarshal, data, "uint", byteSize, "HRESULT")
         return result
     }
 
@@ -211,7 +241,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedfeaturepages
      */
     GetSupportedFeaturePages(currentFeatureOnly, featureData, byteSize) {
-        result := ComCall(15, this, "char", currentFeatureOnly, "ptr*", featureData, "uint*", byteSize, "HRESULT")
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "char", currentFeatureOnly, "ptr*", featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -224,7 +256,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedprofiles
      */
     GetSupportedProfiles(currentOnly, profileTypes, validProfiles) {
-        result := ComCall(16, this, "char", currentOnly, "ptr*", profileTypes, "uint*", validProfiles, "HRESULT")
+        validProfilesMarshal := validProfiles is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "char", currentOnly, "ptr*", profileTypes, validProfilesMarshal, validProfiles, "HRESULT")
         return result
     }
 
@@ -237,7 +271,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedmodepages
      */
     GetSupportedModePages(requestType, modePageTypes, validPages) {
-        result := ComCall(17, this, "int", requestType, "ptr*", modePageTypes, "uint*", validPages, "HRESULT")
+        validPagesMarshal := validPages is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, "int", requestType, "ptr*", modePageTypes, validPagesMarshal, validPages, "HRESULT")
         return result
     }
 
@@ -248,7 +284,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getbytealignmentmask
      */
     GetByteAlignmentMask(value) {
-        result := ComCall(18, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -259,7 +297,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getmaximumnonpagealignedtransfersize
      */
     GetMaximumNonPageAlignedTransferSize(value) {
-        result := ComCall(19, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(19, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -270,7 +310,9 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getmaximumpagealignedtransfersize
      */
     GetMaximumPageAlignedTransferSize(value) {
-        result := ComCall(20, this, "uint*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(20, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

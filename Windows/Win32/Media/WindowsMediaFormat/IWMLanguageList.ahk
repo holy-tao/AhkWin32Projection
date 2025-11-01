@@ -48,7 +48,9 @@ class IWMLanguageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagecount
      */
     GetLanguageCount(pwCount) {
-        result := ComCall(3, this, "ushort*", pwCount, "HRESULT")
+        pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(3, this, pwCountMarshal, pwCount, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IWMLanguageList extends IUnknown{
     GetLanguageDetails(wIndex, pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        result := ComCall(4, this, "ushort", wIndex, "ptr", pwszLanguageString, "ushort*", pcchLanguageStringLength, "HRESULT")
+        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(4, this, "ushort", wIndex, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IWMLanguageList extends IUnknown{
     AddLanguageByRFC1766String(pwszLanguageString, pwIndex) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        result := ComCall(5, this, "ptr", pwszLanguageString, "ushort*", pwIndex, "HRESULT")
+        pwIndexMarshal := pwIndex is VarRef ? "ushort*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwszLanguageString, pwIndexMarshal, pwIndex, "HRESULT")
         return result
     }
 }

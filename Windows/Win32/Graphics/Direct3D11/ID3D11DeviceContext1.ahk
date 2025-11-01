@@ -61,7 +61,9 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-updatesubresource1
      */
     UpdateSubresource1(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch, CopyFlags) {
-        ComCall(116, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, "ptr", pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "uint", CopyFlags)
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+
+        ComCall(116, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "uint", CopyFlags)
     }
 
     /**
@@ -95,7 +97,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-vssetconstantbuffers1
      */
     VSSetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(119, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(119, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -109,7 +114,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-hssetconstantbuffers1
      */
     HSSetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(120, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(120, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -123,7 +131,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-dssetconstantbuffers1
      */
     DSSetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(121, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(121, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -137,7 +148,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-gssetconstantbuffers1
      */
     GSSetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(122, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(122, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -151,7 +165,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-pssetconstantbuffers1
      */
     PSSetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(123, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(123, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -165,7 +182,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-cssetconstantbuffers1
      */
     CSSetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(124, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(124, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -179,7 +199,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-vsgetconstantbuffers1
      */
     VSGetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(125, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(125, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -193,7 +216,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-hsgetconstantbuffers1
      */
     HSGetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(126, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(126, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -207,7 +233,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-dsgetconstantbuffers1
      */
     DSGetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(127, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(127, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -221,7 +250,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-gsgetconstantbuffers1
      */
     GSGetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(128, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(128, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -235,7 +267,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-psgetconstantbuffers1
      */
     PSGetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(129, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(129, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -249,7 +284,10 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-csgetconstantbuffers1
      */
     CSGetConstantBuffers1(StartSlot, NumBuffers, ppConstantBuffers, pFirstConstant, pNumConstants) {
-        ComCall(130, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, "uint*", pFirstConstant, "uint*", pNumConstants)
+        pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
+        pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
+
+        ComCall(130, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -273,7 +311,9 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-clearview
      */
     ClearView(pView, Color, pRect, NumRects) {
-        ComCall(132, this, "ptr", pView, "float*", Color, "ptr", pRect, "uint", NumRects)
+        ColorMarshal := Color is VarRef ? "float*" : "ptr"
+
+        ComCall(132, this, "ptr", pView, ColorMarshal, Color, "ptr", pRect, "uint", NumRects)
     }
 
     /**

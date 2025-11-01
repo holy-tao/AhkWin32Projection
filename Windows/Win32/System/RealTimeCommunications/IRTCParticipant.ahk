@@ -64,7 +64,9 @@ class IRTCParticipant extends IUnknown{
      * @returns {HRESULT} 
      */
     get_State(penState) {
-        result := ComCall(6, this, "int*", penState, "HRESULT")
+        penStateMarshal := penState is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, penStateMarshal, penState, "HRESULT")
         return result
     }
 

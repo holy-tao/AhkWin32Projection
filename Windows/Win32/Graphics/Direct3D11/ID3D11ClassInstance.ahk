@@ -65,7 +65,9 @@ class ID3D11ClassInstance extends ID3D11DeviceChild{
     GetInstanceName(pInstanceName, pBufferLength) {
         pInstanceName := pInstanceName is String ? StrPtr(pInstanceName) : pInstanceName
 
-        ComCall(9, this, "ptr", pInstanceName, "ptr*", pBufferLength)
+        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : "ptr"
+
+        ComCall(9, this, "ptr", pInstanceName, pBufferLengthMarshal, pBufferLength)
     }
 
     /**
@@ -78,6 +80,8 @@ class ID3D11ClassInstance extends ID3D11DeviceChild{
     GetTypeName(pTypeName, pBufferLength) {
         pTypeName := pTypeName is String ? StrPtr(pTypeName) : pTypeName
 
-        ComCall(10, this, "ptr", pTypeName, "ptr*", pBufferLength)
+        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : "ptr"
+
+        ComCall(10, this, "ptr", pTypeName, pBufferLengthMarshal, pBufferLength)
     }
 }

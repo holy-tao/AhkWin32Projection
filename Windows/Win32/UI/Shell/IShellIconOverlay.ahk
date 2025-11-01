@@ -54,7 +54,9 @@ class IShellIconOverlay extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayindex
      */
     GetOverlayIndex(pidl, pIndex) {
-        result := ComCall(3, this, "ptr", pidl, "int*", pIndex, "HRESULT")
+        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pidl, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 
@@ -66,7 +68,9 @@ class IShellIconOverlay extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayiconindex
      */
     GetOverlayIconIndex(pidl, pIconIndex) {
-        result := ComCall(4, this, "ptr", pidl, "int*", pIconIndex, "HRESULT")
+        pIconIndexMarshal := pIconIndex is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pidl, pIconIndexMarshal, pIconIndex, "HRESULT")
         return result
     }
 }

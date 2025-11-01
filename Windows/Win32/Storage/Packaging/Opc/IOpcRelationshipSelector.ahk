@@ -98,7 +98,9 @@ class IOpcRelationshipSelector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectortype
      */
     GetSelectorType(selector) {
-        result := ComCall(3, this, "int*", selector, "HRESULT")
+        selectorMarshal := selector is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, selectorMarshal, selector, "HRESULT")
         return result
     }
 

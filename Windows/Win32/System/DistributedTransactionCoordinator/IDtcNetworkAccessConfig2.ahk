@@ -74,7 +74,9 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
      * @returns {HRESULT} 
      */
     GetAuthenticationLevel(pAuthLevel) {
-        result := ComCall(20, this, "int*", pAuthLevel, "HRESULT")
+        pAuthLevelMarshal := pAuthLevel is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pAuthLevelMarshal, pAuthLevel, "HRESULT")
         return result
     }
 

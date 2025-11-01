@@ -38,7 +38,9 @@ class IValueMap extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_count
      */
     get_Count(retVal) {
-        result := ComCall(7, this, "int*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -118,7 +120,9 @@ class IValueMap extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_valuemaptype
      */
     get_ValueMapType(type) {
-        result := ComCall(14, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, typeMarshal, type, "HRESULT")
         return result
     }
 

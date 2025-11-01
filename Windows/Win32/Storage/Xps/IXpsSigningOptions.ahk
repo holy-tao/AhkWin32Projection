@@ -138,7 +138,9 @@ class IXpsSigningOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getpolicy
      */
     GetPolicy(policy) {
-        result := ComCall(11, this, "int*", policy, "HRESULT")
+        policyMarshal := policy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, policyMarshal, policy, "HRESULT")
         return result
     }
 
@@ -160,7 +162,9 @@ class IXpsSigningOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getsigningtimeformat
      */
     GetSigningTimeFormat(timeFormat) {
-        result := ComCall(13, this, "int*", timeFormat, "HRESULT")
+        timeFormatMarshal := timeFormat is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, timeFormatMarshal, timeFormat, "HRESULT")
         return result
     }
 
@@ -215,7 +219,9 @@ class IXpsSigningOptions extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssigningoptions-getflags
      */
     GetFlags(flags) {
-        result := ComCall(18, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 

@@ -584,7 +584,9 @@ class MobileDeviceManagementRegistration {
         providerID := providerID is String ? StrPtr(providerID) : providerID
         configString := configString is String ? StrPtr(configString) : configString
 
-        result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, "uint*", configStringBufferLength, "ptr", configString, "int")
+        configStringBufferLengthMarshal := configStringBufferLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, configStringBufferLengthMarshal, configStringBufferLength, "ptr", configString, "int")
         if(result != 0)
             throw OSError(result)
 

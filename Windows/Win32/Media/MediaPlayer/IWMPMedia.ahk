@@ -85,7 +85,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_imagesourcewidth
      */
     get_imageSourceWidth(pWidth) {
-        result := ComCall(11, this, "int*", pWidth, "HRESULT")
+        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pWidthMarshal, pWidth, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_imagesourceheight
      */
     get_imageSourceHeight(pHeight) {
-        result := ComCall(12, this, "int*", pHeight, "HRESULT")
+        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, pHeightMarshal, pHeight, "HRESULT")
         return result
     }
 
@@ -107,7 +111,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_markercount
      */
     get_markerCount(pMarkerCount) {
-        result := ComCall(13, this, "int*", pMarkerCount, "HRESULT")
+        pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pMarkerCountMarshal, pMarkerCount, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getmarkertime
      */
     getMarkerTime(MarkerNum, pMarkerTime) {
-        result := ComCall(14, this, "int", MarkerNum, "double*", pMarkerTime, "HRESULT")
+        pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
+
+        result := ComCall(14, this, "int", MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
         return result
     }
 
@@ -142,7 +150,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_duration
      */
     get_duration(pDuration) {
-        result := ComCall(16, this, "double*", pDuration, "HRESULT")
+        pDurationMarshal := pDuration is VarRef ? "double*" : "ptr"
+
+        result := ComCall(16, this, pDurationMarshal, pDuration, "HRESULT")
         return result
     }
 
@@ -164,7 +174,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_attributecount
      */
     get_attributeCount(plCount) {
-        result := ComCall(18, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(18, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

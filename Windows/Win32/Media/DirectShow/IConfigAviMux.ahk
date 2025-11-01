@@ -48,7 +48,9 @@ class IConfigAviMux extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-getmasterstream
      */
     GetMasterStream(pStream) {
-        result := ComCall(4, this, "int*", pStream, "HRESULT")
+        pStreamMarshal := pStream is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pStreamMarshal, pStream, "HRESULT")
         return result
     }
 

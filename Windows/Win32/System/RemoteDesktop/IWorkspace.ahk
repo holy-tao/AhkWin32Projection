@@ -72,7 +72,9 @@ class IWorkspace extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
      */
     GetProcessId(pulProcessId) {
-        result := ComCall(5, this, "uint*", pulProcessId, "HRESULT")
+        pulProcessIdMarshal := pulProcessId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pulProcessIdMarshal, pulProcessId, "HRESULT")
         return result
     }
 }

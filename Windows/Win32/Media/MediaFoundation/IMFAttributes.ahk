@@ -60,7 +60,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitemtype
      */
     GetItemType(guidKey, pType) {
-        result := ComCall(4, this, "ptr", guidKey, "int*", pType, "HRESULT")
+        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", guidKey, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getuint32
      */
     GetUINT32(guidKey, punValue) {
-        result := ComCall(7, this, "ptr", guidKey, "uint*", punValue, "HRESULT")
+        punValueMarshal := punValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", guidKey, punValueMarshal, punValue, "HRESULT")
         return result
     }
 
@@ -110,7 +114,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getuint64
      */
     GetUINT64(guidKey, punValue) {
-        result := ComCall(8, this, "ptr", guidKey, "uint*", punValue, "HRESULT")
+        punValueMarshal := punValue is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, "ptr", guidKey, punValueMarshal, punValue, "HRESULT")
         return result
     }
 
@@ -122,7 +128,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getdouble
      */
     GetDouble(guidKey, pfValue) {
-        result := ComCall(9, this, "ptr", guidKey, "double*", pfValue, "HRESULT")
+        pfValueMarshal := pfValue is VarRef ? "double*" : "ptr"
+
+        result := ComCall(9, this, "ptr", guidKey, pfValueMarshal, pfValue, "HRESULT")
         return result
     }
 
@@ -146,7 +154,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getstringlength
      */
     GetStringLength(guidKey, pcchLength) {
-        result := ComCall(11, this, "ptr", guidKey, "uint*", pcchLength, "HRESULT")
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, "ptr", guidKey, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -162,7 +172,9 @@ class IMFAttributes extends IUnknown{
     GetString(guidKey, pwszValue, cchBufSize, pcchLength) {
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(12, this, "ptr", guidKey, "ptr", pwszValue, "uint", cchBufSize, "uint*", pcchLength, "HRESULT")
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", guidKey, "ptr", pwszValue, "uint", cchBufSize, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -175,7 +187,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getallocatedstring
      */
     GetAllocatedString(guidKey, ppwszValue, pcchLength) {
-        result := ComCall(13, this, "ptr", guidKey, "ptr", ppwszValue, "uint*", pcchLength, "HRESULT")
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", guidKey, "ptr", ppwszValue, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -187,7 +201,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getblobsize
      */
     GetBlobSize(guidKey, pcbBlobSize) {
-        result := ComCall(14, this, "ptr", guidKey, "uint*", pcbBlobSize, "HRESULT")
+        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", guidKey, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return result
     }
 
@@ -201,7 +217,10 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getblob
      */
     GetBlob(guidKey, pBuf, cbBufSize, pcbBlobSize) {
-        result := ComCall(15, this, "ptr", guidKey, "char*", pBuf, "uint", cbBufSize, "uint*", pcbBlobSize, "HRESULT")
+        pBufMarshal := pBuf is VarRef ? "char*" : "ptr"
+        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "ptr", guidKey, pBufMarshal, pBuf, "uint", cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return result
     }
 
@@ -214,7 +233,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getallocatedblob
      */
     GetAllocatedBlob(guidKey, ppBuf, pcbSize) {
-        result := ComCall(16, this, "ptr", guidKey, "ptr*", ppBuf, "uint*", pcbSize, "HRESULT")
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr", guidKey, "ptr*", ppBuf, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -335,7 +356,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setblob
      */
     SetBlob(guidKey, pBuf, cbBufSize) {
-        result := ComCall(26, this, "ptr", guidKey, "char*", pBuf, "uint", cbBufSize, "HRESULT")
+        pBufMarshal := pBuf is VarRef ? "char*" : "ptr"
+
+        result := ComCall(26, this, "ptr", guidKey, pBufMarshal, pBuf, "uint", cbBufSize, "HRESULT")
         return result
     }
 
@@ -378,7 +401,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getcount
      */
     GetCount(pcItems) {
-        result := ComCall(30, this, "uint*", pcItems, "HRESULT")
+        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, pcItemsMarshal, pcItems, "HRESULT")
         return result
     }
 

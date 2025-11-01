@@ -42,7 +42,10 @@ class IWICDdsFrameDecode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-getsizeinblocks
      */
     GetSizeInBlocks(pWidthInBlocks, pHeightInBlocks) {
-        result := ComCall(3, this, "uint*", pWidthInBlocks, "uint*", pHeightInBlocks, "HRESULT")
+        pWidthInBlocksMarshal := pWidthInBlocks is VarRef ? "uint*" : "ptr"
+        pHeightInBlocksMarshal := pHeightInBlocks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pWidthInBlocksMarshal, pWidthInBlocks, pHeightInBlocksMarshal, pHeightInBlocks, "HRESULT")
         return result
     }
 
@@ -67,7 +70,9 @@ class IWICDdsFrameDecode extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-copyblocks
      */
     CopyBlocks(prcBoundsInBlocks, cbStride, cbBufferSize, pbBuffer) {
-        result := ComCall(5, this, "ptr", prcBoundsInBlocks, "uint", cbStride, "uint", cbBufferSize, "char*", pbBuffer, "HRESULT")
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, "ptr", prcBoundsInBlocks, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 }

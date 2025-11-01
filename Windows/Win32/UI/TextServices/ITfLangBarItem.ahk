@@ -48,7 +48,9 @@ class ITfLangBarItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritem-getstatus
      */
     GetStatus(pdwStatus) {
-        result := ComCall(4, this, "uint*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 

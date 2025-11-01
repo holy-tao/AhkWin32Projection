@@ -38,7 +38,10 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
      * @returns {HRESULT} 
      */
     MapUrlToZoneEx2(pUri, pdwZone, dwFlags, ppwszMappedUrl, pdwOutFlags) {
-        result := ComCall(12, this, "ptr", pUri, "uint*", pdwZone, "uint", dwFlags, "ptr", ppwszMappedUrl, "uint*", pdwOutFlags, "HRESULT")
+        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
+        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, "uint", dwFlags, "ptr", ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 
@@ -56,7 +59,11 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
      * @returns {HRESULT} 
      */
     ProcessUrlActionEx2(pUri, dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved, pdwOutFlags) {
-        result := ComCall(13, this, "ptr", pUri, "uint", dwAction, "char*", pPolicy, "uint", cbPolicy, "char*", pContext, "uint", cbContext, "uint", dwFlags, "ptr", dwReserved, "uint*", pdwOutFlags, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pUri, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "ptr", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 
@@ -69,7 +76,10 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
      * @returns {HRESULT} 
      */
     GetSecurityIdEx2(pUri, pbSecurityId, pcbSecurityId, dwReserved) {
-        result := ComCall(14, this, "ptr", pUri, "char*", pbSecurityId, "uint*", pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
+        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pUri, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
         return result
     }
 
@@ -85,7 +95,10 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
      * @returns {HRESULT} 
      */
     QueryCustomPolicyEx2(pUri, guidKey, ppPolicy, pcbPolicy, pContext, cbContext, dwReserved) {
-        result := ComCall(15, this, "ptr", pUri, "ptr", guidKey, "ptr*", ppPolicy, "uint*", pcbPolicy, "char*", pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
+        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pUri, "ptr", guidKey, "ptr*", ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
         return result
     }
 }

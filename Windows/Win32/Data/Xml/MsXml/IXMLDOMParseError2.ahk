@@ -65,7 +65,9 @@ class IXMLDOMParseError2 extends IXMLDOMParseError{
      * @returns {HRESULT} 
      */
     get_errorParametersCount(count) {
-        result := ComCall(17, this, "int*", count, "HRESULT")
+        countMarshal := count is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, countMarshal, count, "HRESULT")
         return result
     }
 }

@@ -35,7 +35,9 @@ class IInternetBindInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBindInfo(grfBINDF, pbindinfo) {
-        result := ComCall(3, this, "uint*", grfBINDF, "ptr", pbindinfo, "HRESULT")
+        grfBINDFMarshal := grfBINDF is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, grfBINDFMarshal, grfBINDF, "ptr", pbindinfo, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IInternetBindInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBindString(ulStringType, ppwzStr, cEl, pcElFetched) {
-        result := ComCall(4, this, "uint", ulStringType, "ptr", ppwzStr, "uint", cEl, "uint*", pcElFetched, "HRESULT")
+        pcElFetchedMarshal := pcElFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulStringType, "ptr", ppwzStr, "uint", cEl, pcElFetchedMarshal, pcElFetched, "HRESULT")
         return result
     }
 }

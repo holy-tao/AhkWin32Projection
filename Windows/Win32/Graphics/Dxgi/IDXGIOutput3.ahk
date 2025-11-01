@@ -39,7 +39,9 @@ class IDXGIOutput3 extends IDXGIOutput2{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgioutput3-checkoverlaysupport
      */
     CheckOverlaySupport(EnumFormat, pConcernedDevice, pFlags) {
-        result := ComCall(24, this, "int", EnumFormat, "ptr", pConcernedDevice, "uint*", pFlags, "HRESULT")
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(24, this, "int", EnumFormat, "ptr", pConcernedDevice, pFlagsMarshal, pFlags, "HRESULT")
         return result
     }
 }

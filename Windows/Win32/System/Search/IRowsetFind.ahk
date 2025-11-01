@@ -45,7 +45,11 @@ class IRowsetFind extends IUnknown{
     FindNextRow(hChapter, hAccessor, pFindValue, CompareOp, cbBookmark, pBookmark, lRowsOffset, cRows, pcRowsObtained, prghRows) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", hAccessor, "ptr", pFindValue, "uint", CompareOp, "ptr", cbBookmark, "char*", pBookmark, "ptr", lRowsOffset, "ptr", cRows, "ptr*", pcRowsObtained, "ptr*", prghRows, "HRESULT")
+        pFindValueMarshal := pFindValue is VarRef ? "ptr" : "ptr"
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hChapter, "ptr", hAccessor, pFindValueMarshal, pFindValue, "uint", CompareOp, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", prghRows, "HRESULT")
         return result
     }
 }

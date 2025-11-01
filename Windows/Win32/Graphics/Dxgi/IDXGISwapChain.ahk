@@ -151,7 +151,9 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getlastpresentcount
      */
     GetLastPresentCount(pLastPresentCount) {
-        result := ComCall(17, this, "uint*", pLastPresentCount, "HRESULT")
+        pLastPresentCountMarshal := pLastPresentCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(17, this, pLastPresentCountMarshal, pLastPresentCount, "HRESULT")
         return result
     }
 }

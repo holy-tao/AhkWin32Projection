@@ -69,7 +69,9 @@ class IHomeGroup extends IUnknown{
     ShowSharingWizard(owner, sharingchoices) {
         owner := owner is Win32Handle ? NumGet(owner, "ptr") : owner
 
-        result := ComCall(4, this, "ptr", owner, "int*", sharingchoices, "HRESULT")
+        sharingchoicesMarshal := sharingchoices is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", owner, sharingchoicesMarshal, sharingchoices, "HRESULT")
         return result
     }
 }

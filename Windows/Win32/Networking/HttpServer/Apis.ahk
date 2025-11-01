@@ -1079,7 +1079,9 @@ class HttpServer {
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpQueryRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, "uint*", ReturnLength, "ptr", Reserved2, "uint")
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpQueryRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, ReturnLengthMarshal, ReturnLength, "ptr", Reserved2, "uint")
         return result
     }
 
@@ -1297,7 +1299,9 @@ class HttpServer {
     static HttpReceiveClientCertificate(RequestQueueHandle, ConnectionId, Flags, SslClientCertInfo, SslClientCertInfoSize, BytesReceived, Overlapped) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpReceiveClientCertificate", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Flags, "ptr", SslClientCertInfo, "uint", SslClientCertInfoSize, "uint*", BytesReceived, "ptr", Overlapped, "uint")
+        BytesReceivedMarshal := BytesReceived is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpReceiveClientCertificate", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Flags, "ptr", SslClientCertInfo, "uint", SslClientCertInfoSize, BytesReceivedMarshal, BytesReceived, "ptr", Overlapped, "uint")
         return result
     }
 
@@ -1345,7 +1349,9 @@ class HttpServer {
     static HttpCreateServerSession(Version, ServerSessionId) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("HTTPAPI.dll\HttpCreateServerSession", "ptr", Version, "uint*", ServerSessionId, "uint", Reserved, "uint")
+        ServerSessionIdMarshal := ServerSessionId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpCreateServerSession", "ptr", Version, ServerSessionIdMarshal, ServerSessionId, "uint", Reserved, "uint")
         return result
     }
 
@@ -1530,7 +1536,9 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpQueryServerSessionProperty(ServerSessionId, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
-        result := DllCall("HTTPAPI.dll\HttpQueryServerSessionProperty", "uint", ServerSessionId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint*", ReturnLength, "uint")
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpQueryServerSessionProperty", "uint", ServerSessionId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, ReturnLengthMarshal, ReturnLength, "uint")
         return result
     }
 
@@ -1923,7 +1931,9 @@ class HttpServer {
     static HttpCreateUrlGroup(ServerSessionId, pUrlGroupId) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("HTTPAPI.dll\HttpCreateUrlGroup", "uint", ServerSessionId, "uint*", pUrlGroupId, "uint", Reserved, "uint")
+        pUrlGroupIdMarshal := pUrlGroupId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpCreateUrlGroup", "uint", ServerSessionId, pUrlGroupIdMarshal, pUrlGroupId, "uint", Reserved, "uint")
         return result
     }
 
@@ -2440,7 +2450,9 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpQueryUrlGroupProperty(UrlGroupId, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
-        result := DllCall("HTTPAPI.dll\HttpQueryUrlGroupProperty", "uint", UrlGroupId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint*", ReturnLength, "uint")
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpQueryUrlGroupProperty", "uint", UrlGroupId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, ReturnLengthMarshal, ReturnLength, "uint")
         return result
     }
 
@@ -2571,7 +2583,9 @@ class HttpServer {
     static HttpReceiveHttpRequest(RequestQueueHandle, RequestId, Flags, RequestBuffer, RequestBufferLength, BytesReturned, Overlapped) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpReceiveHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", RequestBuffer, "uint", RequestBufferLength, "uint*", BytesReturned, "ptr", Overlapped, "uint")
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpReceiveHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", RequestBuffer, "uint", RequestBufferLength, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped, "uint")
         return result
     }
 
@@ -2684,7 +2698,9 @@ class HttpServer {
     static HttpReceiveRequestEntityBody(RequestQueueHandle, RequestId, Flags, EntityBuffer, EntityBufferLength, BytesReturned, Overlapped) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpReceiveRequestEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", EntityBuffer, "uint", EntityBufferLength, "uint*", BytesReturned, "ptr", Overlapped, "uint")
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpReceiveRequestEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", EntityBuffer, "uint", EntityBufferLength, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped, "uint")
         return result
     }
 
@@ -2855,7 +2871,9 @@ class HttpServer {
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpSendHttpResponse", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", HttpResponse, "ptr", CachePolicy, "uint*", BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
+        BytesSentMarshal := BytesSent is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpSendHttpResponse", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", HttpResponse, "ptr", CachePolicy, BytesSentMarshal, BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
         return result
     }
 
@@ -3035,7 +3053,9 @@ class HttpServer {
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpSendResponseEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ushort", EntityChunkCount, "ptr", EntityChunks, "uint*", BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
+        BytesSentMarshal := BytesSent is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpSendResponseEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ushort", EntityChunkCount, "ptr", EntityChunks, BytesSentMarshal, BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
         return result
     }
 
@@ -3301,7 +3321,9 @@ class HttpServer {
         FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpFindUrlGroupId", "ptr", FullyQualifiedUrl, "ptr", RequestQueueHandle, "uint*", UrlGroupId, "uint")
+        UrlGroupIdMarshal := UrlGroupId is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpFindUrlGroupId", "ptr", FullyQualifiedUrl, "ptr", RequestQueueHandle, UrlGroupIdMarshal, UrlGroupId, "uint")
         return result
     }
 
@@ -3515,7 +3537,9 @@ class HttpServer {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
         UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
-        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer, "uint", BufferLength, "uint*", BytesRead, "ptr", Overlapped, "uint")
+        BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer, "uint", BufferLength, BytesReadMarshal, BytesRead, "ptr", Overlapped, "uint")
         return result
     }
 
@@ -4306,7 +4330,9 @@ class HttpServer {
 
         ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
 
-        result := DllCall("HTTPAPI.dll\HttpQueryServiceConfiguration", "ptr", ServiceHandle, "int", ConfigId, "ptr", pInput, "uint", InputLength, "ptr", pOutput, "uint", OutputLength, "uint*", pReturnLength, "ptr", pOverlapped, "uint")
+        pReturnLengthMarshal := pReturnLength is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpQueryServiceConfiguration", "ptr", ServiceHandle, "int", ConfigId, "ptr", pInput, "uint", InputLength, "ptr", pOutput, "uint", OutputLength, pReturnLengthMarshal, pReturnLength, "ptr", pOverlapped, "uint")
         return result
     }
 
@@ -4319,7 +4345,9 @@ class HttpServer {
      * @returns {Integer} 
      */
     static HttpGetExtension(Version, Extension, Buffer, BufferSize) {
-        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version, "uint", Extension, "ptr", Buffer, "uint", BufferSize, "uint")
+        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version, "uint", Extension, BufferMarshal, Buffer, "uint", BufferSize, "uint")
         return result
     }
 

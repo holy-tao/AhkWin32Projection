@@ -70,7 +70,9 @@ class IFsrmProperty extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_propertyflags
      */
     get_PropertyFlags(flags) {
-        result := ComCall(10, this, "int*", flags, "HRESULT")
+        flagsMarshal := flags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, flagsMarshal, flags, "HRESULT")
         return result
     }
 }

@@ -194,7 +194,9 @@ class IPhotoAcquireSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getflags
      */
     GetFlags(pdwPhotoAcquireFlags) {
-        result := ComCall(10, this, "uint*", pdwPhotoAcquireFlags, "HRESULT")
+        pdwPhotoAcquireFlagsMarshal := pdwPhotoAcquireFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pdwPhotoAcquireFlagsMarshal, pdwPhotoAcquireFlags, "HRESULT")
         return result
     }
 
@@ -216,7 +218,9 @@ class IPhotoAcquireSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencepaddingwidth
      */
     GetSequencePaddingWidth(pdwWidth) {
-        result := ComCall(12, this, "uint*", pdwWidth, "HRESULT")
+        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(12, this, pdwWidthMarshal, pdwWidth, "HRESULT")
         return result
     }
 

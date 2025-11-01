@@ -34,7 +34,9 @@ class IPrintSchemaOptionCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Count(pulCount) {
-        result := ComCall(7, this, "uint*", pulCount, "HRESULT")
+        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 

@@ -80,7 +80,9 @@ class IPrintOemUI extends IPrintOemCommon{
      * @returns {HRESULT} 
      */
     DevQueryPrintEx(poemuiobj, pDQPInfo, pPublicDM, pOEMDM) {
-        result := ComCall(9, this, "ptr", poemuiobj, "ptr", pDQPInfo, "ptr", pPublicDM, "ptr", pOEMDM, "HRESULT")
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, "ptr", poemuiobj, "ptr", pDQPInfo, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "HRESULT")
         return result
     }
 
@@ -104,7 +106,11 @@ class IPrintOemUI extends IPrintOemCommon{
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := ComCall(10, this, "ptr", poemuiobj, "ptr", hPrinter, "ptr", pDeviceName, "ushort", wCapability, "ptr", pOutput, "ptr", pPublicDM, "ptr", pOEMDM, "uint", dwOld, "uint*", dwResult, "HRESULT")
+        pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+        dwResultMarshal := dwResult is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", poemuiobj, "ptr", hPrinter, "ptr", pDeviceName, "ushort", wCapability, pOutputMarshal, pOutput, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", dwOld, dwResultMarshal, dwResult, "HRESULT")
         return result
     }
 
@@ -115,7 +121,9 @@ class IPrintOemUI extends IPrintOemCommon{
      * @returns {HRESULT} 
      */
     UpgradePrinter(dwLevel, pDriverUpgradeInfo) {
-        result := ComCall(11, this, "uint", dwLevel, "char*", pDriverUpgradeInfo, "HRESULT")
+        pDriverUpgradeInfoMarshal := pDriverUpgradeInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwLevel, pDriverUpgradeInfoMarshal, pDriverUpgradeInfo, "HRESULT")
         return result
     }
 
@@ -143,7 +151,9 @@ class IPrintOemUI extends IPrintOemCommon{
      * @returns {HRESULT} 
      */
     DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, lParam) {
-        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, "char*", pDriverInfo, "ptr", lParam, "HRESULT")
+        pDriverInfoMarshal := pDriverInfo is VarRef ? "char*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, "ptr", lParam, "HRESULT")
         return result
     }
 
@@ -162,7 +172,12 @@ class IPrintOemUI extends IPrintOemCommon{
     QueryColorProfile(hPrinter, poemuiobj, pPublicDM, pOEMDM, ulQueryMode, pvProfileData, pcbProfileData, pflProfileData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(14, this, "ptr", hPrinter, "ptr", poemuiobj, "ptr", pPublicDM, "ptr", pOEMDM, "uint", ulQueryMode, "ptr", pvProfileData, "uint*", pcbProfileData, "uint*", pflProfileData, "HRESULT")
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+        pvProfileDataMarshal := pvProfileData is VarRef ? "ptr" : "ptr"
+        pcbProfileDataMarshal := pcbProfileData is VarRef ? "uint*" : "ptr"
+        pflProfileDataMarshal := pflProfileData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "ptr", hPrinter, "ptr", poemuiobj, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "HRESULT")
         return result
     }
 

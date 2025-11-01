@@ -48,7 +48,9 @@ class IEVRFilterConfigEx extends IEVRFilterConfig{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrfilterconfigex-getconfigprefs
      */
     GetConfigPrefs(pdwConfigFlags) {
-        result := ComCall(6, this, "uint*", pdwConfigFlags, "HRESULT")
+        pdwConfigFlagsMarshal := pdwConfigFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pdwConfigFlagsMarshal, pdwConfigFlags, "HRESULT")
         return result
     }
 }

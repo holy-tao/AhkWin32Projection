@@ -62,7 +62,9 @@ class IGameInputRawDeviceReport extends IUnknown{
      * @returns {Pointer} 
      */
     GetRawData(bufferSize, buffer) {
-        result := ComCall(6, this, "ptr", bufferSize, "ptr", buffer, "ptr")
+        bufferMarshal := buffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(6, this, "ptr", bufferSize, bufferMarshal, buffer, "ptr")
         return result
     }
 
@@ -73,7 +75,9 @@ class IGameInputRawDeviceReport extends IUnknown{
      * @returns {Boolean} 
      */
     SetRawData(bufferSize, buffer) {
-        result := ComCall(7, this, "ptr", bufferSize, "ptr", buffer, "int")
+        bufferMarshal := buffer is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, "ptr", bufferSize, bufferMarshal, buffer, "int")
         return result
     }
 
@@ -84,7 +88,9 @@ class IGameInputRawDeviceReport extends IUnknown{
      * @returns {Boolean} 
      */
     GetItemValue(itemIndex, value) {
-        result := ComCall(8, this, "uint", itemIndex, "int64*", value, "int")
+        valueMarshal := value is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(8, this, "uint", itemIndex, valueMarshal, value, "int")
         return result
     }
 

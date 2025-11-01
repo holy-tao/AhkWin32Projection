@@ -105,7 +105,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Rate(Rate) {
-        result := ComCall(14, this, "int*", Rate, "HRESULT")
+        RateMarshal := Rate is VarRef ? "int*" : "ptr"
+
+        result := ComCall(14, this, RateMarshal, Rate, "HRESULT")
         return result
     }
 
@@ -125,7 +127,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Volume(Volume) {
-        result := ComCall(16, this, "int*", Volume, "HRESULT")
+        VolumeMarshal := Volume is VarRef ? "int*" : "ptr"
+
+        result := ComCall(16, this, VolumeMarshal, Volume, "HRESULT")
         return result
     }
 
@@ -165,7 +169,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EventInterests(EventInterestFlags) {
-        result := ComCall(20, this, "int*", EventInterestFlags, "HRESULT")
+        EventInterestFlagsMarshal := EventInterestFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, EventInterestFlagsMarshal, EventInterestFlags, "HRESULT")
         return result
     }
 
@@ -195,7 +201,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     get_Priority(Priority) {
-        result := ComCall(23, this, "int*", Priority, "HRESULT")
+        PriorityMarshal := Priority is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, PriorityMarshal, Priority, "HRESULT")
         return result
     }
 
@@ -215,7 +223,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AlertBoundary(Boundary) {
-        result := ComCall(25, this, "int*", Boundary, "HRESULT")
+        BoundaryMarshal := Boundary is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, BoundaryMarshal, Boundary, "HRESULT")
         return result
     }
 
@@ -235,7 +245,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     get_SynchronousSpeakTimeout(msTimeout) {
-        result := ComCall(27, this, "int*", msTimeout, "HRESULT")
+        msTimeoutMarshal := msTimeout is VarRef ? "int*" : "ptr"
+
+        result := ComCall(27, this, msTimeoutMarshal, msTimeout, "HRESULT")
         return result
     }
 
@@ -249,7 +261,9 @@ class ISpeechVoice extends IDispatch{
     Speak(Text, Flags, StreamNumber) {
         Text := Text is String ? BSTR.Alloc(Text).Value : Text
 
-        result := ComCall(28, this, "ptr", Text, "int", Flags, "int*", StreamNumber, "HRESULT")
+        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, "ptr", Text, "int", Flags, StreamNumberMarshal, StreamNumber, "HRESULT")
         return result
     }
 
@@ -261,7 +275,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     SpeakStream(Stream, Flags, StreamNumber) {
-        result := ComCall(29, this, "ptr", Stream, "int", Flags, "int*", StreamNumber, "HRESULT")
+        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
+
+        result := ComCall(29, this, "ptr", Stream, "int", Flags, StreamNumberMarshal, StreamNumber, "HRESULT")
         return result
     }
 
@@ -293,7 +309,9 @@ class ISpeechVoice extends IDispatch{
     Skip(Type, NumItems, NumSkipped) {
         Type := Type is String ? BSTR.Alloc(Type).Value : Type
 
-        result := ComCall(32, this, "ptr", Type, "int", NumItems, "int*", NumSkipped, "HRESULT")
+        NumSkippedMarshal := NumSkipped is VarRef ? "int*" : "ptr"
+
+        result := ComCall(32, this, "ptr", Type, "int", NumItems, NumSkippedMarshal, NumSkipped, "HRESULT")
         return result
     }
 
@@ -344,7 +362,9 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     SpeakCompleteEvent(Handle) {
-        result := ComCall(36, this, "int*", Handle, "HRESULT")
+        HandleMarshal := Handle is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, HandleMarshal, Handle, "HRESULT")
         return result
     }
 

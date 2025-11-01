@@ -48,7 +48,9 @@ class IWMVideoDecoderHurryup extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderhurryup-gethurryup
      */
     GetHurryup(plHurryup) {
-        result := ComCall(4, this, "int*", plHurryup, "HRESULT")
+        plHurryupMarshal := plHurryup is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, plHurryupMarshal, plHurryup, "HRESULT")
         return result
     }
 }

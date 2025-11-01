@@ -54,7 +54,10 @@ class IPipeDouble extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipedouble-pull
      */
     Pull(buf, cRequest, pcReturned) {
-        result := ComCall(3, this, "double*", buf, "uint", cRequest, "uint*", pcReturned, "HRESULT")
+        bufMarshal := buf is VarRef ? "double*" : "ptr"
+        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, bufMarshal, buf, "uint", cRequest, pcReturnedMarshal, pcReturned, "HRESULT")
         return result
     }
 
@@ -66,7 +69,9 @@ class IPipeDouble extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipedouble-push
      */
     Push(buf, cSent) {
-        result := ComCall(4, this, "double*", buf, "uint", cSent, "HRESULT")
+        bufMarshal := buf is VarRef ? "double*" : "ptr"
+
+        result := ComCall(4, this, bufMarshal, buf, "uint", cSent, "HRESULT")
         return result
     }
 }

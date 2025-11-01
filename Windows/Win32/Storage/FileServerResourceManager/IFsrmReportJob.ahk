@@ -141,7 +141,9 @@ class IFsrmReportJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus
      */
     get_RunningStatus(runningStatus) {
-        result := ComCall(20, this, "int*", runningStatus, "HRESULT")
+        runningStatusMarshal := runningStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, runningStatusMarshal, runningStatus, "HRESULT")
         return result
     }
 
@@ -152,7 +154,9 @@ class IFsrmReportJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lastrun
      */
     get_LastRun(lastRun) {
-        result := ComCall(21, this, "double*", lastRun, "HRESULT")
+        lastRunMarshal := lastRun is VarRef ? "double*" : "ptr"
+
+        result := ComCall(21, this, lastRunMarshal, lastRun, "HRESULT")
         return result
     }
 

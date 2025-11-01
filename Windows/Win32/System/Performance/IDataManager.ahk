@@ -86,7 +86,9 @@ class IDataManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_minfreedisk
      */
     get_MinFreeDisk(MinFreeDisk) {
-        result := ComCall(11, this, "uint*", MinFreeDisk, "HRESULT")
+        MinFreeDiskMarshal := MinFreeDisk is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, MinFreeDiskMarshal, MinFreeDisk, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IDataManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_maxsize
      */
     get_MaxSize(pulMaxSize) {
-        result := ComCall(13, this, "uint*", pulMaxSize, "HRESULT")
+        pulMaxSizeMarshal := pulMaxSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(13, this, pulMaxSizeMarshal, pulMaxSize, "HRESULT")
         return result
     }
 
@@ -130,7 +134,9 @@ class IDataManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_maxfoldercount
      */
     get_MaxFolderCount(pulMaxFolderCount) {
-        result := ComCall(15, this, "uint*", pulMaxFolderCount, "HRESULT")
+        pulMaxFolderCountMarshal := pulMaxFolderCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, pulMaxFolderCountMarshal, pulMaxFolderCount, "HRESULT")
         return result
     }
 
@@ -152,7 +158,9 @@ class IDataManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_resourcepolicy
      */
     get_ResourcePolicy(pPolicy) {
-        result := ComCall(17, this, "int*", pPolicy, "HRESULT")
+        pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, pPolicyMarshal, pPolicy, "HRESULT")
         return result
     }
 

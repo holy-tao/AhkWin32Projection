@@ -40,7 +40,9 @@ class ICanvasImageData extends IDispatch{
      * @returns {HRESULT} 
      */
     get_width(p) {
-        result := ComCall(7, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pMarshal, p, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class ICanvasImageData extends IDispatch{
      * @returns {HRESULT} 
      */
     get_height(p) {
-        result := ComCall(8, this, "uint*", p, "HRESULT")
+        pMarshal := p is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pMarshal, p, "HRESULT")
         return result
     }
 

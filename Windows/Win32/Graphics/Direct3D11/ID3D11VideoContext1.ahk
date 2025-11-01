@@ -58,7 +58,10 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-getdatafornewhardwarekey
      */
     GetDataForNewHardwareKey(pCryptoSession, PrivateInputSize, pPrivatInputData, pPrivateOutputData) {
-        result := ComCall(66, this, "ptr", pCryptoSession, "uint", PrivateInputSize, "ptr", pPrivatInputData, "uint*", pPrivateOutputData, "HRESULT")
+        pPrivatInputDataMarshal := pPrivatInputData is VarRef ? "ptr" : "ptr"
+        pPrivateOutputDataMarshal := pPrivateOutputData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(66, this, "ptr", pCryptoSession, "uint", PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, pPrivateOutputDataMarshal, pPrivateOutputData, "HRESULT")
         return result
     }
 
@@ -70,7 +73,9 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-checkcryptosessionstatus
      */
     CheckCryptoSessionStatus(pCryptoSession, pStatus) {
-        result := ComCall(67, this, "ptr", pCryptoSession, "int*", pStatus, "HRESULT")
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(67, this, "ptr", pCryptoSession, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -130,7 +135,9 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputcolorspace1
      */
     VideoProcessorGetOutputColorSpace1(pVideoProcessor, pColorSpace) {
-        ComCall(72, this, "ptr", pVideoProcessor, "int*", pColorSpace)
+        pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : "ptr"
+
+        ComCall(72, this, "ptr", pVideoProcessor, pColorSpaceMarshal, pColorSpace)
     }
 
     /**
@@ -179,7 +186,9 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreamcolorspace1
      */
     VideoProcessorGetStreamColorSpace1(pVideoProcessor, StreamIndex, pColorSpace) {
-        ComCall(76, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int*", pColorSpace)
+        pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : "ptr"
+
+        ComCall(76, this, "ptr", pVideoProcessor, "uint", StreamIndex, pColorSpaceMarshal, pColorSpace)
     }
 
     /**
@@ -209,7 +218,9 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetbehaviorhints
      */
     VideoProcessorGetBehaviorHints(pVideoProcessor, OutputWidth, OutputHeight, OutputFormat, StreamCount, pStreams, pBehaviorHints) {
-        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, "int", OutputFormat, "uint", StreamCount, "ptr", pStreams, "uint*", pBehaviorHints, "HRESULT")
+        pBehaviorHintsMarshal := pBehaviorHints is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, "int", OutputFormat, "uint", StreamCount, "ptr", pStreams, pBehaviorHintsMarshal, pBehaviorHints, "HRESULT")
         return result
     }
 }

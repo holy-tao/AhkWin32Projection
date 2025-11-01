@@ -37,7 +37,9 @@ class IWMPSyncServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-get_devicecount
      */
     get_deviceCount(plCount) {
-        result := ComCall(3, this, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

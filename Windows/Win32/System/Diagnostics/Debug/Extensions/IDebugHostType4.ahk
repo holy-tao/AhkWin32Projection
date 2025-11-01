@@ -34,7 +34,9 @@ class IDebugHostType4 extends IDebugHostType3{
      * @returns {HRESULT} 
      */
     GetExtendedArrayHeaderSize(headerSize) {
-        result := ComCall(35, this, "uint*", headerSize, "HRESULT")
+        headerSizeMarshal := headerSize is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(35, this, headerSizeMarshal, headerSize, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class IDebugHostType4 extends IDebugHostType3{
      * @returns {HRESULT} 
      */
     GetUDTKind(udtKind) {
-        result := ComCall(37, this, "int*", udtKind, "HRESULT")
+        udtKindMarshal := udtKind is VarRef ? "int*" : "ptr"
+
+        result := ComCall(37, this, udtKindMarshal, udtKind, "HRESULT")
         return result
     }
 }

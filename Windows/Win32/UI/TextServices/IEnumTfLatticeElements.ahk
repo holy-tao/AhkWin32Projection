@@ -50,7 +50,9 @@ class IEnumTfLatticeElements extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-ienumtflatticeelements-next
      */
     Next(ulCount, rgsElements, pcFetched) {
-        result := ComCall(4, this, "uint", ulCount, "ptr", rgsElements, "uint*", pcFetched, "HRESULT")
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr", rgsElements, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 

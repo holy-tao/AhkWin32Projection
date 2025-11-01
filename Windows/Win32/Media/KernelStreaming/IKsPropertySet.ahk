@@ -59,7 +59,9 @@ class IKsPropertySet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-get
      */
     Get(guidPropSet, dwPropID, pInstanceData, cbInstanceData, pPropData, cbPropData, pcbReturned) {
-        result := ComCall(4, this, "ptr", guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "uint*", pcbReturned, "HRESULT")
+        pcbReturnedMarshal := pcbReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, pcbReturnedMarshal, pcbReturned, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IKsPropertySet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-querysupported
      */
     QuerySupported(guidPropSet, dwPropID, pTypeSupport) {
-        result := ComCall(5, this, "ptr", guidPropSet, "uint", dwPropID, "uint*", pTypeSupport, "HRESULT")
+        pTypeSupportMarshal := pTypeSupport is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", guidPropSet, "uint", dwPropID, pTypeSupportMarshal, pTypeSupport, "HRESULT")
         return result
     }
 }

@@ -45,7 +45,9 @@ class IWMDRMMessageParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parseregistrationreqmsg
      */
     ParseRegistrationReqMsg(pbRegistrationReqMsg, cbRegistrationReqMsg, ppDeviceCert, pDeviceSerialNumber) {
-        result := ComCall(3, this, "char*", pbRegistrationReqMsg, "uint", cbRegistrationReqMsg, "ptr*", ppDeviceCert, "ptr", pDeviceSerialNumber, "HRESULT")
+        pbRegistrationReqMsgMarshal := pbRegistrationReqMsg is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbRegistrationReqMsgMarshal, pbRegistrationReqMsg, "uint", cbRegistrationReqMsg, "ptr*", ppDeviceCert, "ptr", pDeviceSerialNumber, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IWMDRMMessageParser extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parselicenserequestmsg
      */
     ParseLicenseRequestMsg(pbLicenseRequestMsg, cbLicenseRequestMsg, ppDeviceCert, pDeviceSerialNumber, pbstrAction) {
-        result := ComCall(4, this, "char*", pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, "ptr*", ppDeviceCert, "ptr", pDeviceSerialNumber, "ptr", pbstrAction, "HRESULT")
+        pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, "ptr*", ppDeviceCert, "ptr", pDeviceSerialNumber, "ptr", pbstrAction, "HRESULT")
         return result
     }
 }

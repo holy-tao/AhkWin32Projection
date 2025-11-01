@@ -47,7 +47,9 @@ class INetFwProfile extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_type
      */
     get_Type(type) {
-        result := ComCall(7, this, "int*", type, "HRESULT")
+        typeMarshal := type is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, typeMarshal, type, "HRESULT")
         return result
     }
 

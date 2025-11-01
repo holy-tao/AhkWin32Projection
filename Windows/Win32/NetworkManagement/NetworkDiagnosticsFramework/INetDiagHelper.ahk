@@ -71,7 +71,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getkeyattributes
      */
     GetKeyAttributes(pcelt, pprgAttributes) {
-        result := ComCall(5, this, "uint*", pcelt, "ptr*", pprgAttributes, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pceltMarshal, pcelt, "ptr*", pprgAttributes, "HRESULT")
         return result
     }
 
@@ -87,7 +89,10 @@ class INetDiagHelper extends IUnknown{
     LowHealth(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
 
-        result := ComCall(6, this, "ptr", pwszInstanceDescription, "ptr", ppwszDescription, "int*", pDeferredTime, "int*", pStatus, "HRESULT")
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszInstanceDescription, "ptr", ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -103,7 +108,10 @@ class INetDiagHelper extends IUnknown{
     HighUtilization(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
 
-        result := ComCall(7, this, "ptr", pwszInstanceDescription, "ptr", ppwszDescription, "int*", pDeferredTime, "int*", pStatus, "HRESULT")
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pwszInstanceDescription, "ptr", ppwszDescription, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -115,7 +123,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getlowerhypotheses
      */
     GetLowerHypotheses(pcelt, pprgHypotheses) {
-        result := ComCall(8, this, "uint*", pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -127,7 +137,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getdownstreamhypotheses
      */
     GetDownStreamHypotheses(pcelt, pprgHypotheses) {
-        result := ComCall(9, this, "uint*", pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -139,7 +151,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-gethigherhypotheses
      */
     GetHigherHypotheses(pcelt, pprgHypotheses) {
-        result := ComCall(10, this, "uint*", pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -151,7 +165,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getupstreamhypotheses
      */
     GetUpStreamHypotheses(pcelt, pprgHypotheses) {
-        result := ComCall(11, this, "uint*", pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(11, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -164,7 +180,10 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-repair
      */
     Repair(pInfo, pDeferredTime, pStatus) {
-        result := ComCall(12, this, "ptr", pInfo, "int*", pDeferredTime, "int*", pStatus, "HRESULT")
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pInfo, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -177,7 +196,10 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-validate
      */
     Validate(problem, pDeferredTime, pStatus) {
-        result := ComCall(13, this, "int", problem, "int*", pDeferredTime, "int*", pStatus, "HRESULT")
+        pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, "int", problem, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -190,7 +212,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getrepairinfo
      */
     GetRepairInfo(problem, pcelt, ppInfo) {
-        result := ComCall(14, this, "int", problem, "uint*", pcelt, "ptr*", ppInfo, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(14, this, "int", problem, pceltMarshal, pcelt, "ptr*", ppInfo, "HRESULT")
         return result
     }
 
@@ -235,7 +259,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getattributes
      */
     GetAttributes(pcelt, pprgAttributes) {
-        result := ComCall(18, this, "uint*", pcelt, "ptr*", pprgAttributes, "HRESULT")
+        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(18, this, pceltMarshal, pcelt, "ptr*", pprgAttributes, "HRESULT")
         return result
     }
 

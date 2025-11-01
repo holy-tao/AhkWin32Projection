@@ -62,7 +62,9 @@ class IAudioSessionEnumerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount
      */
     GetCount(SessionCount) {
-        result := ComCall(3, this, "int*", SessionCount, "HRESULT")
+        SessionCountMarshal := SessionCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, SessionCountMarshal, SessionCount, "HRESULT")
         return result
     }
 

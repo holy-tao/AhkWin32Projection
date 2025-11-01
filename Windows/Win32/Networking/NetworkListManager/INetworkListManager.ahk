@@ -112,7 +112,9 @@ class INetworkListManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getconnectivity
      */
     GetConnectivity(pConnectivity) {
-        result := ComCall(13, this, "int*", pConnectivity, "HRESULT")
+        pConnectivityMarshal := pConnectivity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(13, this, pConnectivityMarshal, pConnectivity, "HRESULT")
         return result
     }
 

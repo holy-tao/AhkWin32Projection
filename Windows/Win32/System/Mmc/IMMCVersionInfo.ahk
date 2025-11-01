@@ -44,7 +44,10 @@ class IMMCVersionInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-immcversioninfo-getmmcversion
      */
     GetMMCVersion(pVersionMajor, pVersionMinor) {
-        result := ComCall(3, this, "int*", pVersionMajor, "int*", pVersionMinor, "HRESULT")
+        pVersionMajorMarshal := pVersionMajor is VarRef ? "int*" : "ptr"
+        pVersionMinorMarshal := pVersionMinor is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pVersionMajorMarshal, pVersionMajor, pVersionMinorMarshal, pVersionMinor, "HRESULT")
         return result
     }
 }

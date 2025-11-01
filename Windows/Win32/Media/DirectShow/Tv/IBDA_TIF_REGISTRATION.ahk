@@ -45,7 +45,9 @@ class IBDA_TIF_REGISTRATION extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ibda_tif_registration-registertifex
      */
     RegisterTIFEx(pTIFInputPin, ppvRegistrationContext, ppMpeg2DataControl) {
-        result := ComCall(3, this, "ptr", pTIFInputPin, "uint*", ppvRegistrationContext, "ptr*", ppMpeg2DataControl, "HRESULT")
+        ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pTIFInputPin, ppvRegistrationContextMarshal, ppvRegistrationContext, "ptr*", ppMpeg2DataControl, "HRESULT")
         return result
     }
 

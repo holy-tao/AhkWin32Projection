@@ -41,7 +41,9 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     get_EnumOptions(pgrfEnumFlags) {
-        result := ComCall(20, this, "int*", pgrfEnumFlags, "HRESULT")
+        pgrfEnumFlagsMarshal := pgrfEnumFlags is VarRef ? "int*" : "ptr"
+
+        result := ComCall(20, this, pgrfEnumFlagsMarshal, pgrfEnumFlags, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     get_Depth(piDepth) {
-        result := ComCall(26, this, "int*", piDepth, "HRESULT")
+        piDepthMarshal := piDepth is VarRef ? "int*" : "ptr"
+
+        result := ComCall(26, this, piDepthMarshal, piDepth, "HRESULT")
         return result
     }
 
@@ -121,7 +125,9 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     get_Mode(puMode) {
-        result := ComCall(28, this, "uint*", puMode, "HRESULT")
+        puModeMarshal := puMode is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(28, this, puModeMarshal, puMode, "HRESULT")
         return result
     }
 
@@ -141,7 +147,9 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     get_Flags(pdwFlags) {
-        result := ComCall(30, this, "uint*", pdwFlags, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(30, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -171,7 +179,9 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     get_TVFlags(dwFlags) {
-        result := ComCall(33, this, "uint*", dwFlags, "HRESULT")
+        dwFlagsMarshal := dwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(33, this, dwFlagsMarshal, dwFlags, "HRESULT")
         return result
     }
 
@@ -203,7 +213,9 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     get_CountViewTypes(piTypes) {
-        result := ComCall(36, this, "int*", piTypes, "HRESULT")
+        piTypesMarshal := piTypes is VarRef ? "int*" : "ptr"
+
+        result := ComCall(36, this, piTypesMarshal, piTypes, "HRESULT")
         return result
     }
 

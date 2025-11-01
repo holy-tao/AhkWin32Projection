@@ -48,7 +48,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-gettag
      */
     GetTag(pbVal) {
-        result := ComCall(3, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getlength
      */
     GetLength(pbVal) {
-        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount
      */
     GetRatingRegionCount(pbVal) {
-        result := ComCall(5, this, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -82,7 +88,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingregion
      */
     GetRecordRatingRegion(bIndex, pbVal) {
-        result := ComCall(6, this, "char", bIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(6, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -94,7 +102,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordrateddimensions
      */
     GetRecordRatedDimensions(bIndex, pbVal) {
-        result := ComCall(7, this, "char", bIndex, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(7, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -107,7 +117,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdimension
      */
     GetRecordRatingDimension(bIndexOuter, bIndexInner, pbVal) {
-        result := ComCall(8, this, "char", bIndexOuter, "char", bIndexInner, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(8, this, "char", bIndexOuter, "char", bIndexInner, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -120,7 +132,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingvalue
      */
     GetRecordRatingValue(bIndexOuter, bIndexInner, pbVal) {
-        result := ComCall(9, this, "char", bIndexOuter, "char", bIndexInner, "char*", pbVal, "HRESULT")
+        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+
+        result := ComCall(9, this, "char", bIndexOuter, "char", bIndexInner, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 
@@ -133,7 +147,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdescriptiontext
      */
     GetRecordRatingDescriptionText(bIndex, pbLength, ppText) {
-        result := ComCall(10, this, "char", bIndex, "char*", pbLength, "ptr*", ppText, "HRESULT")
+        pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
+
+        result := ComCall(10, this, "char", bIndex, pbLengthMarshal, pbLength, "ptr*", ppText, "HRESULT")
         return result
     }
 }

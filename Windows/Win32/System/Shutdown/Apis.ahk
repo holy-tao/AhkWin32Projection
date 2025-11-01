@@ -880,9 +880,11 @@ class Shutdown {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
+        pcchBuffMarshal := pcchBuff is VarRef ? "uint*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, "uint*", pcchBuff, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, pcchBuffMarshal, pcchBuff, "int")
         if(A_LastError)
             throw OSError()
 

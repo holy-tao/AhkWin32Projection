@@ -50,7 +50,9 @@ class IMFRateSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getslowestrate
      */
     GetSlowestRate(eDirection, fThin, pflRate) {
-        result := ComCall(3, this, "int", eDirection, "int", fThin, "float*", pflRate, "HRESULT")
+        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
+
+        result := ComCall(3, this, "int", eDirection, "int", fThin, pflRateMarshal, pflRate, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IMFRateSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getfastestrate
      */
     GetFastestRate(eDirection, fThin, pflRate) {
-        result := ComCall(4, this, "int", eDirection, "int", fThin, "float*", pflRate, "HRESULT")
+        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
+
+        result := ComCall(4, this, "int", eDirection, "int", fThin, pflRateMarshal, pflRate, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class IMFRateSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-isratesupported
      */
     IsRateSupported(fThin, flRate, pflNearestSupportedRate) {
-        result := ComCall(5, this, "int", fThin, "float", flRate, "float*", pflNearestSupportedRate, "HRESULT")
+        pflNearestSupportedRateMarshal := pflNearestSupportedRate is VarRef ? "float*" : "ptr"
+
+        result := ComCall(5, this, "int", fThin, "float", flRate, pflNearestSupportedRateMarshal, pflNearestSupportedRate, "HRESULT")
         return result
     }
 }

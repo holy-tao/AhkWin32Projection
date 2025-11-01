@@ -93,7 +93,9 @@ class IDirect3DQuery9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dquery9-getdata
      */
     GetData(pData, dwSize, dwGetDataFlags) {
-        result := ComCall(7, this, "ptr", pData, "uint", dwSize, "uint", dwGetDataFlags, "HRESULT")
+        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, pDataMarshal, pData, "uint", dwSize, "uint", dwGetDataFlags, "HRESULT")
         return result
     }
 }

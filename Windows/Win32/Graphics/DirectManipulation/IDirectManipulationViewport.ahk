@@ -95,7 +95,9 @@ class IDirectManipulationViewport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getstatus
      */
     GetStatus(status) {
-        result := ComCall(8, this, "int*", status, "HRESULT")
+        statusMarshal := status is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, statusMarshal, status, "HRESULT")
         return result
     }
 
@@ -108,7 +110,9 @@ class IDirectManipulationViewport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-gettag
      */
     GetTag(riid, object, id) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", object, "uint*", id, "HRESULT")
+        idMarshal := id is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, "ptr", riid, "ptr*", object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -169,7 +173,9 @@ class IDirectManipulationViewport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewporttransform
      */
     SetViewportTransform(matrix, pointCount) {
-        result := ComCall(14, this, "float*", matrix, "uint", pointCount, "HRESULT")
+        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+
+        result := ComCall(14, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -181,7 +187,9 @@ class IDirectManipulationViewport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-syncdisplaytransform
      */
     SyncDisplayTransform(matrix, pointCount) {
-        result := ComCall(15, this, "float*", matrix, "uint", pointCount, "HRESULT")
+        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+
+        result := ComCall(15, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -296,7 +304,9 @@ class IDirectManipulationViewport extends IUnknown{
     AddEventHandler(window, eventHandler, cookie) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(25, this, "ptr", window, "ptr", eventHandler, "uint*", cookie, "HRESULT")
+        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(25, this, "ptr", window, "ptr", eventHandler, cookieMarshal, cookie, "HRESULT")
         return result
     }
 

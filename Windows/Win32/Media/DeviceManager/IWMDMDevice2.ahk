@@ -57,7 +57,11 @@ class IWMDMDevice2 extends IWMDMDevice{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getformatsupport2
      */
     GetFormatSupport2(dwFlags, ppAudioFormatEx, pnAudioFormatCount, ppVideoFormatEx, pnVideoFormatCount, ppFileType, pnFileTypeCount) {
-        result := ComCall(15, this, "uint", dwFlags, "ptr*", ppAudioFormatEx, "uint*", pnAudioFormatCount, "ptr*", ppVideoFormatEx, "uint*", pnVideoFormatCount, "ptr*", ppFileType, "uint*", pnFileTypeCount, "HRESULT")
+        pnAudioFormatCountMarshal := pnAudioFormatCount is VarRef ? "uint*" : "ptr"
+        pnVideoFormatCountMarshal := pnVideoFormatCount is VarRef ? "uint*" : "ptr"
+        pnFileTypeCountMarshal := pnFileTypeCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwFlags, "ptr*", ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, "ptr*", ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, "ptr*", ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
         return result
     }
 
@@ -70,7 +74,9 @@ class IWMDMDevice2 extends IWMDMDevice{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getspecifypropertypages
      */
     GetSpecifyPropertyPages(ppSpecifyPropPages, pppUnknowns, pcUnks) {
-        result := ComCall(16, this, "ptr*", ppSpecifyPropPages, "ptr*", pppUnknowns, "uint*", pcUnks, "HRESULT")
+        pcUnksMarshal := pcUnks is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(16, this, "ptr*", ppSpecifyPropPages, "ptr*", pppUnknowns, pcUnksMarshal, pcUnks, "HRESULT")
         return result
     }
 

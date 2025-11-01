@@ -38,7 +38,9 @@ class IElementBehaviorSiteOM extends IUnknown{
     RegisterEvent(pchEvent, lFlags, plCookie) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent
 
-        result := ComCall(3, this, "ptr", pchEvent, "int", lFlags, "int*", plCookie, "HRESULT")
+        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pchEvent, "int", lFlags, plCookieMarshal, plCookie, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IElementBehaviorSiteOM extends IUnknown{
     GetEventCookie(pchEvent, plCookie) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent
 
-        result := ComCall(4, this, "ptr", pchEvent, "int*", plCookie, "HRESULT")
+        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pchEvent, plCookieMarshal, plCookie, "HRESULT")
         return result
     }
 

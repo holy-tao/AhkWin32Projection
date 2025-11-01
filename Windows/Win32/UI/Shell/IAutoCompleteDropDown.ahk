@@ -38,7 +38,9 @@ class IAutoCompleteDropDown extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iautocompletedropdown-getdropdownstatus
      */
     GetDropDownStatus(pdwFlags, ppwszString) {
-        result := ComCall(3, this, "uint*", pdwFlags, "ptr", ppwszString, "HRESULT")
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, "ptr", ppwszString, "HRESULT")
         return result
     }
 

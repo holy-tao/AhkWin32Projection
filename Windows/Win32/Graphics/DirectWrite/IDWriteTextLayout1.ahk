@@ -80,7 +80,11 @@ class IDWriteTextLayout1 extends IDWriteTextLayout{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextlayout1-getcharacterspacing
      */
     GetCharacterSpacing(currentPosition, leadingSpacing, trailingSpacing, minimumAdvanceWidth, textRange) {
-        result := ComCall(70, this, "uint", currentPosition, "float*", leadingSpacing, "float*", trailingSpacing, "float*", minimumAdvanceWidth, "ptr", textRange, "HRESULT")
+        leadingSpacingMarshal := leadingSpacing is VarRef ? "float*" : "ptr"
+        trailingSpacingMarshal := trailingSpacing is VarRef ? "float*" : "ptr"
+        minimumAdvanceWidthMarshal := minimumAdvanceWidth is VarRef ? "float*" : "ptr"
+
+        result := ComCall(70, this, "uint", currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, "ptr", textRange, "HRESULT")
         return result
     }
 }

@@ -48,7 +48,9 @@ class IVPManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivpmanager-getvideoportindex
      */
     GetVideoPortIndex(pdwVideoPortIndex) {
-        result := ComCall(4, this, "uint*", pdwVideoPortIndex, "HRESULT")
+        pdwVideoPortIndexMarshal := pdwVideoPortIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, pdwVideoPortIndexMarshal, pdwVideoPortIndex, "HRESULT")
         return result
     }
 }

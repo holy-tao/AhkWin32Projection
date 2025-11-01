@@ -61,7 +61,9 @@ class IDWriteFontSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
      */
     FindFontFaceReference(fontFaceReference, listIndex, exists) {
-        result := ComCall(5, this, "ptr", fontFaceReference, "uint*", listIndex, "ptr", exists, "HRESULT")
+        listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", fontFaceReference, listIndexMarshal, listIndex, "ptr", exists, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IDWriteFontSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontface
      */
     FindFontFace(fontFace, listIndex, exists) {
-        result := ComCall(6, this, "ptr", fontFace, "uint*", listIndex, "ptr", exists, "HRESULT")
+        listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", fontFace, listIndexMarshal, listIndex, "ptr", exists, "HRESULT")
         return result
     }
 
@@ -127,7 +131,9 @@ class IDWriteFontSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
      */
     GetPropertyOccurrenceCount(property, propertyOccurrenceCount) {
-        result := ComCall(10, this, "ptr", property, "uint*", propertyOccurrenceCount, "HRESULT")
+        propertyOccurrenceCountMarshal := propertyOccurrenceCount is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", property, propertyOccurrenceCountMarshal, propertyOccurrenceCount, "HRESULT")
         return result
     }
 

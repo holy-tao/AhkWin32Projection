@@ -50,7 +50,9 @@ class IEnumTfFunctionProviders extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtffunctionproviders-next
      */
     Next(ulCount, ppCmdobj, pcFetch) {
-        result := ComCall(4, this, "uint", ulCount, "ptr*", ppCmdobj, "uint*", pcFetch, "HRESULT")
+        pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulCount, "ptr*", ppCmdobj, pcFetchMarshal, pcFetch, "HRESULT")
         return result
     }
 

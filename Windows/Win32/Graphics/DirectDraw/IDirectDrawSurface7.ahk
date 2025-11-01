@@ -276,7 +276,9 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-enumattachedsurfaces
      */
     EnumAttachedSurfaces(param0, param1) {
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
         return result
     }
 
@@ -289,7 +291,9 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-enumoverlayzorders
      */
     EnumOverlayZOrders(param0, param1, param2) {
-        result := ComCall(10, this, "uint", param0, "ptr", param1, "ptr", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(10, this, "uint", param0, param1Marshal, param1, "ptr", param2, "HRESULT")
         return result
     }
 
@@ -394,7 +398,10 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getoverlayposition
      */
     GetOverlayPosition(param0, param1) {
-        result := ComCall(19, this, "int*", param0, "int*", param1, "HRESULT")
+        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -656,7 +663,9 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setprivatedata
      */
     SetPrivateData(param0, param1, param2, param3) {
-        result := ComCall(40, this, "ptr", param0, "ptr", param1, "uint", param2, "uint", param3, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(40, this, "ptr", param0, param1Marshal, param1, "uint", param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -669,7 +678,10 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getprivatedata
      */
     GetPrivateData(param0, param1, param2) {
-        result := ComCall(41, this, "ptr", param0, "ptr", param1, "uint*", param2, "HRESULT")
+        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(41, this, "ptr", param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
     }
 
@@ -691,7 +703,9 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getuniquenessvalue
      */
     GetUniquenessValue(param0) {
-        result := ComCall(43, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(43, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -723,7 +737,9 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getpriority
      */
     GetPriority(param0) {
-        result := ComCall(46, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(46, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -745,7 +761,9 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getlod
      */
     GetLOD(param0) {
-        result := ComCall(48, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(48, this, param0Marshal, param0, "HRESULT")
         return result
     }
 }

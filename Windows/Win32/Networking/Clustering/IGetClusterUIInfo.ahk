@@ -79,7 +79,9 @@ class IGetClusterUIInfo extends IUnknown{
     GetClusterName(lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
 
-        result := ComCall(3, this, "ptr", lpszName, "int*", pcchName, "HRESULT")
+        pcchNameMarshal := pcchName is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", lpszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 

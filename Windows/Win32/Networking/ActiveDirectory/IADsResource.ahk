@@ -72,7 +72,9 @@ class IADsResource extends IADs{
      * @returns {HRESULT} 
      */
     get_LockCount(retval) {
-        result := ComCall(23, this, "int*", retval, "HRESULT")
+        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 }

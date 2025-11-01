@@ -48,7 +48,9 @@ class IMallocSpy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postalloc
      */
     PostAlloc(pActual) {
-        result := ComCall(4, this, "ptr", pActual, "ptr")
+        pActualMarshal := pActual is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(4, this, pActualMarshal, pActual, "ptr")
         return result
     }
 
@@ -60,7 +62,9 @@ class IMallocSpy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-prefree
      */
     PreFree(pRequest, fSpyed) {
-        result := ComCall(5, this, "ptr", pRequest, "int", fSpyed, "ptr")
+        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(5, this, pRequestMarshal, pRequest, "int", fSpyed, "ptr")
         return result
     }
 
@@ -84,7 +88,9 @@ class IMallocSpy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-prerealloc
      */
     PreRealloc(pRequest, cbRequest, ppNewRequest, fSpyed) {
-        result := ComCall(7, this, "ptr", pRequest, "ptr", cbRequest, "ptr*", ppNewRequest, "int", fSpyed, "ptr")
+        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(7, this, pRequestMarshal, pRequest, "ptr", cbRequest, "ptr*", ppNewRequest, "int", fSpyed, "ptr")
         return result
     }
 
@@ -96,7 +102,9 @@ class IMallocSpy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postrealloc
      */
     PostRealloc(pActual, fSpyed) {
-        result := ComCall(8, this, "ptr", pActual, "int", fSpyed, "ptr")
+        pActualMarshal := pActual is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(8, this, pActualMarshal, pActual, "int", fSpyed, "ptr")
         return result
     }
 
@@ -108,7 +116,9 @@ class IMallocSpy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-pregetsize
      */
     PreGetSize(pRequest, fSpyed) {
-        result := ComCall(9, this, "ptr", pRequest, "int", fSpyed, "ptr")
+        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(9, this, pRequestMarshal, pRequest, "int", fSpyed, "ptr")
         return result
     }
 
@@ -132,7 +142,9 @@ class IMallocSpy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-predidalloc
      */
     PreDidAlloc(pRequest, fSpyed) {
-        result := ComCall(11, this, "ptr", pRequest, "int", fSpyed, "ptr")
+        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(11, this, pRequestMarshal, pRequest, "int", fSpyed, "ptr")
         return result
     }
 
@@ -145,7 +157,9 @@ class IMallocSpy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postdidalloc
      */
     PostDidAlloc(pRequest, fSpyed, fActual) {
-        result := ComCall(12, this, "ptr", pRequest, "int", fSpyed, "int", fActual, "int")
+        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(12, this, pRequestMarshal, pRequest, "int", fSpyed, "int", fActual, "int")
         return result
     }
 

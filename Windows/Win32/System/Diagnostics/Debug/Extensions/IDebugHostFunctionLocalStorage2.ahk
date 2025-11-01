@@ -37,7 +37,12 @@ class IDebugHostFunctionLocalStorage2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExtendedRegisterAddressInfo(registerId, offset, isIndirectAccess, indirectOffset) {
-        result := ComCall(3, this, "uint*", registerId, "int64*", offset, "int*", isIndirectAccess, "int*", indirectOffset, "HRESULT")
+        registerIdMarshal := registerId is VarRef ? "uint*" : "ptr"
+        offsetMarshal := offset is VarRef ? "int64*" : "ptr"
+        isIndirectAccessMarshal := isIndirectAccess is VarRef ? "int*" : "ptr"
+        indirectOffsetMarshal := indirectOffset is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, registerIdMarshal, registerId, offsetMarshal, offset, isIndirectAccessMarshal, isIndirectAccess, indirectOffsetMarshal, indirectOffset, "HRESULT")
         return result
     }
 }

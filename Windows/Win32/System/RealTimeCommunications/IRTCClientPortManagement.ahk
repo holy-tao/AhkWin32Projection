@@ -63,7 +63,10 @@ class IRTCClientPortManagement extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPortRange(enPortType, plMinValue, plMaxValue) {
-        result := ComCall(5, this, "int", enPortType, "int*", plMinValue, "int*", plMaxValue, "HRESULT")
+        plMinValueMarshal := plMinValue is VarRef ? "int*" : "ptr"
+        plMaxValueMarshal := plMaxValue is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "int", enPortType, plMinValueMarshal, plMinValue, plMaxValueMarshal, plMaxValue, "HRESULT")
         return result
     }
 }

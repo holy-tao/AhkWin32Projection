@@ -56,7 +56,9 @@ class IMbnConnectionContext extends IUnknown{
     SetProvisionedContext(provisionedContexts, providerID, requestID) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
 
-        result := ComCall(4, this, "ptr", provisionedContexts, "ptr", providerID, "uint*", requestID, "HRESULT")
+        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, "ptr", provisionedContexts, "ptr", providerID, requestIDMarshal, requestID, "HRESULT")
         return result
     }
 }

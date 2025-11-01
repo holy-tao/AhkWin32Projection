@@ -77,7 +77,9 @@ class IFileSystemBindData2 extends IFileSystemBindData{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-getfileid
      */
     GetFileID(pliFileID) {
-        result := ComCall(6, this, "int64*", pliFileID, "HRESULT")
+        pliFileIDMarshal := pliFileID is VarRef ? "int64*" : "ptr"
+
+        result := ComCall(6, this, pliFileIDMarshal, pliFileID, "HRESULT")
         return result
     }
 

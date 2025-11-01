@@ -148,7 +148,9 @@ class IWindowProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowvisualstate
      */
     get_WindowVisualState(pRetVal) {
-        result := ComCall(9, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -159,7 +161,9 @@ class IWindowProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowinteractionstate
      */
     get_WindowInteractionState(pRetVal) {
-        result := ComCall(10, this, "int*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

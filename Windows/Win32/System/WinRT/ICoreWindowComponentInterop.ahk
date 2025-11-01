@@ -48,7 +48,9 @@ class ICoreWindowComponentInterop extends IUnknown{
      * @returns {HRESULT} 
      */
     GetViewInstanceId(componentViewInstanceId) {
-        result := ComCall(4, this, "uint*", componentViewInstanceId, "HRESULT")
+        componentViewInstanceIdMarshal := componentViewInstanceId is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(4, this, componentViewInstanceIdMarshal, componentViewInstanceId, "HRESULT")
         return result
     }
 }

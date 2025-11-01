@@ -71,7 +71,9 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInputFormats(lpNumFormats, param1, param2) {
-        result := ComCall(6, this, "uint*", lpNumFormats, "ptr", param1, "uint", param2, "HRESULT")
+        lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, lpNumFormatsMarshal, lpNumFormats, "ptr", param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputFormats(param0, lpNumFormats, param2, param3) {
-        result := ComCall(7, this, "ptr", param0, "uint*", lpNumFormats, "ptr", param2, "uint", param3, "HRESULT")
+        lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", param0, lpNumFormatsMarshal, lpNumFormats, "ptr", param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -104,7 +108,9 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetVideoLine(param0) {
-        result := ComCall(9, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
@@ -114,7 +120,9 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetVideoSignalStatus(param0) {
-        result := ComCall(10, this, "uint*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

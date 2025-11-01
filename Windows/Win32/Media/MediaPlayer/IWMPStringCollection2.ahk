@@ -71,7 +71,9 @@ class IWMPStringCollection2 extends IWMPStringCollection{
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(11, this, "int", lCollectionIndex, "ptr", bstrType, "ptr", bstrLanguage, "int*", plCount, "HRESULT")
+        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "int", lCollectionIndex, "ptr", bstrType, "ptr", bstrLanguage, plCountMarshal, plCount, "HRESULT")
         return result
     }
 

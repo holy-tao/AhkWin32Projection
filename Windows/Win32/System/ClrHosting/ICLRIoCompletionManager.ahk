@@ -36,7 +36,9 @@ class ICLRIoCompletionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     OnComplete(dwErrorCode, NumberOfBytesTransferred, pvOverlapped) {
-        result := ComCall(3, this, "uint", dwErrorCode, "uint", NumberOfBytesTransferred, "ptr", pvOverlapped, "HRESULT")
+        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : "ptr"
+
+        result := ComCall(3, this, "uint", dwErrorCode, "uint", NumberOfBytesTransferred, pvOverlappedMarshal, pvOverlapped, "HRESULT")
         return result
     }
 }

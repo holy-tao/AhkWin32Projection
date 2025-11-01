@@ -37,7 +37,9 @@ class ISpDisplayAlternates extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDisplayAlternates(pPhrase, cRequestCount, ppCoMemPhrases, pcPhrasesReturned) {
-        result := ComCall(3, this, "ptr", pPhrase, "uint", cRequestCount, "ptr*", ppCoMemPhrases, "uint*", pcPhrasesReturned, "HRESULT")
+        pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pPhrase, "uint", cRequestCount, "ptr*", ppCoMemPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
         return result
     }
 

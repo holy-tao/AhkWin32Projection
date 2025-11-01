@@ -98,7 +98,9 @@ class ISdoMachine extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getostype
      */
     GetOSType(eOSType) {
-        result := ComCall(11, this, "int*", eOSType, "HRESULT")
+        eOSTypeMarshal := eOSType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, eOSTypeMarshal, eOSType, "HRESULT")
         return result
     }
 
@@ -109,7 +111,9 @@ class ISdoMachine extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getdomaintype
      */
     GetDomainType(eDomainType) {
-        result := ComCall(12, this, "int*", eDomainType, "HRESULT")
+        eDomainTypeMarshal := eDomainType is VarRef ? "int*" : "ptr"
+
+        result := ComCall(12, this, eDomainTypeMarshal, eDomainType, "HRESULT")
         return result
     }
 

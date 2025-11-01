@@ -101,7 +101,9 @@ class IHTMLPaintSite extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHitTestCookie(plCookie) {
-        result := ComCall(9, this, "int*", plCookie, "HRESULT")
+        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, plCookieMarshal, plCookie, "HRESULT")
         return result
     }
 }

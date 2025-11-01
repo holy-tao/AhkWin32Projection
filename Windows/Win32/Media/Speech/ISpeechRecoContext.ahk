@@ -45,7 +45,9 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     get_AudioInputInterferenceStatus(Interference) {
-        result := ComCall(8, this, "int*", Interference, "HRESULT")
+        InterferenceMarshal := Interference is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, InterferenceMarshal, Interference, "HRESULT")
         return result
     }
 
@@ -115,7 +117,9 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     get_VoicePurgeEvent(EventInterest) {
-        result := ComCall(15, this, "int*", EventInterest, "HRESULT")
+        EventInterestMarshal := EventInterest is VarRef ? "int*" : "ptr"
+
+        result := ComCall(15, this, EventInterestMarshal, EventInterest, "HRESULT")
         return result
     }
 
@@ -135,7 +139,9 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     get_EventInterests(EventInterest) {
-        result := ComCall(17, this, "int*", EventInterest, "HRESULT")
+        EventInterestMarshal := EventInterest is VarRef ? "int*" : "ptr"
+
+        result := ComCall(17, this, EventInterestMarshal, EventInterest, "HRESULT")
         return result
     }
 
@@ -155,7 +161,9 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     get_CmdMaxAlternates(MaxAlternates) {
-        result := ComCall(19, this, "int*", MaxAlternates, "HRESULT")
+        MaxAlternatesMarshal := MaxAlternates is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, MaxAlternatesMarshal, MaxAlternates, "HRESULT")
         return result
     }
 
@@ -175,7 +183,9 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     get_State(State) {
-        result := ComCall(21, this, "int*", State, "HRESULT")
+        StateMarshal := State is VarRef ? "int*" : "ptr"
+
+        result := ComCall(21, this, StateMarshal, State, "HRESULT")
         return result
     }
 
@@ -195,7 +205,9 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     get_RetainedAudio(Option) {
-        result := ComCall(23, this, "int*", Option, "HRESULT")
+        OptionMarshal := Option is VarRef ? "int*" : "ptr"
+
+        result := ComCall(23, this, OptionMarshal, Option, "HRESULT")
         return result
     }
 

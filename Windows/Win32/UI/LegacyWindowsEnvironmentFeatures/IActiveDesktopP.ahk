@@ -73,7 +73,9 @@ class IActiveDesktopP extends IUnknown{
     GetScheme(pwszSchemeName, pdwcchBuffer, dwFlags) {
         pwszSchemeName := pwszSchemeName is String ? StrPtr(pwszSchemeName) : pwszSchemeName
 
-        result := ComCall(6, this, "ptr", pwszSchemeName, "uint*", pdwcchBuffer, "uint", dwFlags, "HRESULT")
+        pdwcchBufferMarshal := pdwcchBuffer is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszSchemeName, pdwcchBufferMarshal, pdwcchBuffer, "uint", dwFlags, "HRESULT")
         return result
     }
 }

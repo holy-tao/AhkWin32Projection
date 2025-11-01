@@ -37,7 +37,9 @@ class IWMDMObjectInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getplaylength
      */
     GetPlayLength(pdwLength) {
-        result := ComCall(3, this, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IWMDMObjectInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getplayoffset
      */
     GetPlayOffset(pdwOffset) {
-        result := ComCall(5, this, "uint*", pdwOffset, "HRESULT")
+        pdwOffsetMarshal := pdwOffset is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pdwOffsetMarshal, pdwOffset, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IWMDMObjectInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-gettotallength
      */
     GetTotalLength(pdwLength) {
-        result := ComCall(7, this, "uint*", pdwLength, "HRESULT")
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IWMDMObjectInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getlastplayposition
      */
     GetLastPlayPosition(pdwLastPos) {
-        result := ComCall(8, this, "uint*", pdwLastPos, "HRESULT")
+        pdwLastPosMarshal := pdwLastPos is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(8, this, pdwLastPosMarshal, pdwLastPos, "HRESULT")
         return result
     }
 
@@ -103,7 +111,9 @@ class IWMDMObjectInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getlongestplayposition
      */
     GetLongestPlayPosition(pdwLongestPos) {
-        result := ComCall(9, this, "uint*", pdwLongestPos, "HRESULT")
+        pdwLongestPosMarshal := pdwLongestPos is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(9, this, pdwLongestPosMarshal, pdwLongestPos, "HRESULT")
         return result
     }
 }

@@ -65,7 +65,10 @@ class IMFNetCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getuser
      */
     GetUser(pbData, pcbData, fEncryptData) {
-        result := ComCall(5, this, "char*", pbData, "uint*", pcbData, "int", fEncryptData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "int", fEncryptData, "HRESULT")
         return result
     }
 
@@ -78,7 +81,10 @@ class IMFNetCredential extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getpassword
      */
     GetPassword(pbData, pcbData, fEncryptData) {
-        result := ComCall(6, this, "char*", pbData, "uint*", pcbData, "int", fEncryptData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(6, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "int", fEncryptData, "HRESULT")
         return result
     }
 
