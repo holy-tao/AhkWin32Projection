@@ -37,7 +37,7 @@ class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> object that contains transport information associated with the response.
-     * @type {Pointer<IWSDMessageParameters>}
+     * @type {IWSDMessageParameters}
      */
     messageParameters {
         get => NumGet(this, 16, "ptr")

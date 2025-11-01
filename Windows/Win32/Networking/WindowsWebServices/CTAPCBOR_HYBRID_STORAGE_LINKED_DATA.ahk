@@ -28,7 +28,7 @@ class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbContactId {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbLinkId {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbLinkSecret {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPublicKey {
         get => NumGet(this, 56, "ptr")

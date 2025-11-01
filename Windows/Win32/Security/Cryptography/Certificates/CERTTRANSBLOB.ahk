@@ -20,7 +20,7 @@ class CERTTRANSBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pb {
         get => NumGet(this, 8, "ptr")

@@ -29,7 +29,7 @@ class MF_TRANSCODE_SINK_INFO extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type for the  video stream. This member can be <b>NULL</b>.
-     * @type {Pointer<IMFMediaType>}
+     * @type {IMFMediaType}
      */
     pVideoMediaType {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +47,7 @@ class MF_TRANSCODE_SINK_INFO extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type for the  audio stream. This member can be <b>NULL</b>.
-     * @type {Pointer<IMFMediaType>}
+     * @type {IMFMediaType}
      */
     pAudioMediaType {
         get => NumGet(this, 24, "ptr")

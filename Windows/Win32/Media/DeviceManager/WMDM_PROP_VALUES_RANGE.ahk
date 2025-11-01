@@ -31,6 +31,8 @@
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-values-range
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

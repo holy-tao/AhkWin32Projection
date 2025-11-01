@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/menurc/menuex-template-item
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

@@ -33,7 +33,7 @@ class KERB_SMART_CARD_PROFILE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     CertificateData {
         get => NumGet(this, 168, "ptr")

@@ -24,7 +24,7 @@ class SecPkgContext_TargetInformation extends Win32Struct
 
     /**
      * Array of bytes that represent the credential, if a credential is provided by a credential manager.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     MarshalledTargetInfo {
         get => NumGet(this, 8, "ptr")

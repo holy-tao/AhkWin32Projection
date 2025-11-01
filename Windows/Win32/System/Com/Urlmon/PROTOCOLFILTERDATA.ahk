@@ -20,7 +20,7 @@ class PROTOCOLFILTERDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IInternetProtocolSink>}
+     * @type {IInternetProtocolSink}
      */
     pProtocolSink {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class PROTOCOLFILTERDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IInternetProtocol>}
+     * @type {IInternetProtocol}
      */
     pProtocol {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class PROTOCOLFILTERDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 24, "ptr")

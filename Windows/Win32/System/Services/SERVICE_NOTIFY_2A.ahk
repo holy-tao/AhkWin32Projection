@@ -3,6 +3,8 @@
 #Include .\SERVICE_STATUS_PROCESS.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_notify_2a
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  * @charset ANSI

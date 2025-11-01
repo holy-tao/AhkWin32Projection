@@ -84,7 +84,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPropBlob {
         get => NumGet(this, 168, "ptr")

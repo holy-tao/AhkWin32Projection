@@ -3,6 +3,8 @@
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-bssid-list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

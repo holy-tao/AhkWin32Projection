@@ -4,6 +4,8 @@
 #Include .\MXDC_XPS_S0PAGE_RESOURCE_T.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pageresourceescape
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

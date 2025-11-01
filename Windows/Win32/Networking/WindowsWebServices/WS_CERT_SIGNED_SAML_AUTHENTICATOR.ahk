@@ -36,7 +36,7 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct
      * internal use.  The application continues to own the certificate
      * handles supplied here and is responsible for freeing them anytime
      * after the listener creation call that uses this structure returns.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     trustedIssuerCerts {
         get => NumGet(this, 8, "ptr")

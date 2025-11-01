@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime-dateunit
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

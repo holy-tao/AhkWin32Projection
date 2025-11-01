@@ -24,7 +24,7 @@ class DHCP_CLIENT_INFO_ARRAY_V5 extends Win32Struct
 
     /**
      * Pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v5">DHCP_CLIENT_INFO_V5</a> structures that contain information on specific DHCP subnet clients, including the dynamic address type (DHCP and/or BOOTP) and address state information.
-     * @type {Pointer<DHCP_CLIENT_INFO_V5>}
+     * @type {Pointer<Pointer<DHCP_CLIENT_INFO_V5>>}
      */
     Clients {
         get => NumGet(this, 8, "ptr")

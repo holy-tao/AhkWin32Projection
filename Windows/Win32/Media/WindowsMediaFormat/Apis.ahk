@@ -1781,7 +1781,7 @@ class WindowsMediaFormat {
 
     /**
      * The WMCreateWriter function creates a writer object.
-     * @param {Pointer<IUnknown>} pUnkCert Pointer to an <b>IUnknown</b> interface. This value is not used and should be set to <b>NULL</b>.
+     * @param {IUnknown} pUnkCert Pointer to an <b>IUnknown</b> interface. This value is not used and should be set to <b>NULL</b>.
      * @param {Pointer<IWMWriter>} ppWriter Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriter">IWMWriter</a> interface of the newly created writer object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -1817,7 +1817,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriter(pUnkCert, ppWriter) {
-        result := DllCall("WMVCore.dll\WMCreateWriter", "ptr", pUnkCert, "ptr", ppWriter, "int")
+        result := DllCall("WMVCore.dll\WMCreateWriter", "ptr", pUnkCert, "ptr*", ppWriter, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1826,7 +1826,7 @@ class WindowsMediaFormat {
 
     /**
      * The WMCreateReader function creates a reader object.
-     * @param {Pointer<IUnknown>} pUnkCert This value must be set to <b>NULL</b>.
+     * @param {IUnknown} pUnkCert This value must be set to <b>NULL</b>.
      * @param {Integer} dwRights <b>DWORD</b> indicating the desired operation. Set to one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_rights">WMT_RIGHTS</a> enumeration type, indicating the operation that is performed on this file. If multiple operations are being performed, <i>dwRights</i> must consist of multiple values from <b>WMT_RIGHTS</b> combined by using the bitwise <b>OR</b> operator.
      * @param {Pointer<IWMReader>} ppReader Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmreader">IWMReader</a> interface of the newly created reader object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -1863,7 +1863,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateReader(pUnkCert, dwRights, ppReader) {
-        result := DllCall("WMVCore.dll\WMCreateReader", "ptr", pUnkCert, "uint", dwRights, "ptr", ppReader, "int")
+        result := DllCall("WMVCore.dll\WMCreateReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", ppReader, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1872,7 +1872,7 @@ class WindowsMediaFormat {
 
     /**
      * The WMCreateSyncReader function creates a synchronous reader object.
-     * @param {Pointer<IUnknown>} pUnkCert Pointer to an <b>IUnknown</b> interface. This value must be set to <b>NULL</b>.
+     * @param {IUnknown} pUnkCert Pointer to an <b>IUnknown</b> interface. This value must be set to <b>NULL</b>.
      * @param {Integer} dwRights <b>DWORD</b> specifying the desired operation. When playing back non-DRM content, or for an application that does not have DRM rights, this value can be set to zero. Otherwise, this value must be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_rights">WMT_RIGHTS</a> enumeration type, indicating the operation that is performed on this file. If multiple operations are being performed, <b>dwRights</b> must consist of multiple values from <b>WMT_RIGHTS</b> combined by using the bitwise <b>OR</b> operator.
      * @param {Pointer<IWMSyncReader>} ppSyncReader Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmsyncreader">IWMSyncReader</a> interface of the newly created synchronous reader object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -1909,7 +1909,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateSyncReader(pUnkCert, dwRights, ppSyncReader) {
-        result := DllCall("WMVCore.dll\WMCreateSyncReader", "ptr", pUnkCert, "uint", dwRights, "ptr", ppSyncReader, "int")
+        result := DllCall("WMVCore.dll\WMCreateSyncReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", ppSyncReader, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1953,7 +1953,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateEditor(ppEditor) {
-        result := DllCall("WMVCore.dll\WMCreateEditor", "ptr", ppEditor, "int")
+        result := DllCall("WMVCore.dll\WMCreateEditor", "ptr*", ppEditor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1997,7 +1997,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateIndexer(ppIndexer) {
-        result := DllCall("WMVCore.dll\WMCreateIndexer", "ptr", ppIndexer, "int")
+        result := DllCall("WMVCore.dll\WMCreateIndexer", "ptr*", ppIndexer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2006,7 +2006,7 @@ class WindowsMediaFormat {
 
     /**
      * The WMCreateBackupRestorer function creates a backup restorer object.
-     * @param {Pointer<IUnknown>} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface containing the <b>OnStatus</b> callback method to be used by the new backup restorer object.
+     * @param {IUnknown} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface containing the <b>OnStatus</b> callback method to be used by the new backup restorer object.
      * @param {Pointer<IWMLicenseBackup>} ppBackup Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmlicensebackup">IWMLicenseBackup</a> interface of the newly created backup restorer object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -2042,7 +2042,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateBackupRestorer(pCallback, ppBackup) {
-        result := DllCall("WMVCore.dll\WMCreateBackupRestorer", "ptr", pCallback, "ptr", ppBackup, "int")
+        result := DllCall("WMVCore.dll\WMCreateBackupRestorer", "ptr", pCallback, "ptr*", ppBackup, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2086,7 +2086,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateProfileManager(ppProfileManager) {
-        result := DllCall("WMVCore.dll\WMCreateProfileManager", "ptr", ppProfileManager, "int")
+        result := DllCall("WMVCore.dll\WMCreateProfileManager", "ptr*", ppProfileManager, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2130,7 +2130,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriterFileSink(ppSink) {
-        result := DllCall("WMVCore.dll\WMCreateWriterFileSink", "ptr", ppSink, "int")
+        result := DllCall("WMVCore.dll\WMCreateWriterFileSink", "ptr*", ppSink, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2174,7 +2174,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriterNetworkSink(ppSink) {
-        result := DllCall("WMVCore.dll\WMCreateWriterNetworkSink", "ptr", ppSink, "int")
+        result := DllCall("WMVCore.dll\WMCreateWriterNetworkSink", "ptr*", ppSink, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2218,7 +2218,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriterPushSink(ppSink) {
-        result := DllCall("WMVCore.dll\WMCreateWriterPushSink", "ptr", ppSink, "int")
+        result := DllCall("WMVCore.dll\WMCreateWriterPushSink", "ptr*", ppSink, "int")
         if(result != 0)
             throw OSError(result)
 

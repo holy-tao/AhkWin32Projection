@@ -1070,7 +1070,7 @@ class Power {
      * Registers to receive notification when the system is suspended or resumed.
      * @param {Integer} Flags This parameter must be <b>DEVICE_NOTIFY_CALLBACK</b>.
      * @param {HANDLE} Recipient This parameter is a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters">DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS</a> structure. In this case, the callback function is <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nc-powrprof-device_notify_callback_routine">DeviceNotifyCallbackRoutine</a>. When the <b>Callback</b> function executes, the  <i>Type</i> parameter is set indicating the type of event that occurred. Possible values include <b>PBT_APMSUSPEND</b>, <b>PBT_APMRESUMESUSPEND</b>, and <b>PBT_APMRESUMEAUTOMATIC</b> - see  <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-events">Power Management Events</a> for more info. The <i>Setting</i> parameter is not used with suspend/resume notifications.
-     * @param {Pointer<Void>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
+     * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powerbase/nf-powerbase-powerregistersuspendresumenotification
      * @since windows8.0
@@ -1078,7 +1078,7 @@ class Power {
     static PowerRegisterSuspendResumeNotification(Flags, Recipient, RegistrationHandle) {
         Recipient := Recipient is Win32Handle ? NumGet(Recipient, "ptr") : Recipient
 
-        result := DllCall("POWRPROF.dll\PowerRegisterSuspendResumeNotification", "uint", Flags, "ptr", Recipient, "ptr", RegistrationHandle, "uint")
+        result := DllCall("POWRPROF.dll\PowerRegisterSuspendResumeNotification", "uint", Flags, "ptr", Recipient, "ptr*", RegistrationHandle, "uint")
         return result
     }
 
@@ -1102,13 +1102,13 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<UInt32>} Type A pointer to a variable that receives the type of data for the value. The 
+     * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
      * @param {Pointer} Buffer A pointer to a buffer that receives the data value. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -1135,13 +1135,13 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<UInt32>} Type A pointer to a variable that receives the type of data for the value. The 
+     * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
      * @param {Pointer} Buffer A pointer to a variable that receives the data value. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -1203,7 +1203,7 @@ class Power {
     /**
      * Retrieves the active power scheme and returns a GUID that identifies the scheme.
      * @param {HKEY} UserRootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
-     * @param {Pointer<Guid>} ActivePolicyGuid A pointer that receives a pointer to a <b>GUID</b> structure. 
+     * @param {Pointer<Pointer<Guid>>} ActivePolicyGuid A pointer that receives a pointer to a <b>GUID</b> structure. 
      *       Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free this memory.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -1213,7 +1213,7 @@ class Power {
     static PowerGetActiveScheme(UserRootPowerKey, ActivePolicyGuid) {
         UserRootPowerKey := UserRootPowerKey is Win32Handle ? NumGet(UserRootPowerKey, "ptr") : UserRootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerGetActiveScheme", "ptr", UserRootPowerKey, "ptr", ActivePolicyGuid, "uint")
+        result := DllCall("POWRPROF.dll\PowerGetActiveScheme", "ptr", UserRootPowerKey, "ptr*", ActivePolicyGuid, "uint")
         return result
     }
 
@@ -1238,7 +1238,7 @@ class Power {
      * @param {Pointer<Guid>} SettingGuid A GUID that represents the power setting.
      * @param {Integer} Flags 
      * @param {HANDLE} Recipient A handle to the recipient of the notifications.
-     * @param {Pointer<Void>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
+     * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powersettingregisternotification
      * @since windows6.1
@@ -1246,7 +1246,7 @@ class Power {
     static PowerSettingRegisterNotification(SettingGuid, Flags, Recipient, RegistrationHandle) {
         Recipient := Recipient is Win32Handle ? NumGet(Recipient, "ptr") : Recipient
 
-        result := DllCall("POWRPROF.dll\PowerSettingRegisterNotification", "ptr", SettingGuid, "uint", Flags, "ptr", Recipient, "ptr", RegistrationHandle, "uint")
+        result := DllCall("POWRPROF.dll\PowerSettingRegisterNotification", "ptr", SettingGuid, "uint", Flags, "ptr", Recipient, "ptr*", RegistrationHandle, "uint")
         return result
     }
 
@@ -1273,13 +1273,13 @@ class Power {
      * - EFFECTIVE_POWER_MODE_V2 is available starting with Windows 10, version 1903 and tracks the performance power slider, battery saver, game mode and windows mixed reality power states.
      * @param {Pointer<EFFECTIVE_POWER_MODE_CALLBACK>} Callback A pointer to the callback to call when the effective power mode changes. This will also be called once upon registration to supply the current mode. If multiple callbacks are registered using this API, those callbacks can be called concurrently.
      * @param {Pointer<Void>} Context Caller-specified opaque context.
-     * @param {Pointer<Void>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
+     * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
      * @returns {HRESULT} Returns S_OK (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
      * @since windows10.0.17763
      */
     static PowerRegisterForEffectivePowerModeNotifications(Version, Callback, Context, RegistrationHandle) {
-        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, "ptr", Context, "ptr", RegistrationHandle, "int")
+        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, "ptr", Context, "ptr*", RegistrationHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1303,8 +1303,8 @@ class Power {
 
     /**
      * Retrieves the disk spindown range.
-     * @param {Pointer<UInt32>} puiMax The maximum disk spindown time, in seconds.
-     * @param {Pointer<UInt32>} puiMin The minimum disk spindown time, in seconds.
+     * @param {Pointer<Integer>} puiMax The maximum disk spindown time, in seconds.
+     * @param {Pointer<Integer>} puiMin The minimum disk spindown time, in seconds.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1388,7 +1388,7 @@ class Power {
 
     /**
      * Writes policy settings that are unique to the specified power scheme.
-     * @param {Pointer<UInt32>} puiID The index of the power scheme to be written. If a power scheme with the same index already exists, it is replaced. Otherwise, a new power scheme is created.
+     * @param {Pointer<Integer>} puiID The index of the power scheme to be written. If a power scheme with the same index already exists, it is replaced. Otherwise, a new power scheme is created.
      * @param {PWSTR} lpszSchemeName The name of the power scheme.
      * @param {PWSTR} lpszDescription The description of the power scheme.
      * @param {Pointer<POWER_POLICY>} lpScheme A pointer to a 
@@ -1456,7 +1456,7 @@ class Power {
 
     /**
      * Retrieves the index of the active power scheme.
-     * @param {Pointer<UInt32>} puiID A pointer to a variable that receives the index of the active power scheme.
+     * @param {Pointer<Integer>} puiID A pointer to a variable that receives the index of the active power scheme.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1980,7 +1980,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<UInt32>} AcValueIndex A pointer to a variable that receives the AC value index.
+     * @param {Pointer<Integer>} AcValueIndex A pointer to a variable that receives the AC value index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadacvalueindex
@@ -2100,7 +2100,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<UInt32>} DcValueIndex A pointer to a variable that receives the DC value index.
+     * @param {Pointer<Integer>} DcValueIndex A pointer to a variable that receives the DC value index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreaddcvalueindex
@@ -2218,7 +2218,7 @@ class Power {
      * @param {Pointer} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2248,7 +2248,7 @@ class Power {
      * @param {Pointer} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2276,12 +2276,12 @@ class Power {
      *      <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<UInt32>} Type A pointer to a variable that receives the type of data for the value. The 
+     * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
      * @param {Integer} PossibleSettingIndex The zero-based index of the possible setting.
      * @param {Pointer} Buffer A pointer to a buffer that receives the value. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the  <i>Buffer</i> parameter. 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the  <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
      * 
@@ -2307,7 +2307,7 @@ class Power {
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
      * @param {Pointer} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, the <i>BufferSize</i> 
      * parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      * <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2333,7 +2333,7 @@ class Power {
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
      * @param {Pointer} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, the <i>BufferSize</i>  parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
      * 
@@ -2356,7 +2356,7 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer<UInt32>} ValueMinimum A pointer to a variable that receives the minimum value for the specified power 
+     * @param {Pointer<Integer>} ValueMinimum A pointer to a variable that receives the minimum value for the specified power 
      *       setting.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
@@ -2375,7 +2375,7 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer<UInt32>} ValueMaximum A pointer to a variable that receives the maximum for the specified power 
+     * @param {Pointer<Integer>} ValueMaximum A pointer to a variable that receives the maximum for the specified power 
      *       setting.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
@@ -2394,7 +2394,7 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer<UInt32>} ValueIncrement A pointer to a variable that receives the increment for the specified power setting.
+     * @param {Pointer<Integer>} ValueIncrement A pointer to a variable that receives the increment for the specified power setting.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadvalueincrement
@@ -2413,7 +2413,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Pointer} Buffer A pointer to a buffer that receives the string. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
      * 
@@ -2438,7 +2438,7 @@ class Power {
      *       values depending on the power scheme personality.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier for the single power setting.
-     * @param {Pointer<UInt32>} AcDefaultIndex A pointer to a variable that receives the default AC index.
+     * @param {Pointer<Integer>} AcDefaultIndex A pointer to a variable that receives the default AC index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadacdefaultindex
@@ -2458,7 +2458,7 @@ class Power {
      *      values depending on the power scheme personality.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<UInt32>} DcDefaultIndex A pointer to a variable that receives the default DC index.
+     * @param {Pointer<Integer>} DcDefaultIndex A pointer to a variable that receives the default DC index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
      * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreaddcdefaultindex
@@ -2480,7 +2480,7 @@ class Power {
      * @param {Pointer} Buffer A pointer to a buffer that receives the icon resource. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2806,7 +2806,7 @@ class Power {
      * Duplicates an existing power scheme.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SourceSchemeGuid The identifier of the power scheme that is to be duplicated.
-     * @param {Pointer<Guid>} DestinationSchemeGuid The address of a pointer to a <b>GUID</b>. If the pointer contains 
+     * @param {Pointer<Pointer<Guid>>} DestinationSchemeGuid The address of a pointer to a <b>GUID</b>. If the pointer contains 
      *       <b>NULL</b>, the function allocates memory for a new 
      *       <b>GUID</b> and puts the address of this memory in the pointer. The caller can free this 
      *       memory using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
@@ -2863,7 +2863,7 @@ class Power {
     static PowerDuplicateScheme(RootPowerKey, SourceSchemeGuid, DestinationSchemeGuid) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerDuplicateScheme", "ptr", RootPowerKey, "ptr", SourceSchemeGuid, "ptr", DestinationSchemeGuid, "uint")
+        result := DllCall("POWRPROF.dll\PowerDuplicateScheme", "ptr", RootPowerKey, "ptr", SourceSchemeGuid, "ptr*", DestinationSchemeGuid, "uint")
         return result
     }
 
@@ -2871,7 +2871,7 @@ class Power {
      * Imports a power scheme from a file.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {PWSTR} ImportFileNamePath The path to a power scheme backup file created by <b>PowerCfg.Exe /Export</b>.
-     * @param {Pointer<Guid>} DestinationSchemeGuid A pointer to a pointer to a <b>GUID</b>. If the pointer contains 
+     * @param {Pointer<Pointer<Guid>>} DestinationSchemeGuid A pointer to a pointer to a <b>GUID</b>. If the pointer contains 
      *       <b>NULL</b>, the function allocates memory for a new 
      *       <b>GUID</b> and puts the address of this memory in the pointer. The caller can free this 
      *       memory using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
@@ -2884,7 +2884,7 @@ class Power {
         ImportFileNamePath := ImportFileNamePath is String ? StrPtr(ImportFileNamePath) : ImportFileNamePath
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerImportPowerScheme", "ptr", RootPowerKey, "ptr", ImportFileNamePath, "ptr", DestinationSchemeGuid, "uint")
+        result := DllCall("POWRPROF.dll\PowerImportPowerScheme", "ptr", RootPowerKey, "ptr", ImportFileNamePath, "ptr*", DestinationSchemeGuid, "uint")
         return result
     }
 
@@ -3104,7 +3104,7 @@ class Power {
      * </table>
      * @param {Integer} Index The zero-based index of the scheme, subgroup, or setting that is being enumerated.
      * @param {Pointer} Buffer A pointer to a variable to receive the elements. If this parameter is <b>NULL</b>, the function retrieves the size of the buffer required.
-     * @param {Pointer<UInt32>} BufferSize A pointer to a variable that on input contains the size of the buffer pointed to by 
+     * @param {Pointer<Integer>} BufferSize A pointer to a variable that on input contains the size of the buffer pointed to by 
      *       the <i>Buffer</i> parameter. If the  <i>Buffer</i> parameter is 
      *       <b>NULL</b> or if the <i>BufferSize</i> is not large enough, the function 
      *       will return <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
@@ -3494,7 +3494,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer} pReturnBuffer Pointer to a buffer that receives the requested information.
-     * @param {Pointer<UInt32>} pBufferSize The size, in bytes, of the return buffer.
+     * @param {Pointer<Integer>} pBufferSize The size, in bytes, of the return buffer.
      *       
      * 
      * <div class="alert"><b>Note</b>  If <i>pReturnBuffer</i> is <b>NULL</b>, 

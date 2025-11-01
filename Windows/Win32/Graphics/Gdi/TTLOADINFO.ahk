@@ -33,7 +33,7 @@ class TTLOADINFO extends Win32Struct
 
     /**
      * Pointer to the string containing the current URL.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pusRefStr {
         get => NumGet(this, 8, "ptr")

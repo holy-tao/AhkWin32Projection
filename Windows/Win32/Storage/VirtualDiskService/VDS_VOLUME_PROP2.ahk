@@ -122,7 +122,7 @@ class VDS_VOLUME_PROP2 extends Win32Struct
 
     /**
      * A byte array that contains the unique identifier for the volume.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUniqueId {
         get => NumGet(this, 56, "ptr")

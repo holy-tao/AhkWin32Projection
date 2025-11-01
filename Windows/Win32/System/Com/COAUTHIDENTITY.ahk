@@ -23,7 +23,7 @@ class COAUTHIDENTITY extends Win32Struct
 
     /**
      * The user's name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     User {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +41,7 @@ class COAUTHIDENTITY extends Win32Struct
 
     /**
      * The domain or workgroup name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     Domain {
         get => NumGet(this, 16, "ptr")
@@ -59,7 +59,7 @@ class COAUTHIDENTITY extends Win32Struct
 
     /**
      * The user's password in the domain or workgroup.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     Password {
         get => NumGet(this, 32, "ptr")

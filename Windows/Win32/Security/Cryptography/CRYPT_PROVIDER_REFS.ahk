@@ -24,7 +24,7 @@ class CRYPT_PROVIDER_REFS extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_provider_ref">CRYPT_PROVIDER_REF</a> structure pointers that contain the provider references. The <b>cProviders</b> member contains the number of elements in this array.
-     * @type {Pointer<CRYPT_PROVIDER_REF>}
+     * @type {Pointer<Pointer<CRYPT_PROVIDER_REF>>}
      */
     rgpProviders {
         get => NumGet(this, 8, "ptr")

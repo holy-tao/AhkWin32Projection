@@ -20,7 +20,7 @@ class SecPkgCred_SupportedAlgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     palgSupportedAlgs {
         get => NumGet(this, 8, "ptr")

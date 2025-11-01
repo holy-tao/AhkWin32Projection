@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-slot-info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

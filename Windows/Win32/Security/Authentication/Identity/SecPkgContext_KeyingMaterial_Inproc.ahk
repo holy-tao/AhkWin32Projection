@@ -36,7 +36,7 @@ class SecPkgContext_KeyingMaterial_Inproc extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbContextValue {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class SecPkgContext_KeyingMaterial_Inproc extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbKeyingMaterial {
         get => NumGet(this, 40, "ptr")

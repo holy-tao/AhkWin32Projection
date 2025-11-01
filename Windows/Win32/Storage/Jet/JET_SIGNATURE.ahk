@@ -3,6 +3,8 @@
 #Include .\JET_LOGTIME.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-signature-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

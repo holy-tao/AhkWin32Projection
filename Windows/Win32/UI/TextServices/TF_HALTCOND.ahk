@@ -15,7 +15,7 @@ class TF_HALTCOND extends Win32Struct
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that halts the shift. If the range shift encounters this range during the shift, the shift halts. This member can be <b>NULL</b>.
-     * @type {Pointer<ITfRange>}
+     * @type {ITfRange}
      */
     pHaltRange {
         get => NumGet(this, 0, "ptr")

@@ -43,7 +43,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the attribute replication metadata. The <b>cbData</b> member contains the length of this buffer, in bytes.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 24, "ptr")

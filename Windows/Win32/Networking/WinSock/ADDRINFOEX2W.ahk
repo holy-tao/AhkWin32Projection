@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex2w
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset Unicode

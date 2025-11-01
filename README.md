@@ -35,6 +35,8 @@ With rich IntelliSense features and full documentation directly in your IDE:
     - [Handles](#handles)
       - [Handle Ownership](#handle-ownership)
     - [Other Notes](#other-notes)
+  - [COM Interfaces](#com-interfaces)
+    - [Implementing COM Interfaces](#implementing-com-interfaces)
   - [Enums and Constants](#enums-and-constants)
   - [Methods](#methods)
     - [Strings](#strings)
@@ -46,9 +48,9 @@ With rich IntelliSense features and full documentation directly in your IDE:
 
 
 ## What Is This?
-This project provides bindings Win32 APIs in 64-bit AutoHotkey V2. It aims greatly simplify the process of working with structs and DllCalls and to alleviate the plague of [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)) that afflicts AutoHotkey programmers.
+This project provides bindings Win32 APIs in 64-bit AutoHotkey V2. It aims greatly simplify the process of working with structs, non-IDispatch COM interfaces, and DllCalls and to alleviate the plague of [magic numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)) that afflicts AutoHotkey programmers.
 
-The project provides generated struct proxy objects, constant values, and friendly `DllCall` wrappers with doc comments rich Intellisense documentation compatible with [AHK++](https://github.com/mark-wiemer/ahkpp).
+The project provides generated struct proxy objects, COM interface proxy objects, constant values, and friendly `DllCall` wrappers with doc comments rich Intellisense documentation compatible with [AHK++](https://github.com/mark-wiemer/ahkpp).
 
 Imagine you wanted to enumerate all the fonts on your system:
 ```autohotkey v2
@@ -96,6 +98,7 @@ Namespaces can be unintuitive and they aren't really mapped to headers, so a few
   - [`Windows\Win32\Networking\WinHttp`](./Windows/Win32/Networking/WinHttp): WinHTTP-related items (see also: [About WinHTTP - Win32 apps | Microsoft Learn](https://learn.microsoft.com/en-us/windows/win32/winhttp/about-winhttp)).
     - Note that COM objects are not included in the bindings, but you can still use the WinHttpRequest COM object. The namespace provides structs and Apis for additional functionality.
   - [`Windows\Win32\System\Memory`](./Windows/Win32/System/Memory): Contains Apis for direct memory manipulation, including the direct allocation and freeing of heap resources, for advanced users.
+  - [`Windows\Win32\System\Com`](./Windows/Win32/System/Com): Foundational COM interfaces and APIs, including `IUnknown` itself and methods like `CoCreateInstance`
 </details>
 
 ## Structs
@@ -142,9 +145,9 @@ logfont := LOGFONTW()           ;Create a new LOGFONTW struct backed by a Buffer
 > 
 > You can use `Win32Struct.Clone()` to create a clone of a struct backed by a `Buffer` if you need to hold on to struct values after the struct is freed.
 
-You can also initialize new structs using object literals with the `FromObject` method. This works with embedded structures and array members as well. The method copies properties from the object literal into the struct member of the same name.
+You can also initialize new structs using object literals. This works with embedded structures and array members as well. This method copies properties from the object literal into the struct member of the same name.
 ```autohotkey v2
-Wp := WINDOWPLACEMENT.FromObject({
+Wp := WINDOWPLACEMENT({
 	length: WINDOWPLACEMENT.sizeof
 	showCmd: 1,
 	rcNormalPosition: {	  ; An embedded RECT structure
@@ -187,8 +190,7 @@ Cloning an owned handle transfers ownership from the owned handle to the new clo
 
 
 ### Other Notes
--  Function pointers, COM interface pointers, and "pseudo-primitive" structs like `CHAR` and `HWND` (also known as NativeTypedefs; these are wrapper structs with a single member) have no special handling in generated struct proxies, and are exposed as pure Integers.
-  - For COM interfaces, use [`ComObjFromPtr`](https://www.autohotkey.com/docs/v2/lib/ComObjFromPtr.htm) and [`ComObjQuery`](https://www.autohotkey.com/docs/v2/lib/ComObjQuery.htm) to use native AutoHotkey COM functionality.
+-  Function pointers and "pseudo-primitive" structs like `CHAR` and `HWND` (also known as NativeTypedefs; these are wrapper structs with a single member) have no special handling in generated struct proxies, and are exposed as pure Integers.
   - Use [`CallbackCreate`](https://www.autohotkey.com/docs/v2/lib/CallbackCreate.htm) to create function pointers
 - [Unions](https://www.w3schools.com/c/c_unions.php), unlike embedded structs, are flattened. Struct proxies that contain union types will have multiple members at the same offset; in this case, only one can be valid at a time.
 - When struct members have conflicting names, the second member has a number appended to it. Type names are not otherwise changed.
@@ -203,11 +205,34 @@ Cloning an owned handle transfers ownership from the owned handle to the new clo
     Because AutoHotkey is [case-insensitive](https://www.autohotkey.com/docs/v2/Concepts.htm#names), `y` (lowercase) is emitted as `y1` to avoid duplicate declaration errors. This can also happen with structs where more than one of the same union is embedded in a struct.
  - In many cases, if a struct contains a `cbSize` member whose size must always be the size of the struct, (e.g. [`GUITHREADINFO`](./Windows/Win32/UI/WindowsAndMessaging/GUITHREADINFO.ahk), that member is set automatically in the proxy object's [`__New`](https://www.autohotkey.com/docs/v2/Objects.htm#Custom_NewDelete) method. This is only true for `cbSize` members, note that there are some more obscure cases where a similar size member is not set automatically.
 
+## COM Interfaces
+COM Interfaces are included and use similar syntax to structs. Unlike native AutoHotkey, projected COM interfaces include interfaces that do not implement `IDispatch`. All COM interface proxies are objects extending [`Win32ComInterface`](./Win32ComInterface.ahk). See the [wiki](https://github.com/holy-tao/AhkWin32Projection/wiki/Using-COM-Interfaces) for more details.
+
+COM interface proxies, like struct proxies, are ultimately objects holding pointers to unmanaged memory. Interface implementations hold pointers to virtual function tables held in Buffers. You can create an interface the same way you create a structure; with a pointer to its virtual function table:
+
+```autohotkey
+unk := IUnknown(interfacePtr)
+```
+
+COM Interface proxy methods are ultimately wrappers around [`ComCall`](https://www.autohotkey.com/docs/v2/lib/ComCall.htm). This is true even of methods on interfaces whose implementations are defined by the script; they simply call into an AHK-managed vtable instead of an external one.
+
+### Implementing COM Interfaces
+The projection provides tools for _implementing_ COM interfaces using objects as well. Simply pass an object whose properties include your implementation's methods, and the virtual function table will be created automatically. Additionally, the projection provides default implementations for all of the `IUnknown` methods:
+
+```autohotkey
+;https://learn.microsoft.com/en-us/windows/win32/api/objidl/nn-objidl-ipersist
+persist := IPersist({
+    guid: Guid.Create(),
+    GetClassID: (self, vtable, pClassID) => NumPut("ptr", self.guid.ptr, pClassID)
+})
+```
+
+See the [wiki](https://github.com/holy-tao/AhkWin32Projection/wiki/Implementing-COM-Interfaces) for gotchas and more details.
+
 ## Enums and Constants
 Enums are simply classes with a series of static read-only variables like so (doc comments removed)
 ```autohotkey v2
 class DUPLICATE_HANDLE_OPTIONS{
-
     static DUPLICATE_CLOSE_SOURCE => 1
     static DUPLICATE_SAME_ACCESS => 2
 }

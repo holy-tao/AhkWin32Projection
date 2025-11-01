@@ -26,7 +26,7 @@ class CRYPT_KEY_PROV_PARAM extends Win32Struct
     /**
      * The address of a buffer that contains the parameter data. For more information, see the <i>pbData</i> parameter of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptsetprovparam">CryptSetProvParam</a> function.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

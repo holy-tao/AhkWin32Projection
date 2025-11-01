@@ -124,7 +124,7 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pBaseBuffer {
         get => NumGet(this, 72, "ptr")
@@ -132,7 +132,7 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pTransferBuffer {
         get => NumGet(this, 80, "ptr")
@@ -164,7 +164,7 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IWiaMiniDrvCallBack>}
+     * @type {IWiaMiniDrvCallBack}
      */
     pIWiaMiniDrvCallBack {
         get => NumGet(this, 104, "ptr")

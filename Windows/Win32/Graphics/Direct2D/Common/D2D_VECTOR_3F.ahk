@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_vector_3f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

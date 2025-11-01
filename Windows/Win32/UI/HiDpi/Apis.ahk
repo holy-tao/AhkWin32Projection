@@ -61,6 +61,7 @@ class HiDpi {
      * @param {Integer} mask 
      * @param {Integer} values 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setdialogcontroldpichangebehavior
      * @since windows10.0.15063
      */
     static SetDialogControlDpiChangeBehavior(hWnd, mask, values) {
@@ -515,7 +516,7 @@ class HiDpi {
     /**
      * Retrieves the dots per inch (dpi) awareness of the specified process.
      * @param {HANDLE} hprocess Handle of the process that is being queried. If this parameter is NULL, the current process is queried.
-     * @param {Pointer<Int32>} value The DPI awareness of the specified process. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
+     * @param {Pointer<Integer>} value The DPI awareness of the specified process. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
      * @returns {HRESULT} This function returns one of the following values.
      * 
      * <table>
@@ -574,8 +575,8 @@ class HiDpi {
      * Queries the dots per inch (dpi) of a display.
      * @param {HMONITOR} hmonitor Handle of the monitor being queried.
      * @param {Integer} dpiType The type of DPI being queried. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type">MONITOR_DPI_TYPE</a> enumeration.
-     * @param {Pointer<UInt32>} dpiX The value of the DPI along the X axis. This value always refers to the horizontal edge, even when the screen is rotated.
-     * @param {Pointer<UInt32>} dpiY The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated.
+     * @param {Pointer<Integer>} dpiX The value of the DPI along the X axis. This value always refers to the horizontal edge, even when the screen is rotated.
+     * @param {Pointer<Integer>} dpiY The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated.
      * @returns {HRESULT} This function returns one of the following values.
      * 
      * <table>

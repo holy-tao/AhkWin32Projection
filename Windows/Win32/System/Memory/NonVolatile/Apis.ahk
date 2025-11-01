@@ -15,11 +15,11 @@ class NonVolatile {
      * 
      * @param {Pointer} NvBuffer 
      * @param {Pointer} Size 
-     * @param {Pointer<Void>} NvToken 
+     * @param {Pointer<Pointer<Void>>} NvToken 
      * @returns {Integer} 
      */
     static RtlGetNonVolatileToken(NvBuffer, Size, NvToken) {
-        result := DllCall("ntdll.dll\RtlGetNonVolatileToken", "ptr", NvBuffer, "ptr", Size, "ptr", NvToken, "uint")
+        result := DllCall("ntdll.dll\RtlGetNonVolatileToken", "ptr", NvBuffer, "ptr", Size, "ptr*", NvToken, "uint")
         return result
     }
 

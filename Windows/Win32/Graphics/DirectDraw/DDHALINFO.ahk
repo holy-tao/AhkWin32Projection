@@ -94,7 +94,7 @@ class DDHALINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpdwFourCC {
         get => NumGet(this, 456, "ptr")

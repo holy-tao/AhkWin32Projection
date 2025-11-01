@@ -155,7 +155,7 @@ class MI_Value extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     string {
         get => NumGet(this, 0, "ptr")

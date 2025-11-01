@@ -73,7 +73,7 @@ class SpatialAudioObjectRenderStreamActivationParams extends Win32Struct
 
     /**
      * The object that provides notifications for spatial audio clients to respond to changes in the state of an  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectrenderstream">ISpatialAudioObjectRenderStream</a>. This object is used to notify clients that the number of dynamic spatial audio objects that can be activated concurrently is about to change.
-     * @type {Pointer<ISpatialAudioObjectRenderStreamNotify>}
+     * @type {ISpatialAudioObjectRenderStreamNotify}
      */
     NotifyObject {
         get => NumGet(this, 32, "ptr")

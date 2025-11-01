@@ -18,7 +18,7 @@ class D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM extends Win32Struct
 
     /**
      * A pointer to an [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the source buffer containing the compressed bitstream to decode.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pBuffer {
         get => NumGet(this, 0, "ptr")

@@ -31560,7 +31560,7 @@ class MsHtml {
      * 
      * @param {HWND} hwndOwner 
      * @param {PWSTR} pszUrl 
-     * @param {Pointer<IEnumPrivacyRecords>} pPrivacyEnum 
+     * @param {IEnumPrivacyRecords} pPrivacyEnum 
      * @param {BOOL} fReportAllSites 
      * @returns {HRESULT} 
      */

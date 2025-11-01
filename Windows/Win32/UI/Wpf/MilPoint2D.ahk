@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milpoint2d
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */

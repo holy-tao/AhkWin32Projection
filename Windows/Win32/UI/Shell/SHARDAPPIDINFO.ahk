@@ -17,7 +17,7 @@ class SHARDAPPIDINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the object in the Shell namespace.
-     * @type {Pointer<IShellItem>}
+     * @type {IShellItem}
      */
     psi {
         get => NumGet(this, 0, "ptr")

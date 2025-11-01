@@ -15,7 +15,7 @@ class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct
 
     /**
      * The source of the payload file.
-     * @type {Pointer<IStream>}
+     * @type {IStream}
      */
     inputStream {
         get => NumGet(this, 0, "ptr")

@@ -97,7 +97,7 @@ class NETRESOURCE2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     lpiProtocols {
         get => NumGet(this, 72, "ptr")

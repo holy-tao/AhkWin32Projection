@@ -62,7 +62,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         value {
             get => NumGet(this, 0, "ptr")
@@ -84,7 +84,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         value {
             get => NumGet(this, 0, "ptr")
@@ -106,7 +106,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         value {
             get => NumGet(this, 0, "ptr")
@@ -128,7 +128,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         value {
             get => NumGet(this, 0, "ptr")

@@ -15,7 +15,7 @@ class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>. The source resource.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pSrcResource {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>. The destination resource.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pDstResource {
         get => NumGet(this, 8, "ptr")

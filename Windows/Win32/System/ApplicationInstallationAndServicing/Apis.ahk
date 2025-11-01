@@ -4414,7 +4414,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -4770,7 +4770,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PWSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -5204,7 +5204,7 @@ class ApplicationInstallationAndServicing {
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
      * If <i>lpValue</i> and <i>pcchValue</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>lpValue</i> is also <b>NULL</b>. Otherwise, the function returns <b>ERROR_INVALID_PARAMETER</b>.
      * @returns {Integer} The <b>MsiGetProductInfoEx</b> function returns the following values.
@@ -5660,7 +5660,7 @@ class ApplicationInstallationAndServicing {
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
      * If <i>lpValue</i> and <i>pcchValue</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>lpValue</i> is also <b>NULL</b>. Otherwise, the function returns <b>ERROR_INVALID_PARAMETER</b>.
      * @returns {Integer} The <b>MsiGetProductInfoEx</b> function returns the following values.
@@ -7283,12 +7283,12 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
      * @param {PSTR} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
-     * @param {Pointer<UInt16>} plgidLanguage Points to a variable that receives the product language.
-     * @param {Pointer<UInt32>} pdwVersion Points to a buffer that receives the product version.
+     * @param {Pointer<Integer>} plgidLanguage Points to a variable that receives the product language.
+     * @param {Pointer<Integer>} pdwVersion Points to a buffer that receives the product version.
      * @param {PSTR} lpNameBuf Points to a buffer that receives the product name. The buffer includes a terminating null character.
-     * @param {Pointer<UInt32>} pcchNameBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
+     * @param {Pointer<Integer>} pcchNameBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
      * @param {PSTR} lpPackageBuf Points to a buffer that receives the package name. The buffer includes the terminating null character.
-     * @param {Pointer<UInt32>} pcchPackageBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPackageNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
+     * @param {Pointer<Integer>} pcchPackageBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPackageNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7368,12 +7368,12 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
      * @param {PWSTR} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
-     * @param {Pointer<UInt16>} plgidLanguage Points to a variable that receives the product language.
-     * @param {Pointer<UInt32>} pdwVersion Points to a buffer that receives the product version.
+     * @param {Pointer<Integer>} plgidLanguage Points to a variable that receives the product language.
+     * @param {Pointer<Integer>} pdwVersion Points to a buffer that receives the product version.
      * @param {PWSTR} lpNameBuf Points to a buffer that receives the product name. The buffer includes a terminating null character.
-     * @param {Pointer<UInt32>} pcchNameBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
+     * @param {Pointer<Integer>} pcchNameBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
      * @param {PWSTR} lpPackageBuf Points to a buffer that receives the package name. The buffer includes the terminating null character.
-     * @param {Pointer<UInt32>} pcchPackageBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPackageNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
+     * @param {Pointer<Integer>} pcchPackageBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPackageNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7612,11 +7612,11 @@ class ApplicationInstallationAndServicing {
      * The MsiGetUserInfo function returns the registered user information for an installed product.
      * @param {PSTR} szProduct Specifies the product code for the product to be queried.
      * @param {PSTR} lpUserNameBuf Pointer to a variable that receives the name of the user.
-     * @param {Pointer<UInt32>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
+     * @param {Pointer<Integer>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
      * @param {PSTR} lpOrgNameBuf Pointer to a buffer that receives the organization name.
-     * @param {Pointer<UInt32>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @param {PSTR} lpSerialBuf Pointer to a buffer that receives the product ID.
-     * @param {Pointer<UInt32>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7699,11 +7699,11 @@ class ApplicationInstallationAndServicing {
      * The MsiGetUserInfo function returns the registered user information for an installed product.
      * @param {PWSTR} szProduct Specifies the product code for the product to be queried.
      * @param {PWSTR} lpUserNameBuf Pointer to a variable that receives the name of the user.
-     * @param {Pointer<UInt32>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
+     * @param {Pointer<Integer>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
      * @param {PWSTR} lpOrgNameBuf Pointer to a buffer that receives the organization name.
-     * @param {Pointer<UInt32>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @param {PWSTR} lpSerialBuf Pointer to a buffer that receives the product ID.
-     * @param {Pointer<UInt32>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -8206,7 +8206,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -8326,7 +8326,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PWSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -8429,7 +8429,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiEnumPatches</b> function and then incremented for subsequent calls.
      * @param {PSTR} lpPatchBuf Pointer to a buffer that receives the patch's GUID. This argument is required.
      * @param {PSTR} lpTransformsBuf Pointer to a buffer that receives the list of transforms in the patch that are applicable to the product. This argument is required and cannot be Null.
-     * @param {Pointer<UInt32>} pcchTransformsBuf Set to the number of characters copied to <i>lpTransformsBuf</i> upon an unsuccessful return of the function. Not set for a successful return. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchTransformsBuf Set to the number of characters copied to <i>lpTransformsBuf</i> upon an unsuccessful return of the function. Not set for a successful return. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -8510,7 +8510,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiEnumPatches</b> function and then incremented for subsequent calls.
      * @param {PWSTR} lpPatchBuf Pointer to a buffer that receives the patch's GUID. This argument is required.
      * @param {PWSTR} lpTransformsBuf Pointer to a buffer that receives the list of transforms in the patch that are applicable to the product. This argument is required and cannot be Null.
-     * @param {Pointer<UInt32>} pcchTransformsBuf Set to the number of characters copied to <i>lpTransformsBuf</i> upon an unsuccessful return of the function. Not set for a successful return. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchTransformsBuf Set to the number of characters copied to <i>lpTransformsBuf</i> upon an unsuccessful return of the function. Not set for a successful return. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -8902,7 +8902,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * If <i>szXMLData</i> is set to <b>NULL</b> and <i>pcchXMLData</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szXMLData</i> buffer large enough to contain *<i>pcchXMLData</i> + 1 characters.
-     * @param {Pointer<UInt32>} pcchXMLData A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szXMLData</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchXMLData A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szXMLData</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * If this parameter is set to <b>NULL</b>, the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiExtractPatchXMLData</b> function can return the following values.
@@ -9011,7 +9011,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * If <i>szXMLData</i> is set to <b>NULL</b> and <i>pcchXMLData</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szXMLData</i> buffer large enough to contain *<i>pcchXMLData</i> + 1 characters.
-     * @param {Pointer<UInt32>} pcchXMLData A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szXMLData</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchXMLData A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szXMLData</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * If this parameter is set to <b>NULL</b>, the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiExtractPatchXMLData</b> function can return the following values.
@@ -9283,7 +9283,7 @@ class ApplicationInstallationAndServicing {
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b> character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
      * If <i>lpValue</i> and <i>pcchValue</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchValue When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchValue When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>lpValue</i> is also <b>NULL</b>. Otherwise, the function returns <b>ERROR_INVALID_PARAMETER</b>.
      * @returns {Integer} The <b>MsiGetPatchInfoEx</b> function returns the following values.
@@ -9578,7 +9578,7 @@ class ApplicationInstallationAndServicing {
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b> character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
      * If <i>lpValue</i> and <i>pcchValue</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchValue When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchValue When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>lpValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>lpValue</i> is also <b>NULL</b>. Otherwise, the function returns <b>ERROR_INVALID_PARAMETER</b>.
      * @returns {Integer} The <b>MsiGetPatchInfoEx</b> function returns the following values.
@@ -10793,7 +10793,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex The index of the patch to retrieve. This parameter must be zero for the first call to the <b>MsiEnumPatchesEx</b> function and then incremented for subsequent calls. The <i>dwIndex</i> parameter should be incremented only if the previous call returned ERROR_SUCCESS.
      * @param {PSTR} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
      * @param {PSTR} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Int32>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
      * @param {PSTR} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
      * 
      * This buffer should be large enough to contain the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
@@ -10801,7 +10801,7 @@ class ApplicationInstallationAndServicing {
      * If the <i>szTargetUserSid</i> is set to <b>NULL</b> and <i>pcchTargetUserSid</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b> character.  The function can then be called again to retrieve the value, with <i>szTargetUserSid</i> buffer large enough to contain *<i>pcchTargetUserSid</i> + 1 characters.
      * 
      * If <i>szTargetUserSid</i> and <i>pcchTargetUserSid</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchTargetUserSid A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szTargetUserSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchTargetUserSid A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szTargetUserSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szTargetUserSid</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiEnumPatchesEx</b> function returns one of the following values.
@@ -11054,7 +11054,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex The index of the patch to retrieve. This parameter must be zero for the first call to the <b>MsiEnumPatchesEx</b> function and then incremented for subsequent calls. The <i>dwIndex</i> parameter should be incremented only if the previous call returned ERROR_SUCCESS.
      * @param {PWSTR} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Int32>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
      * 
      * This buffer should be large enough to contain the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
@@ -11062,7 +11062,7 @@ class ApplicationInstallationAndServicing {
      * If the <i>szTargetUserSid</i> is set to <b>NULL</b> and <i>pcchTargetUserSid</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b> character.  The function can then be called again to retrieve the value, with <i>szTargetUserSid</i> buffer large enough to contain *<i>pcchTargetUserSid</i> + 1 characters.
      * 
      * If <i>szTargetUserSid</i> and <i>pcchTargetUserSid</i> are both set to <b>NULL</b>, the function returns <b>ERROR_SUCCESS</b> if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchTargetUserSid A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szTargetUserSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchTargetUserSid A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szTargetUserSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szTargetUserSid</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiEnumPatchesEx</b> function returns one of the following values.
@@ -11422,7 +11422,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PSTR} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
-     * @param {Pointer<Int32>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
+     * @param {Pointer<Integer>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
      * 
      * <table>
      * <tr>
@@ -11637,7 +11637,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PWSTR} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
-     * @param {Pointer<Int32>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
+     * @param {Pointer<Integer>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
      * 
      * <table>
      * <tr>
@@ -12180,8 +12180,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetFeatureUsage function returns the usage metrics for a product feature.
      * @param {PSTR} szProduct Specifies the product code for the product that contains the feature.
      * @param {PSTR} szFeature Specifies the feature code for the feature for which metrics are to be returned.
-     * @param {Pointer<UInt32>} pdwUseCount Indicates the number of times the feature has been used.
-     * @param {Pointer<UInt16>} pwDateUsed Specifies the date that the feature was last used. The date is in the MS-DOS date format, as shown in the following table. 
+     * @param {Pointer<Integer>} pdwUseCount Indicates the number of times the feature has been used.
+     * @param {Pointer<Integer>} pwDateUsed Specifies the date that the feature was last used. The date is in the MS-DOS date format, as shown in the following table. 
      * 
      * 
      * 
@@ -12281,8 +12281,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetFeatureUsage function returns the usage metrics for a product feature.
      * @param {PWSTR} szProduct Specifies the product code for the product that contains the feature.
      * @param {PWSTR} szFeature Specifies the feature code for the feature for which metrics are to be returned.
-     * @param {Pointer<UInt32>} pdwUseCount Indicates the number of times the feature has been used.
-     * @param {Pointer<UInt16>} pwDateUsed Specifies the date that the feature was last used. The date is in the MS-DOS date format, as shown in the following table. 
+     * @param {Pointer<Integer>} pdwUseCount Indicates the number of times the feature has been used.
+     * @param {Pointer<Integer>} pwDateUsed Specifies the date that the feature was last used. The date is in the MS-DOS date format, as shown in the following table. 
      * 
      * 
      * 
@@ -12747,7 +12747,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szComponent Specifies the component code of the necessary component.
      * @param {Integer} dwInstallMode 
      * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -12904,7 +12904,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szComponent Specifies the component code of the necessary component.
      * @param {Integer} dwInstallMode 
      * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -13062,7 +13062,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent Table</a>).
      * @param {Integer} dwInstallMode 
      * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -13161,7 +13161,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent Table</a>).
      * @param {Integer} dwInstallMode 
      * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -13262,7 +13262,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szProduct Specifies the product to match that has published the qualified component. If this is null, then this API works the same as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiprovidequalifiedcomponenta">MsiProvideQualifiedComponent</a>.
      * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -13366,7 +13366,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szProduct Specifies the product to match that has published the qualified component. If this is null, then this API works the same as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiprovidequalifiedcomponenta">MsiProvideQualifiedComponent</a>.
      * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -13520,7 +13520,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -13685,7 +13685,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -13893,7 +13893,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchOutPathBuffer Pointer to a location that receives the size of the buffer, in <b>TCHAR</b>, pointed to by the <i>szPathBuf</i> parameter.  The value in this location should be set to the count of  <b>TCHAR</b> in the string including the terminating null character. If the size of the  buffer  is too small, this parameter receives the length of the string value without including the terminating null character in the count.
+     * @param {Pointer<Integer>} pcchOutPathBuffer Pointer to a location that receives the size of the buffer, in <b>TCHAR</b>, pointed to by the <i>szPathBuf</i> parameter.  The value in this location should be set to the count of  <b>TCHAR</b> in the string including the terminating null character. If the size of the  buffer  is too small, this parameter receives the length of the string value without including the terminating null character in the count.
      * @returns {Integer} The 
      * <b>MsiGetComponentPathEx</b> function returns the following values.
      * 					
@@ -14119,7 +14119,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchOutPathBuffer Pointer to a location that receives the size of the buffer, in <b>TCHAR</b>, pointed to by the <i>szPathBuf</i> parameter.  The value in this location should be set to the count of  <b>TCHAR</b> in the string including the terminating null character. If the size of the  buffer  is too small, this parameter receives the length of the string value without including the terminating null character in the count.
+     * @param {Pointer<Integer>} pcchOutPathBuffer Pointer to a location that receives the size of the buffer, in <b>TCHAR</b>, pointed to by the <i>szPathBuf</i> parameter.  The value in this location should be set to the count of  <b>TCHAR</b> in the string including the terminating null character. If the size of the  buffer  is too small, this parameter receives the length of the string value without including the terminating null character in the count.
      * @returns {Integer} The 
      * <b>MsiGetComponentPathEx</b> function returns the following values.
      * 					
@@ -14249,7 +14249,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwInstallMode 
      * @param {Integer} dwAssemblyInfo 
      * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -14427,7 +14427,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwInstallMode 
      * @param {Integer} dwAssemblyInfo 
      * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -14672,7 +14672,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PSTR} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
-     * @param {Pointer<Int32>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
+     * @param {Pointer<Integer>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
      * 
      * <table>
      * <tr>
@@ -14886,7 +14886,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PWSTR} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
-     * @param {Pointer<Int32>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
+     * @param {Pointer<Integer>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
      * 
      * <table>
      * <tr>
@@ -15264,7 +15264,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex Specifies the index of the product to retrieve. This parameter must be zero for the first call to the <b>MsiEnumProductsEx</b> function and then incremented for subsequent calls. The index should be incremented, only if the previous call has returned ERROR_SUCCESS. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
      * @param {PSTR} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Int32>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
      * @param {PSTR} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
      *  
      * 
@@ -15274,7 +15274,7 @@ class ApplicationInstallationAndServicing {
      * If <i>szSid</i> is set to <b>NULL</b> and <i>pcchSid</i> is set to a valid pointer, the function returns ERROR_SUCCESS and sets *<i>pcchSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b>.  The function can then be called again to retrieve the value, with the  <i>szSid</i> buffer large enough to contain *<i>pcchSid</i> + 1 characters.
      * 
      * If <i>szSid</i> and <i>pcchSid</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchSid When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchSid When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szSid</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiEnumProductsEx</b> function returns one of the following values.
@@ -15472,7 +15472,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex Specifies the index of the product to retrieve. This parameter must be zero for the first call to the <b>MsiEnumProductsEx</b> function and then incremented for subsequent calls. The index should be incremented, only if the previous call has returned ERROR_SUCCESS. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
      * @param {PWSTR} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Int32>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
      *  
      * 
@@ -15482,7 +15482,7 @@ class ApplicationInstallationAndServicing {
      * If <i>szSid</i> is set to <b>NULL</b> and <i>pcchSid</i> is set to a valid pointer, the function returns ERROR_SUCCESS and sets *<i>pcchSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b>.  The function can then be called again to retrieve the value, with the  <i>szSid</i> buffer large enough to contain *<i>pcchSid</i> + 1 characters.
      * 
      * If <i>szSid</i> and <i>pcchSid</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchSid When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchSid When calling the function, this parameter should be a pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSid</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szSid</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiEnumProductsEx</b> function returns one of the following values.
@@ -16198,7 +16198,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex Specifies the index of the component to retrieve.  This parameter must be zero (0) for the first call to <b>MsiEnumComponentsEx</b> function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns ERROR_SUCCESS.
      * Components are not ordered and can be returned by the function in any order.
      * @param {PSTR} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
+     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
      * 
      * 
      * <table>
@@ -16275,7 +16275,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchSid Receives the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchSid Receives the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
      * 
      * 
      * 
@@ -16469,7 +16469,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex Specifies the index of the component to retrieve.  This parameter must be zero (0) for the first call to <b>MsiEnumComponentsEx</b> function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns ERROR_SUCCESS.
      * Components are not ordered and can be returned by the function in any order.
      * @param {PWSTR} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
+     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
      * 
      * 
      * <table>
@@ -16546,7 +16546,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchSid Receives the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchSid Receives the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character. 
      * 
      * 
      * 
@@ -16875,7 +16875,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwContext A flag that extends the enumeration to instances of applications installed in the specified installation context. The enumeration includes only instances of applications that are installed by the users identified by  <i>szUserSid</i>.
      * @param {Integer} dwProductIndex Specifies the index of the application to retrieve.  The value of this parameter must be zero (0) in the first call to the function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns <b>ERROR_SUCCESS</b>.
      * @param {PSTR} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context of the application.
+     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context of the application.
      * @param {PSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
      * 
      * The length of the buffer should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
@@ -16911,7 +16911,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchSid Pointer to a location in memory that contains a variable that specifies the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of TCHAR in the requested value, not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchSid Pointer to a location in memory that contains a variable that specifies the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of TCHAR in the requested value, not including the terminating null character. 
      * 
      * 
      * 
@@ -17063,7 +17063,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwContext A flag that extends the enumeration to instances of applications installed in the specified installation context. The enumeration includes only instances of applications that are installed by the users identified by  <i>szUserSid</i>.
      * @param {Integer} dwProductIndex Specifies the index of the application to retrieve.  The value of this parameter must be zero (0) in the first call to the function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns <b>ERROR_SUCCESS</b>.
      * @param {PWSTR} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context of the application.
+     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context of the application.
      * @param {PWSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
      * 
      * The length of the buffer should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
@@ -17099,7 +17099,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchSid Pointer to a location in memory that contains a variable that specifies the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of TCHAR in the requested value, not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchSid Pointer to a location in memory that contains a variable that specifies the number of <b>TCHAR</b> in the SID, not including the terminating null character. When the function returns, this variable is set to the size of the requested SID whether or not the function can successfully copy the SID and terminating null character into the buffer location pointed to by <i>szSid</i>. The size is returned as the number of TCHAR in the requested value, not including the terminating null character. 
      * 
      * 
      * 
@@ -17208,9 +17208,9 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iIndex Specifies the index of the qualifier to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentQualifiers</b> function and then incremented for subsequent calls. Because qualifiers are not ordered, any new qualifier has an arbitrary index. This means that the function can return qualifiers in any order.
      * @param {PSTR} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
-     * @param {Pointer<UInt32>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
+     * @param {Pointer<Integer>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
      * @param {PSTR} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
+     * @param {Pointer<Integer>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17312,9 +17312,9 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iIndex Specifies the index of the qualifier to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentQualifiers</b> function and then incremented for subsequent calls. Because qualifiers are not ordered, any new qualifier has an arbitrary index. This means that the function can return qualifiers in any order.
      * @param {PWSTR} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
-     * @param {Pointer<UInt32>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
+     * @param {Pointer<Integer>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
      * @param {PWSTR} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
+     * @param {Pointer<Integer>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17954,8 +17954,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches.
      * @param {PSTR} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
-     * @param {Pointer<UInt32>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
-     * @param {Pointer<MSIHANDLE>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
+     * @param {Pointer<Integer>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
+     * @param {Pointer<Pointer<MSIHANDLE>>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
      * @returns {Integer} The <b>MsiGetPatchFileList</b> function returns the following values.
      * 
      * <table>
@@ -18004,7 +18004,7 @@ class ApplicationInstallationAndServicing {
         szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
         szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
-        result := DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr", pphFileRecords, "uint")
+        result := DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr*", pphFileRecords, "uint")
         return result
     }
 
@@ -18012,8 +18012,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches.
      * @param {PWSTR} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
-     * @param {Pointer<UInt32>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
-     * @param {Pointer<MSIHANDLE>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
+     * @param {Pointer<Integer>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
+     * @param {Pointer<Pointer<MSIHANDLE>>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
      * @returns {Integer} The <b>MsiGetPatchFileList</b> function returns the following values.
      * 
      * <table>
@@ -18062,7 +18062,7 @@ class ApplicationInstallationAndServicing {
         szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
         szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
-        result := DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr", pphFileRecords, "uint")
+        result := DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr*", pphFileRecords, "uint")
         return result
     }
 
@@ -18072,7 +18072,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szProperty Specifies the property to retrieve. This is case-sensitive.
      * @param {PSTR} lpValueBuf Pointer to a buffer that receives the property value. The value is truncated and null-terminated if <i>lpValueBuf</i> is too small. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -18153,7 +18153,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szProperty Specifies the property to retrieve. This is case-sensitive.
      * @param {PWSTR} lpValueBuf Pointer to a buffer that receives the property value. The value is truncated and null-terminated if <i>lpValueBuf</i> is too small. This parameter can be null.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
      * 
@@ -18367,14 +18367,14 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hProduct Handle to the product that owns the feature. This handle is obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szFeature Feature code for the feature about which information should be returned.
-     * @param {Pointer<UInt32>} lpAttributes Pointer to a location containing one or more of the following Attribute flags.
+     * @param {Pointer<Integer>} lpAttributes Pointer to a location containing one or more of the following Attribute flags.
      * @param {PSTR} lpTitleBuf Pointer to a buffer to receive the localized name of the feature, which corresponds to the Title field in the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature Table</a>.
      * 
      * This parameter is optional and can be null.
-     * @param {Pointer<UInt32>} pcchTitleBuf As input, the size of <i>lpTitleBuf</i>. As output, the number of characters returned in <i>lpTitleBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer that is passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchTitleBuf As input, the size of <i>lpTitleBuf</i>. As output, the number of characters returned in <i>lpTitleBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer that is passed in is too small, the count returned does not include the terminating null character.
      * @param {PSTR} lpHelpBuf Pointer to a buffer to receive the localized description of the feature, which corresponds to the Description field for the feature in the  <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
      * This parameter is optional and can be null.
-     * @param {Pointer<UInt32>} pcchHelpBuf As input, the size of <i>lpHelpBuf</i>. As output, the number of characters returned in <i>lpHelpBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchHelpBuf As input, the size of <i>lpHelpBuf</i>. As output, the number of characters returned in <i>lpHelpBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -18454,14 +18454,14 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hProduct Handle to the product that owns the feature. This handle is obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szFeature Feature code for the feature about which information should be returned.
-     * @param {Pointer<UInt32>} lpAttributes Pointer to a location containing one or more of the following Attribute flags.
+     * @param {Pointer<Integer>} lpAttributes Pointer to a location containing one or more of the following Attribute flags.
      * @param {PWSTR} lpTitleBuf Pointer to a buffer to receive the localized name of the feature, which corresponds to the Title field in the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature Table</a>.
      * 
      * This parameter is optional and can be null.
-     * @param {Pointer<UInt32>} pcchTitleBuf As input, the size of <i>lpTitleBuf</i>. As output, the number of characters returned in <i>lpTitleBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer that is passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchTitleBuf As input, the size of <i>lpTitleBuf</i>. As output, the number of characters returned in <i>lpTitleBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer that is passed in is too small, the count returned does not include the terminating null character.
      * @param {PWSTR} lpHelpBuf Pointer to a buffer to receive the localized description of the feature, which corresponds to the Description field for the feature in the  <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
      * This parameter is optional and can be null.
-     * @param {Pointer<UInt32>} pcchHelpBuf As input, the size of <i>lpHelpBuf</i>. As output, the number of characters returned in <i>lpHelpBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
+     * @param {Pointer<Integer>} pcchHelpBuf As input, the size of <i>lpHelpBuf</i>. As output, the number of characters returned in <i>lpHelpBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -18994,7 +18994,7 @@ class ApplicationInstallationAndServicing {
      * The MsiLocateComponent function returns the full path to an installed component without a product code.
      * @param {PSTR} szComponent Specifies the component ID of the component to be located.
      * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
-     * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
+     * @param {Pointer<Integer>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
      * <b>MsiLocateComponent</b> function, the variable pointed to by <i>pcchBuf</i> contains the count of characters not including the terminating null character. If the size of the buffer passed in is too small, the function returns INSTALLSTATE_MOREDATA. 
      * 
      * 
@@ -19110,7 +19110,7 @@ class ApplicationInstallationAndServicing {
      * The MsiLocateComponent function returns the full path to an installed component without a product code.
      * @param {PWSTR} szComponent Specifies the component ID of the component to be located.
      * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
-     * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
+     * @param {Pointer<Integer>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
      * <b>MsiLocateComponent</b> function, the variable pointed to by <i>pcchBuf</i> contains the count of characters not including the terminating null character. If the size of the buffer passed in is too small, the function returns INSTALLSTATE_MOREDATA. 
      * 
      * 
@@ -22548,7 +22548,7 @@ class ApplicationInstallationAndServicing {
      * If the <i>szValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters. 
      * 
      * If <i>szValue</i> and <i>pcchValue</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szValue</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiSourceListGetInfo</b> function returns the following values.
@@ -22750,7 +22750,7 @@ class ApplicationInstallationAndServicing {
      * If the <i>szValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters. 
      * 
      * If <i>szValue</i> and <i>pcchValue</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchValue A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szValue</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szValue</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiSourceListGetInfo</b> function returns the following values.
@@ -22980,7 +22980,7 @@ class ApplicationInstallationAndServicing {
      * If <i>szSource</i> is set to <b>NULL</b> and <i>pcchSource</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchSource</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szSource</i> buffer large enough to contain *<i>pcchSource</i> + 1 characters. 
      * 
      * If <i>szSource</i> and <i>pcchSource</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchSource A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSource</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchSource A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSource</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szSource</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiSourceListEnumSources</b> function returns the following values.
@@ -23208,7 +23208,7 @@ class ApplicationInstallationAndServicing {
      * If <i>szSource</i> is set to <b>NULL</b> and <i>pcchSource</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchSource</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szSource</i> buffer large enough to contain *<i>pcchSource</i> + 1 characters. 
      * 
      * If <i>szSource</i> and <i>pcchSource</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchSource A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSource</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchSource A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szSource</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szSource</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiSourceListEnumSources</b> function returns the following values.
@@ -23409,13 +23409,13 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex The index of the source to retrieve. This parameter must be 0 (zero) for the first call to the <b>MsiSourceListEnumMediaDisks</b>  function, and then incremented for subsequent calls until the function returns ERROR_NO_MORE_ITEMS.
-     * @param {Pointer<UInt32>} pdwDiskId On entry to <b>MsiSourceListEnumMediaDisks</b> this parameter provides a pointer to a <b>DWORD</b> to receive the ID of the disk that is being enumerated.   This parameter is optional.
+     * @param {Pointer<Integer>} pdwDiskId On entry to <b>MsiSourceListEnumMediaDisks</b> this parameter provides a pointer to a <b>DWORD</b> to receive the ID of the disk that is being enumerated.   This parameter is optional.
      * @param {PSTR} szVolumeLabel An output buffer that receives  the volume label of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchVolumeLabel</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
      * If <i>szVolumeLabel</i> and <i>pcchVolumeLabel</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchVolumeLabel A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szVolumeLabel</i> buffer. When the function returns, this parameter is the number of <b>TCHAR</b> in the received  value,  not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchVolumeLabel A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szVolumeLabel</i> buffer. When the function returns, this parameter is the number of <b>TCHAR</b> in the received  value,  not including the terminating null character. 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szVolumeLabel</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @param {PSTR} szDiskPrompt An output buffer that receives  the disk prompt of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
@@ -23425,7 +23425,7 @@ class ApplicationInstallationAndServicing {
      * If the <i>szDiskPrompt</i> is set to <b>NULL</b> and <i>pcchDiskPrompt</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szDiskPrompt</i> buffer large enough to contain *<i>pcchDiskPrompt</i> + 1 characters.
      * 
      * If <i>szDiskPrompt</i> and <i>pcchDiskPrompt</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchDiskPrompt A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szDiskPrompt</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchDiskPrompt A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szDiskPrompt</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szDiskPrompt</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiSourceListEnumMediaDisks</b> function returns the following values.
@@ -23627,13 +23627,13 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex The index of the source to retrieve. This parameter must be 0 (zero) for the first call to the <b>MsiSourceListEnumMediaDisks</b>  function, and then incremented for subsequent calls until the function returns ERROR_NO_MORE_ITEMS.
-     * @param {Pointer<UInt32>} pdwDiskId On entry to <b>MsiSourceListEnumMediaDisks</b> this parameter provides a pointer to a <b>DWORD</b> to receive the ID of the disk that is being enumerated.   This parameter is optional.
+     * @param {Pointer<Integer>} pdwDiskId On entry to <b>MsiSourceListEnumMediaDisks</b> this parameter provides a pointer to a <b>DWORD</b> to receive the ID of the disk that is being enumerated.   This parameter is optional.
      * @param {PWSTR} szVolumeLabel An output buffer that receives  the volume label of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchVolumeLabel</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
      * If <i>szVolumeLabel</i> and <i>pcchVolumeLabel</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchVolumeLabel A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szVolumeLabel</i> buffer. When the function returns, this parameter is the number of <b>TCHAR</b> in the received  value,  not including the terminating null character. 
+     * @param {Pointer<Integer>} pcchVolumeLabel A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szVolumeLabel</i> buffer. When the function returns, this parameter is the number of <b>TCHAR</b> in the received  value,  not including the terminating null character. 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szVolumeLabel</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @param {PWSTR} szDiskPrompt An output buffer that receives  the disk prompt of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
@@ -23643,7 +23643,7 @@ class ApplicationInstallationAndServicing {
      * If the <i>szDiskPrompt</i> is set to <b>NULL</b> and <i>pcchDiskPrompt</i> is set to a valid pointer,  the function returns ERROR_SUCCESS and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>szDiskPrompt</i> buffer large enough to contain *<i>pcchDiskPrompt</i> + 1 characters.
      * 
      * If <i>szDiskPrompt</i> and <i>pcchDiskPrompt</i> are both set to <b>NULL</b>, the function returns ERROR_SUCCESS if the value exists, without  retrieving the value.
-     * @param {Pointer<UInt32>} pcchDiskPrompt A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szDiskPrompt</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
+     * @param {Pointer<Integer>} pcchDiskPrompt A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szDiskPrompt</i> buffer. When the function returns, this parameter is set to the size of the requested value whether or not the function copies the value into the specified buffer. The size is returned as the number of <b>TCHAR</b> in the requested value, not including the terminating null character.
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szDiskPrompt</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
      * @returns {Integer} The <b>MsiSourceListEnumMediaDisks</b> function returns the following values.
@@ -23772,13 +23772,13 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} lpVersionBuf Returns the file version. 
      * 
      * Set to 0 for language information only.
-     * @param {Pointer<UInt32>} pcchVersionBuf In and out buffer count as the number of <b>TCHAR</b>. 
+     * @param {Pointer<Integer>} pcchVersionBuf In and out buffer count as the number of <b>TCHAR</b>. 
      * 
      * Set to 0 (zero) for language information only. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @param {PSTR} lpLangBuf Returns the file language. 
      * 
      * Set to 0 (zero) for version information only.
-     * @param {Pointer<UInt32>} pcchLangBuf In and out buffer count as the number of <b>TCHAR</b>. 
+     * @param {Pointer<Integer>} pcchLangBuf In and out buffer count as the number of <b>TCHAR</b>. 
      * 
      * Set to 0 (zero) for version information only. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
@@ -23871,13 +23871,13 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} lpVersionBuf Returns the file version. 
      * 
      * Set to 0 for language information only.
-     * @param {Pointer<UInt32>} pcchVersionBuf In and out buffer count as the number of <b>TCHAR</b>. 
+     * @param {Pointer<Integer>} pcchVersionBuf In and out buffer count as the number of <b>TCHAR</b>. 
      * 
      * Set to 0 (zero) for language information only. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @param {PWSTR} lpLangBuf Returns the file language. 
      * 
      * Set to 0 (zero) for version information only.
-     * @param {Pointer<UInt32>} pcchLangBuf In and out buffer count as the number of <b>TCHAR</b>. 
+     * @param {Pointer<Integer>} pcchLangBuf In and out buffer count as the number of <b>TCHAR</b>. 
      * 
      * Set to 0 (zero) for version information only. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
@@ -24132,9 +24132,9 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<CERT_CONTEXT>} ppcCertContext Returned signer certificate context
+     * @param {Pointer<Pointer<CERT_CONTEXT>>} ppcCertContext Returned signer certificate context
      * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
-     * @param {Pointer<UInt32>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Value</th>
@@ -24278,7 +24278,7 @@ class ApplicationInstallationAndServicing {
     static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -24315,9 +24315,9 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<CERT_CONTEXT>} ppcCertContext Returned signer certificate context
+     * @param {Pointer<Pointer<CERT_CONTEXT>>} ppcCertContext Returned signer certificate context
      * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
-     * @param {Pointer<UInt32>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Value</th>
@@ -24461,7 +24461,7 @@ class ApplicationInstallationAndServicing {
     static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25253,7 +25253,7 @@ class ApplicationInstallationAndServicing {
      * The MsiViewGetError function returns the error that occurred in the MsiViewModify function.
      * @param {MSIHANDLE} hView Handle to the view.
      * @param {PSTR} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
-     * @param {Pointer<UInt32>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
+     * @param {Pointer<Integer>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
      * @returns {Integer} This function returns one of the following values.
      * 
      * <table>
@@ -25650,7 +25650,7 @@ class ApplicationInstallationAndServicing {
      * The MsiViewGetError function returns the error that occurred in the MsiViewModify function.
      * @param {MSIHANDLE} hView Handle to the view.
      * @param {PWSTR} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
-     * @param {Pointer<UInt32>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
+     * @param {Pointer<Integer>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
      * @returns {Integer} This function returns one of the following values.
      * 
      * <table>
@@ -26234,7 +26234,7 @@ class ApplicationInstallationAndServicing {
     /**
      * The MsiSummaryInfoGetPropertyCount function returns the number of existing properties in the summary information stream.
      * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
-     * @param {Pointer<UInt32>} puiPropertyCount Location to receive the total property count.
+     * @param {Pointer<Integer>} puiPropertyCount Location to receive the total property count.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfogetpropertycount
      * @since windows8.0
@@ -26294,12 +26294,12 @@ class ApplicationInstallationAndServicing {
      * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream.
      * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not return values for PID_DICTIONARY OR PID_THUMBNAIL property.
-     * @param {Pointer<UInt32>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
+     * @param {Pointer<Integer>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.
-     * @param {Pointer<Int32>} piValue Receives the returned integer property data.
+     * @param {Pointer<Integer>} piValue Receives the returned integer property data.
      * @param {Pointer<FILETIME>} pftValue Pointer to a file value.
      * @param {PSTR} szValueBuf Pointer to the buffer that receives the null terminated summary information property value. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchValueBuf</i> contains the required buffer size in <b>TCHARs</b>, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfogetpropertya
@@ -26317,12 +26317,12 @@ class ApplicationInstallationAndServicing {
      * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream.
      * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not return values for PID_DICTIONARY OR PID_THUMBNAIL property.
-     * @param {Pointer<UInt32>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
+     * @param {Pointer<Integer>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.
-     * @param {Pointer<Int32>} piValue Receives the returned integer property data.
+     * @param {Pointer<Integer>} piValue Receives the returned integer property data.
      * @param {Pointer<FILETIME>} pftValue Pointer to a file value.
      * @param {PWSTR} szValueBuf Pointer to the buffer that receives the null terminated summary information property value. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchValueBuf</i> contains the required buffer size in <b>TCHARs</b>, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfogetpropertyw
@@ -27332,7 +27332,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field requested.
      * @param {PSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetstringa
@@ -27351,7 +27351,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field requested.
      * @param {PWSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetstringw
@@ -27420,7 +27420,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record.
      * @param {Pointer} szDataBuf A buffer to receive the stream field. You should ensure the destination buffer is the same size or larger than the source buffer. See the Remarks section.
-     * @param {Pointer<UInt32>} pcbDataBuf Specifies the in and out buffer count. On input, this is the full size of the buffer. On output, this is the number of bytes that were actually written to the buffer. See the Remarks section.
+     * @param {Pointer<Integer>} pcbDataBuf Specifies the in and out buffer count. On input, this is the full size of the buffer. On output, this is the number of bytes that were actually written to the buffer. See the Remarks section.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordreadstream
      * @since windows8.0
@@ -27501,7 +27501,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szName A null-terminated string that specifies the name of the property.
      * @param {PSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetpropertya
      * @since windows8.0
@@ -27520,7 +27520,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szName A null-terminated string that specifies the name of the property.
      * @param {PWSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
+     * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetpropertyw
      * @since windows8.0
@@ -27588,7 +27588,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
      * @param {MSIHANDLE} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
      * @param {PSTR} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
+     * @param {Pointer<Integer>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiformatrecorda
@@ -27608,7 +27608,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
      * @param {MSIHANDLE} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
      * @param {PWSTR} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
+     * @param {Pointer<Integer>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiformatrecordw
@@ -27891,8 +27891,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetFeatureState function gets the requested state of a feature.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szFeature Specifies the feature name within the product.
-     * @param {Pointer<Int32>} piInstalled 
-     * @param {Pointer<Int32>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<Integer>} piInstalled 
+     * @param {Pointer<Integer>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturestatea
@@ -27910,8 +27910,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetFeatureState function gets the requested state of a feature.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szFeature Specifies the feature name within the product.
-     * @param {Pointer<Int32>} piInstalled 
-     * @param {Pointer<Int32>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<Integer>} piInstalled 
+     * @param {Pointer<Integer>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturestatew
@@ -28161,8 +28161,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetComponentState function obtains the state of a component.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szComponent A null-terminated string that specifies the component name within the product.
-     * @param {Pointer<Int32>} piInstalled 
-     * @param {Pointer<Int32>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<Integer>} piInstalled 
+     * @param {Pointer<Integer>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetcomponentstatea
@@ -28180,8 +28180,8 @@ class ApplicationInstallationAndServicing {
      * The MsiGetComponentState function obtains the state of a component.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szComponent A null-terminated string that specifies the component name within the product.
-     * @param {Pointer<Int32>} piInstalled 
-     * @param {Pointer<Int32>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<Integer>} piInstalled 
+     * @param {Pointer<Integer>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetcomponentstatew
@@ -28237,7 +28237,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szFeature Specifies the name of the feature.
      * @param {Integer} iCostTree 
      * @param {Integer} iState 
-     * @param {Pointer<Int32>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
+     * @param {Pointer<Integer>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturecosta
@@ -28257,7 +28257,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szFeature Specifies the name of the feature.
      * @param {Integer} iCostTree 
      * @param {Integer} iState 
-     * @param {Pointer<Int32>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
+     * @param {Pointer<Integer>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturecostw
@@ -28281,9 +28281,9 @@ class ApplicationInstallationAndServicing {
      * <b>MsiEnumComponentCosts</b> function and then incremented for subsequent calls.
      * @param {Integer} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
      * @param {PSTR} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
-     * @param {Pointer<UInt32>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
-     * @param {Pointer<Int32>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
-     * @param {Pointer<Int32>} piTempCost The component cost per drive for the duration of the installation, or 0 if an error occurred. The value in *<i>piTempCost</i> represents the temporary space requirements for the duration of the installation. This temporary space requirement is space needed only for the duration of the installation. This does not affect the final disk space requirement.
+     * @param {Pointer<Integer>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
+     * @param {Pointer<Integer>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
+     * @param {Pointer<Integer>} piTempCost The component cost per drive for the duration of the installation, or 0 if an error occurred. The value in *<i>piTempCost</i> represents the temporary space requirements for the duration of the installation. This temporary space requirement is space needed only for the duration of the installation. This does not affect the final disk space requirement.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return Value</th>
@@ -28404,9 +28404,9 @@ class ApplicationInstallationAndServicing {
      * <b>MsiEnumComponentCosts</b> function and then incremented for subsequent calls.
      * @param {Integer} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
      * @param {PWSTR} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
-     * @param {Pointer<UInt32>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
-     * @param {Pointer<Int32>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
-     * @param {Pointer<Int32>} piTempCost The component cost per drive for the duration of the installation, or 0 if an error occurred. The value in *<i>piTempCost</i> represents the temporary space requirements for the duration of the installation. This temporary space requirement is space needed only for the duration of the installation. This does not affect the final disk space requirement.
+     * @param {Pointer<Integer>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
+     * @param {Pointer<Integer>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
+     * @param {Pointer<Integer>} piTempCost The component cost per drive for the duration of the installation, or 0 if an error occurred. The value in *<i>piTempCost</i> represents the temporary space requirements for the duration of the installation. This temporary space requirement is space needed only for the duration of the installation. This does not affect the final disk space requirement.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return Value</th>
@@ -28537,7 +28537,7 @@ class ApplicationInstallationAndServicing {
      * The MsiGetFeatureValidStates function returns a valid installation state.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szFeature Specifies the feature name.
-     * @param {Pointer<UInt32>} lpInstallStates 
+     * @param {Pointer<Integer>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturevalidstatesa
@@ -28555,7 +28555,7 @@ class ApplicationInstallationAndServicing {
      * The MsiGetFeatureValidStates function returns a valid installation state.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szFeature Specifies the feature name.
-     * @param {Pointer<UInt32>} lpInstallStates 
+     * @param {Pointer<Integer>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetfeaturevalidstatesw
@@ -28575,7 +28575,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
      * @param {PSTR} szPathBuf Pointer to the buffer that receives the null terminated full source path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsourcepatha
@@ -28596,7 +28596,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
      * @param {PWSTR} szPathBuf Pointer to the buffer that receives the null terminated full source path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsourcepathw
@@ -28617,7 +28617,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
      * @param {PSTR} szPathBuf Pointer to the buffer that receives the null terminated full target path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigettargetpatha
@@ -28638,7 +28638,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
      * @param {PWSTR} szPathBuf Pointer to the buffer that receives the null terminated full target path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
-     * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
+     * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigettargetpathw
@@ -28998,6 +28998,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
      */
     static CreatePatchFileExA(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
@@ -29018,6 +29019,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
      */
     static CreatePatchFileExW(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
@@ -29052,6 +29054,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} PatchFileName 
      * @param {PSTR} PatchHeaderFileName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
      */
     static ExtractPatchHeaderToFileA(PatchFileName, PatchHeaderFileName) {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
@@ -29066,6 +29069,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} PatchFileName 
      * @param {PWSTR} PatchHeaderFileName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
      */
     static ExtractPatchHeaderToFileW(PatchFileName, PatchHeaderFileName) {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
@@ -29140,7 +29144,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} PatchFileSize 
      * @param {Pointer} OldFileBuffer 
      * @param {Integer} OldFileSize 
-     * @param {Pointer<UInt32>} NewFileSize 
+     * @param {Pointer<Integer>} NewFileSize 
      * @param {Integer} ApplyOptionFlags 
      * @returns {BOOL} 
      */
@@ -29265,7 +29269,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} OldFileSize 
      * @param {Pointer} NewFileBuffer 
      * @param {Integer} NewFileBufferSize 
-     * @param {Pointer<UInt32>} NewFileActualSize 
+     * @param {Pointer<Integer>} NewFileActualSize 
      * @param {Pointer<FILETIME>} NewFileTime 
      * @param {Integer} ApplyOptionFlags 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
@@ -29434,6 +29438,7 @@ class ApplicationInstallationAndServicing {
      * @param {DELTA_INPUT} Delta 
      * @param {Pointer<DELTA_OUTPUT>} lpTarget 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-applydeltab
      */
     static ApplyDeltaB(ApplyFlags, Source, Delta, lpTarget) {
         result := DllCall("msdelta.dll\ApplyDeltaB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "int")
@@ -29478,6 +29483,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} lpDeltaName 
      * @param {PWSTR} lpTargetName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-applydeltaw
      */
     static ApplyDeltaW(ApplyFlags, lpSourceName, lpDeltaName, lpTargetName) {
         lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
@@ -29502,6 +29508,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} HashAlgId 
      * @param {Pointer<DELTA_OUTPUT>} lpDelta 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-createdeltab
      */
     static CreateDeltaB(FileTypeSet, SetFlags, ResetFlags, Source, Target, SourceOptions, TargetOptions, GlobalOptions, lpTargetFileTime, HashAlgId, lpDelta) {
         result := DllCall("msdelta.dll\CreateDeltaB", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", Source, "ptr", Target, "ptr", SourceOptions, "ptr", TargetOptions, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDelta, "int")
@@ -29548,6 +29555,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} HashAlgId 
      * @param {PWSTR} lpDeltaName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-createdeltaw
      */
     static CreateDeltaW(FileTypeSet, SetFlags, ResetFlags, lpSourceName, lpTargetName, lpSourceOptionsName, lpTargetOptionsName, GlobalOptions, lpTargetFileTime, HashAlgId, lpDeltaName) {
         lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
@@ -29621,6 +29629,7 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Pointer<Void>} lpMemory 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-deltafree
      */
     static DeltaFree(lpMemory) {
         result := DllCall("msdelta.dll\DeltaFree", "ptr", lpMemory, "int")
@@ -29734,7 +29743,7 @@ class ApplicationInstallationAndServicing {
      * The ActivateActCtx function activates the specified activation context.
      * @param {HANDLE} hActCtx Handle to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context that is to be made active.
-     * @param {Pointer<UIntPtr>} lpCookie Pointer to a <b>ULONG_PTR</b> that functions as a cookie, uniquely identifying a specific, activated activation context.
+     * @param {Pointer<Pointer>} lpCookie Pointer to a <b>ULONG_PTR</b> that functions as a cookie, uniquely identifying a specific, activated activation context.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
@@ -30226,7 +30235,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer} pvBuffer Pointer to a buffer that holds the returned information. This parameter is optional. If <i>pvBuffer</i> is <b>null</b>, then <i>cbBuffer</i> must be zero. If the size of the buffer pointed to by <i>pvBuffer</i> is too small, 
      * <b>QueryActCtxW</b> returns ERROR_INSUFFICIENT_BUFFER and no data is written into the buffer. See the Remarks section for the method you can use to determine the required size of the buffer.
      * @param {Pointer} cbBuffer Size of the buffer in bytes pointed to by <i>pvBuffer</i>. This parameter is optional.
-     * @param {Pointer<UIntPtr>} pcbWrittenOrRequired Number of bytes written or required. The parameter <i>pcbWrittenOrRequired</i> can only be <b>NULL</b> when <i>pvBuffer</i> is <b>NULL</b>. If <i>pcbWrittenOrRequired</i> is non-<b>NULL</b>, it is filled with the number of bytes required to store the returned buffer.
+     * @param {Pointer<Pointer>} pcbWrittenOrRequired Number of bytes written or required. The parameter <i>pcbWrittenOrRequired</i> can only be <b>NULL</b> when <i>pvBuffer</i> is <b>NULL</b>. If <i>pcbWrittenOrRequired</i> is non-<b>NULL</b>, it is filled with the number of bytes required to store the returned buffer.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
@@ -30259,7 +30268,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} settingName The name of the attribute to be queried.
      * @param {Pointer} pvBuffer A pointer to the buffer that receives the query result.
      * @param {Pointer} dwBuffer The size of the buffer  in characters that receives the query result.
-     * @param {Pointer<UIntPtr>} pdwWrittenOrRequired A pointer to a value which is the number of characters written to the buffer specified by <i>pvBuffer</i> or that is required to hold the query result.
+     * @param {Pointer<Pointer>} pdwWrittenOrRequired A pointer to a value which is the number of characters written to the buffer specified by <i>pvBuffer</i> or that is required to hold the query result.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 

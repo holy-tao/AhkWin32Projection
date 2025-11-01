@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-blob-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -36,7 +38,7 @@ class SIGNER_BLOB_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbBlob {
         get => NumGet(this, 24, "ptr")

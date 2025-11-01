@@ -28,7 +28,7 @@ class APOInitSystemEffects extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.
-     * @type {Pointer<IPropertyStore>}
+     * @type {IPropertyStore}
      */
     pAPOEndpointProperties {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class APOInitSystemEffects extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.
-     * @type {Pointer<IPropertyStore>}
+     * @type {IPropertyStore}
      */
     pAPOSystemEffectsProperties {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class APOInitSystemEffects extends Win32Struct
 
     /**
      * A pointer to an IMMDeviceCollection object.
-     * @type {Pointer<IMMDeviceCollection>}
+     * @type {IMMDeviceCollection}
      */
     pDeviceCollection {
         get => NumGet(this, 40, "ptr")

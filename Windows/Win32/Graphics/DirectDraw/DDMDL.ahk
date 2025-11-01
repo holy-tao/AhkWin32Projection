@@ -44,7 +44,7 @@ class DDMDL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpMappedSystemVa {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DDMDL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpStartVa {
         get => NumGet(this, 32, "ptr")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/slargeintegerarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class SLargeIntegerArray extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     lpli {
         get => NumGet(this, 8, "ptr")

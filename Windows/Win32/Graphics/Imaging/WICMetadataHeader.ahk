@@ -39,7 +39,7 @@ class WICMetadataHeader extends Win32Struct
      * Type: <b>BYTE*</b>
      * 
      * Pointer to the header.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Header {
         get => NumGet(this, 16, "ptr")

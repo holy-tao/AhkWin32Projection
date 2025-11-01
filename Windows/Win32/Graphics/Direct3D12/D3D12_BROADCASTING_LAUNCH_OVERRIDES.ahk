@@ -12,7 +12,7 @@ class D3D12_BROADCASTING_LAUNCH_OVERRIDES extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pLocalRootArgumentsTableIndex {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +44,7 @@ class D3D12_BROADCASTING_LAUNCH_OVERRIDES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pDispatchGrid {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class D3D12_BROADCASTING_LAUNCH_OVERRIDES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pMaxDispatchGrid {
         get => NumGet(this, 40, "ptr")

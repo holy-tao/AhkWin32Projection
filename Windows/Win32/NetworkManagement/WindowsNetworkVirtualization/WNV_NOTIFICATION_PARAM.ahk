@@ -83,7 +83,7 @@ class WNV_NOTIFICATION_PARAM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Buffer {
         get => NumGet(this, 16, "ptr")

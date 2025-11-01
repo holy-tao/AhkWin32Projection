@@ -42,7 +42,7 @@ class MSV1_0_SUBAUTH_REQUEST extends Win32Struct
 
     /**
      * Containing the data to pass to the subauthentication package. The format and content of this data is specific to the subauthentication package. For more information, see the documentation for specific subauthentication packages.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SubAuthSubmitBuffer {
         get => NumGet(this, 16, "ptr")

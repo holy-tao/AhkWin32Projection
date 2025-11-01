@@ -41,7 +41,7 @@ class SEC_WINNT_AUTH_IDENTITY_EXW extends Win32Struct
 
     /**
      * A Unicode or ANSI string that contains the name of the user account.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     User {
         get => NumGet(this, 8, "ptr")
@@ -59,7 +59,7 @@ class SEC_WINNT_AUTH_IDENTITY_EXW extends Win32Struct
 
     /**
      * A Unicode or ANSI string that contains the name of the domain for the user account.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     Domain {
         get => NumGet(this, 24, "ptr")
@@ -77,7 +77,7 @@ class SEC_WINNT_AUTH_IDENTITY_EXW extends Win32Struct
 
     /**
      * A Unicode or ANSI string that contains the user password in plaintext. When you have finished using the password, remove the sensitive information from memory by calling the <a href="https://msdn.microsoft.com/2c4090a6-025b-4b7b-8f31-7e744ad51b39">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://msdn.microsoft.com/1d810f71-9bf5-4c5c-a573-c35081f604cf">Handling Passwords</a>.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     Password {
         get => NumGet(this, 40, "ptr")
@@ -153,7 +153,7 @@ class SEC_WINNT_AUTH_IDENTITY_EXW extends Win32Struct
      * A Unicode or ANSI string that contains a comma-separated list of names of security packages that are available when using the <a href="https://msdn.microsoft.com/3aa7e979-8b55-416d-bed1-28296055d38e">Microsoft Negotiate</a> provider.
      * 
      * Set this to "!ntlm" to specify that the <a href="https://msdn.microsoft.com/35a38858-d36f-45c9-95f4-2541a182f5ac">NTLM</a> package is not to be used.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     PackageList {
         get => NumGet(this, 56, "ptr")

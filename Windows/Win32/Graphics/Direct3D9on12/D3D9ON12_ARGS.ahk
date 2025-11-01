@@ -20,7 +20,7 @@ class D3D9ON12_ARGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pD3D12Device {
         get => NumGet(this, 8, "ptr")

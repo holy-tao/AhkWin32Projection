@@ -4,6 +4,8 @@
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_profile_level
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

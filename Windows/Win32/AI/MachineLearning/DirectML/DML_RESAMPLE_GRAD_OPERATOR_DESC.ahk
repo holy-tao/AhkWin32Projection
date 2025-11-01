@@ -61,7 +61,7 @@ class DML_RESAMPLE_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) **const [FLOAT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * See *Scales* in [DML_RESAMPLE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_resample1_operator_desc).
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     Scales {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class DML_RESAMPLE_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) **const [FLOAT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * See *InputPixelOffsets* in [DML_RESAMPLE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_resample1_operator_desc).
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     InputPixelOffsets {
         get => NumGet(this, 32, "ptr")
@@ -83,7 +83,7 @@ class DML_RESAMPLE_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) **const [FLOAT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * See *OutputPixelOffsets* in [DML_RESAMPLE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_resample1_operator_desc).
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     OutputPixelOffsets {
         get => NumGet(this, 40, "ptr")

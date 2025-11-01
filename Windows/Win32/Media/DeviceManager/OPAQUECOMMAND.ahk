@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/WMDM/opaquecommand
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -28,7 +30,7 @@ class OPAQUECOMMAND extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 16, "ptr")

@@ -81,7 +81,7 @@ class IP_OPTION_INFORMATION extends Win32Struct
      * Type: <b>PUCHAR</b>
      * 
      * A pointer to options data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     OptionsData {
         get => NumGet(this, 8, "ptr")

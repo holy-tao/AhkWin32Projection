@@ -135,7 +135,7 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<UInt32>} lpMode The new pipe mode. The mode is a combination of a read-mode flag and a wait-mode flag. This parameter can be <b>NULL</b> if the mode is not being set. Specify one of the following modes. 
+     * @param {Pointer<Integer>} lpMode The new pipe mode. The mode is a combination of a read-mode flag and a wait-mode flag. This parameter can be <b>NULL</b> if the mode is not being set. Specify one of the following modes. 
      * 
      * 
      * 
@@ -203,8 +203,8 @@ class Pipes {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lpMaxCollectionCount The maximum number of bytes collected on the client computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same machine. This parameter is ignored if the client process specifies the FILE_FLAG_WRITE_THROUGH flag in the <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function when the handle was created. This parameter can be <b>NULL</b> if the collection count is not being set.
-     * @param {Pointer<UInt32>} lpCollectDataTimeout The maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter is ignored if the client process specified the FILE_FLAG_WRITE_THROUGH flag in the 
+     * @param {Pointer<Integer>} lpMaxCollectionCount The maximum number of bytes collected on the client computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same machine. This parameter is ignored if the client process specifies the FILE_FLAG_WRITE_THROUGH flag in the <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function when the handle was created. This parameter can be <b>NULL</b> if the collection count is not being set.
+     * @param {Pointer<Integer>} lpCollectDataTimeout The maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter is ignored if the client process specified the FILE_FLAG_WRITE_THROUGH flag in the 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function when the handle was created. This parameter can be <b>NULL</b> if the collection count is not being set.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -233,9 +233,9 @@ class Pipes {
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function. The handle must have GENERIC_READ access to the pipe.
      * @param {Pointer} lpBuffer A pointer to a buffer that receives data read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
      * @param {Integer} nBufferSize The size of the buffer specified by the <i>lpBuffer</i> parameter, in bytes. This parameter is ignored if <i>lpBuffer</i> is <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
-     * @param {Pointer<UInt32>} lpTotalBytesAvail A pointer to a variable that receives the total number of bytes available to be read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
-     * @param {Pointer<UInt32>} lpBytesLeftThisMessage A pointer to a variable that receives the number of bytes remaining in this message. This parameter will be zero for byte-type named pipes or for anonymous pipes. This parameter can be <b>NULL</b> if no data is to be read.
+     * @param {Pointer<Integer>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
+     * @param {Pointer<Integer>} lpTotalBytesAvail A pointer to a variable that receives the total number of bytes available to be read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
+     * @param {Pointer<Integer>} lpBytesLeftThisMessage A pointer to a variable that receives the number of bytes remaining in this message. This parameter will be zero for byte-type named pipes or for anonymous pipes. This parameter can be <b>NULL</b> if no data is to be read.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -270,7 +270,7 @@ class Pipes {
      * @param {Integer} nInBufferSize The size of the input buffer, in bytes.
      * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the output buffer, in bytes.
-     * @param {Pointer<UInt32>} lpBytesRead A pointer to the variable that receives the number of bytes read from the pipe. 
+     * @param {Pointer<Integer>} lpBytesRead A pointer to the variable that receives the number of bytes read from the pipe. 
      * 
      * 
      * 
@@ -689,10 +689,10 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<UInt32>} lpFlags 
-     * @param {Pointer<UInt32>} lpOutBufferSize A pointer to a variable that receives the size of the buffer for outgoing data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<UInt32>} lpInBufferSize A pointer to a variable that receives the size of the buffer for incoming data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<UInt32>} lpMaxInstances A pointer to a variable that receives the maximum number of pipe instances that can be created. If the variable is set to PIPE_UNLIMITED_INSTANCES (255), the number of pipe instances that can be created is limited only by the availability of system resources. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpFlags 
+     * @param {Pointer<Integer>} lpOutBufferSize A pointer to a variable that receives the size of the buffer for outgoing data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpInBufferSize A pointer to a variable that receives the size of the buffer for incoming data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpMaxInstances A pointer to a variable that receives the maximum number of pipe instances that can be created. If the variable is set to PIPE_UNLIMITED_INSTANCES (255), the number of pipe instances that can be created is limited only by the availability of system resources. This parameter can be <b>NULL</b> if this information is not required.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -718,10 +718,10 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<UInt32>} lpState 
-     * @param {Pointer<UInt32>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<UInt32>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<UInt32>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpState 
+     * @param {Pointer<Integer>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {PWSTR} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
      * 
      * This parameter must be <b>NULL</b> if the specified pipe handle is to the client end of a named pipe. This parameter can be <b>NULL</b> if this information is not required.
@@ -747,7 +747,7 @@ class Pipes {
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
      * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the read buffer, in bytes.
-     * @param {Pointer<UInt32>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
+     * @param {Pointer<Integer>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
      * @param {Integer} nTimeOut The number of milliseconds to wait for the named pipe to be available. In addition to numeric values, the following special values can be specified.
      * 
      * <table>
@@ -1130,10 +1130,10 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<UInt32>} lpState 
-     * @param {Pointer<UInt32>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<UInt32>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<UInt32>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpState 
+     * @param {Pointer<Integer>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
+     * @param {Pointer<Integer>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {PSTR} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access. 
      * 
      * 
@@ -1168,7 +1168,7 @@ class Pipes {
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
      * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the read buffer, in bytes.
-     * @param {Pointer<UInt32>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
+     * @param {Pointer<Integer>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
      * @param {Integer} nTimeOut The number of milliseconds to wait for the named pipe to be available. In addition to numeric values, the following special values can be specified.
      * 
      * <table>
@@ -1291,7 +1291,7 @@ class Pipes {
      * Retrieves the client process identifier for the specified named pipe.
      * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
-     * @param {Pointer<UInt32>} ClientProcessId The process identifier.
+     * @param {Pointer<Integer>} ClientProcessId The process identifier.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1315,7 +1315,7 @@ class Pipes {
      * Retrieves the client session identifier for the specified named pipe.
      * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
-     * @param {Pointer<UInt32>} ClientSessionId The session identifier.
+     * @param {Pointer<Integer>} ClientSessionId The session identifier.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1339,7 +1339,7 @@ class Pipes {
      * Retrieves the server process identifier for the specified named pipe.
      * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
-     * @param {Pointer<UInt32>} ServerProcessId The process identifier.
+     * @param {Pointer<Integer>} ServerProcessId The process identifier.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1363,7 +1363,7 @@ class Pipes {
      * Retrieves the server session identifier for the specified named pipe.
      * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
-     * @param {Pointer<UInt32>} ServerSessionId The session identifier.
+     * @param {Pointer<Integer>} ServerSessionId The session identifier.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 

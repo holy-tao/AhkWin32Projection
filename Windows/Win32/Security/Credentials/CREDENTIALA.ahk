@@ -258,7 +258,7 @@ class CREDENTIALA extends Win32Struct
      * If the <b>Type</b> member is <b>CRED_TYPE_GENERIC</b>, this member is defined by the application.
      * 
      * Credentials are expected to be portable. Applications should ensure that the data in <b>CredentialBlob</b> is portable. The application defines the byte-endian and alignment of the data in <b>CredentialBlob</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     CredentialBlob {
         get => NumGet(this, 40, "ptr")

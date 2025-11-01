@@ -182,7 +182,7 @@ class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct
     /**
      * An array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structures, each containing a recipient's certificate Issuer, SerialNumber, and SubjectPublicKeyInfo. This array can only be used for recipients identified by their Issuer and serial number. If <b>rgpRecipients</b> is not <b>NULL</b>, <b>rgCmsRecipients</b> must be <b>NULL</b>.
-     * @type {Pointer<CERT_INFO>}
+     * @type {Pointer<Pointer<CERT_INFO>>}
      */
     rgpRecipients {
         get => NumGet(this, 56, "ptr")

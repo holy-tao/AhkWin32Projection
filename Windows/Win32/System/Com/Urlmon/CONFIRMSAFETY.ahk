@@ -20,7 +20,7 @@ class CONFIRMSAFETY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 8, "ptr")

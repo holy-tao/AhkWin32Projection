@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\RECT.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/previous-versions/windows/desktop/api/avifmt/ns-avifmt-avistreamheader
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

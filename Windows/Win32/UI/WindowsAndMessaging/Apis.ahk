@@ -7374,7 +7374,7 @@ class WindowsAndMessaging {
      * Writes formatted data to the specified buffer using a pointer to a list of arguments.
      * @param {PSTR} param0 
      * @param {PSTR} param1 
-     * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
+     * @param {Pointer<Integer>} arglist Type: <b>va_list</b>
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
      * 					<i>lpFmt</i> parameter.
@@ -7403,7 +7403,7 @@ class WindowsAndMessaging {
      * Writes formatted data to the specified buffer using a pointer to a list of arguments.
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
-     * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
+     * @param {Pointer<Integer>} arglist Type: <b>va_list</b>
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
      * 					<i>lpFmt</i> parameter.
@@ -8020,7 +8020,7 @@ class WindowsAndMessaging {
      * @param {Integer} uTimeout Type: <b>UINT</b>
      * 
      * The duration of the time-out period, in milliseconds. If the message is a broadcast message, each window can use the full time-out period. For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.
-     * @param {Pointer<UIntPtr>} lpdwResult Type: <b>PDWORD_PTR</b>
+     * @param {Pointer<Pointer>} lpdwResult Type: <b>PDWORD_PTR</b>
      * 
      * The result of the message processing. The value of this parameter depends on the message that is specified.
      * @returns {LRESULT} Type: <b>LRESULT</b>
@@ -8067,7 +8067,7 @@ class WindowsAndMessaging {
      * @param {Integer} uTimeout Type: <b>UINT</b>
      * 
      * The duration of the time-out period, in milliseconds. If the message is a broadcast message, each window can use the full time-out period. For example, if you specify a five second time-out period and there are three top-level windows that fail to process the message, you could have up to a 15 second delay.
-     * @param {Pointer<UIntPtr>} lpdwResult Type: <b>PDWORD_PTR</b>
+     * @param {Pointer<Pointer>} lpdwResult Type: <b>PDWORD_PTR</b>
      * 
      * The result of the message processing. The value of this parameter depends on the message that is specified.
      * @returns {LRESULT} Type: <b>LRESULT</b>
@@ -9481,10 +9481,10 @@ class WindowsAndMessaging {
      * @param {Pointer<COLORREF>} pcrKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that receives the transparency color key to be used when composing the layered window. All pixels painted by the window in this color will be transparent. This can be <b>NULL</b> if the argument is not needed.
-     * @param {Pointer<Byte>} pbAlpha Type: <b>BYTE*</b>
+     * @param {Pointer<Integer>} pbAlpha Type: <b>BYTE*</b>
      * 
      * The Alpha value used to describe the opacity of the layered window. Similar to the <b>SourceConstantAlpha</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> structure. When the variable referred to by <i>pbAlpha</i> is 0, the window is completely transparent. When the variable referred to by <i>pbAlpha</i> is 255, the window is opaque. This can be <b>NULL</b> if the argument is not needed.
-     * @param {Pointer<UInt32>} pdwFlags Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -9818,7 +9818,7 @@ class WindowsAndMessaging {
      * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
-     * @param {Pointer<UInt32>} pdwAffinity Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwAffinity Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that receives the display affinity setting.
      * See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowdisplayaffinity">SetWindowDisplayAffinity</a> for a list of affinity settings and their meanings.
@@ -15441,10 +15441,10 @@ class WindowsAndMessaging {
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
      * 					<i>nBar</i> parameter.
      * @param {Integer} nBar Type: <b>int</b>
-     * @param {Pointer<Int32>} lpMinPos Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
+     * @param {Pointer<Integer>} lpMinPos Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
      * 
      * Pointer to the integer variable that receives the minimum position.
-     * @param {Pointer<Int32>} lpMaxPos Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
+     * @param {Pointer<Integer>} lpMaxPos Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
      * 
      * Pointer to the integer variable that receives the maximum position.
      * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -17520,6 +17520,7 @@ class WindowsAndMessaging {
      * @param {HWND} hWnd 
      * @param {Integer} nIndex 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowword
      */
     static GetWindowWord(hWnd, nIndex) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -17849,7 +17850,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the default layout that is used when windows are created with no parent or owner.
-     * @param {Pointer<UInt32>} pdwDefaultLayout Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwDefaultLayout Type: <b>DWORD*</b>
      * 
      * The current default process layout. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setprocessdefaultlayout">SetProcessDefaultLayout</a>.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -18366,7 +18367,7 @@ class WindowsAndMessaging {
      * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
-     * @param {Pointer<UInt32>} lpdwProcessId Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpdwProcessId Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that receives the process identifier. If this parameter is not <b>NULL</b>, <b>GetWindowThreadProcessId</b> copies the identifier of the process to the variable; otherwise, it does not.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -19332,7 +19333,7 @@ class WindowsAndMessaging {
      * @param {Pointer<HICON>} phicon Type: <b>HICON*</b>
      * 
      * A pointer to the returned array of icon handles.
-     * @param {Pointer<UInt32>} piconid Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} piconid Type: <b>UINT*</b>
      * 
      * A pointer to a returned resource identifier for the icon that best
      * 				fits the current display device.  The returned identifier is 0xFFFFFFFF if the
@@ -19386,7 +19387,7 @@ class WindowsAndMessaging {
      * @param {Pointer<HICON>} phicon Type: <b>HICON*</b>
      * 
      * A pointer to the returned array of icon handles.
-     * @param {Pointer<UInt32>} piconid Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} piconid Type: <b>UINT*</b>
      * 
      * A pointer to a returned resource identifier for the icon that best
      * 				fits the current display device.  The returned identifier is 0xFFFFFFFF if the
@@ -19437,10 +19438,10 @@ class WindowsAndMessaging {
      * @param {Integer} cBitsPixel Type: <b>BYTE</b>
      * 
      * The number of bits-per-pixel in the XOR bitmask of the icon.
-     * @param {Pointer<Byte>} lpbANDbits Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} lpbANDbits Type: <b>const BYTE*</b>
      * 
      * An array of bytes that contains the bit values for the AND bitmask of the icon. This bitmask describes a monochrome bitmap.
-     * @param {Pointer<Byte>} lpbXORbits Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} lpbXORbits Type: <b>const BYTE*</b>
      * 
      * An array of bytes that contains the bit values for the XOR bitmask of the icon. This bitmask describes a monochrome or device-dependent color bitmap.
      * @returns {HICON} Type: <b>HICON</b>
@@ -19490,7 +19491,7 @@ class WindowsAndMessaging {
 
     /**
      * Searches through icon or cursor data for the icon or cursor that best fits the current display device.
-     * @param {Pointer<Byte>} presbits Type: <b>PBYTE</b>
+     * @param {Pointer<Integer>} presbits Type: <b>PBYTE</b>
      * 
      * The icon or cursor directory data. Because this function does not validate the resource data, it causes a general protection (GP) fault or returns an undefined value if <i>presbits</i> is not pointing to valid resource data.
      * @param {BOOL} fIcon Type: <b>BOOL</b>
@@ -19516,7 +19517,7 @@ class WindowsAndMessaging {
 
     /**
      * Searches through icon or cursor data for the icon or cursor that best fits the current display device.
-     * @param {Pointer<Byte>} presbits Type: <b>PBYTE</b>
+     * @param {Pointer<Integer>} presbits Type: <b>PBYTE</b>
      * 
      * The icon or cursor directory data. Because this function does not validate the resource data, it causes a general protection (GP) fault or returns an undefined value if <i>presbits</i> is not pointing to valid resource data.
      * @param {BOOL} fIcon Type: <b>BOOL</b>
@@ -26698,6 +26699,7 @@ class WindowsAndMessaging {
      * @param {Integer} processHandleCount 
      * @param {Pointer<HANDLE>} processHandleArray 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setadditionalforegroundboostprocesses
      */
     static SetAdditionalForegroundBoostProcesses(topLevelWindow, processHandleCount, processHandleArray) {
         topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
@@ -26711,6 +26713,7 @@ class WindowsAndMessaging {
      * @param {HWND} hWnd 
      * @param {Integer} tdFlags 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerfortooltipdismissnotification
      */
     static RegisterForTooltipDismissNotification(hWnd, tdFlags) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -26723,6 +26726,7 @@ class WindowsAndMessaging {
      * 
      * @param {HWND} hwnd 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/winmsg/winuser/nf-winuser-iswindowarranged
      */
     static IsWindowArranged(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -26744,7 +26748,7 @@ class WindowsAndMessaging {
      * Creates a new resource indexer for the specified paths of the root of the project files and the extension DLL.
      * @param {PWSTR} projectRoot The path of the root folder to use for the project for the files to be produced, in string form. This path is used to determine file paths relative to the package that contains them. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
      * @param {PWSTR} extensionDllPath The full path to an extension dynamic-link library (DLL) that is Microsoft-signed and implements the ext-ms-win-mrmcorer-environment-l1 API set. This path determines the file path from where the extension DLL for the modern resource technology (MRT) environment is loaded. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
-     * @param {Pointer<Void>} ppResourceIndexer The newly created resource indexer.
+     * @param {Pointer<Pointer<Void>>} ppResourceIndexer The newly created resource indexer.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//resourceindexer/nf-resourceindexer-createresourceindexer
      * @since windows10.0.10240
@@ -26753,7 +26757,7 @@ class WindowsAndMessaging {
         projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
         extensionDllPath := extensionDllPath is String ? StrPtr(extensionDllPath) : extensionDllPath
 
-        result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr", ppResourceIndexer, "int")
+        result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr*", ppResourceIndexer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26776,8 +26780,8 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} resourceIndexer The resource indexer object that you created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/resourceindexer/nf-resourceindexer-createresourceindexer">CreateResourceIndexer</a> function.
      * @param {PWSTR} filePath The path for the folder that you want to index. The path must be an absolute path with the drive letter specified. Long file paths are not supported.
      * @param {Pointer<PWSTR>} ppResourceUri A uniform resource indicator (URI) that uses the ms-resource URI scheme and represents the named resource for the candidate, where the authority of the URI or the resource map is empty. For example, ms-resource:///Resources/String1 or ms-resource:///Files/images/logo.png.
-     * @param {Pointer<UInt32>} pQualifierCount The number of indexed resource qualifiers that the list in the <i>ppQualifiers</i> parameter contains.
-     * @param {Pointer<IndexedResourceQualifier>} ppQualifiers A list of indexed resource qualifiers that declare the context under which the resources are appropriate.
+     * @param {Pointer<Integer>} pQualifierCount The number of indexed resource qualifiers that the list in the <i>ppQualifiers</i> parameter contains.
+     * @param {Pointer<Pointer<IndexedResourceQualifier>>} ppQualifiers A list of indexed resource qualifiers that declare the context under which the resources are appropriate.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//resourceindexer/nf-resourceindexer-indexfilepath
      * @since windows10.0.10240
@@ -26785,7 +26789,7 @@ class WindowsAndMessaging {
     static IndexFilePath(resourceIndexer, filePath, ppResourceUri, pQualifierCount, ppQualifiers) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := DllCall("MrmSupport.dll\IndexFilePath", "ptr", resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, "uint*", pQualifierCount, "ptr", ppQualifiers, "int")
+        result := DllCall("MrmSupport.dll\IndexFilePath", "ptr", resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, "uint*", pQualifierCount, "ptr*", ppQualifiers, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26815,6 +26819,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} defaultQualifiers 
      * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexer
      */
     static MrmCreateResourceIndexer(packageFamilyName, projectRoot, platformVersion, defaultQualifiers, indexer) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
@@ -26836,6 +26841,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} schemaFile 
      * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousschemafile
      */
     static MrmCreateResourceIndexerFromPreviousSchemaFile(projectRoot, platformVersion, defaultQualifiers, schemaFile, indexer) {
         projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
@@ -26857,6 +26863,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} priFile 
      * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousprifile
      */
     static MrmCreateResourceIndexerFromPreviousPriFile(projectRoot, platformVersion, defaultQualifiers, priFile, indexer) {
         projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
@@ -26879,6 +26886,7 @@ class WindowsAndMessaging {
      * @param {Integer} schemaXmlSize 
      * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviousschemadata
      */
     static MrmCreateResourceIndexerFromPreviousSchemaData(projectRoot, platformVersion, defaultQualifiers, schemaXmlData, schemaXmlSize, indexer) {
         projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
@@ -26900,6 +26908,7 @@ class WindowsAndMessaging {
      * @param {Integer} priSize 
      * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourceindexerfrompreviouspridata-
      */
     static MrmCreateResourceIndexerFromPreviousPriData(projectRoot, platformVersion, defaultQualifiers, priData, priSize, indexer) {
         projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
@@ -26941,6 +26950,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} resourceString 
      * @param {PWSTR} qualifiers 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexstring
      */
     static MrmIndexString(indexer, resourceUri, resourceString, qualifiers) {
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
@@ -26962,6 +26972,7 @@ class WindowsAndMessaging {
      * @param {Integer} embeddedDataSize 
      * @param {PWSTR} qualifiers 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexembeddeddata
      */
     static MrmIndexEmbeddedData(indexer, resourceUri, embeddedData, embeddedDataSize, qualifiers) {
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
@@ -26981,6 +26992,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} filePath 
      * @param {PWSTR} qualifiers 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexfile
      */
     static MrmIndexFile(indexer, resourceUri, filePath, qualifiers) {
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
@@ -26999,6 +27011,7 @@ class WindowsAndMessaging {
      * @param {MrmResourceIndexerHandle} indexer 
      * @param {PWSTR} filePath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexfileautoqualifiers
      */
     static MrmIndexFileAutoQualifiers(indexer, filePath) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
@@ -27015,6 +27028,7 @@ class WindowsAndMessaging {
      * @param {MrmResourceIndexerHandle} indexer 
      * @param {PWSTR} containerPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmindexresourcecontainerautoqualifiers
      */
     static MrmIndexResourceContainerAutoQualifiers(indexer, containerPath) {
         containerPath := containerPath is String ? StrPtr(containerPath) : containerPath
@@ -27033,6 +27047,7 @@ class WindowsAndMessaging {
      * @param {Integer} packagingOptions 
      * @param {PWSTR} outputDirectory 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourcefile
      */
     static MrmCreateResourceFile(indexer, packagingMode, packagingOptions, outputDirectory) {
         outputDirectory := outputDirectory is String ? StrPtr(outputDirectory) : outputDirectory
@@ -27068,12 +27083,13 @@ class WindowsAndMessaging {
      * @param {MrmResourceIndexerHandle} indexer 
      * @param {Integer} packagingMode 
      * @param {Integer} packagingOptions 
-     * @param {Pointer<Byte>} outputPriData 
-     * @param {Pointer<UInt32>} outputPriSize 
+     * @param {Pointer<Pointer<Integer>>} outputPriData 
+     * @param {Pointer<Integer>} outputPriSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourcefileinmemory
      */
     static MrmCreateResourceFileInMemory(indexer, packagingMode, packagingOptions, outputPriData, outputPriSize) {
-        result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "char*", outputPriData, "uint*", outputPriSize, "int")
+        result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "ptr*", outputPriData, "uint*", outputPriSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27083,12 +27099,13 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {MrmResourceIndexerHandle} handle 
-     * @param {Pointer<MrmResourceIndexerMessage>} messages 
-     * @param {Pointer<UInt32>} numMsgs 
+     * @param {Pointer<Pointer<MrmResourceIndexerMessage>>} messages 
+     * @param {Pointer<Integer>} numMsgs 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmpeekresourceindexermessages
      */
     static MrmPeekResourceIndexerMessages(handle, messages, numMsgs) {
-        result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", "ptr", handle, "ptr", messages, "uint*", numMsgs, "int")
+        result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", "ptr", handle, "ptr*", messages, "uint*", numMsgs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27099,6 +27116,7 @@ class WindowsAndMessaging {
      * 
      * @param {MrmResourceIndexerHandle} indexer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmdestroyindexerandmessages
      */
     static MrmDestroyIndexerAndMessages(indexer) {
         result := DllCall("MrmSupport.dll\MrmDestroyIndexerAndMessages", "ptr", indexer, "int")
@@ -27110,8 +27128,9 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Byte>} data 
+     * @param {Pointer<Integer>} data 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmfreememory
      */
     static MrmFreeMemory(data) {
         result := DllCall("MrmSupport.dll\MrmFreeMemory", "char*", data, "int")
@@ -27128,6 +27147,7 @@ class WindowsAndMessaging {
      * @param {Integer} dumpType 
      * @param {PWSTR} outputXmlFile 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifile
      */
     static MrmDumpPriFile(indexFileName, schemaPriFile, dumpType, outputXmlFile) {
         indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
@@ -27146,15 +27166,16 @@ class WindowsAndMessaging {
      * @param {PWSTR} indexFileName 
      * @param {PWSTR} schemaPriFile 
      * @param {Integer} dumpType 
-     * @param {Pointer<Byte>} outputXmlData 
-     * @param {Pointer<UInt32>} outputXmlSize 
+     * @param {Pointer<Pointer<Integer>>} outputXmlData 
+     * @param {Pointer<Integer>} outputXmlSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumpprifileinmemory
      */
     static MrmDumpPriFileInMemory(indexFileName, schemaPriFile, dumpType, outputXmlData, outputXmlSize) {
         indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
         schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
 
-        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "char*", outputXmlData, "uint*", outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr*", outputXmlData, "uint*", outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27168,12 +27189,13 @@ class WindowsAndMessaging {
      * @param {Pointer} schemaPriData 
      * @param {Integer} schemaPriSize 
      * @param {Integer} dumpType 
-     * @param {Pointer<Byte>} outputXmlData 
-     * @param {Pointer<UInt32>} outputXmlSize 
+     * @param {Pointer<Pointer<Integer>>} outputXmlData 
+     * @param {Pointer<Integer>} outputXmlSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumppridatainmemory
      */
     static MrmDumpPriDataInMemory(inputPriData, inputPriSize, schemaPriData, schemaPriSize, dumpType, outputXmlData, outputXmlSize) {
-        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, "char*", outputXmlData, "uint*", outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, "ptr*", outputXmlData, "uint*", outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27186,6 +27208,7 @@ class WindowsAndMessaging {
      * @param {PWSTR} defaultQualifiers 
      * @param {PWSTR} outputXmlFile 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateconfig
      */
     static MrmCreateConfig(platformVersion, defaultQualifiers, outputXmlFile) {
         defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
@@ -27202,14 +27225,15 @@ class WindowsAndMessaging {
      * 
      * @param {Integer} platformVersion 
      * @param {PWSTR} defaultQualifiers 
-     * @param {Pointer<Byte>} outputXmlData 
-     * @param {Pointer<UInt32>} outputXmlSize 
+     * @param {Pointer<Pointer<Integer>>} outputXmlData 
+     * @param {Pointer<Integer>} outputXmlSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateconfiginmemory
      */
     static MrmCreateConfigInMemory(platformVersion, defaultQualifiers, outputXmlData, outputXmlSize) {
         defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
-        result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, "char*", outputXmlData, "uint*", outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, "ptr*", outputXmlData, "uint*", outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27219,7 +27243,7 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {PWSTR} priFile 
-     * @param {Pointer<UInt32>} checksum 
+     * @param {Pointer<Integer>} checksum 
      * @returns {HRESULT} 
      */
     static MrmGetPriFileContentChecksum(priFile, checksum) {

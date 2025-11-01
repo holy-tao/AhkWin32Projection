@@ -4,6 +4,8 @@
 #Include .\CLUSPROP_VALUE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_sz
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

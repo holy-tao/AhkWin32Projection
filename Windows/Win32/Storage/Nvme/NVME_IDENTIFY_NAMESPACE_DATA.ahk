@@ -4,6 +4,8 @@
 #Include .\NVME_LBA_FORMAT.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_namespace_data
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

@@ -4,6 +4,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/WinAuto/hwineventhook
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -34,7 +34,7 @@ class FIELD_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     fName {
         get => NumGet(this, 0, "ptr")
@@ -42,7 +42,7 @@ class FIELD_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     printName {
         get => NumGet(this, 8, "ptr")

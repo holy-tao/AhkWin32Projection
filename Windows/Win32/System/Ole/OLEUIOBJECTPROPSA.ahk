@@ -104,7 +104,7 @@ class OLEUIOBJECTPROPSA extends Win32Struct
 
     /**
      * Pointer to the interface to manipulate object.
-     * @type {Pointer<IOleUIObjInfoA>}
+     * @type {IOleUIObjInfoA}
      */
     lpObjInfo {
         get => NumGet(this, 24, "ptr")
@@ -122,7 +122,7 @@ class OLEUIOBJECTPROPSA extends Win32Struct
 
     /**
      * Pointer to the interface to manipulate link.
-     * @type {Pointer<IOleUILinkInfoA>}
+     * @type {IOleUILinkInfoA}
      */
     lpLinkInfo {
         get => NumGet(this, 40, "ptr")

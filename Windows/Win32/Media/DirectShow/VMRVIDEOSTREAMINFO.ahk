@@ -17,7 +17,7 @@ class VMRVIDEOSTREAMINFO extends Win32Struct
 
     /**
      * Specifies the DirectDraw surface that contains the video to be composited.
-     * @type {Pointer<IDirectDrawSurface7>}
+     * @type {IDirectDrawSurface7}
      */
     pddsVideoSurface {
         get => NumGet(this, 0, "ptr")

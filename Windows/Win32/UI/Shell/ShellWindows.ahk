@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/shell/shellwindows
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

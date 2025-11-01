@@ -19,7 +19,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM extends Win32Struct
 
     /**
      * An [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the current input field or frame.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pTexture2D {
         get => NumGet(this, 0, "ptr")

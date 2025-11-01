@@ -44,7 +44,7 @@ class MLOperatorAttributeNameValue extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     ints {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class MLOperatorAttributeNameValue extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     strings {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class MLOperatorAttributeNameValue extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     floats {
         get => NumGet(this, 16, "ptr")

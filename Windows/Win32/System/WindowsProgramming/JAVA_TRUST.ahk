@@ -60,7 +60,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The encoded permission blob.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbJavaPermissions {
         get => NumGet(this, 24, "ptr")
@@ -78,7 +78,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The encoded signer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSigner {
         get => NumGet(this, 40, "ptr")

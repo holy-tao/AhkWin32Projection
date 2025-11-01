@@ -33,7 +33,7 @@ class AM_WST_PAGE extends Win32Struct
 
     /**
      * A pointer to the page data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pucPageData {
         get => NumGet(this, 8, "ptr")

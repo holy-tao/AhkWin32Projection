@@ -20,7 +20,7 @@ class HYPER_SIZEDARR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 8, "ptr")

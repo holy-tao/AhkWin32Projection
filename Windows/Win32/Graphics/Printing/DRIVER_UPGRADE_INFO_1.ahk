@@ -12,7 +12,7 @@ class DRIVER_UPGRADE_INFO_1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pPrinterName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DRIVER_UPGRADE_INFO_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pOldDriverDirectory {
         get => NumGet(this, 8, "ptr")

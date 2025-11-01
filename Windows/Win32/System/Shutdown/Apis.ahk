@@ -868,7 +868,7 @@ class Shutdown {
      * Retrieves the reason string set by the ShutdownBlockReasonCreate function.
      * @param {HWND} hWnd A handle to the main window of the application.
      * @param {PWSTR} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
-     * @param {Pointer<UInt32>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
+     * @param {Pointer<Integer>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 

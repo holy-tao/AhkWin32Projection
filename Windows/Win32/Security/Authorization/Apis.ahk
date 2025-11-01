@@ -1760,7 +1760,7 @@ class Authorization {
      * @param {Integer} Flags Reserved for future use.
      * @param {HANDLE} TokenHandle A handle to the client token used to initialize the <i>pAuthzClientContext</i> parameter. The token must have been opened with TOKEN_QUERY access.
      * @param {AUTHZ_RESOURCE_MANAGER_HANDLE} hAuthzResourceManager A handle to the resource manager that created this client context. This handle is stored in the client context structure.
-     * @param {Pointer<Int64>} pExpirationTime Expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
+     * @param {Pointer<Integer>} pExpirationTime Expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
      * @param {LUID} Identifier Identifier that is specific to the resource manager. This parameter is not currently used.
      * @param {Pointer<Void>} DynamicGroupArgs A pointer to parameters to be passed to the callback function that computes dynamic groups.
      * @param {Pointer<AUTHZ_CLIENT_CONTEXT_HANDLE>} phAuthzClientContext A pointer to the <i>AuthzClientContext</i> handle returned. Call 
@@ -1851,7 +1851,7 @@ class Authorization {
      * @param {AUTHZ_RESOURCE_MANAGER_HANDLE} hAuthzResourceManager A handle to the resource manager creating this client context. This handle is stored in the client context structure. 
      * 
      * Starting with Windows 8 and Windows Server 2012, the resource manager can be local or remote and is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinitializeremoteresourcemanager">AuthzInitializeRemoteResourceManager</a> function.
-     * @param {Pointer<Int64>} pExpirationTime Expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
+     * @param {Pointer<Integer>} pExpirationTime Expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
      * @param {LUID} Identifier Specific identifier of the resource manager. This parameter is not currently used.
      * @param {Pointer<Void>} DynamicGroupArgs A pointer to parameters to be passed to the callback function that computes dynamic groups. This parameter can be <b>NULL</b> if no dynamic parameters are passed to the callback function. 
      * 
@@ -1880,7 +1880,7 @@ class Authorization {
      * Creates a new client context based on an existing client context.
      * @param {Integer} Flags Reserved for future use.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext The handle to an existing client context.
-     * @param {Pointer<Int64>} pExpirationTime Sets the time limit for how long the returned context structure is valid. If no value is passed, then the token never expires. Expiration time is not currently enforced.
+     * @param {Pointer<Integer>} pExpirationTime Sets the time limit for how long the returned context structure is valid. If no value is passed, then the token never expires. Expiration time is not currently enforced.
      * @param {LUID} Identifier The specific identifier for the resource manager.
      * @param {Pointer<Void>} DynamicGroupArgs A pointer to parameters to be passed to the callback function that computes dynamic groups. If the value is <b>NULL</b>, then the callback function is not called.
      * @param {Pointer<AUTHZ_CLIENT_CONTEXT_HANDLE>} phNewAuthzClientContext A pointer to the duplicated AUTHZ_CLIENT_CONTEXT_HANDLE handle. When you have finished using the handle, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreecontext">AuthzFreeContext</a> function.
@@ -1959,7 +1959,7 @@ class Authorization {
     /**
      * Modifies the security attribute information in the specified client context.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
-     * @param {Pointer<Int32>} pOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the types of modifications to make.
+     * @param {Pointer<Integer>} pOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the types of modifications to make.
      * 
      * This array must have only one element if the value of that element is <b>AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE_ALL</b>. Otherwise, the array has the same number of elements as the <i>pAttributes</i> array.
      * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTES_INFORMATION>} pAttributes A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that specifies the attributes to modify.
@@ -1986,7 +1986,7 @@ class Authorization {
      * Adds, deletes, or modifies user and device claims in the Authz client context.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
      * @param {Integer} ClaimClass Type of information to be modified. The caller can specify AuthzContextInfoUserClaims or AuthzContextInfoDeviceClaims.
-     * @param {Pointer<Int32>} pClaimOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the type of claim modification to make.
+     * @param {Pointer<Integer>} pClaimOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the type of claim modification to make.
      * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTES_INFORMATION>} pClaims A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that specifies the claims to modify.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -2011,7 +2011,7 @@ class Authorization {
      * Adds, deletes, or modifies user and device groups in the Authz client context.
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
      * @param {Integer} SidClass Type of information to be modified. The caller can specify AuthzContextInfoGroupsSids, AuthzContextInfoRestrictedSids, or AuthzContextInfoDeviceSids.
-     * @param {Pointer<Int32>} pSidOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_sid_operation">AUTHZ_SID_OPERATION</a> enumeration values that specify the group modifications to make.
+     * @param {Pointer<Integer>} pSidOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_sid_operation">AUTHZ_SID_OPERATION</a> enumeration values that specify the group modifications to make.
      * @param {Pointer<TOKEN_GROUPS>} pSids A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that specifies the groups to modify.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -2062,7 +2062,7 @@ class Authorization {
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the context.
      * @param {Integer} InfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_context_information_class">AUTHZ_CONTEXT_INFORMATION_CLASS</a> enumeration that indicates the type of information to be returned.
      * @param {Integer} BufferSize Size of the buffer passed.
-     * @param {Pointer<UInt32>} pSizeRequired A pointer to a <b>DWORD</b> of  the buffer size required for returning the structure.
+     * @param {Pointer<Integer>} pSizeRequired A pointer to a <b>DWORD</b> of  the buffer size required for returning the structure.
      * @param {Pointer<Void>} Buffer A pointer to memory that can receive the information. The structure returned depends on the information requested in the <i>InfoClass</i> parameter.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
@@ -2314,8 +2314,8 @@ class Authorization {
      * Retrieves the registered security event sources that are not installed by default.
      * @param {Integer} dwFlags Reserved for future use; set this parameter to zero.
      * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} Buffer A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_source_schema_registration">AUTHZ_SOURCE_SCHEMA_REGISTRATION</a> structures that returns the registered security event sources.
-     * @param {Pointer<UInt32>} pdwCount A pointer to a  variable that receives the number of event sources found.
-     * @param {Pointer<UInt32>} pdwLength A pointer to a variable that specifies the length of the <i>Buffer</i> parameter in bytes. On output, this parameter receives the number of bytes used or required.
+     * @param {Pointer<Integer>} pdwCount A pointer to a  variable that receives the number of event sources found.
+     * @param {Pointer<Integer>} pdwLength A pointer to a variable that specifies the length of the <i>Buffer</i> parameter in bytes. On output, this parameter receives the number of bytes used or required.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2523,7 +2523,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures in the <i>pListOfExplicitEntries</i> array.
      * @param {Pointer<EXPLICIT_ACCESS_A>} pListOfExplicitEntries A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the access control information to merge into the existing ACL.
      * @param {Pointer<ACL>} OldAcl A pointer to the existing ACL. This parameter can be <b>NULL</b>, in which case, the function creates a new ACL based on the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> entries.
-     * @param {Pointer<ACL>} NewAcl A pointer to a variable that receives a pointer to the new ACL. If the function succeeds, you must call the 
+     * @param {Pointer<Pointer<ACL>>} NewAcl A pointer to a variable that receives a pointer to the new ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2532,7 +2532,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetEntriesInAclA(cCountOfExplicitEntries, pListOfExplicitEntries, OldAcl, NewAcl) {
-        result := DllCall("ADVAPI32.dll\SetEntriesInAclA", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, "ptr", NewAcl, "uint")
+        result := DllCall("ADVAPI32.dll\SetEntriesInAclA", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, "ptr*", NewAcl, "uint")
         return result
     }
 
@@ -2542,7 +2542,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures in the <i>pListOfExplicitEntries</i> array.
      * @param {Pointer<EXPLICIT_ACCESS_W>} pListOfExplicitEntries A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the access control information to merge into the existing ACL.
      * @param {Pointer<ACL>} OldAcl A pointer to the existing ACL. This parameter can be <b>NULL</b>, in which case, the function creates a new ACL based on the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> entries.
-     * @param {Pointer<ACL>} NewAcl A pointer to a variable that receives a pointer to the new ACL. If the function succeeds, you must call the 
+     * @param {Pointer<Pointer<ACL>>} NewAcl A pointer to a variable that receives a pointer to the new ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2551,7 +2551,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetEntriesInAclW(cCountOfExplicitEntries, pListOfExplicitEntries, OldAcl, NewAcl) {
-        result := DllCall("ADVAPI32.dll\SetEntriesInAclW", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, "ptr", NewAcl, "uint")
+        result := DllCall("ADVAPI32.dll\SetEntriesInAclW", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, "ptr*", NewAcl, "uint")
         return result
     }
 
@@ -2560,8 +2560,8 @@ class Authorization {
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> information.
-     * @param {Pointer<UInt32>} pcCountOfExplicitEntries A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfExplicitEntries</i> array.
-     * @param {Pointer<EXPLICIT_ACCESS_A>} pListOfExplicitEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the ACL. If the function succeeds, you must call the 
+     * @param {Pointer<Integer>} pcCountOfExplicitEntries A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfExplicitEntries</i> array.
+     * @param {Pointer<Pointer<EXPLICIT_ACCESS_A>>} pListOfExplicitEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2570,7 +2570,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetExplicitEntriesFromAclA(pacl, pcCountOfExplicitEntries, pListOfExplicitEntries) {
-        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclA", "ptr", pacl, "uint*", pcCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "uint")
+        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclA", "ptr", pacl, "uint*", pcCountOfExplicitEntries, "ptr*", pListOfExplicitEntries, "uint")
         return result
     }
 
@@ -2579,8 +2579,8 @@ class Authorization {
      * @param {Pointer<ACL>} pacl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> information.
-     * @param {Pointer<UInt32>} pcCountOfExplicitEntries A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfExplicitEntries</i> array.
-     * @param {Pointer<EXPLICIT_ACCESS_W>} pListOfExplicitEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the ACL. If the function succeeds, you must call the 
+     * @param {Pointer<Integer>} pcCountOfExplicitEntries A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfExplicitEntries</i> array.
+     * @param {Pointer<Pointer<EXPLICIT_ACCESS_W>>} pListOfExplicitEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the ACL. If the function succeeds, you must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2589,7 +2589,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetExplicitEntriesFromAclW(pacl, pcCountOfExplicitEntries, pListOfExplicitEntries) {
-        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclW", "ptr", pacl, "uint*", pcCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "uint")
+        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclW", "ptr", pacl, "uint*", pcCountOfExplicitEntries, "ptr*", pListOfExplicitEntries, "uint")
         return result
     }
 
@@ -2599,7 +2599,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's effective access rights.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the trustee. A trustee can be a user, group, or program (such as a Windows service). You can use a name or a security identifier (<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a>) to identify a trustee.
-     * @param {Pointer<UInt32>} pAccessRights A pointer to an 
+     * @param {Pointer<Integer>} pAccessRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> variable that receives the effective access rights of the trustee.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2618,7 +2618,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's effective access rights.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the trustee. A trustee can be a user, group, or program (such as a Windows service). You can use a name or a security identifier (<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a>) to identify a trustee.
-     * @param {Pointer<UInt32>} pAccessRights A pointer to an 
+     * @param {Pointer<Integer>} pAccessRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> variable that receives the effective access rights of the trustee.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2637,9 +2637,9 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's audited access rights.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the trustee. A trustee can be a user, group, or program (such as a Windows service). You can use a name or a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) to identify a trustee. For information about SID structures, see <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a>.
-     * @param {Pointer<UInt32>} pSuccessfulAuditedRights A pointer to an 
+     * @param {Pointer<Integer>} pSuccessfulAuditedRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the successful audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee successfully uses any of these access rights.
-     * @param {Pointer<UInt32>} pFailedAuditRights A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the failed audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee fails in an attempt to use any of these rights.
+     * @param {Pointer<Integer>} pFailedAuditRights A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the failed audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee fails in an attempt to use any of these rights.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
@@ -2657,9 +2657,9 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure from which to get the trustee's audited access rights.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the trustee. A trustee can be a user, group, or program (such as a Windows service). You can use a name or a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) to identify a trustee. For information about SID structures, see <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a>.
-     * @param {Pointer<UInt32>} pSuccessfulAuditedRights A pointer to an 
+     * @param {Pointer<Integer>} pSuccessfulAuditedRights A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the successful audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee successfully uses any of these access rights.
-     * @param {Pointer<UInt32>} pFailedAuditRights A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the failed audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee fails in an attempt to use any of these rights.
+     * @param {Pointer<Integer>} pFailedAuditRights A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that receives the failed audit mask for rights audited for the trustee specified by the <i>pTrustee</i> parameter. The system generates an audit record when the trustee fails in an attempt to use any of these rights.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
@@ -2681,8 +2681,8 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
      * @param {Pointer<PSID>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or <b>NULL</b> if  the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the group SID.
-     * @param {Pointer<ACL>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or <b>NULL</b> if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the DACL.
-     * @param {Pointer<ACL>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor  or <b>NULL</b> if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the SACL.
+     * @param {Pointer<Pointer<ACL>>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or <b>NULL</b> if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the DACL.
+     * @param {Pointer<Pointer<ACL>>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor  or <b>NULL</b> if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the SACL.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
@@ -2696,7 +2696,7 @@ class Authorization {
     static GetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr*", ppDacl, "ptr*", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2710,8 +2710,8 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
      * @param {Pointer<PSID>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or <b>NULL</b> if  the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the group SID.
-     * @param {Pointer<ACL>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or <b>NULL</b> if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the DACL.
-     * @param {Pointer<ACL>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor  or <b>NULL</b> if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the SACL.
+     * @param {Pointer<Pointer<ACL>>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or <b>NULL</b> if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the DACL.
+     * @param {Pointer<Pointer<ACL>>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor  or <b>NULL</b> if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the SACL.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
@@ -2725,7 +2725,7 @@ class Authorization {
     static GetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr*", ppDacl, "ptr*", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2738,8 +2738,8 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the security descriptor returned in <i>ppSecurityDescriptor</i>. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the owner SID.
      * @param {Pointer<PSID>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the group SID.
-     * @param {Pointer<ACL>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the DACL.
-     * @param {Pointer<ACL>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the SACL.
+     * @param {Pointer<Pointer<ACL>>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the DACL.
+     * @param {Pointer<Pointer<ACL>>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the SACL.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
@@ -2753,7 +2753,7 @@ class Authorization {
     static GetSecurityInfo(handle, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
-        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr*", ppDacl, "ptr*", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2854,7 +2854,7 @@ class Authorization {
      * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
      * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
-     * @param {Pointer<Guid>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
+     * @param {Pointer<Pointer<Guid>>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
      * @param {Integer} GuidCount Number of GUIDs pointed to by <i>pObjectClassGuids</i>.
      * @param {Pointer<ACL>} pAcl The ACL for the object.
      * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
@@ -2869,7 +2869,7 @@ class Authorization {
     static GetInheritanceSourceA(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr*", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -2879,7 +2879,7 @@ class Authorization {
      * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
      * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
-     * @param {Pointer<Guid>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
+     * @param {Pointer<Pointer<Guid>>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
      * @param {Integer} GuidCount Number of GUIDs pointed to by <i>pObjectClassGuids</i>.
      * @param {Pointer<ACL>} pAcl The ACL for the object.
      * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
@@ -2894,7 +2894,7 @@ class Authorization {
     static GetInheritanceSourceW(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr*", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -3078,7 +3078,7 @@ class Authorization {
      * If <i>pListOfAuditEntries</i> is <b>NULL</b>, the new security descriptor gets the SACL from <i>pOldSD</i>. In this case, if <i>pOldSD</i> is <b>NULL</b>, or the SACL in <i>pOldSD</i> is <b>NULL</b>, the new SACL is <b>NULL</b>.
      * @param {PSECURITY_DESCRIPTOR} pOldSD A pointer to an existing self-relative 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure and its associated security information. The function builds the new security descriptor by merging the specified owner, group, access control, and audit-control information with the information in this security descriptor. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
+     * @param {Pointer<Integer>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
@@ -3131,7 +3131,7 @@ class Authorization {
      * If <i>pListOfAuditEntries</i> is <b>NULL</b>, the new security descriptor gets the SACL from <i>pOldSD</i>. In this case, if <i>pOldSD</i> is <b>NULL</b>, or the SACL in <i>pOldSD</i> is <b>NULL</b>, the new SACL is <b>NULL</b>.
      * @param {PSECURITY_DESCRIPTOR} pOldSD A pointer to an existing self-relative 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure and its associated security information. The function builds the new security descriptor by merging the specified owner, group, access control, and audit-control information with the information in this security descriptor. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
+     * @param {Pointer<Integer>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
@@ -3150,7 +3150,7 @@ class Authorization {
 
     /**
      * Retrieves security information from a self-relative security descriptor.
-     * @param {Pointer<TRUSTEE_A>} ppOwner A pointer to a variable that receives a pointer to a 
+     * @param {Pointer<Pointer<TRUSTEE_A>>} ppOwner A pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the owner 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID)  in the <i>pSD</i> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME. 
      * 
@@ -3158,20 +3158,20 @@ class Authorization {
      * 
      * 
      * This parameter can be <b>NULL</b> if you are not interested in the name of the owner.
-     * @param {Pointer<TRUSTEE_A>} ppGroup A pointer to a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the primary group SID of the security descriptor, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME.  
+     * @param {Pointer<Pointer<TRUSTEE_A>>} ppGroup A pointer to a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the primary group SID of the security descriptor, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME.  
      * 
      * 
      * 
      * 
      * This parameter can be <b>NULL</b> if you are not interested in the name of the group.
-     * @param {Pointer<UInt32>} pcCountOfAccessEntries A pointer to a <b>ULONG</b> that receives the number of 
+     * @param {Pointer<Integer>} pcCountOfAccessEntries A pointer to a <b>ULONG</b> that receives the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAccessEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAccessEntries</i> parameter is also <b>NULL</b>.
-     * @param {Pointer<EXPLICIT_ACCESS_A>} ppListOfAccessEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the security descriptor. The 
+     * @param {Pointer<Pointer<EXPLICIT_ACCESS_A>>} ppListOfAccessEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the security descriptor. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures use the TRUSTEE_IS_NAME form. For a description of how an array of <b>EXPLICIT_ACCESS</b> structures describes the ACEs in an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL), see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getexplicitentriesfromacla">GetExplicitEntriesFromAcl</a> function. If this parameter is <b>NULL</b>, the <i>cCountOfAccessEntries</i> parameter must also be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
-     * @param {Pointer<EXPLICIT_ACCESS_A>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
+     * @param {Pointer<Integer>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
+     * @param {Pointer<Pointer<EXPLICIT_ACCESS_A>>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
      * @param {PSECURITY_DESCRIPTOR} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -3182,13 +3182,13 @@ class Authorization {
     static LookupSecurityDescriptorPartsA(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
         pSD := pSD is Win32Handle ? NumGet(pSD, "ptr") : pSD
 
-        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsA", "ptr", ppOwner, "ptr", ppGroup, "uint*", pcCountOfAccessEntries, "ptr", ppListOfAccessEntries, "uint*", pcCountOfAuditEntries, "ptr", ppListOfAuditEntries, "ptr", pSD, "uint")
+        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsA", "ptr*", ppOwner, "ptr*", ppGroup, "uint*", pcCountOfAccessEntries, "ptr*", ppListOfAccessEntries, "uint*", pcCountOfAuditEntries, "ptr*", ppListOfAuditEntries, "ptr", pSD, "uint")
         return result
     }
 
     /**
      * Retrieves security information from a self-relative security descriptor.
-     * @param {Pointer<TRUSTEE_W>} ppOwner A pointer to a variable that receives a pointer to a 
+     * @param {Pointer<Pointer<TRUSTEE_W>>} ppOwner A pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the owner 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID)  in the <i>pSD</i> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME. 
      * 
@@ -3196,20 +3196,20 @@ class Authorization {
      * 
      * 
      * This parameter can be <b>NULL</b> if you are not interested in the name of the owner.
-     * @param {Pointer<TRUSTEE_W>} ppGroup A pointer to a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the primary group SID of the security descriptor, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME.  
+     * @param {Pointer<Pointer<TRUSTEE_W>>} ppGroup A pointer to a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function looks up the name associated with the primary group SID of the security descriptor, and returns a pointer to the name in the <b>ptstrName</b> member of the <b>TRUSTEE</b> structure. The function sets the <b>TrusteeForm</b> member to TRUSTEE_IS_NAME.  
      * 
      * 
      * 
      * 
      * This parameter can be <b>NULL</b> if you are not interested in the name of the group.
-     * @param {Pointer<UInt32>} pcCountOfAccessEntries A pointer to a <b>ULONG</b> that receives the number of 
+     * @param {Pointer<Integer>} pcCountOfAccessEntries A pointer to a <b>ULONG</b> that receives the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAccessEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAccessEntries</i> parameter is also <b>NULL</b>.
-     * @param {Pointer<EXPLICIT_ACCESS_W>} ppListOfAccessEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the security descriptor. The 
+     * @param {Pointer<Pointer<EXPLICIT_ACCESS_W>>} ppListOfAccessEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the security descriptor. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures use the TRUSTEE_IS_NAME form. For a description of how an array of <b>EXPLICIT_ACCESS</b> structures describes the ACEs in an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL), see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getexplicitentriesfromacla">GetExplicitEntriesFromAcl</a> function. If this parameter is <b>NULL</b>, the <i>cCountOfAccessEntries</i> parameter must also be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
-     * @param {Pointer<EXPLICIT_ACCESS_W>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
+     * @param {Pointer<Integer>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
+     * @param {Pointer<Pointer<EXPLICIT_ACCESS_W>>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
      * @param {PSECURITY_DESCRIPTOR} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -3220,7 +3220,7 @@ class Authorization {
     static LookupSecurityDescriptorPartsW(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
         pSD := pSD is Win32Handle ? NumGet(pSD, "ptr") : pSD
 
-        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsW", "ptr", ppOwner, "ptr", ppGroup, "uint*", pcCountOfAccessEntries, "ptr", ppListOfAccessEntries, "uint*", pcCountOfAuditEntries, "ptr", ppListOfAuditEntries, "ptr", pSD, "uint")
+        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsW", "ptr*", ppOwner, "ptr*", ppGroup, "uint*", pcCountOfAccessEntries, "ptr*", ppListOfAccessEntries, "uint*", pcCountOfAuditEntries, "ptr*", ppListOfAuditEntries, "ptr", pSD, "uint")
         return result
     }
 
@@ -4240,7 +4240,7 @@ class Authorization {
      * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
-     * @param {Pointer<UInt32>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
+     * @param {Pointer<Integer>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4308,7 +4308,7 @@ class Authorization {
      * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
-     * @param {Pointer<UInt32>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
+     * @param {Pointer<Integer>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4380,7 +4380,7 @@ class Authorization {
      * @param {Pointer<PSTR>} StringSecurityDescriptor A pointer to a variable that receives a pointer to a <b>null</b>-terminated security descriptor string. For a description of the string format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @param {Pointer<UInt32>} StringSecurityDescriptorLen A pointer to a variable that receives the size, in <b>TCHAR</b>s, of the security descriptor string returned in the <i>StringSecurityDescriptor</i> buffer. This parameter can be <b>NULL</b> if you do not need to retrieve the size. The size represents the size of the buffer in <b>WCHAR</b>s, not the number of <b>WCHAR</b>s in the string.
+     * @param {Pointer<Integer>} StringSecurityDescriptorLen A pointer to a variable that receives the size, in <b>TCHAR</b>s, of the security descriptor string returned in the <i>StringSecurityDescriptor</i> buffer. This parameter can be <b>NULL</b> if you do not need to retrieve the size. The size represents the size of the buffer in <b>WCHAR</b>s, not the number of <b>WCHAR</b>s in the string.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4463,7 +4463,7 @@ class Authorization {
      * @param {Pointer<PWSTR>} StringSecurityDescriptor A pointer to a variable that receives a pointer to a <b>null</b>-terminated security descriptor string. For a description of the string format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @param {Pointer<UInt32>} StringSecurityDescriptorLen A pointer to a variable that receives the size, in <b>TCHAR</b>s, of the security descriptor string returned in the <i>StringSecurityDescriptor</i> buffer. This parameter can be <b>NULL</b> if you do not need to retrieve the size. The size represents the size of the buffer in <b>WCHAR</b>s, not the number of <b>WCHAR</b>s in the string.
+     * @param {Pointer<Integer>} StringSecurityDescriptorLen A pointer to a variable that receives the size, in <b>TCHAR</b>s, of the security descriptor string returned in the <i>StringSecurityDescriptor</i> buffer. This parameter can be <b>NULL</b> if you do not need to retrieve the size. The size represents the size of the buffer in <b>WCHAR</b>s, not the number of <b>WCHAR</b>s in the string.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 

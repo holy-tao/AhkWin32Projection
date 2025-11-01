@@ -15,7 +15,7 @@ class VDS_ISCSI_IPSEC_KEY extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pKey {
         get => NumGet(this, 0, "ptr")

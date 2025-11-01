@@ -91,7 +91,7 @@ class CRYPT_XML_SIGNATURE extends Win32Struct
 
     /**
      * Optional. A pointer to an array of  pointers to <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_object">CRYPT_XML_OBJECT</a> structures that  contain information that is encoded in <b>Object</b> elements.
-     * @type {Pointer<CRYPT_XML_OBJECT>}
+     * @type {Pointer<Pointer<CRYPT_XML_OBJECT>>}
      */
     rgpObject {
         get => NumGet(this, 168, "ptr")

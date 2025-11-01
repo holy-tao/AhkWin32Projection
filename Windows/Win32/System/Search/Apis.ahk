@@ -17419,8 +17419,9 @@ class Search {
      * @param {Integer} TargetType 
      * @param {Pointer<Void>} TargetValue 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int64>} StrLen_or_Ind 
+     * @param {Pointer<Integer>} StrLen_or_Ind 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbindcol-function
      */
     static SQLBindCol(StatementHandle, ColumnNumber, TargetType, TargetValue, BufferLength, StrLen_or_Ind) {
         result := DllCall("ODBC32.dll\SQLBindCol", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "int64*", StrLen_or_Ind, "short")
@@ -17436,7 +17437,7 @@ class Search {
      * @param {Integer} LengthPrecision 
      * @param {Integer} ParameterScale 
      * @param {Pointer<Void>} ParameterValue 
-     * @param {Pointer<Int64>} StrLen_or_Ind 
+     * @param {Pointer<Integer>} StrLen_or_Ind 
      * @returns {Integer} 
      * @deprecated
      */
@@ -17452,9 +17453,10 @@ class Search {
      * @param {Integer} FieldIdentifier 
      * @param {Pointer} CharacterAttribute 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} StringLength 
-     * @param {Pointer<Int64>} NumericAttribute 
+     * @param {Pointer<Integer>} StringLength 
+     * @param {Pointer<Integer>} NumericAttribute 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolattribute-function
      */
     static SQLColAttribute(StatementHandle, ColumnNumber, FieldIdentifier, CharacterAttribute, BufferLength, StringLength, NumericAttribute) {
         result := DllCall("ODBC32.dll\SQLColAttribute", "ptr", StatementHandle, "ushort", ColumnNumber, "ushort", FieldIdentifier, "ptr", CharacterAttribute, "short", BufferLength, "short*", StringLength, "int64*", NumericAttribute, "short")
@@ -17465,14 +17467,15 @@ class Search {
      * 
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} ColumnNumber 
-     * @param {Pointer<Byte>} ColumnName 
+     * @param {Pointer<Integer>} ColumnName 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} NameLength 
-     * @param {Pointer<Int16>} DataType 
-     * @param {Pointer<UInt64>} ColumnSize 
-     * @param {Pointer<Int16>} DecimalDigits 
-     * @param {Pointer<Int16>} Nullable 
+     * @param {Pointer<Integer>} NameLength 
+     * @param {Pointer<Integer>} DataType 
+     * @param {Pointer<Integer>} ColumnSize 
+     * @param {Pointer<Integer>} DecimalDigits 
+     * @param {Pointer<Integer>} Nullable 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldescribecol-function
      */
     static SQLDescribeCol(StatementHandle, ColumnNumber, ColumnName, BufferLength, NameLength, DataType, ColumnSize, DecimalDigits, Nullable) {
         result := DllCall("ODBC32.dll\SQLDescribeCol", "ptr", StatementHandle, "ushort", ColumnNumber, "char*", ColumnName, "short", BufferLength, "short*", NameLength, "short*", DataType, "uint*", ColumnSize, "short*", DecimalDigits, "short*", Nullable, "short")
@@ -17485,6 +17488,7 @@ class Search {
      * @param {Integer} FetchOrientation 
      * @param {Integer} FetchOffset 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfetchscroll-function
      */
     static SQLFetchScroll(StatementHandle, FetchOrientation, FetchOffset) {
         result := DllCall("ODBC32.dll\SQLFetchScroll", "ptr", StatementHandle, "short", FetchOrientation, "int64", FetchOffset, "short")
@@ -17498,8 +17502,9 @@ class Search {
      * @param {Integer} TargetType 
      * @param {Pointer<Void>} TargetValue 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int64>} StrLen_or_IndPtr 
+     * @param {Pointer<Integer>} StrLen_or_IndPtr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdata-function
      */
     static SQLGetData(StatementHandle, ColumnNumber, TargetType, TargetValue, BufferLength, StrLen_or_IndPtr) {
         result := DllCall("ODBC32.dll\SQLGetData", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "int64*", StrLen_or_IndPtr, "short")
@@ -17510,16 +17515,17 @@ class Search {
      * 
      * @param {Pointer<Void>} DescriptorHandle 
      * @param {Integer} RecNumber 
-     * @param {Pointer<Byte>} Name 
+     * @param {Pointer<Integer>} Name 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} StringLengthPtr 
-     * @param {Pointer<Int16>} TypePtr 
-     * @param {Pointer<Int16>} SubTypePtr 
-     * @param {Pointer<Int64>} LengthPtr 
-     * @param {Pointer<Int16>} PrecisionPtr 
-     * @param {Pointer<Int16>} ScalePtr 
-     * @param {Pointer<Int16>} NullablePtr 
+     * @param {Pointer<Integer>} StringLengthPtr 
+     * @param {Pointer<Integer>} TypePtr 
+     * @param {Pointer<Integer>} SubTypePtr 
+     * @param {Pointer<Integer>} LengthPtr 
+     * @param {Pointer<Integer>} PrecisionPtr 
+     * @param {Pointer<Integer>} ScalePtr 
+     * @param {Pointer<Integer>} NullablePtr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdescrec-function
      */
     static SQLGetDescRec(DescriptorHandle, RecNumber, Name, BufferLength, StringLengthPtr, TypePtr, SubTypePtr, LengthPtr, PrecisionPtr, ScalePtr, NullablePtr) {
         result := DllCall("ODBC32.dll\SQLGetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "char*", Name, "short", BufferLength, "short*", StringLengthPtr, "short*", TypePtr, "short*", SubTypePtr, "int64*", LengthPtr, "short*", PrecisionPtr, "short*", ScalePtr, "short*", NullablePtr, "short")
@@ -17532,6 +17538,7 @@ class Search {
      * @param {Pointer<Void>} Data 
      * @param {Integer} StrLen_or_Ind 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlputdata-function
      */
     static SQLPutData(StatementHandle, Data, StrLen_or_Ind) {
         result := DllCall("ODBC32.dll\SQLPutData", "ptr", StatementHandle, "ptr", Data, "int64", StrLen_or_Ind, "short")
@@ -17541,8 +17548,9 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Int64>} RowCount 
+     * @param {Pointer<Integer>} RowCount 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlrowcount-function
      */
     static SQLRowCount(StatementHandle, RowCount) {
         result := DllCall("ODBC32.dll\SQLRowCount", "ptr", StatementHandle, "int64*", RowCount, "short")
@@ -17555,6 +17563,7 @@ class Search {
      * @param {Integer} Option 
      * @param {Integer} Value 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetconnectoption-function
      * @deprecated
      */
     static SQLSetConnectOption(ConnectionHandle, Option, Value) {
@@ -17572,9 +17581,10 @@ class Search {
      * @param {Integer} Precision 
      * @param {Integer} Scale 
      * @param {Pointer} Data 
-     * @param {Pointer<Int64>} StringLength 
-     * @param {Pointer<Int64>} Indicator 
+     * @param {Pointer<Integer>} StringLength 
+     * @param {Pointer<Integer>} Indicator 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetdescrec-function
      */
     static SQLSetDescRec(DescriptorHandle, RecNumber, Type, SubType, Length, Precision, Scale, Data, StringLength, Indicator) {
         result := DllCall("ODBC32.dll\SQLSetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "short", Type, "short", SubType, "int64", Length, "short", Precision, "short", Scale, "ptr", Data, "int64*", StringLength, "int64*", Indicator, "short")
@@ -17590,8 +17600,9 @@ class Search {
      * @param {Integer} LengthPrecision 
      * @param {Integer} ParameterScale 
      * @param {Pointer<Void>} ParameterValue 
-     * @param {Pointer<Int64>} StrLen_or_Ind 
+     * @param {Pointer<Integer>} StrLen_or_Ind 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetparam-function
      * @deprecated
      */
     static SQLSetParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {
@@ -17605,6 +17616,7 @@ class Search {
      * @param {Integer} Option 
      * @param {Integer} Value 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetstmtoption-function
      * @deprecated
      */
     static SQLSetStmtOption(StatementHandle, Option, Value) {
@@ -17619,9 +17631,10 @@ class Search {
      * @param {Integer} fDescType 
      * @param {Pointer<Void>} rgbDesc 
      * @param {Integer} cbDescMax 
-     * @param {Pointer<Int16>} pcbDesc 
-     * @param {Pointer<Int64>} pfDesc 
+     * @param {Pointer<Integer>} pcbDesc 
+     * @param {Pointer<Integer>} pfDesc 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolattributes-function
      */
     static SQLColAttributes(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
         result := DllCall("ODBC32.dll\SQLColAttributes", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "short*", pcbDesc, "int64*", pfDesc, "short")
@@ -17632,11 +17645,12 @@ class Search {
      * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} ipar 
-     * @param {Pointer<Int16>} pfSqlType 
-     * @param {Pointer<UInt64>} pcbParamDef 
-     * @param {Pointer<Int16>} pibScale 
-     * @param {Pointer<Int16>} pfNullable 
+     * @param {Pointer<Integer>} pfSqlType 
+     * @param {Pointer<Integer>} pcbParamDef 
+     * @param {Pointer<Integer>} pibScale 
+     * @param {Pointer<Integer>} pfNullable 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldescribeparam-function
      */
     static SQLDescribeParam(hstmt, ipar, pfSqlType, pcbParamDef, pibScale, pfNullable) {
         result := DllCall("ODBC32.dll\SQLDescribeParam", "ptr", hstmt, "ushort", ipar, "short*", pfSqlType, "uint*", pcbParamDef, "short*", pibScale, "short*", pfNullable, "short")
@@ -17648,9 +17662,10 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fFetchType 
      * @param {Integer} irow 
-     * @param {Pointer<UInt64>} pcrow 
-     * @param {Pointer<UInt16>} rgfRowStatus 
+     * @param {Pointer<Integer>} pcrow 
+     * @param {Pointer<Integer>} rgfRowStatus 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlextendedfetch-function
      */
     static SQLExtendedFetch(hstmt, fFetchType, irow, pcrow, rgfRowStatus) {
         result := DllCall("ODBC32.dll\SQLExtendedFetch", "ptr", hstmt, "ushort", fFetchType, "int64", irow, "uint*", pcrow, "ushort*", rgfRowStatus, "short")
@@ -17661,8 +17676,9 @@ class Search {
      * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} crow 
-     * @param {Pointer<UInt64>} pirow 
+     * @param {Pointer<Integer>} pirow 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlparamoptions-function
      */
     static SQLParamOptions(hstmt, crow, pirow) {
         result := DllCall("ODBC32.dll\SQLParamOptions", "ptr", hstmt, "uint", crow, "uint*", pirow, "short")
@@ -17676,6 +17692,7 @@ class Search {
      * @param {Integer} fOption 
      * @param {Integer} fLock 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetpos-function
      */
     static SQLSetPos(hstmt, irow, fOption, fLock) {
         result := DllCall("ODBC32.dll\SQLSetPos", "ptr", hstmt, "uint", irow, "ushort", fOption, "ushort", fLock, "short")
@@ -17693,8 +17710,9 @@ class Search {
      * @param {Integer} ibScale 
      * @param {Pointer<Void>} rgbValue 
      * @param {Integer} cbValueMax 
-     * @param {Pointer<Int64>} pcbValue 
+     * @param {Pointer<Integer>} pcbValue 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbindparameter-function
      */
     static SQLBindParameter(hstmt, ipar, fParamType, fCType, fSqlType, cbColDef, ibScale, rgbValue, cbValueMax, pcbValue) {
         result := DllCall("ODBC32.dll\SQLBindParameter", "ptr", hstmt, "ushort", ipar, "short", fParamType, "short", fCType, "short", fSqlType, "uint", cbColDef, "short", ibScale, "ptr", rgbValue, "int64", cbValueMax, "int64*", pcbValue, "short")
@@ -17708,6 +17726,7 @@ class Search {
      * @param {Integer} crowKeyset 
      * @param {Integer} crowRowset 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetscrolloptions-function
      */
     static SQLSetScrollOptions(hstmt, fConcurrency, crowKeyset, crowRowset) {
         result := DllCall("ODBC32.dll\SQLSetScrollOptions", "ptr", hstmt, "ushort", fConcurrency, "int64", crowKeyset, "ushort", crowRowset, "short")
@@ -17721,8 +17740,8 @@ class Search {
      * @param {Integer} iField 
      * @param {Pointer} pCharAttr 
      * @param {Integer} cbDescMax 
-     * @param {Pointer<Int16>} pcbCharAttr 
-     * @param {Pointer<Int64>} pNumAttr 
+     * @param {Pointer<Integer>} pcbCharAttr 
+     * @param {Pointer<Integer>} pNumAttr 
      * @returns {Integer} 
      */
     static SQLColAttributeW(hstmt, iCol, iField, pCharAttr, cbDescMax, pcbCharAttr, pNumAttr) {
@@ -17737,8 +17756,8 @@ class Search {
      * @param {Integer} fDescType 
      * @param {Pointer} rgbDesc 
      * @param {Integer} cbDescMax 
-     * @param {Pointer<Int16>} pcbDesc 
-     * @param {Pointer<Int64>} pfDesc 
+     * @param {Pointer<Integer>} pcbDesc 
+     * @param {Pointer<Integer>} pfDesc 
      * @returns {Integer} 
      */
     static SQLColAttributesW(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
@@ -17750,13 +17769,13 @@ class Search {
      * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
-     * @param {Pointer<UInt16>} szColName 
+     * @param {Pointer<Integer>} szColName 
      * @param {Integer} cchColNameMax 
-     * @param {Pointer<Int16>} pcchColName 
-     * @param {Pointer<Int16>} pfSqlType 
-     * @param {Pointer<UInt64>} pcbColDef 
-     * @param {Pointer<Int16>} pibScale 
-     * @param {Pointer<Int16>} pfNullable 
+     * @param {Pointer<Integer>} pcchColName 
+     * @param {Pointer<Integer>} pfSqlType 
+     * @param {Pointer<Integer>} pcbColDef 
+     * @param {Pointer<Integer>} pibScale 
+     * @param {Pointer<Integer>} pfNullable 
      * @returns {Integer} 
      */
     static SQLDescribeColW(hstmt, icol, szColName, cchColNameMax, pcchColName, pfSqlType, pcbColDef, pibScale, pfNullable) {
@@ -17768,15 +17787,15 @@ class Search {
      * 
      * @param {Pointer<Void>} hdesc 
      * @param {Integer} iRecord 
-     * @param {Pointer<UInt16>} szName 
+     * @param {Pointer<Integer>} szName 
      * @param {Integer} cchNameMax 
-     * @param {Pointer<Int16>} pcchName 
-     * @param {Pointer<Int16>} pfType 
-     * @param {Pointer<Int16>} pfSubType 
-     * @param {Pointer<Int64>} pLength 
-     * @param {Pointer<Int16>} pPrecision 
-     * @param {Pointer<Int16>} pScale 
-     * @param {Pointer<Int16>} pNullable 
+     * @param {Pointer<Integer>} pcchName 
+     * @param {Pointer<Integer>} pfType 
+     * @param {Pointer<Integer>} pfSubType 
+     * @param {Pointer<Integer>} pLength 
+     * @param {Pointer<Integer>} pPrecision 
+     * @param {Pointer<Integer>} pScale 
+     * @param {Pointer<Integer>} pNullable 
      * @returns {Integer} 
      */
     static SQLGetDescRecW(hdesc, iRecord, szName, cchNameMax, pcchName, pfType, pfSubType, pLength, pPrecision, pScale, pNullable) {
@@ -17803,8 +17822,8 @@ class Search {
      * @param {Integer} iField 
      * @param {Pointer} pCharAttr 
      * @param {Integer} cbCharAttrMax 
-     * @param {Pointer<Int16>} pcbCharAttr 
-     * @param {Pointer<Int64>} pNumAttr 
+     * @param {Pointer<Integer>} pcbCharAttr 
+     * @param {Pointer<Integer>} pNumAttr 
      * @returns {Integer} 
      */
     static SQLColAttributeA(hstmt, iCol, iField, pCharAttr, cbCharAttrMax, pcbCharAttr, pNumAttr) {
@@ -17819,8 +17838,8 @@ class Search {
      * @param {Integer} fDescType 
      * @param {Pointer} rgbDesc 
      * @param {Integer} cbDescMax 
-     * @param {Pointer<Int16>} pcbDesc 
-     * @param {Pointer<Int64>} pfDesc 
+     * @param {Pointer<Integer>} pcbDesc 
+     * @param {Pointer<Integer>} pfDesc 
      * @returns {Integer} 
      */
     static SQLColAttributesA(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
@@ -17832,13 +17851,13 @@ class Search {
      * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
-     * @param {Pointer<Byte>} szColName 
+     * @param {Pointer<Integer>} szColName 
      * @param {Integer} cbColNameMax 
-     * @param {Pointer<Int16>} pcbColName 
-     * @param {Pointer<Int16>} pfSqlType 
-     * @param {Pointer<UInt64>} pcbColDef 
-     * @param {Pointer<Int16>} pibScale 
-     * @param {Pointer<Int16>} pfNullable 
+     * @param {Pointer<Integer>} pcbColName 
+     * @param {Pointer<Integer>} pfSqlType 
+     * @param {Pointer<Integer>} pcbColDef 
+     * @param {Pointer<Integer>} pibScale 
+     * @param {Pointer<Integer>} pfNullable 
      * @returns {Integer} 
      */
     static SQLDescribeColA(hstmt, icol, szColName, cbColNameMax, pcbColName, pfSqlType, pcbColDef, pibScale, pfNullable) {
@@ -17850,15 +17869,15 @@ class Search {
      * 
      * @param {Pointer<Void>} hdesc 
      * @param {Integer} iRecord 
-     * @param {Pointer<Byte>} szName 
+     * @param {Pointer<Integer>} szName 
      * @param {Integer} cbNameMax 
-     * @param {Pointer<Int16>} pcbName 
-     * @param {Pointer<Int16>} pfType 
-     * @param {Pointer<Int16>} pfSubType 
-     * @param {Pointer<Int64>} pLength 
-     * @param {Pointer<Int16>} pPrecision 
-     * @param {Pointer<Int16>} pScale 
-     * @param {Pointer<Int16>} pNullable 
+     * @param {Pointer<Integer>} pcbName 
+     * @param {Pointer<Integer>} pfType 
+     * @param {Pointer<Integer>} pfSubType 
+     * @param {Pointer<Integer>} pLength 
+     * @param {Pointer<Integer>} pPrecision 
+     * @param {Pointer<Integer>} pScale 
+     * @param {Pointer<Integer>} pNullable 
      * @returns {Integer} 
      */
     static SQLGetDescRecA(hdesc, iRecord, szName, cbNameMax, pcbName, pfType, pfSubType, pLength, pPrecision, pScale, pNullable) {
@@ -17881,21 +17900,23 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} EnvironmentHandle 
-     * @param {Pointer<Void>} ConnectionHandle 
+     * @param {Pointer<Pointer<Void>>} ConnectionHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallocconnect-function
      */
     static SQLAllocConnect(EnvironmentHandle, ConnectionHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocConnect", "ptr", EnvironmentHandle, "ptr", ConnectionHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocConnect", "ptr", EnvironmentHandle, "ptr*", ConnectionHandle, "short")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} EnvironmentHandle 
+     * @param {Pointer<Pointer<Void>>} EnvironmentHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallocenv-function
      */
     static SQLAllocEnv(EnvironmentHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocEnv", "ptr", EnvironmentHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocEnv", "ptr*", EnvironmentHandle, "short")
         return result
     }
 
@@ -17903,22 +17924,24 @@ class Search {
      * 
      * @param {Integer} HandleType 
      * @param {Pointer<Void>} InputHandle 
-     * @param {Pointer<Void>} OutputHandle 
+     * @param {Pointer<Pointer<Void>>} OutputHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallochandle-function
      */
     static SQLAllocHandle(HandleType, InputHandle, OutputHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", HandleType, "ptr", InputHandle, "ptr", OutputHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", HandleType, "ptr", InputHandle, "ptr*", OutputHandle, "short")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} ConnectionHandle 
-     * @param {Pointer<Void>} StatementHandle 
+     * @param {Pointer<Pointer<Void>>} StatementHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallocstmt-function
      */
     static SQLAllocStmt(ConnectionHandle, StatementHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocStmt", "ptr", ConnectionHandle, "ptr", StatementHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocStmt", "ptr", ConnectionHandle, "ptr*", StatementHandle, "short")
         return result
     }
 
@@ -17926,6 +17949,7 @@ class Search {
      * 
      * @param {Pointer<Void>} StatementHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcancel-function
      */
     static SQLCancel(StatementHandle) {
         result := DllCall("ODBC32.dll\SQLCancel", "ptr", StatementHandle, "short")
@@ -17937,6 +17961,7 @@ class Search {
      * @param {Integer} HandleType 
      * @param {Pointer<Void>} InputHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcancelhandle-function
      */
     static SQLCancelHandle(HandleType, InputHandle) {
         result := DllCall("ODBC32.dll\SQLCancelHandle", "short", HandleType, "ptr", InputHandle, "short")
@@ -17947,6 +17972,7 @@ class Search {
      * 
      * @param {Pointer<Void>} StatementHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlclosecursor-function
      */
     static SQLCloseCursor(StatementHandle) {
         result := DllCall("ODBC32.dll\SQLCloseCursor", "ptr", StatementHandle, "short")
@@ -17956,15 +17982,16 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} CatalogName 
+     * @param {Pointer<Integer>} CatalogName 
      * @param {Integer} NameLength1 
-     * @param {Pointer<Byte>} SchemaName 
+     * @param {Pointer<Integer>} SchemaName 
      * @param {Integer} NameLength2 
-     * @param {Pointer<Byte>} TableName 
+     * @param {Pointer<Integer>} TableName 
      * @param {Integer} NameLength3 
-     * @param {Pointer<Byte>} ColumnName 
+     * @param {Pointer<Integer>} ColumnName 
      * @param {Integer} NameLength4 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolumns-function
      */
     static SQLColumns(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, ColumnName, NameLength4) {
         result := DllCall("ODBC32.dll\SQLColumns", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "char*", ColumnName, "short", NameLength4, "short")
@@ -17975,8 +18002,9 @@ class Search {
      * 
      * @param {Integer} HandleType 
      * @param {Pointer<Void>} Handle 
-     * @param {Pointer<Int16>} AsyncRetCodePtr 
+     * @param {Pointer<Integer>} AsyncRetCodePtr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcompleteasync-function
      */
     static SQLCompleteAsync(HandleType, Handle, AsyncRetCodePtr) {
         result := DllCall("ODBC32.dll\SQLCompleteAsync", "short", HandleType, "ptr", Handle, "short*", AsyncRetCodePtr, "short")
@@ -17986,13 +18014,14 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} ConnectionHandle 
-     * @param {Pointer<Byte>} ServerName 
+     * @param {Pointer<Integer>} ServerName 
      * @param {Integer} NameLength1 
-     * @param {Pointer<Byte>} UserName 
+     * @param {Pointer<Integer>} UserName 
      * @param {Integer} NameLength2 
-     * @param {Pointer<Byte>} Authentication 
+     * @param {Pointer<Integer>} Authentication 
      * @param {Integer} NameLength3 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlconnect-function
      */
     static SQLConnect(ConnectionHandle, ServerName, NameLength1, UserName, NameLength2, Authentication, NameLength3) {
         result := DllCall("ODBC32.dll\SQLConnect", "ptr", ConnectionHandle, "char*", ServerName, "short", NameLength1, "char*", UserName, "short", NameLength2, "char*", Authentication, "short", NameLength3, "short")
@@ -18004,6 +18033,7 @@ class Search {
      * @param {Pointer<Void>} SourceDescHandle 
      * @param {Pointer<Void>} TargetDescHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcopydesc-function
      */
     static SQLCopyDesc(SourceDescHandle, TargetDescHandle) {
         result := DllCall("ODBC32.dll\SQLCopyDesc", "ptr", SourceDescHandle, "ptr", TargetDescHandle, "short")
@@ -18014,13 +18044,14 @@ class Search {
      * 
      * @param {Pointer<Void>} EnvironmentHandle 
      * @param {Integer} Direction 
-     * @param {Pointer<Byte>} ServerName 
+     * @param {Pointer<Integer>} ServerName 
      * @param {Integer} BufferLength1 
-     * @param {Pointer<Int16>} NameLength1Ptr 
-     * @param {Pointer<Byte>} Description 
+     * @param {Pointer<Integer>} NameLength1Ptr 
+     * @param {Pointer<Integer>} Description 
      * @param {Integer} BufferLength2 
-     * @param {Pointer<Int16>} NameLength2Ptr 
+     * @param {Pointer<Integer>} NameLength2Ptr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldatasources-function
      */
     static SQLDataSources(EnvironmentHandle, Direction, ServerName, BufferLength1, NameLength1Ptr, Description, BufferLength2, NameLength2Ptr) {
         result := DllCall("ODBC32.dll\SQLDataSources", "ptr", EnvironmentHandle, "ushort", Direction, "char*", ServerName, "short", BufferLength1, "short*", NameLength1Ptr, "char*", Description, "short", BufferLength2, "short*", NameLength2Ptr, "short")
@@ -18031,6 +18062,7 @@ class Search {
      * 
      * @param {Pointer<Void>} ConnectionHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldisconnect-function
      */
     static SQLDisconnect(ConnectionHandle) {
         result := DllCall("ODBC32.dll\SQLDisconnect", "ptr", ConnectionHandle, "short")
@@ -18043,6 +18075,7 @@ class Search {
      * @param {Pointer<Void>} Handle 
      * @param {Integer} CompletionType 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlendtran-function
      */
     static SQLEndTran(HandleType, Handle, CompletionType) {
         result := DllCall("ODBC32.dll\SQLEndTran", "short", HandleType, "ptr", Handle, "short", CompletionType, "short")
@@ -18054,12 +18087,13 @@ class Search {
      * @param {Pointer<Void>} EnvironmentHandle 
      * @param {Pointer<Void>} ConnectionHandle 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} Sqlstate 
-     * @param {Pointer<Int32>} NativeError 
-     * @param {Pointer<Byte>} MessageText 
+     * @param {Pointer<Integer>} Sqlstate 
+     * @param {Pointer<Integer>} NativeError 
+     * @param {Pointer<Integer>} MessageText 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} TextLength 
+     * @param {Pointer<Integer>} TextLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlerror-function
      */
     static SQLError(EnvironmentHandle, ConnectionHandle, StatementHandle, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
         result := DllCall("ODBC32.dll\SQLError", "ptr", EnvironmentHandle, "ptr", ConnectionHandle, "ptr", StatementHandle, "char*", Sqlstate, "int*", NativeError, "char*", MessageText, "short", BufferLength, "short*", TextLength, "short")
@@ -18069,9 +18103,10 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} StatementText 
+     * @param {Pointer<Integer>} StatementText 
      * @param {Integer} TextLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlexecdirect-function
      */
     static SQLExecDirect(StatementHandle, StatementText, TextLength) {
         result := DllCall("ODBC32.dll\SQLExecDirect", "ptr", StatementHandle, "char*", StatementText, "int", TextLength, "short")
@@ -18082,6 +18117,7 @@ class Search {
      * 
      * @param {Pointer<Void>} StatementHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlexecute-function
      */
     static SQLExecute(StatementHandle) {
         result := DllCall("ODBC32.dll\SQLExecute", "ptr", StatementHandle, "short")
@@ -18092,6 +18128,7 @@ class Search {
      * 
      * @param {Pointer<Void>} StatementHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfetch-function
      */
     static SQLFetch(StatementHandle) {
         result := DllCall("ODBC32.dll\SQLFetch", "ptr", StatementHandle, "short")
@@ -18102,6 +18139,7 @@ class Search {
      * 
      * @param {Pointer<Void>} ConnectionHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreeconnect-function
      */
     static SQLFreeConnect(ConnectionHandle) {
         result := DllCall("ODBC32.dll\SQLFreeConnect", "ptr", ConnectionHandle, "short")
@@ -18112,6 +18150,7 @@ class Search {
      * 
      * @param {Pointer<Void>} EnvironmentHandle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreeenv-function
      */
     static SQLFreeEnv(EnvironmentHandle) {
         result := DllCall("ODBC32.dll\SQLFreeEnv", "ptr", EnvironmentHandle, "short")
@@ -18123,6 +18162,7 @@ class Search {
      * @param {Integer} HandleType 
      * @param {Pointer<Void>} Handle 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreehandle-function
      */
     static SQLFreeHandle(HandleType, Handle) {
         result := DllCall("ODBC32.dll\SQLFreeHandle", "short", HandleType, "ptr", Handle, "short")
@@ -18134,6 +18174,7 @@ class Search {
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} Option 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreestmt-function
      */
     static SQLFreeStmt(StatementHandle, Option) {
         result := DllCall("ODBC32.dll\SQLFreeStmt", "ptr", StatementHandle, "ushort", Option, "short")
@@ -18146,8 +18187,9 @@ class Search {
      * @param {Integer} Attribute 
      * @param {Pointer<Void>} Value 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int32>} StringLengthPtr 
+     * @param {Pointer<Integer>} StringLengthPtr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetconnectattr-function
      */
     static SQLGetConnectAttr(ConnectionHandle, Attribute, Value, BufferLength, StringLengthPtr) {
         result := DllCall("ODBC32.dll\SQLGetConnectAttr", "ptr", ConnectionHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLengthPtr, "short")
@@ -18160,6 +18202,7 @@ class Search {
      * @param {Integer} Option 
      * @param {Pointer<Void>} Value 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetconnectoption-function
      * @deprecated
      */
     static SQLGetConnectOption(ConnectionHandle, Option, Value) {
@@ -18170,10 +18213,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} CursorName 
+     * @param {Pointer<Integer>} CursorName 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} NameLengthPtr 
+     * @param {Pointer<Integer>} NameLengthPtr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetcursorname-function
      */
     static SQLGetCursorName(StatementHandle, CursorName, BufferLength, NameLengthPtr) {
         result := DllCall("ODBC32.dll\SQLGetCursorName", "ptr", StatementHandle, "char*", CursorName, "short", BufferLength, "short*", NameLengthPtr, "short")
@@ -18187,8 +18231,9 @@ class Search {
      * @param {Integer} FieldIdentifier 
      * @param {Pointer<Void>} Value 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int32>} StringLength 
+     * @param {Pointer<Integer>} StringLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdescfield-function
      */
     static SQLGetDescField(DescriptorHandle, RecNumber, FieldIdentifier, Value, BufferLength, StringLength) {
         result := DllCall("ODBC32.dll\SQLGetDescField", "ptr", DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
@@ -18203,8 +18248,9 @@ class Search {
      * @param {Integer} DiagIdentifier 
      * @param {Pointer<Void>} DiagInfo 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} StringLength 
+     * @param {Pointer<Integer>} StringLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagfield-function
      */
     static SQLGetDiagField(HandleType, Handle, RecNumber, DiagIdentifier, DiagInfo, BufferLength, StringLength) {
         result := DllCall("ODBC32.dll\SQLGetDiagField", "short", HandleType, "ptr", Handle, "short", RecNumber, "short", DiagIdentifier, "ptr", DiagInfo, "short", BufferLength, "short*", StringLength, "short")
@@ -18216,12 +18262,13 @@ class Search {
      * @param {Integer} HandleType 
      * @param {Pointer<Void>} Handle 
      * @param {Integer} RecNumber 
-     * @param {Pointer<Byte>} Sqlstate 
-     * @param {Pointer<Int32>} NativeError 
-     * @param {Pointer<Byte>} MessageText 
+     * @param {Pointer<Integer>} Sqlstate 
+     * @param {Pointer<Integer>} NativeError 
+     * @param {Pointer<Integer>} MessageText 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} TextLength 
+     * @param {Pointer<Integer>} TextLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagrec-function
      */
     static SQLGetDiagRec(HandleType, Handle, RecNumber, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
         result := DllCall("ODBC32.dll\SQLGetDiagRec", "short", HandleType, "ptr", Handle, "short", RecNumber, "char*", Sqlstate, "int*", NativeError, "char*", MessageText, "short", BufferLength, "short*", TextLength, "short")
@@ -18234,8 +18281,9 @@ class Search {
      * @param {Integer} Attribute 
      * @param {Pointer<Void>} Value 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int32>} StringLength 
+     * @param {Pointer<Integer>} StringLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetenvattr-function
      */
     static SQLGetEnvAttr(EnvironmentHandle, Attribute, Value, BufferLength, StringLength) {
         result := DllCall("ODBC32.dll\SQLGetEnvAttr", "ptr", EnvironmentHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
@@ -18246,8 +18294,9 @@ class Search {
      * 
      * @param {Pointer<Void>} ConnectionHandle 
      * @param {Integer} FunctionId 
-     * @param {Pointer<UInt16>} Supported 
+     * @param {Pointer<Integer>} Supported 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetfunctions-function
      */
     static SQLGetFunctions(ConnectionHandle, FunctionId, Supported) {
         result := DllCall("ODBC32.dll\SQLGetFunctions", "ptr", ConnectionHandle, "ushort", FunctionId, "ushort*", Supported, "short")
@@ -18260,8 +18309,9 @@ class Search {
      * @param {Integer} InfoType 
      * @param {Pointer} InfoValue 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int16>} StringLengthPtr 
+     * @param {Pointer<Integer>} StringLengthPtr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetinfo-function
      */
     static SQLGetInfo(ConnectionHandle, InfoType, InfoValue, BufferLength, StringLengthPtr) {
         result := DllCall("ODBC32.dll\SQLGetInfo", "ptr", ConnectionHandle, "ushort", InfoType, "ptr", InfoValue, "short", BufferLength, "short*", StringLengthPtr, "short")
@@ -18274,8 +18324,9 @@ class Search {
      * @param {Integer} Attribute 
      * @param {Pointer<Void>} Value 
      * @param {Integer} BufferLength 
-     * @param {Pointer<Int32>} StringLength 
+     * @param {Pointer<Integer>} StringLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetstmtattr-function
      */
     static SQLGetStmtAttr(StatementHandle, Attribute, Value, BufferLength, StringLength) {
         result := DllCall("ODBC32.dll\SQLGetStmtAttr", "ptr", StatementHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
@@ -18288,6 +18339,7 @@ class Search {
      * @param {Integer} Option 
      * @param {Pointer<Void>} Value 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetstmtoption-function
      * @deprecated
      */
     static SQLGetStmtOption(StatementHandle, Option, Value) {
@@ -18300,6 +18352,7 @@ class Search {
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} DataType 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgettypeinfo-function
      */
     static SQLGetTypeInfo(StatementHandle, DataType) {
         result := DllCall("ODBC32.dll\SQLGetTypeInfo", "ptr", StatementHandle, "short", DataType, "short")
@@ -18309,8 +18362,9 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Int16>} ColumnCount 
+     * @param {Pointer<Integer>} ColumnCount 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnumresultcols-function
      */
     static SQLNumResultCols(StatementHandle, ColumnCount) {
         result := DllCall("ODBC32.dll\SQLNumResultCols", "ptr", StatementHandle, "short*", ColumnCount, "short")
@@ -18320,20 +18374,22 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Void>} Value 
+     * @param {Pointer<Pointer<Void>>} Value 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlparamdata-function
      */
     static SQLParamData(StatementHandle, Value) {
-        result := DllCall("ODBC32.dll\SQLParamData", "ptr", StatementHandle, "ptr", Value, "short")
+        result := DllCall("ODBC32.dll\SQLParamData", "ptr", StatementHandle, "ptr*", Value, "short")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} StatementText 
+     * @param {Pointer<Integer>} StatementText 
      * @param {Integer} TextLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprepare-function
      */
     static SQLPrepare(StatementHandle, StatementText, TextLength) {
         result := DllCall("ODBC32.dll\SQLPrepare", "ptr", StatementHandle, "char*", StatementText, "int", TextLength, "short")
@@ -18347,6 +18403,7 @@ class Search {
      * @param {Pointer} Value 
      * @param {Integer} StringLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetconnectattr-function
      */
     static SQLSetConnectAttr(ConnectionHandle, Attribute, Value, StringLength) {
         result := DllCall("ODBC32.dll\SQLSetConnectAttr", "ptr", ConnectionHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
@@ -18356,9 +18413,10 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} CursorName 
+     * @param {Pointer<Integer>} CursorName 
      * @param {Integer} NameLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetcursorname-function
      */
     static SQLSetCursorName(StatementHandle, CursorName, NameLength) {
         result := DllCall("ODBC32.dll\SQLSetCursorName", "ptr", StatementHandle, "char*", CursorName, "short", NameLength, "short")
@@ -18373,6 +18431,7 @@ class Search {
      * @param {Pointer<Void>} Value 
      * @param {Integer} BufferLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetdescfield-function
      */
     static SQLSetDescField(DescriptorHandle, RecNumber, FieldIdentifier, Value, BufferLength) {
         result := DllCall("ODBC32.dll\SQLSetDescField", "ptr", DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, "ptr", Value, "int", BufferLength, "short")
@@ -18386,6 +18445,7 @@ class Search {
      * @param {Pointer} Value 
      * @param {Integer} StringLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetenvattr-function
      */
     static SQLSetEnvAttr(EnvironmentHandle, Attribute, Value, StringLength) {
         result := DllCall("ODBC32.dll\SQLSetEnvAttr", "ptr", EnvironmentHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
@@ -18399,6 +18459,7 @@ class Search {
      * @param {Pointer<Void>} Value 
      * @param {Integer} StringLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetstmtattr-function
      */
     static SQLSetStmtAttr(StatementHandle, Attribute, Value, StringLength) {
         result := DllCall("ODBC32.dll\SQLSetStmtAttr", "ptr", StatementHandle, "int", Attribute, "ptr", Value, "int", StringLength, "short")
@@ -18409,15 +18470,16 @@ class Search {
      * 
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} IdentifierType 
-     * @param {Pointer<Byte>} CatalogName 
+     * @param {Pointer<Integer>} CatalogName 
      * @param {Integer} NameLength1 
-     * @param {Pointer<Byte>} SchemaName 
+     * @param {Pointer<Integer>} SchemaName 
      * @param {Integer} NameLength2 
-     * @param {Pointer<Byte>} TableName 
+     * @param {Pointer<Integer>} TableName 
      * @param {Integer} NameLength3 
      * @param {Integer} Scope 
      * @param {Integer} Nullable 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlspecialcolumns-function
      */
     static SQLSpecialColumns(StatementHandle, IdentifierType, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, Scope, Nullable) {
         result := DllCall("ODBC32.dll\SQLSpecialColumns", "ptr", StatementHandle, "ushort", IdentifierType, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "ushort", Scope, "ushort", Nullable, "short")
@@ -18427,15 +18489,16 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} CatalogName 
+     * @param {Pointer<Integer>} CatalogName 
      * @param {Integer} NameLength1 
-     * @param {Pointer<Byte>} SchemaName 
+     * @param {Pointer<Integer>} SchemaName 
      * @param {Integer} NameLength2 
-     * @param {Pointer<Byte>} TableName 
+     * @param {Pointer<Integer>} TableName 
      * @param {Integer} NameLength3 
      * @param {Integer} Unique 
      * @param {Integer} Reserved 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlstatistics-function
      */
     static SQLStatistics(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, Unique, Reserved) {
         result := DllCall("ODBC32.dll\SQLStatistics", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "ushort", Unique, "ushort", Reserved, "short")
@@ -18445,15 +18508,16 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} StatementHandle 
-     * @param {Pointer<Byte>} CatalogName 
+     * @param {Pointer<Integer>} CatalogName 
      * @param {Integer} NameLength1 
-     * @param {Pointer<Byte>} SchemaName 
+     * @param {Pointer<Integer>} SchemaName 
      * @param {Integer} NameLength2 
-     * @param {Pointer<Byte>} TableName 
+     * @param {Pointer<Integer>} TableName 
      * @param {Integer} NameLength3 
-     * @param {Pointer<Byte>} TableType 
+     * @param {Pointer<Integer>} TableType 
      * @param {Integer} NameLength4 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltables-function
      */
     static SQLTables(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, TableType, NameLength4) {
         result := DllCall("ODBC32.dll\SQLTables", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "char*", TableType, "short", NameLength4, "short")
@@ -18466,6 +18530,7 @@ class Search {
      * @param {Pointer<Void>} ConnectionHandle 
      * @param {Integer} CompletionType 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltransact-function
      */
     static SQLTransact(EnvironmentHandle, ConnectionHandle, CompletionType) {
         result := DllCall("ODBC32.dll\SQLTransact", "ptr", EnvironmentHandle, "ptr", ConnectionHandle, "ushort", CompletionType, "short")
@@ -18476,6 +18541,7 @@ class Search {
      * 
      * @param {Pointer<Void>} param0 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-batch
      */
     static bcp_batch(param0) {
         result := DllCall("odbcbcp.dll\bcp_batch", "ptr", param0, "int")
@@ -18485,14 +18551,15 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @param {Pointer<Byte>} param4 
+     * @param {Pointer<Integer>} param4 
      * @param {Integer} param5 
      * @param {Integer} param6 
      * @param {Integer} param7 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-bind
      */
     static bcp_bind(param0, param1, param2, param3, param4, param5, param6, param7) {
         result := DllCall("odbcbcp.dll\bcp_bind", "ptr", param0, "char*", param1, "int", param2, "int", param3, "char*", param4, "int", param5, "int", param6, "int", param7, "short")
@@ -18506,10 +18573,11 @@ class Search {
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @param {Integer} param4 
-     * @param {Pointer<Byte>} param5 
+     * @param {Pointer<Integer>} param5 
      * @param {Integer} param6 
      * @param {Integer} param7 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-colfmt
      */
     static bcp_colfmt(param0, param1, param2, param3, param4, param5, param6, param7) {
         result := DllCall("odbcbcp.dll\bcp_colfmt", "ptr", param0, "int", param1, "char", param2, "int", param3, "int", param4, "char*", param5, "int", param6, "int", param7, "short")
@@ -18522,6 +18590,7 @@ class Search {
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-collen
      */
     static bcp_collen(param0, param1, param2) {
         result := DllCall("odbcbcp.dll\bcp_collen", "ptr", param0, "int", param1, "int", param2, "short")
@@ -18531,9 +18600,10 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-colptr
      */
     static bcp_colptr(param0, param1, param2) {
         result := DllCall("odbcbcp.dll\bcp_colptr", "ptr", param0, "char*", param1, "int", param2, "short")
@@ -18545,6 +18615,7 @@ class Search {
      * @param {Pointer<Void>} param0 
      * @param {Integer} param1 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-columns
      */
     static bcp_columns(param0, param1) {
         result := DllCall("odbcbcp.dll\bcp_columns", "ptr", param0, "int", param1, "short")
@@ -18557,6 +18628,7 @@ class Search {
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-control
      */
     static bcp_control(param0, param1, param2) {
         result := DllCall("odbcbcp.dll\bcp_control", "ptr", param0, "int", param1, "ptr", param2, "short")
@@ -18567,6 +18639,7 @@ class Search {
      * 
      * @param {Pointer<Void>} param0 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-done
      */
     static bcp_done(param0) {
         result := DllCall("odbcbcp.dll\bcp_done", "ptr", param0, "int")
@@ -18576,8 +18649,9 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Int32>} param1 
+     * @param {Pointer<Integer>} param1 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-exec
      */
     static bcp_exec(param0, param1) {
         result := DllCall("odbcbcp.dll\bcp_exec", "ptr", param0, "int*", param1, "short")
@@ -18591,8 +18665,9 @@ class Search {
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
      * @param {Integer} param4 
-     * @param {Pointer<Int32>} param5 
+     * @param {Pointer<Integer>} param5 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-getcolfmt
      */
     static bcp_getcolfmt(param0, param1, param2, param3, param4, param5) {
         result := DllCall("odbcbcp.dll\bcp_getcolfmt", "ptr", param0, "int", param1, "int", param2, "ptr", param3, "int", param4, "int*", param5, "short")
@@ -18639,8 +18714,9 @@ class Search {
      * 
      * @param {Pointer<Void>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<Byte>} param2 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-moretext
      */
     static bcp_moretext(param0, param1, param2) {
         result := DllCall("odbcbcp.dll\bcp_moretext", "ptr", param0, "int", param1, "char*", param2, "short")
@@ -18677,6 +18753,7 @@ class Search {
      * 
      * @param {Pointer<Void>} param0 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-sendrow
      */
     static bcp_sendrow(param0) {
         result := DllCall("odbcbcp.dll\bcp_sendrow", "ptr", param0, "short")
@@ -18691,6 +18768,7 @@ class Search {
      * @param {Pointer<Void>} param3 
      * @param {Integer} param4 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-setcolfmt
      */
     static bcp_setcolfmt(param0, param1, param2, param3, param4) {
         result := DllCall("odbcbcp.dll\bcp_setcolfmt", "ptr", param0, "int", param1, "int", param2, "ptr", param3, "int", param4, "short")
@@ -18798,8 +18876,8 @@ class Search {
     /**
      * 
      * @param {HANDLE} hEnumHandle 
-     * @param {Pointer<Byte>} prgEnumData 
-     * @param {Pointer<Int32>} piEnumLength 
+     * @param {Pointer<Integer>} prgEnumData 
+     * @param {Pointer<Integer>} piEnumLength 
      * @returns {Integer} 
      */
     static SQLGetNextEnumeration(hEnumHandle, prgEnumData, piEnumLength) {
@@ -18825,13 +18903,14 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer} hwnd 
-     * @param {Pointer<Byte>} szConnStrIn 
+     * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cchConnStrIn 
-     * @param {Pointer<Byte>} szConnStrOut 
+     * @param {Pointer<Integer>} szConnStrOut 
      * @param {Integer} cchConnStrOutMax 
-     * @param {Pointer<Int16>} pcchConnStrOut 
+     * @param {Pointer<Integer>} pcchConnStrOut 
      * @param {Integer} fDriverCompletion 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldriverconnect-function
      */
     static SQLDriverConnect(hdbc, hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
         result := DllCall("ODBC32.dll\SQLDriverConnect", "ptr", hdbc, "ptr", hwnd, "char*", szConnStrIn, "short", cchConnStrIn, "char*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "ushort", fDriverCompletion, "short")
@@ -18841,12 +18920,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<Byte>} szConnStrIn 
+     * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cchConnStrIn 
-     * @param {Pointer<Byte>} szConnStrOut 
+     * @param {Pointer<Integer>} szConnStrOut 
      * @param {Integer} cchConnStrOutMax 
-     * @param {Pointer<Int16>} pcchConnStrOut 
+     * @param {Pointer<Integer>} pcchConnStrOut 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbrowseconnect-function
      */
     static SQLBrowseConnect(hdbc, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut) {
         result := DllCall("ODBC32.dll\SQLBrowseConnect", "ptr", hdbc, "char*", szConnStrIn, "short", cchConnStrIn, "char*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "short")
@@ -18858,6 +18938,7 @@ class Search {
      * @param {Pointer<Void>} StatementHandle 
      * @param {Integer} Operation 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbulkoperations-function
      */
     static SQLBulkOperations(StatementHandle, Operation) {
         result := DllCall("ODBC32.dll\SQLBulkOperations", "ptr", StatementHandle, "short", Operation, "short")
@@ -18867,15 +18948,16 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
-     * @param {Pointer<Byte>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cchColumnName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolumnprivileges-function
      */
     static SQLColumnPrivileges(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szColumnName, cchColumnName) {
         result := DllCall("ODBC32.dll\SQLColumnPrivileges", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "char*", szColumnName, "short", cchColumnName, "short")
@@ -18885,19 +18967,20 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szPkCatalogName 
+     * @param {Pointer<Integer>} szPkCatalogName 
      * @param {Integer} cchPkCatalogName 
-     * @param {Pointer<Byte>} szPkSchemaName 
+     * @param {Pointer<Integer>} szPkSchemaName 
      * @param {Integer} cchPkSchemaName 
-     * @param {Pointer<Byte>} szPkTableName 
+     * @param {Pointer<Integer>} szPkTableName 
      * @param {Integer} cchPkTableName 
-     * @param {Pointer<Byte>} szFkCatalogName 
+     * @param {Pointer<Integer>} szFkCatalogName 
      * @param {Integer} cchFkCatalogName 
-     * @param {Pointer<Byte>} szFkSchemaName 
+     * @param {Pointer<Integer>} szFkSchemaName 
      * @param {Integer} cchFkSchemaName 
-     * @param {Pointer<Byte>} szFkTableName 
+     * @param {Pointer<Integer>} szFkTableName 
      * @param {Integer} cchFkTableName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlforeignkeys-function
      */
     static SQLForeignKeys(hstmt, szPkCatalogName, cchPkCatalogName, szPkSchemaName, cchPkSchemaName, szPkTableName, cchPkTableName, szFkCatalogName, cchFkCatalogName, szFkSchemaName, cchFkSchemaName, szFkTableName, cchFkTableName) {
         result := DllCall("ODBC32.dll\SQLForeignKeys", "ptr", hstmt, "char*", szPkCatalogName, "short", cchPkCatalogName, "char*", szPkSchemaName, "short", cchPkSchemaName, "char*", szPkTableName, "short", cchPkTableName, "char*", szFkCatalogName, "short", cchFkCatalogName, "char*", szFkSchemaName, "short", cchFkSchemaName, "char*", szFkTableName, "short", cchFkTableName, "short")
@@ -18908,6 +18991,7 @@ class Search {
      * 
      * @param {Pointer<Void>} hstmt 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlmoreresults-function
      */
     static SQLMoreResults(hstmt) {
         result := DllCall("ODBC32.dll\SQLMoreResults", "ptr", hstmt, "short")
@@ -18917,12 +19001,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<Byte>} szSqlStrIn 
+     * @param {Pointer<Integer>} szSqlStrIn 
      * @param {Integer} cchSqlStrIn 
-     * @param {Pointer<Byte>} szSqlStr 
+     * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cchSqlStrMax 
-     * @param {Pointer<Int32>} pcbSqlStr 
+     * @param {Pointer<Integer>} pcbSqlStr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnativesql-function
      */
     static SQLNativeSql(hdbc, szSqlStrIn, cchSqlStrIn, szSqlStr, cchSqlStrMax, pcbSqlStr) {
         result := DllCall("ODBC32.dll\SQLNativeSql", "ptr", hdbc, "char*", szSqlStrIn, "int", cchSqlStrIn, "char*", szSqlStr, "int", cchSqlStrMax, "int*", pcbSqlStr, "short")
@@ -18932,8 +19017,9 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Int16>} pcpar 
+     * @param {Pointer<Integer>} pcpar 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnumparams-function
      */
     static SQLNumParams(hstmt, pcpar) {
         result := DllCall("ODBC32.dll\SQLNumParams", "ptr", hstmt, "short*", pcpar, "short")
@@ -18943,13 +19029,14 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprimarykeys-function
      */
     static SQLPrimaryKeys(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
         result := DllCall("ODBC32.dll\SQLPrimaryKeys", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "short")
@@ -18959,15 +19046,16 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<Byte>} szProcName 
+     * @param {Pointer<Integer>} szProcName 
      * @param {Integer} cchProcName 
-     * @param {Pointer<Byte>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cchColumnName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprocedurecolumns-function
      */
     static SQLProcedureColumns(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName, szColumnName, cchColumnName) {
         result := DllCall("ODBC32.dll\SQLProcedureColumns", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szProcName, "short", cchProcName, "char*", szColumnName, "short", cchColumnName, "short")
@@ -18977,13 +19065,14 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<Byte>} szProcName 
+     * @param {Pointer<Integer>} szProcName 
      * @param {Integer} cchProcName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprocedures-function
      */
     static SQLProcedures(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName) {
         result := DllCall("ODBC32.dll\SQLProcedures", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szProcName, "short", cchProcName, "short")
@@ -18993,13 +19082,14 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltableprivileges-function
      */
     static SQLTablePrivileges(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
         result := DllCall("ODBC32.dll\SQLTablePrivileges", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "short")
@@ -19010,13 +19100,14 @@ class Search {
      * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
-     * @param {Pointer<Byte>} szDriverDesc 
+     * @param {Pointer<Integer>} szDriverDesc 
      * @param {Integer} cchDriverDescMax 
-     * @param {Pointer<Int16>} pcchDriverDesc 
-     * @param {Pointer<Byte>} szDriverAttributes 
+     * @param {Pointer<Integer>} pcchDriverDesc 
+     * @param {Pointer<Integer>} szDriverAttributes 
      * @param {Integer} cchDrvrAttrMax 
-     * @param {Pointer<Int16>} pcchDrvrAttr 
+     * @param {Pointer<Integer>} pcchDrvrAttr 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldrivers-function
      */
     static SQLDrivers(henv, fDirection, szDriverDesc, cchDriverDescMax, pcchDriverDesc, szDriverAttributes, cchDrvrAttrMax, pcchDrvrAttr) {
         result := DllCall("ODBC32.dll\SQLDrivers", "ptr", henv, "ushort", fDirection, "char*", szDriverDesc, "short", cchDriverDescMax, "short*", pcchDriverDesc, "char*", szDriverAttributes, "short", cchDrvrAttrMax, "short*", pcchDrvrAttr, "short")
@@ -19027,11 +19118,11 @@ class Search {
      * 
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} hInput 
-     * @param {Pointer<Void>} phOutput 
+     * @param {Pointer<Pointer<Void>>} phOutput 
      * @returns {Integer} 
      */
     static SQLAllocHandleStd(fHandleType, hInput, phOutput) {
-        result := DllCall("ODBC32.dll\SQLAllocHandleStd", "short", fHandleType, "ptr", hInput, "ptr", phOutput, "short")
+        result := DllCall("ODBC32.dll\SQLAllocHandleStd", "short", fHandleType, "ptr", hInput, "ptr*", phOutput, "short")
         return result
     }
 
@@ -19057,11 +19148,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<UInt16>} szDSN 
+     * @param {Pointer<Integer>} szDSN 
      * @param {Integer} cchDSN 
-     * @param {Pointer<UInt16>} szUID 
+     * @param {Pointer<Integer>} szUID 
      * @param {Integer} cchUID 
-     * @param {Pointer<UInt16>} szAuthStr 
+     * @param {Pointer<Integer>} szAuthStr 
      * @param {Integer} cchAuthStr 
      * @returns {Integer} 
      */
@@ -19075,11 +19166,11 @@ class Search {
      * @param {Pointer<Void>} henv 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} wszSqlState 
-     * @param {Pointer<Int32>} pfNativeError 
-     * @param {Pointer<UInt16>} wszErrorMsg 
+     * @param {Pointer<Integer>} wszSqlState 
+     * @param {Pointer<Integer>} pfNativeError 
+     * @param {Pointer<Integer>} wszErrorMsg 
      * @param {Integer} cchErrorMsgMax 
-     * @param {Pointer<Int16>} pcchErrorMsg 
+     * @param {Pointer<Integer>} pcchErrorMsg 
      * @returns {Integer} 
      */
     static SQLErrorW(henv, hdbc, hstmt, wszSqlState, pfNativeError, wszErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
@@ -19090,7 +19181,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szSqlStr 
+     * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} TextLength 
      * @returns {Integer} 
      */
@@ -19105,7 +19196,7 @@ class Search {
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
      * @param {Integer} cbValueMax 
-     * @param {Pointer<Int32>} pcbValue 
+     * @param {Pointer<Integer>} pcbValue 
      * @returns {Integer} 
      */
     static SQLGetConnectAttrW(hdbc, fAttribute, rgbValue, cbValueMax, pcbValue) {
@@ -19116,9 +19207,9 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCursor 
+     * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cchCursorMax 
-     * @param {Pointer<Int16>} pcchCursor 
+     * @param {Pointer<Integer>} pcchCursor 
      * @returns {Integer} 
      */
     static SQLGetCursorNameW(hstmt, szCursor, cchCursorMax, pcchCursor) {
@@ -19147,7 +19238,7 @@ class Search {
      * @param {Integer} iField 
      * @param {Pointer<Void>} rgbValue 
      * @param {Integer} cbBufferLength 
-     * @param {Pointer<Int32>} StringLength 
+     * @param {Pointer<Integer>} StringLength 
      * @returns {Integer} 
      */
     static SQLGetDescFieldW(hdesc, iRecord, iField, rgbValue, cbBufferLength, StringLength) {
@@ -19163,7 +19254,7 @@ class Search {
      * @param {Integer} fDiagField 
      * @param {Pointer<Void>} rgbDiagInfo 
      * @param {Integer} cbBufferLength 
-     * @param {Pointer<Int16>} pcbStringLength 
+     * @param {Pointer<Integer>} pcbStringLength 
      * @returns {Integer} 
      */
     static SQLGetDiagFieldW(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbBufferLength, pcbStringLength) {
@@ -19176,11 +19267,11 @@ class Search {
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} handle 
      * @param {Integer} iRecord 
-     * @param {Pointer<UInt16>} szSqlState 
-     * @param {Pointer<Int32>} pfNativeError 
-     * @param {Pointer<UInt16>} szErrorMsg 
+     * @param {Pointer<Integer>} szSqlState 
+     * @param {Pointer<Integer>} pfNativeError 
+     * @param {Pointer<Integer>} szErrorMsg 
      * @param {Integer} cchErrorMsgMax 
-     * @param {Pointer<Int16>} pcchErrorMsg 
+     * @param {Pointer<Integer>} pcchErrorMsg 
      * @returns {Integer} 
      */
     static SQLGetDiagRecW(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
@@ -19191,7 +19282,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szSqlStr 
+     * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cchSqlStr 
      * @returns {Integer} 
      */
@@ -19216,7 +19307,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCursor 
+     * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cchCursor 
      * @returns {Integer} 
      */
@@ -19228,13 +19319,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
-     * @param {Pointer<UInt16>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cchColumnName 
      * @returns {Integer} 
      */
@@ -19261,7 +19352,7 @@ class Search {
      * @param {Integer} fInfoType 
      * @param {Pointer} rgbInfoValue 
      * @param {Integer} cbInfoValueMax 
-     * @param {Pointer<Int16>} pcbInfoValue 
+     * @param {Pointer<Integer>} pcbInfoValue 
      * @returns {Integer} 
      */
     static SQLGetInfoW(hdbc, fInfoType, rgbInfoValue, cbInfoValueMax, pcbInfoValue) {
@@ -19284,11 +19375,11 @@ class Search {
      * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fColType 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
      * @param {Integer} fScope 
      * @param {Integer} fNullable 
@@ -19302,11 +19393,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
      * @param {Integer} fUnique 
      * @param {Integer} fAccuracy 
@@ -19320,13 +19411,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
-     * @param {Pointer<UInt16>} szTableType 
+     * @param {Pointer<Integer>} szTableType 
      * @param {Integer} cchTableType 
      * @returns {Integer} 
      */
@@ -19339,12 +19430,12 @@ class Search {
      * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
-     * @param {Pointer<UInt16>} szDSN 
+     * @param {Pointer<Integer>} szDSN 
      * @param {Integer} cchDSNMax 
-     * @param {Pointer<Int16>} pcchDSN 
-     * @param {Pointer<UInt16>} wszDescription 
+     * @param {Pointer<Integer>} pcchDSN 
+     * @param {Pointer<Integer>} wszDescription 
      * @param {Integer} cchDescriptionMax 
-     * @param {Pointer<Int16>} pcchDescription 
+     * @param {Pointer<Integer>} pcchDescription 
      * @returns {Integer} 
      */
     static SQLDataSourcesW(henv, fDirection, szDSN, cchDSNMax, pcchDSN, wszDescription, cchDescriptionMax, pcchDescription) {
@@ -19356,11 +19447,11 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer} hwnd 
-     * @param {Pointer<UInt16>} szConnStrIn 
+     * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cchConnStrIn 
-     * @param {Pointer<UInt16>} szConnStrOut 
+     * @param {Pointer<Integer>} szConnStrOut 
      * @param {Integer} cchConnStrOutMax 
-     * @param {Pointer<Int16>} pcchConnStrOut 
+     * @param {Pointer<Integer>} pcchConnStrOut 
      * @param {Integer} fDriverCompletion 
      * @returns {Integer} 
      */
@@ -19372,11 +19463,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<UInt16>} szConnStrIn 
+     * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cchConnStrIn 
-     * @param {Pointer<UInt16>} szConnStrOut 
+     * @param {Pointer<Integer>} szConnStrOut 
      * @param {Integer} cchConnStrOutMax 
-     * @param {Pointer<Int16>} pcchConnStrOut 
+     * @param {Pointer<Integer>} pcchConnStrOut 
      * @returns {Integer} 
      */
     static SQLBrowseConnectW(hdbc, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut) {
@@ -19387,13 +19478,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
-     * @param {Pointer<UInt16>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cchColumnName 
      * @returns {Integer} 
      */
@@ -19408,7 +19499,7 @@ class Search {
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
      * @param {Integer} cbValueMax 
-     * @param {Pointer<Int32>} pcbValue 
+     * @param {Pointer<Integer>} pcbValue 
      * @returns {Integer} 
      */
     static SQLGetStmtAttrW(hstmt, fAttribute, rgbValue, cbValueMax, pcbValue) {
@@ -19432,17 +19523,17 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szPkCatalogName 
+     * @param {Pointer<Integer>} szPkCatalogName 
      * @param {Integer} cchPkCatalogName 
-     * @param {Pointer<UInt16>} szPkSchemaName 
+     * @param {Pointer<Integer>} szPkSchemaName 
      * @param {Integer} cchPkSchemaName 
-     * @param {Pointer<UInt16>} szPkTableName 
+     * @param {Pointer<Integer>} szPkTableName 
      * @param {Integer} cchPkTableName 
-     * @param {Pointer<UInt16>} szFkCatalogName 
+     * @param {Pointer<Integer>} szFkCatalogName 
      * @param {Integer} cchFkCatalogName 
-     * @param {Pointer<UInt16>} szFkSchemaName 
+     * @param {Pointer<Integer>} szFkSchemaName 
      * @param {Integer} cchFkSchemaName 
-     * @param {Pointer<UInt16>} szFkTableName 
+     * @param {Pointer<Integer>} szFkTableName 
      * @param {Integer} cchFkTableName 
      * @returns {Integer} 
      */
@@ -19454,11 +19545,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<UInt16>} szSqlStrIn 
+     * @param {Pointer<Integer>} szSqlStrIn 
      * @param {Integer} cchSqlStrIn 
-     * @param {Pointer<UInt16>} szSqlStr 
+     * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cchSqlStrMax 
-     * @param {Pointer<Int32>} pcchSqlStr 
+     * @param {Pointer<Integer>} pcchSqlStr 
      * @returns {Integer} 
      */
     static SQLNativeSqlW(hdbc, szSqlStrIn, cchSqlStrIn, szSqlStr, cchSqlStrMax, pcchSqlStr) {
@@ -19469,11 +19560,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
      * @returns {Integer} 
      */
@@ -19485,13 +19576,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szProcName 
+     * @param {Pointer<Integer>} szProcName 
      * @param {Integer} cchProcName 
-     * @param {Pointer<UInt16>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cchColumnName 
      * @returns {Integer} 
      */
@@ -19503,11 +19594,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szProcName 
+     * @param {Pointer<Integer>} szProcName 
      * @param {Integer} cchProcName 
      * @returns {Integer} 
      */
@@ -19519,11 +19610,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<UInt16>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cchCatalogName 
-     * @param {Pointer<UInt16>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cchSchemaName 
-     * @param {Pointer<UInt16>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cchTableName 
      * @returns {Integer} 
      */
@@ -19536,12 +19627,12 @@ class Search {
      * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
-     * @param {Pointer<UInt16>} szDriverDesc 
+     * @param {Pointer<Integer>} szDriverDesc 
      * @param {Integer} cchDriverDescMax 
-     * @param {Pointer<Int16>} pcchDriverDesc 
-     * @param {Pointer<UInt16>} szDriverAttributes 
+     * @param {Pointer<Integer>} pcchDriverDesc 
+     * @param {Pointer<Integer>} szDriverAttributes 
      * @param {Integer} cchDrvrAttrMax 
-     * @param {Pointer<Int16>} pcchDrvrAttr 
+     * @param {Pointer<Integer>} pcchDrvrAttr 
      * @returns {Integer} 
      */
     static SQLDriversW(henv, fDirection, szDriverDesc, cchDriverDescMax, pcchDriverDesc, szDriverAttributes, cchDrvrAttrMax, pcchDrvrAttr) {
@@ -19552,11 +19643,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<Byte>} szDSN 
+     * @param {Pointer<Integer>} szDSN 
      * @param {Integer} cbDSN 
-     * @param {Pointer<Byte>} szUID 
+     * @param {Pointer<Integer>} szUID 
      * @param {Integer} cbUID 
-     * @param {Pointer<Byte>} szAuthStr 
+     * @param {Pointer<Integer>} szAuthStr 
      * @param {Integer} cbAuthStr 
      * @returns {Integer} 
      */
@@ -19570,11 +19661,11 @@ class Search {
      * @param {Pointer<Void>} henv 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szSqlState 
-     * @param {Pointer<Int32>} pfNativeError 
-     * @param {Pointer<Byte>} szErrorMsg 
+     * @param {Pointer<Integer>} szSqlState 
+     * @param {Pointer<Integer>} pfNativeError 
+     * @param {Pointer<Integer>} szErrorMsg 
      * @param {Integer} cbErrorMsgMax 
-     * @param {Pointer<Int16>} pcbErrorMsg 
+     * @param {Pointer<Integer>} pcbErrorMsg 
      * @returns {Integer} 
      */
     static SQLErrorA(henv, hdbc, hstmt, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
@@ -19585,7 +19676,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szSqlStr 
+     * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cbSqlStr 
      * @returns {Integer} 
      */
@@ -19600,7 +19691,7 @@ class Search {
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
      * @param {Integer} cbValueMax 
-     * @param {Pointer<Int32>} pcbValue 
+     * @param {Pointer<Integer>} pcbValue 
      * @returns {Integer} 
      */
     static SQLGetConnectAttrA(hdbc, fAttribute, rgbValue, cbValueMax, pcbValue) {
@@ -19611,9 +19702,9 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCursor 
+     * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cbCursorMax 
-     * @param {Pointer<Int16>} pcbCursor 
+     * @param {Pointer<Integer>} pcbCursor 
      * @returns {Integer} 
      */
     static SQLGetCursorNameA(hstmt, szCursor, cbCursorMax, pcbCursor) {
@@ -19628,7 +19719,7 @@ class Search {
      * @param {Integer} iField 
      * @param {Pointer<Void>} rgbValue 
      * @param {Integer} cbBufferLength 
-     * @param {Pointer<Int32>} StringLength 
+     * @param {Pointer<Integer>} StringLength 
      * @returns {Integer} 
      */
     static SQLGetDescFieldA(hdesc, iRecord, iField, rgbValue, cbBufferLength, StringLength) {
@@ -19644,7 +19735,7 @@ class Search {
      * @param {Integer} fDiagField 
      * @param {Pointer<Void>} rgbDiagInfo 
      * @param {Integer} cbDiagInfoMax 
-     * @param {Pointer<Int16>} pcbDiagInfo 
+     * @param {Pointer<Integer>} pcbDiagInfo 
      * @returns {Integer} 
      */
     static SQLGetDiagFieldA(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbDiagInfoMax, pcbDiagInfo) {
@@ -19657,11 +19748,11 @@ class Search {
      * @param {Integer} fHandleType 
      * @param {Pointer<Void>} handle 
      * @param {Integer} iRecord 
-     * @param {Pointer<Byte>} szSqlState 
-     * @param {Pointer<Int32>} pfNativeError 
-     * @param {Pointer<Byte>} szErrorMsg 
+     * @param {Pointer<Integer>} szSqlState 
+     * @param {Pointer<Integer>} pfNativeError 
+     * @param {Pointer<Integer>} szErrorMsg 
      * @param {Integer} cbErrorMsgMax 
-     * @param {Pointer<Int16>} pcbErrorMsg 
+     * @param {Pointer<Integer>} pcbErrorMsg 
      * @returns {Integer} 
      */
     static SQLGetDiagRecA(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
@@ -19675,7 +19766,7 @@ class Search {
      * @param {Integer} fAttribute 
      * @param {Pointer<Void>} rgbValue 
      * @param {Integer} cbValueMax 
-     * @param {Pointer<Int32>} pcbValue 
+     * @param {Pointer<Integer>} pcbValue 
      * @returns {Integer} 
      */
     static SQLGetStmtAttrA(hstmt, fAttribute, rgbValue, cbValueMax, pcbValue) {
@@ -19697,7 +19788,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szSqlStr 
+     * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cbSqlStr 
      * @returns {Integer} 
      */
@@ -19722,7 +19813,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCursor 
+     * @param {Pointer<Integer>} szCursor 
      * @param {Integer} cbCursor 
      * @returns {Integer} 
      */
@@ -19734,13 +19825,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cbTableName 
-     * @param {Pointer<Byte>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cbColumnName 
      * @returns {Integer} 
      */
@@ -19767,7 +19858,7 @@ class Search {
      * @param {Integer} fInfoType 
      * @param {Pointer} rgbInfoValue 
      * @param {Integer} cbInfoValueMax 
-     * @param {Pointer<Int16>} pcbInfoValue 
+     * @param {Pointer<Integer>} pcbInfoValue 
      * @returns {Integer} 
      */
     static SQLGetInfoA(hdbc, fInfoType, rgbInfoValue, cbInfoValueMax, pcbInfoValue) {
@@ -19779,11 +19870,11 @@ class Search {
      * 
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fColType 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cbTableName 
      * @param {Integer} fScope 
      * @param {Integer} fNullable 
@@ -19797,11 +19888,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cbTableName 
      * @param {Integer} fUnique 
      * @param {Integer} fAccuracy 
@@ -19815,13 +19906,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cbTableName 
-     * @param {Pointer<Byte>} szTableType 
+     * @param {Pointer<Integer>} szTableType 
      * @param {Integer} cbTableType 
      * @returns {Integer} 
      */
@@ -19834,12 +19925,12 @@ class Search {
      * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
-     * @param {Pointer<Byte>} szDSN 
+     * @param {Pointer<Integer>} szDSN 
      * @param {Integer} cbDSNMax 
-     * @param {Pointer<Int16>} pcbDSN 
-     * @param {Pointer<Byte>} szDescription 
+     * @param {Pointer<Integer>} pcbDSN 
+     * @param {Pointer<Integer>} szDescription 
      * @param {Integer} cbDescriptionMax 
-     * @param {Pointer<Int16>} pcbDescription 
+     * @param {Pointer<Integer>} pcbDescription 
      * @returns {Integer} 
      */
     static SQLDataSourcesA(henv, fDirection, szDSN, cbDSNMax, pcbDSN, szDescription, cbDescriptionMax, pcbDescription) {
@@ -19851,11 +19942,11 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Pointer} hwnd 
-     * @param {Pointer<Byte>} szConnStrIn 
+     * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cbConnStrIn 
-     * @param {Pointer<Byte>} szConnStrOut 
+     * @param {Pointer<Integer>} szConnStrOut 
      * @param {Integer} cbConnStrOutMax 
-     * @param {Pointer<Int16>} pcbConnStrOut 
+     * @param {Pointer<Integer>} pcbConnStrOut 
      * @param {Integer} fDriverCompletion 
      * @returns {Integer} 
      */
@@ -19867,11 +19958,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<Byte>} szConnStrIn 
+     * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cbConnStrIn 
-     * @param {Pointer<Byte>} szConnStrOut 
+     * @param {Pointer<Integer>} szConnStrOut 
      * @param {Integer} cbConnStrOutMax 
-     * @param {Pointer<Int16>} pcbConnStrOut 
+     * @param {Pointer<Integer>} pcbConnStrOut 
      * @returns {Integer} 
      */
     static SQLBrowseConnectA(hdbc, szConnStrIn, cbConnStrIn, szConnStrOut, cbConnStrOutMax, pcbConnStrOut) {
@@ -19882,13 +19973,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cbTableName 
-     * @param {Pointer<Byte>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cbColumnName 
      * @returns {Integer} 
      */
@@ -19900,17 +19991,17 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szPkCatalogName 
+     * @param {Pointer<Integer>} szPkCatalogName 
      * @param {Integer} cbPkCatalogName 
-     * @param {Pointer<Byte>} szPkSchemaName 
+     * @param {Pointer<Integer>} szPkSchemaName 
      * @param {Integer} cbPkSchemaName 
-     * @param {Pointer<Byte>} szPkTableName 
+     * @param {Pointer<Integer>} szPkTableName 
      * @param {Integer} cbPkTableName 
-     * @param {Pointer<Byte>} szFkCatalogName 
+     * @param {Pointer<Integer>} szFkCatalogName 
      * @param {Integer} cbFkCatalogName 
-     * @param {Pointer<Byte>} szFkSchemaName 
+     * @param {Pointer<Integer>} szFkSchemaName 
      * @param {Integer} cbFkSchemaName 
-     * @param {Pointer<Byte>} szFkTableName 
+     * @param {Pointer<Integer>} szFkTableName 
      * @param {Integer} cbFkTableName 
      * @returns {Integer} 
      */
@@ -19922,11 +20013,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer<Byte>} szSqlStrIn 
+     * @param {Pointer<Integer>} szSqlStrIn 
      * @param {Integer} cbSqlStrIn 
-     * @param {Pointer<Byte>} szSqlStr 
+     * @param {Pointer<Integer>} szSqlStr 
      * @param {Integer} cbSqlStrMax 
-     * @param {Pointer<Int32>} pcbSqlStr 
+     * @param {Pointer<Integer>} pcbSqlStr 
      * @returns {Integer} 
      */
     static SQLNativeSqlA(hdbc, szSqlStrIn, cbSqlStrIn, szSqlStr, cbSqlStrMax, pcbSqlStr) {
@@ -19937,11 +20028,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cbTableName 
      * @returns {Integer} 
      */
@@ -19953,13 +20044,13 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szProcName 
+     * @param {Pointer<Integer>} szProcName 
      * @param {Integer} cbProcName 
-     * @param {Pointer<Byte>} szColumnName 
+     * @param {Pointer<Integer>} szColumnName 
      * @param {Integer} cbColumnName 
      * @returns {Integer} 
      */
@@ -19971,11 +20062,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szProcName 
+     * @param {Pointer<Integer>} szProcName 
      * @param {Integer} cbProcName 
      * @returns {Integer} 
      */
@@ -19987,11 +20078,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hstmt 
-     * @param {Pointer<Byte>} szCatalogName 
+     * @param {Pointer<Integer>} szCatalogName 
      * @param {Integer} cbCatalogName 
-     * @param {Pointer<Byte>} szSchemaName 
+     * @param {Pointer<Integer>} szSchemaName 
      * @param {Integer} cbSchemaName 
-     * @param {Pointer<Byte>} szTableName 
+     * @param {Pointer<Integer>} szTableName 
      * @param {Integer} cbTableName 
      * @returns {Integer} 
      */
@@ -20004,12 +20095,12 @@ class Search {
      * 
      * @param {Pointer<Void>} henv 
      * @param {Integer} fDirection 
-     * @param {Pointer<Byte>} szDriverDesc 
+     * @param {Pointer<Integer>} szDriverDesc 
      * @param {Integer} cbDriverDescMax 
-     * @param {Pointer<Int16>} pcbDriverDesc 
-     * @param {Pointer<Byte>} szDriverAttributes 
+     * @param {Pointer<Integer>} pcbDriverDesc 
+     * @param {Pointer<Integer>} szDriverAttributes 
      * @param {Integer} cbDrvrAttrMax 
-     * @param {Pointer<Int16>} pcbDrvrAttr 
+     * @param {Pointer<Integer>} pcbDrvrAttr 
      * @returns {Integer} 
      */
     static SQLDriversA(henv, fDirection, szDriverDesc, cbDriverDescMax, pcbDriverDesc, szDriverAttributes, cbDrvrAttrMax, pcbDrvrAttr) {

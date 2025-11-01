@@ -64,7 +64,7 @@ class WS_XML_ELEMENT_NODE extends Win32Struct
 
     /**
      * The array of attributes for the element.
-     * @type {Pointer<WS_XML_ATTRIBUTE>}
+     * @type {Pointer<Pointer<WS_XML_ATTRIBUTE>>}
      */
     attributes {
         get => NumGet(this, 40, "ptr")

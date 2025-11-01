@@ -36,7 +36,7 @@ class CLMD_PIV_GENERATE_ASYMMETRIC_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbKey {
         get => NumGet(this, 8, "ptr")

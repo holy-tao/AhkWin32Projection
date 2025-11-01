@@ -49,7 +49,7 @@ class OBJECTPOSITIONS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
      * 
      * The object positions.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pcpPositions {
         get => NumGet(this, 32, "ptr")

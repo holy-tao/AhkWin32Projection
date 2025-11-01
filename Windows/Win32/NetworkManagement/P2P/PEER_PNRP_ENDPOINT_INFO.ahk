@@ -34,7 +34,7 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
 
     /**
      * Pointer to an array of pointers to SOCKADDR structures that contain the IP addresses for the peer endpoint's network interface.
-     * @type {Pointer<SOCKADDR>}
+     * @type {Pointer<Pointer<SOCKADDR>>}
      */
     ppAddresses {
         get => NumGet(this, 16, "ptr")

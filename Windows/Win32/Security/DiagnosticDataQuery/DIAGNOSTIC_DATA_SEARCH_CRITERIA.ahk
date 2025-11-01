@@ -51,7 +51,7 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[INT32\*](/windows/desktop/winprog/windows-data-types)**
      * List of category identifiers to search for. A diagnostic data record that matches at least one of the category names is included as a result in this search criteria. Use `nullptr` for this value to indicate no filter by categories.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     categoryIds {
         get => NumGet(this, 24, "ptr")
@@ -71,7 +71,7 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[INT32\*](/windows/desktop/winprog/windows-data-types)**
      * List of privacy tag identifiers to search for. A diagnostic data record that matches at least one of the tags is included as a result in this search criteria. Use `nullptr` for this value to indicate no filter by privacy tags.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     privacyTags {
         get => NumGet(this, 40, "ptr")

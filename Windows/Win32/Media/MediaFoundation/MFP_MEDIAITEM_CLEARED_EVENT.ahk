@@ -33,7 +33,7 @@ class MFP_MEDIAITEM_CLEARED_EVENT extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaitem">IMFPMediaItem</a> interface of the media item that was cleared.
-     * @type {Pointer<IMFPMediaItem>}
+     * @type {IMFPMediaItem}
      */
     pMediaItem {
         get => NumGet(this, 32, "ptr")

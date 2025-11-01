@@ -367,7 +367,7 @@ class Direct2D {
      * @param {Pointer<D2D1_FACTORY_OPTIONS>} pFactoryOptions Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_factory_options">D2D1_FACTORY_OPTIONS</a>*</b>
      * 
      * The level of detail provided to the debugging layer.
-     * @param {Pointer<Void>} ppIFactory Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppIFactory Type: <b>void**</b>
      * 
      * When this method returns, contains the address to a pointer to the new factory.
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
@@ -377,7 +377,7 @@ class Direct2D {
      * @since windows6.1
      */
     static D2D1CreateFactory(factoryType, riid, pFactoryOptions, ppIFactory) {
-        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, "ptr", ppIFactory, "int")
+        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, "ptr*", ppIFactory, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -464,7 +464,7 @@ class Direct2D {
 
     /**
      * Creates a new Direct2D device associated with the provided DXGI device.
-     * @param {Pointer<IDXGIDevice>} dxgiDevice The DXGI device the Direct2D device is associated with.
+     * @param {IDXGIDevice} dxgiDevice The DXGI device the Direct2D device is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device.
      * @param {Pointer<ID2D1Device>} d2dDevice When this function returns, contains the address of a pointer to a Direct2D device.
      * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -491,7 +491,7 @@ class Direct2D {
      * @since windows8.0
      */
     static D2D1CreateDevice(dxgiDevice, creationProperties, d2dDevice) {
-        result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, "ptr", creationProperties, "ptr", d2dDevice, "int")
+        result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, "ptr", creationProperties, "ptr*", d2dDevice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -500,7 +500,7 @@ class Direct2D {
 
     /**
      * Creates a new Direct2D device context associated with a DXGI surface.
-     * @param {Pointer<IDXGISurface>} dxgiSurface The DXGI surface the Direct2D device context is associated with.
+     * @param {IDXGISurface} dxgiSurface The DXGI surface the Direct2D device context is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device context.
      * @param {Pointer<ID2D1DeviceContext>} d2dDeviceContext When this function returns, contains the address of a pointer to a Direct2D device context.
      * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -527,7 +527,7 @@ class Direct2D {
      * @since windows8.0
      */
     static D2D1CreateDeviceContext(dxgiSurface, creationProperties, d2dDeviceContext) {
-        result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, "ptr", creationProperties, "ptr", d2dDeviceContext, "int")
+        result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, "ptr", creationProperties, "ptr*", d2dDeviceContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -560,10 +560,10 @@ class Direct2D {
      * @param {Float} angle Type: <b>FLOAT</b>
      * 
      * The angle to calculate.
-     * @param {Pointer<Single>} s Type: <b>FLOAT*</b>
+     * @param {Pointer<Float>} s Type: <b>FLOAT*</b>
      * 
      * The sine of the angle.
-     * @param {Pointer<Single>} c Type: <b>FLOAT*</b>
+     * @param {Pointer<Float>} c Type: <b>FLOAT*</b>
      * 
      * The cosine of the angle.
      * @returns {String} Nothing - always returns an empty string

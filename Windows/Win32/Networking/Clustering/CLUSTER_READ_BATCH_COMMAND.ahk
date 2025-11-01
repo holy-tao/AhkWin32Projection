@@ -58,7 +58,7 @@ class CLUSTER_READ_BATCH_COMMAND extends Win32Struct
 
     /**
      * A pointer to value data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpData {
         get => NumGet(this, 24, "ptr")

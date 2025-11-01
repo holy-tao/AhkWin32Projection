@@ -15,7 +15,7 @@ class D3D12_DRED_ALLOCATION_NODE extends Win32Struct
 
     /**
      * A pointer to the ANSI debug name of the allocated runtime object.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ObjectNameA {
         get => NumGet(this, 0, "ptr")

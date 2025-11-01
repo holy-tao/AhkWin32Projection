@@ -3,6 +3,8 @@
 #Include .\DML_SCALAR_UNION.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_padding1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -64,7 +66,7 @@ class DML_PADDING1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     StartPadding {
         get => NumGet(this, 88, "ptr")
@@ -72,7 +74,7 @@ class DML_PADDING1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EndPadding {
         get => NumGet(this, 96, "ptr")

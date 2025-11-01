@@ -13,7 +13,7 @@ class Marshal {
 ;@region Methods
     /**
      * Calculates the wire size of the BSTR object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<BSTR>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
@@ -26,10 +26,10 @@ class Marshal {
 
     /**
      * Marshals a BSTR object into the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<BSTR>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-bstr_usermarshal
      */
     static BSTR_UserMarshal(param0, param1, param2) {
@@ -39,10 +39,10 @@ class Marshal {
 
     /**
      * Unmarshals a BSTR object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<BSTR>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -81,7 +81,7 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<BSTR>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-bstr_userfree
@@ -92,10 +92,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize
      */
     static HWND_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\HWND_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -104,10 +105,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal
      */
     static HWND_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HWND_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -116,10 +118,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal
      */
     static HWND_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HWND_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -128,9 +131,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HWND>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree
      */
     static HWND_UserFree(param0, param1) {
         DllCall("OLE32.dll\HWND_UserFree", "uint*", param0, "ptr", param1)
@@ -138,7 +142,7 @@ class Marshal {
 
     /**
      * Calculates the wire size of the BSTR object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<BSTR>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
@@ -152,10 +156,10 @@ class Marshal {
 
     /**
      * Marshals a BSTR object into the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<BSTR>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-bstr_usermarshal64
      * @since windows5.1.2600
      */
@@ -166,10 +170,10 @@ class Marshal {
 
     /**
      * Unmarshals a BSTR object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<BSTR>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -209,7 +213,7 @@ class Marshal {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<BSTR>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-bstr_userfree64
@@ -221,10 +225,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize64
      */
     static HWND_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HWND_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -233,10 +238,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal64
      */
     static HWND_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HWND_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -245,10 +251,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal64
      */
     static HWND_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HWND_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -257,9 +264,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HWND>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree64
      */
     static HWND_UserFree64(param0, param1) {
         DllCall("OLE32.dll\HWND_UserFree64", "uint*", param0, "ptr", param1)
@@ -267,10 +275,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<UInt16>} param2 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize
      */
     static CLIPFORMAT_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\CLIPFORMAT_UserSize", "uint*", param0, "uint", param1, "ushort*", param2, "uint")
@@ -279,10 +288,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal
      */
     static CLIPFORMAT_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
@@ -291,10 +301,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal
      */
     static CLIPFORMAT_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
@@ -303,9 +314,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<UInt16>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree
      */
     static CLIPFORMAT_UserFree(param0, param1) {
         DllCall("OLE32.dll\CLIPFORMAT_UserFree", "uint*", param0, "ushort*", param1)
@@ -313,10 +325,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize
      */
     static HBITMAP_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\HBITMAP_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -325,10 +338,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal
      */
     static HBITMAP_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HBITMAP_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -337,10 +351,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal
      */
     static HBITMAP_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -349,9 +364,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HBITMAP>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree
      */
     static HBITMAP_UserFree(param0, param1) {
         DllCall("OLE32.dll\HBITMAP_UserFree", "uint*", param0, "ptr", param1)
@@ -359,10 +375,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize
      */
     static HDC_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\HDC_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -371,10 +388,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal
      */
     static HDC_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HDC_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -383,10 +401,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal
      */
     static HDC_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HDC_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -395,9 +414,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HDC>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree
      */
     static HDC_UserFree(param0, param1) {
         DllCall("OLE32.dll\HDC_UserFree", "uint*", param0, "ptr", param1)
@@ -405,7 +425,7 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HICON>} param2 
      * @returns {Integer} 
@@ -417,10 +437,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HICON_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HICON_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -429,10 +449,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HICON_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HICON_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -441,7 +461,7 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HICON>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -451,56 +471,57 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<UInt16>} param2 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
      * @returns {Integer} 
      */
     static SNB_UserSize(param0, param1, param2) {
-        result := DllCall("ole32.dll\SNB_UserSize", "uint*", param0, "uint", param1, "ushort*", param2, "uint")
+        result := DllCall("ole32.dll\SNB_UserSize", "uint*", param0, "uint", param1, "ptr*", param2, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
+     * @returns {Pointer<Integer>} 
      */
     static SNB_UserMarshal(param0, param1, param2) {
-        result := DllCall("ole32.dll\SNB_UserMarshal", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserMarshal", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
+     * @returns {Pointer<Integer>} 
      */
     static SNB_UserUnmarshal(param0, param1, param2) {
-        result := DllCall("ole32.dll\SNB_UserUnmarshal", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserUnmarshal", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<UInt16>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     static SNB_UserFree(param0, param1) {
-        DllCall("ole32.dll\SNB_UserFree", "uint*", param0, "ushort*", param1)
+        DllCall("ole32.dll\SNB_UserFree", "uint*", param0, "ptr*", param1)
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize
      */
     static STGMEDIUM_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\STGMEDIUM_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -509,10 +530,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal
      */
     static STGMEDIUM_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -521,10 +543,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal
      */
     static STGMEDIUM_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -533,9 +556,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<STGMEDIUM>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree
      */
     static STGMEDIUM_UserFree(param0, param1) {
         DllCall("OLE32.dll\STGMEDIUM_UserFree", "uint*", param0, "ptr", param1)
@@ -543,10 +567,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<UInt16>} param2 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize64
      */
     static CLIPFORMAT_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\CLIPFORMAT_UserSize64", "uint*", param0, "uint", param1, "ushort*", param2, "uint")
@@ -555,10 +580,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal64
      */
     static CLIPFORMAT_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal64", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
@@ -567,10 +593,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal64
      */
     static CLIPFORMAT_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal64", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
@@ -579,9 +606,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<UInt16>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree64
      */
     static CLIPFORMAT_UserFree64(param0, param1) {
         DllCall("OLE32.dll\CLIPFORMAT_UserFree64", "uint*", param0, "ushort*", param1)
@@ -589,10 +617,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize64
      */
     static HBITMAP_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HBITMAP_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -601,10 +630,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal64
      */
     static HBITMAP_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HBITMAP_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -613,10 +643,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal64
      */
     static HBITMAP_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -625,9 +656,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HBITMAP>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree64
      */
     static HBITMAP_UserFree64(param0, param1) {
         DllCall("OLE32.dll\HBITMAP_UserFree64", "uint*", param0, "ptr", param1)
@@ -635,10 +667,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize64
      */
     static HDC_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HDC_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -647,10 +680,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal64
      */
     static HDC_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HDC_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -659,10 +693,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal64
      */
     static HDC_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HDC_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -671,9 +706,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HDC>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree64
      */
     static HDC_UserFree64(param0, param1) {
         DllCall("OLE32.dll\HDC_UserFree64", "uint*", param0, "ptr", param1)
@@ -681,7 +717,7 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HICON>} param2 
      * @returns {Integer} 
@@ -693,10 +729,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HICON_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HICON_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -705,10 +741,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HICON>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HICON_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HICON_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -717,7 +753,7 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HICON>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -727,56 +763,57 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<UInt16>} param2 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
      * @returns {Integer} 
      */
     static SNB_UserSize64(param0, param1, param2) {
-        result := DllCall("ole32.dll\SNB_UserSize64", "uint*", param0, "uint", param1, "ushort*", param2, "uint")
+        result := DllCall("ole32.dll\SNB_UserSize64", "uint*", param0, "uint", param1, "ptr*", param2, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
+     * @returns {Pointer<Integer>} 
      */
     static SNB_UserMarshal64(param0, param1, param2) {
-        result := DllCall("ole32.dll\SNB_UserMarshal64", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserMarshal64", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<UInt16>} param2 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
+     * @returns {Pointer<Integer>} 
      */
     static SNB_UserUnmarshal64(param0, param1, param2) {
-        result := DllCall("ole32.dll\SNB_UserUnmarshal64", "uint*", param0, "char*", param1, "ushort*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<UInt16>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     static SNB_UserFree64(param0, param1) {
-        DllCall("ole32.dll\SNB_UserFree64", "uint*", param0, "ushort*", param1)
+        DllCall("ole32.dll\SNB_UserFree64", "uint*", param0, "ptr*", param1)
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize64
      */
     static STGMEDIUM_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\STGMEDIUM_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -785,10 +822,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal64
      */
     static STGMEDIUM_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -797,10 +835,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal64
      */
     static STGMEDIUM_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -809,9 +848,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<STGMEDIUM>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree64
      */
     static STGMEDIUM_UserFree64(param0, param1) {
         DllCall("OLE32.dll\STGMEDIUM_UserFree64", "uint*", param0, "ptr", param1)
@@ -819,9 +859,9 @@ class Marshal {
 
     /**
      * Returns an upper bound on the number of bytes needed to marshal the specified interface pointer to the specified object.
-     * @param {Pointer<UInt32>} pulSize A pointer to the upper-bound value on the size, in bytes, of the data packet to be written to the marshaling stream. If this parameter is 0, the size of the packet is unknown.
+     * @param {Pointer<Integer>} pulSize A pointer to the upper-bound value on the size, in bytes, of the data packet to be written to the marshaling stream. If this parameter is 0, the size of the packet is unknown.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface whose pointer is to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
-     * @param {Pointer<IUnknown>} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
+     * @param {IUnknown} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values for <i>dwDestContext</i> come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>.
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
      * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client processthe normal case or written to a global table, where it can be retrieved by multiple clients. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a>.
@@ -868,9 +908,9 @@ class Marshal {
 
     /**
      * Writes into a stream the data required to initialize a proxy object in some client process.
-     * @param {Pointer<IStream>} pStm A pointer to the stream to be used during marshaling. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
+     * @param {IStream} pStm A pointer to the stream to be used during marshaling. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
-     * @param {Pointer<IUnknown>} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
+     * @param {IUnknown} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. The possible values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Currently, unmarshaling can occur in another apartment of the current process (MSHCTX_INPROC), in another process on the same computer as the current process (MSHCTX_LOCAL), or in a process on a different computer (MSHCTX_DIFFERENTMACHINE).
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
      * @param {Integer} mshlflags The flags that specify whether the data to be marshaled is to be transmitted back to the client process (the typical  case) or written to a global table, where it can be retrieved by multiple clients. The possibles values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
@@ -917,9 +957,9 @@ class Marshal {
 
     /**
      * Initializes a newly created proxy using data written into the stream by a previous call to the CoMarshalInterface function, and returns an interface pointer to that proxy.
-     * @param {Pointer<IStream>} pStm A pointer to the stream from which the interface is to be unmarshaled.
+     * @param {IStream} pStm A pointer to the stream from which the interface is to be unmarshaled.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be unmarshaled. For <b>IID_NULL</b>, the returned interface is the one defined by the stream, objref.iid.
-     * @param {Pointer<Void>} ppv The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer for the unmarshaled interface.
+     * @param {Pointer<Pointer<Void>>} ppv The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer for the unmarshaled interface.
      * @returns {HRESULT} This function can return the standard return value E_FAIL, errors returned by <a href="/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>, and the following values.
      * 
      * <table>
@@ -998,7 +1038,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoUnmarshalInterface(pStm, riid, ppv) {
-        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1007,7 +1047,7 @@ class Marshal {
 
     /**
      * Marshals an HRESULT to the specified stream, from which it can be unmarshaled using the CoUnmarshalHresult function.
-     * @param {Pointer<IStream>} pstm A pointer to the marshaling stream. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
+     * @param {IStream} pstm A pointer to the marshaling stream. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
      * @param {HRESULT} hresult The <b>HRESULT</b> in the originating process.
      * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
      * 
@@ -1063,7 +1103,7 @@ class Marshal {
 
     /**
      * Unmarshals an HRESULT type from the specified stream.
-     * @param {Pointer<IStream>} pstm A pointer to the stream from which the <b>HRESULT</b> is to be unmarshaled.
+     * @param {IStream} pstm A pointer to the stream from which the <b>HRESULT</b> is to be unmarshaled.
      * @param {Pointer<HRESULT>} phresult A pointer to the unmarshaled <b>HRESULT</b>.
      * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
      * 
@@ -1109,7 +1149,7 @@ class Marshal {
 
     /**
      * Destroys a previously marshaled data packet.
-     * @param {Pointer<IStream>} pStm A  pointer to the stream that contains the data packet to be destroyed. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
+     * @param {IStream} pStm A  pointer to the stream that contains the data packet to be destroyed. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
      * @returns {HRESULT} This function can return the standard return values E_FAIL, E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
@@ -1166,7 +1206,7 @@ class Marshal {
     /**
      * Creates a default, or standard, marshaling object in either the client process or the server process, depending on the caller, and returns a pointer to that object's IMarshal implementation.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface whose pointer is to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
-     * @param {Pointer<IUnknown>} pUnk A pointer to the interface to be marshaled.
+     * @param {IUnknown} pUnk A pointer to the interface to be marshaled.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
      * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the normal case) or written to a global table where it can be retrieved by multiple clients. Values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
@@ -1205,7 +1245,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoGetStandardMarshal(riid, pUnk, dwDestContext, pvDestContext, mshlflags, ppMarshal) {
-        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, "ptr", ppMarshal, "int")
+        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, "ptr", pvDestContext, "uint", mshlflags, "ptr*", ppMarshal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1214,7 +1254,7 @@ class Marshal {
 
     /**
      * Creates an aggregated standard marshaler for use with lightweight client-side handlers.
-     * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>.
+     * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>.
      * @param {Integer} smexflags One of two values indicating whether the aggregated standard marshaler is on the client side or the server side. These flags are defined in the <b>STDMSHLFLAGS</b> enumeration.
      * 
      * <table>
@@ -1251,7 +1291,7 @@ class Marshal {
      * @since windows5.0
      */
     static CoGetStdMarshalEx(pUnkOuter, smexflags, ppUnkInner) {
-        result := DllCall("OLE32.dll\CoGetStdMarshalEx", "ptr", pUnkOuter, "uint", smexflags, "ptr", ppUnkInner, "int")
+        result := DllCall("OLE32.dll\CoGetStdMarshalEx", "ptr", pUnkOuter, "uint", smexflags, "ptr*", ppUnkInner, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1261,14 +1301,14 @@ class Marshal {
     /**
      * Marshals an interface pointer from one thread to another thread in the same process.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
-     * @param {Pointer<IUnknown>} pUnk A pointer to the interface to be marshaled, which must be derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. This parameter can be <b>NULL</b>.
+     * @param {IUnknown} pUnk A pointer to the interface to be marshaled, which must be derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<IStream>} ppStm The address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the stream that contains the marshaled interface.
      * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-comarshalinterthreadinterfaceinstream
      * @since windows5.0
      */
     static CoMarshalInterThreadInterfaceInStream(riid, pUnk, ppStm) {
-        result := DllCall("OLE32.dll\CoMarshalInterThreadInterfaceInStream", "ptr", riid, "ptr", pUnk, "ptr", ppStm, "int")
+        result := DllCall("OLE32.dll\CoMarshalInterThreadInterfaceInStream", "ptr", riid, "ptr", pUnk, "ptr*", ppStm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1277,23 +1317,23 @@ class Marshal {
 
     /**
      * Calculates the wire size of the SAFEARRAY object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<SAFEARRAY>} param2 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-lpsafearray_usersize
      */
     static LPSAFEARRAY_UserSize(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize", "uint*", param0, "uint", param1, "ptr*", param2, "uint")
         return result
     }
 
     /**
      * Marshals data from the specified SAFEARRAY object to the user's RPC buffer on the client or server side.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<SAFEARRAY>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
      * 
@@ -1344,16 +1384,16 @@ class Marshal {
      * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-lpsafearray_usermarshal
      */
     static LPSAFEARRAY_UserMarshal(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * Unmarshals a SAFEARRAY object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<SAFEARRAY>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -1425,41 +1465,41 @@ class Marshal {
      * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-lpsafearray_userunmarshal
      */
     static LPSAFEARRAY_UserUnmarshal(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<SAFEARRAY>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-lpsafearray_userfree
      */
     static LPSAFEARRAY_UserFree(param0, param1) {
-        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree", "uint*", param0, "ptr", param1)
+        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree", "uint*", param0, "ptr*", param1)
     }
 
     /**
      * Calculates the wire size of the SAFEARRAY object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<SAFEARRAY>} param2 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-lpsafearray_usersize64
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserSize64(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize64", "uint*", param0, "uint", param1, "ptr*", param2, "uint")
         return result
     }
 
     /**
      * Marshals data from the specified SAFEARRAY object to the user's RPC buffer on the client or server side.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<SAFEARRAY>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
      * 
@@ -1511,16 +1551,16 @@ class Marshal {
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserMarshal64(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal64", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * Unmarshals a SAFEARRAY object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<SAFEARRAY>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param2 
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -1593,28 +1633,29 @@ class Marshal {
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserUnmarshal64(param0, param1, param2) {
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr*", param2, "char*")
         return result
     }
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<SAFEARRAY>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Pointer<SAFEARRAY>>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-lpsafearray_userfree64
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserFree64(param0, param1) {
-        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree64", "uint*", param0, "ptr", param1)
+        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree64", "uint*", param0, "ptr*", param1)
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize
      */
     static HACCEL_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\HACCEL_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -1623,10 +1664,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal
      */
     static HACCEL_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HACCEL_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1635,10 +1677,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal
      */
     static HACCEL_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HACCEL_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1647,9 +1690,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HACCEL>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree
      */
     static HACCEL_UserFree(param0, param1) {
         DllCall("OLE32.dll\HACCEL_UserFree", "uint*", param0, "ptr", param1)
@@ -1657,10 +1701,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize
      */
     static HGLOBAL_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\HGLOBAL_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -1669,10 +1714,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal
      */
     static HGLOBAL_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HGLOBAL_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1681,10 +1727,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal
      */
     static HGLOBAL_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1693,9 +1740,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HGLOBAL>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree
      */
     static HGLOBAL_UserFree(param0, param1) {
         DllCall("OLE32.dll\HGLOBAL_UserFree", "uint*", param0, "ptr", param1)
@@ -1703,7 +1751,7 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Integer} 
@@ -1715,10 +1763,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal
      */
     static HMENU_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMENU_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1727,10 +1776,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal
      */
     static HMENU_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMENU_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1739,9 +1789,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMENU>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree
      */
     static HMENU_UserFree(param0, param1) {
         DllCall("OLE32.dll\HMENU_UserFree", "uint*", param0, "ptr", param1)
@@ -1749,10 +1800,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize64
      */
     static HACCEL_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HACCEL_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -1761,10 +1813,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal64
      */
     static HACCEL_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HACCEL_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1773,10 +1826,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal64
      */
     static HACCEL_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HACCEL_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1785,9 +1839,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HACCEL>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree64
      */
     static HACCEL_UserFree64(param0, param1) {
         DllCall("OLE32.dll\HACCEL_UserFree64", "uint*", param0, "ptr", param1)
@@ -1795,10 +1850,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize64
      */
     static HGLOBAL_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HGLOBAL_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -1807,10 +1863,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal64
      */
     static HGLOBAL_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HGLOBAL_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1819,10 +1876,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal64
      */
     static HGLOBAL_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1831,9 +1889,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HGLOBAL>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree64
      */
     static HGLOBAL_UserFree64(param0, param1) {
         DllCall("OLE32.dll\HGLOBAL_UserFree64", "uint*", param0, "ptr", param1)
@@ -1841,10 +1900,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usersize64
      */
     static HMENU_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMENU_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -1853,10 +1913,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal64
      */
     static HMENU_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMENU_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1865,10 +1926,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal64
      */
     static HMENU_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMENU_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1877,9 +1939,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMENU>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree64
      */
     static HMENU_UserFree64(param0, param1) {
         DllCall("OLE32.dll\HMENU_UserFree64", "uint*", param0, "ptr", param1)
@@ -1887,10 +1950,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize
      */
     static HPALETTE_UserSize(param0, param1, param2) {
         result := DllCall("OLE32.dll\HPALETTE_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -1899,10 +1963,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal
      */
     static HPALETTE_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HPALETTE_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1911,10 +1976,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal
      */
     static HPALETTE_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1923,9 +1989,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HPALETTE>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree
      */
     static HPALETTE_UserFree(param0, param1) {
         DllCall("OLE32.dll\HPALETTE_UserFree", "uint*", param0, "ptr", param1)
@@ -1933,10 +2000,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize64
      */
     static HPALETTE_UserSize64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HPALETTE_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
@@ -1945,10 +2013,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal64
      */
     static HPALETTE_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HPALETTE_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1957,10 +2026,11 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal64
      */
     static HPALETTE_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -1969,9 +2039,10 @@ class Marshal {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HPALETTE>} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree64
      */
     static HPALETTE_UserFree64(param0, param1) {
         DllCall("OLE32.dll\HPALETTE_UserFree64", "uint*", param0, "ptr", param1)

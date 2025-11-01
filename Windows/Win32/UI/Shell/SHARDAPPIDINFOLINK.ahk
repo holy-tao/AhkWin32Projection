@@ -33,7 +33,7 @@ class SHARDAPPIDINFOLINK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> instance that, when launched, opens the item. The shortcut is not added by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddtorecentdocs">SHAddToRecentDocs</a> to the user's <b>Recent</b> folder (<a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_RECENT</a>, <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Recent</a>), but it is added to the <b>Recent</b> category in the specified application's Jump List.
-     * @type {Pointer<IShellLinkA>}
+     * @type {IShellLinkA}
      */
     psl {
         get => NumGet(this, 0, "ptr")

@@ -28,7 +28,7 @@ class CERT_FILTER_EXTENSION_MATCH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbTestData {
         get => NumGet(this, 16, "ptr")

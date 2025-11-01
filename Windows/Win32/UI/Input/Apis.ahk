@@ -23,7 +23,7 @@ class Input {
      * A pointer to the data that comes from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure. This depends on the value of 
      * 					<i>uiCommand</i>. If 
      * 					<i>pData</i> is <b>NULL</b>, the required size of the buffer is returned in *<i>pcbSize</i>.
-     * @param {Pointer<UInt32>} pcbSize Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} pcbSize Type: <b>PUINT</b>
      * 
      * The size, in bytes, of the data in 
      * 					<i>pData</i>.
@@ -58,7 +58,7 @@ class Input {
      * A pointer to a buffer that contains the information specified by <i>uiCommand</i>.
      * 
      * If <i>uiCommand</i> is <b>RIDI_DEVICEINFO</b>, set the <b>cbSize</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rid_device_info">RID_DEVICE_INFO</a> to <c>sizeof(RID_DEVICE_INFO)</c> before calling <b>GetRawInputDeviceInfo</b>.
-     * @param {Pointer<UInt32>} pcbSize Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} pcbSize Type: <b>PUINT</b>
      * 
      * The size, in bytes, of the data in <i>pData</i>.
      * @returns {Integer} Type: <b>UINT</b>
@@ -94,7 +94,7 @@ class Input {
      * A pointer to a buffer that contains the information specified by <i>uiCommand</i>.
      * 
      * If <i>uiCommand</i> is <b>RIDI_DEVICEINFO</b>, set the <b>cbSize</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rid_device_info">RID_DEVICE_INFO</a> to <c>sizeof(RID_DEVICE_INFO)</c> before calling <b>GetRawInputDeviceInfo</b>.
-     * @param {Pointer<UInt32>} pcbSize Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} pcbSize Type: <b>PUINT</b>
      * 
      * The size, in bytes, of the data in <i>pData</i>.
      * @returns {Integer} Type: <b>UINT</b>
@@ -124,7 +124,7 @@ class Input {
      * @param {Pointer} pData Type: **PRAWINPUT**
      * 
      * A pointer to a buffer of [RAWINPUT](ns-winuser-rawinput.md) structures that contain the raw input data. If **NULL**, size of the first raw input message data (minimum required buffer), in bytes, is returned in \**pcbSize*.
-     * @param {Pointer<UInt32>} pcbSize Type: **PUINT**
+     * @param {Pointer<Integer>} pcbSize Type: **PUINT**
      * 
      * The size, in bytes, of the provided [RAWINPUT](ns-winuser-rawinput.md) buffer.
      * @param {Integer} cbSizeHeader Type: **UINT**
@@ -180,7 +180,7 @@ class Input {
      * @param {Pointer<RAWINPUTDEVICE>} pRawInputDevices Type: <b>PRAWINPUTDEVICE</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputdevice">RAWINPUTDEVICE</a> structures for the application.
-     * @param {Pointer<UInt32>} puiNumDevices Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puiNumDevices Type: <b>PUINT</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputdevice">RAWINPUTDEVICE</a> structures in *<i>pRawInputDevices</i>.
      * @param {Integer} cbSize Type: <b>UINT</b>
@@ -209,7 +209,7 @@ class Input {
      * @param {Pointer<RAWINPUTDEVICELIST>} pRawInputDeviceList Type: <b>PRAWINPUTDEVICELIST</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputdevicelist">RAWINPUTDEVICELIST</a> structures for the devices attached to the system. If <b>NULL</b>, the number of devices are returned in *<i>puiNumDevices</i>.
-     * @param {Pointer<UInt32>} puiNumDevices Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puiNumDevices Type: <b>PUINT</b>
      * 
      * If <i>pRawInputDeviceList</i> is <b>NULL</b>, the function populates this variable with the number of devices attached to the system; otherwise, this variable specifies the number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputdevicelist">RAWINPUTDEVICELIST</a> structures that can be contained in the buffer to which <i>pRawInputDeviceList</i> points. If this value is less than the number of devices attached to the system, the function returns the actual number of devices in this variable and fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @param {Integer} cbSize Type: <b>UINT</b>
@@ -237,7 +237,7 @@ class Input {
 
     /**
      * Verifies that the size of the RAWINPUTHEADER structure is correct.
-     * @param {Pointer<RAWINPUT>} paRawInput Type: <b>PRAWINPUT*</b>
+     * @param {Pointer<Pointer<RAWINPUT>>} paRawInput Type: <b>PRAWINPUT*</b>
      * 
      * Ignored.
      * @param {Integer} nInput Type: <b>INT</b>
@@ -253,7 +253,7 @@ class Input {
      * @since windows5.1.2600
      */
     static DefRawInputProc(paRawInput, nInput, cbSizeHeader) {
-        result := DllCall("USER32.dll\DefRawInputProc", "ptr", paRawInput, "int", nInput, "uint", cbSizeHeader, "ptr")
+        result := DllCall("USER32.dll\DefRawInputProc", "ptr*", paRawInput, "int", nInput, "uint", cbSizeHeader, "ptr")
         return result
     }
 

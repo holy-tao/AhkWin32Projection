@@ -1319,7 +1319,7 @@ class WinTrust {
 
     /**
      * Retrieves policy flags for a policy provider.
-     * @param {Pointer<UInt32>} pdwPolicyFlags 
+     * @param {Pointer<Integer>} pdwPolicyFlags 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustgetregpolicyflags
      * @since windows5.1.2600
@@ -1665,7 +1665,7 @@ class WinTrust {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pvReserved Not used. Must be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} pvReserved Not used. Must be <b>NULL</b>.
      * @returns {BOOL} Returns nonzero if the dialog box was opened successfully or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-openpersonaltrustdbdialogex
      * @since windows5.1.2600
@@ -1673,7 +1673,7 @@ class WinTrust {
     static OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", "ptr", hwndParent, "uint", dwFlags, "ptr", pvReserved, "int")
+        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", "ptr", hwndParent, "uint", dwFlags, "ptr*", pvReserved, "int")
         return result
     }
 

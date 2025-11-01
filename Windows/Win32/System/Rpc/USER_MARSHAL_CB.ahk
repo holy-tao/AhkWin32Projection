@@ -28,7 +28,7 @@ class USER_MARSHAL_CB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pReserve {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class USER_MARSHAL_CB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pFormat {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class USER_MARSHAL_CB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pTypeFormat {
         get => NumGet(this, 40, "ptr")

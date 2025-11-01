@@ -36,7 +36,7 @@ class DDRAWI_DDRAWSURFACE_GBL_MORE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pPageTable {
         get => NumGet(this, 16, "ptr")

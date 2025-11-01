@@ -99,7 +99,7 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct
 
     /**
      * Pointer to a string representation of the network address to bind to.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     NetworkAddress {
         get => NumGet(this, 16, "ptr")
@@ -108,7 +108,7 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct
 
     /**
      * Pointer to a string representation of the endpoint to bind to. If a dynamic endpoint is used, set this member to <b>NULL</b>. After the endpoint is resolved, use <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingtostringbinding">RpcBindingToStringBinding</a> to obtain it.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     StringEndpoint {
         get => NumGet(this, 24, "ptr")
@@ -116,7 +116,7 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     Reserved {
         get => NumGet(this, 32, "ptr")

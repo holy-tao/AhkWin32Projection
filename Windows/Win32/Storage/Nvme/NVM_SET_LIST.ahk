@@ -3,6 +3,8 @@
 #Include .\NVME_SET_ATTRIBUTES_ENTRY.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvm_set_list
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

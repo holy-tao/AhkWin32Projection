@@ -20,7 +20,7 @@ class RASEAPINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbEapInfo {
         get => NumGet(this, 8, "ptr")

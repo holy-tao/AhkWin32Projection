@@ -40,7 +40,7 @@ class VDS_INTERCONNECT extends Win32Struct
 
     /**
      * Pointer to the interconnect address data for the LUN port.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_pbPort {
         get => NumGet(this, 8, "ptr")
@@ -58,7 +58,7 @@ class VDS_INTERCONNECT extends Win32Struct
 
     /**
      * Pointer to the interconnect address data for the LUN.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_pbAddress {
         get => NumGet(this, 24, "ptr")

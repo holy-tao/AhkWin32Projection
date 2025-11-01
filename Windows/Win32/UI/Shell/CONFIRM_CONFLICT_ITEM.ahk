@@ -17,7 +17,7 @@ class CONFIRM_CONFLICT_ITEM extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>*</b>
      * 
      * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a> interface.
-     * @type {Pointer<IShellItem2>}
+     * @type {IShellItem2}
      */
     pShellItem {
         get => NumGet(this, 0, "ptr")

@@ -24,7 +24,7 @@ class DDBLTBATCH extends Win32Struct
 
     /**
      * Address of a DirectDrawSurface object to be the source of the bitblt.
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSSrc {
         get => NumGet(this, 8, "ptr")

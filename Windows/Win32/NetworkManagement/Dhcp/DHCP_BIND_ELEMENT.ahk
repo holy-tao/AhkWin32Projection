@@ -87,7 +87,7 @@ class DHCP_BIND_ELEMENT extends Win32Struct
 
     /**
      * Specifies the network interface device ID.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     IfId {
         get => NumGet(this, 32, "ptr")

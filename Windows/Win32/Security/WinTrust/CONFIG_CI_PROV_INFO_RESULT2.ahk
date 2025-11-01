@@ -60,7 +60,7 @@ class CONFIG_CI_PROV_INFO_RESULT2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCalculatedFileHash {
         get => NumGet(this, 24, "ptr")

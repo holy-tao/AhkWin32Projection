@@ -4,6 +4,8 @@
 #Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetpagew_v2
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -108,7 +110,7 @@ class PROPSHEETPAGEW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pcRefParent {
         get => NumGet(this, 64, "ptr")

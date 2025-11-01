@@ -263,7 +263,7 @@ class Appx {
 ;@region Methods
     /**
      * Gets the package identifier (ID) for the calling process.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the structure returned, in bytes.
      * @param {Pointer} buffer Type: <b>BYTE*</b>
@@ -311,7 +311,7 @@ class Appx {
 
     /**
      * Gets the package full name for the calling process.
-     * @param {Pointer<UInt32>} packageFullNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFullNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the size of the package full name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
@@ -361,7 +361,7 @@ class Appx {
 
     /**
      * Gets the package family name for the calling process.
-     * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters, including the null terminator. On output, the size of the package family name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
@@ -411,7 +411,7 @@ class Appx {
 
     /**
      * Gets the package path for the calling process.
-     * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null terminator.
      * @param {PWSTR} path Type: <b>PWSTR</b>
@@ -464,7 +464,7 @@ class Appx {
      * @param {HANDLE} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the structure returned, in bytes.
      * @param {Pointer} buffer Type: <b>BYTE*</b>
@@ -517,7 +517,7 @@ class Appx {
      * @param {HANDLE} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt32>} packageFullNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFullNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the size of the package full name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
@@ -569,7 +569,7 @@ class Appx {
     /**
      * Gets the package full name for the specified token.
      * @param {HANDLE} token A token that contains the package identity.
-     * @param {Pointer<UInt32>} packageFullNameLength On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the 
+     * @param {Pointer<Integer>} packageFullNameLength On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the 
      *       size of the package full name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFullName The package full name.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function 
@@ -620,7 +620,7 @@ class Appx {
      * @param {HANDLE} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null-terminator.
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
@@ -674,7 +674,7 @@ class Appx {
      * @param {HANDLE} token Type: <b>HANDLE</b>
      * 
      * A token that contains the package identity.
-     * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null-terminator.
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
@@ -728,7 +728,7 @@ class Appx {
      * @param {Pointer<PACKAGE_ID>} packageId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a>*</b>
      * 
      * The package identifier.
-     * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null-terminator.
      * @param {PWSTR} path Type: <b>PWSTR</b>
@@ -772,7 +772,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
-     * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
@@ -817,7 +817,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the staged package.
-     * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
@@ -865,7 +865,7 @@ class Appx {
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
      * 
      * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
-     * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
@@ -913,7 +913,7 @@ class Appx {
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
      * 
      * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
-     * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
@@ -961,13 +961,13 @@ class Appx {
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
      * 
      * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
      * @param {Pointer} buffer Type: <b>BYTE*</b>
      * 
      * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
-     * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of structures in the buffer.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1015,7 +1015,7 @@ class Appx {
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
      * 
      * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
-     * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null terminator.
      * @param {PWSTR} path Type: <b>PWSTR</b>
@@ -1065,7 +1065,7 @@ class Appx {
 
     /**
      * Gets the application user model ID for the current process.
-     * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
+     * @param {Pointer<Integer>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1109,7 +1109,7 @@ class Appx {
     /**
      * Gets the application user model ID for the specified process.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
+     * @param {Pointer<Integer>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1154,7 +1154,7 @@ class Appx {
     /**
      * Gets the application user model ID for the specified token.
      * @param {HANDLE} token A token that contains the application identity. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
+     * @param {Pointer<Integer>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
      * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
@@ -1262,7 +1262,7 @@ class Appx {
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package constants</a> that specify how package information is retrieved. The <b>PACKAGE_INFORMATION_*</b> flags are supported.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the data returned, in bytes.
      * @param {Pointer} buffer Type: <b>BYTE*</b>
@@ -1315,7 +1315,7 @@ class Appx {
      * @param {Pointer<PACKAGE_ID>} packageId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a>*</b>
      * 
      * The package ID.
-     * @param {Pointer<UInt32>} packageFullNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFullNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the size of the package full name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
@@ -1357,7 +1357,7 @@ class Appx {
      * @param {Pointer<PACKAGE_ID>} packageId Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_id">PACKAGE_ID</a>*</b>
      * 
      * The package identifier.
-     * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
@@ -1399,7 +1399,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of a package.
-     * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null terminator.
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
@@ -1442,13 +1442,13 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PCWSTR</b>
      * 
      * The family name of a package.
-     * @param {Pointer<UInt32>} packageNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageName</i> buffer, in characters. On output, the size of the package name returned, in characters, including the null-terminator.
      * @param {PWSTR} packageName Type: <b>PWSTR</b>
      * 
      * The package name.
-     * @param {Pointer<UInt32>} packagePublisherIdLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packagePublisherIdLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packagePublishId</i> buffer, in characters. On output, the size of the publisher ID returned, in characters, including the null-terminator.
      * @param {PWSTR} packagePublisherId Type: <b>PWSTR</b>
@@ -1495,7 +1495,7 @@ class Appx {
      * @param {PWSTR} packageRelativeApplicationId Type: <b>PCWSTR</b>
      * 
      * The package-relative app ID (PRAID).
-     * @param {Pointer<UInt32>} applicationUserModelIdLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} applicationUserModelIdLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the app user model ID string, which includes the null-terminator. 
      * 
@@ -1552,7 +1552,7 @@ class Appx {
      * @param {PWSTR} applicationUserModelId Type: <b>PCWSTR</b>
      * 
      * The app user model ID.
-     * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package family name string, which includes the null-terminator. 
      * 
@@ -1560,7 +1560,7 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package family name string, which includes the null-terminator.
-     * @param {Pointer<UInt32>} packageRelativeApplicationIdLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageRelativeApplicationIdLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package-relative app ID string, which includes the null-terminator. 
      * 
@@ -1617,7 +1617,7 @@ class Appx {
      * @param {PWSTR} packageFamilyName Type: <b>PCWSTR</b>
      * 
      * The package family name.
-     * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of package full names. 
      * 
@@ -1625,7 +1625,7 @@ class Appx {
      * @param {Pointer<PWSTR>} packageFullNames Type: <b>PWSTR*</b>
      * 
      * A pointer to the strings of package full names.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
@@ -1673,7 +1673,7 @@ class Appx {
      * @param {Integer} packageFilters Type: <b>UINT32</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package constants</a> that specify how package information is retrieved. All package constants except <b>PACKAGE_FILTER_ALL_LOADED</b> are supported.
-     * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of package full names that were found. 
      * 
@@ -1681,7 +1681,7 @@ class Appx {
      * @param {Pointer<PWSTR>} packageFullNames Type: <b>PWSTR*</b>
      * 
      * A pointer to memory space that receives  the strings of package full names that were found.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
@@ -1689,7 +1689,7 @@ class Appx {
      * @param {PWSTR} buffer Type: <b>WCHAR*</b>
      * 
      * A pointer to memory space that receives  the string of characters for all of the package full names.
-     * @param {Pointer<UInt32>} packageProperties Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} packageProperties Type: <b>UINT32*</b>
      * 
      * A pointer to memory space that receives  the <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package properties</a> for all of the packages that were found.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1729,7 +1729,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
-     * @param {Pointer<Int32>} origin Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-packageorigin">PackageOrigin</a>*</b>
+     * @param {Pointer<Integer>} origin Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-packageorigin">PackageOrigin</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-packageorigin">PackageOrigin</a>-typed value that indicates the origin of the package specified by <i>packageFullName</i>.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1768,13 +1768,13 @@ class Appx {
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package constants</a> that specify how package information is retrieved. The <b>PACKAGE_FILTER_*</b> flags are supported.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the array of structures returned, in bytes.
      * @param {Pointer} buffer Type: <b>BYTE*</b>
      * 
      * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
-     * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of structures in the buffer.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1822,7 +1822,7 @@ class Appx {
      * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
-     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE*</b>
+     * @param {Pointer<Pointer<_PACKAGE_INFO_REFERENCE>>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE*</b>
      * 
      * A reference to package information.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1854,7 +1854,7 @@ class Appx {
 
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("KERNEL32.dll\OpenPackageInfoByFullName", "ptr", packageFullName, "uint", reserved, "ptr", packageInfoReference, "uint")
+        result := DllCall("KERNEL32.dll\OpenPackageInfoByFullName", "ptr", packageFullName, "uint", reserved, "ptr*", packageInfoReference, "uint")
         return result
     }
 
@@ -1862,7 +1862,7 @@ class Appx {
      * 
      * @param {PSID} userSid 
      * @param {PWSTR} packageFullName 
-     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference 
+     * @param {Pointer<Pointer<_PACKAGE_INFO_REFERENCE>>} packageInfoReference 
      * @returns {Integer} 
      */
     static OpenPackageInfoByFullNameForUser(userSid, packageFullName, packageInfoReference) {
@@ -1870,7 +1870,7 @@ class Appx {
 
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\OpenPackageInfoByFullNameForUser", "ptr", userSid, "ptr", packageFullName, "uint", reserved, "ptr", packageInfoReference, "uint")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\OpenPackageInfoByFullNameForUser", "ptr", userSid, "ptr", packageFullName, "uint", reserved, "ptr*", packageInfoReference, "uint")
         return result
     }
 
@@ -1898,13 +1898,13 @@ class Appx {
      * @param {Integer} flags Type: <b>const UINT32</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/appxpkg/package-constants">package constants</a> that specify how package information is retrieved.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the package information returned, in bytes.
      * @param {Pointer} buffer Type: <b>BYTE*</b>
      * 
      * The package information, represented as an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_info">PACKAGE_INFO</a> structures.
-     * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of packages in the buffer.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1941,7 +1941,7 @@ class Appx {
      * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that holds the size of <i>buffer</i>, in bytes. 
      * 
@@ -1949,7 +1949,7 @@ class Appx {
      * @param {Pointer} buffer Type: <b>BYTE*</b>
      * 
      * A pointer to memory space that receives  the app IDs.
-     * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * A pointer to a variable that receives the number of app IDs in <i>buffer</i>.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1992,13 +1992,13 @@ class Appx {
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
      * 
      * Indicates the type of folder path to retrieve for the package (the original install folder or the mutable folder).
-     * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} bufferLength Type: <b>UINT32*</b>
      * 
      * On input, the size of <i>buffer</i>, in bytes. On output, the size of the package information returned, in bytes.
      * @param {Pointer} buffer Type: <b>BYTE*</b>
      * 
      * The package information, represented as an array of [PACKAGE_INFO](./ns-appmodel-package_info.md) structures.
-     * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} count Type: <b>UINT32*</b>
      * 
      * The number of packages in the buffer.
      * @returns {Integer} Type: <b>LONG</b>
@@ -2057,6 +2057,7 @@ class Appx {
      * @param {Integer} options 
      * @param {Pointer<PWSTR>} packageDependencyId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-trycreatepackagedependency
      */
     static TryCreatePackageDependency(user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, packageDependencyId) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
@@ -2097,6 +2098,7 @@ class Appx {
      * 
      * @param {PWSTR} packageDependencyId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-deletepackagedependency
      */
     static DeletePackageDependency(packageDependencyId) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
@@ -2116,6 +2118,7 @@ class Appx {
      * @param {Pointer<PACKAGEDEPENDENCY_CONTEXT>} packageDependencyContext 
      * @param {Pointer<PWSTR>} packageFullName 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-addpackagedependency
      */
     static AddPackageDependency(packageDependencyId, rank, options, packageDependencyContext, packageFullName) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
@@ -2150,6 +2153,7 @@ class Appx {
      * 
      * @param {PACKAGEDEPENDENCY_CONTEXT} packageDependencyContext 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-removepackagedependency
      */
     static RemovePackageDependency(packageDependencyContext) {
         result := DllCall("KERNELBASE.dll\RemovePackageDependency", "ptr", packageDependencyContext, "int")
@@ -2164,6 +2168,7 @@ class Appx {
      * @param {PWSTR} packageDependencyId 
      * @param {Pointer<PWSTR>} packageFullName 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getresolvedpackagefullnameforpackagedependency
      */
     static GetResolvedPackageFullNameForPackageDependency(packageDependencyId, packageFullName) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
@@ -2196,6 +2201,7 @@ class Appx {
      * @param {PACKAGEDEPENDENCY_CONTEXT} packageDependencyContext 
      * @param {Pointer<PWSTR>} packageDependencyId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getidforpackagedependencycontext
      */
     static GetIdForPackageDependencyContext(packageDependencyContext, packageDependencyId) {
         result := DllCall("KERNELBASE.dll\GetIdForPackageDependencyContext", "ptr", packageDependencyContext, "ptr", packageDependencyId, "int")
@@ -2217,12 +2223,12 @@ class Appx {
     /**
      * 
      * @param {Pointer<FindPackageDependencyCriteria>} findPackageDependencyCriteria 
-     * @param {Pointer<UInt32>} packageDependencyIdsCount 
-     * @param {Pointer<PWSTR>} packageDependencyIds 
+     * @param {Pointer<Integer>} packageDependencyIdsCount 
+     * @param {Pointer<Pointer<PWSTR>>} packageDependencyIds 
      * @returns {HRESULT} 
      */
     static FindPackageDependency(findPackageDependencyCriteria, packageDependencyIdsCount, packageDependencyIds) {
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\FindPackageDependency", "ptr", findPackageDependencyCriteria, "uint*", packageDependencyIdsCount, "ptr", packageDependencyIds, "int")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\FindPackageDependency", "ptr", findPackageDependencyCriteria, "uint*", packageDependencyIdsCount, "ptr*", packageDependencyIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2235,10 +2241,10 @@ class Appx {
      * @param {Pointer<PSID>} user 
      * @param {Pointer<PWSTR>} packageFamilyName 
      * @param {Pointer<PACKAGE_VERSION>} minVersion 
-     * @param {Pointer<Int32>} packageDependencyProcessorArchitectures 
-     * @param {Pointer<Int32>} lifetimeKind 
+     * @param {Pointer<Integer>} packageDependencyProcessorArchitectures 
+     * @param {Pointer<Integer>} lifetimeKind 
      * @param {Pointer<PWSTR>} lifetimeArtifact 
-     * @param {Pointer<Int32>} options 
+     * @param {Pointer<Integer>} options 
      * @param {Pointer<FILETIME>} lifetimeExpiration 
      * @returns {HRESULT} 
      */
@@ -2257,14 +2263,14 @@ class Appx {
      * @param {PWSTR} packageDependencyId 
      * @param {PSID} user 
      * @param {BOOL} scopeIsSystem 
-     * @param {Pointer<UInt32>} processIdsCount 
-     * @param {Pointer<UInt32>} processIds 
+     * @param {Pointer<Integer>} processIdsCount 
+     * @param {Pointer<Pointer<Integer>>} processIds 
      * @returns {HRESULT} 
      */
     static GetProcessesUsingPackageDependency(packageDependencyId, user, scopeIsSystem, processIdsCount, processIds) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, "uint*", processIdsCount, "uint*", processIds, "int")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, "uint*", processIdsCount, "ptr*", processIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2274,7 +2280,7 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process can be suspended/resumed by the Process Lifecycle Manager (PLM).
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicylifecyclemanagement.md">AppPolicyLifecycleManagement</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the identified process is lifecycle-managed or not.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicylifecyclemanagement.md">AppPolicyLifecycleManagement</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the identified process is lifecycle-managed or not.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known lifecycle management policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2292,7 +2298,7 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process uses a CoreWindow-based, or a HWND-based, windowing model. You can use the value to decide how to register for window state change notifications (size changed, visibility changed, etc.).
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicywindowingmodel">AppPolicyWindowingModel</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the windowing model of the identified process.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicywindowingmodel">AppPolicyWindowingModel</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the windowing model of the identified process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known windowing model policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2310,7 +2316,7 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process’s policy allows it to load non-Windows (third-party) plugins. You can use the value to decide whether or not to allow non-Windows (third-party) plugins.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicymediafoundationcodecloading.md">AppPolicyMediaFoundationCodecLoading</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the codec-loading policy of the identified process.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicymediafoundationcodecloading.md">AppPolicyMediaFoundationCodecLoading</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the codec-loading policy of the identified process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known codec-loading policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2328,7 +2334,7 @@ class Appx {
     /**
      * Retrieves a value indicating the application type of a process so that you can determine whether to enable private reflection and/or make managed objects agile.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicyclrcompat.md">AppPolicyClrCompat</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the application type of the identified process.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicyclrcompat.md">AppPolicyClrCompat</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the application type of the identified process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known application type was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2346,7 +2352,7 @@ class Appx {
     /**
      * Retrieves the kind of initialization that should be automatically performed for a process when beginthread[ex] creates a thread.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicythreadinitializationtype">AppPolicyThreadInitializationType</a> enumerated type. When the function returns successfully, the variable contains a value indicating the kind of initialization that should be automatically performed for the process when beginthread[ex] creates a thread.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicythreadinitializationtype">AppPolicyThreadInitializationType</a> enumerated type. When the function returns successfully, the variable contains a value indicating the kind of initialization that should be automatically performed for the process when beginthread[ex] creates a thread.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known thread initialization policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2364,7 +2370,7 @@ class Appx {
     /**
      * Retrieves the method used for a process to surface developer information, such as asserts, to the user.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic">AppPolicyShowDeveloperDiagnostic</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used for the process to surface developer information, such as asserts, to the user.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic">AppPolicyShowDeveloperDiagnostic</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used for the process to surface developer information, such as asserts, to the user.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known developer information  policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2382,7 +2388,7 @@ class Appx {
     /**
      * Retrieves the method used to end a process.
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyprocessterminationmethod">AppPolicyProcessTerminationMethod</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used to end the process.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyprocessterminationmethod">AppPolicyProcessTerminationMethod</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used to end the process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known process termination policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2400,7 +2406,7 @@ class Appx {
     /**
      * Retrieves a value indicating whether a process has full or restricted access to the IO devices (file, file stream, directory, physical disk, volume, console buffer, tape drive, communications resource, mailslot, and pipe).
      * @param {HANDLE} processToken A handle that identifies the access token for a process.
-     * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicycreatefileaccess">AppPolicyCreateFileAccess</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the process has full or restricted access to the IO devices.
+     * @param {Pointer<Integer>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicycreatefileaccess">AppPolicyCreateFileAccess</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the process has full or restricted access to the IO devices.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If no known create file access policy was found for the process token, the function raises a STATUS_ASSERTION_FAILURE exception and returns ERROR_NOT_FOUND.
@@ -2434,7 +2440,7 @@ class Appx {
     /**
      * 
      * @param {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} context 
-     * @param {Pointer<UIntPtr>} cookie 
+     * @param {Pointer<Pointer>} cookie 
      * @returns {HRESULT} 
      */
     static ActivatePackageVirtualizationContext(context, cookie) {
@@ -2489,14 +2495,14 @@ class Appx {
     /**
      * 
      * @param {PWSTR} packageFamilyName 
-     * @param {Pointer<UInt32>} count 
-     * @param {Pointer<HANDLE>} processes 
+     * @param {Pointer<Integer>} count 
+     * @param {Pointer<Pointer<HANDLE>>} processes 
      * @returns {HRESULT} 
      */
     static GetProcessesInVirtualizationContext(packageFamilyName, count, processes) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := DllCall("KERNEL32.dll\GetProcessesInVirtualizationContext", "ptr", packageFamilyName, "uint*", count, "ptr", processes, "int")
+        result := DllCall("KERNEL32.dll\GetProcessesInVirtualizationContext", "ptr", packageFamilyName, "uint*", count, "ptr*", processes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2507,10 +2513,11 @@ class Appx {
      * 
      * @param {Integer} flags 
      * @param {Integer} packageInfoType 
-     * @param {Pointer<UInt32>} bufferLength 
+     * @param {Pointer<Integer>} bufferLength 
      * @param {Pointer} buffer 
-     * @param {Pointer<UInt32>} count 
+     * @param {Pointer<Integer>} count 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/appxpkg/appmodel/nf-appmodel-getcurrentpackageinfo3
      */
     static GetCurrentPackageInfo3(flags, packageInfoType, bufferLength, buffer, count) {
         result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, "int", packageInfoType, "uint*", bufferLength, "ptr", buffer, "uint*", count, "int")

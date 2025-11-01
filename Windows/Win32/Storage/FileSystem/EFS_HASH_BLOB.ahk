@@ -24,7 +24,7 @@ class EFS_HASH_BLOB extends Win32Struct
 
     /**
      * The certificate hash.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

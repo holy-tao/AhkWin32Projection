@@ -12,7 +12,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCommandListDebugNameA {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCommandQueueDebugNameA {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12GraphicsCommandList>}
+     * @type {ID3D12GraphicsCommandList}
      */
     pCommandList {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12CommandQueue>}
+     * @type {ID3D12CommandQueue}
      */
     pCommandQueue {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +68,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pLastBreadcrumbValue {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pCommandHistory {
         get => NumGet(this, 64, "ptr")

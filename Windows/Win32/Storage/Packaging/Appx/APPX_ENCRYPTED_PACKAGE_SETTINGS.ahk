@@ -42,7 +42,7 @@ class APPX_ENCRYPTED_PACKAGE_SETTINGS extends Win32Struct
 
     /**
      * The Uri of the block map hash algorithm.
-     * @type {Pointer<IUri>}
+     * @type {IUri}
      */
     blockMapHashAlgorithm {
         get => NumGet(this, 24, "ptr")

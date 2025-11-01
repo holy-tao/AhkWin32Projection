@@ -64,7 +64,7 @@ class DML_REDUCE_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(AxisCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * The axes along which to reduce. Values must be in the range `[0, InputTensor.DimensionCount - 1]`.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Axes {
         get => NumGet(this, 32, "ptr")

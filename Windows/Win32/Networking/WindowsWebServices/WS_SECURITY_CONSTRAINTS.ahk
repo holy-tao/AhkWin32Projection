@@ -59,7 +59,7 @@ class WS_SECURITY_CONSTRAINTS extends Win32Struct
      *                 
      * 
      * Specifying zero constraints indicates no security.
-     * @type {Pointer<WS_SECURITY_BINDING_CONSTRAINT>}
+     * @type {Pointer<Pointer<WS_SECURITY_BINDING_CONSTRAINT>>}
      */
     securityBindingConstraints {
         get => NumGet(this, 16, "ptr")

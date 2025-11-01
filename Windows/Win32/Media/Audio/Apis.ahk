@@ -2298,7 +2298,7 @@ class Audio {
 ;@region Methods
     /**
      * Registers with OLE the instance of an IMessageFilter interface, which is to be used for handling concurrency issues on the current thread.
-     * @param {Pointer<IMessageFilter>} lpMessageFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a> interface on the message filter. This message filter should be registered on the current thread, replacing the previous message filter (if any). This parameter can be <b>NULL</b>, indicating that no message filter should be registered on the current thread.
+     * @param {IMessageFilter} lpMessageFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a> interface on the message filter. This message filter should be registered on the current thread, replacing the previous message filter (if any). This parameter can be <b>NULL</b>, indicating that no message filter should be registered on the current thread.
      * 
      * Note that this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the interface pointer to the message filter.
      * @param {Pointer<IMessageFilter>} lplpMessageFilter Address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a>* pointer variable that receives the interface pointer to the previously registered message filter. If there was no previously registered message filter for the current thread, the value of *<i>lplpMessageFilter</i> is <b>NULL</b>.
@@ -2307,7 +2307,7 @@ class Audio {
      * @since windows5.0
      */
     static CoRegisterMessageFilter(lpMessageFilter, lplpMessageFilter) {
-        result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr", lplpMessageFilter, "int")
+        result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr*", lplpMessageFilter, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2408,7 +2408,7 @@ class Audio {
     /**
      * The waveOutGetVolume function retrieves the current volume level of the specified waveform-audio output device.
      * @param {HWAVEOUT} hwo Handle to an open waveform-audio output device. This parameter can also be a device identifier.
-     * @param {Pointer<UInt32>} pdwVolume Pointer to a variable to be filled with the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
+     * @param {Pointer<Integer>} pdwVolume Pointer to a variable to be filled with the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
      * If a device does not support both left and right volume control, the low-order word of the specified location contains the mono volume level.
      * 
@@ -3303,7 +3303,7 @@ class Audio {
     /**
      * The waveOutGetPitch function retrieves the current pitch setting for the specified waveform-audio output device.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
-     * @param {Pointer<UInt32>} pdwPitch Pointer to a variable to be filled with the current pitch multiplier setting. The pitch multiplier indicates the current change in pitch from the original authored setting. The pitch multiplier must be a positive value.
+     * @param {Pointer<Integer>} pdwPitch Pointer to a variable to be filled with the current pitch multiplier setting. The pitch multiplier indicates the current change in pitch from the original authored setting. The pitch multiplier must be a positive value.
      * 
      * The pitch multiplier is specified as a fixed-point value. The high-order word of the variable contains the signed integer part of the number, and the low-order word contains the fractional part. A value of 0x8000 in the low-order word represents one-half, and 0x4000 represents one-quarter. For example, the value 0x00010000 specifies a multiplier of 1.0 (no pitch change), and a value of 0x000F8000 specifies a multiplier of 15.5.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -3439,7 +3439,7 @@ class Audio {
     /**
      * The waveOutGetPlaybackRate function retrieves the current playback rate for the specified waveform-audio output device.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
-     * @param {Pointer<UInt32>} pdwRate Pointer to a variable to be filled with the current playback rate. The playback rate setting is a multiplier indicating the current change in playback rate from the original authored setting. The playback rate multiplier must be a positive value.
+     * @param {Pointer<Integer>} pdwRate Pointer to a variable to be filled with the current playback rate. The playback rate setting is a multiplier indicating the current change in playback rate from the original authored setting. The playback rate multiplier must be a positive value.
      * 
      * The rate is specified as a fixed-point value. The high-order word of the variable contains the signed integer part of the number, and the low-order word contains the fractional part. A value of 0x8000 in the low-order word represents one-half, and 0x4000 represents one-quarter. For example, the value 0x00010000 specifies a multiplier of 1.0 (no playback rate change), and a value of 0x000F8000 specifies a multiplier of 15.5.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -3575,7 +3575,7 @@ class Audio {
     /**
      * The waveOutGetID function retrieves the device identifier for the given waveform-audio output device.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
-     * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
+     * @param {Pointer<Integer>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4330,7 +4330,7 @@ class Audio {
     /**
      * The waveInGetID function gets the device identifier for the given waveform-audio input device.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
-     * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
+     * @param {Pointer<Integer>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4413,7 +4413,7 @@ class Audio {
     /**
      * The midiStreamOpen function opens a MIDI stream for output. By default, the device is opened in paused mode. The stream handle retrieved by this function must be used in all subsequent references to the stream.
      * @param {Pointer<HMIDISTRM>} phms Pointer to a variable to contain the stream handle when the function returns.
-     * @param {Pointer<UInt32>} puDeviceID Pointer to a device identifier. The device is opened on behalf of the stream and closed again when the stream is closed.
+     * @param {Pointer<Integer>} puDeviceID Pointer to a device identifier. The device is opened on behalf of the stream and closed again when the stream is closed.
      * @param {Integer} cMidi Reserved; must be 1.
      * @param {Pointer} dwCallback Pointer to a callback function, an event handle, a thread identifier, or a handle of a window or thread called during MIDI playback to process messages related to the progress of the playback. If no callback mechanism is desired, specify <b>NULL</b> for this parameter.
      * @param {Pointer} dwInstance Application-specific instance data that is returned to the application with every callback function.
@@ -4531,7 +4531,7 @@ class Audio {
     /**
      * The midiStreamProperty function sets or retrieves properties of a MIDI data stream associated with a MIDI output device.
      * @param {HMIDISTRM} hms Handle to the MIDI device that the property is associated with.
-     * @param {Pointer<Byte>} lppropdata Pointer to the property data.
+     * @param {Pointer<Integer>} lppropdata Pointer to the property data.
      * @param {Integer} dwProperty Flags that specify the action to perform and identify the appropriate property of the MIDI data stream. The <b>midiStreamProperty</b> function requires setting two flags in each use. One flag (either MIDIPROP_GET or MIDIPROP_SET) specifies an action, and the other identifies a specific property to examine or edit.
      * 
      * <table>
@@ -5035,7 +5035,7 @@ class Audio {
     /**
      * The midiOutGetVolume function retrieves the current volume setting of a MIDI output device.
      * @param {HMIDIOUT} hmo Handle to an open MIDI output device. This parameter can also contain the handle of a MIDI stream, as long as it is cast to <b>HMIDIOUT</b>. This parameter can also be a device identifier.
-     * @param {Pointer<UInt32>} pdwVolume Pointer to the location to contain the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
+     * @param {Pointer<Integer>} pdwVolume Pointer to the location to contain the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
      * If a device does not support both left and right volume control, the low-order word of the specified location contains the mono volume level.
      * 
@@ -5748,7 +5748,7 @@ class Audio {
      * The midiOutCachePatches function requests that an internal MIDI synthesizer device preload and cache a specified set of patches.
      * @param {HMIDIOUT} hmo Handle to the opened MIDI output device. This device must be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
      * @param {Integer} uBank Bank of patches that should be used. This parameter should be set to zero to cache the default patch bank.
-     * @param {Pointer<UInt16>} pwpa Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/patcharray">PATCHARRAY</a> array indicating the patches to be cached or uncached.
+     * @param {Pointer<Integer>} pwpa Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/patcharray">PATCHARRAY</a> array indicating the patches to be cached or uncached.
      * @param {Integer} fuCache Options for the cache operation. It can be one of the following flags.
      * 
      * <table>
@@ -5852,7 +5852,7 @@ class Audio {
      * The midiOutCacheDrumPatches function requests that an internal MIDI synthesizer device preload and cache a specified set of key-based percussion patches.
      * @param {HMIDIOUT} hmo Handle to the opened MIDI output device. This device should be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
      * @param {Integer} uPatch Drum patch number that should be used. This parameter should be set to zero to cache the default drum patch.
-     * @param {Pointer<UInt16>} pwkya Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/keyarray">KEYARRAY</a> array indicating the key numbers of the specified percussion patches to be cached or uncached.
+     * @param {Pointer<Integer>} pwkya Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/keyarray">KEYARRAY</a> array indicating the key numbers of the specified percussion patches to be cached or uncached.
      * @param {Integer} fuCache Options for the cache operation. It can be one of the following flags.
      * 
      * <table>
@@ -5955,7 +5955,7 @@ class Audio {
     /**
      * The midiOutGetID function retrieves the device identifier for the given MIDI output device.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device.
-     * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
+     * @param {Pointer<Integer>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -6734,7 +6734,7 @@ class Audio {
     /**
      * The midiInGetID function gets the device identifier for the given MIDI input device.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
-     * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
+     * @param {Pointer<Integer>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -6940,7 +6940,7 @@ class Audio {
     /**
      * The auxGetVolume function retrieves the current volume setting of the specified auxiliary output device.
      * @param {Integer} uDeviceID Identifier of the auxiliary output device to be queried.
-     * @param {Pointer<UInt32>} pdwVolume Pointer to a variable to be filled with the current volume setting. The low-order word of this location contains the left channel volume setting, and the high-order word contains the right channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
+     * @param {Pointer<Integer>} pdwVolume Pointer to a variable to be filled with the current volume setting. The low-order word of this location contains the left channel volume setting, and the high-order word contains the right channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
      * If a device does not support both left and right volume control, the low-order word of the specified location contains the volume level.
      * 
@@ -7704,7 +7704,7 @@ class Audio {
     /**
      * The mixerGetID function retrieves the device identifier for a mixer device associated with a specified device handle.
      * @param {HMIXEROBJ} hmxobj Handle to the audio mixer object to map to a mixer device identifier.
-     * @param {Pointer<UInt32>} puMxId Pointer to a variable that receives the mixer device identifier. If no mixer device is available for the <i>hmxobj</i> object, the value -1 is placed in this location and the MMSYSERR_NODRIVER error value is returned.
+     * @param {Pointer<Integer>} puMxId Pointer to a variable that receives the mixer device identifier. If no mixer device is available for the <i>hmxobj</i> object, the value -1 is placed in this location and the MMSYSERR_NODRIVER error value is returned.
      * @param {Integer} fdwId Flags for mapping the mixer object <i>hmxobj</i>. The following values are defined.
      * 
      * <table>
@@ -8627,7 +8627,7 @@ class Audio {
      * @param {Pointer<PROPVARIANT>} activationParams Interface-specific activation parameters. For more information, see the <i>pActivationParams</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate">IMMDevice::Activate</a>.
      * 
      * Starting with TBD, you can specify [AUDIOCLIENT_ACTIVATION_PARAMS](/windows/desktop/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params) to activate the interface to include or exclude audio streams associated with a specified process ID.
-     * @param {Pointer<IActivateAudioInterfaceCompletionHandler>} completionHandler An interface implemented by the caller that is called by Windows when the result of the activation procedure is available.
+     * @param {IActivateAudioInterfaceCompletionHandler} completionHandler An interface implemented by the caller that is called by Windows when the result of the activation procedure is available.
      * @param {Pointer<IActivateAudioInterfaceAsyncOperation>} activationOperation Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
      * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -8665,7 +8665,7 @@ class Audio {
     static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler, activationOperation) {
         deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
-        result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr", activationOperation, "int")
+        result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr*", activationOperation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8678,7 +8678,7 @@ class Audio {
      * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitor(audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitor", "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitor", "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8692,7 +8692,7 @@ class Audio {
      * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitorForCategory(category, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategory", "int", category, "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategory", "int", category, "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8707,7 +8707,7 @@ class Audio {
      * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category, role, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8724,7 +8724,7 @@ class Audio {
     static CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
         deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8737,7 +8737,7 @@ class Audio {
      * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitor(audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitor", "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitor", "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8751,7 +8751,7 @@ class Audio {
      * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitorForCategory(category, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategory", "int", category, "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategory", "int", category, "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8766,7 +8766,7 @@ class Audio {
      * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category, role, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8783,7 +8783,7 @@ class Audio {
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
         deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", audioStateMonitor, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11633,7 +11633,7 @@ class Audio {
      * The acmStreamSize function returns a recommended size for a source or destination buffer on an ACM stream.
      * @param {HACMSTREAM} has Handle to the conversion stream.
      * @param {Integer} cbInput Size, in bytes, of the source or destination buffer. The <i>fdwSize</i> flags specify what the input parameter defines. This parameter must be nonzero.
-     * @param {Pointer<UInt32>} pdwOutputBytes Pointer to a variable that contains the size, in bytes, of the source or destination buffer. The <i>fdwSize</i> flags specify what the output parameter defines. If the <b>acmStreamSize</b> function succeeds, this location will always be filled with a nonzero value.
+     * @param {Pointer<Integer>} pdwOutputBytes Pointer to a variable that contains the size, in bytes, of the source or destination buffer. The <i>fdwSize</i> flags specify what the output parameter defines. If the <b>acmStreamSize</b> function succeeds, this location will always be filled with a nonzero value.
      * @param {Integer} fdwSize Flags for the stream size query. The following values are defined:
      * 
      * <table>

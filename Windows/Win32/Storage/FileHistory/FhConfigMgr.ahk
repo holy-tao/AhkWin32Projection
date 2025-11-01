@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/DevNotes/fhconfigmgr
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */

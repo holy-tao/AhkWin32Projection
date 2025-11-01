@@ -38,7 +38,7 @@ class ADS_OCTET_LIST extends Win32Struct
 
     /**
      * Pointer to an array of BYTEs that contains the list. The <b>Length</b> member of this structure contains the number of BYTEs in this array.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Data {
         get => NumGet(this, 16, "ptr")

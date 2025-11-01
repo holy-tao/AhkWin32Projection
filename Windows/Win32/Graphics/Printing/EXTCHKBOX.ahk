@@ -28,7 +28,7 @@ class EXTCHKBOX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pTitle {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class EXTCHKBOX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pSeparator {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class EXTCHKBOX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pCheckedName {
         get => NumGet(this, 24, "ptr")

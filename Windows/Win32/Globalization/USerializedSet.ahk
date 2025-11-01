@@ -12,7 +12,7 @@ class USerializedSet extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     array {
         get => NumGet(this, 0, "ptr")

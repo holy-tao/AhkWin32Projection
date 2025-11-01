@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/wsw/ws-message
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

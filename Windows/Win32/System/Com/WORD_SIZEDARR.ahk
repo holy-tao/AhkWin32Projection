@@ -20,7 +20,7 @@ class WORD_SIZEDARR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 8, "ptr")

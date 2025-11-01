@@ -4,6 +4,8 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_code_properties_v2
  * @namespace Windows.Win32.Security.AppLocker
  * @version v4.0.30319
  */
@@ -92,7 +94,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pByteBlock {
         get => NumGet(this, 112, "ptr")

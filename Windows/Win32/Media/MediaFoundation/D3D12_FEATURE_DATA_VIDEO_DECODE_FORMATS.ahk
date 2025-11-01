@@ -49,7 +49,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMATS extends Win32Struct
 
     /**
      * A list of [DXGI_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) structures representing the supported formats.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pOutputFormats {
         get => NumGet(this, 32, "ptr")

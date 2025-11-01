@@ -104,7 +104,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
 
     /**
      * Pointer to a BYTE blob that contains the GUID value assigned to this interface.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     IfId {
         get => NumGet(this, 56, "ptr")

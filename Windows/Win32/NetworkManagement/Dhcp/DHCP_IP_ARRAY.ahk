@@ -24,7 +24,7 @@ class DHCP_IP_ARRAY extends Win32Struct
 
     /**
      * Pointer to a list of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Elements {
         get => NumGet(this, 8, "ptr")

@@ -38,7 +38,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenucb">IContextMenuCB</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenucb">IContextMenuCB</a> interface supported by the callback object. This value is optional and can be <b>NULL</b>.
-     * @type {Pointer<IContextMenuCB>}
+     * @type {IContextMenuCB}
      */
     pcmcb {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface of the folder object that contains the selected file objects, or the folder that contains the context menu if no file objects are selected.
-     * @type {Pointer<IShellFolder>}
+     * @type {IShellFolder}
      */
     psf {
         get => NumGet(this, 24, "ptr")
@@ -82,7 +82,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * Type: <b>PCUITEMID_CHILD_ARRAY</b>
      * 
      * A pointer to a constant array of <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures. Each entry in the array describes a child item to which the context menu applies, for instance, a selected file the user wants to <b>Open</b>.
-     * @type {Pointer<ITEMIDLIST>}
+     * @type {Pointer<Pointer<ITEMIDLIST>>}
      */
     apidl {
         get => NumGet(this, 40, "ptr")
@@ -95,7 +95,7 @@ class DEFCONTEXTMENU extends Win32Struct
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> interface on the object from which to load extensions. This parameter is optional and thus can be <b>NULL</b>. If this value is <b>NULL</b> and members <b>aKeys</b> and <b>cKeys</b> are also <b>NULL</b> (see Remarks),  <b>punkAssociationInfo</b> is computed from the <b>apidl</b> member and <b>cidl</b> via a request for <b>IQueryAssociations</b> through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a>.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a> returns <b>E_NOTIMPL</b>, a default implementation is provided based on the <i>SFGAO_FOLDER</i> and <i>SFGAO_FILESYSTEM</i> attributes returned from <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     punkAssociationInfo {
         get => NumGet(this, 48, "ptr")

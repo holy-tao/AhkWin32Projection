@@ -28,7 +28,7 @@ class DDHAL_GETDRIVERSTATEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpdwStates {
         get => NumGet(this, 16, "ptr")

@@ -15,7 +15,7 @@ class MI_StringField extends Win32Struct
 
     /**
      * A field of type <b>MI_Char</b>.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     value {
         get => NumGet(this, 0, "ptr")

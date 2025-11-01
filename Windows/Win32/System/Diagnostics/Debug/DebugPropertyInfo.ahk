@@ -73,7 +73,7 @@ class DebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDebugProperty>}
+     * @type {IDebugProperty}
      */
     m_pDebugProp {
         get => NumGet(this, 48, "ptr")

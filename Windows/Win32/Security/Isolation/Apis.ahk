@@ -22,7 +22,7 @@ class Isolation {
      * @param {PSID} AppContainerSid The SID of the app container.
      * @param {Integer} ObjectPathLength The length of the buffer.
      * @param {PWSTR} ObjectPath Buffer that is filled with the named object path.
-     * @param {Pointer<UInt32>} ReturnLength Returns the length required to accommodate the length of the named object path.
+     * @param {Pointer<Integer>} ReturnLength Returns the length required to accommodate the length of the named object path.
      * @returns {BOOL} If the function succeeds, the function returns a value of <b>TRUE</b>. 
      * 
      * If the function fails, it returns a value of <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -75,6 +75,7 @@ class Isolation {
      * 
      * @param {Pointer<BOOL>} isProcessInIsolatedWindowsEnvironment 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
      */
     static IsProcessInIsolatedWindowsEnvironment(isProcessInIsolatedWindowsEnvironment) {
         result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "ptr", isProcessInIsolatedWindowsEnvironment, "int")
@@ -88,6 +89,7 @@ class Isolation {
      * 
      * @param {Pointer<BOOL>} isCrossIsolatedEnvironmentClipboardContent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
      */
     static IsCrossIsolatedEnvironmentClipboardContent(isCrossIsolatedEnvironmentClipboardContent) {
         result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "ptr", isCrossIsolatedEnvironmentClipboardContent, "int")

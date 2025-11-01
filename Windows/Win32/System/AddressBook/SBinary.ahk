@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbinary
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class SBinary extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpb {
         get => NumGet(this, 8, "ptr")

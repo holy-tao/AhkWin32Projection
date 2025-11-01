@@ -556,7 +556,7 @@ class GDIINFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pHTPatA {
         get => NumGet(this, 312, "ptr")
@@ -565,7 +565,7 @@ class GDIINFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pHTPatB {
         get => NumGet(this, 320, "ptr")
@@ -574,7 +574,7 @@ class GDIINFO extends Win32Struct
 
     /**
      * Point to the user-defined halftone dither patterns for primary colors A, B, and C, respectively, as defined by the PRIMARY_ORDER_XXX value in the <b>ulPrimaryOrder</b> member. Each dither pattern must be a valid two-dimensional byte array of size <b>cxHTPat</b> by <b>cyHTPat</b>. See the following <b>Remarks</b> section for more information.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pHTPatC {
         get => NumGet(this, 328, "ptr")

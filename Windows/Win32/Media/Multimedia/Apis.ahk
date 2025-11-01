@@ -23422,7 +23422,7 @@ class Multimedia {
     /**
      * 
      * @param {Integer} mciId 
-     * @param {Pointer<UInt32>} pdwYieldData 
+     * @param {Pointer<Integer>} pdwYieldData 
      * @returns {Pointer<YIELDPROC>} 
      */
     static mciGetYieldProc(mciId, pdwYieldData) {
@@ -24942,7 +24942,7 @@ class Multimedia {
     /**
      * The joyGetThreshold function queries a joystick for its current movement threshold.
      * @param {Integer} uJoyID Identifier of the joystick. Valid values for <i>uJoyID</i> range from zero (JOYSTICKID1) to 15.
-     * @param {Pointer<UInt32>} puThreshold Pointer to a variable that contains the movement threshold value.
+     * @param {Pointer<Integer>} puThreshold Pointer to a variable that contains the movement threshold value.
      * @returns {Integer} Returns JOYERR_NOERROR if successful or one of the following error values.
      * 
      * <table>
@@ -25376,8 +25376,8 @@ class Multimedia {
      * @param {Pointer<Void>} lpData Pointer to an output buffer large enough to contain a compressed frame.
      * @param {Pointer<BITMAPINFOHEADER>} lpbiInput Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the input format.
      * @param {Pointer<Void>} lpBits Pointer to the input buffer.
-     * @param {Pointer<UInt32>} lpckid Reserved; do not use.
-     * @param {Pointer<UInt32>} lpdwFlags Pointer to the return flags used in the AVI index. The following value is defined:
+     * @param {Pointer<Integer>} lpckid Reserved; do not use.
+     * @param {Pointer<Integer>} lpdwFlags Pointer to the return flags used in the AVI index. The following value is defined:
      * @param {Integer} lFrameNum Frame number.
      * @param {Integer} dwFrameSize Requested frame size, in bytes. Specify a nonzero value if the compressor supports a suggested frame size, as indicated by the presence of the <b>VIDCF_CRUNCH</b> flag returned by the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icgetinfo">ICGetInfo</a> function. If this flag is not set or a data rate for the frame is not specified, specify zero for this parameter.
      * 
@@ -25669,7 +25669,7 @@ class Multimedia {
      * @param {Pointer<Void>} lpBits Pointer to input data bits to compress. The data bits exclude header and format information.
      * @param {Pointer<BITMAPINFO>} lpbiOut Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure containing the compressed output format. Specify <b>NULL</b> to have the compressor use an appropriate format.
      * @param {Integer} lQuality Quality value used by the compressor. Values range from 0 to 10,000.
-     * @param {Pointer<Int32>} plSize Maximum size desired for the compressed image. The compressor might not be able to compress the data to fit within this size. When the function returns, this parameter points to the size of the compressed image. Image sizes are specified in bytes.
+     * @param {Pointer<Integer>} plSize Maximum size desired for the compressed image. The compressor might not be able to compress the data to fit within this size. When the function returns, this parameter points to the size of the compressed image. Image sizes are specified in bytes.
      * @returns {HANDLE} Returns a handle to a compressed DIB. The image data follows the format header.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-icimagecompress
      * @since windows5.0
@@ -25773,7 +25773,7 @@ class Multimedia {
      * @param {Pointer<COMPVARS>} pc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-compvars">COMPVARS</a> structure initialized with information about the compression.
      * @param {Pointer<Void>} lpBits Pointer to the data bits to compress. (The data bits exclude header or format information.)
      * @param {Pointer<BOOL>} pfKey Returns whether or not the frame was compressed into a key frame.
-     * @param {Pointer<Int32>} plSize Maximum size desired for the compressed image. The compressor might not be able to compress the data to fit within this size. When the function returns, the parameter points to the size of the compressed image. Images sizes are specified in bytes.
+     * @param {Pointer<Integer>} plSize Maximum size desired for the compressed image. The compressor might not be able to compress the data to fit within this size. When the function returns, the parameter points to the size of the compressed image. Images sizes are specified in bytes.
      * @returns {Pointer<Void>} Returns the address of the compressed bits if successful or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-icseqcompressframe
      * @since windows5.0
@@ -26187,7 +26187,7 @@ class Multimedia {
 
     /**
      * The AVIFileAddRef function increments the reference count of an AVI file.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @returns {Integer} Returns the updated reference count for the file interface.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifileaddref
      * @since windows5.0
@@ -26199,7 +26199,7 @@ class Multimedia {
 
     /**
      * The AVIFileRelease function decrements the reference count of an AVI file interface handle and closes the file if the count reaches zero.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @returns {Integer} Returns the reference count of the file. This return value should be used only for debugging purposes.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifilerelease
      * @since windows5.0
@@ -26329,7 +26329,7 @@ class Multimedia {
     static AVIFileOpenA(ppfile, szFile, uMode, lpHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr*", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26456,7 +26456,7 @@ class Multimedia {
     static AVIFileOpenW(ppfile, szFile, uMode, lpHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr*", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26465,7 +26465,7 @@ class Multimedia {
 
     /**
      * The AVIFileInfo function obtains information about an AVI file.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Pointer} pfi Pointer to the structure used to return file information. Typically, this parameter points to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure.
      * @param {Integer} lSize Size, in bytes, of the structure.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
@@ -26482,7 +26482,7 @@ class Multimedia {
 
     /**
      * The AVIFileInfo function obtains information about an AVI file.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Pointer} pfi Pointer to the structure used to return file information. Typically, this parameter points to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avifileinfoa">AVIFILEINFO</a> structure.
      * @param {Integer} lSize Size, in bytes, of the structure.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
@@ -26499,7 +26499,7 @@ class Multimedia {
 
     /**
      * The AVIFileGetStream function returns the address of a stream interface that is associated with a specified AVI file.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Pointer<IAVIStream>} ppavi Pointer to the new stream interface.
      * @param {Integer} fccType Four-character code indicating the type of stream to open. Zero indicates any stream can be opened. The following definitions apply to the data commonly found in AVI streams.
      * 
@@ -26562,7 +26562,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIFileGetStream(pfile, ppavi, fccType, lParam) {
-        result := DllCall("AVIFIL32.dll\AVIFileGetStream", "ptr", pfile, "ptr", ppavi, "uint", fccType, "int", lParam, "int")
+        result := DllCall("AVIFIL32.dll\AVIFileGetStream", "ptr", pfile, "ptr*", ppavi, "uint", fccType, "int", lParam, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26571,7 +26571,7 @@ class Multimedia {
 
     /**
      * The AVIFileCreateStream function creates a new stream in an existing file and creates an interface to the new stream.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Pointer<IAVIStream>} ppavi Pointer to the new stream interface.
      * @param {Pointer<AVISTREAMINFOW>} psi Pointer to a structure containing information about the new stream, including the stream type and its sample rate.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. Unless the file has been opened with write permission, this function returns AVIERR_READONLY.
@@ -26579,7 +26579,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIFileCreateStreamW(pfile, ppavi, psi) {
-        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamW", "ptr", pfile, "ptr", ppavi, "ptr", psi, "int")
+        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamW", "ptr", pfile, "ptr*", ppavi, "ptr", psi, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26588,7 +26588,7 @@ class Multimedia {
 
     /**
      * The AVIFileCreateStream function creates a new stream in an existing file and creates an interface to the new stream.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Pointer<IAVIStream>} ppavi Pointer to the new stream interface.
      * @param {Pointer<AVISTREAMINFOA>} psi Pointer to a structure containing information about the new stream, including the stream type and its sample rate.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. Unless the file has been opened with write permission, this function returns AVIERR_READONLY.
@@ -26596,7 +26596,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIFileCreateStreamA(pfile, ppavi, psi) {
-        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamA", "ptr", pfile, "ptr", ppavi, "ptr", psi, "int")
+        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamA", "ptr", pfile, "ptr*", ppavi, "ptr", psi, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26605,7 +26605,7 @@ class Multimedia {
 
     /**
      * The AVIFileWriteData function writes supplementary data (other than normal header, format, and stream data) to the file.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Integer} ckid RIFF chunk identifier (four-character code) of the data.
      * @param {Pointer} lpData Pointer to the buffer used to write the data.
      * @param {Integer} cbData Size, in bytes, of the memory block referenced by <i>lpData</i>.
@@ -26623,10 +26623,10 @@ class Multimedia {
 
     /**
      * The AVIFileReadData function reads optional header data that applies to the entire file, such as author or copyright information.
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @param {Integer} ckid RIFF chunk identifier (four-character code) of the data.
      * @param {Pointer} lpData Pointer to the buffer used to return the data read.
-     * @param {Pointer<Int32>} lpcbData Pointer to a location indicating the size of the memory block referenced by <i>lpData</i>. If the data is read successfully, the value is changed to indicate the amount of data read.
+     * @param {Pointer<Integer>} lpcbData Pointer to a location indicating the size of the memory block referenced by <i>lpData</i>. If the data is read successfully, the value is changed to indicate the amount of data read.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. The return value AVIERR_NODATA indicates that data with the requested chunk identifier does not exist.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifilereaddata
      * @since windows5.0
@@ -26641,7 +26641,7 @@ class Multimedia {
 
     /**
      * The AVIFileEndRecord function marks the end of a record when writing an interleaved file that uses a 1:1 interleave factor of video to audio data. (Each frame of video is interspersed with an equivalent amount of audio data.).
-     * @param {Pointer<IAVIFile>} pfile Handle to an open AVI file.
+     * @param {IAVIFile} pfile Handle to an open AVI file.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifileendrecord
      * @since windows5.0
@@ -26656,7 +26656,7 @@ class Multimedia {
 
     /**
      * The AVIStreamAddRef function increments the reference count of an AVI stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open AVI stream.
+     * @param {IAVIStream} pavi Handle to an open AVI stream.
      * @returns {Integer} Returns the current reference count of the stream. This value should be used only for debugging purposes.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamaddref
      * @since windows5.0
@@ -26668,7 +26668,7 @@ class Multimedia {
 
     /**
      * The AVIStreamRelease function decrements the reference count of an AVI stream interface handle, and closes the stream if the count reaches zero.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @returns {Integer} Returns the current reference count of the stream. This value should be used only for debugging purposes.
      * 
      * The argument <i>pavi</i> is a pointer to an <a href="/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
@@ -26682,7 +26682,7 @@ class Multimedia {
 
     /**
      * The AVIStreamInfo function obtains stream header information.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Pointer} psi Pointer to a structure to contain the stream information.
      * @param {Integer} lSize Size, in bytes, of the structure used forpsi.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
@@ -26701,7 +26701,7 @@ class Multimedia {
 
     /**
      * The AVIStreamInfo function obtains stream header information.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Pointer} psi Pointer to a structure to contain the stream information.
      * @param {Integer} lSize Size, in bytes, of the structure used forpsi.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
@@ -26720,7 +26720,7 @@ class Multimedia {
 
     /**
      * The AVIStreamFindSample function returns the position of a sample (key frame, nonempty frame, or a frame containing a format change) relative to the specified position.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lPos Starting frame for the search.
      * @param {Integer} lFlags Flags that designate the type of frame to locate, the direction in the stream to search, and the type of return information. The following flags are defined.
      * 
@@ -26767,10 +26767,10 @@ class Multimedia {
 
     /**
      * The AVIStreamReadFormat function reads the stream format data.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lPos Position in the stream used to obtain the format data.
      * @param {Pointer} lpFormat Pointer to a buffer to contain the format data.
-     * @param {Pointer<Int32>} lpcbFormat Pointer to a location indicating the size of the memory block referenced by <i>lpFormat</i>. On return, the value is changed to indicate the amount of data read. If <i>lpFormat</i> is <b>NULL</b>, this parameter can be used to obtain the amount of memory needed to return the format.
+     * @param {Pointer<Integer>} lpcbFormat Pointer to a location indicating the size of the memory block referenced by <i>lpFormat</i>. On return, the value is changed to indicate the amount of data read. If <i>lpFormat</i> is <b>NULL</b>, this parameter can be used to obtain the amount of memory needed to return the format.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * 
      * The argument <i>pavi</i> is a pointer to an <a href="/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
@@ -26787,7 +26787,7 @@ class Multimedia {
 
     /**
      * The AVIStreamSetFormat function sets the format of a stream at the specified position.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lPos Position in the stream to receive the format.
      * @param {Pointer} lpFormat Pointer to a structure containing the new format.
      * @param {Integer} cbFormat Size, in bytes, of the block of memory referenced by <i>lpFormat</i>.
@@ -26805,10 +26805,10 @@ class Multimedia {
 
     /**
      * The AVIStreamReadData function reads optional header data from a stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} fcc Four-character code identifying the data.
      * @param {Pointer} lp Pointer to the buffer to contain the optional header data.
-     * @param {Pointer<Int32>} lpcb Pointer to the location that specifies the buffer size used for <i>lpData</i>. If the read is successful, AVIFile changes this value to indicate the amount of data written into the buffer for <i>lpData</i>.
+     * @param {Pointer<Integer>} lpcb Pointer to the location that specifies the buffer size used for <i>lpData</i>. If the read is successful, AVIFile changes this value to indicate the amount of data written into the buffer for <i>lpData</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. The return value AVIERR_NODATA indicates the system could not find any data with the specified chunk identifier.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamreaddata
      * @since windows5.0
@@ -26823,7 +26823,7 @@ class Multimedia {
 
     /**
      * The AVIStreamWriteData function writes optional header information to the stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} fcc Four-character code identifying the data.
      * @param {Pointer} lp Pointer to a buffer containing the data to write.
      * @param {Integer} cb Number of bytes of data to write into the stream.
@@ -26841,13 +26841,13 @@ class Multimedia {
 
     /**
      * The AVIStreamRead function reads audio, video or other data from a stream according to the stream type.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lStart First sample to read.
      * @param {Integer} lSamples Number of samples to read. You can also specify the value AVISTREAMREAD_CONVENIENT to let the stream handler determine the number of samples to read.
      * @param {Pointer} lpBuffer Pointer to a buffer to contain the data.
      * @param {Integer} cbBuffer Size, in bytes, of the buffer pointed to by <i>lpBuffer</i>.
-     * @param {Pointer<Int32>} plBytes Pointer to a buffer that receives the number of bytes of data written in the buffer referenced by <i>lpBuffer</i>. This value can be <b>NULL</b>.
-     * @param {Pointer<Int32>} plSamples Pointer to a buffer that receives the number of samples written in the buffer referenced by <i>lpBuffer</i>. This value can be <b>NULL</b>.
+     * @param {Pointer<Integer>} plBytes Pointer to a buffer that receives the number of bytes of data written in the buffer referenced by <i>lpBuffer</i>. This value can be <b>NULL</b>.
+     * @param {Pointer<Integer>} plSamples Pointer to a buffer that receives the number of samples written in the buffer referenced by <i>lpBuffer</i>. This value can be <b>NULL</b>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -26902,7 +26902,7 @@ class Multimedia {
 
     /**
      * The AVIStreamWrite function writes data to a stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lStart First sample to write.
      * @param {Integer} lSamples Number of samples to write.
      * @param {Pointer} lpBuffer Pointer to a buffer containing the data to write.
@@ -26925,8 +26925,8 @@ class Multimedia {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int32>} plSampWritten Pointer to a buffer that receives the number of samples written. This can be set to <b>NULL</b>.
-     * @param {Pointer<Int32>} plBytesWritten Pointer to a buffer that receives the number of bytes written. This can be set to <b>NULL</b>.
+     * @param {Pointer<Integer>} plSampWritten Pointer to a buffer that receives the number of samples written. This can be set to <b>NULL</b>.
+     * @param {Pointer<Integer>} plBytesWritten Pointer to a buffer that receives the number of bytes written. This can be set to <b>NULL</b>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamwrite
      * @since windows5.0
@@ -26941,7 +26941,7 @@ class Multimedia {
 
     /**
      * The AVIStreamStart function returns the starting sample number for the stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @returns {Integer} Returns the number if successful or -1 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamstart
      * @since windows5.0
@@ -26953,7 +26953,7 @@ class Multimedia {
 
     /**
      * The AVIStreamLength function returns the length of the stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @returns {Integer} Returns the stream's length, in samples, if successful or -1 otherwise.
      * 
      * The argument <i>pavi</i> is a pointer to an <a href="/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
@@ -26967,7 +26967,7 @@ class Multimedia {
 
     /**
      * The AVIStreamTimeToSample function converts from milliseconds to samples.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lTime Time, expressed in milliseconds.
      * @returns {Integer} Returns the converted time if successful or -1 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamtimetosample
@@ -26980,7 +26980,7 @@ class Multimedia {
 
     /**
      * The AVIStreamSampleToTime function converts a stream position from samples to milliseconds.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Integer} lSample Position information. A sample can correspond to blocks of audio, a video frame, or other format, depending on the stream type.
      * @returns {Integer} Returns the converted time if successful or −1 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamsampletotime
@@ -26993,7 +26993,7 @@ class Multimedia {
 
     /**
      * The AVIStreamBeginStreaming function specifies the parameters used in streaming and lets a stream handler prepare for streaming.
-     * @param {Pointer<IAVIStream>} pavi Pointer to a stream.
+     * @param {IAVIStream} pavi Pointer to a stream.
      * @param {Integer} lStart Starting frame for streaming.
      * @param {Integer} lEnd Ending frame for streaming.
      * @param {Integer} lRate Speed at which the file is read relative to its natural speed. Specify 1000 for the normal speed. Values less than 1000 indicate a slower-than-normal speed; values greater than 1000 indicate a faster-than-normal speed.
@@ -27011,7 +27011,7 @@ class Multimedia {
 
     /**
      * The AVIStreamEndStreaming function ends streaming.
-     * @param {Pointer<IAVIStream>} pavi Pointer to a stream.
+     * @param {IAVIStream} pavi Pointer to a stream.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamendstreaming
      * @since windows5.0
@@ -27026,9 +27026,9 @@ class Multimedia {
 
     /**
      * The AVIStreamGetFrameOpen function prepares to decompress video frames from the specified video stream.
-     * @param {Pointer<IAVIStream>} pavi Pointer to the video stream used as the video source.
+     * @param {IAVIStream} pavi Pointer to the video stream used as the video source.
      * @param {Pointer<BITMAPINFOHEADER>} lpbiWanted Pointer to a structure that defines the desired video format. Specify <b>NULL</b> to use a default format. You can also specify AVIGETFRAMEF_BESTDISPLAYFMT to decode the frames to the best format for your display.
-     * @returns {Pointer<IGetFrame>} Returns a <b>GetFrame</b> object that can be used with the <a href="/windows/desktop/api/vfw/nf-vfw-avistreamgetframe">AVIStreamGetFrame</a> function. If the system cannot find a decompressor that can decompress the stream to the given format, or to any RGB format, the function returns <b>NULL</b>.
+     * @returns {IGetFrame} Returns a <b>GetFrame</b> object that can be used with the <a href="/windows/desktop/api/vfw/nf-vfw-avistreamgetframe">AVIStreamGetFrame</a> function. If the system cannot find a decompressor that can decompress the stream to the given format, or to any RGB format, the function returns <b>NULL</b>.
      * 
      * The argument <i>pavi</i> is a pointer to an <a href="/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamgetframeopen
@@ -27041,7 +27041,7 @@ class Multimedia {
 
     /**
      * The AVIStreamGetFrame function returns the address of a decompressed video frame.
-     * @param {Pointer<IGetFrame>} pg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-igetframe">IGetFrame</a> interface.
+     * @param {IGetFrame} pg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-igetframe">IGetFrame</a> interface.
      * @param {Integer} lPos Position, in samples, within the stream of the desired frame.
      * @returns {Pointer<Void>} Returns a pointer to the frame data if successful or <b>NULL</b> otherwise. The frame data is returned as a packed DIB.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamgetframe
@@ -27054,7 +27054,7 @@ class Multimedia {
 
     /**
      * The AVIStreamGetFrameClose function releases resources used to decompress video frames.
-     * @param {Pointer<IGetFrame>} pg Handle returned from the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-avistreamgetframeopen">AVIStreamGetFrameOpen</a> function. After calling this function, the handle is invalid.
+     * @param {IGetFrame} pg Handle returned from the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-avistreamgetframeopen">AVIStreamGetFrameOpen</a> function. After calling this function, the handle is invalid.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamgetframeclose
      * @since windows5.0
@@ -27107,7 +27107,7 @@ class Multimedia {
     static AVIStreamOpenFromFileA(ppavi, szFile, fccType, lParam, mode, pclsidHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27154,7 +27154,7 @@ class Multimedia {
     static AVIStreamOpenFromFileW(ppavi, szFile, fccType, lParam, mode, pclsidHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27172,7 +27172,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIStreamCreate(ppavi, lParam1, lParam2, pclsidHandler) {
-        result := DllCall("AVIFIL32.dll\AVIStreamCreate", "ptr", ppavi, "int", lParam1, "int", lParam2, "ptr", pclsidHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIStreamCreate", "ptr*", ppavi, "int", lParam1, "int", lParam2, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27182,7 +27182,7 @@ class Multimedia {
     /**
      * The AVIMakeCompressedStream function creates a compressed stream from an uncompressed stream and a compression filter, and returns the address of a pointer to the compressed stream. This function supports audio and video compression.
      * @param {Pointer<IAVIStream>} ppsCompressed Pointer to a buffer that receives the compressed stream pointer.
-     * @param {Pointer<IAVIStream>} ppsSource Pointer to the stream to be compressed.
+     * @param {IAVIStream} ppsSource Pointer to the stream to be compressed.
      * @param {Pointer<AVICOMPRESSOPTIONS>} lpOptions Pointer to a structure that identifies the type of compression to use and the options to apply. You can specify video compression by identifying an appropriate handler in the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structure. For audio compression, specify the compressed data format.
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier used to create the stream.
      * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise. Possible error values include the following.
@@ -27230,7 +27230,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIMakeCompressedStream(ppsCompressed, ppsSource, lpOptions, pclsidHandler) {
-        result := DllCall("AVIFIL32.dll\AVIMakeCompressedStream", "ptr", ppsCompressed, "ptr", ppsSource, "ptr", lpOptions, "ptr", pclsidHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIMakeCompressedStream", "ptr*", ppsCompressed, "ptr", ppsSource, "ptr", lpOptions, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27243,7 +27243,7 @@ class Multimedia {
      * @param {Pointer<Guid>} pclsidHandler Pointer to the file handler used to write the file. The file is created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-avifileopen">AVIFileOpen</a> function using this handler. If a handler is not specified, a default is selected from the registry based on the file extension.
      * @param {Pointer<AVISAVECALLBACK>} lpfnCallback Pointer to a callback function for the save operation.
      * @param {Integer} nStreams Number of streams saved in the file.
-     * @param {Pointer<IAVIStream>} pfile Pointer to an AVI stream. This parameter is paired with <i>lpOptions</i>. The parameter pair can be repeated as a variable number of arguments.
+     * @param {IAVIStream} pfile Pointer to an AVI stream. This parameter is paired with <i>lpOptions</i>. The parameter pair can be repeated as a variable number of arguments.
      * @param {Pointer<AVICOMPRESSOPTIONS>} lpOptions Pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structure containing the compression options for the stream referenced by <i>pavi</i>. This parameter is paired with pavi. The parameter pair can be repeated as a variable number of arguments.
      * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avisavea
@@ -27266,7 +27266,7 @@ class Multimedia {
      * @param {Pointer<AVISAVECALLBACK>} lpfnCallback Pointer to a callback function used to display status information and to let the user cancel the save operation.
      * @param {Integer} nStreams Number of streams to save.
      * @param {Pointer<IAVIStream>} ppavi Pointer to an array of pointers to the <b>AVISTREAM</b> function structures. The array uses one pointer for each stream.
-     * @param {Pointer<AVICOMPRESSOPTIONS>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. The array uses one pointer for each stream.
+     * @param {Pointer<Pointer<AVICOMPRESSOPTIONS>>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. The array uses one pointer for each stream.
      * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avisaveva
      * @since windows5.0
@@ -27274,7 +27274,7 @@ class Multimedia {
     static AVISaveVA(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", ppavi, "ptr", plpOptions, "int")
+        result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, "ptr*", plpOptions, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27287,7 +27287,7 @@ class Multimedia {
      * @param {Pointer<Guid>} pclsidHandler Pointer to the file handler used to write the file. The file is created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-avifileopen">AVIFileOpen</a> function using this handler. If a handler is not specified, a default is selected from the registry based on the file extension.
      * @param {Pointer<AVISAVECALLBACK>} lpfnCallback Pointer to a callback function for the save operation.
      * @param {Integer} nStreams Number of streams saved in the file.
-     * @param {Pointer<IAVIStream>} pfile Pointer to an AVI stream. This parameter is paired with <i>lpOptions</i>. The parameter pair can be repeated as a variable number of arguments.
+     * @param {IAVIStream} pfile Pointer to an AVI stream. This parameter is paired with <i>lpOptions</i>. The parameter pair can be repeated as a variable number of arguments.
      * @param {Pointer<AVICOMPRESSOPTIONS>} lpOptions Pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structure containing the compression options for the stream referenced by <i>pavi</i>. This parameter is paired with pavi. The parameter pair can be repeated as a variable number of arguments.
      * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avisavew
@@ -27310,7 +27310,7 @@ class Multimedia {
      * @param {Pointer<AVISAVECALLBACK>} lpfnCallback Pointer to a callback function used to display status information and to let the user cancel the save operation.
      * @param {Integer} nStreams Number of streams to save.
      * @param {Pointer<IAVIStream>} ppavi Pointer to an array of pointers to the <b>AVISTREAM</b> function structures. The array uses one pointer for each stream.
-     * @param {Pointer<AVICOMPRESSOPTIONS>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. The array uses one pointer for each stream.
+     * @param {Pointer<Pointer<AVICOMPRESSOPTIONS>>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. The array uses one pointer for each stream.
      * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avisavevw
      * @since windows5.0
@@ -27318,7 +27318,7 @@ class Multimedia {
     static AVISaveVW(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", ppavi, "ptr", plpOptions, "int")
+        result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, "ptr*", plpOptions, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27352,7 +27352,7 @@ class Multimedia {
      * </table>
      * @param {Integer} nStreams Number of streams that have their options set by the dialog box.
      * @param {Pointer<IAVIStream>} ppavi Pointer to an array of stream interface pointers. The <i>nStreams</i> parameter indicates the number of pointers in the array.
-     * @param {Pointer<AVICOMPRESSOPTIONS>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. These structures hold the compression options set by the dialog box. The <i>nStreams</i> parameter indicates the number of pointers in the array.
+     * @param {Pointer<Pointer<AVICOMPRESSOPTIONS>>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. These structures hold the compression options set by the dialog box. The <i>nStreams</i> parameter indicates the number of pointers in the array.
      * @returns {Pointer} Returns <b>TRUE</b> if the user pressed OK, <b>FALSE</b> for CANCEL, or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avisaveoptions
      * @since windows5.0
@@ -27360,20 +27360,20 @@ class Multimedia {
     static AVISaveOptions(hwnd, uiFlags, nStreams, ppavi, plpOptions) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("AVIFIL32.dll\AVISaveOptions", "ptr", hwnd, "uint", uiFlags, "int", nStreams, "ptr", ppavi, "ptr", plpOptions, "ptr")
+        result := DllCall("AVIFIL32.dll\AVISaveOptions", "ptr", hwnd, "uint", uiFlags, "int", nStreams, "ptr*", ppavi, "ptr*", plpOptions, "ptr")
         return result
     }
 
     /**
      * The AVISaveOptionsFree function frees the resources allocated by the AVISaveOptions function.
      * @param {Integer} nStreams Count of the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures referenced in <i>plpOptions</i>.
-     * @param {Pointer<AVICOMPRESSOPTIONS>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. These structures hold the compression options set by the dialog box. The resources allocated by <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-avisaveoptions">AVISaveOptions</a> for each of these structures will be freed.
+     * @param {Pointer<Pointer<AVICOMPRESSOPTIONS>>} plpOptions Pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures. These structures hold the compression options set by the dialog box. The resources allocated by <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-avisaveoptions">AVISaveOptions</a> for each of these structures will be freed.
      * @returns {HRESULT} Returns AVIERR_OK.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avisaveoptionsfree
      * @since windows5.0
      */
     static AVISaveOptionsFree(nStreams, plpOptions) {
-        result := DllCall("AVIFIL32.dll\AVISaveOptionsFree", "int", nStreams, "ptr", plpOptions, "int")
+        result := DllCall("AVIFIL32.dll\AVISaveOptionsFree", "int", nStreams, "ptr*", plpOptions, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27486,7 +27486,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIMakeFileFromStreams(ppfile, nStreams, papStreams) {
-        result := DllCall("AVIFIL32.dll\AVIMakeFileFromStreams", "ptr", ppfile, "int", nStreams, "ptr", papStreams, "int")
+        result := DllCall("AVIFIL32.dll\AVIMakeFileFromStreams", "ptr*", ppfile, "int", nStreams, "ptr*", papStreams, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27505,7 +27505,7 @@ class Multimedia {
     static AVIMakeStreamFromClipboard(cfFormat, hGlobal, ppstream) {
         hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
 
-        result := DllCall("AVIFIL32.dll\AVIMakeStreamFromClipboard", "uint", cfFormat, "ptr", hGlobal, "ptr", ppstream, "int")
+        result := DllCall("AVIFIL32.dll\AVIMakeStreamFromClipboard", "uint", cfFormat, "ptr", hGlobal, "ptr*", ppstream, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27514,7 +27514,7 @@ class Multimedia {
 
     /**
      * The AVIPutFileOnClipboard function copies an AVI file to the clipboard.
-     * @param {Pointer<IAVIFile>} pf Handle to an open AVI file.
+     * @param {IAVIFile} pf Handle to an open AVI file.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-aviputfileonclipboard
      * @since windows5.0
@@ -27535,7 +27535,7 @@ class Multimedia {
      * @since windows5.0
      */
     static AVIGetFromClipboard(lppf) {
-        result := DllCall("AVIFIL32.dll\AVIGetFromClipboard", "ptr", lppf, "int")
+        result := DllCall("AVIFIL32.dll\AVIGetFromClipboard", "ptr*", lppf, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27559,13 +27559,13 @@ class Multimedia {
     /**
      * The CreateEditableStream function creates an editable stream. Use this function before using other stream editing functions.
      * @param {Pointer<IAVIStream>} ppsEditable Pointer to a buffer that receives the new stream handle.
-     * @param {Pointer<IAVIStream>} psSource Handle to the stream supplying data for the new stream. Specify <b>NULL</b> to create an empty editable string that you can copy and paste data into.
+     * @param {IAVIStream} psSource Handle to the stream supplying data for the new stream. Specify <b>NULL</b> to create an empty editable string that you can copy and paste data into.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-createeditablestream
      * @since windows5.0
      */
     static CreateEditableStream(ppsEditable, psSource) {
-        result := DllCall("AVIFIL32.dll\CreateEditableStream", "ptr", ppsEditable, "ptr", psSource, "int")
+        result := DllCall("AVIFIL32.dll\CreateEditableStream", "ptr*", ppsEditable, "ptr", psSource, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27574,16 +27574,16 @@ class Multimedia {
 
     /**
      * The EditStreamCut function deletes all or part of an editable stream and creates a temporary editable stream from the deleted portion of the stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to the stream being edited.
-     * @param {Pointer<Int32>} plStart Starting position of the data to cut from the stream referenced by <i>pavi</i>.
-     * @param {Pointer<Int32>} plLength Amount of data to cut from the stream referenced by <i>pavi</i>.
+     * @param {IAVIStream} pavi Handle to the stream being edited.
+     * @param {Pointer<Integer>} plStart Starting position of the data to cut from the stream referenced by <i>pavi</i>.
+     * @param {Pointer<Integer>} plLength Amount of data to cut from the stream referenced by <i>pavi</i>.
      * @param {Pointer<IAVIStream>} ppResult Pointer to the handle created for the new stream.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamcut
      * @since windows5.0
      */
     static EditStreamCut(pavi, plStart, plLength, ppResult) {
-        result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, "int*", plStart, "int*", plLength, "ptr", ppResult, "int")
+        result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, "int*", plStart, "int*", plLength, "ptr*", ppResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27592,16 +27592,16 @@ class Multimedia {
 
     /**
      * The EditStreamCopy function copies an editable stream (or a portion of it) into a temporary stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to the stream being copied.
-     * @param {Pointer<Int32>} plStart Starting position within the stream being copied. The starting position is returned.
-     * @param {Pointer<Int32>} plLength Amount of data to copy from the stream referenced by <i>pavi</i>. The length of the copied data is returned.
+     * @param {IAVIStream} pavi Handle to the stream being copied.
+     * @param {Pointer<Integer>} plStart Starting position within the stream being copied. The starting position is returned.
+     * @param {Pointer<Integer>} plLength Amount of data to copy from the stream referenced by <i>pavi</i>. The length of the copied data is returned.
      * @param {Pointer<IAVIStream>} ppResult Pointer to a buffer that receives the handle created for the new stream.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamcopy
      * @since windows5.0
      */
     static EditStreamCopy(pavi, plStart, plLength, ppResult) {
-        result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, "int*", plStart, "int*", plLength, "ptr", ppResult, "int")
+        result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, "int*", plStart, "int*", plLength, "ptr*", ppResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27610,10 +27610,10 @@ class Multimedia {
 
     /**
      * The EditStreamPaste function copies a stream (or a portion of it) from one stream and pastes it within another stream at a specified location.
-     * @param {Pointer<IAVIStream>} pavi Handle to an editable stream that will receive the copied stream data.
-     * @param {Pointer<Int32>} plPos Starting position to paste the data within the destination stream (referenced by <i>pavi</i>).
-     * @param {Pointer<Int32>} plLength Pointer to a buffer that receives the amount of data pasted in the stream.
-     * @param {Pointer<IAVIStream>} pstream Handle to a stream supplying the data to paste. This stream does not need to be an editable stream.
+     * @param {IAVIStream} pavi Handle to an editable stream that will receive the copied stream data.
+     * @param {Pointer<Integer>} plPos Starting position to paste the data within the destination stream (referenced by <i>pavi</i>).
+     * @param {Pointer<Integer>} plLength Pointer to a buffer that receives the amount of data pasted in the stream.
+     * @param {IAVIStream} pstream Handle to a stream supplying the data to paste. This stream does not need to be an editable stream.
      * @param {Integer} lStart Starting position of the data to copy within the source stream.
      * @param {Integer} lEnd Amount of data to copy from the source stream. If <i>lLength</i> is -1, the entire stream referenced by <i>pstream</i> is pasted in the other stream.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
@@ -27630,14 +27630,14 @@ class Multimedia {
 
     /**
      * The EditStreamClone function creates a duplicate editable stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an editable stream that will be copied.
+     * @param {IAVIStream} pavi Handle to an editable stream that will be copied.
      * @param {Pointer<IAVIStream>} ppResult Pointer to a buffer that receives the new stream handle.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamclone
      * @since windows5.0
      */
     static EditStreamClone(pavi, ppResult) {
-        result := DllCall("AVIFIL32.dll\EditStreamClone", "ptr", pavi, "ptr", ppResult, "int")
+        result := DllCall("AVIFIL32.dll\EditStreamClone", "ptr", pavi, "ptr*", ppResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27646,7 +27646,7 @@ class Multimedia {
 
     /**
      * The EditStreamSetName function assigns a descriptive string to a stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {PSTR} lpszName Null-terminated string containing the description of the stream.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamsetnamea
@@ -27664,7 +27664,7 @@ class Multimedia {
 
     /**
      * The EditStreamSetName function assigns a descriptive string to a stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {PWSTR} lpszName Null-terminated string containing the description of the stream.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamsetnamew
@@ -27682,7 +27682,7 @@ class Multimedia {
 
     /**
      * The EditStreamSetInfo function changes characteristics of an editable stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Pointer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing new information.
      * @param {Integer} cbInfo Size, in bytes, of the structure pointed to by <i>lpInfo</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.
@@ -27699,7 +27699,7 @@ class Multimedia {
 
     /**
      * The EditStreamSetInfo function changes characteristics of an editable stream.
-     * @param {Pointer<IAVIStream>} pavi Handle to an open stream.
+     * @param {IAVIStream} pavi Handle to an open stream.
      * @param {Pointer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing new information.
      * @param {Integer} cbInfo Size, in bytes, of the structure pointed to by <i>lpInfo</i>.
      * @returns {HRESULT} Returns zero if successful or an error otherwise.

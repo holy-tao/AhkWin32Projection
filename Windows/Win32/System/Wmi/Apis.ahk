@@ -344,10 +344,10 @@ class Wmi {
     /**
      * Initializes an application so that it can make Management Infrastructure (MI) client API calls.
      * @param {Integer} flags Must be 0.
-     * @param {Pointer<UInt16>} applicationID An optional string (usually <b>GUID</b> in string format) to represent a client 
+     * @param {Pointer<Integer>} applicationID An optional string (usually <b>GUID</b> in string format) to represent a client 
      *     application. This string may be used for application specific configuration and application specific 
      *   logging.
-     * @param {Pointer<MI_Instance>} extendedError Optional parameter giving more error information if the operation failed. If an instance is returned, 
+     * @param {Pointer<Pointer<MI_Instance>>} extendedError Optional parameter giving more error information if the operation failed. If an instance is returned, 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_instance_delete">MI_Instance_Delete</a> must  be called to free it 
      *       when it is no longer needed.
      * @param {Pointer<MI_Application>} application A pointer to an uninitialized <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_application">MI_Application</a> 
@@ -359,7 +359,7 @@ class Wmi {
      * @since windows8.0
      */
     static MI_Application_InitializeV1(flags, applicationID, extendedError, application) {
-        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, "ushort*", applicationID, "ptr", extendedError, "ptr", application, "CDecl int")
+        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, "ushort*", applicationID, "ptr*", extendedError, "ptr", application, "CDecl int")
         return result
     }
 

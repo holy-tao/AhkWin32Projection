@@ -24,7 +24,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pOutputQPMap {
         get => NumGet(this, 16, "ptr")
@@ -32,7 +32,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pOutputSATDMap {
         get => NumGet(this, 24, "ptr")
@@ -40,7 +40,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pOutputBitAllocationMap {
         get => NumGet(this, 32, "ptr")

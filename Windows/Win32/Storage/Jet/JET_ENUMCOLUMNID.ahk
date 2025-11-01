@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-enumcolumnid-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */
@@ -28,7 +30,7 @@ class JET_ENUMCOLUMNID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rgtagSequence {
         get => NumGet(this, 8, "ptr")

@@ -15,7 +15,7 @@ class VIDEOHDR extends Win32Struct
 
     /**
      * Pointer to locked data buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpData {
         get => NumGet(this, 0, "ptr")

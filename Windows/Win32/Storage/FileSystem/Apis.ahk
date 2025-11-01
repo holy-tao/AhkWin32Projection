@@ -3392,14 +3392,14 @@ class FileSystem {
      *       it must include a trailing backslash (for example, "\\\\MyServer\\MyShare\\"). Furthermore, a drive 
      *       specification must have a trailing backslash (for example, "C:\\"). The calling application must 
      *       have <b>FILE_LIST_DIRECTORY</b> access rights for this  directory.
-     * @param {Pointer<UInt32>} lpSectorsPerCluster A pointer to a variable that receives the number of sectors per cluster.
-     * @param {Pointer<UInt32>} lpBytesPerSector A pointer to a variable that receives the number of bytes per sector.
-     * @param {Pointer<UInt32>} lpNumberOfFreeClusters A pointer to a variable that receives the total number of free clusters on the disk that are available to the 
+     * @param {Pointer<Integer>} lpSectorsPerCluster A pointer to a variable that receives the number of sectors per cluster.
+     * @param {Pointer<Integer>} lpBytesPerSector A pointer to a variable that receives the number of bytes per sector.
+     * @param {Pointer<Integer>} lpNumberOfFreeClusters A pointer to a variable that receives the total number of free clusters on the disk that are available to the 
      *        user who is associated with the calling thread.
      * 
      * If per-user disk quotas are in use, this value may be less than the total number of free clusters on the 
      *        disk.
-     * @param {Pointer<UInt32>} lpTotalNumberOfClusters A pointer to a variable that receives the total number of clusters on the disk that are available to the user 
+     * @param {Pointer<Integer>} lpTotalNumberOfClusters A pointer to a variable that receives the total number of clusters on the disk that are available to the user 
      *        who is associated with the calling thread.
      * 
      * If per-user disk quotas are in use, this value may be less than the total number of clusters on the disk.
@@ -3429,14 +3429,14 @@ class FileSystem {
      *       it must include a trailing backslash (for example, "\\\\MyServer\\MyShare\\"). Furthermore, a drive 
      *       specification must have a trailing backslash (for example, "C:\\"). The calling application must 
      *       have <b>FILE_LIST_DIRECTORY</b> access rights for this  directory.
-     * @param {Pointer<UInt32>} lpSectorsPerCluster A pointer to a variable that receives the number of sectors per cluster.
-     * @param {Pointer<UInt32>} lpBytesPerSector A pointer to a variable that receives the number of bytes per sector.
-     * @param {Pointer<UInt32>} lpNumberOfFreeClusters A pointer to a variable that receives the total number of free clusters on the disk that are available to the 
+     * @param {Pointer<Integer>} lpSectorsPerCluster A pointer to a variable that receives the number of sectors per cluster.
+     * @param {Pointer<Integer>} lpBytesPerSector A pointer to a variable that receives the number of bytes per sector.
+     * @param {Pointer<Integer>} lpNumberOfFreeClusters A pointer to a variable that receives the total number of free clusters on the disk that are available to the 
      *        user who is associated with the calling thread.
      * 
      * If per-user disk quotas are in use, this value may be less than the total number of free clusters on the 
      *        disk.
-     * @param {Pointer<UInt32>} lpTotalNumberOfClusters A pointer to a variable that receives the total number of clusters on the disk that are available to the user 
+     * @param {Pointer<Integer>} lpTotalNumberOfClusters A pointer to a variable that receives the total number of clusters on the disk that are available to the user 
      *        who is associated with the calling thread.
      * 
      * If per-user disk quotas are in use, this value may be less than the total number of clusters on the disk.
@@ -3473,13 +3473,13 @@ class FileSystem {
      * 
      * The calling application must have <b>FILE_LIST_DIRECTORY</b> access rights for this  
      *        directory.
-     * @param {Pointer<UInt64>} lpFreeBytesAvailableToCaller A pointer to a variable that receives the total number of free bytes on a disk that are available to the user 
+     * @param {Pointer<Integer>} lpFreeBytesAvailableToCaller A pointer to a variable that receives the total number of free bytes on a disk that are available to the user 
      *        who is associated with the calling thread.
      * 
      * This parameter can be <b>NULL</b>.
      * 
      * If per-user quotas are being used, this value may be less than the total number of free bytes on a disk.
-     * @param {Pointer<UInt64>} lpTotalNumberOfBytes A pointer to a variable that receives the total number of bytes on a disk that are available to the user who 
+     * @param {Pointer<Integer>} lpTotalNumberOfBytes A pointer to a variable that receives the total number of bytes on a disk that are available to the user who 
      *        is associated with the calling thread.
      * 
      * This parameter can be <b>NULL</b>.
@@ -3488,7 +3488,7 @@ class FileSystem {
      * 
      * To determine the total number of bytes on a disk or volume, use 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_get_length_info">IOCTL_DISK_GET_LENGTH_INFO</a>.
-     * @param {Pointer<UInt64>} lpTotalNumberOfFreeBytes A pointer to a variable that receives the total number of free bytes on a disk.
+     * @param {Pointer<Integer>} lpTotalNumberOfFreeBytes A pointer to a variable that receives the total number of free bytes on a disk.
      * 
      * This parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -3524,13 +3524,13 @@ class FileSystem {
      * 
      * The calling application must have <b>FILE_LIST_DIRECTORY</b> access rights for this  
      *        directory.
-     * @param {Pointer<UInt64>} lpFreeBytesAvailableToCaller A pointer to a variable that receives the total number of free bytes on a disk that are available to the user 
+     * @param {Pointer<Integer>} lpFreeBytesAvailableToCaller A pointer to a variable that receives the total number of free bytes on a disk that are available to the user 
      *        who is associated with the calling thread.
      * 
      * This parameter can be <b>NULL</b>.
      * 
      * If per-user quotas are being used, this value may be less than the total number of free bytes on a disk.
-     * @param {Pointer<UInt64>} lpTotalNumberOfBytes A pointer to a variable that receives the total number of bytes on a disk that are available to the user who 
+     * @param {Pointer<Integer>} lpTotalNumberOfBytes A pointer to a variable that receives the total number of bytes on a disk that are available to the user who 
      *        is associated with the calling thread.
      * 
      * This parameter can be <b>NULL</b>.
@@ -3539,7 +3539,7 @@ class FileSystem {
      * 
      * To determine the total number of bytes on a disk or volume, use 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_get_length_info">IOCTL_DISK_GET_LENGTH_INFO</a>.
-     * @param {Pointer<UInt64>} lpTotalNumberOfFreeBytes A pointer to a variable that receives the total number of free bytes on a disk.
+     * @param {Pointer<Integer>} lpTotalNumberOfFreeBytes A pointer to a variable that receives the total number of free bytes on a disk.
      * 
      * This parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -3566,6 +3566,7 @@ class FileSystem {
      * @param {PSTR} rootPath 
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationa
      */
     static GetDiskSpaceInformationA(rootPath, diskSpaceInfo) {
         rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
@@ -3582,6 +3583,7 @@ class FileSystem {
      * @param {PWSTR} rootPath 
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationw
      */
     static GetDiskSpaceInformationW(rootPath, diskSpaceInfo) {
         rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
@@ -4022,7 +4024,7 @@ class FileSystem {
     /**
      * Retrieves the size of the specified file, in bytes.
      * @param {HANDLE} hFile A handle to the file.
-     * @param {Pointer<UInt32>} lpFileSizeHigh A pointer to the variable where the high-order doubleword of the file size is returned. This parameter can 
+     * @param {Pointer<Integer>} lpFileSizeHigh A pointer to the variable where the high-order doubleword of the file size is returned. This parameter can 
      *       be <b>NULL</b> if the application does not require the high-order doubleword.
      * @returns {Integer} If the function succeeds, the return value is the low-order doubleword of the file size, and, if 
      *        <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the 
@@ -4060,7 +4062,7 @@ class FileSystem {
      *       <b>FILE_READ_ATTRIBUTES</b> access right or equivalent, or the caller must have sufficient permission on the directory that contains the file. 
      *       For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @param {Pointer<Int64>} lpFileSize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that 
+     * @param {Pointer<Integer>} lpFileSize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that 
      *       receives the file size, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -4623,6 +4625,7 @@ class FileSystem {
      * @param {HANDLE} Handle 
      * @param {Pointer<BOOL>} Enabled 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-areshortnamesenabled
      */
     static AreShortNamesEnabled(Handle, Enabled) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
@@ -4748,7 +4751,7 @@ class FileSystem {
      *        <c>MAX_PATH+1</c>.
      * 
      * This parameter is ignored if the volume name buffer is not supplied.
-     * @param {Pointer<UInt32>} lpVolumeSerialNumber A pointer to a variable that receives the volume serial number.
+     * @param {Pointer<Integer>} lpVolumeSerialNumber A pointer to a variable that receives the volume serial number.
      * 
      * This parameter can be <b>NULL</b> if the serial number is not required.
      * 
@@ -4757,7 +4760,7 @@ class FileSystem {
      *        Windows Management Instrumentation (WMI) 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/cimwin32a/win32-physicalmedia">Win32_PhysicalMedia</a> property 
      *        <b>SerialNumber</b>.
-     * @param {Pointer<UInt32>} lpMaximumComponentLength A pointer to a variable that receives the maximum length, in <b>WCHAR</b>s, of a file 
+     * @param {Pointer<Integer>} lpMaximumComponentLength A pointer to a variable that receives the maximum length, in <b>WCHAR</b>s, of a file 
      *        name component  that a specified file system supports.
      * 
      * A file name component is the portion of a file name between backslashes.
@@ -4766,7 +4769,7 @@ class FileSystem {
      *        is used to indicate that a specified file system supports long names. For example, for a FAT file system that 
      *        supports long names, the function stores the value 255, rather than the previous 8.3 indicator. Long names can 
      *        also be supported on systems that use the NTFS file system.
-     * @param {Pointer<UInt32>} lpFileSystemFlags A pointer to a variable that receives flags associated with the specified file system.
+     * @param {Pointer<Integer>} lpFileSystemFlags A pointer to a variable that receives flags associated with the specified file system.
      * 
      * This parameter can be one or more of the following flags. However, 
      *        <b>FILE_FILE_COMPRESSION</b> and <b>FILE_VOL_IS_COMPRESSED</b> are mutually 
@@ -5055,7 +5058,7 @@ class FileSystem {
      *        <b>MAX_PATH</b>+1.
      * 
      * This parameter is ignored if the volume name buffer is not supplied.
-     * @param {Pointer<UInt32>} lpVolumeSerialNumber A pointer to a variable that receives the volume serial number.
+     * @param {Pointer<Integer>} lpVolumeSerialNumber A pointer to a variable that receives the volume serial number.
      * 
      * This parameter can be <b>NULL</b> if the serial number is not required.
      * 
@@ -5064,7 +5067,7 @@ class FileSystem {
      *        Windows Management Instrumentation (WMI) 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/cimwin32a/win32-physicalmedia">Win32_PhysicalMedia</a>  property 
      *        <b>SerialNumber</b>.
-     * @param {Pointer<UInt32>} lpMaximumComponentLength A pointer to a variable that receives the maximum length, in <b>TCHARs</b>, of a file 
+     * @param {Pointer<Integer>} lpMaximumComponentLength A pointer to a variable that receives the maximum length, in <b>TCHARs</b>, of a file 
      *        name component  that a specified file system supports.
      * 
      * A file name component is the portion of a file name between backslashes.
@@ -5073,7 +5076,7 @@ class FileSystem {
      *        is used to indicate that a specified file system supports long names. For example, for a FAT file system that 
      *        supports long names, the function stores the value 255, rather than the previous 8.3 indicator. Long names can 
      *        also be supported on systems that use the NTFS file system.
-     * @param {Pointer<UInt32>} lpFileSystemFlags A pointer to a variable that receives flags associated with the specified file system.
+     * @param {Pointer<Integer>} lpFileSystemFlags A pointer to a variable that receives flags associated with the specified file system.
      * 
      * This parameter can be one or more of the following flags. However, 
      *        <b>FILE_FILE_COMPRESSION</b> and <b>FILE_VOL_IS_COMPRESSED</b> are mutually 
@@ -5539,7 +5542,7 @@ class FileSystem {
      * This buffer must remain valid for the duration of the read operation. The caller must not use this buffer 
      *        until the read operation is completed.
      * @param {Integer} nNumberOfBytesToRead The maximum number of bytes to be read.
-     * @param {Pointer<UInt32>} lpNumberOfBytesRead A pointer to the variable that receives the number of bytes read when using a synchronous 
+     * @param {Pointer<Integer>} lpNumberOfBytesRead A pointer to the variable that receives the number of bytes read when using a synchronous 
      *        <i>hFile</i> parameter. <b>ReadFile</b> sets 
      *        this value to zero  before doing any work or error checking. Use <b>NULL</b> for this 
      *        parameter if this is an asynchronous operation to avoid potentially erroneous results.
@@ -6189,7 +6192,7 @@ class FileSystem {
      *        <i>lDistanceToMove</i> is a 32-bit signed value. A positive value for 
      *        <i>lDistanceToMove</i> moves the file pointer forward in the file, and a negative value 
      *        moves the file pointer back.
-     * @param {Pointer<Int32>} lpDistanceToMoveHigh A pointer to the high order 32-bits of the signed 64-bit distance to move.
+     * @param {Pointer<Integer>} lpDistanceToMoveHigh A pointer to the high order 32-bits of the signed 64-bit distance to move.
      *       
      * 
      * If you do not need the high order 32-bits, this pointer must be set to <b>NULL</b>.
@@ -6257,7 +6260,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
      * @param {Integer} liDistanceToMove The number of bytes to move the file pointer. A positive value moves the pointer forward in the file and a 
      *       negative value moves the file pointer backward.
-     * @param {Pointer<Int64>} lpNewFilePointer A pointer to a variable to receive the new file pointer. If this parameter is 
+     * @param {Pointer<Integer>} lpNewFilePointer A pointer to a variable to receive the new file pointer. If this parameter is 
      *       <b>NULL</b>, the new file pointer is not returned.
      * @param {Integer} dwMoveMethod 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -6444,7 +6447,7 @@ class FileSystem {
      * <b>Windows Server 2003 and Windows XP:  </b>Pipe write operations across a network are limited in size per write. The amount varies per platform. 
      *          For x86 platforms it's 63.97 MB. For x64 platforms it's 31.97 MB. For Itanium it's 63.95 MB. For more 
      *          information regarding pipes, see the Remarks section.
-     * @param {Pointer<UInt32>} lpNumberOfBytesWritten A pointer to the variable that receives the number of bytes written when using a synchronous 
+     * @param {Pointer<Integer>} lpNumberOfBytesWritten A pointer to the variable that receives the number of bytes written when using a synchronous 
      *         <i>hFile</i> parameter. <b>WriteFile</b> sets 
      *         this value to zero before doing any work or error checking. Use <b>NULL</b> for this 
      *         parameter if this is an asynchronous operation to avoid potentially erroneous results.
@@ -6739,7 +6742,7 @@ class FileSystem {
      *       buffer is not large enough to hold the complete list, the buffer holds as much of the list as possible.
      * @param {Integer} cchBufferLength The length of the <i>lpszVolumePathNames</i> buffer, in 
      *       <b>TCHARs</b>, including all <b>NULL</b> characters.
-     * @param {Pointer<UInt32>} lpcchReturnLength If the call is successful, this parameter is the number of <b>TCHARs</b> copied to 
+     * @param {Pointer<Integer>} lpcchReturnLength If the call is successful, this parameter is the number of <b>TCHARs</b> copied to 
      *       the <i>lpszVolumePathNames</i> buffer. Otherwise, this parameter is the size of the buffer 
      *       required to hold the complete list, in <b>TCHARs</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -6842,7 +6845,7 @@ class FileSystem {
      * @param {HANDLE} FileHandle A handle to the file.
      * 
      * This file handle must be opened with <b>FILE_READ_ATTRIBUTES</b> access rights.
-     * @param {Pointer<Byte>} OverlappedRangeStart The starting address for the range.
+     * @param {Pointer<Integer>} OverlappedRangeStart The starting address for the range.
      * @param {Integer} Length The length of the range, in bytes.
      * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
@@ -6879,7 +6882,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>GetCompressedFileSizeW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} lpFileSizeHigh The high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
+     * @param {Pointer<Integer>} lpFileSizeHigh The high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
      * 
      * 
      * 
@@ -6922,7 +6925,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>GetCompressedFileSizeW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} lpFileSizeHigh The high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
+     * @param {Pointer<Integer>} lpFileSizeHigh The high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
      * 
      * 
      * 
@@ -7083,7 +7086,7 @@ class FileSystem {
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
      * @param {Integer} dwFlags Reserved; specify zero (0).
-     * @param {Pointer<UInt32>} StringLength The size of the buffer pointed to by the <i>LinkName</i> parameter, in characters. If 
+     * @param {Pointer<Integer>} StringLength The size of the buffer pointed to by the <i>LinkName</i> parameter, in characters. If 
      *       this call fails and the error returned from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function is 
      *       <b>ERROR_MORE_DATA</b> (234), the value that is returned by this parameter is the size that 
@@ -7116,7 +7119,7 @@ class FileSystem {
      * Continues enumerating the hard links to a file using the handle returned by a successful call to the FindFirstFileNameW function.
      * @param {HANDLE} hFindStream A handle to the enumeration that is returned by a successful call to 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilenamew">FindFirstFileNameW</a>.
-     * @param {Pointer<UInt32>} StringLength The size of the <i>LinkName</i> parameter, in characters. If this call fails and the 
+     * @param {Pointer<Integer>} StringLength The size of the <i>LinkName</i> parameter, in characters. If this call fails and the 
      *       error is <b>ERROR_MORE_DATA</b>, the value that is returned by this parameter is the size 
      *       that <i>LinkName</i>  must be to contain all the data.
      * @param {PWSTR} LinkName A pointer to a buffer to store the first link name found for <i>lpFileName</i>.
@@ -7157,7 +7160,7 @@ class FileSystem {
      *        <b>MAX_PATH</b>+1.
      * 
      * This parameter is ignored if the volume name buffer is not supplied.
-     * @param {Pointer<UInt32>} lpVolumeSerialNumber A pointer to a variable that receives the volume serial number.
+     * @param {Pointer<Integer>} lpVolumeSerialNumber A pointer to a variable that receives the volume serial number.
      * 
      * This parameter can be <b>NULL</b> if the serial number is not required.
      * 
@@ -7166,7 +7169,7 @@ class FileSystem {
      *        Windows Management Instrumentation (WMI) 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/cimwin32a/win32-physicalmedia">Win32_PhysicalMedia</a>  property 
      *        <b>SerialNumber</b>.
-     * @param {Pointer<UInt32>} lpMaximumComponentLength A pointer to a variable that receives the maximum length, in <b>TCHARs</b>, of a file 
+     * @param {Pointer<Integer>} lpMaximumComponentLength A pointer to a variable that receives the maximum length, in <b>TCHARs</b>, of a file 
      *        name component  that a specified file system supports.
      * 
      * A file name component is the portion of a file name between backslashes.
@@ -7175,7 +7178,7 @@ class FileSystem {
      *        is used to indicate that a specified file system supports long names. For example, for a FAT file system that 
      *        supports long names, the function stores the value 255, rather than the previous 8.3 indicator. Long names can 
      *        also be supported on systems that use the NTFS file system.
-     * @param {Pointer<UInt32>} lpFileSystemFlags A pointer to a variable that receives flags associated with the specified file system.
+     * @param {Pointer<Integer>} lpFileSystemFlags A pointer to a variable that receives flags associated with the specified file system.
      * 
      * This parameter can be one or more of the following flags. However, 
      *        <b>FILE_FILE_COMPRESSION</b> and <b>FILE_VOL_IS_COMPRESSED</b> are mutually 
@@ -8205,6 +8208,7 @@ class FileSystem {
      * @param {Integer} fSearchOp 
      * @param {Integer} dwAdditionalFlags 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-findfirstfileexfromappw
      */
     static FindFirstFileExFromAppW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
@@ -8221,6 +8225,7 @@ class FileSystem {
      * @param {Integer} fInfoLevelId 
      * @param {Pointer<Void>} lpFileInformation 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-getfileattributesexfromappw
      */
     static GetFileAttributesExFromAppW(lpFileName, fInfoLevelId, lpFileInformation) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -8454,7 +8459,7 @@ class FileSystem {
      * @param {PSTR} szCurDir Type: <b>LPWSTR</b>
      * 
      * A buffer that receives the path to a current version of the file being installed. The path is a zero-terminated string. If a current version is not installed, the buffer will contain a zero-length string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
-     * @param {Pointer<UInt32>} puCurDirLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puCurDirLen Type: <b>PUINT</b>
      * 
      * The length of the 
      * 					<i>szCurDir</i>  buffer. This pointer must not be <b>NULL</b>.
@@ -8466,7 +8471,7 @@ class FileSystem {
      * @param {PSTR} szDestDir Type: <b>LPTSTR</b>
      * 
      * A buffer that receives the path to the installation location recommended by <b>VerFindFile</b>. The path is a zero-terminated string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
-     * @param {Pointer<UInt32>} puDestDirLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puDestDirLen Type: <b>PUINT</b>
      * 
      * A pointer to a variable that specifies the length of the 
      * 					<i>szDestDir</i> buffer. This pointer must not be <b>NULL</b>.
@@ -8570,7 +8575,7 @@ class FileSystem {
      * @param {PWSTR} szCurDir Type: <b>LPWSTR</b>
      * 
      * A buffer that receives the path to a current version of the file being installed. The path is a zero-terminated string. If a current version is not installed, the buffer will contain a zero-length string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
-     * @param {Pointer<UInt32>} puCurDirLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puCurDirLen Type: <b>PUINT</b>
      * 
      * The length of the 
      * 					<i>szCurDir</i>  buffer. This pointer must not be <b>NULL</b>.
@@ -8582,7 +8587,7 @@ class FileSystem {
      * @param {PWSTR} szDestDir Type: <b>LPTSTR</b>
      * 
      * A buffer that receives the path to the installation location recommended by <b>VerFindFile</b>. The path is a zero-terminated string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
-     * @param {Pointer<UInt32>} puDestDirLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puDestDirLen Type: <b>PUINT</b>
      * 
      * A pointer to a variable that specifies the length of the 
      * 					<i>szDestDir</i> buffer. This pointer must not be <b>NULL</b>.
@@ -8676,7 +8681,7 @@ class FileSystem {
      * @param {PSTR} szTmpFile Type: <b>LPTSTR</b>
      * 
      * The name of a temporary copy of the source file. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required, and should be empty on input.
-     * @param {Pointer<UInt32>} puTmpFileLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puTmpFileLen Type: <b>PUINT</b>
      * 
      * The length of the 
      * 					<i>szTmpFile</i> buffer. This pointer must not be <b>NULL</b>.
@@ -8987,7 +8992,7 @@ class FileSystem {
      * @param {PWSTR} szTmpFile Type: <b>LPTSTR</b>
      * 
      * The name of a temporary copy of the source file. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required, and should be empty on input.
-     * @param {Pointer<UInt32>} puTmpFileLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puTmpFileLen Type: <b>PUINT</b>
      * 
      * The length of the 
      * 					<i>szTmpFile</i> buffer. This pointer must not be <b>NULL</b>.
@@ -9278,7 +9283,7 @@ class FileSystem {
      * @param {PSTR} lptstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
-     * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpdwHandle Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that the function sets to zero.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -9306,7 +9311,7 @@ class FileSystem {
      * @param {PWSTR} lptstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
-     * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpdwHandle Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that the function sets to zero.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -9450,7 +9455,7 @@ class FileSystem {
      * @param {PSTR} lpwstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
-     * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpdwHandle Type: <b>LPDWORD</b>
      * 
      * When this function returns, contains a pointer to a variable that is set to zero because this function sets it to zero. This parameter exists for historical reasons.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -9512,7 +9517,7 @@ class FileSystem {
      * @param {PWSTR} lpwstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
-     * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpdwHandle Type: <b>LPDWORD</b>
      * 
      * When this function returns, contains a pointer to a variable that is set to zero because this function sets it to zero. This parameter exists for historical reasons.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -9769,10 +9774,10 @@ class FileSystem {
      * @param {PSTR} lpSubBlock Type: <b>LPCTSTR</b>
      * 
      * The version-information value to be retrieved. The string must consist of names separated by backslashes (\\) and it must have one of the following forms.
-     * @param {Pointer<Void>} lplpBuffer Type: <b>LPVOID*</b>
+     * @param {Pointer<Pointer<Void>>} lplpBuffer Type: <b>LPVOID*</b>
      * 
      * When this method returns, contains the address of a pointer to the requested version information in the buffer pointed to by <i>pBlock</i>. The memory pointed to by <i>lplpBuffer</i> is freed when the associated <i>pBlock</i> memory is freed.
-     * @param {Pointer<UInt32>} puLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puLen Type: <b>PUINT</b>
      * 
      * When this method returns, contains a pointer to the size of the requested data pointed to by <i>lplpBuffer</i>: for version information values, the length in characters of the string stored at <i>lplpBuffer</i>; for translation array values, the size in bytes of the array stored at <i>lplpBuffer</i>; and for root block, the size in bytes of the structure.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -9786,7 +9791,7 @@ class FileSystem {
     static VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen) {
         lpSubBlock := lpSubBlock is String ? StrPtr(lpSubBlock) : lpSubBlock
 
-        result := DllCall("VERSION.dll\VerQueryValueA", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "uint*", puLen, "int")
+        result := DllCall("VERSION.dll\VerQueryValueA", "ptr", pBlock, "ptr", lpSubBlock, "ptr*", lplpBuffer, "uint*", puLen, "int")
         return result
     }
 
@@ -9798,10 +9803,10 @@ class FileSystem {
      * @param {PWSTR} lpSubBlock Type: <b>LPCTSTR</b>
      * 
      * The version-information value to be retrieved. The string must consist of names separated by backslashes (\\) and it must have one of the following forms.
-     * @param {Pointer<Void>} lplpBuffer Type: <b>LPVOID*</b>
+     * @param {Pointer<Pointer<Void>>} lplpBuffer Type: <b>LPVOID*</b>
      * 
      * When this method returns, contains the address of a pointer to the requested version information in the buffer pointed to by <i>pBlock</i>. The memory pointed to by <i>lplpBuffer</i> is freed when the associated <i>pBlock</i> memory is freed.
-     * @param {Pointer<UInt32>} puLen Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} puLen Type: <b>PUINT</b>
      * 
      * When this method returns, contains a pointer to the size of the requested data pointed to by <i>lplpBuffer</i>: for version information values, the length in characters of the string stored at <i>lplpBuffer</i>; for translation array values, the size in bytes of the array stored at <i>lplpBuffer</i>; and for root block, the size in bytes of the structure.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -9815,7 +9820,7 @@ class FileSystem {
     static VerQueryValueW(pBlock, lpSubBlock, lplpBuffer, puLen) {
         lpSubBlock := lpSubBlock is String ? StrPtr(lpSubBlock) : lpSubBlock
 
-        result := DllCall("VERSION.dll\VerQueryValueW", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "uint*", puLen, "int")
+        result := DllCall("VERSION.dll\VerQueryValueW", "ptr", pBlock, "ptr", lpSubBlock, "ptr*", lplpBuffer, "uint*", puLen, "int")
         return result
     }
 
@@ -10136,7 +10141,7 @@ class FileSystem {
      * @param {HANDLE} hLog The handle to an open log. 
      * 
      * The handle must  be   obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with write access to the log. The client application must have  write access to the .blf file, and the ability to create files in the target directory of a container.
-     * @param {Pointer<UInt64>} pcbContainer The optional parameter that specifies the size of the container, in bytes.  
+     * @param {Pointer<Integer>} pcbContainer The optional parameter that specifies the size of the container, in bytes.  
      * 
      * The minimum size is  512 KB for normal logs and 1024 KB for multiplexed logs. The maximum size is approximately 4 gigabytes.
      * 
@@ -10179,7 +10184,7 @@ class FileSystem {
      * @param {Integer} cContainer The number of containers  in the <i>rgwszContainerPath</i> array.  
      * 
      * This value must be nonzero.  A log must have at least two containers before any I/O can be performed on it.
-     * @param {Pointer<UInt64>} pcbContainer The size of the container, in bytes.  
+     * @param {Pointer<Integer>} pcbContainer The size of the container, in bytes.  
      * 
      * The minimum size is  512 KB for normal logs and 1024 KB for multiplexed logs. The maximum size is approximately 4 gigabytes (GB).
      * 
@@ -10539,10 +10544,10 @@ class FileSystem {
      * Calculates the sector-aligned reservation size for a set of reserved records.
      * @param {Pointer<Void>} pvMarshal A pointer to the opaque marshaling context that is allocated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
      * @param {Integer} cReservedRecords The number of reserved records that are associated with the reservation adjustment.
-     * @param {Pointer<Int64>} rgcbReservation An array of space allocations  to reserve in the log that is associated with the current marshaling context, in bytes.  
+     * @param {Pointer<Integer>} rgcbReservation An array of space allocations  to reserve in the log that is associated with the current marshaling context, in bytes.  
      * 
      * The number of allocations corresponds to the number of records  that  <i>cReservedRecords</i> specifies.  Each allocation must be greater than zero (0) or  the function fails with <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer<Int64>} pcbAlignReservation A pointer to a variable in which the function returns the number of   sector-aligned byte space to be reserved in the log—after being given the number of records  that  <i>cRecords</i> specifies and the size of reservations specified in the <i>rgcbReservation</i> array.
+     * @param {Pointer<Integer>} pcbAlignReservation A pointer to a variable in which the function returns the number of   sector-aligned byte space to be reserved in the log—after being given the number of records  that  <i>cRecords</i> specifies and the size of reservations specified in the <i>rgcbReservation</i> array.
      * 
      *   The value returned in <i>*pcbAlignReservation</i> is used as input to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-allocreservedlog">AllocReservedLog</a>. If  <b>AllocReservedLog</b> succeeds, this value is always greater than zero (0).  If <b>AllocReservedLog</b> fails, the value is zero (0).
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -10569,7 +10574,7 @@ class FileSystem {
      * @param {Integer} cReservedRecords The number of reserved records that are associated with the reservation adjustment.  
      * 
      * This value must be greater than zero (0).
-     * @param {Pointer<Int64>} pcbAdjustment The size of the sector-aligned space reservation that is associated with the number of records specified in <i>cReservedRecords</i>, in bytes.  
+     * @param {Pointer<Integer>} pcbAdjustment The size of the sector-aligned space reservation that is associated with the number of records specified in <i>cReservedRecords</i>, in bytes.  
      * 
      * This parameter must be the aligned reservation size  that  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-alignreservedlog">AlignReservedLog</a> returns in <i>*pcbAlignReservation</i>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -10596,7 +10601,7 @@ class FileSystem {
      * @param {Integer} cReservedRecords The number of reserved records to be freed.  
      * 
      * If the byte count of the adjustment in <i>pcbAdjustment</i> is positive,  <i>cReservedRecords</i> is the total  number of reserved records  that are remaining after the adjustment. Otherwise, this parameter specifies the number of records to be subtracted from the current number of reserved records, but can never exceed the reserved count.
-     * @param {Pointer<Int64>} pcbAdjustment The number of bytes of reservation space affected by the adjustment.  
+     * @param {Pointer<Integer>} pcbAdjustment The number of bytes of reservation space affected by the adjustment.  
      * 
      * On input, if this number is positive,  it specifies the total remaining size of the reserved space after the adjustment. If this parameter  is negative,  its absolute value is  the number of bytes to be freed.
      * 
@@ -10637,7 +10642,7 @@ class FileSystem {
      * 
      * The log handle can refer to a dedicated or multiplexed log.
      * @param {Pointer<CLS_INFORMATION>} pinfoBuffer A pointer to a user-allocated <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_information">CLFS_INFORMATION</a> structure that receives the log metadata.
-     * @param {Pointer<UInt32>} cbBuffer A pointer to a variable that on input specifies the size, in bytes, of the metadata buffer pointed to by <i>pinfoBuffer</i>.
+     * @param {Pointer<Integer>} cbBuffer A pointer to a variable that on input specifies the size, in bytes, of the metadata buffer pointed to by <i>pinfoBuffer</i>.
      * 
      *  On output, it specifies the number of bytes that are actually copied into <i>pinfoBuffer</i>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -10690,10 +10695,10 @@ class FileSystem {
     /**
      * Returns the last restart area that is written successfully to the log associated with the marshaling area of WriteLogRestartArea.
      * @param {Pointer<Void>} pvMarshal A pointer to a   marshaling context that is  allocated by using the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
-     * @param {Pointer<Void>} ppvRestartBuffer A pointer to a variable that receives a pointer to the restart data in the log I/O block.
-     * @param {Pointer<UInt32>} pcbRestartBuffer A pointer to a variable that receives the amount of restart data.
+     * @param {Pointer<Pointer<Void>>} ppvRestartBuffer A pointer to a variable that receives a pointer to the restart data in the log I/O block.
+     * @param {Pointer<Integer>} pcbRestartBuffer A pointer to a variable that receives the amount of restart data.
      * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the log sequence  number (LSN) of the restart area.
-     * @param {Pointer<Void>} ppvContext A pointer to a variable that receives a pointer to a system-allocated read context  when a read is successful.  
+     * @param {Pointer<Pointer<Void>>} ppvContext A pointer to a variable that receives a pointer to a system-allocated read context  when a read is successful.  
      * 
      * If the function defers completion of an operation, it    returns a valid read-context pointer and an error status of <b>ERROR_IO_PENDING</b>.  On all other errors, the read-context pointer is <b>NULL</b>.  For more information about handling deferred completion of the function, see the Remarks section of this topic. 
      * 
@@ -10717,7 +10722,7 @@ class FileSystem {
     static ReadLogRestartArea(pvMarshal, ppvRestartBuffer, pcbRestartBuffer, plsn, ppvContext, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogRestartArea", "ptr", pvMarshal, "ptr", ppvRestartBuffer, "uint*", pcbRestartBuffer, "ptr", plsn, "ptr", ppvContext, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogRestartArea", "ptr", pvMarshal, "ptr*", ppvRestartBuffer, "uint*", pcbRestartBuffer, "ptr", plsn, "ptr*", ppvContext, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10729,8 +10734,8 @@ class FileSystem {
      * @param {Pointer<Void>} pvReadContext A pointer to a system-allocated read context that <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-readlogrestartarea">ReadLogRestartArea</a> returns.
      * 
      *   Even when those functions return <b>ERROR_IO_PENDING</b>, they still return a pointer to a valid read context. For information about  asynchronous completion, see the Remarks section of this topic.
-     * @param {Pointer<Void>} ppvRestartBuffer A pointer to a variable that receives a pointer to the restart data.
-     * @param {Pointer<UInt32>} pcbRestartBuffer A pointer to a variable that receives the size of the restart data at <i>*ppvRestartBuffer</i>, in bytes.
+     * @param {Pointer<Pointer<Void>>} ppvRestartBuffer A pointer to a variable that receives a pointer to the restart data.
+     * @param {Pointer<Integer>} pcbRestartBuffer A pointer to a variable that receives the size of the restart data at <i>*ppvRestartBuffer</i>, in bytes.
      * @param {Pointer<CLS_LSN>} plsnRestart A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the log sequence number (LSN) of the restart area  that   this function returns.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  is required for asynchronous operation. 
      * 
@@ -10748,7 +10753,7 @@ class FileSystem {
     static ReadPreviousLogRestartArea(pvReadContext, ppvRestartBuffer, pcbRestartBuffer, plsnRestart, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadPreviousLogRestartArea", "ptr", pvReadContext, "ptr", ppvRestartBuffer, "uint*", pcbRestartBuffer, "ptr", plsnRestart, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadPreviousLogRestartArea", "ptr", pvReadContext, "ptr*", ppvRestartBuffer, "uint*", pcbRestartBuffer, "ptr", plsnRestart, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10764,7 +10769,7 @@ class FileSystem {
      * 
      * This value cannot be outside the range of the active log. It must be at least the value of the current base LSN, and not greater than the LSN that was returned in the <i>lastLSN</i> parameter from the latest call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-reserveandappendlog">ReserveAndAppendLog</a>.  If you omit this optional parameter, the base LSN  does not change.
      * @param {Integer} fFlags The flags that specify the behavior of this function.
-     * @param {Pointer<UInt32>} pcbWritten A pointer to a variable that receives the number of bytes that are  written when an operation completes.
+     * @param {Pointer<Integer>} pcbWritten A pointer to a variable that receives the number of bytes that are  written when an operation completes.
      * @param {Pointer<CLS_LSN>} plsnNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the restart area that is written.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
      * 
@@ -10792,9 +10797,9 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Void>} pvMarshal 
-     * @param {Pointer<UInt32>} pcbRecordNumber 
-     * @param {Pointer<Int64>} pcbUserReservation 
-     * @param {Pointer<Int64>} pcbCommitReservation 
+     * @param {Pointer<Integer>} pcbRecordNumber 
+     * @param {Pointer<Integer>} pcbUserReservation 
+     * @param {Pointer<Integer>} pcbCommitReservation 
      * @returns {BOOL} 
      */
     static GetLogReservationInfo(pvMarshal, pcbRecordNumber, pcbUserReservation, pcbCommitReservation) {
@@ -10890,7 +10895,7 @@ class FileSystem {
      * @param {Integer} cMaxReadBuffers The maximum number of blocks that can be allocated at any time for read operations.  
      * 
      * Read contexts use at least one read block.
-     * @param {Pointer<Void>} ppvMarshal A pointer to the  marshaling context  that CLFS  allocates when <b>CreateLogMarshallingArea</b> completes successfully.  
+     * @param {Pointer<Pointer<Void>>} ppvMarshal A pointer to the  marshaling context  that CLFS  allocates when <b>CreateLogMarshallingArea</b> completes successfully.  
      * 
      * This context must be used with all read, append, write, and flush operations to log marshaling areas.  All operations that access marshaling areas by using a marshaling context are thread-safe. This parameter is <b>NULL</b> if the operation is not successful.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -10908,7 +10913,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, "ptr", pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, "ptr", ppvMarshal, "int")
+        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, "ptr", pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, "ptr*", ppvMarshal, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10948,7 +10953,7 @@ class FileSystem {
      * @param {Pointer<CLS_LSN>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the next record in the undo-chain.
      * @param {Pointer<CLS_LSN>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the previous record in the previous-chain.
      * @param {Integer} cReserveRecords The number of record sizes in the <i>rgcbReservation</i> array.
-     * @param {Pointer<Int64>} rgcbReservation A pointer to an array of reservation sizes for each record  that  the <i>cReserveRecords</i> parameter specifies.  
+     * @param {Pointer<Integer>} rgcbReservation A pointer to an array of reservation sizes for each record  that  the <i>cReserveRecords</i> parameter specifies.  
      * 
      *  This parameter is ignored if the <i>cReserveRecords</i> parameter is zero.    If a reservation size is negative, a reservation of that size is released.
      * 
@@ -10993,7 +10998,7 @@ class FileSystem {
      * @param {Pointer<CLS_LSN>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the next record in the undo-chain.
      * @param {Pointer<CLS_LSN>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the previous record in the previous-chain.
      * @param {Integer} cReserveRecords The number of record sizes in the <i>rgcbReservation</i> array.
-     * @param {Pointer<Int64>} rgcbReservation A pointer to an array of reservation sizes for each record  that  the <i>cReserveRecords</i> parameter specifies.  
+     * @param {Pointer<Integer>} rgcbReservation A pointer to an array of reservation sizes for each record  that  the <i>cReserveRecords</i> parameter specifies.  
      * 
      *  This parameter is ignored if the <i>cReserveRecords</i> parameter is zero.    If a reservation size is negative, a reservation of that size is released.
      * 
@@ -11121,14 +11126,14 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} ppvReadBuffer A pointer to a variable that receives a pointer to the target record in the log I/O block.
-     * @param {Pointer<UInt32>} pcbReadBuffer A pointer to  a variable that receives the size of the data that is returned in <i>*ppvReadBuffer</i>, in bytes.
-     * @param {Pointer<Byte>} peRecordType A pointer to a variable that receives the  type of record read. 
+     * @param {Pointer<Pointer<Void>>} ppvReadBuffer A pointer to a variable that receives a pointer to the target record in the log I/O block.
+     * @param {Pointer<Integer>} pcbReadBuffer A pointer to  a variable that receives the size of the data that is returned in <i>*ppvReadBuffer</i>, in bytes.
+     * @param {Pointer<Integer>} peRecordType A pointer to a variable that receives the  type of record read. 
      * 
      * This parameter is one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/clfs/clfs-record-type-constants">CLFS_RECORD_TYPE Constants</a>.
      * @param {Pointer<CLS_LSN>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the undo record chain.
      * @param {Pointer<CLS_LSN>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the previous record chain.
-     * @param {Pointer<Void>} ppvReadContext A pointer to a variable that receives a pointer to a system-allocated read context  when a read is successful.  
+     * @param {Pointer<Pointer<Void>>} ppvReadContext A pointer to a variable that receives a pointer to a system-allocated read context  when a read is successful.  
      * 
      * If the function defers completion of an operation, it    returns a valid read-context pointer and an error status of <b>ERROR_IO_PENDING</b>.  On all other errors, the read-context pointer is <b>NULL</b>.  For more information about handling deferred completion of the function, see the Remarks section of this topic.
      * 
@@ -11152,7 +11157,7 @@ class FileSystem {
     static ReadLogRecord(pvMarshal, plsnFirst, eContextMode, ppvReadBuffer, pcbReadBuffer, peRecordType, plsnUndoNext, plsnPrevious, ppvReadContext, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogRecord", "ptr", pvMarshal, "ptr", plsnFirst, "int", eContextMode, "ptr", ppvReadBuffer, "uint*", pcbReadBuffer, "char*", peRecordType, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", ppvReadContext, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogRecord", "ptr", pvMarshal, "ptr", plsnFirst, "int", eContextMode, "ptr*", ppvReadBuffer, "uint*", pcbReadBuffer, "char*", peRecordType, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr*", ppvReadContext, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11164,9 +11169,9 @@ class FileSystem {
      * @param {Pointer<Void>} pvReadContext A pointer to a  read context  that the system allocates and creates during a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-readlogrecord">ReadLogRecord</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-readlogrestartarea">ReadLogRestartArea</a>.  
      * 
      * If the function defers completion of an operation, it  returns a pointer to a valid read context and an error status of <b>ERROR_IO_PENDING</b>.  For information about handling asynchronous completion, see the Remarks section of this topic.
-     * @param {Pointer<Void>} ppvBuffer A pointer to a variable that receives a pointer to the read data.
-     * @param {Pointer<UInt32>} pcbBuffer A pointer to a variable that receives the size of the read data that is returned in <i>ppvReadBuffer</i>, in bytes.
-     * @param {Pointer<Byte>} peRecordType A pointer that, on input, specifies   the record type filter of the next record read, and on output specifies the record type that is returned.    
+     * @param {Pointer<Pointer<Void>>} ppvBuffer A pointer to a variable that receives a pointer to the read data.
+     * @param {Pointer<Integer>} pcbBuffer A pointer to a variable that receives the size of the read data that is returned in <i>ppvReadBuffer</i>, in bytes.
+     * @param {Pointer<Integer>} peRecordType A pointer that, on input, specifies   the record type filter of the next record read, and on output specifies the record type that is returned.    
      * 
      * Clients can specify any of the following record types.
      * 
@@ -11228,7 +11233,7 @@ class FileSystem {
     static ReadNextLogRecord(pvReadContext, ppvBuffer, pcbBuffer, peRecordType, plsnUser, plsnUndoNext, plsnPrevious, plsnRecord, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadNextLogRecord", "ptr", pvReadContext, "ptr", ppvBuffer, "uint*", pcbBuffer, "char*", peRecordType, "ptr", plsnUser, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", plsnRecord, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadNextLogRecord", "ptr", pvReadContext, "ptr*", ppvBuffer, "uint*", pcbBuffer, "char*", peRecordType, "ptr", plsnUser, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", plsnRecord, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11273,17 +11278,17 @@ class FileSystem {
      * @param {Pointer<CLS_LSN>} plsnHigh A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the high end of the range of the  active log where the log client needs log archival information. 
      * 
      * If this parameter is omitted, the high end of the range defaults to the next LSN to be written to the log.
-     * @param {Pointer<UInt32>} pcActualLength A pointer to a variable that receives the actual length of the name of the base log path, in characters.  
+     * @param {Pointer<Integer>} pcActualLength A pointer to a variable that receives the actual length of the name of the base log path, in characters.  
      * 
      * If this value is greater than <i>cLen</i>, the function returns an ERROR_BUFFER_OVERFLOW status with a truncated path that is stored in the <i>pszBaseLogFileName</i> buffer and all other out parameters that are not set to meaningful values.
-     * @param {Pointer<UInt64>} poffBaseLogFileData A pointer to a variable that receives the offset  where  the metadata begins in the base log.
+     * @param {Pointer<Integer>} poffBaseLogFileData A pointer to a variable that receives the offset  where  the metadata begins in the base log.
      * 
      * The contiguous extent in the base log   <i>pszBaseLogFileName</i> represents the full contents of the log metadata—that is, from <i>poffBaseLogFileData</i> to <i>pcbBaseLogFileLength</i>.
-     * @param {Pointer<UInt64>} pcbBaseLogFileLength A pointer to a variable  that specifies the exact length  of the base log, in bytes.
+     * @param {Pointer<Integer>} pcbBaseLogFileLength A pointer to a variable  that specifies the exact length  of the base log, in bytes.
      * @param {Pointer<CLS_LSN>} plsnBase A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the base log sequence number (LSN) of the active log.
      * @param {Pointer<CLS_LSN>} plsnLast A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the highest valid LSN in the active log.
      * @param {Pointer<CLS_LSN>} plsnCurrentArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the current LSN of the archive tail of the log.
-     * @param {Pointer<Void>} ppvArchiveContext A pointer to the variable that receives a pointer to an  archive context that the system allocates.  
+     * @param {Pointer<Pointer<Void>>} ppvArchiveContext A pointer to the variable that receives a pointer to an  archive context that the system allocates.  
      * 
      * The archive context maintains the cursor state of the archival iterator and the log handle context.  The archival client is responsible for releasing the context by calling <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11300,7 +11305,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, "uint*", pcActualLength, "uint*", poffBaseLogFileData, "uint*", pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, "ptr", ppvArchiveContext, "int")
+        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, "uint*", pcActualLength, "uint*", poffBaseLogFileData, "uint*", pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, "ptr*", ppvArchiveContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11318,8 +11323,8 @@ class FileSystem {
      * @param {Integer} cbBytesToRead The number of bytes of the metadata snapshot should be copied into <i>pbReadBuffer</i>.  
      * 
      * This parameter cannot be zero (0).
-     * @param {Pointer<Byte>} pbReadBuffer A pointer to the buffer  where the metadata snapshot is copied.
-     * @param {Pointer<UInt32>} pcbBytesRead A pointer to a variable that receives the number of bytes  that are  copied to <i>pbReadBuffer</i>.  
+     * @param {Pointer<Integer>} pbReadBuffer A pointer to the buffer  where the metadata snapshot is copied.
+     * @param {Pointer<Integer>} pcbBytesRead A pointer to a variable that receives the number of bytes  that are  copied to <i>pbReadBuffer</i>.  
      * 
      * The number of bytes is always between zero (0) and <i>cbBytesToRead</i>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11349,7 +11354,7 @@ class FileSystem {
      * @param {Integer} cDescriptors The number of elements in  the <i>rgadExtent</i> array. 
      * 
      * This value is the maximum number of archive descriptors that can be retrieved by this function.
-     * @param {Pointer<UInt32>} pcDescriptorsReturned The number of descriptors in the <i>rgadExtent</i> array that are  filled in by this function.  
+     * @param {Pointer<Integer>} pcDescriptorsReturned The number of descriptors in the <i>rgadExtent</i> array that are  filled in by this function.  
      * 
      * If this value is less than <i>cDescriptors</i>,  the set of descriptors is exhausted and the archive client can terminate iteration through the ordered descriptor set.  Further calls to this function fail with ERROR_NO_MORE_ENTRIES.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11408,7 +11413,7 @@ class FileSystem {
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<CLS_INFORMATION>} pinfoBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_information">CLFS_INFORMATION</a> structure that receives log metadata.
-     * @param {Pointer<UInt32>} pcbBuffer A pointer to a variable that, on input, specifies the size of the <i>pinfoBuffer</i> metadata buffer, in bytes.  
+     * @param {Pointer<Integer>} pcbBuffer A pointer to a variable that, on input, specifies the size of the <i>pinfoBuffer</i> metadata buffer, in bytes.  
      * 
      * On output, it receives the amount of information that is copied to the buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11443,7 +11448,7 @@ class FileSystem {
      * @param {Integer} cidLogicalContainer The unique  identifier that is associated with a container.
      * @param {PWSTR} pwstrContainerName A pointer to a user-allocated buffer to receive the full path and name of the log container, in wide characters.
      * @param {Integer} cLenContainerName The size of the buffer pointed to by <i>pwstrContainerName</i>, in characters.
-     * @param {Pointer<UInt32>} pcActualLenContainerName A pointer to a variable to receive the actual character count of the full container path name that is retrieved. 
+     * @param {Pointer<Integer>} pcActualLenContainerName A pointer to a variable to receive the actual character count of the full container path name that is retrieved. 
      *       
      * 
      * If the function succeeds, the value of this parameter is less than or equal to 
@@ -11481,7 +11486,7 @@ class FileSystem {
      * 
      * If the buffer is not large enough for the statistics packet, the function fails with <b>ERROR_MORE_DATA</b>.
      * @param {Integer} eStatsClass This parameter is not implemented at this time; it is reserved for future use.
-     * @param {Pointer<UInt32>} pcbStatsWritten A pointer to a variable to receive the size of the I/O statistics packet that is written to  <i>pvStatsBuffer</i>.   
+     * @param {Pointer<Integer>} pcbStatsWritten A pointer to a variable to receive the size of the I/O statistics packet that is written to  <i>pvStatsBuffer</i>.   
      * 
      * This value is less than or equal to <i>cbStatsBuffer</i>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11626,7 +11631,7 @@ class FileSystem {
      * @param {HANDLE} hLog The handle to the log to query.
      * @param {Integer} ePolicyType Specifies the type of policy to query for. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicyBuffer A pointer to a buffer to receive the returned policies.
-     * @param {Pointer<UInt32>} pcbPolicyBuffer A pointer to the size of <i>pPolicyBuffer</i>. If the buffer is not large enough, <i>pcbPolicyBuffer</i> receives the size buffer required to successfully retrieve the specified policies.
+     * @param {Pointer<Integer>} pcbPolicyBuffer A pointer to the size of <i>pPolicyBuffer</i>. If the buffer is not large enough, <i>pcbPolicyBuffer</i> receives the size buffer required to successfully retrieve the specified policies.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -11649,8 +11654,8 @@ class FileSystem {
     /**
      * Adds or deletes containers from a log based on the state of the installed policies.
      * @param {HANDLE} hLog A handle to a log.
-     * @param {Pointer<UInt64>} pDesiredSize 
-     * @param {Pointer<UInt64>} pResultingSize A pointer to a valid ULONGLONG data variable, receives the number of containers in the resized log upon success.
+     * @param {Pointer<Integer>} pDesiredSize 
+     * @param {Pointer<Integer>} pResultingSize A pointer to a valid ULONGLONG data variable, receives the number of containers in the resized log upon success.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the 
@@ -11746,7 +11751,7 @@ class FileSystem {
     /**
      * Retrieves a list of users for the specified file.
      * @param {PWSTR} lpFileName The name of the file.
-     * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pUsers A pointer to a 
+     * @param {Pointer<Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>>} pUsers A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_hash_list">ENCRYPTION_CERTIFICATE_HASH_LIST</a> structure that receives the list of users.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -11758,14 +11763,14 @@ class FileSystem {
     static QueryUsersOnEncryptedFile(lpFileName, pUsers) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\QueryUsersOnEncryptedFile", "ptr", lpFileName, "ptr", pUsers, "uint")
+        result := DllCall("ADVAPI32.dll\QueryUsersOnEncryptedFile", "ptr", lpFileName, "ptr*", pUsers, "uint")
         return result
     }
 
     /**
      * Retrieves a list of recovery agents for the specified file.
      * @param {PWSTR} lpFileName The name of the file.
-     * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pRecoveryAgents A pointer to a 
+     * @param {Pointer<Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>>} pRecoveryAgents A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_hash_list">ENCRYPTION_CERTIFICATE_HASH_LIST</a> structure that receives a list of recovery agents.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -11777,7 +11782,7 @@ class FileSystem {
     static QueryRecoveryAgentsOnEncryptedFile(lpFileName, pRecoveryAgents) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\QueryRecoveryAgentsOnEncryptedFile", "ptr", lpFileName, "ptr", pRecoveryAgents, "uint")
+        result := DllCall("ADVAPI32.dll\QueryRecoveryAgentsOnEncryptedFile", "ptr", lpFileName, "ptr*", pRecoveryAgents, "uint")
         return result
     }
 
@@ -11957,23 +11962,23 @@ class FileSystem {
     /**
      * 
      * @param {PWSTR} lpFileName 
-     * @param {Pointer<UInt32>} pcbMetadata 
-     * @param {Pointer<Byte>} ppbMetadata 
+     * @param {Pointer<Integer>} pcbMetadata 
+     * @param {Pointer<Pointer<Integer>>} ppbMetadata 
      * @returns {Integer} 
      * @deprecated
      */
     static GetEncryptedFileMetadata(lpFileName, pcbMetadata, ppbMetadata) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\GetEncryptedFileMetadata", "ptr", lpFileName, "uint*", pcbMetadata, "char*", ppbMetadata, "uint")
+        result := DllCall("ADVAPI32.dll\GetEncryptedFileMetadata", "ptr", lpFileName, "uint*", pcbMetadata, "ptr*", ppbMetadata, "uint")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} lpFileName 
-     * @param {Pointer<Byte>} pbOldMetadata 
-     * @param {Pointer<Byte>} pbNewMetadata 
+     * @param {Pointer<Integer>} pbOldMetadata 
+     * @param {Pointer<Integer>} pbNewMetadata 
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH>} pOwnerHash 
      * @param {Integer} dwOperation 
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pCertificatesAdded 
@@ -11989,7 +11994,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Byte>} pbMetadata 
+     * @param {Pointer<Integer>} pbMetadata 
      * @returns {String} Nothing - always returns an empty string
      * @deprecated
      */
@@ -12635,7 +12640,7 @@ class FileSystem {
     /**
      * Indicates whether compression should be used on a particular volume, and if so, which compression algorithm should be used.
      * @param {PWSTR} Volume Specifies the path to the volume whose compression state is desired.
-     * @param {Pointer<UInt32>} Algorithm Points to a ULONG value. If the function returns TRUE, indicating compression is desired, this value will contain the algorithm that should be used for this volume.
+     * @param {Pointer<Integer>} Algorithm Points to a ULONG value. If the function returns TRUE, indicating compression is desired, this value will contain the algorithm that should be used for this volume.
      * @returns {BOOL} If binaries on this volume should be compressed, the return value is TRUE; otherwise it is FALSE. This function will return FALSE if the system does not support compression on the specified volume.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofshouldcompressbinaries
      */
@@ -12650,7 +12655,7 @@ class FileSystem {
      * Used to query the version of the driver used to support a particular provider.
      * @param {HANDLE} FileOrVolumeHandle A handle to a file or volume opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
      * @param {Integer} Provider Indicates which provider the version query is intended for. Multiple versions of Wof may exist on the same volume at the same time for different providers.
-     * @param {Pointer<UInt32>} WofVersion Pointer to a ULONG which will contain the version upon successful completion of this function.
+     * @param {Pointer<Integer>} WofVersion Pointer to a ULONG which will contain the version upon successful completion of this function.
      * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure. If no driver is attached on the specified volume for the specified provider, the function will fail with HRESULT_FROM_WIN32(ERROR_INVALID_FUNCTION).
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofgetdriverversion
      */
@@ -12726,7 +12731,7 @@ class FileSystem {
      * Used to determine if a file is being backed by a physical file or is backed by a system data provider, and optionally indicates which provider or additional data about the file.
      * @param {PWSTR} FilePath Specifies the path to the file for which the backing state is desired.
      * @param {Pointer<BOOL>} IsExternalFile Optionally points to a BOOL value. On successful return, this value will be TRUE if the object is externally backed, FALSE if it is a physical file.
-     * @param {Pointer<UInt32>} Provider Optionally points to a ULONG value. On successful return, this value will be set to the provider that externally backs this object. Currently defined providers are: 
+     * @param {Pointer<Integer>} Provider Optionally points to a ULONG value. On successful return, this value will be set to the provider that externally backs this object. Currently defined providers are: 
      * 	  		
      * 
      * <table>
@@ -12756,7 +12761,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} BufferLength Optionally points to a value that contains the length of the buffer specified in <b>ExternalFileInfo</b>. On return, this value will be set to the size of the buffer consumed, or the size of the buffer required. If the buffer is of insufficient length, this function will succeed indicating the required size and will not populate the buffer in <b>ExternalFileInfo</b>. This length should correspond to one of the structures defined above: 
+     * @param {Pointer<Integer>} BufferLength Optionally points to a value that contains the length of the buffer specified in <b>ExternalFileInfo</b>. On return, this value will be set to the size of the buffer consumed, or the size of the buffer required. If the buffer is of insufficient length, this function will succeed indicating the required size and will not populate the buffer in <b>ExternalFileInfo</b>. This length should correspond to one of the structures defined above: 
      * 	  	
      * 
      * <table>
@@ -12815,7 +12820,7 @@ class FileSystem {
      * @param {PWSTR} WimPath The path to the WIM file which should be used to provide data to files.
      * @param {Integer} WimType The type of WIM. Can be <b>WIM_BOOT_OS_WIM</b> or <b>WIM_BOOT_NOT_OS_WIM</b>.
      * @param {Integer} WimIndex Index of the image in the WIM which is applied.
-     * @param {Pointer<Int64>} DataSourceId On successful return, contains the data source used to identify the entry.  This data source can be used to create new files with <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofsetfiledatalocation">WofSetFileDataLocation</a>.
+     * @param {Pointer<Integer>} DataSourceId On successful return, contains the data source used to identify the entry.  This data source can be used to create new files with <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofsetfiledatalocation">WofSetFileDataLocation</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofwimaddentry
      */
@@ -12927,7 +12932,7 @@ class FileSystem {
      * @param {CLS_LSN} BeginningLsn The first LSN in the range to be read.
      * @param {CLS_LSN} EndingLsn The last LSN in the range to be read.
      * @param {Pointer<TXF_ID>} TxfFileId The TxF identifier to search for in the LSN range. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_id">TXF_ID</a>.
-     * @param {Pointer<Void>} TxfLogContext A pointer to the context created.
+     * @param {Pointer<Pointer<Void>>} TxfLogContext A pointer to the context created.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -12940,7 +12945,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "ptr", TxfFileId, "ptr", TxfLogContext, "int")
+        result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "ptr", TxfFileId, "ptr*", TxfLogContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12952,17 +12957,17 @@ class FileSystem {
      * @param {PWSTR} LogPath Location of the RM's CLFS BLF.
      * @param {CLS_LSN} BeginningLsn Start of LSN range to search. (inclusive)
      * @param {CLS_LSN} EndingLsn End of LSN range to search. (inclusive)
-     * @param {Pointer<Int64>} BeginningVirtualClock Start of the virtual clock.
-     * @param {Pointer<Int64>} EndingVirtualClock End of the virtual clock.
+     * @param {Pointer<Integer>} BeginningVirtualClock Start of the virtual clock.
+     * @param {Pointer<Integer>} EndingVirtualClock End of the virtual clock.
      * @param {Integer} RecordTypeMask A mask value indicating the type of records.
-     * @param {Pointer<Void>} TxfLogContext The returned context object.
+     * @param {Pointer<Pointer<Void>>} TxfLogContext The returned context object.
      * @returns {BOOL} Returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//txfw32/nf-txfw32-txflogcreaterangereadcontext
      */
     static TxfLogCreateRangeReadContext(LogPath, BeginningLsn, EndingLsn, BeginningVirtualClock, EndingVirtualClock, RecordTypeMask, TxfLogContext) {
         LogPath := LogPath is String ? StrPtr(LogPath) : LogPath
 
-        result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "int64*", BeginningVirtualClock, "int64*", EndingVirtualClock, "uint", RecordTypeMask, "ptr", TxfLogContext, "int")
+        result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "int64*", BeginningVirtualClock, "int64*", EndingVirtualClock, "uint", RecordTypeMask, "ptr*", TxfLogContext, "int")
         return result
     }
 
@@ -12991,8 +12996,8 @@ class FileSystem {
      * @param {Pointer<Void>} TxfLogContext A pointer to the context.
      * @param {Integer} BufferLength The size of the output buffer, in bytes.
      * @param {Pointer} Buffer A pointer to the buffer that receives the records. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_log_record_base">TXF_LOG_RECORD_BASE</a>.
-     * @param {Pointer<UInt32>} BytesUsed The number of bytes written to the output buffer.
-     * @param {Pointer<UInt32>} RecordCount The number of records written to the output buffer.
+     * @param {Pointer<Integer>} BytesUsed The number of bytes written to the output buffer.
+     * @param {Pointer<Integer>} RecordCount The number of records written to the output buffer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -13071,7 +13076,7 @@ class FileSystem {
      * @param {HANDLE} FileHandle 
      * @param {Pointer<TXF_ID>} TxfFileId 
      * @param {Pointer<CLS_LSN>} LastLsn 
-     * @param {Pointer<UInt32>} TransactionState 
+     * @param {Pointer<Integer>} TransactionState 
      * @param {Pointer<Guid>} LockingTransaction 
      * @returns {BOOL} 
      */
@@ -13087,7 +13092,7 @@ class FileSystem {
      * @param {Pointer} RecordBuffer 
      * @param {Integer} RecordBufferLengthInBytes 
      * @param {Pointer} NameBuffer 
-     * @param {Pointer<UInt32>} NameBufferLengthInBytes 
+     * @param {Pointer<Integer>} NameBufferLengthInBytes 
      * @param {Pointer<TXF_ID>} TxfId 
      * @returns {BOOL} 
      */
@@ -13100,8 +13105,8 @@ class FileSystem {
      * 
      * @param {Pointer<Void>} RecordBuffer 
      * @param {Integer} RecordBufferLengthInBytes 
-     * @param {Pointer<UInt32>} GenericType 
-     * @param {Pointer<Int64>} VirtualClock 
+     * @param {Pointer<Integer>} GenericType 
+     * @param {Pointer<Integer>} VirtualClock 
      * @returns {BOOL} 
      */
     static TxfLogRecordGetGenericType(RecordBuffer, RecordBufferLengthInBytes, GenericType, VirtualClock) {
@@ -13121,7 +13126,7 @@ class FileSystem {
 
     /**
      * Returns the MiniVersion a subsequent create is set to open.
-     * @param {Pointer<UInt16>} MiniVersion Pointer to a USHORT which will receive the result.
+     * @param {Pointer<Integer>} MiniVersion Pointer to a USHORT which will receive the result.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//txfw32/nf-txfw32-txfgetthreadminiversionforcreate
      */
@@ -13331,10 +13336,10 @@ class FileSystem {
     /**
      * Returns the requested information about the specified transaction.
      * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have  the TRANSACTION_QUERY_INFORMATION permission to retrieve the information.
-     * @param {Pointer<UInt32>} Outcome A pointer to a buffer that receives the current outcome of the transaction. If the call to the <b>GetTransactionInformation</b> function is successful, this value will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-transaction_outcome">TRANSACTION_OUTCOME</a> enumeration values.
-     * @param {Pointer<UInt32>} IsolationLevel Reserved.
-     * @param {Pointer<UInt32>} IsolationFlags Reserved.
-     * @param {Pointer<UInt32>} Timeout A pointer to a variable that receives the timeout value, in milliseconds, for this transaction.
+     * @param {Pointer<Integer>} Outcome A pointer to a buffer that receives the current outcome of the transaction. If the call to the <b>GetTransactionInformation</b> function is successful, this value will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-transaction_outcome">TRANSACTION_OUTCOME</a> enumeration values.
+     * @param {Pointer<Integer>} IsolationLevel Reserved.
+     * @param {Pointer<Integer>} IsolationFlags Reserved.
+     * @param {Pointer<Integer>} Timeout A pointer to a variable that receives the timeout value, in milliseconds, for this transaction.
      * @param {Integer} BufferLength The size of the <i>Description</i> parameter, in bytes. The buffer length value cannot be longer than the value of MAX_TRANSACTION_DESCRIPTION_LENGTH.
      * @param {PWSTR} Description A pointer to a buffer that receives the user-defined description of the transaction.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -13508,7 +13513,7 @@ class FileSystem {
     /**
      * Recovers information only to the specified virtual clock value.
      * @param {HANDLE} TransactionManagerHandle A handle to the transaction manager.
-     * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
+     * @param {Pointer<Integer>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
@@ -13560,7 +13565,7 @@ class FileSystem {
     /**
      * Obtains a virtual clock value from a transaction manager.
      * @param {HANDLE} TransactionManagerHandle A handle to the transaction manager to obtain a virtual clock value for.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value for the transaction manager. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value for the transaction manager. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -13713,7 +13718,7 @@ class FileSystem {
      * @param {Integer} dwMilliseconds The time, in milliseconds, for which the calling application is blocking while waiting for the notification 
      *       to become available. If no notifications are available when the timeout expires, 
      *       <b>ERROR_TIMEOUT</b> is returned.
-     * @param {Pointer<UInt32>} ReturnLength A pointer to a variable that receives the actual size of the notification received by the 
+     * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the actual size of the notification received by the 
      *       <i>TransactionNotification</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
@@ -13744,7 +13749,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmtypes/ns-ktmtypes-transaction_notification">TRANSACTION_NOTIFICATION</a> structure that 
      *       receives the first available notification.
      * @param {Integer} TransactionNotificationLength The size of the <i>TransactionNotification</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} ReturnLength A pointer to a variable that receives the actual size of the notification received by the 
+     * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the actual size of the notification received by the 
      *       <i>TransactionNotification</i> parameter.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is 
      *       required for asynchronous operation.
@@ -13907,7 +13912,7 @@ class FileSystem {
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> parameter, in bytes.
      * @param {Pointer<Void>} Buffer A pointer to a buffer that receives the enlistment recovery information.
-     * @param {Pointer<UInt32>} BufferUsed A pointer to a variable that receives the actual number of bytes returned in the <i>Buffer</i> parameter.
+     * @param {Pointer<Integer>} BufferUsed A pointer to a variable that receives the actual number of bytes returned in the <i>Buffer</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -13981,7 +13986,7 @@ class FileSystem {
     /**
      * Prepares the transaction associated with this enlistment handle. This function is used by communication resource managers (sometimes called superior transaction managers).
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment for which the prepare operation has completed.
-     * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
+     * @param {Pointer<Integer>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
@@ -14007,7 +14012,7 @@ class FileSystem {
     /**
      * Pre-prepares the transaction associated with this enlistment handle. This function is used by communication resource managers (sometimes called superior transaction managers).
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment for which the prepare operation has completed.
-     * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
+     * @param {Pointer<Integer>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
@@ -14033,7 +14038,7 @@ class FileSystem {
     /**
      * Commits the transaction associated with this enlistment handle. This function is used by communication resource managers (sometimes called superior transaction managers).
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment to commit.
-     * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this enlistment. If you specify 
+     * @param {Pointer<Integer>} TmVirtualClock A pointer to the latest virtual clock value received for this enlistment. If you specify 
      *       <b>NULL</b>, the virtual clock value is not changed.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned by a 
@@ -14063,7 +14068,7 @@ class FileSystem {
     /**
      * Rolls back the specified transaction that is associated with an enlistment. This function cannot be called for read-only enlistments.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this enlistment. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value received for this enlistment. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
@@ -14090,7 +14095,7 @@ class FileSystem {
     /**
      * Signals that this resource manager has completed its preprepare work, so that other resource managers can now begin their prepare operations.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this preprepare operation. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value received for this preprepare operation. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
@@ -14119,7 +14124,7 @@ class FileSystem {
     /**
      * Indicates that the resource manager (RM) has completed all processing necessary to guarantee that a commit or abort operation will succeed for the specified transaction.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this prepare complete notification. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value received for this prepare complete notification. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
@@ -14148,7 +14153,7 @@ class FileSystem {
     /**
      * Requests that the specified enlistment be converted to a read-only enlistment. A read-only enlistment cannot participate in the outcome of the transaction and is not durably recorded for recovery.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this enlistment. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value received for this enlistment. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
@@ -14177,7 +14182,7 @@ class FileSystem {
     /**
      * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment for which the commit operation is completed.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this transaction. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value received for this transaction. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
@@ -14206,7 +14211,7 @@ class FileSystem {
     /**
      * Indicates that the resource manager (RM) has successfully completed rolling back a transaction.
      * @param {HANDLE} EnlistmentHandle A handle the enlistment.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this transaction. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value received for this transaction. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
@@ -14233,7 +14238,7 @@ class FileSystem {
     /**
      * Indicates that the resource manager (RM) is refusing a single-phase request. When a transaction manager (TM) receives this call, it initiates a two-phase commit and sends a prepare request to all enlisted RMs.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
-     * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received from the single-phase request notification. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
+     * @param {Pointer<Integer>} TmVirtualClock The latest virtual clock value received from the single-phase request notification. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
@@ -14263,9 +14268,9 @@ class FileSystem {
      * Shares a server resource.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first member of the share information structure that causes the <b>ERROR_INVALID_PARAMETER</b> error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the 
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first member of the share information structure that causes the <b>ERROR_INVALID_PARAMETER</b> error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
@@ -14368,7 +14373,7 @@ class FileSystem {
      * Retrieves information about each shared resource on a server.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * 
      * 
@@ -14378,9 +14383,9 @@ class FileSystem {
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <b>ERROR_MORE_DATA</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing share search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>resume_handle</i> is <b>NULL</b>, then no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing share search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>resume_handle</i> is <b>NULL</b>, then no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -14391,7 +14396,7 @@ class FileSystem {
     static NetShareEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -14399,17 +14404,17 @@ class FileSystem {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @param {Integer} prefmaxlen 
-     * @param {Pointer<UInt32>} entriesread 
-     * @param {Pointer<UInt32>} totalentries 
-     * @param {Pointer<UInt32>} resume_handle 
+     * @param {Pointer<Integer>} entriesread 
+     * @param {Pointer<Integer>} totalentries 
+     * @param {Pointer<Integer>} resume_handle 
      * @returns {Integer} 
      */
     static NetShareEnumSticky(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -14418,7 +14423,7 @@ class FileSystem {
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} netname Pointer to a string that specifies the name of the share for which to return information.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>. 
      * 
      * 
@@ -14498,7 +14503,7 @@ class FileSystem {
         servername := servername is String ? StrPtr(servername) : servername
         netname := netname is String ? StrPtr(netname) : netname
 
-        result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -14507,9 +14512,9 @@ class FileSystem {
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} netname Pointer to a string that specifies the name of the share to set information on.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first member of the share information structure that causes the <b>ERROR_INVALID_PARAMETER</b> error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first member of the share information structure that causes the <b>ERROR_INVALID_PARAMETER</b> error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -14673,7 +14678,7 @@ class FileSystem {
      * Checks whether or not a server is sharing a device.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} device Pointer to a string that specifies the name of the device to check for shared access.
-     * @param {Pointer<UInt32>} type Pointer to a variable that receives a bitmask of flags that specify the type of the shared device. This parameter is set only if the function returns successfully. 
+     * @param {Pointer<Integer>} type Pointer to a variable that receives a bitmask of flags that specify the type of the shared device. This parameter is set only if the function returns successfully. 
      * 
      * One of the following flags may be specified.
      * 
@@ -14805,7 +14810,7 @@ class FileSystem {
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -14864,7 +14869,7 @@ class FileSystem {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf 
+     * @param {Pointer<Integer>} buf 
      * @returns {Integer} 
      */
     static NetServerAliasAdd(servername, level, buf) {
@@ -14878,7 +14883,7 @@ class FileSystem {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf 
+     * @param {Pointer<Integer>} buf 
      * @returns {Integer} 
      */
     static NetServerAliasDel(servername, level, buf) {
@@ -14892,17 +14897,17 @@ class FileSystem {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @param {Integer} prefmaxlen 
-     * @param {Pointer<UInt32>} entriesread 
-     * @param {Pointer<UInt32>} totalentries 
-     * @param {Pointer<UInt32>} resumehandle 
+     * @param {Pointer<Integer>} entriesread 
+     * @param {Pointer<Integer>} totalentries 
+     * @param {Pointer<Integer>} resumehandle 
      * @returns {Integer} 
      */
     static NetServerAliasEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
@@ -14914,16 +14919,16 @@ class FileSystem {
      * @param {PWSTR} username Pointer to a string that specifies the name of the user for which information is to be returned. If this parameter is <b>NULL</b>, 
      * <b>NetSessionEnum</b> returns information for all users.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter.
      * 
      * This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with <b>ERROR_MORE_DATA</b>.
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <b>ERROR_MORE_DATA</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing session search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>resume_handle</i> is <b>NULL</b>, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing session search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>resume_handle</i> is <b>NULL</b>, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -15030,7 +15035,7 @@ class FileSystem {
         UncClientName := UncClientName is String ? StrPtr(UncClientName) : UncClientName
         username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -15113,7 +15118,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsessionenum">NetSessionEnum</a>.
      * @param {PWSTR} username Pointer to a string that specifies the name of the user whose session information is to be returned. This parameter is required and cannot be <b>NULL</b>.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>. 
      * 
@@ -15217,7 +15222,7 @@ class FileSystem {
         UncClientName := UncClientName is String ? StrPtr(UncClientName) : UncClientName
         username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -15234,7 +15239,7 @@ class FileSystem {
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the information. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address of the buffer that receives the information. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * 
      * 
@@ -15244,9 +15249,9 @@ class FileSystem {
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <b>ERROR_MORE_DATA</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing connection search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing connection search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -15258,7 +15263,7 @@ class FileSystem {
         servername := servername is String ? StrPtr(servername) : servername
         qualifier := qualifier is String ? StrPtr(qualifier) : qualifier
 
-        result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -15330,7 +15335,7 @@ class FileSystem {
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the information. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address of the buffer that receives the information. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * 
      * 
@@ -15340,9 +15345,9 @@ class FileSystem {
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <b>ERROR_MORE_DATA</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UIntPtr>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing file search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Pointer>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing file search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -15416,7 +15421,7 @@ class FileSystem {
         basepath := basepath is String ? StrPtr(basepath) : basepath
         username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resume_handle, "uint")
         return result
     }
 
@@ -15430,7 +15435,7 @@ class FileSystem {
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
      * @param {Integer} fileid Specifies the file identifier of the open resource for which to return information. The value of this parameter must have been returned in a previous enumeration call. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the information. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address of the buffer that receives the information. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -15505,14 +15510,14 @@ class FileSystem {
     static NetFileGetInfo(servername, fileid, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
     /**
      * Retrieves operating statistics for a service. Currently, only the workstation and server services are supported.
-     * @param {Pointer<SByte>} ServerName Pointer to a string that specifies the DNS or NetBIOS name of the server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<SByte>} Service Pointer to a string that specifies the name of the service about which to get the statistics. Only the values <b>SERVICE_SERVER</b> and <b>SERVICE_WORKSTATION</b> are currently allowed.
+     * @param {Pointer<Integer>} ServerName Pointer to a string that specifies the DNS or NetBIOS name of the server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Integer>} Service Pointer to a string that specifies the name of the service about which to get the statistics. Only the values <b>SERVICE_SERVER</b> and <b>SERVICE_WORKSTATION</b> are currently allowed.
      * @param {Integer} Level Specifies the information level of the data. This parameter can be the following value. 
      * 
      * 
@@ -15536,7 +15541,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Integer} Options This parameter must be zero.
-     * @param {Pointer<Byte>} Buffer Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -15548,7 +15553,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetStatisticsGet(ServerName, Service, Level, Options, Buffer) {
-        result := DllCall("NETAPI32.dll\NetStatisticsGet", "char*", ServerName, "char*", Service, "uint", Level, "uint", Options, "char*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetStatisticsGet", "char*", ServerName, "char*", Service, "uint", Level, "uint", Options, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -15556,6 +15561,7 @@ class FileSystem {
      * 
      * @param {Pointer<IORING_CAPABILITIES>} capabilities 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-queryioringcapabilities
      */
     static QueryIoRingCapabilities(capabilities) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\QueryIoRingCapabilities", "ptr", capabilities, "int")
@@ -15570,6 +15576,7 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {Integer} op 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-isioringopsupported
      */
     static IsIoRingOpSupported(ioRing, op) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15586,6 +15593,7 @@ class FileSystem {
      * @param {Integer} completionQueueSize 
      * @param {Pointer<HIORING>} h 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-createioring
      */
     static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize, h) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", "int", ioringVersion, "ptr", flags, "uint", submissionQueueSize, "uint", completionQueueSize, "ptr", h, "int")
@@ -15600,6 +15608,7 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {Pointer<IORING_INFO>} info 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-getioringinfo
      */
     static GetIoRingInfo(ioRing, info) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15616,8 +15625,9 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {Integer} waitOperations 
      * @param {Integer} milliseconds 
-     * @param {Pointer<UInt32>} submittedEntries 
+     * @param {Pointer<Integer>} submittedEntries 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-submitioring
      */
     static SubmitIoRing(ioRing, waitOperations, milliseconds, submittedEntries) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15633,6 +15643,7 @@ class FileSystem {
      * 
      * @param {HIORING} ioRing 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-closeioring
      */
     static CloseIoRing(ioRing) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15649,14 +15660,12 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {Pointer<IORING_CQE>} cqe 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-popioringcompletion
      */
     static PopIoRingCompletion(ioRing, cqe) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\PopIoRingCompletion", "ptr", ioRing, "ptr", cqe, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -15665,6 +15674,7 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {HANDLE} hEvent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-setioringcompletionevent
      */
     static SetIoRingCompletionEvent(ioRing, hEvent) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15684,6 +15694,7 @@ class FileSystem {
      * @param {Pointer} opToCancel 
      * @param {Pointer} userData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringcancelrequest
      */
     static BuildIoRingCancelRequest(ioRing, file, opToCancel, userData) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15705,6 +15716,7 @@ class FileSystem {
      * @param {Pointer} userData 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringreadfile
      */
     static BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15723,6 +15735,7 @@ class FileSystem {
      * @param {Pointer<HANDLE>} handles 
      * @param {Pointer} userData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterfilehandles
      */
     static BuildIoRingRegisterFileHandles(ioRing, count, handles, userData) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15741,6 +15754,7 @@ class FileSystem {
      * @param {Pointer<IORING_BUFFER_INFO>} buffers 
      * @param {Pointer} userData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterbuffers
      */
     static BuildIoRingRegisterBuffers(ioRing, count, buffers, userData) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -15890,7 +15904,7 @@ class FileSystem {
 
     /**
      * Disables file system redirection for the calling thread. File system redirection is enabled by default.
-     * @param {Pointer<Void>} OldValue The WOW64 file system redirection value. The system uses this parameter to store information necessary to 
+     * @param {Pointer<Pointer<Void>>} OldValue The WOW64 file system redirection value. The system uses this parameter to store information necessary to 
      *        revert (re-enable) file system redirection.
      * 
      * <div class="alert"><b>Note</b>  This value is for system use only. To avoid unpredictable behavior, do not modify this value in any 
@@ -15906,7 +15920,7 @@ class FileSystem {
     static Wow64DisableWow64FsRedirection(OldValue) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64DisableWow64FsRedirection", "ptr", OldValue, "int")
+        result := DllCall("KERNEL32.dll\Wow64DisableWow64FsRedirection", "ptr*", OldValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15941,7 +15955,7 @@ class FileSystem {
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\?\" to the path. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
-     * @param {Pointer<UInt32>} lpBinaryType A pointer to a variable to receive information about the executable type of the file specified by 
+     * @param {Pointer<Integer>} lpBinaryType A pointer to a variable to receive information about the executable type of the file specified by 
      *       <i>lpApplicationName</i>. The following constants are defined.
      * 
      * <table>
@@ -16056,7 +16070,7 @@ class FileSystem {
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\?\" to the path. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
-     * @param {Pointer<UInt32>} lpBinaryType A pointer to a variable to receive information about the executable type of the file specified by 
+     * @param {Pointer<Integer>} lpBinaryType A pointer to a variable to receive information about the executable type of the file specified by 
      *       <i>lpApplicationName</i>. The following constants are defined.
      * 
      * <table>
@@ -16710,9 +16724,9 @@ class FileSystem {
      * @param {HANDLE} hDevice Handle to the device on which to get the tape position. This handle is created by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
      * @param {Integer} dwPositionType 
-     * @param {Pointer<UInt32>} lpdwPartition Pointer to a variable that receives the number of the current tape partition. Partitions are numbered logically from 1 through n, where 1 is the first partition on the tape and n is the last. When a device-specific block address is retrieved, or if the device supports only one partition, this parameter receives zero.
-     * @param {Pointer<UInt32>} lpdwOffsetLow Pointer to a variable that receives the low-order bits of the current tape position.
-     * @param {Pointer<UInt32>} lpdwOffsetHigh Pointer to a variable that receives the high-order bits of the current tape position. This parameter can be <b>NULL</b> if the high-order bits are not required.
+     * @param {Pointer<Integer>} lpdwPartition Pointer to a variable that receives the number of the current tape partition. Partitions are numbered logically from 1 through n, where 1 is the first partition on the tape and n is the last. When a device-specific block address is retrieved, or if the device supports only one partition, this parameter receives zero.
+     * @param {Pointer<Integer>} lpdwOffsetLow Pointer to a variable that receives the low-order bits of the current tape position.
+     * @param {Pointer<Integer>} lpdwOffsetHigh Pointer to a variable that receives the high-order bits of the current tape position. This parameter can be <b>NULL</b> if the high-order bits are not required.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, it can return one of the following error codes.
@@ -17961,7 +17975,7 @@ class FileSystem {
      * @param {HANDLE} hDevice Handle to the device about which information is sought. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwOperation 
-     * @param {Pointer<UInt32>} lpdwSize Pointer to a variable that receives the size, in bytes, of the buffer specified by the <i>lpTapeInformation</i> parameter. If the buffer is too small, this parameter receives the required size.
+     * @param {Pointer<Integer>} lpdwSize Pointer to a variable that receives the size, in bytes, of the buffer specified by the <i>lpTapeInformation</i> parameter. If the buffer is too small, this parameter receives the required size.
      * @param {Pointer} lpTapeInformation Pointer to a structure that contains the requested information. If the <i>dwOperation</i> parameter is <b>GET_TAPE_MEDIA_INFORMATION</b>, <i>lpTapeInformation</i> points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-tape_get_media_parameters">TAPE_GET_MEDIA_PARAMETERS</a> structure.
      * 
@@ -18491,7 +18505,7 @@ class FileSystem {
     /**
      * Retrieves the encryption status of the specified file.
      * @param {PSTR} lpFileName The name of the file.
-     * @param {Pointer<UInt32>} lpStatus A pointer to a variable that receives the encryption status of the file. This parameter can be one of the 
+     * @param {Pointer<Integer>} lpStatus A pointer to a variable that receives the encryption status of the file. This parameter can be one of the 
      *       following values.
      * 
      * <table>
@@ -18625,7 +18639,7 @@ class FileSystem {
     /**
      * Retrieves the encryption status of the specified file.
      * @param {PWSTR} lpFileName The name of the file.
-     * @param {Pointer<UInt32>} lpStatus A pointer to a variable that receives the encryption status of the file. This parameter can be one of the 
+     * @param {Pointer<Integer>} lpStatus A pointer to a variable that receives the encryption status of the file. This parameter can be one of the 
      *       following values.
      * 
      * <table>
@@ -18814,7 +18828,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pvContext The address of a  context
+     * @param {Pointer<Pointer<Void>>} pvContext The address of a  context
      *          block that must be presented in subsequent calls to 
      *          <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readencryptedfileraw">ReadEncryptedFileRaw</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeencryptedfileraw">WriteEncryptedFileRaw</a>, or 
      *          <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-closeencryptedfileraw">CloseEncryptedFileRaw</a>.  Do not modify it.
@@ -18830,7 +18844,7 @@ class FileSystem {
     static OpenEncryptedFileRawA(lpFileName, ulFlags, pvContext) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, "uint", ulFlags, "ptr", pvContext, "uint")
+        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, "uint", ulFlags, "ptr*", pvContext, "uint")
         return result
     }
 
@@ -18892,7 +18906,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pvContext The address of a  context
+     * @param {Pointer<Pointer<Void>>} pvContext The address of a  context
      *          block that must be presented in subsequent calls to 
      *          <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readencryptedfileraw">ReadEncryptedFileRaw</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeencryptedfileraw">WriteEncryptedFileRaw</a>, or 
      *          <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-closeencryptedfileraw">CloseEncryptedFileRaw</a>.  Do not modify it.
@@ -18908,7 +18922,7 @@ class FileSystem {
     static OpenEncryptedFileRawW(lpFileName, ulFlags, pvContext) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, "uint", ulFlags, "ptr", pvContext, "uint")
+        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, "uint", ulFlags, "ptr*", pvContext, "uint")
         return result
     }
 
@@ -19099,7 +19113,7 @@ class FileSystem {
      * @param {Pointer} lpBuffer Pointer to a buffer that receives the data.
      * @param {Integer} nNumberOfBytesToRead Length of the buffer, in bytes. The buffer size must be greater than the size of a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-win32_stream_id">WIN32_STREAM_ID</a> structure.
-     * @param {Pointer<UInt32>} lpNumberOfBytesRead Pointer to a variable that receives the number of bytes read.
+     * @param {Pointer<Integer>} lpNumberOfBytesRead Pointer to a variable that receives the number of bytes read.
      * 
      * If the function returns a nonzero value, and the variable pointed to by 
      *       <i>lpNumberOfBytesRead</i> is zero, then all the data associated with the file handle has 
@@ -19115,7 +19129,7 @@ class FileSystem {
      * 
      * If <i>bProcessSecurity</i> is <b>TRUE</b>, the ACL data will be backed 
      *       up.
-     * @param {Pointer<Void>} lpContext Pointer to a variable that receives a pointer to an internal data structure used by 
+     * @param {Pointer<Pointer<Void>>} lpContext Pointer to a variable that receives a pointer to an internal data structure used by 
      *       <b>BackupRead</b> to maintain context information during a 
      *       backup operation.
      * 
@@ -19140,7 +19154,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupRead", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", lpNumberOfBytesRead, "int", bAbort, "int", bProcessSecurity, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupRead", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", lpNumberOfBytesRead, "int", bAbort, "int", bProcessSecurity, "ptr*", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19155,9 +19169,9 @@ class FileSystem {
      * The handle must be synchronous (nonoverlapped). This means that the FILE_FLAG_OVERLAPPED flag must not be set when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> is called. This function does not validate that the handle it receives is synchronous, so it does not return an error code for a synchronous handle, but calling it with an asynchronous (overlapped) handle can result in subtle errors that are very difficult to debug.
      * @param {Integer} dwLowBytesToSeek Low-order part of the number of bytes to seek.
      * @param {Integer} dwHighBytesToSeek High-order part of the number of bytes to seek.
-     * @param {Pointer<UInt32>} lpdwLowByteSeeked Pointer to a variable that receives the low-order bits of the number of bytes the function actually seeks.
-     * @param {Pointer<UInt32>} lpdwHighByteSeeked Pointer to a variable that receives the high-order bits of the number of bytes the function actually seeks.
-     * @param {Pointer<Void>} lpContext Pointer to an internal data structure used by the function. This structure must be the same structure that was initialized by the 
+     * @param {Pointer<Integer>} lpdwLowByteSeeked Pointer to a variable that receives the low-order bits of the number of bytes the function actually seeks.
+     * @param {Pointer<Integer>} lpdwHighByteSeeked Pointer to a variable that receives the high-order bits of the number of bytes the function actually seeks.
+     * @param {Pointer<Pointer<Void>>} lpContext Pointer to an internal data structure used by the function. This structure must be the same structure that was initialized by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-backupread">BackupRead</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-backupwrite">BackupWrite</a> function. An application must not touch the contents of this structure.
      * @returns {BOOL} If the function could seek the requested amount, the function returns a nonzero value.
      * 
@@ -19171,7 +19185,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupSeek", "ptr", hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, "uint*", lpdwLowByteSeeked, "uint*", lpdwHighByteSeeked, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupSeek", "ptr", hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, "uint*", lpdwLowByteSeeked, "uint*", lpdwHighByteSeeked, "ptr*", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19192,7 +19206,7 @@ class FileSystem {
      * @param {Pointer} lpBuffer Pointer to a buffer that the function writes data from.
      * @param {Integer} nNumberOfBytesToWrite Size of the buffer, in bytes. The buffer size must be greater than the size of a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-win32_stream_id">WIN32_STREAM_ID</a> structure.
-     * @param {Pointer<UInt32>} lpNumberOfBytesWritten Pointer to a variable that receives the number of bytes written.
+     * @param {Pointer<Integer>} lpNumberOfBytesWritten Pointer to a variable that receives the number of bytes written.
      * @param {BOOL} bAbort Indicates whether you have finished using <b>BackupWrite</b> on the handle. 
      *       While you are restoring the file, specify this parameter as <b>FALSE</b>. After you are done 
      *       using <b>BackupWrite</b>, you must call <b>BackupWrite</b> 
@@ -19205,7 +19219,7 @@ class FileSystem {
      *       <b>WRITE_OWNER</b> and <b>WRITE_DAC</b> access when opening the file or 
      *       directory handle. If the handle does not have those access rights, the operating system denies access to the 
      *       ACL data, and ACL data restoration will not occur.
-     * @param {Pointer<Void>} lpContext Pointer to a variable that receives a pointer to an internal data structure used by 
+     * @param {Pointer<Pointer<Void>>} lpContext Pointer to a variable that receives a pointer to an internal data structure used by 
      *       <b>BackupWrite</b> to maintain context information during a restore operation.
      * 
      * You must set the variable pointed to by <i>lpContext</i> to <b>NULL</b> 
@@ -19229,7 +19243,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupWrite", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "uint*", lpNumberOfBytesWritten, "int", bAbort, "int", bProcessSecurity, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupWrite", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "uint*", lpNumberOfBytesWritten, "int", bAbort, "int", bProcessSecurity, "ptr*", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20369,7 +20383,7 @@ class FileSystem {
      * When opening a new EFS-encrypted file, the file inherits the DACL from its parent directory.
      * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @param {Pointer<UInt32>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
+     * @param {Pointer<Integer>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
      *        the transaction that is modifying the file, this parameter should be <b>NULL</b>. Otherwise, 
      *        this parameter can be a miniversion identifier returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_txfs_create_miniversion">FSCTL_TXFS_CREATE_MINIVERSION</a> control
@@ -20831,7 +20845,7 @@ class FileSystem {
      * When opening a new EFS-encrypted file, the file inherits the DACL from its parent directory.
      * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @param {Pointer<UInt32>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
+     * @param {Pointer<Integer>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
      *        the transaction that is modifying the file, this parameter should be <b>NULL</b>. Otherwise, 
      *        this parameter can be a miniversion identifier returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_txfs_create_miniversion">FSCTL_TXFS_CREATE_MINIVERSION</a> control
@@ -21124,7 +21138,7 @@ class FileSystem {
      * Do not specify the name of a file on a nonseeking device, such as a pipe or a communications device, as its file size has no meaning.
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<UInt32>} lpFileSizeHigh A pointer to a variable that receives the high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
+     * @param {Pointer<Integer>} lpFileSizeHigh A pointer to a variable that receives the high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
      * 
      * 
      * 
@@ -21163,7 +21177,7 @@ class FileSystem {
      * Do not specify the name of a file on a nonseeking device, such as a pipe or a communications device, as its file size has no meaning.
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<UInt32>} lpFileSizeHigh A pointer to a variable that receives the high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
+     * @param {Pointer<Integer>} lpFileSizeHigh A pointer to a variable that receives the high-order <b>DWORD</b> of the compressed file size. The function's return value is the low-order <b>DWORD</b> of the compressed file size. 
      * 
      * 
      * 
@@ -23184,7 +23198,7 @@ class FileSystem {
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b> (6805).
      * @param {Integer} dwFlags Reserved; specify zero (0).
-     * @param {Pointer<UInt32>} StringLength The size of the buffer pointed to by the <i>LinkName</i> parameter, in characters. If this 
+     * @param {Pointer<Integer>} StringLength The size of the buffer pointed to by the <i>LinkName</i> parameter, in characters. If this 
      *        call fails and the error is <b>ERROR_MORE_DATA</b> (234), the value that is returned by this 
      *        parameter is the size that the buffer pointed to by <i>LinkName</i> must be to contain all 
      *        the data.
@@ -23294,9 +23308,9 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getfilebandwidthreservation">GetFileBandwidthReservation</a> function 
      *       using the same <i>hFile</i> handle and examine the <i>*pDiscardable</i> 
      *       return value.
-     * @param {Pointer<UInt32>} lpTransferSize A pointer to a variable that receives the minimum size of any individual I/O request that may be issued by 
+     * @param {Pointer<Integer>} lpTransferSize A pointer to a variable that receives the minimum size of any individual I/O request that may be issued by 
      *       the application. All I/O requests should be multiples of <i>TransferSize</i>.
-     * @param {Pointer<UInt32>} lpNumOutstandingRequests A pointer to a variable that receives the number of <i>TransferSize</i> chunks the 
+     * @param {Pointer<Integer>} lpNumOutstandingRequests A pointer to a variable that receives the number of <i>TransferSize</i> chunks the 
      *       application should allow to be outstanding with the operating system. This allows the storage stack to keep the 
      *       device busy and allows maximum throughput.
      * @returns {BOOL} Returns nonzero if successful or zero otherwise.
@@ -23324,20 +23338,20 @@ class FileSystem {
     /**
      * Retrieves the bandwidth reservation properties of the volume on which the specified file resides.
      * @param {HANDLE} hFile A handle to the file.
-     * @param {Pointer<UInt32>} lpPeriodMilliseconds A pointer to a variable that receives the period of the reservation, in milliseconds. The period is the 
+     * @param {Pointer<Integer>} lpPeriodMilliseconds A pointer to a variable that receives the period of the reservation, in milliseconds. The period is the 
      *       time from which the I/O is issued to the kernel until the time the I/O should be completed. If no bandwidth has 
      *       been reserved for this handle, then the value returned is the minimum reservation period supported for this 
      *       volume.
-     * @param {Pointer<UInt32>} lpBytesPerPeriod A pointer to a variable that receives the maximum number of bytes per period that can be reserved on the 
+     * @param {Pointer<Integer>} lpBytesPerPeriod A pointer to a variable that receives the maximum number of bytes per period that can be reserved on the 
      *       volume. If no bandwidth has been reserved for this handle, then the value returned is the maximum number of 
      *       bytes per period supported for the volume.
      * @param {Pointer<BOOL>} pDiscardable <b>TRUE</b> if I/O should be completed with an error if a driver is unable to satisfy an 
      *       I/O operation before the period expires. <b>FALSE</b> if the underlying subsystem does not 
      *       support failing in this manner.
-     * @param {Pointer<UInt32>} lpTransferSize The minimum size of any individual I/O request that may be issued by the application. All I/O requests 
+     * @param {Pointer<Integer>} lpTransferSize The minimum size of any individual I/O request that may be issued by the application. All I/O requests 
      *       should be multiples of <i>TransferSize</i>. If no bandwidth has been reserved for this 
      *       handle, then the value returned is the minimum transfer size supported for this volume.
-     * @param {Pointer<UInt32>} lpNumOutstandingRequests The number of <i>TransferSize</i> chunks  allowed to be outstanding with the operating 
+     * @param {Pointer<Integer>} lpNumOutstandingRequests The number of <i>TransferSize</i> chunks  allowed to be outstanding with the operating 
      *       system.
      * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
@@ -23374,7 +23388,7 @@ class FileSystem {
      *       specified directory. If this parameter is <b>FALSE</b>, the function monitors only the 
      *       directory specified by the <i>hDirectory</i> parameter.
      * @param {Integer} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
-     * @param {Pointer<UInt32>} lpBytesReturned For synchronous calls, this parameter receives the number of bytes transferred into the 
+     * @param {Pointer<Integer>} lpBytesReturned For synchronous calls, this parameter receives the number of bytes transferred into the 
      *       <i>lpBuffer</i> parameter. For asynchronous calls, this parameter is undefined. You must use 
      *       an asynchronous notification technique to retrieve the number of bytes transferred.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that supplies 
@@ -23424,7 +23438,7 @@ class FileSystem {
      *       specified directory. If this parameter is <b>FALSE</b>, the function monitors only the 
      *       directory specified by the <i>hDirectory</i> parameter.
      * @param {Integer} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
-     * @param {Pointer<UInt32>} lpBytesReturned For synchronous calls, this parameter receives the number of bytes transferred into the 
+     * @param {Pointer<Integer>} lpBytesReturned For synchronous calls, this parameter receives the number of bytes transferred into the 
      *       <i>lpBuffer</i> parameter. For asynchronous calls, this parameter is undefined. You must use 
      *       an asynchronous notification technique to retrieve the number of bytes transferred.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that supplies 
@@ -23811,7 +23825,7 @@ class FileSystem {
      *       buffer is not large enough to hold the complete list, the buffer holds as much of the list as possible.
      * @param {Integer} cchBufferLength The length of the <i>lpszVolumePathNames</i> buffer, in 
      *       <b>TCHARs</b>, including all <b>NULL</b> characters.
-     * @param {Pointer<UInt32>} lpcchReturnLength If the call is successful, this parameter is the number of <b>TCHARs</b> copied to 
+     * @param {Pointer<Integer>} lpcchReturnLength If the call is successful, this parameter is the number of <b>TCHARs</b> copied to 
      *       the <i>lpszVolumePathNames</i> buffer. Otherwise, this parameter is the size of the buffer 
      *       required to hold the complete list, in <b>TCHARs</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.

@@ -42,7 +42,7 @@ class DHCPAPI_PARAMS extends Win32Struct
 
     /**
      * Pointer to the parameter data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Data {
         get => NumGet(this, 16, "ptr")

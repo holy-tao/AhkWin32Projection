@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mf_camera_control_range_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

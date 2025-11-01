@@ -62,7 +62,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
 
     /**
      * A resource condition in binary form.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     AppliesTo {
         get => NumGet(this, 56, "ptr")

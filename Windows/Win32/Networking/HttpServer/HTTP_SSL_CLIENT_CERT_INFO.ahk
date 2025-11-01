@@ -46,7 +46,7 @@ class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct
 
     /**
      * A pointer to the actual certificate.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCertEncoded {
         get => NumGet(this, 8, "ptr")

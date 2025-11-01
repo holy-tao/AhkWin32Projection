@@ -32,7 +32,7 @@ class EMFINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pvEMF {
         get => NumGet(this, 16, "ptr")
@@ -40,7 +40,7 @@ class EMFINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pvCurrentRecord {
         get => NumGet(this, 24, "ptr")

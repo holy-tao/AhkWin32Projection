@@ -92,7 +92,7 @@ class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct
 
     /**
      * Array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures to be included in the signed message. If the <b>pSigningCert</b> is to be included, a pointer to it must be in the <b>rgpMsgCert</b> array.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     rgpMsgCert {
         get => NumGet(this, 56, "ptr")
@@ -111,7 +111,7 @@ class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct
 
     /**
      * Array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structures to be included in the signed message.
-     * @type {Pointer<CRL_CONTEXT>}
+     * @type {Pointer<Pointer<CRL_CONTEXT>>}
      */
     rgpMsgCrl {
         get => NumGet(this, 72, "ptr")

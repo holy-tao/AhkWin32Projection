@@ -53,7 +53,7 @@ class CTL_VERIFY_USAGE_STATUS extends Win32Struct
      * 
      * 
      * If <b>ppCtl</b> is not <b>NULL</b>, the calling application must free the returned context using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreectlcontext">CertFreeCTLContext</a>.
-     * @type {Pointer<CTL_CONTEXT>}
+     * @type {Pointer<Pointer<CTL_CONTEXT>>}
      */
     ppCtl {
         get => NumGet(this, 16, "ptr")
@@ -76,7 +76,7 @@ class CTL_VERIFY_USAGE_STATUS extends Win32Struct
      * 
      * 
      * If <b>ppSigner</b> is not <b>NULL</b>, the calling application must free the returned context using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreectlcontext">CertFreeCTLContext</a>.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     ppSigner {
         get => NumGet(this, 32, "ptr")

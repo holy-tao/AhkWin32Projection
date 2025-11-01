@@ -15,7 +15,7 @@ class SecPkgContext_ClientSpecifiedTarget extends Win32Struct
 
     /**
      * The SPN of the initial target.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     sTargetName {
         get => NumGet(this, 0, "ptr")

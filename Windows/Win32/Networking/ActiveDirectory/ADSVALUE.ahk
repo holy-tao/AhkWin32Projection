@@ -36,7 +36,7 @@ class ADSVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     DNString {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class ADSVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     CaseExactString {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class ADSVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     CaseIgnoreString {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class ADSVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     PrintableString {
         get => NumGet(this, 8, "ptr")
@@ -68,7 +68,7 @@ class ADSVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     NumericString {
         get => NumGet(this, 8, "ptr")
@@ -122,7 +122,7 @@ class ADSVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ClassName {
         get => NumGet(this, 8, "ptr")

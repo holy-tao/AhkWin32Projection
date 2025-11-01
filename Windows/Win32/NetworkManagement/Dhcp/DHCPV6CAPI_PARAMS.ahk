@@ -45,7 +45,7 @@ class DHCPV6CAPI_PARAMS extends Win32Struct
 
     /**
      * Contains the actual parameter data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Data {
         get => NumGet(this, 16, "ptr")

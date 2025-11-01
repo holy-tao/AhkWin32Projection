@@ -3,6 +3,8 @@
 #Include ..\StructuredStorage\JET_TABLEID.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-opentemporarytable-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */
@@ -53,7 +55,7 @@ class JET_OPENTEMPORARYTABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     prgcolumnid {
         get => NumGet(this, 40, "ptr")

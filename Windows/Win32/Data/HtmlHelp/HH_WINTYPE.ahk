@@ -52,7 +52,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the name of the window type.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszType {
         get => NumGet(this, 8, "ptr")
@@ -79,7 +79,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the caption to display in the title bar of the window.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszCaption {
         get => NumGet(this, 24, "ptr")
@@ -154,7 +154,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Pointer to an array of Information Types.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     paInfoTypes {
         get => NumGet(this, 80, "ptr")
@@ -220,7 +220,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the contents (.hhc) file to display in the Navigation pane.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszToc {
         get => NumGet(this, 136, "ptr")
@@ -229,7 +229,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the index (.hhk) file to display in the Navigation pane.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszIndex {
         get => NumGet(this, 144, "ptr")
@@ -238,7 +238,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the default HTML file to display in the Topic pane.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszFile {
         get => NumGet(this, 152, "ptr")
@@ -250,7 +250,7 @@ class HH_WINTYPE extends Win32Struct
      * 
      * 
      * Specifies which buttons to include on the toolbar.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszHome {
         get => NumGet(this, 160, "ptr")
@@ -325,7 +325,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the text to display underneath the Jump1 button.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszJump1 {
         get => NumGet(this, 216, "ptr")
@@ -334,7 +334,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the text to display underneath the Jump2 button.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszJump2 {
         get => NumGet(this, 224, "ptr")
@@ -343,7 +343,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the URL to jump to when the Jump1 button is clicked.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszUrlJump1 {
         get => NumGet(this, 232, "ptr")
@@ -352,7 +352,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the URL to jump to when the Jump2 button is clicked.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszUrlJump2 {
         get => NumGet(this, 240, "ptr")
@@ -382,7 +382,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Series of zero-terminated strings to be used as tab labels.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszCustomTabs {
         get => NumGet(this, 272, "ptr")

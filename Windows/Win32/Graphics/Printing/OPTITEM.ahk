@@ -52,7 +52,7 @@ class OPTITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pName {
         get => NumGet(this, 16, "ptr")
@@ -68,7 +68,7 @@ class OPTITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pSel {
         get => NumGet(this, 24, "ptr")

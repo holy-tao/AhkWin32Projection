@@ -33,7 +33,7 @@ class MI_Instance extends Win32Struct
 
     /**
      * Optional server name. Can be null.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     serverName {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class MI_Instance extends Win32Struct
 
     /**
      * Optional namespace. Can be null.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     nameSpace {
         get => NumGet(this, 24, "ptr")

@@ -100,7 +100,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpbData {
         get => NumGet(this, 224, "ptr")

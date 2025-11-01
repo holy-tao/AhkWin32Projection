@@ -284,7 +284,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * Buffer containing any GINA-specific data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     PrivateData {
         get => NumGet(this, 216, "ptr")

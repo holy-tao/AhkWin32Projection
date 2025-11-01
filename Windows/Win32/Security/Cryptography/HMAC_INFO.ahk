@@ -24,7 +24,7 @@ class HMAC_INFO extends Win32Struct
 
     /**
      * A pointer to the inner string to be used in the HMAC calculation. The default inner string is defined as the byte 0x36 repeated 64 times.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbInnerString {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class HMAC_INFO extends Win32Struct
 
     /**
      * A pointer to the outer string to be used in the HMAC calculation. The default outer string is defined as the byte 0x5C repeated 64 times.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbOuterString {
         get => NumGet(this, 24, "ptr")

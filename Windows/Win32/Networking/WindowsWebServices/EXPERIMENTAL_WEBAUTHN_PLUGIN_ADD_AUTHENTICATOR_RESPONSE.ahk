@@ -20,7 +20,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE extends Win32Struc
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbOpSignPubKey {
         get => NumGet(this, 8, "ptr")

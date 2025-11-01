@@ -22,7 +22,7 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a>*</b>
      * 
      * Passed into CreateInputLayout. Only valid on a vertex shader or geometry shader. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createinputlayout">ID3D10Device_CreateInputLayout</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pInputSignature {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +44,7 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a>*</b>
      * 
      * A pointer to the compiled shader.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pBytecode {
         get => NumGet(this, 16, "ptr")

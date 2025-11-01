@@ -20,7 +20,7 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT extends Win32Struct
 
     /**
      * An [ID3D12VideoMotionVectorHeap](nn-d3d12video-id3d12videomotionvectorheap.md) containing the resolved motion estimation vectors. Motion vectors are resolved to a [DXGI_FORMAT_R16G16_SINT](../dxgiformat/ne-dxgiformat-dxgi_format.md) 2D texture. The resolved data is a signed 16-byte integer with quarter PEL units with the X vector component stored in the R component and the Y vector component stored in the G component. Motion vectors are stored in a 2D layout that corresponds to the pixel layout of the original input textures.
-     * @type {Pointer<ID3D12VideoMotionVectorHeap>}
+     * @type {ID3D12VideoMotionVectorHeap}
      */
     pMotionVectorHeap {
         get => NumGet(this, 0, "ptr")

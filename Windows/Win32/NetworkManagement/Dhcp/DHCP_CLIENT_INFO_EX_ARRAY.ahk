@@ -20,7 +20,7 @@ class DHCP_CLIENT_INFO_EX_ARRAY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DHCP_CLIENT_INFO_EX>}
+     * @type {Pointer<Pointer<DHCP_CLIENT_INFO_EX>>}
      */
     Clients {
         get => NumGet(this, 8, "ptr")

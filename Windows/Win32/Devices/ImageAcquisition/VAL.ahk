@@ -56,7 +56,7 @@ class VAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     ppButtonNames {
         get => NumGet(this, 40, "ptr")

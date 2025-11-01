@@ -29,7 +29,7 @@ class IPSEC_ADDRESS_INFO0 extends Win32Struct
 
     /**
      * Array of IPv4 local addresses to indicate to peer.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     v4Addresses {
         get => NumGet(this, 8, "ptr")

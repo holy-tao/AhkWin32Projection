@@ -59,7 +59,7 @@ class CLUSTER_BATCH_COMMAND extends Win32Struct
      *        member is <b>NULL</b> for all the commands except the 
      *        <b>CLUSREG_SET_VALUE</b> and <b>CLUSREG_DELETE_VALUE</b> 
      *        commands.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpData {
         get => NumGet(this, 16, "ptr")

@@ -25,7 +25,7 @@ class WS_SERVICE_METADATA extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_metadata_document">WS_SERVICE_METADATA_DOCUMENT</a>* array where element represents a WS_SERVICE_METADATA_DOCUMENT for each individual XML Schema, WSDL or a Policy document. 
      *                 The service model expects this to be valid for the lifetime of the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-service-host">WS_SERVICE_HOST</a>.
-     * @type {Pointer<WS_SERVICE_METADATA_DOCUMENT>}
+     * @type {Pointer<Pointer<WS_SERVICE_METADATA_DOCUMENT>>}
      */
     documents {
         get => NumGet(this, 8, "ptr")

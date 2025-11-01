@@ -61,7 +61,7 @@ class DML_ARGMIN_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(AxisCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * The axes along which to reduce. Values must be in the range `[0, InputTensor.DimensionCount - 1]`.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Axes {
         get => NumGet(this, 24, "ptr")

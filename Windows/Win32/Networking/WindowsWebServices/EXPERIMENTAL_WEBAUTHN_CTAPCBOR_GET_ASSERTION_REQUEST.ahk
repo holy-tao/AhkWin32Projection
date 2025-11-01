@@ -37,7 +37,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbRpId {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbClientDataHash {
         get => NumGet(this, 40, "ptr")
@@ -80,7 +80,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCborExtensionsMap {
         get => NumGet(this, 72, "ptr")
@@ -112,7 +112,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPinAuth {
         get => NumGet(this, 96, "ptr")
@@ -136,7 +136,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbHmacSecretSaltValues {
         get => NumGet(this, 120, "ptr")
@@ -184,7 +184,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCredLargeBlobCompressed {
         get => NumGet(this, 152, "ptr")
@@ -208,7 +208,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbJsonExt {
         get => NumGet(this, 168, "ptr")

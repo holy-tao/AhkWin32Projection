@@ -45,7 +45,7 @@ class DHCP_BINARY_DATA extends Win32Struct
      * <td>The MAC address of the client.</td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Data {
         get => NumGet(this, 8, "ptr")

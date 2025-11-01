@@ -24,7 +24,7 @@ class LSA_FOREST_TRUST_BINARY_DATA extends Win32Struct
 
     /**
      * Pointer to an array of type <b>UCHAR</b> that contains the binary data. The buffer can contain at most 128 KB of data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

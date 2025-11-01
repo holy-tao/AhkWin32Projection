@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvPciPnpId
  * @namespace Windows.Win32.System.Hypervisor
  * @version v4.0.30319
  */

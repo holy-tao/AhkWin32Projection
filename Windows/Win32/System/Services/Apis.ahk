@@ -804,7 +804,7 @@ class Services {
      * The startup program uses load ordering groups to load groups of services in a specified order with respect to the other groups. The list of load ordering groups is contained in the <b>ServiceGroupOrder</b> value of the following registry key:
      * 
      * <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control</b>
-     * @param {Pointer<UInt32>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
+     * @param {Pointer<Integer>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
      * 
      * 
      * 
@@ -1067,7 +1067,7 @@ class Services {
      * The startup program uses load ordering groups to load groups of services in a specified order with respect to the other groups. The list of load ordering groups is contained in the <b>ServiceGroupOrder</b> value of the following registry key:
      * 
      * <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control</b>
-     * @param {Pointer<UInt32>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
+     * @param {Pointer<Integer>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
      * 
      * 
      * 
@@ -1674,7 +1674,7 @@ class Services {
      * 
      * 
      * The startup program uses load ordering groups to load groups of services in a specified order with respect to the other groups. The list of load ordering groups is contained in the following registry value: <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder</b>
-     * @param {Pointer<UInt32>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
+     * @param {Pointer<Integer>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
      * 
      * 
      * 
@@ -1881,7 +1881,7 @@ class Services {
      * 
      * 
      * The startup program uses load ordering groups to load groups of services in a specified order with respect to the other groups. The list of load ordering groups is contained in the following registry value: <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder</b>
-     * @param {Pointer<UInt32>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
+     * @param {Pointer<Integer>} lpdwTagId A pointer to a variable that receives a tag value that is unique in the group specified in the <i>lpLoadOrderGroup</i> parameter. Specify NULL if you are not changing the existing tag. 
      * 
      * 
      * 
@@ -2143,8 +2143,8 @@ class Services {
      * 
      * The maximum size of this array is 64,000 bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_MORE_DATA</b>. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServices</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store the array of service entries. The variable only receives this value if the buffer pointed to by <i>lpServices</i> is too small, indicated by function failure and the <b>ERROR_MORE_DATA</b> error; otherwise, the contents of <i>pcbBytesNeeded</i> are undefined.
-     * @param {Pointer<UInt32>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store the array of service entries. The variable only receives this value if the buffer pointed to by <i>lpServices</i> is too small, indicated by function failure and the <b>ERROR_MORE_DATA</b> error; otherwise, the contents of <i>pcbBytesNeeded</i> are undefined.
+     * @param {Pointer<Integer>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2231,8 +2231,8 @@ class Services {
      * 
      * The maximum size of this array is 64,000 bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_MORE_DATA</b>. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServices</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store the array of service entries. The variable only receives this value if the buffer pointed to by <i>lpServices</i> is too small, indicated by function failure and the <b>ERROR_MORE_DATA</b> error; otherwise, the contents of <i>pcbBytesNeeded</i> are undefined.
-     * @param {Pointer<UInt32>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store the array of service entries. The variable only receives this value if the buffer pointed to by <i>lpServices</i> is too small, indicated by function failure and the <b>ERROR_MORE_DATA</b> error; otherwise, the contents of <i>pcbBytesNeeded</i> are undefined.
+     * @param {Pointer<Integer>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2319,9 +2319,9 @@ class Services {
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The maximum size of this array is 64K bytes. This limit was increased as of Windows Server 2003 with SP1 and Windows XP with SP2.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServices</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
-     * @param {Pointer<UInt32>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
-     * @param {Pointer<UInt32>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time this function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
+     * @param {Pointer<Integer>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
+     * @param {Pointer<Integer>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time this function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns ERROR_MORE_DATA, this value is used to indicate the next service entry to be read when the function is called to retrieve the additional data.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
@@ -2411,9 +2411,9 @@ class Services {
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The maximum size of this array is 64K bytes. This limit was increased as of Windows Server 2003 with SP1 and Windows XP with SP2.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServices</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
-     * @param {Pointer<UInt32>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
-     * @param {Pointer<UInt32>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time this function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
+     * @param {Pointer<Integer>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
+     * @param {Pointer<Integer>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time this function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns ERROR_MORE_DATA, this value is used to indicate the next service entry to be read when the function is called to retrieve the additional data.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
@@ -2506,9 +2506,9 @@ class Services {
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The maximum size of this array is 64K bytes. This limit was increased as of Windows Server 2003 with SP1 and Windows XP with SP2.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServices</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
-     * @param {Pointer<UInt32>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
-     * @param {Pointer<UInt32>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time the 
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
+     * @param {Pointer<Integer>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
+     * @param {Pointer<Integer>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time the 
      * <b>EnumServicesStatusEx</b> function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_MORE_DATA</b>, this value indicates the next service entry to be read when the 
      * <b>EnumServicesStatusEx</b> function is called to retrieve the additional data.
@@ -2623,9 +2623,9 @@ class Services {
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The maximum size of this array is 64K bytes. This limit was increased as of Windows Server 2003 with SP1 and Windows XP with SP2.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServices</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
-     * @param {Pointer<UInt32>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
-     * @param {Pointer<UInt32>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time the 
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the remaining service entries, if the buffer is too small.
+     * @param {Pointer<Integer>} lpServicesReturned A pointer to a variable that receives the number of service entries returned.
+     * @param {Pointer<Integer>} lpResumeHandle A pointer to a variable that, on input, specifies the starting point of enumeration. You must set this value to zero the first time the 
      * <b>EnumServicesStatusEx</b> function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_MORE_DATA</b>, this value indicates the next service entry to be read when the 
      * <b>EnumServicesStatusEx</b> function is called to retrieve the additional data.
@@ -2731,7 +2731,7 @@ class Services {
      * @param {PSTR} lpServiceName A pointer to a buffer that receives the service name. If the function fails, this buffer will contain an empty string.
      * 
      * The maximum size of this array is 4K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>lpcchBuffer</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>lpcchBuffer</i> parameter will receive the required size.
-     * @param {Pointer<UInt32>} lpcchBuffer A pointer to variable that specifies the size of the buffer pointed to by the <i>lpServiceName</i> parameter, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the service name, in <b>TCHARs</b>, excluding the null-terminating character.
+     * @param {Pointer<Integer>} lpcchBuffer A pointer to variable that specifies the size of the buffer pointed to by the <i>lpServiceName</i> parameter, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the service name, in <b>TCHARs</b>, excluding the null-terminating character.
      * 
      * If the buffer pointed to by <i>lpServiceName</i> is too small to contain the service name, the function stores no data in it. When the function returns, <i>lpcchBuffer</i> contains the size of the service name, excluding the NULL terminator.
      * @returns {BOOL} If the functions succeeds, the return value is nonzero.
@@ -2763,7 +2763,7 @@ class Services {
      * @param {PWSTR} lpServiceName A pointer to a buffer that receives the service name. If the function fails, this buffer will contain an empty string.
      * 
      * The maximum size of this array is 4K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>lpcchBuffer</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>lpcchBuffer</i> parameter will receive the required size.
-     * @param {Pointer<UInt32>} lpcchBuffer A pointer to variable that specifies the size of the buffer pointed to by the <i>lpServiceName</i> parameter, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the service name, in <b>TCHARs</b>, excluding the null-terminating character.
+     * @param {Pointer<Integer>} lpcchBuffer A pointer to variable that specifies the size of the buffer pointed to by the <i>lpServiceName</i> parameter, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the service name, in <b>TCHARs</b>, excluding the null-terminating character.
      * 
      * If the buffer pointed to by <i>lpServiceName</i> is too small to contain the service name, the function stores no data in it. When the function returns, <i>lpcchBuffer</i> contains the size of the service name, excluding the NULL terminator.
      * @returns {BOOL} If the functions succeeds, the return value is nonzero.
@@ -2803,7 +2803,7 @@ class Services {
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @param {Pointer<UInt32>} lpcchBuffer A pointer to a variable that specifies the size of the buffer pointed to by <i>lpDisplayName</i>, in <b>TCHARs</b>. 
+     * @param {Pointer<Integer>} lpcchBuffer A pointer to a variable that specifies the size of the buffer pointed to by <i>lpDisplayName</i>, in <b>TCHARs</b>. 
      * 
      * On output, this variable receives the size of the service's display name, in characters, excluding the null-terminating character.
      * 
@@ -2845,7 +2845,7 @@ class Services {
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @param {Pointer<UInt32>} lpcchBuffer A pointer to a variable that specifies the size of the buffer pointed to by <i>lpDisplayName</i>, in <b>TCHARs</b>. 
+     * @param {Pointer<Integer>} lpcchBuffer A pointer to a variable that specifies the size of the buffer pointed to by <i>lpDisplayName</i>, in <b>TCHARs</b>. 
      * 
      * 
      * On output, this variable receives the size of the service's display name, in characters, excluding the null-terminating character.
@@ -3293,7 +3293,7 @@ class Services {
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServiceConfig</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store all the configuration information, if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store all the configuration information, if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -3367,7 +3367,7 @@ class Services {
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpServiceConfig</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store all the configuration information, if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store all the configuration information, if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -3441,7 +3441,7 @@ class Services {
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>pcbBytesNeeded</i> parameter receives the needed size.
      * @param {Integer} cbBufSize The size of the structure pointed to by the <i>lpBuffer</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes required to store the configuration information, if the function fails with  <b>ERROR_INSUFFICIENT_BUFFER</b>.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes required to store the configuration information, if the function fails with  <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3514,7 +3514,7 @@ class Services {
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>pcbBytesNeeded</i> parameter receives the needed size.
      * @param {Integer} cbBufSize The size of the structure pointed to by the <i>lpBuffer</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes required to store the configuration information, if the function fails with  <b>ERROR_INSUFFICIENT_BUFFER</b>.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes required to store the configuration information, if the function fails with  <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3584,7 +3584,7 @@ class Services {
      * @param {Pointer} lpLockStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_lock_statusa">QUERY_SERVICE_LOCK_STATUS</a> structure that receives the lock status of the specified database is returned, plus the strings to which its members point.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpLockStatus</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3654,7 +3654,7 @@ class Services {
      * @param {Pointer} lpLockStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_lock_statusa">QUERY_SERVICE_LOCK_STATUS</a> structure that receives the lock status of the specified database is returned, plus the strings to which its members point.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpLockStatus</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3728,7 +3728,7 @@ class Services {
      * @param {Pointer} lpSecurityDescriptor A pointer to a buffer that receives a copy of the security descriptor of the specified service object. The calling process must have the appropriate access to view the specified aspects of the  security descriptor of the object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpSecurityDescriptor</i> parameter, in bytes. The largest size allowed is 8 kilobytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the requested security descriptor information, if the function fails.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the requested security descriptor information, if the function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3876,7 +3876,7 @@ class Services {
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpBuffer</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store all status information, if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to store all status information, if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -5481,7 +5481,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} ppDynamicInfo A dynamic information buffer. If this parameter is valid, the callback function must free the          buffer after use with the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
+     * @param {Pointer<Pointer<Void>>} ppDynamicInfo A dynamic information buffer. If this parameter is valid, the callback function must free the          buffer after use with the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {BOOL} If the function succeeds, the return value is TRUE.
      * 
      * If the function fails, the return value is FALSE. When this happens the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function should be called to retrieve the error code.
@@ -5493,7 +5493,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", "ptr", hServiceStatus, "uint", dwInfoLevel, "ptr", ppDynamicInfo, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", "ptr", hServiceStatus, "uint", dwInfoLevel, "ptr*", ppDynamicInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5508,6 +5508,7 @@ class Services {
      * @param {Pointer<Void>} pCallbackContext 
      * @param {Pointer<PSC_NOTIFICATION_REGISTRATION>} pSubscription 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/Services/subscribeservicechangenotifications
      */
     static SubscribeServiceChangeNotifications(hService, eEventType, pCallback, pCallbackContext, pSubscription) {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
@@ -5520,6 +5521,7 @@ class Services {
      * 
      * @param {PSC_NOTIFICATION_REGISTRATION} pSubscription 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/Services/unsubscribeservicechangenotifications
      */
     static UnsubscribeServiceChangeNotifications(pSubscription) {
         DllCall("SecHost.dll\UnsubscribeServiceChangeNotifications", "ptr", pSubscription)
@@ -5565,7 +5567,7 @@ class Services {
      * @param {Integer} eDirectoryType A member of the [SERVICE_DIRECTORY_TYPE](./ne-winsvc-service_directory_type.md) enumeration that identifies the type of per-service directory path to retrieve.
      * @param {PWSTR} lpPathBuffer A caller-allocated buffer into which the path string will be copied. If NULL, the function call will fail with ERROR_INSUFFICIENT_BUFFER and return the required buffer length, in WCHARs, in *lpcchRequiredBufferLength*. If non-NULL, the length of the buffer should be specified in *cchPathBufferLength*. The path, if written, will be NULL terminated.
      * @param {Integer} cchPathBufferLength The length of the buffer supplied in *lpPathBuffer*, in units of WCHARS. This argument is ignored if *lpPathBuffer* is NULL.
-     * @param {Pointer<UInt32>} lpcchRequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.
+     * @param {Pointer<Integer>} lpcchRequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.
      * @returns {Integer} Returns ERROR_SUCCESS when all operations complete successfully and the NULL-terminated state path is written to lpPathBuffer. Returns ERROR_INSUFFICIENT_BUFFER is returned if *lpPathBuffer* was not large enough to contain the state path, or if *lpPathBuffer* was NULL. In this case the required buffer length in WCHARs is returned via *lpcchRequiredBufferLength*. If some other failure occurs, a Win32 error code is returned.
      * @see https://docs.microsoft.com/windows/win32/api//winsvc/nf-winsvc-getservicedirectory
      * @since windows10.0.19041
@@ -5585,6 +5587,7 @@ class Services {
      * @param {Integer} AccessMask 
      * @param {Pointer<HKEY>} ServiceStateKey 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedserviceregistrystatekey
      */
     static GetSharedServiceRegistryStateKey(ServiceHandle, StateType, AccessMask, ServiceStateKey) {
         ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
@@ -5599,8 +5602,9 @@ class Services {
      * @param {Integer} DirectoryType 
      * @param {PWSTR} PathBuffer 
      * @param {Integer} PathBufferLength 
-     * @param {Pointer<UInt32>} RequiredBufferLength 
+     * @param {Pointer<Integer>} RequiredBufferLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedservicedirectory
      */
     static GetSharedServiceDirectory(ServiceHandle, DirectoryType, PathBuffer, PathBufferLength, RequiredBufferLength) {
         PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer

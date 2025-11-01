@@ -69,7 +69,7 @@ class TTVALIDATIONTESTSPARAMS extends Win32Struct
 
     /**
      * Pointer to array of Unicode characters.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pusCharCodeSet {
         get => NumGet(this, 24, "ptr")

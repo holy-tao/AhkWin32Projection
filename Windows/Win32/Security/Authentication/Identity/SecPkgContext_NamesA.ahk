@@ -21,7 +21,7 @@ class SecPkgContext_NamesA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the user represented by the context. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> has set the SECPKG_FLAG_ACCEPT_WIN32_NAME flag, this name can be used in other Windows calls.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     sUserName {
         get => NumGet(this, 0, "ptr")

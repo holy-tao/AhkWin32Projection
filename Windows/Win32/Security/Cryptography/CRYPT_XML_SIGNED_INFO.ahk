@@ -68,7 +68,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
 
     /**
      * A pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_reference">CRYPT_XML_REFERENCE</a> structures   that contain information that is encoded in <b>Reference</b> elements.
-     * @type {Pointer<CRYPT_XML_REFERENCE>}
+     * @type {Pointer<Pointer<CRYPT_XML_REFERENCE>>}
      */
     rgpReference {
         get => NumGet(this, 88, "ptr")

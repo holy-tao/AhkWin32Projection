@@ -20,7 +20,7 @@ class CAFLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

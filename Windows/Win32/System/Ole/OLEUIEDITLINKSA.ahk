@@ -173,7 +173,7 @@ class OLEUIEDITLINKSA extends Win32Struct
 
     /**
      * Pointer to the container's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> Interface. The <b>Edit Links</b> dialog box uses this to allow the container to manipulate its links.
-     * @type {Pointer<IOleUILinkContainerA>}
+     * @type {IOleUILinkContainerA}
      */
     lpOleUILinkContainer {
         get => NumGet(this, 64, "ptr")

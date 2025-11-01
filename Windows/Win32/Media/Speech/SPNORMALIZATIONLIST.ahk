@@ -20,7 +20,7 @@ class SPNORMALIZATIONLIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     ppszzNormalizedList {
         get => NumGet(this, 8, "ptr")

@@ -24,7 +24,7 @@ class CRYPT_XML_REFERENCES extends Win32Struct
 
     /**
      * A pointer to an array of  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_reference">PCRYPT_XML_REFERENCE</a> structures.
-     * @type {Pointer<CRYPT_XML_REFERENCE>}
+     * @type {Pointer<Pointer<CRYPT_XML_REFERENCE>>}
      */
     rgpReference {
         get => NumGet(this, 8, "ptr")

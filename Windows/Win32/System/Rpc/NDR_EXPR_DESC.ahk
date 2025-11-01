@@ -12,7 +12,7 @@ class NDR_EXPR_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pOffset {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class NDR_EXPR_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pFormatExpr {
         get => NumGet(this, 8, "ptr")

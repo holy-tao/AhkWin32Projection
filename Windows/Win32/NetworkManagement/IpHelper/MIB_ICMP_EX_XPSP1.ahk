@@ -3,6 +3,8 @@
 #Include .\MIBICMPSTATS_EX_XPSP1.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_icmp_ex_xpsp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

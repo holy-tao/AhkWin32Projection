@@ -56,7 +56,7 @@ class WM_SYNCHRONISED_LYRICS extends Win32Struct
 
     /**
      * Pointer to a <b>BYTE</b> array containing the lyrics. You can break the lyrics into syllables, or divide them in some other way that suits the needs of your application. Each syllable or part is included as a null-terminated, wide-character string followed by a 32-bit time stamp. The unit of measurement for the time stamp is determined by the value of <b>bTimeStampFormat</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbLyrics {
         get => NumGet(this, 24, "ptr")

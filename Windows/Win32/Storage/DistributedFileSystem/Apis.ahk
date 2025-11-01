@@ -416,10 +416,10 @@ class DistributedFileSystem {
      *       If this parameter is <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. 
      *       For more information, see the following Remarks section. This parameter is ignored if you specify level 200 or 
      *       level 300.
-     * @param {Pointer<Byte>} Buffer Pointer to a buffer that receives the requested information structures. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to a buffer that receives the requested information structures. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
-     * @param {Pointer<UInt32>} EntriesRead Pointer to a value that receives the actual number of entries returned in the response.
-     * @param {Pointer<UInt32>} ResumeHandle Pointer to a value that contains a handle to be used for continuing an enumeration when more data is available than can be returned in a single call to this function. The handle should be zero on the first call and left unchanged for subsequent calls.  For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} EntriesRead Pointer to a value that receives the actual number of entries returned in the response.
+     * @param {Pointer<Integer>} ResumeHandle Pointer to a value that contains a handle to be used for continuing an enumeration when more data is available than can be returned in a single call to this function. The handle should be zero on the first call and left unchanged for subsequent calls.  For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If no more entries are available to be enumerated, the return value is <b>ERROR_NO_MORE_ITEMS</b>.
@@ -432,7 +432,7 @@ class DistributedFileSystem {
     static NetDfsEnum(DfsName, Level, PrefMaxLen, Buffer, EntriesRead, ResumeHandle) {
         DfsName := DfsName is String ? StrPtr(DfsName) : DfsName
 
-        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, "char*", Buffer, "uint*", EntriesRead, "uint*", ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, "ptr*", Buffer, "uint*", EntriesRead, "uint*", ResumeHandle, "uint")
         return result
     }
 
@@ -470,7 +470,7 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {PWSTR} ShareName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} Buffer Pointer to the address of a buffer that receives the requested information structures. The format of this 
+     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to the address of a buffer that receives the requested information structures. The format of this 
      *       data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the 
      *       system and must be freed using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, 
@@ -490,7 +490,7 @@ class DistributedFileSystem {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "char*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -529,7 +529,7 @@ class DistributedFileSystem {
      *       path relative to the share.  For example, "share1\mydir1\mydir2". This parameter is optional. For more 
      *       information, see the Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} Buffer Pointer to a buffer that specifies the data. The format of this data depends on the value of the 
+     * @param {Pointer<Integer>} Buffer Pointer to a buffer that specifies the data. The format of this data depends on the value of the 
      *       <i>Level</i> parameter. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -578,7 +578,7 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the name of the DFS root target or link target server. This parameter is optional.
      * @param {PWSTR} ShareName Pointer to a string that specifies the name of the share corresponding to the DFS root target or link target. This parameter is optional.
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} Buffer Pointer to the address of a buffer that receives the requested information. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to the address of a buffer that receives the requested information. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -594,7 +594,7 @@ class DistributedFileSystem {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "char*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -628,7 +628,7 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the DFS link target server name. This parameter is optional. For more information, see the Remarks section.
      * @param {PWSTR} ShareName Pointer to a string that specifies the DFS link target share name. This parameter is optional. For additional information, see the following Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} Buffer Pointer to a buffer that contains the information to be set. The format of this information depends on the value of the <i>Level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} Buffer Pointer to a buffer that contains the information to be set. The format of this information depends on the value of the <i>Level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
@@ -788,7 +788,7 @@ class DistributedFileSystem {
      * 
      * <div class="alert"><b>Note</b>  This buffer must be freed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor The size of the buffer that <i>ppSecurityDescriptor</i> points to, in bytes.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor The size of the buffer that <i>ppSecurityDescriptor</i> points to, in bytes.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -843,7 +843,7 @@ class DistributedFileSystem {
      * 
      * <div class="alert"><b>Note</b>  This buffer must be freed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor The size of the buffer that <i>ppSecurityDescriptor</i> points to, in bytes.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor The size of the buffer that <i>ppSecurityDescriptor</i> points to, in bytes.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -886,7 +886,7 @@ class DistributedFileSystem {
      * 
      * <div class="alert"><b>Note</b>  This buffer must be freed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor The size of <i>ppSecurityDescriptor</i>, in bytes.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor The size of <i>ppSecurityDescriptor</i>, in bytes.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -925,7 +925,7 @@ class DistributedFileSystem {
      * Determines the supported metadata version number.
      * @param {Integer} Origin A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lmdfs/ne-lmdfs-dfs_namespace_version_origin">DFS_NAMESPACE_VERSION_ORIGIN</a> enumeration value that specifies the origin of the DFS namespace version.
      * @param {PWSTR} pName A string that specifies the server name or domain name. If the value of the <i>Origin</i> parameter is <b>DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN</b>, this string must be an AD DS domain name. Otherwise, it must be a server name. This parameter is required and cannot be <b>NULL</b>.
-     * @param {Pointer<DFS_SUPPORTED_NAMESPACE_VERSION_INFO>} ppVersionInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_supported_namespace_version_info">DFS_SUPPORTED_NAMESPACE_VERSION_INFO</a> structure that receives the DFS metadata version number.
+     * @param {Pointer<Pointer<DFS_SUPPORTED_NAMESPACE_VERSION_INFO>>} ppVersionInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_supported_namespace_version_info">DFS_SUPPORTED_NAMESPACE_VERSION_INFO</a> structure that receives the DFS metadata version number.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -936,7 +936,7 @@ class DistributedFileSystem {
     static NetDfsGetSupportedNamespaceVersion(Origin, pName, ppVersionInfo) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetSupportedNamespaceVersion", "int", Origin, "ptr", pName, "ptr", ppVersionInfo, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsGetSupportedNamespaceVersion", "int", Origin, "ptr", pName, "ptr*", ppVersionInfo, "uint")
         return result
     }
 

@@ -44,7 +44,7 @@ class DDRAWI_DDRAWPALETTE_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkOuter {
         get => NumGet(this, 32, "ptr")

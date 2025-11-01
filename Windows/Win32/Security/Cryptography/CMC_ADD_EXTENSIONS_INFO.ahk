@@ -33,7 +33,7 @@ class CMC_ADD_EXTENSIONS_INFO extends Win32Struct
 
     /**
      * Array of certificate reference numbers.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rgdwCertReference {
         get => NumGet(this, 8, "ptr")

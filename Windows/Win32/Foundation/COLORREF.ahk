@@ -2,6 +2,8 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/gdi/colorref
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

@@ -26,7 +26,7 @@ class JET_INSTANCE_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     szInstanceName {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class JET_INSTANCE_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     szDatabaseFileName {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class JET_INSTANCE_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     szDatabaseDisplayName {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class JET_INSTANCE_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     szDatabaseSLVFileName_Obsolete {
         get => NumGet(this, 40, "ptr")

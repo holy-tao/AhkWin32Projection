@@ -57,7 +57,7 @@ class KERB_TICKET_LOGON extends Win32Struct
 
     /**
      * Required ticket for service "host" or the computer account <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">service principal name</a> (SPN) in the form of an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASN.1</a> encoded Kerberos ticket. Expired tickets are acceptable if the <b>Flags</b> member is set to KERB_LOGON_FLAG_ALLOW_EXPIRED_TICKET.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ServiceTicket {
         get => NumGet(this, 16, "ptr")
@@ -66,7 +66,7 @@ class KERB_TICKET_LOGON extends Win32Struct
 
     /**
      * Optional buffer containing an ASN.1-encoded KRB_CRED message containing the user's Kerberos ticket-granting ticket (KRBTGT) to be used to initialize the credential cache. The ticket must have the "forwarded" flag set in the ticket options. The KRB_CRED message is defined in Section 5.8 of  Internet <a href="http://www.ietf.org/rfc/rfc4120.txt">RFC 4120</a>. For more information, see <a href="https://www.ietf.org/">http://www.ietf.org</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     TicketGrantingTicket {
         get => NumGet(this, 24, "ptr")

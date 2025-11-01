@@ -2,6 +2,8 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-decimal~r1
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

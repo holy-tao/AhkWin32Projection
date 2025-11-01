@@ -211,7 +211,7 @@ class AM_SAMPLE2_PROPERTIES extends Win32Struct
 
     /**
      * Pointer to the sample buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbBuffer {
         get => NumGet(this, 48, "ptr")

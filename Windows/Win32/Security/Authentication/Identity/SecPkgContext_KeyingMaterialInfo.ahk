@@ -44,7 +44,7 @@ class SecPkgContext_KeyingMaterialInfo extends Win32Struct
 
     /**
      * The pointer to the application context. Must be <b>NULL</b> if <i>cbContextValue</i> is zero.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbContextValue {
         get => NumGet(this, 24, "ptr")

@@ -33,7 +33,7 @@ class WSD_HANDLER_CONTEXT extends Win32Struct
 
     /**
      * The value supplied by the <i>unknownContext</i> parameter of the IWSDSession::AddPort, IWSDSession::RegisterForIncomingRequests, or IWSDSession::RegisterForIncomingResponse methods.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     Unknown {
         get => NumGet(this, 16, "ptr")

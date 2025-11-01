@@ -29,7 +29,7 @@ class RECO_LATTICE_PROPERTIES extends Win32Struct
 
     /**
      * An array of pointers to properties.
-     * @type {Pointer<RECO_LATTICE_PROPERTY>}
+     * @type {Pointer<Pointer<RECO_LATTICE_PROPERTY>>}
      */
     apProps {
         get => NumGet(this, 8, "ptr")

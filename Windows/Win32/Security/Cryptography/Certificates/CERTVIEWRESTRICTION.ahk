@@ -36,7 +36,7 @@ class CERTVIEWRESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbValue {
         get => NumGet(this, 16, "ptr")

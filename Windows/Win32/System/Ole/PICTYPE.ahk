@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/com/pictype-constants
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -174,7 +174,7 @@ class OLEUICHANGESOURCEW extends Win32Struct
 
     /**
      * Pointer to the container's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface, used to validate the link source. The <b>Edit Links</b> dialog box uses this to allow the container to manipulate its links.
-     * @type {Pointer<IOleUILinkContainerW>}
+     * @type {IOleUILinkContainerW}
      */
     lpOleUILinkContainer {
         get => NumGet(this, 88, "ptr")

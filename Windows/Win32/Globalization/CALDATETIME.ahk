@@ -2,6 +2,8 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

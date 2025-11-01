@@ -4,6 +4,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configure-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

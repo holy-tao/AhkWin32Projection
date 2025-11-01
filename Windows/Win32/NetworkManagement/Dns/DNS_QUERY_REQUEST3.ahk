@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_request3
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

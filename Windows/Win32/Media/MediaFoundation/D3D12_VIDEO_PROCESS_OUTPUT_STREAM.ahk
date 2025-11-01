@@ -18,7 +18,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM extends Win32Struct
 
     /**
      * A pointer to a [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the output surfaces for the video process command.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pTexture2D {
         get => NumGet(this, 0, "ptr")

@@ -33,7 +33,7 @@ class DD_CREATESURFACEDATA extends Win32Struct
 
     /**
      * Points to a list of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structures describing the surface objects created by the driver. On Microsoft Windows 2000 and later, there is usually only one entry in this array. However, if the driver supports the Windows 98/Me-style surface creation techniques using <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> with GUID_NTPrivateDriverCaps, and the driver sets the DDHAL_PRIVATECAP_ATOMICSURFACECREATION flag, the member contains a list of surfaces (usually more than one).
-     * @type {Pointer<DD_SURFACE_LOCAL>}
+     * @type {Pointer<Pointer<DD_SURFACE_LOCAL>>}
      */
     lplpSList {
         get => NumGet(this, 16, "ptr")

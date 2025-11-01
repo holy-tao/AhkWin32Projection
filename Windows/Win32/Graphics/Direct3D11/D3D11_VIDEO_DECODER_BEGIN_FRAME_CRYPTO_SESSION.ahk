@@ -20,7 +20,7 @@ class D3D11_VIDEO_DECODER_BEGIN_FRAME_CRYPTO_SESSION extends Win32Struct
 
     /**
      * A pointer to the ID3D11CryptoSession interface.  To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9video-createcryptosession">ID3D11VideoDevice1::CreateCryptoSession</a>.
-     * @type {Pointer<ID3D11CryptoSession>}
+     * @type {ID3D11CryptoSession}
      */
     pCryptoSession {
         get => NumGet(this, 0, "ptr")

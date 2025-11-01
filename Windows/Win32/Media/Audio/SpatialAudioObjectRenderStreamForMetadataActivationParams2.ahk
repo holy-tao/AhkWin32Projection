@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/ns-spatialaudiometadata-spatialaudioobjectrenderstreamformetadataactivationparams2
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -88,7 +90,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
     }
 
     /**
-     * @type {Pointer<ISpatialAudioObjectRenderStreamNotify>}
+     * @type {ISpatialAudioObjectRenderStreamNotify}
      */
     NotifyObject {
         get => NumGet(this, 56, "ptr")

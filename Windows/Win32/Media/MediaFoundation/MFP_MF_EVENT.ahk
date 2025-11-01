@@ -106,7 +106,7 @@ class MFP_MF_EVENT extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface of the Media Foundation event.
-     * @type {Pointer<IMFMediaEvent>}
+     * @type {IMFMediaEvent}
      */
     pMFMediaEvent {
         get => NumGet(this, 40, "ptr")
@@ -115,7 +115,7 @@ class MFP_MF_EVENT extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaitem">IMFPMediaItem</a> interface of the current media item.
-     * @type {Pointer<IMFPMediaItem>}
+     * @type {IMFPMediaItem}
      */
     pMediaItem {
         get => NumGet(this, 48, "ptr")

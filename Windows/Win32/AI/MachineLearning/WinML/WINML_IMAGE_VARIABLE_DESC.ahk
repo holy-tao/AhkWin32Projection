@@ -33,7 +33,7 @@ class WINML_IMAGE_VARIABLE_DESC extends Win32Struct
 
     /**
      * A pointer to the shape of the image variable.
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pShape {
         get => NumGet(this, 8, "ptr")

@@ -80,7 +80,7 @@ class SPPARSEINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSREnginePrivateData {
         get => NumGet(this, 56, "ptr")

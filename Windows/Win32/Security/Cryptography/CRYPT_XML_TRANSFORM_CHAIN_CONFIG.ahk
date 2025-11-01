@@ -33,7 +33,7 @@ class CRYPT_XML_TRANSFORM_CHAIN_CONFIG extends Win32Struct
 
     /**
      * A pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_transform_info">CRYPT_XML_TRANSFORM_INFO</a> structures that contain the transform parameters.
-     * @type {Pointer<CRYPT_XML_TRANSFORM_INFO>}
+     * @type {Pointer<Pointer<CRYPT_XML_TRANSFORM_INFO>>}
      */
     rgpTransformInfo {
         get => NumGet(this, 8, "ptr")

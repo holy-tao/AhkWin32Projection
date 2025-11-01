@@ -3,6 +3,8 @@
 #Include .\ShellCommandInfo.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-uiinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

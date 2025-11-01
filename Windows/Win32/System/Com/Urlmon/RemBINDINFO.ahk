@@ -104,7 +104,7 @@ class RemBINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 72, "ptr")

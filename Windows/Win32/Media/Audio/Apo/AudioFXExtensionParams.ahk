@@ -33,7 +33,7 @@ class AudioFXExtensionParams extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.
-     * @type {Pointer<IPropertyStore>}
+     * @type {IPropertyStore}
      */
     pFxProperties {
         get => NumGet(this, 16, "ptr")

@@ -20,7 +20,7 @@ class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MAP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSegmentsMap {
         get => NumGet(this, 8, "ptr")

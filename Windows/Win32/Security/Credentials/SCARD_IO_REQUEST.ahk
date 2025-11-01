@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecAuthN/scard-io-request
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

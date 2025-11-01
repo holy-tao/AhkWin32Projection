@@ -39,7 +39,7 @@ class UiaCacheRequest extends Win32Struct
      * Type: <b>PROPERTYID*</b>
      * 
      * The address of an array of identifiers for properties to cache. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pProperties {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class UiaCacheRequest extends Win32Struct
      * Type: <b>PATTERNID*</b>
      * 
      * The address of an array of identifiers for control patterns to cache. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pPatterns {
         get => NumGet(this, 32, "ptr")

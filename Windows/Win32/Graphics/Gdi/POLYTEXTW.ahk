@@ -79,7 +79,7 @@ class POLYTEXTW extends Win32Struct
 
     /**
      * Pointer to an array containing the width value for each character in the string.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pdx {
         get => NumGet(this, 48, "ptr")

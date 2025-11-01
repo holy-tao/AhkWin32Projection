@@ -34,7 +34,7 @@ class CRL_CONTEXT extends Win32Struct
 
     /**
      * A pointer to the encoded CRL information.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCrlEncoded {
         get => NumGet(this, 8, "ptr")

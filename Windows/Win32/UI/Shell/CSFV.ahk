@@ -28,7 +28,7 @@ class CSFV extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> object for which to create the view.
-     * @type {Pointer<IShellFolder>}
+     * @type {IShellFolder}
      */
     pshf {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class CSFV extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
      * A pointer to the parent <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface. This parameter can be <b>NULL</b>.
-     * @type {Pointer<IShellView>}
+     * @type {IShellView}
      */
     psvOuter {
         get => NumGet(this, 16, "ptr")

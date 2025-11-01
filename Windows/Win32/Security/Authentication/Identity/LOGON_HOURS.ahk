@@ -20,7 +20,7 @@ class LOGON_HOURS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     LogonHours {
         get => NumGet(this, 8, "ptr")

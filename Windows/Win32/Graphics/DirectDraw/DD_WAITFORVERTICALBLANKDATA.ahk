@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_waitforverticalblankdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

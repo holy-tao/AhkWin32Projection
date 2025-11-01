@@ -119,7 +119,7 @@ class KERB_CERTIFICATE_LOGON extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/kerb-smartcard-csp-info">KERB_SMARTCARD_CSP_INFO</a> structure that contains information about the smart card <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) ) or a pointer to a marshaled <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-kerb_certificate_info">KERB_CERTIFICATE_INFO</a> structure when updating certificate credentials.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     CspData {
         get => NumGet(this, 64, "ptr")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sapptimearray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class SAppTimeArray extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     lpat {
         get => NumGet(this, 8, "ptr")

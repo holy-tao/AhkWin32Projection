@@ -24,7 +24,7 @@ class CRYPT_INTEGER_BLOB extends Win32Struct
 
     /**
      * A pointer to a block of data bytes.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

@@ -67,7 +67,7 @@ class PKU2U_CERTIFICATE_S4U_LOGON extends Win32Struct
 
     /**
      * The certificate data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Certificate {
         get => NumGet(this, 48, "ptr")

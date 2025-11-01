@@ -51,7 +51,7 @@ class CRYPT_PROVIDER_REF extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_property_ref">CRYPT_PROPERTY_REF</a> structure pointers that contain the properties for this algorithm or function. The <b>cProperties</b> member contains the number of elements in this array.
-     * @type {Pointer<CRYPT_PROPERTY_REF>}
+     * @type {Pointer<Pointer<CRYPT_PROPERTY_REF>>}
      */
     rgpProperties {
         get => NumGet(this, 32, "ptr")

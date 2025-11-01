@@ -37,7 +37,7 @@ class CLUSPROP_BUFFER_HELPER extends Win32Struct
 
     /**
      * Pointer to a buffer containing an array of bytes.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pb {
         get => NumGet(this, 0, "ptr")
@@ -46,7 +46,7 @@ class CLUSPROP_BUFFER_HELPER extends Win32Struct
 
     /**
      * Pointer to a buffer containing an array of <b>WORD</b> values.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pw {
         get => NumGet(this, 0, "ptr")
@@ -55,7 +55,7 @@ class CLUSPROP_BUFFER_HELPER extends Win32Struct
 
     /**
      * Pointer to a buffer containing an array of <b>DWORD</b> values.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pdw {
         get => NumGet(this, 0, "ptr")
@@ -64,7 +64,7 @@ class CLUSPROP_BUFFER_HELPER extends Win32Struct
 
     /**
      * Pointer to a buffer containing an array of signed <b>long</b> values.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pl {
         get => NumGet(this, 0, "ptr")

@@ -3,6 +3,8 @@
 #Include .\IN6_ADDR.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_old
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

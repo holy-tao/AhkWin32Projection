@@ -22,7 +22,7 @@ class MFMediaKeyStatus extends Win32Struct
 
     /**
      * A byte array representing the identifier of a session key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbKeyId {
         get => NumGet(this, 0, "ptr")

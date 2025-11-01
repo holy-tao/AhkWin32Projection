@@ -15,7 +15,7 @@ class DMO_OUTPUT_DATA_BUFFER extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nn-mediaobj-imediabuffer">IMediaBuffer</a> interface of a buffer allocated by the application.
-     * @type {Pointer<IMediaBuffer>}
+     * @type {IMediaBuffer}
      */
     pBuffer {
         get => NumGet(this, 0, "ptr")

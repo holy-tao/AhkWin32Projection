@@ -33,7 +33,7 @@ class WINML_TENSOR_VARIABLE_DESC extends Win32Struct
 
     /**
      * The shape of the tensor variable.
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pShape {
         get => NumGet(this, 8, "ptr")

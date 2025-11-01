@@ -327,7 +327,7 @@ class Catalog {
      * </tr>
      * </table>
      * @param {Integer} cbData A value that specifies the number of bytes in the <i>pbData</i> buffer.
-     * @param {Pointer<Byte>} pbData A pointer to a memory buffer that contains the attribute value.
+     * @param {Pointer<Integer>} pbData A pointer to a memory buffer that contains the attribute value.
      * @returns {Pointer<CRYPTCATATTRIBUTE>} A pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the catalog attribute. The caller must not free this pointer or any of its members.
      * 
      * 
@@ -505,7 +505,7 @@ class Catalog {
      * @param {Pointer<Guid>} pgSubjectType A GUID for the subject type of the member.
      * @param {Integer} dwCertVersion A value that specifies the certificate version.
      * @param {Integer} cbSIPIndirectData A value that specifies the number of bytes in the <i>pbSIPIndirectData</i> buffer.
-     * @param {Pointer<Byte>} pbSIPIndirectData A pointer to  a memory buffer for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">subject interface package</a> (SIP)-indirect data.
+     * @param {Pointer<Integer>} pbSIPIndirectData A pointer to  a memory buffer for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">subject interface package</a> (SIP)-indirect data.
      * @returns {Pointer<CRYPTCATMEMBER>} A pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that contains the assigned member. The caller must not free this pointer or any of its members.
      * 
      * 
@@ -649,7 +649,7 @@ class Catalog {
      * </tr>
      * </table>
      * @param {Integer} cbData A value that specifies the number of bytes in the <i>pbData</i> buffer.
-     * @param {Pointer<Byte>} pbData A pointer to a memory buffer that contains the attribute value.
+     * @param {Pointer<Integer>} pbData A pointer to a memory buffer that contains the attribute value.
      * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the assigned attribute. The caller must not free this pointer or any of its members.
      * 
      * 
@@ -816,7 +816,7 @@ class Catalog {
 
     /**
      * Acquires a handle to a catalog administrator context.
-     * @param {Pointer<IntPtr>} phCatAdmin A pointer to the catalog administrator context handle that is assigned by this function. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminreleasecontext">CryptCATAdminReleaseContext</a> function.
+     * @param {Pointer<Pointer>} phCatAdmin A pointer to the catalog administrator context handle that is assigned by this function. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminreleasecontext">CryptCATAdminReleaseContext</a> function.
      * @param {Pointer<Guid>} pgSubsystem A pointer to the GUID that identifies the subsystem. DRIVER_ACTION_VERIFY represents the subsystem for operating system components and third party drivers. This is the subsystem used by most implementations.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
      * 
@@ -838,7 +838,7 @@ class Catalog {
 
     /**
      * Acquires a handle to a catalog administrator context for a given hash algorithm and hash policy.
-     * @param {Pointer<IntPtr>} phCatAdmin A pointer to the catalog administrator context handle that is assigned by this function. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminreleasecontext">CryptCATAdminReleaseContext</a> function.
+     * @param {Pointer<Pointer>} phCatAdmin A pointer to the catalog administrator context handle that is assigned by this function. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminreleasecontext">CryptCATAdminReleaseContext</a> function.
      * @param {Pointer<Guid>} pgSubsystem A pointer to the <b>GUID</b> that identifies the subsystem. DRIVER_ACTION_VERIFY represents the subsystem for operating system components and third party drivers. This is the subsystem used by most implementations.
      * @param {PWSTR} pwszHashAlgorithm Optional null-terminated Unicode string that specifies the name of the hash algorithm to use when calculating and verifying hashes. This value can be <b>NULL</b>. If it is <b>NULL</b>, the default hashing algorithm may be chosen, depending on the value you set for the <i>pStrongHashPolicy</i> parameter. The default algorithm in Windows 8 is SHA1. The default may change in future Windows versions. For more information, see Remarks.
      * @param {Pointer<CERT_STRONG_SIGN_PARA>} pStrongHashPolicy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_strong_sign_para">CERT_STRONG_SIGN_PARA</a> structure that contains the parameters used to check for strong signatures. The function chooses the lowest common hashing algorithm that satisfies the specified policy and the algorithm specified by the <i>pwszHashAlgorithm</i> parameter or the system default algorithm (if no algorithm is specified).
@@ -939,7 +939,7 @@ class Catalog {
      * @param {Pointer} hCatAdmin A handle to a catalog administrator context previously assigned by the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminacquirecontext">CryptCATAdminAcquireContext</a> function.
      * @param {Pointer} pbHash A pointer to the buffer that contains the hash retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle">CryptCATAdminCalcHashFromFileHandle</a>.
      * @param {Integer} cbHash Number of bytes in the buffer allocated for <i>pbHash</i>.
-     * @param {Pointer<IntPtr>} phPrevCatInfo A pointer to the handle to the previous catalog context or <b>NULL</b>,  if an enumeration is re-queried. If <b>NULL</b> is passed in for this parameter, then the caller gets information only for the first catalog that contains the hash; an enumeration is not made. If <i>phPrevCatInfo</i> contains <b>NULL</b>, then an enumeration of the catalogs that contain the hash is started, and subsequent calls to <b>CryptCATAdminEnumCatalogFromHash</b> must set <i>phPrevCatInfo</i> to the return value from the previous call.
+     * @param {Pointer<Pointer>} phPrevCatInfo A pointer to the handle to the previous catalog context or <b>NULL</b>,  if an enumeration is re-queried. If <b>NULL</b> is passed in for this parameter, then the caller gets information only for the first catalog that contains the hash; an enumeration is not made. If <i>phPrevCatInfo</i> contains <b>NULL</b>, then an enumeration of the catalogs that contain the hash is started, and subsequent calls to <b>CryptCATAdminEnumCatalogFromHash</b> must set <i>phPrevCatInfo</i> to the return value from the previous call.
      * @returns {Pointer} The return value is a handle to the catalog context or <b>NULL</b>,  if there are no more catalogs to enumerate or retrieve.
      * 
      * For extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. For a complete list of error codes provided by the operating system, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
@@ -961,7 +961,7 @@ class Catalog {
     /**
      * Calculates the hash for a file.
      * @param {HANDLE} hFile A handle to the file whose hash is being calculated. This parameter cannot be <b>NULL</b> and must be a valid file handle.
-     * @param {Pointer<UInt32>} pcbHash A pointer to a <b>DWORD</b> variable that contains the number of bytes in <i>pbHash</i>. Upon input, set <i>pcbHash</i>  to the number of bytes allocated for <i>pbHash</i>. Upon return, <i>pcbHash</i> contains the number of returned bytes in  <i>pbHash</i>. If <i>pbHash</i> is passed as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>.
+     * @param {Pointer<Integer>} pcbHash A pointer to a <b>DWORD</b> variable that contains the number of bytes in <i>pbHash</i>. Upon input, set <i>pcbHash</i>  to the number of bytes allocated for <i>pbHash</i>. Upon return, <i>pcbHash</i> contains the number of returned bytes in  <i>pbHash</i>. If <i>pbHash</i> is passed as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>.
      * @param {Pointer} pbHash A pointer to a <b>BYTE</b> buffer that receives the hash. If this parameter is passed in as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>, and a subsequent call can be made to retrieve the hash.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If <b>FALSE</b> is returned, call the <b>GetLastError</b> function to determine the reason for failure. If not enough memory has been allocated for <i>pbHash</i>, the <b>CryptCATAdminCalcHashFromFileHandle</b> function will set the last error to ERROR_INSUFFICIENT_BUFFER.
      * @see https://docs.microsoft.com/windows/win32/api//mscat/nf-mscat-cryptcatadmincalchashfromfilehandle
@@ -980,7 +980,7 @@ class Catalog {
      * Calculates the hash for a file by using the specified algorithm.
      * @param {Pointer} hCatAdmin Handle of an open catalog administrator context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminacquirecontext2">CryptCATAdminAcquireContext2</a>.
      * @param {HANDLE} hFile A handle to the file whose hash is being calculated. This parameter cannot be <b>NULL</b> and must be a valid file handle.
-     * @param {Pointer<UInt32>} pcbHash Pointer to a <b>DWORD</b> variable that contains the number of bytes in the <i>pbHash</i> parameter. Upon input, set <i>pcbHash</i>  to the number of bytes allocated for <i>pbHash</i>. Upon return, <i>pcbHash</i> contains the number of returned bytes in  <i>pbHash</i>. If <i>pbHash</i> is set to <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>.
+     * @param {Pointer<Integer>} pcbHash Pointer to a <b>DWORD</b> variable that contains the number of bytes in the <i>pbHash</i> parameter. Upon input, set <i>pcbHash</i>  to the number of bytes allocated for <i>pbHash</i>. Upon return, <i>pcbHash</i> contains the number of returned bytes in  <i>pbHash</i>. If <i>pbHash</i> is set to <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>.
      * @param {Pointer} pbHash Pointer to a <b>BYTE</b> buffer that receives the hash. If you set this parameter  to <b>NULL</b>, then <i>pcbHash</i> will contain the number of bytes to allocate for  <i>pbHash</i>, and a subsequent call can be made to retrieve the hash.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
@@ -1160,15 +1160,16 @@ class Catalog {
      * @param {Pointer<CRYPTCATCDF>} pCDF 
      * @param {PWSTR} pwszPrevCDFTag 
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
-     * @param {Pointer<CRYPTCATMEMBER>} ppMember 
+     * @param {Pointer<Pointer<CRYPTCATMEMBER>>} ppMember 
      * @param {BOOL} fContinueOnError 
      * @param {Pointer<Void>} pvReserved 
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenummembersbycdftagex
      */
     static CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppMember, fContinueOnError, pvReserved) {
         pwszPrevCDFTag := pwszPrevCDFTag is String ? StrPtr(pwszPrevCDFTag) : pwszPrevCDFTag
 
-        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", "ptr", pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, "ptr", ppMember, "int", fContinueOnError, "ptr", pvReserved, "char*")
+        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", "ptr", pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, "ptr*", ppMember, "int", fContinueOnError, "ptr", pvReserved, "char*")
         return result
     }
 
@@ -1180,6 +1181,7 @@ class Catalog {
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr 
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
      * @returns {Pointer<CRYPTCATATTRIBUTE>} 
+     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenumattributeswithcdftag
      */
     static CryptCATCDFEnumAttributesWithCDFTag(pCDF, pwszMemberTag, pMember, pPrevAttr, pfnParseError) {
         pwszMemberTag := pwszMemberTag is String ? StrPtr(pwszMemberTag) : pwszMemberTag

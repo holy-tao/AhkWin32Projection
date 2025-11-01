@@ -8043,6 +8043,7 @@ class Shell {
      * 
      * @param {BOOL} fRestoreCache 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/shell/fileiconinit
      */
     static FileIconInit(fRestoreCache) {
         ; This method's EntryPoint is an ordinal, so we need to load the dll manually
@@ -8148,7 +8149,7 @@ class Shell {
      * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the profiles directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * Specifies the size of the <i>lpProfilesDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8178,7 +8179,7 @@ class Shell {
      * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the profiles directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * Specifies the size of the <i>lpProfilesDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8205,7 +8206,7 @@ class Shell {
 
     /**
      * Retrieves the type of profile loaded for the current user.
-     * @param {Pointer<UInt32>} dwFlags Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} dwFlags Type: <b>DWORD*</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8362,7 +8363,7 @@ class Shell {
      * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the default user's profile directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * Specifies the size of the <i>lpProfileDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8392,7 +8393,7 @@ class Shell {
      * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the default user's profile directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * Specifies the size of the <i>lpProfileDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8422,7 +8423,7 @@ class Shell {
      * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path. Set this value to <b>NULL</b> to determine the required size of the buffer, including the terminating null character.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * A pointer to the size of the <i>lpProfileDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8452,7 +8453,7 @@ class Shell {
      * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path. Set this value to <b>NULL</b> to determine the required size of the buffer, including the terminating null character.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * A pointer to the size of the <i>lpProfileDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8485,7 +8486,7 @@ class Shell {
      * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the specified user's profile directory.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * Specifies the size of the <i>lpProfileDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8519,7 +8520,7 @@ class Shell {
      * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the specified user's profile directory.
-     * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpcchSize Type: <b>LPDWORD</b>
      * 
      * Specifies the size of the <i>lpProfileDir</i> buffer, in <b>TCHARs</b>.
      *     
@@ -8677,7 +8678,7 @@ class Shell {
      * @param {Pointer} uIdSubclass Type: <b>UINT_PTR</b>
      * 
      * <b>UINT_PTR</b> subclass ID. This ID and the callback pointer uniquely identify this subclass callback. Note: On 64-bit versions of Windows this is a 64-bit value.
-     * @param {Pointer<UIntPtr>} pdwRefData Type: <b>DWORD_PTR*</b>
+     * @param {Pointer<Pointer>} pdwRefData Type: <b>DWORD_PTR*</b>
      * 
      * A pointer to a <b>DWORD</b> which will return the reference data. Note: On 64-bit versions of Windows, pointers are 64-bit values.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -8951,7 +8952,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the requested interface.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
@@ -8962,7 +8963,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateItemFromIDList(pidl, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8974,7 +8975,7 @@ class Shell {
      * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a display name.
-     * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * Optional. A pointer to a bind context used to pass parameters as inputs and outputs to the parsing function. These passed parameters are often specific to the data source and are documented by the data source owners. For example, the file system data source accepts the name being parsed (as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure), using the <a href="https://docs.microsoft.com/windows/desktop/shell/str-constants">STR_FILE_SYS_BIND_DATA</a> bind context parameter.
      * 
@@ -8987,7 +8988,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically <b>IID_IShellItem</b> or <b>IID_IShellItem2</b>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -8999,7 +9000,7 @@ class Shell {
     static SHCreateItemFromParsingName(pszPath, pbc, riid, ppv) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9011,7 +9012,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlParent Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The IDList of the parent folder of the item being created; the IDList of <i>psfParent</i>. This parameter can be <b>NULL</b>, if <i>psfParent</i> is specified.
-     * @param {Pointer<IShellFolder>} psfParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psfParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface that specifies the shell data source of the child item specified by the <i>pidl</i>.This parameter can be <b>NULL</b>, if <i>pidlParent</i> is specified.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -9020,7 +9021,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to an interface ID.
-     * @param {Pointer<Void>} ppvItem Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvItem Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
@@ -9031,7 +9032,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateItemWithParent(pidlParent, psfParent, pidl, riid, ppvItem) {
-        result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, "ptr", ppvItem, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, "ptr*", ppvItem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9040,19 +9041,19 @@ class Shell {
 
     /**
      * Creates and initializes a Shell item object from a relative parsing name.
-     * @param {Pointer<IShellItem>} psiParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psiParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the parent Shell item.
      * @param {PWSTR} pszName Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that specifies a display name that is relative to the <i>psiParent</i>.
-     * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * A pointer to a bind context that controls the parsing operation. This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to an interface ID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will usually be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
@@ -9065,7 +9066,7 @@ class Shell {
     static SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid, ppv) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9086,7 +9087,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface that represents the item, retrieved through <i>ppv</i>. This value is typically IID_IShellItem or IID_IShellItem2.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9098,7 +9099,7 @@ class Shell {
     static SHCreateItemInKnownFolder(kfid, dwKFFlags, pszItem, riid, ppv) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9107,10 +9108,10 @@ class Shell {
 
     /**
      * Retrieves the pointer to an item identifier list (PIDL) of an object.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the object from which to get the PIDL.
-     * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this function returns, contains a pointer to the PIDL of the given object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9120,7 +9121,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHGetIDListFromObject(punk, ppidl) {
-        result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, "ptr", ppidl, "int")
+        result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, "ptr*", ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9129,13 +9130,13 @@ class Shell {
 
     /**
      * Retrieves an IShellItem for an object.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the object.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or a related interface.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9145,7 +9146,7 @@ class Shell {
      * @since windows6.1
      */
     static SHGetItemFromObject(punk, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9179,7 +9180,7 @@ class Shell {
 
     /**
      * Creates an IShellItem or related object based on an item specified by an IDataObject.
-     * @param {Pointer<IDataObject>} pdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to the source <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> instance.
      * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-dataobj_get_item_flags">DATAOBJ_GET_ITEM_FLAGS</a></b>
@@ -9188,7 +9189,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItem.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9198,7 +9199,7 @@ class Shell {
      * @since windows6.1
      */
     static SHGetItemFromDataObject(pdtobj, dwFlags, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9210,13 +9211,13 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlParent Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The ID list of the parent folder of the items specified in <i>ppidl</i>. If <i>psf</i> is specified, this parameter can be <b>NULL</b>. If this <i>pidlParent</i> is not specified, it is computed from the <i>psf</i> parameter using <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ipersistfolder2">IPersistFolder2</a>.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * The Shell data source object that is the parent of the child items specified in <i>ppidl</i>. If <i>pidlParent</i> is specified, this parameter can be <b>NULL</b>.
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * The number of elements in the array specified by <i>ppidl</i>.
-     * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PCUITEMID_CHILD_ARRAY</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PCUITEMID_CHILD_ARRAY</b>
      * 
      * The list of child item IDs for which the array is being created. This value can be <b>NULL</b>.
      * @param {Pointer<IShellItemArray>} ppsiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
@@ -9229,7 +9230,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArray(pidlParent, psf, cidl, ppidl, ppsiItemArray) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, "ptr", ppidl, "ptr", ppsiItemArray, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, "ptr*", ppidl, "ptr*", ppsiItemArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9238,13 +9239,13 @@ class Shell {
 
     /**
      * Creates a Shell item array object from a data object.
-     * @param {Pointer<IDataObject>} pdo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9254,7 +9255,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromDataObject(pdo, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9266,7 +9267,7 @@ class Shell {
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * The number of elements in the array.
-     * @param {Pointer<ITEMIDLIST>} rgpidl Type: <b>PCIDLIST_ABSOLUTE_ARRAY</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} rgpidl Type: <b>PCIDLIST_ABSOLUTE_ARRAY</b>
      * 
      * A list of <i>cidl</i> constant pointers to <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures.
      * @param {Pointer<IShellItemArray>} ppsiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
@@ -9279,7 +9280,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromIDLists(cidl, rgpidl, ppsiItemArray) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, "ptr", rgpidl, "ptr", ppsiItemArray, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, "ptr*", rgpidl, "ptr*", ppsiItemArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9288,13 +9289,13 @@ class Shell {
 
     /**
      * Creates an array of one element from a single Shell item.
-     * @param {Pointer<IShellItem>} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the item.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItemArray.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9304,7 +9305,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromShellItem(psi, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9316,7 +9317,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the requested interface.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration">IApplicationAssociationRegistration</a> object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9326,7 +9327,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateAssociationRegistration(riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9338,7 +9339,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to interface ID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * The address of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idefaultextracticoninit">IDefaultExtractIconInit</a> interface pointer.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9348,7 +9349,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateDefaultExtractIcon(riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9397,7 +9398,7 @@ class Shell {
 
     /**
      * Retrieves the temporary property for the given item. A temporary property is a read/write store that holds properties only for the lifetime of the IShellItem object, rather than being persisted back into the item.
-     * @param {Pointer<IShellItem>} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the item for which the temporary property is to be retrieved.
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
@@ -9422,7 +9423,7 @@ class Shell {
 
     /**
      * Sets a temporary property for the specified item. A temporary property is kept in a read/write store that holds properties only for the lifetime of the IShellItem object, instead of writing them back into the item.
-     * @param {Pointer<IShellItem>} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the item on which the temporary property is to be set.
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
@@ -9447,7 +9448,7 @@ class Shell {
 
     /**
      * Shows the library management dialog box, which enables users to manage the library folders and default save location.
-     * @param {Pointer<IShellItem>} psiLibrary Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psiLibrary Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the library that is to be managed.
      * @param {HWND} hwndOwner Type: <b>HWND</b>
@@ -9482,7 +9483,7 @@ class Shell {
 
     /**
      * Resolves all locations in a library, even those locations that have been moved or renamed.
-     * @param {Pointer<IShellItem>} psiLibrary Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psiLibrary Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the library.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9517,7 +9518,7 @@ class Shell {
     static SHAssocEnumHandlers(pszExtra, afFilter, ppEnumHandler) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        result := DllCall("SHELL32.dll\SHAssocEnumHandlers", "ptr", pszExtra, "int", afFilter, "ptr", ppEnumHandler, "int")
+        result := DllCall("SHELL32.dll\SHAssocEnumHandlers", "ptr", pszExtra, "int", afFilter, "ptr*", ppEnumHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9532,7 +9533,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>enumHandlers</i>, typically IID_IEnumAssocHandlers.
-     * @param {Pointer<Void>} enumHandlers Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} enumHandlers Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9544,7 +9545,7 @@ class Shell {
     static SHAssocEnumHandlersForProtocolByApplication(protocol, riid, enumHandlers) {
         protocol := protocol is String ? StrPtr(protocol) : protocol
 
-        result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, "ptr", enumHandlers, "int")
+        result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, "ptr*", enumHandlers, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9553,7 +9554,7 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMONITOR>} param2 
      * @returns {Integer} 
@@ -9565,10 +9566,10 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HMONITOR_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMONITOR_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -9577,10 +9578,10 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HMONITOR_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -9589,7 +9590,7 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMONITOR>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9599,7 +9600,7 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMONITOR>} param2 
      * @returns {Integer} 
@@ -9611,10 +9612,10 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HMONITOR_UserMarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMONITOR_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -9623,10 +9624,10 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMONITOR>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HMONITOR_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -9635,7 +9636,7 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMONITOR>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -9645,7 +9646,7 @@ class Shell {
 
     /**
      * Creates a file operation that sets the default properties on the Shell item that have not already been set.
-     * @param {Pointer<IShellItem>} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the source shell item. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @param {Pointer<IFileOperation>} ppFileOp Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a>**</b>
@@ -9658,7 +9659,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateDefaultPropertiesOp(psi, ppFileOp) {
-        result := DllCall("SHELL32.dll\SHCreateDefaultPropertiesOp", "ptr", psi, "ptr", ppFileOp, "int")
+        result := DllCall("SHELL32.dll\SHCreateDefaultPropertiesOp", "ptr", psi, "ptr*", ppFileOp, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9670,13 +9671,13 @@ class Shell {
      * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the item's parent window, which receives error notifications. This value can be <b>NULL</b>.
-     * @param {Pointer<IShellItem>} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the item.
      * @param {Integer} dwFileOpFlags Type: <b>DWORD</b>
      * 
      * Flags that customize the operation. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setoperationflags">IFileOperation::SetOperationFlags</a> for flag values.
-     * @param {Pointer<IFileOperationProgressSink>} pfops Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
+     * @param {IFileOperationProgressSink} pfops Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object used to follow the progress of the operation. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">IFileOperation::Advise</a> for details. This value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9707,7 +9708,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetMalloc(ppMalloc) {
-        result := DllCall("SHELL32.dll\SHGetMalloc", "ptr", ppMalloc, "int")
+        result := DllCall("SHELL32.dll\SHGetMalloc", "ptr*", ppMalloc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9986,7 +9987,7 @@ class Shell {
 
     /**
      * Saves an ITEMIDLIST structure to a stream.
-     * @param {Pointer<IStream>} pstm Type: <b>IStream *</b>
+     * @param {IStream} pstm Type: <b>IStream *</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface where the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> is saved.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUIDLIST_RELATIVE</b>
@@ -10008,11 +10009,11 @@ class Shell {
 
     /**
      * This function may be altered or unavailable.
-     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface from which the absolute 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> loads.
-     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} pidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns and succeeds, contains the resulting absolute 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. If it fails, contains 
@@ -10024,7 +10025,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static ILLoadFromStreamEx(pstm, pidl) {
-        result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, "ptr", pidl, "int")
+        result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, "ptr*", pidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10072,10 +10073,10 @@ class Shell {
      * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH containing the path to be converted.
-     * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * The path in <i>pszPath</i> expressed as a PIDL.
-     * @param {Pointer<UInt32>} rgfInOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} rgfInOut Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that, on entry, indicates any attributes of the folder named in <i>pszPath</i> that the calling application would like to retrieve along with the PIDL. On exit, this value contains those requested attributes. For a list of possible attribute flags for this parameter, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10087,7 +10088,7 @@ class Shell {
     static SHILCreateFromPath(pszPath, ppidl, rgfInOut) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr", ppidl, "uint*", rgfInOut, "int")
+        result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr*", ppidl, "uint*", rgfInOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10477,7 +10478,7 @@ class Shell {
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * A count of items in the selection array, <i>apidl</i>. If <i>cidl</i> is zero, then <i>pidlFolder</i> must point to a fully specified <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> describing a single item to select. This function opens the parent folder and selects that item.
-     * @param {Pointer<ITEMIDLIST>} apidl Type: <b>PCUITEMID_CHILD_ARRAY</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} apidl Type: <b>PCUITEMID_CHILD_ARRAY</b>
      * 
      * A pointer to an array of PIDL structures, each of which is an item to select in the target folder referenced by <i>pidlFolder</i>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -10490,7 +10491,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHOpenFolderAndSelectItems(pidlFolder, cidl, apidl, dwFlags) {
-        result := DllCall("SHELL32.dll\SHOpenFolderAndSelectItems", "ptr", pidlFolder, "uint", cidl, "ptr", apidl, "uint", dwFlags, "int")
+        result := DllCall("SHELL32.dll\SHOpenFolderAndSelectItems", "ptr", pidlFolder, "uint", cidl, "ptr*", apidl, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10502,7 +10503,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlParent Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A PIDL to the parent. This value can be <b>NULL</b>.
-     * @param {Pointer<IShellFolder>} psfParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psfParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the parent <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>. This value can be <b>NULL</b>.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -10518,7 +10519,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateShellItem(pidlParent, psfParent, pidl, ppsi) {
-        result := DllCall("SHELL32.dll\SHCreateShellItem", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", ppsi, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellItem", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr*", ppsi, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10530,7 +10531,7 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder of interest.
-     * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * A PIDL specifying the folder's location relative to the root of the namespace (the desktop). It is the responsibility of the calling application to free the returned IDList by using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10544,7 +10545,7 @@ class Shell {
 
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr", ppidl, "int")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr*", ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10764,7 +10765,7 @@ class Shell {
      * 
      * Assigning the <i>hToken</i> parameter a value of -1 indicates the Default User. This allows clients of <b>SHGetFolderLocation</b> to find folder locations (such as the Desktop folder) for the Default User. The Default User user profile is duplicated when any new user account is created, and includes special folders such as <b>My Documents</b> and <b>Desktop</b>. Any items added to the Default User folder also appear in any new user account.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * The address of a pointer to an item identifier list structure that specifies the folder's location relative to the root of the namespace (the desktop). The <i>ppidl</i> parameter is set to <b>NULL</b> on failure. The calling application is responsible for freeing this resource by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10808,7 +10809,7 @@ class Shell {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", ppidl, "int")
+        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11052,7 +11053,7 @@ class Shell {
      * The calling application is responsible for correct impersonation when <i>hToken</i> is non-null. It must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted. See <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a> for further discussion of access control issues.
      * 
      * Assigning the <i>hToken</i> parameter a value of -1 indicates the Default User. This allows clients of <b>SHGetKnownFolderIDList</b> to find folder locations (such as the <b>Desktop</b> folder) for the Default User. The Default User user profile is duplicated when any new user account is created, and includes special folders such as <b>Documents</b> and <b>Desktop</b>. Any items added to the Default User folder also appear in any new user account. Note that access to the Default User folders requires administrator privileges.
-     * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns, contains a pointer to the PIDL of the folder. This parameter is passed uninitialized. The caller is responsible for freeing the returned PIDL when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -11082,7 +11083,7 @@ class Shell {
     static SHGetKnownFolderIDList(rfid, dwFlags, hToken, ppidl) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", ppidl, "int")
+        result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr*", ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11229,7 +11230,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface that represents the item, usually IID_IShellItem or IID_IShellItem2.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -11259,7 +11260,7 @@ class Shell {
     static SHGetKnownFolderItem(rfid, flags, hToken, riid, ppv) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11362,7 +11363,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetDesktopFolder(ppshf) {
-        result := DllCall("SHELL32.dll\SHGetDesktopFolder", "ptr", ppshf, "int")
+        result := DllCall("SHELL32.dll\SHGetDesktopFolder", "ptr*", ppshf, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11664,10 +11665,10 @@ class Shell {
      * @param {Integer} dwProcId Type: <b>DWORD</b>
      * 
      * The process ID (<i>lParam</i> in the message callback).
-     * @param {Pointer<ITEMIDLIST>} pppidl Type: <b>PIDLIST_ABSOLUTE**</b>
+     * @param {Pointer<Pointer<Pointer<ITEMIDLIST>>>} pppidl Type: <b>PIDLIST_ABSOLUTE**</b>
      * 
      * The address of a pointer to a PIDLIST_ABSOLUTE that, when this function returns successfully, receives the list of affected PIDLs.
-     * @param {Pointer<Int32>} plEvent Type: <b>LONG*</b>
+     * @param {Pointer<Integer>} plEvent Type: <b>LONG*</b>
      * 
      * A pointer to a LONG value that, when this function returns successfully, receives the Shell change notification ID of the event that took place.
      * @returns {HANDLE} Type: <b>HANDLE</b>
@@ -11679,7 +11680,7 @@ class Shell {
     static SHChangeNotification_Lock(hChange, dwProcId, pppidl, plEvent) {
         hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
 
-        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, "ptr", pppidl, "int*", plEvent, "ptr")
+        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, "ptr*", pppidl, "int*", plEvent, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -11703,13 +11704,13 @@ class Shell {
 
     /**
      * SHGetRealIDL may be altered or unavailable.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> whose simple PIDL is to be converted.
      * @param {Pointer<ITEMIDLIST>} pidlSimple Type: <b>PCUITEMID_CHILD</b>
      * 
      * The simple PIDL to be converted.
-     * @param {Pointer<ITEMIDLIST>} ppidlReal Type: <b>PITEMID_CHILD*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlReal Type: <b>PITEMID_CHILD*</b>
      * 
      * When this method returns, contains a pointer to the full converted PIDL. If the function fails, this parameter is set to <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -11719,7 +11720,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetRealIDL(psf, pidlSimple, ppidlReal) {
-        result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, "ptr", ppidlReal, "int")
+        result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, "ptr*", ppidlReal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11738,7 +11739,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetInstanceExplorer(ppunk) {
-        result := DllCall("SHELL32.dll\SHGetInstanceExplorer", "ptr", ppunk, "int")
+        result := DllCall("SHELL32.dll\SHGetInstanceExplorer", "ptr*", ppunk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11747,7 +11748,7 @@ class Shell {
 
     /**
      * Retrieves extended property data from a relative identifier list.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * The address of the parent <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface. This must be the immediate parent of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure referenced by the <i>pidl</i> parameter.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -11778,7 +11779,7 @@ class Shell {
 
     /**
      * Retrieves extended property data from a relative identifier list.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * The address of the parent <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface. This must be the immediate parent of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure referenced by the <i>pidl</i> parameter.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -11872,13 +11873,13 @@ class Shell {
      * @param {Pointer<Guid>} pclsid Type: <b>const CLSID*</b>
      * 
      * The CLSID to create.
-     * @param {Pointer<IUnknown>} pUnkOuter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} pUnkOuter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to outer <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. Used for aggregation.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns successfully, receives the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -11890,7 +11891,7 @@ class Shell {
     static SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid, ppv) {
         pszCLSID := pszCLSID is String ? StrPtr(pszCLSID) : pszCLSID
 
-        result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11905,16 +11906,16 @@ class Shell {
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * The number of file objects or subfolders specified in the <i>apidl</i> parameter.
-     * @param {Pointer<ITEMIDLIST>} apidl Type: <b>PCUITEMID_CHILD_ARRAY</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} apidl Type: <b>PCUITEMID_CHILD_ARRAY</b>
      * 
      * An array of pointers to constant <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures, each of which uniquely identifies a file object or subfolder relative to the parent folder. Each item identifier list must contain exactly one <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure followed by a terminating zero.
-     * @param {Pointer<IDataObject>} pdtInner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdtInner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to interface <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>. This parameter can be <b>NULL</b>. Specify <i>pdtInner</i> only if the data object created needs to support additional <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a>  clipboard formats beyond the default formats it is assigned at creation.  Alternatively, provide support for populating the created data object using non-default clipboard formats by calling method <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-setdata">IDataObject::SetData</a> and specifying the format in the <b>FORMATETC</b> structure passed in parameter <i>pFormatetc</i>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>. This must be IID_IDataObject.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -11924,7 +11925,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, "ptr", apidl, "ptr", pdtInner, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, "ptr*", apidl, "ptr", pdtInner, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11939,7 +11940,7 @@ class Shell {
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * The number of entries in the <i>apidl</i> array.
-     * @param {Pointer<ITEMIDLIST>} apidl Type: <b>PCUIDLIST_RELATIVE_ARRAY</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} apidl Type: <b>PCUIDLIST_RELATIVE_ARRAY</b>
      * 
      * The array of item IDs relative to <i>pidlFolder</i>. Typically, <i>apidl</i> is an array of child IDs and <i>pidlFolder</i> is a full PIDL for those items. However, <i>pidlFolder</i> can be a null PIDL (desktop IDLISTs). In that case, <i>apidl</i> can contain fully qualified ID lists.
      * @param {Pointer<IDataObject>} ppdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>**</b>
@@ -11952,7 +11953,7 @@ class Shell {
      * @since windows5.0
      */
     static CIDLData_CreateFromIDArray(pidlFolder, cidl, apidl, ppdtobj) {
-        result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, "ptr", apidl, "ptr", ppdtobj, "int")
+        result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, "ptr*", apidl, "ptr*", ppdtobj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11977,7 +11978,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateStdEnumFmtEtc(cfmt, afmt, ppenumFormatEtc) {
-        result := DllCall("SHELL32.dll\SHCreateStdEnumFmtEtc", "uint", cfmt, "ptr", afmt, "ptr", ppenumFormatEtc, "int")
+        result := DllCall("SHELL32.dll\SHCreateStdEnumFmtEtc", "uint", cfmt, "ptr", afmt, "ptr*", ppenumFormatEtc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11989,10 +11990,10 @@ class Shell {
      * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The handle of the window used to obtain the drag image. This value can be <b>NULL</b>. See Remarks for more details.
-     * @param {Pointer<IDataObject>} pdata Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdata Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on a data object that contains the data being dragged.
-     * @param {Pointer<IDropSource>} pdsrc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idropsource">IDropSource</a>*</b>
+     * @param {IDropSource} pdsrc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idropsource">IDropSource</a>*</b>
      * 
      * A pointer to an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idropsource">IDropSource</a> interface, which is used to communicate with the source during the drag operation.
      *         
@@ -12002,7 +12003,7 @@ class Shell {
      * @param {Integer} dwEffect Type: <b>DWORD</b>
      * 
      * The effects that the source allows in the drag-and-drop operation. The most significant effect is whether the drag-and-drop operation permits a move. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
-     * @param {Pointer<UInt32>} pdwEffect Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwEffect Type: <b>DWORD*</b>
      * 
      * A pointer to a value that indicates how the drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -12111,7 +12112,7 @@ class Shell {
      * @param {POINT} ptStart Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * Specifies the coordinates at which to begin displaying the drag image. The coordinates are relative to the upper-left corner of the window, not the client area.
-     * @param {Pointer<IDataObject>} pdtObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdtObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object. This data object contains the data being transferred in the drag-and-drop operation. If the drop occurs, this data object will be incorporated into the target. This parameter may be <b>NULL</b>.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -12381,7 +12382,7 @@ class Shell {
      * @param {PWSTR} pszPath Type: <b>PWSTR</b>
      * 
      * A null-terminated Unicode string that contains the path to resolve. When the function returns, the string contains the corresponding fully qualified path. This buffer should be at least MAX_PATH characters long.
-     * @param {Pointer<UInt16>} dirs Type: <b>PZPCWSTR</b>
+     * @param {Pointer<Pointer<Integer>>} dirs Type: <b>PZPCWSTR</b>
      * 
      * A pointer to an optional null-terminated array of directories to be searched first in the case that the path cannot be resolved from <i>pszPath</i>. This value can be <b>NULL</b>.
      * @param {Integer} fFlags Type: <b>UINT</b>
@@ -12398,7 +12399,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, "ushort*", dirs, "uint", fFlags, "int")
+        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, "ptr*", dirs, "uint", fFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12911,7 +12912,7 @@ class Shell {
      * 
      * A null-terminated Unicode string that specifies the value to be accessed.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer<IStream>} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {IStream} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns the address of an <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-openregstream
@@ -13044,7 +13045,7 @@ class Shell {
 
     /**
      * Retrieves the value for a given property key using the file association information provided by the Namespace Extensions.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the shell folder for which the details of the property key of the file association are being retrieved.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -13169,9 +13170,6 @@ class Shell {
         pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHELL32.dll\SHDefExtractIconA", "ptr", pszIconFile, "int", iIndex, "uint", uFlags, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -13245,9 +13243,6 @@ class Shell {
         pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHELL32.dll\SHDefExtractIconW", "ptr", pszIconFile, "int", iIndex, "uint", uFlags, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -13400,7 +13395,7 @@ class Shell {
      * For further information on how components use the process references, see <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetinstanceexplorer">SHGetInstanceExplorer</a>.
      * 
      * 
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to a free-threaded <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. Components can use this interface (through <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetinstanceexplorer">SHGetInstanceExplorer</a>) to prevent the host process from terminating. This value can be <b>NULL</b>, in which case the process reference is no longer made available to components.
      * @returns {String} Nothing - always returns an empty string
@@ -13520,7 +13515,7 @@ class Shell {
      * @since windows5.0
      */
     static SHCreateShellFolderView(pcsfv, ppsv) {
-        result := DllCall("SHELL32.dll\SHCreateShellFolderView", "ptr", pcsfv, "ptr", ppsv, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellFolderView", "ptr", pcsfv, "ptr*", ppsv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13538,10 +13533,10 @@ class Shell {
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures in the array pointed to by <i>apidl</i>.
-     * @param {Pointer<ITEMIDLIST>} apidl Type: <b>PCUITEMID_CHILD_ARRAY*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} apidl Type: <b>PCUITEMID_CHILD_ARRAY*</b>
      * 
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures, one for each item that is selected.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the parent folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface. This <b>IShellFolder</b> must support the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface. If it does not, <b>CDefFolderMenu_Create2</b> fails and returns E_NOINTERFACE. This value can be <b>NULL</b>.
      * @param {Pointer<LPFNDFMCALLBACK>} pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a></b>
@@ -13570,7 +13565,7 @@ class Shell {
     static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys, ppcm) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, "ptr", apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr", ppcm, "int")
+        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, "ptr*", apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", ppcm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13585,7 +13580,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the interface on which to base the object. This is typically the IID of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu2">IContextMenu2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu3">IContextMenu3</a>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -13595,7 +13590,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateDefaultContextMenu(pdcm, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13616,7 +13611,7 @@ class Shell {
      * @param {Integer} idCmdLast Type: <b>UINT</b>
      * 
      * The ID of the last menu item.
-     * @returns {Pointer<IContextMenu>} Type: <b><a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>*</b>
+     * @returns {IContextMenu} Type: <b><a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>*</b>
      * 
      * If successful, returns an <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> pointer. On failure, returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shfind_initmenupopup
@@ -13645,7 +13640,7 @@ class Shell {
      * @since windows5.0
      */
     static SHCreateShellFolderViewEx(pcsfv, ppsv) {
-        result := DllCall("SHELL32.dll\SHCreateShellFolderViewEx", "ptr", pcsfv, "ptr", ppsv, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellFolderViewEx", "ptr", pcsfv, "ptr*", ppsv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13693,10 +13688,10 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The <b>REFIID</b> of one of the interfaces exposed by the item's parent object.
-     * @param {Pointer<Void>} ppv Type: <b>VOID**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>VOID**</b>
      * 
      * A pointer to the interface specified by <i>riid</i>. You must release the object when you are finished.
-     * @param {Pointer<ITEMIDLIST>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
      * 
      * The item's PIDL relative to the parent folder. This PIDL can be used with many of the methods supported by the parent folder's interfaces. If you set <i>ppidlLast</i> to <b>NULL</b>, the PIDL is not returned.
      * 
@@ -13711,7 +13706,7 @@ class Shell {
      * @since windows5.0
      */
     static SHBindToParent(pidl, riid, ppv, ppidlLast) {
-        result := DllCall("SHELL32.dll\SHBindToParent", "ptr", pidl, "ptr", riid, "ptr", ppv, "ptr", ppidlLast, "int")
+        result := DllCall("SHELL32.dll\SHBindToParent", "ptr", pidl, "ptr", riid, "ptr*", ppv, "ptr*", ppidlLast, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13720,7 +13715,7 @@ class Shell {
 
     /**
      * Given a Shell namespace item specified in the form of a folder, and an item identifier list relative to that folder, this function binds to the parent of the namespace item and optionally returns a pointer to the final component of the item identifier list.
-     * @param {Pointer<IShellFolder>} psfRoot Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psfRoot Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to a Shell folder object. If <i>psfRoot</i> is <b>NULL</b>, indicates that the IDList passed is relative to the desktop.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUIDLIST_RELATIVE</b>
@@ -13729,10 +13724,10 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID. This is typically IID_IShellFolder or IID_IShellFolder2, but can be anything supported by the target folder.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder2">IShellFolder2</a>, but can be anything supported by the target folder.
-     * @param {Pointer<ITEMIDLIST>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
      * 
      * A pointer to the last ID of the <i>pidl</i> parameter, and is a child ID relative to the parent folder returned in <i>ppv</i>. This value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -13742,7 +13737,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHBindToFolderIDListParent(psfRoot, pidl, riid, ppv, ppidlLast) {
-        result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", "ptr", psfRoot, "ptr", pidl, "ptr", riid, "ptr", ppv, "ptr", ppidlLast, "int")
+        result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", "ptr", psfRoot, "ptr", pidl, "ptr", riid, "ptr*", ppv, "ptr*", ppidlLast, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13751,22 +13746,22 @@ class Shell {
 
     /**
      * Extends the SHBindToFolderIDListParent function by allowing the caller to specify a bind context.
-     * @param {Pointer<IShellFolder>} psfRoot Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psfRoot Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to a Shell folder object. If <i>psfRoot</i> is <b>NULL</b>, indicates that the IDList passed is relative to the desktop.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUIDLIST_RELATIVE</b>
      * 
      * A PIDL to bind to, relative to <i>psfRoot</i>. If <i>psfRoot</i> is <b>NULL</b>, this is an absolute IDList relative to the desktop folder.
-     * @param {Pointer<IBindCtx>} ppbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * @param {IBindCtx} ppbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on a bind context object to be used during this operation. If this parameter is not used, set it to <b>NULL</b>, which is equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shbindtofolderidlistparent">SHBindToFolderIDListParent</a> function. Because support for <i>pbc</i> is optional for folder object implementations, some folders may not support the use of bind contexts.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID. This is typically IID_IShellFolder or IID_IShellFolder2, but can be anything supported by the target folder.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder2">IShellFolder2</a>, but can be anything supported by the target folder.
-     * @param {Pointer<ITEMIDLIST>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
      * 
      * A pointer to the last ID of the <i>pidl</i> parameter, and is a child ID relative to the parent folder returned in <i>ppv</i>. This value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -13776,7 +13771,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHBindToFolderIDListParentEx(psfRoot, pidl, ppbc, riid, ppv, ppidlLast) {
-        result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", "ptr", psfRoot, "ptr", pidl, "ptr", ppbc, "ptr", riid, "ptr", ppv, "ptr", ppidlLast, "int")
+        result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", "ptr", psfRoot, "ptr", pidl, "ptr", ppbc, "ptr", riid, "ptr*", ppv, "ptr*", ppidlLast, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13785,20 +13780,20 @@ class Shell {
 
     /**
      * Retrieves and binds to a specified object by using the Shell namespace IShellFolder::BindToObject method.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>. This parameter can be <b>NULL</b>.   If <i>psf</i> is <b>NULL</b>,  this indicates 
      * parameter <i>pidl</i> is relative to the desktop. In this case, <i>pidl</i> must specify an absolute <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUIDLIST_RELATIVE</b>
      * 
      * A pointer to a constant <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> to bind to that is relative to <i>psf</i>. If <i>psf</i> is <b>NULL</b>, this is an absolute <b>ITEMIDLIST</b> relative to the desktop folder.
-     * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on a bind context object to be used during this operation. If this parameter is not used, set it to <b>NULL</b>. Because support for <i>pbc</i> is optional for folder object implementations, some folders may not support the use of bind contexts.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Identifier of the interface to return.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer as specified in <i>riid</i> to the bound object. If an error occurs, contains a <b>NULL</b> pointer.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -13808,7 +13803,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHBindToObject(psf, pidl, pbc, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13820,16 +13815,16 @@ class Shell {
      * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a zero-terminated wide string that contains the display name to parse.
-     * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * A bind context that controls the parsing operation. This parameter is normally set to <b>NULL</b>.
-     * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * The address of a pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> that receives the item identifier list for the object. If an error occurs, then this parameter is set to <b>NULL</b>.
      * @param {Integer} sfgaoIn Type: <b>SFGAOF</b>
      * 
      * A <b>ULONG</b> value that specifies the attributes to query. To query for one or more attributes, initialize this parameter with the flags that represent the attributes of interest. For a list of available SFGAO flags, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
-     * @param {Pointer<UInt32>} psfgaoOut Type: <b>SFGAOF*</b>
+     * @param {Pointer<Integer>} psfgaoOut Type: <b>SFGAOF*</b>
      * 
      * A pointer to a <b>ULONG</b>. On return, those attributes that are true for the object and were requested in <i>sfgaoIn</i> are set. An object's attribute flags can be zero or a combination of SFGAO flags. For a list of available SFGAO flags, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -13841,7 +13836,7 @@ class Shell {
     static SHParseDisplayName(pszName, pbc, ppidl, sfgaoIn, psfgaoOut) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, "ptr", ppidl, "uint", sfgaoIn, "uint*", psfgaoOut, "int")
+        result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, "ptr*", ppidl, "uint", sfgaoIn, "uint*", psfgaoOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13853,7 +13848,7 @@ class Shell {
      * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
-     * @param {Pointer<IUnknown>} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
      * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
@@ -13882,7 +13877,7 @@ class Shell {
      * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
-     * @param {Pointer<IUnknown>} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
      * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
@@ -13917,7 +13912,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID of the icon extractor interface to create. This must be either IID_IExtractIconA or IID_IExtractIconW.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-iextracticona">IExtractIcon</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -13929,7 +13924,7 @@ class Shell {
     static SHCreateFileExtractIconW(pszFile, dwFileAttributes, riid, ppv) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13941,7 +13936,7 @@ class Shell {
      * @param {HWND} hwndEdit Type: <b>HWND</b>
      * 
      * The handle of the edit control.
-     * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface pointer. This object must also implement <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iitemnamelimits">IItemNameLimits</a>, which supplies a list of invalid characters and a maximum name length.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -13962,16 +13957,16 @@ class Shell {
 
     /**
      * SHGetAttributesFromDataObject may be altered or unavailable.
-     * @param {Pointer<IDataObject>} pdo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * The data object from which to retrieve the information.
      * @param {Integer} dwAttributeMask Type: <b>DWORD</b>
      * 
      * One or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">SFGAO</a> flags that indicate which pieces of information the calling application wants to retrieve.
-     * @param {Pointer<UInt32>} pdwAttributes Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwAttributes Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that, when this function returns successfully, receives one or more <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">SFGAO</a> flags that indicate the attributes, among those requested, that are common to all items in <i>pdo</i>. This pointer can be <b>NULL</b> if this information is not needed.
-     * @param {Pointer<UInt32>} pcItems Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} pcItems Type: <b>UINT*</b>
      * 
      * A pointer to a <b>UINT</b> that, when this function returns successfully, receives the number of PIDLs in the data object pointed to by <i>pdo</i>. This pointer can be <b>NULL</b> if this information is not needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -14011,21 +14006,18 @@ class Shell {
      */
     static SHGetAttributesFromDataObject(pdo, dwAttributeMask, pdwAttributes, pcItems) {
         result := DllCall("SHELL32.dll\SHGetAttributesFromDataObject", "ptr", pdo, "uint", dwAttributeMask, "uint*", pdwAttributes, "uint*", pcItems, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
     /**
      * SHMapPIDLToSystemImageListIndex may be altered or unavailable.
-     * @param {Pointer<IShellFolder>} pshf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
+     * @param {IShellFolder} pshf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface pointer for the folder that contains the item.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
-     * @param {Pointer<Int32>} piIndexSel Type: <b>int*</b>
+     * @param {Pointer<Integer>} piIndexSel Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that, when this function returns successfully, receives the index of the item's <b>open</b> icon in the system image list. If the item does not have a special <b>open</b> icon then the index of its normal icon is returned. If the <b>open</b> icon exists and cannot be obtained, then the value pointed to by <i>piIndex</i> is set to -1. This parameter can be <b>NULL</b> if the calling application is not interested in the <b>open</b> icon.
      * @returns {Integer} Type: <b>int</b>
@@ -14074,7 +14066,7 @@ class Shell {
      * @param {Integer} cchIconPath Type: <b>UINT</b>
      * 
      * The number of characters in <i>pszIconPath</i>, including the terminating <b>NULL</b> character.
-     * @param {Pointer<Int32>} piIconIndex Type: <b>int*</b>
+     * @param {Pointer<Integer>} piIconIndex Type: <b>int*</b>
      * 
      * A pointer to an integer that on entry specifies the index of the initial selection and, when this function returns successfully, receives the index of the icon that was selected.
      * @returns {Integer} Type: <b>int</b>
@@ -14093,7 +14085,7 @@ class Shell {
 
     /**
      * Creates a unique name for a stream or storage object from a template.
-     * @param {Pointer<IStorage>} pstgParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>*</b>
+     * @param {IStorage} pstgParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> object.
      * @param {PWSTR} pszFileSpec Type: <b>PCWSTR</b>
@@ -14105,7 +14097,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStorage or IID_IStream.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -14117,7 +14109,7 @@ class Shell {
     static StgMakeUniqueName(pstgParent, pszFileSpec, grfMode, riid, ppv) {
         pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
-        result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14242,10 +14234,10 @@ class Shell {
      * @param {Pointer<Guid>} pclsidDefault Type: <b>const CLSID*</b>
      * 
      * A pointer to the default <b>CLSID</b>. This value can be <b>NULL</b>.
-     * @param {Pointer<IDataObject>} pdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, an OLE object that can be used to carry out actions on the property sheet(s).
-     * @param {Pointer<IShellBrowser>} psb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a>*</b>
+     * @param {IShellBrowser} psb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a>*</b>
      * 
      * Not used.
      * @param {PWSTR} pStartPage Type: <b>LPCTSTR</b>
@@ -14346,7 +14338,7 @@ class Shell {
 
     /**
      * Displays a merged property sheet for a set of files. Property values common to all the files are shown while those that differ display the string (multiple values).
-     * @param {Pointer<IDataObject>} pdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @param {IDataObject} pdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to a data object that supplies the PIDLs of all of the files for which to display the merged property sheet. The data object must use the <a href="https://docs.microsoft.com/windows/desktop/shell/clipboard">CFSTR_SHELLIDLIST</a> clipboard format. The parent folder's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getdisplaynameof">IShellFolder::GetDisplayNameOf</a> must return a fully qualified file system path for each item in response to the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shgdnf">SHGDN_FORPARSING</a> flag.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -14378,7 +14370,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateQueryCancelAutoPlayMoniker(ppmoniker) {
-        result := DllCall("SHELL32.dll\SHCreateQueryCancelAutoPlayMoniker", "ptr", ppmoniker, "int")
+        result := DllCall("SHELL32.dll\SHCreateQueryCancelAutoPlayMoniker", "ptr*", ppmoniker, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14469,7 +14461,7 @@ class Shell {
      * @param {Integer} uMsgNotify Type: <b>UINT</b>
      * 
      * An application-defined message that is passed to the window specified by <i>hwndNotify</i> when scaling information changes.  Typically, this should be set to <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-app">WM_APP</a>+<i>x</i>, where <i>x</i> is an integer value.
-     * @param {Pointer<UInt32>} pdwCookie Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwCookie Type: <b>DWORD*</b>
      * 
      * Pointer to a value that, when this function returns successfully, receives a registration token. This token is used to revoke notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-revokescalechangenotifications">RevokeScaleChangeNotifications</a>.
      * @returns {HRESULT} Type: <b>STDAPI</b>
@@ -14513,7 +14505,7 @@ class Shell {
     /**
      * Gets the scale factor of a specific monitor. This function replaces GetScaleFactorForDevice.
      * @param {HMONITOR} hMon The monitor's handle.
-     * @param {Pointer<Int32>} pScale When this function returns successfully, this value points to one of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> values that specify the scale factor of the specified monitor.
+     * @param {Pointer<Integer>} pScale When this function returns successfully, this value points to one of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> values that specify the scale factor of the specified monitor.
      *                         
      * 
      * If the function call fails, this value points to a valid scale factor so that apps can opt to continue on with incorrectly sized resources.
@@ -14534,7 +14526,7 @@ class Shell {
     /**
      * Registers for an event that is triggered when the scale has possibly changed. This function replaces RegisterScaleChangeNotifications.
      * @param {HANDLE} hEvent Handle of the event to register for scale change notifications.
-     * @param {Pointer<UIntPtr>} pdwCookie When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent">UnregisterScaleChangeEvent</a>.
+     * @param {Pointer<Pointer>} pdwCookie When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent">UnregisterScaleChangeEvent</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/nf-shellscalingapi-registerscalechangeevent
      * @since windows8.1
@@ -14568,6 +14560,7 @@ class Shell {
      * 
      * @param {Integer} param0 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getdpiforshelluicomponent
      * @since windows8.1
      */
     static GetDpiForShellUIComponent(param0) {
@@ -14580,7 +14573,7 @@ class Shell {
      * @param {PWSTR} lpCmdLine Type: <b>LPCWSTR</b>
      * 
      * Pointer to a <b>null</b>-terminated Unicode string that contains the full command line. If this parameter is an empty string the function returns the path to the current executable file.
-     * @param {Pointer<Int32>} pNumArgs Type: <b>int*</b>
+     * @param {Pointer<Integer>} pNumArgs Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the number of array elements returned, similar to <i>argc</i>.
      * @returns {Pointer<PWSTR>} Type: <b>LPWSTR*</b>
@@ -15445,7 +15438,7 @@ class Shell {
      *                     
      * 
      * When this function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file) the function stores the full path and file name of that executable in the buffer pointed to by this parameter.
-     * @param {Pointer<UInt16>} piIcon Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} piIcon Type: <b>LPWORD</b>
      * 
      * Pointer to a <b>WORD</b> value that, on entry, specifies the index of the icon whose handle is to be obtained. 
      * 
@@ -15481,7 +15474,7 @@ class Shell {
      *                     
      * 
      * When this function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file) the function stores the full path and file name of that executable in the buffer pointed to by this parameter.
-     * @param {Pointer<UInt16>} piIcon Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} piIcon Type: <b>LPWORD</b>
      * 
      * Pointer to a <b>WORD</b> value that, on entry, specifies the index of the icon whose handle is to be obtained. 
      * 
@@ -15517,14 +15510,14 @@ class Shell {
      *                     
      * 
      * When this function returns, if the icon handle was obtained from an executable file (either an executable file directly pointed to by this parameter or an associated executable file) the function stores the full path and file name of that executable in the buffer pointed to by this parameter.
-     * @param {Pointer<UInt16>} piIconIndex Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} piIconIndex Type: <b>LPWORD</b>
      * 
      * Pointer to a <b>WORD</b> value that, on entry, specifies the index of the icon whose handle is to be obtained. 
      * 
      *                     
      * 
      * When the function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file), this value points to the icon's index in that file.
-     * @param {Pointer<UInt16>} piIconId Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} piIconId Type: <b>LPWORD</b>
      * 
      * Pointer to a <b>WORD</b> value that, on entry, specifies the ID of the icon whose handle is to be obtained.
      * 
@@ -15556,14 +15549,14 @@ class Shell {
      *                     
      * 
      * When this function returns, if the icon handle was obtained from an executable file (either an executable file directly pointed to by this parameter or an associated executable file) the function stores the full path and file name of that executable in the buffer pointed to by this parameter.
-     * @param {Pointer<UInt16>} piIconIndex Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} piIconIndex Type: <b>LPWORD</b>
      * 
      * Pointer to a <b>WORD</b> value that, on entry, specifies the index of the icon whose handle is to be obtained. 
      * 
      *                     
      * 
      * When the function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file), this value points to the icon's index in that file.
-     * @param {Pointer<UInt16>} piIconId Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} piIconId Type: <b>LPWORD</b>
      * 
      * Pointer to a <b>WORD</b> value that, on entry, specifies the ID of the icon whose handle is to be obtained.
      * 
@@ -16288,7 +16281,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID, normally IID_IQueryAssociations.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -16298,7 +16291,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static AssocCreateForClasses(rgClasses, cClasses, riid, ppv) {
-        result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16407,7 +16400,7 @@ class Shell {
 
     /**
      * Checks the state of the computer for the current user to determine whether sending a notification is appropriate.
-     * @param {Pointer<Int32>} pquns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
+     * @param {Pointer<Integer>} pquns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
      * 
      * When this function returns, contains a pointer to one of the values of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a> enumeration.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -16696,13 +16689,13 @@ class Shell {
      * @param {PSTR} pszDirectoryName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string that specifies the volume for which size information is retrieved. This can be a drive letter, UNC name, or the path of a folder. You cannot use <b>NULL</b> to represent the current drive.
-     * @param {Pointer<UInt64>} pulFreeBytesAvailableToCaller Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @param {Pointer<Integer>} pulFreeBytesAvailableToCaller Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the number of bytes on the volume available to the calling application. If the operating system implements per-user quotas, this value may be less than the total number of free bytes on the volume.
-     * @param {Pointer<UInt64>} pulTotalNumberOfBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @param {Pointer<Integer>} pulTotalNumberOfBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the total size of the volume, in bytes.
-     * @param {Pointer<UInt64>} pulTotalNumberOfFreeBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @param {Pointer<Integer>} pulTotalNumberOfFreeBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the number of bytes of free space on the volume.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -16723,13 +16716,13 @@ class Shell {
      * @param {PWSTR} pszDirectoryName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string that specifies the volume for which size information is retrieved. This can be a drive letter, UNC name, or the path of a folder. You cannot use <b>NULL</b> to represent the current drive.
-     * @param {Pointer<UInt64>} pulFreeBytesAvailableToCaller Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @param {Pointer<Integer>} pulFreeBytesAvailableToCaller Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the number of bytes on the volume available to the calling application. If the operating system implements per-user quotas, this value may be less than the total number of free bytes on the volume.
-     * @param {Pointer<UInt64>} pulTotalNumberOfBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @param {Pointer<Integer>} pulTotalNumberOfBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the total size of the volume, in bytes.
-     * @param {Pointer<UInt64>} pulTotalNumberOfFreeBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @param {Pointer<Integer>} pulTotalNumberOfFreeBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the number of bytes of free space on the volume.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -16886,7 +16879,7 @@ class Shell {
      * @param {PWSTR} pwszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a string value that specifies the full path to a network file or directory. This path does not need to be in UNC form. If <i>pszPath</i> is not a network path, the function returns E_INVALIDARG.
-     * @param {Pointer<UInt32>} pdwStatus Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwStatus Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable of type <b>DWORD</b> that receives one or more of the following flags if the function succeeds.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -17005,7 +16998,7 @@ class Shell {
      * @param {Integer} cch Type: <b>UINT</b>
      * 
      * When this function returns, contains the size of the string, in <b>WCHARs</b>, at <i>pszResModule</i>.
-     * @param {Pointer<Int32>} pidsRes Type: <b>int*</b>
+     * @param {Pointer<Integer>} pidsRes Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to the ID of the localized file name in the resource file.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -17172,7 +17165,7 @@ class Shell {
      * @param {PWSTR} pszMailAddress Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string in Unicode that specifies the email address of an account belonging to the specified user. When this parameter is <b>NULL</b>, <i>pdwCount</i> returns the total count of unread messages for all accounts owned by the designated user.
-     * @param {Pointer<UInt32>} pdwCount Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwCount Type: <b>DWORD*</b>
      * 
      * Pointer to a DWORD value which receives the unread message count.
      * @param {Pointer<FILETIME>} pFileTime Type: <b>FILETIME*</b>
@@ -17297,7 +17290,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the image list interface identifier, normally IID_IImageList.
-     * @param {Pointer<Void>} ppvObj Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvObj Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -17307,7 +17300,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetImageList(iImageList, riid, ppvObj) {
-        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr", ppvObj, "int")
+        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17332,7 +17325,7 @@ class Shell {
      * @param {PWSTR} pszDrive Type: <b>PCWSTR</b>
      * 
      * The drive in which to check the media type.
-     * @param {Pointer<UInt32>} pdwMediaContent Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwMediaContent Type: <b>DWORD*</b>
      * 
      * A pointer to the type of media in the given drive. A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-iquerycancelautoplay-allowautoplay">ARCONTENT</a> flags.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -18529,7 +18522,7 @@ class Shell {
      * 
      * A pointer to the null-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
-     * @param {Pointer<Int32>} piRet Type: <b>int*</b>
+     * @param {Pointer<Integer>} piRet Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that receives the converted string. For instance, in the case of the string "123", the integer pointed to by this value receives the integer value 123. 
      *                     
@@ -18557,7 +18550,7 @@ class Shell {
      * 
      * A pointer to the null-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
-     * @param {Pointer<Int32>} piRet Type: <b>int*</b>
+     * @param {Pointer<Integer>} piRet Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that receives the converted string. For instance, in the case of the string "123", the integer pointed to by this value receives the integer value 123. 
      *                     
@@ -18585,7 +18578,7 @@ class Shell {
      * 
      * A pointer to the <b>null</b>-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
-     * @param {Pointer<Int64>} pllRet Type: <b>LONGLONG*</b>
+     * @param {Pointer<Integer>} pllRet Type: <b>LONGLONG*</b>
      * 
      * A pointer to a variable of type <b>LONGLONG</b> that receives the 64-bit integer value of the converted string. For instance, in the case of the string "123", the integer pointed to by this value receives the value 123. 
      * 
@@ -18613,7 +18606,7 @@ class Shell {
      * 
      * A pointer to the <b>null</b>-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
-     * @param {Pointer<Int64>} pllRet Type: <b>LONGLONG*</b>
+     * @param {Pointer<Integer>} pllRet Type: <b>LONGLONG*</b>
      * 
      * A pointer to a variable of type <b>LONGLONG</b> that receives the 64-bit integer value of the converted string. For instance, in the case of the string "123", the integer pointed to by this value receives the value 123. 
      * 
@@ -18891,7 +18884,7 @@ class Shell {
      * @param {PSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
-     * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
+     * @param {Pointer<Integer>} arglist Type: <b>va_list</b>
      * 
      * A pointer to a list of command-line parameters used to customize the output.
      * @returns {Integer} Type: <b>int</b>
@@ -18919,7 +18912,7 @@ class Shell {
      * @param {PWSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
-     * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
+     * @param {Pointer<Integer>} arglist Type: <b>va_list</b>
      * 
      * A pointer to a list of command-line parameters used to customize the output.
      * @returns {Integer} Type: <b>int</b>
@@ -19254,7 +19247,7 @@ class Shell {
         pszSource := pszSource is String ? StrPtr(pszSource) : pszSource
         pszOutBuf := pszOutBuf is String ? StrPtr(pszOutBuf) : pszOutBuf
 
-        result := DllCall("SHLWAPI.dll\SHLoadIndirectString", "ptr", pszSource, "ptr", pszOutBuf, "uint", cchOutBuf, "ptr", ppvReserved, "int")
+        result := DllCall("SHLWAPI.dll\SHLoadIndirectString", "ptr", pszSource, "ptr", pszOutBuf, "uint", cchOutBuf, "ptr*", ppvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20130,7 +20123,7 @@ class Shell {
      * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the file name for which to search. If the search is successful, this parameter is used to return the fully qualified path name.
-     * @param {Pointer<SByte>} ppszOtherDirs Type: <b>LPCTSTR*</b>
+     * @param {Pointer<Pointer<Integer>>} ppszOtherDirs Type: <b>LPCTSTR*</b>
      * 
      * An optional, null-terminated array of directories to be searched first. This value can be <b>NULL</b>.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -20142,7 +20135,7 @@ class Shell {
     static PathFindOnPathA(pszPath, ppszOtherDirs) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, "char*", ppszOtherDirs, "int")
+        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, "ptr*", ppszOtherDirs, "int")
         return result
     }
 
@@ -20151,7 +20144,7 @@ class Shell {
      * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the file name for which to search. If the search is successful, this parameter is used to return the fully qualified path name.
-     * @param {Pointer<UInt16>} ppszOtherDirs Type: <b>LPCTSTR*</b>
+     * @param {Pointer<Pointer<Integer>>} ppszOtherDirs Type: <b>LPCTSTR*</b>
      * 
      * An optional, null-terminated array of directories to be searched first. This value can be <b>NULL</b>.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -20163,7 +20156,7 @@ class Shell {
     static PathFindOnPathW(pszPath, ppszOtherDirs) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, "ushort*", ppszOtherDirs, "int")
+        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, "ptr*", ppszOtherDirs, "int")
         return result
     }
 
@@ -22070,7 +22063,7 @@ class Shell {
      * @param {PSTR} pszCombined Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string that contains the combined URL.
-     * @param {Pointer<UInt32>} pcchCombined Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchCombined Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, is set to the number of characters in the <i>pszCombined</i> buffer. When the function returns successfully, the value depends on whether the function is successful or returns E_POINTER. For other return values, the value of this parameter is meaningless.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22134,7 +22127,7 @@ class Shell {
      * @param {PWSTR} pszCombined Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string that contains the combined URL.
-     * @param {Pointer<UInt32>} pcchCombined Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchCombined Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, is set to the number of characters in the <i>pszCombined</i> buffer. When the function returns successfully, the value depends on whether the function is successful or returns E_POINTER. For other return values, the value of this parameter is meaningless.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22195,7 +22188,7 @@ class Shell {
      * @param {PSTR} pszCanonicalized Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted URL as a null-terminated string.
-     * @param {Pointer<UInt32>} pcchCanonicalized Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchCanonicalized Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, is set to the number of characters in the <i>pszCanonicalized</i> buffer.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22226,7 +22219,7 @@ class Shell {
      * @param {PWSTR} pszCanonicalized Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted URL as a null-terminated string.
-     * @param {Pointer<UInt32>} pcchCanonicalized Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchCanonicalized Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, is set to the number of characters in the <i>pszCanonicalized</i> buffer.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22411,7 +22404,7 @@ class Shell {
      * @param {PSTR} pszUnescaped Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that will receive a null-terminated string that contains the unescaped version of <i>pszURL</i>. If <b>URL_UNESCAPE_INPLACE</b> is set in <i>dwFlags</i>, this parameter is ignored.
-     * @param {Pointer<UInt32>} pcchUnescaped Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchUnescaped Type: <b>DWORD*</b>
      * 
      * The number of characters in the buffer pointed to by <i>pszUnescaped</i>. On entry, the value <i>pcchUnescaped</i> points to is set to the size of the buffer. If the function returns a success code, the value that <i>pcchUnescaped</i> points to is set to the number of characters written to that buffer, not counting the terminating <b>NULL</b> character. If an E_POINTER error code is returned, the buffer was too small, and the value to which <i>pcchUnescaped</i> points is set to the required number of characters that the buffer must be able to contain. If any other errors are returned, the value to which <i>pcchUnescaped</i> points is undefined.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22442,7 +22435,7 @@ class Shell {
      * @param {PWSTR} pszUnescaped Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that will receive a null-terminated string that contains the unescaped version of <i>pszURL</i>. If <b>URL_UNESCAPE_INPLACE</b> is set in <i>dwFlags</i>, this parameter is ignored.
-     * @param {Pointer<UInt32>} pcchUnescaped Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchUnescaped Type: <b>DWORD*</b>
      * 
      * The number of characters in the buffer pointed to by <i>pszUnescaped</i>. On entry, the value <i>pcchUnescaped</i> points to is set to the size of the buffer. If the function returns a success code, the value that <i>pcchUnescaped</i> points to is set to the number of characters written to that buffer, not counting the terminating <b>NULL</b> character. If an E_POINTER error code is returned, the buffer was too small, and the value to which <i>pcchUnescaped</i> points is set to the required number of characters that the buffer must be able to contain. If any other errors are returned, the value to which <i>pcchUnescaped</i> points is undefined.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22473,7 +22466,7 @@ class Shell {
      * @param {PSTR} pszEscaped Type: <b>PTSTR</b>
      * 
      * The buffer that receives the converted string, with the unsafe characters converted to their escape sequences.
-     * @param {Pointer<UInt32>} pcchEscaped Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchEscaped Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that, on entry, contains the number of characters in the <i>pszEscaped</i> buffer. Before calling <b>UrlEscape</b>, the calling application must set the value referenced by <i>pcchEscaped</i> to the size of the buffer. When this function returns successfully, the value receives the number of characters written to the buffer, not including the terminating <b>NULL</b> character. 
      *     
@@ -22508,7 +22501,7 @@ class Shell {
      * @param {PWSTR} pszEscaped Type: <b>PTSTR</b>
      * 
      * The buffer that receives the converted string, with the unsafe characters converted to their escape sequences.
-     * @param {Pointer<UInt32>} pcchEscaped Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchEscaped Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that, on entry, contains the number of characters in the <i>pszEscaped</i> buffer. Before calling <b>UrlEscape</b>, the calling application must set the value referenced by <i>pcchEscaped</i> to the size of the buffer. When this function returns successfully, the value receives the number of characters written to the buffer, not including the terminating <b>NULL</b> character. 
      *     
@@ -22543,7 +22536,7 @@ class Shell {
      * @param {PSTR} pszUrl Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the URL.
-     * @param {Pointer<UInt32>} pcchUrl Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchUrl Type: <b>DWORD*</b>
      * 
      * The number of characters in <i>pszUrl</i>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22574,7 +22567,7 @@ class Shell {
      * @param {PWSTR} pszUrl Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the URL.
-     * @param {Pointer<UInt32>} pcchUrl Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchUrl Type: <b>DWORD*</b>
      * 
      * The number of characters in <i>pszUrl</i>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22605,7 +22598,7 @@ class Shell {
      * @param {PSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the MS-DOS path. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<UInt32>} pcchPath Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchPath Type: <b>DWORD*</b>
      * 
      * The number of characters in the <i>pszPath</i> buffer.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22636,7 +22629,7 @@ class Shell {
      * @param {PWSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the MS-DOS path. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<UInt32>} pcchPath Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchPath Type: <b>DWORD*</b>
      * 
      * The number of characters in the <i>pszPath</i> buffer.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22748,7 +22741,7 @@ class Shell {
      * @param {PWSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string with the specified part of the URL.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, is set to the number of characters in the <i>pszOut</i> buffer. When this function returns successfully, the value depends on whether the function is successful or returns E_POINTER. For other return values, the value of this parameter is meaningless.
      * @param {Integer} dwPart Type: <b>DWORD</b>
@@ -22780,7 +22773,7 @@ class Shell {
      * @param {PSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string with the specified part of the URL.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, is set to the number of characters in the <i>pszOut</i> buffer. When this function returns successfully, the value depends on whether the function is successful or returns E_POINTER. For other return values, the value of this parameter is meaningless.
      * @param {Integer} dwPart Type: <b>DWORD</b>
@@ -22812,7 +22805,7 @@ class Shell {
      * @param {PSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string set to the URL specified by <i>pszIn</i> and converted to the standard <i>scheme</i>://<i>URL_string</i> format.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * The address of a value set to the number of characters in the <i>pszOut</i> buffer. When the function returns, the value depends on whether the function is successful or returns E_POINTER. For other return values, the value of this parameter is meaningless.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22883,7 +22876,7 @@ class Shell {
      * @param {PWSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string set to the URL specified by <i>pszIn</i> and converted to the standard <i>scheme</i>://<i>URL_string</i> format.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * The address of a value set to the number of characters in the <i>pszOut</i> buffer. When the function returns, the value depends on whether the function is successful or returns E_POINTER. For other return values, the value of this parameter is meaningless.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -23231,13 +23224,13 @@ class Shell {
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The type of value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the destination data buffer.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The size of the destination data buffer.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23266,13 +23259,13 @@ class Shell {
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The type of value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the destination data buffer.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The size of the destination data buffer.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23377,13 +23370,13 @@ class Shell {
      * @param {Integer} srrfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a></b>
      * 
      * One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a> flags that restricts the data to be retrieved. At least one type restriction (SRRF_RT) value must be specified.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If the SRRF_NOEXPAND flag is not set, REG_EXPAND_SZ types are automatically expanded and returned as REG_SZ. If type information is not required, this parameter can be <b>NULL</b>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not needed. For example, if you were testing only for a value's existence, the specific value data would be superfluous.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the destination data buffer <i>pvData</i>, in bytes. This value can be <b>NULL</b> only if <i>pvData</i> is <b>NULL</b>. On exit, <i>pcbData</i> points to one of these values.
      *                     
@@ -23442,13 +23435,13 @@ class Shell {
      * @param {Integer} srrfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a></b>
      * 
      * One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a> flags that restricts the data to be retrieved. At least one type restriction (SRRF_RT) value must be specified.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If the SRRF_NOEXPAND flag is not set, REG_EXPAND_SZ types are automatically expanded and returned as REG_SZ. If type information is not required, this parameter can be <b>NULL</b>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not needed. For example, if you were testing only for a value's existence, the specific value data would be superfluous.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the destination data buffer <i>pvData</i>, in bytes. This value can be <b>NULL</b> only if <i>pvData</i> is <b>NULL</b>. On exit, <i>pcbData</i> points to one of these values.
      *                     
@@ -23501,13 +23494,13 @@ class Shell {
      * @param {Integer} srrfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a> flag constants. If more than one flag is used they can be combined using a bitwise OR. These flags are used to restrict the type of data returned. This value cannot be 0.
-     * @param {Pointer<UInt32>} pdwType Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>DWORD*</b>
      * 
      * When this function returns, contains a pointer to a <b>DWORD</b> which receives a code that indicates the type of data stored in the specified value.  This can be set to <b>NULL</b> if no type information is wanted. If this value is not <b>NULL</b>, and the SRRF_NOEXPAND flag has not been set, data types of REG_EXPAND_SZ will be returned as REG_SZ since they are automatically expanded in this method.
      * @param {Pointer} pvData Type: <b>LPCVOID</b>
      * 
      * A pointer to a buffer that contains the value's data. This parameter can be <b>NULL</b> if the data is not needed. This value must contain the size of the <i>pvData</i> buffer on entry.  If <i>pvData</i> is <b>NULL</b> (or if <i>pvData</i> is not <b>NULL</b>, but too small of a buffer to hold the registry data), then on exit it will contain the size required to hold the registry data.
-     * @param {Pointer<UInt32>} pcbData Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>DWORD*</b>
      * 
      * When this function returns, contains a pointer to the size of the data, in bytes.
      * @returns {Integer} Type: <b>LONG</b>
@@ -23532,13 +23525,13 @@ class Shell {
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of the variable that receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -23565,13 +23558,13 @@ class Shell {
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of the variable that receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -23601,7 +23594,7 @@ class Shell {
      * @param {PSTR} pszName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated key name.
-     * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23629,7 +23622,7 @@ class Shell {
      * @param {PWSTR} pszName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated key name.
-     * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23657,16 +23650,16 @@ class Shell {
      * @param {PSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueName</i>.
-     * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchValueName Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszValueName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszValueName</i>.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * The address of a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>, in bytes. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23694,16 +23687,16 @@ class Shell {
      * @param {PWSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueName</i>.
-     * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchValueName Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszValueName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszValueName</i>.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
      * @param {Pointer} pvData Type: <b>LPVOID</b>
      * 
      * The address of a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>, in bytes. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23725,16 +23718,16 @@ class Shell {
      * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<UInt32>} pcSubKeys Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of subkeys under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of characters in the name of the subkey with the largest name.
-     * @param {Pointer<UInt32>} pcValues Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcValues Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of values under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of characters in the name of the value with the largest name.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23755,16 +23748,16 @@ class Shell {
      * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<UInt32>} pcSubKeys Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of subkeys under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of characters in the name of the subkey with the largest name.
-     * @param {Pointer<UInt32>} pcValues Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcValues Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of values under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of characters in the name of the value with the largest name.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23979,7 +23972,7 @@ class Shell {
      * @param {Pointer} hRelativeUSKey Type: <b>HUSKEY</b>
      * 
      * The key to be used as a base for relative paths. If <i>pszPath</i> is a relative path, the key it specifies will be relative to <i>hRelativeUSKey</i>. If <i>pszPath</i> is an absolute path, set <i>hRelativeUSKey</i> to <b>NULL</b>. The key will then be created under <b>HKEY_LOCAL_MACHINE</b> or <b>HKEY_CURRENT_USER</b>, depending the value of <i>dwFlags</i>.
-     * @param {Pointer<IntPtr>} phNewUSKey Type: <b>PHUSKEY</b>
+     * @param {Pointer<Pointer>} phNewUSKey Type: <b>PHUSKEY</b>
      * 
      * A pointer to an <b>HUSKEY</b> that will receive the handle to the new key.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -24005,7 +23998,7 @@ class Shell {
      * @param {Pointer} hRelativeUSKey Type: <b>HUSKEY</b>
      * 
      * The key to be used as a base for relative paths. If <i>pszPath</i> is a relative path, the key it specifies will be relative to <i>hRelativeUSKey</i>. If <i>pszPath</i> is an absolute path, set <i>hRelativeUSKey</i> to <b>NULL</b>. The key will then be created under <b>HKEY_LOCAL_MACHINE</b> or <b>HKEY_CURRENT_USER</b>, depending the value of <i>dwFlags</i>.
-     * @param {Pointer<IntPtr>} phNewUSKey Type: <b>PHUSKEY</b>
+     * @param {Pointer<Pointer>} phNewUSKey Type: <b>PHUSKEY</b>
      * 
      * A pointer to an <b>HUSKEY</b> that will receive the handle to the new key.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -24033,7 +24026,7 @@ class Shell {
      * @param {Pointer} hRelativeUSKey Type: <b>HUSKEY</b>
      * 
      * The key to be used as a base for relative paths. If <i>pszPath</i> is a relative path, the key it specifies will be relative to <i>hRelativeUSKey</i>. If <i>pszPath</i> is an absolute path, set <i>hRelativeUSKey</i> to <b>NULL</b>.
-     * @param {Pointer<IntPtr>} phNewUSKey Type: <b>PHUSKEY</b>
+     * @param {Pointer<Pointer>} phNewUSKey Type: <b>PHUSKEY</b>
      * 
      * A pointer to the handle of the opened key.
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
@@ -24061,7 +24054,7 @@ class Shell {
      * @param {Pointer} hRelativeUSKey Type: <b>HUSKEY</b>
      * 
      * The key to be used as a base for relative paths. If <i>pszPath</i> is a relative path, the key it specifies will be relative to <i>hRelativeUSKey</i>. If <i>pszPath</i> is an absolute path, set <i>hRelativeUSKey</i> to <b>NULL</b>.
-     * @param {Pointer<IntPtr>} phNewUSKey Type: <b>PHUSKEY</b>
+     * @param {Pointer<Pointer>} phNewUSKey Type: <b>PHUSKEY</b>
      * 
      * A pointer to the handle of the opened key.
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
@@ -24092,13 +24085,13 @@ class Shell {
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to the <b>null</b>-terminated string that contains the name of the value to be queried.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD*</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD*</b>
      * 
      * A pointer to the variable that sets or receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer} pvData Type: <b>LPVOID*</b>
      * 
      * A pointer to the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD*</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD*</b>
      * 
      * A pointer to  the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
@@ -24135,13 +24128,13 @@ class Shell {
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to the <b>null</b>-terminated string that contains the name of the value to be queried.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD*</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD*</b>
      * 
      * A pointer to the variable that sets or receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer} pvData Type: <b>LPVOID*</b>
      * 
      * A pointer to the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD*</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD*</b>
      * 
      * A pointer to  the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
@@ -24361,7 +24354,7 @@ class Shell {
      * @param {PSTR} pszName Type: <b>LPTSTR</b>
      * 
      * A pointer to a character buffer that receives the enumerated key name.
-     * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * A pointer to  a DWORD that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
      * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
@@ -24393,7 +24386,7 @@ class Shell {
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
      * @param {PWSTR} pwzName TBD
-     * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * A pointer to  a DWORD that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
      * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
@@ -24427,16 +24420,16 @@ class Shell {
      * @param {PSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * A pointer to a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueNameLen</i>.
-     * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchValueName Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszValueName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszValueName</i>.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
      * @param {Pointer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
      * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
@@ -24470,16 +24463,16 @@ class Shell {
      * @param {PWSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * A pointer to a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueNameLen</i>.
-     * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchValueName Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszValueName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszValueName</i>.
-     * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
      * @param {Pointer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
      * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
@@ -24507,16 +24500,16 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<UInt32>} pcSubKeys Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * A pointer to  a <b>DWORD</b> that receives the number of subkeys under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the number of characters in the largest subkey name.
-     * @param {Pointer<UInt32>} pcValues Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcValues Type: <b>LPDWORD</b>
      * 
      * A pointer to  a <b>DWORD</b> that receives the number of values under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the number of characters in the largest value name.
      * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
@@ -24542,16 +24535,16 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<UInt32>} pcSubKeys Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * A pointer to  a <b>DWORD</b> that receives the number of subkeys under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxSubKeyLen Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the number of characters in the largest subkey name.
-     * @param {Pointer<UInt32>} pcValues Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcValues Type: <b>LPDWORD</b>
      * 
      * A pointer to  a <b>DWORD</b> that receives the number of values under the specified key.
-     * @param {Pointer<UInt32>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the number of characters in the largest value name.
      * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
@@ -24596,13 +24589,13 @@ class Shell {
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the value. This value can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwType Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If type information is not required, this parameter can be <b>NULL</b>.
      * @param {Pointer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the value's data.
-     * @param {Pointer<UInt32>} pcbData Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by <i>pvData</i>. When <b>SHRegGetUSValue</b> returns, <i>pcbData</i> contains the size of the data copied to <i>pvData</i>.
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
@@ -24636,13 +24629,13 @@ class Shell {
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the value. This value can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwType Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwType Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If type information is not required, this parameter can be <b>NULL</b>.
      * @param {Pointer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the value's data.
-     * @param {Pointer<UInt32>} pcbData Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcbData Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by <i>pvData</i>. When <b>SHRegGetUSValue</b> returns, <i>pcbData</i> contains the size of the data copied to <i>pvData</i>.
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
@@ -24815,13 +24808,13 @@ class Shell {
 
     /**
      * Returns a pointer to an IQueryAssociations object.
-     * @param {Pointer<Guid>} clsid Type: <b>CLSID</b>
+     * @param {Guid} clsid Type: <b>CLSID</b>
      * 
      * The CLSID of the object that exposes the interface. This parameter must be set to CLSID_QueryAssociations, which is defined in Shlguid.h.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the IID IID_IQueryAssociations, which is defined in Shlguid.h.
-     * @param {Pointer<Void>} ppv Type: <b>void*</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void*</b>
      * 
      * When this method returns, contains the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -24831,7 +24824,7 @@ class Shell {
      * @since windows5.0
      */
     static AssocCreate(clsid, riid, ppv) {
-        result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -24855,7 +24848,7 @@ class Shell {
      * @param {PSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string that, when this function returns successfully, receives the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, when calling the function, is set to the number of characters in the <i>pszOut</i> buffer. When the function returns successfully, the value is set to the number of characters actually placed in the buffer.
      * 
@@ -24895,9 +24888,6 @@ class Shell {
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringA", "uint", flags, "int", str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -24918,7 +24908,7 @@ class Shell {
      * @param {PWSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string that, when this function returns successfully, receives the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, when calling the function, is set to the number of characters in the <i>pszOut</i> buffer. When the function returns successfully, the value is set to the number of characters actually placed in the buffer.
      * 
@@ -24958,9 +24948,6 @@ class Shell {
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringW", "uint", flags, "int", str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -24981,7 +24968,7 @@ class Shell {
      * @param {PSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string used to return the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, specifies the number of characters in the <i>pszOut</i> buffer. When the function returns, it points to the number of characters placed in the buffer. 
      * 
@@ -25023,9 +25010,6 @@ class Shell {
         hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyA", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -25046,7 +25030,7 @@ class Shell {
      * @param {PWSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string used to return the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
-     * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchOut Type: <b>DWORD*</b>
      * 
      * A pointer to a value that, on entry, specifies the number of characters in the <i>pszOut</i> buffer. When the function returns, it points to the number of characters placed in the buffer. 
      * 
@@ -25088,9 +25072,6 @@ class Shell {
         hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyW", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -25185,10 +25166,10 @@ class Shell {
      * @param {PWSTR} pszExt Type: <b>PCWSTR</b>
      * 
      * A pointer to a buffer that contains the file's extension. This should include the leading period, for example ".txt".
-     * @param {Pointer<Int32>} ptype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a>*</b>
+     * @param {Pointer<Integer>} ptype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a> value that indicates the perceived type.
-     * @param {Pointer<UInt32>} pflag Type: <b>PERCEIVEDFLAG*</b>
+     * @param {Pointer<Integer>} pflag Type: <b>PERCEIVEDFLAG*</b>
      * @param {Pointer<PWSTR>} ppszType Type: <b>PWSTR*</b>
      * 
      * If the function returns a success code, this contains the address of a pointer to a buffer that receives the perceived type string, for instance "text" or "video". This value can be <b>NULL</b>.
@@ -25220,7 +25201,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer<IStream>} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {IStream} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, or an inability to open the stream. 
      * 
@@ -25252,7 +25233,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer<IStream>} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {IStream} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, or an inability to open the stream. 
      * 
@@ -25284,7 +25265,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer<IStream>} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {IStream} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, a subkey named by <i>pszSubkey</i> that does not exist, a caller without sufficient permissions to access the subkey, or an inability to open the stream.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shopenregstream2a
@@ -25311,7 +25292,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
-     * @returns {Pointer<IStream>} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {IStream} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, a subkey named by <i>pszSubkey</i> that does not exist, a caller without sufficient permissions to access the subkey, or an inability to open the stream.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shopenregstream2w
@@ -25346,7 +25327,7 @@ class Shell {
     static SHCreateStreamOnFileA(pszFile, grfMode, ppstm) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileA", "ptr", pszFile, "uint", grfMode, "ptr", ppstm, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileA", "ptr", pszFile, "uint", grfMode, "ptr*", ppstm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25373,7 +25354,7 @@ class Shell {
     static SHCreateStreamOnFileW(pszFile, grfMode, ppstm) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileW", "ptr", pszFile, "uint", grfMode, "ptr", ppstm, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileW", "ptr", pszFile, "uint", grfMode, "ptr*", ppstm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25394,7 +25375,7 @@ class Shell {
      * @param {BOOL} fCreate Type: <b>BOOL</b>
      * 
      * A <b>BOOL</b> value that helps specify, in conjunction with <i>grfMode</i>, how existing files should be treated when creating the stream. See Remarks for details.
-     * @param {Pointer<IStream>} pstmTemplate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstmTemplate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Reserved.
      * @param {Pointer<IStream>} ppstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
@@ -25409,7 +25390,7 @@ class Shell {
     static SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTemplate, ppstm) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr", ppstm, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr*", ppstm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25424,7 +25405,7 @@ class Shell {
      * @param {Integer} cbInit Type: <b>UINT</b>
      * 
      * The number of bytes in the buffer pointed to by <i>pInit</i>. If <i>pInit</i> is set to <b>NULL</b>, <i>cbInit</i> must be zero.
-     * @returns {Pointer<IStream>} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @returns {IStream} Type: <b><a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * On success, returns a pointer to the created memory stream. Returns <b>NULL</b> if the stream object could not be allocated.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shcreatememstream
@@ -25440,7 +25421,7 @@ class Shell {
      * @param {PSTR} pszLanguages Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that, when this function returns successfully, receives the language preferences information. We recommend that this buffer be of size 2048 characters to ensure sufficient space to return the full string. You can also call this function with this parameter set to NULL to retrieve the size of the string that will be returned.
-     * @param {Pointer<UInt32>} pcchLanguages Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchLanguages Type: <b>DWORD*</b>
      * 
      * A pointer to the size, in characters, of the string at <i>pszLanguages</i>. 
      *                         
@@ -25470,7 +25451,7 @@ class Shell {
      * @param {PWSTR} pszLanguages Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that, when this function returns successfully, receives the language preferences information. We recommend that this buffer be of size 2048 characters to ensure sufficient space to return the full string. You can also call this function with this parameter set to NULL to retrieve the size of the string that will be returned.
-     * @param {Pointer<UInt32>} pcchLanguages Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pcchLanguages Type: <b>DWORD*</b>
      * 
      * A pointer to the size, in characters, of the string at <i>pszLanguages</i>. 
      *                         
@@ -25513,7 +25494,7 @@ class Shell {
      * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a COM interface pointer to receive the pointer assigned to <i>punk</i>. If the previous value of the pointer is non-<b>NULL</b>, the function releases that interface by calling its IUnkown::Release method.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * The interface pointer to be copied to <i>ppunk</i>. If the value is non-<b>NULL</b>, the function increments the interface's reference count.
      * @returns {String} Nothing - always returns an empty string
@@ -25521,7 +25502,7 @@ class Shell {
      * @since windows5.0
      */
     static IUnknown_Set(ppunk, punk) {
-        DllCall("SHLWAPI.dll\IUnknown_Set", "ptr", ppunk, "ptr", punk)
+        DllCall("SHLWAPI.dll\IUnknown_Set", "ptr*", ppunk, "ptr", punk)
     }
 
     /**
@@ -25532,7 +25513,7 @@ class Shell {
      * 
      * 
      * 
-     * @param {Pointer<Void>} ppunk Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppunk Type: <b>void**</b>
      * 
      * The address of a pointer to a COM interface.
      * @returns {String} Nothing - always returns an empty string
@@ -25540,12 +25521,12 @@ class Shell {
      * @since windows5.0
      */
     static IUnknown_AtomicRelease(ppunk) {
-        DllCall("SHLWAPI.dll\IUnknown_AtomicRelease", "ptr", ppunk)
+        DllCall("SHLWAPI.dll\IUnknown_AtomicRelease", "ptr*", ppunk)
     }
 
     /**
      * Attempts to retrieve a window handle from a Component Object Model (COM) object by querying for various interfaces that have a GetWindow method.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the COM object from which this function will attempt to obtain a window handle.
      * @param {Pointer<HWND>} phwnd Type: <b>HWND*</b>
@@ -25567,10 +25548,10 @@ class Shell {
 
     /**
      * Sets the specified object's site by calling its IObjectWithSite::SetSite method.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the IUnknown interface of the object whose site is to be changed.
-     * @param {Pointer<IUnknown>} punkSite Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkSite Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the IUnknown interface of the new site.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25589,13 +25570,13 @@ class Shell {
 
     /**
      * Calls the specified object's IObjectWithSite::GetSite method.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the COM object whose <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iobjectwithsite-getsite">IObjectWithSite::GetSite</a> method is to be called.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the interface pointer that should be returned in <i>ppvSite</i>.
-     * @param {Pointer<Void>} ppv Type: <b>VOID**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>VOID**</b>
      * 
      * The address of the pointer to receive the requested interface pointer. If the function call is successful, <i>ppvSite</i> will contain the requested interface pointer. If no site is available or the requested interface is not supported, <i>ppvSite</i> is set to <b>NULL</b> and the function returns a COM error code.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25605,7 +25586,7 @@ class Shell {
      * @since windows5.0
      */
     static IUnknown_GetSite(punk, riid, ppv) {
-        result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25614,7 +25595,7 @@ class Shell {
 
     /**
      * Retrieves an interface for a service from a specified object.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> instance of the COM object that supports the service.
      * @param {Pointer<Guid>} guidService Type: <b>REFGUID</b>
@@ -25623,7 +25604,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the desired service interface.
-     * @param {Pointer<Void>} ppvOut Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvOut Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested <i>riid</i>. If successful, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> using this value when the service is no longer needed. In the case of failure, this value is <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25633,7 +25614,7 @@ class Shell {
      * @since windows5.0
      */
     static IUnknown_QueryService(punk, guidService, riid, ppvOut) {
-        result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, "ptr", ppvOut, "int")
+        result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, "ptr*", ppvOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25642,7 +25623,7 @@ class Shell {
 
     /**
      * Reads bytes from a specified stream and returns a value that indicates whether all bytes were successfully read.
-     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream from which to read.
      * @param {Pointer} pv Type: <b>VOID*</b>
@@ -25667,7 +25648,7 @@ class Shell {
 
     /**
      * Writes data of unknown format from a buffer to a specified stream.
-     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer that specifies the target stream.
      * @param {Pointer} pv Type: <b>const void*</b>
@@ -25692,7 +25673,7 @@ class Shell {
 
     /**
      * Moves the seek position in a specified stream to the beginning of the stream.
-     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream whose position is to be reset.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25711,10 +25692,10 @@ class Shell {
 
     /**
      * Retrieves the size, in bytes, of a specified stream.
-     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream whose size is to be determined.
-     * @param {Pointer<UInt64>} pui Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @param {Pointer<Integer>} pui Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a> structure to receive the size of the stream.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25733,7 +25714,7 @@ class Shell {
 
     /**
      * Establishes or terminates a connection between a client's sink and a connection point container.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object to be connected to the connection point container. If you set <i>fConnect</i> to <b>FALSE</b> to indicate that you are disconnecting the object, this parameter is ignored and can be set to <b>NULL</b>.
      * @param {Pointer<Guid>} riidEvent Type: <b>REFIID</b>
@@ -25742,10 +25723,10 @@ class Shell {
      * @param {BOOL} fConnect Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if a connection is being established; <b>FALSE</b> if a connection is being broken.
-     * @param {Pointer<IUnknown>} punkTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the connection point container's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
-     * @param {Pointer<UInt32>} pdwCookie Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwCookie Type: <b>DWORD*</b>
      * 
      * A connection token. If you set <i>fConnect</i> to <b>TRUE</b> to make a new connection, this parameter receives a token that uniquely identifies the connection. If you set <i>fConnect</i> to <b>FALSE</b> to break a connection, this parameter must point to the token that you received when you called <b>ConnectToConnectionPoint</b> to establish the connection.
      * @param {Pointer<IConnectionPoint>} ppcpOut Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iconnectionpoint">IConnectionPoint</a>**</b>
@@ -25758,7 +25739,7 @@ class Shell {
      * @since windows5.0
      */
     static ConnectToConnectionPoint(punk, riidEvent, fConnect, punkTarget, pdwCookie, ppcpOut) {
-        result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", "ptr", punk, "ptr", riidEvent, "int", fConnect, "ptr", punkTarget, "uint*", pdwCookie, "ptr", ppcpOut, "int")
+        result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", "ptr", punk, "ptr", riidEvent, "int", fConnect, "ptr", punkTarget, "uint*", pdwCookie, "ptr*", ppcpOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25767,10 +25748,10 @@ class Shell {
 
     /**
      * Reads a pointer to an item identifier list (PIDL) from an IStream object into a PIDLIST_RELATIVE object.
-     * @param {Pointer<IStream>} pstm Type: <b>IStream*</b>
+     * @param {IStream} pstm Type: <b>IStream*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> from which the PIDL is read.
-     * @param {Pointer<ITEMIDLIST>} ppidlOut Type: <b>PIDLIST_RELATIVE*</b>
+     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlOut Type: <b>PIDLIST_RELATIVE*</b>
      * 
      * A pointer to the resulting PIDL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25780,7 +25761,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static IStream_ReadPidl(pstm, ppidlOut) {
-        result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, "ptr", ppidlOut, "int")
+        result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, "ptr*", ppidlOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25789,7 +25770,7 @@ class Shell {
 
     /**
      * Writes a pointer to an item identifier list (PIDL) from a PCUIDLIST_RELATIVE object into an IStream object.
-     * @param {Pointer<IStream>} pstm Type: <b>IStream*</b>
+     * @param {IStream} pstm Type: <b>IStream*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object in which to write.
      * @param {Pointer<ITEMIDLIST>} pidlWrite Type: <b>PCUIDLIST_RELATIVE</b>
@@ -25811,7 +25792,7 @@ class Shell {
 
     /**
      * Reads from a stream and writes into a string.
-     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the stream from which to read.
      * @param {Pointer<PWSTR>} ppsz Type: <b>PWSTR*</b>
@@ -25833,7 +25814,7 @@ class Shell {
 
     /**
      * Reads from a string and writes into a stream.
-     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the stream in which to write.
      * @param {PWSTR} psz Type: <b>PCWSTR</b>
@@ -25857,10 +25838,10 @@ class Shell {
 
     /**
      * Copies a stream to another stream.
-     * @param {Pointer<IStream>} pstmFrom Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstmFrom Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the source stream.
-     * @param {Pointer<IStream>} pstmTo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstmTo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the destination stream.
      * @param {Integer} cb Type: <b>DWORD</b>
@@ -25897,7 +25878,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25909,7 +25890,7 @@ class Shell {
     static SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid, ppv) {
         pszBagName := pszBagName is String ? StrPtr(pszBagName) : pszBagName
 
-        result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25921,7 +25902,7 @@ class Shell {
      * @param {Pointer<FILETIME>} pft Type: <b>const FILETIME UNALIGNED*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure whose time is to be converted to a string.
-     * @param {Pointer<UInt32>} pdwFlags Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that contains bitwise flags that specify the date and time format.
      * 
@@ -25953,7 +25934,7 @@ class Shell {
      * @param {Pointer<FILETIME>} pft Type: <b>const FILETIME UNALIGNED*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure whose time is to be converted to a string.
-     * @param {Pointer<UInt32>} pdwFlags Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that contains bitwise flags that specify the date and time format.
      * 
@@ -26473,7 +26454,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -26483,7 +26464,7 @@ class Shell {
      * @since windows5.0
      */
     static QISearch(that, pqit, riid, ppv) {
-        result := DllCall("SHLWAPI.dll\QISearch", "ptr", that, "ptr", pqit, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHLWAPI.dll\QISearch", "ptr", that, "ptr", pqit, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26578,7 +26559,7 @@ class Shell {
 
     /**
      * Creates a per-thread reference to a Component Object Model (COM) object.
-     * @param {Pointer<Int32>} pcRef Type: <b>LONG*</b>
+     * @param {Pointer<Integer>} pcRef Type: <b>LONG*</b>
      * 
      * A pointer to a value, usually a local variable in the thread's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>, that is used by the interface in <i>ppunk</i> as a reference counter.
      * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
@@ -26591,7 +26572,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateThreadRef(pcRef, ppunk) {
-        result := DllCall("SHLWAPI.dll\SHCreateThreadRef", "int*", pcRef, "ptr", ppunk, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateThreadRef", "int*", pcRef, "ptr*", ppunk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26600,7 +26581,7 @@ class Shell {
 
     /**
      * Stores a per-thread reference to a Component Object Model (COM) object. This allows the caller to control the thread's lifetime so that it can ensure that Windows won't shut down the thread before the caller is ready.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the object for which you want to store a reference. This value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -26629,7 +26610,7 @@ class Shell {
      * @since windows5.0
      */
     static SHGetThreadRef(ppunk) {
-        result := DllCall("SHLWAPI.dll\SHGetThreadRef", "ptr", ppunk, "int")
+        result := DllCall("SHLWAPI.dll\SHGetThreadRef", "ptr*", ppunk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26638,7 +26619,7 @@ class Shell {
 
     /**
      * Checks a bind context to see if it is safe to bind to a particular component object.
-     * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface that specifies the bind context you want to check. This value can be <b>NULL</b>.
      * @param {Pointer<Guid>} pclsid Type: <b>const CLSID*</b>
@@ -26777,13 +26758,13 @@ class Shell {
      * @param {COLORREF} clrRGB Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * The original RGB color.
-     * @param {Pointer<UInt16>} pwHue Type: <b>WORD*</b>
+     * @param {Pointer<Integer>} pwHue Type: <b>WORD*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives the HLS hue value.
-     * @param {Pointer<UInt16>} pwLuminance Type: <b>WORD*</b>
+     * @param {Pointer<Integer>} pwLuminance Type: <b>WORD*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives the HLS luminance value.
-     * @param {Pointer<UInt16>} pwSaturation Type: <b>WORD*</b>
+     * @param {Pointer<Integer>} pwSaturation Type: <b>WORD*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives the HLS saturation value.
      * @returns {String} Nothing - always returns an empty string
@@ -26853,21 +26834,21 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IMoniker>} pimkTrgt 
+     * @param {IMoniker} pimkTrgt 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
-     * @param {Pointer<IHlinkSite>} pihlsite 
+     * @param {IHlinkSite} pihlsite 
      * @param {Integer} dwSiteData 
-     * @param {Pointer<IUnknown>} piunkOuter 
+     * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppvObj 
+     * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkCreateFromMoniker(pimkTrgt, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26879,11 +26860,11 @@ class Shell {
      * @param {PWSTR} pwzTarget 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
-     * @param {Pointer<IHlinkSite>} pihlsite 
+     * @param {IHlinkSite} pihlsite 
      * @param {Integer} dwSiteData 
-     * @param {Pointer<IUnknown>} piunkOuter 
+     * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppvObj 
+     * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkCreateFromString(pwzTarget, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
@@ -26891,7 +26872,7 @@ class Shell {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26900,16 +26881,16 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IDataObject>} piDataObj 
-     * @param {Pointer<IHlinkSite>} pihlsite 
+     * @param {IDataObject} piDataObj 
+     * @param {IHlinkSite} pihlsite 
      * @param {Integer} dwSiteData 
-     * @param {Pointer<IUnknown>} piunkOuter 
+     * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppvObj 
+     * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
-        result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26918,7 +26899,7 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IDataObject>} piDataObj 
+     * @param {IDataObject} piDataObj 
      * @returns {HRESULT} 
      */
     static HlinkQueryCreateFromData(piDataObj) {
@@ -26931,15 +26912,15 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IHlink>} pihl 
+     * @param {IHlink} pihl 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IHlinkSite>} pihlsiteForClone 
+     * @param {IHlinkSite} pihlsiteForClone 
      * @param {Integer} dwSiteData 
-     * @param {Pointer<Void>} ppvObj 
+     * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData, ppvObj) {
-        result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, "ptr", ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26948,13 +26929,13 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IUnknown>} piunkOuter 
+     * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppvObj 
+     * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkCreateBrowseContext(piunkOuter, riid, ppvObj) {
-        result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26965,13 +26946,13 @@ class Shell {
      * 
      * @param {PWSTR} pwzTarget 
      * @param {PWSTR} pwzLocation 
-     * @param {Pointer<IHlinkSite>} pihlsite 
+     * @param {IHlinkSite} pihlsite 
      * @param {Integer} dwSiteData 
-     * @param {Pointer<IHlinkFrame>} pihlframe 
+     * @param {IHlinkFrame} pihlframe 
      * @param {Integer} grfHLNF 
-     * @param {Pointer<IBindCtx>} pibc 
-     * @param {Pointer<IBindStatusCallback>} pibsc 
-     * @param {Pointer<IHlinkBrowseContext>} pihlbc 
+     * @param {IBindCtx} pibc 
+     * @param {IBindStatusCallback} pibsc 
+     * @param {IHlinkBrowseContext} pihlbc 
      * @returns {HRESULT} 
      */
     static HlinkNavigateToStringReference(pwzTarget, pwzLocation, pihlsite, dwSiteData, pihlframe, grfHLNF, pibc, pibsc, pihlbc) {
@@ -26987,12 +26968,12 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IHlink>} pihl 
-     * @param {Pointer<IHlinkFrame>} pihlframe 
+     * @param {IHlink} pihl 
+     * @param {IHlinkFrame} pihlframe 
      * @param {Integer} grfHLNF 
-     * @param {Pointer<IBindCtx>} pbc 
-     * @param {Pointer<IBindStatusCallback>} pibsc 
-     * @param {Pointer<IHlinkBrowseContext>} pihlbc 
+     * @param {IBindCtx} pbc 
+     * @param {IBindStatusCallback} pibsc 
+     * @param {IHlinkBrowseContext} pihlbc 
      * @returns {HRESULT} 
      */
     static HlinkNavigate(pihl, pihlframe, grfHLNF, pbc, pibsc, pihlbc) {
@@ -27005,13 +26986,13 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IHlinkFrame>} pihlframe 
-     * @param {Pointer<IHlinkBrowseContext>} pihlbc 
+     * @param {IHlinkFrame} pihlframe 
+     * @param {IHlinkBrowseContext} pihlbc 
      * @param {Integer} grfHLNF 
-     * @param {Pointer<IMoniker>} pimkTarget 
+     * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
-     * @param {Pointer<UInt32>} puHLID 
+     * @param {Pointer<Integer>} puHLID 
      * @returns {HRESULT} 
      */
     static HlinkOnNavigate(pihlframe, pihlbc, grfHLNF, pimkTarget, pwzLocation, pwzFriendlyName, puHLID) {
@@ -27027,10 +27008,10 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IHlinkFrame>} pihlframe 
-     * @param {Pointer<IHlinkBrowseContext>} pihlbc 
+     * @param {IHlinkFrame} pihlframe 
+     * @param {IHlinkBrowseContext} pihlbc 
      * @param {Integer} uHLID 
-     * @param {Pointer<IMoniker>} pimkTrgt 
+     * @param {IMoniker} pimkTrgt 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
      * @returns {HRESULT} 
@@ -27049,9 +27030,9 @@ class Shell {
     /**
      * 
      * @param {Integer} dwReserved 
-     * @param {Pointer<IHlinkBrowseContext>} pihlbc 
-     * @param {Pointer<IMoniker>} pimkOld 
-     * @param {Pointer<IMoniker>} pimkNew 
+     * @param {IHlinkBrowseContext} pihlbc 
+     * @param {IMoniker} pimkOld 
+     * @param {IMoniker} pimkNew 
      * @returns {HRESULT} 
      */
     static HlinkOnRenameDocument(dwReserved, pihlbc, pimkOld, pimkNew) {
@@ -27064,13 +27045,13 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IMoniker>} pimkReference 
+     * @param {IMoniker} pimkReference 
      * @param {Integer} reserved 
-     * @param {Pointer<IBindCtx>} pibc 
+     * @param {IBindCtx} pibc 
      * @param {Integer} cFmtetc 
      * @param {Pointer<FORMATETC>} rgFmtetc 
-     * @param {Pointer<IBindStatusCallback>} pibsc 
-     * @param {Pointer<IMoniker>} pimkBase 
+     * @param {IBindStatusCallback} pibsc 
+     * @param {IMoniker} pimkBase 
      * @returns {HRESULT} 
      */
     static HlinkResolveMonikerForData(pimkReference, reserved, pibc, cFmtetc, rgFmtetc, pibsc, pimkBase) {
@@ -27085,11 +27066,11 @@ class Shell {
      * 
      * @param {PWSTR} pwzReference 
      * @param {Integer} reserved 
-     * @param {Pointer<IBindCtx>} pibc 
+     * @param {IBindCtx} pibc 
      * @param {Integer} cFmtetc 
      * @param {Pointer<FORMATETC>} rgFmtetc 
-     * @param {Pointer<IBindStatusCallback>} pibsc 
-     * @param {Pointer<IMoniker>} pimkBase 
+     * @param {IBindStatusCallback} pibsc 
+     * @param {IMoniker} pimkBase 
      * @returns {HRESULT} 
      */
     static HlinkResolveStringForData(pwzReference, reserved, pibc, cFmtetc, rgFmtetc, pibsc, pimkBase) {
@@ -27104,17 +27085,17 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IBindCtx>} pibc 
+     * @param {IBindCtx} pibc 
      * @param {PWSTR} pwzDisplayName 
      * @param {BOOL} fNoForceAbs 
-     * @param {Pointer<UInt32>} pcchEaten 
+     * @param {Pointer<Integer>} pcchEaten 
      * @param {Pointer<IMoniker>} ppimk 
      * @returns {HRESULT} 
      */
     static HlinkParseDisplayName(pibc, pwzDisplayName, fNoForceAbs, pcchEaten, ppimk) {
         pwzDisplayName := pwzDisplayName is String ? StrPtr(pwzDisplayName) : pwzDisplayName
 
-        result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, "uint*", pcchEaten, "ptr", ppimk, "int")
+        result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, "uint*", pcchEaten, "ptr*", ppimk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27127,9 +27108,9 @@ class Shell {
      * @param {HWND} phwnd 
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszPassword 
-     * @param {Pointer<IUnknown>} piunkOuter 
+     * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppvObj 
+     * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, pszPassword, piunkOuter, riid, ppvObj) {
@@ -27138,7 +27119,7 @@ class Shell {
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
         phwnd := phwnd is Win32Handle ? NumGet(phwnd, "ptr") : phwnd
 
-        result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27147,13 +27128,13 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IBindCtx>} pibc 
-     * @param {Pointer<IMoniker>} pimkIn 
+     * @param {IBindCtx} pibc 
+     * @param {IMoniker} pimkIn 
      * @param {Pointer<IMoniker>} ppimkOut 
      * @returns {HRESULT} 
      */
     static HlinkPreprocessMoniker(pibc, pimkIn, ppimkOut) {
-        result := DllCall("hlink.dll\HlinkPreprocessMoniker", "ptr", pibc, "ptr", pimkIn, "ptr", ppimkOut, "int")
+        result := DllCall("hlink.dll\HlinkPreprocessMoniker", "ptr", pibc, "ptr", pimkIn, "ptr*", ppimkOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27162,8 +27143,8 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<IUnknown>} piunk 
-     * @param {Pointer<IStream>} pistm 
+     * @param {IUnknown} piunk 
+     * @param {IStream} pistm 
      * @param {BOOL} fClearDirty 
      * @returns {HRESULT} 
      */
@@ -27208,7 +27189,7 @@ class Shell {
     /**
      * 
      * @param {Integer} grfHLSHORTCUTF 
-     * @param {Pointer<IHlink>} pihl 
+     * @param {IHlink} pihl 
      * @param {PWSTR} pwzDir 
      * @param {PWSTR} pwzFileName 
      * @param {Pointer<PWSTR>} ppwzShortcutFile 
@@ -27229,7 +27210,7 @@ class Shell {
     /**
      * 
      * @param {Integer} grfHLSHORTCUTF 
-     * @param {Pointer<IMoniker>} pimkTarget 
+     * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzDir 
      * @param {PWSTR} pwzFileName 
@@ -27276,17 +27257,17 @@ class Shell {
     /**
      * 
      * @param {PWSTR} pwzShortcutFileName 
-     * @param {Pointer<IHlinkSite>} pihlsite 
+     * @param {IHlinkSite} pihlsite 
      * @param {Integer} dwSiteData 
-     * @param {Pointer<IUnknown>} piunkOuter 
+     * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppvObj 
+     * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
         pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-        result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27303,7 +27284,7 @@ class Shell {
     static HlinkResolveShortcutToMoniker(pwzShortcutFileName, ppimkTarget, ppwzLocation) {
         pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-        result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, "ptr", ppimkTarget, "ptr", ppwzLocation, "int")
+        result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, "ptr*", ppimkTarget, "ptr", ppwzLocation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27411,7 +27392,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended backslash. This value should not be <b>NULL</b>.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<PWSTR>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to the terminating null character at the end of the string.
-     * @param {Pointer<UIntPtr>} pcchRemaining A pointer to a value that, when this function returns successfully, is set to the number of unused characters in the destination buffer, including the terminating null character.
+     * @param {Pointer<Pointer>} pcchRemaining A pointer to a value that, when this function returns successfully, is set to the number of unused characters in the destination buffer, including the terminating null character.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchaddbackslashex
      * @since windows8.0
@@ -27420,9 +27401,6 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslashEx", "ptr", pszPath, "ptr", cchPath, "ptr", ppszEnd, "ptr*", pcchRemaining, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -27438,9 +27416,6 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslash", "ptr", pszPath, "ptr", cchPath, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -27449,7 +27424,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any trailing backslash removed. If no trailing backslash was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {Pointer<PWSTR>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to end of the new string. If the string is a root path such as "C:\", the pointer points to the backslash; otherwise the pointer points to the string's terminating null character.
-     * @param {Pointer<UIntPtr>} pcchRemaining A pointer to a value that, when this function returns successfully, receives the number of unused characters in the destination buffer, including the terminating null character. If the string is a root path such as "C:\", this count includes the backslash in that string.
+     * @param {Pointer<Pointer>} pcchRemaining A pointer to a value that, when this function returns successfully, receives the number of unused characters in the destination buffer, including the terminating null character. If the string is a root path such as "C:\", this count includes the backslash in that string.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchremovebackslashex
      * @since windows8.0
@@ -27476,9 +27451,6 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslash", "ptr", pszPath, "ptr", cchPath, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -27512,9 +27484,6 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchStripToRoot", "ptr", pszPath, "ptr", cchPath, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
@@ -28268,9 +28237,6 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchStripPrefix", "ptr", pszPath, "ptr", cchPath, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 

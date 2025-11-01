@@ -20,7 +20,7 @@ class BINARY_BLOB_CREDENTIAL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbBlob {
         get => NumGet(this, 8, "ptr")

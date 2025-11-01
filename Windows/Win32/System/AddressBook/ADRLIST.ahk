@@ -3,6 +3,8 @@
 #Include .\ADRENTRY.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/adrlist
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

@@ -3,6 +3,8 @@
 #Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_endpoint_property_change_notification
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -13,7 +15,7 @@ class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IMMDevice>}
+     * @type {IMMDevice}
      */
     endpoint {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +23,7 @@ class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IPropertyStore>}
+     * @type {IPropertyStore}
      */
     propertyStore {
         get => NumGet(this, 8, "ptr")

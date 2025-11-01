@@ -84,7 +84,7 @@ class KERB_DECRYPT_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     InitialVector {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class KERB_DECRYPT_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     EncryptedData {
         get => NumGet(this, 64, "ptr")

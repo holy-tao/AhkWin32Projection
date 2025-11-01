@@ -30,7 +30,7 @@ class XAUDIO2_SEND_DESCRIPTOR extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nn-xaudio2-ixaudio2voice">IXAudio2Voice</a> that will be the target of the send. The <b>pOutputVoice</b> member cannot be NULL.
-     * @type {Pointer<IXAudio2Voice>}
+     * @type {IXAudio2Voice}
      */
     pOutputVoice {
         get => NumGet(this, 8, "ptr")

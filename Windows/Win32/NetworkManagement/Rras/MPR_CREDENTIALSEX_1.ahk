@@ -30,7 +30,7 @@ class MPR_CREDENTIALSEX_1 extends Win32Struct
 
     /**
      * Pointer to the pre-shared key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpbCredentialsInfo {
         get => NumGet(this, 8, "ptr")

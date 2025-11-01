@@ -52,7 +52,7 @@ class CARD_SIGNING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class CARD_SIGNING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSignedData {
         get => NumGet(this, 40, "ptr")

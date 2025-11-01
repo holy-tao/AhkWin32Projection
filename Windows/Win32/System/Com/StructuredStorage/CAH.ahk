@@ -20,7 +20,7 @@ class CAH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

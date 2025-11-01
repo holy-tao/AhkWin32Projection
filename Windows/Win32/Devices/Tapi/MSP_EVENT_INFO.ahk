@@ -33,7 +33,7 @@ class MSP_EVENT_INFO extends Win32Struct
 
     /**
      * MSP handle; may be <b>NULL</b>.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     hCall {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class MSP_EVENT_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<ITTerminal>}
+         * @type {ITTerminal}
          */
         pTerminal {
             get => NumGet(this, 8, "ptr")
@@ -83,7 +83,7 @@ class MSP_EVENT_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<ITStream>}
+         * @type {ITStream}
          */
         pStream {
             get => NumGet(this, 8, "ptr")
@@ -91,7 +91,7 @@ class MSP_EVENT_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<ITTerminal>}
+         * @type {ITTerminal}
          */
         pTerminal {
             get => NumGet(this, 16, "ptr")
@@ -138,7 +138,7 @@ class MSP_EVENT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<IDispatch>}
+         * @type {IDispatch}
          */
         pEvent {
             get => NumGet(this, 0, "ptr")
@@ -160,7 +160,7 @@ class MSP_EVENT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<ITTerminal>}
+         * @type {ITTerminal}
          */
         pParentFileTerminal {
             get => NumGet(this, 0, "ptr")
@@ -168,7 +168,7 @@ class MSP_EVENT_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<ITFileTrack>}
+         * @type {ITFileTrack}
          */
         pFileTrack {
             get => NumGet(this, 8, "ptr")
@@ -206,7 +206,7 @@ class MSP_EVENT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<ITTerminal>}
+         * @type {ITTerminal}
          */
         pASRTerminal {
             get => NumGet(this, 0, "ptr")
@@ -228,7 +228,7 @@ class MSP_EVENT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<ITTerminal>}
+         * @type {ITTerminal}
          */
         pTTSTerminal {
             get => NumGet(this, 0, "ptr")
@@ -250,7 +250,7 @@ class MSP_EVENT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<ITTerminal>}
+         * @type {ITTerminal}
          */
         pToneTerminal {
             get => NumGet(this, 0, "ptr")

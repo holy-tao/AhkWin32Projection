@@ -155,7 +155,7 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
      * After the <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> function 
      *       returns, this array contains the certificates that were selected by the user. Currently, only one certificate 
      *       can be selected by the user.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     arrayCertContext {
         get => NumGet(this, 80, "ptr")

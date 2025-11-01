@@ -787,7 +787,7 @@ class KeyboardAndMouse {
      * @param {Integer} wScanCode Type: <b>UINT</b>
      * 
      * The hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up.
-     * @param {Pointer<Byte>} lpKeyState Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} lpKeyState Type: <b>const BYTE*</b>
      * 
      * A pointer to a 256-byte array that contains the current keyboard state. Each element (byte) in the array contains the state of one key. If the high-order bit of a byte is set, the key is down.
      * @param {PWSTR} pwszBuff Type: <b>LPWSTR</b>
@@ -1293,7 +1293,7 @@ class KeyboardAndMouse {
 
     /**
      * Copies the status of the 256 virtual keys to the specified buffer.
-     * @param {Pointer<Byte>} lpKeyState Type: <b>PBYTE</b>
+     * @param {Pointer<Integer>} lpKeyState Type: <b>PBYTE</b>
      * 
      * The 256-byte array that receives the status data for each virtual key.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1316,7 +1316,7 @@ class KeyboardAndMouse {
 
     /**
      * Copies an array of keyboard key states into the calling thread's keyboard input-state table. This is the same table accessed by the GetKeyboardState and GetKeyState functions. Changes made to this table do not affect keyboard input to any other thread.
-     * @param {Pointer<Byte>} lpKeyState Type: <b>LPBYTE</b>
+     * @param {Pointer<Integer>} lpKeyState Type: <b>LPBYTE</b>
      * 
      * A pointer to a 256-byte array that contains keyboard key states.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1508,12 +1508,12 @@ class KeyboardAndMouse {
      * @param {Integer} uScanCode Type: <b>UINT</b>
      * 
      * The hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up (not pressed).
-     * @param {Pointer<Byte>} lpKeyState Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} lpKeyState Type: <b>const BYTE*</b>
      * 
      * A pointer to a 256-byte array that contains the current keyboard state. Each element (byte) in the array contains the state of one key. If the high-order bit of a byte is set, the key is down (pressed).
      * 
      * The low bit, if set, indicates that the key is toggled on. In this function, only the toggle bit of the CAPS LOCK key is relevant. The toggle state of the NUM LOCK and SCROLL LOCK keys is ignored.
-     * @param {Pointer<UInt16>} lpChar Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} lpChar Type: <b>LPWORD</b>
      * 
      * The buffer that receives the translated character or characters.
      * @param {Integer} uFlags Type: <b>UINT</b>
@@ -1578,12 +1578,12 @@ class KeyboardAndMouse {
      * @param {Integer} uScanCode Type: <b>UINT</b>
      * 
      * The hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up (not pressed).
-     * @param {Pointer<Byte>} lpKeyState Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} lpKeyState Type: <b>const BYTE*</b>
      * 
      * A pointer to a 256-byte array that contains the current keyboard state. Each element (byte) in the array contains the state of one key. If the high-order bit of a byte is set, the key is down (pressed).
      * 
      * The low bit, if set, indicates that the key is toggled on. In this function, only the toggle bit of the CAPS LOCK key is relevant. The toggle state of the NUM LOCK and SCOLL LOCK keys is ignored.
-     * @param {Pointer<UInt16>} lpChar Type: <b>LPWORD</b>
+     * @param {Pointer<Integer>} lpChar Type: <b>LPWORD</b>
      * 
      * A pointer to the buffer that receives the translated character or characters.
      * @param {Integer} uFlags Type: <b>UINT</b>
@@ -1653,7 +1653,7 @@ class KeyboardAndMouse {
      * @param {Integer} wScanCode Type: <b>UINT</b>
      * 
      * The hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up.
-     * @param {Pointer<Byte>} lpKeyState Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} lpKeyState Type: <b>const BYTE*</b>
      * 
      * A pointer to a 256-byte array that contains the current keyboard state. Each element (byte) in the array contains the state of one key. If the high-order bit of a byte is set, the key is down.
      * @param {PWSTR} pwszBuff Type: <b>LPWSTR</b>

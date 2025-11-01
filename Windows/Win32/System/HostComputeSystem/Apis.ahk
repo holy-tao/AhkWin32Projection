@@ -19,6 +19,7 @@ class HostComputeSystem {
      * @param {PWSTR} query 
      * @param {HCS_OPERATION} operation 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsEnumerateComputeSystems
      */
     static HcsEnumerateComputeSystems(query, operation) {
         query := query is String ? StrPtr(query) : query
@@ -55,6 +56,7 @@ class HostComputeSystem {
      * @param {Pointer<Void>} context 
      * @param {Pointer<HCS_OPERATION_COMPLETION>} callback 
      * @returns {HCS_OPERATION} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateOperation
      */
     static HcsCreateOperation(context, callback) {
         result := DllCall("computecore.dll\HcsCreateOperation", "ptr", context, "ptr", callback, "ptr")
@@ -77,6 +79,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCloseOperation
      */
     static HcsCloseOperation(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -88,6 +91,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationContext
      */
     static HcsGetOperationContext(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -101,6 +105,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationContext
      */
     static HcsSetOperationContext(operation, context) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -116,6 +121,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @returns {HCS_SYSTEM} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetComputeSystemFromOperation
      */
     static HcsGetComputeSystemFromOperation(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -128,6 +134,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @returns {HCS_PROCESS} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessFromOperation
      */
     static HcsGetProcessFromOperation(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -140,6 +147,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationType
      */
     static HcsGetOperationType(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -152,6 +160,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationId
      */
     static HcsGetOperationId(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -165,6 +174,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {Pointer<PWSTR>} resultDocument 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationResult
      */
     static HcsGetOperationResult(operation, resultDocument) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -182,6 +192,7 @@ class HostComputeSystem {
      * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation 
      * @param {Pointer<PWSTR>} resultDocument 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationResultAndProcessInfo
      */
     static HcsGetOperationResultAndProcessInfo(operation, processInformation, resultDocument) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -218,6 +229,7 @@ class HostComputeSystem {
      * @param {PWSTR} RuntimeFileName 
      * @param {Pointer<PWSTR>} ProcessorFeaturesString 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessorCompatibilityFromSavedState
      */
     static HcsGetProcessorCompatibilityFromSavedState(RuntimeFileName, ProcessorFeaturesString) {
         RuntimeFileName := RuntimeFileName is String ? StrPtr(RuntimeFileName) : RuntimeFileName
@@ -235,6 +247,7 @@ class HostComputeSystem {
      * @param {Integer} timeoutMs 
      * @param {Pointer<PWSTR>} resultDocument 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForOperationResult
      */
     static HcsWaitForOperationResult(operation, timeoutMs, resultDocument) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -253,6 +266,7 @@ class HostComputeSystem {
      * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation 
      * @param {Pointer<PWSTR>} resultDocument 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForOperationResultAndProcessInfo
      */
     static HcsWaitForOperationResultAndProcessInfo(operation, timeoutMs, processInformation, resultDocument) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -270,6 +284,7 @@ class HostComputeSystem {
      * @param {Pointer<Void>} context 
      * @param {Pointer<HCS_OPERATION_COMPLETION>} callback 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationCallback
      */
     static HcsSetOperationCallback(operation, context, callback) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -285,6 +300,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCancelOperation
      */
     static HcsCancelOperation(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
@@ -322,6 +338,7 @@ class HostComputeSystem {
      * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor 
      * @param {Pointer<HCS_SYSTEM>} computeSystem 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsCreateComputeSystem
      */
     static HcsCreateComputeSystem(id, configuration, operation, securityDescriptor, computeSystem) {
         id := id is String ? StrPtr(id) : id
@@ -341,7 +358,7 @@ class HostComputeSystem {
      * @param {PWSTR} id 
      * @param {PWSTR} configuration 
      * @param {HCS_OPERATION} operation 
-     * @param {Pointer<Int32>} options 
+     * @param {Pointer<Integer>} options 
      * @param {Pointer<HCS_SYSTEM>} computeSystem 
      * @returns {HRESULT} 
      */
@@ -364,6 +381,7 @@ class HostComputeSystem {
      * @param {Integer} requestedAccess 
      * @param {Pointer<HCS_SYSTEM>} computeSystem 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsOpenComputeSystem
      */
     static HcsOpenComputeSystem(id, requestedAccess, computeSystem) {
         id := id is String ? StrPtr(id) : id
@@ -398,6 +416,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_SYSTEM} computeSystem 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCloseComputeSystem
      */
     static HcsCloseComputeSystem(computeSystem) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
@@ -411,6 +430,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsStartComputeSystem
      */
     static HcsStartComputeSystem(computeSystem, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -430,6 +450,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsShutDownComputeSystem
      */
     static HcsShutDownComputeSystem(computeSystem, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -449,6 +470,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsTerminateComputeSystem
      */
     static HcsTerminateComputeSystem(computeSystem, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -468,6 +490,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCrashComputeSystem
      */
     static HcsCrashComputeSystem(computeSystem, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -487,6 +510,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsPauseComputeSystem
      */
     static HcsPauseComputeSystem(computeSystem, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -506,6 +530,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsResumeComputeSystem
      */
     static HcsResumeComputeSystem(computeSystem, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -525,6 +550,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSaveComputeSystem
      */
     static HcsSaveComputeSystem(computeSystem, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -544,6 +570,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} propertyQuery 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetComputeSystemProperties
      */
     static HcsGetComputeSystemProperties(computeSystem, operation, propertyQuery) {
         propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
@@ -564,6 +591,7 @@ class HostComputeSystem {
      * @param {PWSTR} configuration 
      * @param {HANDLE} identity 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyComputeSystem
      */
     static HcsModifyComputeSystem(computeSystem, operation, configuration, identity) {
         configuration := configuration is String ? StrPtr(configuration) : configuration
@@ -584,6 +612,7 @@ class HostComputeSystem {
      * @param {Integer} timeoutMs 
      * @param {Pointer<PWSTR>} result 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForComputeSystemExit
      */
     static HcsWaitForComputeSystemExit(computeSystem, timeoutMs, result) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
@@ -602,6 +631,7 @@ class HostComputeSystem {
      * @param {Pointer<Void>} context 
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetComputeSystemCallback
      */
     static HcsSetComputeSystemCallback(computeSystem, callbackOptions, context, callback) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
@@ -697,6 +727,7 @@ class HostComputeSystem {
      * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor 
      * @param {Pointer<HCS_PROCESS>} process 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateProcess
      */
     static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor, process) {
         processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
@@ -717,6 +748,7 @@ class HostComputeSystem {
      * @param {Integer} requestedAccess 
      * @param {Pointer<HCS_PROCESS>} process 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsOpenProcess
      */
     static HcsOpenProcess(computeSystem, processId, requestedAccess, process) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
@@ -732,6 +764,7 @@ class HostComputeSystem {
      * 
      * @param {HCS_PROCESS} process 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCloseProcess
      */
     static HcsCloseProcess(process) {
         process := process is Win32Handle ? NumGet(process, "ptr") : process
@@ -745,6 +778,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsTerminateProcess
      */
     static HcsTerminateProcess(process, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -764,6 +798,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSignalProcess
      */
     static HcsSignalProcess(process, operation, options) {
         options := options is String ? StrPtr(options) : options
@@ -782,6 +817,7 @@ class HostComputeSystem {
      * @param {HCS_PROCESS} process 
      * @param {HCS_OPERATION} operation 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessInfo
      */
     static HcsGetProcessInfo(process, operation) {
         process := process is Win32Handle ? NumGet(process, "ptr") : process
@@ -800,6 +836,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} propertyQuery 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessProperties
      */
     static HcsGetProcessProperties(process, operation, propertyQuery) {
         propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
@@ -819,6 +856,7 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} settings 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyProcess
      */
     static HcsModifyProcess(process, operation, settings) {
         settings := settings is String ? StrPtr(settings) : settings
@@ -839,6 +877,7 @@ class HostComputeSystem {
      * @param {Pointer<Void>} context 
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetProcessCallback
      */
     static HcsSetProcessCallback(process, callbackOptions, context, callback) {
         process := process is Win32Handle ? NumGet(process, "ptr") : process
@@ -856,6 +895,7 @@ class HostComputeSystem {
      * @param {Integer} timeoutMs 
      * @param {Pointer<PWSTR>} result 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForProcessExit
      */
     static HcsWaitForProcessExit(computeSystem, timeoutMs, result) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
@@ -872,6 +912,7 @@ class HostComputeSystem {
      * @param {PWSTR} propertyQuery 
      * @param {Pointer<PWSTR>} result 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetServiceProperties
      */
     static HcsGetServiceProperties(propertyQuery, result) {
         propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
@@ -888,6 +929,7 @@ class HostComputeSystem {
      * @param {PWSTR} settings 
      * @param {Pointer<PWSTR>} result 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyServiceSettings
      */
     static HcsModifyServiceSettings(settings, result) {
         settings := settings is String ? StrPtr(settings) : settings
@@ -903,6 +945,7 @@ class HostComputeSystem {
      * 
      * @param {PWSTR} settings 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSubmitWerReport
      */
     static HcsSubmitWerReport(settings) {
         settings := settings is String ? StrPtr(settings) : settings
@@ -918,6 +961,7 @@ class HostComputeSystem {
      * 
      * @param {PWSTR} guestStateFilePath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateEmptyGuestStateFile
      */
     static HcsCreateEmptyGuestStateFile(guestStateFilePath) {
         guestStateFilePath := guestStateFilePath is String ? StrPtr(guestStateFilePath) : guestStateFilePath
@@ -949,6 +993,7 @@ class HostComputeSystem {
      * @param {PWSTR} vmId 
      * @param {PWSTR} filePath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGrantVmAccess
      */
     static HcsGrantVmAccess(vmId, filePath) {
         vmId := vmId is String ? StrPtr(vmId) : vmId
@@ -966,6 +1011,7 @@ class HostComputeSystem {
      * @param {PWSTR} vmId 
      * @param {PWSTR} filePath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsRevokeVmAccess
      */
     static HcsRevokeVmAccess(vmId, filePath) {
         vmId := vmId is String ? StrPtr(vmId) : vmId
@@ -982,6 +1028,7 @@ class HostComputeSystem {
      * 
      * @param {PWSTR} filePath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGrantVmGroupAccess
      */
     static HcsGrantVmGroupAccess(filePath) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
@@ -997,6 +1044,7 @@ class HostComputeSystem {
      * 
      * @param {PWSTR} filePath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsRevokeVmGroupAccess
      */
     static HcsRevokeVmGroupAccess(filePath) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
@@ -1014,6 +1062,7 @@ class HostComputeSystem {
      * @param {PWSTR} sourceFolderPath 
      * @param {PWSTR} layerData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsImportLayer
      */
     static HcsImportLayer(layerPath, sourceFolderPath, layerData) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
@@ -1034,6 +1083,7 @@ class HostComputeSystem {
      * @param {PWSTR} layerData 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsExportLayer
      */
     static HcsExportLayer(layerPath, exportFolderPath, layerData, options) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
@@ -1055,6 +1105,7 @@ class HostComputeSystem {
      * @param {PWSTR} exportFolderPath 
      * @param {PWSTR} layerData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsExportLegacyWritableLayer
      */
     static HcsExportLegacyWritableLayer(writableLayerMountPath, writableLayerFolderPath, exportFolderPath, layerData) {
         writableLayerMountPath := writableLayerMountPath is String ? StrPtr(writableLayerMountPath) : writableLayerMountPath
@@ -1073,6 +1124,7 @@ class HostComputeSystem {
      * 
      * @param {PWSTR} layerPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsDestroyLayer
      */
     static HcsDestroyLayer(layerPath) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
@@ -1090,6 +1142,7 @@ class HostComputeSystem {
      * @param {HANDLE} vhdHandle 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetupBaseOSLayer
      */
     static HcsSetupBaseOSLayer(layerPath, vhdHandle, options) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
@@ -1109,6 +1162,7 @@ class HostComputeSystem {
      * @param {PWSTR} layerData 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsInitializeWritableLayer
      */
     static HcsInitializeWritableLayer(writableLayerPath, layerData, options) {
         writableLayerPath := writableLayerPath is String ? StrPtr(writableLayerPath) : writableLayerPath
@@ -1129,6 +1183,7 @@ class HostComputeSystem {
      * @param {PWSTR} layerData 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsInitializeLegacyWritableLayer
      */
     static HcsInitializeLegacyWritableLayer(writableLayerMountPath, writableLayerFolderPath, layerData, options) {
         writableLayerMountPath := writableLayerMountPath is String ? StrPtr(writableLayerMountPath) : writableLayerMountPath
@@ -1148,6 +1203,7 @@ class HostComputeSystem {
      * @param {PWSTR} layerPath 
      * @param {PWSTR} layerData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsAttachLayerStorageFilter
      */
     static HcsAttachLayerStorageFilter(layerPath, layerData) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
@@ -1164,6 +1220,7 @@ class HostComputeSystem {
      * 
      * @param {PWSTR} layerPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsDetachLayerStorageFilter
      */
     static HcsDetachLayerStorageFilter(layerPath) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
@@ -1179,6 +1236,7 @@ class HostComputeSystem {
      * 
      * @param {HANDLE} vhdHandle 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsFormatWritableLayerVhd
      */
     static HcsFormatWritableLayerVhd(vhdHandle) {
         vhdHandle := vhdHandle is Win32Handle ? NumGet(vhdHandle, "ptr") : vhdHandle
@@ -1195,6 +1253,7 @@ class HostComputeSystem {
      * @param {HANDLE} vhdHandle 
      * @param {Pointer<PWSTR>} mountPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetLayerVhdMountPath
      */
     static HcsGetLayerVhdMountPath(vhdHandle, mountPath) {
         vhdHandle := vhdHandle is Win32Handle ? NumGet(vhdHandle, "ptr") : vhdHandle
@@ -1212,6 +1271,7 @@ class HostComputeSystem {
      * @param {PWSTR} volumePath 
      * @param {PWSTR} options 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetupBaseOSVolume
      */
     static HcsSetupBaseOSVolume(layerPath, volumePath, options) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath

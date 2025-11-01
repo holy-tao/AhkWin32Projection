@@ -24,7 +24,7 @@ class DHCP_RESERVATION_INFO_ARRAY extends Win32Struct
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation_info">DHCP_IP_RESERVATION_INFO</a> structures that contain IPv4 client reservations.
-     * @type {Pointer<DHCP_IP_RESERVATION_INFO>}
+     * @type {Pointer<Pointer<DHCP_IP_RESERVATION_INFO>>}
      */
     Elements {
         get => NumGet(this, 8, "ptr")

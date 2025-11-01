@@ -1066,7 +1066,7 @@ class MessageQueuing {
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
      * @param {Pointer<MQQUEUEPROPS>} pQueueProps 
      * @param {PWSTR} lpwcsFormatName 
-     * @param {Pointer<UInt32>} lpdwFormatNameLength 
+     * @param {Pointer<Integer>} lpdwFormatNameLength 
      * @returns {HRESULT} 
      */
     static MQCreateQueue(pSecurityDescriptor, pQueueProps, lpwcsFormatName, lpdwFormatNameLength) {
@@ -1117,7 +1117,7 @@ class MessageQueuing {
     /**
      * 
      * @param {HANDLE} hEnum 
-     * @param {Pointer<UInt32>} pcProps 
+     * @param {Pointer<Integer>} pcProps 
      * @param {Pointer<PROPVARIANT>} aPropVar 
      * @returns {HRESULT} 
      */
@@ -1151,7 +1151,7 @@ class MessageQueuing {
      * @param {PWSTR} lpwcsFormatName 
      * @param {Integer} dwAccess 
      * @param {Integer} dwShareMode 
-     * @param {Pointer<IntPtr>} phQueue 
+     * @param {Pointer<Pointer>} phQueue 
      * @returns {HRESULT} 
      */
     static MQOpenQueue(lpwcsFormatName, dwAccess, dwShareMode, phQueue) {
@@ -1168,7 +1168,7 @@ class MessageQueuing {
      * 
      * @param {Pointer} hDestinationQueue 
      * @param {Pointer<MQMSGPROPS>} pMessageProps 
-     * @param {Pointer<ITransaction>} pTransaction 
+     * @param {ITransaction} pTransaction 
      * @returns {HRESULT} 
      */
     static MQSendMessage(hDestinationQueue, pMessageProps, pTransaction) {
@@ -1188,7 +1188,7 @@ class MessageQueuing {
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @param {Pointer<PMQRECEIVECALLBACK>} fnReceiveCallback 
      * @param {HANDLE} hCursor 
-     * @param {Pointer<ITransaction>} pTransaction 
+     * @param {ITransaction} pTransaction 
      * @returns {HRESULT} 
      */
     static MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, hCursor, pTransaction) {
@@ -1209,7 +1209,7 @@ class MessageQueuing {
      * @param {Pointer<MQMSGPROPS>} pMessageProps 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @param {Pointer<PMQRECEIVECALLBACK>} fnReceiveCallback 
-     * @param {Pointer<ITransaction>} pTransaction 
+     * @param {ITransaction} pTransaction 
      * @returns {HRESULT} 
      */
     static MQReceiveMessageByLookupId(hSource, ullLookupId, dwLookupAction, pMessageProps, lpOverlapped, fnReceiveCallback, pTransaction) {
@@ -1300,7 +1300,7 @@ class MessageQueuing {
      * @param {Integer} RequestedInformation 
      * @param {Pointer} pSecurityDescriptor 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpnLengthNeeded 
+     * @param {Pointer<Integer>} lpnLengthNeeded 
      * @returns {HRESULT} 
      */
     static MQGetQueueSecurity(lpwcsFormatName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -1335,7 +1335,7 @@ class MessageQueuing {
      * 
      * @param {PWSTR} lpwcsPathName 
      * @param {PWSTR} lpwcsFormatName 
-     * @param {Pointer<UInt32>} lpdwFormatNameLength 
+     * @param {Pointer<Integer>} lpdwFormatNameLength 
      * @returns {HRESULT} 
      */
     static MQPathNameToFormatName(lpwcsPathName, lpwcsFormatName, lpdwFormatNameLength) {
@@ -1353,7 +1353,7 @@ class MessageQueuing {
      * 
      * @param {Pointer} hQueue 
      * @param {PWSTR} lpwcsFormatName 
-     * @param {Pointer<UInt32>} lpdwFormatNameLength 
+     * @param {Pointer<Integer>} lpdwFormatNameLength 
      * @returns {HRESULT} 
      */
     static MQHandleToFormatName(hQueue, lpwcsFormatName, lpdwFormatNameLength) {
@@ -1370,7 +1370,7 @@ class MessageQueuing {
      * 
      * @param {Pointer<Guid>} pGuid 
      * @param {PWSTR} lpwcsFormatName 
-     * @param {Pointer<UInt32>} lpdwFormatNameLength 
+     * @param {Pointer<Integer>} lpdwFormatNameLength 
      * @returns {HRESULT} 
      */
     static MQInstanceToFormatName(pGuid, lpwcsFormatName, lpdwFormatNameLength) {
@@ -1387,7 +1387,7 @@ class MessageQueuing {
      * 
      * @param {PWSTR} lpwcsADsPath 
      * @param {PWSTR} lpwcsFormatName 
-     * @param {Pointer<UInt32>} lpdwFormatNameLength 
+     * @param {Pointer<Integer>} lpdwFormatNameLength 
      * @returns {HRESULT} 
      */
     static MQADsPathToFormatName(lpwcsADsPath, lpwcsFormatName, lpdwFormatNameLength) {
@@ -1489,7 +1489,7 @@ class MessageQueuing {
      * @returns {HRESULT} 
      */
     static MQBeginTransaction(ppTransaction) {
-        result := DllCall("mqrt.dll\MQBeginTransaction", "ptr", ppTransaction, "int")
+        result := DllCall("mqrt.dll\MQBeginTransaction", "ptr*", ppTransaction, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1596,7 +1596,7 @@ class MessageQueuing {
      * @param {Pointer} hSourceQueue 
      * @param {Pointer} hDestinationQueue 
      * @param {Integer} ullLookupId 
-     * @param {Pointer<ITransaction>} pTransaction 
+     * @param {ITransaction} pTransaction 
      * @returns {HRESULT} 
      */
     static MQMoveMessage(hSourceQueue, hDestinationQueue, ullLookupId, pTransaction) {

@@ -120,7 +120,7 @@ class KERB_CERTIFICATE_S4U_LOGON extends Win32Struct
 
     /**
      * The certificate of the S4U logon.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Certificate {
         get => NumGet(this, 48, "ptr")

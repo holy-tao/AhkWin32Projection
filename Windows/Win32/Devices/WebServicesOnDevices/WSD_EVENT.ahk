@@ -73,7 +73,7 @@ class WSD_EVENT extends Win32Struct
 
     /**
      * Message transmission parameters.
-     * @type {Pointer<IWSDMessageParameters>}
+     * @type {IWSDMessageParameters}
      */
     MessageParameters {
         get => NumGet(this, 56, "ptr")

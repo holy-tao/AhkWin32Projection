@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-vcache
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

@@ -70,7 +70,7 @@ class D2D1_BITMAP_PROPERTIES1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1colorcontext">ID2D1ColorContext</a>*</b>
      * 
      * The optionally specified color context information.
-     * @type {Pointer<ID2D1ColorContext>}
+     * @type {ID2D1ColorContext}
      */
     colorContext {
         get => NumGet(this, 24, "ptr")

@@ -24,7 +24,7 @@ class AudioExtensionParams extends Win32Struct
 
     /**
      * Pointer to the end point.
-     * @type {Pointer<IMMDevice>}
+     * @type {IMMDevice}
      */
     pEndpoint {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class AudioExtensionParams extends Win32Struct
 
     /**
      * Pointer to the Pnp interface.
-     * @type {Pointer<IMMDevice>}
+     * @type {IMMDevice}
      */
     pPnpInterface {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class AudioExtensionParams extends Win32Struct
 
     /**
      * Pointer to the Pnp devnode.
-     * @type {Pointer<IMMDevice>}
+     * @type {IMMDevice}
      */
     pPnpDevnode {
         get => NumGet(this, 24, "ptr")

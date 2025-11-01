@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_drvinfo_detail_data_a
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  * @charset ANSI

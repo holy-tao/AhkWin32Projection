@@ -99,7 +99,7 @@ class BANDINFOSFB extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> object.
-     * @type {Pointer<IShellFolder>}
+     * @type {IShellFolder}
      */
     psf {
         get => NumGet(this, 32, "ptr")

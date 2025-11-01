@@ -4,6 +4,8 @@
 #Include ..\..\Foundation\BSTR.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/wia/-wia-devicedialogdata2
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -22,7 +24,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IWiaItem2>}
+     * @type {IWiaItem2}
      */
     pIWiaItemRoot {
         get => NumGet(this, 8, "ptr")
@@ -87,7 +89,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IWiaItem2>}
+     * @type {IWiaItem2}
      */
     pWiaItem {
         get => NumGet(this, 64, "ptr")

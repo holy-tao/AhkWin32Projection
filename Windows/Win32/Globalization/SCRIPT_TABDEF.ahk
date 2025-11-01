@@ -57,7 +57,7 @@ class SCRIPT_TABDEF extends Win32Struct
 
     /**
      * Pointer to an array having the number of entries indicated by <b>cTabStops</b>. Each entry specifies a tab stop position. Positive values represent near-edge alignment, while negative values represent far-edge alignment. The units for the array elements are as indicated by the value of <b>iScale</b>.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pTabStops {
         get => NumGet(this, 8, "ptr")

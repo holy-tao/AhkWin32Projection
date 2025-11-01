@@ -60,7 +60,7 @@ class ASSEMBLYMETADATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rProcessor {
         get => NumGet(this, 24, "ptr")

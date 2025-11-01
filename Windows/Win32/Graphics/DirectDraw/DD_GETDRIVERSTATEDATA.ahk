@@ -104,7 +104,7 @@ class DD_GETDRIVERSTATEDATA extends Win32Struct
 
     /**
      * Points to the Direct3D driver state data to be filled in by the driver. If, for example, D3DDEVINFOID_VCACHE is specified in the <b>dwFlags</b> member, the driver points the <b>lpdwStates</b> member to a D3DDEVINFO_VCACHE structure that contains vertex-cache information.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpdwStates {
         get => NumGet(this, 16, "ptr")

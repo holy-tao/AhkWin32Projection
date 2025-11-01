@@ -47,7 +47,7 @@ class DRM_LICENSE_ACQ_DATA extends Win32Struct
 
     /**
      * Pointer to a URL-safe base64-encoded string containing the license request.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPostData {
         get => NumGet(this, 24, "ptr")

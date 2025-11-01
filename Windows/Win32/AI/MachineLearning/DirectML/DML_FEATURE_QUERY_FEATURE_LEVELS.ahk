@@ -34,7 +34,7 @@ class DML_FEATURE_QUERY_FEATURE_LEVELS extends Win32Struct
      * Type: \_Field\_size\_(RequestedFeatureLevelCount) **[DML_FEATURE_LEVEL](/windows/win32/api/directml/ne-directml-dml_feature_level)\***
      * 
      * An array of feature levels to query support for. When [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) returns, the [DML_FEATURE_DATA_FEATURE_LEVELS](/windows/win32/api/directml/ns-directml-dml_feature_data_feature_levels) struct contains the highest feature level in this array that is supported by the device.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     RequestedFeatureLevels {
         get => NumGet(this, 8, "ptr")

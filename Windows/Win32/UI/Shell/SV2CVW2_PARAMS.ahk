@@ -29,7 +29,7 @@ class SV2CVW2_PARAMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface of the previous view. A Shell view can use this parameter to communicate with a previous view with the same implementation. It can also be used to optimize browsing between like views. This parameter may be <b>NULL</b>.
-     * @type {Pointer<IShellView>}
+     * @type {IShellView}
      */
     psvPrev {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class SV2CVW2_PARAMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a>*</b>
      * 
      * A pointer to the current instance of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a> interface of the parent Shell browser. <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview2-createviewwindow2">IShellView2::CreateViewWindow2</a> should call this interface's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method and store the interface pointer. It can be used for communication with the Windows Explorer window.
-     * @type {Pointer<IShellBrowser>}
+     * @type {IShellBrowser}
      */
     psbOwner {
         get => NumGet(this, 24, "ptr")

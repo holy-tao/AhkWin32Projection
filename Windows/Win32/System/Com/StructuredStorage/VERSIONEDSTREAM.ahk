@@ -20,7 +20,7 @@ class VERSIONEDSTREAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IStream>}
+     * @type {IStream}
      */
     pStream {
         get => NumGet(this, 8, "ptr")

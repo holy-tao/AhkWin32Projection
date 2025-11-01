@@ -40,7 +40,7 @@ class XAUDIO2_BUFFER_WMA extends Win32Struct
 
     /**
      * Decoded packet cumulative data size array, each element is the number of bytes accumulated after the corresponding xWMA packet is decoded in order, must have <b>PacketCount</b> elements.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pDecodedPacketCumulativeBytes {
         get => NumGet(this, 0, "ptr")

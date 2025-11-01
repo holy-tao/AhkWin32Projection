@@ -2980,7 +2980,7 @@ class WNet {
      * The WNetGetConnection function retrieves the name of the network resource associated with a local device.
      * @param {PSTR} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
      * @param {PSTR} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
-     * @param {Pointer<UInt32>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
+     * @param {Pointer<Integer>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -3085,7 +3085,7 @@ class WNet {
      * The WNetGetConnection function retrieves the name of the network resource associated with a local device.
      * @param {PWSTR} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
      * @param {PWSTR} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
-     * @param {Pointer<UInt32>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
+     * @param {Pointer<Integer>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -3304,8 +3304,8 @@ class WNet {
      * <b>NETRESOURCE</b> structure specifies a local device, this buffer receives the local device name. If <b>lpLocalName</b> does not specify a device and the network requires a local device redirection, or if the CONNECT_REDIRECT value is set, this buffer receives the name of the redirected local device.
      * 
      * Otherwise, the name copied into the buffer is that of a remote resource. If specified, this buffer must be at least as large as the string pointed to by the <b>lpRemoteName</b> member.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpAccessName</i> buffer, in characters. If the call fails because the buffer is not large enough, the function returns the required buffer size in this location. For more information, see the descriptions of the <i>lpAccessName</i> parameter and the ERROR_MORE_DATA error code in the Return Values section.
-     * @param {Pointer<UInt32>} lpResult Pointer to a variable that receives additional information about the connection. This parameter can be the following value. 
+     * @param {Pointer<Integer>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpAccessName</i> buffer, in characters. If the call fails because the buffer is not large enough, the function returns the required buffer size in this location. For more information, see the descriptions of the <i>lpAccessName</i> parameter and the ERROR_MORE_DATA error code in the Return Values section.
+     * @param {Pointer<Integer>} lpResult Pointer to a variable that receives additional information about the connection. This parameter can be the following value. 
      * 
      * 
      * 
@@ -3634,8 +3634,8 @@ class WNet {
      * <b>NETRESOURCE</b> structure specifies a local device, this buffer receives the local device name. If <b>lpLocalName</b> does not specify a device and the network requires a local device redirection, or if the CONNECT_REDIRECT value is set, this buffer receives the name of the redirected local device.
      * 
      * Otherwise, the name copied into the buffer is that of a remote resource. If specified, this buffer must be at least as large as the string pointed to by the <b>lpRemoteName</b> member.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpAccessName</i> buffer, in characters. If the call fails because the buffer is not large enough, the function returns the required buffer size in this location. For more information, see the descriptions of the <i>lpAccessName</i> parameter and the ERROR_MORE_DATA error code in the Return Values section.
-     * @param {Pointer<UInt32>} lpResult Pointer to a variable that receives additional information about the connection. This parameter can be the following value. 
+     * @param {Pointer<Integer>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpAccessName</i> buffer, in characters. If the call fails because the buffer is not large enough, the function returns the required buffer size in this location. For more information, see the descriptions of the <i>lpAccessName</i> parameter and the ERROR_MORE_DATA error code in the Return Values section.
+     * @param {Pointer<Integer>} lpResult Pointer to a variable that receives additional information about the connection. This parameter can be the following value. 
      * 
      * 
      * 
@@ -3856,8 +3856,8 @@ class WNet {
      * @param {Pointer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @param {PSTR} lpAccessName 
-     * @param {Pointer<UInt32>} lpBufferSize 
-     * @param {Pointer<UInt32>} lpResult 
+     * @param {Pointer<Integer>} lpBufferSize 
+     * @param {Pointer<Integer>} lpResult 
      * @returns {Integer} 
      */
     static WNetUseConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
@@ -3878,8 +3878,8 @@ class WNet {
      * @param {Pointer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @param {PWSTR} lpAccessName 
-     * @param {Pointer<UInt32>} lpBufferSize 
-     * @param {Pointer<UInt32>} lpResult 
+     * @param {Pointer<Integer>} lpBufferSize 
+     * @param {Pointer<Integer>} lpResult 
      * @returns {Integer} 
      */
     static WNetUseConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
@@ -4657,7 +4657,7 @@ class WNet {
      * The WNetEnumResource function continues an enumeration of network resources that was started by a call to the WNetOpenEnum function.
      * @param {HANDLE} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a> function.
-     * @param {Pointer<UInt32>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
+     * @param {Pointer<Integer>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
      * 
      * 
      * 
@@ -4671,7 +4671,7 @@ class WNet {
      * 
      * The buffer is valid until the next call using the handle specified by the <i>hEnum</i> parameter. The order of 
      * <b>NETRESOURCE</b> structures in the array is not predictable.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpBuffer</i> parameter, in bytes. If the buffer is too small to receive even one entry, this parameter receives the required size of the buffer.
+     * @param {Pointer<Integer>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpBuffer</i> parameter, in bytes. If the buffer is too small to receive even one entry, this parameter receives the required size of the buffer.
      * @returns {Integer} If the function succeeds, the return value is one of the following values.
      * 
      * <table>
@@ -4773,7 +4773,7 @@ class WNet {
      * The WNetEnumResource function continues an enumeration of network resources that was started by a call to the WNetOpenEnum function.
      * @param {HANDLE} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a> function.
-     * @param {Pointer<UInt32>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
+     * @param {Pointer<Integer>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
      * 
      * 
      * 
@@ -4787,7 +4787,7 @@ class WNet {
      * 
      * The buffer is valid until the next call using the handle specified by the <i>hEnum</i> parameter. The order of 
      * <b>NETRESOURCE</b> structures in the array is not predictable.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpBuffer</i> parameter, in bytes. If the buffer is too small to receive even one entry, this parameter receives the required size of the buffer.
+     * @param {Pointer<Integer>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpBuffer</i> parameter, in bytes. If the buffer is too small to receive even one entry, this parameter receives the required size of the buffer.
      * @returns {Integer} If the function succeeds, the return value is one of the following values.
      * 
      * <table>
@@ -5009,7 +5009,7 @@ class WNet {
      * <b>WNetEnumResource</b>. If the input resource has no parent on any of the networks, the <b>lpRemoteName</b> member is returned as <b>NULL</b>.
      * 
      * The presence of the RESOURCEUSAGE_CONNECTABLE bit in the <b>dwUsage</b> member indicates that you can connect to the parent resource, but only when it is available on the network.
-     * @param {Pointer<UInt32>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. If the buffer is too small to hold the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
+     * @param {Pointer<Integer>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. If the buffer is too small to hold the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -5149,7 +5149,7 @@ class WNet {
      * <b>WNetEnumResource</b>. If the input resource has no parent on any of the networks, the <b>lpRemoteName</b> member is returned as <b>NULL</b>.
      * 
      * The presence of the RESOURCEUSAGE_CONNECTABLE bit in the <b>dwUsage</b> member indicates that you can connect to the parent resource, but only when it is available on the network.
-     * @param {Pointer<UInt32>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. If the buffer is too small to hold the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
+     * @param {Pointer<Integer>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. If the buffer is too small to hold the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -5250,7 +5250,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a> function. This allows the caller to perform a string comparison to determine whether the resource passed to 
      * <b>WNetGetResourceInformation</b> is the same as the resource returned by a separate call to 
      * <b>WNetEnumResource</b>.
-     * @param {Pointer<UInt32>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. The buffer you allocate must be large enough to hold the 
+     * @param {Pointer<Integer>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. The buffer you allocate must be large enough to hold the 
      * <b>NETRESOURCE</b> structure, plus the strings to which its members point. If the buffer is too small for the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
      * @param {Pointer<PSTR>} lplpSystem If the function returns successfully, this parameter points to a string in the output buffer that specifies the part of the resource that is accessed through system functions. (This applies only to functions specific to the resource type rather than the WNet functions.) 
      * 
@@ -5360,7 +5360,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a> function. This allows the caller to perform a string comparison to determine whether the resource passed to 
      * <b>WNetGetResourceInformation</b> is the same as the resource returned by a separate call to 
      * <b>WNetEnumResource</b>.
-     * @param {Pointer<UInt32>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. The buffer you allocate must be large enough to hold the 
+     * @param {Pointer<Integer>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. The buffer you allocate must be large enough to hold the 
      * <b>NETRESOURCE</b> structure, plus the strings to which its members point. If the buffer is too small for the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
      * @param {Pointer<PWSTR>} lplpSystem If the function returns successfully, this parameter points to a string in the output buffer that specifies the part of the resource that is accessed through system functions. (This applies only to functions specific to the resource type rather than the WNet functions.) 
      * 
@@ -5454,7 +5454,7 @@ class WNet {
      * For example, if drive H has been mapped to a network drive share, and the network       resource of interest is a file named Sample.doc in the directory \Win32\Examples on that share, the drive-based path is H:\Win32\Examples\Sample.doc.
      * @param {Integer} dwInfoLevel 
      * @param {Pointer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
-     * @param {Pointer<UInt32>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
+     * @param {Pointer<Integer>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
      * 
      * If the function succeeds, it sets the variable pointed to by <i>lpBufferSize</i> to the number of bytes stored in the buffer. If the function fails because the buffer is too small, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -5577,7 +5577,7 @@ class WNet {
      * For example, if drive H has been mapped to a network drive share, and the network       resource of interest is a file named Sample.doc in the directory \Win32\Examples on that share, the drive-based path is H:\Win32\Examples\Sample.doc.
      * @param {Integer} dwInfoLevel 
      * @param {Pointer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
-     * @param {Pointer<UInt32>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
+     * @param {Pointer<Integer>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
      * 
      * If the function succeeds, it sets the variable pointed to by <i>lpBufferSize</i> to the number of bytes stored in the buffer. If the function fails because the buffer is too small, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -5696,7 +5696,7 @@ class WNet {
      * 
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
      * @param {PSTR} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
-     * @param {Pointer<UInt32>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
+     * @param {Pointer<Integer>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -5781,7 +5781,7 @@ class WNet {
      * 
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
      * @param {PWSTR} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
-     * @param {Pointer<UInt32>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
+     * @param {Pointer<Integer>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -5869,7 +5869,7 @@ class WNet {
      * 
      * You can find a complete list of network types in the header file Winnetwk.h.
      * @param {PSTR} lpProviderName Pointer to a buffer that receives the network provider name.
-     * @param {Pointer<UInt32>} lpBufferSize Size of the buffer passed to the function, in characters. If the return value is ERROR_MORE_DATA, <i>lpBufferSize</i> returns the buffer size required (in characters) to hold the provider name. 
+     * @param {Pointer<Integer>} lpBufferSize Size of the buffer passed to the function, in characters. If the return value is ERROR_MORE_DATA, <i>lpBufferSize</i> returns the buffer size required (in characters) to hold the provider name. 
      * 
      * 
      * 
@@ -5938,7 +5938,7 @@ class WNet {
      * 
      * You can find a complete list of network types in the header file Winnetwk.h.
      * @param {PWSTR} lpProviderName Pointer to a buffer that receives the network provider name.
-     * @param {Pointer<UInt32>} lpBufferSize Size of the buffer passed to the function, in characters. If the return value is ERROR_MORE_DATA, <i>lpBufferSize</i> returns the buffer size required (in characters) to hold the provider name. 
+     * @param {Pointer<Integer>} lpBufferSize Size of the buffer passed to the function, in characters. If the return value is ERROR_MORE_DATA, <i>lpBufferSize</i> returns the buffer size required (in characters) to hold the provider name. 
      * 
      * 
      * 
@@ -6098,7 +6098,7 @@ class WNet {
 
     /**
      * The WNetGetLastError function retrieves the most recent extended error code set by a WNet function. The network provider reported this error code; it will not generally be one of the errors included in the SDK header file WinError.h.
-     * @param {Pointer<UInt32>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
+     * @param {Pointer<Integer>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
      * @param {PSTR} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
      * @param {PSTR} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
@@ -6124,7 +6124,7 @@ class WNet {
 
     /**
      * The WNetGetLastError function retrieves the most recent extended error code set by a WNet function. The network provider reported this error code; it will not generally be one of the errors included in the SDK header file WinError.h.
-     * @param {Pointer<UInt32>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
+     * @param {Pointer<Integer>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
      * @param {PWSTR} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
      * @param {PWSTR} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
@@ -6846,7 +6846,7 @@ class WNet {
      * Retrieves information about a connection.
      * @param {PWSTR} lpLocalName Pointer to the name of the local device the caller is interested in. The network provider can assume this name is syntactically valid.
      * @param {PWSTR} lpRemoteName Pointer to a buffer that will receive the remote name used to make the connection. This buffer is allocated by the caller.
-     * @param {Pointer<UInt32>} lpnBufferLen Pointer to the size, in characters, of the <i>lpRemoteName</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
+     * @param {Pointer<Integer>} lpnBufferLen Pointer to the size, in characters, of the <i>lpRemoteName</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which can be one of the following:
      * 
      * <table>
@@ -6931,7 +6931,7 @@ class WNet {
      * </tr>
      * </table>
      * @param {Pointer} lpBuffer Void pointer that receives a buffer that contains the requested information.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to the size, in characters, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
+     * @param {Pointer<Integer>} lpBufferSize Pointer to the size, in characters, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS.
      * 					
      * 
@@ -6991,7 +6991,7 @@ class WNet {
      * @param {PWSTR} lpLocalPath Pointer to the local path of an object on a network resource. This is a drive-based path.
      * @param {Integer} dwInfoLevel 
      * @param {Pointer} lpBuffer Pointer to a buffer to receive the information the user has requested. The specific structure returned depends on the information level specified in <i>dwInfoLevel</i>.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to the size, in bytes, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, this location will be used to return the required buffer size.
+     * @param {Pointer<Integer>} lpBufferSize Pointer to the size, in bytes, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, this location will be used to return the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which may be one of the following.
      * 
      * <table>
@@ -7293,10 +7293,10 @@ class WNet {
      * Performs an enumeration based on a handle returned by NPOpenEnum.
      * @param {HANDLE} hEnum Handle obtained from an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npopenenum">NPOpenEnum</a> call.
-     * @param {Pointer<UInt32>} lpcCount Pointer to the number of entries requested. It may be 0xFFFFFFFF to request as many entries as possible. If the call succeeds, this location will receive the number of entries actually read.
+     * @param {Pointer<Integer>} lpcCount Pointer to the number of entries requested. It may be 0xFFFFFFFF to request as many entries as possible. If the call succeeds, this location will receive the number of entries actually read.
      * @param {Pointer} lpBuffer Pointer to the buffer to receive the enumeration result, which is returned as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> entries. The buffer is valid until the next call using <i>hEnum</i>.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to the size, in bytes, of the buffer passed to the function call on entry. If the buffer is too small for even one entry, this should contain, on exit, the number of bytes needed to read one entry. This value is  set only if the return code is WN_MORE_DATA.
+     * @param {Pointer<Integer>} lpBufferSize Pointer to the size, in bytes, of the buffer passed to the function call on entry. If the buffer is too small for even one entry, this should contain, on exit, the number of bytes needed to read one entry. This value is  set only if the return code is WN_MORE_DATA.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. The caller may continue to call <b>NPEnumResource</b> to continue the enumeration. Otherwise, it should return one of the following error codes.
      * 
      * <table>
@@ -7423,7 +7423,7 @@ class WNet {
      * @param {PWSTR} lpUserName Pointer to a buffer to receive the user name. This should be a name that can be passed into the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection3">NPAddConnection3</a> function to re-establish the connection with the same user name.
-     * @param {Pointer<UInt32>} lpnBufferLen Pointer to the size, in characters, of the <i>lpUserName</i> buffer. If the call fails because the buffer is not big enough, this location will be used to return the required buffer size.
+     * @param {Pointer<Integer>} lpnBufferLen Pointer to the size, in characters, of the <i>lpUserName</i> buffer. If the call fails because the buffer is not big enough, this location will be used to return the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise it should return an error code, which can be one of the following.
      * 
      * <table>
@@ -7482,7 +7482,7 @@ class WNet {
      * @param {Pointer} lpReadUseOptions 
      * @param {Integer} cbReadUseOptions 
      * @param {Pointer} lpWriteUseOptions 
-     * @param {Pointer<UInt32>} lpSizeWriteUseOptions 
+     * @param {Pointer<Integer>} lpSizeWriteUseOptions 
      * @returns {Integer} 
      */
     static NPGetPersistentUseOptionsForConnection(lpRemotePath, lpReadUseOptions, cbReadUseOptions, lpWriteUseOptions, lpSizeWriteUseOptions) {
@@ -7518,7 +7518,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npenumresource">NPEnumResource</a>, so that the caller can perform a case-sensitive string comparison to determine whether the parent resource is the same as one returned by <b>NPEnumResource</b>. If the input resource syntactically has a parent, the provider can return it, without determining whether the input resource or its parent actually exist. If a resource has no browse parent on the network, then <b>lpRemoteName</b> is returned as <b>NULL</b>.
      * 
      * The RESOURCEUSAGE_CONNECTABLE bit in the returned <b>dwUsage</b> field does not necessarily indicate that the resource can currently be connected to, only that the resource is connectable when it is available on the network.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to a location that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter. If the buffer is too small for the result, the function places the required buffer size at this location and returns the error WN_MORE_DATA.
+     * @param {Pointer<Integer>} lpBufferSize Pointer to a location that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter. If the buffer is too small for the result, the function places the required buffer size at this location and returns the error WN_MORE_DATA.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which may be one of the following.
      * 
      * <table>
@@ -7610,7 +7610,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npenumresource">NPEnumResource</a> function, so that the caller can perform a case-sensitive string comparison. This is necessary to determine whether the output network resource is the same as one returned by <b>NPEnumResource</b>.
      * 
      * The provider should not do purely syntactic checking to determine whether it owns the resource. This could produce incorrect results when two networks are running on the client and the provider doing syntactic checking is called first.
-     * @param {Pointer<UInt32>} lpBufferSize Pointer to a location that specifies the size, in bytes, of the buffer pointed to by <i>lpBuffer</i>. If the buffer is too small for the result, the function places the required buffer size at this location and returns the error WN_MORE_DATA.
+     * @param {Pointer<Integer>} lpBufferSize Pointer to a location that specifies the size, in bytes, of the buffer pointed to by <i>lpBuffer</i>. If the buffer is too small for the result, the function places the required buffer size at this location and returns the error WN_MORE_DATA.
      * @param {Pointer<PWSTR>} lplpSystem On a successful return, a pointer to a <b>null</b>-terminated string in the output buffer specifying that part of the resource that is accessed through system APIs specific to the resource type, rather than through the WNet API. If there is no such part, <i>lplpSystem</i> is set to <b>NULL</b>. For example, if the input remote resource name was "\\server\share\dir", <b>lpRemoteName</b> is returned pointing to "\\server\share" and <i>lplpSystem</i> points to "\dir", both strings being stored in the buffer pointed to by <i>lpBuffer</i>.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which may be one of the following.
      * 
@@ -7698,7 +7698,7 @@ class WNet {
      * Formats a network name in a provider-specific format for display in a control.
      * @param {PWSTR} lpRemoteName Pointer to the network name to format.
      * @param {PWSTR} lpFormattedName Pointer to a string that receives the formatted name.
-     * @param {Pointer<UInt32>} lpnLength Pointer to <b>DWORD</b> that specifies the size, in characters, of the <i>lpFormattedName</i> buffer. If the return value of this function is WN_MORE_DATA, <i>lpnLength</i> contains the required buffer size, in characters.
+     * @param {Pointer<Integer>} lpnLength Pointer to <b>DWORD</b> that specifies the size, in characters, of the <i>lpFormattedName</i> buffer. If the return value of this function is WN_MORE_DATA, <i>lpnLength</i> contains the required buffer size, in characters.
      * @param {Integer} dwFlags 
      * @param {Integer} dwAveCharPerLine Specifies the average number of characters that will fit on a single line where the network name is being presented. Specifically, this value is defined as the width of the control divided by the <b>tmAveCharWidth</b> field of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure from the font used for display in the control.

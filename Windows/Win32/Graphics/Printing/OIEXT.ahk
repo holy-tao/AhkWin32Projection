@@ -40,7 +40,7 @@ class OIEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pHelpFile {
         get => NumGet(this, 16, "ptr")

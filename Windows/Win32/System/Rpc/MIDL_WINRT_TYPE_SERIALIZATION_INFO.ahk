@@ -20,7 +20,7 @@ class MIDL_WINRT_TYPE_SERIALIZATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     TypeFormatString {
         get => NumGet(this, 8, "ptr")

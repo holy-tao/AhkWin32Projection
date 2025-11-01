@@ -79,7 +79,7 @@ class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM extends Win32Struct
      * If the <b>dwDataType</b> member is SERVICE_TRIGGER_DATA_TYPE_STRING, the trigger-specific data is a null-terminated string or a multistring of null-terminated strings, ending with two null-terminating characters. For example: <c>"5001\0UDP\0%programfiles%\MyApplication\MyServiceProcess.exe\0MyService\0\0"</c>.
      * 
      * Strings must be Unicode; ANSI strings are not supported.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 8, "ptr")

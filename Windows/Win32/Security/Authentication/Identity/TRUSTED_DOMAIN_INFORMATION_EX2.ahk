@@ -75,7 +75,7 @@ class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ForestTrustInfo {
         get => NumGet(this, 56, "ptr")

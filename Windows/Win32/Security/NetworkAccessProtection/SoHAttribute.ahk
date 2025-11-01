@@ -33,7 +33,7 @@ class SoHAttribute extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributevalue-union">SoHAttributeValue</a> structure that contains the SoH attribute value as defined by <b>type</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     value {
         get => NumGet(this, 8, "ptr")

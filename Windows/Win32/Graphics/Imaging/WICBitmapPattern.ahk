@@ -39,7 +39,7 @@ class WICBitmapPattern extends Win32Struct
      * Type: <b>BYTE*</b>
      * 
      * The actual pattern.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Pattern {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +50,7 @@ class WICBitmapPattern extends Win32Struct
      * Type: <b>BYTE*</b>
      * 
      * The pattern mask.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Mask {
         get => NumGet(this, 24, "ptr")

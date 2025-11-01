@@ -3,6 +3,8 @@
 #Include .\SOCKET.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-fd_set
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

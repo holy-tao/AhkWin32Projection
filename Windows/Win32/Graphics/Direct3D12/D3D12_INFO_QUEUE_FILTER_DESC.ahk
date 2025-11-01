@@ -29,7 +29,7 @@ class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * Array of message categories to allow or deny. Array must have at least <i>NumCategories</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a>).
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pCategoryList {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +47,7 @@ class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * Array of message severity levels to allow or deny. Array must have at least <i>NumSeverities</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a>).
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pSeverityList {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * Array of message IDs to allow or deny. Array must have at least <i>NumIDs</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a>).
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pIDList {
         get => NumGet(this, 40, "ptr")

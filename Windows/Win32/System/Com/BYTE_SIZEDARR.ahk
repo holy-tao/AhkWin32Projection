@@ -20,7 +20,7 @@ class BYTE_SIZEDARR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 8, "ptr")

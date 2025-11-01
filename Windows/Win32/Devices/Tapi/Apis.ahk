@@ -5677,7 +5677,7 @@ class Tapi {
      * <b>null</b>-terminated string containing the path of the service provider to be added.
      * @param {HWND} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerinstall">TSPI_providerInstall</a> function) would be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<UInt32>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
+     * @param {Pointer<Integer>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE, LINEERR_OPERATIONFAILED.
@@ -5698,7 +5698,7 @@ class Tapi {
      * <b>null</b>-terminated string containing the path of the service provider to be added.
      * @param {HWND} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerinstall">TSPI_providerInstall</a> function) would be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<UInt32>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
+     * @param {Pointer<Integer>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE, LINEERR_OPERATIONFAILED.
@@ -5719,7 +5719,7 @@ class Tapi {
      * <b>null</b>-terminated string containing the path of the service provider to be added.
      * @param {HWND} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerinstall">TSPI_providerInstall</a> function) would be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<UInt32>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
+     * @param {Pointer<Integer>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE, LINEERR_OPERATIONFAILED.
@@ -5866,7 +5866,7 @@ class Tapi {
     /**
      * The lineCompleteCall function specifies how a call that could not be connected normally should be completed instead.
      * @param {Integer} hCall Handle to the call whose completion is requested. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>busy</i> or <i>ringback</i>.
-     * @param {Pointer<UInt32>} lpdwCompletionID Pointer to a <b>DWORD</b>-sized memory location. The completion identifier is used to identify individual completion requests in progress. A completion identifier becomes invalid and can be reused after the request completes or after an outstanding request is canceled.
+     * @param {Pointer<Integer>} lpdwCompletionID Pointer to a <b>DWORD</b>-sized memory location. The completion identifier is used to identify individual completion requests in progress. A completion identifier becomes invalid and can be reused after the request completes or after an outstanding request is canceled.
      * @param {Integer} dwCompletionMode Way in which the call is to be completed. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linecallcomplmode--constants">LINECALLCOMPLMODE_ Constants</a>.
      * @param {Integer} dwMessageID Message that is to be sent when completing the call using LINECALLCOMPLMODE_MESSAGE. This identifier selects the message from a small number of predefined messages.
@@ -5885,7 +5885,7 @@ class Tapi {
      * The lineCompleteTransfer function completes the transfer of the specified call to the party connected in the consultation call.
      * @param {Integer} hCall Handle to the call to be transferred. The application must be an owner of this call. The call state of <i>hCall</i> must be <i>onHold</i> or <i>onHoldPendingTransfer</i>.
      * @param {Integer} hConsultCall Handle to the call that represents a connection with the destination of the transfer. The application must be an owner of this call. The call state of <i>hConsultCall</i> must be <i>connected</i>, <i>ringback</i>, <i>busy</i>, or <i>proceeding</i>.
-     * @param {Pointer<UInt32>} lphConfCall Pointer to a memory location where an <i>hCall</i> handle can be returned. If <i>dwTransferMode</i> is LINETRANSFERMODE_CONFERENCE, the newly created conference call is returned in <i>lphConfCall</i> and the application becomes the sole owner of the conference call. Otherwise, this parameter is ignored by TAPI.
+     * @param {Pointer<Integer>} lphConfCall Pointer to a memory location where an <i>hCall</i> handle can be returned. If <i>dwTransferMode</i> is LINETRANSFERMODE_CONFERENCE, the newly created conference call is returned in <i>lphConfCall</i> and the application becomes the sole owner of the conference call. Otherwise, this parameter is ignored by TAPI.
      * @param {Integer} dwTransferMode How the initiated transfer request is to be resolved. This parameter uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetransfermode--constants">LINETRANSFERMODE_ Constants</a>.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -6068,7 +6068,7 @@ class Tapi {
      * @param {Integer} hLine Handle to the line device.
      * @param {PWSTR} lpszAgentID Pointer to a <b>null</b>-terminated Unicode string containing the agent identifier. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentID</i> is set to <b>NULL</b>.
      * @param {PWSTR} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
-     * @param {Pointer<UInt32>} lphAgent Handle to the created agent, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of this identifier.
+     * @param {Pointer<Integer>} lphAgent Handle to the created agent, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of this identifier.
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
@@ -6087,7 +6087,7 @@ class Tapi {
      * @param {Integer} hLine Handle to the line device.
      * @param {PSTR} lpszAgentID Pointer to a <b>null</b>-terminated Unicode string containing the agent identifier. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentID</i> is set to <b>NULL</b>.
      * @param {PSTR} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
-     * @param {Pointer<UInt32>} lphAgent Handle to the created agent, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of this identifier.
+     * @param {Pointer<Integer>} lphAgent Handle to the created agent, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of this identifier.
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
@@ -6108,7 +6108,7 @@ class Tapi {
      * @param {PWSTR} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems that require a separate PIN for each session created (or group logged into). With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
      * @param {Integer} dwWorkingAddressID Identifier of the address on which the agent will receive calls for this session.
      * @param {Pointer<Guid>} lpGroupID Pointer to a GUID that identifies the group for which the session is being created.
-     * @param {Pointer<UInt32>} lphAgentSession Handle to the created agent session, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of these identifiers.
+     * @param {Pointer<Integer>} lphAgentSession Handle to the created agent session, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of these identifiers.
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
@@ -6128,7 +6128,7 @@ class Tapi {
      * @param {PSTR} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems that require a separate PIN for each session created (or group logged into). With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
      * @param {Integer} dwWorkingAddressID Identifier of the address on which the agent will receive calls for this session.
      * @param {Pointer<Guid>} lpGroupID Pointer to a GUID that identifies the group for which the session is being created.
-     * @param {Pointer<UInt32>} lphAgentSession Handle to the created agent session, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of these identifiers.
+     * @param {Pointer<Integer>} lphAgentSession Handle to the created agent session, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of these identifiers.
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
@@ -6280,7 +6280,7 @@ class Tapi {
      * @param {Pointer<LINEFORWARDLIST>} lpForwardList Pointer to a variably sized data structure that describes the specific forwarding instructions, of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineforwardlist">LINEFORWARDLIST</a>.
      * @param {Integer} dwNumRingsNoAnswer Number of rings before a call is considered a "no answer." If <i>dwNumRingsNoAnswer</i> is out of range, the actual value is set to the nearest value in the allowable range.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL location. In some telephony environments, this location is loaded with a handle to a consultation call that is used to consult the party that is being forwarded to, and the application becomes the initial sole owner of this call. This pointer must be valid even in environments where call forwarding does not require a consultation call. This handle is set to <b>NULL</b> if no consultation call is created.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL location. In some telephony environments, this location is loaded with a handle to a consultation call that is used to consult the party that is being forwarded to, and the application becomes the initial sole owner of this call. This pointer must be valid even in environments where call forwarding does not require a consultation call. This handle is set to <b>NULL</b> if no consultation call is created.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a>. This pointer is ignored unless 
      * <b>lineForward</b> requires the establishment of a call to the forwarding destination (and <i>lphConsultCall</i> is returned, in which case <i>lpCallParams</i> is optional). If <b>NULL</b>, default call parameters are used. Otherwise, the specified call parameters are used for establishing <i>hConsultCall</i>.
@@ -6308,7 +6308,7 @@ class Tapi {
      * @param {Pointer<LINEFORWARDLIST>} lpForwardList Pointer to a variably sized data structure that describes the specific forwarding instructions, of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineforwardlist">LINEFORWARDLIST</a>.
      * @param {Integer} dwNumRingsNoAnswer Number of rings before a call is considered a "no answer." If <i>dwNumRingsNoAnswer</i> is out of range, the actual value is set to the nearest value in the allowable range.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL location. In some telephony environments, this location is loaded with a handle to a consultation call that is used to consult the party that is being forwarded to, and the application becomes the initial sole owner of this call. This pointer must be valid even in environments where call forwarding does not require a consultation call. This handle is set to <b>NULL</b> if no consultation call is created.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL location. In some telephony environments, this location is loaded with a handle to a consultation call that is used to consult the party that is being forwarded to, and the application becomes the initial sole owner of this call. This pointer must be valid even in environments where call forwarding does not require a consultation call. This handle is set to <b>NULL</b> if no consultation call is created.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a>. This pointer is ignored unless 
      * <b>lineForward</b> requires the establishment of a call to the forwarding destination (and <i>lphConsultCall</i> is returned, in which case <i>lpCallParams</i> is optional). If <b>NULL</b>, default call parameters are used. Otherwise, the specified call parameters are used for establishing <i>hConsultCall</i>.
@@ -6336,7 +6336,7 @@ class Tapi {
      * @param {Pointer<LINEFORWARDLIST>} lpForwardList Pointer to a variably sized data structure that describes the specific forwarding instructions, of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineforwardlist">LINEFORWARDLIST</a>.
      * @param {Integer} dwNumRingsNoAnswer Number of rings before a call is considered a "no answer." If <i>dwNumRingsNoAnswer</i> is out of range, the actual value is set to the nearest value in the allowable range.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL location. In some telephony environments, this location is loaded with a handle to a consultation call that is used to consult the party that is being forwarded to, and the application becomes the initial sole owner of this call. This pointer must be valid even in environments where call forwarding does not require a consultation call. This handle is set to <b>NULL</b> if no consultation call is created.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL location. In some telephony environments, this location is loaded with a handle to a consultation call that is used to consult the party that is being forwarded to, and the application becomes the initial sole owner of this call. This pointer must be valid even in environments where call forwarding does not require a consultation call. This handle is set to <b>NULL</b> if no consultation call is created.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a>. This pointer is ignored unless 
      * <b>lineForward</b> requires the establishment of a call to the forwarding destination (and <i>lphConsultCall</i> is returned, in which case <i>lpCallParams</i> is optional). If <b>NULL</b>, default call parameters are used. Otherwise, the specified call parameters are used for establishing <i>hConsultCall</i>.
@@ -6657,7 +6657,7 @@ class Tapi {
     /**
      * The lineGetAddressID function returns the address identifier associated with an address in a different format on the specified line.
      * @param {Integer} hLine Handle to the open line device.
-     * @param {Pointer<UInt32>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
+     * @param {Pointer<Integer>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Integer} dwAddressMode Address mode of the address contained in <i>lpsAddress</i>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressmode--constants">LINEADDRESSMODE_ Constants</a>. You must specify LINEADDRESSMODE_DIALABLEADDR.
      * @param {PSTR} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
@@ -6677,7 +6677,7 @@ class Tapi {
     /**
      * The lineGetAddressID function returns the address identifier associated with an address in a different format on the specified line.
      * @param {Integer} hLine Handle to the open line device.
-     * @param {Pointer<UInt32>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
+     * @param {Pointer<Integer>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Integer} dwAddressMode Address mode of the address contained in <i>lpsAddress</i>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressmode--constants">LINEADDRESSMODE_ Constants</a>. You must specify LINEADDRESSMODE_DIALABLEADDR.
      * @param {PSTR} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
@@ -6697,7 +6697,7 @@ class Tapi {
     /**
      * The lineGetAddressID function returns the address identifier associated with an address in a different format on the specified line.
      * @param {Integer} hLine Handle to the open line device.
-     * @param {Pointer<UInt32>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
+     * @param {Pointer<Integer>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Integer} dwAddressMode Address mode of the address contained in <i>lpsAddress</i>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressmode--constants">LINEADDRESSMODE_ Constants</a>. You must specify LINEADDRESSMODE_DIALABLEADDR.
      * @param {PWSTR} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
@@ -7016,7 +7016,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineextensionid">LINEEXTENSIONID</a>. This parameter is ignored.
      * @param {Integer} dwRequestMode The conditions for this parameter are, if the <i>dwMediaMode</i> parameter is zero, this parameter specifies the Assisted Telephony request mode for which priority is to be checked. It must be LINEREQUESTMODE_MAKECALL. This parameter is ignored if <i>dwMediaMode</i> is non-zero.
      * @param {Pointer<VARSTRING>} lpExtensionName This parameter is ignored.
-     * @param {Pointer<UInt32>} lpdwPriority A pointer to a <b>DWORD</b>-size memory location into which TAPI writes the priority of the application for the specified media or request mode. The value 0 is returned if the application is not in the stored priority list and does not currently have any line device open with ownership requested of the specified media mode or having registered for the specified request mode. 
+     * @param {Pointer<Integer>} lpdwPriority A pointer to a <b>DWORD</b>-size memory location into which TAPI writes the priority of the application for the specified media or request mode. The value 0 is returned if the application is not in the stored priority list and does not currently have any line device open with ownership requested of the specified media mode or having registered for the specified request mode. 
      * 
      * 
      * 
@@ -7046,7 +7046,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineextensionid">LINEEXTENSIONID</a>. This parameter is ignored.
      * @param {Integer} dwRequestMode The conditions for this parameter are, if the <i>dwMediaMode</i> parameter is zero, this parameter specifies the Assisted Telephony request mode for which priority is to be checked. It must be LINEREQUESTMODE_MAKECALL. This parameter is ignored if <i>dwMediaMode</i> is non-zero.
      * @param {Pointer<VARSTRING>} lpExtensionName This parameter is ignored.
-     * @param {Pointer<UInt32>} lpdwPriority A pointer to a <b>DWORD</b>-size memory location into which TAPI writes the priority of the application for the specified media or request mode. The value 0 is returned if the application is not in the stored priority list and does not currently have any line device open with ownership requested of the specified media mode or having registered for the specified request mode. 
+     * @param {Pointer<Integer>} lpdwPriority A pointer to a <b>DWORD</b>-size memory location into which TAPI writes the priority of the application for the specified media or request mode. The value 0 is returned if the application is not in the stored priority list and does not currently have any line device open with ownership requested of the specified media mode or having registered for the specified request mode. 
      * 
      * 
      * 
@@ -7076,7 +7076,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineextensionid">LINEEXTENSIONID</a>. This parameter is ignored.
      * @param {Integer} dwRequestMode The conditions for this parameter are, if the <i>dwMediaMode</i> parameter is zero, this parameter specifies the Assisted Telephony request mode for which priority is to be checked. It must be LINEREQUESTMODE_MAKECALL. This parameter is ignored if <i>dwMediaMode</i> is non-zero.
      * @param {Pointer<VARSTRING>} lpExtensionName This parameter is ignored.
-     * @param {Pointer<UInt32>} lpdwPriority A pointer to a <b>DWORD</b>-size memory location into which TAPI writes the priority of the application for the specified media or request mode. The value 0 is returned if the application is not in the stored priority list and does not currently have any line device open with ownership requested of the specified media mode or having registered for the specified request mode. 
+     * @param {Pointer<Integer>} lpdwPriority A pointer to a <b>DWORD</b>-size memory location into which TAPI writes the priority of the application for the specified media or request mode. The value 0 is returned if the application is not in the stored priority list and does not currently have any line device open with ownership requested of the specified media mode or having registered for the specified request mode. 
      * 
      * 
      * 
@@ -7713,7 +7713,7 @@ class Tapi {
      * The lineGetNumRings function determines the number of rings an incoming call on the given address should ring prior to answering the call.
      * @param {Integer} hLine Handle to the open line device.
      * @param {Integer} dwAddressID Address on the line device. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-     * @param {Pointer<UInt32>} lpdwNumRings Number of rings that is the minimum of all current 
+     * @param {Pointer<Integer>} lpdwNumRings Number of rings that is the minimum of all current 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetnumrings">lineSetNumRings</a> requests.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -7960,9 +7960,9 @@ class Tapi {
     /**
      * The lineGetStatusMessages function enables an application to query which notification messages the application is set up to receive for events related to status changes for the specified line or any of its addresses.
      * @param {Integer} hLine Handle to the line device.
-     * @param {Pointer<UInt32>} lpdwLineStates Bit array that identifies for which line device status changes a message is to be sent to the application. If a flag is <b>TRUE</b>, that message is enabled; if <b>FALSE</b>, it is disabled. This parameter uses one or more of the 
+     * @param {Pointer<Integer>} lpdwLineStates Bit array that identifies for which line device status changes a message is to be sent to the application. If a flag is <b>TRUE</b>, that message is enabled; if <b>FALSE</b>, it is disabled. This parameter uses one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linedevstate--constants">LINEDEVSTATE_ Constants</a>.
-     * @param {Pointer<UInt32>} lpdwAddressStates Bit array that identifies for which address status changes a message is to be sent to the application. If a flag is <b>TRUE</b>, that message is enabled; if <b>FALSE</b>, disabled. This parameter uses one or more of the 
+     * @param {Pointer<Integer>} lpdwAddressStates Bit array that identifies for which address status changes a message is to be sent to the application. If a flag is <b>TRUE</b>, that message is enabled; if <b>FALSE</b>, disabled. This parameter uses one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressstate--constants">LINEADDRESSSTATE_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -8140,13 +8140,13 @@ class Tapi {
 
     /**
      * The lineInitialize function is obsolete. It continues to be exported by Tapi.dll and Tapi32.dll for backward compatibility with applications using API versions 1.3 and 1.4.
-     * @param {Pointer<UInt32>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
+     * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
      * @param {HINSTANCE} hInstance Instance handle of the client application or DLL.
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure to indicate, in a user-friendly way, which application originated, or originally accepted or answered the call. This information can be useful for call logging purposes. If <i>lpszAppName</i> is <b>NULL</b>, the application's file name is used instead.
-     * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
+     * @param {Pointer<Integer>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALAPPNAME, LINEERR_OPERATIONFAILED, LINEERR_INIFILECORRUPT, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_REINIT, LINEERR_NODRIVER, LINEERR_NODEVICE, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE.
@@ -8162,15 +8162,15 @@ class Tapi {
 
     /**
      * The lineInitializeEx function initializes the application's use of TAPI for subsequent use of the line abstraction.
-     * @param {Pointer<UInt32>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
+     * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
      * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure to indicate, in a user-friendly way, which application originated, or originally accepted or answered the call. This information can be useful for call-logging purposes. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module file name is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
-     * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
-     * @param {Pointer<UInt32>} lpdwAPIVersion Pointer to a <b>DWORD</b>-sized location. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
+     * @param {Pointer<Integer>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
+     * @param {Pointer<Integer>} lpdwAPIVersion Pointer to a <b>DWORD</b>-sized location. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a>). Artificially high values must not be used; the value must be accurately set. TAPI translates any newer messages or structures into values or formats supported by the application's version. Upon successful completion of this request, this location is filled with the highest API version supported by TAPI, thereby allowing the application to detect and adapt to having been installed on a system with a different version of TAPI.
      * @param {Pointer<LINEINITIALIZEEXPARAMS>} lpLineInitializeExParams Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineinitializeexparams">LINEINITIALIZEEXPARAMS</a> containing additional parameters used to establish the association between the application and TAPI (specifically, the application's selected event notification mechanism and associated parameters).
@@ -8189,15 +8189,15 @@ class Tapi {
 
     /**
      * The lineInitializeEx function initializes the application's use of TAPI for subsequent use of the line abstraction.
-     * @param {Pointer<UInt32>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
+     * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
      * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure to indicate, in a user-friendly way, which application originated, or originally accepted or answered the call. This information can be useful for call-logging purposes. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module file name is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
-     * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
-     * @param {Pointer<UInt32>} lpdwAPIVersion Pointer to a <b>DWORD</b>-sized location. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
+     * @param {Pointer<Integer>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
+     * @param {Pointer<Integer>} lpdwAPIVersion Pointer to a <b>DWORD</b>-sized location. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a>). Artificially high values must not be used; the value must be accurately set. TAPI translates any newer messages or structures into values or formats supported by the application's version. Upon successful completion of this request, this location is filled with the highest API version supported by TAPI, thereby allowing the application to detect and adapt to having been installed on a system with a different version of TAPI.
      * @param {Pointer<LINEINITIALIZEEXPARAMS>} lpLineInitializeExParams Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineinitializeexparams">LINEINITIALIZEEXPARAMS</a> containing additional parameters used to establish the association between the application and TAPI (specifically, the application's selected event notification mechanism and associated parameters).
@@ -8217,7 +8217,7 @@ class Tapi {
     /**
      * The lineMakeCall function places a call on the specified line to the specified destination address. Optionally, call parameters can be specified if anything but default call setup parameters are requested.
      * @param {Integer} hLine Handle to the open line device on which a call is to be originated.
-     * @param {Pointer<UInt32>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
+     * @param {Pointer<Integer>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is received by the application indicating that the 
      * <b>lineMakeCall</b> function successfully completed. Use this handle to identify the call when invoking other telephony operations on the call. The application is initially the sole owner of this call. This handle is void if the function returns an error (synchronously or asynchronously by the reply message).
      * @param {PSTR} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
@@ -8242,7 +8242,7 @@ class Tapi {
     /**
      * The lineMakeCall function places a call on the specified line to the specified destination address. Optionally, call parameters can be specified if anything but default call setup parameters are requested.
      * @param {Integer} hLine Handle to the open line device on which a call is to be originated.
-     * @param {Pointer<UInt32>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
+     * @param {Pointer<Integer>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is received by the application indicating that the 
      * <b>lineMakeCall</b> function successfully completed. Use this handle to identify the call when invoking other telephony operations on the call. The application is initially the sole owner of this call. This handle is void if the function returns an error (synchronously or asynchronously by the reply message).
      * @param {PSTR} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
@@ -8267,7 +8267,7 @@ class Tapi {
     /**
      * The lineMakeCall function places a call on the specified line to the specified destination address. Optionally, call parameters can be specified if anything but default call setup parameters are requested.
      * @param {Integer} hLine Handle to the open line device on which a call is to be originated.
-     * @param {Pointer<UInt32>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
+     * @param {Pointer<Integer>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is received by the application indicating that the 
      * <b>lineMakeCall</b> function successfully completed. Use this handle to identify the call when invoking other telephony operations on the call. The application is initially the sole owner of this call. This handle is void if the function returns an error (synchronously or asynchronously by the reply message).
      * @param {PWSTR} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
@@ -8341,7 +8341,7 @@ class Tapi {
      * @param {Integer} dwDeviceID Identifier of the line device to be queried.
      * @param {Integer} dwAPILowVersion Earliest TAPI version with which the application is compliant. The high-order word is the major version number; the low-order word is the minor version number.
      * @param {Integer} dwAPIHighVersion Latest TAPI version with which the application is compliant. The high-order word is the major version number; the low-order word is the minor version number.
-     * @param {Pointer<UInt32>} lpdwAPIVersion Pointer to a variable that contains the TAPI version number that was negotiated. If negotiation succeeds, this number is in the range between <i>dwAPILowVersion</i> and <i>dwAPIHighVersion</i>.
+     * @param {Pointer<Integer>} lpdwAPIVersion Pointer to a variable that contains the TAPI version number that was negotiated. If negotiation succeeds, this number is in the range between <i>dwAPILowVersion</i> and <i>dwAPIHighVersion</i>.
      * @param {Pointer<LINEEXTENSIONID>} lpExtensionID Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineextensionid">LINEEXTENSIONID</a>. If the service provider for the specified <i>dwDeviceID</i> supports provider-specific extensions, then, upon a successful negotiation, this structure is filled with the extension identifier of these extensions. This structure contains all zeros if the line provides no extensions. An application can ignore the returned parameter if it does not use extensions.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -8364,7 +8364,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> with which the application is compliant. The high-order word is the major version number; the low-order word is the minor version number.
      * @param {Integer} dwExtHighVersion Latest extension version of the extension identifier returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> with which the application is compliant. The high-order word is the major version number; the low-order word is the minor version number.
-     * @param {Pointer<UInt32>} lpdwExtVersion Pointer to a variable that contains the extension version number that was negotiated. If negotiation succeeds, this number is in the range between <i>dwExtLowVersion</i> and <i>dwExtHighVersion</i>.
+     * @param {Pointer<Integer>} lpdwExtVersion Pointer to a variable that contains the extension version number that was negotiated. If negotiation succeeds, this number is in the range between <i>dwExtLowVersion</i> and <i>dwExtHighVersion</i>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NODRIVER, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODEVICE, LINEERR_OPERATIONUNAVAIL.
@@ -8397,7 +8397,7 @@ class Tapi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lphLine Pointer to an HLINE handle that is then loaded with the handle representing the opened line device. Use this handle to identify the device when invoking other functions on the open line device.
+     * @param {Pointer<Integer>} lphLine Pointer to an HLINE handle that is then loaded with the handle representing the opened line device. Use this handle to identify the device when invoking other functions on the open line device.
      * @param {Integer} dwAPIVersion API version number under which the application and Telephony API have agreed to operate. This number is obtained with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a>.
      * @param {Integer} dwExtVersion Extension version number under which the application and the service provider agree to operate. This number is zero if the application does not use any extensions. This number is obtained with 
@@ -8470,7 +8470,7 @@ class Tapi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lphLine Pointer to an HLINE handle that is then loaded with the handle representing the opened line device. Use this handle to identify the device when invoking other functions on the open line device.
+     * @param {Pointer<Integer>} lphLine Pointer to an HLINE handle that is then loaded with the handle representing the opened line device. Use this handle to identify the device when invoking other functions on the open line device.
      * @param {Integer} dwAPIVersion API version number under which the application and Telephony API have agreed to operate. This number is obtained with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a>.
      * @param {Integer} dwExtVersion Extension version number under which the application and the service provider agree to operate. This number is zero if the application does not use any extensions. This number is obtained with 
@@ -8543,7 +8543,7 @@ class Tapi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lphLine Pointer to an HLINE handle that is then loaded with the handle representing the opened line device. Use this handle to identify the device when invoking other functions on the open line device.
+     * @param {Pointer<Integer>} lphLine Pointer to an HLINE handle that is then loaded with the handle representing the opened line device. Use this handle to identify the device when invoking other functions on the open line device.
      * @param {Integer} dwAPIVersion API version number under which the application and Telephony API have agreed to operate. This number is obtained with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a>.
      * @param {Integer} dwExtVersion Extension version number under which the application and the service provider agree to operate. This number is zero if the application does not use any extensions. This number is obtained with 
@@ -8667,7 +8667,7 @@ class Tapi {
      * The linePickup function picks up a call alerting at the specified destination address and returns a call handle for the picked-up call.
      * @param {Integer} hLine Handle to the open line device on which a call is to be picked up.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the pickup is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-     * @param {Pointer<UInt32>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
+     * @param {Pointer<Integer>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
      * @param {PSTR} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
      * @param {PSTR} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
      * 
@@ -8693,7 +8693,7 @@ class Tapi {
      * The linePickup function picks up a call alerting at the specified destination address and returns a call handle for the picked-up call.
      * @param {Integer} hLine Handle to the open line device on which a call is to be picked up.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the pickup is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-     * @param {Pointer<UInt32>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
+     * @param {Pointer<Integer>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
      * @param {PSTR} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
      * @param {PSTR} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
      * 
@@ -8719,7 +8719,7 @@ class Tapi {
      * The linePickup function picks up a call alerting at the specified destination address and returns a call handle for the picked-up call.
      * @param {Integer} hLine Handle to the open line device on which a call is to be picked up.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the pickup is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-     * @param {Pointer<UInt32>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
+     * @param {Pointer<Integer>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
      * @param {PWSTR} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
      * @param {PWSTR} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
      * 
@@ -8744,7 +8744,7 @@ class Tapi {
     /**
      * The linePrepareAddToConference function prepares an existing conference call for the addition of another party.
      * @param {Integer} hConfCall Handle to a conference call. The application must be an owner of this call. The call state of <i>hConfCall</i> must be <i>connected</i>.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the consultation call to be added. Initially, the application is the sole owner of this call.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the consultation call to be added. Initially, the application is the sole owner of this call.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a> structure containing call parameters to use when establishing the consultation call. This parameter can be set to <b>NULL</b> if no special call setup parameters are desired.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -8761,7 +8761,7 @@ class Tapi {
     /**
      * The linePrepareAddToConference function prepares an existing conference call for the addition of another party.
      * @param {Integer} hConfCall Handle to a conference call. The application must be an owner of this call. The call state of <i>hConfCall</i> must be <i>connected</i>.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the consultation call to be added. Initially, the application is the sole owner of this call.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the consultation call to be added. Initially, the application is the sole owner of this call.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a> structure containing call parameters to use when establishing the consultation call. This parameter can be set to <b>NULL</b> if no special call setup parameters are desired.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -8778,7 +8778,7 @@ class Tapi {
     /**
      * The linePrepareAddToConference function prepares an existing conference call for the addition of another party.
      * @param {Integer} hConfCall Handle to a conference call. The application must be an owner of this call. The call state of <i>hConfCall</i> must be <i>connected</i>.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the consultation call to be added. Initially, the application is the sole owner of this call.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the consultation call to be added. Initially, the application is the sole owner of this call.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a> structure containing call parameters to use when establishing the consultation call. This parameter can be set to <b>NULL</b> if no special call setup parameters are desired.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -9556,8 +9556,8 @@ class Tapi {
      * The lineSetupConference function sets up a conference call for the addition of the third party.
      * @param {Integer} hCall Handle to the Initial call that identifies the first party of a conference call. In some environments (as described in device capabilities), a call must exist to start a conference call, and the application must be an owner of this call. In other telephony environments, no call initially exists, <i>hCall</i> must be left <b>NULL</b>, and <i>hLine</i> must be specified to identify the line on which the conference call is to be initiated. The call state of <i>hCall</i> must be <i>connected</i>.
      * @param {Integer} hLine Handle to the line. This handle is used to identify the line device on which to originate the conference call if <i>hCall</i> is <b>NULL</b>. The <i>hLine</i> parameter is ignored if <i>hCall</i> is non-<b>NULL</b>.
-     * @param {Pointer<UInt32>} lphConfCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the newly created conference call. The application is the initial sole owner of this call. The call state of <i>hConfCall</i> is not applicable.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL handle. When setting up a call for the addition of a new party, a new temporary call (consultation call) is automatically allocated. Initially, the application is the sole owner for this call.
+     * @param {Pointer<Integer>} lphConfCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the newly created conference call. The application is the initial sole owner of this call. The call state of <i>hConfCall</i> is not applicable.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL handle. When setting up a call for the addition of a new party, a new temporary call (consultation call) is automatically allocated. Initially, the application is the sole owner for this call.
      * @param {Integer} dwNumParties Expected number of parties in the conference call. This number is passed to the service provider. The service provider is free to do as it pleases with this number: ignore it, use it as a hint to allocate the right size conference bridge inside the switch, and so on.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a> structure containing call parameters to use when establishing the consultation call. This parameter can be set to <b>NULL</b> if no special call setup parameters are desired.
@@ -9575,8 +9575,8 @@ class Tapi {
      * The lineSetupConference function sets up a conference call for the addition of the third party.
      * @param {Integer} hCall Handle to the Initial call that identifies the first party of a conference call. In some environments (as described in device capabilities), a call must exist to start a conference call, and the application must be an owner of this call. In other telephony environments, no call initially exists, <i>hCall</i> must be left <b>NULL</b>, and <i>hLine</i> must be specified to identify the line on which the conference call is to be initiated. The call state of <i>hCall</i> must be <i>connected</i>.
      * @param {Integer} hLine Handle to the line. This handle is used to identify the line device on which to originate the conference call if <i>hCall</i> is <b>NULL</b>. The <i>hLine</i> parameter is ignored if <i>hCall</i> is non-<b>NULL</b>.
-     * @param {Pointer<UInt32>} lphConfCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the newly created conference call. The application is the initial sole owner of this call. The call state of <i>hConfCall</i> is not applicable.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL handle. When setting up a call for the addition of a new party, a new temporary call (consultation call) is automatically allocated. Initially, the application is the sole owner for this call.
+     * @param {Pointer<Integer>} lphConfCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the newly created conference call. The application is the initial sole owner of this call. The call state of <i>hConfCall</i> is not applicable.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL handle. When setting up a call for the addition of a new party, a new temporary call (consultation call) is automatically allocated. Initially, the application is the sole owner for this call.
      * @param {Integer} dwNumParties Expected number of parties in the conference call. This number is passed to the service provider. The service provider is free to do as it pleases with this number: ignore it, use it as a hint to allocate the right size conference bridge inside the switch, and so on.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a> structure containing call parameters to use when establishing the consultation call. This parameter can be set to <b>NULL</b> if no special call setup parameters are desired.
@@ -9594,8 +9594,8 @@ class Tapi {
      * The lineSetupConference function sets up a conference call for the addition of the third party.
      * @param {Integer} hCall Handle to the Initial call that identifies the first party of a conference call. In some environments (as described in device capabilities), a call must exist to start a conference call, and the application must be an owner of this call. In other telephony environments, no call initially exists, <i>hCall</i> must be left <b>NULL</b>, and <i>hLine</i> must be specified to identify the line on which the conference call is to be initiated. The call state of <i>hCall</i> must be <i>connected</i>.
      * @param {Integer} hLine Handle to the line. This handle is used to identify the line device on which to originate the conference call if <i>hCall</i> is <b>NULL</b>. The <i>hLine</i> parameter is ignored if <i>hCall</i> is non-<b>NULL</b>.
-     * @param {Pointer<UInt32>} lphConfCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the newly created conference call. The application is the initial sole owner of this call. The call state of <i>hConfCall</i> is not applicable.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an HCALL handle. When setting up a call for the addition of a new party, a new temporary call (consultation call) is automatically allocated. Initially, the application is the sole owner for this call.
+     * @param {Pointer<Integer>} lphConfCall Pointer to an HCALL handle. This location is then loaded with a handle identifying the newly created conference call. The application is the initial sole owner of this call. The call state of <i>hConfCall</i> is not applicable.
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an HCALL handle. When setting up a call for the addition of a new party, a new temporary call (consultation call) is automatically allocated. Initially, the application is the sole owner for this call.
      * @param {Integer} dwNumParties Expected number of parties in the conference call. This number is passed to the service provider. The service provider is free to do as it pleases with this number: ignore it, use it as a hint to allocate the right size conference bridge inside the switch, and so on.
      * @param {Pointer<LINECALLPARAMS>} lpCallParams Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallparams">LINECALLPARAMS</a> structure containing call parameters to use when establishing the consultation call. This parameter can be set to <b>NULL</b> if no special call setup parameters are desired.
@@ -9612,7 +9612,7 @@ class Tapi {
     /**
      * The lineSetupTransfer function initiates a transfer of the call specified by the hCall parameter.
      * @param {Integer} hCall Handle to the call to be transferred. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>connected</i>.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an <i>hCall</i> handle. This location is then loaded with a handle identifying the temporary consultation call. When setting up a call for transfer, a consultation call is automatically allocated that enables 
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an <i>hCall</i> handle. This location is then loaded with a handle identifying the temporary consultation call. When setting up a call for transfer, a consultation call is automatically allocated that enables 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedial">lineDial</a> to dial the address associated with the new transfer destination of the call. The originating party can carry on a conversation over this consultation call prior to completing the transfer. The call state of <i>hConsultCall</i> is not applicable. 
      * 
      * 
@@ -9637,7 +9637,7 @@ class Tapi {
     /**
      * The lineSetupTransfer function initiates a transfer of the call specified by the hCall parameter.
      * @param {Integer} hCall Handle to the call to be transferred. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>connected</i>.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an <i>hCall</i> handle. This location is then loaded with a handle identifying the temporary consultation call. When setting up a call for transfer, a consultation call is automatically allocated that enables 
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an <i>hCall</i> handle. This location is then loaded with a handle identifying the temporary consultation call. When setting up a call for transfer, a consultation call is automatically allocated that enables 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedial">lineDial</a> to dial the address associated with the new transfer destination of the call. The originating party can carry on a conversation over this consultation call prior to completing the transfer. The call state of <i>hConsultCall</i> is not applicable. 
      * 
      * 
@@ -9662,7 +9662,7 @@ class Tapi {
     /**
      * The lineSetupTransfer function initiates a transfer of the call specified by the hCall parameter.
      * @param {Integer} hCall Handle to the call to be transferred. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>connected</i>.
-     * @param {Pointer<UInt32>} lphConsultCall Pointer to an <i>hCall</i> handle. This location is then loaded with a handle identifying the temporary consultation call. When setting up a call for transfer, a consultation call is automatically allocated that enables 
+     * @param {Pointer<Integer>} lphConsultCall Pointer to an <i>hCall</i> handle. This location is then loaded with a handle identifying the temporary consultation call. When setting up a call for transfer, a consultation call is automatically allocated that enables 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedial">lineDial</a> to dial the address associated with the new transfer destination of the call. The originating party can carry on a conversation over this consultation call prior to completing the transfer. The call state of <i>hConsultCall</i> is not applicable. 
      * 
      * 
@@ -9921,7 +9921,7 @@ class Tapi {
      * The lineUnpark function retrieves the call parked at the specified address and returns a call handle for it.
      * @param {Integer} hLine Handle to the open line device on which a call is to be unparked.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the unpark is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-     * @param {Pointer<UInt32>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
+     * @param {Pointer<Integer>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
      * @param {PSTR} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -9940,7 +9940,7 @@ class Tapi {
      * The lineUnpark function retrieves the call parked at the specified address and returns a call handle for it.
      * @param {Integer} hLine Handle to the open line device on which a call is to be unparked.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the unpark is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-     * @param {Pointer<UInt32>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
+     * @param {Pointer<Integer>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
      * @param {PSTR} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -9959,7 +9959,7 @@ class Tapi {
      * The lineUnpark function retrieves the call parked at the specified address and returns a call handle for it.
      * @param {Integer} hLine Handle to the open line device on which a call is to be unparked.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the unpark is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
-     * @param {Pointer<UInt32>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
+     * @param {Pointer<Integer>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
      * @param {PWSTR} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -10203,7 +10203,7 @@ class Tapi {
      * @param {Integer} hPhone Handle to the open phone device.
      * @param {Integer} dwHookSwitchDev Hookswitch device whose gain level is queried. The <i>dwHookSwitchDev</i> parameter can have only one bit set. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonehookswitchdev--constants">PHONEHOOKSWITCHDEV_ Constants</a>.
-     * @param {Pointer<UInt32>} lpdwGain Pointer to a <b>DWORD</b> containing the current gain setting of the hookswitch microphone component. The <i>dwGain</i> parameter specifies the volume level of the hookswitch device. This is a number in the range 0x00000000 (silence) to 0x0000FFFF (maximum volume). The actual granularity and quantization of gain settings in this range are service provider-specific.
+     * @param {Pointer<Integer>} lpdwGain Pointer to a <b>DWORD</b> containing the current gain setting of the hookswitch microphone component. The <i>dwGain</i> parameter specifies the volume level of the hookswitch device. This is a number in the range 0x00000000 (silence) to 0x0000FFFF (maximum volume). The actual granularity and quantization of gain settings in this range are service provider-specific.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALHOOKSWITCHDEV, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
@@ -10217,7 +10217,7 @@ class Tapi {
     /**
      * The phoneGetHookSwitch function returns the current hookswitch mode of the specified open phone device.
      * @param {Integer} hPhone Handle to the open phone device.
-     * @param {Pointer<UInt32>} lpdwHookSwitchDevs Pointer to a <b>DWORD</b> to be filled with the mode of the phone's hookswitch devices. If a bit position is <b>FALSE</b>, the corresponding hookswitch device is onhook; if <b>TRUE</b>, the microphone and/or speaker part of the corresponding hookswitch device is offhook. To find out whether the microphone and/or speaker are enabled, the application can use 
+     * @param {Pointer<Integer>} lpdwHookSwitchDevs Pointer to a <b>DWORD</b> to be filled with the mode of the phone's hookswitch devices. If a bit position is <b>FALSE</b>, the corresponding hookswitch device is onhook; if <b>TRUE</b>, the microphone and/or speaker part of the corresponding hookswitch device is offhook. To find out whether the microphone and/or speaker are enabled, the application can use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonegetstatus">phoneGetStatus</a>. This parameter uses one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonehookswitchdev--constants">PHONEHOOKSWITCHDEV_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -10339,7 +10339,7 @@ class Tapi {
      * The phoneGetLamp function returns the current lamp mode of the specified lamp.
      * @param {Integer} hPhone Handle to the open phone device.
      * @param {Integer} dwButtonLampID Identifier of the lamp to be queried.
-     * @param {Pointer<UInt32>} lpdwLampMode Pointer to a memory location that holds the lamp mode status of the given lamp. This parameter uses one and only one of the 
+     * @param {Pointer<Integer>} lpdwLampMode Pointer to a memory location that holds the lamp mode status of the given lamp. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonelampmode--constants">PHONELAMPMODE_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -10372,8 +10372,8 @@ class Tapi {
     /**
      * The phoneGetRing function enables an application to query the specified open phone device as to its current ring mode.
      * @param {Integer} hPhone Handle to the open phone device.
-     * @param {Pointer<UInt32>} lpdwRingMode Ringing pattern with which the phone is ringing. Zero indicates that the phone is not ringing.
-     * @param {Pointer<UInt32>} lpdwVolume Volume level with which the phone is ringing. This is a number in the range 0x00000000 (silence) to 0x0000FFFF (maximum volume). The actual granularity and quantization of volume settings in this range are service provider-specific.
+     * @param {Pointer<Integer>} lpdwRingMode Ringing pattern with which the phone is ringing. Zero indicates that the phone is not ringing.
+     * @param {Pointer<Integer>} lpdwVolume Volume level with which the phone is ringing. This is a number in the range 0x00000000 (silence) to 0x0000FFFF (maximum volume). The actual granularity and quantization of volume settings in this range are service provider-specific.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPHONESTATE, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
@@ -10432,11 +10432,11 @@ class Tapi {
     /**
      * The phoneGetStatusMessages function returns which phone-state changes on the specified phone device generate a callback to the application.
      * @param {Integer} hPhone Handle to the open phone device to be monitored.
-     * @param {Pointer<UInt32>} lpdwPhoneStates Pointer to a <b>DWORD</b> holding zero, one or more of the 
+     * @param {Pointer<Integer>} lpdwPhoneStates Pointer to a <b>DWORD</b> holding zero, one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonestate--constants">PHONESTATE_ Constants</a>. These flags specify the set of phone status changes and events for which the application can receive notification messages. Monitoring can be individually enabled and disabled.
-     * @param {Pointer<UInt32>} lpdwButtonModes Pointer to a <b>DWORD</b> containing flags that specify the set of phone-button modes for which the application can receive notification messages. This parameter uses zero, one or more of the 
+     * @param {Pointer<Integer>} lpdwButtonModes Pointer to a <b>DWORD</b> containing flags that specify the set of phone-button modes for which the application can receive notification messages. This parameter uses zero, one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonebuttonmode--constants">PHONEBUTTONMODE_ Constants</a>.
-     * @param {Pointer<UInt32>} lpdwButtonStates Pointer to a <b>DWORD</b> that contains flags specifying the set of phone button state changes for which the application can receive notification messages. This parameter uses zero, one or more of the 
+     * @param {Pointer<Integer>} lpdwButtonStates Pointer to a <b>DWORD</b> that contains flags specifying the set of phone button state changes for which the application can receive notification messages. This parameter uses zero, one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonebuttonstate--constants">PHONEBUTTONSTATE_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -10453,7 +10453,7 @@ class Tapi {
      * @param {Integer} hPhone Handle to the open phone device.
      * @param {Integer} dwHookSwitchDev A single hookswitch device whose volume level is queried. This parameter uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phonehookswitchdev--constants">PHONEHOOKSWITCHDEV_ Constants</a>.
-     * @param {Pointer<UInt32>} lpdwVolume Pointer to a <b>DWORD</b>. The function returns the current volume setting of the hookswitch device in this location. This is a number in the range 0x00000000 (silence) to 0x0000FFFF (maximum volume). The actual granularity and quantization of volume settings in this range are service provider-specific.
+     * @param {Pointer<Integer>} lpdwVolume Pointer to a <b>DWORD</b>. The function returns the current volume setting of the hookswitch device in this location. This is a number in the range 0x00000000 (silence) to 0x0000FFFF (maximum volume). The actual granularity and quantization of volume settings in this range are service provider-specific.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPHONESTATE, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALHOOKSWITCHDEV, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
@@ -10466,12 +10466,12 @@ class Tapi {
 
     /**
      * The phoneInitialize function is obsolete. It continues to be exported by Tapi.dll and Tapi32.dll for backward compatibility with applications using TAPI versions 1.3 and 1.4.
-     * @param {Pointer<UInt32>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
+     * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
      * @param {HINSTANCE} hInstance Instance handle of the client application or DLL.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the phone device.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated string that contains displayable characters. If this parameter is non-<b>NULL</b>, it contains an application-supplied name of the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application is the current owner of the phone device. This information can be useful for logging and status reporting purposes. If <i>lpszAppName</i> is <b>NULL</b>, the application's filename is used instead.
-     * @param {Pointer<UInt32>} lpdwNumDevs Pointer to <b>DWORD</b>. This location is loaded with the number of phone devices available to the application.
+     * @param {Pointer<Integer>} lpdwNumDevs Pointer to <b>DWORD</b>. This location is loaded with the number of phone devices available to the application.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPNAME, PHONEERR_INIFILECORRUPT, PHONEERR_INVALPOINTER, PHONEERR_NOMEM, PHONEERR_OPERATIONFAILED, PHONEERR_REINIT, PHONEERR_RESOURCEUNAVAIL, PHONEERR_NODEVICE, PHONEERR_NODRIVER, PHONEERR_INVALPARAM
@@ -10487,15 +10487,15 @@ class Tapi {
 
     /**
      * The phoneInitializeEx function initializes the application's use of TAPI for subsequent use of the phone abstraction.
-     * @param {Pointer<UInt32>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
+     * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
      * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application has ownership of the phone device. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module filename is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
-     * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>. Upon successful completion of this request, this location is filled with the number of phone devices available to the application.
-     * @param {Pointer<UInt32>} lpdwAPIVersion Pointer to a <b>DWORD</b>. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
+     * @param {Pointer<Integer>} lpdwNumDevs Pointer to a <b>DWORD</b>. Upon successful completion of this request, this location is filled with the number of phone devices available to the application.
+     * @param {Pointer<Integer>} lpdwAPIVersion Pointer to a <b>DWORD</b>. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonenegotiateapiversion">phoneNegotiateAPIVersion</a>). Artificially high values must not be used; the value must be accurately set. TAPI translates any newer messages or structures into values or formats supported by the application's version. Upon successful completion of this request, this location is filled with the highest API version supported by TAPI, thereby allowing the application to detect and adapt to having been installed on a system with an older version of TAPI.
      * @param {Pointer<PHONEINITIALIZEEXPARAMS>} lpPhoneInitializeExParams Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phoneinitializeexparams">PHONEINITIALIZEEXPARAMS</a> containing additional parameters used to establish the association between the application and TAPI (specifically, the application's selected event notification mechanism and associated parameters).
@@ -10514,15 +10514,15 @@ class Tapi {
 
     /**
      * The phoneInitializeEx function initializes the application's use of TAPI for subsequent use of the phone abstraction.
-     * @param {Pointer<UInt32>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
+     * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
      * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application has ownership of the phone device. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module filename is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
-     * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>. Upon successful completion of this request, this location is filled with the number of phone devices available to the application.
-     * @param {Pointer<UInt32>} lpdwAPIVersion Pointer to a <b>DWORD</b>. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
+     * @param {Pointer<Integer>} lpdwNumDevs Pointer to a <b>DWORD</b>. Upon successful completion of this request, this location is filled with the number of phone devices available to the application.
+     * @param {Pointer<Integer>} lpdwAPIVersion Pointer to a <b>DWORD</b>. The application must initialize this <b>DWORD</b>, before calling this function, to the highest API version it is designed to support (for example, the same value it would pass into <i>dwAPIHighVersion</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonenegotiateapiversion">phoneNegotiateAPIVersion</a>). Artificially high values must not be used; the value must be accurately set. TAPI translates any newer messages or structures into values or formats supported by the application's version. Upon successful completion of this request, this location is filled with the highest API version supported by TAPI, thereby allowing the application to detect and adapt to having been installed on a system with an older version of TAPI.
      * @param {Pointer<PHONEINITIALIZEEXPARAMS>} lpPhoneInitializeExParams Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phoneinitializeexparams">PHONEINITIALIZEEXPARAMS</a> containing additional parameters used to establish the association between the application and TAPI (specifically, the application's selected event notification mechanism and associated parameters).
@@ -10545,7 +10545,7 @@ class Tapi {
      * @param {Integer} dwDeviceID Identifier of the phone device to be queried.
      * @param {Integer} dwAPILowVersion Least recent API version the application is compliant with. The high-order word is the major version number, the low-order word is the minor version number.
      * @param {Integer} dwAPIHighVersion Most recent API version the application is compliant with. The high-order word is the major version number, the low-order word is the minor version number.
-     * @param {Pointer<UInt32>} lpdwAPIVersion Pointer to a <b>DWORD</b> in which the API version number that was negotiated will be returned. If negotiation succeeds, this number is in the range <i>dwAPILowVersion</i> to <i>dwAPIHighVersion</i>.
+     * @param {Pointer<Integer>} lpdwAPIVersion Pointer to a <b>DWORD</b> in which the API version number that was negotiated will be returned. If negotiation succeeds, this number is in the range <i>dwAPILowVersion</i> to <i>dwAPIHighVersion</i>.
      * @param {Pointer<PHONEEXTENSIONID>} lpExtensionID Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phoneextensionid">PHONEEXTENSIONID</a>. If the service provider for the specified <i>dwDeviceID</i> parameter supports provider-specific extensions, this structure is filled with the extension identifier of these extensions when negotiation succeeds. This structure contains all zeros if the line provides no extensions. An application can ignore the returned parameter if it does not use extensions.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -10568,7 +10568,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonenegotiateapiversion">phoneNegotiateAPIVersion</a> that the application is compliant with. The high-order word is the major version number; the low-order word is the minor version number.
      * @param {Integer} dwExtHighVersion Most recent extension version of the extension identifier returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonenegotiateapiversion">phoneNegotiateAPIVersion</a> that the application is compliant with. The high-order word is the major version number; the low-order word is the minor version number.
-     * @param {Pointer<UInt32>} lpdwExtVersion Pointer to a <b>DWORD</b> in which the extension version number that was negotiated is returned. If negotiation succeeds, this number is in the range <i>dwExtLowVersion</i> to <i>dwExtHighVersion</i>.
+     * @param {Pointer<Integer>} lpdwExtVersion Pointer to a <b>DWORD</b> in which the extension version number that was negotiated is returned. If negotiation succeeds, this number is in the range <i>dwExtLowVersion</i> to <i>dwExtHighVersion</i>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_OPERATIONFAILED, PHONEERR_BADDEVICEID, PHONEERR_OPERATIONUNAVAIL, PHONEERR_NODRIVER, PHONEERR_NOMEM, PHONEERR_INCOMPATIBLEAPIVERSION, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INCOMPATIBLEEXTVERSION, PHONEERR_UNINITIALIZED, PHONEERR_INVALPOINTER, PHONEERR_NODEVICE.
@@ -10583,7 +10583,7 @@ class Tapi {
      * The phoneOpen function opens the specified phone device.
      * @param {Integer} hPhoneApp Handle to the application's registration with TAPI.
      * @param {Integer} dwDeviceID Identifier of the phone device to be opened.
-     * @param {Pointer<UInt32>} lphPhone Pointer to an HPHONE handle that identifies the open phone device. Use this handle to identify the device when invoking other phone control functions.
+     * @param {Pointer<Integer>} lphPhone Pointer to an HPHONE handle that identifies the open phone device. Use this handle to identify the device when invoking other phone control functions.
      * @param {Integer} dwAPIVersion API version number under which the application and Telephony API have agreed to operate. This number is obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phonenegotiateapiversion">phoneNegotiateAPIVersion</a>.
      * @param {Integer} dwExtVersion Extension version number under which the application and the service provider agree to operate. This number is zero if the application does not use any extensions. This number is obtained from 
@@ -11014,16 +11014,17 @@ class Tapi {
     /**
      * 
      * @param {Pointer<Void>} lpvSupport 
-     * @param {Pointer<IStream>} lpStream 
-     * @param {Pointer<SByte>} lpszStreamName 
+     * @param {IStream} lpStream 
+     * @param {Pointer<Integer>} lpszStreamName 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMessage>} lpMessage 
+     * @param {IMessage} lpMessage 
      * @param {Integer} wKeyVal 
      * @param {Pointer<ITnef>} lppTNEF 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstream
      */
     static OpenTnefStream(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lppTNEF) {
-        result := DllCall("MAPI32.dll\OpenTnefStream", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lppTNEF, "int")
+        result := DllCall("MAPI32.dll\OpenTnefStream", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr*", lppTNEF, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11033,17 +11034,18 @@ class Tapi {
     /**
      * 
      * @param {Pointer<Void>} lpvSupport 
-     * @param {Pointer<IStream>} lpStream 
-     * @param {Pointer<SByte>} lpszStreamName 
+     * @param {IStream} lpStream 
+     * @param {Pointer<Integer>} lpszStreamName 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMessage>} lpMessage 
+     * @param {IMessage} lpMessage 
      * @param {Integer} wKeyVal 
-     * @param {Pointer<IAddrBook>} lpAdressBook 
+     * @param {IAddrBook} lpAdressBook 
      * @param {Pointer<ITnef>} lppTNEF 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstreamex
      */
     static OpenTnefStreamEx(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lpAdressBook, lppTNEF) {
-        result := DllCall("MAPI32.dll\OpenTnefStreamEx", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr", lppTNEF, "int")
+        result := DllCall("MAPI32.dll\OpenTnefStreamEx", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr*", lppTNEF, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11052,10 +11054,11 @@ class Tapi {
 
     /**
      * 
-     * @param {Pointer<IStream>} lpStream 
-     * @param {Pointer<UInt32>} lpulCodepage 
-     * @param {Pointer<UInt32>} lpulSubCodepage 
+     * @param {IStream} lpStream 
+     * @param {Pointer<Integer>} lpulCodepage 
+     * @param {Pointer<Integer>} lpulSubCodepage 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/gettnefstreamcodepage
      */
     static GetTnefStreamCodepage(lpStream, lpulCodepage, lpulSubCodepage) {
         result := DllCall("MAPI32.dll\GetTnefStreamCodepage", "ptr", lpStream, "uint*", lpulCodepage, "uint*", lpulSubCodepage, "int")

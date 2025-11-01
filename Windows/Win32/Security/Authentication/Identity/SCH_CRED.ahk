@@ -28,7 +28,7 @@ class SCH_CRED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     paSecret {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class SCH_CRED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     paPublic {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class SCH_CRED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_HMAPPER>}
+     * @type {Pointer<Pointer<_HMAPPER>>}
      */
     aphMappers {
         get => NumGet(this, 32, "ptr")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-immcversioninfo
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

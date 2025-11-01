@@ -28,7 +28,7 @@ class WSASENDMSG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpNumberOfBytesSent {
         get => NumGet(this, 16, "ptr")

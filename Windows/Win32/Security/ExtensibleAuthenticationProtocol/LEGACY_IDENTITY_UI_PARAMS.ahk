@@ -36,7 +36,7 @@ class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pConnectionData {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUserData {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUserDataOut {
         get => NumGet(this, 48, "ptr")

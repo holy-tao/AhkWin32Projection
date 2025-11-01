@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/Memory/-cfg-call-target-info
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

@@ -3,6 +3,8 @@
 #Include .\PROCESSTRACE_HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_buffer_callback_information
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

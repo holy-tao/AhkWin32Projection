@@ -1017,7 +1017,7 @@ class HttpServer {
      * </tr>
      * </table>
      * @param {Integer} PropertyInformationLength The length, in bytes, of the buffer pointed to by the <i>pPropertyInformation</i> parameter.
-     * @param {Pointer<UInt32>} ReturnLength The number, in bytes, returned in the  <i>pPropertyInformation</i> buffer if not <b>NULL</b>.
+     * @param {Pointer<Integer>} ReturnLength The number, in bytes, returned in the  <i>pPropertyInformation</i> buffer if not <b>NULL</b>.
      * 
      * If the output buffer is too small, the call fails with a return value of <b>ERROR_MORE_DATA</b>. The value pointed to by <i>pReturnLength</i> can be used to determine the minimum length of the buffer required for the call to succeed.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
@@ -1186,7 +1186,7 @@ class HttpServer {
      * If the <i>Flags</i> parameter is <b>HTTP_RECEIVE_SECURE_CHANNEL_TOKEN</b>, then this parameter points to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_channel_bind_status">HTTP_REQUEST_CHANNEL_BIND_STATUS</a> structure into which the function writes the requested CBT information. The buffer pointed to by the <i>pSslClientCertInfo</i> should be sufficiently large enough to hold the <b>HTTP_REQUEST_CHANNEL_BIND_STATUS</b>  structure plus the value of the <b>ChannelTokenSize</b> member of this structure.
      * @param {Integer} SslClientCertInfoSize The size, in bytes, of the buffer pointed to by the <i>pSslClientCertInfo</i> parameter.
-     * @param {Pointer<UInt32>} BytesReceived An optional pointer to a variable that receives  the number of bytes to be written to the structure pointed to by <i>pSslClientCertInfo</i>. If not used, set it to <b>NULL</b>. 
+     * @param {Pointer<Integer>} BytesReceived An optional pointer to a variable that receives  the number of bytes to be written to the structure pointed to by <i>pSslClientCertInfo</i>. If not used, set it to <b>NULL</b>. 
      * 
      * 
      * 
@@ -1306,7 +1306,7 @@ class HttpServer {
      * @param {HTTPAPI_VERSION} Version An HTTPAPI_VERSION structure that indicates the version of the server session. For  version 2.0, declare an instance of the structure and set it to the predefined value <b>HTTPAPI_VERSION_2</b> before passing it to <b>HttpCreateServerSession</b>.
      * 
      * The version must be 2.0; <b>HttpCreateServerSession</b> does not support  version 1.0 request queues.
-     * @param {Pointer<UInt64>} ServerSessionId A pointer to the variable that receives the ID of the server session.
+     * @param {Pointer<Integer>} ServerSessionId A pointer to the variable that receives the ID of the server session.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
      * 
      * If the function fails, it returns one of the following error codes.
@@ -1483,7 +1483,7 @@ class HttpServer {
      * </tr>
      * </table>
      * @param {Integer} PropertyInformationLength The length, in bytes, of the buffer pointed to by the <i>pPropertyInformation</i> parameter.
-     * @param {Pointer<UInt32>} ReturnLength The number, in  bytes, returned in the  <i>pPropertyInformation</i> buffer.
+     * @param {Pointer<Integer>} ReturnLength The number, in  bytes, returned in the  <i>pPropertyInformation</i> buffer.
      * 
      * If the output buffer is too small, the call fails with a return value of <b>ERROR_MORE_DATA</b>. The value pointed to by <i>pReturnLength</i> can be used to determine the minimum length of the buffer required for the call to succeed.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
@@ -1891,7 +1891,7 @@ class HttpServer {
     /**
      * Creates a URL Group under the specified server session.
      * @param {Integer} ServerSessionId The identifier of the server session under which the URL Group is created.
-     * @param {Pointer<UInt64>} pUrlGroupId A pointer to the variable that receives the ID of the URL Group.
+     * @param {Pointer<Integer>} pUrlGroupId A pointer to the variable that receives the ID of the URL Group.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
      * 
      * If the function fails, it returns one of the following error codes.
@@ -2393,7 +2393,7 @@ class HttpServer {
      * </tr>
      * </table>
      * @param {Integer} PropertyInformationLength The length, in bytes, of the buffer pointed to by the <i>pPropertyInformation</i> parameter.
-     * @param {Pointer<UInt32>} ReturnLength The size, in bytes, returned in the  <i>pPropertyInformation</i> buffer.
+     * @param {Pointer<Integer>} ReturnLength The size, in bytes, returned in the  <i>pPropertyInformation</i> buffer.
      * 
      * If the output buffer is too small, the call fails with a return value of <b>ERROR_MORE_DATA</b>. The value pointed to by <i>pReturnLength</i> can be used to determine the minimum length of the buffer required for the call to succeed.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
@@ -2482,7 +2482,7 @@ class HttpServer {
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a>.
      * @param {Integer} RequestBufferLength Size, in bytes, of the  <i>pRequestBuffer</i> buffer.
-     * @param {Pointer<UInt32>} BytesReturned Optional. A pointer to a variable that receives the size, in bytes, of the entity body, or of the remaining part of the entity body. 
+     * @param {Pointer<Integer>} BytesReturned Optional. A pointer to a variable that receives the size, in bytes, of the entity body, or of the remaining part of the entity body. 
      * 
      * 
      * 
@@ -2606,7 +2606,7 @@ class HttpServer {
      * </table>
      * @param {Pointer} EntityBuffer A pointer to a buffer that receives entity-body data.
      * @param {Integer} EntityBufferLength The size, in bytes, of the buffer pointed to by the <i>pBuffer</i> parameter.
-     * @param {Pointer<UInt32>} BytesReturned Optional. A pointer to a variables that receives the size, in bytes, of the entity body data returned in the <i>pBuffer</i> buffer. 
+     * @param {Pointer<Integer>} BytesReturned Optional. A pointer to a variables that receives the size, in bytes, of the entity body data returned in the <i>pBuffer</i> buffer. 
      * 
      * 
      * 
@@ -2797,7 +2797,7 @@ class HttpServer {
      * @param {Pointer<HTTP_CACHE_POLICY>} CachePolicy A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_cache_policy">HTTP_CACHE_POLICY</a> structure used to cache the response.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>This parameter is reserved and must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} BytesSent Optional. A pointer to a variable that receives the number, in bytes, sent if the function operates synchronously.
+     * @param {Pointer<Integer>} BytesSent Optional. A pointer to a variable that receives the number, in bytes, sent if the function operates synchronously.
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesSent</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesSent</i> must contain a valid memory address and not be set to <b>NULL</b>.
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
@@ -2966,7 +2966,7 @@ class HttpServer {
      * @param {Integer} EntityChunkCount A number of structures in the array pointed to by <i>pEntityChunks</i>. This count cannot exceed 9999.
      * @param {Pointer<HTTP_DATA_CHUNK>} EntityChunks A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_data_chunk">HTTP_DATA_CHUNK</a> structures to be sent as entity-body data.
-     * @param {Pointer<UInt32>} BytesSent Optional. A pointer to a variable that receives the number, in bytes, sent if the function operates synchronously.
+     * @param {Pointer<Integer>} BytesSent Optional. A pointer to a variable that receives the number, in bytes, sent if the function operates synchronously.
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesSent</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesSent</i> must contain a valid memory address, and not be set to <b>NULL</b>.
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
@@ -3291,7 +3291,7 @@ class HttpServer {
      * @param {HANDLE} RequestQueueHandle Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * The request queue associated with the URL group.
-     * @param {Pointer<UInt64>} UrlGroupId Type: \_Out\_ **PHTTP_URL_GROUP_ID**
+     * @param {Pointer<Integer>} UrlGroupId Type: \_Out\_ **PHTTP_URL_GROUP_ID**
      * 
      * The matching URL group ID.
      * @returns {Integer} A **[ULONG](/windows/win32/winprog/windows-data-types)** containing an [NTSTATUS](/openspecs/windows_protocols/ms-erref/87fba13e-bf06-450e-83b1-9241dc81e781) completion status.
@@ -3447,7 +3447,7 @@ class HttpServer {
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_byte_range">HTTP_BYTE_RANGE</a> structure that indicates a starting offset in the specified fragment and byte-count to be returned. <b>NULL</b> if not used, in which case the entire fragment is returned.
      * @param {Pointer} Buffer Pointer to a buffer into which the function copies the requested fragment.
      * @param {Integer} BufferLength Size, in bytes, of the <i>pBuffer</i> buffer.
-     * @param {Pointer<UInt32>} BytesRead Optional pointer to a variable that receives the number of bytes to be written into the output buffer. If <i>BufferLength</i> is less than this number, the call fails with a return of ERROR_INSUFFICIENT_BUFFER, and the value pointed to by <i>pBytesRead</i> can be used to determine the minimum length of buffer required for the call to succeed. 
+     * @param {Pointer<Integer>} BytesRead Optional pointer to a variable that receives the number of bytes to be written into the output buffer. If <i>BufferLength</i> is less than this number, the call fails with a return of ERROR_INSUFFICIENT_BUFFER, and the value pointed to by <i>pBytesRead</i> can be used to determine the minimum length of buffer required for the call to succeed. 
      * 
      * 
      * 
@@ -4232,7 +4232,7 @@ class HttpServer {
      * </tr>
      * </table>
      * @param {Integer} OutputLength Size, in bytes, of the <i>pOutputConfigInfo</i> buffer.
-     * @param {Pointer<UInt32>} pReturnLength A pointer to a variable that receives the number of bytes to be written in the output buffer. If the output buffer is too small, the call fails with a return value of <b>ERROR_INSUFFICIENT_BUFFER</b>. The value pointed to by <i>pReturnLength</i> can be used to determine the minimum length the buffer requires for the call to succeed.
+     * @param {Pointer<Integer>} pReturnLength A pointer to a variable that receives the number of bytes to be written in the output buffer. If the output buffer is too small, the call fails with a return value of <b>ERROR_INSUFFICIENT_BUFFER</b>. The value pointed to by <i>pReturnLength</i> can be used to determine the minimum length the buffer requires for the call to succeed.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the following error codes.

@@ -3,6 +3,8 @@
 #Include .\DOMAINDESC.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-domain_tree
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

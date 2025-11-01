@@ -20,7 +20,7 @@ class OBO_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<INetCfgComponent>}
+     * @type {INetCfgComponent}
      */
     pncc {
         get => NumGet(this, 8, "ptr")

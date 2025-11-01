@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/DirectWrite/dwrite-color-f
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

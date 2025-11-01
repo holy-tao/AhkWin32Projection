@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/WMP/stringcollection-object
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

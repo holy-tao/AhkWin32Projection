@@ -20,7 +20,7 @@ class StartParam extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IBindCtx>}
+     * @type {IBindCtx}
      */
     pIBindCtx {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class StartParam extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pItf {
         get => NumGet(this, 16, "ptr")

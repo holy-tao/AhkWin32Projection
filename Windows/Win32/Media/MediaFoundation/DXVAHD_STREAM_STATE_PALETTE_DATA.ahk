@@ -37,7 +37,7 @@ class DXVAHD_STREAM_STATE_PALETTE_DATA extends Win32Struct
 
     /**
      * A pointer to an array of <b>D3DCOLOR</b> values. For RGB streams, the palette entries use a D3DFMT_A8R8G8B8 (ARGB-32) representation. For YCbCr streams, the palette entries use an AYUV representation. The alpha channel is used for alpha blending; see <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_alpha_data">DXVAHD_STREAM_STATE_ALPHA_DATA</a>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pEntries {
         get => NumGet(this, 8, "ptr")

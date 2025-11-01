@@ -1,0 +1,280 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+
+/**
+ * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT). An SDTT contains download information such as service ID, schedule, and receiver types for revision.
+ * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-iisdb_sdtt
+ * @namespace Windows.Win32.Media.DirectShow.Tv
+ * @version v4.0.30319
+ */
+class IISDB_SDTT extends IUnknown{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IISDB_SDTT
+     * @type {Guid}
+     */
+    static IID => Guid("{ee60ef2d-813a-4dc7-bf92-ea13dac85313}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["Initialize", "GetVersionNumber", "GetTableIdExt", "GetTransportStreamId", "GetOriginalNetworkId", "GetServiceId", "GetCountOfRecords", "GetRecordGroup", "GetRecordTargetVersion", "GetRecordNewVersion", "GetRecordDownloadLevel", "GetRecordVersionIndicator", "GetRecordScheduleTimeShiftInformation", "GetRecordCountOfSchedules", "GetRecordStartTimeByIndex", "GetRecordDurationByIndex", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "GetVersionHash"]
+
+    /**
+     * Initializes a thread to use Windows Runtime APIs.
+     * @param {ISectionList} pSectionList 
+     * @param {IMpeg2Data} pMPEGData 
+     * @returns {HRESULT} <ul>
+     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
+     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
+     *         initialized for the specified apartment type)</li>
+     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
+     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
+     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
+     *         than the TLS</li>
+     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
+     *         apartment type from what is specified.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     */
+    Initialize(pSectionList, pMPEGData) {
+        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Integer>} pbVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getversionnumber
+     */
+    GetVersionNumber(pbVal) {
+        result := ComCall(4, this, "char*", pbVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Integer>} pwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-gettableidext
+     */
+    GetTableIdExt(pwVal) {
+        result := ComCall(5, this, "ushort*", pwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Integer>} pwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-gettransportstreamid
+     */
+    GetTransportStreamId(pwVal) {
+        result := ComCall(6, this, "ushort*", pwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Integer>} pwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getoriginalnetworkid
+     */
+    GetOriginalNetworkId(pwVal) {
+        result := ComCall(7, this, "ushort*", pwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Integer>} pwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getserviceid
+     */
+    GetServiceId(pwVal) {
+        result := ComCall(8, this, "ushort*", pwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Integer>} pdwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getcountofrecords
+     */
+    GetCountOfRecords(pdwVal) {
+        result := ComCall(9, this, "uint*", pdwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pbVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordgroup
+     */
+    GetRecordGroup(dwRecordIndex, pbVal) {
+        result := ComCall(10, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordtargetversion
+     */
+    GetRecordTargetVersion(dwRecordIndex, pwVal) {
+        result := ComCall(11, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordnewversion
+     */
+    GetRecordNewVersion(dwRecordIndex, pwVal) {
+        result := ComCall(12, this, "uint", dwRecordIndex, "ushort*", pwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pbVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddownloadlevel
+     */
+    GetRecordDownloadLevel(dwRecordIndex, pbVal) {
+        result := ComCall(13, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pbVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordversionindicator
+     */
+    GetRecordVersionIndicator(dwRecordIndex, pbVal) {
+        result := ComCall(14, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pbVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordscheduletimeshiftinformation
+     */
+    GetRecordScheduleTimeShiftInformation(dwRecordIndex, pbVal) {
+        result := ComCall(15, this, "uint", dwRecordIndex, "char*", pbVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pdwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofschedules
+     */
+    GetRecordCountOfSchedules(dwRecordIndex, pdwVal) {
+        result := ComCall(16, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Integer} dwIndex 
+     * @param {Pointer<MPEG_DATE_AND_TIME>} pmdtVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordstarttimebyindex
+     */
+    GetRecordStartTimeByIndex(dwRecordIndex, dwIndex, pmdtVal) {
+        result := ComCall(17, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr", pmdtVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Integer} dwIndex 
+     * @param {Pointer<MPEG_TIME>} pmdVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddurationbyindex
+     */
+    GetRecordDurationByIndex(dwRecordIndex, dwIndex, pmdVal) {
+        result := ComCall(18, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr", pmdVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Pointer<Integer>} pdwVal 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofdescriptors
+     */
+    GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
+        result := ComCall(19, this, "uint", dwRecordIndex, "uint*", pdwVal, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Integer} dwIndex 
+     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddescriptorbyindex
+     */
+    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex, ppDescriptor) {
+        result := ComCall(20, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwRecordIndex 
+     * @param {Integer} bTag 
+     * @param {Pointer<Integer>} pdwCookie 
+     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddescriptorbytag
+     */
+    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
+        result := ComCall(21, this, "uint", dwRecordIndex, "char", bTag, "uint*", pdwCookie, "ptr*", ppDescriptor, "HRESULT")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Integer>} pdwVersionHash 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getversionhash
+     */
+    GetVersionHash(pdwVersionHash) {
+        result := ComCall(22, this, "uint*", pdwVersionHash, "HRESULT")
+        return result
+    }
+}

@@ -125,7 +125,7 @@ class DXVAHD_STREAM_DATA extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface of a Microsoft Direct3D surface that contains the current input frame.
-     * @type {Pointer<IDirect3DSurface9>}
+     * @type {IDirect3DSurface9}
      */
     pInputSurface {
         get => NumGet(this, 32, "ptr")

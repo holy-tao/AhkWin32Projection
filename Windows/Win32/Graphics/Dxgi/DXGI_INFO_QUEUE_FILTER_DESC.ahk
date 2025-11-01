@@ -31,7 +31,7 @@ class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a> enumeration values that describe the message categories to allow or deny. The array must have at least <b>NumCategories</b> number of elements.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pCategoryList {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a> enumeration values that describe the message severity levels to allow or deny. The array must have at least <b>NumSeverities</b> number of elements.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pSeverityList {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * An array of integers that represent the message IDs to allow or deny. The array must have at least <b>NumIDs</b> number of elements.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pIDList {
         get => NumGet(this, 40, "ptr")

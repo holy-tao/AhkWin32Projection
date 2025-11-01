@@ -15,7 +15,7 @@ class MI_StringA extends Win32Struct
 
     /**
      * An array of pointers to null-terminated <b>MI_Char</b>* strings.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     data {
         get => NumGet(this, 0, "ptr")

@@ -20,7 +20,7 @@ class DNS_SVCB_PARAM_ALPN_ID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbId {
         get => NumGet(this, 8, "ptr")

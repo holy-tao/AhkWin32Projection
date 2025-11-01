@@ -20,7 +20,7 @@ class NCRYPT_KEY_ATTEST_PADDING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbKeyBlob {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class NCRYPT_KEY_ATTEST_PADDING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbKeyAuth {
         get => NumGet(this, 24, "ptr")

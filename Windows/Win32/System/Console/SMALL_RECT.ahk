@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/console/small-rect-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

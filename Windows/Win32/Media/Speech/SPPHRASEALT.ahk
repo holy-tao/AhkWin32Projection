@@ -12,7 +12,7 @@ class SPPHRASEALT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<ISpPhraseBuilder>}
+     * @type {ISpPhraseBuilder}
      */
     pPhrase {
         get => NumGet(this, 0, "ptr")

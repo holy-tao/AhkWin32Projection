@@ -63,7 +63,7 @@ class SCHANNEL_CRED extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures. Each pointer specifies a certificate that contains a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to be used in authenticating the application. Typically, this array contains one structure for each key exchange method supported by the application.
      * 
      * Client applications often pass in an empty list and either depend on Schannel to find an appropriate certificate or create a certificate later if needed.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     paCred {
         get => NumGet(this, 8, "ptr")
@@ -93,7 +93,7 @@ class SCHANNEL_CRED extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<_HMAPPER>}
+     * @type {Pointer<Pointer<_HMAPPER>>}
      */
     aphMappers {
         get => NumGet(this, 32, "ptr")
@@ -116,7 +116,7 @@ class SCHANNEL_CRED extends Win32Struct
      * Currently, the algorithm identifiers <b>CALG_AES</b>,
      * <b>CALG_AES_128</b>, and
      * <b>CALG_AES_256</b>are not supported.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     palgSupportedAlgs {
         get => NumGet(this, 48, "ptr")

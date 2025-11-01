@@ -323,7 +323,7 @@ class AppLocker {
      * </table>
      * @param {Integer} InfoBufferSize The size, in bytes, of the <i>InfoBuffer</i> parameter.
      * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
-     * @param {Pointer<UInt32>} InfoBufferRetSize The number of bytes in the <i>InfoBuffer</i> parameter that were filled with policy information.
+     * @param {Pointer<Integer>} InfoBufferRetSize The number of bytes in the <i>InfoBuffer</i> parameter that were filled with policy information.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safergetpolicyinformation
@@ -734,7 +734,7 @@ class AppLocker {
      * </table>
      * @param {Pointer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
      * @param {Integer} dwInBufferSize The size of the <i>lpQueryBuffer</i> parameter in bytes.
-     * @param {Pointer<UInt32>} lpdwOutBufferSize A pointer to return the output size of the <i>lpQueryBuffer</i> parameter.
+     * @param {Pointer<Integer>} lpdwOutBufferSize A pointer to return the output size of the <i>lpQueryBuffer</i> parameter.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winsafer/nf-winsafer-safergetlevelinformation

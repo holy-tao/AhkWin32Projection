@@ -24,7 +24,7 @@ class WSMAN_DATA_BINARY extends Win32Struct
 
     /**
      * Specifies the storage location for the binary data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 8, "ptr")

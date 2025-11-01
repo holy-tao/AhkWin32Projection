@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-auth-cipher-pair
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

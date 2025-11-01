@@ -46,7 +46,7 @@ class WindowsNetworkVirtualization {
      * @param {Pointer<OVERLAPPED>} Overlapped Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">LPOVERLAPPED</a></b>
      * 
      * Information about the asynchronous completion of this request. If this parameter is <b>NULL</b>, the request is synchronous.
-     * @param {Pointer<UInt32>} BytesTransferred Type: <b>PULONG</b>
+     * @param {Pointer<Integer>} BytesTransferred Type: <b>PULONG</b>
      * 
      * When this function returns, the <i>BytesTransferred</i> parameter points to the size of the buffer that is filled with the notification structures of the specific event type.
      * @returns {Integer} Type: <b>ULONG</b>

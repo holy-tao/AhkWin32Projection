@@ -21,7 +21,7 @@ class SecPkgContext_KeyInfoA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name, if available, of the algorithm used for generating signatures, for example "MD5" or "SHA-2".
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     sSignatureAlgorithmName {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class SecPkgContext_KeyInfoA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name, if available, of the algorithm used for encrypting messages. Reserved for future use.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     sEncryptAlgorithmName {
         get => NumGet(this, 8, "ptr")

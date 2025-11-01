@@ -42,7 +42,7 @@ class CRYPT_URL_INFO extends Win32Struct
 
     /**
      * Array of URL groups returned.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rgcGroupEntry {
         get => NumGet(this, 16, "ptr")

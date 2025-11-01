@@ -132,9 +132,9 @@ class XboxController {
      * Retrieves the sound rendering and sound capture audio device IDs that are associated with the headset connected to the specified controller.
      * @param {Integer} dwUserIndex Index of the gamer associated with the device.
      * @param {PWSTR} pRenderDeviceId Windows Core Audio device ID string for render (speakers).
-     * @param {Pointer<UInt32>} pRenderCount Size, in wide-chars, of the render device ID string buffer.
+     * @param {Pointer<Integer>} pRenderCount Size, in wide-chars, of the render device ID string buffer.
      * @param {PWSTR} pCaptureDeviceId Windows Core Audio device ID string for capture (microphone).
-     * @param {Pointer<UInt32>} pCaptureCount Size, in wide-chars, of capture device ID string buffer.
+     * @param {Pointer<Integer>} pCaptureCount Size, in wide-chars, of capture device ID string buffer.
      * @returns {Integer} If the function successfully retrieves the device IDs for render and capture, the return code is <b>ERROR_SUCCESS</b>.
      * 
      * 

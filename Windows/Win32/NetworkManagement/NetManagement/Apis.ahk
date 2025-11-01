@@ -10456,9 +10456,9 @@ class NetManagement {
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first member of the user information structure that causes ERROR_INVALID_PARAMETER. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the 
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first member of the user information structure that causes ERROR_INVALID_PARAMETER. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -10551,14 +10551,14 @@ class NetManagement {
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Integer} filter A value that specifies the user account types to be included in the enumeration. A value of zero indicates that all normal user, trust data, and machine account data should be included.
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * The buffer for this data is allocated by the system and the application must call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function to free the allocated memory when the data returned is no longer needed. Note that you must free the buffer even if the <b>NetUserEnum</b> function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen The preferred maximum length, in bytes, of the returned data. If you specify MAX_PREFERRED_LENGTH, the <b>NetUserEnum</b> function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint. If your application is communicating with a Windows 2000 or later domain controller, you should consider using the 
+     * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint. If your application is communicating with a Windows 2000 or later domain controller, you should consider using the 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-ldap-provider">ADSI LDAP Provider</a> to retrieve this type of data more efficiently. The ADSI LDAP Provider implements a set of ADSI objects that support various ADSI interfaces. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-system-providers">ADSI Service Providers</a>. 
      * 
@@ -10566,7 +10566,7 @@ class NetManagement {
      * 
      * 
      * <b>LAN Manager:  </b>If the call is to a computer that is running LAN Manager 2.<i>x</i>, the <i>totalentries</i> parameter will always reflect the total number of entries in the database no matter where it is in the resume sequence.
-     * @param {Pointer<UInt32>} resume_handle A pointer to a value that contains a resume handle which is used to continue an existing user search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
+     * @param {Pointer<Integer>} resume_handle A pointer to a value that contains a resume handle which is used to continue an existing user search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -10638,7 +10638,7 @@ class NetManagement {
     static NetUserEnum(servername, level, filter, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetUserEnum", "ptr", servername, "uint", level, "uint", filter, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetUserEnum", "ptr", servername, "uint", level, "uint", filter, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -10647,7 +10647,7 @@ class NetManagement {
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user account for which to return information. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -10723,7 +10723,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetUserGetInfo", "ptr", servername, "ptr", username, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetUserGetInfo", "ptr", servername, "ptr", username, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -10732,9 +10732,9 @@ class NetManagement {
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user account for which to set information. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err A pointer to a value that receives the index of the first member of the user information structure that causes ERROR_INVALID_PARAMETER. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} parm_err A pointer to a value that receives the index of the first member of the user information structure that causes ERROR_INVALID_PARAMETER. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -10929,13 +10929,13 @@ class NetManagement {
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user to search for in each group account. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen The preferred maximum length, in bytes, of returned data. If MAX_PREFERRED_LENGTH is specified, the function allocates the amount of memory required for the data. If another value is specified in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually retrieved.
-     * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of entries that could have been retrieved.
+     * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually retrieved.
+     * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of entries that could have been retrieved.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -11041,7 +11041,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetUserGetGroups", "ptr", servername, "ptr", username, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetUserGetGroups", "ptr", servername, "ptr", username, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint")
         return result
     }
 
@@ -11050,7 +11050,7 @@ class NetManagement {
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user for which to set global group memberships. For more information, see the Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf A pointer to the buffer that specifies the data. For more information, see 
+     * @param {Pointer<Integer>} buf A pointer to the buffer that specifies the data. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} num_entries The number of entries contained in the array pointed to by the <i>buf</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -11199,13 +11199,13 @@ class NetManagement {
      * </tr>
      * </table>
      * @param {Integer} flags A bitmask of flags that affect the operation. Currently, only the value defined is <b>LG_INCLUDE_INDIRECT</b>. If this bit is set, the function also returns the names of the local groups in which the user is indirectly a member (that is, the user has membership in a global group that is itself a member of one or more local groups).
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with <b>ERROR_MORE_DATA</b>.
      * @param {Integer} prefmaxlen The preferred maximum length, in bytes, of the returned data. If <b>MAX_PREFERRED_LENGTH</b> is specified in this parameter, the function allocates the amount of memory required for the data. If another value is specified in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <b>ERROR_MORE_DATA</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated.
+     * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -11311,7 +11311,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetUserGetLocalGroups", "ptr", servername, "ptr", username, "uint", level, "uint", flags, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetUserGetLocalGroups", "ptr", servername, "ptr", username, "uint", level, "uint", flags, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint")
         return result
     }
 
@@ -11319,7 +11319,7 @@ class NetManagement {
      * The NetUserModalsGet function retrieves global information for all users and global groups in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * The buffer for this data is allocated by the system and the application must call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function to free the allocated memory when the data returned is no longer needed. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
@@ -11406,7 +11406,7 @@ class NetManagement {
     static NetUserModalsGet(servername, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetUserModalsGet", "ptr", servername, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetUserModalsGet", "ptr", servername, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -11414,9 +11414,9 @@ class NetManagement {
      * The NetUserModalsSet function sets global information for all users and global groups in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first member of the information structure that causes ERROR_INVALID_PARAMETER. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first member of the information structure that causes ERROR_INVALID_PARAMETER. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -11588,9 +11588,9 @@ class NetManagement {
      * The NetGroupAdd function creates a global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to a buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to a buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first member of the global group information structure in error when ERROR_INVALID_PARAMETER is returned. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the 
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first member of the global group information structure in error when ERROR_INVALID_PARAMETER is returned. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetinfo">NetGroupSetInfo</a> function.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -11775,7 +11775,7 @@ class NetManagement {
      * The NetGroupEnum function retrieves information about each global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer to receive the global group information structure. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer to receive the global group information structure. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * 
      * 
@@ -11785,9 +11785,9 @@ class NetManagement {
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of the returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required to hold the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. The total number of entries is only a hint. For more information about determining the exact number of entries, see the following Remarks section.
-     * @param {Pointer<UIntPtr>} resume_handle Pointer to a variable that contains a resume handle that is used to continue the global group enumeration. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. The total number of entries is only a hint. For more information about determining the exact number of entries, see the following Remarks section.
+     * @param {Pointer<Pointer>} resume_handle Pointer to a variable that contains a resume handle that is used to continue the global group enumeration. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -11837,7 +11837,7 @@ class NetManagement {
     static NetGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetGroupEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resume_handle, "uint")
         return result
     }
 
@@ -11846,7 +11846,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the global group for which to retrieve information. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the global group information structure. The format of this data depends on the value of the <i>level</i> parameter. The system allocates the memory for this buffer. You must call the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address of the buffer that receives the global group information structure. The format of this data depends on the value of the <i>level</i> parameter. The system allocates the memory for this buffer. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function to deallocate the memory. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -11900,7 +11900,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         groupname := groupname is String ? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetGroupGetInfo", "ptr", servername, "ptr", groupname, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupGetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -11909,9 +11909,9 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the global group for which to set information. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to a buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to a buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first member of the group information structure in error following an ERROR_INVALID_PARAMETER error code. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first member of the group information structure in error following an ERROR_INVALID_PARAMETER error code. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12188,14 +12188,14 @@ class NetManagement {
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname A pointer to a constant string that specifies the name of the global group whose members are to be listed. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr A pointer to the address of the buffer that receives the information structure. The system allocates the memory for this buffer. You must call the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the address of the buffer that receives the information structure. The system allocates the memory for this buffer. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function to deallocate the memory. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen The preferred maximum length of the returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required to hold the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position.
-     * @param {Pointer<UIntPtr>} ResumeHandle A pointer to a variable that contains a resume handle that is used to continue an existing user enumeration. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>ResumeHandle</i> parameter is <b>NULL</b>, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position.
+     * @param {Pointer<Pointer>} ResumeHandle A pointer to a variable that contains a resume handle that is used to continue an existing user enumeration. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>ResumeHandle</i> parameter is <b>NULL</b>, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12290,7 +12290,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         groupname := groupname is String ? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetGroupGetUsers", "ptr", servername, "ptr", groupname, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupGetUsers", "ptr", servername, "ptr", groupname, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", ResumeHandle, "uint")
         return result
     }
 
@@ -12299,7 +12299,7 @@ class NetManagement {
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname A pointer to a constant string that specifies the name of the global group of interest. For more information, see the Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf A pointer to the buffer that contains the data. For more information, see 
+     * @param {Pointer<Integer>} buf A pointer to the buffer that contains the data. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} totalentries The number of entries in the buffer pointed to by the <i>buf</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -12437,9 +12437,9 @@ class NetManagement {
      * The NetLocalGroupAdd function creates a local group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf A pointer to a buffer that contains the local group information structure. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf A pointer to a buffer that contains the local group information structure. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err A pointer to a value that receives the index of the first member of the local group information structure to cause the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the Remarks section in the 
+     * @param {Pointer<Integer>} parm_err A pointer to a value that receives the index of the first member of the local group information structure to cause the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the Remarks section in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netlocalgroupsetinfo">NetLocalGroupSetInfo</a> topic.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -12570,14 +12570,14 @@ class NetManagement {
      * The NetLocalGroupEnum function returns information about each local group account on the specified server.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the information structure. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address of the buffer that receives the information structure. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the approximate total number of entries that could have been enumerated from the current resume position. The total number of entries is only a hint. For more information about determining the exact number of entries, see the following Remarks section.
-     * @param {Pointer<UIntPtr>} resumehandle Pointer to a value that contains a resume handle that is used to continue an existing local group search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the approximate total number of entries that could have been enumerated from the current resume position. The total number of entries is only a hint. For more information about determining the exact number of entries, see the following Remarks section.
+     * @param {Pointer<Pointer>} resumehandle Pointer to a value that contains a resume handle that is used to continue an existing local group search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12638,7 +12638,7 @@ class NetManagement {
     static NetLocalGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resumehandle, "uint")
         return result
     }
 
@@ -12667,7 +12667,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the return information structure. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address of the buffer that receives the return information structure. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -12721,7 +12721,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         groupname := groupname is String ? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupGetInfo", "ptr", servername, "ptr", groupname, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupGetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -12730,9 +12730,9 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group account to modify. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to a buffer that contains the local group information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to a buffer that contains the local group information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first member of the local group information structure that caused the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first member of the local group information structure that caused the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12910,14 +12910,14 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} localgroupname Pointer to a constant string that specifies the name of the local group whose members are to be listed. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the address that receives the return information structure. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address that receives the return information structure. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position.
-     * @param {Pointer<UIntPtr>} resumehandle Pointer to a value that contains a resume handle which is used to continue an existing group member search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position.
+     * @param {Pointer<Pointer>} resumehandle Pointer to a value that contains a resume handle which is used to continue an existing group member search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12979,7 +12979,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         localgroupname := localgroupname is String ? StrPtr(localgroupname) : localgroupname
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupGetMembers", "ptr", servername, "ptr", localgroupname, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupGetMembers", "ptr", servername, "ptr", localgroupname, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resumehandle, "uint")
         return result
     }
 
@@ -12988,7 +12988,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group in which the specified users or global groups should be granted membership. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to the buffer that contains the member information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that contains the member information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} totalentries Specifies a value that contains the total number of entries in the buffer pointed to by the <i>buf</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -13061,7 +13061,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group to which the specified users or global groups will be added. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to a buffer that contains the data for the new local group members. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to a buffer that contains the data for the new local group members. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} totalentries Specifies the number of entries in the buffer pointed to by the <i>buf</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -13145,7 +13145,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group from which the specified users or global groups will be removed. For more information, see the following Remarks section.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to a buffer that specifies the members to be removed. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to a buffer that specifies the members to be removed. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} totalentries Specifies the number of entries in the array pointed to by the <i>buf</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -13221,8 +13221,8 @@ class NetManagement {
      * @param {Integer} EntriesRequested Specifies the maximum number of entries for which to retrieve information. On Windows 2000 and later, each call to 
      * <b>NetQueryDisplayInformation</b> returns a maximum of 100 objects.
      * @param {Integer} PreferredMaximumLength Specifies the preferred maximum size, in bytes, of the system-allocated buffer returned in the <i>SortedBuffer</i> parameter. It is recommended that you set this parameter to MAX_PREFERRED_LENGTH.
-     * @param {Pointer<UInt32>} ReturnedEntryCount Pointer to a value that receives the number of entries in the buffer returned in the <i>SortedBuffer</i> parameter. If this parameter is zero, there are no entries with an index as large as that specified. Entries may be returned when the function's return value is either NERR_Success or ERROR_MORE_DATA.
-     * @param {Pointer<Void>} SortedBuffer Pointer to a buffer that receives a pointer to a system-allocated buffer that specifies a sorted list of the requested information. The format of this data depends on the value of the <i>Level</i> parameter. Because this buffer is allocated by the system, it must be freed using the 
+     * @param {Pointer<Integer>} ReturnedEntryCount Pointer to a value that receives the number of entries in the buffer returned in the <i>SortedBuffer</i> parameter. If this parameter is zero, there are no entries with an index as large as that specified. Entries may be returned when the function's return value is either NERR_Success or ERROR_MORE_DATA.
+     * @param {Pointer<Pointer<Void>>} SortedBuffer Pointer to a buffer that receives a pointer to a system-allocated buffer that specifies a sorted list of the requested information. The format of this data depends on the value of the <i>Level</i> parameter. Because this buffer is allocated by the system, it must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA. For more information, see the following Return Values section, and the topics 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -13277,7 +13277,7 @@ class NetManagement {
     static NetQueryDisplayInformation(ServerName, Level, Index, EntriesRequested, PreferredMaximumLength, ReturnedEntryCount, SortedBuffer) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\NetQueryDisplayInformation", "ptr", ServerName, "uint", Level, "uint", Index, "uint", EntriesRequested, "uint", PreferredMaximumLength, "uint*", ReturnedEntryCount, "ptr", SortedBuffer, "uint")
+        result := DllCall("NETAPI32.dll\NetQueryDisplayInformation", "ptr", ServerName, "uint", Level, "uint", Index, "uint", EntriesRequested, "uint", PreferredMaximumLength, "uint*", ReturnedEntryCount, "ptr*", SortedBuffer, "uint")
         return result
     }
 
@@ -13286,7 +13286,7 @@ class NetManagement {
      * @param {PWSTR} ServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} Level 
      * @param {PWSTR} Prefix Pointer to a string that specifies the prefix for which to search.
-     * @param {Pointer<UInt32>} Index Pointer to a value that receives the index of the requested entry.
+     * @param {Pointer<Integer>} Index Pointer to a value that receives the index of the requested entry.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -13374,8 +13374,8 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} buf Pointer to the buffer that contains the access information structure.
-     * @param {Pointer<UInt32>} parm_err Specifies the size, in bytes, of the buffer pointed to by the <i>pbBuffer</i> parameter.
+     * @param {Pointer<Integer>} buf Pointer to the buffer that contains the access information structure.
+     * @param {Pointer<Integer>} parm_err Specifies the size, in bytes, of the buffer pointed to by the <i>pbBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -13400,13 +13400,13 @@ class NetManagement {
      * 
      * If this parameter is nonzero, the function returns entries for all access control lists (ACLs) that have <i>pszBasePath</i> at the beginning of the resource name.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the access information structure. The format of this data depends on the value of the <i>sLevel</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the access information structure. The format of this data depends on the value of the <i>sLevel</i> parameter.
      * @param {Integer} prefmaxlen Specifies the size, in bytes, of the buffer pointed to by the <i>pbBuffer</i> parameter.
-     * @param {Pointer<UInt32>} entriesread Pointer to an unsigned short integer that receives the count of elements actually enumerated. The count is valid only if the 
+     * @param {Pointer<Integer>} entriesread Pointer to an unsigned short integer that receives the count of elements actually enumerated. The count is valid only if the 
      * <b>NetAccessEnum</b> function returns <b>NERR_Success</b> or <b>ERROR_MORE_DATA</b>.
-     * @param {Pointer<UInt32>} totalentries Pointer to an unsigned short integer that receives the total number of entries that could have been enumerated. The count is valid only if the 
+     * @param {Pointer<Integer>} totalentries Pointer to an unsigned short integer that receives the total number of entries that could have been enumerated. The count is valid only if the 
      * <b>NetAccessEnum</b> function returns <b>NERR_Success</b> or <b>ERROR_MORE_DATA</b>.
-     * @param {Pointer<UInt32>} resume_handle TBD
+     * @param {Pointer<Integer>} resume_handle TBD
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -13418,7 +13418,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         BasePath := BasePath is String ? StrPtr(BasePath) : BasePath
 
-        result := DllCall("NETAPI32.dll\NetAccessEnum", "ptr", servername, "ptr", BasePath, "uint", Recursive, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetAccessEnum", "ptr", servername, "ptr", BasePath, "uint", Recursive, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -13427,7 +13427,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} resource 
      * @param {Integer} level Pointer to the buffer that receives the access information structure. The format of this data depends on the value of the <i>sLevel</i> parameter.
-     * @param {Pointer<Byte>} bufptr Specifies the size, in bytes, of the buffer pointed to by the <i>pbBuffer</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} bufptr Specifies the size, in bytes, of the buffer pointed to by the <i>pbBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -13439,7 +13439,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         resource := resource is String ? StrPtr(resource) : resource
 
-        result := DllCall("NETAPI32.dll\NetAccessGetInfo", "ptr", servername, "ptr", resource, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetAccessGetInfo", "ptr", servername, "ptr", resource, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -13466,8 +13466,8 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} buf Pointer to the buffer that contains the access information structure. The format of this data depends on the value of the <i>sLevel</i> parameter.
-     * @param {Pointer<UInt32>} parm_err TBD
+     * @param {Pointer<Integer>} buf Pointer to the buffer that contains the access information structure. The format of this data depends on the value of the <i>sLevel</i> parameter.
+     * @param {Pointer<Integer>} parm_err TBD
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -13507,7 +13507,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} UGname Pointer to a string that specifies the name of the user or group to query.
      * @param {PWSTR} resource Pointer to a string that contains the name of the network resource to query.
-     * @param {Pointer<UInt32>} Perms Pointer to an unsigned short integer that receives the user permissions for the specified resource.
+     * @param {Pointer<Integer>} Perms Pointer to an unsigned short integer that receives the user permissions for the specified resource.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -13586,7 +13586,7 @@ class NetManagement {
      * </tr>
      * </table>
      * @param {Pointer<Void>} InputArg A pointer to a structure that depends on the type of password validation to perform. The type of structure depends on the value of the <i>ValidationType</i> parameter. For more information, see the description of the <i>ValidationType</i> parameter.
-     * @param {Pointer<Void>} OutputArg If the <b>NetValidatePasswordPolicy</b> function succeeds (the return value is <b>Nerr_Success</b>), then the function
+     * @param {Pointer<Pointer<Void>>} OutputArg If the <b>NetValidatePasswordPolicy</b> function succeeds (the return value is <b>Nerr_Success</b>), then the function
      *         allocates an buffer that contains the results of
      *         the operation. The <i>OutputArg</i> parameter contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_output_arg">NET_VALIDATE_OUTPUT_ARG</a> structure. The application must examine <b>ValidationStatus</b> member in the <b>NET_VALIDATE_OUTPUT_ARG</b> structure pointed to by the <i>OutputArg</i> parameter to
      *         determine the results of the password policy validation check.   The <b>NET_VALIDATE_OUTPUT_ARG</b> structure contains a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_persisted_fields">NET_VALIDATE_PERSISTED_FIELDS</a> structure with changes to persistent password-related information, and the results of the password validation. The application must
@@ -13636,13 +13636,13 @@ class NetManagement {
     static NetValidatePasswordPolicy(ServerName, Qualifier, ValidationType, InputArg, OutputArg) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\NetValidatePasswordPolicy", "ptr", ServerName, "ptr", Qualifier, "int", ValidationType, "ptr", InputArg, "ptr", OutputArg, "uint")
+        result := DllCall("NETAPI32.dll\NetValidatePasswordPolicy", "ptr", ServerName, "ptr", Qualifier, "int", ValidationType, "ptr", InputArg, "ptr*", OutputArg, "uint")
         return result
     }
 
     /**
      * The NetValidatePasswordPolicyFree function frees the memory that the NetValidatePasswordPolicy function allocates for the OutputArg parameter, which is a NET_VALIDATE_OUTPUT_ARG structure.
-     * @param {Pointer<Void>} OutputArg Pointer to the memory allocated for the <i>OutputArg</i> parameter by a call to the <b>NetValidatePasswordPolicy</b> function.
+     * @param {Pointer<Pointer<Void>>} OutputArg Pointer to the memory allocated for the <i>OutputArg</i> parameter by a call to the <b>NetValidatePasswordPolicy</b> function.
      * @returns {Integer} If the function frees the memory, or if there is no memory to free from a previous call to <b>NetValidatePasswordPolicy</b>, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
@@ -13650,7 +13650,7 @@ class NetManagement {
      * @since windowsserver2003
      */
     static NetValidatePasswordPolicyFree(OutputArg) {
-        result := DllCall("NETAPI32.dll\NetValidatePasswordPolicyFree", "ptr", OutputArg, "uint")
+        result := DllCall("NETAPI32.dll\NetValidatePasswordPolicyFree", "ptr*", OutputArg, "uint")
         return result
     }
 
@@ -13658,7 +13658,7 @@ class NetManagement {
      * The NetGetDCName function returns the name of the primary domain controller (PDC). It does not return the name of the backup domain controller (BDC) for the specified domain. Also, you cannot remote this function to a non-PDC server.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<Byte>} Buffer 
+     * @param {Pointer<Pointer<Integer>>} Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -13720,7 +13720,7 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, "char*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -13728,7 +13728,7 @@ class NetManagement {
      * The NetGetAnyDCName function returns the name of any domain controller (DC) for a domain that is directly trusted by the specified server.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<Byte>} Buffer 
+     * @param {Pointer<Pointer<Integer>>} Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -13801,7 +13801,7 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, "char*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -13927,8 +13927,8 @@ class NetManagement {
      * </tr>
      * </table>
      * @param {Integer} QueryLevel Indicates what information should be returned from the Netlogon service. This value can be any of the following structures.
-     * @param {Pointer<Byte>} Data Carries input data that depends on the value specified in the <i>FunctionCode</i> parameter. The NETLOGON_CONTROL_REDISCOVER and NETLOGON_CONTROL_TC_QUERY function codes specify the trusted domain name (the data type is <b>LPWSTR *</b>).
-     * @param {Pointer<Byte>} Buffer Returns a pointer to a buffer that contains the requested information in the structure passed in the <i>QueryLevel</i> parameter.
+     * @param {Pointer<Integer>} Data Carries input data that depends on the value specified in the <i>FunctionCode</i> parameter. The NETLOGON_CONTROL_REDISCOVER and NETLOGON_CONTROL_TC_QUERY function codes specify the trusted domain name (the data type is <b>LPWSTR *</b>).
+     * @param {Pointer<Pointer<Integer>>} Buffer Returns a pointer to a buffer that contains the requested information in the structure passed in the <i>QueryLevel</i> parameter.
      * 
      *  The buffer must be freed using <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} The method returns 0x00000000 (<b>NERR_Success</b>) on success; otherwise, it returns a nonzero error code defined in Lmerr.h or Winerror.h. NET_API_STATUS error codes begin with the value 0x00000834. For more information about network management error codes, see <a href="/windows/desktop/NetMgmt/network-management-error-codes">Network_Management_Error_Codes</a>. The following table describes possible return values.
@@ -14089,7 +14089,7 @@ class NetManagement {
     static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, Buffer) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, "char*", Data, "char*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, "char*", Data, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -14173,8 +14173,8 @@ class NetManagement {
      * Enumerates the standalone managed service accounts (sMSA) on the specified server.
      * @param {PWSTR} ServerName The value of this parameter must be <b>NULL</b>.
      * @param {Integer} Flags This parameter is reserved. Do not use it.
-     * @param {Pointer<UInt32>} AccountsCount The number of elements in the <i>Accounts</i> array.
-     * @param {Pointer<UInt16>} Accounts A pointer to an array of the names of the service accounts on the specified server.
+     * @param {Pointer<Integer>} AccountsCount The number of elements in the <i>Accounts</i> array.
+     * @param {Pointer<Pointer<Pointer<Integer>>>} Accounts A pointer to an array of the names of the service accounts on the specified server.
      * 
      * When you have finished using the names, free the array by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
@@ -14186,7 +14186,7 @@ class NetManagement {
     static NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, "uint*", AccountsCount, "ushort*", Accounts, "int")
+        result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, "uint*", AccountsCount, "ptr*", Accounts, "int")
         return result
     }
 
@@ -14214,7 +14214,7 @@ class NetManagement {
      * @param {PWSTR} ServerName 
      * @param {PWSTR} AccountName 
      * @param {Pointer<BOOL>} IsService 
-     * @param {Pointer<Int32>} AccountType 
+     * @param {Pointer<Integer>} AccountType 
      * @returns {NTSTATUS} 
      */
     static NetIsServiceAccount2(ServerName, AccountName, IsService, AccountType) {
@@ -14248,7 +14248,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} Buffer Information about the specified service account.
+     * @param {Pointer<Pointer<Integer>>} Buffer Information about the specified service account.
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
@@ -14261,7 +14261,7 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, "char*", Buffer, "int")
+        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, "ptr*", Buffer, "int")
         return result
     }
 
@@ -14609,14 +14609,14 @@ class NetManagement {
      * The NetMessageNameEnum function lists the message aliases that receive messages on a specified computer. The function requires that the messenger service be started.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of the returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing message alias search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>resume_handle</i> is <b>NULL</b>, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing message alias search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>resume_handle</i> is <b>NULL</b>, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -14711,7 +14711,7 @@ class NetManagement {
     static NetMessageNameEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetMessageNameEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetMessageNameEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -14720,7 +14720,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} msgname Pointer to a constant string that specifies the message alias for which to return information.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -14808,7 +14808,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         msgname := msgname is String ? StrPtr(msgname) : msgname
 
-        result := DllCall("NETAPI32.dll\NetMessageNameGetInfo", "ptr", servername, "ptr", msgname, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetMessageNameGetInfo", "ptr", servername, "ptr", msgname, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -14920,7 +14920,7 @@ class NetManagement {
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} msgname Pointer to a constant string that specifies the message alias to which the message buffer should be sent.
      * @param {PWSTR} fromname Pointer to a constant string specifying who the message is from. If this parameter is <b>NULL</b>, the message is sent from the local computer name.
-     * @param {Pointer<Byte>} buf Pointer to a buffer that contains the message text. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to a buffer that contains the message text. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} buflen Specifies a value that contains the length, in bytes, of the message text pointed to by the <i>buf</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -15004,7 +15004,7 @@ class NetManagement {
     /**
      * The NetRemoteTOD function returns the time of day information from a specified server.
      * @param {PWSTR} UncServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Byte>} BufferPtr Pointer to the address that receives the 
+     * @param {Pointer<Pointer<Integer>>} BufferPtr Pointer to the address that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmremutl/ns-lmremutl-time_of_day_info">TIME_OF_DAY_INFO</a> information structure. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -15017,7 +15017,7 @@ class NetManagement {
     static NetRemoteTOD(UncServerName, BufferPtr) {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
 
-        result := DllCall("NETAPI32.dll\NetRemoteTOD", "ptr", UncServerName, "char*", BufferPtr, "uint")
+        result := DllCall("NETAPI32.dll\NetRemoteTOD", "ptr", UncServerName, "ptr*", BufferPtr, "uint")
         return result
     }
 
@@ -15025,7 +15025,7 @@ class NetManagement {
      * The NetRemoteComputerSupports function queries the redirector to retrieve the optional features the remote system supports.
      * @param {PWSTR} UncServerName Pointer to a constant string that specifies the name of the remote server to query. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} OptionsWanted 
-     * @param {Pointer<UInt32>} OptionsSupported Pointer to a value that receives a set of bit flags. The flags indicate which features specified by the <i>OptionsWanted</i> parameter are implemented on the computer specified by the <i>UncServerName</i> parameter. (All other bits are set to zero.) 
+     * @param {Pointer<Integer>} OptionsSupported Pointer to a value that receives a set of bit flags. The flags indicate which features specified by the <i>OptionsWanted</i> parameter are implemented on the computer specified by the <i>UncServerName</i> parameter. (All other bits are set to zero.) 
      * 
      * 
      * 
@@ -15078,13 +15078,13 @@ class NetManagement {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
      */
     static NetReplGetInfo(servername, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplGetInfo", "ptr", servername, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetReplGetInfo", "ptr", servername, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -15092,8 +15092,8 @@ class NetManagement {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf 
-     * @param {Pointer<UInt32>} parm_err 
+     * @param {Pointer<Integer>} buf 
+     * @param {Pointer<Integer>} parm_err 
      * @returns {Integer} 
      */
     static NetReplSetInfo(servername, level, buf, parm_err) {
@@ -15107,8 +15107,8 @@ class NetManagement {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf 
-     * @param {Pointer<UInt32>} parm_err 
+     * @param {Pointer<Integer>} buf 
+     * @param {Pointer<Integer>} parm_err 
      * @returns {Integer} 
      */
     static NetReplExportDirAdd(servername, level, buf, parm_err) {
@@ -15136,17 +15136,17 @@ class NetManagement {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @param {Integer} prefmaxlen 
-     * @param {Pointer<UInt32>} entriesread 
-     * @param {Pointer<UInt32>} totalentries 
-     * @param {Pointer<UInt32>} resumehandle 
+     * @param {Pointer<Integer>} entriesread 
+     * @param {Pointer<Integer>} totalentries 
+     * @param {Pointer<Integer>} resumehandle 
      * @returns {Integer} 
      */
     static NetReplExportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplExportDirEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetReplExportDirEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
@@ -15155,14 +15155,14 @@ class NetManagement {
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
      */
     static NetReplExportDirGetInfo(servername, dirname, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
         dirname := dirname is String ? StrPtr(dirname) : dirname
 
-        result := DllCall("NETAPI32.dll\NetReplExportDirGetInfo", "ptr", servername, "ptr", dirname, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetReplExportDirGetInfo", "ptr", servername, "ptr", dirname, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -15171,8 +15171,8 @@ class NetManagement {
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf 
-     * @param {Pointer<UInt32>} parm_err 
+     * @param {Pointer<Integer>} buf 
+     * @param {Pointer<Integer>} parm_err 
      * @returns {Integer} 
      */
     static NetReplExportDirSetInfo(servername, dirname, level, buf, parm_err) {
@@ -15216,8 +15216,8 @@ class NetManagement {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf 
-     * @param {Pointer<UInt32>} parm_err 
+     * @param {Pointer<Integer>} buf 
+     * @param {Pointer<Integer>} parm_err 
      * @returns {Integer} 
      */
     static NetReplImportDirAdd(servername, level, buf, parm_err) {
@@ -15245,17 +15245,17 @@ class NetManagement {
      * 
      * @param {PWSTR} servername 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @param {Integer} prefmaxlen 
-     * @param {Pointer<UInt32>} entriesread 
-     * @param {Pointer<UInt32>} totalentries 
-     * @param {Pointer<UInt32>} resumehandle 
+     * @param {Pointer<Integer>} entriesread 
+     * @param {Pointer<Integer>} totalentries 
+     * @param {Pointer<Integer>} resumehandle 
      * @returns {Integer} 
      */
     static NetReplImportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplImportDirEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetReplImportDirEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
@@ -15264,14 +15264,14 @@ class NetManagement {
      * @param {PWSTR} servername 
      * @param {PWSTR} dirname 
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
      */
     static NetReplImportDirGetInfo(servername, dirname, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
         dirname := dirname is String ? StrPtr(dirname) : dirname
 
-        result := DllCall("NETAPI32.dll\NetReplImportDirGetInfo", "ptr", servername, "ptr", dirname, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetReplImportDirGetInfo", "ptr", servername, "ptr", dirname, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -15308,19 +15308,19 @@ class NetManagement {
      * The NetServerEnum function lists all servers of the specified type that are visible in a domain.
      * @param {PWSTR} servername Reserved; must be <b>NULL</b>.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen The preferred maximum length of returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of visible servers and workstations on the network. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of visible servers and workstations on the network. Note that applications should consider this value only as a hint.
      * @param {Integer} servertype 
      * @param {PWSTR} domain A pointer to a constant string that specifies the name of the domain for which a list of servers is to be returned. The domain name must be a NetBIOS domain name (for example, microsoft). 
      * The <b>NetServerEnum</b> function does not support DNS-style names (for example, microsoft.com). 
      * 
      * If this parameter is <b>NULL</b>, the primary domain is implied.
-     * @param {Pointer<UInt32>} resume_handle Reserved; must be set to zero.
+     * @param {Pointer<Integer>} resume_handle Reserved; must be set to zero.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes:
@@ -15446,7 +15446,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         domain := domain is String ? StrPtr(domain) : domain
 
-        result := DllCall("NETAPI32.dll\NetServerEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint", servertype, "ptr", domain, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint", servertype, "ptr", domain, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -15454,7 +15454,7 @@ class NetManagement {
      * The NetServerGetInfo function retrieves current configuration information for the specified server.
      * @param {PWSTR} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * 
      * 
@@ -15537,7 +15537,7 @@ class NetManagement {
     static NetServerGetInfo(servername, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerGetInfo", "ptr", servername, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServerGetInfo", "ptr", servername, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -15545,9 +15545,9 @@ class NetManagement {
      * The NetServerSetInfo function sets a server's operating parameters; it can set them individually or collectively. The information is stored in a way that allows it to remain in effect after the system has been reinitialized.
      * @param {PWSTR} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to a buffer that receives the server information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to a buffer that receives the server information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} ParmError Pointer to a value that receives the index of the first member of the server information structure that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} ParmError Pointer to a value that receives the index of the first member of the server information structure that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -15616,7 +15616,7 @@ class NetManagement {
      * The NetServerDiskEnum function retrieves a list of disk drives on a server. The function returns an array of three-character strings (a drive letter, a colon, and a terminating null character).
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level The level of information required. A value of zero is the only valid level.
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The data is an array of three-character strings (a drive letter, a colon, and a terminating null character). This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The data is an array of three-character strings (a drive letter, a colon, and a terminating null character). This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen The preferred maximum length of returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
@@ -15624,9 +15624,9 @@ class NetManagement {
      * 
      * <div class="alert"><b>Note</b>  This parameter is currently ignored.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resume_handle A pointer to a value that contains a resume handle which is used to continue an existing server disk search. The handle should be zero on the first call and left unchanged for subsequent calls. If the <i>resume_handle</i> parameter is a <b>NULL</b> pointer, then no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resume_handle A pointer to a value that contains a resume handle which is used to continue an existing server disk search. The handle should be zero on the first call and left unchanged for subsequent calls. If the <i>resume_handle</i> parameter is a <b>NULL</b> pointer, then no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -15698,7 +15698,7 @@ class NetManagement {
     static NetServerDiskEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerDiskEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerDiskEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -15878,7 +15878,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that contains the data.
+     * @param {Pointer<Integer>} bufptr A pointer to the buffer that contains the data.
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -15976,7 +15976,7 @@ class NetManagement {
      * The NetServerTransportAddEx function binds the specified server to the transport protocol.
      * @param {PWSTR} servername A pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. 
+     * @param {Pointer<Integer>} bufptr A pointer to the buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -16079,7 +16079,7 @@ class NetManagement {
      * The NetServerTransportDel function unbinds (or disconnects) the transport protocol from the server. Effectively, the server can no longer communicate with clients using the specified transport protocol (such as TCP or XNS).
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} bufptr Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -16160,14 +16160,14 @@ class NetManagement {
      * The NetServerTransportEnum function supplies information about transport protocols that are managed by the server.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing server transport search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resume_handle Pointer to a value that contains a resume handle which is used to continue an existing server transport search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -16228,7 +16228,7 @@ class NetManagement {
     static NetServerTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerTransportEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerTransportEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -16238,7 +16238,7 @@ class NetManagement {
      * @param {PWSTR} service TBD
      * @param {Integer} opcode TBD
      * @param {Integer} arg TBD
-     * @param {Pointer<Byte>} bufptr TBD
+     * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netservicecontrol
      */
@@ -16246,7 +16246,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         service := service is String ? StrPtr(service) : service
 
-        result := DllCall("NETAPI32.dll\NetServiceControl", "ptr", servername, "ptr", service, "uint", opcode, "uint", arg, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServiceControl", "ptr", servername, "ptr", service, "uint", opcode, "uint", arg, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -16254,18 +16254,18 @@ class NetManagement {
      * The NetServiceEnum function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
      * @param {PWSTR} servername TBD
      * @param {Integer} level TBD
-     * @param {Pointer<Byte>} bufptr TBD
+     * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @param {Integer} prefmaxlen TBD
-     * @param {Pointer<UInt32>} entriesread TBD
-     * @param {Pointer<UInt32>} totalentries TBD
-     * @param {Pointer<UInt32>} resume_handle TBD
+     * @param {Pointer<Integer>} entriesread TBD
+     * @param {Pointer<Integer>} totalentries TBD
+     * @param {Pointer<Integer>} resume_handle TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netserviceenum
      */
     static NetServiceEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServiceEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServiceEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -16274,7 +16274,7 @@ class NetManagement {
      * @param {PWSTR} servername TBD
      * @param {PWSTR} service TBD
      * @param {Integer} level TBD
-     * @param {Pointer<Byte>} bufptr TBD
+     * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netservicegetinfo
      */
@@ -16282,7 +16282,7 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         service := service is String ? StrPtr(service) : service
 
-        result := DllCall("NETAPI32.dll\NetServiceGetInfo", "ptr", servername, "ptr", service, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServiceGetInfo", "ptr", servername, "ptr", service, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -16292,7 +16292,7 @@ class NetManagement {
      * @param {PWSTR} service TBD
      * @param {Integer} argc TBD
      * @param {Pointer<PWSTR>} argv TBD
-     * @param {Pointer<Byte>} bufptr TBD
+     * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netserviceinstall
      */
@@ -16300,19 +16300,19 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         service := service is String ? StrPtr(service) : service
 
-        result := DllCall("NETAPI32.dll\NetServiceInstall", "ptr", servername, "ptr", service, "uint", argc, "ptr", argv, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServiceInstall", "ptr", servername, "ptr", service, "uint", argc, "ptr", argv, "ptr*", bufptr, "uint")
         return result
     }
 
     /**
      * The NetUseAdd function establishes a connection between the local computer and a remote server.
-     * @param {Pointer<SByte>} servername The UNC name of the computer on which to execute this function. If this parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
+     * @param {Pointer<Integer>} servername The UNC name of the computer on which to execute this function. If this parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @param {Integer} LevelFlags 
-     * @param {Pointer<Byte>} buf A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>Level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>Level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err A pointer to a value that receives the index of the first member of the information structure in error when the ERROR_INVALID_PARAMETER error is returned. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
+     * @param {Pointer<Integer>} parm_err A pointer to a value that receives the index of the first member of the information structure in error when the ERROR_INVALID_PARAMETER error is returned. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -16357,14 +16357,14 @@ class NetManagement {
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @param {Integer} LevelFlags 
-     * @param {Pointer<Byte>} BufPtr A pointer to the buffer that receives the information structures. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} BufPtr A pointer to the buffer that receives the information structures. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function when the information is no longer needed. Note that you must free the buffer even if the function fails with <b>ERROR_MORE_DATA</b>.
      * @param {Integer} PreferedMaximumSize The preferred maximum length, in bytes, of the data to return. If <b>MAX_PREFERRED_LENGTH</b> is specified, the function allocates the amount of memory required for the data. If another value is specified in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <b>ERROR_MORE_DATA</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} EntriesRead A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} TotalEntries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} ResumeHandle A pointer to a value that contains a resume handle which is used to continue the search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>ResumeHandle</i> is <b>NULL</b>, then no resume handle is stored.
+     * @param {Pointer<Integer>} EntriesRead A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} TotalEntries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} ResumeHandle A pointer to a value that contains a resume handle which is used to continue the search. The handle should be zero on the first call and left unchanged for subsequent calls. If <i>ResumeHandle</i> is <b>NULL</b>, then no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -16427,7 +16427,7 @@ class NetManagement {
     static NetUseEnum(UncServerName, LevelFlags, BufPtr, PreferedMaximumSize, EntriesRead, TotalEntries, ResumeHandle) {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
 
-        result := DllCall("NETAPI32.dll\NetUseEnum", "ptr", UncServerName, "uint", LevelFlags, "char*", BufPtr, "uint", PreferedMaximumSize, "uint*", EntriesRead, "uint*", TotalEntries, "uint*", ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetUseEnum", "ptr", UncServerName, "uint", LevelFlags, "ptr*", BufPtr, "uint", PreferedMaximumSize, "uint*", EntriesRead, "uint*", TotalEntries, "uint*", ResumeHandle, "uint")
         return result
     }
 
@@ -16440,7 +16440,7 @@ class NetManagement {
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @param {Integer} LevelFlags 
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -16455,7 +16455,7 @@ class NetManagement {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
         UseName := UseName is String ? StrPtr(UseName) : UseName
 
-        result := DllCall("NETAPI32.dll\NetUseGetInfo", "ptr", UncServerName, "ptr", UseName, "uint", LevelFlags, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetUseGetInfo", "ptr", UncServerName, "ptr", UseName, "uint", LevelFlags, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -16463,7 +16463,7 @@ class NetManagement {
      * The NetWkstaGetInfo function returns information about the configuration of a workstation.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -16505,7 +16505,7 @@ class NetManagement {
     static NetWkstaGetInfo(servername, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetWkstaGetInfo", "ptr", servername, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaGetInfo", "ptr", servername, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -16513,9 +16513,9 @@ class NetManagement {
      * The NetWkstaSetInfo function configures a workstation with information that remains in effect after the system has been reinitialized.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buffer A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buffer A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err A pointer to a value that receives the index of the first member of the workstation information structure that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the Remarks section.
+     * @param {Pointer<Integer>} parm_err A pointer to a value that receives the index of the first member of the workstation information structure that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -16562,7 +16562,7 @@ class NetManagement {
      * The NetWkstaUserGetInfo function returns information about the currently logged-on user. This function must be called in the context of the logged-on user.
      * @param {PWSTR} reserved This parameter must be set to <b>NULL</b>.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>bufptr</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>bufptr</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -16615,7 +16615,7 @@ class NetManagement {
     static NetWkstaUserGetInfo(reserved, level, bufptr) {
         reserved := reserved is String ? StrPtr(reserved) : reserved
 
-        result := DllCall("NETAPI32.dll\NetWkstaUserGetInfo", "ptr", reserved, "uint", level, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaUserGetInfo", "ptr", reserved, "uint", level, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -16623,9 +16623,9 @@ class NetManagement {
      * The NetWkstaUserSetInfo function sets the user-specific information about the configuration elements for a workstation.
      * @param {PWSTR} reserved This parameter must be set to zero.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first parameter that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error.
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first parameter that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -16672,14 +16672,14 @@ class NetManagement {
      * The NetWkstaUserEnum function lists information about all users currently logged on to the workstation. This list includes interactive, service and batch logons.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} prefmaxlen Specifies the preferred maximum length of returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread Pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resumehandle Pointer to a value that contains a resume handle which is used to continue an existing search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread Pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries Pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resumehandle Pointer to a value that contains a resume handle which is used to continue an existing search. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -16729,13 +16729,13 @@ class NetManagement {
     static NetWkstaUserEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetWkstaUserEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaUserEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
     /**
      * Not supported.
-     * @param {Pointer<SByte>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {Pointer<Integer>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * This string must begin with \\.
@@ -16760,9 +16760,9 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} parm_err Pointer to a value that receives the index of the first parameter that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error.
+     * @param {Pointer<Integer>} parm_err Pointer to a value that receives the index of the first parameter that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -16876,7 +16876,7 @@ class NetManagement {
 
     /**
      * The NetWkstaTransportEnum function supplies information about transport protocols that are managed by the redirector, which is the software on the client computer that generates file requests to the server computer.
-     * @param {Pointer<SByte>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Integer>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level The level of information requested for the data. This parameter can be the following value. 
      * 
      * <table>
@@ -16896,14 +16896,14 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with <b>ERROR_MORE_DATA</b> or <b>NERR_BufTooSmall</b>.
      * @param {Integer} prefmaxlen The preferred maximum length of returned data, in bytes. If you specify <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns <b>ERROR_MORE_DATA</b> or <b>NERR_BufTooSmall</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} resume_handle A pointer to a value that contains a resume handle which is used to continue an existing workstation transport search. The handle should be zero on the first call and left unchanged for subsequent calls. If the <i>resumehandle</i> parameter is a <b>NULL</b> pointer, no resume handle is stored.
+     * @param {Pointer<Integer>} entriesread A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} totalentries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} resume_handle A pointer to a value that contains a resume handle which is used to continue an existing workstation transport search. The handle should be zero on the first call and left unchanged for subsequent calls. If the <i>resumehandle</i> parameter is a <b>NULL</b> pointer, no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -16984,14 +16984,14 @@ class NetManagement {
      * @since windows5.0
      */
     static NetWkstaTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-        result := DllCall("NETAPI32.dll\NetWkstaTransportEnum", "char*", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaTransportEnum", "char*", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
     /**
      * The NetApiBufferAllocate function allocates memory from the heap. Use this function only when compatibility with the NetApiBufferFree function is required. Otherwise, use the memory management functions.
      * @param {Integer} ByteCount Number of bytes to be allocated.
-     * @param {Pointer<Void>} Buffer Receives a pointer to the allocated buffer.
+     * @param {Pointer<Pointer<Void>>} Buffer Receives a pointer to the allocated buffer.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -17000,7 +17000,7 @@ class NetManagement {
      * @since windows5.0
      */
     static NetApiBufferAllocate(ByteCount, Buffer) {
-        result := DllCall("NETAPI32.dll\NetApiBufferAllocate", "uint", ByteCount, "ptr", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferAllocate", "uint", ByteCount, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -17024,7 +17024,7 @@ class NetManagement {
      * @param {Pointer<Void>} OldBuffer Pointer to the buffer returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
      * @param {Integer} NewByteCount Specifies the new size of the buffer, in bytes.
-     * @param {Pointer<Void>} NewBuffer Receives the pointer to the reallocated buffer.
+     * @param {Pointer<Pointer<Void>>} NewBuffer Receives the pointer to the reallocated buffer.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -17033,7 +17033,7 @@ class NetManagement {
      * @since windows5.0
      */
     static NetApiBufferReallocate(OldBuffer, NewByteCount, NewBuffer) {
-        result := DllCall("NETAPI32.dll\NetApiBufferReallocate", "ptr", OldBuffer, "uint", NewByteCount, "ptr", NewBuffer, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferReallocate", "ptr", OldBuffer, "uint", NewByteCount, "ptr*", NewBuffer, "uint")
         return result
     }
 
@@ -17041,7 +17041,7 @@ class NetManagement {
      * The NetApiBufferSize function returns the size, in bytes, of a buffer allocated by a call to the NetApiBufferAllocate function.
      * @param {Pointer<Void>} Buffer Pointer to a buffer returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
-     * @param {Pointer<UInt32>} ByteCount Receives the size of the buffer, in bytes.
+     * @param {Pointer<Integer>} ByteCount Receives the size of the buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -17058,7 +17058,7 @@ class NetManagement {
      * The NetErrorLogClear function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
      * @param {PWSTR} UncServerName TBD
      * @param {PWSTR} BackupFile TBD
-     * @param {Pointer<Byte>} Reserved TBD
+     * @param {Pointer<Integer>} Reserved TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmerrlog/nf-lmerrlog-neterrorlogclear
      */
@@ -17076,13 +17076,13 @@ class NetManagement {
      * @param {PWSTR} Reserved1 TBD
      * @param {Pointer<HLOG>} ErrorLogHandle TBD
      * @param {Integer} Offset TBD
-     * @param {Pointer<UInt32>} Reserved2 TBD
+     * @param {Pointer<Integer>} Reserved2 TBD
      * @param {Integer} Reserved3 TBD
      * @param {Integer} OffsetFlag TBD
-     * @param {Pointer<Byte>} BufPtr TBD
+     * @param {Pointer<Pointer<Integer>>} BufPtr TBD
      * @param {Integer} PrefMaxSize TBD
-     * @param {Pointer<UInt32>} BytesRead TBD
-     * @param {Pointer<UInt32>} TotalAvailable TBD
+     * @param {Pointer<Integer>} BytesRead TBD
+     * @param {Pointer<Integer>} TotalAvailable TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmerrlog/nf-lmerrlog-neterrorlogread
      */
@@ -17090,20 +17090,20 @@ class NetManagement {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
         Reserved1 := Reserved1 is String ? StrPtr(Reserved1) : Reserved1
 
-        result := DllCall("NETAPI32.dll\NetErrorLogRead", "ptr", UncServerName, "ptr", Reserved1, "ptr", ErrorLogHandle, "uint", Offset, "uint*", Reserved2, "uint", Reserved3, "uint", OffsetFlag, "char*", BufPtr, "uint", PrefMaxSize, "uint*", BytesRead, "uint*", TotalAvailable, "uint")
+        result := DllCall("NETAPI32.dll\NetErrorLogRead", "ptr", UncServerName, "ptr", Reserved1, "ptr", ErrorLogHandle, "uint", Offset, "uint*", Reserved2, "uint", Reserved3, "uint", OffsetFlag, "ptr*", BufPtr, "uint", PrefMaxSize, "uint*", BytesRead, "uint*", TotalAvailable, "uint")
         return result
     }
 
     /**
      * The NetErrorLogWrite function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {Pointer<Byte>} Reserved1 TBD
+     * @param {Pointer<Integer>} Reserved1 TBD
      * @param {Integer} Code TBD
      * @param {PWSTR} Component TBD
-     * @param {Pointer<Byte>} Buffer TBD
+     * @param {Pointer<Integer>} Buffer TBD
      * @param {Integer} NumBytes TBD
-     * @param {Pointer<Byte>} MsgBuf TBD
+     * @param {Pointer<Integer>} MsgBuf TBD
      * @param {Integer} StrCount TBD
-     * @param {Pointer<Byte>} Reserved2 TBD
+     * @param {Pointer<Integer>} Reserved2 TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmerrlog/nf-lmerrlog-neterrorlogwrite
      */
@@ -17119,7 +17119,7 @@ class NetManagement {
      * @param {PWSTR} server TBD
      * @param {PWSTR} component TBD
      * @param {PWSTR} parameter TBD
-     * @param {Pointer<Byte>} bufptr TBD
+     * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmconfig/nf-lmconfig-netconfigget
      */
@@ -17128,7 +17128,7 @@ class NetManagement {
         component := component is String ? StrPtr(component) : component
         parameter := parameter is String ? StrPtr(parameter) : parameter
 
-        result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", component, "ptr", parameter, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", component, "ptr", parameter, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -17136,7 +17136,7 @@ class NetManagement {
      * The NetConfigGetAll function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
      * @param {PWSTR} server TBD
      * @param {PWSTR} component TBD
-     * @param {Pointer<Byte>} bufptr TBD
+     * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmconfig/nf-lmconfig-netconfiggetall
      */
@@ -17144,7 +17144,7 @@ class NetManagement {
         server := server is String ? StrPtr(server) : server
         component := component is String ? StrPtr(component) : component
 
-        result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", component, "char*", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", component, "ptr*", bufptr, "uint")
         return result
     }
 
@@ -17155,7 +17155,7 @@ class NetManagement {
      * @param {PWSTR} component TBD
      * @param {Integer} level TBD
      * @param {Integer} reserved2 TBD
-     * @param {Pointer<Byte>} buf TBD
+     * @param {Pointer<Integer>} buf TBD
      * @param {Integer} reserved3 TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmconfig/nf-lmconfig-netconfigset
@@ -17192,13 +17192,13 @@ class NetManagement {
      * @param {PWSTR} service TBD
      * @param {Pointer<HLOG>} auditloghandle TBD
      * @param {Integer} offset TBD
-     * @param {Pointer<UInt32>} reserved1 TBD
+     * @param {Pointer<Integer>} reserved1 TBD
      * @param {Integer} reserved2 TBD
      * @param {Integer} offsetflag TBD
-     * @param {Pointer<Byte>} bufptr TBD
+     * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @param {Integer} prefmaxlen TBD
-     * @param {Pointer<UInt32>} bytesread TBD
-     * @param {Pointer<UInt32>} totalavailable TBD
+     * @param {Pointer<Integer>} bytesread TBD
+     * @param {Pointer<Integer>} totalavailable TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmaudit/nf-lmaudit-netauditread
      */
@@ -17206,17 +17206,17 @@ class NetManagement {
         server := server is String ? StrPtr(server) : server
         service := service is String ? StrPtr(service) : service
 
-        result := DllCall("NETAPI32.dll\NetAuditRead", "ptr", server, "ptr", service, "ptr", auditloghandle, "uint", offset, "uint*", reserved1, "uint", reserved2, "uint", offsetflag, "char*", bufptr, "uint", prefmaxlen, "uint*", bytesread, "uint*", totalavailable, "uint")
+        result := DllCall("NETAPI32.dll\NetAuditRead", "ptr", server, "ptr", service, "ptr", auditloghandle, "uint", offset, "uint*", reserved1, "uint", reserved2, "uint", offsetflag, "ptr*", bufptr, "uint", prefmaxlen, "uint*", bytesread, "uint*", totalavailable, "uint")
         return result
     }
 
     /**
      * The NetAuditWrite function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
      * @param {Integer} type TBD
-     * @param {Pointer<Byte>} buf TBD
+     * @param {Pointer<Integer>} buf TBD
      * @param {Integer} numbytes TBD
      * @param {PWSTR} service TBD
-     * @param {Pointer<Byte>} reserved TBD
+     * @param {Pointer<Integer>} reserved TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//lmaudit/nf-lmaudit-netauditwrite
      */
@@ -17747,8 +17747,8 @@ class NetManagement {
      * @param {PWSTR} lpDomain Pointer to a constant string that specifies the name of the domain for which to retrieve the list of OUs that can be joined.
      * @param {PWSTR} lpAccount Pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
      * @param {PWSTR} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} OUCount Receives the count of OUs returned in the list of joinable OUs.
-     * @param {Pointer<PWSTR>} OUs Pointer to an array that receives the list of joinable OUs. This array is allocated by the system and must be freed using a single call to the 
+     * @param {Pointer<Integer>} OUCount Receives the count of OUs returned in the list of joinable OUs.
+     * @param {Pointer<Pointer<PWSTR>>} OUs Pointer to an array that receives the list of joinable OUs. This array is allocated by the system and must be freed using a single call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -17794,7 +17794,7 @@ class NetManagement {
         lpAccount := lpAccount is String ? StrPtr(lpAccount) : lpAccount
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
 
-        result := DllCall("NETAPI32.dll\NetGetJoinableOUs", "ptr", lpServer, "ptr", lpDomain, "ptr", lpAccount, "ptr", lpPassword, "uint*", OUCount, "ptr", OUs, "uint")
+        result := DllCall("NETAPI32.dll\NetGetJoinableOUs", "ptr", lpServer, "ptr", lpDomain, "ptr", lpAccount, "ptr", lpPassword, "uint*", OUCount, "ptr*", OUs, "uint")
         return result
     }
 
@@ -18184,9 +18184,9 @@ class NetManagement {
      * @param {PWSTR} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} NameType 
      * @param {Integer} Reserved Reserved for future use.   This parameter should be <b>NULL</b>.
-     * @param {Pointer<UInt32>} EntryCount A pointer to a DWORD value that returns the number of names returned
+     * @param {Pointer<Integer>} EntryCount A pointer to a DWORD value that returns the number of names returned
      * in the buffer pointed to by the <i>ComputerNames</i> parameter if the function succeeds.
-     * @param {Pointer<PWSTR>} ComputerNames A pointer to an array of pointers to names.  If the function call is successful, this parameter will return the computer names that match the computer type name specified in the <i>NameType</i> parameter. 
+     * @param {Pointer<Pointer<PWSTR>>} ComputerNames A pointer to an array of pointers to names.  If the function call is successful, this parameter will return the computer names that match the computer type name specified in the <i>NameType</i> parameter. 
      * 
      * When the application no longer needs this array, this buffer should be freed by
      *         calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
@@ -18284,7 +18284,7 @@ class NetManagement {
     static NetEnumerateComputerNames(Server, NameType, Reserved, EntryCount, ComputerNames) {
         Server := Server is String ? StrPtr(Server) : Server
 
-        result := DllCall("NETAPI32.dll\NetEnumerateComputerNames", "ptr", Server, "int", NameType, "uint", Reserved, "uint*", EntryCount, "ptr", ComputerNames, "uint")
+        result := DllCall("NETAPI32.dll\NetEnumerateComputerNames", "ptr", Server, "int", NameType, "uint", Reserved, "uint*", EntryCount, "ptr*", ComputerNames, "uint")
         return result
     }
 
@@ -18297,10 +18297,10 @@ class NetManagement {
      * If this parameter is <b>NULL</b>, the well known computer object container will be used as published in the domain.
      * @param {PWSTR} lpDcName An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
      * @param {Integer} dwOptions 
-     * @param {Pointer<Byte>} pProvisionBinData An optional pointer that will receive the opaque binary blob of serialized metadata required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <b>NetProvisionComputerAccount</b> function completes successfully.  The data is returned as an opaque binary buffer which may be passed to <b>NetRequestOfflineDomainJoin</b> function.  
+     * @param {Pointer<Pointer<Integer>>} pProvisionBinData An optional pointer that will receive the opaque binary blob of serialized metadata required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <b>NetProvisionComputerAccount</b> function completes successfully.  The data is returned as an opaque binary buffer which may be passed to <b>NetRequestOfflineDomainJoin</b> function.  
      * 
      * If this parameter is <b>NULL</b>, then <i>pProvisionTextData</i> parameter must not be <b>NULL</b>. If this parameter is not <b>NULL</b>, then the  <i>pProvisionTextData</i> parameter must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwProvisionBinDataSize A pointer to a value that receives the size, in bytes, of the buffer returned in the <i>pProvisionBinData</i> parameter. 
+     * @param {Pointer<Integer>} pdwProvisionBinDataSize A pointer to a value that receives the size, in bytes, of the buffer returned in the <i>pProvisionBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b> if the <i>pProvisionBinData</i> parameter is not <b>NULL</b>. This parameter must be <b>NULL</b> when the <i>pProvisionBinData</i> parameter is <b>NULL</b>.
      * @param {Pointer<PWSTR>} pProvisionTextData An optional pointer that will receive the opaque binary blob of serialized metadata required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <b>NetProvisionComputerAccount</b> function completes successfully.  The data is returned in string form for embedding in an unattended setup answer file.  
@@ -18447,7 +18447,7 @@ class NetManagement {
         lpMachineAccountOU := lpMachineAccountOU is String ? StrPtr(lpMachineAccountOU) : lpMachineAccountOU
         lpDcName := lpDcName is String ? StrPtr(lpDcName) : lpDcName
 
-        result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, "uint", dwOptions, "char*", pProvisionBinData, "uint*", pdwProvisionBinDataSize, "ptr", pProvisionTextData, "uint")
+        result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, "uint", dwOptions, "ptr*", pProvisionBinData, "uint*", pdwProvisionBinDataSize, "ptr", pProvisionTextData, "uint")
         return result
     }
 
@@ -18687,10 +18687,10 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} ppPackageBinData An optional pointer that will receive the package required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function completes successfully.  The data is returned as an opaque binary buffer which may be passed to <b>NetRequestOfflineDomainJoin</b> function.  
+     * @param {Pointer<Pointer<Integer>>} ppPackageBinData An optional pointer that will receive the package required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function completes successfully.  The data is returned as an opaque binary buffer which may be passed to <b>NetRequestOfflineDomainJoin</b> function.  
      * 
      * If this parameter is <b>NULL</b>, then <i>pPackageTextData</i> parameter must not be <b>NULL</b>. If this parameter is not <b>NULL</b>, then the  <i>pPackageTextData</i> parameter must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwPackageBinDataSize A pointer to a value that receives the size, in bytes, of the buffer returned in the <i>pProvisionBinData</i> parameter. 
+     * @param {Pointer<Integer>} pdwPackageBinDataSize A pointer to a value that receives the size, in bytes, of the buffer returned in the <i>pProvisionBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b> if the <i>pPackageBinData</i> parameter is not <b>NULL</b>. This parameter must be <b>NULL</b> when the <i>pPackageBinData</i> parameter is <b>NULL</b>.
      * @param {Pointer<PWSTR>} ppPackageTextData An optional pointer that will receive the package required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function completes successfully.  The data is returned in string form for embedding in an unattended setup answer file.  
@@ -18832,7 +18832,7 @@ class NetManagement {
      * @since windows8.0
      */
     static NetCreateProvisioningPackage(pProvisioningParams, ppPackageBinData, pdwPackageBinDataSize, ppPackageTextData) {
-        result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", "ptr", pProvisioningParams, "char*", ppPackageBinData, "uint*", pdwPackageBinDataSize, "ptr", ppPackageTextData, "uint")
+        result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", "ptr", pProvisioningParams, "ptr*", ppPackageBinData, "uint*", pdwPackageBinDataSize, "ptr", ppPackageTextData, "uint")
         return result
     }
 
@@ -19012,7 +19012,7 @@ class NetManagement {
      *                        Azure AD work accounts. The algorithm for selecting one of the work
      *                        accounts is not specified.</li>
      * </ul>
-     * @param {Pointer<DSREG_JOIN_INFO>} ppJoinInfo The join information for the tenant that the <i>pcszTenantId</i> parameter specifies. If this parameter is NULL,  the device is not joined to Azure AD and the current user added no Azure AD work accounts. You must call
+     * @param {Pointer<Pointer<DSREG_JOIN_INFO>>} ppJoinInfo The join information for the tenant that the <i>pcszTenantId</i> parameter specifies. If this parameter is NULL,  the device is not joined to Azure AD and the current user added no Azure AD work accounts. You must call
      *                      the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netfreeaadjoininformation">NetFreeAadJoinInformation</a> function to free the memory allocated for
      *                      this structure.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -19022,7 +19022,7 @@ class NetManagement {
     static NetGetAadJoinInformation(pcszTenantId, ppJoinInfo) {
         pcszTenantId := pcszTenantId is String ? StrPtr(pcszTenantId) : pcszTenantId
 
-        result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr", ppJoinInfo, "int")
+        result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr*", ppJoinInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19047,7 +19047,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<Int32>} BufferType 
+     * @param {Pointer<Integer>} BufferType 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be the following error code or one of the 
@@ -19169,10 +19169,10 @@ class NetManagement {
     /**
      * The NetScheduleJobAdd function submits a job to run at a specified future time and date. This function requires that the schedule service be started on the computer to which the job is submitted.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Byte>} Buffer A pointer to an 
+     * @param {Pointer<Integer>} Buffer A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure describing the job to submit. For more information about scheduling jobs using different job properties, see the following Remarks section and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
-     * @param {Pointer<UInt32>} JobId A pointer that receives a job identifier for the newly submitted job. This entry is valid only if the function returns successfully.
+     * @param {Pointer<Integer>} JobId A pointer that receives a job identifier for the newly submitted job. This entry is valid only if the function returns successfully.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -19209,15 +19209,15 @@ class NetManagement {
     /**
      * The NetScheduleJobEnum function lists the jobs queued on a specified computer. This function requires that the schedule service be started.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Byte>} PointerToBuffer A pointer to the buffer that receives the data. The return information is an array of 
+     * @param {Pointer<Pointer<Integer>>} PointerToBuffer A pointer to the buffer that receives the data. The return information is an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_enum">AT_ENUM</a> structures. The buffer is allocated by the system and must be freed using a single call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
      * @param {Integer} PrefferedMaximumLength A value that indicates the preferred maximum length of the returned data, in bytes. If you specify MAX_PREFERRED_LENGTH, the function allocates the amount of memory required for the data. If you specify another value in this parameter, it can restrict the number of bytes that the function returns. If the buffer size is insufficient to hold all entries, the function returns ERROR_MORE_DATA. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
-     * @param {Pointer<UInt32>} EntriesRead A pointer to a value that receives the count of elements actually enumerated.
-     * @param {Pointer<UInt32>} TotalEntries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
-     * @param {Pointer<UInt32>} ResumeHandle A pointer to a value that contains a resume handle which is used to continue a job enumeration. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
+     * @param {Pointer<Integer>} EntriesRead A pointer to a value that receives the count of elements actually enumerated.
+     * @param {Pointer<Integer>} TotalEntries A pointer to a value that receives the total number of entries that could have been enumerated from the current resume position. Note that applications should consider this value only as a hint.
+     * @param {Pointer<Integer>} ResumeHandle A pointer to a value that contains a resume handle which is used to continue a job enumeration. The handle should be zero on the first call and left unchanged for subsequent calls. If this parameter is <b>NULL</b>, then no resume handle is stored.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -19228,7 +19228,7 @@ class NetManagement {
     static NetScheduleJobEnum(Servername, PointerToBuffer, PrefferedMaximumLength, EntriesRead, TotalEntries, ResumeHandle) {
         Servername := Servername is String ? StrPtr(Servername) : Servername
 
-        result := DllCall("NETAPI32.dll\NetScheduleJobEnum", "ptr", Servername, "char*", PointerToBuffer, "uint", PrefferedMaximumLength, "uint*", EntriesRead, "uint*", TotalEntries, "uint*", ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetScheduleJobEnum", "ptr", Servername, "ptr*", PointerToBuffer, "uint", PrefferedMaximumLength, "uint*", EntriesRead, "uint*", TotalEntries, "uint*", ResumeHandle, "uint")
         return result
     }
 
@@ -19236,7 +19236,7 @@ class NetManagement {
      * The NetScheduleJobGetInfo function retrieves information about a particular job queued on a specified computer. This function requires that the schedule service be started.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} JobId A value that indicates the identifier of the job for which to retrieve information.
-     * @param {Pointer<Byte>} PointerToBuffer A pointer to the buffer that receives the 
+     * @param {Pointer<Pointer<Integer>>} PointerToBuffer A pointer to the buffer that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure describing the specified job. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
@@ -19251,7 +19251,7 @@ class NetManagement {
     static NetScheduleJobGetInfo(Servername, JobId, PointerToBuffer) {
         Servername := Servername is String ? StrPtr(Servername) : Servername
 
-        result := DllCall("NETAPI32.dll\NetScheduleJobGetInfo", "ptr", Servername, "uint", JobId, "char*", PointerToBuffer, "uint")
+        result := DllCall("NETAPI32.dll\NetScheduleJobGetInfo", "ptr", Servername, "uint", JobId, "ptr*", PointerToBuffer, "uint")
         return result
     }
 
@@ -19332,7 +19332,7 @@ class NetManagement {
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PSTR} lpszFormat 
-     * @param {Pointer<SByte>} arglist 
+     * @param {Pointer<Integer>} arglist 
      * @returns {Integer} 
      */
     static TraceVprintfExA(dwTraceID, dwFlags, lpszFormat, arglist) {
@@ -19360,7 +19360,7 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpbBytes 
+     * @param {Pointer<Integer>} lpbBytes 
      * @param {Integer} dwByteCount 
      * @param {Integer} dwGroupSize 
      * @param {BOOL} bAddressPrefix 
@@ -19451,7 +19451,7 @@ class NetManagement {
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszFormat 
-     * @param {Pointer<SByte>} arglist 
+     * @param {Pointer<Integer>} arglist 
      * @returns {Integer} 
      */
     static TraceVprintfExW(dwTraceID, dwFlags, lpszFormat, arglist) {
@@ -19479,7 +19479,7 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpbBytes 
+     * @param {Pointer<Integer>} lpbBytes 
      * @param {Integer} dwByteCount 
      * @param {Integer} dwGroupSize 
      * @param {BOOL} bAddressPrefix 
@@ -19588,7 +19588,7 @@ class NetManagement {
      * @param {Integer} dwSubStringCount 
      * @param {Pointer<PSTR>} plpszSubStringArray 
      * @param {Integer} dwDataBytes 
-     * @param {Pointer<Byte>} lpDataBytes 
+     * @param {Pointer<Integer>} lpDataBytes 
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventDataA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
@@ -19637,7 +19637,7 @@ class NetManagement {
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
      * @param {PSTR} ptszFormat 
-     * @param {Pointer<SByte>} arglist 
+     * @param {Pointer<Integer>} arglist 
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
@@ -19705,7 +19705,7 @@ class NetManagement {
      * @param {Integer} dwSubStringCount 
      * @param {Pointer<PWSTR>} plpszSubStringArray 
      * @param {Integer} dwDataBytes 
-     * @param {Pointer<Byte>} lpDataBytes 
+     * @param {Pointer<Integer>} lpDataBytes 
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventDataW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
@@ -19754,7 +19754,7 @@ class NetManagement {
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
      * @param {PWSTR} ptszFormat 
-     * @param {Pointer<SByte>} arglist 
+     * @param {Pointer<Integer>} arglist 
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
@@ -19794,12 +19794,12 @@ class NetManagement {
     /**
      * 
      * @param {Integer} dwTransportId 
-     * @param {Pointer<Byte>} lplpBuffer 
-     * @param {Pointer<UInt32>} lpdwEntriesRead 
+     * @param {Pointer<Pointer<Integer>>} lplpBuffer 
+     * @param {Pointer<Integer>} lpdwEntriesRead 
      * @returns {Integer} 
      */
     static MprSetupProtocolEnum(dwTransportId, lplpBuffer, lpdwEntriesRead) {
-        result := DllCall("rtutils.dll\MprSetupProtocolEnum", "uint", dwTransportId, "char*", lplpBuffer, "uint*", lpdwEntriesRead, "uint")
+        result := DllCall("rtutils.dll\MprSetupProtocolEnum", "uint", dwTransportId, "ptr*", lplpBuffer, "uint*", lpdwEntriesRead, "uint")
         return result
     }
 

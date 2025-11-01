@@ -21,7 +21,7 @@ class JET_CONDITIONALCOLUMN_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     szColumnName {
         get => NumGet(this, 8, "ptr")

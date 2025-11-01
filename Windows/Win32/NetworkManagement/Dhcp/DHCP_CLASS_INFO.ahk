@@ -77,7 +77,7 @@ class DHCP_CLASS_INFO extends Win32Struct
 
     /**
      * Pointer to a byte buffer that contains specific data for the class. When passing this structure into <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpgetclassinfo">DhcpGetClassInfo</a>, this buffer should be initialized to the anticipated size of the data to be returned.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ClassData {
         get => NumGet(this, 32, "ptr")

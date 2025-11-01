@@ -251,7 +251,7 @@ class DeviceAccess {
     static CreateDeviceAccessInstance(deviceInterfacePath, desiredAccess, createAsync) {
         deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
-        result := DllCall("deviceaccess.dll\CreateDeviceAccessInstance", "ptr", deviceInterfacePath, "uint", desiredAccess, "ptr", createAsync, "int")
+        result := DllCall("deviceaccess.dll\CreateDeviceAccessInstance", "ptr", deviceInterfacePath, "uint", desiredAccess, "ptr*", createAsync, "int")
         if(result != 0)
             throw OSError(result)
 

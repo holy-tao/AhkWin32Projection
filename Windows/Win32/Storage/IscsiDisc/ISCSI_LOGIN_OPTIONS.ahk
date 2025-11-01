@@ -257,7 +257,7 @@ class ISCSI_LOGIN_OPTIONS extends Win32Struct
 
     /**
      * The user name to authenticate to establish the login session. This value is not necessarily a string. For more information, see the Remarks section in this document.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Username {
         get => NumGet(this, 48, "ptr")
@@ -266,7 +266,7 @@ class ISCSI_LOGIN_OPTIONS extends Win32Struct
 
     /**
      * The user name to authenticate to establish the login session. This value is not necessarily a string. For more information, see the Remarks section in this document.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Password {
         get => NumGet(this, 56, "ptr")

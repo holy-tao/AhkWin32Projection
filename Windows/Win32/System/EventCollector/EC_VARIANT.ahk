@@ -46,7 +46,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     BinaryVal {
         get => NumGet(this, 0, "ptr")
@@ -62,7 +62,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     Int32Arr {
         get => NumGet(this, 0, "ptr")

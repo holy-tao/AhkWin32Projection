@@ -28,7 +28,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pDirtyRegionsMap {
         get => NumGet(this, 8, "ptr")

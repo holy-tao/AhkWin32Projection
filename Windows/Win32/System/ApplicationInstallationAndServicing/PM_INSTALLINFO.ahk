@@ -40,7 +40,7 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbLicense {
         get => NumGet(this, 24, "ptr")

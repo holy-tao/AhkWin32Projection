@@ -4779,7 +4779,7 @@ class DirectDraw {
      * Creates an instance of a DirectDraw object.
      * @param {Pointer<Guid>} lpGUID A pointer to the globally unique identifier (GUID) that represents the driver to be created. This can be NULL to indicate the active display driver, or you can pass one of the following flags to restrict the active display driver's behavior for debugging purposes:
      * @param {Pointer<IDirectDraw>} lplpDD A pointer to a variable to be set to a valid <b>IDirectDraw</b> interface pointer if the call succeeds.
-     * @param {Pointer<IUnknown>} pUnkOuter Allows for future compatibility with COM aggregation features. Presently, however, this function returns an error if this parameter is anything but NULL.
+     * @param {IUnknown} pUnkOuter Allows for future compatibility with COM aggregation features. Presently, however, this function returns an error if this parameter is anything but NULL.
      * @returns {HRESULT} If the function succeeds, the return value is DD_OK.
      * 
      * 
@@ -4797,7 +4797,7 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawcreate
      */
     static DirectDrawCreate(lpGUID, lplpDD, pUnkOuter) {
-        result := DllCall("DDRAW.dll\DirectDrawCreate", "ptr", lpGUID, "ptr", lplpDD, "ptr", pUnkOuter, "int")
+        result := DllCall("DDRAW.dll\DirectDrawCreate", "ptr", lpGUID, "ptr*", lplpDD, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4807,9 +4807,9 @@ class DirectDraw {
     /**
      * Creates an instance of a DirectDraw object that supports the set of Direct3D interfaces in DirectX 7.0. To use the features of Direct3D in DirectX 7.0, create a DirectDraw object with this function.
      * @param {Pointer<Guid>} lpGuid A pointer to the globally unique identifier (GUID) that represents the driver to be created. This can be NULL to indicate the active display driver, or you can pass one of the following flags to restrict the active display driver's behavior for debugging purposes:
-     * @param {Pointer<Void>} lplpDD A pointer to a variable to be set to a valid <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdraw7">IDirectDraw7</a> interface pointer if the call succeeds.
+     * @param {Pointer<Pointer<Void>>} lplpDD A pointer to a variable to be set to a valid <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdraw7">IDirectDraw7</a> interface pointer if the call succeeds.
      * @param {Pointer<Guid>} iid This parameter must be set to IID_IDirectDraw7. This function fails and returns DDERR_INVALIDPARAMS if any other interface is specified.
-     * @param {Pointer<IUnknown>} pUnkOuter Allows for future compatibility with COM aggregation features. Currently, this function returns an error if this parameter is not NULL.
+     * @param {IUnknown} pUnkOuter Allows for future compatibility with COM aggregation features. Currently, this function returns an error if this parameter is not NULL.
      * @returns {HRESULT} If the function succeeds, the return value is DD_OK.
      * 
      * 
@@ -4827,7 +4827,7 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawcreateex
      */
     static DirectDrawCreateEx(lpGuid, lplpDD, iid, pUnkOuter) {
-        result := DllCall("DDRAW.dll\DirectDrawCreateEx", "ptr", lpGuid, "ptr", lplpDD, "ptr", iid, "ptr", pUnkOuter, "int")
+        result := DllCall("DDRAW.dll\DirectDrawCreateEx", "ptr", lpGuid, "ptr*", lplpDD, "ptr", iid, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4838,7 +4838,7 @@ class DirectDraw {
      * Creates an instance of a DirectDrawClipper object that is not associated with a DirectDraw object.
      * @param {Integer} dwFlags Currently not used and must be set to 0.
      * @param {Pointer<IDirectDrawClipper>} lplpDDClipper Address of a pointer to be filled with the address of the new DirectDrawClipper object.
-     * @param {Pointer<IUnknown>} pUnkOuter Allows for future compatibility with COM aggregation features. Currently, this function returns an error if this parameter is not NULL.
+     * @param {IUnknown} pUnkOuter Allows for future compatibility with COM aggregation features. Currently, this function returns an error if this parameter is not NULL.
      * @returns {HRESULT} If the function succeeds, the return value is DD_OK.
      * 
      * 
@@ -4852,7 +4852,7 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawcreateclipper
      */
     static DirectDrawCreateClipper(dwFlags, lplpDDClipper, pUnkOuter) {
-        result := DllCall("DDRAW.dll\DirectDrawCreateClipper", "uint", dwFlags, "ptr", lplpDDClipper, "ptr", pUnkOuter, "int")
+        result := DllCall("DDRAW.dll\DirectDrawCreateClipper", "uint", dwFlags, "ptr*", lplpDDClipper, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 

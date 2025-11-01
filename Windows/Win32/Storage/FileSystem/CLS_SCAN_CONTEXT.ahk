@@ -4,6 +4,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_scan_context~r1
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

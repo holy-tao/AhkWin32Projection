@@ -37,7 +37,7 @@ class WS_XML_LIST_TEXT extends Win32Struct
 
     /**
      * The list of items.
-     * @type {Pointer<WS_XML_TEXT>}
+     * @type {Pointer<Pointer<WS_XML_TEXT>>}
      */
     items {
         get => NumGet(this, 8, "ptr")

@@ -81,7 +81,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
     /**
      * Pointer to the LUN vendor identifier; a zero-terminated, human-readable string. For devices that have no 
      *       vendor identifier, the value is zero.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_szVendorId {
         get => NumGet(this, 16, "ptr")
@@ -91,7 +91,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
     /**
      * Pointer to the LUN product identifier, typically a model number; a zero-terminated, human-readable string. 
      *       For devices that have no product identifier, the value is zero.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_szProductId {
         get => NumGet(this, 24, "ptr")
@@ -101,7 +101,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
     /**
      * Pointer to the LUN product revision; a zero-terminated, human-readable string. For devices that have no 
      *       product revision, the value is zero.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_szProductRevision {
         get => NumGet(this, 32, "ptr")
@@ -111,7 +111,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
     /**
      * Pointer to the LUN serial number; a zero-terminated, human-readable string. For devices that have no serial 
      *       number, the value is zero.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_szSerialNumber {
         get => NumGet(this, 40, "ptr")

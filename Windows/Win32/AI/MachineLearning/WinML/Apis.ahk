@@ -22,7 +22,7 @@ class WinML {
      * @returns {HRESULT} 
      */
     static WinMLCreateRuntime(runtime) {
-        result := DllCall("winml.dll\WinMLCreateRuntime", "ptr", runtime, "int")
+        result := DllCall("winml.dll\WinMLCreateRuntime", "ptr*", runtime, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -35,7 +35,7 @@ class WinML {
      * @returns {HRESULT} 
      */
     static MLCreateOperatorRegistry(registry) {
-        result := DllCall("windows.ai.machinelearning.dll\MLCreateOperatorRegistry", "ptr", registry, "int")
+        result := DllCall("windows.ai.machinelearning.dll\MLCreateOperatorRegistry", "ptr*", registry, "int")
         if(result != 0)
             throw OSError(result)
 

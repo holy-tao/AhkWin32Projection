@@ -20,7 +20,7 @@ class SCH_EXTENSION_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pExtData {
         get => NumGet(this, 8, "ptr")

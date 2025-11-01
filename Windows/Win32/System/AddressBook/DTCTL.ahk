@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtctl
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -28,7 +30,7 @@ class DTCTL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpbNotif {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +46,7 @@ class DTCTL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszFilter {
         get => NumGet(this, 24, "ptr")

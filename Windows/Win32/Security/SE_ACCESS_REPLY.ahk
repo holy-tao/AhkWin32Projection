@@ -28,7 +28,7 @@ class SE_ACCESS_REPLY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     GrantedAccess {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class SE_ACCESS_REPLY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     AccessStatus {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class SE_ACCESS_REPLY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PRIVILEGE_SET>}
+     * @type {Pointer<Pointer<PRIVILEGE_SET>>}
      */
     Privileges {
         get => NumGet(this, 32, "ptr")

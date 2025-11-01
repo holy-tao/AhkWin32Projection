@@ -33,7 +33,7 @@ class STREAMBUFFER_ATTRIBUTE extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the attribute data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAttribute {
         get => NumGet(this, 16, "ptr")

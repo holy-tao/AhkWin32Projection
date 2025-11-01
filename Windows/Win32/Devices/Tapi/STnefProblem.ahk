@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/stnefproblem
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

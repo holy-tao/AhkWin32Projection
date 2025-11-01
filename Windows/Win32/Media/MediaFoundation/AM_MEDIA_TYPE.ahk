@@ -214,7 +214,7 @@ class AM_MEDIA_TYPE extends Win32Struct
 
     /**
      * Not used. Set to <b>NULL</b>.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 40, "ptr")
@@ -235,7 +235,7 @@ class AM_MEDIA_TYPE extends Win32Struct
      *           
      * 
      * The <b>pbFormat</b> buffer must be allocated by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. To release the format block, call <a href="https://docs.microsoft.com/windows/desktop/DirectShow/freemediatype">FreeMediaType</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbFormat {
         get => NumGet(this, 56, "ptr")

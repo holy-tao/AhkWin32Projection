@@ -64,7 +64,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDebugProperty>}
+     * @type {IDebugProperty}
      */
     pDebugProp {
         get => NumGet(this, 48, "ptr")
@@ -99,7 +99,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ILockBytes>}
+     * @type {ILockBytes}
      */
     plbValue {
         get => NumGet(this, 88, "ptr")
@@ -107,7 +107,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDebugExtendedProperty>}
+     * @type {IDebugExtendedProperty}
      */
     pDebugExtProp {
         get => NumGet(this, 96, "ptr")

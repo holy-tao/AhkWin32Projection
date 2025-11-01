@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-_secpkgcontext_credentialnamea
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  * @charset ANSI
@@ -21,7 +23,7 @@ class SecPkgContext_CredentialNameA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     sCredentialName {
         get => NumGet(this, 8, "ptr")

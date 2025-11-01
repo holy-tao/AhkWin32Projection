@@ -38,7 +38,7 @@ class D3D12_STREAM_OUTPUT_DESC extends Win32Struct
 
     /**
      * An array of buffer strides; each stride is the size of an element for that buffer.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pBufferStrides {
         get => NumGet(this, 16, "ptr")

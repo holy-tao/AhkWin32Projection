@@ -36,7 +36,7 @@ class ACMDRVSTREAMHEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSrc {
         get => NumGet(this, 16, "ptr")
@@ -68,7 +68,7 @@ class ACMDRVSTREAMHEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbDst {
         get => NumGet(this, 40, "ptr")
@@ -148,7 +148,7 @@ class ACMDRVSTREAMHEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPreparedSrc {
         get => NumGet(this, 112, "ptr")
@@ -164,7 +164,7 @@ class ACMDRVSTREAMHEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPreparedDst {
         get => NumGet(this, 128, "ptr")

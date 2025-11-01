@@ -38,7 +38,7 @@ class RPC_CALL_ATTRIBUTES_V3_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ServerPrincipalName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class RPC_CALL_ATTRIBUTES_V3_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ClientPrincipalName {
         get => NumGet(this, 32, "ptr")
@@ -169,7 +169,7 @@ class RPC_CALL_ATTRIBUTES_V3_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ClientIdentifier {
         get => NumGet(this, 112, "ptr")

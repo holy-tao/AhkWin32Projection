@@ -2675,7 +2675,7 @@ class Accessibility {
      * @param {WPARAM} wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
      * Value sent by the associated <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message in its <i>wParam</i> parameter.
-     * @param {Pointer<IUnknown>} punk Type: <b>LPUNKNOWN</b>
+     * @param {IUnknown} punk Type: <b>LPUNKNOWN</b>
      * 
      * Address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface to the object that corresponds to the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
      * @returns {LRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LRESULT</a></b>
@@ -2753,7 +2753,7 @@ class Accessibility {
      * @param {WPARAM} wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
      * Value sent by the associated <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message in its <i>wParam</i> parameter.
-     * @param {Pointer<Void>} ppvObject Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
      * 
      * Receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface on the object that corresponds to the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
      * @returns {HRESULT} Type: <b>STDAPI</b>
@@ -2816,7 +2816,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static ObjectFromLresult(lResult, riid, wParam, ppvObject) {
-        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, "ptr", ppvObject, "int")
+        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, "ptr*", ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2825,7 +2825,7 @@ class Accessibility {
 
     /**
      * Retrieves the window handle that corresponds to a particular instance of an IAccessible interface.
-     * @param {Pointer<IAccessible>} param0 
+     * @param {IAccessible} param0 
      * @param {Pointer<HWND>} phwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * Address of a variable that receives a handle to the window containing the object specified in <i>pacc</i>. If this value is <b>NULL</b> after the call, the object is not contained within a window; for example, the mouse pointer is not contained within a window.
@@ -2874,7 +2874,7 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Specifies the reference identifier of the requested interface. This value is either IID_IAccessible or IID_IDispatch, but it can also be IID_IUnknown, or the IID of any interface that the object is expected to support.
-     * @param {Pointer<Void>} ppvObject Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
      * @returns {HRESULT} Type: <b>STDAPI</b>
@@ -2917,7 +2917,7 @@ class Accessibility {
     static AccessibleObjectFromWindow(hwnd, dwId, riid, ppvObject) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, "ptr", ppvObject, "int")
+        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2970,7 +2970,7 @@ class Accessibility {
     static AccessibleObjectFromEvent(hwnd, dwId, dwChildId, ppacc, pvarChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", "ptr", hwnd, "uint", dwId, "uint", dwChildId, "ptr", ppacc, "ptr", pvarChild, "int")
+        result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", "ptr", hwnd, "uint", dwId, "uint", dwChildId, "ptr*", ppacc, "ptr", pvarChild, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3007,7 +3007,7 @@ class Accessibility {
      * @since windows5.0
      */
     static AccessibleObjectFromPoint(ptScreen, ppacc, pvarChild) {
-        result := DllCall("OLEACC.dll\AccessibleObjectFromPoint", "ptr", ptScreen, "ptr", ppacc, "ptr", pvarChild, "int")
+        result := DllCall("OLEACC.dll\AccessibleObjectFromPoint", "ptr", ptScreen, "ptr*", ppacc, "ptr", pvarChild, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3016,7 +3016,7 @@ class Accessibility {
 
     /**
      * Retrieves the child ID or IDispatch of each child within an accessible container object.
-     * @param {Pointer<IAccessible>} paccContainer Type: <b>IAccessible*</b>
+     * @param {IAccessible} paccContainer Type: <b>IAccessible*</b>
      * 
      * Pointer to the container object's <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface.
      * @param {Integer} iChildStart Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
@@ -3028,7 +3028,7 @@ class Accessibility {
      * @param {Pointer<VARIANT>} rgvarChildren Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a> structures that receives information about the container's children. If the <b>vt</b> member of an array element is VT_I4, then the <b>lVal</b> member for that element is the child ID. If the <b>vt</b> member of an array element is VT_DISPATCH, then the <b>pdispVal</b> member for that element is the address of the child object's <a href="https://docs.microsoft.com/windows/desktop/WinAuto/idispatch-interface">IDispatch</a> interface.
-     * @param {Pointer<Int32>} pcObtained Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
+     * @param {Pointer<Integer>} pcObtained Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
      * 
      * Address of a variable that receives the number of elements in the <i>rgvarChildren</i> array that is populated by the <b>AccessibleChildren</b> function. This value is the same as that of the <i>cChildren</i> parameter; however, if you request more children than exist, this value will be less than that of <i>cChildren</i>.
      * @returns {HRESULT} Type: <b>STDAPI</b>
@@ -3206,10 +3206,10 @@ class Accessibility {
      * 
      * This function provides an easy way to get the version and build numbers for Oleacc.dll. The <a href="https://docs.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfosizea">GetFileVersionInfoSize</a>, <a href="https://docs.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfoa">GetFileVersionInfo</a>, and <a href="https://docs.microsoft.com/windows/win32/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> functions can be used to retrieve the same information.
      * 
-     * @param {Pointer<UInt32>} pVer Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @param {Pointer<Integer>} pVer Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Address of a <b>DWORD</b> that receives the version number. The major version number is placed in the high word, and the minor version number is placed in the low word.
-     * @param {Pointer<UInt32>} pBuild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @param {Pointer<Integer>} pBuild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Address of a <b>DWORD</b> that receives the build number. The major build number is placed in the high word, and the minor build number is placed in the low word.
      * @returns {String} Nothing - always returns an empty string
@@ -3231,7 +3231,7 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the requested interface. This value is one of the following: IID_IAccessible, IID_IDispatch, IID_IEnumVARIANT, or IID_IUnknown.
-     * @param {Pointer<Void>} ppvObject Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
      * @returns {HRESULT} Type: <b>STDAPI</b>
@@ -3245,7 +3245,7 @@ class Accessibility {
     static CreateStdAccessibleObject(hwnd, idObject, riid, ppvObject) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, "ptr", ppvObject, "int")
+        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3266,7 +3266,7 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the interface requested. This value is one of the following: IID_IAccessible, IID_IDispatch, IID_IEnumVARIANT, or IID_IUnknown.
-     * @param {Pointer<Void>} ppvObject Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
      * @returns {HRESULT} Type: <b>STDAPI</b>
@@ -3281,7 +3281,7 @@ class Accessibility {
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr", ppvObject, "int")
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3302,7 +3302,7 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the interface requested. This value is one of the following: IID_IAccessible, IID_IDispatch, IID_IEnumVARIANT, or IID_IUnknown.
-     * @param {Pointer<Void>} ppvObject Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
      * @returns {HRESULT} Type: <b>STDAPI</b>
@@ -3317,7 +3317,7 @@ class Accessibility {
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr", ppvObject, "int")
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3538,7 +3538,7 @@ class Accessibility {
      * @param {HUIANODE} hnode Type: <b>HUIANODE</b>
      * 
      * The node for which the identifier is being requested.
-     * @param {Pointer<SAFEARRAY>} pruntimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} pruntimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the runtime identifier of the type VT_I4. This parameter is passed uninitialized.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -3550,7 +3550,7 @@ class Accessibility {
     static UiaGetRuntimeId(hnode, pruntimeId) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaGetRuntimeId", "ptr", hnode, "ptr", pruntimeId, "int")
+        result := DllCall("UIAutomationCore.dll\UiaGetRuntimeId", "ptr", hnode, "ptr*", pruntimeId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3592,7 +3592,7 @@ class Accessibility {
      * @param {Pointer<UiaCacheRequest>} pRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a> structure that contains a description of the information to be cached.
-     * @param {Pointer<SAFEARRAY>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the requested data. This parameter is passed uninitialized. See Remarks.
      * @param {Pointer<BSTR>} ppTreeStructure Type: <b>BSTR*</b>
@@ -3608,7 +3608,7 @@ class Accessibility {
     static UiaNavigate(hnode, direction, pCondition, pRequest, ppRequestedData, ppTreeStructure) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaNavigate", "ptr", hnode, "int", direction, "ptr", pCondition, "ptr", pRequest, "ptr", ppRequestedData, "ptr", ppTreeStructure, "int")
+        result := DllCall("UIAutomationCore.dll\UiaNavigate", "ptr", hnode, "int", direction, "ptr", pCondition, "ptr", pRequest, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3629,7 +3629,7 @@ class Accessibility {
      * @param {Pointer<UiaCondition>} pNormalizeCondition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a> structure that specifies a condition against which the information can be normalized, if <i>normalizeState</i> is <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate">NormalizeState_Custom</a>.
-     * @param {Pointer<SAFEARRAY>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the requested data. This parameter is passed uninitialized. See Remarks.
      * @param {Pointer<BSTR>} ppTreeStructure Type: <b>BSTR*</b>
@@ -3645,7 +3645,7 @@ class Accessibility {
     static UiaGetUpdatedCache(hnode, pRequest, normalizeState, pNormalizeCondition, ppRequestedData, ppTreeStructure) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaGetUpdatedCache", "ptr", hnode, "ptr", pRequest, "int", normalizeState, "ptr", pNormalizeCondition, "ptr", ppRequestedData, "ptr", ppTreeStructure, "int")
+        result := DllCall("UIAutomationCore.dll\UiaGetUpdatedCache", "ptr", hnode, "ptr", pRequest, "int", normalizeState, "ptr", pNormalizeCondition, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3663,13 +3663,13 @@ class Accessibility {
      * @param {Pointer<UiaCacheRequest>} pRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a> structure that specifies what information is to be cached.
-     * @param {Pointer<SAFEARRAY>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> containing the requested data. This parameter is passed uninitialized. See Remarks.
-     * @param {Pointer<SAFEARRAY>} ppOffsets Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppOffsets Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a SAFEARRAY containing the indexes to the requested data array for where the element subtree starts. This parameter is passed uninitialized.
-     * @param {Pointer<SAFEARRAY>} ppTreeStructures Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppTreeStructures Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a SAFEARRAY containing the description of the tree structure. This parameter is passed uninitialized. See Remarks.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -3681,7 +3681,7 @@ class Accessibility {
     static UiaFind(hnode, pParams, pRequest, ppRequestedData, ppOffsets, ppTreeStructures) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaFind", "ptr", hnode, "ptr", pParams, "ptr", pRequest, "ptr", ppRequestedData, "ptr", ppOffsets, "ptr", ppTreeStructures, "int")
+        result := DllCall("UIAutomationCore.dll\UiaFind", "ptr", hnode, "ptr", pParams, "ptr", pRequest, "ptr*", ppRequestedData, "ptr*", ppOffsets, "ptr*", ppTreeStructures, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3699,7 +3699,7 @@ class Accessibility {
      * @param {Pointer<UiaCacheRequest>} pRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a> structure that contains the cache request for information from the client.
-     * @param {Pointer<SAFEARRAY>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the requested data. This parameter is passed uninitialized.
      * @param {Pointer<BSTR>} ppTreeStructure Type: <b>BSTR*</b>
@@ -3713,7 +3713,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaNodeFromPoint(x, y, pRequest, ppRequestedData, ppTreeStructure) {
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, "ptr", pRequest, "ptr", ppRequestedData, "ptr", ppTreeStructure, "int")
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, "ptr", pRequest, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3725,7 +3725,7 @@ class Accessibility {
      * @param {Pointer<UiaCacheRequest>} pRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a> structure that contains information about data to be cached.
-     * @param {Pointer<SAFEARRAY>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppRequestedData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains 				the requested information.
      * 				This parameter is passed uninitialized.
@@ -3740,7 +3740,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaNodeFromFocus(pRequest, ppRequestedData, ppTreeStructure) {
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromFocus", "ptr", pRequest, "ptr", ppRequestedData, "ptr", ppTreeStructure, "int")
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromFocus", "ptr", pRequest, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3774,7 +3774,7 @@ class Accessibility {
 
     /**
      * Retrieves the UI Automation node for a raw element provider.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interface of the provider.
      * @param {Pointer<HUIANODE>} phnode Type: <b>HUIANODE*</b>
@@ -3817,7 +3817,7 @@ class Accessibility {
 
     /**
      * Registers the application-defined method that is called by UI Automation to obtain a provider for an element.
-     * @param {Pointer<UiaProviderCallback>} pCallback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaprovidercallback">UiaProviderCallback</a>*</b>
+     * @param {Pointer<Pointer<UiaProviderCallback>>} pCallback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaprovidercallback">UiaProviderCallback</a>*</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaprovidercallback">UiaProviderCallback</a> callback function that returns the provider.
      * @returns {String} Nothing - always returns an empty string
@@ -3825,7 +3825,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaRegisterProviderCallback(pCallback) {
-        DllCall("UIAutomationCore.dll\UiaRegisterProviderCallback", "ptr", pCallback)
+        DllCall("UIAutomationCore.dll\UiaRegisterProviderCallback", "ptr*", pCallback)
     }
 
     /**
@@ -3860,7 +3860,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaGetReservedNotSupportedValue(punkNotSupportedValue) {
-        result := DllCall("UIAutomationCore.dll\UiaGetReservedNotSupportedValue", "ptr", punkNotSupportedValue, "int")
+        result := DllCall("UIAutomationCore.dll\UiaGetReservedNotSupportedValue", "ptr*", punkNotSupportedValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3882,7 +3882,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaGetReservedMixedAttributeValue(punkMixedAttributeValue) {
-        result := DllCall("UIAutomationCore.dll\UiaGetReservedMixedAttributeValue", "ptr", punkMixedAttributeValue, "int")
+        result := DllCall("UIAutomationCore.dll\UiaGetReservedMixedAttributeValue", "ptr*", punkMixedAttributeValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3904,7 +3904,7 @@ class Accessibility {
 
     /**
      * Called by providers to notify the Microsoft UI Automation core that an element property has changed.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the property change event occurred.
      * @param {Integer} id Type: <b>PROPERTYID</b>
@@ -3932,7 +3932,7 @@ class Accessibility {
 
     /**
      * Notifies listeners of an event.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider element where the event occurred.
      * @param {Integer} id Type: <b>EVENTID</b>
@@ -3954,13 +3954,13 @@ class Accessibility {
 
     /**
      * Called by a provider to notify the Microsoft UI Automation core that the tree structure has changed.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the tree change occurred.
      * @param {Integer} structureChangeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType</a></b>
      * 
      * The type of change that occurred in the tree.
-     * @param {Pointer<Int32>} pRuntimeId Type: <b>int*</b>
+     * @param {Pointer<Integer>} pRuntimeId Type: <b>int*</b>
      * 
      * The runtime IDs for the child elements of the provider node where the tree change occurred. This parameter is used only when <i>structureChangeType</i> is <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType_ChildRemoved</a>; it is <b>NULL</b> for all other structure-change events.
      * 
@@ -3984,7 +3984,7 @@ class Accessibility {
 
     /**
      * Called by a provider to notify the Microsoft UI Automation core that content is being loaded asynchronously.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the content is being loaded.
      * @param {Integer} asyncContentLoadedState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ne-uiautomationcoreapi-asynccontentloadedstate">AsyncContentLoadedState</a></b>
@@ -4009,7 +4009,7 @@ class Accessibility {
 
     /**
      * Called by a provider to notify the Microsoft UI Automation core that a text control has programmatically changed text.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the text change occurred.
      * @param {Integer} textEditChangeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-texteditchangetype">TextEditChangeType</a></b>
@@ -4034,7 +4034,7 @@ class Accessibility {
 
     /**
      * Called by providers to notify the Microsoft UI Automation core that a change has occurred.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the change event occurred.
      * @param {Integer} eventIdCount The number of changes that occurred. This is the number of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo">UiaChangeInfo</a> structures pointed to by the <i>pUiaChanges</i> parameter.
@@ -4055,7 +4055,7 @@ class Accessibility {
 
     /**
      * Called by providers to initiate a notification event.
-     * @param {Pointer<IRawElementProviderSimple>} provider The provider node where the notification event occurred.
+     * @param {IRawElementProviderSimple} provider The provider node where the notification event occurred.
      * @param {Integer} notificationKind The type of notification, as a [NotificationKind enumeration](../uiautomationcore/ne-uiautomationcore-notificationkind.md) value.
      * @param {Integer} notificationProcessing The preferred way to process a notification, as a [NotificationProcessing enumeration](../uiautomationcore/ne-uiautomationcore-notificationprocessing.md) value.
      * @param {BSTR} displayString A string to display in the notification message.
@@ -4077,10 +4077,10 @@ class Accessibility {
 
     /**
      * Called by a provider to notify the Microsoft UI Automation core that a text control has programmatically changed text.
-     * @param {Pointer<IRawElementProviderSimple>} provider Type: <b><a href="https://docs.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} provider Type: <b><a href="https://docs.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the position change within the text occurred.
-     * @param {Pointer<ITextRangeProvider>} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>*</b>
+     * @param {ITextRangeProvider} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>*</b>
      * 
      * The text range change that occurred, if applicable.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -4105,14 +4105,14 @@ class Accessibility {
      * @param {Integer} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event to listen for. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
-     * @param {Pointer<UiaEventCallback>} pCallback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaeventcallback">UiaEventCallback</a>*</b>
+     * @param {Pointer<Pointer<UiaEventCallback>>} pCallback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaeventcallback">UiaEventCallback</a>*</b>
      * 
      * The address of the application-defined <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaeventcallback">UiaEventCallback</a> callback function that is called when the event is raised.
      * @param {Integer} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a>*</b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a> enumerated type indicating the scope of events to be handled; that is, whether they are on the element itself, 
      * 				or on its ancestors and children.
-     * @param {Pointer<Int32>} pProperties Type: <b>PROPERTYID*</b>
+     * @param {Pointer<Integer>} pProperties Type: <b>PROPERTYID*</b>
      * 
      * The address of an array that contains the identifiers of the properties to monitor for change events, when <i>eventId</i> is the EVENTID derived from AutomationPropertyChanged_Event_GUID; otherwise this parameter is <b>NULL</b>. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {Integer} cProperties Type: <b>int</b>
@@ -4135,7 +4135,7 @@ class Accessibility {
     static UiaAddEvent(hnode, eventId, pCallback, scope, pProperties, cProperties, pRequest, phEvent) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, "ptr", pCallback, "int", scope, "int*", pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
+        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, "ptr*", pCallback, "int", scope, "int*", pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4747,7 +4747,7 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
-     * @param {Pointer<SAFEARRAY>} pRetVal Type: <b>HUIATEXTRANGE*</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal Type: <b>HUIATEXTRANGE*</b>
      * 
      * When this function returns, contains 
      * 				the text range spanning the currently selected text in the container. 
@@ -4761,7 +4761,7 @@ class Accessibility {
     static TextPattern_GetSelection(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_GetSelection", "ptr", hobj, "ptr", pRetVal, "int")
+        result := DllCall("UIAutomationCore.dll\TextPattern_GetSelection", "ptr", hobj, "ptr*", pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4773,7 +4773,7 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
-     * @param {Pointer<SAFEARRAY>} pRetVal Type: <b>HUIATEXTRANGE*</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal Type: <b>HUIATEXTRANGE*</b>
      * 
      * When this function returns, contains
      * 				an array of text ranges spanning the visible text within the text container. 
@@ -4787,7 +4787,7 @@ class Accessibility {
     static TextPattern_GetVisibleRanges(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_GetVisibleRanges", "ptr", hobj, "ptr", pRetVal, "int")
+        result := DllCall("UIAutomationCore.dll\TextPattern_GetVisibleRanges", "ptr", hobj, "ptr*", pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4882,7 +4882,7 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
-     * @param {Pointer<Int32>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * @param {Pointer<Integer>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * When this function returns, contains a value indicating whether the text container can have its contents selected and deselected.
      * 
@@ -4971,7 +4971,7 @@ class Accessibility {
      * @param {Integer} targetEndpoint Type: <b>TextPatternRangeEndpoint</b>
      * 
      * The starting or ending endpoint of <i>targetRange</i>.
-     * @param {Pointer<Int32>} pRetVal Type: <b>int*</b>
+     * @param {Pointer<Integer>} pRetVal Type: <b>int*</b>
      * 
      * The address of a variable that receives a pointer to a value that indicates whether two text ranges have identical endpoints.
      * 				 This parameter is passed uninitialized.
@@ -5122,7 +5122,7 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @param {Pointer<SAFEARRAY>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * When this function returns, contains 
      * 				an array of rectangle coordinates for the lines of text that the range spans. 
@@ -5137,7 +5137,7 @@ class Accessibility {
     static TextRange_GetBoundingRectangles(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetBoundingRectangles", "ptr", hobj, "ptr", pRetVal, "int")
+        result := DllCall("UIAutomationCore.dll\TextRange_GetBoundingRectangles", "ptr", hobj, "ptr*", pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5211,7 +5211,7 @@ class Accessibility {
      * 
      * The number of units to move. Positive numbers move the range forward, 
      * 				and negative numbers move the range backward.
-     * @param {Pointer<Int32>} pRetVal Type: <b>int*</b>
+     * @param {Pointer<Integer>} pRetVal Type: <b>int*</b>
      * 
      * When this function returns, contains 
      * 				the number of units actually moved.
@@ -5247,7 +5247,7 @@ class Accessibility {
      * 
      * The number of units to move. A positive value moves the range forward; a negative value
      * 				moves it backward.
-     * @param {Pointer<Int32>} pRetVal Type: <b>int*</b>
+     * @param {Pointer<Integer>} pRetVal Type: <b>int*</b>
      * 
      * When this function returns, contains 
      * 				the number of units the endpoint actually moved.
@@ -5392,7 +5392,7 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @param {Pointer<SAFEARRAY>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * When this function returns, contains 
      * 				an array of nodes that are children of the text range in the UI Automation tree.
@@ -5406,7 +5406,7 @@ class Accessibility {
     static TextRange_GetChildren(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetChildren", "ptr", hobj, "ptr", pRetVal, "int")
+        result := DllCall("UIAutomationCore.dll\TextRange_GetChildren", "ptr", hobj, "ptr*", pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5534,7 +5534,7 @@ class Accessibility {
     static LegacyIAccessiblePattern_GetIAccessible(hobj, pAccessible) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_GetIAccessible", "ptr", hobj, "ptr", pAccessible, "int")
+        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_GetIAccessible", "ptr", hobj, "ptr*", pAccessible, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5654,7 +5654,7 @@ class Accessibility {
      * @param {LPARAM} lParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * The <i>lParam</i> argument of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
-     * @param {Pointer<IRawElementProviderSimple>} el Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} el Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The UI Automation provider.
      * @returns {LRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LRESULT</a></b>
@@ -5689,7 +5689,7 @@ class Accessibility {
     static UiaHostProviderFromHwnd(hwnd, ppProvider) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaHostProviderFromHwnd", "ptr", hwnd, "ptr", ppProvider, "int")
+        result := DllCall("UIAutomationCore.dll\UiaHostProviderFromHwnd", "ptr", hwnd, "ptr*", ppProvider, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5719,7 +5719,7 @@ class Accessibility {
     static UiaProviderForNonClient(hwnd, idObject, idChild, ppProvider) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", "ptr", hwnd, "int", idObject, "int", idChild, "ptr", ppProvider, "int")
+        result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", ppProvider, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5728,7 +5728,7 @@ class Accessibility {
 
     /**
      * Retrieves an IAccessible implementation that provides Microsoft Active Accessibility data on behalf of a Microsoft UI Automation provider.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * A pointer to the UI Automation object.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -5745,7 +5745,7 @@ class Accessibility {
      * @since windows8.0
      */
     static UiaIAccessibleFromProvider(pProvider, dwFlags, ppAccessible, pvarChild) {
-        result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr", ppAccessible, "ptr", pvarChild, "int")
+        result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr*", ppAccessible, "ptr", pvarChild, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5754,7 +5754,7 @@ class Accessibility {
 
     /**
      * Creates a Microsoft UI Automation provider based on the specified Microsoft Active Accessibility object.
-     * @param {Pointer<IAccessible>} pAccessible Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>*</b>
+     * @param {IAccessible} pAccessible Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>*</b>
      * 
      * A pointer to the Microsoft Active Accessibility object.
      * @param {Integer} idChild Type: <b>long</b>
@@ -5771,7 +5771,7 @@ class Accessibility {
      * @since windows8.0
      */
     static UiaProviderFromIAccessible(pAccessible, idChild, dwFlags, ppProvider) {
-        result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr", ppProvider, "int")
+        result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr*", ppProvider, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5796,7 +5796,7 @@ class Accessibility {
 
     /**
      * Releases all references that a particular provider holds to Microsoft UI Automation objects.
-     * @param {Pointer<IRawElementProviderSimple>} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
+     * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider to be disconnected.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>

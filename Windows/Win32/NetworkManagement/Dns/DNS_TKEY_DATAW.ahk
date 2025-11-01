@@ -39,7 +39,7 @@ class DNS_TKEY_DATAW extends Win32Struct
 
     /**
      * A pointer to a string representing the name of the   algorithm as defined in section 2.3 of <a href="https://www.ietf.org/rfc/rfc2930.txt">RFC 2930</a>. <b>pKey</b> is used to derive the algorithm specific keys.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pAlgorithmPacket {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class DNS_TKEY_DATAW extends Win32Struct
 
     /**
      * A pointer to the variable-length shared-secret key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pKey {
         get => NumGet(this, 16, "ptr")
@@ -57,7 +57,7 @@ class DNS_TKEY_DATAW extends Win32Struct
 
     /**
      * Reserved. Do not use.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pOtherData {
         get => NumGet(this, 24, "ptr")

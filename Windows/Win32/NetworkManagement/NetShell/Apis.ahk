@@ -178,7 +178,7 @@ class NetShell {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-fn_handle_cmd">FN_HANDLE_CMD</a> function exposed by the helper (the command function).
      * @param {Integer} dwNumArg The number of entries in the <i>pEnumTable</i> array.
      * @param {Pointer<TOKEN_VALUE>} pEnumTable An array of token:value pairs.
-     * @param {Pointer<UInt32>} pdwValue Upon success, the <i>pdwValue</i> parameter is filled with the value associated with the token in the <i>pEnumTable</i> array.
+     * @param {Pointer<Integer>} pdwValue Upon success, the <i>pdwValue</i> parameter is filled with the value associated with the token in the <i>pEnumTable</i> array.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-matchenumtag
      * @since windows5.1.2600
@@ -219,7 +219,7 @@ class NetShell {
      * @param {Integer} dwTagCount A number of entries in the <i>pttTags</i> array.
      * @param {Integer} dwMinArgs The minimum number of arguments required for this command.
      * @param {Integer} dwMaxArgs The maximum number of arguments allowed for this command.
-     * @param {Pointer<UInt32>} pdwTagType An array of <b>DWORD</b>s, with at least enough space for a number of entries equal to <i>dwArgCount</i> - <i>dwCurrentIndex</i>. Each <b>DWORD</b> contains the array index number in the <i>pttTags</i> array to which the array index number in the <i>ppwcArguments</i> array is matched. For example, if <i>ppwcArguments</i>[0] is matched to <i>pttTags</i>[2], <i>pdwTagType</i>[0] is 2.
+     * @param {Pointer<Integer>} pdwTagType An array of <b>DWORD</b>s, with at least enough space for a number of entries equal to <i>dwArgCount</i> - <i>dwCurrentIndex</i>. Each <b>DWORD</b> contains the array index number in the <i>pttTags</i> array to which the array index number in the <i>ppwcArguments</i> array is matched. For example, if <i>ppwcArguments</i>[0] is matched to <i>pttTags</i>[2], <i>pdwTagType</i>[0] is 2.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>

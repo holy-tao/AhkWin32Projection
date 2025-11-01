@@ -68,7 +68,7 @@ class AMBISONICS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pu32ChannelMap {
         get => NumGet(this, 32, "ptr")

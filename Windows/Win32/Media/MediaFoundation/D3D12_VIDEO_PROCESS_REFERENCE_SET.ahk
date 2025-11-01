@@ -36,7 +36,7 @@ class D3D12_VIDEO_PROCESS_REFERENCE_SET extends Win32Struct
 
     /**
      * An array of subresource indices for the list of *ppPastFrames* textures.  NULL indicates subresource 0 for each resource.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pPastSubresources {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +63,7 @@ class D3D12_VIDEO_PROCESS_REFERENCE_SET extends Win32Struct
 
     /**
      * An array of subresource indices for the list of *ppFutureFrames* textures.  NULL indicates subresource 0 for each resource.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pFutureSubresources {
         get => NumGet(this, 40, "ptr")

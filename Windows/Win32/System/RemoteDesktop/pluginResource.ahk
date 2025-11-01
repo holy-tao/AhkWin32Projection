@@ -87,7 +87,7 @@ class pluginResource extends Win32Struct
 
     /**
      * A byte array that defines the icon to be displayed for the resource.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     iconContents {
         get => NumGet(this, 2072, "ptr")
@@ -105,7 +105,7 @@ class pluginResource extends Win32Struct
 
     /**
      * This member is reserved. Set it to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     blobContents {
         get => NumGet(this, 2088, "ptr")

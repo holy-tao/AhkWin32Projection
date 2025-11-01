@@ -15,7 +15,7 @@ class SimilarityMappedViewInfo extends Win32Struct
 
     /**
      * The mapped view information.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_Data {
         get => NumGet(this, 0, "ptr")

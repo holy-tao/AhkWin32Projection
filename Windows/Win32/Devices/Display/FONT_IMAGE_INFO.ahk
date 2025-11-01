@@ -24,7 +24,7 @@ class FONT_IMAGE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ImageBits {
         get => NumGet(this, 8, "ptr")

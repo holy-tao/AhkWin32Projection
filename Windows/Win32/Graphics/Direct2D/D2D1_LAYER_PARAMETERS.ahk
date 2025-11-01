@@ -33,7 +33,7 @@ class D2D1_LAYER_PARAMETERS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry">ID2D1Geometry</a>*</b>
      * 
      * The geometric mask specifies the area of the layer that is composited into the render target.
-     * @type {Pointer<ID2D1Geometry>}
+     * @type {ID2D1Geometry}
      */
     geometricMask {
         get => NumGet(this, 16, "ptr")
@@ -81,7 +81,7 @@ class D2D1_LAYER_PARAMETERS extends Win32Struct
      * 
      * A brush that is used to modify the opacity of the layer. The brush 
      * is mapped to the layer, and the alpha channel of each mapped brush pixel is multiplied against the corresponding layer pixel.
-     * @type {Pointer<ID2D1Brush>}
+     * @type {ID2D1Brush}
      */
     opacityBrush {
         get => NumGet(this, 64, "ptr")

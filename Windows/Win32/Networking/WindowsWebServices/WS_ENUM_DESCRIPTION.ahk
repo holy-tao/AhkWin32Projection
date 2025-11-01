@@ -108,7 +108,7 @@ class WS_ENUM_DESCRIPTION extends Win32Struct
      *                     The names should by sorted by performing a byte-wise comparison of the utf-8 string.
      *                 </li>
      * </ul>
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     nameIndices {
         get => NumGet(this, 16, "ptr")

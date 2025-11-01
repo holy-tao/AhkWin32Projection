@@ -28,7 +28,7 @@ class D3D12_RESOURCE_UAV_BARRIER extends Win32Struct
 
     /**
      * The resource used in the transition, as a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pResource {
         get => NumGet(this, 0, "ptr")

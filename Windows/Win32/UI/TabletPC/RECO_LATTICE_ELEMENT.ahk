@@ -38,7 +38,7 @@ class RECO_LATTICE_ELEMENT extends Win32Struct
      * Holds the recognition result. This can be a string or a character.
      * 
      * Note: For recognizers of Latin script, the <c>pData</code> member contains a pointer to a <b>NULL</b>–terminated string of wide characters. For recognizers of East Asian characters, the <code>pData</c> member contains the wide character (WCHAR) value itself.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 8, "ptr")

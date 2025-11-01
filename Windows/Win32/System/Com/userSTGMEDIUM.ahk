@@ -110,7 +110,7 @@ class userSTGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkForRelease {
         get => NumGet(this, 64, "ptr")

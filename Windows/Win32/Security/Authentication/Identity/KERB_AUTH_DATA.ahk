@@ -28,7 +28,7 @@ class KERB_AUTH_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Data {
         get => NumGet(this, 8, "ptr")

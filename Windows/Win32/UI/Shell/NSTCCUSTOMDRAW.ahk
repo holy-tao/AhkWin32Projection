@@ -18,7 +18,7 @@ class NSTCCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to a Shell item.
-     * @type {Pointer<IShellItem>}
+     * @type {IShellItem}
      */
     psi {
         get => NumGet(this, 0, "ptr")

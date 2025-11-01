@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/newmail_notification
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -52,7 +54,7 @@ class NEWMAIL_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszMessageClass {
         get => NumGet(this, 40, "ptr")

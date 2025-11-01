@@ -618,7 +618,7 @@ class Sensors {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<UInt32>} TimeMs 
+     * @param {Pointer<Integer>} TimeMs 
      * @returns {NTSTATUS} 
      */
     static GetPerformanceTime(TimeMs) {
@@ -706,7 +706,7 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<UInt32>} pRetValue 
+     * @param {Pointer<Integer>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetUlong(pList, pKey, pRetValue) {
@@ -718,7 +718,7 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<UInt16>} pRetValue 
+     * @param {Pointer<Integer>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetUshort(pList, pKey, pRetValue) {
@@ -730,7 +730,7 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<Single>} pRetValue 
+     * @param {Pointer<Float>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetFloat(pList, pKey, pRetValue) {
@@ -742,7 +742,7 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<Double>} pRetValue 
+     * @param {Pointer<Float>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetDouble(pList, pKey, pRetValue) {
@@ -754,7 +754,7 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<Int32>} pRetValue 
+     * @param {Pointer<Integer>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetInt32(pList, pKey, pRetValue) {
@@ -766,7 +766,7 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<Int64>} pRetValue 
+     * @param {Pointer<Integer>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetInt64(pList, pKey, pRetValue) {
@@ -779,7 +779,7 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
-     * @param {Pointer<UInt32>} pRetValue 
+     * @param {Pointer<Integer>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetNthUlong(pList, pKey, Occurrence, pRetValue) {
@@ -792,7 +792,7 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
-     * @param {Pointer<UInt16>} pRetValue 
+     * @param {Pointer<Integer>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetNthUshort(pList, pKey, Occurrence, pRetValue) {
@@ -805,7 +805,7 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
-     * @param {Pointer<Int64>} pRetValue 
+     * @param {Pointer<Integer>} pRetValue 
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetNthInt64(pList, pKey, Occurrence, pRetValue) {
@@ -849,14 +849,14 @@ class Sensors {
     /**
      * 
      * @param {Pointer<PROPVARIANT>} PropVariantValue 
-     * @param {Pointer<UInt32>} PropVariantOffset 
-     * @param {Pointer<UInt32>} PropVariantSize 
-     * @param {Pointer<Void>} PropVariantPointer 
-     * @param {Pointer<UInt32>} RemappedType 
+     * @param {Pointer<Integer>} PropVariantOffset 
+     * @param {Pointer<Integer>} PropVariantSize 
+     * @param {Pointer<Pointer<Void>>} PropVariantPointer 
+     * @param {Pointer<Integer>} RemappedType 
      * @returns {NTSTATUS} 
      */
     static PropVariantGetInformation(PropVariantValue, PropVariantOffset, PropVariantSize, PropVariantPointer, RemappedType) {
-        result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", "ptr", PropVariantValue, "uint*", PropVariantOffset, "uint*", PropVariantSize, "ptr", PropVariantPointer, "uint*", RemappedType, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", "ptr", PropVariantValue, "uint*", PropVariantOffset, "uint*", PropVariantSize, "ptr*", PropVariantPointer, "uint*", RemappedType, "int")
         return result
     }
 
@@ -935,17 +935,17 @@ class Sensors {
     /**
      * 
      * @param {Integer} SizeInBytes 
-     * @param {Pointer<Byte>} pBuffer 
+     * @param {Pointer<Pointer<Integer>>} pBuffer 
      * @returns {NTSTATUS} 
      */
     static SerializationBufferAllocate(SizeInBytes, pBuffer) {
-        result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, "char*", pBuffer, "int")
+        result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, "ptr*", pBuffer, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} Buffer 
+     * @param {Pointer<Integer>} Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
     static SerializationBufferFree(Buffer) {
@@ -977,12 +977,12 @@ class Sensors {
     /**
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} SourceCollection 
-     * @param {Pointer<UInt32>} pTargetBufferSizeInBytes 
-     * @param {Pointer<Byte>} pTargetBuffer 
+     * @param {Pointer<Integer>} pTargetBufferSizeInBytes 
+     * @param {Pointer<Pointer<Integer>>} pTargetBuffer 
      * @returns {NTSTATUS} 
      */
     static CollectionsListAllocateBufferAndSerialize(SourceCollection, pTargetBufferSizeInBytes, pTargetBuffer) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", "ptr", SourceCollection, "uint*", pTargetBufferSizeInBytes, "char*", pTargetBuffer, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", "ptr", SourceCollection, "uint*", pTargetBufferSizeInBytes, "ptr*", pTargetBuffer, "int")
         return result
     }
 
@@ -1062,7 +1062,7 @@ class Sensors {
     /**
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} subscriptionList 
-     * @param {Pointer<Guid>} currentType 
+     * @param {Guid} currentType 
      * @returns {BOOLEAN} 
      */
     static IsSensorSubscribed(subscriptionList, currentType) {

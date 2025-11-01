@@ -203,7 +203,7 @@ class Dwm {
 
     /**
      * Retrieves the current color used for Desktop Window Manager (DWM) glass composition.
-     * @param {Pointer<UInt32>} pcrColorization A pointer to a value that, when this function returns successfully, receives the current color used for glass composition. The color format of the value is 0xAARRGGBB.
+     * @param {Pointer<Integer>} pcrColorization A pointer to a value that, when this function returns successfully, receives the current color used for glass composition. The color format of the value is 0xAARRGGBB.
      * @param {Pointer<BOOL>} pfOpaqueBlend A pointer to a value that, when this function returns successfully, indicates whether the color is an opaque blend. <b>TRUE</b> if the color is an opaque blend; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmgetcolorizationcolor
@@ -321,7 +321,7 @@ class Dwm {
      * Creates a Desktop Window Manager (DWM) thumbnail relationship between the destination and source windows.
      * @param {HWND} hwndDestination The handle to the window that will use the DWM thumbnail. Setting the destination window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
      * @param {HWND} hwndSource The handle to the window to use as the thumbnail source. Setting the source window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
-     * @param {Pointer<IntPtr>} phThumbnailId A pointer to a handle that, when this function returns successfully, represents the registration of the DWM thumbnail.
+     * @param {Pointer<Pointer>} phThumbnailId A pointer to a handle that, when this function returns successfully, represents the registration of the DWM thumbnail.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmregisterthumbnail
      * @since windows6.0.6000
@@ -570,7 +570,7 @@ class Dwm {
      * Retrieves transport attributes.
      * @param {Pointer<BOOL>} pfIsRemoting A pointer to a <b>BOOL</b> value that indicates whether the transport supports remoting. <b>TRUE</b> if the transport supports remoting; otherwise, <b>FALSE</b>.
      * @param {Pointer<BOOL>} pfIsConnected A pointer to a <b>BOOL</b> value that indicates whether the transport is connected. <b>TRUE</b> if the transport is connected; otherwise, <b>FALSE</b>.
-     * @param {Pointer<UInt32>} pDwGeneration A pointer to a <b>DWORD</b> that receives a generation value for the transport.
+     * @param {Pointer<Integer>} pDwGeneration A pointer to a <b>DWORD</b> that receives a generation value for the transport.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmgettransportattributes
      * @since windows6.0.6000
@@ -605,7 +605,7 @@ class Dwm {
      * Notifies Desktop Window Manager (DWM) that a touch contact has been recognized as a gesture, and that DWM should draw feedback for that gesture.
      * @param {Integer} gt 
      * @param {Integer} cContacts The number of contact points.
-     * @param {Pointer<UInt32>} pdwPointerID The pointer ID.
+     * @param {Pointer<Integer>} pdwPointerID The pointer ID.
      * @param {Pointer<POINT>} pPoints The points.
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmrendergesture
@@ -655,7 +655,7 @@ class Dwm {
     /**
      * Note  This function is publically available, but nonfunctional, for Windows 10, version 1803.Checks the requirements needed to get tabs in the application title bar for the specified window.
      * @param {HWND} appWindow The handle of the window to check.
-     * @param {Pointer<Int32>} value 
+     * @param {Pointer<Integer>} value 
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmgetunmettabrequirements
      * @since windows10.0.17134

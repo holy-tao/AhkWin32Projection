@@ -36,7 +36,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbEncryptedSalt {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSaltAuth {
         get => NumGet(this, 40, "ptr")

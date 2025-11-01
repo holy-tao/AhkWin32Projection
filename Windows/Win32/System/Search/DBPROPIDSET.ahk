@@ -12,7 +12,7 @@ class DBPROPIDSET extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rgPropertyIDs {
         get => NumGet(this, 0, "ptr")

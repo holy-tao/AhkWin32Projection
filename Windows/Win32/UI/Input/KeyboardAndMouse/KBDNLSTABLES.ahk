@@ -52,7 +52,7 @@ class KBDNLSTABLES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pusMouseVKey {
         get => NumGet(this, 24, "ptr")

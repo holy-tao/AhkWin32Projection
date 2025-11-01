@@ -33,7 +33,7 @@ class SecPkgContext_EapPrfInfo extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPrfData {
         get => NumGet(this, 8, "ptr")

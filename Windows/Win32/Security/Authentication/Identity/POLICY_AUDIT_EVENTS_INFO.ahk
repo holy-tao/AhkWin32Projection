@@ -91,7 +91,7 @@ class POLICY_AUDIT_EVENTS_INFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EventAuditingOptions {
         get => NumGet(this, 8, "ptr")

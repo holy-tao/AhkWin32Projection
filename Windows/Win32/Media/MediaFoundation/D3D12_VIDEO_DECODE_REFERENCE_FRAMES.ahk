@@ -42,7 +42,7 @@ class D3D12_VIDEO_DECODE_REFERENCE_FRAMES extends Win32Struct
      * With texture arrays within a single resource, the subresource indices point to the array index of the first resource plane. With an array of textures in individual resources, the subresource index is typically zero.
      * 
      * The video device driver uses the "PicEntry" indices defined in the DXVA spec for the codec to dereference this array to find the subresource index to use with the corresponding resource. For example, in HEVC, the Driver uses [DXVA_PicEntry_HEVC::Index7Bits](/windows/win32/medfound/dxva-picentry-hevc) as an index for this array.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pSubresources {
         get => NumGet(this, 16, "ptr")

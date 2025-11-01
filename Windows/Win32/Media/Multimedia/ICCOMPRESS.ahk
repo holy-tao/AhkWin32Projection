@@ -82,7 +82,7 @@ class ICCOMPRESS extends Win32Struct
 
     /**
      * Address to contain the chunk identifier for data in the AVI file. If the value of this member is not <b>NULL</b>, the driver should specify a two-character code for the chunk identifier corresponding to the chunk identifier used in the AVI file.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpckid {
         get => NumGet(this, 40, "ptr")
@@ -91,7 +91,7 @@ class ICCOMPRESS extends Win32Struct
 
     /**
      * Address to contain flags for the AVI index. If the returned frame is a key frame, the driver should set the <b>AVIIF_KEYFRAME</b> flag.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpdwFlags {
         get => NumGet(this, 48, "ptr")

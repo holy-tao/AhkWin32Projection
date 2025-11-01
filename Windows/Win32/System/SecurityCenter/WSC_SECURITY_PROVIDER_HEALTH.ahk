@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wscapi/ne-wscapi-wsc_security_provider_health
  * @namespace Windows.Win32.System.SecurityCenter
  * @version v4.0.30319
  */

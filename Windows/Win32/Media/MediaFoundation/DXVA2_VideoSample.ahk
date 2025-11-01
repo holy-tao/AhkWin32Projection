@@ -49,7 +49,7 @@ class DXVA2_VideoSample extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface of the Direct3D surface that contains the sample.
-     * @type {Pointer<IDirect3DSurface9>}
+     * @type {IDirect3DSurface9}
      */
     SrcSurface {
         get => NumGet(this, 24, "ptr")

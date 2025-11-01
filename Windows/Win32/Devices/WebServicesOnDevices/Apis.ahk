@@ -133,7 +133,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateUdpMessageParameters(ppTxParams) {
-        result := DllCall("wsdapi.dll\WSDCreateUdpMessageParameters", "ptr", ppTxParams, "int")
+        result := DllCall("wsdapi.dll\WSDCreateUdpMessageParameters", "ptr*", ppTxParams, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -188,7 +188,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateUdpAddress(ppAddress) {
-        result := DllCall("wsdapi.dll\WSDCreateUdpAddress", "ptr", ppAddress, "int")
+        result := DllCall("wsdapi.dll\WSDCreateUdpAddress", "ptr*", ppAddress, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -243,7 +243,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateHttpMessageParameters(ppTxParams) {
-        result := DllCall("wsdapi.dll\WSDCreateHttpMessageParameters", "ptr", ppTxParams, "int")
+        result := DllCall("wsdapi.dll\WSDCreateHttpMessageParameters", "ptr*", ppTxParams, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -298,7 +298,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateHttpAddress(ppAddress) {
-        result := DllCall("wsdapi.dll\WSDCreateHttpAddress", "ptr", ppAddress, "int")
+        result := DllCall("wsdapi.dll\WSDCreateHttpAddress", "ptr*", ppAddress, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -353,7 +353,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateOutboundAttachment(ppAttachment) {
-        result := DllCall("wsdapi.dll\WSDCreateOutboundAttachment", "ptr", ppAttachment, "int")
+        result := DllCall("wsdapi.dll\WSDCreateOutboundAttachment", "ptr*", ppAttachment, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -364,7 +364,7 @@ class WebServicesOnDevices {
      * Gets a specified name from the built-in namespace.
      * @param {PWSTR} pszNamespace The namespace to match with a built-in namespace.
      * @param {PWSTR} pszName The name to match with a built-in name.
-     * @param {Pointer<WSDXML_NAME>} ppName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the returned built-in name.  The memory usage of <i>ppName</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppName</i>.
+     * @param {Pointer<Pointer<WSDXML_NAME>>} ppName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the returned built-in name.  The memory usage of <i>ppName</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppName</i>.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -413,7 +413,7 @@ class WebServicesOnDevices {
         pszNamespace := pszNamespace is String ? StrPtr(pszNamespace) : pszNamespace
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr", ppName, "int")
+        result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr*", ppName, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -470,7 +470,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLCreateContext(ppContext) {
-        result := DllCall("wsdapi.dll\WSDXMLCreateContext", "ptr", ppContext, "int")
+        result := DllCall("wsdapi.dll\WSDXMLCreateContext", "ptr*", ppContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -479,7 +479,7 @@ class WebServicesOnDevices {
 
     /**
      * Creates an IWSDiscoveryProvider object.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDiscoveryProvider>} ppProvider Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider">IWSDiscoveryProvider</a> object. Cannot be <b>NULL</b>.
@@ -506,7 +506,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDiscoveryProvider(pContext, ppProvider) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider", "ptr", pContext, "ptr", ppProvider, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider", "ptr", pContext, "ptr*", ppProvider, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -515,7 +515,7 @@ class WebServicesOnDevices {
 
     /**
      * Creates an IWSDiscoveryProvider object that supports signed messages.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces.
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces.
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
@@ -544,7 +544,7 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDCreateDiscoveryProvider2(pContext, pConfigParams, dwConfigParamCount, ppProvider) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppProvider, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", ppProvider, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -553,7 +553,7 @@ class WebServicesOnDevices {
 
     /**
      * Creates an IWSDiscoveryPublisher object.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDiscoveryPublisher>} ppPublisher Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher">IWSDiscoveryPublisher</a> object. Cannot be <b>NULL</b>.
@@ -602,7 +602,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDiscoveryPublisher(pContext, ppPublisher) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher", "ptr", pContext, "ptr", ppPublisher, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher", "ptr", pContext, "ptr*", ppPublisher, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -611,7 +611,7 @@ class WebServicesOnDevices {
 
     /**
      * Creates an IWSDiscoveryPublisher object that supports signed messages.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces.
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces.
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
@@ -662,7 +662,7 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDCreateDiscoveryPublisher2(pContext, pConfigParams, dwConfigParamCount, ppPublisher) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppPublisher, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", ppPublisher, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -677,7 +677,7 @@ class WebServicesOnDevices {
      * @param {PWSTR} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
      * 
      * If the client uses a secure channel to receive events, then the address is a URI prefixed by https. This URI should specify port 5358, as this port is reserved for secure connections with WSDAPI. The port must be configured with an SSL server certificate before calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxyadvanced">WSDCreateDeviceProxyAdvanced</a>. For more information about port configuration, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDDeviceProxy>} ppDeviceProxy Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object that you use to represent a remote WSD device for client applications and middleware.
@@ -740,7 +740,7 @@ class WebServicesOnDevices {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceProxy, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr*", ppDeviceProxy, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -754,11 +754,11 @@ class WebServicesOnDevices {
      * If either <i>pszDeviceId</i> or the <i>pszLocalId</i> is an URL prefixed by https, then both URLs must be identical. If this is not the case, <b>WSDCreateDeviceProxyAdvanced</b> will return E_INVALIDARG. 
      * 
      * The device address may be prefixed with the @ character. When <i>pszDeviceId</i> begins with @, this function does not retrieve the device metadata when creating the device proxy.
-     * @param {Pointer<IWSDAddress>} pDeviceAddress An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface that defines the device transport address. When <i>pDeviceAddress</i> is specified, a device proxy can be created without requiring the resolution of a logical address passed to <i>pszDeviceId</i>. This parameter may be <b>NULL</b>.
+     * @param {IWSDAddress} pDeviceAddress An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface that defines the device transport address. When <i>pDeviceAddress</i> is specified, a device proxy can be created without requiring the resolution of a logical address passed to <i>pszDeviceId</i>. This parameter may be <b>NULL</b>.
      * @param {PWSTR} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
      * 
      * If the client uses a secure channel to receive events, then the address is a URI prefixed by https. This URI should specify port 5358, as this port is reserved for secure connections with WSDAPI. The port must be configured with an SSL server certificate before calling <b>WSDCreateDeviceProxyAdvanced</b>. For more information about port configuration, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDDeviceProxy>} ppDeviceProxy Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> interface that you use to represent a remote WSD device for client applications and middleware.
@@ -821,7 +821,7 @@ class WebServicesOnDevices {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceProxyAdvanced", "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceProxy, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDeviceProxyAdvanced", "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr*", ppDeviceProxy, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -836,7 +836,7 @@ class WebServicesOnDevices {
      * @param {PWSTR} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
      * 
      * If the client uses a secure channel to receive events, then the address is a URI prefixed by https. This URI should specify port 5358, as this port is reserved for secure connections with WSDAPI. The port must be configured with an SSL server certificate before calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxyadvanced">WSDCreateDeviceProxyAdvanced</a>. For more information about port configuration, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
@@ -901,7 +901,7 @@ class WebServicesOnDevices {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppDeviceProxy, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", ppDeviceProxy, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -938,7 +938,7 @@ class WebServicesOnDevices {
      * <li>https://myHostname:5358/
      * </li>
      * </ul>
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDDeviceHost>} ppDeviceHost Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object that you use to expose the WSD-specific device semantics associated with a server that responds to incoming requests.
@@ -1000,7 +1000,7 @@ class WebServicesOnDevices {
     static WSDCreateDeviceHost(pszLocalId, pContext, ppDeviceHost) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceHost", "ptr", pszLocalId, "ptr", pContext, "ptr", ppDeviceHost, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDeviceHost", "ptr", pszLocalId, "ptr", pContext, "ptr*", ppDeviceHost, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1038,7 +1038,7 @@ class WebServicesOnDevices {
      * <li>https://myHostname:5358/
      * </li>
      * </ul>
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<IWSDAddress>} ppHostAddresses A single <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface or <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdtransportaddress">IWSDTransportAddress</a> interface. The objects provide information about specific addresses that the host should listen on.
@@ -1104,7 +1104,7 @@ class WebServicesOnDevices {
     static WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount, ppDeviceHost) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, "ptr", ppHostAddresses, "uint", dwHostAddressCount, "ptr", ppDeviceHost, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, "ptr*", ppHostAddresses, "uint", dwHostAddressCount, "ptr*", ppDeviceHost, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1139,7 +1139,7 @@ class WebServicesOnDevices {
      * <li>https://myHostname:5358/
      * </li>
      * </ul>
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces.
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces.
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
@@ -1203,7 +1203,7 @@ class WebServicesOnDevices {
     static WSDCreateDeviceHost2(pszLocalId, pContext, pConfigParams, dwConfigParamCount, ppDeviceHost) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr", ppDeviceHost, "int")
+        result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", ppDeviceHost, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1413,7 +1413,7 @@ class WebServicesOnDevices {
      * Creates an XML element with a specified name and value.
      * @param {Pointer<WSDXML_NAME>} pElementName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the name of the  created element.
      * @param {PWSTR} pszText The text value of the created element.
-     * @param {Pointer<WSDXML_ELEMENT>} ppAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> that contains the created element.  <i>ppAny</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
+     * @param {Pointer<Pointer<WSDXML_ELEMENT>>} ppAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> that contains the created element.  <i>ppAny</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -1472,7 +1472,7 @@ class WebServicesOnDevices {
     static WSDXMLBuildAnyForSingleElement(pElementName, pszText, ppAny) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr", ppAny, "int")
+        result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr*", ppAny, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1700,8 +1700,8 @@ class WebServicesOnDevices {
      * @param {PWSTR} pszSubCode A fault subcode.
      * @param {PWSTR} pszReason A human readable explanation of the fault.
      * @param {PWSTR} pszDetail Contains application-specific error information pertaining to the fault.
-     * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that represents the context in which to generate the fault.
-     * @param {Pointer<WSD_SOAP_FAULT>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  When the calling application is done with this data, <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
+     * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that represents the context in which to generate the fault.
+     * @param {Pointer<Pointer<WSD_SOAP_FAULT>>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  When the calling application is done with this data, <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
@@ -1752,7 +1752,7 @@ class WebServicesOnDevices {
         pszReason := pszReason is String ? StrPtr(pszReason) : pszReason
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-        result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr", ppFault, "int")
+        result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr*", ppFault, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1776,7 +1776,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSDXML_NAME>} pSubCode A fault subcode.
      * @param {Pointer<WSD_LOCALIZED_STRING_LIST>} pReasons A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_localized_string_list">WSD_LOCALIZED_STRING_LIST</a> structure that contains a list of localized reason codes.
      * @param {PWSTR} pszDetail Contains application-specific error information pertaining to the fault.
-     * @param {Pointer<WSD_SOAP_FAULT>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
+     * @param {Pointer<Pointer<WSD_SOAP_FAULT>>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
@@ -1824,7 +1824,7 @@ class WebServicesOnDevices {
     static WSDGenerateFaultEx(pCode, pSubCode, pReasons, pszDetail, ppFault) {
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-        result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr", ppFault, "int")
+        result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr*", ppFault, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1836,7 +1836,7 @@ class WebServicesOnDevices {
      * @param {PWSTR} source Contains the URI to be encoded.
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
      * @param {Pointer<PWSTR>} destOut Pointer to a string that contains the encoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @param {Pointer<UInt32>} cchDestOut Specifies the length of <i>destOut</i> in characters.
+     * @param {Pointer<Integer>} cchDestOut Specifies the length of <i>destOut</i> in characters.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -1907,7 +1907,7 @@ class WebServicesOnDevices {
      * @param {PWSTR} source Contains the URI to be decoded.
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
      * @param {Pointer<PWSTR>} destOut Pointer to a string that contains the decoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @param {Pointer<UInt32>} cchDestOut Specifies the length of <i>destOut</i> in characters.
+     * @param {Pointer<Integer>} cchDestOut Specifies the length of <i>destOut</i> in characters.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>

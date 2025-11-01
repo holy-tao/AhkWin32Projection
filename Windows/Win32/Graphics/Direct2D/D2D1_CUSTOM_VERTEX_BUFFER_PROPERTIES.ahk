@@ -22,7 +22,7 @@ class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES extends Win32Struct
 
     /**
      * A pointer to the buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     shaderBufferWithInputSignature {
         get => NumGet(this, 0, "ptr")

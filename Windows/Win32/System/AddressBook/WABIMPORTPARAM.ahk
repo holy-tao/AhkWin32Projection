@@ -29,7 +29,7 @@ class WABIMPORTPARAM extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface that specifies the address book object to import to.
-     * @type {Pointer<IAddrBook>}
+     * @type {IAddrBook}
      */
     lpAdrBook {
         get => NumGet(this, 8, "ptr")

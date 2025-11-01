@@ -94,18 +94,18 @@ class SubsystemForLinux {
     /**
      * Retrieves the current configuration of a distribution registered with the Windows Subsystem for Linux (WSL).
      * @param {PWSTR} distributionName Unique name representing a distribution (for example, "Fabrikam.Distro.10.01").
-     * @param {Pointer<UInt32>} distributionVersion The version of WSL for which this distribution is configured.
-     * @param {Pointer<UInt32>} defaultUID The default user ID used when launching new WSL sessions for this distribution.
-     * @param {Pointer<Int32>} wslDistributionFlags The flags governing the behavior of this distribution.
-     * @param {Pointer<PSTR>} defaultEnvironmentVariables The address of a pointer to an array of default environment variable strings used when launching new WSL sessions for this distribution.
-     * @param {Pointer<UInt32>} defaultEnvironmentVariableCount The number of elements in <i>pDefaultEnvironmentVariablesArray</i>.
+     * @param {Pointer<Integer>} distributionVersion The version of WSL for which this distribution is configured.
+     * @param {Pointer<Integer>} defaultUID The default user ID used when launching new WSL sessions for this distribution.
+     * @param {Pointer<Integer>} wslDistributionFlags The flags governing the behavior of this distribution.
+     * @param {Pointer<Pointer<PSTR>>} defaultEnvironmentVariables The address of a pointer to an array of default environment variable strings used when launching new WSL sessions for this distribution.
+     * @param {Pointer<Integer>} defaultEnvironmentVariableCount The number of elements in <i>pDefaultEnvironmentVariablesArray</i>.
      * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wslapi/nf-wslapi-wslgetdistributionconfiguration
      */
     static WslGetDistributionConfiguration(distributionName, distributionVersion, defaultUID, wslDistributionFlags, defaultEnvironmentVariables, defaultEnvironmentVariableCount) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, "uint*", distributionVersion, "uint*", defaultUID, "int*", wslDistributionFlags, "ptr", defaultEnvironmentVariables, "uint*", defaultEnvironmentVariableCount, "int")
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, "uint*", distributionVersion, "uint*", defaultUID, "int*", wslDistributionFlags, "ptr*", defaultEnvironmentVariables, "uint*", defaultEnvironmentVariableCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -117,7 +117,7 @@ class SubsystemForLinux {
      * @param {PWSTR} distributionName Unique name representing a distribution (for example, "Fabrikam.Distro.10.01").
      * @param {PWSTR} command Command to execute. If no command is supplied, launches the default shell.
      * @param {BOOL} useCurrentWorkingDirectory Governs whether or not the launched process should inherit the calling process's working directory. If FALSE, the process is started in the WSL default user's home directory ("~").
-     * @param {Pointer<UInt32>} exitCode Receives the exit code of the process after it exits.
+     * @param {Pointer<Integer>} exitCode Receives the exit code of the process after it exits.
      * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wslapi/nf-wslapi-wsllaunchinteractive
      */

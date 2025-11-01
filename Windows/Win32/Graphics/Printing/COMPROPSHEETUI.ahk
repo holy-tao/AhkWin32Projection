@@ -40,7 +40,7 @@ class COMPROPSHEETUI extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pCallerName {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class COMPROPSHEETUI extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pHelpFile {
         get => NumGet(this, 32, "ptr")
@@ -112,7 +112,7 @@ class COMPROPSHEETUI extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pOptItemName {
         get => NumGet(this, 80, "ptr")

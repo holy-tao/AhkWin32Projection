@@ -50,7 +50,7 @@ class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * See *Strides* in [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Strides {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * See *WindowSize* in [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     WindowSize {
         get => NumGet(this, 32, "ptr")
@@ -72,7 +72,7 @@ class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * See *StartPadding* in [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     StartPadding {
         get => NumGet(this, 40, "ptr")
@@ -83,7 +83,7 @@ class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * See *EndPadding* in [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EndPadding {
         get => NumGet(this, 48, "ptr")

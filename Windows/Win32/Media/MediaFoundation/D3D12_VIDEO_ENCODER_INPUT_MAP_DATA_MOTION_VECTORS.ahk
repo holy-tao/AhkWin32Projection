@@ -41,7 +41,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pMotionVectorMapsSubresources {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pMotionVectorMapsMetadataSubresources {
         get => NumGet(this, 40, "ptr")

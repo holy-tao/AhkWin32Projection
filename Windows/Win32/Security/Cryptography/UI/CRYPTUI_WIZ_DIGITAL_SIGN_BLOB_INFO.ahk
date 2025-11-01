@@ -42,7 +42,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO extends Win32Struct
 
     /**
      * A pointer to the BLOB to sign.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbBlob {
         get => NumGet(this, 24, "ptr")

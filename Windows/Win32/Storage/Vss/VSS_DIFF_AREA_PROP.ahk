@@ -20,7 +20,7 @@ class VSS_DIFF_AREA_PROP extends Win32Struct
 
     /**
      * The original volume name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszVolumeName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class VSS_DIFF_AREA_PROP extends Win32Struct
 
     /**
      * The shadow copy storage area volume name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszDiffAreaVolumeName {
         get => NumGet(this, 8, "ptr")

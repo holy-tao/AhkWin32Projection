@@ -50,7 +50,7 @@ class MPEG_STREAM_BUFFER extends Win32Struct
 
     /**
      * Pointer to a buffer that holds the MPEG-2 data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pDataBuffer {
         get => NumGet(this, 16, "ptr")

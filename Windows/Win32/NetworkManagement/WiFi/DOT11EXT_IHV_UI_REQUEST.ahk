@@ -44,7 +44,7 @@ class DOT11EXT_IHV_UI_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pvUIRequest {
         get => NumGet(this, 32, "ptr")

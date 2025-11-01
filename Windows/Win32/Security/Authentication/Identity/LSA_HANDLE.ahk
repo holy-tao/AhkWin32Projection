@@ -4,6 +4,8 @@
 #Include ..\..\..\..\..\Win32Handle.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecMgmt/lsa-handle
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

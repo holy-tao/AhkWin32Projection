@@ -3393,7 +3393,7 @@ class WinHttp {
      * <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-url_components">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszUrl Pointer to a character buffer that receives the URL as a wide character (Unicode) string.
-     * @param {Pointer<UInt32>} pdwUrlLength Pointer to a variable of type unsigned long integer that receives the length of the 
+     * @param {Pointer<Integer>} pdwUrlLength Pointer to a variable of type unsigned long integer that receives the length of the 
      * <i>pwszUrl</i> buffer in wide (Unicode) characters. When the function returns, this parameter receives the length of the URL string wide in characters, minus 1 for the terminating character. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of wide characters required to hold the created URL.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error data, call 
@@ -3811,7 +3811,7 @@ class WinHttp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a>. <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpreceiveresponse">WinHttpReceiveResponse</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpquerydataavailable">WinHttpQueryDataAvailable</a> must have been called for this handle and must have completed before <b>WinHttpReadData</b> is called. Although calling <b>WinHttpReadData</b> immediately after completion of <b>WinHttpReceiveResponse</b> avoids the expense of a buffer copy, doing so requires that the application use a fixed-length buffer for reading.
      * @param {Pointer} lpBuffer Pointer to a buffer that receives the data read. Make sure that this buffer remains valid until <b>WinHttpReadData</b> has completed.
      * @param {Integer} dwNumberOfBytesToRead Unsigned long integer value that contains the number of bytes to read.
-     * @param {Pointer<UInt32>} lpdwNumberOfBytesRead Pointer to an unsigned long integer variable that receives the number of bytes read. 
+     * @param {Pointer<Integer>} lpdwNumberOfBytesRead Pointer to an unsigned long integer variable that receives the number of bytes read. 
      * <b>WinHttpReadData</b> sets this value to zero before doing any work or error checking.  When using WinHTTP asynchronously, always set this parameter to <b>NULL</b> and retrieve the information in the callback function; not doing so can cause a memory fault.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following table identifies the error codes that are returned.
@@ -3928,11 +3928,12 @@ class WinHttp {
      * @param {Pointer<Void>} hRequest 
      * @param {Pointer} lpBuffer 
      * @param {Integer} dwNumberOfBytesToRead 
-     * @param {Pointer<UInt32>} lpdwNumberOfBytesRead 
+     * @param {Pointer<Integer>} lpdwNumberOfBytesRead 
      * @param {Integer} ullFlags 
      * @param {Integer} cbProperty 
      * @param {Pointer} pvProperty 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpreaddataex
      */
     static WinHttpReadDataEx(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead, ullFlags, cbProperty, pvProperty) {
         result := DllCall("WINHTTP.dll\WinHttpReadDataEx", "ptr", hRequest, "ptr", lpBuffer, "uint", dwNumberOfBytesToRead, "uint*", lpdwNumberOfBytesRead, "uint", ullFlags, "uint", cbProperty, "ptr", pvProperty, "uint")
@@ -3946,7 +3947,7 @@ class WinHttp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a>. Wait until <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpsendrequest">WinHttpSendRequest</a> has completed before calling  this function.
      * @param {Pointer} lpBuffer Pointer to a buffer that contains the data to be sent to the server. Be sure that this buffer remains valid until after <b>WinHttpWriteData</b> completes.
      * @param {Integer} dwNumberOfBytesToWrite Unsigned long integer value that contains the number of bytes to be written to the file.
-     * @param {Pointer<UInt32>} lpdwNumberOfBytesWritten Pointer to an unsigned long integer variable that receives the number of bytes written to the buffer. The 
+     * @param {Pointer<Integer>} lpdwNumberOfBytesWritten Pointer to an unsigned long integer variable that receives the number of bytes written to the buffer. The 
      * <b>WinHttpWriteData</b> function sets this value to zero before doing any work or error checking.  When using WinHTTP asynchronously, this parameter must be set to <b>NULL</b> and retrieve the information in the callback function. Not doing so can cause a memory fault.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are:
@@ -4052,7 +4053,7 @@ class WinHttp {
      * @param {Pointer<Void>} hRequest A valid 
      * <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a>. <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpreceiveresponse">WinHttpReceiveResponse</a> must have been called for this handle and have completed before <b>WinHttpQueryDataAvailable</b> is called.
-     * @param {Pointer<UInt32>} lpdwNumberOfBytesAvailable A pointer to an unsigned long integer variable that receives the number of available bytes. When WinHTTP is used in asynchronous mode, always set this parameter to <b>NULL</b> and retrieve data in the callback function; not doing so can cause a memory fault.
+     * @param {Pointer<Integer>} lpdwNumberOfBytesAvailable A pointer to an unsigned long integer variable that receives the number of available bytes. When WinHTTP is used in asynchronous mode, always set this parameter to <b>NULL</b> and retrieve data in the callback function; not doing so can cause a memory fault.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error data, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
@@ -4161,7 +4162,7 @@ class WinHttp {
      * <b>WinHttpQueryOption</b> function are globally allocated, so the calling application must globally free the string when it finishes using it. Setting this parameter to <b>NULL</b> causes this function to return <b>FALSE</b>.  Calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> then returns ERROR_INSUFFICIENT_BUFFER and 
      * <i>lpdwBufferLength</i>          contains the number of bytes required to hold the requested information.
-     * @param {Pointer<UInt32>} lpdwBufferLength A pointer to an unsigned long integer variable that contains the length of 
+     * @param {Pointer<Integer>} lpdwBufferLength A pointer to an unsigned long integer variable that contains the length of 
      * <i>lpBuffer</i>, in bytes. When the function returns, the variable receives the length of the data placed into 
      * <i>lpBuffer</i>. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the requested information.
@@ -4713,6 +4714,7 @@ class WinHttp {
      * @param {Integer} cHeaders 
      * @param {Pointer<WINHTTP_EXTENDED_HEADER>} pHeaders 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpaddrequestheadersex
      */
     static WinHttpAddRequestHeadersEx(hRequest, dwModifiers, ullFlags, ullExtra, cHeaders, pHeaders) {
         result := DllCall("WINHTTP.dll\WinHttpAddRequestHeadersEx", "ptr", hRequest, "uint", dwModifiers, "uint", ullFlags, "uint", ullExtra, "uint", cHeaders, "ptr", pHeaders, "uint")
@@ -5147,7 +5149,7 @@ class WinHttp {
      * @param {Pointer<Void>} hRequest Valid 
      * <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a>
-     * @param {Pointer<UInt32>} lpdwSupportedSchemes An unsigned integer that specifies a flag that contains the supported authentication schemes.  This parameter can return one or more flags that are identified in the following table.
+     * @param {Pointer<Integer>} lpdwSupportedSchemes An unsigned integer that specifies a flag that contains the supported authentication schemes.  This parameter can return one or more flags that are identified in the following table.
      * 
      * <table>
      * <tr>
@@ -5205,7 +5207,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lpdwFirstScheme An unsigned integer that specifies a flag that contains the  first authentication scheme listed by the server.  This parameter can return one or more flags that are identified in the following table.
+     * @param {Pointer<Integer>} lpdwFirstScheme An unsigned integer that specifies a flag that contains the  first authentication scheme listed by the server.  This parameter can return one or more flags that are identified in the following table.
      * 
      * <table>
      * <tr>
@@ -5263,7 +5265,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwAuthTarget An unsigned integer that specifies a flag that contains the authentication target.  This parameter can return one or more flags that are identified in the following table.
+     * @param {Pointer<Integer>} pdwAuthTarget An unsigned integer that specifies a flag that contains the authentication target.  This parameter can return one or more flags that are identified in the following table.
      * 
      * <table>
      * <tr>
@@ -5622,7 +5624,7 @@ class WinHttp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> then returns 
      * <b>ERROR_INSUFFICIENT_BUFFER</b> and 
      * <i>lpdwBufferLength</i> contains the number of bytes required to hold the requested information.
-     * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a value of type <b>DWORD</b> that specifies the length of the data buffer, in bytes. When the function returns, this parameter contains the pointer to a value that specifies the length of the information written to the buffer. When the function returns strings, the following rules apply. 
+     * @param {Pointer<Integer>} lpdwBufferLength Pointer to a value of type <b>DWORD</b> that specifies the length of the data buffer, in bytes. When the function returns, this parameter contains the pointer to a value that specifies the length of the information written to the buffer. When the function returns strings, the following rules apply. 
      * 					
      * 
      * <ul>
@@ -5632,7 +5634,7 @@ class WinHttp {
      * <b>ERROR_INSUFFICIENT_BUFFER</b> is returned, 
      * <i>lpdwBufferLength</i> specifies the number of bytes that the application must allocate to receive the string. </li>
      * </ul>
-     * @param {Pointer<UInt32>} lpdwIndex Pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, 
+     * @param {Pointer<Integer>} lpdwIndex Pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, 
      * <b>ERROR_WINHTTP_HEADER_NOT_FOUND</b> is returned. Set this parameter to WINHTTP_NO_HEADER_INDEX to specify that only the first occurrence of a header should be returned.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
@@ -5719,16 +5721,17 @@ class WinHttp {
      * @param {Integer} dwInfoLevel 
      * @param {Integer} ullFlags 
      * @param {Integer} uiCodePage 
-     * @param {Pointer<UInt32>} pdwIndex 
+     * @param {Pointer<Integer>} pdwIndex 
      * @param {Pointer<WINHTTP_HEADER_NAME>} pHeaderName 
      * @param {Pointer} pBuffer 
-     * @param {Pointer<UInt32>} pdwBufferLength 
-     * @param {Pointer<WINHTTP_EXTENDED_HEADER>} ppHeaders 
-     * @param {Pointer<UInt32>} pdwHeadersCount 
+     * @param {Pointer<Integer>} pdwBufferLength 
+     * @param {Pointer<Pointer<WINHTTP_EXTENDED_HEADER>>} ppHeaders 
+     * @param {Pointer<Integer>} pdwHeadersCount 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryheadersex
      */
     static WinHttpQueryHeadersEx(hRequest, dwInfoLevel, ullFlags, uiCodePage, pdwIndex, pHeaderName, pBuffer, pdwBufferLength, ppHeaders, pdwHeadersCount) {
-        result := DllCall("WINHTTP.dll\WinHttpQueryHeadersEx", "ptr", hRequest, "uint", dwInfoLevel, "uint", ullFlags, "uint", uiCodePage, "uint*", pdwIndex, "ptr", pHeaderName, "ptr", pBuffer, "uint*", pdwBufferLength, "ptr", ppHeaders, "uint*", pdwHeadersCount, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpQueryHeadersEx", "ptr", hRequest, "uint", dwInfoLevel, "uint", ullFlags, "uint", uiCodePage, "uint*", pdwIndex, "ptr", pHeaderName, "ptr", pBuffer, "uint*", pdwBufferLength, "ptr*", ppHeaders, "uint*", pdwHeadersCount, "uint")
         return result
     }
 
@@ -5737,11 +5740,12 @@ class WinHttp {
      * @param {Pointer<Void>} hInternet 
      * @param {Pointer<Guid>} pGuidConnection 
      * @param {Integer} ullFlags 
-     * @param {Pointer<WINHTTP_QUERY_CONNECTION_GROUP_RESULT>} ppResult 
+     * @param {Pointer<Pointer<WINHTTP_QUERY_CONNECTION_GROUP_RESULT>>} ppResult 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryconnectiongroup
      */
     static WinHttpQueryConnectionGroup(hInternet, pGuidConnection, ullFlags, ppResult) {
-        result := DllCall("WINHTTP.dll\WinHttpQueryConnectionGroup", "ptr", hInternet, "ptr", pGuidConnection, "uint", ullFlags, "ptr", ppResult, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpQueryConnectionGroup", "ptr", hInternet, "ptr", pGuidConnection, "uint", ullFlags, "ptr*", ppResult, "uint")
         return result
     }
 
@@ -5749,6 +5753,7 @@ class WinHttp {
      * 
      * @param {Pointer<WINHTTP_QUERY_CONNECTION_GROUP_RESULT>} pResult 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreequeryconnectiongroupresult
      */
     static WinHttpFreeQueryConnectionGroupResult(pResult) {
         DllCall("WINHTTP.dll\WinHttpFreeQueryConnectionGroupResult", "ptr", pResult)
@@ -5990,7 +5995,7 @@ class WinHttp {
      * Creates a handle for use by WinHttpGetProxyForUrlEx.
      * @param {Pointer<Void>} hSession Valid <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> WinHTTP session handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopen">WinHttpOpen</a>. The session handle must be opened using <b>WINHTTP_FLAG_ASYNC</b>.
-     * @param {Pointer<Void>} phResolver A pointer to a new handle for use by <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpgetproxyforurlex">WinHttpGetProxyForUrlEx</a>.  When finished or cancelling an outstanding operation, close this handle with <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpclosehandle">WinHttpCloseHandle</a>.
+     * @param {Pointer<Pointer<Void>>} phResolver A pointer to a new handle for use by <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpgetproxyforurlex">WinHttpGetProxyForUrlEx</a>.  When finished or cancelling an outstanding operation, close this handle with <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpclosehandle">WinHttpCloseHandle</a>.
      * @returns {Integer} A status code indicating the result of the operation.
      * 
      * <table>
@@ -6036,7 +6041,7 @@ class WinHttp {
      * @since windows8.0
      */
     static WinHttpCreateProxyResolver(hSession, phResolver) {
-        result := DllCall("WINHTTP.dll\WinHttpCreateProxyResolver", "ptr", hSession, "ptr", phResolver, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpCreateProxyResolver", "ptr", hSession, "ptr*", phResolver, "uint")
         return result
     }
 
@@ -6479,7 +6484,7 @@ class WinHttp {
      * @param {PWSTR} pcwszConnectionName 
      * @param {BOOL} fFallBackToDefaultSettings 
      * @param {BOOL} fSetAutoDiscoverForDefaultSettings 
-     * @param {Pointer<UInt32>} pdwSettingsVersion 
+     * @param {Pointer<Integer>} pdwSettingsVersion 
      * @param {Pointer<BOOL>} pfDefaultSettingsAreReturned 
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
      * @returns {Integer} 
@@ -6503,7 +6508,7 @@ class WinHttp {
     /**
      * 
      * @param {Pointer<Void>} hSession 
-     * @param {Pointer<UInt32>} pdwProxySettingsVersion 
+     * @param {Pointer<Integer>} pdwProxySettingsVersion 
      * @returns {Integer} 
      */
     static WinHttpGetProxySettingsVersion(hSession, pdwProxySettingsVersion) {
@@ -6611,10 +6616,10 @@ class WinHttp {
      * @param {Integer} dwBufferLength Type: <b>DWORD</b>
      * 
      * Length of <i>pvBuffer</i>, in bytes.
-     * @param {Pointer<UInt32>} pdwBytesRead Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwBytesRead Type: <b>DWORD*</b>
      * 
      * Pointer to a <b>DWORD</b> that receives the number of bytes read from the connection at the end of the operation. This is set only if <b>WinHttpWebSocketReceive</b> returns <b>NO_ERROR</b> and the handle was opened in synchronous mode.
-     * @param {Pointer<Int32>} peBufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ne-winhttp-winhttp_web_socket_buffer_type">WINHTTP_WEB_SOCKET_BUFFER_TYPE</a>*</b>
+     * @param {Pointer<Integer>} peBufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ne-winhttp-winhttp_web_socket_buffer_type">WINHTTP_WEB_SOCKET_BUFFER_TYPE</a>*</b>
      * 
      * The type of a returned buffer. This is only set if <b>WinHttpWebSocketReceive</b> returns <b>NO_ERROR</b> and the handle was opened in synchronous mode.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6798,7 +6803,7 @@ class WinHttp {
      * @param {Pointer<Void>} hWebSocket Type: <b>HINTERNET</b>
      * 
      * Handle to a WebSocket
-     * @param {Pointer<UInt16>} pusStatus Type: <b>USHORT*</b>
+     * @param {Pointer<Integer>} pusStatus Type: <b>USHORT*</b>
      * 
      * A pointer to a close status code that will be filled upon return. See <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ne-winhttp-winhttp_web_socket_close_status">WINHTTP_WEB_SOCKET_CLOSE_STATUS</a> for possible values.
      * @param {Pointer} pvReason Type: <b>PVOID</b>
@@ -6807,7 +6812,7 @@ class WinHttp {
      * @param {Integer} dwReasonLength Type: <b>DWORD</b>
      * 
      * The length of the <i>pvReason</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pdwReasonLengthConsumed Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwReasonLengthConsumed Type: <b>DWORD*</b>
      * 
      * The number of bytes consumed. If <i>pvReason</i> is <b>NULL</b> and <i>dwReasonLength</i> is 0, <i>pdwReasonLengthConsumed</i> will contain the size of the buffer that needs to be allocated by the calling application.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6891,7 +6896,7 @@ class WinHttp {
      * @param {Integer} Flags 
      * @param {Pointer} pvBuffer 
      * @param {Integer} dwBufferLength 
-     * @param {Pointer<UInt32>} pdwBytesRead 
+     * @param {Pointer<Integer>} pdwBytesRead 
      * @returns {Integer} 
      */
     static WinHttpProtocolReceive(ProtocolHandle, Flags, pvBuffer, dwBufferLength, pdwBytesRead) {
@@ -6904,11 +6909,12 @@ class WinHttp {
      * @param {Integer} ullFlags 
      * @param {Pointer<WINHTTP_PROXY_CHANGE_CALLBACK>} pfnCallback 
      * @param {Pointer<Void>} pvContext 
-     * @param {Pointer<Void>} hRegistration 
+     * @param {Pointer<Pointer<Void>>} hRegistration 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpregisterproxychangenotification
      */
     static WinHttpRegisterProxyChangeNotification(ullFlags, pfnCallback, pvContext, hRegistration) {
-        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", pfnCallback, "ptr", pvContext, "ptr", hRegistration, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", pfnCallback, "ptr", pvContext, "ptr*", hRegistration, "uint")
         return result
     }
 
@@ -6916,6 +6922,7 @@ class WinHttp {
      * 
      * @param {Pointer<Void>} hRegistration 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpunregisterproxychangenotification
      */
     static WinHttpUnregisterProxyChangeNotification(hRegistration) {
         result := DllCall("WINHTTP.dll\WinHttpUnregisterProxyChangeNotification", "ptr", hRegistration, "uint")
@@ -6929,6 +6936,7 @@ class WinHttp {
      * @param {Pointer<WINHTTP_PROXY_SETTINGS_PARAM>} pProxySettingsParam 
      * @param {Pointer} pContext 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxysettingsex
      */
     static WinHttpGetProxySettingsEx(hResolver, ProxySettingsType, pProxySettingsParam, pContext) {
         result := DllCall("WINHTTP.dll\WinHttpGetProxySettingsEx", "ptr", hResolver, "int", ProxySettingsType, "ptr", pProxySettingsParam, "ptr", pContext, "uint")
@@ -6940,6 +6948,7 @@ class WinHttp {
      * @param {Pointer<Void>} hResolver 
      * @param {Pointer<Void>} pProxySettingsEx 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxysettingsresultex
      */
     static WinHttpGetProxySettingsResultEx(hResolver, pProxySettingsEx) {
         result := DllCall("WINHTTP.dll\WinHttpGetProxySettingsResultEx", "ptr", hResolver, "ptr", pProxySettingsEx, "uint")
@@ -6951,6 +6960,7 @@ class WinHttp {
      * @param {Integer} ProxySettingsType 
      * @param {Pointer<Void>} pProxySettingsEx 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreeproxysettingsex
      */
     static WinHttpFreeProxySettingsEx(ProxySettingsType, pProxySettingsEx) {
         result := DllCall("WINHTTP.dll\WinHttpFreeProxySettingsEx", "int", ProxySettingsType, "ptr", pProxySettingsEx, "uint")

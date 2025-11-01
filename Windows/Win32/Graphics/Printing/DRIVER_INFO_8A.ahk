@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-8
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

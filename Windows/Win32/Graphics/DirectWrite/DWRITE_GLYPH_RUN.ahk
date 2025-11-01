@@ -17,7 +17,7 @@ class DWRITE_GLYPH_RUN extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
      * 
      * The physical font face object to draw with.
-     * @type {Pointer<IDWriteFontFace>}
+     * @type {IDWriteFontFace}
      */
     fontFace {
         get => NumGet(this, 0, "ptr")
@@ -50,7 +50,7 @@ class DWRITE_GLYPH_RUN extends Win32Struct
      * Type: <b>const UINT16*</b>
      * 
      * A pointer to an array of indices to render for the glyph run.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     glyphIndices {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class DWRITE_GLYPH_RUN extends Win32Struct
      * Type: <b>const FLOAT*</b>
      * 
      * A pointer to an array containing glyph advance widths for the glyph run.
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     glyphAdvances {
         get => NumGet(this, 24, "ptr")

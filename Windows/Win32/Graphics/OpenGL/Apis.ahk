@@ -4169,6 +4169,7 @@ class OpenGL {
      * @param {Integer} op 
      * @param {Float} value 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glaccum
      */
     static glAccum(op, value) {
         DllCall("OPENGL32.dll\glAccum", "uint", op, "float", value)
@@ -4179,6 +4180,7 @@ class OpenGL {
      * @param {Integer} func 
      * @param {Float} ref 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glalphafunc
      */
     static glAlphaFunc(func, ref) {
         DllCall("OPENGL32.dll\glAlphaFunc", "uint", func, "float", ref)
@@ -4187,9 +4189,10 @@ class OpenGL {
     /**
      * 
      * @param {Integer} n 
-     * @param {Pointer<UInt32>} textures 
-     * @param {Pointer<Byte>} residences 
+     * @param {Pointer<Integer>} textures 
+     * @param {Pointer<Integer>} residences 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glaretexturesresident
      */
     static glAreTexturesResident(n, textures, residences) {
         result := DllCall("OPENGL32.dll\glAreTexturesResident", "int", n, "uint*", textures, "char*", residences, "char")
@@ -4200,6 +4203,7 @@ class OpenGL {
      * 
      * @param {Integer} i 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glarrayelement
      */
     static glArrayElement(i) {
         DllCall("OPENGL32.dll\glArrayElement", "int", i)
@@ -4209,6 +4213,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glbegin
      */
     static glBegin(mode) {
         DllCall("OPENGL32.dll\glBegin", "uint", mode)
@@ -4219,6 +4224,7 @@ class OpenGL {
      * @param {Integer} target 
      * @param {Integer} texture 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glbindtexture
      */
     static glBindTexture(target, texture) {
         DllCall("OPENGL32.dll\glBindTexture", "uint", target, "uint", texture)
@@ -4232,8 +4238,9 @@ class OpenGL {
      * @param {Float} yorig 
      * @param {Float} xmove 
      * @param {Float} ymove 
-     * @param {Pointer<Byte>} bitmap 
+     * @param {Pointer<Integer>} bitmap 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glbitmap
      */
     static glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap) {
         DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, "char*", bitmap)
@@ -4244,6 +4251,7 @@ class OpenGL {
      * @param {Integer} sfactor 
      * @param {Integer} dfactor 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glblendfunc
      */
     static glBlendFunc(sfactor, dfactor) {
         DllCall("OPENGL32.dll\glBlendFunc", "uint", sfactor, "uint", dfactor)
@@ -4253,6 +4261,7 @@ class OpenGL {
      * 
      * @param {Integer} list 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcalllist
      */
     static glCallList(list) {
         DllCall("OPENGL32.dll\glCallList", "uint", list)
@@ -4264,6 +4273,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} lists 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcalllists
      */
     static glCallLists(n, type, lists) {
         DllCall("OPENGL32.dll\glCallLists", "int", n, "uint", type, "ptr", lists)
@@ -4273,6 +4283,7 @@ class OpenGL {
      * 
      * @param {Integer} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glclear
      */
     static glClear(mask) {
         DllCall("OPENGL32.dll\glClear", "uint", mask)
@@ -4285,6 +4296,7 @@ class OpenGL {
      * @param {Float} blue 
      * @param {Float} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearaccum
      */
     static glClearAccum(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glClearAccum", "float", red, "float", green, "float", blue, "float", alpha)
@@ -4297,6 +4309,7 @@ class OpenGL {
      * @param {Float} blue 
      * @param {Float} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearcolor
      */
     static glClearColor(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glClearColor", "float", red, "float", green, "float", blue, "float", alpha)
@@ -4306,6 +4319,7 @@ class OpenGL {
      * 
      * @param {Float} depth 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcleardepth
      */
     static glClearDepth(depth) {
         DllCall("OPENGL32.dll\glClearDepth", "double", depth)
@@ -4315,6 +4329,7 @@ class OpenGL {
      * 
      * @param {Float} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearindex
      */
     static glClearIndex(c) {
         DllCall("OPENGL32.dll\glClearIndex", "float", c)
@@ -4324,6 +4339,7 @@ class OpenGL {
      * 
      * @param {Integer} s 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearstencil
      */
     static glClearStencil(s) {
         DllCall("OPENGL32.dll\glClearStencil", "int", s)
@@ -4332,8 +4348,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} plane 
-     * @param {Pointer<Double>} equation 
+     * @param {Pointer<Float>} equation 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glclipplane
      */
     static glClipPlane(plane, equation) {
         DllCall("OPENGL32.dll\glClipPlane", "uint", plane, "double*", equation)
@@ -4345,6 +4362,7 @@ class OpenGL {
      * @param {Integer} green 
      * @param {Integer} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3b
      */
     static glColor3b(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3b", "char", red, "char", green, "char", blue)
@@ -4352,8 +4370,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<SByte>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3bv
      */
     static glColor3bv(v) {
         DllCall("OPENGL32.dll\glColor3bv", "char*", v)
@@ -4365,6 +4384,7 @@ class OpenGL {
      * @param {Float} green 
      * @param {Float} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3d
      */
     static glColor3d(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3d", "double", red, "double", green, "double", blue)
@@ -4372,8 +4392,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3dv
      */
     static glColor3dv(v) {
         DllCall("OPENGL32.dll\glColor3dv", "double*", v)
@@ -4385,6 +4406,7 @@ class OpenGL {
      * @param {Float} green 
      * @param {Float} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3f
      */
     static glColor3f(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3f", "float", red, "float", green, "float", blue)
@@ -4392,8 +4414,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3fv
      */
     static glColor3fv(v) {
         DllCall("OPENGL32.dll\glColor3fv", "float*", v)
@@ -4405,6 +4428,7 @@ class OpenGL {
      * @param {Integer} green 
      * @param {Integer} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3i
      */
     static glColor3i(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3i", "int", red, "int", green, "int", blue)
@@ -4412,8 +4436,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3iv
      */
     static glColor3iv(v) {
         DllCall("OPENGL32.dll\glColor3iv", "int*", v)
@@ -4425,6 +4450,7 @@ class OpenGL {
      * @param {Integer} green 
      * @param {Integer} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3s
      */
     static glColor3s(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3s", "short", red, "short", green, "short", blue)
@@ -4432,8 +4458,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3sv
      */
     static glColor3sv(v) {
         DllCall("OPENGL32.dll\glColor3sv", "short*", v)
@@ -4445,6 +4472,7 @@ class OpenGL {
      * @param {Integer} green 
      * @param {Integer} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ub
      */
     static glColor3ub(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3ub", "char", red, "char", green, "char", blue)
@@ -4452,8 +4480,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Byte>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ubv
      */
     static glColor3ubv(v) {
         DllCall("OPENGL32.dll\glColor3ubv", "char*", v)
@@ -4465,6 +4494,7 @@ class OpenGL {
      * @param {Integer} green 
      * @param {Integer} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ui
      */
     static glColor3ui(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3ui", "uint", red, "uint", green, "uint", blue)
@@ -4472,8 +4502,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<UInt32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3uiv
      */
     static glColor3uiv(v) {
         DllCall("OPENGL32.dll\glColor3uiv", "uint*", v)
@@ -4485,6 +4516,7 @@ class OpenGL {
      * @param {Integer} green 
      * @param {Integer} blue 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3us
      */
     static glColor3us(red, green, blue) {
         DllCall("OPENGL32.dll\glColor3us", "ushort", red, "ushort", green, "ushort", blue)
@@ -4492,8 +4524,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<UInt16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3usv
      */
     static glColor3usv(v) {
         DllCall("OPENGL32.dll\glColor3usv", "ushort*", v)
@@ -4506,6 +4539,7 @@ class OpenGL {
      * @param {Integer} blue 
      * @param {Integer} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4b
      */
     static glColor4b(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4b", "char", red, "char", green, "char", blue, "char", alpha)
@@ -4513,8 +4547,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<SByte>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4bv
      */
     static glColor4bv(v) {
         DllCall("OPENGL32.dll\glColor4bv", "char*", v)
@@ -4527,6 +4562,7 @@ class OpenGL {
      * @param {Float} blue 
      * @param {Float} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4d
      */
     static glColor4d(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4d", "double", red, "double", green, "double", blue, "double", alpha)
@@ -4534,8 +4570,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4dv
      */
     static glColor4dv(v) {
         DllCall("OPENGL32.dll\glColor4dv", "double*", v)
@@ -4548,6 +4585,7 @@ class OpenGL {
      * @param {Float} blue 
      * @param {Float} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4f
      */
     static glColor4f(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4f", "float", red, "float", green, "float", blue, "float", alpha)
@@ -4555,8 +4593,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4fv
      */
     static glColor4fv(v) {
         DllCall("OPENGL32.dll\glColor4fv", "float*", v)
@@ -4569,6 +4608,7 @@ class OpenGL {
      * @param {Integer} blue 
      * @param {Integer} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4i
      */
     static glColor4i(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4i", "int", red, "int", green, "int", blue, "int", alpha)
@@ -4576,8 +4616,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4iv
      */
     static glColor4iv(v) {
         DllCall("OPENGL32.dll\glColor4iv", "int*", v)
@@ -4590,6 +4631,7 @@ class OpenGL {
      * @param {Integer} blue 
      * @param {Integer} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4s
      */
     static glColor4s(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4s", "short", red, "short", green, "short", blue, "short", alpha)
@@ -4597,8 +4639,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4sv
      */
     static glColor4sv(v) {
         DllCall("OPENGL32.dll\glColor4sv", "short*", v)
@@ -4611,6 +4654,7 @@ class OpenGL {
      * @param {Integer} blue 
      * @param {Integer} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ub
      */
     static glColor4ub(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4ub", "char", red, "char", green, "char", blue, "char", alpha)
@@ -4618,8 +4662,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Byte>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ubv
      */
     static glColor4ubv(v) {
         DllCall("OPENGL32.dll\glColor4ubv", "char*", v)
@@ -4632,6 +4677,7 @@ class OpenGL {
      * @param {Integer} blue 
      * @param {Integer} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ui
      */
     static glColor4ui(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4ui", "uint", red, "uint", green, "uint", blue, "uint", alpha)
@@ -4639,8 +4685,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<UInt32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4uiv
      */
     static glColor4uiv(v) {
         DllCall("OPENGL32.dll\glColor4uiv", "uint*", v)
@@ -4653,6 +4700,7 @@ class OpenGL {
      * @param {Integer} blue 
      * @param {Integer} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4us
      */
     static glColor4us(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColor4us", "ushort", red, "ushort", green, "ushort", blue, "ushort", alpha)
@@ -4660,8 +4708,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<UInt16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4usv
      */
     static glColor4usv(v) {
         DllCall("OPENGL32.dll\glColor4usv", "ushort*", v)
@@ -4674,6 +4723,7 @@ class OpenGL {
      * @param {Integer} blue 
      * @param {Integer} alpha 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolormask
      */
     static glColorMask(red, green, blue, alpha) {
         DllCall("OPENGL32.dll\glColorMask", "char", red, "char", green, "char", blue, "char", alpha)
@@ -4684,6 +4734,7 @@ class OpenGL {
      * @param {Integer} face 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolormaterial
      */
     static glColorMaterial(face, mode) {
         DllCall("OPENGL32.dll\glColorMaterial", "uint", face, "uint", mode)
@@ -4696,6 +4747,7 @@ class OpenGL {
      * @param {Integer} stride 
      * @param {Pointer<Void>} pointer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolorpointer
      */
     static glColorPointer(size, type, stride, pointer) {
         DllCall("OPENGL32.dll\glColorPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
@@ -4709,6 +4761,7 @@ class OpenGL {
      * @param {Integer} height 
      * @param {Integer} type 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopypixels
      */
     static glCopyPixels(x, y, width, height, type) {
         DllCall("OPENGL32.dll\glCopyPixels", "int", x, "int", y, "int", width, "int", height, "uint", type)
@@ -4724,6 +4777,7 @@ class OpenGL {
      * @param {Integer} width 
      * @param {Integer} border 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopyteximage1d
      */
     static glCopyTexImage1D(target, level, internalFormat, x, y, width, border) {
         DllCall("OPENGL32.dll\glCopyTexImage1D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", border)
@@ -4740,6 +4794,7 @@ class OpenGL {
      * @param {Integer} height 
      * @param {Integer} border 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopyteximage2d
      */
     static glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border) {
         DllCall("OPENGL32.dll\glCopyTexImage2D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", height, "int", border)
@@ -4754,6 +4809,7 @@ class OpenGL {
      * @param {Integer} y 
      * @param {Integer} width 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopytexsubimage1d
      */
     static glCopyTexSubImage1D(target, level, xoffset, x, y, width) {
         DllCall("OPENGL32.dll\glCopyTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", x, "int", y, "int", width)
@@ -4770,6 +4826,7 @@ class OpenGL {
      * @param {Integer} width 
      * @param {Integer} height 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopytexsubimage2d
      */
     static glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height) {
         DllCall("OPENGL32.dll\glCopyTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", x, "int", y, "int", width, "int", height)
@@ -4779,6 +4836,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glcullface
      */
     static glCullFace(mode) {
         DllCall("OPENGL32.dll\glCullFace", "uint", mode)
@@ -4789,6 +4847,7 @@ class OpenGL {
      * @param {Integer} list 
      * @param {Integer} range 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldeletelists
      */
     static glDeleteLists(list, range) {
         DllCall("OPENGL32.dll\glDeleteLists", "uint", list, "int", range)
@@ -4797,8 +4856,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} n 
-     * @param {Pointer<UInt32>} textures 
+     * @param {Pointer<Integer>} textures 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldeletetextures
      */
     static glDeleteTextures(n, textures) {
         DllCall("OPENGL32.dll\glDeleteTextures", "int", n, "uint*", textures)
@@ -4808,6 +4868,7 @@ class OpenGL {
      * 
      * @param {Integer} func 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthfunc
      */
     static glDepthFunc(func) {
         DllCall("OPENGL32.dll\glDepthFunc", "uint", func)
@@ -4817,6 +4878,7 @@ class OpenGL {
      * 
      * @param {Integer} flag 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthmask
      */
     static glDepthMask(flag) {
         DllCall("OPENGL32.dll\glDepthMask", "char", flag)
@@ -4827,6 +4889,7 @@ class OpenGL {
      * @param {Float} zNear 
      * @param {Float} zFar 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthrange
      */
     static glDepthRange(zNear, zFar) {
         DllCall("OPENGL32.dll\glDepthRange", "double", zNear, "double", zFar)
@@ -4836,6 +4899,7 @@ class OpenGL {
      * 
      * @param {Integer} cap 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldisable
      */
     static glDisable(cap) {
         DllCall("OPENGL32.dll\glDisable", "uint", cap)
@@ -4845,6 +4909,7 @@ class OpenGL {
      * 
      * @param {Integer} array 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldisableclientstate
      */
     static glDisableClientState(array) {
         DllCall("OPENGL32.dll\glDisableClientState", "uint", array)
@@ -4856,6 +4921,7 @@ class OpenGL {
      * @param {Integer} first 
      * @param {Integer} count 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawarrays
      */
     static glDrawArrays(mode, first, count) {
         DllCall("OPENGL32.dll\glDrawArrays", "uint", mode, "int", first, "int", count)
@@ -4865,6 +4931,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawbuffer
      */
     static glDrawBuffer(mode) {
         DllCall("OPENGL32.dll\glDrawBuffer", "uint", mode)
@@ -4877,6 +4944,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} indices 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawelements
      */
     static glDrawElements(mode, count, type, indices) {
         DllCall("OPENGL32.dll\glDrawElements", "uint", mode, "int", count, "uint", type, "ptr", indices)
@@ -4890,6 +4958,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} pixels 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawpixels
      */
     static glDrawPixels(width, height, format, type, pixels) {
         DllCall("OPENGL32.dll\glDrawPixels", "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
@@ -4899,6 +4968,7 @@ class OpenGL {
      * 
      * @param {Integer} flag 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflag
      */
     static glEdgeFlag(flag) {
         DllCall("OPENGL32.dll\glEdgeFlag", "char", flag)
@@ -4909,6 +4979,7 @@ class OpenGL {
      * @param {Integer} stride 
      * @param {Pointer<Void>} pointer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflagpointer
      */
     static glEdgeFlagPointer(stride, pointer) {
         DllCall("OPENGL32.dll\glEdgeFlagPointer", "int", stride, "ptr", pointer)
@@ -4916,8 +4987,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Byte>} flag 
+     * @param {Pointer<Integer>} flag 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflagv
      */
     static glEdgeFlagv(flag) {
         DllCall("OPENGL32.dll\glEdgeFlagv", "char*", flag)
@@ -4927,6 +4999,7 @@ class OpenGL {
      * 
      * @param {Integer} cap 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glenable
      */
     static glEnable(cap) {
         DllCall("OPENGL32.dll\glEnable", "uint", cap)
@@ -4936,6 +5009,7 @@ class OpenGL {
      * 
      * @param {Integer} array 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glenableclientstate
      */
     static glEnableClientState(array) {
         DllCall("OPENGL32.dll\glEnableClientState", "uint", array)
@@ -4944,6 +5018,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glend
      */
     static glEnd() {
         DllCall("OPENGL32.dll\glEnd")
@@ -4952,6 +5027,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glendlist
      */
     static glEndList() {
         DllCall("OPENGL32.dll\glEndList")
@@ -4961,6 +5037,7 @@ class OpenGL {
      * 
      * @param {Float} u 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1d
      */
     static glEvalCoord1d(u) {
         DllCall("OPENGL32.dll\glEvalCoord1d", "double", u)
@@ -4968,8 +5045,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} u 
+     * @param {Pointer<Float>} u 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1dv
      */
     static glEvalCoord1dv(u) {
         DllCall("OPENGL32.dll\glEvalCoord1dv", "double*", u)
@@ -4979,6 +5057,7 @@ class OpenGL {
      * 
      * @param {Float} u 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1f
      */
     static glEvalCoord1f(u) {
         DllCall("OPENGL32.dll\glEvalCoord1f", "float", u)
@@ -4986,8 +5065,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} u 
+     * @param {Pointer<Float>} u 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1fv
      */
     static glEvalCoord1fv(u) {
         DllCall("OPENGL32.dll\glEvalCoord1fv", "float*", u)
@@ -4998,6 +5078,7 @@ class OpenGL {
      * @param {Float} u 
      * @param {Float} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2d
      */
     static glEvalCoord2d(u, v) {
         DllCall("OPENGL32.dll\glEvalCoord2d", "double", u, "double", v)
@@ -5005,8 +5086,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} u 
+     * @param {Pointer<Float>} u 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2dv
      */
     static glEvalCoord2dv(u) {
         DllCall("OPENGL32.dll\glEvalCoord2dv", "double*", u)
@@ -5017,6 +5099,7 @@ class OpenGL {
      * @param {Float} u 
      * @param {Float} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2f
      */
     static glEvalCoord2f(u, v) {
         DllCall("OPENGL32.dll\glEvalCoord2f", "float", u, "float", v)
@@ -5024,8 +5107,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} u 
+     * @param {Pointer<Float>} u 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2fv
      */
     static glEvalCoord2fv(u) {
         DllCall("OPENGL32.dll\glEvalCoord2fv", "float*", u)
@@ -5037,6 +5121,7 @@ class OpenGL {
      * @param {Integer} i1 
      * @param {Integer} i2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh1
      */
     static glEvalMesh1(mode, i1, i2) {
         DllCall("OPENGL32.dll\glEvalMesh1", "uint", mode, "int", i1, "int", i2)
@@ -5050,6 +5135,7 @@ class OpenGL {
      * @param {Integer} j1 
      * @param {Integer} j2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh2
      */
     static glEvalMesh2(mode, i1, i2, j1, j2) {
         DllCall("OPENGL32.dll\glEvalMesh2", "uint", mode, "int", i1, "int", i2, "int", j1, "int", j2)
@@ -5059,6 +5145,7 @@ class OpenGL {
      * 
      * @param {Integer} i 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalpoint1
      */
     static glEvalPoint1(i) {
         DllCall("OPENGL32.dll\glEvalPoint1", "int", i)
@@ -5069,6 +5156,7 @@ class OpenGL {
      * @param {Integer} i 
      * @param {Integer} j 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalpoint2
      */
     static glEvalPoint2(i, j) {
         DllCall("OPENGL32.dll\glEvalPoint2", "int", i, "int", j)
@@ -5078,8 +5166,9 @@ class OpenGL {
      * 
      * @param {Integer} size 
      * @param {Integer} type 
-     * @param {Pointer<Single>} buffer 
+     * @param {Pointer<Float>} buffer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfeedbackbuffer
      */
     static glFeedbackBuffer(size, type, buffer) {
         DllCall("OPENGL32.dll\glFeedbackBuffer", "int", size, "uint", type, "float*", buffer)
@@ -5088,6 +5177,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfinish
      */
     static glFinish() {
         DllCall("OPENGL32.dll\glFinish")
@@ -5096,6 +5186,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glflush
      */
     static glFlush() {
         DllCall("OPENGL32.dll\glFlush")
@@ -5106,6 +5197,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogf
      */
     static glFogf(pname, param1) {
         DllCall("OPENGL32.dll\glFogf", "uint", pname, "float", param1)
@@ -5114,8 +5206,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogfv
      */
     static glFogfv(pname, params) {
         DllCall("OPENGL32.dll\glFogfv", "uint", pname, "float*", params)
@@ -5126,6 +5219,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogi
      */
     static glFogi(pname, param1) {
         DllCall("OPENGL32.dll\glFogi", "uint", pname, "int", param1)
@@ -5134,8 +5228,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogiv
      */
     static glFogiv(pname, params) {
         DllCall("OPENGL32.dll\glFogiv", "uint", pname, "int*", params)
@@ -5145,6 +5240,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfrontface
      */
     static glFrontFace(mode) {
         DllCall("OPENGL32.dll\glFrontFace", "uint", mode)
@@ -5159,6 +5255,7 @@ class OpenGL {
      * @param {Float} zNear 
      * @param {Float} zFar 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glfrustum
      */
     static glFrustum(left, right, bottom, top, zNear, zFar) {
         DllCall("OPENGL32.dll\glFrustum", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
@@ -5168,6 +5265,7 @@ class OpenGL {
      * 
      * @param {Integer} range 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgenlists
      */
     static glGenLists(range) {
         result := DllCall("OPENGL32.dll\glGenLists", "int", range, "uint")
@@ -5177,8 +5275,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} n 
-     * @param {Pointer<UInt32>} textures 
+     * @param {Pointer<Integer>} textures 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgentextures
      */
     static glGenTextures(n, textures) {
         DllCall("OPENGL32.dll\glGenTextures", "int", n, "uint*", textures)
@@ -5187,8 +5286,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Byte>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetbooleanv
      */
     static glGetBooleanv(pname, params) {
         DllCall("OPENGL32.dll\glGetBooleanv", "uint", pname, "char*", params)
@@ -5197,8 +5297,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} plane 
-     * @param {Pointer<Double>} equation 
+     * @param {Pointer<Float>} equation 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetclipplane
      */
     static glGetClipPlane(plane, equation) {
         DllCall("OPENGL32.dll\glGetClipPlane", "uint", plane, "double*", equation)
@@ -5207,8 +5308,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Double>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetdoublev
      */
     static glGetDoublev(pname, params) {
         DllCall("OPENGL32.dll\glGetDoublev", "uint", pname, "double*", params)
@@ -5217,6 +5319,7 @@ class OpenGL {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgeterror
      */
     static glGetError() {
         result := DllCall("OPENGL32.dll\glGetError", "uint")
@@ -5226,8 +5329,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetfloatv
      */
     static glGetFloatv(pname, params) {
         DllCall("OPENGL32.dll\glGetFloatv", "uint", pname, "float*", params)
@@ -5236,8 +5340,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetintegerv
      */
     static glGetIntegerv(pname, params) {
         DllCall("OPENGL32.dll\glGetIntegerv", "uint", pname, "int*", params)
@@ -5247,8 +5352,9 @@ class OpenGL {
      * 
      * @param {Integer} light 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetlightfv
      */
     static glGetLightfv(light, pname, params) {
         DllCall("OPENGL32.dll\glGetLightfv", "uint", light, "uint", pname, "float*", params)
@@ -5258,8 +5364,9 @@ class OpenGL {
      * 
      * @param {Integer} light 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetlightiv
      */
     static glGetLightiv(light, pname, params) {
         DllCall("OPENGL32.dll\glGetLightiv", "uint", light, "uint", pname, "int*", params)
@@ -5269,8 +5376,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} query 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapdv
      */
     static glGetMapdv(target, query, v) {
         DllCall("OPENGL32.dll\glGetMapdv", "uint", target, "uint", query, "double*", v)
@@ -5280,8 +5388,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} query 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapfv
      */
     static glGetMapfv(target, query, v) {
         DllCall("OPENGL32.dll\glGetMapfv", "uint", target, "uint", query, "float*", v)
@@ -5291,8 +5400,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} query 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmapiv
      */
     static glGetMapiv(target, query, v) {
         DllCall("OPENGL32.dll\glGetMapiv", "uint", target, "uint", query, "int*", v)
@@ -5302,8 +5412,9 @@ class OpenGL {
      * 
      * @param {Integer} face 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmaterialfv
      */
     static glGetMaterialfv(face, pname, params) {
         DllCall("OPENGL32.dll\glGetMaterialfv", "uint", face, "uint", pname, "float*", params)
@@ -5313,8 +5424,9 @@ class OpenGL {
      * 
      * @param {Integer} face 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetmaterialiv
      */
     static glGetMaterialiv(face, pname, params) {
         DllCall("OPENGL32.dll\glGetMaterialiv", "uint", face, "uint", pname, "int*", params)
@@ -5323,8 +5435,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} map 
-     * @param {Pointer<Single>} values 
+     * @param {Pointer<Float>} values 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapfv
      */
     static glGetPixelMapfv(map, values) {
         DllCall("OPENGL32.dll\glGetPixelMapfv", "uint", map, "float*", values)
@@ -5333,8 +5446,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} map 
-     * @param {Pointer<UInt32>} values 
+     * @param {Pointer<Integer>} values 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapuiv
      */
     static glGetPixelMapuiv(map, values) {
         DllCall("OPENGL32.dll\glGetPixelMapuiv", "uint", map, "uint*", values)
@@ -5343,8 +5457,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} map 
-     * @param {Pointer<UInt16>} values 
+     * @param {Pointer<Integer>} values 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpixelmapusv
      */
     static glGetPixelMapusv(map, values) {
         DllCall("OPENGL32.dll\glGetPixelMapusv", "uint", map, "ushort*", values)
@@ -5353,17 +5468,19 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Void>} params 
+     * @param {Pointer<Pointer<Void>>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpointerv
      */
     static glGetPointerv(pname, params) {
-        DllCall("OPENGL32.dll\glGetPointerv", "uint", pname, "ptr", params)
+        DllCall("OPENGL32.dll\glGetPointerv", "uint", pname, "ptr*", params)
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} mask 
+     * @param {Pointer<Integer>} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpolygonstipple
      */
     static glGetPolygonStipple(mask) {
         DllCall("OPENGL32.dll\glGetPolygonStipple", "char*", mask)
@@ -5372,7 +5489,8 @@ class OpenGL {
     /**
      * 
      * @param {Integer} name 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetstring
      */
     static glGetString(name) {
         result := DllCall("OPENGL32.dll\glGetString", "uint", name, "char*")
@@ -5383,8 +5501,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexenvfv
      */
     static glGetTexEnvfv(target, pname, params) {
         DllCall("OPENGL32.dll\glGetTexEnvfv", "uint", target, "uint", pname, "float*", params)
@@ -5394,8 +5513,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexenviv
      */
     static glGetTexEnviv(target, pname, params) {
         DllCall("OPENGL32.dll\glGetTexEnviv", "uint", target, "uint", pname, "int*", params)
@@ -5405,8 +5525,9 @@ class OpenGL {
      * 
      * @param {Integer} coord 
      * @param {Integer} pname 
-     * @param {Pointer<Double>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgendv
      */
     static glGetTexGendv(coord, pname, params) {
         DllCall("OPENGL32.dll\glGetTexGendv", "uint", coord, "uint", pname, "double*", params)
@@ -5416,8 +5537,9 @@ class OpenGL {
      * 
      * @param {Integer} coord 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgenfv
      */
     static glGetTexGenfv(coord, pname, params) {
         DllCall("OPENGL32.dll\glGetTexGenfv", "uint", coord, "uint", pname, "float*", params)
@@ -5427,8 +5549,9 @@ class OpenGL {
      * 
      * @param {Integer} coord 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgeniv
      */
     static glGetTexGeniv(coord, pname, params) {
         DllCall("OPENGL32.dll\glGetTexGeniv", "uint", coord, "uint", pname, "int*", params)
@@ -5442,6 +5565,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} pixels 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetteximage
      */
     static glGetTexImage(target, level, format, type, pixels) {
         DllCall("OPENGL32.dll\glGetTexImage", "uint", target, "int", level, "uint", format, "uint", type, "ptr", pixels)
@@ -5452,8 +5576,9 @@ class OpenGL {
      * @param {Integer} target 
      * @param {Integer} level 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexlevelparameterfv
      */
     static glGetTexLevelParameterfv(target, level, pname, params) {
         DllCall("OPENGL32.dll\glGetTexLevelParameterfv", "uint", target, "int", level, "uint", pname, "float*", params)
@@ -5464,8 +5589,9 @@ class OpenGL {
      * @param {Integer} target 
      * @param {Integer} level 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexlevelparameteriv
      */
     static glGetTexLevelParameteriv(target, level, pname, params) {
         DllCall("OPENGL32.dll\glGetTexLevelParameteriv", "uint", target, "int", level, "uint", pname, "int*", params)
@@ -5475,8 +5601,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexparameterfv
      */
     static glGetTexParameterfv(target, pname, params) {
         DllCall("OPENGL32.dll\glGetTexParameterfv", "uint", target, "uint", pname, "float*", params)
@@ -5486,8 +5613,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexparameteriv
      */
     static glGetTexParameteriv(target, pname, params) {
         DllCall("OPENGL32.dll\glGetTexParameteriv", "uint", target, "uint", pname, "int*", params)
@@ -5498,6 +5626,7 @@ class OpenGL {
      * @param {Integer} target 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glhint
      */
     static glHint(target, mode) {
         DllCall("OPENGL32.dll\glHint", "uint", target, "uint", mode)
@@ -5507,6 +5636,7 @@ class OpenGL {
      * 
      * @param {Integer} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexmask
      */
     static glIndexMask(mask) {
         DllCall("OPENGL32.dll\glIndexMask", "uint", mask)
@@ -5518,6 +5648,7 @@ class OpenGL {
      * @param {Integer} stride 
      * @param {Pointer<Void>} pointer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexpointer
      */
     static glIndexPointer(type, stride, pointer) {
         DllCall("OPENGL32.dll\glIndexPointer", "uint", type, "int", stride, "ptr", pointer)
@@ -5527,6 +5658,7 @@ class OpenGL {
      * 
      * @param {Float} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexd
      */
     static glIndexd(c) {
         DllCall("OPENGL32.dll\glIndexd", "double", c)
@@ -5534,8 +5666,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} c 
+     * @param {Pointer<Float>} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexdv
      */
     static glIndexdv(c) {
         DllCall("OPENGL32.dll\glIndexdv", "double*", c)
@@ -5545,6 +5678,7 @@ class OpenGL {
      * 
      * @param {Float} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexf
      */
     static glIndexf(c) {
         DllCall("OPENGL32.dll\glIndexf", "float", c)
@@ -5552,8 +5686,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} c 
+     * @param {Pointer<Float>} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexfv
      */
     static glIndexfv(c) {
         DllCall("OPENGL32.dll\glIndexfv", "float*", c)
@@ -5563,6 +5698,7 @@ class OpenGL {
      * 
      * @param {Integer} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexi
      */
     static glIndexi(c) {
         DllCall("OPENGL32.dll\glIndexi", "int", c)
@@ -5570,8 +5706,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} c 
+     * @param {Pointer<Integer>} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexiv
      */
     static glIndexiv(c) {
         DllCall("OPENGL32.dll\glIndexiv", "int*", c)
@@ -5581,6 +5718,7 @@ class OpenGL {
      * 
      * @param {Integer} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexs
      */
     static glIndexs(c) {
         DllCall("OPENGL32.dll\glIndexs", "short", c)
@@ -5588,8 +5726,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} c 
+     * @param {Pointer<Integer>} c 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexsv
      */
     static glIndexsv(c) {
         DllCall("OPENGL32.dll\glIndexsv", "short*", c)
@@ -5606,7 +5745,7 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Byte>} c 
+     * @param {Pointer<Integer>} c 
      * @returns {String} Nothing - always returns an empty string
      */
     static glIndexubv(c) {
@@ -5616,6 +5755,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glinitnames
      */
     static glInitNames() {
         DllCall("OPENGL32.dll\glInitNames")
@@ -5627,6 +5767,7 @@ class OpenGL {
      * @param {Integer} stride 
      * @param {Pointer<Void>} pointer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glinterleavedarrays
      */
     static glInterleavedArrays(format, stride, pointer) {
         DllCall("OPENGL32.dll\glInterleavedArrays", "uint", format, "int", stride, "ptr", pointer)
@@ -5636,6 +5777,7 @@ class OpenGL {
      * 
      * @param {Integer} cap 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glisenabled
      */
     static glIsEnabled(cap) {
         result := DllCall("OPENGL32.dll\glIsEnabled", "uint", cap, "char")
@@ -5646,6 +5788,7 @@ class OpenGL {
      * 
      * @param {Integer} list 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glislist
      */
     static glIsList(list) {
         result := DllCall("OPENGL32.dll\glIsList", "uint", list, "char")
@@ -5656,6 +5799,7 @@ class OpenGL {
      * 
      * @param {Integer} texture 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glistexture
      */
     static glIsTexture(texture) {
         result := DllCall("OPENGL32.dll\glIsTexture", "uint", texture, "char")
@@ -5667,6 +5811,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodelf
      */
     static glLightModelf(pname, param1) {
         DllCall("OPENGL32.dll\glLightModelf", "uint", pname, "float", param1)
@@ -5675,8 +5820,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodelfv
      */
     static glLightModelfv(pname, params) {
         DllCall("OPENGL32.dll\glLightModelfv", "uint", pname, "float*", params)
@@ -5687,6 +5833,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodeli
      */
     static glLightModeli(pname, param1) {
         DllCall("OPENGL32.dll\glLightModeli", "uint", pname, "int", param1)
@@ -5695,8 +5842,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodeliv
      */
     static glLightModeliv(pname, params) {
         DllCall("OPENGL32.dll\glLightModeliv", "uint", pname, "int*", params)
@@ -5708,6 +5856,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightf
      */
     static glLightf(light, pname, param2) {
         DllCall("OPENGL32.dll\glLightf", "uint", light, "uint", pname, "float", param2)
@@ -5717,8 +5866,9 @@ class OpenGL {
      * 
      * @param {Integer} light 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightfv
      */
     static glLightfv(light, pname, params) {
         DllCall("OPENGL32.dll\glLightfv", "uint", light, "uint", pname, "float*", params)
@@ -5730,6 +5880,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllighti
      */
     static glLighti(light, pname, param2) {
         DllCall("OPENGL32.dll\glLighti", "uint", light, "uint", pname, "int", param2)
@@ -5739,8 +5890,9 @@ class OpenGL {
      * 
      * @param {Integer} light 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightiv
      */
     static glLightiv(light, pname, params) {
         DllCall("OPENGL32.dll\glLightiv", "uint", light, "uint", pname, "int*", params)
@@ -5751,6 +5903,7 @@ class OpenGL {
      * @param {Integer} factor 
      * @param {Integer} pattern 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllinestipple
      */
     static glLineStipple(factor, pattern) {
         DllCall("OPENGL32.dll\glLineStipple", "int", factor, "ushort", pattern)
@@ -5760,6 +5913,7 @@ class OpenGL {
      * 
      * @param {Float} width 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllinewidth
      */
     static glLineWidth(width) {
         DllCall("OPENGL32.dll\glLineWidth", "float", width)
@@ -5769,6 +5923,7 @@ class OpenGL {
      * 
      * @param {Integer} base 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllistbase
      */
     static glListBase(base) {
         DllCall("OPENGL32.dll\glListBase", "uint", base)
@@ -5777,6 +5932,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadidentity
      */
     static glLoadIdentity() {
         DllCall("OPENGL32.dll\glLoadIdentity")
@@ -5784,8 +5940,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} m 
+     * @param {Pointer<Float>} m 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadmatrixd
      */
     static glLoadMatrixd(m) {
         DllCall("OPENGL32.dll\glLoadMatrixd", "double*", m)
@@ -5793,8 +5950,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} m 
+     * @param {Pointer<Float>} m 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadmatrixf
      */
     static glLoadMatrixf(m) {
         DllCall("OPENGL32.dll\glLoadMatrixf", "float*", m)
@@ -5804,6 +5962,7 @@ class OpenGL {
      * 
      * @param {Integer} name 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadname
      */
     static glLoadName(name) {
         DllCall("OPENGL32.dll\glLoadName", "uint", name)
@@ -5813,6 +5972,7 @@ class OpenGL {
      * 
      * @param {Integer} opcode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gllogicop
      */
     static glLogicOp(opcode) {
         DllCall("OPENGL32.dll\glLogicOp", "uint", opcode)
@@ -5825,8 +5985,9 @@ class OpenGL {
      * @param {Float} u2 
      * @param {Integer} stride 
      * @param {Integer} order 
-     * @param {Pointer<Double>} points 
+     * @param {Pointer<Float>} points 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1d
      */
     static glMap1d(target, u1, u2, stride, order, points) {
         DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, "double*", points)
@@ -5839,8 +6000,9 @@ class OpenGL {
      * @param {Float} u2 
      * @param {Integer} stride 
      * @param {Integer} order 
-     * @param {Pointer<Single>} points 
+     * @param {Pointer<Float>} points 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1f
      */
     static glMap1f(target, u1, u2, stride, order, points) {
         DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, "float*", points)
@@ -5857,8 +6019,9 @@ class OpenGL {
      * @param {Float} v2 
      * @param {Integer} vstride 
      * @param {Integer} vorder 
-     * @param {Pointer<Double>} points 
+     * @param {Pointer<Float>} points 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2d
      */
     static glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
         DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, "double*", points)
@@ -5875,8 +6038,9 @@ class OpenGL {
      * @param {Float} v2 
      * @param {Integer} vstride 
      * @param {Integer} vorder 
-     * @param {Pointer<Single>} points 
+     * @param {Pointer<Float>} points 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2f
      */
     static glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
         DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, "float*", points)
@@ -5888,6 +6052,7 @@ class OpenGL {
      * @param {Float} u1 
      * @param {Float} u2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid1d
      */
     static glMapGrid1d(un, u1, u2) {
         DllCall("OPENGL32.dll\glMapGrid1d", "int", un, "double", u1, "double", u2)
@@ -5899,6 +6064,7 @@ class OpenGL {
      * @param {Float} u1 
      * @param {Float} u2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid1f
      */
     static glMapGrid1f(un, u1, u2) {
         DllCall("OPENGL32.dll\glMapGrid1f", "int", un, "float", u1, "float", u2)
@@ -5913,6 +6079,7 @@ class OpenGL {
      * @param {Float} v1 
      * @param {Float} v2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid2d
      */
     static glMapGrid2d(un, u1, u2, vn, v1, v2) {
         DllCall("OPENGL32.dll\glMapGrid2d", "int", un, "double", u1, "double", u2, "int", vn, "double", v1, "double", v2)
@@ -5927,6 +6094,7 @@ class OpenGL {
      * @param {Float} v1 
      * @param {Float} v2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid2f
      */
     static glMapGrid2f(un, u1, u2, vn, v1, v2) {
         DllCall("OPENGL32.dll\glMapGrid2f", "int", un, "float", u1, "float", u2, "int", vn, "float", v1, "float", v2)
@@ -5938,6 +6106,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialf
      */
     static glMaterialf(face, pname, param2) {
         DllCall("OPENGL32.dll\glMaterialf", "uint", face, "uint", pname, "float", param2)
@@ -5947,8 +6116,9 @@ class OpenGL {
      * 
      * @param {Integer} face 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialfv
      */
     static glMaterialfv(face, pname, params) {
         DllCall("OPENGL32.dll\glMaterialfv", "uint", face, "uint", pname, "float*", params)
@@ -5960,6 +6130,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmateriali
      */
     static glMateriali(face, pname, param2) {
         DllCall("OPENGL32.dll\glMateriali", "uint", face, "uint", pname, "int", param2)
@@ -5969,8 +6140,9 @@ class OpenGL {
      * 
      * @param {Integer} face 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialiv
      */
     static glMaterialiv(face, pname, params) {
         DllCall("OPENGL32.dll\glMaterialiv", "uint", face, "uint", pname, "int*", params)
@@ -5980,6 +6152,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmatrixmode
      */
     static glMatrixMode(mode) {
         DllCall("OPENGL32.dll\glMatrixMode", "uint", mode)
@@ -5987,8 +6160,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} m 
+     * @param {Pointer<Float>} m 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmultmatrixd
      */
     static glMultMatrixd(m) {
         DllCall("OPENGL32.dll\glMultMatrixd", "double*", m)
@@ -5996,8 +6170,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} m 
+     * @param {Pointer<Float>} m 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glmultmatrixf
      */
     static glMultMatrixf(m) {
         DllCall("OPENGL32.dll\glMultMatrixf", "float*", m)
@@ -6008,6 +6183,7 @@ class OpenGL {
      * @param {Integer} list 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnewlist
      */
     static glNewList(list, mode) {
         DllCall("OPENGL32.dll\glNewList", "uint", list, "uint", mode)
@@ -6019,6 +6195,7 @@ class OpenGL {
      * @param {Integer} ny 
      * @param {Integer} nz 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3b
      */
     static glNormal3b(nx, ny, nz) {
         DllCall("OPENGL32.dll\glNormal3b", "char", nx, "char", ny, "char", nz)
@@ -6026,8 +6203,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<SByte>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3bv
      */
     static glNormal3bv(v) {
         DllCall("OPENGL32.dll\glNormal3bv", "char*", v)
@@ -6039,6 +6217,7 @@ class OpenGL {
      * @param {Float} ny 
      * @param {Float} nz 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3d
      */
     static glNormal3d(nx, ny, nz) {
         DllCall("OPENGL32.dll\glNormal3d", "double", nx, "double", ny, "double", nz)
@@ -6046,8 +6225,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3dv
      */
     static glNormal3dv(v) {
         DllCall("OPENGL32.dll\glNormal3dv", "double*", v)
@@ -6059,6 +6239,7 @@ class OpenGL {
      * @param {Float} ny 
      * @param {Float} nz 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3f
      */
     static glNormal3f(nx, ny, nz) {
         DllCall("OPENGL32.dll\glNormal3f", "float", nx, "float", ny, "float", nz)
@@ -6066,8 +6247,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3fv
      */
     static glNormal3fv(v) {
         DllCall("OPENGL32.dll\glNormal3fv", "float*", v)
@@ -6079,6 +6261,7 @@ class OpenGL {
      * @param {Integer} ny 
      * @param {Integer} nz 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3i
      */
     static glNormal3i(nx, ny, nz) {
         DllCall("OPENGL32.dll\glNormal3i", "int", nx, "int", ny, "int", nz)
@@ -6086,8 +6269,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3iv
      */
     static glNormal3iv(v) {
         DllCall("OPENGL32.dll\glNormal3iv", "int*", v)
@@ -6099,6 +6283,7 @@ class OpenGL {
      * @param {Integer} ny 
      * @param {Integer} nz 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3s
      */
     static glNormal3s(nx, ny, nz) {
         DllCall("OPENGL32.dll\glNormal3s", "short", nx, "short", ny, "short", nz)
@@ -6106,8 +6291,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3sv
      */
     static glNormal3sv(v) {
         DllCall("OPENGL32.dll\glNormal3sv", "short*", v)
@@ -6119,6 +6305,7 @@ class OpenGL {
      * @param {Integer} stride 
      * @param {Pointer<Void>} pointer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormalpointer
      */
     static glNormalPointer(type, stride, pointer) {
         DllCall("OPENGL32.dll\glNormalPointer", "uint", type, "int", stride, "ptr", pointer)
@@ -6133,6 +6320,7 @@ class OpenGL {
      * @param {Float} zNear 
      * @param {Float} zFar 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glortho
      */
     static glOrtho(left, right, bottom, top, zNear, zFar) {
         DllCall("OPENGL32.dll\glOrtho", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
@@ -6142,6 +6330,7 @@ class OpenGL {
      * 
      * @param {Float} token 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpassthrough
      */
     static glPassThrough(token) {
         DllCall("OPENGL32.dll\glPassThrough", "float", token)
@@ -6151,8 +6340,9 @@ class OpenGL {
      * 
      * @param {Integer} map 
      * @param {Integer} mapsize 
-     * @param {Pointer<Single>} values 
+     * @param {Pointer<Float>} values 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapfv
      */
     static glPixelMapfv(map, mapsize, values) {
         DllCall("OPENGL32.dll\glPixelMapfv", "uint", map, "int", mapsize, "float*", values)
@@ -6162,8 +6352,9 @@ class OpenGL {
      * 
      * @param {Integer} map 
      * @param {Integer} mapsize 
-     * @param {Pointer<UInt32>} values 
+     * @param {Pointer<Integer>} values 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapuiv
      */
     static glPixelMapuiv(map, mapsize, values) {
         DllCall("OPENGL32.dll\glPixelMapuiv", "uint", map, "int", mapsize, "uint*", values)
@@ -6173,8 +6364,9 @@ class OpenGL {
      * 
      * @param {Integer} map 
      * @param {Integer} mapsize 
-     * @param {Pointer<UInt16>} values 
+     * @param {Pointer<Integer>} values 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelmapusv
      */
     static glPixelMapusv(map, mapsize, values) {
         DllCall("OPENGL32.dll\glPixelMapusv", "uint", map, "int", mapsize, "ushort*", values)
@@ -6185,6 +6377,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelstoref
      */
     static glPixelStoref(pname, param1) {
         DllCall("OPENGL32.dll\glPixelStoref", "uint", pname, "float", param1)
@@ -6195,6 +6388,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelstorei
      */
     static glPixelStorei(pname, param1) {
         DllCall("OPENGL32.dll\glPixelStorei", "uint", pname, "int", param1)
@@ -6205,6 +6399,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixeltransferf
      */
     static glPixelTransferf(pname, param1) {
         DllCall("OPENGL32.dll\glPixelTransferf", "uint", pname, "float", param1)
@@ -6215,6 +6410,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param1 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixeltransferi
      */
     static glPixelTransferi(pname, param1) {
         DllCall("OPENGL32.dll\glPixelTransferi", "uint", pname, "int", param1)
@@ -6225,6 +6421,7 @@ class OpenGL {
      * @param {Float} xfactor 
      * @param {Float} yfactor 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelzoom
      */
     static glPixelZoom(xfactor, yfactor) {
         DllCall("OPENGL32.dll\glPixelZoom", "float", xfactor, "float", yfactor)
@@ -6234,6 +6431,7 @@ class OpenGL {
      * 
      * @param {Float} size 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpointsize
      */
     static glPointSize(size) {
         DllCall("OPENGL32.dll\glPointSize", "float", size)
@@ -6244,6 +6442,7 @@ class OpenGL {
      * @param {Integer} face 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonmode
      */
     static glPolygonMode(face, mode) {
         DllCall("OPENGL32.dll\glPolygonMode", "uint", face, "uint", mode)
@@ -6254,6 +6453,7 @@ class OpenGL {
      * @param {Float} factor 
      * @param {Float} units 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonoffset
      */
     static glPolygonOffset(factor, units) {
         DllCall("OPENGL32.dll\glPolygonOffset", "float", factor, "float", units)
@@ -6261,8 +6461,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Byte>} mask 
+     * @param {Pointer<Integer>} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonstipple
      */
     static glPolygonStipple(mask) {
         DllCall("OPENGL32.dll\glPolygonStipple", "char*", mask)
@@ -6271,6 +6472,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopattrib
      */
     static glPopAttrib() {
         DllCall("OPENGL32.dll\glPopAttrib")
@@ -6279,6 +6481,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopclientattrib
      */
     static glPopClientAttrib() {
         DllCall("OPENGL32.dll\glPopClientAttrib")
@@ -6287,6 +6490,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopmatrix
      */
     static glPopMatrix() {
         DllCall("OPENGL32.dll\glPopMatrix")
@@ -6295,6 +6499,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpopname
      */
     static glPopName() {
         DllCall("OPENGL32.dll\glPopName")
@@ -6303,9 +6508,10 @@ class OpenGL {
     /**
      * 
      * @param {Integer} n 
-     * @param {Pointer<UInt32>} textures 
-     * @param {Pointer<Single>} priorities 
+     * @param {Pointer<Integer>} textures 
+     * @param {Pointer<Float>} priorities 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glprioritizetextures
      */
     static glPrioritizeTextures(n, textures, priorities) {
         DllCall("OPENGL32.dll\glPrioritizeTextures", "int", n, "uint*", textures, "float*", priorities)
@@ -6315,6 +6521,7 @@ class OpenGL {
      * 
      * @param {Integer} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushattrib
      */
     static glPushAttrib(mask) {
         DllCall("OPENGL32.dll\glPushAttrib", "uint", mask)
@@ -6324,6 +6531,7 @@ class OpenGL {
      * 
      * @param {Integer} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushclientattrib
      */
     static glPushClientAttrib(mask) {
         DllCall("OPENGL32.dll\glPushClientAttrib", "uint", mask)
@@ -6332,6 +6540,7 @@ class OpenGL {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushmatrix
      */
     static glPushMatrix() {
         DllCall("OPENGL32.dll\glPushMatrix")
@@ -6341,6 +6550,7 @@ class OpenGL {
      * 
      * @param {Integer} name 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushname
      */
     static glPushName(name) {
         DllCall("OPENGL32.dll\glPushName", "uint", name)
@@ -6351,6 +6561,7 @@ class OpenGL {
      * @param {Float} x 
      * @param {Float} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2d
      */
     static glRasterPos2d(x, y) {
         DllCall("OPENGL32.dll\glRasterPos2d", "double", x, "double", y)
@@ -6358,8 +6569,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2dv
      */
     static glRasterPos2dv(v) {
         DllCall("OPENGL32.dll\glRasterPos2dv", "double*", v)
@@ -6370,6 +6582,7 @@ class OpenGL {
      * @param {Float} x 
      * @param {Float} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2f
      */
     static glRasterPos2f(x, y) {
         DllCall("OPENGL32.dll\glRasterPos2f", "float", x, "float", y)
@@ -6377,8 +6590,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2fv
      */
     static glRasterPos2fv(v) {
         DllCall("OPENGL32.dll\glRasterPos2fv", "float*", v)
@@ -6389,6 +6603,7 @@ class OpenGL {
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2i
      */
     static glRasterPos2i(x, y) {
         DllCall("OPENGL32.dll\glRasterPos2i", "int", x, "int", y)
@@ -6396,8 +6611,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2iv
      */
     static glRasterPos2iv(v) {
         DllCall("OPENGL32.dll\glRasterPos2iv", "int*", v)
@@ -6408,6 +6624,7 @@ class OpenGL {
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2s
      */
     static glRasterPos2s(x, y) {
         DllCall("OPENGL32.dll\glRasterPos2s", "short", x, "short", y)
@@ -6415,8 +6632,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2sv
      */
     static glRasterPos2sv(v) {
         DllCall("OPENGL32.dll\glRasterPos2sv", "short*", v)
@@ -6428,6 +6646,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3d
      */
     static glRasterPos3d(x, y, z) {
         DllCall("OPENGL32.dll\glRasterPos3d", "double", x, "double", y, "double", z)
@@ -6435,8 +6654,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3dv
      */
     static glRasterPos3dv(v) {
         DllCall("OPENGL32.dll\glRasterPos3dv", "double*", v)
@@ -6448,6 +6668,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3f
      */
     static glRasterPos3f(x, y, z) {
         DllCall("OPENGL32.dll\glRasterPos3f", "float", x, "float", y, "float", z)
@@ -6455,8 +6676,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3fv
      */
     static glRasterPos3fv(v) {
         DllCall("OPENGL32.dll\glRasterPos3fv", "float*", v)
@@ -6468,6 +6690,7 @@ class OpenGL {
      * @param {Integer} y 
      * @param {Integer} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3i
      */
     static glRasterPos3i(x, y, z) {
         DllCall("OPENGL32.dll\glRasterPos3i", "int", x, "int", y, "int", z)
@@ -6475,8 +6698,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3iv
      */
     static glRasterPos3iv(v) {
         DllCall("OPENGL32.dll\glRasterPos3iv", "int*", v)
@@ -6488,6 +6712,7 @@ class OpenGL {
      * @param {Integer} y 
      * @param {Integer} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3s
      */
     static glRasterPos3s(x, y, z) {
         DllCall("OPENGL32.dll\glRasterPos3s", "short", x, "short", y, "short", z)
@@ -6495,8 +6720,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3sv
      */
     static glRasterPos3sv(v) {
         DllCall("OPENGL32.dll\glRasterPos3sv", "short*", v)
@@ -6509,6 +6735,7 @@ class OpenGL {
      * @param {Float} z 
      * @param {Float} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4d
      */
     static glRasterPos4d(x, y, z, w) {
         DllCall("OPENGL32.dll\glRasterPos4d", "double", x, "double", y, "double", z, "double", w)
@@ -6516,8 +6743,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4dv
      */
     static glRasterPos4dv(v) {
         DllCall("OPENGL32.dll\glRasterPos4dv", "double*", v)
@@ -6530,6 +6758,7 @@ class OpenGL {
      * @param {Float} z 
      * @param {Float} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4f
      */
     static glRasterPos4f(x, y, z, w) {
         DllCall("OPENGL32.dll\glRasterPos4f", "float", x, "float", y, "float", z, "float", w)
@@ -6537,8 +6766,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4fv
      */
     static glRasterPos4fv(v) {
         DllCall("OPENGL32.dll\glRasterPos4fv", "float*", v)
@@ -6551,6 +6781,7 @@ class OpenGL {
      * @param {Integer} z 
      * @param {Integer} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4i
      */
     static glRasterPos4i(x, y, z, w) {
         DllCall("OPENGL32.dll\glRasterPos4i", "int", x, "int", y, "int", z, "int", w)
@@ -6558,8 +6789,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4iv
      */
     static glRasterPos4iv(v) {
         DllCall("OPENGL32.dll\glRasterPos4iv", "int*", v)
@@ -6572,6 +6804,7 @@ class OpenGL {
      * @param {Integer} z 
      * @param {Integer} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4s
      */
     static glRasterPos4s(x, y, z, w) {
         DllCall("OPENGL32.dll\glRasterPos4s", "short", x, "short", y, "short", z, "short", w)
@@ -6579,8 +6812,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4sv
      */
     static glRasterPos4sv(v) {
         DllCall("OPENGL32.dll\glRasterPos4sv", "short*", v)
@@ -6590,6 +6824,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glreadbuffer
      */
     static glReadBuffer(mode) {
         DllCall("OPENGL32.dll\glReadBuffer", "uint", mode)
@@ -6605,6 +6840,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} pixels 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glreadpixels
      */
     static glReadPixels(x, y, width, height, format, type, pixels) {
         DllCall("OPENGL32.dll\glReadPixels", "int", x, "int", y, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
@@ -6617,6 +6853,7 @@ class OpenGL {
      * @param {Float} x2 
      * @param {Float} y2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectd
      */
     static glRectd(x1, y1, x2, y2) {
         DllCall("OPENGL32.dll\glRectd", "double", x1, "double", y1, "double", x2, "double", y2)
@@ -6624,9 +6861,10 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v1 
-     * @param {Pointer<Double>} v2 
+     * @param {Pointer<Float>} v1 
+     * @param {Pointer<Float>} v2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectdv
      */
     static glRectdv(v1, v2) {
         DllCall("OPENGL32.dll\glRectdv", "double*", v1, "double*", v2)
@@ -6639,6 +6877,7 @@ class OpenGL {
      * @param {Float} x2 
      * @param {Float} y2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectf
      */
     static glRectf(x1, y1, x2, y2) {
         DllCall("OPENGL32.dll\glRectf", "float", x1, "float", y1, "float", x2, "float", y2)
@@ -6646,9 +6885,10 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v1 
-     * @param {Pointer<Single>} v2 
+     * @param {Pointer<Float>} v1 
+     * @param {Pointer<Float>} v2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectfv
      */
     static glRectfv(v1, v2) {
         DllCall("OPENGL32.dll\glRectfv", "float*", v1, "float*", v2)
@@ -6661,6 +6901,7 @@ class OpenGL {
      * @param {Integer} x2 
      * @param {Integer} y2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrecti
      */
     static glRecti(x1, y1, x2, y2) {
         DllCall("OPENGL32.dll\glRecti", "int", x1, "int", y1, "int", x2, "int", y2)
@@ -6668,9 +6909,10 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v1 
-     * @param {Pointer<Int32>} v2 
+     * @param {Pointer<Integer>} v1 
+     * @param {Pointer<Integer>} v2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectiv
      */
     static glRectiv(v1, v2) {
         DllCall("OPENGL32.dll\glRectiv", "int*", v1, "int*", v2)
@@ -6683,6 +6925,7 @@ class OpenGL {
      * @param {Integer} x2 
      * @param {Integer} y2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrects
      */
     static glRects(x1, y1, x2, y2) {
         DllCall("OPENGL32.dll\glRects", "short", x1, "short", y1, "short", x2, "short", y2)
@@ -6690,9 +6933,10 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v1 
-     * @param {Pointer<Int16>} v2 
+     * @param {Pointer<Integer>} v1 
+     * @param {Pointer<Integer>} v2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectsv
      */
     static glRectsv(v1, v2) {
         DllCall("OPENGL32.dll\glRectsv", "short*", v1, "short*", v2)
@@ -6702,6 +6946,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrendermode
      */
     static glRenderMode(mode) {
         result := DllCall("OPENGL32.dll\glRenderMode", "uint", mode, "int")
@@ -6715,6 +6960,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrotated
      */
     static glRotated(angle, x, y, z) {
         DllCall("OPENGL32.dll\glRotated", "double", angle, "double", x, "double", y, "double", z)
@@ -6727,6 +6973,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glrotatef
      */
     static glRotatef(angle, x, y, z) {
         DllCall("OPENGL32.dll\glRotatef", "float", angle, "float", x, "float", y, "float", z)
@@ -6738,6 +6985,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glscaled
      */
     static glScaled(x, y, z) {
         DllCall("OPENGL32.dll\glScaled", "double", x, "double", y, "double", z)
@@ -6749,6 +6997,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glscalef
      */
     static glScalef(x, y, z) {
         DllCall("OPENGL32.dll\glScalef", "float", x, "float", y, "float", z)
@@ -6761,6 +7010,7 @@ class OpenGL {
      * @param {Integer} width 
      * @param {Integer} height 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glscissor
      */
     static glScissor(x, y, width, height) {
         DllCall("OPENGL32.dll\glScissor", "int", x, "int", y, "int", width, "int", height)
@@ -6769,8 +7019,9 @@ class OpenGL {
     /**
      * 
      * @param {Integer} size 
-     * @param {Pointer<UInt32>} buffer 
+     * @param {Pointer<Integer>} buffer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glselectbuffer
      */
     static glSelectBuffer(size, buffer) {
         DllCall("OPENGL32.dll\glSelectBuffer", "int", size, "uint*", buffer)
@@ -6780,6 +7031,7 @@ class OpenGL {
      * 
      * @param {Integer} mode 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glshademodel
      */
     static glShadeModel(mode) {
         DllCall("OPENGL32.dll\glShadeModel", "uint", mode)
@@ -6791,6 +7043,7 @@ class OpenGL {
      * @param {Integer} ref 
      * @param {Integer} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilfunc
      */
     static glStencilFunc(func, ref, mask) {
         DllCall("OPENGL32.dll\glStencilFunc", "uint", func, "int", ref, "uint", mask)
@@ -6800,6 +7053,7 @@ class OpenGL {
      * 
      * @param {Integer} mask 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilmask
      */
     static glStencilMask(mask) {
         DllCall("OPENGL32.dll\glStencilMask", "uint", mask)
@@ -6811,6 +7065,7 @@ class OpenGL {
      * @param {Integer} zfail 
      * @param {Integer} zpass 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilop
      */
     static glStencilOp(fail, zfail, zpass) {
         DllCall("OPENGL32.dll\glStencilOp", "uint", fail, "uint", zfail, "uint", zpass)
@@ -6820,6 +7075,7 @@ class OpenGL {
      * 
      * @param {Float} s 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1d
      */
     static glTexCoord1d(s) {
         DllCall("OPENGL32.dll\glTexCoord1d", "double", s)
@@ -6827,8 +7083,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1dv
      */
     static glTexCoord1dv(v) {
         DllCall("OPENGL32.dll\glTexCoord1dv", "double*", v)
@@ -6838,6 +7095,7 @@ class OpenGL {
      * 
      * @param {Float} s 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1f
      */
     static glTexCoord1f(s) {
         DllCall("OPENGL32.dll\glTexCoord1f", "float", s)
@@ -6845,8 +7103,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1fv
      */
     static glTexCoord1fv(v) {
         DllCall("OPENGL32.dll\glTexCoord1fv", "float*", v)
@@ -6856,6 +7115,7 @@ class OpenGL {
      * 
      * @param {Integer} s 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1i
      */
     static glTexCoord1i(s) {
         DllCall("OPENGL32.dll\glTexCoord1i", "int", s)
@@ -6863,8 +7123,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1iv
      */
     static glTexCoord1iv(v) {
         DllCall("OPENGL32.dll\glTexCoord1iv", "int*", v)
@@ -6874,6 +7135,7 @@ class OpenGL {
      * 
      * @param {Integer} s 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1s
      */
     static glTexCoord1s(s) {
         DllCall("OPENGL32.dll\glTexCoord1s", "short", s)
@@ -6881,8 +7143,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1sv
      */
     static glTexCoord1sv(v) {
         DllCall("OPENGL32.dll\glTexCoord1sv", "short*", v)
@@ -6893,6 +7156,7 @@ class OpenGL {
      * @param {Float} s 
      * @param {Float} t 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2d
      */
     static glTexCoord2d(s, t) {
         DllCall("OPENGL32.dll\glTexCoord2d", "double", s, "double", t)
@@ -6900,8 +7164,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2dv
      */
     static glTexCoord2dv(v) {
         DllCall("OPENGL32.dll\glTexCoord2dv", "double*", v)
@@ -6919,8 +7184,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2fv
      */
     static glTexCoord2fv(v) {
         DllCall("OPENGL32.dll\glTexCoord2fv", "float*", v)
@@ -6931,6 +7197,7 @@ class OpenGL {
      * @param {Integer} s 
      * @param {Integer} t 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2i
      */
     static glTexCoord2i(s, t) {
         DllCall("OPENGL32.dll\glTexCoord2i", "int", s, "int", t)
@@ -6938,8 +7205,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2iv
      */
     static glTexCoord2iv(v) {
         DllCall("OPENGL32.dll\glTexCoord2iv", "int*", v)
@@ -6950,6 +7218,7 @@ class OpenGL {
      * @param {Integer} s 
      * @param {Integer} t 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2s
      */
     static glTexCoord2s(s, t) {
         DllCall("OPENGL32.dll\glTexCoord2s", "short", s, "short", t)
@@ -6957,8 +7226,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2sv
      */
     static glTexCoord2sv(v) {
         DllCall("OPENGL32.dll\glTexCoord2sv", "short*", v)
@@ -6970,6 +7240,7 @@ class OpenGL {
      * @param {Float} t 
      * @param {Float} r 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3d
      */
     static glTexCoord3d(s, t, r) {
         DllCall("OPENGL32.dll\glTexCoord3d", "double", s, "double", t, "double", r)
@@ -6977,8 +7248,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3dv
      */
     static glTexCoord3dv(v) {
         DllCall("OPENGL32.dll\glTexCoord3dv", "double*", v)
@@ -6997,8 +7269,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3fv
      */
     static glTexCoord3fv(v) {
         DllCall("OPENGL32.dll\glTexCoord3fv", "float*", v)
@@ -7010,6 +7283,7 @@ class OpenGL {
      * @param {Integer} t 
      * @param {Integer} r 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3i
      */
     static glTexCoord3i(s, t, r) {
         DllCall("OPENGL32.dll\glTexCoord3i", "int", s, "int", t, "int", r)
@@ -7017,8 +7291,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3iv
      */
     static glTexCoord3iv(v) {
         DllCall("OPENGL32.dll\glTexCoord3iv", "int*", v)
@@ -7030,6 +7305,7 @@ class OpenGL {
      * @param {Integer} t 
      * @param {Integer} r 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3s
      */
     static glTexCoord3s(s, t, r) {
         DllCall("OPENGL32.dll\glTexCoord3s", "short", s, "short", t, "short", r)
@@ -7037,8 +7313,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3sv
      */
     static glTexCoord3sv(v) {
         DllCall("OPENGL32.dll\glTexCoord3sv", "short*", v)
@@ -7051,6 +7328,7 @@ class OpenGL {
      * @param {Float} r 
      * @param {Float} q 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4d
      */
     static glTexCoord4d(s, t, r, q) {
         DllCall("OPENGL32.dll\glTexCoord4d", "double", s, "double", t, "double", r, "double", q)
@@ -7058,8 +7336,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4dv
      */
     static glTexCoord4dv(v) {
         DllCall("OPENGL32.dll\glTexCoord4dv", "double*", v)
@@ -7072,6 +7351,7 @@ class OpenGL {
      * @param {Float} r 
      * @param {Float} q 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4f
      */
     static glTexCoord4f(s, t, r, q) {
         DllCall("OPENGL32.dll\glTexCoord4f", "float", s, "float", t, "float", r, "float", q)
@@ -7079,8 +7359,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4fv
      */
     static glTexCoord4fv(v) {
         DllCall("OPENGL32.dll\glTexCoord4fv", "float*", v)
@@ -7093,6 +7374,7 @@ class OpenGL {
      * @param {Integer} r 
      * @param {Integer} q 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4i
      */
     static glTexCoord4i(s, t, r, q) {
         DllCall("OPENGL32.dll\glTexCoord4i", "int", s, "int", t, "int", r, "int", q)
@@ -7100,8 +7382,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4iv
      */
     static glTexCoord4iv(v) {
         DllCall("OPENGL32.dll\glTexCoord4iv", "int*", v)
@@ -7114,6 +7397,7 @@ class OpenGL {
      * @param {Integer} r 
      * @param {Integer} q 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4s
      */
     static glTexCoord4s(s, t, r, q) {
         DllCall("OPENGL32.dll\glTexCoord4s", "short", s, "short", t, "short", r, "short", q)
@@ -7121,8 +7405,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4sv
      */
     static glTexCoord4sv(v) {
         DllCall("OPENGL32.dll\glTexCoord4sv", "short*", v)
@@ -7135,6 +7420,7 @@ class OpenGL {
      * @param {Integer} stride 
      * @param {Pointer<Void>} pointer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoordpointer
      */
     static glTexCoordPointer(size, type, stride, pointer) {
         DllCall("OPENGL32.dll\glTexCoordPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
@@ -7146,6 +7432,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvf
      */
     static glTexEnvf(target, pname, param2) {
         DllCall("OPENGL32.dll\glTexEnvf", "uint", target, "uint", pname, "float", param2)
@@ -7155,8 +7442,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvfv
      */
     static glTexEnvfv(target, pname, params) {
         DllCall("OPENGL32.dll\glTexEnvfv", "uint", target, "uint", pname, "float*", params)
@@ -7168,6 +7456,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvi
      */
     static glTexEnvi(target, pname, param2) {
         DllCall("OPENGL32.dll\glTexEnvi", "uint", target, "uint", pname, "int", param2)
@@ -7177,8 +7466,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenviv
      */
     static glTexEnviv(target, pname, params) {
         DllCall("OPENGL32.dll\glTexEnviv", "uint", target, "uint", pname, "int*", params)
@@ -7190,6 +7480,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgend
      */
     static glTexGend(coord, pname, param2) {
         DllCall("OPENGL32.dll\glTexGend", "uint", coord, "uint", pname, "double", param2)
@@ -7199,8 +7490,9 @@ class OpenGL {
      * 
      * @param {Integer} coord 
      * @param {Integer} pname 
-     * @param {Pointer<Double>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgendv
      */
     static glTexGendv(coord, pname, params) {
         DllCall("OPENGL32.dll\glTexGendv", "uint", coord, "uint", pname, "double*", params)
@@ -7212,6 +7504,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenf
      */
     static glTexGenf(coord, pname, param2) {
         DllCall("OPENGL32.dll\glTexGenf", "uint", coord, "uint", pname, "float", param2)
@@ -7221,8 +7514,9 @@ class OpenGL {
      * 
      * @param {Integer} coord 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenfv
      */
     static glTexGenfv(coord, pname, params) {
         DllCall("OPENGL32.dll\glTexGenfv", "uint", coord, "uint", pname, "float*", params)
@@ -7234,6 +7528,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeni
      */
     static glTexGeni(coord, pname, param2) {
         DllCall("OPENGL32.dll\glTexGeni", "uint", coord, "uint", pname, "int", param2)
@@ -7243,8 +7538,9 @@ class OpenGL {
      * 
      * @param {Integer} coord 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeniv
      */
     static glTexGeniv(coord, pname, params) {
         DllCall("OPENGL32.dll\glTexGeniv", "uint", coord, "uint", pname, "int*", params)
@@ -7261,6 +7557,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} pixels 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glteximage1d
      */
     static glTexImage1D(target, level, internalformat, width, border, format, type, pixels) {
         DllCall("OPENGL32.dll\glTexImage1D", "uint", target, "int", level, "int", internalformat, "int", width, "int", border, "uint", format, "uint", type, "ptr", pixels)
@@ -7278,6 +7575,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} pixels 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glteximage2d
      */
     static glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels) {
         DllCall("OPENGL32.dll\glTexImage2D", "uint", target, "int", level, "int", internalformat, "int", width, "int", height, "int", border, "uint", format, "uint", type, "ptr", pixels)
@@ -7289,6 +7587,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameterf
      */
     static glTexParameterf(target, pname, param2) {
         DllCall("OPENGL32.dll\glTexParameterf", "uint", target, "uint", pname, "float", param2)
@@ -7298,8 +7597,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Single>} params 
+     * @param {Pointer<Float>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameterfv
      */
     static glTexParameterfv(target, pname, params) {
         DllCall("OPENGL32.dll\glTexParameterfv", "uint", target, "uint", pname, "float*", params)
@@ -7311,6 +7611,7 @@ class OpenGL {
      * @param {Integer} pname 
      * @param {Integer} param2 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameteri
      */
     static glTexParameteri(target, pname, param2) {
         DllCall("OPENGL32.dll\glTexParameteri", "uint", target, "uint", pname, "int", param2)
@@ -7320,8 +7621,9 @@ class OpenGL {
      * 
      * @param {Integer} target 
      * @param {Integer} pname 
-     * @param {Pointer<Int32>} params 
+     * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameteriv
      */
     static glTexParameteriv(target, pname, params) {
         DllCall("OPENGL32.dll\glTexParameteriv", "uint", target, "uint", pname, "int*", params)
@@ -7337,6 +7639,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} pixels 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexsubimage1d
      */
     static glTexSubImage1D(target, level, xoffset, width, format, type, pixels) {
         DllCall("OPENGL32.dll\glTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", width, "uint", format, "uint", type, "ptr", pixels)
@@ -7354,6 +7657,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} pixels 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexsubimage2d
      */
     static glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels) {
         DllCall("OPENGL32.dll\glTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", width, "int", height, "uint", format, "uint", type, "ptr", pixels)
@@ -7365,6 +7669,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltranslated
      */
     static glTranslated(x, y, z) {
         DllCall("OPENGL32.dll\glTranslated", "double", x, "double", y, "double", z)
@@ -7376,6 +7681,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltranslatef
      */
     static glTranslatef(x, y, z) {
         DllCall("OPENGL32.dll\glTranslatef", "float", x, "float", y, "float", z)
@@ -7386,6 +7692,7 @@ class OpenGL {
      * @param {Float} x 
      * @param {Float} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2d
      */
     static glVertex2d(x, y) {
         DllCall("OPENGL32.dll\glVertex2d", "double", x, "double", y)
@@ -7393,8 +7700,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2dv
      */
     static glVertex2dv(v) {
         DllCall("OPENGL32.dll\glVertex2dv", "double*", v)
@@ -7405,6 +7713,7 @@ class OpenGL {
      * @param {Float} x 
      * @param {Float} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2f
      */
     static glVertex2f(x, y) {
         DllCall("OPENGL32.dll\glVertex2f", "float", x, "float", y)
@@ -7412,8 +7721,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2fv
      */
     static glVertex2fv(v) {
         DllCall("OPENGL32.dll\glVertex2fv", "float*", v)
@@ -7424,6 +7734,7 @@ class OpenGL {
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2i
      */
     static glVertex2i(x, y) {
         DllCall("OPENGL32.dll\glVertex2i", "int", x, "int", y)
@@ -7431,8 +7742,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2iv
      */
     static glVertex2iv(v) {
         DllCall("OPENGL32.dll\glVertex2iv", "int*", v)
@@ -7443,6 +7755,7 @@ class OpenGL {
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2s
      */
     static glVertex2s(x, y) {
         DllCall("OPENGL32.dll\glVertex2s", "short", x, "short", y)
@@ -7450,8 +7763,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2sv
      */
     static glVertex2sv(v) {
         DllCall("OPENGL32.dll\glVertex2sv", "short*", v)
@@ -7463,6 +7777,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3d
      */
     static glVertex3d(x, y, z) {
         DllCall("OPENGL32.dll\glVertex3d", "double", x, "double", y, "double", z)
@@ -7470,8 +7785,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3dv
      */
     static glVertex3dv(v) {
         DllCall("OPENGL32.dll\glVertex3dv", "double*", v)
@@ -7483,6 +7799,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3f
      */
     static glVertex3f(x, y, z) {
         DllCall("OPENGL32.dll\glVertex3f", "float", x, "float", y, "float", z)
@@ -7490,8 +7807,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3fv
      */
     static glVertex3fv(v) {
         DllCall("OPENGL32.dll\glVertex3fv", "float*", v)
@@ -7503,6 +7821,7 @@ class OpenGL {
      * @param {Integer} y 
      * @param {Integer} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3i
      */
     static glVertex3i(x, y, z) {
         DllCall("OPENGL32.dll\glVertex3i", "int", x, "int", y, "int", z)
@@ -7510,8 +7829,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3iv
      */
     static glVertex3iv(v) {
         DllCall("OPENGL32.dll\glVertex3iv", "int*", v)
@@ -7523,6 +7843,7 @@ class OpenGL {
      * @param {Integer} y 
      * @param {Integer} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3s
      */
     static glVertex3s(x, y, z) {
         DllCall("OPENGL32.dll\glVertex3s", "short", x, "short", y, "short", z)
@@ -7530,8 +7851,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3sv
      */
     static glVertex3sv(v) {
         DllCall("OPENGL32.dll\glVertex3sv", "short*", v)
@@ -7544,6 +7866,7 @@ class OpenGL {
      * @param {Float} z 
      * @param {Float} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4d
      */
     static glVertex4d(x, y, z, w) {
         DllCall("OPENGL32.dll\glVertex4d", "double", x, "double", y, "double", z, "double", w)
@@ -7551,8 +7874,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Double>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4dv
      */
     static glVertex4dv(v) {
         DllCall("OPENGL32.dll\glVertex4dv", "double*", v)
@@ -7565,6 +7889,7 @@ class OpenGL {
      * @param {Float} z 
      * @param {Float} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4f
      */
     static glVertex4f(x, y, z, w) {
         DllCall("OPENGL32.dll\glVertex4f", "float", x, "float", y, "float", z, "float", w)
@@ -7572,8 +7897,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Single>} v 
+     * @param {Pointer<Float>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4fv
      */
     static glVertex4fv(v) {
         DllCall("OPENGL32.dll\glVertex4fv", "float*", v)
@@ -7586,6 +7912,7 @@ class OpenGL {
      * @param {Integer} z 
      * @param {Integer} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4i
      */
     static glVertex4i(x, y, z, w) {
         DllCall("OPENGL32.dll\glVertex4i", "int", x, "int", y, "int", z, "int", w)
@@ -7593,8 +7920,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int32>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4iv
      */
     static glVertex4iv(v) {
         DllCall("OPENGL32.dll\glVertex4iv", "int*", v)
@@ -7607,6 +7935,7 @@ class OpenGL {
      * @param {Integer} z 
      * @param {Integer} w 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4s
      */
     static glVertex4s(x, y, z, w) {
         DllCall("OPENGL32.dll\glVertex4s", "short", x, "short", y, "short", z, "short", w)
@@ -7614,8 +7943,9 @@ class OpenGL {
 
     /**
      * 
-     * @param {Pointer<Int16>} v 
+     * @param {Pointer<Integer>} v 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4sv
      */
     static glVertex4sv(v) {
         DllCall("OPENGL32.dll\glVertex4sv", "short*", v)
@@ -7628,6 +7958,7 @@ class OpenGL {
      * @param {Integer} stride 
      * @param {Pointer<Void>} pointer 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertexpointer
      */
     static glVertexPointer(size, type, stride, pointer) {
         DllCall("OPENGL32.dll\glVertexPointer", "int", size, "uint", type, "int", stride, "ptr", pointer)
@@ -7640,6 +7971,7 @@ class OpenGL {
      * @param {Integer} width 
      * @param {Integer} height 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glviewport
      */
     static glViewport(x, y, width, height) {
         DllCall("OPENGL32.dll\glViewport", "int", x, "int", y, "int", width, "int", height)
@@ -7648,7 +7980,8 @@ class OpenGL {
     /**
      * 
      * @param {Integer} errCode 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluerrorstring
      */
     static gluErrorString(errCode) {
         result := DllCall("GLU32.dll\gluErrorString", "uint", errCode, "char*")
@@ -7668,7 +8001,8 @@ class OpenGL {
     /**
      * 
      * @param {Integer} name 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetstring
      */
     static gluGetString(name) {
         result := DllCall("GLU32.dll\gluGetString", "uint", name, "char*")
@@ -7682,6 +8016,7 @@ class OpenGL {
      * @param {Float} bottom 
      * @param {Float} top 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluortho2d
      */
     static gluOrtho2D(left, right, bottom, top) {
         DllCall("GLU32.dll\gluOrtho2D", "double", left, "double", right, "double", bottom, "double", top)
@@ -7694,6 +8029,7 @@ class OpenGL {
      * @param {Float} zNear 
      * @param {Float} zFar 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluperspective
      */
     static gluPerspective(fovy, aspect, zNear, zFar) {
         DllCall("GLU32.dll\gluPerspective", "double", fovy, "double", aspect, "double", zNear, "double", zFar)
@@ -7705,8 +8041,9 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} width 
      * @param {Float} height 
-     * @param {Pointer<Int32>} viewport 
+     * @param {Pointer<Integer>} viewport 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glupickmatrix
      */
     static gluPickMatrix(x, y, width, height, viewport) {
         DllCall("GLU32.dll\gluPickMatrix", "double", x, "double", y, "double", width, "double", height, "int*", viewport)
@@ -7724,6 +8061,7 @@ class OpenGL {
      * @param {Float} upy 
      * @param {Float} upz 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glulookat
      */
     static gluLookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz) {
         DllCall("GLU32.dll\gluLookAt", "double", eyex, "double", eyey, "double", eyez, "double", centerx, "double", centery, "double", centerz, "double", upx, "double", upy, "double", upz)
@@ -7734,13 +8072,14 @@ class OpenGL {
      * @param {Float} objx 
      * @param {Float} objy 
      * @param {Float} objz 
-     * @param {Pointer<Double>} modelMatrix 
-     * @param {Pointer<Double>} projMatrix 
-     * @param {Pointer<Int32>} viewport 
-     * @param {Pointer<Double>} winx 
-     * @param {Pointer<Double>} winy 
-     * @param {Pointer<Double>} winz 
+     * @param {Pointer<Float>} modelMatrix 
+     * @param {Pointer<Float>} projMatrix 
+     * @param {Pointer<Integer>} viewport 
+     * @param {Pointer<Float>} winx 
+     * @param {Pointer<Float>} winy 
+     * @param {Pointer<Float>} winz 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluproject
      */
     static gluProject(objx, objy, objz, modelMatrix, projMatrix, viewport, winx, winy, winz) {
         result := DllCall("GLU32.dll\gluProject", "double", objx, "double", objy, "double", objz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", winx, "double*", winy, "double*", winz, "int")
@@ -7752,13 +8091,14 @@ class OpenGL {
      * @param {Float} winx 
      * @param {Float} winy 
      * @param {Float} winz 
-     * @param {Pointer<Double>} modelMatrix 
-     * @param {Pointer<Double>} projMatrix 
-     * @param {Pointer<Int32>} viewport 
-     * @param {Pointer<Double>} objx 
-     * @param {Pointer<Double>} objy 
-     * @param {Pointer<Double>} objz 
+     * @param {Pointer<Float>} modelMatrix 
+     * @param {Pointer<Float>} projMatrix 
+     * @param {Pointer<Integer>} viewport 
+     * @param {Pointer<Float>} objx 
+     * @param {Pointer<Float>} objy 
+     * @param {Pointer<Float>} objz 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluunproject
      */
     static gluUnProject(winx, winy, winz, modelMatrix, projMatrix, viewport, objx, objy, objz) {
         result := DllCall("GLU32.dll\gluUnProject", "double", winx, "double", winy, "double", winz, "double*", modelMatrix, "double*", projMatrix, "int*", viewport, "double*", objx, "double*", objy, "double*", objz, "int")
@@ -7777,6 +8117,7 @@ class OpenGL {
      * @param {Integer} typeout 
      * @param {Pointer<Void>} dataout 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluscaleimage
      */
     static gluScaleImage(format, widthin, heightin, typein, datain, widthout, heightout, typeout, dataout) {
         result := DllCall("GLU32.dll\gluScaleImage", "uint", format, "int", widthin, "int", heightin, "uint", typein, "ptr", datain, "int", widthout, "int", heightout, "uint", typeout, "ptr", dataout, "int")
@@ -7792,6 +8133,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} data 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild1dmipmaps
      */
     static gluBuild1DMipmaps(target, components, width, format, type, data) {
         result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", components, "int", width, "uint", format, "uint", type, "ptr", data, "int")
@@ -7808,6 +8150,7 @@ class OpenGL {
      * @param {Integer} type 
      * @param {Pointer<Void>} data 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild2dmipmaps
      */
     static gluBuild2DMipmaps(target, components, width, height, format, type, data) {
         result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", components, "int", width, "int", height, "uint", format, "uint", type, "ptr", data, "int")
@@ -7817,6 +8160,7 @@ class OpenGL {
     /**
      * 
      * @returns {Pointer<GLUquadric>} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunewquadric
      */
     static gluNewQuadric() {
         result := DllCall("GLU32.dll\gluNewQuadric", "ptr")
@@ -7827,6 +8171,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUquadric>} state 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletequadric
      */
     static gluDeleteQuadric(state) {
         DllCall("GLU32.dll\gluDeleteQuadric", "ptr", state)
@@ -7837,6 +8182,7 @@ class OpenGL {
      * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} normals 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricnormals
      */
     static gluQuadricNormals(quadObject, normals) {
         DllCall("GLU32.dll\gluQuadricNormals", "ptr", quadObject, "uint", normals)
@@ -7847,6 +8193,7 @@ class OpenGL {
      * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} textureCoords 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadrictexture
      */
     static gluQuadricTexture(quadObject, textureCoords) {
         DllCall("GLU32.dll\gluQuadricTexture", "ptr", quadObject, "char", textureCoords)
@@ -7857,6 +8204,7 @@ class OpenGL {
      * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} orientation 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricorientation
      */
     static gluQuadricOrientation(quadObject, orientation) {
         DllCall("GLU32.dll\gluQuadricOrientation", "ptr", quadObject, "uint", orientation)
@@ -7867,6 +8215,7 @@ class OpenGL {
      * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} drawStyle 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadricdrawstyle
      */
     static gluQuadricDrawStyle(quadObject, drawStyle) {
         DllCall("GLU32.dll\gluQuadricDrawStyle", "ptr", quadObject, "uint", drawStyle)
@@ -7881,6 +8230,7 @@ class OpenGL {
      * @param {Integer} slices 
      * @param {Integer} stacks 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glucylinder
      */
     static gluCylinder(qobj, baseRadius, topRadius, height, slices, stacks) {
         DllCall("GLU32.dll\gluCylinder", "ptr", qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
@@ -7894,6 +8244,7 @@ class OpenGL {
      * @param {Integer} slices 
      * @param {Integer} loops 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gludisk
      */
     static gluDisk(qobj, innerRadius, outerRadius, slices, loops) {
         DllCall("GLU32.dll\gluDisk", "ptr", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
@@ -7909,6 +8260,7 @@ class OpenGL {
      * @param {Float} startAngle 
      * @param {Float} sweepAngle 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glupartialdisk
      */
     static gluPartialDisk(qobj, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle) {
         DllCall("GLU32.dll\gluPartialDisk", "ptr", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
@@ -7921,6 +8273,7 @@ class OpenGL {
      * @param {Integer} slices 
      * @param {Integer} stacks 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glusphere
      */
     static gluSphere(qobj, radius, slices, stacks) {
         DllCall("GLU32.dll\gluSphere", "ptr", qobj, "double", radius, "int", slices, "int", stacks)
@@ -7932,6 +8285,7 @@ class OpenGL {
      * @param {Integer} which 
      * @param {Pointer} fn 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluquadric
      */
     static gluQuadricCallback(qobj, which, fn) {
         DllCall("GLU32.dll\gluQuadricCallback", "ptr", qobj, "uint", which, "ptr", fn)
@@ -7940,6 +8294,7 @@ class OpenGL {
     /**
      * 
      * @returns {Pointer<GLUtesselator>} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunewtess
      */
     static gluNewTess() {
         result := DllCall("GLU32.dll\gluNewTess", "ptr")
@@ -7950,6 +8305,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletetess
      */
     static gluDeleteTess(tess) {
         DllCall("GLU32.dll\gluDeleteTess", "ptr", tess)
@@ -7960,6 +8316,7 @@ class OpenGL {
      * @param {Pointer<GLUtesselator>} tess 
      * @param {Pointer<Void>} polygon_data 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessbeginpolygon
      */
     static gluTessBeginPolygon(tess, polygon_data) {
         DllCall("GLU32.dll\gluTessBeginPolygon", "ptr", tess, "ptr", polygon_data)
@@ -7969,6 +8326,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessbegincontour
      */
     static gluTessBeginContour(tess) {
         DllCall("GLU32.dll\gluTessBeginContour", "ptr", tess)
@@ -7977,9 +8335,10 @@ class OpenGL {
     /**
      * 
      * @param {Pointer<GLUtesselator>} tess 
-     * @param {Pointer<Double>} coords 
+     * @param {Pointer<Float>} coords 
      * @param {Pointer<Void>} data 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessvertex
      */
     static gluTessVertex(tess, coords, data) {
         DllCall("GLU32.dll\gluTessVertex", "ptr", tess, "double*", coords, "ptr", data)
@@ -7989,6 +8348,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessendcontour
      */
     static gluTessEndContour(tess) {
         DllCall("GLU32.dll\gluTessEndContour", "ptr", tess)
@@ -7998,6 +8358,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessendpolygon
      */
     static gluTessEndPolygon(tess) {
         DllCall("GLU32.dll\gluTessEndPolygon", "ptr", tess)
@@ -8009,6 +8370,7 @@ class OpenGL {
      * @param {Integer} which 
      * @param {Float} value 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessproperty
      */
     static gluTessProperty(tess, which, value) {
         DllCall("GLU32.dll\gluTessProperty", "ptr", tess, "uint", which, "double", value)
@@ -8021,6 +8383,7 @@ class OpenGL {
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutessnormal
      */
     static gluTessNormal(tess, x, y, z) {
         DllCall("GLU32.dll\gluTessNormal", "ptr", tess, "double", x, "double", y, "double", z)
@@ -8032,6 +8395,7 @@ class OpenGL {
      * @param {Integer} which 
      * @param {Pointer} fn 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glutess
      */
     static gluTessCallback(tess, which, fn) {
         DllCall("GLU32.dll\gluTessCallback", "ptr", tess, "uint", which, "ptr", fn)
@@ -8041,8 +8405,9 @@ class OpenGL {
      * 
      * @param {Pointer<GLUtesselator>} tess 
      * @param {Integer} which 
-     * @param {Pointer<Double>} value 
+     * @param {Pointer<Float>} value 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glugettessproperty
      */
     static gluGetTessProperty(tess, which, value) {
         DllCall("GLU32.dll\gluGetTessProperty", "ptr", tess, "uint", which, "double*", value)
@@ -8051,6 +8416,7 @@ class OpenGL {
     /**
      * 
      * @returns {Pointer<GLUnurbs>} 
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunewnurbsrenderer
      */
     static gluNewNurbsRenderer() {
         result := DllCall("GLU32.dll\gluNewNurbsRenderer", "ptr")
@@ -8061,6 +8427,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gludeletenurbsrenderer
      */
     static gluDeleteNurbsRenderer(nobj) {
         DllCall("GLU32.dll\gluDeleteNurbsRenderer", "ptr", nobj)
@@ -8070,6 +8437,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glubeginsurface
      */
     static gluBeginSurface(nobj) {
         DllCall("GLU32.dll\gluBeginSurface", "ptr", nobj)
@@ -8079,6 +8447,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glubegincurve
      */
     static gluBeginCurve(nobj) {
         DllCall("GLU32.dll\gluBeginCurve", "ptr", nobj)
@@ -8088,6 +8457,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendcurve
      */
     static gluEndCurve(nobj) {
         DllCall("GLU32.dll\gluEndCurve", "ptr", nobj)
@@ -8097,6 +8467,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendsurface
      */
     static gluEndSurface(nobj) {
         DllCall("GLU32.dll\gluEndSurface", "ptr", nobj)
@@ -8106,6 +8477,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glubegintrim
      */
     static gluBeginTrim(nobj) {
         DllCall("GLU32.dll\gluBeginTrim", "ptr", nobj)
@@ -8115,6 +8487,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendtrim
      */
     static gluEndTrim(nobj) {
         DllCall("GLU32.dll\gluEndTrim", "ptr", nobj)
@@ -8124,10 +8497,11 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} count 
-     * @param {Pointer<Single>} array 
+     * @param {Pointer<Float>} array 
      * @param {Integer} stride 
      * @param {Integer} type 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glupwlcurve
      */
     static gluPwlCurve(nobj, count, array, stride, type) {
         DllCall("GLU32.dll\gluPwlCurve", "ptr", nobj, "int", count, "float*", array, "int", stride, "uint", type)
@@ -8137,12 +8511,13 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} nknots 
-     * @param {Pointer<Single>} knot 
+     * @param {Pointer<Float>} knot 
      * @param {Integer} stride 
-     * @param {Pointer<Single>} ctlarray 
+     * @param {Pointer<Float>} ctlarray 
      * @param {Integer} order 
      * @param {Integer} type 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbscurve
      */
     static gluNurbsCurve(nobj, nknots, knot, stride, ctlarray, order, type) {
         DllCall("GLU32.dll\gluNurbsCurve", "ptr", nobj, "int", nknots, "float*", knot, "int", stride, "float*", ctlarray, "int", order, "uint", type)
@@ -8152,16 +8527,17 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} sknot_count 
-     * @param {Pointer<Single>} sknot 
+     * @param {Pointer<Float>} sknot 
      * @param {Integer} tknot_count 
-     * @param {Pointer<Single>} tknot 
+     * @param {Pointer<Float>} tknot 
      * @param {Integer} s_stride 
      * @param {Integer} t_stride 
-     * @param {Pointer<Single>} ctlarray 
+     * @param {Pointer<Float>} ctlarray 
      * @param {Integer} sorder 
      * @param {Integer} torder 
      * @param {Integer} type 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbssurface
      */
     static gluNurbsSurface(nobj, sknot_count, sknot, tknot_count, tknot, s_stride, t_stride, ctlarray, sorder, torder, type) {
         DllCall("GLU32.dll\gluNurbsSurface", "ptr", nobj, "int", sknot_count, "float*", sknot, "int", tknot_count, "float*", tknot, "int", s_stride, "int", t_stride, "float*", ctlarray, "int", sorder, "int", torder, "uint", type)
@@ -8170,10 +8546,11 @@ class OpenGL {
     /**
      * 
      * @param {Pointer<GLUnurbs>} nobj 
-     * @param {Pointer<Single>} modelMatrix 
-     * @param {Pointer<Single>} projMatrix 
-     * @param {Pointer<Int32>} viewport 
+     * @param {Pointer<Float>} modelMatrix 
+     * @param {Pointer<Float>} projMatrix 
+     * @param {Pointer<Integer>} viewport 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluloadsamplingmatrices
      */
     static gluLoadSamplingMatrices(nobj, modelMatrix, projMatrix, viewport) {
         DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr", nobj, "float*", modelMatrix, "float*", projMatrix, "int*", viewport)
@@ -8185,6 +8562,7 @@ class OpenGL {
      * @param {Integer} property 
      * @param {Float} value 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbsproperty
      */
     static gluNurbsProperty(nobj, property, value) {
         DllCall("GLU32.dll\gluNurbsProperty", "ptr", nobj, "uint", property, "float", value)
@@ -8194,8 +8572,9 @@ class OpenGL {
      * 
      * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} property 
-     * @param {Pointer<Single>} value 
+     * @param {Pointer<Float>} value 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetnurbsproperty
      */
     static gluGetNurbsProperty(nobj, property, value) {
         DllCall("GLU32.dll\gluGetNurbsProperty", "ptr", nobj, "uint", property, "float*", value)
@@ -8207,6 +8586,7 @@ class OpenGL {
      * @param {Integer} which 
      * @param {Pointer} fn 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbs
      */
     static gluNurbsCallback(nobj, which, fn) {
         DllCall("GLU32.dll\gluNurbsCallback", "ptr", nobj, "uint", which, "ptr", fn)
@@ -8216,6 +8596,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glubeginpolygon
      */
     static gluBeginPolygon(tess) {
         DllCall("GLU32.dll\gluBeginPolygon", "ptr", tess)
@@ -8226,6 +8607,7 @@ class OpenGL {
      * @param {Pointer<GLUtesselator>} tess 
      * @param {Integer} type 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/glunextcontour
      */
     static gluNextContour(tess, type) {
         DllCall("GLU32.dll\gluNextContour", "ptr", tess, "uint", type)
@@ -8235,6 +8617,7 @@ class OpenGL {
      * 
      * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/OpenGL/gluendpolygon
      */
     static gluEndPolygon(tess) {
         DllCall("GLU32.dll\gluEndPolygon", "ptr", tess)

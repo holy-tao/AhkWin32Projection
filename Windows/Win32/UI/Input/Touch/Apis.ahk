@@ -110,7 +110,7 @@ class Touch {
     /**
      * Checks whether a specified window is touch-capable and, optionally, retrieves the modifier flags set for the window's touch capability.
      * @param {HWND} hwnd The handle of the window. The function fails with <b>ERROR_ACCESS_DENIED</b> if the calling thread is not on the same desktop as the specified window.
-     * @param {Pointer<UInt32>} pulFlags The address of the <b>ULONG</b> variable to receive the modifier flags for the specified window's touch capability.
+     * @param {Pointer<Integer>} pulFlags The address of the <b>ULONG</b> variable to receive the modifier flags for the specified window's touch capability.
      * @returns {BOOL} Returns <b>TRUE</b> if the window supports Windows Touch; returns <b>FALSE</b> if the window does not support Windows Touch.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-istouchwindow
      * @since windows6.1
@@ -230,7 +230,7 @@ class Touch {
      * @param {HWND} hwnd A handle to the window to get the gesture configuration from.
      * @param {Integer} dwReserved This value is reserved and must be set to 0.
      * @param {Integer} dwFlags A gesture command flag value indicating options for retrieving the gesture configuration.  See Remarks for additional information and supported values.
-     * @param {Pointer<UInt32>} pcIDs The size, in number of gesture configuration structures, that is in the <i>pGestureConfig</i> buffer.
+     * @param {Pointer<Integer>} pcIDs The size, in number of gesture configuration structures, that is in the <i>pGestureConfig</i> buffer.
      * @param {Pointer<GESTURECONFIG>} pGestureConfig An array of gesture configuration structures that specify the gesture configuration.
      * @param {Integer} cbSize The size of the gesture configuration (<a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-gestureconfig">GESTURECONFIG</a>) structure.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.

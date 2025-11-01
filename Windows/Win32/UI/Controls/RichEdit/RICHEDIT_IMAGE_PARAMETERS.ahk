@@ -60,7 +60,7 @@ class RICHEDIT_IMAGE_PARAMETERS extends Win32Struct
 
     /**
      * The stream that contains the image data.
-     * @type {Pointer<IStream>}
+     * @type {IStream}
      */
     pIStream {
         get => NumGet(this, 24, "ptr")

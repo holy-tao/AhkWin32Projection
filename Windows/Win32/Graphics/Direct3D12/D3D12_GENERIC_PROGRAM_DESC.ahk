@@ -44,7 +44,7 @@ class D3D12_GENERIC_PROGRAM_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3D12_STATE_SUBOBJECT>}
+     * @type {Pointer<Pointer<D3D12_STATE_SUBOBJECT>>}
      */
     ppSubobjects {
         get => NumGet(this, 32, "ptr")

@@ -33,7 +33,7 @@ class KERB_CRYPTO_KEY extends Win32Struct
 
     /**
      * Contains the cryptographic session key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Value {
         get => NumGet(this, 8, "ptr")

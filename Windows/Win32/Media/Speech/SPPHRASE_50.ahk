@@ -144,7 +144,7 @@ class SPPHRASE_50 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSREnginePrivateData {
         get => NumGet(this, 144, "ptr")

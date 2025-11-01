@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_metadata_v1
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

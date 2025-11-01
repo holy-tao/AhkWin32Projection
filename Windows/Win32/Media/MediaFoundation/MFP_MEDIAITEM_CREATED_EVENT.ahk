@@ -35,7 +35,7 @@ class MFP_MEDIAITEM_CREATED_EVENT extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaitem">IMFPMediaItem</a> interface of the new media item. If creating the media item failed, this member is <b>NULL</b>.
-     * @type {Pointer<IMFPMediaItem>}
+     * @type {IMFPMediaItem}
      */
     pMediaItem {
         get => NumGet(this, 32, "ptr")

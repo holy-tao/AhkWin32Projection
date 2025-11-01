@@ -33,7 +33,7 @@ class MI_FeatureDecl extends Win32Struct
 
     /**
      * Name of this feature.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     name {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class MI_FeatureDecl extends Win32Struct
 
     /**
      * Describes metadata for classes, properties, methods, and parameters.
-     * @type {Pointer<MI_Qualifier>}
+     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
     qualifiers {
         get => NumGet(this, 16, "ptr")

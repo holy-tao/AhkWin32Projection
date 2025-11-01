@@ -24,7 +24,7 @@ class BCRYPT_OID extends Win32Struct
 
     /**
      * The address of a buffer that contains the OID.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbOID {
         get => NumGet(this, 8, "ptr")

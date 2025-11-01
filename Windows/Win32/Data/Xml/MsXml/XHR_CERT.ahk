@@ -24,7 +24,7 @@ class XHR_CERT extends Win32Struct
 
     /**
      * A pointer to the buffer that contains the encoded certificate.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCert {
         get => NumGet(this, 8, "ptr")

@@ -76,7 +76,7 @@ class SPPHRASEELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pszPronunciation {
         get => NumGet(this, 40, "ptr")

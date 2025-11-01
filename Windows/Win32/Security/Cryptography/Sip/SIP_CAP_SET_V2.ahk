@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-sip_cap_set_v2
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319
  */

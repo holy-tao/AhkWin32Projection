@@ -163,7 +163,7 @@ class DMO_MEDIA_TYPE extends Win32Struct
 
     /**
      * Not used. Set to <b>NULL</b>.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 40, "ptr")
@@ -181,7 +181,7 @@ class DMO_MEDIA_TYPE extends Win32Struct
 
     /**
      * Pointer to the format structure. The structure type is specified by the <b>formattype</b> member. The format structure must be present, unless <b>formattype</b> is GUID_NULL or FORMAT_None.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbFormat {
         get => NumGet(this, 56, "ptr")

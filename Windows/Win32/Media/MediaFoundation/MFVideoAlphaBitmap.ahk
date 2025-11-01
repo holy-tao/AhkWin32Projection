@@ -43,7 +43,7 @@ class MFVideoAlphaBitmap extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirect3DSurface9>}
+     * @type {IDirect3DSurface9}
      */
     pDDS {
         get => NumGet(this, 8, "ptr")

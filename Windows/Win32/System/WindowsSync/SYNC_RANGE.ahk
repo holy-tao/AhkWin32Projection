@@ -15,7 +15,7 @@ class SYNC_RANGE extends Win32Struct
 
     /**
      * The closed lower bound of item IDs that are contained in the range.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbClosedLowerBound {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class SYNC_RANGE extends Win32Struct
 
     /**
      * The closed upper bound of item IDs that are contained in the range.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbClosedUpperBound {
         get => NumGet(this, 8, "ptr")

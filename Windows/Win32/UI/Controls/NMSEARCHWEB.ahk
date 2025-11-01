@@ -4,6 +4,8 @@
 #Include .\NMHDR.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmsearchweb
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

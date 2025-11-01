@@ -340,7 +340,7 @@ class CERT_STORE_PROV_INFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     rgpvStoreProvFunc {
         get => NumGet(this, 8, "ptr")

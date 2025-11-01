@@ -81,7 +81,7 @@ class SPVSTATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pPhoneIds {
         get => NumGet(this, 40, "ptr")

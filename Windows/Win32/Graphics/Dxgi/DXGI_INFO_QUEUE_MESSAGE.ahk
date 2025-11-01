@@ -59,7 +59,7 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct
 
     /**
      * The message string.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pDescription {
         get => NumGet(this, 24, "ptr")

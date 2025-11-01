@@ -805,7 +805,7 @@ class MPR_INTERFACE_3 extends Win32Struct
 
     /**
      * A pointer to authentication data to use with EAP.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpbCustomAuthData {
         get => NumGet(this, 2464, "ptr")

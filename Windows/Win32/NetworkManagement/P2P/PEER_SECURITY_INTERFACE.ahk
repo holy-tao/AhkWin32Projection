@@ -58,7 +58,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
      * Pointer to a buffer that contains the information  used to create or open a peer graph. This member is optional and can be <b>NULL</b>.
      * 
      * The security data blob pointed to by <b>pbSecurityInfo</b> is  copied and then passed to the SSPI function call of <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">AcquireCredentialsHandle</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSecurityInfo {
         get => NumGet(this, 32, "ptr")

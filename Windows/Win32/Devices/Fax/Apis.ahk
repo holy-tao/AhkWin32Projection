@@ -1506,10 +1506,10 @@ class Fax {
 
     /**
      * The FaxCompleteJobParams function creates both a FAX_COVERPAGE_INFO structure and a FAX_JOB_PARAM structure for a fax client application.
-     * @param {Pointer<FAX_JOB_PARAMA>} JobParams Type: <b>PFAX_JOB_PARAM*</b>
+     * @param {Pointer<Pointer<FAX_JOB_PARAMA>>} JobParams Type: <b>PFAX_JOB_PARAM*</b>
      * 
      * Pointer to the address of a buffer to contain a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_parama">FAX_JOB_PARAM</a> structure. On output, this structure contains members with values that are available from the fax server.
-     * @param {Pointer<FAX_COVERPAGE_INFOA>} CoverpageInfo Type: <b>PFAX_COVERPAGE_INFO*</b>
+     * @param {Pointer<Pointer<FAX_COVERPAGE_INFOA>>} CoverpageInfo Type: <b>PFAX_COVERPAGE_INFO*</b>
      * 
      * Pointer to the address of a buffer to contain a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_coverpage_infoa">FAX_COVERPAGE_INFO</a> structure. On output, this structure contains members with values that are available from the fax server.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1521,16 +1521,16 @@ class Fax {
      * @since windows5.0
      */
     static FaxCompleteJobParamsA(JobParams, CoverpageInfo) {
-        result := DllCall("WINFAX.dll\FaxCompleteJobParamsA", "ptr", JobParams, "ptr", CoverpageInfo, "int")
+        result := DllCall("WINFAX.dll\FaxCompleteJobParamsA", "ptr*", JobParams, "ptr*", CoverpageInfo, "int")
         return result
     }
 
     /**
      * The FaxCompleteJobParams function creates both a FAX_COVERPAGE_INFO structure and a FAX_JOB_PARAM structure for a fax client application.
-     * @param {Pointer<FAX_JOB_PARAMW>} JobParams Type: <b>PFAX_JOB_PARAM*</b>
+     * @param {Pointer<Pointer<FAX_JOB_PARAMW>>} JobParams Type: <b>PFAX_JOB_PARAM*</b>
      * 
      * Pointer to the address of a buffer to contain a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_parama">FAX_JOB_PARAM</a> structure. On output, this structure contains members with values that are available from the fax server.
-     * @param {Pointer<FAX_COVERPAGE_INFOW>} CoverpageInfo Type: <b>PFAX_COVERPAGE_INFO*</b>
+     * @param {Pointer<Pointer<FAX_COVERPAGE_INFOW>>} CoverpageInfo Type: <b>PFAX_COVERPAGE_INFO*</b>
      * 
      * Pointer to the address of a buffer to contain a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_coverpage_infoa">FAX_COVERPAGE_INFO</a> structure. On output, this structure contains members with values that are available from the fax server.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1542,7 +1542,7 @@ class Fax {
      * @since windows5.0
      */
     static FaxCompleteJobParamsW(JobParams, CoverpageInfo) {
-        result := DllCall("WINFAX.dll\FaxCompleteJobParamsW", "ptr", JobParams, "ptr", CoverpageInfo, "int")
+        result := DllCall("WINFAX.dll\FaxCompleteJobParamsW", "ptr*", JobParams, "ptr*", CoverpageInfo, "int")
         return result
     }
 
@@ -1564,7 +1564,7 @@ class Fax {
      * @param {Pointer<FAX_COVERPAGE_INFOA>} CoverpageInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_coverpage_infoa">FAX_COVERPAGE_INFO</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_coverpage_infoa">FAX_COVERPAGE_INFO</a> structure that contains personal data to display on the cover page of the fax document. This parameter must be <b>NULL</b> if a cover page is not required.
-     * @param {Pointer<UInt32>} FaxJobId Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} FaxJobId Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive a unique number that identifies the queued job that will send the fax transmission.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1679,7 +1679,7 @@ class Fax {
      * @param {Pointer<FAX_COVERPAGE_INFOW>} CoverpageInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_coverpage_infoa">FAX_COVERPAGE_INFO</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_coverpage_infoa">FAX_COVERPAGE_INFO</a> structure that contains personal data to display on the cover page of the fax document. This parameter must be <b>NULL</b> if a cover page is not required.
-     * @param {Pointer<UInt32>} FaxJobId Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} FaxJobId Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive a unique number that identifies the queued job that will send the fax transmission.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1790,7 +1790,7 @@ class Fax {
      * 
      * 
      * This parameter can contain any valid local file name. The file must be a properly registered file type, and the fax server must be able to access the file.
-     * @param {Pointer<UInt32>} FaxJobId Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} FaxJobId Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the unique number that identifies the queued job that will send the fax transmission.
      * @param {Pointer<PFAX_RECIPIENT_CALLBACKA>} FaxRecipientCallback Type: <b>PFAX_RECIPIENT_CALLBACK</b>
@@ -1885,7 +1885,7 @@ class Fax {
      * 
      * 
      * This parameter can contain any valid local file name. The file must be a properly registered file type, and the fax server must be able to access the file.
-     * @param {Pointer<UInt32>} FaxJobId Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} FaxJobId Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the unique number that identifies the queued job that will send the fax transmission.
      * @param {Pointer<PFAX_RECIPIENT_CALLBACKW>} FaxRecipientCallback Type: <b>PFAX_RECIPIENT_CALLBACK</b>
@@ -1971,10 +1971,10 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_JOB_ENTRYA>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
+     * @param {Pointer<Pointer<FAX_JOB_ENTRYA>>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_entrya">FAX_JOB_ENTRY</a> structures. Each structure describes one fax job. The data includes, among other items, the job type and status; recipient and sender identification; scheduling and delivery settings; and the page count. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} JobsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} JobsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_entrya">FAX_JOB_ENTRY</a> structures the function returns in the <i>JobEntry</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2030,7 +2030,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumJobsA", "ptr", FaxHandle, "ptr", JobEntry, "uint*", JobsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumJobsA", "ptr", FaxHandle, "ptr*", JobEntry, "uint*", JobsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2042,10 +2042,10 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_JOB_ENTRYW>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
+     * @param {Pointer<Pointer<FAX_JOB_ENTRYW>>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_entrya">FAX_JOB_ENTRY</a> structures. Each structure describes one fax job. The data includes, among other items, the job type and status; recipient and sender identification; scheduling and delivery settings; and the page count. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} JobsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} JobsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_entrya">FAX_JOB_ENTRY</a> structures the function returns in the <i>JobEntry</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2101,7 +2101,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumJobsW", "ptr", FaxHandle, "ptr", JobEntry, "uint*", JobsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumJobsW", "ptr", FaxHandle, "ptr*", JobEntry, "uint*", JobsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2116,7 +2116,7 @@ class Fax {
      * @param {Integer} JobId Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies a queued or active fax job. The job can be an inbound or an outbound transmission.
-     * @param {Pointer<FAX_JOB_ENTRYA>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
+     * @param {Pointer<Pointer<FAX_JOB_ENTRYA>>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_entrya">FAX_JOB_ENTRY</a> structure. The data includes the job type and status, recipient and sender identification, scheduling and delivery settings, and the page count. For information about memory allocation, see the following Remarks section.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2172,7 +2172,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetJobA", "ptr", FaxHandle, "uint", JobId, "ptr", JobEntry, "int")
+        result := DllCall("WINFAX.dll\FaxGetJobA", "ptr", FaxHandle, "uint", JobId, "ptr*", JobEntry, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2187,7 +2187,7 @@ class Fax {
      * @param {Integer} JobId Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies a queued or active fax job. The job can be an inbound or an outbound transmission.
-     * @param {Pointer<FAX_JOB_ENTRYW>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
+     * @param {Pointer<Pointer<FAX_JOB_ENTRYW>>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_entrya">FAX_JOB_ENTRY</a> structure. The data includes the job type and status, recipient and sender identification, scheduling and delivery settings, and the page count. For information about memory allocation, see the following Remarks section.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2243,7 +2243,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetJobW", "ptr", FaxHandle, "uint", JobId, "ptr", JobEntry, "int")
+        result := DllCall("WINFAX.dll\FaxGetJobW", "ptr", FaxHandle, "uint", JobId, "ptr*", JobEntry, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2376,16 +2376,16 @@ class Fax {
      * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} JobId 
-     * @param {Pointer<Byte>} Buffer 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} ImageWidth 
-     * @param {Pointer<UInt32>} ImageHeight 
+     * @param {Pointer<Pointer<Integer>>} Buffer 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} ImageWidth 
+     * @param {Pointer<Integer>} ImageHeight 
      * @returns {BOOL} 
      */
     static FaxGetPageData(FaxHandle, JobId, Buffer, BufferSize, ImageWidth, ImageHeight) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
-        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, "char*", Buffer, "uint*", BufferSize, "uint*", ImageWidth, "uint*", ImageHeight, "int")
+        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, "ptr*", Buffer, "uint*", BufferSize, "uint*", ImageWidth, "uint*", ImageHeight, "int")
         return result
     }
 
@@ -2394,7 +2394,7 @@ class Fax {
      * @param {HANDLE} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<FAX_DEVICE_STATUSA>} DeviceStatus Type: <b>PFAX_DEVICE_STATUS*</b>
+     * @param {Pointer<Pointer<FAX_DEVICE_STATUSA>>} DeviceStatus Type: <b>PFAX_DEVICE_STATUS*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_device_statusa">FAX_DEVICE_STATUS</a> structure. The structure describes the status of one fax device. For information about memory allocation, see the following Remarks section
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2450,7 +2450,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetDeviceStatusA", "ptr", FaxPortHandle, "ptr", DeviceStatus, "int")
+        result := DllCall("WINFAX.dll\FaxGetDeviceStatusA", "ptr", FaxPortHandle, "ptr*", DeviceStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2462,7 +2462,7 @@ class Fax {
      * @param {HANDLE} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<FAX_DEVICE_STATUSW>} DeviceStatus Type: <b>PFAX_DEVICE_STATUS*</b>
+     * @param {Pointer<Pointer<FAX_DEVICE_STATUSW>>} DeviceStatus Type: <b>PFAX_DEVICE_STATUS*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_device_statusa">FAX_DEVICE_STATUS</a> structure. The structure describes the status of one fax device. For information about memory allocation, see the following Remarks section
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2518,7 +2518,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetDeviceStatusW", "ptr", FaxPortHandle, "ptr", DeviceStatus, "int")
+        result := DllCall("WINFAX.dll\FaxGetDeviceStatusW", "ptr", FaxPortHandle, "ptr*", DeviceStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2543,7 +2543,7 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_CONFIGURATIONA>} FaxConfig Type: <b>PFAX_CONFIGURATION*</b>
+     * @param {Pointer<Pointer<FAX_CONFIGURATIONA>>} FaxConfig Type: <b>PFAX_CONFIGURATION*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_configurationa">FAX_CONFIGURATION</a> structure. The structure contains the current configuration settings for the fax server. For information about memory allocation, see the following Remarks section.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2599,7 +2599,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetConfigurationA", "ptr", FaxHandle, "ptr", FaxConfig, "int")
+        result := DllCall("WINFAX.dll\FaxGetConfigurationA", "ptr", FaxHandle, "ptr*", FaxConfig, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2611,7 +2611,7 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_CONFIGURATIONW>} FaxConfig Type: <b>PFAX_CONFIGURATION*</b>
+     * @param {Pointer<Pointer<FAX_CONFIGURATIONW>>} FaxConfig Type: <b>PFAX_CONFIGURATION*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_configurationa">FAX_CONFIGURATION</a> structure. The structure contains the current configuration settings for the fax server. For information about memory allocation, see the following Remarks section.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2667,7 +2667,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetConfigurationW", "ptr", FaxHandle, "ptr", FaxConfig, "int")
+        result := DllCall("WINFAX.dll\FaxGetConfigurationW", "ptr", FaxHandle, "ptr*", FaxConfig, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2815,14 +2815,14 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_LOG_CATEGORYA>} Categories Type: <b>PFAX_LOG_CATEGORY*</b>
+     * @param {Pointer<Pointer<FAX_LOG_CATEGORYA>>} Categories Type: <b>PFAX_LOG_CATEGORY*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a> structures. Each structure describes one current logging category. The data includes the descriptive name of the logging category, the category number, and the current logging level. 
      * 
      *                     
      * 
      * For a description of predefined logging categories and logging levels, see the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a> topic. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} NumberCategories Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} NumberCategories Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a> structures the function returns in the <i>Categories</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2878,7 +2878,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesA", "ptr", FaxHandle, "ptr", Categories, "uint*", NumberCategories, "int")
+        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesA", "ptr", FaxHandle, "ptr*", Categories, "uint*", NumberCategories, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2890,14 +2890,14 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_LOG_CATEGORYW>} Categories Type: <b>PFAX_LOG_CATEGORY*</b>
+     * @param {Pointer<Pointer<FAX_LOG_CATEGORYW>>} Categories Type: <b>PFAX_LOG_CATEGORY*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a> structures. Each structure describes one current logging category. The data includes the descriptive name of the logging category, the category number, and the current logging level. 
      * 
      *                     
      * 
      * For a description of predefined logging categories and logging levels, see the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a> topic. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} NumberCategories Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} NumberCategories Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a> structures the function returns in the <i>Categories</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2953,7 +2953,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesW", "ptr", FaxHandle, "ptr", Categories, "uint*", NumberCategories, "int")
+        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesW", "ptr", FaxHandle, "ptr*", Categories, "uint*", NumberCategories, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3129,10 +3129,10 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_PORT_INFOA>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
+     * @param {Pointer<Pointer<FAX_PORT_INFOA>>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a> structures. Each structure describes one fax port. The data includes, among other items, the permanent line identifier, and the current status and capability of the port. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} PortsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} PortsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a> structures the function returns in the <i>PortInfo</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3188,7 +3188,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumPortsA", "ptr", FaxHandle, "ptr", PortInfo, "uint*", PortsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumPortsA", "ptr", FaxHandle, "ptr*", PortInfo, "uint*", PortsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3200,10 +3200,10 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_PORT_INFOW>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
+     * @param {Pointer<Pointer<FAX_PORT_INFOW>>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a> structures. Each structure describes one fax port. The data includes, among other items, the permanent line identifier, and the current status and capability of the port. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} PortsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} PortsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a> structures the function returns in the <i>PortInfo</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3259,7 +3259,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumPortsW", "ptr", FaxHandle, "ptr", PortInfo, "uint*", PortsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumPortsW", "ptr", FaxHandle, "ptr*", PortInfo, "uint*", PortsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3271,7 +3271,7 @@ class Fax {
      * @param {HANDLE} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<FAX_PORT_INFOA>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
+     * @param {Pointer<Pointer<FAX_PORT_INFOA>>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a> structure. The structure describes one fax port. For information about memory allocation, see the following Remarks section.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3327,7 +3327,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetPortA", "ptr", FaxPortHandle, "ptr", PortInfo, "int")
+        result := DllCall("WINFAX.dll\FaxGetPortA", "ptr", FaxPortHandle, "ptr*", PortInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3339,7 +3339,7 @@ class Fax {
      * @param {HANDLE} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<FAX_PORT_INFOW>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
+     * @param {Pointer<Pointer<FAX_PORT_INFOW>>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
      * 
      * Pointer to the address of a buffer to receive a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a> structure. The structure describes one fax port. For information about memory allocation, see the following Remarks section.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3395,7 +3395,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetPortW", "ptr", FaxPortHandle, "ptr", PortInfo, "int")
+        result := DllCall("WINFAX.dll\FaxGetPortW", "ptr", FaxPortHandle, "ptr*", PortInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3543,14 +3543,14 @@ class Fax {
      * @param {HANDLE} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<FAX_ROUTING_METHODA>} RoutingMethod Type: <b>PFAX_ROUTING_METHOD*</b>
+     * @param {Pointer<Pointer<FAX_ROUTING_METHODA>>} RoutingMethod Type: <b>PFAX_ROUTING_METHOD*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_routing_methoda">FAX_ROUTING_METHOD</a> structures. Each structure contains information about one fax routing method. The data includes, among other items, the name of the DLL that exports the routing method, the GUID and function name that identify the routing method, and the method's user-friendly name. 
      * 
      *                     
      * 
      * For information about memory allocation, see the following Remarks section. For information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>.
-     * @param {Pointer<UInt32>} MethodsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} MethodsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_routing_methoda">FAX_ROUTING_METHOD</a> structures the <b>FaxEnumRoutingMethods</b> function returns in the <i>RoutingMethod</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3606,7 +3606,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsA", "ptr", FaxPortHandle, "ptr", RoutingMethod, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsA", "ptr", FaxPortHandle, "ptr*", RoutingMethod, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3618,14 +3618,14 @@ class Fax {
      * @param {HANDLE} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<FAX_ROUTING_METHODW>} RoutingMethod Type: <b>PFAX_ROUTING_METHOD*</b>
+     * @param {Pointer<Pointer<FAX_ROUTING_METHODW>>} RoutingMethod Type: <b>PFAX_ROUTING_METHOD*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_routing_methoda">FAX_ROUTING_METHOD</a> structures. Each structure contains information about one fax routing method. The data includes, among other items, the name of the DLL that exports the routing method, the GUID and function name that identify the routing method, and the method's user-friendly name. 
      * 
      *                     
      * 
      * For information about memory allocation, see the following Remarks section. For information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>.
-     * @param {Pointer<UInt32>} MethodsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} MethodsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_routing_methoda">FAX_ROUTING_METHOD</a> structures the <b>FaxEnumRoutingMethods</b> function returns in the <i>RoutingMethod</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3681,7 +3681,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsW", "ptr", FaxPortHandle, "ptr", RoutingMethod, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsW", "ptr", FaxPortHandle, "ptr*", RoutingMethod, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3845,10 +3845,10 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_GLOBAL_ROUTING_INFOA>} RoutingInfo Type: <b>PFAX_GLOBAL_ROUTING_INFO*</b>
+     * @param {Pointer<Pointer<FAX_GLOBAL_ROUTING_INFOA>>} RoutingInfo Type: <b>PFAX_GLOBAL_ROUTING_INFO*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_global_routing_infoa">FAX_GLOBAL_ROUTING_INFO</a> structures. Each structure contains information about one fax routing method, as it pertains to the entire fax service. The data includes, among other items, the priority for the fax routing method, and the name of the DLL that exports the routing method. It also includes the GUID and function name that identify the routing method, and the method's user-friendly name. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} MethodsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} MethodsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a DWORD variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_global_routing_infoa">FAX_GLOBAL_ROUTING_INFO</a> structures the function returns in the <i>RoutingInfo</i> parameter. This number equals the total number of fax routing methods installed on the target server.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3904,7 +3904,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoA", "ptr", FaxHandle, "ptr", RoutingInfo, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoA", "ptr", FaxHandle, "ptr*", RoutingInfo, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3916,10 +3916,10 @@ class Fax {
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<FAX_GLOBAL_ROUTING_INFOW>} RoutingInfo Type: <b>PFAX_GLOBAL_ROUTING_INFO*</b>
+     * @param {Pointer<Pointer<FAX_GLOBAL_ROUTING_INFOW>>} RoutingInfo Type: <b>PFAX_GLOBAL_ROUTING_INFO*</b>
      * 
      * Pointer to the address of a buffer to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_global_routing_infoa">FAX_GLOBAL_ROUTING_INFO</a> structures. Each structure contains information about one fax routing method, as it pertains to the entire fax service. The data includes, among other items, the priority for the fax routing method, and the name of the DLL that exports the routing method. It also includes the GUID and function name that identify the routing method, and the method's user-friendly name. For information about memory allocation, see the following Remarks section.
-     * @param {Pointer<UInt32>} MethodsReturned Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} MethodsReturned Type: <b>LPDWORD</b>
      * 
      * Pointer to a DWORD variable to receive the number of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_global_routing_infoa">FAX_GLOBAL_ROUTING_INFO</a> structures the function returns in the <i>RoutingInfo</i> parameter. This number equals the total number of fax routing methods installed on the target server.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3975,7 +3975,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoW", "ptr", FaxHandle, "ptr", RoutingInfo, "uint*", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoW", "ptr", FaxHandle, "ptr*", RoutingInfo, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4130,10 +4130,10 @@ class Fax {
      *                     
      * 
      * For information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>. For information about the relationship between routing methods and GUIDs, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-routing-methods">Fax Routing Methods</a>.
-     * @param {Pointer<Byte>} RoutingInfoBuffer Type: <b>LPBYTE*</b>
+     * @param {Pointer<Pointer<Integer>>} RoutingInfoBuffer Type: <b>LPBYTE*</b>
      * 
      * Pointer to the address of a buffer to receive the fax routing information.
-     * @param {Pointer<UInt32>} RoutingInfoBufferSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} RoutingInfoBufferSize Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the size of the buffer, in bytes, pointed to by the <i>RoutingInfoBuffer</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -4201,7 +4201,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "char*", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr*", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4220,10 +4220,10 @@ class Fax {
      *                     
      * 
      * For information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>. For information about the relationship between routing methods and GUIDs, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-routing-methods">Fax Routing Methods</a>.
-     * @param {Pointer<Byte>} RoutingInfoBuffer Type: <b>LPBYTE*</b>
+     * @param {Pointer<Pointer<Integer>>} RoutingInfoBuffer Type: <b>LPBYTE*</b>
      * 
      * Pointer to the address of a buffer to receive the fax routing information.
-     * @param {Pointer<UInt32>} RoutingInfoBufferSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} RoutingInfoBufferSize Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the size of the buffer, in bytes, pointed to by the <i>RoutingInfoBuffer</i> parameter.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -4291,7 +4291,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "char*", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr*", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4310,7 +4310,7 @@ class Fax {
      *                     
      * 
      * For information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>. For information about the relationship between routing methods and GUIDs, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-routing-methods">Fax Routing Methods</a>.
-     * @param {Pointer<Byte>} RoutingInfoBuffer Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} RoutingInfoBuffer Type: <b>const BYTE*</b>
      * 
      * Pointer to a buffer that contains the fax routing information. The routing data is typically provided by the fax service administration application, a MMC snap-in component.
      * @param {Integer} RoutingInfoBufferSize Type: <b>DWORD</b>
@@ -4389,7 +4389,7 @@ class Fax {
      *                     
      * 
      * For information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>. For information about the relationship between routing methods and GUIDs, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-routing-methods">Fax Routing Methods</a>.
-     * @param {Pointer<Byte>} RoutingInfoBuffer Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} RoutingInfoBuffer Type: <b>const BYTE*</b>
      * 
      * Pointer to a buffer that contains the fax routing information. The routing data is typically provided by the fax service administration application, a MMC snap-in component.
      * @param {Integer} RoutingInfoBufferSize Type: <b>DWORD</b>
@@ -4500,7 +4500,7 @@ class Fax {
      * @param {Pointer<FAX_PRINT_INFOA>} PrintInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_print_infoa">FAX_PRINT_INFO</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_print_infoa">FAX_PRINT_INFO</a> structure that contains the information necessary for the fax server to print the fax transmission. The structure includes, among other items, the recipient's fax number, sender and recipient data, an optional billing code, and delivery report information. For more information, see the following Remarks section.
-     * @param {Pointer<UInt32>} FaxJobId Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} FaxJobId Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the print spooler's unique ID for the fax print job. (This is not the same as the fax queue's ID for the job and it cannot be used as a parameter in any fax API that takes a fax ID parameter.) This parameter is required.
      * @param {Pointer<FAX_CONTEXT_INFOA>} FaxContextInfo Type: <b>PFAX_CONTEXT_INFO</b>
@@ -4606,7 +4606,7 @@ class Fax {
      * @param {Pointer<FAX_PRINT_INFOW>} PrintInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_print_infoa">FAX_PRINT_INFO</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_print_infoa">FAX_PRINT_INFO</a> structure that contains the information necessary for the fax server to print the fax transmission. The structure includes, among other items, the recipient's fax number, sender and recipient data, an optional billing code, and delivery report information. For more information, see the following Remarks section.
-     * @param {Pointer<UInt32>} FaxJobId Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} FaxJobId Type: <b>LPDWORD</b>
      * 
      * Pointer to a <b>DWORD</b> variable to receive the print spooler's unique ID for the fax print job. (This is not the same as the fax queue's ID for the job and it cannot be used as a parameter in any fax API that takes a fax ID parameter.) This parameter is required.
      * @param {Pointer<FAX_CONTEXT_INFOW>} FaxContextInfo Type: <b>PFAX_CONTEXT_INFO</b>
@@ -5023,13 +5023,13 @@ class Fax {
      * @param {HINSTANCE} hinst 
      * @param {Integer} dwVer 
      * @param {Pointer<IStillImageW>} ppSti 
-     * @param {Pointer<IUnknown>} punkOuter 
+     * @param {IUnknown} punkOuter 
      * @returns {HRESULT} 
      */
     static StiCreateInstanceW(hinst, dwVer, ppSti, punkOuter) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
-        result := DllCall("STI.dll\StiCreateInstanceW", "ptr", hinst, "uint", dwVer, "ptr", ppSti, "ptr", punkOuter, "int")
+        result := DllCall("STI.dll\StiCreateInstanceW", "ptr", hinst, "uint", dwVer, "ptr*", ppSti, "ptr", punkOuter, "int")
         if(result != 0)
             throw OSError(result)
 

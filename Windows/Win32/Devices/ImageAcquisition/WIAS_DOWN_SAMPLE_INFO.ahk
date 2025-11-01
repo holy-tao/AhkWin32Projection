@@ -92,7 +92,7 @@ class WIAS_DOWN_SAMPLE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSrcBuffer {
         get => NumGet(this, 40, "ptr")
@@ -100,7 +100,7 @@ class WIAS_DOWN_SAMPLE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pDestBuffer {
         get => NumGet(this, 48, "ptr")

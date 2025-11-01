@@ -339,7 +339,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Pointer to the client site to be used for the object. This parameter is ignored if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> does not create the object.
-     * @type {Pointer<IOleClientSite>}
+     * @type {IOleClientSite}
      */
     lpIOleClientSite {
         get => NumGet(this, 120, "ptr")
@@ -348,7 +348,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Pointer to the storage to be used for the object. This parameter is ignored if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> does not create the object.
-     * @type {Pointer<IStorage>}
+     * @type {IStorage}
      */
     lpIStorage {
         get => NumGet(this, 128, "ptr")
@@ -357,7 +357,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Address of output pointer variable that contains the interface pointer for the object being inserted. This parameter is ignored if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> does not create the object.
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     ppvObj {
         get => NumGet(this, 136, "ptr")

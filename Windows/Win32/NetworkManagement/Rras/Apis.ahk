@@ -3661,8 +3661,8 @@ class Rras {
     /**
      * The RasEnumConnections function lists all active RAS connections. It returns each connection's handle and phone-book entry name.
      * @param {Pointer<RASCONNA>} param0 
-     * @param {Pointer<UInt32>} param1 
-     * @param {Pointer<UInt32>} param2 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3695,8 +3695,8 @@ class Rras {
     /**
      * The RasEnumConnections function lists all active RAS connections. It returns each connection's handle and phone-book entry name.
      * @param {Pointer<RASCONNW>} param0 
-     * @param {Pointer<UInt32>} param1 
-     * @param {Pointer<UInt32>} param2 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3731,8 +3731,8 @@ class Rras {
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASENTRYNAMEA>} param2 
-     * @param {Pointer<UInt32>} param3 
-     * @param {Pointer<UInt32>} param4 
+     * @param {Pointer<Integer>} param3 
+     * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3797,8 +3797,8 @@ class Rras {
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYNAMEW>} param2 
-     * @param {Pointer<UInt32>} param3 
-     * @param {Pointer<UInt32>} param4 
+     * @param {Pointer<Integer>} param3 
+     * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4075,7 +4075,7 @@ class Rras {
      * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
-     * @param {Pointer<UInt32>} param3 
+     * @param {Pointer<Integer>} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4156,7 +4156,7 @@ class Rras {
      * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
-     * @param {Pointer<UInt32>} param3 
+     * @param {Pointer<Integer>} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4659,8 +4659,8 @@ class Rras {
     /**
      * The RasEnumDevices function returns the name and type of all available RAS-capable devices.
      * @param {Pointer<RASDEVINFOA>} param0 
-     * @param {Pointer<UInt32>} param1 
-     * @param {Pointer<UInt32>} param2 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4727,8 +4727,8 @@ class Rras {
     /**
      * The RasEnumDevices function returns the name and type of all available RAS-capable devices.
      * @param {Pointer<RASDEVINFOW>} param0 
-     * @param {Pointer<UInt32>} param1 
-     * @param {Pointer<UInt32>} param2 
+     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4795,7 +4795,7 @@ class Rras {
     /**
      * The RasGetCountryInfo function retrieves country/region-specific dialing information from the Windows Telephony list of countries/regions.
      * @param {Pointer<RASCTRYINFO>} param0 
-     * @param {Pointer<UInt32>} param1 
+     * @param {Pointer<Integer>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4861,7 +4861,7 @@ class Rras {
     /**
      * The RasGetCountryInfo function retrieves country/region-specific dialing information from the Windows Telephony list of countries/regions.
      * @param {Pointer<RASCTRYINFO>} param0 
-     * @param {Pointer<UInt32>} param1 
+     * @param {Pointer<Integer>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4929,9 +4929,9 @@ class Rras {
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASENTRYA>} param2 
-     * @param {Pointer<UInt32>} param3 
-     * @param {Pointer<Byte>} param4 
-     * @param {Pointer<UInt32>} param5 
+     * @param {Pointer<Integer>} param3 
+     * @param {Pointer<Integer>} param4 
+     * @param {Pointer<Integer>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5013,9 +5013,9 @@ class Rras {
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYW>} param2 
-     * @param {Pointer<UInt32>} param3 
-     * @param {Pointer<Byte>} param4 
-     * @param {Pointer<UInt32>} param5 
+     * @param {Pointer<Integer>} param3 
+     * @param {Pointer<Integer>} param4 
+     * @param {Pointer<Integer>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5098,7 +5098,7 @@ class Rras {
      * @param {PSTR} param1 
      * @param {Pointer<RASENTRYA>} param2 
      * @param {Integer} param3 
-     * @param {Pointer<Byte>} param4 
+     * @param {Pointer<Integer>} param4 
      * @param {Integer} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5176,7 +5176,7 @@ class Rras {
      * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYW>} param2 
      * @param {Integer} param3 
-     * @param {Pointer<Byte>} param4 
+     * @param {Pointer<Integer>} param4 
      * @param {Integer} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5549,6 +5549,7 @@ class Rras {
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasvalidateentrynamew
      * @since windows5.0
      */
     static RasValidateEntryNameW(param0, param1) {
@@ -6001,9 +6002,9 @@ class Rras {
      * @param {PSTR} param1 
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYA>} param3 
-     * @param {Pointer<UInt32>} param4 
-     * @param {Pointer<Byte>} param5 
-     * @param {Pointer<UInt32>} param6 
+     * @param {Pointer<Integer>} param4 
+     * @param {Pointer<Integer>} param5 
+     * @param {Pointer<Integer>} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6086,9 +6087,9 @@ class Rras {
      * @param {PWSTR} param1 
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYW>} param3 
-     * @param {Pointer<UInt32>} param4 
-     * @param {Pointer<Byte>} param5 
-     * @param {Pointer<UInt32>} param6 
+     * @param {Pointer<Integer>} param4 
+     * @param {Pointer<Integer>} param5 
+     * @param {Pointer<Integer>} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6172,7 +6173,7 @@ class Rras {
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYA>} param3 
      * @param {Integer} param4 
-     * @param {Pointer<Byte>} param5 
+     * @param {Pointer<Integer>} param5 
      * @param {Integer} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -6246,7 +6247,7 @@ class Rras {
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYW>} param3 
      * @param {Integer} param4 
-     * @param {Pointer<Byte>} param5 
+     * @param {Pointer<Integer>} param5 
      * @param {Integer} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -6316,10 +6317,10 @@ class Rras {
     /**
      * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database.
      * @param {PSTR} param0 
-     * @param {Pointer<UInt32>} param1 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<RASAUTODIALENTRYA>} param2 
-     * @param {Pointer<UInt32>} param3 
-     * @param {Pointer<UInt32>} param4 
+     * @param {Pointer<Integer>} param3 
+     * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6366,10 +6367,10 @@ class Rras {
     /**
      * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database.
      * @param {PWSTR} param0 
-     * @param {Pointer<UInt32>} param1 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<RASAUTODIALENTRYW>} param2 
-     * @param {Pointer<UInt32>} param3 
-     * @param {Pointer<UInt32>} param4 
+     * @param {Pointer<Integer>} param3 
+     * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6546,7 +6547,7 @@ class Rras {
      * 
      * If <i>lppAddresses</i> is <b>NULL</b> on input, 
      * <b>RasEnumAutodialAddresses</b> sets the <i>lpdwcbAddresses</i> and <i>lpdwcAddresses</i> parameters to indicate the required size, in bytes, and the number of address entries in the database.
-     * @param {Pointer<UInt32>} lpdwcbRasAutodialAddresses Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by the <i>lpRasEnumAutodialAddressespAddresses</i> parameter. 
+     * @param {Pointer<Integer>} lpdwcbRasAutodialAddresses Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by the <i>lpRasEnumAutodialAddressespAddresses</i> parameter. 
      * 
      * 
      * 
@@ -6556,7 +6557,7 @@ class Rras {
      * 
      * </div>
      * <div> </div>
-     * @param {Pointer<UInt32>} lpdwcRasAutodialAddresses Pointer to a variable that receives the number of address strings returned in the <i>lppAddresses</i> buffer.
+     * @param {Pointer<Integer>} lpdwcRasAutodialAddresses Pointer to a variable that receives the number of address strings returned in the <i>lppAddresses</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6608,7 +6609,7 @@ class Rras {
      * 
      * If <i>lppAddresses</i> is <b>NULL</b> on input, 
      * <b>RasEnumAutodialAddresses</b> sets the <i>lpdwcbAddresses</i> and <i>lpdwcAddresses</i> parameters to indicate the required size, in bytes, and the number of address entries in the database.
-     * @param {Pointer<UInt32>} lpdwcbRasAutodialAddresses Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by the <i>lpRasEnumAutodialAddressespAddresses</i> parameter. 
+     * @param {Pointer<Integer>} lpdwcbRasAutodialAddresses Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by the <i>lpRasEnumAutodialAddressespAddresses</i> parameter. 
      * 
      * 
      * 
@@ -6618,7 +6619,7 @@ class Rras {
      * 
      * </div>
      * <div> </div>
-     * @param {Pointer<UInt32>} lpdwcRasAutodialAddresses Pointer to a variable that receives the number of address strings returned in the <i>lppAddresses</i> buffer.
+     * @param {Pointer<Integer>} lpdwcRasAutodialAddresses Pointer to a variable that receives the number of address strings returned in the <i>lppAddresses</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6723,7 +6724,7 @@ class Rras {
      * The RasGetAutodialParam function retrieves the value of an AutoDial parameter.
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
-     * @param {Pointer<UInt32>} param2 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6768,7 +6769,7 @@ class Rras {
      * The RasGetAutodialParam function retrieves the value of an AutoDial parameter.
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
-     * @param {Pointer<UInt32>} param2 
+     * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -7257,9 +7258,9 @@ class Rras {
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PSTR} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
-     * @param {Pointer<Byte>} pbEapData Pointer to a buffer that receives the retrieved EAP data for the user. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
+     * @param {Pointer<Integer>} pbEapData Pointer to a buffer that receives the retrieved EAP data for the user. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetEapUserData</b>  returns <b>ERROR_BUFFER_TOO_SMALL</b>, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
-     * @param {Pointer<UInt32>} pdwSizeofEapData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbEapData</i> parameter. 
+     * @param {Pointer<Integer>} pdwSizeofEapData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbEapData</i> parameter. 
      * 
      * 
      * 
@@ -7350,9 +7351,9 @@ class Rras {
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PWSTR} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
-     * @param {Pointer<Byte>} pbEapData Pointer to a buffer that receives the retrieved EAP data for the user. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
+     * @param {Pointer<Integer>} pbEapData Pointer to a buffer that receives the retrieved EAP data for the user. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetEapUserData</b>  returns <b>ERROR_BUFFER_TOO_SMALL</b>, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
-     * @param {Pointer<UInt32>} pdwSizeofEapData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbEapData</i> parameter. 
+     * @param {Pointer<Integer>} pdwSizeofEapData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbEapData</i> parameter. 
      * 
      * 
      * 
@@ -7443,7 +7444,7 @@ class Rras {
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
-     * @param {Pointer<Byte>} pbEapData Pointer to the data to store for the user.
+     * @param {Pointer<Integer>} pbEapData Pointer to the data to store for the user.
      * @param {Integer} dwSizeofEapData Specifies the size of the data pointed to by the <i>pbEapData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -7517,7 +7518,7 @@ class Rras {
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
-     * @param {Pointer<Byte>} pbEapData Pointer to the data to store for the user.
+     * @param {Pointer<Integer>} pbEapData Pointer to the data to store for the user.
      * @param {Integer} dwSizeofEapData Specifies the size of the data pointed to by the <i>pbEapData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -7592,7 +7593,7 @@ class Rras {
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetCustomAuthData</b>  returns ERROR_BUFFER_TOO_SMALL, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
-     * @param {Pointer<UInt32>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
+     * @param {Pointer<Integer>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
      * 
      * 
      * 
@@ -7683,7 +7684,7 @@ class Rras {
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetCustomAuthData</b>  returns ERROR_BUFFER_TOO_SMALL, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
-     * @param {Pointer<UInt32>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
+     * @param {Pointer<Integer>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
      * 
      * 
      * 
@@ -7959,7 +7960,7 @@ class Rras {
      * </tr>
      * </table>
      * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
-     * @param {Pointer<RASEAPUSERIDENTITYW>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
+     * @param {Pointer<Pointer<RASEAPUSERIDENTITYW>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
      * <b>RASEAPUSERIDENTITY</b> structure. Free this memory by calling 
@@ -8039,7 +8040,7 @@ class Rras {
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr", ppRasEapUserIdentity, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr*", ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -8086,7 +8087,7 @@ class Rras {
      * </tr>
      * </table>
      * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
-     * @param {Pointer<RASEAPUSERIDENTITYA>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
+     * @param {Pointer<Pointer<RASEAPUSERIDENTITYA>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
      * <b>RASEAPUSERIDENTITY</b> structure. Free this memory by calling 
@@ -8166,7 +8167,7 @@ class Rras {
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr", ppRasEapUserIdentity, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr*", ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -8285,7 +8286,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RAS_PROJECTION_INFO>} pRasProjection A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structure that receives the projection information for the RAS connections.
-     * @param {Pointer<UInt32>} lpdwSize A pointer, in input, that specifies the size, in bytes, of the buffer pointed to by pRasProjection. On output, this variable receives the size, in bytes, of the buffer needed to store the number of <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structures pointed to by 
+     * @param {Pointer<Integer>} lpdwSize A pointer, in input, that specifies the size, in bytes, of the buffer pointed to by pRasProjection. On output, this variable receives the size, in bytes, of the buffer needed to store the number of <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structures pointed to by 
      * 					<i>pRasProjection</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -8550,10 +8551,10 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Pointer<MPRAPI_OBJECT_HEADER>} pObjectHeader A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mprapi_object_header">MPRAPI_OBJECT_HEADER</a>   structure that specifies the structure version received by <i>ppRasConn</i>.
      * @param {Integer} dwPreferedMaxLen A value that specifies the preferred maximum length of returned data in 8-bit bytes. If <i>dwPrefMaxLen</i> is -1, the buffer returned is large enough to hold all available information.
-     * @param {Pointer<UInt32>} lpdwEntriesRead A pointer to a <b>DWORD</b> that receives the total number of connections enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwTotalEntries A pointer to a <b>DWORD</b> that receives the total number of connections that could have been enumerated from the current resume position.
-     * @param {Pointer<RAS_CONNECTION_EX>} ppRasConn A pointer, on output, to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_ex">RAS_CONNECTION_EX</a> structures that contain the active connection information for the RRAS server in  <i>hRasServer</i>. The number of array elements is determined by the value pointed to by <i>lpdwEntriesRead</i>.
-     * @param {Pointer<UInt32>} lpdwResumeHandle A pointer to a <b>DWORD</b> variable that specifies a resume handle used to continue the enumeration. The <i>lpdwResumeHandle</i> parameter is <b>NULL</b> on the first call, and left unchanged on subsequent calls. If the return code is <b>ERROR_MORE_DATA</b>, another call may be made using this handle to retrieve more data. If the handle is <b>NULL</b> upon return, the enumeration is complete. This handle is invalid for other types of error returns.
+     * @param {Pointer<Integer>} lpdwEntriesRead A pointer to a <b>DWORD</b> that receives the total number of connections enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwTotalEntries A pointer to a <b>DWORD</b> that receives the total number of connections that could have been enumerated from the current resume position.
+     * @param {Pointer<Pointer<RAS_CONNECTION_EX>>} ppRasConn A pointer, on output, to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_ex">RAS_CONNECTION_EX</a> structures that contain the active connection information for the RRAS server in  <i>hRasServer</i>. The number of array elements is determined by the value pointed to by <i>lpdwEntriesRead</i>.
+     * @param {Pointer<Integer>} lpdwResumeHandle A pointer to a <b>DWORD</b> variable that specifies a resume handle used to continue the enumeration. The <i>lpdwResumeHandle</i> parameter is <b>NULL</b> on the first call, and left unchanged on subsequent calls. If the return code is <b>ERROR_MORE_DATA</b>, another call may be made using this handle to retrieve more data. If the handle is <b>NULL</b> upon return, the enumeration is complete. This handle is invalid for other types of error returns.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -8623,7 +8624,7 @@ class Rras {
      * @since windows6.1
      */
     static MprAdminConnectionEnumEx(hRasServer, pObjectHeader, dwPreferedMaxLen, lpdwEntriesRead, lpdwTotalEntries, ppRasConn, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprAdminConnectionEnumEx", "ptr", hRasServer, "ptr", pObjectHeader, "uint", dwPreferedMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "ptr", ppRasConn, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminConnectionEnumEx", "ptr", hRasServer, "ptr", pObjectHeader, "uint", dwPreferedMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "ptr*", ppRasConn, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9334,13 +9335,13 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to an array of structures that describe the connection. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_0">RAS_CONNECTION_0</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_1">RAS_CONNECTION_1</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_2">RAS_CONNECTION_2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_3">RAS_CONNECTION_3</a>, depending on the value of the <i>dwLevel</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to an array of structures that describe the connection. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_0">RAS_CONNECTION_0</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_1">RAS_CONNECTION_1</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_2">RAS_CONNECTION_2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_3">RAS_CONNECTION_3</a>, depending on the value of the <i>dwLevel</i> parameter. 
      * 
      * To free this memory, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @param {Integer} dwPrefMaxLen Specifies the preferred maximum length of returned data in 8-bit bytes. If <i>dwPrefMaxLen</i> is -1, the buffer returned is large enough to hold all available information.
-     * @param {Pointer<UInt32>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of connections enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of connections that could have been enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. This variable specifies a resume handle used to continue the enumeration. The <i>lpdwResumeHandle</i> parameter is zero on the first call, and left unchanged on subsequent calls. If the return code is ERROR_MORE_DATA, another call may be made using this handle to retrieve more data. If the handle is <b>NULL</b> upon return, the enumeration is complete. This handle is invalid for other types of error returns.
+     * @param {Pointer<Integer>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of connections enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of connections that could have been enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. This variable specifies a resume handle used to continue the enumeration. The <i>lpdwResumeHandle</i> parameter is zero on the first call, and left unchanged on subsequent calls. If the return code is ERROR_MORE_DATA, another call may be made using this handle to retrieve more data. If the handle is <b>NULL</b> upon return, the enumeration is complete. This handle is invalid for other types of error returns.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9421,7 +9422,7 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", "ptr", hRasServer, "uint", dwLevel, "char*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", "ptr", hRasServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9431,12 +9432,12 @@ class Rras {
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Must be zero.
      * @param {HANDLE} hRasConnection A handle to a connection for which the active ports are enumerated. If this parameter is <b>INVALID_HANDLE_VALUE</b>, all the ports in use or available for use by RRAS are enumerated. To obtain this handle, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_0">RAS_PORT_0</a> structures that describes the port. Free this memory by calling 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_0">RAS_PORT_0</a> structures that describes the port. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @param {Integer} dwPrefMaxLen A value that specifies the preferred maximum length of returned data, in 8-bit bytes. If this parameter is -1, the buffer that is returned is large enough to hold all available data.
-     * @param {Pointer<UInt32>} lpdwEntriesRead A pointer to a <b>DWORD</b> variable. This variable receives the total number of ports that are enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwTotalEntries A pointer to a <b>DWORD</b> variable. This variable receives the total number of ports that could have been enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwResumeHandle A pointer to a <b>DWORD</b> variable. On successful execution, this parameter specifies a handle that can be used to resume the enumeration. This parameter should be zero on the first call and left unchanged on subsequent calls. If the return code is <b>ERROR_MORE_DATA</b>, the call can be reissued with the handle to retrieve more data. If the handle is <b>NULL</b> on return, the enumeration cannot be continued. This handle is invalid for other types of error returns.
+     * @param {Pointer<Integer>} lpdwEntriesRead A pointer to a <b>DWORD</b> variable. This variable receives the total number of ports that are enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwTotalEntries A pointer to a <b>DWORD</b> variable. This variable receives the total number of ports that could have been enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwResumeHandle A pointer to a <b>DWORD</b> variable. On successful execution, this parameter specifies a handle that can be used to resume the enumeration. This parameter should be zero on the first call and left unchanged on subsequent calls. If the return code is <b>ERROR_MORE_DATA</b>, the call can be reissued with the handle to retrieve more data. If the handle is <b>NULL</b> on return, the enumeration cannot be continued. This handle is invalid for other types of error returns.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the error codes listed in the following table.
@@ -9530,7 +9531,7 @@ class Rras {
     static MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
         hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
 
-        result := DllCall("MPRAPI.dll\MprAdminPortEnum", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "char*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminPortEnum", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "ptr*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9569,7 +9570,7 @@ class Rras {
      * </tr>
      * </table>
      * @param {HANDLE} hRasConnection A handle to the connection to retrieve data about. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to an array of structures that describe the connection. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_0">RAS_CONNECTION_0</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_1">RAS_CONNECTION_1</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_2">RAS_CONNECTION_2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_3">RAS_CONNECTION_3</a>, depending on the value of the <i>dwLevel</i> parameter. 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to an array of structures that describe the connection. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_0">RAS_CONNECTION_0</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_1">RAS_CONNECTION_1</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_2">RAS_CONNECTION_2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_3">RAS_CONNECTION_3</a>, depending on the value of the <i>dwLevel</i> parameter. 
      * 
      * To free this memory, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
@@ -9643,7 +9644,7 @@ class Rras {
     static MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffer) {
         hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
 
-        result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "char*", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "ptr*", lplpbBuffer, "uint")
         return result
     }
 
@@ -9673,7 +9674,7 @@ class Rras {
      * </table>
      * @param {HANDLE} hPort Handle to the port for which to collect information. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminportenum">MprAdminPortEnum</a>.
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to a structure that describes the port. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_0">RAS_PORT_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_1">RAS_PORT_1</a> depending on the value of the <i>dwLevel</i> parameter. Free this memory by calling 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to a structure that describes the port. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_0">RAS_PORT_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_1">RAS_PORT_1</a> depending on the value of the <i>dwLevel</i> parameter. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -9761,7 +9762,7 @@ class Rras {
     static MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
         hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
 
-        result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hPort, "char*", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hPort, "ptr*", lplpbBuffer, "uint")
         return result
     }
 
@@ -10153,7 +10154,7 @@ class Rras {
      * @param {Integer} dwLevel This parameter may be zero or one.
      * 
      * <b>Windows NT Server 4.0 with SP3 and later:  </b>This parameter must be zero.
-     * @param {Pointer<Byte>} lpbBuffer Pointer to a 
+     * @param {Pointer<Integer>} lpbBuffer Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_user_0">RAS_USER_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_user_1">RAS_USER_1</a> structure. The caller must allocate (and free) the memory for this structure. Upon successful return, this structure contains the RAS data for the specified user. 
      * 
      * 
@@ -10239,7 +10240,7 @@ class Rras {
      * @param {Integer} dwLevel This parameter can be zero or one, corresponding to the structure type pointed to by the <i>lpbBuffer</i> parameter.
      * 
      * <b>Windows NT Server 4.0 with SP3 and later:  </b>This parameter must be zero.
-     * @param {Pointer<Byte>} lpbBuffer Pointer to a 
+     * @param {Pointer<Integer>} lpbBuffer Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_user_0">RAS_USER_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_user_1">RAS_USER_1</a> structure that specifies the new RAS information for the user. 
      * 
      * 
@@ -10483,7 +10484,7 @@ class Rras {
     /**
      * The MprAdminServerConnect function establishes a connection to a router for the purpose of administering that router.
      * @param {PWSTR} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the remote server. If this parameter is <b>NULL</b>, the function returns a handle to the local machine.
-     * @param {Pointer<IntPtr>} phMprServer A pointer to a <b>HANDLE</b> variable that receives a handle to the server. Use this handle in subsequent calls to administer the server.
+     * @param {Pointer<Pointer>} phMprServer A pointer to a <b>HANDLE</b> variable that receives a handle to the server. Use this handle in subsequent calls to administer the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -10554,7 +10555,7 @@ class Rras {
      * @param {Pointer} hMprServer Handle to a Windows server. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a> structure that contains the pre-shared key for the server. Free the memory occupied by this structure with 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a> structure that contains the pre-shared key for the server. Free the memory occupied by this structure with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -10615,7 +10616,7 @@ class Rras {
      * @since windowsserver2003
      */
     static MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
         return result
     }
 
@@ -10624,7 +10625,7 @@ class Rras {
      * @param {Pointer} hMprServer Handle to a Windows server. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Byte>} lpbBuffer A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a> structure that contains the pre-shared key for the server.
+     * @param {Pointer<Integer>} lpbBuffer A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a> structure that contains the pre-shared key for the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -10795,7 +10796,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to a 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_0">MPR_SERVER_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a>,  
      * or   <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
@@ -10848,7 +10849,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
         return result
     }
 
@@ -10873,7 +10874,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer to a 
+     * @param {Pointer<Integer>} lpbBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a>  
      * or   <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
@@ -11150,10 +11151,10 @@ class Rras {
      * </tr>
      * </table>
      * @param {PWSTR} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the transport.
-     * @param {Pointer<Byte>} pGlobalInfo Pointer to a buffer that specifies global information for the transport. Use the 
+     * @param {Pointer<Integer>} pGlobalInfo Pointer to a buffer that specifies global information for the transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwGlobalInfoSize Specifies the size, in bytes, of the data pointed to by the <i>pGlobalInfo</i> parameter.
-     * @param {Pointer<Byte>} pClientInterfaceInfo Pointer to a buffer that specifies default client interface information for the transport. 
+     * @param {Pointer<Integer>} pClientInterfaceInfo Pointer to a buffer that specifies default client interface information for the transport. 
      * 
      * 
      * 
@@ -11269,7 +11270,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pGlobalInfo Pointer to a buffer that specifies global information for the transport. Use the 
+     * @param {Pointer<Integer>} pGlobalInfo Pointer to a buffer that specifies global information for the transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers. 
      * 
      * 
@@ -11277,7 +11278,7 @@ class Rras {
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not set the global information.
      * @param {Integer} dwGlobalInfoSize Specifies the size, in bytes, of the buffer pointed to by the <i>pGlobalInfo</i> parameter.
-     * @param {Pointer<Byte>} pClientInterfaceInfo Pointer to a buffer that specifies default client interface information for the transport. 
+     * @param {Pointer<Integer>} pClientInterfaceInfo Pointer to a buffer that specifies default client interface information for the transport. 
      * 
      * 
      * 
@@ -11378,7 +11379,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} ppGlobalInfo Pointer to a pointer variable. This variable points to an information header that receives global information for this transport. Use the 
+     * @param {Pointer<Pointer<Integer>>} ppGlobalInfo Pointer to a pointer variable. This variable points to an information header that receives global information for this transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers. 
      * 
      * 
@@ -11388,15 +11389,15 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not retrieve the global information.
-     * @param {Pointer<UInt32>} lpdwGlobalInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the global information for the transport.
-     * @param {Pointer<Byte>} ppClientInterfaceInfo Pointer to a pointer variable. This variable points to default client interface information for this transport. Free this memory by calling 
+     * @param {Pointer<Integer>} lpdwGlobalInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the global information for the transport.
+     * @param {Pointer<Pointer<Integer>>} ppClientInterfaceInfo Pointer to a pointer variable. This variable points to default client interface information for this transport. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>. 
      * 
      * 
      * 
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not retrieve the client interface information.
-     * @param {Pointer<UInt32>} lpdwClientInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the client interface information.
+     * @param {Pointer<Integer>} lpdwClientInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the client interface information.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -11463,7 +11464,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize) {
-        result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", "ptr", hMprServer, "uint", dwTransportId, "char*", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "char*", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", "ptr", hMprServer, "uint", dwTransportId, "ptr*", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "ptr*", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "uint")
         return result
     }
 
@@ -11472,9 +11473,9 @@ class Rras {
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> structures that contains the RAS capable device information. Free this memory by calling 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> structures that contains the RAS capable device information. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
-     * @param {Pointer<UInt32>} lpdwTotalEntries The number of entries of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> in <i>lplpbBuffer</i>.
+     * @param {Pointer<Integer>} lpdwTotalEntries The number of entries of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> in <i>lplpbBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -11511,7 +11512,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
-        result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint*", lpdwTotalEntries, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint*", lpdwTotalEntries, "uint")
         return result
     }
 
@@ -11626,7 +11627,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer to a 
+     * @param {Pointer<Integer>} lpbBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
@@ -11744,7 +11745,7 @@ class Rras {
      *  
      * 
      * Values of 1, 2, and 3 are valid only for interfaces of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_connection_state">ROUTER_CONNECTION_STATE</a>.
-     * @param {Pointer<Byte>} lplpbBuffer A pointer to a 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
@@ -11832,7 +11833,7 @@ class Rras {
     static MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "char*", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
         return result
     }
 
@@ -11873,7 +11874,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer to a 
+     * @param {Pointer<Integer>} lpbBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
@@ -12043,7 +12044,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lplpBuffer On successful completion, a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_1">MPR_DEVICE_1</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
+     * @param {Pointer<Pointer<Integer>>} lplpBuffer On successful completion, a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_1">MPR_DEVICE_1</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
      * 					Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -12121,7 +12122,7 @@ class Rras {
     static MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, lplpBuffer) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwIndex, "uint", dwLevel, "char*", lplpBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwIndex, "uint", dwLevel, "ptr*", lplpBuffer, "uint")
         return result
     }
 
@@ -12153,7 +12154,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_1">MPR_DEVICE_1</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
+     * @param {Pointer<Integer>} lpbBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_0">MPR_DEVICE_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_device_1">MPR_DEVICE_1</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -12372,7 +12373,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pInterfaceInfo Pointer to an information header that specifies interface information for this transport. Use the 
+     * @param {Pointer<Integer>} pInterfaceInfo Pointer to an information header that specifies interface information for this transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwInterfaceInfoSize Specifies the size, in bytes, of the information pointed to by <i>pInterfaceInfo</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
@@ -12473,10 +12474,10 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} ppInterfaceInfo Pointer to a pointer variable. The pointer variable points to an information header that receives information for the specified interface and transport. Use the 
+     * @param {Pointer<Pointer<Integer>>} ppInterfaceInfo Pointer to a pointer variable. The pointer variable points to an information header that receives information for the specified interface and transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
-     * @param {Pointer<UInt32>} lpdwInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size in bytes of the interface information returned through the <i>ppInterfaceInfo</i> parameter. 
+     * @param {Pointer<Integer>} lpdwInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size in bytes of the interface information returned through the <i>ppInterfaceInfo</i> parameter. 
      * 
      * 
      * 
@@ -12553,7 +12554,7 @@ class Rras {
     static MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, ppInterfaceInfo, lpdwInterfaceInfoSize) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "char*", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "ptr*", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
         return result
     }
 
@@ -12591,7 +12592,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pInterfaceInfo Pointer to an information header that contains information for the specified interface and transport. Use the 
+     * @param {Pointer<Integer>} pInterfaceInfo Pointer to an information header that contains information for the specified interface and transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwInterfaceInfoSize Specifies the size, in bytes, of the information pointed to by <i>pInterfaceInfo</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -12674,12 +12675,12 @@ class Rras {
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> structures.  Free this memory buffer by calling 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> structures.  Free this memory buffer by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @param {Integer} dwPrefMaxLen Specifies the preferred maximum length of returned data (in 8-bit bytes). If this parameter is -1, the buffer returned is large enough to hold all available information.
-     * @param {Pointer<UInt32>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of interfaces that were enumerated from the current position in the enumeration.
-     * @param {Pointer<UInt32>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of interfaces that could have been enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. This variable specifies a resume handle that can be used to continue the enumeration. The handle should be zero on the first call, and left unchanged on subsequent calls. If the return code is ERROR_MORE_DATA then the call can be re-issued using the handle to retrieve more data. If on return, the handle is <b>NULL</b>, the enumeration cannot be continued. For other types of error returns, this handle is invalid. 
+     * @param {Pointer<Integer>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of interfaces that were enumerated from the current position in the enumeration.
+     * @param {Pointer<Integer>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of interfaces that could have been enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. This variable specifies a resume handle that can be used to continue the enumeration. The handle should be zero on the first call, and left unchanged on subsequent calls. If the return code is ERROR_MORE_DATA then the call can be re-issued using the handle to retrieve more data. If on return, the handle is <b>NULL</b>, the enumeration cannot be continued. For other types of error returns, this handle is invalid. 
      * 
      * 
      * 
@@ -12743,7 +12744,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceEnum(hMprServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -12966,7 +12967,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer to a 
+     * @param {Pointer<Integer>} lpbBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_0">MPR_CREDENTIALSEX_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -13070,7 +13071,7 @@ class Rras {
      *  
      * 
      * A value of 1 indicates the information is a pre-shared key for the interface, which is in an encrypted format.
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to a 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_0">MPR_CREDENTIALSEX_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
      * 					Free the memory occupied by this structure with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
@@ -13145,7 +13146,7 @@ class Rras {
     static MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbBuffer) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "char*", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
         return result
     }
 
@@ -13536,7 +13537,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lpdwUpdateResult Pointer to a <b>DWORD</b> variable. This variable receives the result of the last call to 
+     * @param {Pointer<Integer>} lpdwUpdateResult Pointer to a <b>DWORD</b> variable. This variable receives the result of the last call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfaceupdateroutes">MprAdminInterfaceUpdateRoutes</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -13894,7 +13895,7 @@ class Rras {
     /**
      * The MprAdminMIBServerConnect function establishes a connection to the router being administered. This call should be made before any other calls to the server. The handle returned by this function is used in subsequent MIB calls.
      * @param {PWSTR} lpwsServerName Pointer to a Unicode string that specifies the name of the remote server. If the caller specifies <b>NULL</b> for this parameter, the function returns a handle to the local server.
-     * @param {Pointer<IntPtr>} phMibServer Pointer to a handle variable. This variable receives a handle to the server.
+     * @param {Pointer<Pointer>} phMibServer Pointer to a handle variable. This variable receives a handle to the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibserverconnect
      * @since windowsserver2000
@@ -14122,10 +14123,10 @@ class Rras {
      * @param {Pointer<Void>} lpInEntry Pointer to an opaque data 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mib/mib-structures">structure</a>. The data structure's format is determined by the module servicing the call. The data structure should contain information that specifies the variable being queried.
      * @param {Integer} dwInEntrySize Specifies the size, in bytes, of the data structure pointed to by <i>lpInEntry</i>.
-     * @param {Pointer<Void>} lplpOutEntry Pointer to a pointer variable. On successful return, this pointer variable points to an opaque data 
+     * @param {Pointer<Pointer<Void>>} lplpOutEntry Pointer to a pointer variable. On successful return, this pointer variable points to an opaque data 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mib/mib-structures">structure</a>. The data structure's format is determined by the module servicing the call. The data structure receives the value of the variable that was queried. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibbufferfree">MprAdminMIBBufferFree</a>.
-     * @param {Pointer<UInt32>} lpOutEntrySize Pointer to a <b>DWORD</b> variable that, on successful return, receives the size in bytes of the data structure returned through the <i>lplpOutEntry</i> parameter.
+     * @param {Pointer<Integer>} lpOutEntrySize Pointer to a <b>DWORD</b> variable that, on successful return, receives the size in bytes of the data structure returned through the <i>lplpOutEntry</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -14184,7 +14185,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGet(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
-        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGet", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, "ptr", lpInEntry, "uint", dwInEntrySize, "ptr", lplpOutEntry, "uint*", lpOutEntrySize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGet", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, "ptr", lpInEntry, "uint", dwInEntrySize, "ptr*", lplpOutEntry, "uint*", lpOutEntrySize, "uint")
         return result
     }
 
@@ -14199,10 +14200,10 @@ class Rras {
      * @param {Pointer<Void>} lpInEntry Pointer to an opaque data 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mib/mib-structures">structure</a>. The data structure's format is determined by the module servicing the call. The data structure should contain information that specifies the variable being queried.
      * @param {Integer} dwInEntrySize Specifies the size, in bytes, of the data pointed to by <i>lpInEntry</i>.
-     * @param {Pointer<Void>} lplpOutEntry Pointer to a pointer variable. On successful return, this pointer variable points to an opaque data 
+     * @param {Pointer<Pointer<Void>>} lplpOutEntry Pointer to a pointer variable. On successful return, this pointer variable points to an opaque data 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mib/mib-structures">structure</a>. The data structure's format is determined by the module servicing the call. The data structure receives the value of the first variable from the set of variables exported. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibbufferfree">MprAdminMIBBufferFree</a>.
-     * @param {Pointer<UInt32>} lpOutEntrySize Pointer to a <b>DWORD</b> variable. On successful return, this variable receives the size, in bytes, of the data structure that was returned through the <i>lplpOutEntry</i> parameter.
+     * @param {Pointer<Integer>} lpOutEntrySize Pointer to a <b>DWORD</b> variable. On successful return, this variable receives the size, in bytes, of the data structure that was returned through the <i>lplpOutEntry</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -14261,7 +14262,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGetFirst(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
-        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetFirst", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, "ptr", lpInEntry, "uint", dwInEntrySize, "ptr", lplpOutEntry, "uint*", lpOutEntrySize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetFirst", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, "ptr", lpInEntry, "uint", dwInEntrySize, "ptr*", lplpOutEntry, "uint*", lpOutEntrySize, "uint")
         return result
     }
 
@@ -14276,10 +14277,10 @@ class Rras {
      * @param {Pointer<Void>} lpInEntry Pointer to an opaque data 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mib/mib-structures">structure</a>. The data structure's format is determined by the module that services the call. The data structure should contain information that specifies the variable being queried.
      * @param {Integer} dwInEntrySize Specifies the size, in bytes, of the data structure pointed to by <i>lpInEntry</i>.
-     * @param {Pointer<Void>} lplpOutEntry Pointer to a pointer variable. On successful return, this pointer variable points to an opaque data 
+     * @param {Pointer<Pointer<Void>>} lplpOutEntry Pointer to a pointer variable. On successful return, this pointer variable points to an opaque data 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mib/mib-structures">structure</a>. The data structure's format is determined by the module that services the call. The data structure receives the value of the next variable from the set of variables exported. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibbufferfree">MprAdminMIBBufferFree</a>.
-     * @param {Pointer<UInt32>} lpOutEntrySize Pointer to a <b>DWORD</b> variable. This variable receives the size in bytes of the data structure returned through the <i>lplpOutEntry</i> parameter.
+     * @param {Pointer<Integer>} lpOutEntrySize Pointer to a <b>DWORD</b> variable. This variable receives the size in bytes of the data structure returned through the <i>lplpOutEntry</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -14338,7 +14339,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGetNext(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
-        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetNext", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, "ptr", lpInEntry, "uint", dwInEntrySize, "ptr", lplpOutEntry, "uint*", lpOutEntrySize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetNext", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, "ptr", lpInEntry, "uint", dwInEntrySize, "ptr*", lplpOutEntry, "uint*", lpOutEntrySize, "uint")
         return result
     }
 
@@ -14557,7 +14558,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to a 
+     * @param {Pointer<Pointer<Integer>>} lplpbBuffer On successful completion, a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_0">MPR_SERVER_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a>,  
      * or   <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
@@ -14621,7 +14622,7 @@ class Rras {
     static MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
-        result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", "ptr", hMprConfig, "uint", dwLevel, "char*", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", "ptr", hMprConfig, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
         return result
     }
 
@@ -14646,7 +14647,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer to a 
+     * @param {Pointer<Integer>} lpbBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a>  
      * or   <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
@@ -15238,7 +15239,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportcreate">MprConfigTransportCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportgethandle">MprConfigTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportenum">MprConfigTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
-     * @param {Pointer<Byte>} ppGlobalInfo On input, pointer to a pointer variable. 
+     * @param {Pointer<Pointer<Integer>>} ppGlobalInfo On input, pointer to a pointer variable. 
      * 
      * 
      * 
@@ -15248,13 +15249,13 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not retrieve the global information.
-     * @param {Pointer<UInt32>} lpdwGlobalInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the buffer returned through the <i>ppGlobalInfo</i> parameter. 
+     * @param {Pointer<Integer>} lpdwGlobalInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the buffer returned through the <i>ppGlobalInfo</i> parameter. 
      * 
      * 
      * 
      * 
      * This parameter is optional; the calling application may specify <b>NULL</b> for this parameter. However, if <i>ppGlobalInfo</i> is not <b>NULL</b>, this parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} ppClientInterfaceInfo On input, pointer to a pointer variable. 
+     * @param {Pointer<Pointer<Integer>>} ppClientInterfaceInfo On input, pointer to a pointer variable. 
      * 
      * 
      * 
@@ -15264,7 +15265,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not retrieve the interface information.
-     * @param {Pointer<UInt32>} lpdwClientInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the buffer returned through the <i>ppClientInterfaceInfo</i> parameter. 
+     * @param {Pointer<Integer>} lpdwClientInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the buffer returned through the <i>ppClientInterfaceInfo</i> parameter. 
      * 
      * 
      * 
@@ -15349,7 +15350,7 @@ class Rras {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterTransport := hRouterTransport is Win32Handle ? NumGet(hRouterTransport, "ptr") : hRouterTransport
 
-        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "char*", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "char*", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "ptr*", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "ptr*", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
         return result
     }
 
@@ -15358,7 +15359,7 @@ class Rras {
      * @param {HANDLE} hMprConfig Handle to the router configuration for the transports. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is returned in the <i>lplpBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Byte>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
+     * @param {Pointer<Pointer<Integer>>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
      * 
      * 
      * 
@@ -15367,9 +15368,9 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_transport_0">MPR_TRANSPORT_0</a> structures. Free this memory buffer by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
      * @param {Integer} dwPrefMaxLen Specifies the preferred maximum length of returned data in 8-bit bytes. If this parameter is -1, the buffer returned will be large enough to hold all available information.
-     * @param {Pointer<UInt32>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that were enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that could have been enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. 
+     * @param {Pointer<Integer>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that were enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that could have been enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. 
      * 
      * 
      * 
@@ -15454,7 +15455,7 @@ class Rras {
     static MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
-        result := DllCall("MPRAPI.dll\MprConfigTransportEnum", "ptr", hMprConfig, "uint", dwLevel, "char*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigTransportEnum", "ptr", hMprConfig, "uint", dwLevel, "ptr*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -15493,7 +15494,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer  to a 
+     * @param {Pointer<Integer>} lpbBuffer A pointer  to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
@@ -15743,7 +15744,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
+     * @param {Pointer<Pointer<Integer>>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
      * 
      * On successful completion, a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
@@ -15751,7 +15752,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
      * 					Free this buffer by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
-     * @param {Pointer<UInt32>} lpdwBufferSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the data returned through <i>lplpBuffer</i>.
+     * @param {Pointer<Integer>} lpdwBufferSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the data returned through <i>lplpBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -15812,7 +15813,7 @@ class Rras {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "char*", lplpBuffer, "uint*", lpdwBufferSize, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "ptr*", lplpBuffer, "uint*", lpdwBufferSize, "uint")
         return result
     }
 
@@ -15855,7 +15856,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpbBuffer A pointer to a  
+     * @param {Pointer<Integer>} lpbBuffer A pointer to a  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
@@ -15928,7 +15929,7 @@ class Rras {
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is returned in the <i>lplpBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Byte>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
+     * @param {Pointer<Pointer<Integer>>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
      * 
      * 
      * 
@@ -15936,9 +15937,9 @@ class Rras {
      * On successful completion, a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> structures. Free this memory buffer by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
      * @param {Integer} dwPrefMaxLen Specifies the preferred maximum length of returned data (in 8-bit bytes). If this parameter is -1, the buffer returned will be large enough to hold all available information.
-     * @param {Pointer<UInt32>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that were enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that could have been enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. 
+     * @param {Pointer<Integer>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that were enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that could have been enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. 
      * 
      * 
      * 
@@ -16023,7 +16024,7 @@ class Rras {
     static MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", "ptr", hMprConfig, "uint", dwLevel, "char*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", "ptr", hMprConfig, "uint", dwLevel, "ptr*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -16328,7 +16329,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportadd">MprConfigInterfaceTransportAdd</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle">MprConfigInterfaceTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportenum">MprConfigInterfaceTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
-     * @param {Pointer<Byte>} ppInterfaceInfo On input, pointer to a pointer variable. 
+     * @param {Pointer<Pointer<Integer>>} ppInterfaceInfo On input, pointer to a pointer variable. 
      * 
      * 
      * 
@@ -16338,7 +16339,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not return the configuration information.
-     * @param {Pointer<UInt32>} lpdwInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the data pointed to by <i>ppInterfaceInfo</i>. 
+     * @param {Pointer<Integer>} lpdwInterfaceInfoSize Pointer to a <b>DWORD</b> variable. This variable receives the size, in bytes, of the data pointed to by <i>ppInterfaceInfo</i>. 
      * 
      * 
      * 
@@ -16420,7 +16421,7 @@ class Rras {
         hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
         hRouterIfTransport := hRouterIfTransport is Win32Handle ? NumGet(hRouterIfTransport, "ptr") : hRouterIfTransport
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, "char*", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, "ptr*", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
         return result
     }
 
@@ -16520,7 +16521,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is returned in the <i>lplpBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Byte>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
+     * @param {Pointer<Pointer<Integer>>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
      * 
      * 
      * 
@@ -16528,9 +16529,9 @@ class Rras {
      * On successful completion, a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_transport_0">MPR_IFTRANSPORT_0</a> structures. Free this memory buffer by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
      * @param {Integer} dwPrefMaxLen Specifies the preferred maximum length of returned data (in 8-bit bytes). If this parameter is -1, the buffer returned is large enough to hold all available information.
-     * @param {Pointer<UInt32>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that were enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that could have been enumerated from the current resume position.
-     * @param {Pointer<UInt32>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. 
+     * @param {Pointer<Integer>} lpdwEntriesRead Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that were enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwTotalEntries Pointer to a <b>DWORD</b> variable. This variable receives the total number of entries that could have been enumerated from the current resume position.
+     * @param {Pointer<Integer>} lpdwResumeHandle Pointer to a <b>DWORD</b> variable. 
      * 
      * 
      * 
@@ -16617,7 +16618,7 @@ class Rras {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "char*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "ptr*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -16784,7 +16785,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpBuffer On successful completion, a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_filter_0">MPR_FILTER_0</a> structure that contains the filter driver configuration information. Free this memory buffer by calling 
+     * @param {Pointer<Integer>} lpBuffer On successful completion, a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_filter_0">MPR_FILTER_0</a> structure that contains the filter driver configuration information. Free this memory buffer by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -16850,7 +16851,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_filter_0">MPR_FILTER_0</a> structure that contains the filter driver configuration information.
+     * @param {Pointer<Integer>} lpBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_filter_0">MPR_FILTER_0</a> structure that contains the filter driver configuration information.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -16885,7 +16886,7 @@ class Rras {
     /**
      * The MprInfoCreate function creates a new information header.
      * @param {Integer} dwVersion Specifies the version of the information header structure to be created. The only value currently supported is RTR_INFO_BLOCK_VERSION, as declared in Mprapi.h.
-     * @param {Pointer<Void>} lplpNewHeader Pointer to the allocated and initialized header.
+     * @param {Pointer<Pointer<Void>>} lplpNewHeader Pointer to the allocated and initialized header.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -16938,7 +16939,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoCreate(dwVersion, lplpNewHeader) {
-        result := DllCall("MPRAPI.dll\MprInfoCreate", "uint", dwVersion, "ptr", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoCreate", "uint", dwVersion, "ptr*", lplpNewHeader, "uint")
         return result
     }
 
@@ -16993,7 +16994,7 @@ class Rras {
     /**
      * The MprInfoRemoveAll function removes all information blocks from the specified header.
      * @param {Pointer<Void>} lpHeader Pointer to the information header from which to remove all information blocks.
-     * @param {Pointer<Void>} lplpNewHeader Pointer to a pointer variable. On successful return, this variable points to the information header with all information blocks removed.
+     * @param {Pointer<Pointer<Void>>} lplpNewHeader Pointer to a pointer variable. On successful return, this variable points to the information header with all information blocks removed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -17035,14 +17036,14 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoRemoveAll(lpHeader, lplpNewHeader) {
-        result := DllCall("MPRAPI.dll\MprInfoRemoveAll", "ptr", lpHeader, "ptr", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoRemoveAll", "ptr", lpHeader, "ptr*", lplpNewHeader, "uint")
         return result
     }
 
     /**
      * The MprInfoDuplicate function duplicates an existing information header.
      * @param {Pointer<Void>} lpHeader Pointer to the information header to duplicate.
-     * @param {Pointer<Void>} lplpNewHeader Pointer to a pointer variable. On successful return, this variable points to the new (duplicate) information header.
+     * @param {Pointer<Pointer<Void>>} lplpNewHeader Pointer to a pointer variable. On successful return, this variable points to the new (duplicate) information header.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -17095,7 +17096,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoDuplicate(lpHeader, lplpNewHeader) {
-        result := DllCall("MPRAPI.dll\MprInfoDuplicate", "ptr", lpHeader, "ptr", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoDuplicate", "ptr", lpHeader, "ptr*", lplpNewHeader, "uint")
         return result
     }
 
@@ -17108,8 +17109,8 @@ class Rras {
      * <b>Windows Server 2008:  </b>If <i>dwInfoTYpe</i> contains <a href="https://docs.microsoft.com/windows/desktop/RRAS/ip-information-types-for-router-information-blocks">IP_ROUTE_INFO</a>, <i>lpItemData</i> must point to a <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rrasm/784d8544-140a-4769-b659-7d3168de9242">INTERFACE_ROUTE_INFO</a> structure.
      * @param {Integer} dwItemSize Specifies the size of each item in the block to be added.
      * @param {Integer} dwItemCount Specifies the number of items of size <i>dwItemSize</i> to be copied as data for the new block.
-     * @param {Pointer<Byte>} lpItemData Pointer to the data for the new block. The size in bytes of this buffer should be equal to the product of <i>dwItemSize</i> and <i>dwItemCount</i>.
-     * @param {Pointer<Void>} lplpNewHeader Pointer to a pointer variable that, on successful return, points to the new header.
+     * @param {Pointer<Integer>} lpItemData Pointer to the data for the new block. The size in bytes of this buffer should be equal to the product of <i>dwItemSize</i> and <i>dwItemCount</i>.
+     * @param {Pointer<Pointer<Void>>} lplpNewHeader Pointer to a pointer variable that, on successful return, points to the new header.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -17147,7 +17148,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoBlockAdd(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
-        result := DllCall("MPRAPI.dll\MprInfoBlockAdd", "ptr", lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, "char*", lpItemData, "ptr", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockAdd", "ptr", lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, "char*", lpItemData, "ptr*", lplpNewHeader, "uint")
         return result
     }
 
@@ -17157,7 +17158,7 @@ class Rras {
      * @param {Integer} dwInfoType Specifies the type of block to be removed. The types available depend on the transport: 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/ip-information-types-for-router-information-blocks">IP</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/ipx-information-types-for-router-information-blocks">IPX</a>.
-     * @param {Pointer<Void>} lplpNewHeader Pointer to a pointer variable that receives the new header.
+     * @param {Pointer<Pointer<Void>>} lplpNewHeader Pointer to a pointer variable that receives the new header.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -17207,7 +17208,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoBlockRemove(lpHeader, dwInfoType, lplpNewHeader) {
-        result := DllCall("MPRAPI.dll\MprInfoBlockRemove", "ptr", lpHeader, "uint", dwInfoType, "ptr", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockRemove", "ptr", lpHeader, "uint", dwInfoType, "ptr*", lplpNewHeader, "uint")
         return result
     }
 
@@ -17219,8 +17220,8 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/ipx-information-types-for-router-information-blocks">IPX</a>.
      * @param {Integer} dwItemSize Specifies the size of each item in the block's new data.
      * @param {Integer} dwItemCount Specifies the number of items of size <i>dwItemSize</i> to be copied as the new data for the block.
-     * @param {Pointer<Byte>} lpItemData Pointer to the new data for the block. This should point to a buffer with a size (in bytes) equal to the product of <i>dwItemSize</i> and <i>dwItemCount</i>.
-     * @param {Pointer<Void>} lplpNewHeader Pointer to a pointer variable that, on successful return, points to the new header.
+     * @param {Pointer<Integer>} lpItemData Pointer to the new data for the block. This should point to a buffer with a size (in bytes) equal to the product of <i>dwItemSize</i> and <i>dwItemCount</i>.
+     * @param {Pointer<Pointer<Void>>} lplpNewHeader Pointer to a pointer variable that, on successful return, points to the new header.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -17258,7 +17259,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoBlockSet(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
-        result := DllCall("MPRAPI.dll\MprInfoBlockSet", "ptr", lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, "char*", lpItemData, "ptr", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockSet", "ptr", lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, "char*", lpItemData, "ptr*", lplpNewHeader, "uint")
         return result
     }
 
@@ -17268,9 +17269,9 @@ class Rras {
      * @param {Integer} dwInfoType Specifies the type of block to locate. The types available depend on the transport: 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/ip-information-types-for-router-information-blocks">IP</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/ipx-information-types-for-router-information-blocks">IPX</a>.
-     * @param {Pointer<UInt32>} lpdwItemSize Pointer to a <b>DWORD</b> variable that receives the size of each item in the located block's data. This parameter is optional. If this parameter is <b>NULL</b>, the item size is not returned.
-     * @param {Pointer<UInt32>} lpdwItemCount Pointer to a <b>DWORD</b> variable that receives the number of items of size <i>dwItemSize</i> contained in the block's data. This parameter is optional. If this parameter is <b>NULL</b>, the item count is not  returned.
-     * @param {Pointer<Byte>} lplpItemData Pointer to a pointer that, on successful return, points to the data for the located block. This parameter is optional. If this parameter is <b>NULL</b>, the data is  not  returned.
+     * @param {Pointer<Integer>} lpdwItemSize Pointer to a <b>DWORD</b> variable that receives the size of each item in the located block's data. This parameter is optional. If this parameter is <b>NULL</b>, the item size is not returned.
+     * @param {Pointer<Integer>} lpdwItemCount Pointer to a <b>DWORD</b> variable that receives the number of items of size <i>dwItemSize</i> contained in the block's data. This parameter is optional. If this parameter is <b>NULL</b>, the item count is not  returned.
+     * @param {Pointer<Pointer<Integer>>} lplpItemData Pointer to a pointer that, on successful return, points to the data for the located block. This parameter is optional. If this parameter is <b>NULL</b>, the data is  not  returned.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following values.
@@ -17319,7 +17320,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoBlockFind(lpHeader, dwInfoType, lpdwItemSize, lpdwItemCount, lplpItemData) {
-        result := DllCall("MPRAPI.dll\MprInfoBlockFind", "ptr", lpHeader, "uint", dwInfoType, "uint*", lpdwItemSize, "uint*", lpdwItemCount, "char*", lplpItemData, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockFind", "ptr", lpHeader, "uint", dwInfoType, "uint*", lpdwItemSize, "uint*", lpdwItemCount, "ptr*", lplpItemData, "uint")
         return result
     }
 
@@ -17597,13 +17598,13 @@ class Rras {
      * 
      * 
      * For broadcast interfaces (such as Ethernet interfaces) or point-to-point interfaces, which are identified by only the value of <i>dwIfIndex</i>, specify zero.
-     * @param {Pointer<UInt32>} pdwIfProtocolId On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
+     * @param {Pointer<Integer>} pdwIfProtocolId On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
      * 
      * 
      * 
      * 
      * On output, <i>pdwIfProtocolId</i> receives the ID of the protocol on the interface specified by <i>dwIfIndex</i>.
-     * @param {Pointer<UInt32>} pdwIfComponentId On input, the client must supply a pointer to a <b>DWORD</b> value. 
+     * @param {Pointer<Integer>} pdwIfComponentId On input, the client must supply a pointer to a <b>DWORD</b> value. 
      * 
      * 
      * 
@@ -17902,13 +17903,13 @@ class Rras {
      * @param {Pointer<MIB_IPMCAST_MFE>} pimm Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structure that specifies the MFE to retrieve. The information to be returned is indicated by the <b>dwSource</b> and <b>dwGroup</b> members of the 
      * <b>MIB_IPMCAST_MFE</b> structure.
-     * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of the buffer pointed to by <i>pbBuffer</i>. 
+     * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of the buffer pointed to by <i>pbBuffer</i>. 
      * 
      * 
      * 
      * 
      * On output, if the return value is ERROR_INSUFFICIENT_BUFFER, <i>pdwBufferSize</i> receives the minimum size the buffer pointed to by <i>pbBuffer</i> must be to hold the MFE; otherwise the value of <i>pdwBufferSize</i> remains unchanged.
-     * @param {Pointer<Byte>} pbBuffer On input, the client must supply a pointer to a buffer. 
+     * @param {Pointer<Integer>} pbBuffer On input, the client must supply a pointer to a buffer. 
      * 
      * 
      * 
@@ -17968,20 +17969,20 @@ class Rras {
 
     /**
      * The MgmGetFirstMfe function retrieves MFEs starting at the beginning of the MFE list.
-     * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
+     * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
      * 
      * 
      * 
      * 
      * On output, if the return value is ERROR_INSUFFICIENT_BUFFER, <i>pdwBufferSize</i> receives the minimum size <i>pbBuffer</i> must be to hold the MFE; otherwise, the value of <i>pdwBufferSize</i> remains unchanged.
-     * @param {Pointer<Byte>} pbBuffer On input, the client must supply a pointer to a buffer. 
+     * @param {Pointer<Integer>} pbBuffer On input, the client must supply a pointer to a buffer. 
      * 
      * 
      * 
      * 
      * On output, <i>pbBuffer</i> contains one or more MFEs. Each MFE is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structure.
-     * @param {Pointer<UInt32>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
+     * @param {Pointer<Integer>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
      * 
      * 
      * 
@@ -18060,20 +18061,20 @@ class Rras {
      * <b>MIB_IPMCAST_MFE</b> structure identify an MFE. Specify the source and group of the last MFE that was returned by the previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetfirstmfe">MgmGetFirstMfe</a> or 
      * <b>MgmGetNextMfe</b>.
-     * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
+     * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
      * 
      * 
      * 
      * 
      * On output, if the return value is ERROR_INSUFFICIENT_BUFFER, <i>pdwBufferSize</i> receives the minimum size <i>pbBuffer</i> must be to hold the MFE; otherwise, the value of <i>pdwBufferSize</i> remains unchanged.
-     * @param {Pointer<Byte>} pbBuffer On input, the client must supply a pointer to a buffer. 
+     * @param {Pointer<Integer>} pbBuffer On input, the client must supply a pointer to a buffer. 
      * 
      * 
      * 
      * 
      * On output, <i>pbBuffer</i> contains one or more MFEs. Each MFE is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structure.
-     * @param {Pointer<UInt32>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
+     * @param {Pointer<Integer>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
      * 
      * 
      * 
@@ -18146,13 +18147,13 @@ class Rras {
      * @param {Pointer<MIB_IPMCAST_MFE>} pimm Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structure that specifies the MFE for which to retrieve statistics. The information to be returned is indicated by the <b>dwSource</b> and <b>dwGroup</b> members of the 
      * <b>MIB_IPMCAST_MFE</b> structure.
-     * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of the buffer pointed to by <i>pbBuffer</i>. 
+     * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of the buffer pointed to by <i>pbBuffer</i>. 
      * 
      * 
      * 
      * 
      * On output, if the return value is ERROR_INSUFFICIENT_BUFFER, <i>pdwBufferSize</i> receives the minimum size the buffer pointed to by <i>pbBuffer</i> must be to hold the set of MFE statistics; otherwise the value of <i>pdwBufferSize</i> remains unchanged.
-     * @param {Pointer<Byte>} pbBuffer On input, the client must supply a pointer to a buffer. 
+     * @param {Pointer<Integer>} pbBuffer On input, the client must supply a pointer to a buffer. 
      * 
      * 
      * 
@@ -18239,20 +18240,20 @@ class Rras {
 
     /**
      * The MgmGetFirstMfeStats function retrieves MFE statistics starting at the beginning of the MFE list.
-     * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
+     * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
      * 
      * 
      * 
      * 
      * On output, if the return value is ERROR_INSUFFICIENT_BUFFER, <i>pdwBufferSize</i> receives the minimum size <i>pbBuffer</i> must be to hold a set of MFE statistics; otherwise, the value of <i>pdwBufferSize</i> remains unchanged.
-     * @param {Pointer<Byte>} pbBuffer On input, the client must supply a pointer to a buffer. 
+     * @param {Pointer<Integer>} pbBuffer On input, the client must supply a pointer to a buffer. 
      * 
      * 
      * 
      * 
      * On output, <i>pbBuffer</i> contains one or more sets of MFE statistics. Each set of MFE statistics is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats">MIB_IPMCAST_MFE_STATS</a> structure.
-     * @param {Pointer<UInt32>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
+     * @param {Pointer<Integer>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
      * 
      * 
      * 
@@ -18355,20 +18356,20 @@ class Rras {
      * <b>MIB_IPMCAST_MFE</b> structure identify an MFE. Specify the source and group of the last MFE that was returned by the previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetfirstmfestats">MgmGetFirstMfeStats</a> or 
      * <b>MgmGetNextMfeStats</b>.
-     * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of <i>pbBuffer</i>. 
+     * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of <i>pbBuffer</i>. 
      * 
      * 
      * 
      * 
      * On output, if the return value is <b>ERROR_INSUFFICIENT_BUFFER</b>, <i>pdwBufferSize</i> receives the minimum size <i>pbBuffer</i> must be to hold a set of MFE statistics; otherwise, the value of <i>pdwBufferSize</i> remains unchanged.
-     * @param {Pointer<Byte>} pbBuffer On input, the client must supply a pointer to a buffer. 
+     * @param {Pointer<Integer>} pbBuffer On input, the client must supply a pointer to a buffer. 
      * 
      * 
      * 
      * 
      * On output, <i>pbBuffer</i> contains one or more sets of MFE statistics. Each set of MFE statistics is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats">MIB_IPMCAST_MFE_STATS</a> structure.
-     * @param {Pointer<UInt32>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
+     * @param {Pointer<Integer>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b>-sized memory location. 
      * 
      * 
      * 
@@ -18562,20 +18563,20 @@ class Rras {
      * The MgmGroupEnumerationGetNext function retrieves the next set of group entries. The information that is returned by this function is a list of groups joined and the sources requested, if any.
      * @param {HANDLE} hEnum Handle to the enumeration that was obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgroupenumerationstart">MgmGroupEnumerationStart</a>.
-     * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of the buffer pointed to by <i>pbBuffer</i>. 
+     * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of the buffer pointed to by <i>pbBuffer</i>. 
      * 
      * 
      * 
      * 
      * On output, if the return value is ERROR_INSUFFICIENT_BUFFER, <i>pdwBufferSize</i> receives the minimum size that the buffer pointed to by <i>pbBuffer</i> must be to hold a group entry; otherwise the value of <i>pdwBufferSize</i> remains unchanged.
-     * @param {Pointer<Byte>} pbBuffer On input, the client must supply a pointer to a buffer. 
+     * @param {Pointer<Integer>} pbBuffer On input, the client must supply a pointer to a buffer. 
      * 
      * 
      * 
      * 
      * On output, <i>pbBuffer</i> contains one or more group entries. Each group entry is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/ns-mgm-source_group_entry">SOURCE_GROUP_ENTRY</a> structure.
-     * @param {Pointer<UInt32>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b> value. 
+     * @param {Pointer<Integer>} pdwNumEntries On input, the client must supply a pointer to a <b>DWORD</b> value. 
      * 
      * 
      * 
@@ -18724,7 +18725,7 @@ class Rras {
      * 
      * @param {Pointer<RTM_NET_ADDRESS>} pNetAddress 
      * @param {Pointer<IN6_ADDR>} pAddress 
-     * @param {Pointer<UInt32>} pLength 
+     * @param {Pointer<Integer>} pLength 
      * @param {Integer} dwAddressSize 
      * @returns {Integer} 
      */
@@ -18761,7 +18762,7 @@ class Rras {
      * 
      * 
      * On output, <i>RtmRegProfile</i> is filled with the requested registration profile structure. The client must use the information returned in other function calls (information returned includes the number of equal-cost next hops and the maximum number of items returned by an enumeration function call).
-     * @param {Pointer<IntPtr>} RtmRegHandle Receives a registration handle for the client. This handle must be used in all subsequent calls to the routing table manager.
+     * @param {Pointer<Pointer>} RtmRegHandle Receives a registration handle for the client. This handle must be used in all subsequent calls to the routing table manager.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -18898,8 +18899,8 @@ class Rras {
      * The RtmGetRegisteredEntities function returns information about all clients that have registered with the specified instance of the routing table manager and specified address family.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
-     * @param {Pointer<UInt32>} NumEntities On input, <i>NumEntities</i> is a pointer to a <b>UINT</b> value, which specifies the maximum number of clients that can be received by <i>EntityInfos</i>. On output, <i>NumEntities</i> receives the actual number of clients received by <i>EntityInfos</i>.
-     * @param {Pointer<IntPtr>} EntityHandles If handles must be returned: On input, <i>EntityHandles</i> is a pointer to <b>NULL</b>. On output, <i>EntityHandles</i> receives a pointer to an array of entity handle; otherwise, <i>EntityHandles</i> remains unchanged. 
+     * @param {Pointer<Integer>} NumEntities On input, <i>NumEntities</i> is a pointer to a <b>UINT</b> value, which specifies the maximum number of clients that can be received by <i>EntityInfos</i>. On output, <i>NumEntities</i> receives the actual number of clients received by <i>EntityInfos</i>.
+     * @param {Pointer<Pointer>} EntityHandles If handles must be returned: On input, <i>EntityHandles</i> is a pointer to <b>NULL</b>. On output, <i>EntityHandles</i> receives a pointer to an array of entity handle; otherwise, <i>EntityHandles</i> remains unchanged. 
      * 
      * 
      * 
@@ -18946,7 +18947,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} NumEntities Specifies the number of clients in <i>EntityHandles</i>.
-     * @param {Pointer<IntPtr>} EntityHandles Pointer to an array of client handles to release. The handles were obtained from a previous call to 
+     * @param {Pointer<Pointer>} EntityHandles Pointer to an array of client handles to release. The handles were obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetregisteredentities">RtmGetRegisteredEntities</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -19037,7 +19038,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination.
-     * @param {Pointer<Void>} OpaqueInfoPointer On input, <i>OpaqueInfoPointer</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer<Void>>} OpaqueInfoPointer On input, <i>OpaqueInfoPointer</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -19083,7 +19084,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetOpaqueInformationPointer(RtmRegHandle, DestHandle, OpaqueInfoPointer) {
-        result := DllCall("rtm.dll\RtmGetOpaqueInformationPointer", "ptr", RtmRegHandle, "ptr", DestHandle, "ptr", OpaqueInfoPointer, "uint")
+        result := DllCall("rtm.dll\RtmGetOpaqueInformationPointer", "ptr", RtmRegHandle, "ptr", DestHandle, "ptr*", OpaqueInfoPointer, "uint")
         return result
     }
 
@@ -19092,13 +19093,13 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EntityHandle Handle to the client for which to obtain methods.
-     * @param {Pointer<UInt32>} NumMethods On input, <i>NumMethods</i> specifies a valid pointer to a <b>UINT</b> value. Specify zero to return the number of methods available to be exported. 
+     * @param {Pointer<Integer>} NumMethods On input, <i>NumMethods</i> specifies a valid pointer to a <b>UINT</b> value. Specify zero to return the number of methods available to be exported. 
      * 
      * 
      * 
      * 
      * On output, <i>NumMethods</i> receives the number of methods exported by the client.
-     * @param {Pointer<RTM_ENTITY_EXPORT_METHOD>} ExptMethods Receives a pointer to an 
+     * @param {Pointer<Pointer<RTM_ENTITY_EXPORT_METHOD>>} ExptMethods Receives a pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/rtmv2/nc-rtmv2-_entity_method">RTM_ENTITY_EXPORT_METHOD</a> structure that contains the set of method identifiers requested by the calling client.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -19125,7 +19126,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) {
-        result := DllCall("rtm.dll\RtmGetEntityMethods", "ptr", RtmRegHandle, "ptr", EntityHandle, "uint*", NumMethods, "ptr", ExptMethods, "uint")
+        result := DllCall("rtm.dll\RtmGetEntityMethods", "ptr", RtmRegHandle, "ptr", EntityHandle, "uint*", NumMethods, "ptr*", ExptMethods, "uint")
         return result
     }
 
@@ -19136,7 +19137,7 @@ class Rras {
      * @param {Pointer} EntityHandle Handle to the client whose methods are being invoked.
      * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} Input Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_entity_method_input">RTM_ENTITY_METHOD_INPUT</a> structure that contains the method to be invoked and a common input buffer.
-     * @param {Pointer<UInt32>} OutputSize On input, <i>OutputSize</i> is a pointer to a <b>UINT</b> value that specifies the size, in bytes, of <i>Output</i>. 
+     * @param {Pointer<Integer>} OutputSize On input, <i>OutputSize</i> is a pointer to a <b>UINT</b> value that specifies the size, in bytes, of <i>Output</i>. 
      * 
      * 
      * 
@@ -19642,7 +19643,7 @@ class Rras {
      * The RtmAddRouteToDest function adds a new route to the routing table or updates an existing route in the routing table. If the best route changes, a change notification is generated.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
-     * @param {Pointer<IntPtr>} RouteHandle If the client has a handle (updating a route): On input, <i>RouteHandle</i> is a pointer to the route handle. On output, <i>RouteHandle</i> is unchanged. 
+     * @param {Pointer<Pointer>} RouteHandle If the client has a handle (updating a route): On input, <i>RouteHandle</i> is a pointer to the route handle. On output, <i>RouteHandle</i> is unchanged. 
      * 
      * 
      * 
@@ -19656,7 +19657,7 @@ class Rras {
      * @param {Pointer} RouteListHandle Handle to a route list to which to move the route. This parameter is optional and can be set to <b>NULL</b>.
      * @param {Integer} NotifyType Set this parameter to <b>NULL</b>. This parameter is reserved for future use.
      * @param {Pointer} NotifyHandle Set this parameter to <b>NULL</b>. This parameter is reserved for future use.
-     * @param {Pointer<UInt32>} ChangeFlags On input, <i>ChangeFlags</i> is a pointer to an <b>RTM_ROUTE_CHANGE_FLAGS</b> data type that  indicates whether the routing table manager should add a new route or update an existing one. 
+     * @param {Pointer<Integer>} ChangeFlags On input, <i>ChangeFlags</i> is a pointer to an <b>RTM_ROUTE_CHANGE_FLAGS</b> data type that  indicates whether the routing table manager should add a new route or update an existing one. 
      * 
      * 
      * 
@@ -19770,7 +19771,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route to delete.
-     * @param {Pointer<UInt32>} ChangeFlags On input, <i>ChangeFlags</i> is a pointer to <b>RTM_ROUTE_CHANGE_FLAGS</b> data type. 
+     * @param {Pointer<Integer>} ChangeFlags On input, <i>ChangeFlags</i> is a pointer to <b>RTM_ROUTE_CHANGE_FLAGS</b> data type. 
      * 
      * 
      * 
@@ -19887,7 +19888,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route.
-     * @param {Pointer<RTM_ROUTE_INFO>} RoutePointer On input, <i>RoutePointer</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer<RTM_ROUTE_INFO>>} RoutePointer On input, <i>RoutePointer</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -19933,7 +19934,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
-        result := DllCall("rtm.dll\RtmGetRoutePointer", "ptr", RtmRegHandle, "ptr", RouteHandle, "ptr", RoutePointer, "uint")
+        result := DllCall("rtm.dll\RtmGetRoutePointer", "ptr", RtmRegHandle, "ptr", RouteHandle, "ptr*", RoutePointer, "uint")
         return result
     }
 
@@ -19944,7 +19945,7 @@ class Rras {
      * @param {Pointer} RouteHandle Handle to the route to lock.
      * @param {BOOL} Exclusive Specifies whether to lock or unlock the route in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
      * @param {BOOL} LockRoute Specifies whether to lock or unlock the route. Specify <b>TRUE</b> to lock the route; specify <b>FALSE</b> to unlock it.
-     * @param {Pointer<RTM_ROUTE_INFO>} RoutePointer If a pointer must be returned: On input, <i>RoutePointer</i> is a pointer to <b>NULL</b>. On output, if the client owns the route, <i>RoutePointer</i> receives a pointer to the next-hop; otherwise, <i>RoutePointer</i> remains unchanged. 
+     * @param {Pointer<Pointer<RTM_ROUTE_INFO>>} RoutePointer If a pointer must be returned: On input, <i>RoutePointer</i> is a pointer to <b>NULL</b>. On output, if the client owns the route, <i>RoutePointer</i> receives a pointer to the next-hop; otherwise, <i>RoutePointer</i> remains unchanged. 
      * 
      * 
      * 
@@ -19990,7 +19991,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
-        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "int", Exclusive, "int", LockRoute, "ptr", RoutePointer, "uint")
+        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "int", Exclusive, "int", LockRoute, "ptr*", RoutePointer, "uint")
         return result
     }
 
@@ -20003,7 +20004,7 @@ class Rras {
      * @param {Pointer} RouteListHandle Handle to an optional route list to which to move the route. This parameter is optional and can be set to <b>NULL</b>.
      * @param {Integer} NotifyType Set this parameter to <b>NULL</b>. <i>NotifyType</i> is reserved for future use.
      * @param {Pointer} NotifyHandle Set this parameter to <b>NULL</b>. <i>NotifyHandle</i> is reserved for future use.
-     * @param {Pointer<UInt32>} ChangeFlags Receives RTM_ROUTE_CHANGE_BEST if the best route was changed.
+     * @param {Pointer<Integer>} ChangeFlags Receives RTM_ROUTE_CHANGE_BEST if the best route was changed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -20305,7 +20306,7 @@ class Rras {
      * On output, <i>RouteInfo</i> receives the route information for the route that matched the criteria.
      * @param {Integer} InterfaceIndex If RTM_MATCH_INTERFACE is specified in <i>MatchingFlags</i>, <i>InterfaceIndex</i> specifies the interface on which the route must be present (that is, the route has a next hop on that interface).
      * @param {Integer} TargetViews Specifies the views from which to return information. If the client specifies RTM_VIEW_MASK_ANY, destination information is returned from all views; however, no view-specific information is returned.
-     * @param {Pointer<IntPtr>} RouteHandle If a handle must be returned: On input, <i>RouteHandle</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer>} RouteHandle If a handle must be returned: On input, <i>RouteHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -20351,7 +20352,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route to check.
-     * @param {Pointer<UInt32>} BestInViews Receives a pointer to the set of views for which the specified route is the best route.
+     * @param {Pointer<Integer>} BestInViews Receives a pointer to the set of views for which the specified route is the best route.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -20390,7 +20391,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopInfo 
-     * @param {Pointer<IntPtr>} NextHopHandle If the client has a handle (client is updating a next hop): On input, <i>NextHopHandle</i> is a pointer to the next-hop handle. On output, <i>NextHopHandle</i> is unchanged. 
+     * @param {Pointer<Pointer>} NextHopHandle If the client has a handle (client is updating a next hop): On input, <i>NextHopHandle</i> is a pointer to the next-hop handle. On output, <i>NextHopHandle</i> is unchanged. 
      * 
      * 
      * 
@@ -20398,7 +20399,7 @@ class Rras {
      * If the client does not have a handle and a handle must be returned (client is adding or updating a next hop): On input, <i>NextHopHandle</i> is a pointer to <b>NULL</b>. On output, <i>NextHopHandle</i> receives a pointer to the next-hop handle. The values in <i>NextHopInfo</i> are used to identify the next hop to update.
      * 
      * If a handle does not need to be returned (client is adding or updating a next hop): On input, <i>NextHopHandle</i> is <b>NULL</b>. The values in <i>NextHopInfo</i> are used to identify the next hop to update.
-     * @param {Pointer<UInt32>} ChangeFlags On input, <i>ChangeFlags</i> is a pointer to an <b>RTM_NEXTHOP_CHANGE_FLAGS</b> data type. 
+     * @param {Pointer<Integer>} ChangeFlags On input, <i>ChangeFlags</i> is a pointer to an <b>RTM_NEXTHOP_CHANGE_FLAGS</b> data type. 
      * 
      * 
      * 
@@ -20454,13 +20455,13 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_nexthop_info">RTM_NEXTHOP_INFO</a> structure that contains information identifying the next hop to find. Use the <b>NextHopAddress</b> and <b>InterfaceIndex</b> members to identify the next hop to find.
-     * @param {Pointer<IntPtr>} NextHopHandle If a handle must be returned: On input, <i>NextHopPointer</i> is a pointer to <b>NULL</b>. On output, if the client owns the next hop, <i>NextHopPointer</i> receives a pointer to the next-hop handle; otherwise, <i>NextHopPointer</i> remains unchanged. 
+     * @param {Pointer<Pointer>} NextHopHandle If a handle must be returned: On input, <i>NextHopPointer</i> is a pointer to <b>NULL</b>. On output, if the client owns the next hop, <i>NextHopPointer</i> receives a pointer to the next-hop handle; otherwise, <i>NextHopPointer</i> remains unchanged. 
      * 
      * 
      * 
      * 
      * If a handle does not need to be returned: On input, <i>NextHopPointer</i> is <b>NULL</b>.
-     * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopPointer If a pointer must be returned: On input, <i>NextHopPointer</i> is a pointer to <b>NULL</b>. On output, if the client owns the next hop, <i>NextHopPointer</i> receives a pointer to the next-hop; otherwise, <i>NextHopPointer</i> remains unchanged. 
+     * @param {Pointer<Pointer<RTM_NEXTHOP_INFO>>} NextHopPointer If a pointer must be returned: On input, <i>NextHopPointer</i> is a pointer to <b>NULL</b>. On output, if the client owns the next hop, <i>NextHopPointer</i> receives a pointer to the next-hop; otherwise, <i>NextHopPointer</i> remains unchanged. 
      * 
      * 
      * 
@@ -20506,7 +20507,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmFindNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, NextHopPointer) {
-        result := DllCall("rtm.dll\RtmFindNextHop", "ptr", RtmRegHandle, "ptr", NextHopInfo, "ptr*", NextHopHandle, "ptr", NextHopPointer, "uint")
+        result := DllCall("rtm.dll\RtmFindNextHop", "ptr", RtmRegHandle, "ptr", NextHopInfo, "ptr*", NextHopHandle, "ptr*", NextHopPointer, "uint")
         return result
     }
 
@@ -20576,7 +20577,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NextHopHandle Handle to the next hop.
-     * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopPointer If the client is the owner of the next hop, <i>NextHopPointer</i> receives a pointer to the next hop.
+     * @param {Pointer<Pointer<RTM_NEXTHOP_INFO>>} NextHopPointer If the client is the owner of the next hop, <i>NextHopPointer</i> receives a pointer to the next hop.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -20617,7 +20618,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
-        result := DllCall("rtm.dll\RtmGetNextHopPointer", "ptr", RtmRegHandle, "ptr", NextHopHandle, "ptr", NextHopPointer, "uint")
+        result := DllCall("rtm.dll\RtmGetNextHopPointer", "ptr", RtmRegHandle, "ptr", NextHopHandle, "ptr*", NextHopPointer, "uint")
         return result
     }
 
@@ -20628,7 +20629,7 @@ class Rras {
      * @param {Pointer} NextHopHandle Handle to the next hop to lock or unlock.
      * @param {BOOL} Exclusive Specifies whether to lock or unlock the next hop in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
      * @param {BOOL} LockNextHop Specifies whether to lock or unlock the next hop. Specify <b>TRUE</b> to lock the next hop; specify <b>FALSE</b> to unlock it.
-     * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopPointer On input, <i>NextHopPointer</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer<RTM_NEXTHOP_INFO>>} NextHopPointer On input, <i>NextHopPointer</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -20674,7 +20675,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
-        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "int", Exclusive, "int", LockNextHop, "ptr", NextHopPointer, "uint")
+        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "int", Exclusive, "int", LockNextHop, "ptr*", NextHopPointer, "uint")
         return result
     }
 
@@ -20799,7 +20800,7 @@ class Rras {
      * 
      * 
      * Specify RTM_BEST_PROTOCOL to return a route regardless of which protocol owns it. Specify RTM_THIS_PROTOCOL to return the best route for the calling protocol.
-     * @param {Pointer<IntPtr>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -20864,7 +20865,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the destination enumeration.
-     * @param {Pointer<UInt32>} NumDests On input, <i>NumDests</i> is a pointer to a <b>UINT</b> value specifying the maximum number of destinations that can be received by <i>DestInfos</i>. On output, <i>NumDests</i> receives the actual number of destinations received by <i>DestInfos</i>.
+     * @param {Pointer<Integer>} NumDests On input, <i>NumDests</i> is a pointer to a <b>UINT</b> value specifying the maximum number of destinations that can be received by <i>DestInfos</i>. On output, <i>NumDests</i> receives the actual number of destinations received by <i>DestInfos</i>.
      * @param {Pointer<RTM_DEST_INFO>} DestInfos On input, <i>DestInfos</i> is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structure. 
      * 
@@ -21153,7 +21154,7 @@ class Rras {
      * </table>
      * @param {Pointer<RTM_ROUTE_INFO>} CriteriaRoute Specifies which routes to enumerate. This parameter is optional and can be set to <b>NULL</b> if <i>MatchingFlags</i> contains RTM_MATCH_INTERFACE or RTM_MATCH_NONE.
      * @param {Integer} CriteriaInterface Pointer to a <b>ULONG</b> that specifies on which interfaces routes should be located. This parameter is ignored unless <i>MatchingFlags</i> contains RTM_MATCH_INTERFACE.
-     * @param {Pointer<IntPtr>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -21222,13 +21223,13 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the route enumeration.
-     * @param {Pointer<UInt32>} NumRoutes On input, <i>NumRoutes</i> is a pointer to a <b>UINT</b> value that specifies the maximum number of routes that can be received by <i>RouteHandles</i>. 
+     * @param {Pointer<Integer>} NumRoutes On input, <i>NumRoutes</i> is a pointer to a <b>UINT</b> value that specifies the maximum number of routes that can be received by <i>RouteHandles</i>. 
      * 
      * 
      * 
      * 
      * On output, <i>NumRoutes</i> receives the actual number of routes received by <i>RouteHandles</i>.
-     * @param {Pointer<IntPtr>} RouteHandles On input, <i>RouteHandles</i> is a pointer to an 
+     * @param {Pointer<Pointer>} RouteHandles On input, <i>RouteHandles</i> is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_route_info">RTM_ROUTE_INFO</a> structure. 
      * 
      * 
@@ -21296,7 +21297,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} NumRoutes Specifies the number of routes in <i>RouteHandles</i>.
-     * @param {Pointer<IntPtr>} RouteHandles Pointer to an array of route handles to release. The handles were obtained with a previous call to 
+     * @param {Pointer<Pointer>} RouteHandles Pointer to an array of route handles to release. The handles were obtained with a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetenumroutes">RtmGetEnumRoutes</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -21377,7 +21378,7 @@ class Rras {
      * </table>
      * @param {Pointer<RTM_NET_ADDRESS>} NetAddress Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_net_address">RTM_NET_ADDRESS</a> structure that contains the starting address of the enumeration. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
-     * @param {Pointer<IntPtr>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -21435,13 +21436,13 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the next-hop enumeration.
-     * @param {Pointer<UInt32>} NumNextHops On input, <i>NumNextHops</i> is a pointer to a <b>UINT</b> value specifying the maximum number of next hops that can be received by <i>NextHopHandles</i>. 
+     * @param {Pointer<Integer>} NumNextHops On input, <i>NumNextHops</i> is a pointer to a <b>UINT</b> value specifying the maximum number of next hops that can be received by <i>NextHopHandles</i>. 
      * 
      * 
      * 
      * 
      * On output, <i>NumNextHops</i> receives the actual number of next hops received by <i>NextHopHandles</i>.
-     * @param {Pointer<IntPtr>} NextHopHandles On input, <i>NextHopHandles</i> pointers to an 
+     * @param {Pointer<Pointer>} NextHopHandles On input, <i>NextHopHandles</i> pointers to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_nexthop_info">RTM_NEXTHOP_INFO</a> structure. 
      * 
      * 
@@ -21498,7 +21499,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} NumNextHops Specifies the number of next hops in <i>NextHopHandles</i>.
-     * @param {Pointer<IntPtr>} NextHopHandles Pointer to an array of next-hop handles to release. The handles were obtained with a previous call to 
+     * @param {Pointer<Pointer>} NextHopHandles Pointer to an array of next-hop handles to release. The handles were obtained with a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetenumnexthops">RtmGetEnumNextHops</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -21629,7 +21630,7 @@ class Rras {
      * @param {Pointer<Void>} NotifyContext Specifies the notification context that the 
      * <a href="https://docs.microsoft.com/windows/win32/api/rtmv2/nc-rtmv2-_event_callback">RTM_EVENT_CALLBACK</a> uses to indicate new changes. The notification context is the <i>Context2</i> parameter of the 
      * <b>RTM_EVENT_CALLBACK</b> callback.
-     * @param {Pointer<IntPtr>} NotifyHandle Receives a handle to a change notification. The handle must be used when calling 
+     * @param {Pointer<Pointer>} NotifyHandle Receives a handle to a change notification. The handle must be used when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetchangeddests">RtmGetChangedDests</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -21703,7 +21704,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NotifyHandle Handle to a change notification obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterforchangenotification">RtmRegisterForChangeNotification</a>.
-     * @param {Pointer<UInt32>} NumDests On input, <i>NumDests</i> is a pointer to a <b>UINT</b> value that specifies the maximum number of destinations that can be received by <i>ChangedDests</i>. 
+     * @param {Pointer<Integer>} NumDests On input, <i>NumDests</i> is a pointer to a <b>UINT</b> value that specifies the maximum number of destinations that can be received by <i>ChangedDests</i>. 
      * 
      * 
      * 
@@ -21809,7 +21810,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NotifyHandle Handle to a change notification.
      * @param {Integer} NumDests Specifies the number of destinations in <i>ChangedDests</i>.
-     * @param {Pointer<IntPtr>} ChangedDests Pointer to an array of <b>RTM_DEST_HANDLE</b> handles that indicate the destinations for which to ignore any pending changes.
+     * @param {Pointer<Pointer>} ChangedDests Pointer to an array of <b>RTM_DEST_HANDLE</b> handles that indicate the destinations for which to ignore any pending changes.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -22005,7 +22006,7 @@ class Rras {
      * The RtmCreateRouteList function creates a list in which the caller can keep a copy of the routes it owns.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
-     * @param {Pointer<IntPtr>} RouteListHandle On input, <i>RouteListHandle</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer>} RouteListHandle On input, <i>RouteListHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -22050,7 +22051,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteListHandle Handle to the route list to which to add routes. Specify <b>NULL</b> to remove the specified routes from their old lists.
      * @param {Integer} NumRoutes Specifies the number of routes in <i>RouteHandles</i>.
-     * @param {Pointer<IntPtr>} RouteHandles Pointer to an array of route handles to move from the old list to the new list.
+     * @param {Pointer<Pointer>} RouteHandles Pointer to an array of route handles to move from the old list to the new list.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -22086,7 +22087,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteListHandle Handle to the route list to enumerate that is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmcreateroutelist">RtmCreateRouteList</a>.
-     * @param {Pointer<IntPtr>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
+     * @param {Pointer<Pointer>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
      * 
      * 
      * 
@@ -22130,13 +22131,13 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the route list to enumerate.
-     * @param {Pointer<UInt32>} NumRoutes On input, <i>NumRoutes</i> is a pointer to a <b>UINT</b> value that specifies the maximum number of routes that can be received by <i>RouteHandles</i>. 
+     * @param {Pointer<Integer>} NumRoutes On input, <i>NumRoutes</i> is a pointer to a <b>UINT</b> value that specifies the maximum number of routes that can be received by <i>RouteHandles</i>. 
      * 
      * 
      * 
      * 
      * On output, <i>NumRoutes</i> receives the actual number of routes received by <i>RouteHandles</i>.
-     * @param {Pointer<IntPtr>} RouteHandles On input, <i>DestInfo</i> is a pointer to an array of 
+     * @param {Pointer<Pointer>} RouteHandles On input, <i>DestInfo</i> is a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structures. 
      * 
      * 

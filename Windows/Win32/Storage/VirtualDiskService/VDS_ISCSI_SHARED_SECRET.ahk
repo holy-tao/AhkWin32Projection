@@ -34,7 +34,7 @@ class VDS_ISCSI_SHARED_SECRET extends Win32Struct
 
     /**
      * A pointer to an array of bytes that contains the CHAP shared secret. If a shared secret is not necessary, this parameter should be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSharedSecret {
         get => NumGet(this, 0, "ptr")

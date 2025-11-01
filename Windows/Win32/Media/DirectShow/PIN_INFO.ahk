@@ -24,7 +24,7 @@ class PIN_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the owning filter.
-     * @type {Pointer<IBaseFilter>}
+     * @type {IBaseFilter}
      */
     pFilter {
         get => NumGet(this, 0, "ptr")

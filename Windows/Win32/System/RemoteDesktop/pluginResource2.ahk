@@ -71,7 +71,7 @@ class pluginResource2 extends Win32Struct
 
     /**
      * An array of pointers to null-terminated strings that contain the names of the folders that the resource should be displayed in. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function to allocate these strings. The caller is responsible for freeing these strings.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     folderList {
         get => NumGet(this, 2128, "ptr")

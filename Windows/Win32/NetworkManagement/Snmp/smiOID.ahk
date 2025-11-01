@@ -38,7 +38,7 @@ class smiOID extends Win32Struct
 
     /**
      * Pointer to an array of unsigned long integers that represent the object identifier's subidentifiers.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ptr {
         get => NumGet(this, 8, "ptr")

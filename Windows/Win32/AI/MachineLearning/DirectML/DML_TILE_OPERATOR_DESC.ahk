@@ -50,7 +50,7 @@ class DML_TILE_OPERATOR_DESC extends Win32Struct
      * Type: <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * Each value in this array corresponds to one of the input tensor's dimensions (in order). Each value is the number of tiled copies to make of that dimension. Values must be larger than 0.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Repeats {
         get => NumGet(this, 24, "ptr")

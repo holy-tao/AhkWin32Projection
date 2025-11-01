@@ -36,7 +36,7 @@ class CONTAINER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSigPublicKey {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class CONTAINER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbKeyExPublicKey {
         get => NumGet(this, 32, "ptr")

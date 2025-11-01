@@ -209,7 +209,7 @@ class OLEUIPASTESPECIALW extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface of the data object to be pasted (from the clipboard). This member is filled on input. If <b>lpSrcDataObj</b> is <b>NULL</b> when <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuipastespeciala">OleUIPasteSpecial</a> is called, then <b>OleUIPasteSpecial</b> will attempt to retrieve a pointer to an <b>IDataObject</b> from the clipboard. If <b>OleUIPasteSpecial</b> succeeds, it is the caller's responsibility to free the <b>IDataObject</b> returned in <b>lpSrcDataObj</b>.
-     * @type {Pointer<IDataObject>}
+     * @type {IDataObject}
      */
     lpSrcDataObj {
         get => NumGet(this, 64, "ptr")
@@ -236,7 +236,7 @@ class OLEUIPASTESPECIALW extends Win32Struct
 
     /**
      * List of link types that are acceptable. Link types are referred to using <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ne-oledlg-oleuipasteflag">OLEUIPASTEFLAG</a> in <b>arrPasteEntries</b>. This member is filled on input.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     arrLinkTypes {
         get => NumGet(this, 88, "ptr")

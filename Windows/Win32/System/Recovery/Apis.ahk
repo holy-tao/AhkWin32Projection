@@ -176,10 +176,10 @@ class Recovery {
     /**
      * Retrieves a pointer to the callback routine registered for the specified process. The address returned is in the virtual address space of the process.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_VM_READ access right.
-     * @param {Pointer<APPLICATION_RECOVERY_CALLBACK>} pRecoveryCallback A pointer to the recovery callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa373202(v=vs.85)">ApplicationRecoveryCallback</a>.
-     * @param {Pointer<Void>} ppvParameter A pointer to the callback parameter.
-     * @param {Pointer<UInt32>} pdwPingInterval The recovery ping interval, in 100-nanosecond intervals.
-     * @param {Pointer<UInt32>} pdwFlags Reserved for future use.
+     * @param {Pointer<Pointer<APPLICATION_RECOVERY_CALLBACK>>} pRecoveryCallback A pointer to the recovery callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa373202(v=vs.85)">ApplicationRecoveryCallback</a>.
+     * @param {Pointer<Pointer<Void>>} ppvParameter A pointer to the callback parameter.
+     * @param {Pointer<Integer>} pdwPingInterval The recovery ping interval, in 100-nanosecond intervals.
+     * @param {Pointer<Integer>} pdwFlags Reserved for future use.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
      * 
      * <table>
@@ -216,10 +216,7 @@ class Recovery {
     static GetApplicationRecoveryCallback(hProcess, pRecoveryCallback, ppvParameter, pdwPingInterval, pdwFlags) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\GetApplicationRecoveryCallback", "ptr", hProcess, "ptr", pRecoveryCallback, "ptr", ppvParameter, "uint*", pdwPingInterval, "uint*", pdwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
-
+        result := DllCall("KERNEL32.dll\GetApplicationRecoveryCallback", "ptr", hProcess, "ptr*", pRecoveryCallback, "ptr*", ppvParameter, "uint*", pdwPingInterval, "uint*", pdwFlags, "int")
         return result
     }
 
@@ -227,14 +224,14 @@ class Recovery {
      * Retrieves the restart information registered for the specified process.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_VM_READ access right.
      * @param {PWSTR} pwzCommandline A pointer to a buffer that receives the restart command line specified by the application when it called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerapplicationrestart">RegisterApplicationRestart</a> function. The maximum size of the command line, in characters, is RESTART_MAX_CMD_LINE. Can be <b>NULL</b> if <i>pcchSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchSize On input, specifies the size of the <i>pwzCommandLine</i> buffer, in characters. 
+     * @param {Pointer<Integer>} pcchSize On input, specifies the size of the <i>pwzCommandLine</i> buffer, in characters. 
      * 
      * If the buffer is not large enough to receive the command line, the function fails with HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) and sets this parameter to the required buffer size, in characters.
      * 
      * On output, specifies the size of the buffer that was used.
      * 
      * To determine the required buffer size, set <i>pwzCommandLine</i> to <b>NULL</b> and this parameter to zero. The size includes one for the <b>null</b>-terminator character. Note that the function returns S_OK, not HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) in this case.
-     * @param {Pointer<UInt32>} pdwFlags A pointer to a variable that receives the flags specified by the application when it called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerapplicationrestart">RegisterApplicationRestart</a> function.
+     * @param {Pointer<Integer>} pdwFlags A pointer to a variable that receives the flags specified by the application when it called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerapplicationrestart">RegisterApplicationRestart</a> function.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
      * 
      * <table>

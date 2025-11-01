@@ -76,7 +76,7 @@ class D3D11_VIDEO_PROCESSOR_STREAM extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessorinputview">ID3D11VideoProcessorInputView</a> interface of the surface that contains the current input frame.
-     * @type {Pointer<ID3D11VideoProcessorInputView>}
+     * @type {ID3D11VideoProcessorInputView}
      */
     pInputSurface {
         get => NumGet(this, 32, "ptr")
@@ -107,7 +107,7 @@ class D3D11_VIDEO_PROCESSOR_STREAM extends Win32Struct
      * If the stereo 3D format is <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_SEPARATE</b>, this member contains a pointer to the current input frame for the right view. 
      * 
      * For any other stereo 3D format, set this member to <b>NULL</b>.
-     * @type {Pointer<ID3D11VideoProcessorInputView>}
+     * @type {ID3D11VideoProcessorInputView}
      */
     pInputSurfaceRight {
         get => NumGet(this, 56, "ptr")

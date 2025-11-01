@@ -24,7 +24,7 @@ class SR_SECURITY_DESCRIPTOR extends Win32Struct
 
     /**
      * Indicates the user's security privileges.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SecurityDescriptor {
         get => NumGet(this, 8, "ptr")

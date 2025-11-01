@@ -24,7 +24,7 @@ class VSS_PROVIDER_PROP extends Win32Struct
 
     /**
      * Null-terminated wide character string containing the provider name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszProviderName {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class VSS_PROVIDER_PROP extends Win32Struct
 
     /**
      * Null-terminated wide character string containing the provider version in readable format.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszProviderVersion {
         get => NumGet(this, 24, "ptr")

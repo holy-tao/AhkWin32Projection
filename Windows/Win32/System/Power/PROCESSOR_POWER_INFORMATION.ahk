@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/Power/processor-power-information-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

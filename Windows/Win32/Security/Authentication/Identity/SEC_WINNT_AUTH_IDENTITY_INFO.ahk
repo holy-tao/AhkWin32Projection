@@ -7,6 +7,8 @@
 #Include .\SEC_WINNT_AUTH_IDENTITY_EX2.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_winnt_auth_identity_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -20,7 +20,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbResponse {
         get => NumGet(this, 8, "ptr")

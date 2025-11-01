@@ -33,7 +33,7 @@ class CMS_KEY_INFO extends Win32Struct
 
     /**
      * The address of a buffer that contains additional public information. This member is optional and can be <b>NULL</b> if this is not needed.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbOID {
         get => NumGet(this, 8, "ptr")

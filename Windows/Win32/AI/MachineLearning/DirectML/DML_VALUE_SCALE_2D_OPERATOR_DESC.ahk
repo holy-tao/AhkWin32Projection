@@ -61,7 +61,7 @@ class DML_VALUE_SCALE_2D_OPERATOR_DESC extends Win32Struct
      * Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a>*</b>
      * 
      * An array of *FLOAT* values containing the bias term for each dimension of the input tensor.
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     Bias {
         get => NumGet(this, 24, "ptr")

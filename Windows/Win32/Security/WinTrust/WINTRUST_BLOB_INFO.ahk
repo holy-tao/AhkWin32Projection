@@ -51,7 +51,7 @@ class WINTRUST_BLOB_INFO extends Win32Struct
 
     /**
      * A pointer to a memory BLOB to be verified.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMemObject {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class WINTRUST_BLOB_INFO extends Win32Struct
 
     /**
      * This member is reserved. Do not use it.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMemSignedMsg {
         get => NumGet(this, 48, "ptr")

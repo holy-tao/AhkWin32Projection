@@ -77,7 +77,7 @@ class WS_POLICY_CONSTRAINTS extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<WS_POLICY_EXTENSION>}
+     * @type {Pointer<Pointer<WS_POLICY_EXTENSION>>}
      */
     policyExtensions {
         get => NumGet(this, 32, "ptr")

@@ -59,7 +59,7 @@ class CREDENTIAL_ATTRIBUTEA extends Win32Struct
      * 
      * 
      * Credentials are expected to be portable. The application should take care to ensure that the data in value is portable. It is the responsibility of the application to define the byte-endian and alignment of the data in <b>Value</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Value {
         get => NumGet(this, 16, "ptr")

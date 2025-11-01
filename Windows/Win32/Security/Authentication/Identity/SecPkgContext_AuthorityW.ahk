@@ -21,7 +21,7 @@ class SecPkgContext_AuthorityW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the authenticating authority, if available.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     sAuthorityName {
         get => NumGet(this, 0, "ptr")

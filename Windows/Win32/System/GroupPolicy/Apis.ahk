@@ -670,7 +670,7 @@ class GroupPolicy {
      * @param {Integer} dwFlags A value that specifies additional flags that are used to control information retrieval. If you specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the computer. If you do not specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the user.
      * 
      * If you specify <b>GPO_LIST_FLAG_SITEONLY</b> the function returns only site information for the computer or user.
-     * @param {Pointer<GROUP_POLICY_OBJECTA>} pGPOList A pointer that receives the list of GPO structures. For more information, see 
+     * @param {Pointer<Pointer<GROUP_POLICY_OBJECTA>>} pGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -687,7 +687,7 @@ class GroupPolicy {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "int")
+        result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr*", pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -716,7 +716,7 @@ class GroupPolicy {
      * @param {Integer} dwFlags A value that specifies additional flags that are used to control information retrieval. If you specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the computer. If you do not specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the user.
      * 
      * If you specify <b>GPO_LIST_FLAG_SITEONLY</b> the function returns only site information for the computer or user.
-     * @param {Pointer<GROUP_POLICY_OBJECTW>} pGPOList A pointer that receives the list of GPO structures. For more information, see 
+     * @param {Pointer<Pointer<GROUP_POLICY_OBJECTW>>} pGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -733,7 +733,7 @@ class GroupPolicy {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "int")
+        result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr*", pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -795,7 +795,7 @@ class GroupPolicy {
      * If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is <b>NULL</b>, the user is the currently logged-on user. If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is not <b>NULL</b>, the user is represented by <i>pSidUser</i> on the local computer. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
      * @param {Pointer<Guid>} pGuidExtension A value that specifies the <b>GUID</b> of the extension.
-     * @param {Pointer<GROUP_POLICY_OBJECTA>} ppGPOList A pointer that receives the list of GPO structures. For more information, see 
+     * @param {Pointer<Pointer<GROUP_POLICY_OBJECTA>>} ppGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns a system error code. For a complete list of error codes, see 
      * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
@@ -805,7 +805,7 @@ class GroupPolicy {
     static GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("USERENV.dll\GetAppliedGPOListA", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr", ppGPOList, "uint")
+        result := DllCall("USERENV.dll\GetAppliedGPOListA", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr*", ppGPOList, "uint")
         return result
     }
 
@@ -818,7 +818,7 @@ class GroupPolicy {
      * If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is <b>NULL</b>, the user is the currently logged-on user. If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is not <b>NULL</b>, the user is represented by <i>pSidUser</i> on the local computer. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
      * @param {Pointer<Guid>} pGuidExtension A value that specifies the <b>GUID</b> of the extension.
-     * @param {Pointer<GROUP_POLICY_OBJECTW>} ppGPOList A pointer that receives the list of GPO structures. For more information, see 
+     * @param {Pointer<Pointer<GROUP_POLICY_OBJECTW>>} ppGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns a system error code. For a complete list of error codes, see 
      * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
@@ -828,7 +828,7 @@ class GroupPolicy {
     static GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("USERENV.dll\GetAppliedGPOListW", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr", ppGPOList, "uint")
+        result := DllCall("USERENV.dll\GetAppliedGPOListW", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr*", ppGPOList, "uint")
         return result
     }
 
@@ -875,10 +875,11 @@ class GroupPolicy {
      * @param {Integer} ObjectTypeListLength 
      * @param {Pointer<GENERIC_MAPPING>} pGenericMapping 
      * @param {Pointer} pPrivilegeSet 
-     * @param {Pointer<UInt32>} pdwPrivilegeSetLength 
-     * @param {Pointer<UInt32>} pdwGrantedAccessMask 
+     * @param {Pointer<Integer>} pdwPrivilegeSetLength 
+     * @param {Pointer<Integer>} pdwGrantedAccessMask 
      * @param {Pointer<BOOL>} pbAccessStatus 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopaccesscheckbytype
      * @since windows6.0.6000
      */
     static RsopAccessCheckByType(pSecurityDescriptor, pPrincipalSelfSid, pRsopToken, dwDesiredAccessMask, pObjectTypeList, ObjectTypeListLength, pGenericMapping, pPrivilegeSet, pdwPrivilegeSetLength, pdwGrantedAccessMask, pbAccessStatus) {
@@ -901,9 +902,10 @@ class GroupPolicy {
      * @param {PWSTR} pszFileName 
      * @param {Pointer<Void>} pRsopToken 
      * @param {Integer} dwDesiredAccessMask 
-     * @param {Pointer<UInt32>} pdwGrantedAccessMask 
+     * @param {Pointer<Integer>} pdwGrantedAccessMask 
      * @param {Pointer<BOOL>} pbAccessStatus 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopfileaccesscheck
      * @since windows6.0.6000
      */
     static RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGrantedAccessMask, pbAccessStatus) {
@@ -919,11 +921,12 @@ class GroupPolicy {
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IWbemServices>} pServices 
-     * @param {Pointer<IWbemClassObject>} pSettingInstance 
+     * @param {IWbemServices} pServices 
+     * @param {IWbemClassObject} pSettingInstance 
      * @param {Integer} nInfo 
      * @param {Pointer<POLICYSETTINGSTATUSINFO>} pStatus 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopsetpolicysettingstatus
      * @since windows6.0.6000
      */
     static RsopSetPolicySettingStatus(dwFlags, pServices, pSettingInstance, nInfo, pStatus) {
@@ -937,9 +940,10 @@ class GroupPolicy {
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IWbemServices>} pServices 
-     * @param {Pointer<IWbemClassObject>} pSettingInstance 
+     * @param {IWbemServices} pServices 
+     * @param {IWbemClassObject} pSettingInstance 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-rsopresetpolicysettingstatus
      * @since windows6.0.6000
      */
     static RsopResetPolicySettingStatus(dwFlags, pServices, pSettingInstance) {
@@ -997,7 +1001,7 @@ class GroupPolicy {
      * 
      * @param {PWSTR} Descriptor 
      * @param {PWSTR} CommandLine 
-     * @param {Pointer<UInt32>} CommandLineLength 
+     * @param {Pointer<Integer>} CommandLineLength 
      * @returns {Integer} 
      */
     static CommandLineFromMsiDescriptor(Descriptor, CommandLine, CommandLineLength) {
@@ -1015,30 +1019,30 @@ class GroupPolicy {
      * of applications to be listed. If <i>pCategory</i> is not null, <i>dwQueryFlags</i> must   contain <b>MANAGED_APPS_FROMCATEGORY</b>. If <i>pCategory</i> is null, <i>dwQueryFlags</i> cannot contain <b>MANAGED_APPS_FROMCATEGORY</b>.
      * @param {Integer} dwQueryFlags 
      * @param {Integer} dwInfoLevel This parameter must be <b>MANAGED_APPS_INFOLEVEL_DEFAULT</b>.
-     * @param {Pointer<UInt32>} pdwApps The count of applications in the list returned by this function.
-     * @param {Pointer<MANAGEDAPPLICATION>} prgManagedApps This parameter is a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-managedapplication">MANAGEDAPPLICATION</a> structures. This array contains the list of applications listed in the <b>Add</b> pane of  <b>Add/Remove Programs</b> (ARP). You must call <b>LocalFree</b> to free the array when they array is no longer required.
+     * @param {Pointer<Integer>} pdwApps The count of applications in the list returned by this function.
+     * @param {Pointer<Pointer<MANAGEDAPPLICATION>>} prgManagedApps This parameter is a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-managedapplication">MANAGEDAPPLICATION</a> structures. This array contains the list of applications listed in the <b>Add</b> pane of  <b>Add/Remove Programs</b> (ARP). You must call <b>LocalFree</b> to free the array when they array is no longer required.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
      * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-getmanagedapplications
      * @since windows6.0.6000
      */
     static GetManagedApplications(pCategory, dwQueryFlags, dwInfoLevel, pdwApps, prgManagedApps) {
-        result := DllCall("ADVAPI32.dll\GetManagedApplications", "ptr", pCategory, "uint", dwQueryFlags, "uint", dwInfoLevel, "uint*", pdwApps, "ptr", prgManagedApps, "uint")
+        result := DllCall("ADVAPI32.dll\GetManagedApplications", "ptr", pCategory, "uint", dwQueryFlags, "uint", dwInfoLevel, "uint*", pdwApps, "ptr*", prgManagedApps, "uint")
         return result
     }
 
     /**
      * The GetLocalManagedApplications function can be run on the target computer to get a list of managed applications on that computer.
      * @param {BOOL} bUserApps A value that, if <b>TRUE</b>, the <i>prgLocalApps</i> parameter contains a list of managed applications that applies to the user.  If the value of this parameter is <b>FALSE</b>, the <i>prgLocalApps</i> parameter contains a list of managed applications that applies to the local computer.
-     * @param {Pointer<UInt32>} pdwApps The address of a <b>DWORD</b> that specifies the number of applications in the list returned by <i>prgLocalApps</i>.
-     * @param {Pointer<LOCALMANAGEDAPPLICATION>} prgLocalApps The address of an array that contains the list of managed applications. You must call <b>LocalFree</b> to free this array when its contents are no longer required. This parameter cannot be null. The list is returned as a <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-localmanagedapplication">LOCALMANAGEDAPPLICATION</a> structure.
+     * @param {Pointer<Integer>} pdwApps The address of a <b>DWORD</b> that specifies the number of applications in the list returned by <i>prgLocalApps</i>.
+     * @param {Pointer<Pointer<LOCALMANAGEDAPPLICATION>>} prgLocalApps The address of an array that contains the list of managed applications. You must call <b>LocalFree</b> to free this array when its contents are no longer required. This parameter cannot be null. The list is returned as a <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-localmanagedapplication">LOCALMANAGEDAPPLICATION</a> structure.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
      * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//appmgmt/nf-appmgmt-getlocalmanagedapplications
      * @since windows6.0.6000
      */
     static GetLocalManagedApplications(bUserApps, pdwApps, prgLocalApps) {
-        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "int", bUserApps, "uint*", pdwApps, "ptr", prgLocalApps, "uint")
+        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "int", bUserApps, "uint*", pdwApps, "ptr*", prgLocalApps, "uint")
         return result
     }
 

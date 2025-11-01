@@ -20,7 +20,7 @@ class WHEA_DRIVER_BUFFER_SET extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Data {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class WHEA_DRIVER_BUFFER_SET extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SectionFriendlyName {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class WHEA_DRIVER_BUFFER_SET extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Flags {
         get => NumGet(this, 40, "ptr")

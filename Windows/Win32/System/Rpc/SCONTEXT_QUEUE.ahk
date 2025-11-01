@@ -20,7 +20,7 @@ class SCONTEXT_QUEUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDR_SCONTEXT>}
+     * @type {Pointer<Pointer<NDR_SCONTEXT>>}
      */
     ArrayOfObjects {
         get => NumGet(this, 8, "ptr")

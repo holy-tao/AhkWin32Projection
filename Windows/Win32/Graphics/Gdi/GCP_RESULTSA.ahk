@@ -54,7 +54,7 @@ class GCP_RESULTSA extends Win32Struct
      * A pointer to the array that receives ordering indexes or is <b>NULL</b> if the ordering indexes are not needed. However, its meaning depends on the other elements of <b>GCP_RESULTS</b>. If glyph indexes are to be returned, the indexes are for the <b>lpGlyphs</b> array; if glyphs indexes are not returned and <b>lpOrder</b> is requested, the indexes are for <b>lpOutString</b>. For example, in the latter case the value of <b>lpOrder</b>[i] is the position of <b>lpString</b>[i] in the output string lpOutString.
      * 
      * This is typically used when <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getfontlanguageinfo">GetFontLanguageInfo</a> returns the GCP_REORDER flag, which indicates that the original string needs reordering. For example, in Hebrew, in which the text runs from right to left, the <b>lpOrder</b> array gives the exact locations of each element in the original string.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpOrder {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class GCP_RESULTSA extends Win32Struct
      * <pre class="syntax" xml:space="preserve"><code>
      * width = lpDx[lpOrder[i]];
      * </code></pre>
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     lpDx {
         get => NumGet(this, 24, "ptr")
@@ -84,7 +84,7 @@ class GCP_RESULTSA extends Win32Struct
      * <pre class="syntax" xml:space="preserve"><code>
      * position = lpCaretPos[i];
      * </code></pre>
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     lpCaretPos {
         get => NumGet(this, 32, "ptr")

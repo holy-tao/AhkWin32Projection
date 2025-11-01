@@ -15,7 +15,7 @@ class SCESVC_ANALYSIS_LINE extends Win32Struct
 
     /**
      * String that contains data key. Typically, this is the name of the configuration parameter to which the <b>Value</b> data applies.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     Key {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class SCESVC_ANALYSIS_LINE extends Win32Struct
 
     /**
      * Data describing the analysis result for the key. This can be binary data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Value {
         get => NumGet(this, 8, "ptr")

@@ -60,7 +60,7 @@ class FWP_CONDITION_VALUE0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     uint64 {
         get => NumGet(this, 8, "ptr")
@@ -92,7 +92,7 @@ class FWP_CONDITION_VALUE0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     int64 {
         get => NumGet(this, 8, "ptr")
@@ -108,7 +108,7 @@ class FWP_CONDITION_VALUE0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     double64 {
         get => NumGet(this, 8, "ptr")

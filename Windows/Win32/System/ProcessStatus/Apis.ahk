@@ -20,7 +20,7 @@ class ProcessStatus {
      * Retrieves the process identifier for each process object in the system.
      * @param {Pointer} lpidProcess A pointer to an array that receives the list of process identifiers.
      * @param {Integer} cb The size of the <i>pProcessIds</i> array, in bytes.
-     * @param {Pointer<UInt32>} lpcbNeeded The number of bytes returned in the <i>pProcessIds</i> array.
+     * @param {Pointer<Integer>} lpcbNeeded The number of bytes returned in the <i>pProcessIds</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -43,7 +43,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process.
      * @param {Pointer} lphModule An array that receives the list of module handles.
      * @param {Integer} cb The size of the <i>lphModule</i> array, in bytes.
-     * @param {Pointer<UInt32>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> 
+     * @param {Pointer<Integer>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> 
      *       array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -69,7 +69,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process.
      * @param {Pointer} lphModule An array that receives the list of module handles.
      * @param {Integer} cb The size of the <i>lphModule</i> array, in bytes.
-     * @param {Pointer<UInt32>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> array.
+     * @param {Pointer<Integer>} lpcbNeeded The number of bytes required to store all module handles in the <i>lphModule</i> array.
      * @param {Integer} dwFilterFlag 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -323,7 +323,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer} lpWatchInfoEx A pointer to a user-allocated buffer that receives an array of  
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-psapi_ws_watch_information_ex">PSAPI_WS_WATCH_INFORMATION_EX</a> structures. The array is terminated with a structure whose <b>FaultingPc</b> member is NULL.
-     * @param {Pointer<UInt32>} cb The size of the 
+     * @param {Pointer<Integer>} cb The size of the 
      * <i>lpWatchInfoEx</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
@@ -403,7 +403,7 @@ class ProcessStatus {
      * Retrieves the load address for each device driver in the system.
      * @param {Pointer} lpImageBase An array that receives the list of load addresses for the device drivers.
      * @param {Integer} cb The size of the <i>lpImageBase</i> array, in bytes. If the array is not large enough to store the load addresses, the <i>lpcbNeeded</i> parameter receives the required size of the array.
-     * @param {Pointer<UInt32>} lpcbNeeded The number of bytes returned in the <i>lpImageBase</i> array.
+     * @param {Pointer<Integer>} lpcbNeeded The number of bytes returned in the <i>lpImageBase</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -729,8 +729,9 @@ class ProcessStatus {
      * 
      * @param {Pointer} lpidProcess 
      * @param {Integer} cb 
-     * @param {Pointer<UInt32>} lpcbNeeded 
+     * @param {Pointer<Integer>} lpcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocesses
      */
     static K32EnumProcesses(lpidProcess, cb, lpcbNeeded) {
         result := DllCall("KERNEL32.dll\K32EnumProcesses", "ptr", lpidProcess, "uint", cb, "uint*", lpcbNeeded, "int")
@@ -742,8 +743,9 @@ class ProcessStatus {
      * @param {HANDLE} hProcess 
      * @param {Pointer} lphModule 
      * @param {Integer} cb 
-     * @param {Pointer<UInt32>} lpcbNeeded 
+     * @param {Pointer<Integer>} lpcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocessmodules
      */
     static K32EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -757,9 +759,10 @@ class ProcessStatus {
      * @param {HANDLE} hProcess 
      * @param {Pointer} lphModule 
      * @param {Integer} cb 
-     * @param {Pointer<UInt32>} lpcbNeeded 
+     * @param {Pointer<Integer>} lpcbNeeded 
      * @param {Integer} dwFilterFlag 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocessmodulesex
      */
     static K32EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -775,6 +778,7 @@ class ProcessStatus {
      * @param {PSTR} lpBaseName 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
      */
     static K32GetModuleBaseNameA(hProcess, hModule, lpBaseName, nSize) {
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
@@ -792,6 +796,7 @@ class ProcessStatus {
      * @param {PWSTR} lpBaseName 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
      */
     static K32GetModuleBaseNameW(hProcess, hModule, lpBaseName, nSize) {
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
@@ -809,6 +814,7 @@ class ProcessStatus {
      * @param {PSTR} lpFilename 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
      */
     static K32GetModuleFileNameExA(hProcess, hModule, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -826,6 +832,7 @@ class ProcessStatus {
      * @param {PWSTR} lpFilename 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
      */
     static K32GetModuleFileNameExW(hProcess, hModule, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -843,6 +850,7 @@ class ProcessStatus {
      * @param {Pointer<MODULEINFO>} lpmodinfo 
      * @param {Integer} cb 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmoduleinformation
      */
     static K32GetModuleInformation(hProcess, hModule, lpmodinfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -856,6 +864,7 @@ class ProcessStatus {
      * 
      * @param {HANDLE} hProcess 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-emptyworkingset
      */
     static K32EmptyWorkingSet(hProcess) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -868,6 +877,7 @@ class ProcessStatus {
      * 
      * @param {HANDLE} hProcess 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-initializeprocessforwswatch
      */
     static K32InitializeProcessForWsWatch(hProcess) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -882,6 +892,7 @@ class ProcessStatus {
      * @param {Pointer} lpWatchInfo 
      * @param {Integer} cb 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getwschanges
      */
     static K32GetWsChanges(hProcess, lpWatchInfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -894,8 +905,9 @@ class ProcessStatus {
      * 
      * @param {HANDLE} hProcess 
      * @param {Pointer} lpWatchInfoEx 
-     * @param {Pointer<UInt32>} cb 
+     * @param {Pointer<Integer>} cb 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getwschangesex
      */
     static K32GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -911,6 +923,7 @@ class ProcessStatus {
      * @param {PWSTR} lpFilename 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamew
      */
     static K32GetMappedFileNameW(hProcess, lpv, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -927,6 +940,7 @@ class ProcessStatus {
      * @param {PSTR} lpFilename 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamew
      */
     static K32GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -940,8 +954,9 @@ class ProcessStatus {
      * 
      * @param {Pointer} lpImageBase 
      * @param {Integer} cb 
-     * @param {Pointer<UInt32>} lpcbNeeded 
+     * @param {Pointer<Integer>} lpcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumdevicedrivers
      */
     static K32EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
         result := DllCall("KERNEL32.dll\K32EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, "uint*", lpcbNeeded, "int")
@@ -954,6 +969,7 @@ class ProcessStatus {
      * @param {PSTR} lpFilename 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
      */
     static K32GetDeviceDriverBaseNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -968,6 +984,7 @@ class ProcessStatus {
      * @param {PWSTR} lpBaseName 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
      */
     static K32GetDeviceDriverBaseNameW(ImageBase, lpBaseName, nSize) {
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
@@ -982,6 +999,7 @@ class ProcessStatus {
      * @param {PSTR} lpFilename 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverfilenamew
      */
     static K32GetDeviceDriverFileNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -996,6 +1014,7 @@ class ProcessStatus {
      * @param {PWSTR} lpFilename 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverfilenamew
      */
     static K32GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -1010,6 +1029,7 @@ class ProcessStatus {
      * @param {Pointer} pv 
      * @param {Integer} cb 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingset
      */
     static K32QueryWorkingSet(hProcess, pv, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -1024,6 +1044,7 @@ class ProcessStatus {
      * @param {Pointer} pv 
      * @param {Integer} cb 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingsetex
      */
     static K32QueryWorkingSetEx(hProcess, pv, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -1038,6 +1059,7 @@ class ProcessStatus {
      * @param {Pointer} ppsmemCounters 
      * @param {Integer} cb 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getprocessmemoryinfo
      */
     static K32GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
@@ -1051,6 +1073,7 @@ class ProcessStatus {
      * @param {Pointer<PERFORMANCE_INFORMATION>} pPerformanceInformation 
      * @param {Integer} cb 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo
      */
     static K32GetPerformanceInfo(pPerformanceInformation, cb) {
         result := DllCall("KERNEL32.dll\K32GetPerformanceInfo", "ptr", pPerformanceInformation, "uint", cb, "int")
@@ -1062,6 +1085,7 @@ class ProcessStatus {
      * @param {Pointer<PENUM_PAGE_FILE_CALLBACKW>} pCallBackRoutine 
      * @param {Pointer<Void>} pContext 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesa
      */
     static K32EnumPageFilesW(pCallBackRoutine, pContext) {
         result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, "ptr", pContext, "int")
@@ -1073,6 +1097,7 @@ class ProcessStatus {
      * @param {Pointer<PENUM_PAGE_FILE_CALLBACKA>} pCallBackRoutine 
      * @param {Pointer<Void>} pContext 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesa
      */
     static K32EnumPageFilesA(pCallBackRoutine, pContext) {
         result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, "ptr", pContext, "int")

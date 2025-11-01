@@ -24,7 +24,7 @@ class LSA_FOREST_TRUST_COLLISION_INFORMATION extends Win32Struct
 
     /**
      * Pointer to a pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_collision_record">LSA_FOREST_TRUST_COLLISION_RECORD</a> structures, each of which contains information about a single collision.
-     * @type {Pointer<LSA_FOREST_TRUST_COLLISION_RECORD>}
+     * @type {Pointer<Pointer<LSA_FOREST_TRUST_COLLISION_RECORD>>}
      */
     Entries {
         get => NumGet(this, 8, "ptr")

@@ -62,7 +62,7 @@ class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION extends Win32Struct
      * Type: <b>byte*</b>
      * 
      * An array of bytes containing serialized credential information. The exact format of this data depends on the authentication package targeted by a credential provider.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     rgbSerialization {
         get => NumGet(this, 24, "ptr")

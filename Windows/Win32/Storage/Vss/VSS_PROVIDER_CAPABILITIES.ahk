@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_provider_capabilities
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

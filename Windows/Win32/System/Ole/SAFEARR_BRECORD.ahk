@@ -20,7 +20,7 @@ class SAFEARR_BRECORD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_wireBRECORD>}
+     * @type {Pointer<Pointer<_wireBRECORD>>}
      */
     aRecord {
         get => NumGet(this, 8, "ptr")

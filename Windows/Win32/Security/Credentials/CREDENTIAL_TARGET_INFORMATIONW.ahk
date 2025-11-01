@@ -128,7 +128,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * Array specifying the credential types acceptable by the authentication package used by the target server. Each element is one of the CRED_TYPE_* defines. The order of this array specifies the preference order of the authentication package. More preferable types are specified earlier in the list.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     CredTypes {
         get => NumGet(this, 64, "ptr")

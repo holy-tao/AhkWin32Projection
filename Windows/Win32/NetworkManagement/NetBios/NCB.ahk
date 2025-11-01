@@ -294,7 +294,7 @@ class NCB extends Win32Struct
      * <td>Receives the requested status information.</td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ncb_buffer {
         get => NumGet(this, 8, "ptr")

@@ -28,7 +28,7 @@ class SecPkgContext_Certificates extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCertificateChain {
         get => NumGet(this, 8, "ptr")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/lmstats/ns-lmstats-stat_workstation_0~r1
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

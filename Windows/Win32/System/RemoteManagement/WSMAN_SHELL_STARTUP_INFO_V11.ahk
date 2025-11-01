@@ -3,6 +3,8 @@
 #Include .\WSMAN_SHELL_STARTUP_INFO_V10.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_shell_startup_info_v11
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

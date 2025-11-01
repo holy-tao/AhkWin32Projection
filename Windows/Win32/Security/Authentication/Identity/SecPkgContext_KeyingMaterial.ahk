@@ -24,7 +24,7 @@ class SecPkgContext_KeyingMaterial extends Win32Struct
 
     /**
      * A pointer to the buffer containing the exported keying material. After use, deallocate the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecontextbuffer">FreeContextBuffer</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbKeyingMaterial {
         get => NumGet(this, 8, "ptr")

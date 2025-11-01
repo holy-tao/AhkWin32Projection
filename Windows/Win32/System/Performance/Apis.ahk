@@ -973,7 +973,7 @@ class Performance {
 ;@region Methods
     /**
      * Retrieves the current value of the performance counter, which is a high resolution (&lt;1us) time stamp that can be used for time-interval measurements.
-     * @param {Pointer<Int64>} lpPerformanceCount A pointer to a variable that receives the current performance-counter value, in counts.
+     * @param {Pointer<Integer>} lpPerformanceCount A pointer to a variable that receives the current performance-counter value, in counts.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
@@ -992,7 +992,7 @@ class Performance {
 
     /**
      * Retrieves the frequency of the performance counter.
-     * @param {Pointer<Int64>} lpFrequency A pointer to a variable that receives the current performance-counter frequency, in counts per second. If the installed hardware doesn't support a high-resolution performance counter, this parameter can be zero (this will not occur on systems that run Windows XP or later).
+     * @param {Pointer<Integer>} lpFrequency A pointer to a variable that receives the current performance-counter frequency, in counts per second. If the installed hardware doesn't support a high-resolution performance counter, this parameter can be zero (this will not occur on systems that run Windows XP or later).
      * @returns {BOOL} If the installed hardware supports a high-resolution performance counter, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
@@ -1552,7 +1552,7 @@ class Performance {
      * 
      * <i>cCounterSetIds</i> is 0.
      * @param {Integer} cCounterSetIds The size of the buffer that the <i>pCounterSetIds</i> parameter specifies, measured in GUIDs.
-     * @param {Pointer<UInt32>} pcCounterSetIdsActual The size of the buffer actually required to get the counter set identifiers. The meaning depends on the value that the function  
+     * @param {Pointer<Integer>} pcCounterSetIdsActual The size of the buffer actually required to get the counter set identifiers. The meaning depends on the value that the function  
      * 
      * returns.
      * 
@@ -1636,7 +1636,7 @@ class Performance {
      * 
      * NULL if <i>cbInstances</i> is 0.
      * @param {Integer} cbInstances The size of the buffer that the  <i>pInstances</i> parameter specifies,  in bytes.
-     * @param {Pointer<UInt32>} pcbInstancesActual The size of the buffer actually required to get the information about of the active instances. The meaning depends on the value that the function  
+     * @param {Pointer<Integer>} pcbInstancesActual The size of the buffer actually required to get the information about of the active instances. The meaning depends on the value that the function  
      * 
      * returns.
      * 
@@ -1730,7 +1730,7 @@ class Performance {
      * 
      * NULL if <i>cbRegInfo</i> is 0.
      * @param {Integer} cbRegInfo The size of the buffer that the <i>pbRegInfo</i> parameter specifies, in bytes.
-     * @param {Pointer<UInt32>} pcbRegInfoActual The size of the buffer actually required to get the information about the counter set. The meaning depends on the value that the function  
+     * @param {Pointer<Integer>} pcbRegInfoActual The size of the buffer actually required to get the information about the counter set. The meaning depends on the value that the function  
      * 
      * returns.
      * 
@@ -1849,7 +1849,7 @@ class Performance {
      * @param {Pointer} pCounters Pointer to a buffer that is large enough to hold the amount of data that the <i>cbCounters</i> parameter specifies, in bytes. May be
      * NULL if <i>cbCounters</i> is 0.
      * @param {Integer} cbCounters The size of the <i>pCounters</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pcbCountersActual The size of the buffer actually required to get the counter specifications. The meaning depends on the value that the function  
+     * @param {Pointer<Integer>} pcbCountersActual The size of the buffer actually required to get the counter specifications. The meaning depends on the value that the function  
      * 
      * returns.
      * 
@@ -1932,7 +1932,7 @@ class Performance {
      * 
      * <i>cbCounterBlock</i> is 0.
      * @param {Integer} cbCounterBlock The size of the buffer that the <i>pCounterBlock</i> parameter specifies, in bytes.
-     * @param {Pointer<UInt32>} pcbCounterBlockActual The size of the buffer actually required to get the performance counter values. The meaning depends on the value that the function  
+     * @param {Pointer<Integer>} pcbCounterBlockActual The size of the buffer actually required to get the performance counter values. The meaning depends on the value that the function  
      * 
      * returns.
      * 
@@ -2050,7 +2050,7 @@ class Performance {
 
     /**
      * Returns the version of the currently installed Pdh.dll file.
-     * @param {Pointer<UInt32>} lpdwVersion 
+     * @param {Pointer<Integer>} lpdwVersion 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -2636,7 +2636,7 @@ class Performance {
     /**
      * Collects the current raw data value for all counters in the specified query and updates the status code of each counter.
      * @param {PDH_HQUERY} hQuery Handle of the query for which you want to collect data. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
-     * @param {Pointer<Int64>} pllTimeStamp Time stamp when the first counter value in the query was retrieved. The time is specified as FILETIME.
+     * @param {Pointer<Integer>} pllTimeStamp Time stamp when the first counter value in the query was retrieved. The time is specified as FILETIME.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS. Otherwise, the function returns a 
      * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
@@ -3018,7 +3018,7 @@ class Performance {
      * @param {PDH_HCOUNTER} hCounter Handle of the counter for which you want to compute a displayable value. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
-     * @param {Pointer<UInt32>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
+     * @param {Pointer<Integer>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
      * @param {Pointer<PDH_FMT_COUNTERVALUE>} pValue A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_fmt_countervalue">PDH_FMT_COUNTERVALUE</a> structure that receives the counter value.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3080,8 +3080,8 @@ class Performance {
      * @param {PDH_HCOUNTER} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
-     * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<UInt32>} lpdwItemCount Number of counter values in the <i>ItemBuffer</i> buffer.
+     * @param {Pointer<Integer>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} lpdwItemCount Number of counter values in the <i>ItemBuffer</i> buffer.
      * @param {Pointer<PDH_FMT_COUNTERVALUE_ITEM_A>} ItemBuffer Caller-allocated buffer that receives an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_fmt_countervalue_item_a">PDH_FMT_COUNTERVALUE_ITEM</a> structures; the structures contain the counter values. Set to <b>NULL</b> if <i>lpdwBufferSize</i> is zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3143,8 +3143,8 @@ class Performance {
      * @param {PDH_HCOUNTER} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
-     * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<UInt32>} lpdwItemCount Number of counter values in the <i>ItemBuffer</i> buffer.
+     * @param {Pointer<Integer>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} lpdwItemCount Number of counter values in the <i>ItemBuffer</i> buffer.
      * @param {Pointer<PDH_FMT_COUNTERVALUE_ITEM_W>} ItemBuffer Caller-allocated buffer that receives an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_fmt_countervalue_item_a">PDH_FMT_COUNTERVALUE_ITEM</a> structures; the structures contain the counter values. Set to <b>NULL</b> if <i>lpdwBufferSize</i> is zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3205,7 +3205,7 @@ class Performance {
      * Returns the current raw value of the counter.
      * @param {PDH_HCOUNTER} hCounter Handle of the counter from which to retrieve the current raw value. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Pointer<UInt32>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
+     * @param {Pointer<Integer>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
      * @param {Pointer<PDH_RAW_COUNTER>} pValue A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a> structure that receives the counter value.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3255,8 +3255,8 @@ class Performance {
      * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name.
      * @param {PDH_HCOUNTER} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<UInt32>} lpdwItemCount Number of raw counter values in the <i>ItemBuffer</i> buffer.
+     * @param {Pointer<Integer>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} lpdwItemCount Number of raw counter values in the <i>ItemBuffer</i> buffer.
      * @param {Pointer<PDH_RAW_COUNTER_ITEM_A>} ItemBuffer Caller-allocated buffer that receives the array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter_item_a">PDH_RAW_COUNTER_ITEM</a> structures; the structures contain the raw instance counter values.  Set to <b>NULL</b> if <i>lpdwBufferSize</i> is zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3317,8 +3317,8 @@ class Performance {
      * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name.
      * @param {PDH_HCOUNTER} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<UInt32>} lpdwItemCount Number of raw counter values in the <i>ItemBuffer</i> buffer.
+     * @param {Pointer<Integer>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} lpdwItemCount Number of raw counter values in the <i>ItemBuffer</i> buffer.
      * @param {Pointer<PDH_RAW_COUNTER_ITEM_W>} ItemBuffer Caller-allocated buffer that receives the array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter_item_a">PDH_RAW_COUNTER_ITEM</a> structures; the structures contain the raw instance counter values.  Set to <b>NULL</b> if <i>lpdwBufferSize</i> is zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3487,7 +3487,7 @@ class Performance {
      * @param {PDH_HCOUNTER} hCounter Handle of the counter from which you want to retrieve information. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {BOOLEAN} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>lpBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pdwBufferSize Size of the <i>lpBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<PDH_COUNTER_INFO_W>} lpBuffer Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure. The structure is variable-length, because the string data is appended to the end of the fixed-format portion of the structure. This is done so that all data is returned in a single buffer allocated by the caller. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3549,7 +3549,7 @@ class Performance {
      * @param {PDH_HCOUNTER} hCounter Handle of the counter from which you want to retrieve information. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {BOOLEAN} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>lpBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pdwBufferSize Size of the <i>lpBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<PDH_COUNTER_INFO_A>} lpBuffer Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure. The structure is variable-length, because the string data is appended to the end of the fixed-format portion of the structure. This is done so that all data is returned in a single buffer allocated by the caller. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3754,7 +3754,7 @@ class Performance {
      * Returns a list of the computer names associated with counters in a log file.
      * @param {PWSTR} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
      * @param {PWSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -3805,7 +3805,7 @@ class Performance {
      * Returns a list of the computer names associated with counters in a log file.
      * @param {PSTR} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
      * @param {PSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -3865,7 +3865,7 @@ class Performance {
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PWSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
@@ -3952,7 +3952,7 @@ class Performance {
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
@@ -4040,9 +4040,9 @@ class Performance {
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
      * @param {PWSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
-     * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {PWSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
      * @param {Integer} dwDetailLevel 
@@ -4143,9 +4143,9 @@ class Performance {
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
      * @param {PSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
-     * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {PSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
      * @param {Integer} dwDetailLevel 
@@ -4241,7 +4241,7 @@ class Performance {
      * 
      * If the instance name member is <b>NULL</b>, the path will not contain an instance reference and the <b>szParentInstance</b> and <b>dwInstanceIndex</b> members will be ignored.
      * @param {PWSTR} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4297,7 +4297,7 @@ class Performance {
      * 
      * If the instance name member is <b>NULL</b>, the path will not contain an instance reference and the <b>szParentInstance</b> and <b>dwInstanceIndex</b> members will be ignored.
      * @param {PSTR} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4349,7 +4349,7 @@ class Performance {
      * @param {PWSTR} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_W>} pCounterPathElements Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure. The structure contains pointers to the individual string elements of the path referenced by the <i>szFullPathBuffer</i> parameter. The function appends the strings to the end of the <b>PDH_COUNTER_PATH_ELEMENTS</b> structure. The allocated buffer should be large enough for the structure and the strings. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>pCounterPathElements</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pdwBufferSize Size of the <i>pCounterPathElements</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Integer} dwFlags Reserved. Must be zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4423,7 +4423,7 @@ class Performance {
      * @param {PSTR} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_A>} pCounterPathElements Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure. The structure contains pointers to the individual string elements of the path referenced by the <i>szFullPathBuffer</i> parameter. The function appends the strings to the end of the <b>PDH_COUNTER_PATH_ELEMENTS</b> structure. The allocated buffer should be large enough for the structure and the strings. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>pCounterPathElements</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pdwBufferSize Size of the <i>pCounterPathElements</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Integer} dwFlags Reserved. Must be zero.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -4506,10 +4506,10 @@ class Performance {
      * <li>parent/instance#index</li>
      * </ul>
      * @param {PWSTR} szInstanceName Caller-allocated buffer that receives the <b>null</b>-terminated instance name. Set to <b>NULL</b> if <i>pcchInstanceNameLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchInstanceNameLength Size of the <i>szInstanceName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchInstanceNameLength Size of the <i>szInstanceName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {PWSTR} szParentName Caller-allocated buffer that receives the <b>null</b>-terminated name of the parent instance, if one is specified. Set to <b>NULL</b> if <i>pcchParentNameLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchParentNameLength Size of the <i>szParentName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<UInt32>} lpIndex Index value of the instance. If an index entry is not present in the string, then this value is zero. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pcchParentNameLength Size of the <i>szParentName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} lpIndex Index value of the instance. If an index entry is not present in the string, then this value is zero. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -4582,10 +4582,10 @@ class Performance {
      * <li>parent/instance#index</li>
      * </ul>
      * @param {PSTR} szInstanceName Caller-allocated buffer that receives the <b>null</b>-terminated instance name. Set to <b>NULL</b> if <i>pcchInstanceNameLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchInstanceNameLength Size of the <i>szInstanceName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchInstanceNameLength Size of the <i>szInstanceName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {PSTR} szParentName Caller-allocated buffer that receives the <b>null</b>-terminated name of the parent instance, if one is specified. Set to <b>NULL</b> if <i>pcchParentNameLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchParentNameLength Size of the <i>szParentName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<UInt32>} lpIndex Index value of the instance. If an index entry is not present in the string, then this value is zero. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pcchParentNameLength Size of the <i>szParentName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} lpIndex Index value of the instance. If an index entry is not present in the string, then this value is zero. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -4837,7 +4837,7 @@ class Performance {
      * @param {PWSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to <b>NULL</b> if the <i>pcchBufferSize</i> parameter is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -4916,7 +4916,7 @@ class Performance {
      * @param {PSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to <b>NULL</b> if the <i>pcchBufferSize</i> parameter is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -4995,7 +4995,7 @@ class Performance {
      * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the object name.
      * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
      * @param {PWSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5107,7 +5107,7 @@ class Performance {
      * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the object name.
      * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
      * @param {PSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5251,7 +5251,7 @@ class Performance {
      * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path.
      * @param {PWSTR} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {PWSTR} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
      * <div> </div>
@@ -5316,7 +5316,7 @@ class Performance {
      * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path.
      * @param {PSTR} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {PSTR} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
      * <div> </div>
@@ -5382,7 +5382,7 @@ class Performance {
      * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Integer} dwNameIndex Index of the performance object or counter.
      * @param {PWSTR} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchNameBufferSize Size of the <i>szNameBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchNameBufferSize Size of the <i>szNameBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5434,7 +5434,7 @@ class Performance {
      * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Integer} dwNameIndex Index of the performance object or counter.
      * @param {PSTR} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchNameBufferSize Size of the <i>szNameBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchNameBufferSize Size of the <i>szNameBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5485,7 +5485,7 @@ class Performance {
      * Returns the counter index corresponding to the specified counter name.
      * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {PWSTR} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
-     * @param {Pointer<UInt32>} pdwIndex Index of the counter.
+     * @param {Pointer<Integer>} pdwIndex Index of the counter.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5525,7 +5525,7 @@ class Performance {
      * Returns the counter index corresponding to the specified counter name.
      * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {PSTR} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
-     * @param {Pointer<UInt32>} pdwIndex Index of the counter.
+     * @param {Pointer<Integer>} pdwIndex Index of the counter.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5570,7 +5570,7 @@ class Performance {
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
      * @param {PSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
      * <div> </div>
@@ -5693,7 +5693,7 @@ class Performance {
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
      * @param {PWSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
      * <div> </div>
@@ -5816,7 +5816,7 @@ class Performance {
      * 
      * If the <i>lpdwLogType</i> parameter is <b>PDH_LOG_TYPE_SQL</b>, specify the name of the log file in the form, <b>SQL:</b><i>DataSourceName</i><b>!</b><i>LogFileName</i>.
      * @param {Integer} dwAccessFlags 
-     * @param {Pointer<UInt32>} lpdwLogType 
+     * @param {Pointer<Integer>} lpdwLogType 
      * @param {PDH_HQUERY} hQuery Specify a query handle if you are writing query data to a log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle. 
      * 
@@ -5856,7 +5856,7 @@ class Performance {
      * 
      * If the <i>lpdwLogType</i> parameter is <b>PDH_LOG_TYPE_SQL</b>, specify the name of the log file in the form, <b>SQL:</b><i>DataSourceName</i><b>!</b><i>LogFileName</i>.
      * @param {Integer} dwAccessFlags 
-     * @param {Pointer<UInt32>} lpdwLogType 
+     * @param {Pointer<Integer>} lpdwLogType 
      * @param {PDH_HQUERY} hQuery Specify a query handle if you are writing query data to a log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle. 
      * 
@@ -6053,7 +6053,7 @@ class Performance {
      * Returns the size of the specified log file.
      * @param {PDH_HLOG} hLog Handle to the log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
-     * @param {Pointer<Int64>} llSize Size of the log file, in bytes.
+     * @param {Pointer<Integer>} llSize Size of the log file, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6164,7 +6164,7 @@ class Performance {
      * @param {PWSTR} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
      * 
      * If the user selected a real time source, the buffer is empty.
-     * @param {Pointer<UInt32>} pcchBufferLength Maximum size of the <i>szDataSource</i> buffer, in <b>TCHARs</b>.
+     * @param {Pointer<Integer>} pcchBufferLength Maximum size of the <i>szDataSource</i> buffer, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6218,7 +6218,7 @@ class Performance {
      * @param {PSTR} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
      * 
      * If the user selected a real time source, the buffer is empty.
-     * @param {Pointer<UInt32>} pcchBufferLength Maximum size of the <i>szDataSource</i> buffer, in <b>TCHARs</b>.
+     * @param {Pointer<Integer>} pcchBufferLength Maximum size of the <i>szDataSource</i> buffer, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6337,10 +6337,10 @@ class Performance {
     /**
      * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function.
      * @param {PWSTR} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
-     * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
+     * @param {Pointer<Integer>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure that receives the time range.
-     * @param {Pointer<UInt32>} pdwBufferSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure, in bytes.
+     * @param {Pointer<Integer>} pdwBufferSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6400,10 +6400,10 @@ class Performance {
     /**
      * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function.
      * @param {PSTR} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
-     * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
+     * @param {Pointer<Integer>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure that receives the time range.
-     * @param {Pointer<UInt32>} pdwBufferSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure, in bytes.
+     * @param {Pointer<Integer>} pdwBufferSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6521,7 +6521,7 @@ class Performance {
      * 
      * Note that you cannot specify base types, for example, PERF_LARGE_RAW_BASE.
      * @param {Integer} dwFormat 
-     * @param {Pointer<Int64>} pTimeBase Pointer to the time base, if necessary for the format conversion. If time base information is not necessary for the format conversion, the value of this parameter is ignored. To retrieve the time base of the counter, call <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcountertimebase">PdhGetCounterTimeBase</a>.
+     * @param {Pointer<Integer>} pTimeBase Pointer to the time base, if necessary for the format conversion. If time base information is not necessary for the format conversion, the value of this parameter is ignored. To retrieve the time base of the counter, call <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcountertimebase">PdhGetCounterTimeBase</a>.
      * @param {Pointer<PDH_RAW_COUNTER>} pRawValue1 Raw counter value used to compute the displayable counter value. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a>.
      * @param {Pointer<PDH_RAW_COUNTER>} pRawValue2 Raw counter value used to compute the displayable counter value. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a>. Some counters, for example, rate counters, require two raw values to calculate a displayable value. If the counter type does not require a second value, set this parameter to <b>NULL</b>. This value must be the older of the two raw values.
      * @param {Pointer<PDH_FMT_COUNTERVALUE>} pFmtValue A 
@@ -6544,7 +6544,7 @@ class Performance {
      * Returns the time base of the specified counter.
      * @param {PDH_HCOUNTER} hCounter Handle to the counter. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Pointer<Int64>} pTimeBase Time base that specifies the number of performance values a counter samples per second.
+     * @param {Pointer<Integer>} pTimeBase Time base that specifies the number of performance values a counter samples per second.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6595,7 +6595,7 @@ class Performance {
      * @param {FILETIME} ftRecord Time stamp of the record to be read. If the time stamp does not match a record in the log file, the function returns the record that has a time stamp closest to (but not greater than) the given time stamp.
      * @param {Pointer<PDH_RAW_LOG_RECORD>} pRawLogRecord Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_log_record">PDH_RAW_LOG_RECORD</a> structure; the structure contains the log file record information. Set to <b>NULL</b> if <i>pdwBufferLength</i> is zero.
-     * @param {Pointer<UInt32>} pdwBufferLength Size of the <i>pRawLogRecord</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pdwBufferLength Size of the <i>pRawLogRecord</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6759,7 +6759,7 @@ class Performance {
      * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {PWSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6811,7 +6811,7 @@ class Performance {
      * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {PSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6869,7 +6869,7 @@ class Performance {
      * 
      * If <i>szDataSource</i> is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PWSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
@@ -6954,7 +6954,7 @@ class Performance {
      * 
      * If <i>szDataSource</i> is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
@@ -7040,9 +7040,9 @@ class Performance {
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
      * @param {PWSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {PWSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchInstanceListLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
      * @param {Integer} dwDetailLevel 
@@ -7141,9 +7141,9 @@ class Performance {
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
      * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
      * @param {PSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {PSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchInstanceListLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
      * @param {Integer} dwDetailLevel 
@@ -7238,7 +7238,7 @@ class Performance {
      * 
      * If <i>hDataSource</i> is a real time data source, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
      * @param {PWSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
      * <div> </div>
@@ -7349,7 +7349,7 @@ class Performance {
      * 
      * If <i>hDataSource</i> is a real time data source, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
      * @param {PSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
-     * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
      * <div> </div>
@@ -7456,10 +7456,10 @@ class Performance {
      * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source.This function is identical to the PdhGetDataSourceTimeRange function, except that it supports the use of handles to data sources.
      * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
+     * @param {Pointer<Integer>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure that receives the time range. The information spans all bound log files.
-     * @param {Pointer<UInt32>} pdwBufferSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure, in bytes.
+     * @param {Pointer<Integer>} pdwBufferSize Size of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -7525,7 +7525,7 @@ class Performance {
      * @param {PWSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to  <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -7615,7 +7615,7 @@ class Performance {
      * @param {PSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to  <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -7704,7 +7704,7 @@ class Performance {
      * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
      * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
      * @param {PWSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -7816,7 +7816,7 @@ class Performance {
      * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
      * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
      * @param {PSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
-     * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -8008,7 +8008,7 @@ class Performance {
      * Enumerates the names of the log sets within the DSN.
      * @param {PWSTR} szDataSource <b>Null</b>-terminated string that specifies the DSN.
      * @param {PWSTR} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -8059,7 +8059,7 @@ class Performance {
      * Enumerates the names of the log sets within the DSN.
      * @param {PSTR} szDataSource <b>Null</b>-terminated string that specifies the DSN.
      * @param {PSTR} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
-     * @param {Pointer<UInt32>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
+     * @param {Pointer<Integer>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -8110,7 +8110,7 @@ class Performance {
      * 
      * @param {PDH_HLOG} hLog 
      * @param {Pointer<Guid>} pGuid 
-     * @param {Pointer<Int32>} pRunId 
+     * @param {Pointer<Integer>} pRunId 
      * @returns {Integer} 
      */
     static PdhGetLogSetGUID(hLog, pGuid, pRunId) {

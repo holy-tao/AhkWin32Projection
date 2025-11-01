@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/printer-defaults
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

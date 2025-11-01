@@ -36,7 +36,7 @@ class APO_CONNECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IAudioMediaType>}
+     * @type {IAudioMediaType}
      */
     pFormat {
         get => NumGet(this, 24, "ptr")

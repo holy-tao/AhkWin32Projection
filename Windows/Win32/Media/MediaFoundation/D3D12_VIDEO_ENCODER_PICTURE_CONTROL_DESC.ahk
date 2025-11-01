@@ -4,6 +4,8 @@
 #Include .\D3D12_VIDEO_ENCODE_REFERENCE_FRAMES.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

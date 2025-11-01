@@ -656,7 +656,7 @@ class Memory {
      * </table>
      * @param {Pointer} HeapInformation A pointer to a buffer that receives the heap information. The format of this data depends on the value of the <i>HeapInformationClass</i> parameter.
      * @param {Pointer} HeapInformationLength The size of the heap information being queried, in bytes.
-     * @param {Pointer<UIntPtr>} ReturnLength A pointer to a variable that receives the length of data written to the <i>HeapInformation</i> buffer. If the buffer is too small, the function fails and <i>ReturnLength</i> specifies the minimum size required for the buffer. 
+     * @param {Pointer<Pointer>} ReturnLength A pointer to a variable that receives the length of data written to the <i>HeapInformation</i> buffer. If the buffer is too small, the function fails and <i>ReturnLength</i> specifies the minimum size required for the buffer. 
      * 
      * 
      * 
@@ -742,7 +742,7 @@ class Memory {
      *        mapped (see <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a>, 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffileex">MapViewOfFileEx</a>, and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-mapviewoffileexnuma">MapViewOfFileExNuma</a>).
-     * @param {Pointer<UInt32>} lpflOldProtect A pointer to a variable that receives the previous access protection value of the first page in the 
+     * @param {Pointer<Integer>} lpflOldProtect A pointer to a variable that receives the previous access protection value of the first page in the 
      *       specified region of pages. If this parameter is <b>NULL</b> or does not point to a valid 
      *       variable, the function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -904,7 +904,7 @@ class Memory {
      *        mapped (see <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a>, 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffileex">MapViewOfFileEx</a>, and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-mapviewoffileexnuma">MapViewOfFileExNuma</a>).
-     * @param {Pointer<UInt32>} lpflOldProtect A pointer to a variable that receives the previous access protection of the first page in the specified 
+     * @param {Pointer<Integer>} lpflOldProtect A pointer to a variable that receives the previous access protection of the first page in the specified 
      *       region of pages. If this parameter is <b>NULL</b> or does not point to a valid variable, the 
      *       function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1274,9 +1274,9 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
-     * @param {Pointer<UIntPtr>} lpMinimumWorkingSetSize A pointer to a variable that receives the minimum working set size of the specified process, in bytes. The virtual memory manager attempts to keep at least this much memory resident in the process whenever the process is active.
-     * @param {Pointer<UIntPtr>} lpMaximumWorkingSetSize A pointer to a variable that receives the maximum working set size of the specified process, in bytes. The virtual memory manager attempts to keep no more than this much memory resident in the process whenever the process is active when memory is in short supply.
-     * @param {Pointer<UInt32>} Flags The flags that control the enforcement of the minimum and maximum working set sizes.
+     * @param {Pointer<Pointer>} lpMinimumWorkingSetSize A pointer to a variable that receives the minimum working set size of the specified process, in bytes. The virtual memory manager attempts to keep at least this much memory resident in the process whenever the process is active.
+     * @param {Pointer<Pointer>} lpMaximumWorkingSetSize A pointer to a variable that receives the maximum working set size of the specified process, in bytes. The virtual memory manager attempts to keep no more than this much memory resident in the process whenever the process is active when memory is in short supply.
+     * @param {Pointer<Integer>} Flags The flags that control the enforcement of the minimum and maximum working set sizes.
      * 
      * <table>
      * <tr>
@@ -1491,15 +1491,15 @@ class Memory {
      *       a memory region that is allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a> 
      *       function using <b>MEM_WRITE_WATCH</b>.
      * @param {Pointer} dwRegionSize The size of the memory region for which to retrieve write-tracking information, in bytes.
-     * @param {Pointer<Void>} lpAddresses A pointer to a buffer that receives an array of page addresses in the memory region. 
+     * @param {Pointer<Pointer<Void>>} lpAddresses A pointer to a buffer that receives an array of page addresses in the memory region. 
      * 
      * The addresses indicate 
      *       the pages that have been written to since the region has been allocated or the write-tracking state has been reset.
-     * @param {Pointer<UIntPtr>} lpdwCount On input, this variable indicates the size of the <i>lpAddresses</i> array, in array 
+     * @param {Pointer<Pointer>} lpdwCount On input, this variable indicates the size of the <i>lpAddresses</i> array, in array 
      *      elements. 
      * 
      * On output, the variable receives the number of page addresses that are returned in the array.
-     * @param {Pointer<UInt32>} lpdwGranularity A pointer to a variable that receives the page size, in bytes.
+     * @param {Pointer<Integer>} lpdwGranularity A pointer to a variable that receives the page size, in bytes.
      * @returns {Integer} If the function succeeds, the return value is 0 (zero).
      * 
      * If the function fails, the return value is a nonzero value.
@@ -1507,7 +1507,7 @@ class Memory {
      * @since windows5.1.2600
      */
     static GetWriteWatch(dwFlags, lpBaseAddress, dwRegionSize, lpAddresses, lpdwCount, lpdwGranularity) {
-        result := DllCall("KERNEL32.dll\GetWriteWatch", "uint", dwFlags, "ptr", lpBaseAddress, "ptr", dwRegionSize, "ptr", lpAddresses, "ptr*", lpdwCount, "uint*", lpdwGranularity, "uint")
+        result := DllCall("KERNEL32.dll\GetWriteWatch", "uint", dwFlags, "ptr", lpBaseAddress, "ptr", dwRegionSize, "ptr*", lpAddresses, "ptr*", lpdwCount, "uint*", lpdwGranularity, "uint")
         return result
     }
 
@@ -1606,9 +1606,9 @@ class Memory {
 
     /**
      * Retrieves the current size limits for the working set of the system cache.
-     * @param {Pointer<UIntPtr>} lpMinimumFileCacheSize A pointer to a variable that receives the minimum size of the file cache, in bytes. The virtual memory manager attempts to keep at least this much memory resident in the system file cache, if there is a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-setsystemfilecachesize">SetSystemFileCacheSize</a> function with the <b>FILE_CACHE_MIN_HARD_ENABLE</b> flag.
-     * @param {Pointer<UIntPtr>} lpMaximumFileCacheSize A pointer to a variable that receives the maximum size of the file cache, in bytes. The virtual memory manager enforces this limit only if there is a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-setsystemfilecachesize">SetSystemFileCacheSize</a> with the <b>FILE_CACHE_MAX_HARD_ENABLE</b> flag.
-     * @param {Pointer<UInt32>} lpFlags The flags that indicate which of the file cache limits are enabled.
+     * @param {Pointer<Pointer>} lpMinimumFileCacheSize A pointer to a variable that receives the minimum size of the file cache, in bytes. The virtual memory manager attempts to keep at least this much memory resident in the system file cache, if there is a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-setsystemfilecachesize">SetSystemFileCacheSize</a> function with the <b>FILE_CACHE_MIN_HARD_ENABLE</b> flag.
+     * @param {Pointer<Pointer>} lpMaximumFileCacheSize A pointer to a variable that receives the maximum size of the file cache, in bytes. The virtual memory manager enforces this limit only if there is a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-setsystemfilecachesize">SetSystemFileCacheSize</a> with the <b>FILE_CACHE_MAX_HARD_ENABLE</b> flag.
+     * @param {Pointer<Integer>} lpFlags The flags that indicate which of the file cache limits are enabled.
      * 
      * <table>
      * <tr>
@@ -2018,12 +2018,12 @@ class Memory {
      * @param {HANDLE} hProcess A handle to a process.
      * 
      * The function allocates memory that can later be mapped within the virtual address space of this process. The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UIntPtr>} NumberOfPages The size of the physical memory to allocate, in pages.
+     * @param {Pointer<Pointer>} NumberOfPages The size of the physical memory to allocate, in pages.
      * 
      * To determine the page size of the computer, use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function. On output, this parameter 
      *       receives the number of pages that are actually allocated, which might be less than the number requested.
-     * @param {Pointer<UIntPtr>} PageArray A pointer to an array to store the page frame numbers of the allocated memory.
+     * @param {Pointer<Pointer>} PageArray A pointer to an array to store the page frame numbers of the allocated memory.
      * 
      * The size of the array 
      *       that is allocated should be at least the <i>NumberOfPages</i> times the size of the 
@@ -2062,11 +2062,11 @@ class Memory {
      * @param {HANDLE} hProcess The handle to a process. 
      * 
      * The function frees memory within the virtual address space of this process.
-     * @param {Pointer<UIntPtr>} NumberOfPages The size of the physical memory to free, in pages. 
+     * @param {Pointer<Pointer>} NumberOfPages The size of the physical memory to free, in pages. 
      * 
      * On return, if the function fails, this parameter indicates 
      *       the number of pages that are freed.
-     * @param {Pointer<UIntPtr>} PageArray A pointer to an array of page frame numbers of the allocated memory to be freed.
+     * @param {Pointer<Pointer>} PageArray A pointer to an array of page frame numbers of the allocated memory to be freed.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. In this case, the <i>NumberOfPages</i> 
@@ -2104,7 +2104,7 @@ class Memory {
      * The total number of pages cannot extend from the 
      *       starting address beyond the end of the range that is specified in 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-allocateuserphysicalpages">AllocateUserPhysicalPages</a>.
-     * @param {Pointer<UIntPtr>} PageArray A pointer to an array of physical page frame numbers. 
+     * @param {Pointer<Pointer>} PageArray A pointer to an array of physical page frame numbers. 
      * 
      * These frames are mapped by the argument 
      *       <i>lpAddress</i> on return from this function. The size of the memory that is allocated should be 
@@ -2144,12 +2144,12 @@ class Memory {
      *       space of this process. The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For 
      *       more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UIntPtr>} NumberOfPages The size of the physical memory to allocate, in pages.
+     * @param {Pointer<Pointer>} NumberOfPages The size of the physical memory to allocate, in pages.
      * 
      * To determine the page size of the computer, use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function. On output, this parameter 
      *        receives the number of pages that are actually allocated, which might be less than the number requested.
-     * @param {Pointer<UIntPtr>} PageArray A pointer to an array to store the page frame numbers of the allocated memory.
+     * @param {Pointer<Pointer>} PageArray A pointer to an array to store the page frame numbers of the allocated memory.
      * 
      * The size of the array that is allocated should be at least the <i>NumberOfPages</i> times 
      *        the size of the <b>ULONG_PTR</b> data type.
@@ -2242,7 +2242,7 @@ class Memory {
 
     /**
      * Gets the memory error handling capabilities of the system.
-     * @param {Pointer<UInt32>} Capabilities A <b>PULONG</b> that receives one or more of the following flags.
+     * @param {Pointer<Integer>} Capabilities A <b>PULONG</b> that receives one or more of the following flags.
      * 
      * <table>
      * <tr>
@@ -2482,7 +2482,7 @@ class Memory {
      * <li><b>PAGE_EXECUTE</b></li>
      * <li><b>PAGE_EXECUTE_READ</b></li>
      * </ul>
-     * @param {Pointer<UInt32>} OldProtection A pointer to a variable that receives the previous access protection value of the first page in the 
+     * @param {Pointer<Integer>} OldProtection A pointer to a variable that receives the previous access protection value of the first page in the 
      *       specified region of pages. If this parameter is <b>NULL</b> or does not point to a valid 
      *       variable, the function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2548,7 +2548,7 @@ class Memory {
      * 
      * If the <i>MemoryInformationClass</i> parameter has a value of  <b>MemoryRegionInfo</b>, this parameter must point to a <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/ns-memoryapi-win32_memory_region_information">WIN32_MEMORY_REGION_INFORMATION</a> structure.
      * @param {Pointer} MemoryInformationSize Specifies the length in bytes of the memory information buffer.
-     * @param {Pointer<UIntPtr>} ReturnSize An optional pointer which, if specified, receives the number of bytes placed in the memory information buffer.
+     * @param {Pointer<Pointer>} ReturnSize An optional pointer which, if specified, receives the number of bytes placed in the memory information buffer.
      * @returns {BOOL} Returns <b>TRUE</b> on success. Returns <b>FALSE</b> for failure. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-queryvirtualmemoryinformation
      * @since windows10.0.14393
@@ -3076,8 +3076,8 @@ class Memory {
     /**
      * 
      * @param {HANDLE} ObjectHandle 
-     * @param {Pointer<UIntPtr>} NumberOfPages 
-     * @param {Pointer<UIntPtr>} PageArray 
+     * @param {Pointer<Pointer>} NumberOfPages 
+     * @param {Pointer<Pointer>} PageArray 
      * @param {Pointer<MEM_EXTENDED_PARAMETER>} ExtendedParameters 
      * @param {Integer} ExtendedParameterCount 
      * @returns {BOOL} 
@@ -3122,7 +3122,7 @@ class Memory {
     /**
      * 
      * @param {Integer} TargetNodeNumber 
-     * @param {Pointer<UInt32>} InitiatorNodeNumber 
+     * @param {Pointer<Integer>} InitiatorNodeNumber 
      * @returns {BOOL} 
      */
     static GetMemoryNumaClosestInitiatorNode(TargetNodeNumber, InitiatorNodeNumber) {
@@ -3134,11 +3134,11 @@ class Memory {
      * 
      * @param {Integer} NodeNumber 
      * @param {Integer} DataType 
-     * @param {Pointer<WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT>} PerfInfo 
+     * @param {Pointer<Pointer<WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT>>} PerfInfo 
      * @returns {BOOL} 
      */
     static GetMemoryNumaPerformanceInformation(NodeNumber, DataType, PerfInfo) {
-        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, "ptr", PerfInfo, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, "ptr*", PerfInfo, "int")
         return result
     }
 
@@ -3992,7 +3992,7 @@ class Memory {
 
     /**
      * Maps previously allocated physical memory pages at a specified address in an Address Windowing Extensions (AWE) region.
-     * @param {Pointer<Void>} VirtualAddresses A pointer to an array of starting addresses of the regions of memory to remap. 
+     * @param {Pointer<Pointer<Void>>} VirtualAddresses A pointer to an array of starting addresses of the regions of memory to remap. 
      * 
      * Each entry in 
      *       <i>VirtualAddresses</i> must be within the address range that the 
@@ -4002,7 +4002,7 @@ class Memory {
      * 
      * The 
      *       array at <i>VirtualAddresses</i> specifies the virtual address range.
-     * @param {Pointer<UIntPtr>} PageArray A pointer to an array of values that indicates how each corresponding page in 
+     * @param {Pointer<Pointer>} PageArray A pointer to an array of values that indicates how each corresponding page in 
      *       <i>VirtualAddresses</i> should be treated. 
      * 
      * A 0 (zero) indicates that the corresponding entry in 
@@ -4024,7 +4024,7 @@ class Memory {
     static MapUserPhysicalPagesScatter(VirtualAddresses, NumberOfPages, PageArray) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapUserPhysicalPagesScatter", "ptr", VirtualAddresses, "ptr", NumberOfPages, "ptr*", PageArray, "int")
+        result := DllCall("KERNEL32.dll\MapUserPhysicalPagesScatter", "ptr*", VirtualAddresses, "ptr", NumberOfPages, "ptr*", PageArray, "int")
         if(A_LastError)
             throw OSError()
 

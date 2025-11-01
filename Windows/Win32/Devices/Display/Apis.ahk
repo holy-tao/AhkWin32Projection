@@ -3709,7 +3709,7 @@ class Display {
     /**
      * Retrieves the number of physical monitors associated with an HMONITOR monitor handle.
      * @param {HMONITOR} hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
-     * @param {Pointer<UInt32>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the monitor handle.
+     * @param {Pointer<Integer>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the monitor handle.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromhmonitor
      * @since windows6.0.6000
@@ -3728,8 +3728,8 @@ class Display {
 
     /**
      * Retrieves the number of physical monitors associated with a Direct3D device.
-     * @param {Pointer<IDirect3DDevice9>} pDirect3DDevice9 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface of the Direct3D device.
-     * @param {Pointer<UInt32>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the Direct3D device.
+     * @param {IDirect3DDevice9} pDirect3DDevice9 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface of the Direct3D device.
+     * @param {Pointer<Integer>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the Direct3D device.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromidirect3ddevice9
      * @since windows6.0.6000
@@ -3765,7 +3765,7 @@ class Display {
 
     /**
      * Retrieves the physical monitors associated with a Direct3D device.
-     * @param {Pointer<IDirect3DDevice9>} pDirect3DDevice9 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface of the Direct3D device.
+     * @param {IDirect3DDevice9} pDirect3DDevice9 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface of the Direct3D device.
      * @param {Integer} dwPhysicalMonitorArraySize Number of elements in <i>pPhysicalMonitorArray</i>. To get the required size of the array, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromidirect3ddevice9">GetNumberOfPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<PHYSICAL_MONITOR>} pPhysicalMonitorArray Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor">PHYSICAL_MONITOR</a> structures. The caller must allocate the array.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -3821,9 +3821,9 @@ class Display {
      * Retrieves the current value, maximum value, and code type of a Virtual Control Panel (VCP) code for a monitor.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} bVCPCode VCP code to query. The VCP codes are Include the VESA Monitor Control Command Set (MCCS) standard, versions 1.0 and 2.0. This parameter must specify a continuous or non-continuous VCP, or a vendor-specific code. It should not be a table control code.
-     * @param {Pointer<Int32>} pvct Receives the VCP code type, as a member of the <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type">MC_VCP_CODE_TYPE</a> enumeration. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwCurrentValue Receives the current value of the VCP code. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} pdwMaximumValue If <i>bVCPCode</i> specifies a continuous VCP code, this parameter receives the maximum value of the VCP code. If <i>bVCPCode</i> specifies a non-continuous VCP code, the value received in this parameter is undefined. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pvct Receives the VCP code type, as a member of the <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type">MC_VCP_CODE_TYPE</a> enumeration. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwCurrentValue Receives the current value of the VCP code. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwMaximumValue If <i>bVCPCode</i> specifies a continuous VCP code, this parameter receives the maximum value of the VCP code. If <i>bVCPCode</i> specifies a non-continuous VCP code, the value received in this parameter is undefined. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getvcpfeatureandvcpfeaturereply
      * @since windows6.0.6000
@@ -3878,7 +3878,7 @@ class Display {
     /**
      * Retrieves the length of a monitor's capabilities string.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
-     * @param {Pointer<UInt32>} pdwCapabilitiesStringLengthInCharacters Receives the length of the capabilities string, in characters, including the terminating null character.
+     * @param {Pointer<Integer>} pdwCapabilitiesStringLengthInCharacters Receives the length of the capabilities string, in characters, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      * @since windows6.0.6000
@@ -3940,8 +3940,8 @@ class Display {
     /**
      * Retrieves the configuration capabilities of a monitor. Call this function to find out which high-level monitor configuration functions are supported by the monitor.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
-     * @param {Pointer<UInt32>} pdwMonitorCapabilities Receives a bitwise <b>OR</b> of capabilities flags. See Remarks.
-     * @param {Pointer<UInt32>} pdwSupportedColorTemperatures Receives a bitwise <b>OR</b> of color temperature flags. See Remarks.
+     * @param {Pointer<Integer>} pdwMonitorCapabilities Receives a bitwise <b>OR</b> of capabilities flags. See Remarks.
+     * @param {Pointer<Integer>} pdwSupportedColorTemperatures Receives a bitwise <b>OR</b> of color temperature flags. See Remarks.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <b>GetLastError</b>.
      * 
      * The function fails if the monitor does not support DDC/CI.
@@ -3977,7 +3977,7 @@ class Display {
     /**
      * Retrieves the type of technology used by a monitor.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
-     * @param {Pointer<Int32>} pdtyDisplayTechnologyType Receives the technology type, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type">MC_DISPLAY_TECHNOLOGY_TYPE</a> enumeration.
+     * @param {Pointer<Integer>} pdtyDisplayTechnologyType Receives the technology type, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type">MC_DISPLAY_TECHNOLOGY_TYPE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitortechnologytype
      * @since windows6.0.6000
@@ -3997,9 +3997,9 @@ class Display {
     /**
      * Retrieves a monitor's minimum, maximum, and current brightness settings.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
-     * @param {Pointer<UInt32>} pdwMinimumBrightness Receives the monitor's minimum brightness.
-     * @param {Pointer<UInt32>} pdwCurrentBrightness Receives the monitor's current brightness.
-     * @param {Pointer<UInt32>} pdwMaximumBrightness Receives the monitor's maximum brightness.
+     * @param {Pointer<Integer>} pdwMinimumBrightness Receives the monitor's minimum brightness.
+     * @param {Pointer<Integer>} pdwCurrentBrightness Receives the monitor's current brightness.
+     * @param {Pointer<Integer>} pdwMaximumBrightness Receives the monitor's maximum brightness.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness
      * @since windows6.0.6000
@@ -4019,9 +4019,9 @@ class Display {
     /**
      * Retrieves a monitor's minimum, maximum, and current contrast settings.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
-     * @param {Pointer<UInt32>} pdwMinimumContrast Receives the monitor's minimum contrast.
-     * @param {Pointer<UInt32>} pdwCurrentContrast Receives the monitor's current contrast.
-     * @param {Pointer<UInt32>} pdwMaximumContrast Receives the monitor's maximum contrast.
+     * @param {Pointer<Integer>} pdwMinimumContrast Receives the monitor's minimum contrast.
+     * @param {Pointer<Integer>} pdwCurrentContrast Receives the monitor's current contrast.
+     * @param {Pointer<Integer>} pdwMaximumContrast Receives the monitor's maximum contrast.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcontrast
      * @since windows6.0.6000
@@ -4041,7 +4041,7 @@ class Display {
     /**
      * Retrieves a monitor's current color temperature.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
-     * @param {Pointer<Int32>} pctCurrentColorTemperature Receives the monitor's current color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
+     * @param {Pointer<Integer>} pctCurrentColorTemperature Receives the monitor's current color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcolortemperature
      * @since windows6.0.6000
@@ -4062,9 +4062,9 @@ class Display {
      * Retrieves a monitor's red, green, or blue drive value.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue drive value.
-     * @param {Pointer<UInt32>} pdwMinimumDrive Receives the minimum red, green, or blue drive value.
-     * @param {Pointer<UInt32>} pdwCurrentDrive Receives the current red, green, or blue drive value.
-     * @param {Pointer<UInt32>} pdwMaximumDrive Receives the maximum red, green, or blue drive value.
+     * @param {Pointer<Integer>} pdwMinimumDrive Receives the minimum red, green, or blue drive value.
+     * @param {Pointer<Integer>} pdwCurrentDrive Receives the current red, green, or blue drive value.
+     * @param {Pointer<Integer>} pdwMaximumDrive Receives the maximum red, green, or blue drive value.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluedrive
      * @since windows6.0.6000
@@ -4085,9 +4085,9 @@ class Display {
      * Retrieves a monitor's red, green, or blue gain value.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue gain value.
-     * @param {Pointer<UInt32>} pdwMinimumGain Receives the minimum red, green, or blue gain value.
-     * @param {Pointer<UInt32>} pdwCurrentGain Receives the current red, green, or blue gain value.
-     * @param {Pointer<UInt32>} pdwMaximumGain Receives the maximum red, green, or blue gain value.
+     * @param {Pointer<Integer>} pdwMinimumGain Receives the minimum red, green, or blue gain value.
+     * @param {Pointer<Integer>} pdwCurrentGain Receives the current red, green, or blue gain value.
+     * @param {Pointer<Integer>} pdwMaximumGain Receives the maximum red, green, or blue gain value.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluegain
      * @since windows6.0.6000
@@ -4219,9 +4219,9 @@ class Display {
      * Retrieves a monitor's minimum, maximum, and current width or height.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to retrieve the width or the height.
-     * @param {Pointer<UInt32>} pdwMinimumWidthOrHeight Receives the minimum width or height.
-     * @param {Pointer<UInt32>} pdwCurrentWidthOrHeight Receives the current width or height.
-     * @param {Pointer<UInt32>} pdwMaximumWidthOrHeight Receives the maximum width or height.
+     * @param {Pointer<Integer>} pdwMinimumWidthOrHeight Receives the minimum width or height.
+     * @param {Pointer<Integer>} pdwCurrentWidthOrHeight Receives the current width or height.
+     * @param {Pointer<Integer>} pdwMaximumWidthOrHeight Receives the maximum width or height.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareasize
      * @since windows6.0.6000
@@ -4242,9 +4242,9 @@ class Display {
      * Retrieves a monitor's minimum, maximum, and current horizontal or vertical position.
      * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to retrieve the horizontal position or the vertical position.
-     * @param {Pointer<UInt32>} pdwMinimumPosition Receives the minimum horizontal or vertical position.
-     * @param {Pointer<UInt32>} pdwCurrentPosition Receives the current horizontal or vertical position.
-     * @param {Pointer<UInt32>} pdwMaximumPosition Receives the maximum horizontal or vertical position.
+     * @param {Pointer<Integer>} pdwMinimumPosition Receives the minimum horizontal or vertical position.
+     * @param {Pointer<Integer>} pdwCurrentPosition Receives the current horizontal or vertical position.
+     * @param {Pointer<Integer>} pdwMaximumPosition Receives the maximum horizontal or vertical position.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareaposition
      * @since windows6.0.6000
@@ -4469,7 +4469,7 @@ class Display {
      * The CLIPOBJ_bEnum function enumerates a batch of rectangles from a specified clip region; a prior call to CLIPOBJ_cEnumStart determines the order of enumeration.
      * @param {Pointer<CLIPOBJ>} pco Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure describing the clip region that is to be enumerated.
      * @param {Integer} cj Specifies the size, in bytes, of the buffer pointed to by <i>pv</i>.
-     * @param {Pointer<UInt32>} pul Pointer to the buffer that will receive data about the clip region in an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-enumrects">ENUMRECTS</a> structure.
+     * @param {Pointer<Integer>} pul Pointer to the buffer that will receive data about the clip region in an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-enumrects">ENUMRECTS</a> structure.
      * @returns {BOOL} The return value is <b>TRUE</b> if the driver must call this function again for more enumeration data, or <b>FALSE</b> if the enumeration is complete. It is possible for <b>CLIPOBJ_bEnum</b> to return <b>TRUE</b> with the number of clipping rectangles equal to zero. In such cases, the driver should call <b>CLIPOBJ_bEnum</b> again without taking any action.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-clipobj_benum
      * @since windows5.0
@@ -4494,7 +4494,7 @@ class Display {
     /**
      * The FONTOBJ_cGetAllGlyphHandles function allows the device driver to find every glyph handle of a GDI font.
      * @param {Pointer<FONTOBJ>} pfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure that is to be downloaded.
-     * @param {Pointer<UInt32>} phg Pointer to a buffer large enough to hold all the glyph handles in the font. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} phg Pointer to a buffer large enough to hold all the glyph handles in the font. This parameter can be <b>NULL</b>.
      * @returns {Integer} The return value is the number of glyph handles supported by the font.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-fontobj_cgetallglyphhandles
      * @since windows5.0
@@ -4522,14 +4522,14 @@ class Display {
      * @param {Pointer<FONTOBJ>} pfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure containing the glyph handles to be translated.
      * @param {Integer} iMode 
      * @param {Integer} cGlyph Specifies the number of glyphs to be translated. The only acceptable value is 1 (the code assumes 1, regardless of the value specified).
-     * @param {Pointer<UInt32>} phg Pointer to an array of <i>cGlyph</i> HGLYPH structures supplied by the driver.
-     * @param {Pointer<Void>} ppvGlyph Pointer to a memory location that receives the address of a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphdata">GLYPHDATA</a> structure. The first member of this structure is a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphdef">GLYPHDEF</a> union, which contains a pointer to either a GLYPHBITS structure or a PATHOBJ structure, depending on the value of the <i>iMode</i> parameter. If the value of <i>iMode</i> is FO_GLYPHBITS, (*<i>ppvGlyph)</i>-&gt;<i>gdf</i> contains the address of a GLYPHBITS structure. If the value of <i>iMode</i> is FO_PATHOBJ, (*<i>ppvGlyph</i>)-&gt;<i>gdf</i> contains the address of a PATHOBJ structure.
+     * @param {Pointer<Integer>} phg Pointer to an array of <i>cGlyph</i> HGLYPH structures supplied by the driver.
+     * @param {Pointer<Pointer<Void>>} ppvGlyph Pointer to a memory location that receives the address of a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphdata">GLYPHDATA</a> structure. The first member of this structure is a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphdef">GLYPHDEF</a> union, which contains a pointer to either a GLYPHBITS structure or a PATHOBJ structure, depending on the value of the <i>iMode</i> parameter. If the value of <i>iMode</i> is FO_GLYPHBITS, (*<i>ppvGlyph)</i>-&gt;<i>gdf</i> contains the address of a GLYPHBITS structure. If the value of <i>iMode</i> is FO_PATHOBJ, (*<i>ppvGlyph</i>)-&gt;<i>gdf</i> contains the address of a PATHOBJ structure.
      * @returns {Integer} The return value is the count of pointers passed to the driver if the function is successful. Otherwise, it is zero, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-fontobj_cgetglyphs
      * @since windows5.0
      */
     static FONTOBJ_cGetGlyphs(pfo, iMode, cGlyph, phg, ppvGlyph) {
-        result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", "ptr", pfo, "uint", iMode, "uint", cGlyph, "uint*", phg, "ptr", ppvGlyph, "uint")
+        result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", "ptr", pfo, "uint", iMode, "uint", cGlyph, "uint*", phg, "ptr*", ppvGlyph, "uint")
         return result
     }
 
@@ -4578,7 +4578,7 @@ class Display {
     /**
      * The FONTOBJ_pvTrueTypeFontFile function retrieves a user-mode pointer to a view of a TrueType, OpenType, or Type1 font file.
      * @param {Pointer<FONTOBJ>} pfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure with which the TrueType, PostScript OpenType, or PostScript Type1 font is associated.
-     * @param {Pointer<UInt32>} pcjFile Pointer to a location in which GDI returns the size, in bytes, of the view of the font file.
+     * @param {Pointer<Integer>} pcjFile Pointer to a location in which GDI returns the size, in bytes, of the view of the font file.
      * @returns {Pointer<Void>} <b>FONTOBJ_pvTrueTypeFontFile</b> returns a pointer to a user-mode view of a font file upon success. If the FONTOBJ structure identifies a Type1 font, the return value is a pointer to the memory-mapped image of the <i>pfb</i> file. Otherwise, this function returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-fontobj_pvtruetypefontfile
      * @since windows5.0
@@ -4700,28 +4700,28 @@ class Display {
     /**
      * The STROBJ_bEnum function enumerates glyph identities and positions.
      * @param {Pointer<STROBJ>} pstro Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-strobj">STROBJ</a> structure containing the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphpos">GLYPHPOS</a> information.
-     * @param {Pointer<UInt32>} pc Pointer to the count, returned by GDI, of GLYPHPOS structures.
-     * @param {Pointer<GLYPHPOS>} ppgpos Pointer to the array in which GDI writes the GLYPHPOS structures.
+     * @param {Pointer<Integer>} pc Pointer to the count, returned by GDI, of GLYPHPOS structures.
+     * @param {Pointer<Pointer<GLYPHPOS>>} ppgpos Pointer to the array in which GDI writes the GLYPHPOS structures.
      * @returns {BOOL} The return value is <b>TRUE</b> if more glyphs remain to be enumerated, or <b>FALSE</b> if the enumeration is complete. The return value is DDI_ERROR if the glyphs cannot be enumerated, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-strobj_benum
      * @since windows5.0
      */
     static STROBJ_bEnum(pstro, pc, ppgpos) {
-        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, "uint*", pc, "ptr", ppgpos, "int")
+        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, "uint*", pc, "ptr*", ppgpos, "int")
         return result
     }
 
     /**
      * The STROBJ_bEnumPositionsOnly function enumerates glyph identities and positions for a specified text string, but does not create cached glyph bitmaps.
      * @param {Pointer<STROBJ>} pstro A caller-supplied pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-strobj">STROBJ</a> structure describing a text string. This is typically the STROBJ structure received by the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvtextout">DrvTextOut</a> function.
-     * @param {Pointer<UInt32>} pc A caller-supplied address to receive the GDI-supplied number of GLYPHPOS structures pointed to by the pointer in <i>ppgpos</i>.
-     * @param {Pointer<GLYPHPOS>} ppgpos A caller-supplied address that receives a GDI-supplied pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphpos">GLYPHPOS</a> structures. (See the following <b>Remarks</b> section.)
+     * @param {Pointer<Integer>} pc A caller-supplied address to receive the GDI-supplied number of GLYPHPOS structures pointed to by the pointer in <i>ppgpos</i>.
+     * @param {Pointer<Pointer<GLYPHPOS>>} ppgpos A caller-supplied address that receives a GDI-supplied pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphpos">GLYPHPOS</a> structures. (See the following <b>Remarks</b> section.)
      * @returns {BOOL} The return value is <b>TRUE</b> if more glyphs remain to be enumerated, or <b>FALSE</b> if the enumeration is complete. The return value is DDI_ERROR if the glyphs cannot be enumerated, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-strobj_benumpositionsonly
      * @since windows5.0
      */
     static STROBJ_bEnumPositionsOnly(pstro, pc, ppgpos) {
-        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, "uint*", pc, "ptr", ppgpos, "int")
+        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, "uint*", pc, "ptr*", ppgpos, "int")
         return result
     }
 
@@ -4895,7 +4895,7 @@ class Display {
     /**
      * The XLATEOBJ_piVector function retrieves a translation vector that the driver can use to translate source indices to destination indices.
      * @param {Pointer<XLATEOBJ>} pxlo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-xlateobj">XLATEOBJ</a> structure that defines the indexed source object.
-     * @returns {Pointer<UInt32>} The return value is a pointer to a vector of translation entries if the function is successful. Otherwise, it is null, and an error code is logged.
+     * @returns {Pointer<Integer>} The return value is a pointer to a vector of translation entries if the function is successful. Otherwise, it is null, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-xlateobj_pivector
      * @since windows5.0
      */
@@ -4909,7 +4909,7 @@ class Display {
      * @param {Pointer<XLATEOBJ>} pxlo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-xlateobj">XLATEOBJ</a> structure from which GDI retrieves the requested information.
      * @param {Integer} iPal 
      * @param {Integer} cPal Specifies the number of entries in the buffer pointed to by <i>pPal</i>. This can be smaller than the total size of the palette.
-     * @param {Pointer<UInt32>} pPal Pointer to a buffer in which GDI writes the requested palette information. If <i>iPal</i> is XO_SRCPALETTE or XO_DESTPALETTE and the respective palette type is PAL_INDEXED, each entry is a 24-bit RGB value.
+     * @param {Pointer<Integer>} pPal Pointer to a buffer in which GDI writes the requested palette information. If <i>iPal</i> is XO_SRCPALETTE or XO_DESTPALETTE and the respective palette type is PAL_INDEXED, each entry is a 24-bit RGB value.
      * 
      * If <i>iPal</i> is XO_SRCBITFIELDS or XO_DESTBITFIELDS and the respective palette type is PAL_BITFIELDS, PAL_RGB, or PAL_BGR, <i>pPal</i> points to three ULONG masks that represent the red, green, and blue color masks.
      * @returns {Integer} <b>XLATEOBJ_cGetPalette</b> returns the number of entries written if <i>pPal</i> is not null. A value of zero is returned if the XLATEOBJ is null or its palette is invalid. <b>XLATEOBJ_cGetPalette</b> will also return zero if the data pointed to by <i>pxlo</i> is not consistent with the value in <i>iPal</i>. For example, if the data pointed to is a bitfield, but <i>iPal</i> is set to either XO_SRCPALETTE or XO_DESTPALETTE, <b>XLATEOBJ_cGetPalette</b> will return zero. Similarly, if the data pointed to by <i>pxlo</i> is a palette, but <i>iPal</i> is set to either XO_SRCBITFIELDS or XO_DESTBITFIELDS, <b>XLATEOBJ_cGetPalette</b> also returns zero.
@@ -5094,7 +5094,7 @@ class Display {
      * The EngCreatePalette function sends a request to GDI to create an RGB palette.
      * @param {Integer} iMode 
      * @param {Integer} cColors If the <i>iMode</i> parameter is PAL_INDEXED, <i>cColors</i> specifies the number of colors provided in the array pointed to by <i>pulColors</i>. Otherwise, this parameter should be zero.
-     * @param {Pointer<UInt32>} pulColors Pointer to the beginning of an array of ULONG values if <i>iMode</i> is PAL_INDEXED. The low-order 3 bytes of each ULONG define the RGB colors in the palette.
+     * @param {Pointer<Integer>} pulColors Pointer to the beginning of an array of ULONG values if <i>iMode</i> is PAL_INDEXED. The low-order 3 bytes of each ULONG define the RGB colors in the palette.
      * @param {Integer} flRed If the <i>iMode</i> parameter is PAL_BITFIELDS, the <i>flRed</i>, <i>flGreen</i> and <i>flBlue</i> parameters are masks that show which bits correspond to red, green, and blue. Each mask must consist of contiguous bits and should not overlap other masks. All combinations of bitfields are supported by GDI.
      * @param {Integer} flGreen If the <i>iMode</i> parameter is PAL_BITFIELDS, the <i>flRed</i>, <i>flGreen</i> and <i>flBlue</i> parameters are masks that show which bits correspond to red, green, and blue. Each mask must consist of contiguous bits and should not overlap other masks. All combinations of bitfields are supported by GDI.
      * @param {Integer} flBlue If the <i>iMode</i> parameter is PAL_BITFIELDS, the <i>flRed</i>, <i>flGreen</i> and <i>flBlue</i> parameters are masks that show which bits correspond to red, green, and blue. Each mask must consist of contiguous bits and should not overlap other masks. All combinations of bitfields are supported by GDI.
@@ -5651,7 +5651,7 @@ class Display {
      * @param {HANDLE} h Handle to the module that contains the resource. This handle is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmodule">EngLoadModule</a>.
      * @param {Integer} iName Is an integer identifier representing the name of the resource being looked up.
      * @param {Integer} iType Is an integer identifier representing the type of the resource being looked up.
-     * @param {Pointer<UInt32>} pulSize Pointer to a ULONG in which the resource's size, in bytes, is returned.
+     * @param {Pointer<Integer>} pulSize Pointer to a ULONG in which the resource's size, in bytes, is returned.
      * @returns {Pointer<Void>} The return value is a pointer to the address of the specified resource. The function returns <b>NULL</b> if an error occurs.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engfindresource
      * @since windows5.0
@@ -5730,7 +5730,7 @@ class Display {
      * The EngMultiByteToUnicodeN function converts the specified ANSI source string into a Unicode string using the current ANSI code page.
      * @param {Pointer} UnicodeString Pointer to the buffer that receives the resultant Unicode string.
      * @param {Integer} MaxBytesInUnicodeString Supplies the maximum number of bytes to be written to <i>UnicodeString. </i>If this value is too small, causing <i>UnicodeString</i> to be a truncated equivalent of <i>MultiByteString</i>, no error condition results.
-     * @param {Pointer<UInt32>} BytesInUnicodeString Pointer to a ULONG that receives the number of bytes written to <i>UnicodeString</i>.
+     * @param {Pointer<Integer>} BytesInUnicodeString Pointer to a ULONG that receives the number of bytes written to <i>UnicodeString</i>.
      * @param {Pointer} MultiByteString Pointer to the ANSI source string that is to be converted to Unicode.
      * @param {Integer} BytesInMultiByteString Specifies the number of bytes in <i>MultiByteString.</i>
      * @returns {String} Nothing - always returns an empty string
@@ -5745,7 +5745,7 @@ class Display {
      * The EngUnicodeToMultiByteN function converts the specified Unicode string into an ANSI string using the current ANSI code page.
      * @param {Pointer} MultiByteString Pointer to the buffer that receives the resultant ANSI string.
      * @param {Integer} MaxBytesInMultiByteString Specifies the maximum number of bytes to be written to <i>MultiByteString. </i>If this value is too small, causing <i>MultiByteString</i> to be a truncated equivalent of <i>UnicodeString</i>, then no error condition results.
-     * @param {Pointer<UInt32>} BytesInMultiByteString Pointer to a ULONG that receives the number of bytes written to <i>MultiByteString</i>.
+     * @param {Pointer<Integer>} BytesInMultiByteString Pointer to a ULONG that receives the number of bytes written to <i>MultiByteString</i>.
      * @param {Pointer} UnicodeString Pointer to the Unicode source string that is to be converted to ANSI.
      * @param {Integer} BytesInUnicodeString Specifies the number of bytes in <i>UnicodeString.</i>
      * @returns {String} Nothing - always returns an empty string
@@ -5815,8 +5815,8 @@ class Display {
 
     /**
      * The EngGetCurrentCodePage function returns the system's default OEM and ANSI code pages.
-     * @param {Pointer<UInt16>} OemCodePage Pointer to a USHORT that receives the system's default OEM code page.
-     * @param {Pointer<UInt16>} AnsiCodePage Pointer to a USHORT that receives the system's default ANSI code page.
+     * @param {Pointer<Integer>} OemCodePage Pointer to a USHORT that receives the system's default OEM code page.
+     * @param {Pointer<Integer>} AnsiCodePage Pointer to a USHORT that receives the system's default ANSI code page.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-enggetcurrentcodepage
      * @since windows5.0
@@ -5841,8 +5841,8 @@ class Display {
     /**
      * The GetDisplayConfigBufferSizes function retrieves the size of the buffers that are required to call the QueryDisplayConfig function.
      * @param {Integer} flags 
-     * @param {Pointer<UInt32>} numPathArrayElements Pointer to a variable that receives the number of elements in the path information table. The <i>pNumPathArrayElements</i> parameter value is then used by a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<UInt32>} numModeInfoArrayElements Pointer to a variable that receives the number of elements in the mode information table. The <i>pNumModeInfoArrayElements</i> parameter value is then used by a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} numPathArrayElements Pointer to a variable that receives the number of elements in the path information table. The <i>pNumPathArrayElements</i> parameter value is then used by a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} numModeInfoArrayElements Pointer to a variable that receives the number of elements in the mode information table. The <i>pNumModeInfoArrayElements</i> parameter value is then used by a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} The function returns one of the following return codes.
      * 
      * <table>
@@ -6006,11 +6006,11 @@ class Display {
     /**
      * The QueryDisplayConfig function retrieves information about all possible display paths for all display devices, or views, in the current setting.
      * @param {Integer} flags 
-     * @param {Pointer<UInt32>} numPathArrayElements Pointer to a variable that contains the number of elements in <i>pPathInfoArray</i>. This parameter cannot be <b>NULL</b>. If <b>QueryDisplayConfig</b> returns ERROR_SUCCESS, <i>pNumPathInfoElements</i> is updated with the number of valid entries in <i>pPathInfoArray</i>.
+     * @param {Pointer<Integer>} numPathArrayElements Pointer to a variable that contains the number of elements in <i>pPathInfoArray</i>. This parameter cannot be <b>NULL</b>. If <b>QueryDisplayConfig</b> returns ERROR_SUCCESS, <i>pNumPathInfoElements</i> is updated with the number of valid entries in <i>pPathInfoArray</i>.
      * @param {Pointer<DISPLAYCONFIG_PATH_INFO>} pathArray Pointer to a variable that contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_path_info">DISPLAYCONFIG_PATH_INFO</a> elements. Each element in <i>pPathInfoArray</i> describes a single path from a source to a target. The source and target mode information indexes are only valid in combination with the <i>pmodeInfoArray</i> tables that are returned for the API at the same time. This parameter cannot be <b>NULL</b>. The <i>pPathInfoArray</i> is always returned in path priority order. For more information about path priority order, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/path-priority-order">Path Priority Order</a>.
-     * @param {Pointer<UInt32>} numModeInfoArrayElements Pointer to a variable that specifies the number in element of the mode information table. This parameter cannot be <b>NULL</b>. If <b>QueryDisplayConfig</b> returns ERROR_SUCCESS, <i>pNumModeInfoArrayElements</i> is updated with the number of valid entries in <i>pModeInfoArray</i>.
+     * @param {Pointer<Integer>} numModeInfoArrayElements Pointer to a variable that specifies the number in element of the mode information table. This parameter cannot be <b>NULL</b>. If <b>QueryDisplayConfig</b> returns ERROR_SUCCESS, <i>pNumModeInfoArrayElements</i> is updated with the number of valid entries in <i>pModeInfoArray</i>.
      * @param {Pointer<DISPLAYCONFIG_MODE_INFO>} modeInfoArray Pointer to a variable that contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_mode_info">DISPLAYCONFIG_MODE_INFO</a> elements. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Int32>} currentTopologyId Pointer to a variable that receives the identifier of the currently active topology in the CCD database. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_topology_id">DISPLAYCONFIG_TOPOLOGY_ID</a> enumerated type.
+     * @param {Pointer<Integer>} currentTopologyId Pointer to a variable that receives the identifier of the currently active topology in the CCD database. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_topology_id">DISPLAYCONFIG_TOPOLOGY_ID</a> enumerated type.
      * 
      * The <i>pCurrentTopologyId</i> parameter is only set when the <i>Flags</i> parameter value is QDC_DATABASE_CURRENT.
      * 
@@ -6269,7 +6269,7 @@ class Display {
 
     /**
      * Retrieves an AR_STATE value containing the state of screen auto-rotation for the system, for example whether auto-rotation is supported, and whether it is enabled by the user.
-     * @param {Pointer<Int32>} pState Pointer to a location in memory that will receive the current state of auto-rotation for the system.
+     * @param {Pointer<Integer>} pState Pointer to a location in memory that will receive the current state of auto-rotation for the system.
      * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * 
      * See <a href="/windows/desktop/api/winuser/nf-winuser-getdisplayautorotationpreferences">GetDisplayAutoRotationPreferences</a> for an example of using this function.
@@ -6282,7 +6282,7 @@ class Display {
 
     /**
      * Retrieves the screen auto-rotation preferences for the current process.
-     * @param {Pointer<Int32>} pOrientation Pointer to a location in memory that will receive the current orientation preference setting for the calling process.
+     * @param {Pointer<Integer>} pOrientation Pointer to a location in memory that will receive the current orientation preference setting for the calling process.
      * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdisplayautorotationpreferences
      */

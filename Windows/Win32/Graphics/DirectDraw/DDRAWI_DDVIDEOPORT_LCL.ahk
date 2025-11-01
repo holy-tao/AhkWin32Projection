@@ -63,7 +63,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
+     * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_INT>>}
      */
     lpFlipInts {
         get => NumGet(this, 192, "ptr")

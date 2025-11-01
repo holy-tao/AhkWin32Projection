@@ -3,6 +3,8 @@
 #Include .\IORING_CREATE_FLAGS.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -125,7 +125,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         pList {
             get => NumGet(this, 8, "ptr")
@@ -155,7 +155,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         pList {
             get => NumGet(this, 16, "ptr")

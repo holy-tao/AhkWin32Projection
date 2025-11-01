@@ -52,7 +52,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbX {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbY {
         get => NumGet(this, 40, "ptr")

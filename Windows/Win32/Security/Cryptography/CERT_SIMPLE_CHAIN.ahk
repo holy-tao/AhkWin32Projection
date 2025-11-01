@@ -46,7 +46,7 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
 
     /**
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_element">CERT_CHAIN_ELEMENT</a> structures. <b>rgpElement</b>[0] is the end certificate chain element. <b>rgpElement</b>[<b>cElement</b>–1] is the self-signed "root" certificate element.
-     * @type {Pointer<CERT_CHAIN_ELEMENT>}
+     * @type {Pointer<Pointer<CERT_CHAIN_ELEMENT>>}
      */
     rgpElement {
         get => NumGet(this, 24, "ptr")

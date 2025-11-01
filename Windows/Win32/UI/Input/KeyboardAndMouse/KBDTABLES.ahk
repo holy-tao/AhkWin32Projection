@@ -52,7 +52,7 @@ class KBDTABLES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     pKeyNamesDead {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class KBDTABLES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pusVSCtoVK {
         get => NumGet(this, 48, "ptr")

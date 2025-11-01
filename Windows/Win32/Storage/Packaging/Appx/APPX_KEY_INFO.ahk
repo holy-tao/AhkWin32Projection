@@ -33,7 +33,7 @@ class APPX_KEY_INFO extends Win32Struct
 
     /**
      * The app package key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     key {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class APPX_KEY_INFO extends Win32Struct
 
     /**
      * The app package key Id.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     keyId {
         get => NumGet(this, 16, "ptr")

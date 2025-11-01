@@ -36,7 +36,7 @@ class WLAN_CONNECTION_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pDot11Hessid {
         get => NumGet(this, 24, "ptr")

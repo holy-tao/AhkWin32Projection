@@ -53,7 +53,7 @@ class JET_OPENTEMPORARYTABLE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     prgcolumnid {
         get => NumGet(this, 40, "ptr")

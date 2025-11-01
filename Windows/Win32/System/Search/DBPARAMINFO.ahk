@@ -36,7 +36,7 @@ class DBPARAMINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ITypeInfo>}
+     * @type {ITypeInfo}
      */
     pTypeInfo {
         get => NumGet(this, 24, "ptr")

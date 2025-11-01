@@ -193,7 +193,7 @@ class EventNotificationService {
 
     /**
      * The IsNetworkAlive function determines whether or not a local system is connected to a network, and identifies the type of network connection, for example, a LAN, WAN, or both.
-     * @param {Pointer<UInt32>} lpdwFlags 
+     * @param {Pointer<Integer>} lpdwFlags 
      * @returns {BOOL} Always call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> before checking the return code of this function.  If the last error is not 0, the <b>IsNetworkAlive</b> function has failed and the following <b>TRUE</b> and <b>FALSE</b> values do not apply.
      * 
      * <table>

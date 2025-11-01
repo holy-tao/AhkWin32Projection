@@ -3,6 +3,8 @@
 #Include .\DNS_SERVER_PROPERTY_TYPES.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_server_property
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

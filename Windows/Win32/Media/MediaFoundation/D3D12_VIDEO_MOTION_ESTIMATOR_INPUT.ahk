@@ -18,7 +18,7 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_INPUT extends Win32Struct
 
     /**
      * An [ID3D12Resource](../d3d12/nn-d3d12-id3d12resource.md) representing the current frame. The motion estimation operation applies to the entire frame.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pInputTexture2D {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_INPUT extends Win32Struct
 
     /**
      * An [ID3D12Resource](../d3d12/nn-d3d12-id3d12resource.md) representing the reference frame, or past frame, used for motion estimation.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pReferenceTexture2D {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class D3D12_VIDEO_MOTION_ESTIMATOR_INPUT extends Win32Struct
 
     /**
      * An [ID3D12VideoMotionVectorHeap](nn-d3d12video-id3d12videomotionvectorheap.md) representing the buffer containing the hardware-dependent output of the previous motion estimator operation which may be used for hinting the current operation. This parameter may be NULL, indicating that previous motion estimator output should not be considered for the current operation.
-     * @type {Pointer<ID3D12VideoMotionVectorHeap>}
+     * @type {ID3D12VideoMotionVectorHeap}
      */
     pHintMotionVectorHeap {
         get => NumGet(this, 32, "ptr")

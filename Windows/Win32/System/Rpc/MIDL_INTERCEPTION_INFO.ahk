@@ -20,7 +20,7 @@ class MIDL_INTERCEPTION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ProcString {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class MIDL_INTERCEPTION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ProcFormatOffsetTable {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class MIDL_INTERCEPTION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     TypeString {
         get => NumGet(this, 32, "ptr")

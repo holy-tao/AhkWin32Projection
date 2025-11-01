@@ -37,7 +37,7 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains a nonce. The Microsoft algorithm providers for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Advanced Encryption Standard</a> (AES) require a nonce for the Counter with CBC-MAC (CCM) and Galois/Counter Mode (GCM) chaining modes, and will return an error if none is present. If a nonce is not used, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbNonce {
         get => NumGet(this, 8, "ptr")
@@ -56,7 +56,7 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the authenticated data.  This is data that will be included in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> (MAC) but not encrypted.  If there is no authenticated data, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAuthData {
         get => NumGet(this, 24, "ptr")
@@ -108,7 +108,7 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct
      *  
      * 
      * If there is no tag, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbTag {
         get => NumGet(this, 40, "ptr")
@@ -132,7 +132,7 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct
      * This buffer must be supplied by the caller and must be at least as large as the maximum length of an authentication tag for the cipher you are using. To get the valid authentication tag lengths, use <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> to query the <b>BCRYPT_AUTH_TAG_LENGTH</b> property.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdecrypt">BCryptDecrypt</a> calls are not being chained, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMacContext {
         get => NumGet(this, 56, "ptr")

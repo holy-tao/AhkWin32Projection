@@ -34948,7 +34948,7 @@ class Foundation {
      * 
      * 
      * You can specify a handle to one of the following types of objects: access token, console input buffer, console screen buffer, event, file, file mapping, job, mailslot, mutex, pipe, printer, process, registry key, semaphore, serial communication device, socket, thread, or waitable timer.
-     * @param {Pointer<UInt32>} lpdwFlags A pointer to a variable that receives a set of bit flags that specify properties of the object handle or 0. The following values are defined. 
+     * @param {Pointer<Integer>} lpdwFlags A pointer to a variable that receives a set of bit flags that specify properties of the object handle or 0. The following values are defined. 
      * 
      * 
      * 

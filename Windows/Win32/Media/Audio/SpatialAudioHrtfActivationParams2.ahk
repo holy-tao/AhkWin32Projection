@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfactivationparams2
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -64,7 +66,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ISpatialAudioObjectRenderStreamNotify>}
+     * @type {ISpatialAudioObjectRenderStreamNotify}
      */
     NotifyObject {
         get => NumGet(this, 32, "ptr")
@@ -88,7 +90,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     Environment {
         get => NumGet(this, 56, "ptr")
@@ -96,7 +98,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     Orientation {
         get => NumGet(this, 64, "ptr")

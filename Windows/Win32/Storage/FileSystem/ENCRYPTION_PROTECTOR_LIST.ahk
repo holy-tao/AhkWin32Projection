@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/DevNotes/encryption_protector_list-structure
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class ENCRYPTION_PROTECTOR_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ENCRYPTION_PROTECTOR>}
+     * @type {Pointer<Pointer<ENCRYPTION_PROTECTOR>>}
      */
     pProtectors {
         get => NumGet(this, 8, "ptr")

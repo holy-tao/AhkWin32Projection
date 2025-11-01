@@ -24,7 +24,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Pointer that points to a location within the network buffer where the data is marshaled or unmarshaled.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Pointer to the beginning of the network buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     BufferStart {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Pointer to the end of the network buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     BufferEnd {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     BufferMark {
         get => NumGet(this, 32, "ptr")
@@ -78,7 +78,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Memory {
         get => NumGet(this, 48, "ptr")
@@ -150,7 +150,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     PointerBufferMark {
         get => NumGet(this, 88, "ptr")
@@ -231,7 +231,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     StackTop {
         get => NumGet(this, 136, "ptr")
@@ -240,7 +240,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pPresentedType {
         get => NumGet(this, 144, "ptr")
@@ -249,7 +249,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pTransmitType {
         get => NumGet(this, 152, "ptr")
@@ -480,7 +480,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<NDR_SCONTEXT>}
+     * @type {Pointer<Pointer<NDR_SCONTEXT>>}
      */
     SavedContextHandles {
         get => NumGet(this, 208, "ptr")
@@ -498,7 +498,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<IRpcChannelBuffer>}
+     * @type {IRpcChannelBuffer}
      */
     pRpcChannelBuffer {
         get => NumGet(this, 224, "ptr")
@@ -516,7 +516,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     SizePtrCountArray {
         get => NumGet(this, 240, "ptr")
@@ -525,7 +525,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     SizePtrOffsetArray {
         get => NumGet(this, 248, "ptr")
@@ -534,7 +534,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     SizePtrLengthArray {
         get => NumGet(this, 256, "ptr")
@@ -588,7 +588,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCorrMemory {
         get => NumGet(this, 304, "ptr")
@@ -615,7 +615,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ConformanceMark {
         get => NumGet(this, 328, "ptr")
@@ -624,7 +624,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     VarianceMark {
         get => NumGet(this, 336, "ptr")
@@ -668,7 +668,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pFullPtrFormat {
         get => NumGet(this, 376, "ptr")

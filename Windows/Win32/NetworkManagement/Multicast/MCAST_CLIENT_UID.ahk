@@ -15,7 +15,7 @@ class MCAST_CLIENT_UID extends Win32Struct
 
     /**
      * Buffer containing the unique client identifier.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ClientUID {
         get => NumGet(this, 0, "ptr")

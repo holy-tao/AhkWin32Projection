@@ -15,7 +15,7 @@ class VSS_VOLUME_PROP extends Win32Struct
 
     /**
      * The volume name, in \\?&#92;<i>Volume</i>{<i>GUID</i>}\ format.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszVolumeName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class VSS_VOLUME_PROP extends Win32Struct
     /**
      * A pointer to a null-terminated Unicode string that contains the shortest mount 
      *       point that can be displayed to the user. The mount point can be a drive letter, for example, C:\, or a mounted folder, for example, C:\WriterData\Archive.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszVolumeDisplayName {
         get => NumGet(this, 8, "ptr")

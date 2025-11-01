@@ -14,7 +14,7 @@ class Effect extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     lpVtbl {
         get => NumGet(this, 0, "ptr")

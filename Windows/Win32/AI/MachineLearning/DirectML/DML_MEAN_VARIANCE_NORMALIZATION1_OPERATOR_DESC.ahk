@@ -88,7 +88,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(AxisCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\*** 
      * 
      * The axes along which to calculate the Mean and Variance.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Axes {
         get => NumGet(this, 40, "ptr")

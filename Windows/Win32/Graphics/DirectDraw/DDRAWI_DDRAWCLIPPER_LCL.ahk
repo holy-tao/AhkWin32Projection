@@ -44,7 +44,7 @@ class DDRAWI_DDRAWCLIPPER_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkOuter {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class DDRAWI_DDRAWCLIPPER_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pAddrefedThisOwner {
         get => NumGet(this, 56, "ptr")

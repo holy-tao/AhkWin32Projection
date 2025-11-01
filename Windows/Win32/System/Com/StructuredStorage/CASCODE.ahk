@@ -20,7 +20,7 @@ class CASCODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

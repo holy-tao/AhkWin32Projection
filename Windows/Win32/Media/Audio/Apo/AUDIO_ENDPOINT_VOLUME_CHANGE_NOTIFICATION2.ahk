@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_endpoint_volume_change_notification2
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -12,7 +14,7 @@ class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IMMDevice>}
+     * @type {IMMDevice}
      */
     endpoint {
         get => NumGet(this, 0, "ptr")

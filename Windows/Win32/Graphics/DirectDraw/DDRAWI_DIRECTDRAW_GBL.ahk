@@ -234,7 +234,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpdwFourCC {
         get => NumGet(this, 1088, "ptr")
@@ -336,7 +336,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     lpwPDeviceFlags {
         get => NumGet(this, 1224, "ptr")

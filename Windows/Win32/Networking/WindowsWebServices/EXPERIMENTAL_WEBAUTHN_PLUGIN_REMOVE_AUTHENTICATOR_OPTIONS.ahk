@@ -28,7 +28,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_REMOVE_AUTHENTICATOR_OPTIONS extends Win32Str
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbNonce {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_REMOVE_AUTHENTICATOR_OPTIONS extends Win32Str
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSignature {
         get => NumGet(this, 32, "ptr")

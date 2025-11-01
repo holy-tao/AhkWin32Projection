@@ -608,7 +608,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * An array of bytes that contains contextual data for the connection. The size of this array is specified in the <b>ContextSize</b> member.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ContextData {
         get => NumGet(this, 3768, "ptr")

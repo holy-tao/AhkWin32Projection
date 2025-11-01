@@ -31,7 +31,7 @@ class ADS_PROV_SPECIFIC extends Win32Struct
 
     /**
      * A pointer to an array of bytes.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpValue {
         get => NumGet(this, 8, "ptr")

@@ -33,7 +33,7 @@ class SecPkgContext_SessionAppData extends Win32Struct
 
     /**
      * Pointer to a <b>BYTE</b> that represents the session application data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAppData {
         get => NumGet(this, 8, "ptr")

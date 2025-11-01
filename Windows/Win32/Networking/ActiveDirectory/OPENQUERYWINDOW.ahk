@@ -73,7 +73,7 @@ class OPENQUERYWINDOW extends Win32Struct
      *       <b>dwFlags</b> contains <b>OQWF_LOADQUERY</b>, the query data is obtained 
      *       from this interface. If <b>dwFlags</b> contains <b>OQWF_SAVEQUERY</b>, 
      *       the query data is saved to this interface.
-     * @type {Pointer<IPersistQuery>}
+     * @type {IPersistQuery}
      */
     pPersistQuery {
         get => NumGet(this, 32, "ptr")
@@ -89,7 +89,7 @@ class OPENQUERYWINDOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IPropertyBag>}
+     * @type {IPropertyBag}
      */
     ppbFormParameters {
         get => NumGet(this, 40, "ptr")

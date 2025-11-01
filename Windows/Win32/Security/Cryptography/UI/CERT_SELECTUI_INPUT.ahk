@@ -28,7 +28,7 @@ class CERT_SELECTUI_INPUT extends Win32Struct
 
     /**
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structures. Applications provision this array by preselecting certificate chains using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certselectcertificatechains">CertSelectCertificateChains</a> function.
-     * @type {Pointer<CERT_CHAIN_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CHAIN_CONTEXT>>}
      */
     prgpChain {
         get => NumGet(this, 8, "ptr")

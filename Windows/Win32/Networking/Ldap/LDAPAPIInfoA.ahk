@@ -55,7 +55,7 @@ class LDAPAPIInfoA extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated strings that indicate what API extensions are supported.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     ldapai_extensions {
         get => NumGet(this, 16, "ptr")

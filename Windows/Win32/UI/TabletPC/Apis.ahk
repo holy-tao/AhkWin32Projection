@@ -2042,7 +2042,7 @@ class TabletPC {
     /**
      * Retrieves a list of properties the recognizer can return for a result range.
      * @param {HRECOGNIZER} hrec Handle to the recognizer.
-     * @param {Pointer<UInt32>} pPropertyCount On input, the number of GUIDs the <i>pPropertyGuid</i> buffer can hold. On output, the number of GUIDs the <i>pPropertyGuid</i> buffer contains.
+     * @param {Pointer<Integer>} pPropertyCount On input, the number of GUIDs the <i>pPropertyGuid</i> buffer can hold. On output, the number of GUIDs the <i>pPropertyGuid</i> buffer contains.
      * @param {Pointer<Guid>} pPropertyGuid Array of properties the recognizer can return. The order of the array is arbitrary. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>. To determine the required size of the buffer, set <i>pPropertyGuid</i> to <b>NULL</b>; use the number of GUIDs to allocate the buffer.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -2207,7 +2207,7 @@ class TabletPC {
     /**
      * Returns the ranges of Unicode points that the recognizer supports.
      * @param {HRECOGNIZER} hrec Handle to the recognizer.
-     * @param {Pointer<UInt32>} pcRanges On input, the number of ranges the <i>pcr</i> buffer can hold. On output, the number of ranges the <i>pcr</i> buffer contains.
+     * @param {Pointer<Integer>} pcRanges On input, the number of ranges the <i>pcr</i> buffer can hold. On output, the number of ranges the <i>pcr</i> buffer contains.
      * @param {Pointer<CHARACTER_RANGE>} pcr Array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures. Each structure contains a range of Unicode points that the recognizer supports. The order of the array is arbitrary. To determine the required size of the buffer, set <i>pcr</i> to <b>NULL</b>; use the number of ranges to allocate the <i>pcr</i> buffer.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -2301,7 +2301,7 @@ class TabletPC {
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<PACKET_DESCRIPTION>} pPacketDesc Describes the contents of the packets. The description must match the contents of the packets in <i>pPacket</i>. If <b>NULL</b>, this function uses the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getpreferredpacketdescription">GetPreferredPacketDescription</a> function.
      * @param {Integer} cbPacket Size, in bytes, of the <i>pPacket</i> buffer.
-     * @param {Pointer<Byte>} pPacket Array of packets that contain tablet space coordinates.
+     * @param {Pointer<Integer>} pPacket Array of packets that contain tablet space coordinates.
      * @param {Pointer<XFORM>} pXForm Describes the transform that can be applied to ink to transform it from tablet space into ink space. A recognizer may choose to ignore this transform and implement their own ink rotation algorithms. These recognizers should still return properties calculated in the lattice data relative to this transform.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -2404,7 +2404,7 @@ class TabletPC {
     /**
      * Retrieves the best result string.
      * @param {HRECOCONTEXT} hrc Handle to the recognizer context.
-     * @param {Pointer<UInt32>} pcSize On input, the number of characters the <i>pwcBestResult</i> buffer can hold. On output, the number of characters the <i>pwcBestResult</i> buffer contains. If <i>pwcBestResult</i> is <b>NULL</b>, the function returns the required size of the buffer that you use to allocate the <i>pwcBestResult</i> buffer.
+     * @param {Pointer<Integer>} pcSize On input, the number of characters the <i>pwcBestResult</i> buffer can hold. On output, the number of characters the <i>pwcBestResult</i> buffer contains. If <i>pwcBestResult</i> is <b>NULL</b>, the function returns the required size of the buffer that you use to allocate the <i>pwcBestResult</i> buffer.
      * @param {PWSTR} pwcBestResult Recognition result. If the buffer is too small, the function truncates the string. The string is not <b>NULL</b>-terminated. To determine the required size of the buffer, set <i>pwcBestResult</i> to <b>NULL</b>; use <i>pcSize</i> to allocate the <i>pwcBestResult</i> buffer.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -2638,7 +2638,7 @@ class TabletPC {
      * Retrieves the guide used for boxed, lined, or freeform input.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<RECO_GUIDE>} pGuide A guide used for boxed, lined, or freeform input. For guide details, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_guide">RECO_GUIDE</a> structure.
-     * @param {Pointer<UInt32>} piIndex Index value of the first box or line in the context.
+     * @param {Pointer<Integer>} piIndex Index value of the first box or line in the context.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3503,7 +3503,7 @@ class TabletPC {
     /**
      * Retrieves a pointer to the lattice for the current results.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
-     * @param {Pointer<RECO_LATTICE>} ppLattice The recognition results.
+     * @param {Pointer<Pointer<RECO_LATTICE>>} ppLattice The recognition results.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3595,7 +3595,7 @@ class TabletPC {
     static GetLatticePtr(hrc, ppLattice) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\GetLatticePtr", "ptr", hrc, "ptr", ppLattice, "int")
+        result := DllCall("inkobjcore.dll\GetLatticePtr", "ptr", hrc, "ptr*", ppLattice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3701,7 +3701,7 @@ class TabletPC {
     /**
      * Retrieves a list of Unicode point ranges enabled on the context. If you do not call the SetEnabledUnicodeRanges function to specify the enabled ranges, this function returns the recognizer's default Unicode point ranges.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
-     * @param {Pointer<UInt32>} pcRanges On input, the number of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures the <i>pcr</i> buffer can contain. On output, the number of ranges the <i>pcr</i> buffer contains.
+     * @param {Pointer<Integer>} pcRanges On input, the number of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures the <i>pcr</i> buffer can contain. On output, the number of ranges the <i>pcr</i> buffer contains.
      * @param {Pointer<CHARACTER_RANGE>} pcr An array of CHARACTER_RANGE structures. Each structure contains a range of Unicode points enabled on the context. The order of the array is arbitrary. To determine the size of the buffer, set <i>pcr</i> to <b>NULL</b>; use the number of ranges to allocate the <i>pcr</i> buffer.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -3874,7 +3874,7 @@ class TabletPC {
     /**
      * Retrieves a list of properties the recognizer supports.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
-     * @param {Pointer<UInt32>} pcProperties On input, the size, in bytes, the <i>pPropertyGUIDS</i> buffer can be. On output, the size, in bytes, the <i>pPropertyGUIDS</i> buffer is.
+     * @param {Pointer<Integer>} pcProperties On input, the size, in bytes, the <i>pPropertyGUIDS</i> buffer can be. On output, the size, in bytes, the <i>pPropertyGUIDS</i> buffer is.
      * @param {Pointer<Guid>} pPropertyGUIDS The user-allocated buffer to contain a list of properties the recognizer supports. To determine the size of the buffer, set <i>pPropertyGUIDS</i> to <b>NULL</b>; use the size (<i>pcProperties</i>) to allocate <i>pPropertyGUIDS</i>. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -3956,8 +3956,8 @@ class TabletPC {
      * Returns a specified property value from the recognizer context.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Guid>} pGuid The property to retrieve. Specify a predefined property globally unique identifier (GUID) or application-defined GUID. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
-     * @param {Pointer<UInt32>} pcbSize On input, the size, in bytes, the <i>pProperty </i>buffer can be. On output, the size, in bytes, the <i>pProperty</i>buffer is.
-     * @param {Pointer<Byte>} pProperty The user allocated buffer to contain the property value. To determine the size of the buffer, set <i>pProperty</i> to <b>NULL</b>; use the size to allocate <i>pProperty</i>.
+     * @param {Pointer<Integer>} pcbSize On input, the size, in bytes, the <i>pProperty </i>buffer can be. On output, the size, in bytes, the <i>pProperty</i>buffer is.
+     * @param {Pointer<Integer>} pProperty The user allocated buffer to contain the property value. To determine the size of the buffer, set <i>pProperty</i> to <b>NULL</b>; use the size to allocate <i>pProperty</i>.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4061,7 +4061,7 @@ class TabletPC {
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Guid>} pGuid The property to set. Specify a predefined property globally unique identifier (GUID) or application-defined property GUID. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
      * @param {Integer} cbSize The size, in bytes, of the <i>pProperty</i> buffer.
-     * @param {Pointer<Byte>} pProperty The buffer that contains the property value.
+     * @param {Pointer<Integer>} pProperty The buffer that contains the property value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4339,7 +4339,7 @@ class TabletPC {
     /**
      * Gets the context preference flags.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
-     * @param {Pointer<UInt32>} pdwContextPreferenceFlags The handle to the context preference flags.
+     * @param {Pointer<Integer>} pdwContextPreferenceFlags The handle to the context preference flags.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getcontextpreferenceflags
      * @since windows5.1.2600
@@ -4357,7 +4357,7 @@ class TabletPC {
     /**
      * Gets the right separator for the recognizer context.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
-     * @param {Pointer<UInt32>} pcSize A pointer to the size of the right separator.
+     * @param {Pointer<Integer>} pcSize A pointer to the size of the right separator.
      * @param {PWSTR} pwcRightSeparator A pointer to the right separator.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getrightseparator
@@ -4377,7 +4377,7 @@ class TabletPC {
     /**
      * Gets the left separator for the recognizer context.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
-     * @param {Pointer<UInt32>} pcSize A pointer to the size of the left separator.
+     * @param {Pointer<Integer>} pcSize A pointer to the size of the left separator.
      * @param {PWSTR} pwcLeftSeparator A pointer to the left separator.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getleftseparator
@@ -4627,8 +4627,8 @@ class TabletPC {
 
     /**
      * Gets all recognizers.
-     * @param {Pointer<Guid>} recognizerClsids Pointer to the CLSIDs of the recognizers. The CLSID value is created in the registry when you register the recognizer.
-     * @param {Pointer<UInt32>} count Pointer to the number of recognizers.
+     * @param {Pointer<Pointer<Guid>>} recognizerClsids Pointer to the CLSIDs of the recognizers. The CLSID value is created in the registry when you register the recognizer.
+     * @param {Pointer<Integer>} count Pointer to the number of recognizers.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4685,7 +4685,7 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetAllRecognizers(recognizerClsids, count) {
-        result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr", recognizerClsids, "uint*", count, "int")
+        result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr*", recognizerClsids, "uint*", count, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4694,7 +4694,7 @@ class TabletPC {
 
     /**
      * Loads the cached attributes of a recognizer.
-     * @param {Pointer<Guid>} clsid The CLSID of the recognizer. This value is created in the registry when you register the recognizer.
+     * @param {Guid} clsid The CLSID of the recognizer. This value is created in the registry when you register the recognizer.
      * @param {Pointer<RECO_ATTRS>} pRecoAttributes Pointer to the recognizer attributes.
      * @returns {HRESULT} This function can return one of these values.
      * 

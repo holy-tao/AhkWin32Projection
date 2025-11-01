@@ -33,7 +33,7 @@ class MFP_EVENT_HEADER extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> interface of the MFPlay player object that sent the event.
-     * @type {Pointer<IMFPMediaPlayer>}
+     * @type {IMFPMediaPlayer}
      */
     pMediaPlayer {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class MFP_EVENT_HEADER extends Win32Struct
 
     /**
      * A pointer to the <b>IPropertyStore</b> interface of  a property store object. The property store is used to hold additional event data for some event types. This member might be <b>NULL</b>.
-     * @type {Pointer<IPropertyStore>}
+     * @type {IPropertyStore}
      */
     pPropertyStore {
         get => NumGet(this, 24, "ptr")

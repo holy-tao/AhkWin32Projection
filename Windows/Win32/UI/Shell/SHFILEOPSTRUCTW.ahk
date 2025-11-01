@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shfileopstructw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset Unicode

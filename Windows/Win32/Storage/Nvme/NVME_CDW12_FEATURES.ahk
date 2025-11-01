@@ -3,6 +3,8 @@
 #Include .\NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_features
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

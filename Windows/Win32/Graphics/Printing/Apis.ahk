@@ -7088,7 +7088,7 @@ class Printing {
      * @param {HWND} hWndOwner 
      * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
      * @param {LPARAM} lParam 
-     * @param {Pointer<UInt32>} pResult 
+     * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
     static CommonPropertySheetUIA(hWndOwner, pfnPropSheetUI, lParam, pResult) {
@@ -7103,7 +7103,7 @@ class Printing {
      * @param {HWND} hWndOwner 
      * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
      * @param {LPARAM} lParam 
-     * @param {Pointer<UInt32>} pResult 
+     * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
     static CommonPropertySheetUIW(hWndOwner, pfnPropSheetUI, lParam, pResult) {
@@ -7145,9 +7145,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrinterEnum 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinters
      */
     static EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -7168,9 +7169,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrinterEnum 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinters
      */
     static EnumPrintersW(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -7188,6 +7190,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getspoolfilehandle
      */
     static GetSpoolFileHandle(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7207,6 +7210,7 @@ class Printing {
      * @param {HANDLE} hSpoolFile 
      * @param {Integer} cbCommit 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/commitspooldata
      */
     static CommitSpoolData(hPrinter, hSpoolFile, cbCommit) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7221,6 +7225,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {HANDLE} hSpoolFile 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/closespoolfilehandle
      */
     static CloseSpoolFileHandle(hPrinter, hSpoolFile) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7236,6 +7241,7 @@ class Printing {
      * @param {Pointer<PRINTER_HANDLE>} phPrinter 
      * @param {Pointer<PRINTER_DEFAULTSA>} pDefault 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter
      */
     static OpenPrinterA(pPrinterName, phPrinter, pDefault) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -7255,6 +7261,7 @@ class Printing {
      * @param {Pointer<PRINTER_HANDLE>} phPrinter 
      * @param {Pointer<PRINTER_DEFAULTSW>} pDefault 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter
      */
     static OpenPrinterW(pPrinterName, phPrinter, pDefault) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -7273,6 +7280,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<PRINTER_DEFAULTSA>} pDefault 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/resetprinter
      */
     static ResetPrinterA(hPrinter, pDefault) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7286,6 +7294,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<PRINTER_DEFAULTSW>} pDefault 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/resetprinter
      */
     static ResetPrinterW(hPrinter, pDefault) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7301,6 +7310,7 @@ class Printing {
      * @param {Integer} Level 
      * @param {Integer} Command 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setjob
      */
     static SetJobA(hPrinter, JobId, Level, Command) {
         static pJob := 0 ;Reserved parameters must always be NULL
@@ -7318,6 +7328,7 @@ class Printing {
      * @param {Integer} Level 
      * @param {Integer} Command 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setjob
      */
     static SetJobW(hPrinter, JobId, Level, Command) {
         static pJob := 0 ;Reserved parameters must always be NULL
@@ -7335,8 +7346,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pJob 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getjob
      */
     static GetJobA(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7352,8 +7364,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pJob 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getjob
      */
     static GetJobW(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7370,9 +7383,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pJob 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumjobs
      */
     static EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7394,9 +7408,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pJob 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumjobs
      */
     static EnumJobsW(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7414,8 +7429,9 @@ class Printing {
      * 
      * @param {PSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pPrinter 
+     * @param {Pointer<Integer>} pPrinter 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinter
      */
     static AddPrinterA(pName, Level, pPrinter) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7433,8 +7449,9 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pPrinter 
+     * @param {Pointer<Integer>} pPrinter 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinter
      */
     static AddPrinterW(pName, Level, pPrinter) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7452,6 +7469,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinter
      */
     static DeletePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7469,9 +7487,10 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pPrinter 
+     * @param {Pointer<Integer>} pPrinter 
      * @param {Integer} Command 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinter
      */
     static SetPrinterA(hPrinter, Level, pPrinter, Command) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7489,9 +7508,10 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pPrinter 
+     * @param {Pointer<Integer>} pPrinter 
      * @param {Integer} Command 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinter
      */
     static SetPrinterW(hPrinter, Level, pPrinter, Command) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7511,8 +7531,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrinter 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinter
      */
     static GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7532,8 +7553,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrinter 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinter
      */
     static GetPrinterW(hPrinter, Level, pPrinter, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7551,8 +7573,9 @@ class Printing {
      * 
      * @param {PSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pDriverInfo 
+     * @param {Pointer<Integer>} pDriverInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriver
      */
     static AddPrinterDriverA(pName, Level, pDriverInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7570,8 +7593,9 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pDriverInfo 
+     * @param {Pointer<Integer>} pDriverInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriver
      */
     static AddPrinterDriverW(pName, Level, pDriverInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7589,9 +7613,10 @@ class Printing {
      * 
      * @param {PSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} lpbDriverInfo 
+     * @param {Pointer<Integer>} lpbDriverInfo 
      * @param {Integer} dwFileCopyFlags 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriverex
      */
     static AddPrinterDriverExA(pName, Level, lpbDriverInfo, dwFileCopyFlags) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7604,9 +7629,10 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} lpbDriverInfo 
+     * @param {Pointer<Integer>} lpbDriverInfo 
      * @param {Integer} dwFileCopyFlags 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriverex
      */
     static AddPrinterDriverExW(pName, Level, lpbDriverInfo, dwFileCopyFlags) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7622,9 +7648,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdrivers
      */
     static EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7646,9 +7673,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdrivers
      */
     static EnumPrinterDriversW(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7670,8 +7698,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver
      */
     static GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
         pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
@@ -7688,8 +7717,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver
      */
     static GetPrinterDriverW(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
         pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
@@ -7706,8 +7736,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverDirectory 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverdirectory
      */
     static GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7724,8 +7755,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverDirectory 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverdirectory
      */
     static GetPrinterDriverDirectoryW(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7741,6 +7773,7 @@ class Printing {
      * @param {PSTR} pEnvironment 
      * @param {PSTR} pDriverName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriver
      */
     static DeletePrinterDriverA(pName, pEnvironment, pDriverName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7757,6 +7790,7 @@ class Printing {
      * @param {PWSTR} pEnvironment 
      * @param {PWSTR} pDriverName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriver
      */
     static DeletePrinterDriverW(pName, pEnvironment, pDriverName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7775,6 +7809,7 @@ class Printing {
      * @param {Integer} dwDeleteFlag 
      * @param {Integer} dwVersionFlag 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverex
      */
     static DeletePrinterDriverExA(pName, pEnvironment, pDriverName, dwDeleteFlag, dwVersionFlag) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7793,6 +7828,7 @@ class Printing {
      * @param {Integer} dwDeleteFlag 
      * @param {Integer} dwVersionFlag 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverex
      */
     static DeletePrinterDriverExW(pName, pEnvironment, pDriverName, dwDeleteFlag, dwVersionFlag) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7810,6 +7846,7 @@ class Printing {
      * @param {PSTR} pPathName 
      * @param {PSTR} pPrintProcessorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprocessor
      */
     static AddPrintProcessorA(pName, pEnvironment, pPathName, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7828,6 +7865,7 @@ class Printing {
      * @param {PWSTR} pPathName 
      * @param {PWSTR} pPrintProcessorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprocessor
      */
     static AddPrintProcessorW(pName, pEnvironment, pPathName, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7846,9 +7884,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessors
      */
     static EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7865,9 +7904,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessors
      */
     static EnumPrintProcessorsW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7884,8 +7924,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintprocessordirectory
      */
     static GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7902,8 +7943,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintprocessordirectory
      */
     static GetPrintProcessorDirectoryW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7920,9 +7962,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDatatypes 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessordatatypes
      */
     static EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7939,9 +7982,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDatatypes 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessordatatypes
      */
     static EnumPrintProcessorDatatypesW(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7957,6 +8001,7 @@ class Printing {
      * @param {PSTR} pEnvironment 
      * @param {PSTR} pPrintProcessorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprocessor
      */
     static DeletePrintProcessorA(pName, pEnvironment, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7973,6 +8018,7 @@ class Printing {
      * @param {PWSTR} pEnvironment 
      * @param {PWSTR} pPrintProcessorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprocessor
      */
     static DeletePrintProcessorW(pName, pEnvironment, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -7989,6 +8035,7 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer<DOC_INFO_1A>} pDocInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/startdocprinter
      */
     static StartDocPrinterA(hPrinter, Level, pDocInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8003,6 +8050,7 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer<DOC_INFO_1W>} pDocInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/startdocprinter
      */
     static StartDocPrinterW(hPrinter, Level, pDocInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8015,6 +8063,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/startpageprinter
      */
     static StartPagePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8028,8 +8077,9 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer} pBuf 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcWritten 
+     * @param {Pointer<Integer>} pcWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/writeprinter
      */
     static WritePrinter(hPrinter, pBuf, cbBuf, pcWritten) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8043,9 +8093,10 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer} pBuf 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcWritten 
+     * @param {Pointer<Integer>} pcWritten 
      * @param {Integer} cSleep 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/flushprinter
      */
     static FlushPrinter(hPrinter, pBuf, cbBuf, pcWritten, cSleep) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8058,6 +8109,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/endpageprinter
      */
     static EndPagePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8070,6 +8122,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/abortprinter
      */
     static AbortPrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8083,8 +8136,9 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer} pBuf 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pNoBytesRead 
+     * @param {Pointer<Integer>} pNoBytesRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/readprinter
      */
     static ReadPrinter(hPrinter, pBuf, cbBuf, pNoBytesRead) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8097,6 +8151,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enddocprinter
      */
     static EndDocPrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8111,8 +8166,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pData 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addjob
      */
     static AddJobA(hPrinter, Level, pData, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8127,8 +8183,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pData 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addjob
      */
     static AddJobW(hPrinter, Level, pData, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8142,6 +8199,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/schedulejob
      */
     static ScheduleJob(hPrinter, JobId) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8155,6 +8213,7 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/printerproperties
      */
     static PrinterProperties(hWnd, hPrinter) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
@@ -8173,6 +8232,7 @@ class Printing {
      * @param {Pointer<DEVMODEA>} pDevModeInput 
      * @param {Integer} fMode 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
      */
     static DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -8192,6 +8252,7 @@ class Printing {
      * @param {Pointer<DEVMODEW>} pDevModeInput 
      * @param {Integer} fMode 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
      */
     static DocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -8210,6 +8271,7 @@ class Printing {
      * @param {Pointer<DEVMODEA>} pDevModeOutput 
      * @param {Pointer<DEVMODEA>} pDevModeInput 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
      */
     static AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -8228,6 +8290,7 @@ class Printing {
      * @param {Pointer<DEVMODEW>} pDevModeOutput 
      * @param {Pointer<DEVMODEW>} pDevModeInput 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
      */
     static AdvancedDocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -8265,11 +8328,12 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pValueName 
-     * @param {Pointer<UInt32>} pType 
+     * @param {Pointer<Integer>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdata
      */
     static GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
@@ -8283,11 +8347,12 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PWSTR} pValueName 
-     * @param {Pointer<UInt32>} pType 
+     * @param {Pointer<Integer>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdata
      */
     static GetPrinterDataW(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
@@ -8302,11 +8367,12 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pKeyName 
      * @param {PSTR} pValueName 
-     * @param {Pointer<UInt32>} pType 
+     * @param {Pointer<Integer>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdataex
      */
     static GetPrinterDataExA(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8322,11 +8388,12 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PWSTR} pKeyName 
      * @param {PWSTR} pValueName 
-     * @param {Pointer<UInt32>} pType 
+     * @param {Pointer<Integer>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdataex
      */
     static GetPrinterDataExW(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8343,12 +8410,13 @@ class Printing {
      * @param {Integer} dwIndex 
      * @param {Pointer} pValueName 
      * @param {Integer} cbValueName 
-     * @param {Pointer<UInt32>} pcbValueName 
-     * @param {Pointer<UInt32>} pType 
-     * @param {Pointer<Byte>} pData 
+     * @param {Pointer<Integer>} pcbValueName 
+     * @param {Pointer<Integer>} pType 
+     * @param {Pointer<Integer>} pData 
      * @param {Integer} cbData 
-     * @param {Pointer<UInt32>} pcbData 
+     * @param {Pointer<Integer>} pcbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdata
      */
     static EnumPrinterDataA(hPrinter, dwIndex, pValueName, cbValueName, pcbValueName, pType, pData, cbData, pcbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8363,12 +8431,13 @@ class Printing {
      * @param {Integer} dwIndex 
      * @param {Pointer} pValueName 
      * @param {Integer} cbValueName 
-     * @param {Pointer<UInt32>} pcbValueName 
-     * @param {Pointer<UInt32>} pType 
-     * @param {Pointer<Byte>} pData 
+     * @param {Pointer<Integer>} pcbValueName 
+     * @param {Pointer<Integer>} pType 
+     * @param {Pointer<Integer>} pData 
      * @param {Integer} cbData 
-     * @param {Pointer<UInt32>} pcbData 
+     * @param {Pointer<Integer>} pcbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdata
      */
     static EnumPrinterDataW(hPrinter, dwIndex, pValueName, cbValueName, pcbValueName, pType, pData, cbData, pcbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8383,9 +8452,10 @@ class Printing {
      * @param {PSTR} pKeyName 
      * @param {Pointer} pEnumValues 
      * @param {Integer} cbEnumValues 
-     * @param {Pointer<UInt32>} pcbEnumValues 
-     * @param {Pointer<UInt32>} pnEnumValues 
+     * @param {Pointer<Integer>} pcbEnumValues 
+     * @param {Pointer<Integer>} pnEnumValues 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdataex
      */
     static EnumPrinterDataExA(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8401,9 +8471,10 @@ class Printing {
      * @param {PWSTR} pKeyName 
      * @param {Pointer} pEnumValues 
      * @param {Integer} cbEnumValues 
-     * @param {Pointer<UInt32>} pcbEnumValues 
-     * @param {Pointer<UInt32>} pnEnumValues 
+     * @param {Pointer<Integer>} pcbEnumValues 
+     * @param {Pointer<Integer>} pnEnumValues 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdataex
      */
     static EnumPrinterDataExW(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8419,8 +8490,9 @@ class Printing {
      * @param {PSTR} pKeyName 
      * @param {Pointer} pSubkey 
      * @param {Integer} cbSubkey 
-     * @param {Pointer<UInt32>} pcbSubkey 
+     * @param {Pointer<Integer>} pcbSubkey 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterkey
      */
     static EnumPrinterKeyA(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8436,8 +8508,9 @@ class Printing {
      * @param {PWSTR} pKeyName 
      * @param {Pointer} pSubkey 
      * @param {Integer} cbSubkey 
-     * @param {Pointer<UInt32>} pcbSubkey 
+     * @param {Pointer<Integer>} pcbSubkey 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterkey
      */
     static EnumPrinterKeyW(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8455,6 +8528,7 @@ class Printing {
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdata
      */
     static SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData) {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
@@ -8472,6 +8546,7 @@ class Printing {
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdata
      */
     static SetPrinterDataW(hPrinter, pValueName, Type, pData, cbData) {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
@@ -8490,6 +8565,7 @@ class Printing {
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdataex
      */
     static SetPrinterDataExA(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8509,6 +8585,7 @@ class Printing {
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdataex
      */
     static SetPrinterDataExW(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8524,6 +8601,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pValueName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdata
      */
     static DeletePrinterDataA(hPrinter, pValueName) {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
@@ -8538,6 +8616,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PWSTR} pValueName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdata
      */
     static DeletePrinterDataW(hPrinter, pValueName) {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
@@ -8553,6 +8632,7 @@ class Printing {
      * @param {PSTR} pKeyName 
      * @param {PSTR} pValueName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdataex
      */
     static DeletePrinterDataExA(hPrinter, pKeyName, pValueName) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8569,6 +8649,7 @@ class Printing {
      * @param {PWSTR} pKeyName 
      * @param {PWSTR} pValueName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdataex
      */
     static DeletePrinterDataExW(hPrinter, pKeyName, pValueName) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8584,6 +8665,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pKeyName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterkey
      */
     static DeletePrinterKeyA(hPrinter, pKeyName) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8598,6 +8680,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PWSTR} pKeyName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterkey
      */
     static DeletePrinterKeyW(hPrinter, pKeyName) {
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
@@ -8627,6 +8710,7 @@ class Printing {
      * @param {Integer} fdwOptions 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/findfirstprinterchangenotification
      */
     static FindFirstPrinterChangeNotification(hPrinter, fdwFilter, fdwOptions, pPrinterNotifyOptions) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8638,15 +8722,16 @@ class Printing {
     /**
      * 
      * @param {HANDLE} hChange 
-     * @param {Pointer<UInt32>} pdwChange 
+     * @param {Pointer<Integer>} pdwChange 
      * @param {Pointer<Void>} pvReserved 
-     * @param {Pointer<Void>} ppPrinterNotifyInfo 
+     * @param {Pointer<Pointer<Void>>} ppPrinterNotifyInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/findnextprinterchangenotification
      */
     static FindNextPrinterChangeNotification(hChange, pdwChange, pvReserved, ppPrinterNotifyInfo) {
         hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
 
-        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange, "uint*", pdwChange, "ptr", pvReserved, "ptr", ppPrinterNotifyInfo, "int")
+        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange, "uint*", pdwChange, "ptr", pvReserved, "ptr*", ppPrinterNotifyInfo, "int")
         return result
     }
 
@@ -8654,6 +8739,7 @@ class Printing {
      * 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pPrinterNotifyInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/freeprinternotifyinfo
      */
     static FreePrinterNotifyInfo(pPrinterNotifyInfo) {
         result := DllCall("winspool.drv\FreePrinterNotifyInfo", "ptr", pPrinterNotifyInfo, "int")
@@ -8664,6 +8750,7 @@ class Printing {
      * 
      * @param {HANDLE} hChange 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/findcloseprinterchangenotification
      */
     static FindClosePrinterChangeNotification(hChange) {
         hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
@@ -8716,6 +8803,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/closeprinter
      */
     static ClosePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8733,7 +8821,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pForm 
+     * @param {Pointer<Integer>} pForm 
      * @returns {BOOL} 
      */
     static AddFormA(hPrinter, Level, pForm) {
@@ -8747,7 +8835,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pForm 
+     * @param {Pointer<Integer>} pForm 
      * @returns {BOOL} 
      */
     static AddFormW(hPrinter, Level, pForm) {
@@ -8762,6 +8850,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pFormName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteform
      */
     static DeleteFormA(hPrinter, pFormName) {
         pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
@@ -8776,6 +8865,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PWSTR} pFormName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteform
      */
     static DeleteFormW(hPrinter, pFormName) {
         pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
@@ -8792,8 +8882,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getform
      */
     static GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
         pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
@@ -8810,8 +8901,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getform
      */
     static GetFormW(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
         pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
@@ -8826,8 +8918,9 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pFormName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pForm 
+     * @param {Pointer<Integer>} pForm 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setform
      */
     static SetFormA(hPrinter, pFormName, Level, pForm) {
         pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
@@ -8842,8 +8935,9 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PWSTR} pFormName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pForm 
+     * @param {Pointer<Integer>} pForm 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setform
      */
     static SetFormW(hPrinter, pFormName, Level, pForm) {
         pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
@@ -8859,9 +8953,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumforms
      */
     static EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8876,9 +8971,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumforms
      */
     static EnumFormsW(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8893,9 +8989,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pMonitor 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enummonitors
      */
     static EnumMonitorsA(pName, Level, pMonitor, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8910,9 +9007,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pMonitor 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enummonitors
      */
     static EnumMonitorsW(pName, Level, pMonitor, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8925,8 +9023,9 @@ class Printing {
      * 
      * @param {PSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pMonitors 
+     * @param {Pointer<Integer>} pMonitors 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addmonitor
      */
     static AddMonitorA(pName, Level, pMonitors) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8944,8 +9043,9 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pMonitors 
+     * @param {Pointer<Integer>} pMonitors 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addmonitor
      */
     static AddMonitorW(pName, Level, pMonitors) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8965,6 +9065,7 @@ class Printing {
      * @param {PSTR} pEnvironment 
      * @param {PSTR} pMonitorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deletemonitor
      */
     static DeleteMonitorA(pName, pEnvironment, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8986,6 +9087,7 @@ class Printing {
      * @param {PWSTR} pEnvironment 
      * @param {PWSTR} pMonitorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deletemonitor
      */
     static DeleteMonitorW(pName, pEnvironment, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9007,9 +9109,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPort 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumports
      */
     static EnumPortsA(pName, Level, pPort, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9024,9 +9127,10 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pPort 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
-     * @param {Pointer<UInt32>} pcReturned 
+     * @param {Pointer<Integer>} pcbNeeded 
+     * @param {Pointer<Integer>} pcReturned 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/enumports
      */
     static EnumPortsW(pName, Level, pPort, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9041,6 +9145,7 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PSTR} pMonitorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addport
      */
     static AddPortA(pName, hWnd, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9062,6 +9167,7 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PWSTR} pMonitorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addport
      */
     static AddPortW(pName, hWnd, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9083,6 +9189,7 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PSTR} pPortName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/configureport
      */
     static ConfigurePortA(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9099,6 +9206,7 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PWSTR} pPortName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/configureport
      */
     static ConfigurePortW(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9115,6 +9223,7 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PSTR} pPortName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteport
      */
     static DeletePortA(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9136,6 +9245,7 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PWSTR} pPortName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteport
      */
     static DeletePortW(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9159,8 +9269,8 @@ class Printing {
      * @param {Integer} cbInputData 
      * @param {Pointer} pOutputData 
      * @param {Integer} cbOutputData 
-     * @param {Pointer<UInt32>} pcbOutputNeeded 
-     * @param {Pointer<UInt32>} pdwStatus 
+     * @param {Pointer<Integer>} pcbOutputNeeded 
+     * @param {Pointer<Integer>} pdwStatus 
      * @returns {BOOL} 
      */
     static XcvDataW(hXcv, pszDataName, pInputData, cbInputData, pOutputData, cbOutputData, pcbOutputNeeded, pdwStatus) {
@@ -9174,8 +9284,9 @@ class Printing {
     /**
      * 
      * @param {PSTR} pszBuffer 
-     * @param {Pointer<UInt32>} pcchBuffer 
+     * @param {Pointer<Integer>} pcchBuffer 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getdefaultprinter
      */
     static GetDefaultPrinterA(pszBuffer, pcchBuffer) {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
@@ -9187,8 +9298,9 @@ class Printing {
     /**
      * 
      * @param {PWSTR} pszBuffer 
-     * @param {Pointer<UInt32>} pcchBuffer 
+     * @param {Pointer<Integer>} pcchBuffer 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getdefaultprinter
      */
     static GetDefaultPrinterW(pszBuffer, pcchBuffer) {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
@@ -9201,6 +9313,7 @@ class Printing {
      * 
      * @param {PSTR} pszPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setdefaultprinter
      */
     static SetDefaultPrinterA(pszPrinter) {
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
@@ -9213,6 +9326,7 @@ class Printing {
      * 
      * @param {PWSTR} pszPrinter 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setdefaultprinter
      */
     static SetDefaultPrinterW(pszPrinter) {
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
@@ -9226,8 +9340,9 @@ class Printing {
      * @param {PSTR} pName 
      * @param {PSTR} pPortName 
      * @param {Integer} dwLevel 
-     * @param {Pointer<Byte>} pPortInfo 
+     * @param {Pointer<Integer>} pPortInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setport
      */
     static SetPortA(pName, pPortName, dwLevel, pPortInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9247,8 +9362,9 @@ class Printing {
      * @param {PWSTR} pName 
      * @param {PWSTR} pPortName 
      * @param {Integer} dwLevel 
-     * @param {Pointer<Byte>} pPortInfo 
+     * @param {Pointer<Integer>} pPortInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/setport
      */
     static SetPortW(pName, pPortName, dwLevel, pPortInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9267,6 +9383,7 @@ class Printing {
      * 
      * @param {PSTR} pName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection
      */
     static AddPrinterConnectionA(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9279,6 +9396,7 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection
      */
     static AddPrinterConnectionW(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9291,6 +9409,7 @@ class Printing {
      * 
      * @param {PSTR} pName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterconnection
      */
     static DeletePrinterConnectionA(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9303,6 +9422,7 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterconnection
      */
     static DeletePrinterConnectionW(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9316,6 +9436,7 @@ class Printing {
      * @param {HWND} hwnd 
      * @param {Integer} Flags 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/connecttoprinterdlg
      */
     static ConnectToPrinterDlg(hwnd, Flags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -9328,8 +9449,9 @@ class Printing {
      * 
      * @param {PSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pProvidorInfo 
+     * @param {Pointer<Integer>} pProvidorInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprovidor
      */
     static AddPrintProvidorA(pName, Level, pProvidorInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9342,8 +9464,9 @@ class Printing {
      * 
      * @param {PWSTR} pName 
      * @param {Integer} Level 
-     * @param {Pointer<Byte>} pProvidorInfo 
+     * @param {Pointer<Integer>} pProvidorInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprovidor
      */
     static AddPrintProvidorW(pName, Level, pProvidorInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9358,6 +9481,7 @@ class Printing {
      * @param {PSTR} pEnvironment 
      * @param {PSTR} pPrintProvidorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprovidor
      */
     static DeletePrintProvidorA(pName, pEnvironment, pPrintProvidorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9374,6 +9498,7 @@ class Printing {
      * @param {PWSTR} pEnvironment 
      * @param {PWSTR} pPrintProvidorName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprovidor
      */
     static DeletePrintProvidorW(pName, pEnvironment, pPrintProvidorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9389,6 +9514,7 @@ class Printing {
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Pointer} DevmodeSize 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/isvaliddevmode
      */
     static IsValidDevmodeA(pDevmode, DevmodeSize) {
         result := DllCall("winspool.drv\IsValidDevmodeA", "ptr", pDevmode, "ptr", DevmodeSize, "int")
@@ -9400,6 +9526,7 @@ class Printing {
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {Pointer} DevmodeSize 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/isvaliddevmode
      */
     static IsValidDevmodeW(pDevmode, DevmodeSize) {
         result := DllCall("winspool.drv\IsValidDevmodeW", "ptr", pDevmode, "ptr", DevmodeSize, "int")
@@ -9413,6 +9540,7 @@ class Printing {
      * @param {Pointer<PRINTER_DEFAULTSA>} pDefault 
      * @param {Pointer<PRINTER_OPTIONSA>} pOptions 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter2
      */
     static OpenPrinter2A(pPrinterName, phPrinter, pDefault, pOptions) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -9433,6 +9561,7 @@ class Printing {
      * @param {Pointer<PRINTER_DEFAULTSW>} pDefault 
      * @param {Pointer<PRINTER_OPTIONSW>} pOptions 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter2
      */
     static OpenPrinter2W(pPrinterName, phPrinter, pDefault, pOptions) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -9469,6 +9598,7 @@ class Printing {
      * @param {Integer} dwLevel 
      * @param {Pointer<Void>} pConnectionInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection2
      */
     static AddPrinterConnection2W(hWnd, pszName, dwLevel, pConnectionInfo) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -9486,6 +9616,7 @@ class Printing {
      * @param {PSTR} pszEnvironment 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/installprinterdriverfrompackage
      */
     static InstallPrinterDriverFromPackageA(pszServer, pszInfPath, pszDriverName, pszEnvironment, dwFlags) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9508,6 +9639,7 @@ class Printing {
      * @param {PWSTR} pszEnvironment 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/installprinterdriverfrompackage
      */
     static InstallPrinterDriverFromPackageW(pszServer, pszInfPath, pszDriverName, pszEnvironment, dwFlags) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9530,8 +9662,9 @@ class Printing {
      * @param {Integer} dwFlags 
      * @param {HWND} hwnd 
      * @param {PSTR} pszDestInfPath 
-     * @param {Pointer<UInt32>} pcchDestInfPath 
+     * @param {Pointer<Integer>} pcchDestInfPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
      */
     static UploadPrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9555,8 +9688,9 @@ class Printing {
      * @param {Integer} dwFlags 
      * @param {HWND} hwnd 
      * @param {PWSTR} pszDestInfPath 
-     * @param {Pointer<UInt32>} pcchDestInfPath 
+     * @param {Pointer<Integer>} pcchDestInfPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
      */
     static UploadPrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9580,6 +9714,7 @@ class Printing {
      * @param {Integer} cCorePrinterDrivers 
      * @param {Pointer<CORE_PRINTER_DRIVERA>} pCorePrinterDrivers 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getcoreprinterdrivers
      */
     static GetCorePrinterDriversA(pszServer, pszEnvironment, pszzCoreDriverDependencies, cCorePrinterDrivers, pCorePrinterDrivers) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9601,6 +9736,7 @@ class Printing {
      * @param {Integer} cCorePrinterDrivers 
      * @param {Pointer<CORE_PRINTER_DRIVERW>} pCorePrinterDrivers 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getcoreprinterdrivers
      */
     static GetCorePrinterDriversW(pszServer, pszEnvironment, pszzCoreDriverDependencies, cCorePrinterDrivers, pCorePrinterDrivers) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9618,11 +9754,12 @@ class Printing {
      * 
      * @param {PSTR} pszServer 
      * @param {PSTR} pszEnvironment 
-     * @param {Pointer<Guid>} CoreDriverGUID 
+     * @param {Guid} CoreDriverGUID 
      * @param {FILETIME} ftDriverDate 
      * @param {Integer} dwlDriverVersion 
      * @param {Pointer<BOOL>} pbDriverInstalled 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
      */
     static CorePrinterDriverInstalledA(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion, pbDriverInstalled) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9639,11 +9776,12 @@ class Printing {
      * 
      * @param {PWSTR} pszServer 
      * @param {PWSTR} pszEnvironment 
-     * @param {Pointer<Guid>} CoreDriverGUID 
+     * @param {Guid} CoreDriverGUID 
      * @param {FILETIME} ftDriverDate 
      * @param {Integer} dwlDriverVersion 
      * @param {Pointer<BOOL>} pbDriverInstalled 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
      */
     static CorePrinterDriverInstalledW(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion, pbDriverInstalled) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9664,8 +9802,9 @@ class Printing {
      * @param {PSTR} pszPackageID 
      * @param {PSTR} pszDriverPackageCab 
      * @param {Integer} cchDriverPackageCab 
-     * @param {Pointer<UInt32>} pcchRequiredSize 
+     * @param {Pointer<Integer>} pcchRequiredSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
      */
     static GetPrinterDriverPackagePathA(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab, pcchRequiredSize) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9689,8 +9828,9 @@ class Printing {
      * @param {PWSTR} pszPackageID 
      * @param {PWSTR} pszDriverPackageCab 
      * @param {Integer} cchDriverPackageCab 
-     * @param {Pointer<UInt32>} pcchRequiredSize 
+     * @param {Pointer<Integer>} pcchRequiredSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
      */
     static GetPrinterDriverPackagePathW(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab, pcchRequiredSize) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9712,6 +9852,7 @@ class Printing {
      * @param {PSTR} pszInfPath 
      * @param {PSTR} pszEnvironment 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverpackage
      */
     static DeletePrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9731,6 +9872,7 @@ class Printing {
      * @param {PWSTR} pszInfPath 
      * @param {PWSTR} pszEnvironment 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverpackage
      */
     static DeletePrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -9751,6 +9893,7 @@ class Printing {
      * @param {Integer} jobOperation 
      * @param {Integer} jobProgress 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/reportjobprocessingprogress
      */
     static ReportJobProcessingProgress(printerHandle, jobId, jobOperation, jobProgress) {
         printerHandle := printerHandle is Win32Handle ? NumGet(printerHandle, "ptr") : printerHandle
@@ -9770,7 +9913,7 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
      */
     static GetPrinterDriver2A(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
@@ -9790,8 +9933,9 @@ class Printing {
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
-     * @param {Pointer<UInt32>} pcbNeeded 
+     * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver2
      */
     static GetPrinterDriver2W(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
         pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
@@ -9806,6 +9950,7 @@ class Printing {
      * 
      * @param {Pointer<PRINT_EXECUTION_DATA>} pData 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintexecutiondata
      */
     static GetPrintExecutionData(pData) {
         result := DllCall("winspool.drv\GetPrintExecutionData", "ptr", pData, "int")
@@ -9840,11 +9985,11 @@ class Printing {
     /**
      * 
      * @param {Integer} cProperties 
-     * @param {Pointer<PrintNamedProperty>} ppProperties 
+     * @param {Pointer<Pointer<PrintNamedProperty>>} ppProperties 
      * @returns {String} Nothing - always returns an empty string
      */
     static FreePrintNamedPropertyArray(cProperties, ppProperties) {
-        DllCall("winspool.drv\FreePrintNamedPropertyArray", "uint", cProperties, "ptr", ppProperties)
+        DllCall("winspool.drv\FreePrintNamedPropertyArray", "uint", cProperties, "ptr*", ppProperties)
     }
 
     /**
@@ -9880,14 +10025,14 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
-     * @param {Pointer<UInt32>} pcProperties 
-     * @param {Pointer<PrintNamedProperty>} ppProperties 
+     * @param {Pointer<Integer>} pcProperties 
+     * @param {Pointer<Pointer<PrintNamedProperty>>} ppProperties 
      * @returns {Integer} 
      */
     static EnumJobNamedProperties(hPrinter, JobId, pcProperties, ppProperties) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := DllCall("winspool.drv\EnumJobNamedProperties", "ptr", hPrinter, "uint", JobId, "uint*", pcProperties, "ptr", ppProperties, "uint")
+        result := DllCall("winspool.drv\EnumJobNamedProperties", "ptr", hPrinter, "uint", JobId, "uint*", pcProperties, "ptr*", ppProperties, "uint")
         return result
     }
 
@@ -9931,7 +10076,7 @@ class Printing {
      * <li>A broader set of listening applications.</li>
      * </ul>
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
-     * @param {Pointer<IPrintAsyncNotifyCallback>} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
+     * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
      * @param {Pointer<HANDLE>} phNotify A pointer to a structure that represents the registration.
      * @returns {HRESULT} <table>
      * <tr>
@@ -10120,7 +10265,7 @@ class Printing {
      * <li>A broader set of listening applications.</li>
      * </ul>
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
-     * @param {Pointer<IPrintAsyncNotifyCallback>} pCallback A pointer to an object that the listening application will use to call back the Print Spooler-hosted component. This should be <b>NULL</b> if <i>directionality</i> is <b>kUniDirectional</b>.
+     * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the listening application will use to call back the Print Spooler-hosted component. This should be <b>NULL</b> if <i>directionality</i> is <b>kUniDirectional</b>.
      * @param {Pointer<IPrintAsyncNotifyChannel>} ppIAsynchNotification A pointer to the new channel.
      * @returns {HRESULT} <table>
      * <tr>
@@ -10189,7 +10334,7 @@ class Printing {
     static CreatePrintAsyncNotifyChannel(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback, ppIAsynchNotification) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", ppIAsynchNotification, "int")
+        result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", ppIAsynchNotification, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10217,14 +10362,14 @@ class Printing {
      * @param {Pointer<Guid>} pNotificationType 
      * @param {Integer} eNotifyFilter 
      * @param {Integer} eConversationStyle 
-     * @param {Pointer<IPrintAsyncNotifyCallback>} pCallback 
+     * @param {IPrintAsyncNotifyCallback} pCallback 
      * @param {Pointer<IPrintAsyncNotifyChannel>} ppIAsynchNotification 
      * @returns {HRESULT} 
      */
     static RouterCreatePrintAsyncNotificationChannel(pName, pNotificationType, eNotifyFilter, eConversationStyle, pCallback, ppIAsynchNotification) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", ppIAsynchNotification, "int")
+        result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr*", ppIAsynchNotification, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10235,13 +10380,13 @@ class Printing {
      * 
      * @param {PWSTR} pPrinter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppv 
+     * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
      */
     static RouterGetPrintClassObject(pPrinter, riid, ppv) {
         pPrinter := pPrinter is String ? StrPtr(pPrinter) : pPrinter
 
-        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10303,7 +10448,7 @@ class Printing {
      * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} Page 
-     * @param {Pointer<UInt32>} pdwPageType 
+     * @param {Pointer<Integer>} pdwPageType 
      * @returns {HANDLE} 
      */
     static GdiGetPageHandle(SpoolFileHandle, Page, pdwPageType) {
@@ -10384,14 +10529,14 @@ class Printing {
      * 
      * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} dwPageNumber 
-     * @param {Pointer<DEVMODEW>} pCurrDM 
-     * @param {Pointer<DEVMODEW>} pLastDM 
+     * @param {Pointer<Pointer<DEVMODEW>>} pCurrDM 
+     * @param {Pointer<Pointer<DEVMODEW>>} pLastDM 
      * @returns {BOOL} 
      */
     static GdiGetDevmodeForPage(SpoolFileHandle, dwPageNumber, pCurrDM, pLastDM) {
         SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
 
-        result := DllCall("GDI32.dll\GdiGetDevmodeForPage", "ptr", SpoolFileHandle, "uint", dwPageNumber, "ptr", pCurrDM, "ptr", pLastDM, "int")
+        result := DllCall("GDI32.dll\GdiGetDevmodeForPage", "ptr", SpoolFileHandle, "uint", dwPageNumber, "ptr*", pCurrDM, "ptr*", pLastDM, "int")
         return result
     }
 
@@ -10485,7 +10630,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<DEVMODEA>} pDevMode 
-     * @param {Pointer<UInt32>} pResID 
+     * @param {Pointer<Integer>} pResID 
      * @returns {BOOL} 
      */
     static DevQueryPrint(hPrinter, pDevMode, pResID) {
@@ -10520,7 +10665,7 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwChangeFlags 
-     * @param {Pointer<UInt32>} pdwResult 
+     * @param {Pointer<Integer>} pdwResult 
      * @param {Pointer<Void>} pPrinterNotifyInfo 
      * @returns {BOOL} 
      */
@@ -10536,7 +10681,7 @@ class Printing {
      * @param {HANDLE} hNotify 
      * @param {Integer} dwColor 
      * @param {Integer} fdwFlags 
-     * @param {Pointer<UInt32>} pdwResult 
+     * @param {Pointer<Integer>} pdwResult 
      * @param {Pointer<Void>} pPrinterNotifyInfo 
      * @returns {BOOL} 
      */
@@ -10700,15 +10845,15 @@ class Printing {
     /**
      * 
      * @param {PRINTER_HANDLE} hPrinter 
-     * @param {Pointer<UInt32>} pfdwChange 
+     * @param {Pointer<Integer>} pfdwChange 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
-     * @param {Pointer<Void>} ppPrinterNotifyInfo 
+     * @param {Pointer<Pointer<Void>>} ppPrinterNotifyInfo 
      * @returns {BOOL} 
      */
     static SpoolerFindNextPrinterChangeNotification(hPrinter, pfdwChange, pPrinterNotifyOptions, ppPrinterNotifyInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := DllCall("SPOOLSS.dll\SpoolerFindNextPrinterChangeNotification", "ptr", hPrinter, "uint*", pfdwChange, "ptr", pPrinterNotifyOptions, "ptr", ppPrinterNotifyInfo, "int")
+        result := DllCall("SPOOLSS.dll\SpoolerFindNextPrinterChangeNotification", "ptr", hPrinter, "uint*", pfdwChange, "ptr", pPrinterNotifyOptions, "ptr*", ppPrinterNotifyInfo, "int")
         return result
     }
 
@@ -10717,13 +10862,13 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} dwColor 
      * @param {Pointer<PRINTER_NOTIFY_OPTIONS>} pOptions 
-     * @param {Pointer<PRINTER_NOTIFY_INFO>} ppInfo 
+     * @param {Pointer<Pointer<PRINTER_NOTIFY_INFO>>} ppInfo 
      * @returns {BOOL} 
      */
     static SpoolerRefreshPrinterChangeNotification(hPrinter, dwColor, pOptions, ppInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := DllCall("SPOOLSS.dll\SpoolerRefreshPrinterChangeNotification", "ptr", hPrinter, "uint", dwColor, "ptr", pOptions, "ptr", ppInfo, "int")
+        result := DllCall("SPOOLSS.dll\SpoolerRefreshPrinterChangeNotification", "ptr", hPrinter, "uint", dwColor, "ptr", pOptions, "ptr*", ppInfo, "int")
         return result
     }
 
@@ -10767,12 +10912,12 @@ class Printing {
      * 
      * @param {PWSTR} pszPrinterName 
      * @param {PWSTR} pszDirectory 
-     * @param {Pointer<Byte>} pSplClientInfo 
+     * @param {Pointer<Integer>} pSplClientInfo 
      * @param {Integer} dwLevel 
      * @param {PWSTR} pszSourceDir 
-     * @param {Pointer<UInt32>} pcchSourceDirSize 
+     * @param {Pointer<Integer>} pcchSourceDirSize 
      * @param {PWSTR} pszTargetDir 
-     * @param {Pointer<UInt32>} pcchTargetDirSize 
+     * @param {Pointer<Integer>} pcchTargetDirSize 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -10791,7 +10936,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<SHOWUIPARAMS>} pUIParams 
-     * @param {Pointer<UInt32>} pResponse 
+     * @param {Pointer<Integer>} pResponse 
      * @returns {BOOL} 
      */
     static SplPromptUIInUsersSession(hPrinter, JobId, pUIParams, pResponse) {

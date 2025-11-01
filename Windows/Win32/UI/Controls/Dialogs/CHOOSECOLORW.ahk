@@ -3,6 +3,8 @@
 #Include ..\..\..\Foundation\HWND.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-choosecolorw
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset Unicode

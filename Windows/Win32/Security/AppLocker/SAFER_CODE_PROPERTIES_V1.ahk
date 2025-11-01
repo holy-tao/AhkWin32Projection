@@ -198,7 +198,7 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
 
     /**
      * The memory block that contains the image of the code being checked. This member is optional. If this member is specified, the <b>ImageSize</b> member must also be supplied.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pByteBlock {
         get => NumGet(this, 112, "ptr")

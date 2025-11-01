@@ -24,7 +24,7 @@ class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY extends Win32Struct
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcpv4_failover_client_info">DHCPV4_FAILOVER_CLIENT_INFO</a>  structures.
-     * @type {Pointer<DHCPV4_FAILOVER_CLIENT_INFO>}
+     * @type {Pointer<Pointer<DHCPV4_FAILOVER_CLIENT_INFO>>}
      */
     Clients {
         get => NumGet(this, 8, "ptr")

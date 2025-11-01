@@ -28,7 +28,7 @@ class ENUMUILANG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pEnumUIBuffer {
         get => NumGet(this, 8, "ptr")

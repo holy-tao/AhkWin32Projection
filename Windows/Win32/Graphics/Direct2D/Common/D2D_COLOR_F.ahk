@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/Direct2D/d2d-color-f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

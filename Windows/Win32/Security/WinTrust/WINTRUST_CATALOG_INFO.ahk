@@ -73,7 +73,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * Optional. The calculated hash of the file that contains the file to be verified.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCalculatedFileHash {
         get => NumGet(this, 40, "ptr")

@@ -24,7 +24,7 @@ class CRYPT_TIMESTAMP_CONTEXT extends Win32Struct
 
     /**
      * A pointer to a buffer that contains an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoded content information sequence. This value should be stored for future time stamp validations on the signature. Applications can use the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> function  with the <b>CERT_STORE_PROV_PKCS7</b> flag to find additional certificates or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation lists</a> (CRLs) related to the TSA time stamp signature.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbEncoded {
         get => NumGet(this, 8, "ptr")

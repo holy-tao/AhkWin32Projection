@@ -141,7 +141,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<IUnknown>}
+         * @type {IUnknown}
          */
         pVolumeUnk {
             get => NumGet(this, 0, "ptr")
@@ -155,7 +155,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<IUnknown>}
+         * @type {IUnknown}
          */
         pVolumeUnk {
             get => NumGet(this, 0, "ptr")
@@ -183,7 +183,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<IUnknown>}
+         * @type {IUnknown}
          */
         pLunUnk {
             get => NumGet(this, 0, "ptr")
@@ -197,7 +197,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<IUnknown>}
+         * @type {IUnknown}
          */
         pTargetUnk {
             get => NumGet(this, 0, "ptr")
@@ -211,7 +211,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<IUnknown>}
+         * @type {IUnknown}
          */
         pPortalGroupUnk {
             get => NumGet(this, 0, "ptr")
@@ -225,7 +225,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<IUnknown>}
+         * @type {IUnknown}
          */
         pVDiskUnk {
             get => NumGet(this, 0, "ptr")

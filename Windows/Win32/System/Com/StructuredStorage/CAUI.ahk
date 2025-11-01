@@ -20,7 +20,7 @@ class CAUI extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

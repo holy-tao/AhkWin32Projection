@@ -37,7 +37,7 @@ class DLGPAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pTabName {
         get => NumGet(this, 16, "ptr")

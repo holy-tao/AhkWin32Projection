@@ -387,7 +387,7 @@ class ErrorReporting {
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {Integer} consent 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Int32>} pSubmitResult 
+     * @param {Pointer<Integer>} pSubmitResult 
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werreportsubmit
      * @since windows6.0.6000
@@ -818,6 +818,7 @@ class ErrorReporting {
      * 
      * @param {PWSTR} key 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregistercustommetadata
      * @since windows10.0.15063
      */
     static WerUnregisterCustomMetadata(key) {
@@ -1019,7 +1020,7 @@ class ErrorReporting {
     /**
      * Retrieves the fault reporting settings for the specified process.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_VM_READ or PROCESS_QUERY_INFORMATION access right.
-     * @param {Pointer<UInt32>} pdwFlags 
+     * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-wergetflags
      * @since windows6.0.6000
@@ -1438,7 +1439,7 @@ class ErrorReporting {
     /**
      * 
      * @param {HREPORTSTORE} hReportStore 
-     * @param {Pointer<UInt32>} pdwReportCount 
+     * @param {Pointer<Integer>} pdwReportCount 
      * @returns {HRESULT} 
      */
     static WerStoreGetReportCount(hReportStore, pdwReportCount) {
@@ -1454,7 +1455,7 @@ class ErrorReporting {
     /**
      * 
      * @param {HREPORTSTORE} hReportStore 
-     * @param {Pointer<UInt64>} pqwSizeInBytes 
+     * @param {Pointer<Integer>} pqwSizeInBytes 
      * @returns {HRESULT} 
      */
     static WerStoreGetSizeOnDisk(hReportStore, pqwSizeInBytes) {
@@ -1490,7 +1491,7 @@ class ErrorReporting {
      * @param {HREPORTSTORE} hReportStore 
      * @param {PWSTR} pszReportKey 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Int32>} pSubmitResult 
+     * @param {Pointer<Integer>} pSubmitResult 
      * @returns {HRESULT} 
      */
     static WerStoreUploadReport(hReportStore, pszReportKey, dwFlags, pSubmitResult) {

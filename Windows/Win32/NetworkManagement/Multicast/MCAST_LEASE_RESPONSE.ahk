@@ -56,7 +56,7 @@ class MCAST_LEASE_RESPONSE extends Win32Struct
 
     /**
      * Pointer to a buffer containing the granted IP addresses. For IPv4 addresses, the <b>pAddrBuf</b> member points to 4-byte addresses; for IPv6 addresses, the <b>pAddrBuf</b> member points to 16-byte addresses.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pAddrBuf {
         get => NumGet(this, 32, "ptr")

@@ -1410,10 +1410,10 @@ class RemoteDesktop {
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
      * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
-     * @param {Pointer<WTS_SERVER_INFOW>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
+     * @param {Pointer<Pointer<WTS_SERVER_INFOW>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
-     * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of 
+     * @param {Pointer<Integer>} pCount Pointer to a variable that receives the number of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> structures returned in the 
      *       <i>ppServerInfo</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -1428,7 +1428,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr*", ppServerInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1441,10 +1441,10 @@ class RemoteDesktop {
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
      * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
-     * @param {Pointer<WTS_SERVER_INFOA>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
+     * @param {Pointer<Pointer<WTS_SERVER_INFOA>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
-     * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of 
+     * @param {Pointer<Integer>} pCount Pointer to a variable that receives the number of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> structures returned in the 
      *       <i>ppServerInfo</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -1459,7 +1459,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr*", ppServerInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1563,7 +1563,7 @@ class RemoteDesktop {
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
      * @param {Integer} Version The version of the enumeration request. This parameter must be 1.
-     * @param {Pointer<WTS_SESSION_INFOW>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
+     * @param {Pointer<Pointer<WTS_SESSION_INFOW>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
      * <b>Session permissions:  </b><ul>
@@ -1572,7 +1572,7 @@ class RemoteDesktop {
      * <li>To change permissions on a session, use the Remote Desktop Services Configuration administrative tool.</li>
      * <li>To enumerate sessions running on a virtual machine hosted on a RD Virtualization Host server, you must be a member of the Administrators group on the RD Virtualization Host server.</li>
      * </ul>
-     * @param {Pointer<UInt32>} pCount A pointer to the number of 
+     * @param {Pointer<Integer>} pCount A pointer to the number of 
      * <b>WTS_SESSION_INFO</b> structures returned in the <i>ppSessionInfo</i> parameter.
      * @returns {BOOL} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
      * 
@@ -1586,7 +1586,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1602,7 +1602,7 @@ class RemoteDesktop {
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
      * @param {Integer} Version The version of the enumeration request. This parameter must be 1.
-     * @param {Pointer<WTS_SESSION_INFOA>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
+     * @param {Pointer<Pointer<WTS_SESSION_INFOA>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
      * <b>Session permissions:  </b><ul>
@@ -1611,7 +1611,7 @@ class RemoteDesktop {
      * <li>To change permissions on a session, use the Remote Desktop Services Configuration administrative tool.</li>
      * <li>To enumerate sessions running on a virtual machine hosted on a RD Virtualization Host server, you must be a member of the Administrators group on the RD Virtualization Host server.</li>
      * </ul>
-     * @param {Pointer<UInt32>} pCount A pointer to the number of 
+     * @param {Pointer<Integer>} pCount A pointer to the number of 
      * <b>WTS_SESSION_INFO</b> structures returned in the <i>ppSessionInfo</i> parameter.
      * @returns {BOOL} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
      * 
@@ -1625,7 +1625,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1636,11 +1636,11 @@ class RemoteDesktop {
      * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
      * @param {HANDLE} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
-     * @param {Pointer<UInt32>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
+     * @param {Pointer<Integer>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
      * @param {Integer} Filter This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<WTS_SESSION_INFO_1W>} ppSessionInfo A pointer to a <b>PWTS_SESSION_INFO_1</b> variable that receives a pointer to an array of 
+     * @param {Pointer<Pointer<WTS_SESSION_INFO_1W>>} ppSessionInfo A pointer to a <b>PWTS_SESSION_INFO_1</b> variable that receives a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures. Each structure in the array contains information about a session on the specified RD Session Host server. If you obtained a handle to an RD Virtualization Host server by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, the array contains information about sessions on virtual machines on the server. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
-     * @param {Pointer<UInt32>} pCount A pointer to a <b>DWORD</b> variable that receives the number of 
+     * @param {Pointer<Integer>} pCount A pointer to a <b>DWORD</b> variable that receives the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures returned in the <i>ppSessionInfo</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1654,7 +1654,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr", ppSessionInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr*", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1665,11 +1665,11 @@ class RemoteDesktop {
      * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
      * @param {HANDLE} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
-     * @param {Pointer<UInt32>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
+     * @param {Pointer<Integer>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
      * @param {Integer} Filter This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<WTS_SESSION_INFO_1A>} ppSessionInfo A pointer to a <b>PWTS_SESSION_INFO_1</b> variable that receives a pointer to an array of 
+     * @param {Pointer<Pointer<WTS_SESSION_INFO_1A>>} ppSessionInfo A pointer to a <b>PWTS_SESSION_INFO_1</b> variable that receives a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures. Each structure in the array contains information about a session on the specified RD Session Host server. If you obtained a handle to an RD Virtualization Host server by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, the array contains information about sessions on virtual machines on the server. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
-     * @param {Pointer<UInt32>} pCount A pointer to a <b>DWORD</b> variable that receives the number of 
+     * @param {Pointer<Integer>} pCount A pointer to a <b>DWORD</b> variable that receives the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures returned in the <i>ppSessionInfo</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1683,7 +1683,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr", ppSessionInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr*", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1698,11 +1698,11 @@ class RemoteDesktop {
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
      * @param {Integer} Version Specifies the version of the enumeration request. Must be 1.
-     * @param {Pointer<WTS_PROCESS_INFOW>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<Pointer<WTS_PROCESS_INFOW>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
      *       buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
-     * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of <b>WTS_PROCESS_INFO</b> 
+     * @param {Pointer<Integer>} pCount Pointer to a variable that receives the number of <b>WTS_PROCESS_INFO</b> 
      *       structures returned in the <i>ppProcessInfo</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1716,7 +1716,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppProcessInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1731,11 +1731,11 @@ class RemoteDesktop {
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
      * @param {Integer} Version Specifies the version of the enumeration request. Must be 1.
-     * @param {Pointer<WTS_PROCESS_INFOA>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<Pointer<WTS_PROCESS_INFOA>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
      *       buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
-     * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of <b>WTS_PROCESS_INFO</b> 
+     * @param {Pointer<Integer>} pCount Pointer to a variable that receives the number of <b>WTS_PROCESS_INFO</b> 
      *       structures returned in the <i>ppProcessInfo</i> buffer.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1749,7 +1749,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppProcessInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1807,7 +1807,7 @@ class RemoteDesktop {
      *       data depend on the information class specified in the <i>WTSInfoClass</i> parameter. To free 
      *       the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> 
      *       function.
-     * @param {Pointer<UInt32>} pBytesReturned A pointer to a variable that receives the size, in bytes, of the data returned in 
+     * @param {Pointer<Integer>} pBytesReturned A pointer to a variable that receives the size, in bytes, of the data returned in 
      *       <i>ppBuffer</i>.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1854,7 +1854,7 @@ class RemoteDesktop {
      *       data depend on the information class specified in the <i>WTSInfoClass</i> parameter. To free 
      *       the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> 
      *       function.
-     * @param {Pointer<UInt32>} pBytesReturned A pointer to a variable that receives the size, in bytes, of the data returned in 
+     * @param {Pointer<Integer>} pBytesReturned A pointer to a variable that receives the size, in bytes, of the data returned in 
      *       <i>ppBuffer</i>.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1886,7 +1886,7 @@ class RemoteDesktop {
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
      * @param {Pointer<PWSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
-     * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
+     * @param {Pointer<Integer>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1918,7 +1918,7 @@ class RemoteDesktop {
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
      * @param {Pointer<PSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
-     * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
+     * @param {Pointer<Integer>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2030,7 +2030,7 @@ class RemoteDesktop {
      *       <i>pResponse</i> parameter returns <b>IDTIMEOUT</b>. If the 
      *       <i>Timeout</i> parameter is zero, <b>WTSSendMessage</b> waits 
      *       indefinitely for the user to respond.
-     * @param {Pointer<Int32>} pResponse 
+     * @param {Pointer<Integer>} pResponse 
      * @param {BOOL} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
      *       the user responds or the time-out interval elapses. If the <i>Timeout</i> parameter is zero, 
      *       the function does not return until the user responds.
@@ -2085,7 +2085,7 @@ class RemoteDesktop {
      *       <i>pResponse</i> parameter returns <b>IDTIMEOUT</b>. If the 
      *       <i>Timeout</i> parameter is zero, <b>WTSSendMessage</b> waits 
      *       indefinitely for the user to respond.
-     * @param {Pointer<Int32>} pResponse 
+     * @param {Pointer<Integer>} pResponse 
      * @param {BOOL} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
      *       the user responds or the time-out interval elapses. If the <i>Timeout</i> parameter is zero, 
      *       the function does not return until the user responds.
@@ -2210,7 +2210,7 @@ class RemoteDesktop {
      * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
      * @param {Integer} EventMask Bitmask that specifies the set of events to wait for. This mask can be WTS_EVENT_FLUSH to cause all pending
-     * @param {Pointer<UInt32>} pEventFlags Pointer to a variable that receives a bitmask of the event or events that occurred. The returned mask can 
+     * @param {Pointer<Integer>} pEventFlags Pointer to a variable that receives a bitmask of the event or events that occurred. The returned mask can 
      *       be a combination of the values from the previous list, or it can be <b>WTS_EVENT_NONE</b> if 
      *       the wait terminated because of a <b>WTSWaitSystemEvent</b> call with 
      *       <b>WTS_EVENT_FLUSH</b>.
@@ -2351,7 +2351,7 @@ class RemoteDesktop {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelwrite">VirtualChannelWrite</a> call.
      * @param {Integer} BufferSize Specifies the size, in bytes, of <i>Buffer</i>. If the chunk of data in <i>Buffer</i> will be preceded by a <b>CHANNEL_PDU_HEADER</b> structure, the value of this parameter should be at least 
      *       <b>CHANNEL_PDU_LENGTH</b>. Otherwise, the value of this parameter should be at least <b>CHANNEL_CHUNK_LENGTH</b>.
-     * @param {Pointer<UInt32>} pBytesRead Pointer to a variable that receives the number of bytes read.
+     * @param {Pointer<Integer>} pBytesRead Pointer to a variable that receives the number of bytes read.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2377,7 +2377,7 @@ class RemoteDesktop {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Pointer} Buffer Pointer to a buffer containing the data to write to the virtual channel.
      * @param {Integer} Length Specifies the size, in bytes, of the data to write.
-     * @param {Pointer<UInt32>} pBytesWritten Pointer to a variable that receives the number of bytes written.
+     * @param {Pointer<Integer>} pBytesWritten Pointer to a variable that receives the number of bytes written.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2448,8 +2448,8 @@ class RemoteDesktop {
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Integer} param1 
-     * @param {Pointer<Void>} ppBuffer Pointer to a buffer that receives the requested information.
-     * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the number of bytes returned in the <i>ppBuffer</i> 
+     * @param {Pointer<Pointer<Void>>} ppBuffer Pointer to a buffer that receives the requested information.
+     * @param {Pointer<Integer>} pBytesReturned Pointer to a variable that receives the number of bytes returned in the <i>ppBuffer</i> 
      *       parameter.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value. Call the 
      *        <a href="/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function with the value returned in 
@@ -2467,7 +2467,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, "ptr*", ppBuffer, "uint*", pBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2674,14 +2674,14 @@ class RemoteDesktop {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
      *       running.
-     * @param {Pointer<UInt32>} pLevel A pointer to a <b>DWORD</b> variable that, on input, specifies the type of information  to return. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures, specify zero. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures, specify one.
+     * @param {Pointer<Integer>} pLevel A pointer to a <b>DWORD</b> variable that, on input, specifies the type of information  to return. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures, specify zero. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures, specify one.
      * 
      * If you do not specify a valid value for this parameter, on output, <b>WTSEnumerateProcessesEx</b> sets this parameter to one and returns an error. Otherwise, on output, <b>WTSEnumerateProcessesEx</b> does not change the value of this parameter.
      * @param {Integer} SessionId The session  for which to enumerate processes. To enumerate processes for all sessions on the server,  specify <b>WTS_ANY_SESSION</b>.
      * @param {Pointer<PWSTR>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures. The type of structure is determined by the value passed to the <i>pLevel</i> parameter. Each structure 
      *       in the array contains information about an active process. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
-     * @param {Pointer<UInt32>} pCount A pointer to a variable that receives the number of  
+     * @param {Pointer<Integer>} pCount A pointer to a variable that receives the number of  
      *       structures returned in the buffer referenced by the <i>ppProcessInfo</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2708,14 +2708,14 @@ class RemoteDesktop {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
      *       running.
-     * @param {Pointer<UInt32>} pLevel A pointer to a <b>DWORD</b> variable that, on input, specifies the type of information  to return. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures, specify zero. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures, specify one.
+     * @param {Pointer<Integer>} pLevel A pointer to a <b>DWORD</b> variable that, on input, specifies the type of information  to return. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures, specify zero. To return an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures, specify one.
      * 
      * If you do not specify a valid value for this parameter, on output, <b>WTSEnumerateProcessesEx</b> sets this parameter to one and returns an error. Otherwise, on output, <b>WTSEnumerateProcessesEx</b> does not change the value of this parameter.
      * @param {Integer} SessionId The session  for which to enumerate processes. To enumerate processes for all sessions on the server,  specify <b>WTS_ANY_SESSION</b>.
      * @param {Pointer<PSTR>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures. The type of structure is determined by the value passed to the <i>pLevel</i> parameter. Each structure 
      *       in the array contains information about an active process. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
-     * @param {Pointer<UInt32>} pCount A pointer to a variable that receives the number of  
+     * @param {Pointer<Integer>} pCount A pointer to a variable that receives the number of  
      *       structures returned in the buffer referenced by the <i>ppProcessInfo</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2740,9 +2740,9 @@ class RemoteDesktop {
      * Enumerates all the Remote Desktop Services listeners on a Remote Desktop Session Host (RD Session Host) server.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<UInt16>} pListeners A pointer to an array of <b>WTSLISTENERNAME</b> variables that receive the names of 
+     * @param {Pointer<Pointer<Integer>>} pListeners A pointer to an array of <b>WTSLISTENERNAME</b> variables that receive the names of 
      *       the listeners.
-     * @param {Pointer<UInt32>} pCount A pointer to a <b>DWORD</b> variable that contains the number of listener names in 
+     * @param {Pointer<Integer>} pCount A pointer to a <b>DWORD</b> variable that contains the number of listener names in 
      *       the array referenced by the <i>pListeners</i> parameter. If the number of listener names is 
      *       unknown, pass <i>pListeners</i> as <b>NULL</b>. The function will return 
      *       the number of  <b>WTSLISTENERNAME</b> variables necessary to allocate for the array 
@@ -2761,7 +2761,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ushort*", pListeners, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr*", pListeners, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2772,9 +2772,9 @@ class RemoteDesktop {
      * Enumerates all the Remote Desktop Services listeners on a Remote Desktop Session Host (RD Session Host) server.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<SByte>} pListeners A pointer to an array of <b>WTSLISTENERNAME</b> variables that receive the names of 
+     * @param {Pointer<Pointer<Integer>>} pListeners A pointer to an array of <b>WTSLISTENERNAME</b> variables that receive the names of 
      *       the listeners.
-     * @param {Pointer<UInt32>} pCount A pointer to a <b>DWORD</b> variable that contains the number of listener names in 
+     * @param {Pointer<Integer>} pCount A pointer to a <b>DWORD</b> variable that contains the number of listener names in 
      *       the array referenced by the <i>pListeners</i> parameter. If the number of listener names is 
      *       unknown, pass <i>pListeners</i> as <b>NULL</b>. The function will return 
      *       the number of  <b>WTSLISTENERNAME</b> variables necessary to allocate for the array 
@@ -2793,7 +2793,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "char*", pListeners, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr*", pListeners, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2988,7 +2988,7 @@ class RemoteDesktop {
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
      * @param {Integer} nLength The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3022,7 +3022,7 @@ class RemoteDesktop {
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
      * @param {Integer} nLength The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3072,7 +3072,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves the child session identifier, if present.
-     * @param {Pointer<UInt32>} pSessionId The address of a <b>ULONG</b> variable that receives the child session identifier. This will be (<b>ULONG</b>)–1 if there is no child session for the current session.
+     * @param {Pointer<Integer>} pSessionId The address of a <b>ULONG</b> variable that receives the child session identifier. This will be (<b>ULONG</b>)–1 if there is no child session for the current session.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsgetchildsessionid
      * @since windows8.0
@@ -3084,7 +3084,7 @@ class RemoteDesktop {
 
     /**
      * Used by an application that is displaying content that can be optimized for displaying in a remote session to identify the region of a window that is the actual content.
-     * @param {Pointer<UInt64>} pRenderHintID The address of a value that identifies the rendering hint affected by this call. If a new hint is being 
+     * @param {Pointer<Integer>} pRenderHintID The address of a value that identifies the rendering hint affected by this call. If a new hint is being 
      *       created, this value must contain zero. This function will return a unique rendering hint identifier which is 
      *       used for subsequent calls, such as clearing the hint.
      * @param {HWND} hwndOwner The handle of window linked to lifetime of the rendering hint. This window is used in situations where a 
@@ -3114,7 +3114,7 @@ class RemoteDesktop {
      * @param {Integer} dwProcessId Specifies a process identifier. Use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessid">GetCurrentProcessId</a> function to retrieve the 
      *       process identifier for the current process.
-     * @param {Pointer<UInt32>} pSessionId Pointer to a variable that receives the identifier of the Remote Desktop Services session under which the 
+     * @param {Pointer<Integer>} pSessionId Pointer to a variable that receives the identifier of the Remote Desktop Services session under which the 
      *       specified process is running. To retrieve the identifier of the session currently attached to the console, use 
      *   the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-wtsgetactiveconsolesessionid">WTSGetActiveConsoleSessionId</a> 
      *   function.

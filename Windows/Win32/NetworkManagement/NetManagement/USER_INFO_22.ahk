@@ -282,7 +282,7 @@ class USER_INFO_22 extends Win32Struct
      * Specify a null pointer in this member when calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> function to indicate no time restriction. Specify a null pointer when calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function to indicate that no change is to be made to the times during which the user can log on.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     usri22_logon_hours {
         get => NumGet(this, 128, "ptr")

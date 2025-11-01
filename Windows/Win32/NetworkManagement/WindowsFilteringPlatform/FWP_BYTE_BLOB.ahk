@@ -24,7 +24,7 @@ class FWP_BYTE_BLOB extends Win32Struct
 
     /**
      * Pointer to the array.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 8, "ptr")

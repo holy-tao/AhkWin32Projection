@@ -1775,7 +1775,7 @@ class Debug {
 
     /**
      * Informs the system of a dynamic function table representing a region of memory containing code.
-     * @param {Pointer<Void>} DynamicTable A pointer to a variable that receives an opaque reference to the newly-added table on success.
+     * @param {Pointer<Pointer<Void>>} DynamicTable A pointer to a variable that receives an opaque reference to the newly-added table on success.
      * @param {Pointer<IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY>} FunctionTable A pointer to a partially-filled array of 
      *        <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-runtime_function">RUNTIME_FUNCTION</a> entries which provides 
      *        unwind information for the region of code. The entries in this array must remain sorted in ascending order of 
@@ -1793,14 +1793,14 @@ class Debug {
      * @since windows8.0
      */
     static RtlAddGrowableFunctionTable(DynamicTable, FunctionTable, EntryCount, MaximumEntryCount, RangeBase, RangeEnd) {
-        result := DllCall("ntdll.dll\RtlAddGrowableFunctionTable", "ptr", DynamicTable, "ptr", FunctionTable, "uint", EntryCount, "uint", MaximumEntryCount, "ptr", RangeBase, "ptr", RangeEnd, "uint")
+        result := DllCall("ntdll.dll\RtlAddGrowableFunctionTable", "ptr*", DynamicTable, "ptr", FunctionTable, "uint", EntryCount, "uint", MaximumEntryCount, "ptr", RangeBase, "ptr", RangeEnd, "uint")
         return result
     }
 
     /**
      * Searches the active function tables for an entry that corresponds to the specified PC value.
      * @param {Pointer} ControlPc The virtual address of an instruction bundle within the function.
-     * @param {Pointer<UIntPtr>} ImageBase The base address of module to which the function belongs.
+     * @param {Pointer<Pointer>} ImageBase The base address of module to which the function belongs.
      * @param {Pointer<UNWIND_HISTORY_TABLE>} HistoryTable The global pointer value of the module.
      * 
      * This parameter has a different declaration on x64 and ARM systems. For more information, see x64 Definition 
@@ -1824,11 +1824,11 @@ class Debug {
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-rtllookupfunctionentry">RtlLookupFunctionEntry</a> function.
      * @param {Pointer<CONTEXT>} ContextRecord A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure that represents the 
      *       context of the previous frame.
-     * @param {Pointer<Void>} HandlerData The location of the PC. If this parameter is 0, the PC is in the prologue, epilogue, or a null frame region 
+     * @param {Pointer<Pointer<Void>>} HandlerData The location of the PC. If this parameter is 0, the PC is in the prologue, epilogue, or a null frame region 
      *        of the function. If this parameter is 1, the PC is in the body of the function.
      * 
      * This parameter is not present on x64.
-     * @param {Pointer<UIntPtr>} EstablisherFrame A pointer to a <b>FRAME_POINTERS</b> structure that receives the establisher frame 
+     * @param {Pointer<Pointer>} EstablisherFrame A pointer to a <b>FRAME_POINTERS</b> structure that receives the establisher frame 
      *        pointer value. The real frame pointer is defined only if <i>InFunction</i> is 1.
      * 
      * This parameter is of type <b>PULONG64</b> on x64.
@@ -1838,7 +1838,7 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlvirtualunwind
      */
     static RtlVirtualUnwind(HandlerType, ImageBase, ControlPc, FunctionEntry, ContextRecord, HandlerData, EstablisherFrame, ContextPointers) {
-        result := DllCall("KERNEL32.dll\RtlVirtualUnwind", "uint", HandlerType, "ptr", ImageBase, "ptr", ControlPc, "ptr", FunctionEntry, "ptr", ContextRecord, "ptr", HandlerData, "ptr*", EstablisherFrame, "ptr", ContextPointers, "ptr")
+        result := DllCall("KERNEL32.dll\RtlVirtualUnwind", "uint", HandlerType, "ptr", ImageBase, "ptr", ControlPc, "ptr", FunctionEntry, "ptr", ContextRecord, "ptr*", HandlerData, "ptr*", EstablisherFrame, "ptr", ContextPointers, "ptr")
         return result
     }
 
@@ -1848,7 +1848,7 @@ class Debug {
      * @param {Pointer<Void>} lpBaseAddress A pointer to the base address in the specified process from which to read. Before any data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for read access, and if it is not accessible the function fails.
      * @param {Pointer} lpBuffer A pointer to a buffer that receives the contents from the address space of the specified process.
      * @param {Pointer} nSize The number of bytes to be read from the specified process.
-     * @param {Pointer<UIntPtr>} lpNumberOfBytesRead A pointer to a variable that receives the number of bytes transferred into the specified buffer. If *lpNumberOfBytesRead* is **NULL**, the parameter is ignored.
+     * @param {Pointer<Pointer>} lpNumberOfBytesRead A pointer to a variable that receives the number of bytes transferred into the specified buffer. If *lpNumberOfBytesRead* is **NULL**, the parameter is ignored.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
@@ -1876,7 +1876,7 @@ class Debug {
      * @param {Pointer<Void>} lpBaseAddress A pointer to the base address in the specified process to which data is written. Before data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for write access, and if it is not accessible, the function fails.
      * @param {Pointer} lpBuffer A pointer to the buffer that contains data to be written in  the address space of the specified process.
      * @param {Pointer} nSize The number of bytes to be written to the specified process.
-     * @param {Pointer<UIntPtr>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes transferred into the specified process. This parameter is optional. If <i>lpNumberOfBytesWritten</i> is <b>NULL</b>, the parameter is ignored.
+     * @param {Pointer<Pointer>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes transferred into the specified process. This parameter is optional. If <i>lpNumberOfBytesWritten</i> is <b>NULL</b>, the parameter is ignored.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
@@ -2082,8 +2082,8 @@ class Debug {
      * @param {Pointer<Void>} BaseAddress The base address of the mapped file. This value is obtained by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @param {Integer} FileLength The size of the file, in bytes.
-     * @param {Pointer<UInt32>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
-     * @param {Pointer<UInt32>} CheckSum A pointer to the variable that receives the computed checksum.
+     * @param {Pointer<Integer>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
+     * @param {Pointer<Integer>} CheckSum A pointer to the variable that receives the computed checksum.
      * @returns {Pointer<IMAGE_NT_HEADERS64>} If the function succeeds, the return value is a pointer to the 
      * <a href="/windows/win32/api/winnt/ns-winnt-image_nt_headers32">IMAGE_NT_HEADERS</a> structure contained in the mapped image.
      * 
@@ -2203,7 +2203,7 @@ class Debug {
      * @param {Pointer<Void>} Base The base address of an image that is mapped into memory through a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @param {Integer} Rva The relative virtual address to be located.
-     * @param {Pointer<IMAGE_SECTION_HEADER>} LastRvaSection A pointer to an 
+     * @param {Pointer<Pointer<IMAGE_SECTION_HEADER>>} LastRvaSection A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_section_header">IMAGE_SECTION_HEADER</a> structure that specifies the last RVA section. This is an optional parameter. When specified, it points to a variable that contains the last section value used for the specified image to translate an RVA to a VA.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the virtual address in the mapped file.
      * 
@@ -2214,7 +2214,7 @@ class Debug {
     static ImageRvaToVa(NtHeaders, Base, Rva, LastRvaSection) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageRvaToVa", "ptr", NtHeaders, "ptr", Base, "uint", Rva, "ptr", LastRvaSection, "ptr")
+        result := DllCall("dbghelp.dll\ImageRvaToVa", "ptr", NtHeaders, "ptr", Base, "uint", Rva, "ptr*", LastRvaSection, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2225,8 +2225,8 @@ class Debug {
      * The RtlCaptureStackBackTrace routine captures a stack back trace by walking up the stack and recording the information for each frame.
      * @param {Integer} FramesToSkip The number of frames to skip from the start of the back trace.
      * @param {Integer} FramesToCapture The number of frames to be captured.
-     * @param {Pointer<Void>} BackTrace An array of pointers captured from the current stack trace.
-     * @param {Pointer<UInt32>} BackTraceHash An optional value that can be used to organize hash tables. If this parameter is <b>NULL</b>, no hash value is computed.
+     * @param {Pointer<Pointer<Void>>} BackTrace An array of pointers captured from the current stack trace.
+     * @param {Pointer<Integer>} BackTraceHash An optional value that can be used to organize hash tables. If this parameter is <b>NULL</b>, no hash value is computed.
      * 
      * This value is calculated based on the values of the pointers returned in the <i>BackTrace</i> array. Two identical stack traces will generate identical hash values.
      * @returns {Integer} The number of captured frames.
@@ -2234,7 +2234,7 @@ class Debug {
      * @since windows5.1.2600
      */
     static RtlCaptureStackBackTrace(FramesToSkip, FramesToCapture, BackTrace, BackTraceHash) {
-        result := DllCall("KERNEL32.dll\RtlCaptureStackBackTrace", "uint", FramesToSkip, "uint", FramesToCapture, "ptr", BackTrace, "uint*", BackTraceHash, "ushort")
+        result := DllCall("KERNEL32.dll\RtlCaptureStackBackTrace", "uint", FramesToSkip, "uint", FramesToCapture, "ptr*", BackTrace, "uint*", BackTraceHash, "ushort")
         return result
     }
 
@@ -2298,14 +2298,14 @@ class Debug {
     /**
      * Retrieves the base address of the image that contains the specified PC value.
      * @param {Pointer<Void>} PcValue The PC value. The function searches all modules mapped into the address space of the calling process for a module that contains this value.
-     * @param {Pointer<Void>} BaseOfImage The base address of the image containing the PC value. This value must be added to any relative addresses in the headers to locate the image.
+     * @param {Pointer<Pointer<Void>>} BaseOfImage The base address of the image containing the PC value. This value must be added to any relative addresses in the headers to locate the image.
      * @returns {Pointer<Void>} If the PC value is found, the function returns the base address of the image that contains the PC value.
      * 
      * If no image contains the PC value, the function returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlpctofileheader
      */
     static RtlPcToFileHeader(PcValue, BaseOfImage) {
-        result := DllCall("KERNEL32.dll\RtlPcToFileHeader", "ptr", PcValue, "ptr", BaseOfImage, "ptr")
+        result := DllCall("KERNEL32.dll\RtlPcToFileHeader", "ptr", PcValue, "ptr*", BaseOfImage, "ptr")
         return result
     }
 
@@ -2623,13 +2623,13 @@ class Debug {
      * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
-     * @param {Pointer<Void>} EncodedPtr 
+     * @param {Pointer<Pointer<Void>>} EncodedPtr 
      * @returns {HRESULT} 
      */
     static EncodeRemotePointer(ProcessHandle, Ptr, EncodedPtr) {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
-        result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr", EncodedPtr, "int")
+        result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr*", EncodedPtr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2640,13 +2640,13 @@ class Debug {
      * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
-     * @param {Pointer<Void>} DecodedPtr 
+     * @param {Pointer<Pointer<Void>>} DecodedPtr 
      * @returns {HRESULT} 
      */
     static DecodeRemotePointer(ProcessHandle, Ptr, DecodedPtr) {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
-        result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr", DecodedPtr, "int")
+        result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr*", DecodedPtr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2685,7 +2685,7 @@ class Debug {
      * Note that the system will clear bit 28 of <i>dwExceptionCode</i> before displaying a message This bit is a reserved exception bit, used by the system for its own purposes.
      * @param {Integer} dwExceptionFlags The exception flags. This can be either zero to indicate a continuable exception, or EXCEPTION_NONCONTINUABLE to indicate a noncontinuable exception. Any attempt to continue execution after a noncontinuable exception causes the EXCEPTION_NONCONTINUABLE_EXCEPTION exception.
      * @param {Integer} nNumberOfArguments The number of arguments in the <i>lpArguments</i> array. This value must not exceed EXCEPTION_MAXIMUM_PARAMETERS. This parameter is ignored if <i>lpArguments</i> is <b>NULL</b>.
-     * @param {Pointer<UIntPtr>} lpArguments An array of arguments. This parameter can be <b>NULL</b>. These arguments can contain any application-defined data that needs to be passed to the filter expression of the exception handler.
+     * @param {Pointer<Pointer>} lpArguments An array of arguments. This parameter can be <b>NULL</b>. These arguments can contain any application-defined data that needs to be passed to the filter expression of the exception handler.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-raiseexception
      * @since windows5.1.2600
@@ -3058,7 +3058,7 @@ class Debug {
     /**
      * Controls whether the system will handle the specified types of serious errors or whether the calling thread will handle them.
      * @param {Integer} dwNewMode 
-     * @param {Pointer<UInt32>} lpOldMode If the function succeeds, this parameter is set to the thread's previous error mode. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpOldMode If the function succeeds, this parameter is set to the thread's previous error mode. This parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3128,7 +3128,7 @@ class Debug {
      * @param {Pointer} Context A pointer to an application-defined context structure to be passed to the callback function for an asynchronous session.
      * @param {Integer} Flags 
      * @param {Integer} ThreadId The identifier of the thread.
-     * @param {Pointer<UInt32>} NodeCount On input, a number from 1 to WCT_MAX_NODE_COUNT that specifies the number of nodes in the wait chain. On return, the number of nodes retrieved. If the array cannot contain all the nodes of the wait chain, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA, and this parameter receives the number of array elements required to contain all the nodes.
+     * @param {Pointer<Integer>} NodeCount On input, a number from 1 to WCT_MAX_NODE_COUNT that specifies the number of nodes in the wait chain. On return, the number of nodes retrieved. If the array cannot contain all the nodes of the wait chain, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA, and this parameter receives the number of array elements required to contain all the nodes.
      * 
      * For asynchronous sessions, check the value that is passed to the callback function. Do not free the variable until the callback function has returned.
      * @param {Pointer<WAITCHAIN_NODE_INFO>} NodeInfoArray An array of <a href="https://docs.microsoft.com/windows/desktop/api/wct/ns-wct-waitchain_node_info">WAITCHAIN_NODE_INFO</a> structures that receives the wait chain.
@@ -3311,18 +3311,18 @@ class Debug {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @param {Integer} StreamNumber The type of data to be read from the minidump file. This member can be one of the values in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-minidump_stream_type">MINIDUMP_STREAM_TYPE</a> enumeration.
-     * @param {Pointer<MINIDUMP_DIRECTORY>} Dir A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_directory">MINIDUMP_DIRECTORY</a> 
+     * @param {Pointer<Pointer<MINIDUMP_DIRECTORY>>} Dir A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_directory">MINIDUMP_DIRECTORY</a> 
      *       structure.
-     * @param {Pointer<Void>} StreamPointer A pointer to the beginning of the minidump stream. The format of this stream depends on the value of 
+     * @param {Pointer<Pointer<Void>>} StreamPointer A pointer to the beginning of the minidump stream. The format of this stream depends on the value of 
      *       <i>StreamNumber</i>. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-minidump_stream_type">MINIDUMP_STREAM_TYPE</a>.
-     * @param {Pointer<UInt32>} StreamSize The size of the stream pointed to by <i>StreamPointer</i>, in bytes.
+     * @param {Pointer<Integer>} StreamSize The size of the stream pointed to by <i>StreamPointer</i>, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>; otherwise, the return 
      *        value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/nf-minidumpapiset-minidumpreaddumpstream
      */
     static MiniDumpReadDumpStream(BaseOfDump, StreamNumber, Dir, StreamPointer, StreamSize) {
-        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", "ptr", BaseOfDump, "uint", StreamNumber, "ptr", Dir, "ptr", StreamPointer, "uint*", StreamSize, "int")
+        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", "ptr", BaseOfDump, "uint", StreamNumber, "ptr*", Dir, "ptr*", StreamPointer, "uint*", StreamSize, "int")
         return result
     }
 
@@ -3389,10 +3389,10 @@ class Debug {
      * @param {BOOL} fRebaseSysfileOk If this value is <b>TRUE</b>, the system image is rebased. Otherwise, the system image is not rebased.
      * @param {BOOL} fGoingDown If this value is <b>TRUE</b>, the image can be rebased below the given base; otherwise, it cannot.
      * @param {Integer} CheckImageSize The maximum size that the image can grow to, in bytes, or zero if there is no limit.
-     * @param {Pointer<UInt32>} OldImageSize A pointer to a variable that receives the original image size, in bytes.
-     * @param {Pointer<UIntPtr>} OldImageBase A pointer to a variable that receives the original image base.
-     * @param {Pointer<UInt32>} NewImageSize A pointer to a variable that receives the new image size after the rebase operation, in bytes.
-     * @param {Pointer<UIntPtr>} NewImageBase The base address to use for rebasing the image. If the address is not available and the <i>fGoingDown</i> parameter is set to <b>TRUE</b>, the function finds a new base address and sets this parameter to the new base address. If <i>fGoingDown</i> is <b>FALSE</b>, the function finds a new base address but does not set this parameter to the new base address.
+     * @param {Pointer<Integer>} OldImageSize A pointer to a variable that receives the original image size, in bytes.
+     * @param {Pointer<Pointer>} OldImageBase A pointer to a variable that receives the original image base.
+     * @param {Pointer<Integer>} NewImageSize A pointer to a variable that receives the new image size after the rebase operation, in bytes.
+     * @param {Pointer<Pointer>} NewImageBase The base address to use for rebasing the image. If the address is not available and the <i>fGoingDown</i> parameter is set to <b>TRUE</b>, the function finds a new base address and sets this parameter to the new base address. If <i>fGoingDown</i> is <b>FALSE</b>, the function finds a new base address but does not set this parameter to the new base address.
      * @param {Integer} TimeStamp The new time date stamp for the image file header. The value must be represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock.
      * 
      * If this parameter is 0, the current file header time date stamp is incremented by 1 second.
@@ -3424,10 +3424,10 @@ class Debug {
      * @param {BOOL} fRebaseSysfileOk If this value is <b>TRUE</b>, the system image is rebased. Otherwise, the system image is not rebased.
      * @param {BOOL} fGoingDown If this value is <b>TRUE</b>, the image can be rebased below the given base; otherwise, it cannot.
      * @param {Integer} CheckImageSize The maximum size that the image can grow to, in bytes, or zero if there is no limit.
-     * @param {Pointer<UInt32>} OldImageSize A pointer to a variable that receives the original image size, in bytes.
-     * @param {Pointer<UInt64>} OldImageBase A pointer to a variable that receives the original image base.
-     * @param {Pointer<UInt32>} NewImageSize A pointer to a variable that receives the new image size after the rebase operation, in bytes.
-     * @param {Pointer<UInt64>} NewImageBase The base address to use for rebasing the image. If the address is not available and the <i>fGoingDown</i> parameter is set to <b>TRUE</b>, the function finds a new base address and sets this parameter to the new base address. If <i>fGoingDown</i> is <b>FALSE</b>, the function finds a new base address but does not set this parameter to the new base address.
+     * @param {Pointer<Integer>} OldImageSize A pointer to a variable that receives the original image size, in bytes.
+     * @param {Pointer<Integer>} OldImageBase A pointer to a variable that receives the original image base.
+     * @param {Pointer<Integer>} NewImageSize A pointer to a variable that receives the new image size after the rebase operation, in bytes.
+     * @param {Pointer<Integer>} NewImageBase The base address to use for rebasing the image. If the address is not available and the <i>fGoingDown</i> parameter is set to <b>TRUE</b>, the function finds a new base address and sets this parameter to the new base address. If <i>fGoingDown</i> is <b>FALSE</b>, the function finds a new base address but does not set this parameter to the new base address.
      * @param {Integer} TimeStamp The new time date stamp for the image file header. The value must be represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock.
      * 
      * If this parameter is 0, the current file header time date stamp is incremented by 1 second.
@@ -3454,8 +3454,8 @@ class Debug {
     /**
      * Computes the checksum of the specified file.
      * @param {PSTR} Filename The file name of the file for which the checksum is to be computed.
-     * @param {Pointer<UInt32>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
-     * @param {Pointer<UInt32>} CheckSum A pointer to a variable that receives the computed checksum.
+     * @param {Pointer<Integer>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
+     * @param {Pointer<Integer>} CheckSum A pointer to a variable that receives the computed checksum.
      * @returns {Integer} If the function succeeds, the return value is CHECKSUM_SUCCESS (0).
      * 
      * If the function fails, the return value is one of the following.
@@ -3527,8 +3527,8 @@ class Debug {
     /**
      * Computes the checksum of the specified file.
      * @param {PWSTR} Filename The file name of the file for which the checksum is to be computed.
-     * @param {Pointer<UInt32>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
-     * @param {Pointer<UInt32>} CheckSum A pointer to a variable that receives the computed checksum.
+     * @param {Pointer<Integer>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
+     * @param {Pointer<Integer>} CheckSum A pointer to a variable that receives the computed checksum.
      * @returns {Integer} If the function succeeds, the return value is CHECKSUM_SUCCESS (0).
      * 
      * If the function fails, the return value is one of the following.
@@ -3602,7 +3602,7 @@ class Debug {
      * @param {Pointer<LOADED_IMAGE>} LoadedImage A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-loaded_image">LOADED_IMAGE</a> structure that is returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-mapandload">MapAndLoad</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-imageload">ImageLoad</a>.
-     * @param {Pointer<UInt32>} SizeUnusedHeaderBytes A pointer to a variable to receive the size, in bytes, of the part of the image's header which is unused.
+     * @param {Pointer<Integer>} SizeUnusedHeaderBytes A pointer to a variable to receive the size, in bytes, of the part of the image's header which is unused.
      * @returns {Integer} If the function succeeds, the return value is the offset from the base address of the first unused header byte.
      * 
      * If the function fails, the return value is zero. To retrieve extended error information, call 
@@ -3650,7 +3650,7 @@ class Debug {
      * Adds a certificate to the specified file.
      * @param {HANDLE} FileHandle A handle to the image file to be modified. This handle must be opened for FILE_READ_DATA and FILE_WRITE_DATA access.
      * @param {Pointer<WIN_CERTIFICATE>} Certificate A pointer to a <b>WIN_CERTIFICATE</b> header and all associated sections. The <b>Length</b> member in the certificate header will be used to determine the length of this buffer.
-     * @param {Pointer<UInt32>} Index A pointer to a variable that receives the index of the newly added certificate.
+     * @param {Pointer<Integer>} Index A pointer to a variable that receives the index of the newly added certificate.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -3697,8 +3697,8 @@ class Debug {
      * Retrieves information about the certificates currently contained in an image file.
      * @param {HANDLE} FileHandle A handle to the image file to be examined. This handle must be opened for FILE_READ_DATA access.
      * @param {Integer} TypeFilter The certificate section type to be used as a filter when returning certificate information. CERT_SECTION_TYPE_ANY should be passed for information on all section types present in the image.
-     * @param {Pointer<UInt32>} CertificateCount A pointer to a variable that receives the number of certificates in the image containing sections of the type specified by the <i>TypeFilter</i> parameter. If none are found, this parameter is zero.
-     * @param {Pointer<UInt32>} Indices Optionally provides a buffer to use to return an array of indices to the certificates containing sections of the specified type. No ordering should be assumed for the index values, nor are they guaranteed to be contiguous when CERT_SECTION_TYPE_ANY is queried.
+     * @param {Pointer<Integer>} CertificateCount A pointer to a variable that receives the number of certificates in the image containing sections of the type specified by the <i>TypeFilter</i> parameter. If none are found, this parameter is zero.
+     * @param {Pointer<Integer>} Indices Optionally provides a buffer to use to return an array of indices to the certificates containing sections of the specified type. No ordering should be assumed for the index values, nor are they guaranteed to be contiguous when CERT_SECTION_TYPE_ANY is queried.
      * @param {Integer} IndexCount The size of the <i>Indices</i> buffer, in <b>DWORDs</b>. This parameter will be examined whenever <i>Indices</i> is present. If <i>CertificateCount</i> is greater than <i>IndexCount</i>, <i>Indices</i> will be filled in with the first <i>IndexCount</i> sections found in the image; any others will not be returned.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -3724,7 +3724,7 @@ class Debug {
      * @param {HANDLE} FileHandle A handle to the image file. This handle must be opened for <b>FILE_READ_DATA</b> access.
      * @param {Integer} CertificateIndex The index of the certificate to be returned.
      * @param {Pointer<WIN_CERTIFICATE>} Certificate A pointer to a <b>WIN_CERTIFICATE</b> structure that receives the certificate data. If the buffer is not large enough to contain the structure, the function fails and the last error code is set to <b>ERROR_INSUFFICIENT_BUFFER</b>.
-     * @param {Pointer<UInt32>} RequiredLength On input, this parameter specifies the length of the <i>Certificate</i> buffer in bytes. On success, it receives the length of the certificate.
+     * @param {Pointer<Integer>} RequiredLength On input, this parameter specifies the length of the <i>Certificate</i> buffer in bytes. On success, it receives the length of the certificate.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -4343,8 +4343,8 @@ class Debug {
      * @param {BOOLEAN} MappedAsImage If the flag is <b>TRUE</b>, the file is mapped by the system as an image. If this flag is <b>FALSE</b>, the file is mapped as a data file by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @param {Integer} DirectoryEntry 
-     * @param {Pointer<UInt32>} Size A pointer to a variable that receives the size of the data for the directory entry that is located.
-     * @param {Pointer<IMAGE_SECTION_HEADER>} FoundHeader A pointer to an 
+     * @param {Pointer<Integer>} Size A pointer to a variable that receives the size of the data for the directory entry that is located.
+     * @param {Pointer<Pointer<IMAGE_SECTION_HEADER>>} FoundHeader A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_section_header">IMAGE_SECTION_HEADER</a> structure that receives the data. If the section header does not exist, this parameter is <b>NULL</b>.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the data for the directory entry.
      * 
@@ -4357,7 +4357,7 @@ class Debug {
     static ImageDirectoryEntryToDataEx(Base, MappedAsImage, DirectoryEntry, Size, FoundHeader) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", "ptr", Base, "char", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr", FoundHeader, "ptr")
+        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", "ptr", Base, "char", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr*", FoundHeader, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4370,7 +4370,7 @@ class Debug {
      * @param {BOOLEAN} MappedAsImage If this parameter is <b>TRUE</b>, the file is mapped by the system as an image. If the flag is <b>FALSE</b>, the file is mapped as a data file by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @param {Integer} DirectoryEntry 
-     * @param {Pointer<UInt32>} Size A pointer to a variable that receives the size of the data for the directory entry, in bytes.
+     * @param {Pointer<Integer>} Size A pointer to a variable that receives the size of the data for the directory entry, in bytes.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the directory entry's data.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -5507,10 +5507,10 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<OMAP>} OmapTo An array of address map entries to the new image layout taken from the original layout. For details on the map entries, see the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-omap">OMAP</a> structure.
-     * @param {Pointer<UInt64>} cOmapTo The number of entries in the <i>OmapTo</i> array.
-     * @param {Pointer<OMAP>} OmapFrom An array of address map entries from the new image layout to the original layout (as described by the debug symbols). For details on the map entries, see the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-omap">OMAP</a> structure.
-     * @param {Pointer<UInt64>} cOmapFrom The number of entries in the <i>OmapFrom</i> array.
+     * @param {Pointer<Pointer<OMAP>>} OmapTo An array of address map entries to the new image layout taken from the original layout. For details on the map entries, see the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-omap">OMAP</a> structure.
+     * @param {Pointer<Integer>} cOmapTo The number of entries in the <i>OmapTo</i> array.
+     * @param {Pointer<Pointer<OMAP>>} OmapFrom An array of address map entries from the new image layout to the original layout (as described by the debug symbols). For details on the map entries, see the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-omap">OMAP</a> structure.
+     * @param {Pointer<Integer>} cOmapFrom The number of entries in the <i>OmapFrom</i> array.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails (the omap is not found), the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -5522,7 +5522,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, "ptr", OmapTo, "uint*", cOmapTo, "ptr", OmapFrom, "uint*", cOmapFrom, "int")
+        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, "ptr*", OmapTo, "uint*", cOmapTo, "ptr*", OmapFrom, "uint*", cOmapFrom, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6352,7 +6352,7 @@ class Debug {
      * @param {HANDLE} hProcess 
      * @param {Integer} Address 
      * @param {Pointer} Buffer 
-     * @param {Pointer<UInt32>} Size 
+     * @param {Pointer<Integer>} Size 
      * @returns {BOOL} 
      */
     static SymGetUnwindInfo(hProcess, Address, Buffer, Size) {
@@ -6585,7 +6585,7 @@ class Debug {
      * @param {Integer} qwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
      *       found.
-     * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE64>} Line64 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -6613,7 +6613,7 @@ class Debug {
      * @param {Integer} dwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
      *       found.
-     * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -6643,7 +6643,7 @@ class Debug {
      *       found.
      * @param {Integer} InlineContext The inline context.
      * @param {Integer} qwModuleBaseAddress The base address of the module.
-     * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE64>} Line64 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -6673,7 +6673,7 @@ class Debug {
      *       found.
      * @param {Integer} InlineContext The inline context.
      * @param {Integer} qwModuleBaseAddress The base address of the module.
-     * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -6885,8 +6885,8 @@ class Debug {
      * @param {Integer} StartContext Contains the context of the start of block.
      * @param {Integer} StartRetAddress Contains the return address of the start of the current block/
      * @param {Integer} CurAddress Contains the current address.
-     * @param {Pointer<UInt32>} CurContext Address of a <b>DWORD</b> that receives the current context.
-     * @param {Pointer<UInt32>} CurFrameIndex If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {Pointer<Integer>} CurContext Address of a <b>DWORD</b> that receives the current context.
+     * @param {Pointer<Integer>} CurFrameIndex If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6912,7 +6912,7 @@ class Debug {
      * @param {Integer} dwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
      *       found.
-     * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE>} Line A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -6940,7 +6940,7 @@ class Debug {
      * @param {PSTR} ModuleName The name of the module in which a line is to be located.
      * @param {PSTR} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
      * @param {Integer} dwLineNumber The line number to be located.
-     * @param {Pointer<Int32>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -6970,7 +6970,7 @@ class Debug {
      * @param {PWSTR} ModuleName The name of the module in which a line is to be located.
      * @param {PWSTR} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
      * @param {Integer} dwLineNumber The line number to be located.
-     * @param {Pointer<Int32>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -7000,7 +7000,7 @@ class Debug {
      * @param {PSTR} ModuleName The name of the module in which a line is to be located.
      * @param {PSTR} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
      * @param {Integer} dwLineNumber The line number to be located.
-     * @param {Pointer<Int32>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
+     * @param {Pointer<Integer>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -7173,7 +7173,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {PSTR} ModuleName The name of the module in which  lines are to be located. If this parameter is <b>NULL</b>, the function searches all modules.
      * @param {PSTR} FileName The name of the file in which lines are to be located.
-     * @param {Pointer<UInt64>} Buffer An array of offsets for each line. The offset for the line n is stored in element n-1. Array elements for lines that do not have line information are left unchanged.
+     * @param {Pointer<Integer>} Buffer An array of offsets for each line. The offset for the line n is stored in element n-1. Array elements for lines that do not have line information are left unchanged.
      * @param {Integer} BufferLines The size of the <i>Buffer</i> array, in elements.
      * @returns {Integer} If the function succeeds, the return value is the highest line number found.
      * 						This value is zero if no line information was found.
@@ -7316,9 +7316,9 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PSTR} FileSpec The name of the source file.
-     * @param {Pointer<Void>} Token A pointer to a 
+     * @param {Pointer<Pointer<Void>>} Token A pointer to a 
      * buffer that receives the token.
-     * @param {Pointer<UInt32>} Size The size of the <i>Token</i> buffer, in bytes.
+     * @param {Pointer<Integer>} Size The size of the <i>Token</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -7332,7 +7332,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr*", Token, "uint*", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7346,8 +7346,8 @@ class Debug {
      * @param {PSTR} FileSpec 
      * @param {PSTR} TokenName 
      * @param {PSTR} TokenParameters 
-     * @param {Pointer<Void>} Token 
-     * @param {Pointer<UInt32>} Size 
+     * @param {Pointer<Pointer<Void>>} Token 
+     * @param {Pointer<Integer>} Size 
      * @returns {BOOL} 
      */
     static SymGetSourceFileTokenByTokenName(hProcess, Base, FileSpec, TokenName, TokenParameters, Token, Size) {
@@ -7356,7 +7356,7 @@ class Debug {
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr*", Token, "uint*", Size, "int")
         return result
     }
 
@@ -7366,10 +7366,10 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PWSTR} FileSpec The name of the source file.
-     * @param {Pointer<UInt32>} pCheckSumType On success, points to the checksum type.
-     * @param {Pointer<Byte>} pChecksum pointer to a buffer that receives the checksum. If <b>NULL</b>, then when the call returns <i>pActualBytesWritten</i> returns the number of bytes required.
+     * @param {Pointer<Integer>} pCheckSumType On success, points to the checksum type.
+     * @param {Pointer<Integer>} pChecksum pointer to a buffer that receives the checksum. If <b>NULL</b>, then when the call returns <i>pActualBytesWritten</i> returns the number of bytes required.
      * @param {Integer} checksumSize The size of the <i>pChecksum</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pActualBytesWritten Pointer to the actual bytes written in the buffer.
+     * @param {Pointer<Integer>} pActualBytesWritten Pointer to the actual bytes written in the buffer.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -7396,10 +7396,10 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PSTR} FileSpec The name of the source file.
-     * @param {Pointer<UInt32>} pCheckSumType On success, points to the checksum type.
-     * @param {Pointer<Byte>} pChecksum pointer to a buffer that receives the checksum. If <b>NULL</b>, then when the call returns <i>pActualBytesWritten</i> returns the number of bytes required.
+     * @param {Pointer<Integer>} pCheckSumType On success, points to the checksum type.
+     * @param {Pointer<Integer>} pChecksum pointer to a buffer that receives the checksum. If <b>NULL</b>, then when the call returns <i>pActualBytesWritten</i> returns the number of bytes required.
      * @param {Integer} checksumSize The size of the <i>pChecksum</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pActualBytesWritten Pointer to the actual bytes written in the buffer.
+     * @param {Pointer<Integer>} pActualBytesWritten Pointer to the actual bytes written in the buffer.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -7426,9 +7426,9 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {PWSTR} FileSpec The name of the source file.
-     * @param {Pointer<Void>} Token A pointer to a 
+     * @param {Pointer<Pointer<Void>>} Token A pointer to a 
      * buffer that receives the token.
-     * @param {Pointer<UInt32>} Size The size of the <i>Token</i> buffer, in bytes.
+     * @param {Pointer<Integer>} Size The size of the <i>Token</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
@@ -7442,7 +7442,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr*", Token, "uint*", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7456,8 +7456,8 @@ class Debug {
      * @param {PWSTR} FileSpec 
      * @param {PWSTR} TokenName 
      * @param {PWSTR} TokenParameters 
-     * @param {Pointer<Void>} Token 
-     * @param {Pointer<UInt32>} Size 
+     * @param {Pointer<Pointer<Void>>} Token 
+     * @param {Pointer<Integer>} Size 
      * @returns {BOOL} 
      */
     static SymGetSourceFileTokenByTokenNameW(hProcess, Base, FileSpec, TokenName, TokenParameters, Token, Size) {
@@ -7466,7 +7466,7 @@ class Debug {
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr*", Token, "uint*", Size, "int")
         return result
     }
 
@@ -8250,7 +8250,7 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
-     * @param {Pointer<UInt64>} Displacement The displacement from the beginning of the symbol, or zero.
+     * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol. The symbol name is variable in length; therefore this buffer must be large enough to hold the name stored at the end of the 
      * <b>SYMBOL_INFO</b> structure. Be sure to set the <b>MaxNameLen</b> member to the number of bytes reserved for the name.
@@ -8277,7 +8277,7 @@ class Debug {
      * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
-     * @param {Pointer<UInt64>} Displacement The displacement from the beginning of the symbol, or zero.
+     * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol. The symbol name is variable in length; therefore this buffer must be large enough to hold the name stored at the end of the 
      * <b>SYMBOL_INFO</b> structure. Be sure to set the <b>MaxNameLen</b> member to the number of bytes reserved for the name.
@@ -8306,7 +8306,7 @@ class Debug {
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If 
      *       the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Integer} InlineContext The inline context for which a symbol should be located.
-     * @param {Pointer<UInt64>} Displacement The displacement from the beginning of the symbol, or zero.
+     * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that 
      *       provides information about the symbol. The symbol name is variable in length; therefore this buffer must be 
      *       large enough to hold the name stored at the end of the 
@@ -8337,7 +8337,7 @@ class Debug {
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If 
      *       the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Integer} InlineContext The inline context for which a symbol should be located.
-     * @param {Pointer<UInt64>} Displacement The displacement from the beginning of the symbol, or zero.
+     * @param {Pointer<Integer>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that 
      *       provides information about the symbol. The symbol name is variable in length; therefore this buffer must be 
      *       large enough to hold the name stored at the end of the 
@@ -9970,8 +9970,8 @@ class Debug {
      * Retrieves the indexes for the specified .pdb, .dbg, or image file that would be used to store the file. The combination of these values uniquely identifies the file in the symbol server.
      * @param {PSTR} File The name of the file.
      * @param {Pointer<Guid>} Id The first of three identifying parameters.
-     * @param {Pointer<UInt32>} Val1 The second of three identifying parameters.
-     * @param {Pointer<UInt32>} Val2 The third of three identifying parameters.
+     * @param {Pointer<Integer>} Val1 The second of three identifying parameters.
+     * @param {Pointer<Integer>} Val2 The third of three identifying parameters.
      * @param {Integer} Flags This parameter is reserved for future use.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -9995,8 +9995,8 @@ class Debug {
      * Retrieves the indexes for the specified .pdb, .dbg, or image file that would be used to store the file. The combination of these values uniquely identifies the file in the symbol server.
      * @param {PWSTR} File The name of the file.
      * @param {Pointer<Guid>} Id The first of three identifying parameters.
-     * @param {Pointer<UInt32>} Val1 The second of three identifying parameters.
-     * @param {Pointer<UInt32>} Val2 The third of three identifying parameters.
+     * @param {Pointer<Integer>} Val1 The second of three identifying parameters.
+     * @param {Pointer<Integer>} Val2 The third of three identifying parameters.
      * @param {Integer} Flags This parameter is reserved for future use.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -10347,7 +10347,7 @@ class Debug {
      * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The address for which a symbol is to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the symbol is found.
-     * @param {Pointer<UInt64>} pdwDisplacement The displacement from the beginning of the symbol, or zero.
+     * @param {Pointer<Integer>} pdwDisplacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<IMAGEHLP_SYMBOL64>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -10373,7 +10373,7 @@ class Debug {
      * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The address for which a symbol is to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the symbol is found.
-     * @param {Pointer<UInt32>} pdwDisplacement The displacement from the beginning of the symbol, or zero.
+     * @param {Pointer<Integer>} pdwDisplacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<IMAGEHLP_SYMBOL>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -10892,7 +10892,7 @@ class Debug {
      * @param {Pointer} Buffer 
      * @param {Integer} RequestBytes 
      * @param {Integer} Flags 
-     * @param {Pointer<UInt32>} DoneBytes 
+     * @param {Pointer<Integer>} DoneBytes 
      * @returns {BOOL} 
      */
     static RangeMapRead(RmapHandle, Offset, Buffer, RequestBytes, Flags, DoneBytes) {
@@ -10907,7 +10907,7 @@ class Debug {
      * @param {Pointer} Buffer 
      * @param {Integer} RequestBytes 
      * @param {Integer} Flags 
-     * @param {Pointer<UInt32>} DoneBytes 
+     * @param {Pointer<Integer>} DoneBytes 
      * @returns {BOOL} 
      */
     static RangeMapWrite(RmapHandle, Offset, Buffer, RequestBytes, Flags, DoneBytes) {
@@ -11121,7 +11121,7 @@ class Debug {
      *        <b>TCHARs</b> to allocate for an output buffer.
      * 
      * The output buffer cannot be larger than 64K bytes.
-     * @param {Pointer<SByte>} Arguments An array of values that are used as insert values in the formatted message. A %1 in the format string 
+     * @param {Pointer<Pointer<Integer>>} Arguments An array of values that are used as insert values in the formatted message. A %1 in the format string 
      *        indicates the first value in the <i>Arguments</i> array; a %2 indicates the second argument; 
      *        and so on.
      * 
@@ -11152,7 +11152,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FormatMessageA", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "char*", Arguments, "uint")
+        result := DllCall("KERNEL32.dll\FormatMessageA", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "ptr*", Arguments, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11237,7 +11237,7 @@ class Debug {
      *        <b>TCHARs</b> to allocate for an output buffer.
      * 
      * The output buffer cannot be larger than 64K bytes.
-     * @param {Pointer<SByte>} Arguments An array of values that are used as insert values in the formatted message. A %1 in the format string 
+     * @param {Pointer<Pointer<Integer>>} Arguments An array of values that are used as insert values in the formatted message. A %1 in the format string 
      *        indicates the first value in the <i>Arguments</i> array; a %2 indicates the second argument; 
      *        and so on.
      * 
@@ -11268,7 +11268,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FormatMessageW", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "char*", Arguments, "uint")
+        result := DllCall("KERNEL32.dll\FormatMessageW", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "ptr*", Arguments, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11318,7 +11318,7 @@ class Debug {
      * <div class="alert"><b>Note</b>  <b>CONTEXT_XSTATE</b> is not part of <b>CONTEXT_FULL</b> or 
      *        <b>CONTEXT_ALL</b>.  It must be specified separately if an XState context is desired.</div>
      * <div> </div>
-     * @param {Pointer<CONTEXT>} Context A pointer to a variable which receives the address of the initialized 
+     * @param {Pointer<Pointer<CONTEXT>>} Context A pointer to a variable which receives the address of the initialized 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure within the 
      *       <i>Buffer</i>.
      *       
@@ -11327,7 +11327,7 @@ class Debug {
      *        the value returned in <i>Context</i> may not be at the beginning of the supplied 
      *        buffer.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} ContextLength On input, specifies the length of the buffer pointed to by <i>Buffer</i>, in bytes. If 
+     * @param {Pointer<Integer>} ContextLength On input, specifies the length of the buffer pointed to by <i>Buffer</i>, in bytes. If 
      *       the buffer is not large enough to contain the specified portions of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a>, the function fails, 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
@@ -11344,7 +11344,7 @@ class Debug {
     static InitializeContext(Buffer, ContextFlags, Context, ContextLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "int")
+        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, "ptr*", Context, "uint*", ContextLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11364,7 +11364,7 @@ class Debug {
      * <div class="alert"><b>Note</b>  <b>CONTEXT_XSTATE</b> is not part of <b>CONTEXT_FULL</b> or 
      *        <b>CONTEXT_ALL</b>.  It must be specified separately if an XState context is desired.</div>
      * <div> </div>
-     * @param {Pointer<CONTEXT>} Context A pointer to a variable which receives the address of the initialized 
+     * @param {Pointer<Pointer<CONTEXT>>} Context A pointer to a variable which receives the address of the initialized 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure within the 
      *       <i>Buffer</i>.
      * 
@@ -11373,7 +11373,7 @@ class Debug {
      *        the value returned in <i>Context</i> may not be at the beginning of the supplied 
      *        buffer.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} ContextLength On input, specifies the length of the buffer pointed to by <i>Buffer</i>, in bytes. If 
+     * @param {Pointer<Integer>} ContextLength On input, specifies the length of the buffer pointed to by <i>Buffer</i>, in bytes. If 
      *       the buffer is not large enough to contain the specified portions of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a>, the function fails, 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
@@ -11391,7 +11391,7 @@ class Debug {
     static InitializeContext2(Buffer, ContextFlags, Context, ContextLength, XStateCompactionMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "uint", XStateCompactionMask, "int")
+        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, "ptr*", Context, "uint*", ContextLength, "uint", XStateCompactionMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11414,7 +11414,7 @@ class Debug {
      * Returns the mask of XState features set within a CONTEXT structure.
      * @param {Pointer<CONTEXT>} Context A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-wow64_context">CONTEXT</a> structure that has been 
      *       initialized with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a>.
-     * @param {Pointer<UInt64>} FeatureMask A pointer to a variable that receives the mask of XState features which are present in the specified 
+     * @param {Pointer<Integer>} FeatureMask A pointer to a variable that receives the mask of XState features which are present in the specified 
      *       <b>CONTEXT</b> structure.
      * @returns {BOOL} This function returns <b>TRUE</b> if successful, otherwise 
      *       <b>FALSE</b>.
@@ -11435,7 +11435,7 @@ class Debug {
      *       parameter.
      * @param {Integer} FeatureId The number of the feature to locate within the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure.
-     * @param {Pointer<UInt32>} Length A pointer to a variable which receives the length of the feature area in bytes. The contents of this 
+     * @param {Pointer<Integer>} Length A pointer to a variable which receives the length of the feature area in bytes. The contents of this 
      *       variable are undefined if this function returns <b>NULL</b>.
      * @returns {Pointer<Void>} If the specified feature is supported by the system and the specified 
      *        <a href="/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure has been initialized with the 

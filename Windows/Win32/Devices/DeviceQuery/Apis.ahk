@@ -172,12 +172,12 @@ class DeviceQuery {
      * @param {Pointer<DEVPROPCOMPKEY>} pRequestedProperties 
      * @param {Integer} cFilterExpressionCount 
      * @param {Pointer<DEVPROP_FILTER_EXPRESSION>} pFilter 
-     * @param {Pointer<UInt32>} pcObjectCount 
-     * @param {Pointer<DEV_OBJECT>} ppObjects 
+     * @param {Pointer<Integer>} pcObjectCount 
+     * @param {Pointer<Pointer<DEV_OBJECT>>} ppObjects 
      * @returns {HRESULT} 
      */
     static DevGetObjects(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pcObjectCount, ppObjects) {
-        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjects", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint*", pcObjectCount, "ptr", ppObjects, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjects", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint*", pcObjectCount, "ptr*", ppObjects, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -194,12 +194,12 @@ class DeviceQuery {
      * @param {Pointer<DEVPROP_FILTER_EXPRESSION>} pFilter 
      * @param {Integer} cExtendedParameterCount 
      * @param {Pointer<DEV_QUERY_PARAMETER>} pExtendedParameters 
-     * @param {Pointer<UInt32>} pcObjectCount 
-     * @param {Pointer<DEV_OBJECT>} ppObjects 
+     * @param {Pointer<Integer>} pcObjectCount 
+     * @param {Pointer<Pointer<DEV_OBJECT>>} ppObjects 
      * @returns {HRESULT} 
      */
     static DevGetObjectsEx(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pcObjectCount, ppObjects) {
-        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectsEx", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "uint*", pcObjectCount, "ptr", ppObjects, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectsEx", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "uint*", pcObjectCount, "ptr*", ppObjects, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -223,14 +223,14 @@ class DeviceQuery {
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
      * @param {Pointer<DEVPROPCOMPKEY>} pRequestedProperties 
-     * @param {Pointer<UInt32>} pcPropertyCount 
-     * @param {Pointer<DEVPROPERTY>} ppProperties 
+     * @param {Pointer<Integer>} pcPropertyCount 
+     * @param {Pointer<Pointer<DEVPROPERTY>>} ppProperties 
      * @returns {HRESULT} 
      */
     static DevGetObjectProperties(ObjectType, pszObjectId, QueryFlags, cRequestedProperties, pRequestedProperties, pcPropertyCount, ppProperties) {
         pszObjectId := pszObjectId is String ? StrPtr(pszObjectId) : pszObjectId
 
-        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjectProperties", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint*", pcPropertyCount, "ptr", ppProperties, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjectProperties", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint*", pcPropertyCount, "ptr*", ppProperties, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -246,14 +246,14 @@ class DeviceQuery {
      * @param {Pointer<DEVPROPCOMPKEY>} pRequestedProperties 
      * @param {Integer} cExtendedParameterCount 
      * @param {Pointer<DEV_QUERY_PARAMETER>} pExtendedParameters 
-     * @param {Pointer<UInt32>} pcPropertyCount 
-     * @param {Pointer<DEVPROPERTY>} ppProperties 
+     * @param {Pointer<Integer>} pcPropertyCount 
+     * @param {Pointer<Pointer<DEVPROPERTY>>} ppProperties 
      * @returns {HRESULT} 
      */
     static DevGetObjectPropertiesEx(ObjectType, pszObjectId, QueryFlags, cRequestedProperties, pRequestedProperties, cExtendedParameterCount, pExtendedParameters, pcPropertyCount, ppProperties) {
         pszObjectId := pszObjectId is String ? StrPtr(pszObjectId) : pszObjectId
 
-        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectPropertiesEx", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "uint*", pcPropertyCount, "ptr", ppProperties, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectPropertiesEx", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, "uint*", pcPropertyCount, "ptr*", ppProperties, "int")
         if(result != 0)
             throw OSError(result)
 

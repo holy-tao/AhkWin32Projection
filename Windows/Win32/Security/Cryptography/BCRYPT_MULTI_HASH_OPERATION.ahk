@@ -37,7 +37,7 @@ class BCRYPT_MULTI_HASH_OPERATION extends Win32Struct
 
     /**
      * The buffer on which the operation works.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbBuffer {
         get => NumGet(this, 8, "ptr")

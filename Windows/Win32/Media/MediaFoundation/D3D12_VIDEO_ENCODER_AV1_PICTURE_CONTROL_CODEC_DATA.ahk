@@ -215,7 +215,7 @@ class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<Integer>}
      */
     pRateControlQPMap {
         get => NumGet(this, 712, "ptr")

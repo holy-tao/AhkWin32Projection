@@ -345,13 +345,13 @@ class MobileDeviceManagementRegistration {
      * Retrieves the device registration information.
      * @param {Integer} DeviceInformationClass Contains the maximum length that can be returned through the <i>pszHyperlink</i> 
      *       parameter.
-     * @param {Pointer<Void>} ppDeviceRegistrationInfo Details of the device registration.
+     * @param {Pointer<Pointer<Void>>} ppDeviceRegistrationInfo Details of the device registration.
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. .
      * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-getdeviceregistrationinfo
      * @since windows8.1
      */
     static GetDeviceRegistrationInfo(DeviceInformationClass, ppDeviceRegistrationInfo) {
-        result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, "ptr", ppDeviceRegistrationInfo, "int")
+        result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, "ptr*", ppDeviceRegistrationInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -445,7 +445,7 @@ class MobileDeviceManagementRegistration {
      * Discovers the MDM service.
      * @param {PWSTR} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
      *       (UPN) of the user requesting registration.
-     * @param {Pointer<MANAGEMENT_SERVICE_INFO>} ppMgmtInfo Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
+     * @param {Pointer<Pointer<MANAGEMENT_SERVICE_INFO>>} ppMgmtInfo Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
      *       structure that contains pointers to the URIs of the management and authentication services.
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function 
      *       fails, the returned value describes the error. Possible 
@@ -457,7 +457,7 @@ class MobileDeviceManagementRegistration {
     static DiscoverManagementService(pszUPN, ppMgmtInfo) {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
-        result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr", ppMgmtInfo, "int")
+        result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr*", ppMgmtInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -567,7 +567,7 @@ class MobileDeviceManagementRegistration {
      * @param {PWSTR} providerID Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A string containing the provider ID.
-     * @param {Pointer<UInt32>} configStringBufferLength Type: \_Inout\_ **[DWORD](/windows/win32/winprog/windows-data-types)\***
+     * @param {Pointer<Integer>} configStringBufferLength Type: \_Inout\_ **[DWORD](/windows/win32/winprog/windows-data-types)\***
      * 
      * A pointer to the buffer length (the size of *configString* in chars).
      * @param {PWSTR} configString Type: \_Out\_writes\_to\_opt\_(*configStringBufferLength, *configStringBufferLength) **[PWSTR](/windows/win32/winprog/windows-data-types)**
@@ -643,7 +643,7 @@ class MobileDeviceManagementRegistration {
      *       (UPN) of the user requesting registration.
      * @param {PWSTR} pszDiscoveryServiceCandidate Address of a <b>NULL</b>-terminated Unicode string containing the discovery service 
      *       candidate to use in lieu of automatic discovery.
-     * @param {Pointer<MANAGEMENT_SERVICE_INFO>} ppMgmtInfo Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
+     * @param {Pointer<Pointer<MANAGEMENT_SERVICE_INFO>>} ppMgmtInfo Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
      *       structure that contains pointers to the URIs of the management and authentication services.
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function 
      *       fails, the returned value describes the error. Possible 
@@ -656,7 +656,7 @@ class MobileDeviceManagementRegistration {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
         pszDiscoveryServiceCandidate := pszDiscoveryServiceCandidate is String ? StrPtr(pszDiscoveryServiceCandidate) : pszDiscoveryServiceCandidate
 
-        result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr", ppMgmtInfo, "int")
+        result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr*", ppMgmtInfo, "int")
         if(result != 0)
             throw OSError(result)
 

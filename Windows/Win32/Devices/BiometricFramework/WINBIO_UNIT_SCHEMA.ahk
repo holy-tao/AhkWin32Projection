@@ -3,6 +3,8 @@
 #Include .\WINBIO_VERSION.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-unit-schema
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

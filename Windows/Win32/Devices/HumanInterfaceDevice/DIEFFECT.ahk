@@ -76,7 +76,7 @@ class DIEFFECT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rgdwAxes {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +84,7 @@ class DIEFFECT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     rglDirection {
         get => NumGet(this, 40, "ptr")

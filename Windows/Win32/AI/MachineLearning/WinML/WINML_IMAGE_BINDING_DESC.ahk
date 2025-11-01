@@ -33,7 +33,7 @@ class WINML_IMAGE_BINDING_DESC extends Win32Struct
 
     /**
      * Pointer to the shape of the image.
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pShape {
         get => NumGet(this, 8, "ptr")

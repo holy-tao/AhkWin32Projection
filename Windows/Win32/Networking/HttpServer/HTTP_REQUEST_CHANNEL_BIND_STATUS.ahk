@@ -24,7 +24,7 @@ class HTTP_REQUEST_CHANNEL_BIND_STATUS extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the secure channel endpoint binding.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ChannelToken {
         get => NumGet(this, 8, "ptr")

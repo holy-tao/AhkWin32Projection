@@ -5010,7 +5010,7 @@ class Certificates {
      * @param {Pointer<PWSTR>} ppwszzFileList A pointer to a <b>WCHAR</b> pointer that will receive the list of null-terminated dynamic file names used by Certificate Services. There is a null character after every file name and an extra null character at the end of the list. The file name will be in the UNC form "&#92;&#92;<i>Server</i>&#92;<i>SharePoint</i>\…<i>Path</i>…&#92;<i>FileName</i>.ext". When you have finished using this allocated memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a> function.
      * 
      * Before calling this function, setting *<i>ppwszzFileList</i> to <b>NULL</b> is optional.
-     * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzFileList</i>.
+     * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzFileList</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupgetdynamicfilelistw
      * @since windowsserver2003
@@ -5028,7 +5028,7 @@ class Certificates {
      * @param {PWSTR} pwszServerName A pointer to the machine name of the server to prepare for online backup. This name can be the NetBIOS name or the DNS name.
      * @param {Integer} grbitJet Value used by the database engine; this value should be set to zero.
      * @param {Integer} dwBackupFlags 
-     * @param {Pointer<Void>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
+     * @param {Pointer<Pointer<Void>>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> will be set to an <b>HCSBC</b> which can be used by other Certificate Services backup APIs.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackuppreparew
      * @since windowsserver2003
@@ -5036,7 +5036,7 @@ class Certificates {
     static CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, "uint", dwBackupFlags, "ptr", phbc, "int")
+        result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, "uint", dwBackupFlags, "ptr*", phbc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5072,7 +5072,7 @@ class Certificates {
      *  
      * 
      * You must free this allocated memory when done by calling <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a>. Before calling this function, setting *<i>ppwszzAttachmentInformation</i> to <b>NULL</b> is optional.
-     * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzAttachmentInformation</i>.
+     * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzAttachmentInformation</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw
      * @since windowsserver2003
@@ -5093,7 +5093,7 @@ class Certificates {
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw">CertSrvBackupGetDatabaseNames</a>. Note that the names returned by <b>CertSrvBackupGetBackupLogs</b> and <b>CertSrvBackupGetDatabaseNames</b> must have the single-WCHAR CSBFT_* prefix stripped before <b>CertSrvBackupOpenFile</b> is called.
      * @param {Integer} cbReadHintSize Number of bytes used as a hint when the file is read by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupread">CertSrvBackupRead</a>. The <i>cbReadHintSize</i> parameter passed to the first <b>CertSrvBackupOpenFile</b> call for the backup context is used to size the read buffer. Pass zero for this parameter, and the buffer will be sized at a reasonably efficient size chosen by <b>CertSrvBackupOpenFile</b>. If insufficient memory is available, the buffer size will be reduced until memory allocation succeeds or until the buffer size reaches its minimum possible value. Pass a nonzero size to cause <b>CertSrvBackupOpenFile</b> to size the buffer to a power of two near the value of <i>cbReadHintSize</i>. The  implementation will choose only powers of two between 64 KB and 4 MB.
-     * @param {Pointer<Int64>} pliFileSize A pointer to a <b>LARGE_INTEGER</b> value that represents the number of bytes in the file.
+     * @param {Pointer<Integer>} pliFileSize A pointer to a <b>LARGE_INTEGER</b> value that represents the number of bytes in the file.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -5115,7 +5115,7 @@ class Certificates {
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @param {Pointer<Void>} pvBuffer Void pointer to storage which will contain bytes read from the file being backed up.
      * @param {Integer} cbBuffer Size of the storage area referenced by <i>pvBuffer</i>.
-     * @param {Pointer<UInt32>} pcbRead A pointer to a <b>DWORD</b> value which represents the actual number of bytes read by <b>CertSrvBackupRead</b>. The number of bytes read can be less than the size of the storage area allocated to <i>pvBuffer</i> if the end of the file has been reached.
+     * @param {Pointer<Integer>} pcbRead A pointer to a <b>DWORD</b> value which represents the actual number of bytes read by <b>CertSrvBackupRead</b>. The number of bytes read can be less than the size of the storage area allocated to <i>pvBuffer</i> if the end of the file has been reached.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupread
      * @since windowsserver2003
@@ -5147,7 +5147,7 @@ class Certificates {
      * Retrieves the list of Certificate Services log file names that need to be backed up for the given backup context.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @param {Pointer<PWSTR>} ppwszzBackupLogFiles 
-     * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzBackupLogFiles</i>.
+     * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzBackupLogFiles</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupgetbackuplogsw
      * @since windowsserver2003
@@ -5205,7 +5205,7 @@ class Certificates {
      * Used both in backup and restore scenarios and retrieves the list of Certificate Services database location names for all the files being backed up or restored.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup or restore context.
      * @param {Pointer<PWSTR>} ppwszzDatabaseLocationList 
-     * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzDatabaseLocationList</i>.
+     * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzDatabaseLocationList</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw
      * @since windowsserver2003
@@ -5239,7 +5239,7 @@ class Certificates {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
+     * @param {Pointer<Pointer<Void>>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> is set to an <b>HCSBC</b>, which can be used by other Certificate Services restore APIs.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestorepreparew
      * @since windowsserver2003
@@ -5247,7 +5247,7 @@ class Certificates {
     static CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, "ptr", phbc, "int")
+        result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, "ptr*", phbc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5367,8 +5367,8 @@ class Certificates {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcbOut For future use, this parameter will be the number of bytes allocated to <i>ppbOut</i>. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
-     * @param {Pointer<Byte>} ppbOut For future use, this parameter will be the pointer to pointer to bytes representing the output from the issued command. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
+     * @param {Pointer<Integer>} pcbOut For future use, this parameter will be the number of bytes allocated to <i>ppbOut</i>. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
+     * @param {Pointer<Pointer<Integer>>} ppbOut For future use, this parameter will be the pointer to pointer to bytes representing the output from the issued command. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvservercontrolw
      * @since windowsserver2003
@@ -5376,7 +5376,7 @@ class Certificates {
     static CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, "uint*", pcbOut, "char*", ppbOut, "int")
+        result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, "uint*", pcbOut, "ptr*", ppbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5388,7 +5388,7 @@ class Certificates {
      * @param {Pointer<UNICODE_STRING>} pTargetName The name of the server to check.
      * @param {Integer} cCriteria The number of elements in the <i>rgpCriteria</i> array.
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria A constant pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_select_criteria">CERT_SELECT_CRITERIA</a> structures that specify the criteria used to select certificate chains.
-     * @param {Pointer<SecPkgContext_IssuerListInfoEx>} ppTrustedIssuers A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-secpkgcontext_issuerlistinfoex">SecPkgContext_IssuerListInfoEx</a> structures that receive the CAs trusted by the server specified by the <i>pTargetName</i> parameter.
+     * @param {Pointer<Pointer<SecPkgContext_IssuerListInfoEx>>} ppTrustedIssuers A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-secpkgcontext_issuerlistinfoex">SecPkgContext_IssuerListInfoEx</a> structures that receive the CAs trusted by the server specified by the <i>pTargetName</i> parameter.
      * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
@@ -5396,7 +5396,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers) {
-        result := DllCall("certpoleng.dll\PstGetTrustAnchors", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", ppTrustedIssuers, "int")
+        result := DllCall("certpoleng.dll\PstGetTrustAnchors", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr*", ppTrustedIssuers, "int")
         return result
     }
 
@@ -5406,11 +5406,11 @@ class Certificates {
      * @param {Integer} cCriteria 
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria 
      * @param {Pointer<CERT_CONTEXT>} pCertContext 
-     * @param {Pointer<SecPkgContext_IssuerListInfoEx>} ppTrustedIssuers 
+     * @param {Pointer<Pointer<SecPkgContext_IssuerListInfoEx>>} ppTrustedIssuers 
      * @returns {NTSTATUS} 
      */
     static PstGetTrustAnchorsEx(pTargetName, cCriteria, rgpCriteria, pCertContext, ppTrustedIssuers) {
-        result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, "ptr", ppTrustedIssuers, "int")
+        result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, "ptr*", ppTrustedIssuers, "int")
         return result
     }
 
@@ -5418,11 +5418,11 @@ class Certificates {
      * 
      * @param {Pointer<CERT_CONTEXT>} pCert 
      * @param {Pointer<SecPkgContext_IssuerListInfoEx>} pTrustedIssuers 
-     * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChainContext 
+     * @param {Pointer<Pointer<CERT_CHAIN_CONTEXT>>} ppCertChainContext 
      * @returns {NTSTATUS} 
      */
     static PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
-        result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, "ptr", ppCertChainContext, "int")
+        result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, "ptr*", ppCertChainContext, "int")
         return result
     }
 
@@ -5432,8 +5432,8 @@ class Certificates {
      * @param {Integer} cCriteria The number of elements in the <i>rgpCriteria</i> array.
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria A constant pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_select_criteria">CERT_SELECT_CRITERIA</a> structures that specify the criteria used to select certificate chains.
      * @param {BOOL} bIsClient <b>TRUE</b> if the caller is the client; otherwise, <b>FALSE</b>.
-     * @param {Pointer<UInt32>} pdwCertChainContextCount The number of elements in the <i>ppCertChainContexts</i> array.
-     * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChainContexts The address of a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structures that specifies the certificate chains of certificates that can be used to authenticate a user on the server specified by the <i>pTargetName</i> parameter.
+     * @param {Pointer<Integer>} pdwCertChainContextCount The number of elements in the <i>ppCertChainContexts</i> array.
+     * @param {Pointer<Pointer<Pointer<CERT_CHAIN_CONTEXT>>>} ppCertChainContexts The address of a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structures that specifies the certificate chains of certificates that can be used to authenticate a user on the server specified by the <i>pTargetName</i> parameter.
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
@@ -5441,7 +5441,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCertChainContextCount, ppCertChainContexts) {
-        result := DllCall("certpoleng.dll\PstGetCertificates", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "int", bIsClient, "uint*", pdwCertChainContextCount, "ptr", ppCertChainContexts, "int")
+        result := DllCall("certpoleng.dll\PstGetCertificates", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "int", bIsClient, "uint*", pdwCertChainContextCount, "ptr*", ppCertChainContexts, "int")
         return result
     }
 
@@ -5481,8 +5481,8 @@ class Certificates {
     /**
      * Retrieves a structure that specifies information that can be used to create a user token associated with the specified certificate.
      * @param {Pointer<CERT_CONTEXT>} pCert A constant pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that specifies the certificate for which to obtain token information.
-     * @param {Pointer<Int32>} pTokenInformationType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type">LSA_TOKEN_INFORMATION_TYPE</a> enumeration that indicates the type of structure pointed to by the <i>ppTokenInformation</i> parameter.
-     * @param {Pointer<Void>} ppTokenInformation The address of a pointer to a structure that specifies information that can be used to create a user token.
+     * @param {Pointer<Integer>} pTokenInformationType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type">LSA_TOKEN_INFORMATION_TYPE</a> enumeration that indicates the type of structure pointed to by the <i>ppTokenInformation</i> parameter.
+     * @param {Pointer<Pointer<Void>>} ppTokenInformation The address of a pointer to a structure that specifies information that can be used to create a user token.
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
@@ -5490,7 +5490,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
-        result := DllCall("certpoleng.dll\PstMapCertificate", "ptr", pCert, "int*", pTokenInformationType, "ptr", ppTokenInformation, "int")
+        result := DllCall("certpoleng.dll\PstMapCertificate", "ptr", pCert, "int*", pTokenInformationType, "ptr*", ppTokenInformation, "int")
         return result
     }
 

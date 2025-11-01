@@ -241,7 +241,7 @@ class PRINTDLGEXW extends Win32Struct
      * The callback object should also contain the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iobjectwithsite">IObjectWithSite</a> class to receive a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nn-commdlg-iprintdialogservices">IPrintDialogServices</a> interface. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> on the callback object for both <b>IID_IPrintDialogCallback</b> and <b>IID_IObjectWithSite</b> to determine which interfaces are supported. 
      * 
      * If you do not want to retrieve any of the callback information, set <b>lpCallback</b> to <b>NULL</b>.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     lpCallback {
         get => NumGet(this, 104, "ptr")

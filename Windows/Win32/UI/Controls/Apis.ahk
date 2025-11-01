@@ -11792,7 +11792,7 @@ class Controls {
 
     /**
      * Reads an image list from a stream.
-     * @param {Pointer<IStream>} pstm Type: <b>LPSTREAM</b>
+     * @param {IStream} pstm Type: <b>LPSTREAM</b>
      * 
      * A pointer to the stream.
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
@@ -11811,7 +11811,7 @@ class Controls {
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
-     * @param {Pointer<IStream>} pstm Type: <b>LPSTREAM</b>
+     * @param {IStream} pstm Type: <b>LPSTREAM</b>
      * 
      * A pointer to the stream.
      * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -11863,13 +11863,13 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<IStream>} pstm Type: <b>LPSTREAM</b>
+     * @param {IStream} pstm Type: <b>LPSTREAM</b>
      * 
      * The address of the stream.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * An IID for the image list.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * The address of a pointer to the interface for the image list if successful, <b>NULL</b> otherwise.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -11879,7 +11879,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_ReadEx(dwFlags, pstm, riid, ppv) {
-        result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11925,7 +11925,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<IStream>} pstm Type: <b>LPSTREAM</b>
+     * @param {IStream} pstm Type: <b>LPSTREAM</b>
      * 
      * The address of the stream.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -11949,10 +11949,10 @@ class Controls {
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
-     * @param {Pointer<Int32>} cx Type: <b>int*</b>
+     * @param {Pointer<Integer>} cx Type: <b>int*</b>
      * 
      * A pointer to an integer variable that receives the width, in pixels, of each image.
-     * @param {Pointer<Int32>} cy Type: <b>int*</b>
+     * @param {Pointer<Integer>} cy Type: <b>int*</b>
      * 
      * A pointer to an integer variable that receives the height, in pixels, of each image.
      * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -12076,7 +12076,7 @@ class Controls {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The identifier of the interface being requested. Normally IID_IImageList or IID_IImageList2.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the address of the interface pointer requested in <i>riid</i>. If the object does not support the interface specified in <i>riid</i>, <i>ppv</i> is <b>NULL</b>.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -12088,7 +12088,7 @@ class Controls {
     static HIMAGELIST_QueryInterface(himl, riid, ppv) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12449,7 +12449,7 @@ class Controls {
      * @param {HWND} hwndStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the status window.
-     * @param {Pointer<UInt32>} lpwIDs Type: <b>LPUINT</b>
+     * @param {Pointer<Integer>} lpwIDs Type: <b>LPUINT</b>
      * 
      * Pointer to an array of values that contains pairs of string resource identifiers and menu handles. The function searches the array for the handle to the selected menu and, if found, uses the corresponding resource identifier to load the appropriate Help string.
      * @returns {String} Nothing - always returns an empty string
@@ -12472,7 +12472,7 @@ class Controls {
      * @param {Pointer} uFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT_PTR</a></b>
      * 
      * The identifier of the menu item to receive or lose a check mark.
-     * @param {Pointer<Int32>} lpInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
+     * @param {Pointer<Integer>} lpInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
      * 
      * A pointer to an array that contains pairs of values. The second value in the first pair must be the handle to the application's main menu. Each subsequent pair consists of a menu item identifier and a control window identifier. The function searches the array for a value that matches <i>uFlags</i> and, if the value is found, checks or unchecks the menu item and shows or hides the corresponding control.
      * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -12501,7 +12501,7 @@ class Controls {
      * @param {Pointer<RECT>} lprc Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the dimensions of the rectangle.
-     * @param {Pointer<Int32>} lpInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a>*</b>
+     * @param {Pointer<Integer>} lpInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a>*</b>
      * 
      * A pointer to a null-terminated array of integers that identify controls in the client area. Each control requires a pair of consecutive elements. The first element of the pair must be nonzero and the second element of the pair must be the control identifier. The first pair represents the menu and is ignored. The last element must be zero to identify the end of the array.
      * @returns {String} Nothing - always returns an empty string
@@ -12636,12 +12636,12 @@ class Controls {
      * @param {Pointer<TASKDIALOGCONFIG>} pTaskConfig Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialogconfig">TASKDIALOGCONFIG</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialogconfig">TASKDIALOGCONFIG</a> structure that contains information used to display the task dialog.
-     * @param {Pointer<Int32>} pnButton Type: <b>int*</b>
+     * @param {Pointer<Integer>} pnButton Type: <b>int*</b>
      * 
      * Address of a variable that receives either:
      * 				<ul>
      * <li>one of the button IDs specified in the <b>pButtons</b> member of the <i>pTaskConfig</i> parameter</li>
-     * @param {Pointer<Int32>} pnRadioButton Type: <b>int*</b>
+     * @param {Pointer<Integer>} pnRadioButton Type: <b>int*</b>
      * 
      * Address of a variable that receives one of the button IDs specified in the <b>pRadioButtons</b> member of the <i>pTaskConfig</i> parameter. If this parameter is <b>NULL</b>, no value is returned.
      * @param {Pointer<BOOL>} pfVerificationFlagChecked Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
@@ -12850,7 +12850,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int32>} pnButton Type: <b>int*</b>
+     * @param {Pointer<Integer>} pnButton Type: <b>int*</b>
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * This function can return one of these values.
@@ -13546,7 +13546,7 @@ class Controls {
      * @param {Pointer<PFNDPASTREAM>} pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a></b>
      * 
      * The callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a> for the callback function prototype.
-     * @param {Pointer<IStream>} pstream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
@@ -13636,7 +13636,7 @@ class Controls {
      * @param {Pointer<PFNDPASTREAM>} pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a></b>
      * 
      * The callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a> for the callback function prototype.
-     * @param {Pointer<IStream>} pstream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pstream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
@@ -13926,8 +13926,8 @@ class Controls {
      * Gets the scroll range for a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard GetScrollRange function.
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
-     * @param {Pointer<Int32>} param2 
-     * @param {Pointer<Int32>} param3 
+     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Integer>} param3 
      * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
@@ -13982,7 +13982,7 @@ class Controls {
      * @param {Integer} propIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The parameter that determines what
-     * @param {Pointer<Int32>} param2 
+     * @param {Pointer<Integer>} param2 
      * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise. If 
@@ -14465,13 +14465,13 @@ class Controls {
      * @param {Pointer<Guid>} rclsid Type: <b>REFCLSID</b>
      * 
      * A reference to the CLSID—a GUID that identifies the COM object to be created. This should be <b>CLSID_ImageList</b>.
-     * @param {Pointer<IUnknown>} punkOuter Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkOuter Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the outer <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that aggregates the object created by this function, or <b>NULL</b> if no aggregation is desired.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist2">IImageList2</a>, which provides the <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize">Initialize</a> method.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -14481,7 +14481,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_CoCreateInstance(rclsid, punkOuter, riid, ppv) {
-        result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14562,7 +14562,7 @@ class Controls {
      * @param {Integer} eProperty The property that is associated with the animation storyboard and target.
      * @param {Pointer} pvProperty The buffer to receive the returned property value.
      * @param {Integer} cbSize The byte size of a buffer that is pointed by <i>pvProperty</i>.
-     * @param {Pointer<UInt32>} pcbSizeOut The                                    byte  size of the returned 
+     * @param {Pointer<Integer>} pcbSizeOut The                                    byte  size of the returned 
      * property.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeanimationproperty
@@ -14586,7 +14586,7 @@ class Controls {
      * @param {Integer} dwTransformIndex The zero-based index of a transform operation.
      * @param {Pointer} pTransform A pointer to a buffer to receive a transform structure.
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTransform</i>.
-     * @param {Pointer<UInt32>} pcbSizeOut The                                    byte  size of a transform operation structure.
+     * @param {Pointer<Integer>} pcbSizeOut The                                    byte  size of a transform operation structure.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeanimationtransform
      * @since windows8.0
@@ -14607,7 +14607,7 @@ class Controls {
      * @param {Integer} iTimingFunctionId A timing function identifier.
      * @param {Pointer} pTimingFunction A buffer to receive a predefined timing function pointer.
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTimingFunction</i>.
-     * @param {Pointer<UInt32>} pcbSizeOut The byte size of
+     * @param {Pointer<Integer>} pcbSizeOut The byte size of
      * the timing function structure.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemetimingfunction
@@ -15070,7 +15070,7 @@ class Controls {
      * 
      * 
      * <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the coordinates of the point.
-     * @param {Pointer<UInt16>} pwHitTestCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a>*</b>
+     * @param {Pointer<Integer>} pwHitTestCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a>*</b>
      * 
      * <b>WORD</b> that receives the hit test code that indicates whether the point in <i>ptTest</i> is in the background area bounded by <i>pRect</i> or <i>hrgn</i>. See <a href="https://docs.microsoft.com/windows/desktop/Controls/theme-hit-test-retval">Hit Test Return Values</a> for a list of values returned.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -15422,7 +15422,7 @@ class Controls {
      * 
      * Value of type <b>int</b> that specifies the state of the part. See <a href="https://docs.microsoft.com/windows/desktop/Controls/parts-and-states">Parts and States</a>.
      * @param {Integer} iPropId Type: <b>int</b>
-     * @param {Pointer<Int32>} piVal Type: <b>int*</b>
+     * @param {Pointer<Integer>} piVal Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the metric property value.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -15524,7 +15524,7 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/property-typedefs">Property Identifiers</a>.
-     * @param {Pointer<Int32>} piVal Type: <b>int*</b>
+     * @param {Pointer<Integer>} piVal Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the retrieved value.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -15557,7 +15557,7 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/property-typedefs">Property Identifiers</a>.
-     * @param {Pointer<Int32>} piVal Type: <b>int*</b>
+     * @param {Pointer<Integer>} piVal Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the enumerated type value.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -15766,7 +15766,7 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. You may use any of the property values from Vssym32.h. These values are described in the reference pages for the functions that use them. For instance, the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeint">GetThemeInt</a> function uses the TMT_BORDERSIZE value. See the <a href="https://docs.microsoft.com/windows/desktop/Controls/uxctl-ref">Visual Styles Reference</a> for a list of functions.
-     * @param {Pointer<Int32>} pOrigin 
+     * @param {Pointer<Integer>} pOrigin 
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -16134,7 +16134,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int32>} piValue Type: <b>int*</b>
+     * @param {Pointer<Integer>} piValue Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the system integer value.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -16788,10 +16788,10 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Specifies the property to retrieve.
-     * @param {Pointer<Void>} ppvStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">VOID</a>**</b>
+     * @param {Pointer<Pointer<Void>>} ppvStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">VOID</a>**</b>
      * 
      * Address of a pointer that receives the stream.
-     * @param {Pointer<UInt32>} pcbStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @param {Pointer<Integer>} pcbStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Pointer that receives the length, in bytes, of the stream received by <i>ppvStream</i>.
      * @param {HINSTANCE} hInst Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
@@ -16807,7 +16807,7 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
-        result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", ppvStream, "uint*", pcbStream, "ptr", hInst, "int")
+        result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr*", ppvStream, "uint*", pcbStream, "ptr", hInst, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16966,10 +16966,10 @@ class Controls {
      * @param {Pointer} hBufferedPaint Type: <b>HPAINTBUFFER</b>
      * 
      * The handle of the buffered paint context, obtained through <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
-     * @param {Pointer<RGBQUAD>} ppbBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgbquad">RGBQUAD</a>**</b>
+     * @param {Pointer<Pointer<RGBQUAD>>} ppbBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgbquad">RGBQUAD</a>**</b>
      * 
      * When this function returns, contains a pointer to the address of the buffer bitmap pixels.
-     * @param {Pointer<Int32>} pcxRow Type: <b>int*</b>
+     * @param {Pointer<Integer>} pcxRow Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to the width, in pixels, of the buffer bitmap. This value is not necessarily equal to the buffer width. It may be larger.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -16979,7 +16979,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetBufferedPaintBits(hBufferedPaint, ppbBuffer, pcxRow) {
-        result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, "ptr", ppbBuffer, "int*", pcxRow, "int")
+        result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, "ptr*", ppbBuffer, "int*", pcxRow, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17168,7 +17168,7 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Property ID.
-     * @param {Pointer<UInt32>} pdwDuration Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @param {Pointer<Integer>} pdwDuration Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Address of a variable that receives the transition duration, in milliseconds.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -17428,7 +17428,7 @@ class Controls {
      * @param {HWND} hwnd The window to check for feedback configuration.
      * @param {Integer} feedback One of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ne-winuser-feedback_type">FEEDBACK_TYPE</a> enumeration.
      * @param {Integer} dwFlags Specify <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_feedback/constants">GWFS_INCLUDE_ANCESTORS</a> to check the parent window chain until a value is found. The default is 0 and indicates that only the specified window will be checked.
-     * @param {Pointer<UInt32>} pSize The size of memory region that the <i>config</i> parameter points to. 
+     * @param {Pointer<Integer>} pSize The size of memory region that the <i>config</i> parameter points to. 
      * 
      * The <i>pSize</i> parameter specifies the size of the configuration data for the feedback type in <i>feedback</i> and must be sizeof(BOOL).
      * @param {Pointer} config The configuration data.

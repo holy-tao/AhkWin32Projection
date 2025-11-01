@@ -24,7 +24,7 @@ class NetworkSoH extends Win32Struct
 
     /**
      * A pointer to a data blob that contains the <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoH</a> structure in network byte order.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 8, "ptr")

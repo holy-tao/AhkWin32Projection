@@ -258,7 +258,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
 
     /**
      * A pointer to the buffer that contains the CNG content encryption key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCNGContentEncryptKeyObject {
         get => NumGet(this, 104, "ptr")
@@ -267,7 +267,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
 
     /**
      * A pointer to the buffer that contains a CAPI1 content encryption key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbContentEncryptKey {
         get => NumGet(this, 112, "ptr")

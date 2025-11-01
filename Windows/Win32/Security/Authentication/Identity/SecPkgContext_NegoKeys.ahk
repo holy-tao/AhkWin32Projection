@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negokeys
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -28,7 +30,7 @@ class SecPkgContext_NegoKeys extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     KeyValue {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +54,7 @@ class SecPkgContext_NegoKeys extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     VerifyKeyValue {
         get => NumGet(this, 24, "ptr")

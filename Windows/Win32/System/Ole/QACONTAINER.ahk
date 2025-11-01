@@ -30,7 +30,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface in the container.
-     * @type {Pointer<IOleClientSite>}
+     * @type {IOleClientSite}
      */
     pClientSite {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iadvisesinkex">IAdviseSinkEx</a> interface in the container.
-     * @type {Pointer<IAdviseSinkEx>}
+     * @type {IAdviseSinkEx}
      */
     pAdviseSink {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipropertynotifysink">IPropertyNotifySink</a> interface in the container.
-     * @type {Pointer<IPropertyNotifySink>}
+     * @type {IPropertyNotifySink}
      */
     pPropertyNotifySink {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the container's sink object.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkEventSink {
         get => NumGet(this, 32, "ptr")
@@ -93,7 +93,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * Specifies Font, an ambient property supplied by the container with a DISPID = -703.
-     * @type {Pointer<IFont>}
+     * @type {IFont}
      */
     pFont {
         get => NumGet(this, 56, "ptr")
@@ -102,7 +102,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleundomanager">IOleUndoManager</a> interface in the container.
-     * @type {Pointer<IOleUndoManager>}
+     * @type {IOleUndoManager}
      */
     pUndoMgr {
         get => NumGet(this, 64, "ptr")
@@ -141,7 +141,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775076(v=vs.85)">IBindHost</a> interface in the container.
-     * @type {Pointer<IBindHost>}
+     * @type {IBindHost}
      */
     pBindHost {
         get => NumGet(this, 88, "ptr")
@@ -150,7 +150,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iolecontrolsite">IOleControlSite</a> interface in the container's site object.
-     * @type {Pointer<IOleControlSite>}
+     * @type {IOleControlSite}
      */
     pOleControlSite {
         get => NumGet(this, 96, "ptr")
@@ -159,7 +159,7 @@ class QACONTAINER extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a> interface in the container.
-     * @type {Pointer<IServiceProvider>}
+     * @type {IServiceProvider}
      */
     pServiceProvider {
         get => NumGet(this, 104, "ptr")

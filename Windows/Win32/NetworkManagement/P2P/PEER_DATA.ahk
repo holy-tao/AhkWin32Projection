@@ -24,7 +24,7 @@ class PEER_DATA extends Win32Struct
 
     /**
      * Pointer to a buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

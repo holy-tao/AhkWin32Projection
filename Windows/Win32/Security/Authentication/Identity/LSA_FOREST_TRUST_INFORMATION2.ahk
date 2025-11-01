@@ -20,7 +20,7 @@ class LSA_FOREST_TRUST_INFORMATION2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<LSA_FOREST_TRUST_RECORD2>}
+     * @type {Pointer<Pointer<LSA_FOREST_TRUST_RECORD2>>}
      */
     Entries {
         get => NumGet(this, 8, "ptr")

@@ -44,7 +44,7 @@ class D3D10_PASS_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a>*</b>
      * 
      * A pointer to the input signature or the vertex shader; otherwise <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pIAInputSignature {
         get => NumGet(this, 16, "ptr")

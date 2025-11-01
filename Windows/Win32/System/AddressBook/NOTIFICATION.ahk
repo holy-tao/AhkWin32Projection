@@ -26,6 +26,8 @@
 #Include .\STATUS_OBJECT_NOTIFICATION.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/notification
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

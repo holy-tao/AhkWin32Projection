@@ -22,7 +22,7 @@ class WSD_SECURITY_SIGNATURE_VALIDATION extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> stuctures that contain certificates to be matched against a message.  Only one matching certificate is required for validatation.  This parameter can be <b>NULL</b>.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     signingCertArray {
         get => NumGet(this, 0, "ptr")

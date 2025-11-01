@@ -24,7 +24,7 @@ class MPR_CREDENTIALSEX_0 extends Win32Struct
 
     /**
      * Pointer to the extended credentials information.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpbCredentialsInfo {
         get => NumGet(this, 8, "ptr")

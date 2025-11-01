@@ -101,7 +101,7 @@ class Compression {
      * @param {Pointer} UncompressedDataSize Size in bytes  of the uncompressed information.
      * @param {Pointer} CompressedBuffer The buffer that receives the compressed information. The maximum size in bytes of the buffer is given by <i>CompressedBufferSize</i>.
      * @param {Pointer} CompressedBufferSize Maximum size  in bytes of the buffer that receives the compressed information.
-     * @param {Pointer<UIntPtr>} CompressedDataSize Actual size  in bytes of the compressed information received.
+     * @param {Pointer<Pointer>} CompressedDataSize Actual size  in bytes of the compressed information received.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//compressapi/nf-compressapi-compress
      * @since windows8.0
@@ -226,7 +226,7 @@ class Compression {
      * @param {Pointer} CompressedDataSize The size in bytes  of the compressed information.
      * @param {Pointer} UncompressedBuffer The buffer that receives the uncompressed information. The size in bytes of the buffer is given by <i>UncompressedBufferSize</i>.
      * @param {Pointer} UncompressedBufferSize Size  in bytes of the buffer that receives the uncompressed information.
-     * @param {Pointer<UIntPtr>} UncompressedDataSize Actual size  in bytes of the uncompressed information received.
+     * @param {Pointer<Pointer>} UncompressedDataSize Actual size  in bytes of the uncompressed information received.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//compressapi/nf-compressapi-decompress
      * @since windows8.0

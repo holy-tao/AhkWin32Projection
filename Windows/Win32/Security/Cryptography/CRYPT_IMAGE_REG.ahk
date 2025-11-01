@@ -33,7 +33,7 @@ class CRYPT_IMAGE_REG extends Win32Struct
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_interface_reg">CRYPT_INTERFACE_REG</a> structure pointers that specify the types of cryptographic interfaces that are supported by the provider. For example, if the provider supports both a cipher interface (<b>BCRYPT_CIPHER_INTERFACE</b>) and a hash interface (<b>BCRYPT_HASH_INTERFACE</b>), this array would contain two <b>CRYPT_INTERFACE_REG</b> structure pointers, one for the cipher interface and one for the hash interface.
-     * @type {Pointer<CRYPT_INTERFACE_REG>}
+     * @type {Pointer<Pointer<CRYPT_INTERFACE_REG>>}
      */
     rgpInterfaces {
         get => NumGet(this, 16, "ptr")

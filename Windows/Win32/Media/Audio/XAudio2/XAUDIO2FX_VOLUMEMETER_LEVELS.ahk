@@ -31,7 +31,7 @@ class XAUDIO2FX_VOLUMEMETER_LEVELS extends Win32Struct
 
     /**
      * Array that will be filled with the maximum absolute level for each channel during a processing pass. The array must be at least <i>ChannelCount</i> × sizeof(float) bytes. <i>pPeakLevels</i> may be NULL if <i>pRMSLevels</i> is not NULL.
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     pPeakLevels {
         get => NumGet(this, 0, "ptr")
@@ -40,7 +40,7 @@ class XAUDIO2FX_VOLUMEMETER_LEVELS extends Win32Struct
 
     /**
      * Array that will be filled with root mean square level for each channel during a processing pass. The array must be at least <i>ChannelCount</i> × sizeof(float) bytes. <i>pRMSLevels</i> may be NULL if <i>pPeakLevels</i> is not NULL.
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     pRMSLevels {
         get => NumGet(this, 8, "ptr")

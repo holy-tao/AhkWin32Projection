@@ -12,7 +12,7 @@ class D3D12_COMMON_COMPUTE_NODE_OVERRIDES extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pLocalRootArgumentsTableIndex {
         get => NumGet(this, 0, "ptr")

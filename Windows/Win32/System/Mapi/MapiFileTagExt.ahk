@@ -44,7 +44,7 @@ class MapiFileTagExt extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPBYTE</a></b>
      * 
      * Pointer to an X.400 object identifier indicating the type of the attachment in its original form, for example "Microsoft Excel worksheet".
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpTag {
         get => NumGet(this, 8, "ptr")
@@ -66,7 +66,7 @@ class MapiFileTagExt extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPBYTE</a></b>
      * 
      * Pointer to an X.400 object identifier indicating the form in which the attachment is currently encoded, for example MacBinary, UUENCODE, or binary.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpEncoding {
         get => NumGet(this, 24, "ptr")

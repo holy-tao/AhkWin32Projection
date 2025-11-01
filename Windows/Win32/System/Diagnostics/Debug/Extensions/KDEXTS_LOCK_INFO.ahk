@@ -76,7 +76,7 @@ class KDEXTS_LOCK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     pOwnerThreads {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class KDEXTS_LOCK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     pWaiterThreads {
         get => NumGet(this, 56, "ptr")

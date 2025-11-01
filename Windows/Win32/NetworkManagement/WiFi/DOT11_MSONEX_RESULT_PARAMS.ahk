@@ -28,7 +28,7 @@ class DOT11_MSONEX_RESULT_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMPPESendKey {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class DOT11_MSONEX_RESULT_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMPPERecvKey {
         get => NumGet(this, 24, "ptr")

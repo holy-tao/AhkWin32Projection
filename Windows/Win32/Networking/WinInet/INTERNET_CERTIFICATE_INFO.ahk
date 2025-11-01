@@ -50,7 +50,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the name of the organization, site, and server for which the certificate was issued. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release the resources allocated for this parameter.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszSubjectInfo {
         get => NumGet(this, 16, "ptr")
@@ -59,7 +59,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the name of the organization, site, and server that issued the certificate. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release the resources allocated for this parameter.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszIssuerInfo {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the name of the protocol used to provide the secure connection. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release the resources allocated for this parameter.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszProtocolName {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +77,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the name of the algorithm used for signing the certificate. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release the resources allocated for this parameter.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszSignatureAlgName {
         get => NumGet(this, 40, "ptr")
@@ -86,7 +86,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the name of the algorithm used for doing encryption over the secure channel (SSL/PCT) connection. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release the resources allocated for this parameter.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszEncryptionAlgName {
         get => NumGet(this, 48, "ptr")

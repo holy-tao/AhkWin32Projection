@@ -66,7 +66,7 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
 
     /**
      * An [ID3D12VideoDecoderHeap](nn-d3d12video-id3d12videodecoderheap.md) representing a pointer to the heap for the current decode resolution.
-     * @type {Pointer<ID3D12VideoDecoderHeap>}
+     * @type {ID3D12VideoDecoderHeap}
      */
     pHeap {
         get => NumGet(this, 144, "ptr")

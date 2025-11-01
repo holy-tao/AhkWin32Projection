@@ -81,7 +81,7 @@ class IP_OPTION_INFORMATION32 extends Win32Struct
      * Type: <b>UCHAR * POINTER_32</b>
      * 
      * A pointer to options data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     OptionsData {
         get => NumGet(this, 8, "ptr")

@@ -28,7 +28,7 @@ class HTTP_TRACE_EVENT_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 16, "ptr")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_hmac_secret_salt
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class WEBAUTHN_HMAC_SECRET_SALT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbFirst {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +38,7 @@ class WEBAUTHN_HMAC_SECRET_SALT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSecond {
         get => NumGet(this, 24, "ptr")

@@ -42,7 +42,7 @@ class IMAGEHLP_CBA_READ_MEMORY extends Win32Struct
 
     /**
      * A pointer to a variable that receives the number of bytes read.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     bytesread {
         get => NumGet(this, 24, "ptr")

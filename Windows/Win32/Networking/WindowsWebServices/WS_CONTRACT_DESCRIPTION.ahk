@@ -25,7 +25,7 @@ class WS_CONTRACT_DESCRIPTION extends Win32Struct
     /**
      * An array of individual operation description, each representing 
      *                     a service operations.
-     * @type {Pointer<WS_OPERATION_DESCRIPTION>}
+     * @type {Pointer<Pointer<WS_OPERATION_DESCRIPTION>>}
      */
     operations {
         get => NumGet(this, 8, "ptr")

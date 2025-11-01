@@ -409,8 +409,8 @@ class Time {
     /**
      * Gets a range, expressed in years, for which a DYNAMIC_TIME_ZONE_INFORMATION has valid entries.
      * @param {Pointer<DYNAMIC_TIME_ZONE_INFORMATION>} lpTimeZoneInformation Specifies settings for  a time zone and dynamic daylight saving time.
-     * @param {Pointer<UInt32>} FirstYear The year that marks the beginning of the range to pass to <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-gettimezoneinformationforyear">GetTimeZoneInformationForYear</a>.
-     * @param {Pointer<UInt32>} LastYear The year that marks the end of the range to pass to <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-gettimezoneinformationforyear">GetTimeZoneInformationForYear</a>.
+     * @param {Pointer<Integer>} FirstYear The year that marks the beginning of the range to pass to <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-gettimezoneinformationforyear">GetTimeZoneInformationForYear</a>.
+     * @param {Pointer<Integer>} LastYear The year that marks the end of the range to pass to <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-gettimezoneinformationforyear">GetTimeZoneInformationForYear</a>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code/value</th>

@@ -1581,7 +1581,7 @@ class Imaging {
      * @param {Pointer<Guid>} dstFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">REFWICPixelFormatGUID</a></b>
      * 
      * The pixel format to convert to.
-     * @param {Pointer<IWICBitmapSource>} pISrc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
+     * @param {IWICBitmapSource} pISrc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
      * The source bitmap.
      * @param {Pointer<IWICBitmapSource>} ppIDst Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
@@ -1594,7 +1594,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICConvertBitmapSource(dstFormat, pISrc, ppIDst) {
-        result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr", ppIDst, "int")
+        result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr*", ppIDst, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1633,7 +1633,7 @@ class Imaging {
     static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset, ppIBitmap) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
-        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr", ppIBitmap, "int")
+        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr*", ppIBitmap, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1675,7 +1675,7 @@ class Imaging {
     static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel, ppIBitmap) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
-        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr", ppIBitmap, "int")
+        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr*", ppIBitmap, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1693,7 +1693,7 @@ class Imaging {
      * @param {PWSTR} wzName Type: <b>WCHAR*</b>
      * 
      * A pointer that receives the short name associated with the GUID.
-     * @param {Pointer<UInt32>} pcchActual Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} pcchActual Type: <b>UINT*</b>
      * 
      * The actual size needed to retrieve the entire short name associated with the GUID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1752,7 +1752,7 @@ class Imaging {
      * A pointer to a buffer that receives the schema's name.
      * 
      * To obtain the required buffer size, call <b>WICMapSchemaToName</b> with <i>cchName</i> set to 0 and <i>wzName</i> set to <b>NULL</b>.
-     * @param {Pointer<UInt32>} pcchActual Type: <b>UINT</b>
+     * @param {Pointer<Integer>} pcchActual Type: <b>UINT</b>
      * 
      * The actual buffer size needed to retrieve the entire schema name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1780,7 +1780,7 @@ class Imaging {
      * @param {Pointer<Guid>} pguidVendor Type: <b>const GUID*</b>
      * 
      * The vendor GUID.
-     * @param {Pointer<IStream>} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * The content stream in which to match a metadata format.
      * @param {Pointer<Guid>} pguidMetadataFormat Type: <b>GUID*</b>
@@ -1805,13 +1805,13 @@ class Imaging {
      * @param {Pointer<Guid>} guidContainerFormat Type: <b>REFGUID</b>
      * 
      * The container format GUID.
-     * @param {Pointer<IWICMetadataWriter>} pIWriter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>*</b>
+     * @param {IWICMetadataWriter} pIWriter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>*</b>
      * 
      * The metadata writer to write metadata to the stream.
      * @param {Integer} dwPersistOptions Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ne-wincodecsdk-wicpersistoptions">WICPersistOptions</a> options to use when writing the metadata.
-     * @param {Pointer<IStream>} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the stream in which to write the metadata.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1833,10 +1833,10 @@ class Imaging {
      * @param {Pointer<Guid>} guidContainerFormat Type: <b>REFGUID</b>
      * 
      * The container GUID.
-     * @param {Pointer<IWICMetadataWriter>} pIWriter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>*</b>
+     * @param {IWICMetadataWriter} pIWriter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a> that contains the content.
-     * @param {Pointer<UInt64>} pcbSize Type: <b>ULARGE_INTEGER*</b>
+     * @param {Pointer<Integer>} pcbSize Type: <b>ULARGE_INTEGER*</b>
      * 
      * A pointer that receives the size of the metadata content.
      * @returns {HRESULT} Type: <b>HRESULT</b>

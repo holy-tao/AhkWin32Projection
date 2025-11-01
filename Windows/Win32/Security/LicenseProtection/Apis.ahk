@@ -15,7 +15,7 @@ class LicenseProtection {
      * 
      * @param {PWSTR} licenseKey 
      * @param {Integer} validityInDays 
-     * @param {Pointer<Int32>} status 
+     * @param {Pointer<Integer>} status 
      * @returns {HRESULT} 
      */
     static RegisterLicenseKeyWithExpiration(licenseKey, validityInDays, status) {
@@ -33,7 +33,7 @@ class LicenseProtection {
      * @param {PWSTR} licenseKey 
      * @param {Pointer<FILETIME>} notValidBefore 
      * @param {Pointer<FILETIME>} notValidAfter 
-     * @param {Pointer<Int32>} status 
+     * @param {Pointer<Integer>} status 
      * @returns {HRESULT} 
      */
     static ValidateLicenseKeyProtection(licenseKey, notValidBefore, notValidAfter, status) {

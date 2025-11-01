@@ -3,6 +3,8 @@
 #Include .\STORAGE_HW_FIRMWARE_SLOT_INFO.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

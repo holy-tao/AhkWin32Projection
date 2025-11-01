@@ -3,6 +3,8 @@
 #Include .\MIB_IPMCAST_OIF_STATS_LH.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats_ex_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

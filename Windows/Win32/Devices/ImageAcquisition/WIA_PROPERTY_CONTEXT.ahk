@@ -20,7 +20,7 @@ class WIA_PROPERTY_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pProps {
         get => NumGet(this, 8, "ptr")

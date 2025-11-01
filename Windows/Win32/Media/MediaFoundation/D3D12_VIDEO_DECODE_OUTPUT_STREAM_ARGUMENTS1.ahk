@@ -20,7 +20,7 @@ class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1 extends Win32Struct
 
     /**
      * An [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the output texture.  If decode conversion is enabled, this texture will contain the post-conversion output.  If decode conversion is not enabled, this texture will contain the decode output.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pOutputTexture2D {
         get => NumGet(this, 0, "ptr")

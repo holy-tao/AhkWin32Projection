@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_endpoint_volume_apo_notification_descriptor
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -12,7 +14,7 @@ class AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IMMDevice>}
+     * @type {IMMDevice}
      */
     device {
         get => NumGet(this, 0, "ptr")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-cy~r1
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

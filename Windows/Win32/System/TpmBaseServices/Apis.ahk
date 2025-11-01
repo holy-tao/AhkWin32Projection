@@ -149,7 +149,7 @@ class TpmBaseServices {
     /**
      * Creates a context handle that can be used to pass commands to TBS.
      * @param {Pointer<TBS_CONTEXT_PARAMS>} pContextParams A parameter to a [TBS_CONTEXT_PARAMS](./ns-tbs-tbs_context_params.md) structure that contains the parameters associated with the context.
-     * @param {Pointer<Void>} phContext A pointer to a location to store the new context handle.
+     * @param {Pointer<Pointer<Void>>} phContext A pointer to a location to store the new context handle.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
      * If the function fails, it returns a TBS return code that indicates the error.
@@ -284,7 +284,7 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Context_Create(pContextParams, phContext) {
-        result := DllCall("tbs.dll\Tbsi_Context_Create", "ptr", pContextParams, "ptr", phContext, "uint")
+        result := DllCall("tbs.dll\Tbsi_Context_Create", "ptr", pContextParams, "ptr*", phContext, "uint")
         return result
     }
 
@@ -353,7 +353,7 @@ class TpmBaseServices {
      * @param {Pointer} pabCommand A pointer to a buffer that contains the TPM command to process.
      * @param {Integer} cbCommand The length, in bytes, of the command.
      * @param {Pointer} pabResult A pointer to a buffer to receive the result of the TPM command.  This buffer can be the same as <i>pabCommand</i>.
-     * @param {Pointer<UInt32>} pcbResult An integer that, on input, specifies the size, in bytes, of the result buffer.  This value is set when the submit command returns.  If the supplied buffer is too small, this parameter, on output, is set to the required size, in bytes, for the result.
+     * @param {Pointer<Integer>} pcbResult An integer that, on input, specifies the size, in bytes, of the result buffer.  This value is set when the submit command returns.  If the supplied buffer is too small, this parameter, on output, is set to the required size, in bytes, for the result.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
      * A command can be submitted successfully and still fail at the TPM. In this case, the failure code is returned as a standard TPM error in the result buffer.
@@ -551,7 +551,7 @@ class TpmBaseServices {
      * 
      * 
      * The buffer will contain the return value from the  command as defined in the <a href="https://trustedcomputinggroup.org/specs/PCClient/Physical_Presence_Interface_1-0_1-0_Final.pdf">TCG Physical Presence Interface Specification</a>.
-     * @param {Pointer<UInt32>} pcbOutput A pointer to an unsigned long integer that, on input, specifies the size, in bytes, of the output buffer. If the function succeeds, this parameter, on output, receives the size, in bytes, of the data pointed to by <i>pabOutput</i>. If the function fails, this parameter does not receive a value.
+     * @param {Pointer<Integer>} pcbOutput A pointer to an unsigned long integer that, on input, specifies the size, in bytes, of the output buffer. If the function succeeds, this parameter, on output, receives the size, in bytes, of the data pointed to by <i>pabOutput</i>. If the function fails, this parameter does not receive a value.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
      * If the function fails, it returns a TBS return code that indicates the error.
@@ -634,7 +634,7 @@ class TpmBaseServices {
      * Retrieves the most recent Windows Boot Configuration Log (WBCL), also referred to as a TCG log.
      * @param {Pointer<Void>} hContext The TBS handle of the context that is retrieving the log. You get this parameter from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/tbs/nf-tbs-tbsi_context_create">Tbsi_Context_Create</a> function.
      * @param {Pointer} pOutputBuf A pointer to a buffer to receive  and store the WBCL. This parameter may be NULL to estimate the required buffer when the location pointed to by <i>pcbOutput</i> is also 0 on input.
-     * @param {Pointer<UInt32>} pOutputBufLen A pointer to an unsigned long integer that, on input, specifies the size, in bytes, of the output buffer.  If the function succeeds, this parameter, on output, receives the size, in bytes, of the data pointed to by <i>pOutputBuf</i>. If the function fails, this parameter does not receive a value.
+     * @param {Pointer<Integer>} pOutputBufLen A pointer to an unsigned long integer that, on input, specifies the size, in bytes, of the output buffer.  If the function succeeds, this parameter, on output, receives the size, in bytes, of the data pointed to by <i>pOutputBuf</i>. If the function fails, this parameter does not receive a value.
      * 
      * Calling the <b>Tbsi_Get_TCG_Log</b> function with a zero length buffer will return the size of the buffer required. <b>Windows Vista with SP1 and Windows Server 2008:  </b>This functionality is not available.
      * @returns {Integer} <table>
@@ -897,7 +897,7 @@ class TpmBaseServices {
      * </tr>
      * </table>
      * @param {Pointer} pOutputBuf A pointer to a buffer to receive the TPM owner authorization information.
-     * @param {Pointer<UInt32>} pOutputBufLen An integer that, on input, specifies the size, in bytes, of the output buffer. On successful return, this value is set to the actual size of the TPM ownerAuth, in bytes.
+     * @param {Pointer<Integer>} pOutputBufLen An integer that, on input, specifies the size, in bytes, of the output buffer. On successful return, this value is set to the actual size of the TPM ownerAuth, in bytes.
      * @returns {Integer} If the function succeeds, the function returns <b>TBS_SUCCESS</b>.
      * 
      * If the function fails, it returns a TBS return code that indicates the error.
@@ -998,7 +998,7 @@ class TpmBaseServices {
      * 
      * @param {Pointer} pbWindowsAIK 
      * @param {Integer} cbWindowsAIK 
-     * @param {Pointer<UInt32>} pcbResult 
+     * @param {Pointer<Integer>} pcbResult 
      * @param {Pointer<BOOL>} pfProtectedByTPM 
      * @returns {HRESULT} 
      */
@@ -1014,7 +1014,7 @@ class TpmBaseServices {
      * 
      * @param {PWSTR} pszWindowsAIK 
      * @param {Integer} cchWindowsAIK 
-     * @param {Pointer<UInt32>} pcchResult 
+     * @param {Pointer<Integer>} pcchResult 
      * @param {Pointer<BOOL>} pfProtectedByTPM 
      * @returns {HRESULT} 
      */
@@ -1093,7 +1093,7 @@ class TpmBaseServices {
      * </tr>
      * </table>
      * @param {Pointer} pbOutput Pointer to a buffer that receives and stores the WBCL. Set to <b>NULL</b> to estimate the required buffer when the location pointed to by <i>pcbOutput</i> is also 0 on input.
-     * @param {Pointer<UInt32>} pcbOutput Pointer to an unsigned long integer that specifies the size, in bytes, of the output buffer. On success, contains the size, in bytes, of the data pointed to by <i>pOutput</i>. On failure, does not contain a value.
+     * @param {Pointer<Integer>} pcbOutput Pointer to an unsigned long integer that specifies the size, in bytes, of the output buffer. On success, contains the size, in bytes, of the data pointed to by <i>pOutput</i>. On failure, does not contain a value.
      * 
      * <b>Note</b>  If <i>pbOutput</i> is <b>NULL</b> and the location pointed to by <i>pcbOutput</i> is 0, the function returns <b>TBS_E_BUFFER_TOO_SMALL</b>. In that case, <i>pcbOutput</i> will point to the required size of <i>pbOutput</i>.
      * @returns {Integer} <table>

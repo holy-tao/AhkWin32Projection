@@ -65,7 +65,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pchBuffer {
         get => NumGet(this, 40, "ptr")
@@ -73,7 +73,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pchNext {
         get => NumGet(this, 48, "ptr")
@@ -81,7 +81,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pchEndRead {
         get => NumGet(this, 56, "ptr")
@@ -89,7 +89,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pchEndWrite {
         get => NumGet(this, 64, "ptr")

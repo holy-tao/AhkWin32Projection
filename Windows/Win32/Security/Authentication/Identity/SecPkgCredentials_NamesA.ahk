@@ -21,7 +21,7 @@ class SecPkgCredentials_NamesA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the user represented by the credential. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> sets the SECPKG_FLAG_ACCEPT_WIN32_NAME flag to indicate that it can process Windows names, this name can be used in other Windows calls.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     sUserName {
         get => NumGet(this, 0, "ptr")

@@ -85,7 +85,7 @@ class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct
 
     /**
      * Pointer to the server principal name, if requested in <b>Flags</b> and supported by the protocol sequence. Upon any return value other than RPC_S_OK or ERROR_MORE_DATA, the content of <b>ServerPrincipalName</b> is undefined and may have been modified by RPC.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ServerPrincipalName {
         get => NumGet(this, 16, "ptr")
@@ -112,7 +112,7 @@ class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct
 
     /**
      * Pointer to the client principal name, if requested in <b>Flags</b> member and supported by the protocol sequence. Upon any return value other than RPC_S_OK or ERROR_MORE_DATA, the content of <b>ClientPrincipalName</b> is undefined and may have been modified by RPC.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ClientPrincipalName {
         get => NumGet(this, 32, "ptr")

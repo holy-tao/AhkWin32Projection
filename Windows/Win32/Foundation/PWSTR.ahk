@@ -12,7 +12,7 @@ class PWSTR extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<Integer>}
      */
     Value {
         get => NumGet(this, 0, "ptr")

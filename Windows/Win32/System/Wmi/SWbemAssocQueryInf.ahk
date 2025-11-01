@@ -42,7 +42,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmiutils/nn-wmiutils-iwbempath">IWbemPath</a> object.
-     * @type {Pointer<IWbemPath>}
+     * @type {IWbemPath}
      */
     m_pPath {
         get => NumGet(this, 16, "ptr")

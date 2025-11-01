@@ -160,10 +160,10 @@ class PropertiesSystem {
 
     /**
      * Gets a formatted, Unicode string representation of a property value stored in a property store. This function allocates memory for the output string.
-     * @param {Pointer<IPropertyStore>} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
+     * @param {IPropertyStore} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>, which represents the property store from which the property value is taken.
-     * @param {Pointer<IPropertyDescription>} ppd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>*</b>
+     * @param {IPropertyDescription} ppd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, which represents the property whose value is being retrieved.
      * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
@@ -282,7 +282,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested interface ID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains a pointer to the desired interface, typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -292,7 +292,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateMemoryPropertyStore(riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreateMemoryPropertyStore", "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreateMemoryPropertyStore", "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -304,10 +304,10 @@ class PropertiesSystem {
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> values. These values specify details of the created property store object.
-     * @param {Pointer<IDelayedPropertyStoreFactory>} pdpsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-idelayedpropertystorefactory">IDelayedPropertyStoreFactory</a>*</b>
+     * @param {IDelayedPropertyStoreFactory} pdpsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-idelayedpropertystorefactory">IDelayedPropertyStoreFactory</a>*</b>
      * 
      * Interface pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-idelayedpropertystorefactory">IDelayedPropertyStoreFactory</a>.
-     * @param {Pointer<UInt32>} rgStoreIds Type: <b>const DWORD*</b>
+     * @param {Pointer<Integer>} rgStoreIds Type: <b>const DWORD*</b>
      * 
      * Pointer to an array of property store IDs. This array does not need to be initialized.
      * @param {Integer} cStores Type: <b>DWORD</b>
@@ -316,7 +316,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested IID of the interface that will represent the created property store.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -326,7 +326,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, "uint*", rgStoreIds, "uint", cStores, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, "uint*", rgStoreIds, "uint", cStores, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -344,7 +344,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested IID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -354,7 +354,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", "ptr", prgpunkStores, "uint", cStores, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", "ptr*", prgpunkStores, "uint", cStores, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -366,7 +366,7 @@ class PropertiesSystem {
      * @param {Pointer<PROPERTYKEY>} rgpropkey Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures that name the specific properties whose changes are being stored. If this value is <b>NULL</b>, <i>cChanges</i> must be 0.
-     * @param {Pointer<Int32>} rgflags Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a>*</b>
+     * @param {Pointer<Integer>} rgflags Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a> values. If this value is <b>NULL</b>, <i>cChanges</i> must be 0.
      * @param {Pointer<PROPVARIANT>} rgpropvar Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
@@ -378,7 +378,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the ID of the requested interface.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychangearray">IPropertyChangeArray</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -388,7 +388,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, "int*", rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, "int*", rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -410,7 +410,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to a specified IID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychange">IPropertyChange</a> interface pointer.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -420,7 +420,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateSimplePropertyChange(flags, key, propvar, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreateSimplePropertyChange", "int", flags, "ptr", key, "ptr", propvar, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreateSimplePropertyChange", "int", flags, "ptr", key, "ptr", propvar, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -435,7 +435,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the requested interface.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionaliasinfo">IPropertyDescriptionAliasInfo</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionsearchinfo">IPropertyDescriptionSearchInfo</a>.
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
@@ -485,7 +485,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertyDescription(propkey, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescription", "ptr", propkey, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescription", "ptr", propkey, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -500,7 +500,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the requested property.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionaliasinfo">IPropertyDescriptionAliasInfo</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionsearchinfo">IPropertyDescriptionSearchInfo</a>.
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
@@ -552,7 +552,7 @@ class PropertiesSystem {
     static PSGetPropertyDescriptionByName(pszCanonicalName, riid, ppv) {
         pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionByName", "ptr", pszCanonicalName, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionByName", "ptr", pszCanonicalName, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -585,7 +585,7 @@ class PropertiesSystem {
 
     /**
      * Retrieves a property handler for a Shell item.
-     * @param {Pointer<IUnknown>} punkItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a Shell item that supports <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * 
@@ -600,7 +600,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the IID of the interface the handler object should return. This should be <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or an interface derived from <b>IPropertyStore</b>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
@@ -610,7 +610,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandler(punkItem, fReadWrite, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "int", fReadWrite, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "int", fReadWrite, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -619,7 +619,7 @@ class PropertiesSystem {
 
     /**
      * Retrieves a property handler for a Shell item.
-     * @param {Pointer<IUnknown>} punkItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a Shell item that supports <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * 
@@ -631,13 +631,13 @@ class PropertiesSystem {
      * @param {BOOL} fReadWrite Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to retrieve a read/write property handler. <b>FALSE</b> to retrieve a read-only property handler.
-     * @param {Pointer<IUnknown>} punkCreateObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punkCreateObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a class factory object that supports <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-icreateobject">ICreateObject</a>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystorecapabilities">IPropertyStoreCapabilities</a>.
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
@@ -647,7 +647,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandlerWithCreateObject(punkItem, fReadWrite, punkCreateObject, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "int", fReadWrite, "ptr", punkCreateObject, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "int", fReadWrite, "ptr", punkCreateObject, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -656,10 +656,10 @@ class PropertiesSystem {
 
     /**
      * Gets a property value from a property store.
-     * @param {Pointer<IPropertyStore>} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
+     * @param {IPropertyStore} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
      * 
      * Pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface, which represents the property store from which to get the value.
-     * @param {Pointer<IPropertyDescription>} ppd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>*</b>
+     * @param {IPropertyDescription} ppd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>*</b>
      * 
      * Pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a> interface, which represents the property in the property store.
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
@@ -681,10 +681,10 @@ class PropertiesSystem {
 
     /**
      * Sets the value of a property in a property store.
-     * @param {Pointer<IPropertyStore>} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
+     * @param {IPropertyStore} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
      * 
      * Pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface, which represents the property store that contains the property.
-     * @param {Pointer<IPropertyDescription>} ppd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>*</b>
+     * @param {IPropertyDescription} ppd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>*</b>
      * 
      * Pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a> interface, which identifies the individual property.
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
@@ -868,7 +868,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the  interface ID of the requested interface.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a> interface pointer.
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
@@ -907,7 +907,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSEnumeratePropertyDescriptions(filterOn, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSEnumeratePropertyDescriptions", "int", filterOn, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSEnumeratePropertyDescriptions", "int", filterOn, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1121,7 +1121,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the requested interface.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a>.
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
@@ -1162,7 +1162,7 @@ class PropertiesSystem {
     static PSGetPropertyDescriptionListFromString(pszPropList, riid, ppv) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionListFromString", "ptr", pszPropList, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionListFromString", "ptr", pszPropList, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1171,7 +1171,7 @@ class PropertiesSystem {
 
     /**
      * Wraps an IPropertySetStorage interface in an IPropertyStore interface.
-     * @param {Pointer<IPropertySetStorage>} ppss Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>*</b>
+     * @param {IPropertySetStorage} ppss Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> interface.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -1180,7 +1180,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to an IID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer specified in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1190,7 +1190,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreatePropertyStoreFromPropertySetStorage(ppss, grfMode, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, "uint", grfMode, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, "uint", grfMode, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1199,7 +1199,7 @@ class PropertiesSystem {
 
     /**
      * Accepts the IUnknown interface of an object that supports IPropertyStore or IPropertySetStorage. If the object supports IPropertySetStorage, it is wrapped so that it supports IPropertyStore.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an interface that supports either <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -1208,7 +1208,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested IID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the address of a pointer to an interface guaranteed to support <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1218,7 +1218,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreatePropertyStoreFromObject(punk, grfMode, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, "uint", grfMode, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, "uint", grfMode, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1227,13 +1227,13 @@ class PropertiesSystem {
 
     /**
      * Creates an adapter from an IPropertyStore.
-     * @param {Pointer<IPropertyStore>} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
+     * @param {IPropertyStore} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object that represents the property store.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to an IID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1243,7 +1243,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateAdapterFromPropertyStore(pps, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSCreateAdapterFromPropertyStore", "ptr", pps, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSCreateAdapterFromPropertyStore", "ptr", pps, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1255,7 +1255,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the IID of the requested interface.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertysystem">IPropertySystem</a>.
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
@@ -1294,7 +1294,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertySystem(riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSGetPropertySystem", "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetPropertySystem", "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1361,7 +1361,7 @@ class PropertiesSystem {
 
     /**
      * Reads the type of data value of a property that is stored in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object, that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1391,7 +1391,7 @@ class PropertiesSystem {
 
     /**
      * Reads the string data value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1422,7 +1422,7 @@ class PropertiesSystem {
 
     /**
      * Reads a string data value from a property in a property bag and allocates memory for the string that is read.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1449,7 +1449,7 @@ class PropertiesSystem {
 
     /**
      * Reads a BSTR data value from a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1476,7 +1476,7 @@ class PropertiesSystem {
 
     /**
      * Sets the string value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1504,7 +1504,7 @@ class PropertiesSystem {
 
     /**
      * Sets the BSTR value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1532,13 +1532,13 @@ class PropertiesSystem {
 
     /**
      * Reads an int data value from a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Int32>} value Type: <b>int*</b>
+     * @param {Pointer<Integer>} value Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to an <b>int</b> property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1559,7 +1559,7 @@ class PropertiesSystem {
 
     /**
      * Sets the int value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1586,13 +1586,13 @@ class PropertiesSystem {
 
     /**
      * Reads the SHORT data value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Int16>} value Type: <b>SHORT*</b>
+     * @param {Pointer<Integer>} value Type: <b>SHORT*</b>
      * 
      * When this function returns, contains a pointer to a SHORT property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1613,7 +1613,7 @@ class PropertiesSystem {
 
     /**
      * Sets the SHORT value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1640,13 +1640,13 @@ class PropertiesSystem {
 
     /**
      * Reads a LONG data value from a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Int32>} value Type: <b>LONG*</b>
+     * @param {Pointer<Integer>} value Type: <b>LONG*</b>
      * 
      * When this function returns, contains a pointer to a <b>LONG</b> property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1667,7 +1667,7 @@ class PropertiesSystem {
 
     /**
      * Sets the LONG value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1694,13 +1694,13 @@ class PropertiesSystem {
 
     /**
      * Reads a DWORD data value from property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
-     * @param {Pointer<UInt32>} value Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} value Type: <b>DWORD*</b>
      * 
      * When this function returns, contains a pointer to a <b>DWORD</b> property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1721,7 +1721,7 @@ class PropertiesSystem {
 
     /**
      * Sets the DWORD value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1748,7 +1748,7 @@ class PropertiesSystem {
 
     /**
      * Reads the BOOL data value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1775,7 +1775,7 @@ class PropertiesSystem {
 
     /**
      * Sets the BOOL value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1802,7 +1802,7 @@ class PropertiesSystem {
 
     /**
      * Retrieves the property coordinates stored in a POINTL structure of a specified property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1829,7 +1829,7 @@ class PropertiesSystem {
 
     /**
      * Stores the property coordinates in aPOINTL structure of a specified property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1856,7 +1856,7 @@ class PropertiesSystem {
 
     /**
      * Retrieves the property coordinates stored in a POINTS structure of a specified property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1883,7 +1883,7 @@ class PropertiesSystem {
 
     /**
      * Stores the property coordinates in aPOINTS structure of a specified property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1910,7 +1910,7 @@ class PropertiesSystem {
 
     /**
      * Retrieves the coordinates of a rectangle stored in a property contained in a specified property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1937,7 +1937,7 @@ class PropertiesSystem {
 
     /**
      * Stores the coordinates of a rectangle in a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1964,7 +1964,7 @@ class PropertiesSystem {
 
     /**
      * Reads the data stream stored in a given property contained in a specified property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object, that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -1982,7 +1982,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadStream(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStream", "ptr", propBag, "ptr", propName, "ptr", value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStream", "ptr", propBag, "ptr", propName, "ptr*", value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1991,13 +1991,13 @@ class PropertiesSystem {
 
     /**
      * Writes a data stream to a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<IStream>} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * @param {IStream} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object to write to the property.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2018,7 +2018,7 @@ class PropertiesSystem {
 
     /**
      * Deletes a property from a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -2042,13 +2042,13 @@ class PropertiesSystem {
 
     /**
      * Reads a ULONGLONG data value from a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<UInt64>} value Type: <b>ULONGLONG</b>
+     * @param {Pointer<Integer>} value Type: <b>ULONGLONG</b>
      * 
      * When this function returns, contains a pointer to a <b>ULONGLONG</b> property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2069,7 +2069,7 @@ class PropertiesSystem {
 
     /**
      * Sets the ULONGLONG value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -2096,7 +2096,7 @@ class PropertiesSystem {
 
     /**
      * Reads a given property of an unknown data value in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object, that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -2105,7 +2105,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>. This interface IID should be <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> or an interface derived from <b>IPropertyBag</b>.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2117,7 +2117,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadUnknown(propBag, propName, riid, ppv) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadUnknown", "ptr", propBag, "ptr", propName, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadUnknown", "ptr", propBag, "ptr", propName, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2126,13 +2126,13 @@ class PropertiesSystem {
 
     /**
      * Writes a property of an unknown data value in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
-     * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> derived interface that copies the specified property of an unknown data value in a property bag.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2153,7 +2153,7 @@ class PropertiesSystem {
 
     /**
      * Reads the GUID data value from a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -2180,7 +2180,7 @@ class PropertiesSystem {
 
     /**
      * Sets the GUID value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -2207,7 +2207,7 @@ class PropertiesSystem {
 
     /**
      * Reads the property key of a property in a specified property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -2234,7 +2234,7 @@ class PropertiesSystem {
 
     /**
      * Sets the property key value of a property in a property bag.
-     * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * @param {IPropertyBag} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
@@ -2270,7 +2270,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or a related interface.
      * @returns {HRESULT} 
@@ -2278,7 +2278,7 @@ class PropertiesSystem {
      * @since windows6.0.6000
      */
     static SHGetPropertyStoreFromIDList(pidl, flags, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromIDList", "ptr", pidl, "int", flags, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromIDList", "ptr", pidl, "int", flags, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2290,7 +2290,7 @@ class PropertiesSystem {
      * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that specifies the item path.
-     * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> object, which provides access to a bind context. This value can be <b>NULL</b>.
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
@@ -2299,7 +2299,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or a related interface.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2311,7 +2311,7 @@ class PropertiesSystem {
     static SHGetPropertyStoreFromParsingName(pszPath, pbc, flags, riid, ppv) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, "int", flags, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, "int", flags, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2323,7 +2323,7 @@ class PropertiesSystem {
      * @param {PWSTR} pszExt Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that specifies the extension.
-     * @param {Pointer<IPropertyStore>} pPropStore Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
+     * @param {IPropertyStore} pPropStore Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface that defines the default properties to add.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2455,7 +2455,7 @@ class PropertiesSystem {
 
     /**
      * Ensures proper handling of code page retrieval or assignment for the requested property set operation.
-     * @param {Pointer<IPropertySetStorage>} psstg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>*</b>
+     * @param {IPropertySetStorage} psstg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> interface.
      * @param {Pointer<Guid>} fmtid Type: <b>REFFMTID</b>
@@ -2474,7 +2474,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyStorage>} ppstg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a>**</b>
      * 
      * When this method returns, contains an <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface pointer.
-     * @param {Pointer<UInt32>} puCodePage Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} puCodePage Type: <b>UINT*</b>
      * 
      * When this method returns, contains the address of the code page ID for the set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2484,7 +2484,7 @@ class PropertiesSystem {
      * @since windows5.0
      */
     static SHPropStgCreate(psstg, fmtid, pclsid, grfFlags, grfMode, dwDisposition, ppstg, puCodePage) {
-        result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, "ptr", fmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "uint", dwDisposition, "ptr", ppstg, "uint*", puCodePage, "int")
+        result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, "ptr", fmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "uint", dwDisposition, "ptr*", ppstg, "uint*", puCodePage, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2493,7 +2493,7 @@ class PropertiesSystem {
 
     /**
      * Wraps the IPropertyStorage::ReadMultiple function to ensure that ANSI and Unicode translations are handled properly for deprecated property sets.
-     * @param {Pointer<IPropertyStorage>} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a>*</b>
+     * @param {IPropertyStorage} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface pointer that identifies the property store.
      * @param {Integer} uCodePage Type: <b>UINT</b>
@@ -2524,10 +2524,10 @@ class PropertiesSystem {
 
     /**
      * Wraps the IPropertyStorage::WriteMultiple function to ensure that ANSI and Unicode translations are handled properly for deprecated property sets.
-     * @param {Pointer<IPropertyStorage>} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a>*</b>
+     * @param {IPropertyStorage} pps Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface pointer that identifies the property store.
-     * @param {Pointer<UInt32>} puCodePage Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} puCodePage Type: <b>UINT*</b>
      * 
      * A pointer to the code page value for ANSI string properties.
      * @param {Integer} cpspec Type: <b>ULONG</b>
@@ -2564,7 +2564,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the property store object to retrieve through <i>ppv</i>. This is typically IID_IPropertyStore.
-     * @param {Pointer<Void>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2576,7 +2576,7 @@ class PropertiesSystem {
     static SHGetPropertyStoreForWindow(hwnd, riid, ppv) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 

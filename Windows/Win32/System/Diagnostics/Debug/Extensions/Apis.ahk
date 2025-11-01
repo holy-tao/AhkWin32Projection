@@ -4630,13 +4630,13 @@ class Extensions {
      * 
      * @param {PSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
-     * @param {Pointer<Void>} Interface 
+     * @param {Pointer<Pointer<Void>>} Interface 
      * @returns {HRESULT} 
      */
     static DebugConnect(RemoteOptions, InterfaceId, Interface) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr", Interface, "int")
+        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", Interface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4647,13 +4647,13 @@ class Extensions {
      * 
      * @param {PWSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
-     * @param {Pointer<Void>} Interface 
+     * @param {Pointer<Pointer<Void>>} Interface 
      * @returns {HRESULT} 
      */
     static DebugConnectWide(RemoteOptions, InterfaceId, Interface) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr", Interface, "int")
+        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", Interface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4663,11 +4663,11 @@ class Extensions {
     /**
      * 
      * @param {Pointer<Guid>} InterfaceId 
-     * @param {Pointer<Void>} Interface 
+     * @param {Pointer<Pointer<Void>>} Interface 
      * @returns {HRESULT} 
      */
     static DebugCreate(InterfaceId, Interface) {
-        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr", Interface, "int")
+        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", Interface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4678,11 +4678,11 @@ class Extensions {
      * 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Integer} DbgEngOptions 
-     * @param {Pointer<Void>} Interface 
+     * @param {Pointer<Pointer<Void>>} Interface 
      * @returns {HRESULT} 
      */
     static DebugCreateEx(InterfaceId, DbgEngOptions, Interface) {
-        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr", Interface, "int")
+        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", Interface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4691,12 +4691,12 @@ class Extensions {
 
     /**
      * 
-     * @param {Pointer<IDebugHost>} debugHost 
+     * @param {IDebugHost} debugHost 
      * @param {Pointer<IDataModelManager>} manager 
      * @returns {HRESULT} 
      */
     static CreateDataModelManager(debugHost, manager) {
-        result := DllCall("dbgmodel.dll\CreateDataModelManager", "ptr", debugHost, "ptr", manager, "int")
+        result := DllCall("dbgmodel.dll\CreateDataModelManager", "ptr", debugHost, "ptr*", manager, "int")
         if(result != 0)
             throw OSError(result)
 

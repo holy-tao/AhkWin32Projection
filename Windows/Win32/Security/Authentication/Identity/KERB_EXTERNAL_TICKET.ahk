@@ -165,7 +165,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
 
     /**
      * A buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1)-encoded ticket.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     EncodedTicket {
         get => NumGet(this, 144, "ptr")

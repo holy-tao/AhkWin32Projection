@@ -3,6 +3,8 @@
 #Include .\HCERTSTORE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-spc-chain-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

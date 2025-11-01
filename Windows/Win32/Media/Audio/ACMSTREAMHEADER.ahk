@@ -84,7 +84,7 @@ class ACMSTREAMHEADER extends Win32Struct
 
     /**
      * Pointer to the source buffer. This pointer must always refer to the same location while the stream header remains prepared. If an application needs to change the source location, it must unprepare the header and reprepare it with the alternate location.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSrc {
         get => NumGet(this, 16, "ptr")
@@ -120,7 +120,7 @@ class ACMSTREAMHEADER extends Win32Struct
 
     /**
      * Pointer to the destination buffer. This pointer must always refer to the same location while the stream header remains prepared. If an application needs to change the destination location, it must unprepare the header and reprepare it with the alternate location.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbDst {
         get => NumGet(this, 40, "ptr")

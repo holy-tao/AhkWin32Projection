@@ -673,7 +673,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     punkVal {
         get => NumGet(this, 8, "ptr")
@@ -681,7 +681,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDispatch>}
+     * @type {IDispatch}
      */
     pdispVal {
         get => NumGet(this, 8, "ptr")
@@ -689,7 +689,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IStream>}
+     * @type {IStream}
      */
     pStream {
         get => NumGet(this, 8, "ptr")
@@ -697,7 +697,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IStorage>}
+     * @type {IStorage}
      */
     pStorage {
         get => NumGet(this, 8, "ptr")
@@ -971,7 +971,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbVal {
         get => NumGet(this, 8, "ptr")
@@ -979,7 +979,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<Integer>}
      */
     piVal {
         get => NumGet(this, 8, "ptr")
@@ -987,7 +987,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     puiVal {
         get => NumGet(this, 8, "ptr")
@@ -995,7 +995,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     plVal {
         get => NumGet(this, 8, "ptr")
@@ -1003,7 +1003,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pulVal {
         get => NumGet(this, 8, "ptr")
@@ -1011,7 +1011,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pintVal {
         get => NumGet(this, 8, "ptr")
@@ -1019,7 +1019,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     puintVal {
         get => NumGet(this, 8, "ptr")
@@ -1027,7 +1027,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     pfltVal {
         get => NumGet(this, 8, "ptr")
@@ -1035,7 +1035,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     pdblVal {
         get => NumGet(this, 8, "ptr")
@@ -1059,7 +1059,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pscode {
         get => NumGet(this, 8, "ptr")
@@ -1075,7 +1075,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     pdate {
         get => NumGet(this, 8, "ptr")
@@ -1107,7 +1107,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SAFEARRAY>}
+     * @type {Pointer<Pointer<SAFEARRAY>>}
      */
     pparray {
         get => NumGet(this, 8, "ptr")

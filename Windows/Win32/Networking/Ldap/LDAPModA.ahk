@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmoda
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  * @charset ANSI
@@ -37,7 +39,7 @@ class LDAPModA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<LDAP_BERVAL>}
+     * @type {Pointer<Pointer<LDAP_BERVAL>>}
      */
     modv_bvals {
         get => NumGet(this, 16, "ptr")

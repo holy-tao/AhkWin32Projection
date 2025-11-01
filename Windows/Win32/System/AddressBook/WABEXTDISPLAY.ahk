@@ -28,7 +28,7 @@ class WABEXTDISPLAY extends Win32Struct
      * Type: <b>LPWABOBJECT</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabapi/nn-wabapi-iwabobject">IWABObject</a> interface that specifies the object to use for calling the <b>IWABObject</b> memory allocation methods. These methods allocate any memory that you pass back to the WAB and that you expect the WAB to free or use. You can also use this pointer to call any of the other <b>IWABObject</b> methods.
-     * @type {Pointer<IWABObject>}
+     * @type {IWABObject}
      */
     lpWABObject {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class WABEXTDISPLAY extends Win32Struct
      * Type: <b>LPADRBOOK</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface that specifies the object to use for calling any of the standard WAB <b>IAddrBook</b> methods.
-     * @type {Pointer<IAddrBook>}
+     * @type {IAddrBook}
      */
     lpAdrBook {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class WABEXTDISPLAY extends Win32Struct
      * If you call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>, you must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on <b>lpPropObj</b> when you no longer need it.
      * 
      * If your application uses named properties, and you want to get the named properties relevant to you from the WAB, you can call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/wab/-wab-iabcontainer-getidsfromnames">GetIDsfromNames</a> method on this <b>lpPropObj</b> object to retrieve any such named properties. If you want to access properties that are associated with messaging users, cast this object to an <a href="https://docs.microsoft.com/windows/desktop/api/wabdefs/nn-wabdefs-imailuser">LPMAILUSER</a> before calling GetIDsfromNames on it.
-     * @type {Pointer<IMAPIProp>}
+     * @type {IMAPIProp}
      */
     lpPropObj {
         get => NumGet(this, 24, "ptr")
@@ -111,7 +111,7 @@ class WABEXTDISPLAY extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Variable of type <b>LPTSTR</b> that specifies a string used for passing in miscellaneous information to your application. The current flags identify the information being represented. If <b>ulFlags</b> is set to <b>WAB_DISPLAY_LDAPURL</b>, the <b>lpsz</b> member contains a pointer to a <b>NULL</b> terminated string containing the LDAP URL whose properties are being displayed.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpsz {
         get => NumGet(this, 56, "ptr")
