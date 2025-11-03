@@ -67,7 +67,9 @@ EnumFontFamExProc(lpelfe, lpntme, fontType, lparam){
 ~~No more~~ fewer magic numbers, much more readable code, no mucking around deprecated Win32 documentation!
 
 ## Usage
-This project is intended to be used as a library. You can "install" it by cloning the repo into an AutoHotkey [library directory](https://www.autohotkey.com/docs/v2/Scripts.htm#lib), and then reference types in your script using `<library>` syntax. Note that many scripts also include other dependent scripts. Files are organized by namespace:
+This project is intended to be used as a library. You can "install" it by cloning the repo into an AutoHotkey [library directory](https://www.autohotkey.com/docs/v2/Scripts.htm#lib), and then reference types in your script using `<library>` syntax. I'll also cut releases after major changes (including metadata updates from Microsoft) that will remain stable, you can grab the latest one and update manually in [releases](https://github.com/holy-tao/AhkWin32Projection/releases). If you prefer stability over easy updates, go that route.
+
+Files are organized by namespace:
 
 ```autohotkey v2
 #Include <AhkWin32Projection\Windows\Win32\Foundation\RECT>
