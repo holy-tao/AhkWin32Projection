@@ -78,7 +78,9 @@ class ICaptureGraphBuilder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder-findinterface
      */
     FindInterface(pCategory, pf, riid, ppint) {
-        result := ComCall(6, this, "ptr", pCategory, "ptr", pf, "ptr", riid, "ptr*", ppint, "HRESULT")
+        ppintMarshal := ppint is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pCategory, "ptr", pf, "ptr", riid, ppintMarshal, ppint, "HRESULT")
         return result
     }
 

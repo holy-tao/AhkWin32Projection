@@ -84,8 +84,9 @@ class ITrusteeAdmin extends IUnknown{
      */
     GetTrusteeProperties(pTrustee, cPropertyIDSets, rgPropertyIDSets, pcPropertySets, prgPropertySets) {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
+        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTrustee, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", prgPropertySets, "HRESULT")
+        result := ComCall(7, this, "ptr", pTrustee, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
         return result
     }
 }

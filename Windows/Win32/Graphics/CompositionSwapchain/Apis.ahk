@@ -20,7 +20,9 @@ class CompositionSwapchain {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-createpresentationfactory
      */
     static CreatePresentationFactory(d3dDevice, riid, presentationFactory) {
-        result := DllCall("dcomp.dll\CreatePresentationFactory", "ptr", d3dDevice, "ptr", riid, "ptr*", presentationFactory, "int")
+        presentationFactoryMarshal := presentationFactory is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dcomp.dll\CreatePresentationFactory", "ptr", d3dDevice, "ptr", riid, presentationFactoryMarshal, presentationFactory, "int")
         if(result != 0)
             throw OSError(result)
 

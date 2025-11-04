@@ -40,7 +40,9 @@ class IIndexDefinition extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateIndex(pTableID, pIndexID, cIndexColumnDescs, rgIndexColumnDescs, cPropertySets, rgPropertySets, ppIndexID) {
-        result := ComCall(3, this, "ptr", pTableID, "ptr", pIndexID, "ptr", cIndexColumnDescs, "ptr", rgIndexColumnDescs, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppIndexID, "HRESULT")
+        ppIndexIDMarshal := ppIndexID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pTableID, "ptr", pIndexID, "ptr", cIndexColumnDescs, "ptr", rgIndexColumnDescs, "uint", cPropertySets, "ptr", rgPropertySets, ppIndexIDMarshal, ppIndexID, "HRESULT")
         return result
     }
 

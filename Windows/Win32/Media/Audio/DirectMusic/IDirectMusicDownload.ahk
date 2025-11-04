@@ -35,9 +35,10 @@ class IDirectMusicDownload extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBuffer(ppvBuffer, pdwSize) {
+        ppvBufferMarshal := ppvBuffer is VarRef ? "ptr*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", ppvBuffer, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(3, this, ppvBufferMarshal, ppvBuffer, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 }

@@ -40,7 +40,9 @@ class ISoftwareBitmapNativeFactory extends IInspectable{
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nf-windows-graphics-imaging-interop-isoftwarebitmapnativefactory-createfromwicbitmap
      */
     CreateFromWICBitmap(data, forceReadOnly, riid, ppv) {
-        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class ISoftwareBitmapNativeFactory extends IInspectable{
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nf-windows-graphics-imaging-interop-isoftwarebitmapnativefactory-createfrommf2dbuffer2
      */
     CreateFromMF2DBuffer2(data, subtype, width, height, forceReadOnly, minDisplayAperture, riid, ppv) {
-        result := ComCall(7, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

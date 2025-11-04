@@ -97,7 +97,9 @@ class IMbnConnectionManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanager-getconnections
      */
     GetConnections(mbnConnections) {
-        result := ComCall(4, this, "ptr*", mbnConnections, "HRESULT")
+        mbnConnectionsMarshal := mbnConnections is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, mbnConnectionsMarshal, mbnConnections, "HRESULT")
         return result
     }
 }

@@ -108,9 +108,10 @@ class SubsystemForLinux {
         distributionVersionMarshal := distributionVersion is VarRef ? "uint*" : "ptr"
         defaultUIDMarshal := defaultUID is VarRef ? "uint*" : "ptr"
         wslDistributionFlagsMarshal := wslDistributionFlags is VarRef ? "int*" : "ptr"
+        defaultEnvironmentVariablesMarshal := defaultEnvironmentVariables is VarRef ? "ptr*" : "ptr"
         defaultEnvironmentVariableCountMarshal := defaultEnvironmentVariableCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, distributionVersionMarshal, distributionVersion, defaultUIDMarshal, defaultUID, wslDistributionFlagsMarshal, wslDistributionFlags, "ptr*", defaultEnvironmentVariables, defaultEnvironmentVariableCountMarshal, defaultEnvironmentVariableCount, "int")
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, distributionVersionMarshal, distributionVersion, defaultUIDMarshal, defaultUID, wslDistributionFlagsMarshal, wslDistributionFlags, defaultEnvironmentVariablesMarshal, defaultEnvironmentVariables, defaultEnvironmentVariableCountMarshal, defaultEnvironmentVariableCount, "int")
         if(result != 0)
             throw OSError(result)
 

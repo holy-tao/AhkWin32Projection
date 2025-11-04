@@ -935,7 +935,9 @@ class Com {
      * @since windows5.0
      */
     static CreateDataCache(pUnkOuter, rclsid, iid, ppv) {
-        result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, "ptr", rclsid, "ptr", iid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, "ptr", rclsid, "ptr", iid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1031,7 +1033,9 @@ class Com {
      * @since windows5.0
      */
     static BindMoniker(pmk, grfOpt, iidResult, ppvResult) {
-        result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, "ptr", iidResult, "ptr*", ppvResult, "int")
+        ppvResultMarshal := ppvResult is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, "ptr", iidResult, ppvResultMarshal, ppvResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1124,7 +1128,9 @@ class Com {
     static CoGetObject(pszName, pBindOptions, riid, ppv) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, "ptr", pBindOptions, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2085,7 +2091,9 @@ class Com {
      * @since windows5.0
      */
     static CoGetObjectContext(riid, ppv) {
-        result := DllCall("OLE32.dll\CoGetObjectContext", "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoGetObjectContext", "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2213,8 +2221,9 @@ class Com {
      */
     static CoGetClassObject(rclsid, dwClsContext, pvReserved, riid, ppv) {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetClassObject", "ptr", rclsid, "uint", dwClsContext, pvReservedMarshal, pvReserved, "ptr", riid, "ptr*", ppv, "int")
+        result := DllCall("OLE32.dll\CoGetClassObject", "ptr", rclsid, "uint", dwClsContext, pvReservedMarshal, pvReserved, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2751,7 +2760,9 @@ class Com {
      * @since windows5.0
      */
     static CoGetCallContext(riid, ppInterface) {
-        result := DllCall("OLE32.dll\CoGetCallContext", "ptr", riid, "ptr*", ppInterface, "int")
+        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoGetCallContext", "ptr", riid, ppInterfaceMarshal, ppInterface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2777,9 +2788,10 @@ class Com {
         pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
         pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
         pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
+        pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : "ptr"
         pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, pwAuthnSvcMarshal, pwAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, "ptr*", pAuthInfo, pCapabilitesMarshal, pCapabilites, "int")
+        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, pwAuthnSvcMarshal, pwAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2922,9 +2934,10 @@ class Com {
         pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
         pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
         pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
+        pPrivsMarshal := pPrivs is VarRef ? "ptr*" : "ptr"
         pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryClientBlanket", pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, "ptr*", pPrivs, pCapabilitiesMarshal, pCapabilities, "int")
+        result := DllCall("OLE32.dll\CoQueryClientBlanket", pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2969,8 +2982,9 @@ class Com {
      */
     static CoQueryAuthenticationServices(pcAuthSvc, asAuthSvc) {
         pcAuthSvcMarshal := pcAuthSvc is VarRef ? "uint*" : "ptr"
+        asAuthSvcMarshal := asAuthSvc is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLE32.dll\CoQueryAuthenticationServices", pcAuthSvcMarshal, pcAuthSvc, "ptr*", asAuthSvc, "int")
+        result := DllCall("OLE32.dll\CoQueryAuthenticationServices", pcAuthSvcMarshal, pcAuthSvc, asAuthSvcMarshal, asAuthSvc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3096,7 +3110,9 @@ class Com {
      * @since windows5.0
      */
     static CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
-        result := DllCall("OLE32.dll\CoCreateInstance", "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoCreateInstance", "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3323,7 +3339,9 @@ class Com {
      * @since windows5.0
      */
     static CoGetCancelObject(dwThreadId, iid, ppUnk) {
-        result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, "ptr", iid, "ptr*", ppUnk, "int")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, "ptr", iid, ppUnkMarshal, ppUnk, "int")
         if(result != 0)
             throw OSError(result)
 

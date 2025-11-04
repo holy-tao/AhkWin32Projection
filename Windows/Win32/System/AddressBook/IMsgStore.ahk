@@ -118,8 +118,10 @@ class IMsgStore extends IMAPIProp{
     GetReceiveFolder(lpszMessageClass, ulFlags, lpcbEntryID, lppEntryID, lppszExplicitClass) {
         lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : "ptr"
         lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
+        lppszExplicitClassMarshal := lppszExplicitClass is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, lpszMessageClassMarshal, lpszMessageClass, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "ptr*", lppszExplicitClass, "HRESULT")
+        result := ComCall(19, this, lpszMessageClassMarshal, lpszMessageClass, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, lppszExplicitClassMarshal, lppszExplicitClass, "HRESULT")
         return result
     }
 

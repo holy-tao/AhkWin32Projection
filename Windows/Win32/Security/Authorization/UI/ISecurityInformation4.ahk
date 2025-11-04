@@ -38,9 +38,10 @@ class ISecurityInformation4 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation4-getsecondarysecurity
      */
     GetSecondarySecurity(pSecurityObjects, pSecurityObjectCount) {
+        pSecurityObjectsMarshal := pSecurityObjects is VarRef ? "ptr*" : "ptr"
         pSecurityObjectCountMarshal := pSecurityObjectCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", pSecurityObjects, pSecurityObjectCountMarshal, pSecurityObjectCount, "HRESULT")
+        result := ComCall(3, this, pSecurityObjectsMarshal, pSecurityObjects, pSecurityObjectCountMarshal, pSecurityObjectCount, "HRESULT")
         return result
     }
 }

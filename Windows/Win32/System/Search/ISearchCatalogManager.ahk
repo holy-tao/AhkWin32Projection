@@ -51,7 +51,9 @@ class ISearchCatalogManager extends IUnknown{
     GetParameter(pszName, ppValue) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(4, this, "ptr", pszName, "ptr*", ppValue, "HRESULT")
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszName, ppValueMarshal, ppValue, "HRESULT")
         return result
     }
 
@@ -275,9 +277,10 @@ class ISearchCatalogManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getitemschangedsink
      */
     GetItemsChangedSink(pISearchNotifyInlineSite, riid, ppv, pGUIDCatalogResetSignature, pGUIDCheckPointSignature, pdwLastCheckPointNumber) {
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
         pdwLastCheckPointNumberMarshal := pdwLastCheckPointNumber is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "ptr", pISearchNotifyInlineSite, "ptr", riid, "ptr*", ppv, "ptr", pGUIDCatalogResetSignature, "ptr", pGUIDCheckPointSignature, pdwLastCheckPointNumberMarshal, pdwLastCheckPointNumber, "HRESULT")
+        result := ComCall(21, this, "ptr", pISearchNotifyInlineSite, "ptr", riid, ppvMarshal, ppv, "ptr", pGUIDCatalogResetSignature, "ptr", pGUIDCheckPointSignature, pdwLastCheckPointNumberMarshal, pdwLastCheckPointNumber, "HRESULT")
         return result
     }
 

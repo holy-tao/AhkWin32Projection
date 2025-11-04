@@ -615,7 +615,9 @@ class IDirectDrawSurface7 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getddinterface
      */
     GetDDInterface(param0) {
-        result := ComCall(36, this, "ptr*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(36, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

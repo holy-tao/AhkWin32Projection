@@ -3605,7 +3605,9 @@ class TabletPC {
     static GetLatticePtr(hrc, ppLattice) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\GetLatticePtr", "ptr", hrc, "ptr*", ppLattice, "int")
+        ppLatticeMarshal := ppLattice is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\GetLatticePtr", "ptr", hrc, ppLatticeMarshal, ppLattice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4710,9 +4712,10 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetAllRecognizers(recognizerClsids, count) {
+        recognizerClsidsMarshal := recognizerClsids is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr*", recognizerClsids, countMarshal, count, "int")
+        result := DllCall("inkobjcore.dll\GetAllRecognizers", recognizerClsidsMarshal, recognizerClsids, countMarshal, count, "int")
         if(result != 0)
             throw OSError(result)
 

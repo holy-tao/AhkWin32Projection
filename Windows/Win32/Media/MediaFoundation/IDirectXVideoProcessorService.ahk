@@ -53,8 +53,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      */
     GetVideoProcessorDeviceGuids(pVideoDesc, pCount, pGuids) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pGuidsMarshal := pGuids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pVideoDesc, pCountMarshal, pCount, "ptr*", pGuids, "HRESULT")
+        result := ComCall(5, this, "ptr", pVideoDesc, pCountMarshal, pCount, pGuidsMarshal, pGuids, "HRESULT")
         return result
     }
 
@@ -69,8 +70,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      */
     GetVideoProcessorRenderTargets(VideoProcDeviceGuid, pVideoDesc, pCount, pFormats) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pFormatsMarshal := pFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, pCountMarshal, pCount, "ptr*", pFormats, "HRESULT")
+        result := ComCall(6, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
         return result
     }
 
@@ -86,8 +88,9 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      */
     GetVideoProcessorSubStreamFormats(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, pCount, pFormats) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pFormatsMarshal := pFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, pCountMarshal, pCount, "ptr*", pFormats, "HRESULT")
+        result := ComCall(7, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
         return result
     }
 

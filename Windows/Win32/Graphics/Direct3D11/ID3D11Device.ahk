@@ -396,7 +396,9 @@ class ID3D11Device extends IUnknown{
     OpenSharedResource(hResource, ReturnedInterface, ppResource) {
         hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
 
-        result := ComCall(28, this, "ptr", hResource, "ptr", ReturnedInterface, "ptr*", ppResource, "HRESULT")
+        ppResourceMarshal := ppResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, "ptr", hResource, "ptr", ReturnedInterface, ppResourceMarshal, ppResource, "HRESULT")
         return result
     }
 

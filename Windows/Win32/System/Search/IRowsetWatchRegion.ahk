@@ -76,9 +76,10 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
         pdwWatchModeMarshal := pdwWatchMode is VarRef ? "uint*" : "ptr"
         phChapterMarshal := phChapter is VarRef ? "ptr*" : "ptr"
         pcbBookmarkMarshal := pcbBookmark is VarRef ? "ptr*" : "ptr"
+        ppBookmarkMarshal := ppBookmark is VarRef ? "ptr*" : "ptr"
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", hRegion, pdwWatchModeMarshal, pdwWatchMode, phChapterMarshal, phChapter, pcbBookmarkMarshal, pcbBookmark, "ptr*", ppBookmark, pcRowsMarshal, pcRows, "HRESULT")
+        result := ComCall(9, this, "ptr", hRegion, pdwWatchModeMarshal, pdwWatchMode, phChapterMarshal, phChapter, pcbBookmarkMarshal, pcbBookmark, ppBookmarkMarshal, ppBookmark, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
@@ -90,8 +91,9 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
      */
     Refresh(pcChangesObtained, prgChanges) {
         pcChangesObtainedMarshal := pcChangesObtained is VarRef ? "ptr*" : "ptr"
+        prgChangesMarshal := prgChanges is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, pcChangesObtainedMarshal, pcChangesObtained, "ptr*", prgChanges, "HRESULT")
+        result := ComCall(10, this, pcChangesObtainedMarshal, pcChangesObtained, prgChangesMarshal, prgChanges, "HRESULT")
         return result
     }
 

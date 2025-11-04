@@ -87,7 +87,9 @@ class ISpRecoResult extends ISpPhrase{
      * @returns {HRESULT} 
      */
     Serialize(ppCoMemSerializedResult) {
-        result := ComCall(11, this, "ptr*", ppCoMemSerializedResult, "HRESULT")
+        ppCoMemSerializedResultMarshal := ppCoMemSerializedResult is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, ppCoMemSerializedResultMarshal, ppCoMemSerializedResult, "HRESULT")
         return result
     }
 

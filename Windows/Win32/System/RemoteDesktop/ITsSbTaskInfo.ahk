@@ -103,7 +103,9 @@ class ITsSbTaskInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_context
      */
     get_Context(pContext) {
-        result := ComCall(9, this, "ptr*", pContext, "HRESULT")
+        pContextMarshal := pContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, pContextMarshal, pContext, "HRESULT")
         return result
     }
 

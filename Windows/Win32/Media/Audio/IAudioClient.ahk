@@ -110,7 +110,9 @@ class IAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-isformatsupported
      */
     IsFormatSupported(ShareMode, pFormat, ppClosestMatch) {
-        result := ComCall(7, this, "int", ShareMode, "ptr", pFormat, "ptr*", ppClosestMatch, "int")
+        ppClosestMatchMarshal := ppClosestMatch is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "int", ShareMode, "ptr", pFormat, ppClosestMatchMarshal, ppClosestMatch, "int")
         return result
     }
 
@@ -121,7 +123,9 @@ class IAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getmixformat
      */
     GetMixFormat(ppDeviceFormat) {
-        result := ComCall(8, this, "ptr*", ppDeviceFormat, "HRESULT")
+        ppDeviceFormatMarshal := ppDeviceFormat is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, ppDeviceFormatMarshal, ppDeviceFormat, "HRESULT")
         return result
     }
 
@@ -191,7 +195,9 @@ class IAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getservice
      */
     GetService(riid, ppv) {
-        result := ComCall(14, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

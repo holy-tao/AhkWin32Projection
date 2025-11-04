@@ -48,7 +48,9 @@ class IDropTargetProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idroptargetprovider-get_droptargeteffects
      */
     get_DropTargetEffects(pRetVal) {
-        result := ComCall(4, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

@@ -224,9 +224,10 @@ class ICLRStrongName extends IUnknown{
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
         pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
+        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, "ptr*", ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
+        result := ComCall(13, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
         return result
     }
 
@@ -266,9 +267,10 @@ class ICLRStrongName extends IUnknown{
     StrongNameKeyGen(pwzKeyContainer, dwFlags, ppbKeyBlob, pcbKeyBlob) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
+        ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", pwzKeyContainer, "uint", dwFlags, "ptr*", ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
+        result := ComCall(16, this, "ptr", pwzKeyContainer, "uint", dwFlags, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
         return result
     }
 
@@ -284,9 +286,10 @@ class ICLRStrongName extends IUnknown{
     StrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, ppbKeyBlob, pcbKeyBlob) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
+        ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr", pwzKeyContainer, "uint", dwFlags, "uint", dwKeySize, "ptr*", ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
+        result := ComCall(17, this, "ptr", pwzKeyContainer, "uint", dwFlags, "uint", dwKeySize, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
         return result
     }
 
@@ -321,9 +324,10 @@ class ICLRStrongName extends IUnknown{
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
         pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
+        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
         pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", pwzFilePath, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, "ptr*", ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "HRESULT")
+        result := ComCall(19, this, "ptr", pwzFilePath, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "HRESULT")
         return result
     }
 
@@ -343,9 +347,10 @@ class ICLRStrongName extends IUnknown{
         wszKeyContainer := wszKeyContainer is String ? StrPtr(wszKeyContainer) : wszKeyContainer
 
         pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
+        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
         pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "ptr", wszFilePath, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, "ptr*", ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "HRESULT")
+        result := ComCall(20, this, "ptr", wszFilePath, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -422,9 +427,10 @@ class ICLRStrongName extends IUnknown{
     StrongNameTokenFromAssembly(pwzFilePath, ppbStrongNameToken, pcbStrongNameToken) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
+        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : "ptr"
         pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "ptr", pwzFilePath, "ptr*", ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
+        result := ComCall(25, this, "ptr", pwzFilePath, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
         return result
     }
 
@@ -440,10 +446,12 @@ class ICLRStrongName extends IUnknown{
     StrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, pcbStrongNameToken, ppbPublicKeyBlob, pcbPublicKeyBlob) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
+        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : "ptr"
         pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : "ptr"
+        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "ptr", pwzFilePath, "ptr*", ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "ptr*", ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
+        result := ComCall(26, this, "ptr", pwzFilePath, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
         return result
     }
 
@@ -457,9 +465,10 @@ class ICLRStrongName extends IUnknown{
      */
     StrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, ppbStrongNameToken, pcbStrongNameToken) {
         pbPublicKeyBlobMarshal := pbPublicKeyBlob is VarRef ? "char*" : "ptr"
+        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : "ptr"
         pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(27, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, "uint", cbPublicKeyBlob, "ptr*", ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
+        result := ComCall(27, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, "uint", cbPublicKeyBlob, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
         return result
     }
 }

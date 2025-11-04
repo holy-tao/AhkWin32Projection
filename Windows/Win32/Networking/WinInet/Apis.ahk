@@ -6841,10 +6841,11 @@ class WinInet {
         lpszCommand := lpszCommand is String ? StrPtr(lpszCommand) : lpszCommand
 
         hConnectMarshal := hConnect is VarRef ? "ptr" : "ptr"
+        phFtpCommandMarshal := phFtpCommand is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FtpCommandA", hConnectMarshal, hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, "ptr*", phFtpCommand, "int")
+        result := DllCall("WININET.dll\FtpCommandA", hConnectMarshal, hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, phFtpCommandMarshal, phFtpCommand, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6871,10 +6872,11 @@ class WinInet {
         lpszCommand := lpszCommand is String ? StrPtr(lpszCommand) : lpszCommand
 
         hConnectMarshal := hConnect is VarRef ? "ptr" : "ptr"
+        phFtpCommandMarshal := phFtpCommand is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FtpCommandW", hConnectMarshal, hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, "ptr*", phFtpCommand, "int")
+        result := DllCall("WININET.dll\FtpCommandW", hConnectMarshal, hConnect, "int", fExpectResponse, "uint", dwFlags, "ptr", lpszCommand, "ptr", dwContext, phFtpCommandMarshal, phFtpCommand, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8284,9 +8286,10 @@ class WinInet {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
         pcwszCookieName := pcwszCookieName is String ? StrPtr(pcwszCookieName) : pcwszCookieName
 
+        ppCookiesMarshal := ppCookies is VarRef ? "ptr*" : "ptr"
         pdwCookieCountMarshal := pdwCookieCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, "uint", dwFlags, "ptr*", ppCookies, pdwCookieCountMarshal, pdwCookieCount, "uint")
+        result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, "uint", dwFlags, ppCookiesMarshal, ppCookies, pdwCookieCountMarshal, pdwCookieCount, "uint")
         return result
     }
 
@@ -8480,8 +8483,9 @@ class WinInet {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
+        lppvDataMarshal := lppvData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\InternetErrorDlg", "ptr", hWnd, hRequestMarshal, hRequest, "uint", dwError, "uint", dwFlags, "ptr*", lppvData, "uint")
+        result := DllCall("WININET.dll\InternetErrorDlg", "ptr", hWnd, hRequestMarshal, hRequest, "uint", dwError, "uint", dwFlags, lppvDataMarshal, lppvData, "uint")
         return result
     }
 
@@ -11611,9 +11615,10 @@ class WinInet {
     static InternetGetSecurityInfoByURLA(lpszURL, ppCertChain, pdwSecureFlags) {
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
+        ppCertChainMarshal := ppCertChain is VarRef ? "ptr*" : "ptr"
         pdwSecureFlagsMarshal := pdwSecureFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLA", "ptr", lpszURL, "ptr*", ppCertChain, pdwSecureFlagsMarshal, pdwSecureFlags, "int")
+        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLA", "ptr", lpszURL, ppCertChainMarshal, ppCertChain, pdwSecureFlagsMarshal, pdwSecureFlags, "int")
         return result
     }
 
@@ -11627,9 +11632,10 @@ class WinInet {
     static InternetGetSecurityInfoByURLW(lpszURL, ppCertChain, pdwSecureFlags) {
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
+        ppCertChainMarshal := ppCertChain is VarRef ? "ptr*" : "ptr"
         pdwSecureFlagsMarshal := pdwSecureFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLW", "ptr", lpszURL, "ptr*", ppCertChain, pdwSecureFlagsMarshal, pdwSecureFlags, "int")
+        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLW", "ptr", lpszURL, ppCertChainMarshal, ppCertChain, pdwSecureFlagsMarshal, pdwSecureFlags, "int")
         return result
     }
 
@@ -11643,9 +11649,10 @@ class WinInet {
     static InternetGetSecurityInfoByURL(lpszURL, ppCertChain, pdwSecureFlags) {
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
+        ppCertChainMarshal := ppCertChain is VarRef ? "ptr*" : "ptr"
         pdwSecureFlagsMarshal := pdwSecureFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WININET.dll\InternetGetSecurityInfoByURL", "ptr", lpszURL, "ptr*", ppCertChain, pdwSecureFlagsMarshal, pdwSecureFlags, "int")
+        result := DllCall("WININET.dll\InternetGetSecurityInfoByURL", "ptr", lpszURL, ppCertChainMarshal, ppCertChain, pdwSecureFlagsMarshal, pdwSecureFlags, "int")
         return result
     }
 
@@ -11973,9 +11980,10 @@ class WinInet {
         pwszUrlName := pwszUrlName is String ? StrPtr(pwszUrlName) : pwszUrlName
 
         dwTypeMarshal := dwType is VarRef ? "uint*" : "ptr"
+        ppbBlobMarshal := ppbBlob is VarRef ? "ptr*" : "ptr"
         pcbBlobMarshal := pcbBlob is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WININET.dll\GetUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, dwTypeMarshal, dwType, "ptr", pftExpireTime, "ptr", pftAccessTime, "ptr", pftModifiedTime, "ptr*", ppbBlob, pcbBlobMarshal, pcbBlob, "uint")
+        result := DllCall("WININET.dll\GetUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, dwTypeMarshal, dwType, "ptr", pftExpireTime, "ptr", pftAccessTime, "ptr", pftModifiedTime, ppbBlobMarshal, ppbBlob, pcbBlobMarshal, pcbBlob, "uint")
         return result
     }
 
@@ -12418,7 +12426,9 @@ class WinInet {
     static AppCacheLookup(pwszUrl, dwFlags, phAppCache) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := DllCall("WININET.dll\AppCacheLookup", "ptr", pwszUrl, "uint", dwFlags, "ptr*", phAppCache, "uint")
+        phAppCacheMarshal := phAppCache is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WININET.dll\AppCacheLookup", "ptr", pwszUrl, "uint", dwFlags, phAppCacheMarshal, phAppCache, "uint")
         return result
     }
 
@@ -12439,8 +12449,9 @@ class WinInet {
         pwszManifestUrl := pwszManifestUrl is String ? StrPtr(pwszManifestUrl) : pwszManifestUrl
 
         peStateMarshal := peState is VarRef ? "int*" : "ptr"
+        phNewAppCacheMarshal := phNewAppCache is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", pbManifestResponseHeaders, "uint", dwManifestResponseHeadersSize, peStateMarshal, peState, "ptr*", phNewAppCache, "uint")
+        result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", pbManifestResponseHeaders, "uint", dwManifestResponseHeadersSize, peStateMarshal, peState, phNewAppCacheMarshal, phNewAppCache, "uint")
         return result
     }
 
@@ -12519,8 +12530,9 @@ class WinInet {
      */
     static AppCacheDuplicateHandle(hAppCache, phDuplicatedAppCache) {
         hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
+        phDuplicatedAppCacheMarshal := phDuplicatedAppCache is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\AppCacheDuplicateHandle", hAppCacheMarshal, hAppCache, "ptr*", phDuplicatedAppCache, "uint")
+        result := DllCall("WININET.dll\AppCacheDuplicateHandle", hAppCacheMarshal, hAppCache, phDuplicatedAppCacheMarshal, phDuplicatedAppCache, "uint")
         return result
     }
 
@@ -12649,8 +12661,9 @@ class WinInet {
      */
     static HttpOpenDependencyHandle(hRequestHandle, fBackground, phDependencyHandle) {
         hRequestHandleMarshal := hRequestHandle is VarRef ? "ptr" : "ptr"
+        phDependencyHandleMarshal := phDependencyHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\HttpOpenDependencyHandle", hRequestHandleMarshal, hRequestHandle, "int", fBackground, "ptr*", phDependencyHandle, "uint")
+        result := DllCall("WININET.dll\HttpOpenDependencyHandle", hRequestHandleMarshal, hRequestHandle, "int", fBackground, phDependencyHandleMarshal, phDependencyHandle, "uint")
         return result
     }
 
@@ -12673,8 +12686,9 @@ class WinInet {
      */
     static HttpDuplicateDependencyHandle(hDependencyHandle, phDuplicatedDependencyHandle) {
         hDependencyHandleMarshal := hDependencyHandle is VarRef ? "ptr" : "ptr"
+        phDuplicatedDependencyHandleMarshal := phDuplicatedDependencyHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\HttpDuplicateDependencyHandle", hDependencyHandleMarshal, hDependencyHandle, "ptr*", phDuplicatedDependencyHandle, "uint")
+        result := DllCall("WININET.dll\HttpDuplicateDependencyHandle", hDependencyHandleMarshal, hDependencyHandle, phDuplicatedDependencyHandleMarshal, phDuplicatedDependencyHandle, "uint")
         return result
     }
 
@@ -12738,8 +12752,9 @@ class WinInet {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
+        phEntryFileMarshal := phEntryFile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\UrlCacheRetrieveEntryFile", hAppCacheMarshal, hAppCache, "ptr", pcwszUrl, "ptr", pCacheEntryInfo, "ptr*", phEntryFile, "uint")
+        result := DllCall("WININET.dll\UrlCacheRetrieveEntryFile", hAppCacheMarshal, hAppCache, "ptr", pcwszUrl, "ptr", pCacheEntryInfo, phEntryFileMarshal, phEntryFile, "uint")
         return result
     }
 
@@ -12774,8 +12789,9 @@ class WinInet {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
+        phEntryStreamMarshal := phEntryStream is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\UrlCacheRetrieveEntryStream", hAppCacheMarshal, hAppCache, "ptr", pcwszUrl, "int", fRandomRead, "ptr", pCacheEntryInfo, "ptr*", phEntryStream, "uint")
+        result := DllCall("WININET.dll\UrlCacheRetrieveEntryStream", hAppCacheMarshal, hAppCache, "ptr", pcwszUrl, "int", fRandomRead, "ptr", pCacheEntryInfo, phEntryStreamMarshal, phEntryStream, "uint")
         return result
     }
 
@@ -12833,9 +12849,10 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheGetContentPaths(pppwszDirectories, pcDirectories) {
+        pppwszDirectoriesMarshal := pppwszDirectories is VarRef ? "ptr*" : "ptr"
         pcDirectoriesMarshal := pcDirectories is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WININET.dll\UrlCacheGetContentPaths", "ptr*", pppwszDirectories, pcDirectoriesMarshal, pcDirectories, "uint")
+        result := DllCall("WININET.dll\UrlCacheGetContentPaths", pppwszDirectoriesMarshal, pppwszDirectories, pcDirectoriesMarshal, pcDirectories, "uint")
         return result
     }
 
@@ -12936,10 +12953,13 @@ class WinInet {
      */
     static ReadGuidsForConnectedNetworks(pcNetworks, pppwszNetworkGuids, pppbstrNetworkNames, pppwszGWMacs, pcGatewayMacs, pdwFlags) {
         pcNetworksMarshal := pcNetworks is VarRef ? "uint*" : "ptr"
+        pppwszNetworkGuidsMarshal := pppwszNetworkGuids is VarRef ? "ptr*" : "ptr"
+        pppbstrNetworkNamesMarshal := pppbstrNetworkNames is VarRef ? "ptr*" : "ptr"
+        pppwszGWMacsMarshal := pppwszGWMacs is VarRef ? "ptr*" : "ptr"
         pcGatewayMacsMarshal := pcGatewayMacs is VarRef ? "uint*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WININET.dll\ReadGuidsForConnectedNetworks", pcNetworksMarshal, pcNetworks, "ptr*", pppwszNetworkGuids, "ptr*", pppbstrNetworkNames, "ptr*", pppwszGWMacs, pcGatewayMacsMarshal, pcGatewayMacs, pdwFlagsMarshal, pdwFlags, "int")
+        result := DllCall("WININET.dll\ReadGuidsForConnectedNetworks", pcNetworksMarshal, pcNetworks, pppwszNetworkGuidsMarshal, pppwszNetworkGuids, pppbstrNetworkNamesMarshal, pppbstrNetworkNames, pppwszGWMacsMarshal, pppwszGWMacs, pcGatewayMacsMarshal, pcGatewayMacs, pdwFlagsMarshal, pdwFlags, "int")
         return result
     }
 

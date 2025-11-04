@@ -178,7 +178,9 @@ class IISDB_CDT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-getdatamodule
      */
     GetDataModule(pbData) {
-        result := ComCall(13, this, "ptr*", pbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 

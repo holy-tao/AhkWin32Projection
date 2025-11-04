@@ -50,7 +50,9 @@ class AsyncIUnknown extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_QueryInterface(ppvObject) {
-        result := ComCall(4, this, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

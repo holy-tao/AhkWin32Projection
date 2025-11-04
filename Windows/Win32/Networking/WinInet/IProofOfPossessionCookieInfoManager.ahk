@@ -48,8 +48,9 @@ class IProofOfPossessionCookieInfoManager extends IUnknown{
         uri := uri is String ? StrPtr(uri) : uri
 
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
+        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", uri, cookieInfoCountMarshal, cookieInfoCount, "ptr*", cookieInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
         return result
     }
 }

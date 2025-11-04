@@ -60,9 +60,10 @@ class IAudioEffectsManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioeffectsmanager-getaudioeffects
      */
     GetAudioEffects(effects, numEffects) {
+        effectsMarshal := effects is VarRef ? "ptr*" : "ptr"
         numEffectsMarshal := numEffects is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", effects, numEffectsMarshal, numEffects, "HRESULT")
+        result := ComCall(5, this, effectsMarshal, effects, numEffectsMarshal, numEffects, "HRESULT")
         return result
     }
 

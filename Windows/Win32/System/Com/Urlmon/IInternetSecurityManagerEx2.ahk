@@ -95,10 +95,11 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
      * @returns {HRESULT} 
      */
     QueryCustomPolicyEx2(pUri, guidKey, ppPolicy, pcbPolicy, pContext, cbContext, dwReserved) {
+        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pUri, "ptr", guidKey, "ptr*", ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
+        result := ComCall(15, this, "ptr", pUri, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
         return result
     }
 }

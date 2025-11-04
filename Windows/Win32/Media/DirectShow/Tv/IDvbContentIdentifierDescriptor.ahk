@@ -83,8 +83,9 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
         pbTypeMarshal := pbType is VarRef ? "char*" : "ptr"
         pbLocationMarshal := pbLocation is VarRef ? "char*" : "ptr"
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
+        ppbBytesMarshal := ppbBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "char", bRecordIndex, pbTypeMarshal, pbType, pbLocationMarshal, pbLocation, pbLengthMarshal, pbLength, "ptr*", ppbBytes, "HRESULT")
+        result := ComCall(6, this, "char", bRecordIndex, pbTypeMarshal, pbType, pbLocationMarshal, pbLocation, pbLengthMarshal, pbLength, ppbBytesMarshal, ppbBytes, "HRESULT")
         return result
     }
 }

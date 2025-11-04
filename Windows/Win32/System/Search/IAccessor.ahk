@@ -73,8 +73,9 @@ class IAccessor extends IUnknown{
 
         pdwAccessorFlagsMarshal := pdwAccessorFlags is VarRef ? "uint*" : "ptr"
         pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
+        prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hAccessor, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, "ptr*", prgBindings, "HRESULT")
+        result := ComCall(5, this, "ptr", hAccessor, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
         return result
     }
 

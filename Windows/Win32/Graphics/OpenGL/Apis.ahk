@@ -5572,7 +5572,9 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetpointerv
      */
     static glGetPointerv(pname, params) {
-        DllCall("OPENGL32.dll\glGetPointerv", "uint", pname, "ptr*", params)
+        paramsMarshal := params is VarRef ? "ptr*" : "ptr"
+
+        DllCall("OPENGL32.dll\glGetPointerv", "uint", pname, paramsMarshal, params)
     }
 
     /**

@@ -76,7 +76,9 @@ class IDvbServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidername
      */
     GetServiceProviderName(pszName) {
-        result := ComCall(6, this, "ptr*", pszName, "HRESULT")
+        pszNameMarshal := pszName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pszNameMarshal, pszName, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IDvbServiceDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicename
      */
     GetServiceName(pszName) {
-        result := ComCall(8, this, "ptr*", pszName, "HRESULT")
+        pszNameMarshal := pszName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, pszNameMarshal, pszName, "HRESULT")
         return result
     }
 

@@ -45,7 +45,9 @@ class IFsrmActionReport extends IFsrmAction{
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes
      */
     get_ReportTypes(reportTypes) {
-        result := ComCall(12, this, "ptr*", reportTypes, "HRESULT")
+        reportTypesMarshal := reportTypes is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, reportTypesMarshal, reportTypes, "HRESULT")
         return result
     }
 

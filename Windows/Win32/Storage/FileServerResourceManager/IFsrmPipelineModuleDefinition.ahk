@@ -227,7 +227,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_supportedextensions
      */
     get_SupportedExtensions(supportedExtensions) {
-        result := ComCall(27, this, "ptr*", supportedExtensions, "HRESULT")
+        supportedExtensionsMarshal := supportedExtensions is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(27, this, supportedExtensionsMarshal, supportedExtensions, "HRESULT")
         return result
     }
 
@@ -249,7 +251,9 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_parameters
      */
     get_Parameters(parameters) {
-        result := ComCall(29, this, "ptr*", parameters, "HRESULT")
+        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(29, this, parametersMarshal, parameters, "HRESULT")
         return result
     }
 

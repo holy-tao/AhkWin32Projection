@@ -107,7 +107,9 @@ class ICredentialProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorat
      */
     GetFieldDescriptorAt(dwIndex, ppcpfd) {
-        result := ComCall(8, this, "uint", dwIndex, "ptr*", ppcpfd, "HRESULT")
+        ppcpfdMarshal := ppcpfd is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwIndex, ppcpfdMarshal, ppcpfd, "HRESULT")
         return result
     }
 

@@ -69,7 +69,9 @@ class IOpcCertificateEnumerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-getcurrent
      */
     GetCurrent(certificate) {
-        result := ComCall(5, this, "ptr*", certificate, "HRESULT")
+        certificateMarshal := certificate is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, certificateMarshal, certificate, "HRESULT")
         return result
     }
 

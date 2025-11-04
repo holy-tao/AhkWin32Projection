@@ -57,9 +57,10 @@ class IShellFolder extends IUnknown{
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", ppidl, pdwAttributesMarshal, pdwAttributes, "HRESULT")
+        result := ComCall(3, this, "ptr", hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, ppidlMarshal, ppidl, pdwAttributesMarshal, pdwAttributes, "HRESULT")
         return result
     }
 
@@ -90,7 +91,9 @@ class IShellFolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject
      */
     BindToObject(pidl, pbc, riid, ppv) {
-        result := ComCall(5, this, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pidl, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -104,7 +107,9 @@ class IShellFolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtostorage
      */
     BindToStorage(pidl, pbc, riid, ppv) {
-        result := ComCall(6, this, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pidl, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -132,7 +137,9 @@ class IShellFolder extends IUnknown{
     CreateViewObject(hwndOwner, riid, ppv) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(8, this, "ptr", hwndOwner, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", hwndOwner, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -145,9 +152,10 @@ class IShellFolder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof
      */
     GetAttributesOf(cidl, apidl, rgfInOut) {
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
         rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", cidl, "ptr*", apidl, rgfInOutMarshal, rgfInOut, "HRESULT")
+        result := ComCall(9, this, "uint", cidl, apidlMarshal, apidl, rgfInOutMarshal, rgfInOut, "HRESULT")
         return result
     }
 
@@ -166,7 +174,10 @@ class IShellFolder extends IUnknown{
 
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(10, this, "ptr", hwndOwner, "uint", cidl, "ptr*", apidl, "ptr", riid, "uint*", rgfReserved, "ptr*", ppv, "HRESULT")
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", hwndOwner, "uint", cidl, apidlMarshal, apidl, "ptr", riid, "uint*", rgfReserved, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -197,7 +208,9 @@ class IShellFolder extends IUnknown{
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(12, this, "ptr", hwnd, "ptr", pidl, "ptr", pszName, "uint", uFlags, "ptr*", ppidlOut, "HRESULT")
+        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", hwnd, "ptr", pidl, "ptr", pszName, "uint", uFlags, ppidlOutMarshal, ppidlOut, "HRESULT")
         return result
     }
 }

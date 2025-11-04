@@ -786,7 +786,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_renewalcertificate
      */
     get_RenewalCertificate(ppCertContext) {
-        result := ComCall(66, this, "ptr*", ppCertContext, "HRESULT")
+        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(66, this, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
     }
 

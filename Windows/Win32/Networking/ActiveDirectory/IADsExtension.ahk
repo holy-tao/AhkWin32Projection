@@ -55,9 +55,10 @@ class IADsExtension extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-privategetidsofnames
      */
     PrivateGetIDsOfNames(riid, rgszNames, cNames, lcid, rgDispid) {
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
         rgDispidMarshal := rgDispid is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", riid, "ptr*", rgszNames, "uint", cNames, "uint", lcid, rgDispidMarshal, rgDispid, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, rgDispidMarshal, rgDispid, "HRESULT")
         return result
     }
 

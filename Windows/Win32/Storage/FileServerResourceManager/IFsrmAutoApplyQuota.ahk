@@ -53,7 +53,9 @@ class IFsrmAutoApplyQuota extends IFsrmQuotaObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-get_excludefolders
      */
     get_ExcludeFolders(folders) {
-        result := ComCall(28, this, "ptr*", folders, "HRESULT")
+        foldersMarshal := folders is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, foldersMarshal, folders, "HRESULT")
         return result
     }
 

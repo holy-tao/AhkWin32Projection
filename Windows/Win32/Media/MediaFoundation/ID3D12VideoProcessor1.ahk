@@ -41,7 +41,9 @@ class ID3D12VideoProcessor1 extends ID3D12VideoProcessor{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoprocessor1-getprotectedresourcesession
      */
     GetProtectedResourceSession(riid, ppProtectedSession) {
-        result := ComCall(12, this, "ptr", riid, "ptr*", ppProtectedSession, "HRESULT")
+        ppProtectedSessionMarshal := ppProtectedSession is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", riid, ppProtectedSessionMarshal, ppProtectedSession, "HRESULT")
         return result
     }
 }

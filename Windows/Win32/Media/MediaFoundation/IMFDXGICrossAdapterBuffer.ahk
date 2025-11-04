@@ -36,7 +36,9 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetResourceForDevice(pUnkDevice, riid, ppvObject) {
-        result := ComCall(3, this, "ptr", pUnkDevice, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkDevice, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetUnknownForDevice(pUnkDevice, guid, riid, ppvObject) {
-        result := ComCall(5, this, "ptr", pUnkDevice, "ptr", guid, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pUnkDevice, "ptr", guid, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

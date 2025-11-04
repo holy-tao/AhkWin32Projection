@@ -172,7 +172,9 @@ class IVMRWindowlessControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrwindowlesscontrol-getcurrentimage
      */
     GetCurrentImage(lpDib) {
-        result := ComCall(13, this, "ptr*", lpDib, "HRESULT")
+        lpDibMarshal := lpDib is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, lpDibMarshal, lpDib, "HRESULT")
         return result
     }
 

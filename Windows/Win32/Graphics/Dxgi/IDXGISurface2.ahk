@@ -50,9 +50,10 @@ class IDXGISurface2 extends IDXGISurface1{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgisurface2-getresource
      */
     GetResource(riid, ppParentResource, pSubresourceIndex) {
+        ppParentResourceMarshal := ppParentResource is VarRef ? "ptr*" : "ptr"
         pSubresourceIndexMarshal := pSubresourceIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", riid, "ptr*", ppParentResource, pSubresourceIndexMarshal, pSubresourceIndex, "HRESULT")
+        result := ComCall(13, this, "ptr", riid, ppParentResourceMarshal, ppParentResource, pSubresourceIndexMarshal, pSubresourceIndex, "HRESULT")
         return result
     }
 }

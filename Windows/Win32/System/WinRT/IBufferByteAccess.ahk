@@ -44,7 +44,9 @@ class IBufferByteAccess extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/robuffer/nf-robuffer-ibufferbyteaccess-buffer
      */
     Buffer(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

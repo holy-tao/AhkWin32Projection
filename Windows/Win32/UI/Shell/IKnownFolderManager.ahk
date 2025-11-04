@@ -70,9 +70,10 @@ class IKnownFolderManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderids
      */
     GetFolderIds(ppKFId, pCount) {
+        ppKFIdMarshal := ppKFId is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppKFId, pCountMarshal, pCount, "HRESULT")
+        result := ComCall(5, this, ppKFIdMarshal, ppKFId, pCountMarshal, pCount, "HRESULT")
         return result
     }
 

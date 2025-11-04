@@ -9880,9 +9880,10 @@ class FileSystem {
         lpSubBlock := lpSubBlock is String ? StrPtr(lpSubBlock) : lpSubBlock
 
         pBlockMarshal := pBlock is VarRef ? "ptr" : "ptr"
+        lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
         puLenMarshal := puLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("VERSION.dll\VerQueryValueA", pBlockMarshal, pBlock, "ptr", lpSubBlock, "ptr*", lplpBuffer, puLenMarshal, puLen, "int")
+        result := DllCall("VERSION.dll\VerQueryValueA", pBlockMarshal, pBlock, "ptr", lpSubBlock, lplpBufferMarshal, lplpBuffer, puLenMarshal, puLen, "int")
         return result
     }
 
@@ -9912,9 +9913,10 @@ class FileSystem {
         lpSubBlock := lpSubBlock is String ? StrPtr(lpSubBlock) : lpSubBlock
 
         pBlockMarshal := pBlock is VarRef ? "ptr" : "ptr"
+        lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
         puLenMarshal := puLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("VERSION.dll\VerQueryValueW", pBlockMarshal, pBlock, "ptr", lpSubBlock, "ptr*", lplpBuffer, puLenMarshal, puLen, "int")
+        result := DllCall("VERSION.dll\VerQueryValueW", pBlockMarshal, pBlock, "ptr", lpSubBlock, lplpBufferMarshal, lplpBuffer, puLenMarshal, puLen, "int")
         return result
     }
 
@@ -10845,11 +10847,13 @@ class FileSystem {
      */
     static ReadLogRestartArea(pvMarshal, ppvRestartBuffer, pcbRestartBuffer, plsn, ppvContext, pOverlapped) {
         pvMarshalMarshal := pvMarshal is VarRef ? "ptr" : "ptr"
+        ppvRestartBufferMarshal := ppvRestartBuffer is VarRef ? "ptr*" : "ptr"
         pcbRestartBufferMarshal := pcbRestartBuffer is VarRef ? "uint*" : "ptr"
+        ppvContextMarshal := ppvContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogRestartArea", pvMarshalMarshal, pvMarshal, "ptr*", ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsn, "ptr*", ppvContext, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogRestartArea", pvMarshalMarshal, pvMarshal, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsn, ppvContextMarshal, ppvContext, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10879,11 +10883,12 @@ class FileSystem {
      */
     static ReadPreviousLogRestartArea(pvReadContext, ppvRestartBuffer, pcbRestartBuffer, plsnRestart, pOverlapped) {
         pvReadContextMarshal := pvReadContext is VarRef ? "ptr" : "ptr"
+        ppvRestartBufferMarshal := ppvRestartBuffer is VarRef ? "ptr*" : "ptr"
         pcbRestartBufferMarshal := pcbRestartBuffer is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadPreviousLogRestartArea", pvReadContextMarshal, pvReadContext, "ptr*", ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsnRestart, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadPreviousLogRestartArea", pvReadContextMarshal, pvReadContext, ppvRestartBufferMarshal, ppvRestartBuffer, pcbRestartBufferMarshal, pcbRestartBuffer, "ptr", plsnRestart, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11053,10 +11058,11 @@ class FileSystem {
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         pvBlockAllocContextMarshal := pvBlockAllocContext is VarRef ? "ptr" : "ptr"
+        ppvMarshalMarshal := ppvMarshal is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, "ptr*", ppvMarshal, "int")
+        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11311,12 +11317,14 @@ class FileSystem {
      */
     static ReadLogRecord(pvMarshal, plsnFirst, eContextMode, ppvReadBuffer, pcbReadBuffer, peRecordType, plsnUndoNext, plsnPrevious, ppvReadContext, pOverlapped) {
         pvMarshalMarshal := pvMarshal is VarRef ? "ptr" : "ptr"
+        ppvReadBufferMarshal := ppvReadBuffer is VarRef ? "ptr*" : "ptr"
         pcbReadBufferMarshal := pcbReadBuffer is VarRef ? "uint*" : "ptr"
         peRecordTypeMarshal := peRecordType is VarRef ? "char*" : "ptr"
+        ppvReadContextMarshal := ppvReadContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogRecord", pvMarshalMarshal, pvMarshal, "ptr", plsnFirst, "int", eContextMode, "ptr*", ppvReadBuffer, pcbReadBufferMarshal, pcbReadBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr*", ppvReadContext, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogRecord", pvMarshalMarshal, pvMarshal, "ptr", plsnFirst, "int", eContextMode, ppvReadBufferMarshal, ppvReadBuffer, pcbReadBufferMarshal, pcbReadBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUndoNext, "ptr", plsnPrevious, ppvReadContextMarshal, ppvReadContext, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11391,12 +11399,13 @@ class FileSystem {
      */
     static ReadNextLogRecord(pvReadContext, ppvBuffer, pcbBuffer, peRecordType, plsnUser, plsnUndoNext, plsnPrevious, plsnRecord, pOverlapped) {
         pvReadContextMarshal := pvReadContext is VarRef ? "ptr" : "ptr"
+        ppvBufferMarshal := ppvBuffer is VarRef ? "ptr*" : "ptr"
         pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
         peRecordTypeMarshal := peRecordType is VarRef ? "char*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadNextLogRecord", pvReadContextMarshal, pvReadContext, "ptr*", ppvBuffer, pcbBufferMarshal, pcbBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUser, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", plsnRecord, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadNextLogRecord", pvReadContextMarshal, pvReadContext, ppvBufferMarshal, ppvBuffer, pcbBufferMarshal, pcbBuffer, peRecordTypeMarshal, peRecordType, "ptr", plsnUser, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", plsnRecord, "ptr", pOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11471,10 +11480,11 @@ class FileSystem {
         pcActualLengthMarshal := pcActualLength is VarRef ? "uint*" : "ptr"
         poffBaseLogFileDataMarshal := poffBaseLogFileData is VarRef ? "uint*" : "ptr"
         pcbBaseLogFileLengthMarshal := pcbBaseLogFileLength is VarRef ? "uint*" : "ptr"
+        ppvArchiveContextMarshal := ppvArchiveContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, "ptr*", ppvArchiveContext, "int")
+        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11953,7 +11963,9 @@ class FileSystem {
     static QueryUsersOnEncryptedFile(lpFileName, pUsers) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\QueryUsersOnEncryptedFile", "ptr", lpFileName, "ptr*", pUsers, "uint")
+        pUsersMarshal := pUsers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\QueryUsersOnEncryptedFile", "ptr", lpFileName, pUsersMarshal, pUsers, "uint")
         return result
     }
 
@@ -11972,7 +11984,9 @@ class FileSystem {
     static QueryRecoveryAgentsOnEncryptedFile(lpFileName, pRecoveryAgents) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\QueryRecoveryAgentsOnEncryptedFile", "ptr", lpFileName, "ptr*", pRecoveryAgents, "uint")
+        pRecoveryAgentsMarshal := pRecoveryAgents is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\QueryRecoveryAgentsOnEncryptedFile", "ptr", lpFileName, pRecoveryAgentsMarshal, pRecoveryAgents, "uint")
         return result
     }
 
@@ -12161,8 +12175,9 @@ class FileSystem {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         pcbMetadataMarshal := pcbMetadata is VarRef ? "uint*" : "ptr"
+        ppbMetadataMarshal := ppbMetadata is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetEncryptedFileMetadata", "ptr", lpFileName, pcbMetadataMarshal, pcbMetadata, "ptr*", ppbMetadata, "uint")
+        result := DllCall("ADVAPI32.dll\GetEncryptedFileMetadata", "ptr", lpFileName, pcbMetadataMarshal, pcbMetadata, ppbMetadataMarshal, ppbMetadata, "uint")
         return result
     }
 
@@ -13158,9 +13173,11 @@ class FileSystem {
     static TxfLogCreateFileReadContext(LogPath, BeginningLsn, EndingLsn, TxfFileId, TxfLogContext) {
         LogPath := LogPath is String ? StrPtr(LogPath) : LogPath
 
+        TxfLogContextMarshal := TxfLogContext is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "ptr", TxfFileId, "ptr*", TxfLogContext, "int")
+        result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "ptr", TxfFileId, TxfLogContextMarshal, TxfLogContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13184,8 +13201,9 @@ class FileSystem {
 
         BeginningVirtualClockMarshal := BeginningVirtualClock is VarRef ? "int64*" : "ptr"
         EndingVirtualClockMarshal := EndingVirtualClock is VarRef ? "int64*" : "ptr"
+        TxfLogContextMarshal := TxfLogContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, BeginningVirtualClockMarshal, BeginningVirtualClock, EndingVirtualClockMarshal, EndingVirtualClock, "uint", RecordTypeMask, "ptr*", TxfLogContext, "int")
+        result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, BeginningVirtualClockMarshal, BeginningVirtualClock, EndingVirtualClockMarshal, EndingVirtualClock, "uint", RecordTypeMask, TxfLogContextMarshal, TxfLogContext, "int")
         return result
     }
 
@@ -14675,11 +14693,12 @@ class FileSystem {
     static NetShareEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
         entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
         totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
         resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
         return result
     }
 
@@ -14697,11 +14716,12 @@ class FileSystem {
     static NetShareEnumSticky(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
 
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
         entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
         totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
         resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
         return result
     }
 
@@ -14790,7 +14810,9 @@ class FileSystem {
         servername := servername is String ? StrPtr(servername) : servername
         netname := netname is String ? StrPtr(netname) : netname
 
-        result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, "ptr*", bufptr, "uint")
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, bufptrMarshal, bufptr, "uint")
         return result
     }
 
@@ -15205,11 +15227,12 @@ class FileSystem {
     static NetServerAliasEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String ? StrPtr(servername) : servername
 
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
         entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
         totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
         resumehandleMarshal := resumehandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, "uint")
         return result
     }
 
@@ -15337,11 +15360,12 @@ class FileSystem {
         UncClientName := UncClientName is String ? StrPtr(UncClientName) : UncClientName
         username := username is String ? StrPtr(username) : username
 
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
         entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
         totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
         resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
         return result
     }
 
@@ -15528,7 +15552,9 @@ class FileSystem {
         UncClientName := UncClientName is String ? StrPtr(UncClientName) : UncClientName
         username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr*", bufptr, "uint")
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, bufptrMarshal, bufptr, "uint")
         return result
     }
 
@@ -15569,11 +15595,12 @@ class FileSystem {
         servername := servername is String ? StrPtr(servername) : servername
         qualifier := qualifier is String ? StrPtr(qualifier) : qualifier
 
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
         entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
         totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
         resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
         return result
     }
 
@@ -15731,11 +15758,12 @@ class FileSystem {
         basepath := basepath is String ? StrPtr(basepath) : basepath
         username := username is String ? StrPtr(username) : username
 
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
         entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
         totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
         resume_handleMarshal := resume_handle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, "ptr*", bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, "uint")
         return result
     }
 
@@ -15824,7 +15852,9 @@ class FileSystem {
     static NetFileGetInfo(servername, fileid, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, "ptr*", bufptr, "uint")
+        bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, bufptrMarshal, bufptr, "uint")
         return result
     }
 
@@ -15869,8 +15899,9 @@ class FileSystem {
     static NetStatisticsGet(ServerName, Service, Level, Options, Buffer) {
         ServerNameMarshal := ServerName is VarRef ? "char*" : "ptr"
         ServiceMarshal := Service is VarRef ? "char*" : "ptr"
+        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, "ptr*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, BufferMarshal, Buffer, "uint")
         return result
     }
 
@@ -16237,9 +16268,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static Wow64DisableWow64FsRedirection(OldValue) {
+        OldValueMarshal := OldValue is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64DisableWow64FsRedirection", "ptr*", OldValue, "int")
+        result := DllCall("KERNEL32.dll\Wow64DisableWow64FsRedirection", OldValueMarshal, OldValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19181,7 +19214,9 @@ class FileSystem {
     static OpenEncryptedFileRawA(lpFileName, ulFlags, pvContext) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, "uint", ulFlags, "ptr*", pvContext, "uint")
+        pvContextMarshal := pvContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, "uint", ulFlags, pvContextMarshal, pvContext, "uint")
         return result
     }
 
@@ -19259,7 +19294,9 @@ class FileSystem {
     static OpenEncryptedFileRawW(lpFileName, ulFlags, pvContext) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, "uint", ulFlags, "ptr*", pvContext, "uint")
+        pvContextMarshal := pvContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, "uint", ulFlags, pvContextMarshal, pvContext, "uint")
         return result
     }
 
@@ -19498,10 +19535,11 @@ class FileSystem {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         lpNumberOfBytesReadMarshal := lpNumberOfBytesRead is VarRef ? "uint*" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupRead", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, "int", bAbort, "int", bProcessSecurity, "ptr*", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupRead", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, "int", bAbort, "int", bProcessSecurity, lpContextMarshal, lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19532,10 +19570,11 @@ class FileSystem {
 
         lpdwLowByteSeekedMarshal := lpdwLowByteSeeked is VarRef ? "uint*" : "ptr"
         lpdwHighByteSeekedMarshal := lpdwHighByteSeeked is VarRef ? "uint*" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupSeek", "ptr", hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, lpdwLowByteSeekedMarshal, lpdwLowByteSeeked, lpdwHighByteSeekedMarshal, lpdwHighByteSeeked, "ptr*", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupSeek", "ptr", hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, lpdwLowByteSeekedMarshal, lpdwLowByteSeeked, lpdwHighByteSeekedMarshal, lpdwHighByteSeeked, lpContextMarshal, lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19592,10 +19631,11 @@ class FileSystem {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         lpNumberOfBytesWrittenMarshal := lpNumberOfBytesWritten is VarRef ? "uint*" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupWrite", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, "int", bAbort, "int", bProcessSecurity, "ptr*", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupWrite", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, "int", bAbort, "int", bProcessSecurity, lpContextMarshal, lpContext, "int")
         if(A_LastError)
             throw OSError()
 

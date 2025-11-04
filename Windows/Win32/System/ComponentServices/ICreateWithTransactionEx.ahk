@@ -40,7 +40,9 @@ class ICreateWithTransactionEx extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithtransactionex-createinstance
      */
     CreateInstance(pTransaction, rclsid, riid, pObject) {
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", rclsid, "ptr", riid, "ptr*", pObject, "HRESULT")
+        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pTransaction, "ptr", rclsid, "ptr", riid, pObjectMarshal, pObject, "HRESULT")
         return result
     }
 }

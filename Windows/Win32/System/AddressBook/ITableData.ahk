@@ -35,7 +35,9 @@ class ITableData extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrgetview
      */
     HrGetView(lpSSortOrderSet, lpfCallerRelease, ulCallerData, lppMAPITable) {
-        result := ComCall(3, this, "ptr", lpSSortOrderSet, "ptr*", lpfCallerRelease, "uint", ulCallerData, "ptr*", lppMAPITable, "HRESULT")
+        lpfCallerReleaseMarshal := lpfCallerRelease is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, "uint", ulCallerData, "ptr*", lppMAPITable, "HRESULT")
         return result
     }
 
@@ -70,9 +72,10 @@ class ITableData extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrqueryrow
      */
     HrQueryRow(lpsPropValue, lppSRow, lpuliRow) {
+        lppSRowMarshal := lppSRow is VarRef ? "ptr*" : "ptr"
         lpuliRowMarshal := lpuliRow is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpsPropValue, "ptr*", lppSRow, lpuliRowMarshal, lpuliRow, "HRESULT")
+        result := ComCall(6, this, "ptr", lpsPropValue, lppSRowMarshal, lppSRow, lpuliRowMarshal, lpuliRow, "HRESULT")
         return result
     }
 
@@ -84,7 +87,9 @@ class ITableData extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrenumrow
      */
     HrEnumRow(ulRowNumber, lppSRow) {
-        result := ComCall(7, this, "uint", ulRowNumber, "ptr*", lppSRow, "HRESULT")
+        lppSRowMarshal := lppSRow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "uint", ulRowNumber, lppSRowMarshal, lppSRow, "HRESULT")
         return result
     }
 

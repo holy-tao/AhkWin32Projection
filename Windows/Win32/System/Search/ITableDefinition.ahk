@@ -42,7 +42,9 @@ class ITableDefinition extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateTable(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppTableID, "ptr*", ppRowset, "HRESULT")
+        ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class ITableDefinition extends IUnknown{
      * @returns {HRESULT} 
      */
     AddColumn(pTableID, pColumnDesc, ppColumnID) {
-        result := ComCall(5, this, "ptr", pTableID, "ptr", pColumnDesc, "ptr*", ppColumnID, "HRESULT")
+        ppColumnIDMarshal := ppColumnID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pTableID, "ptr", pColumnDesc, ppColumnIDMarshal, ppColumnID, "HRESULT")
         return result
     }
 

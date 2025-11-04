@@ -37,7 +37,9 @@ class IAccessibleHostingElementProviders extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessiblehostingelementproviders-getembeddedfragmentroots
      */
     GetEmbeddedFragmentRoots(pRetVal) {
-        result := ComCall(3, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

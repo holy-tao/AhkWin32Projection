@@ -50,7 +50,9 @@ class ITnef extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-extractprops
      */
     ExtractProps(ulFlags, lpPropList, lpProblems) {
-        result := ComCall(4, this, "uint", ulFlags, "ptr", lpPropList, "ptr*", lpProblems, "HRESULT")
+        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", ulFlags, "ptr", lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 
@@ -64,8 +66,9 @@ class ITnef extends IUnknown{
      */
     Finish(ulFlags, lpKey, lpProblems) {
         lpKeyMarshal := lpKey is VarRef ? "ushort*" : "ptr"
+        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulFlags, lpKeyMarshal, lpKey, "ptr*", lpProblems, "HRESULT")
+        result := ComCall(5, this, "uint", ulFlags, lpKeyMarshal, lpKey, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 
@@ -120,7 +123,9 @@ class ITnef extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-finishcomponent
      */
     FinishComponent(ulFlags, ulComponentID, lpCustomPropList, lpCustomProps, lpPropList, lpProblems) {
-        result := ComCall(9, this, "uint", ulFlags, "uint", ulComponentID, "ptr", lpCustomPropList, "ptr", lpCustomProps, "ptr", lpPropList, "ptr*", lpProblems, "HRESULT")
+        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "uint", ulFlags, "uint", ulComponentID, "ptr", lpCustomPropList, "ptr", lpCustomProps, "ptr", lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 }

@@ -80,7 +80,9 @@ class IUrlHistoryStg extends IUnknown{
     BindToObject(pocsUrl, riid, ppvOut) {
         pocsUrl := pocsUrl is String ? StrPtr(pocsUrl) : pocsUrl
 
-        result := ComCall(6, this, "ptr", pocsUrl, "ptr", riid, "ptr*", ppvOut, "HRESULT")
+        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pocsUrl, "ptr", riid, ppvOutMarshal, ppvOut, "HRESULT")
         return result
     }
 

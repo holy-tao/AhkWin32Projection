@@ -2816,7 +2816,9 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static ObjectFromLresult(lResult, riid, wParam, ppvObject) {
-        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, ppvObjectMarshal, ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2917,7 +2919,9 @@ class Accessibility {
     static AccessibleObjectFromWindow(hwnd, dwId, riid, ppvObject) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3250,7 +3254,9 @@ class Accessibility {
     static CreateStdAccessibleObject(hwnd, idObject, riid, ppvObject) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3286,7 +3292,9 @@ class Accessibility {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3322,7 +3330,9 @@ class Accessibility {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3555,7 +3565,9 @@ class Accessibility {
     static UiaGetRuntimeId(hnode, pruntimeId) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaGetRuntimeId", "ptr", hnode, "ptr*", pruntimeId, "int")
+        pruntimeIdMarshal := pruntimeId is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaGetRuntimeId", "ptr", hnode, pruntimeIdMarshal, pruntimeId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3613,7 +3625,9 @@ class Accessibility {
     static UiaNavigate(hnode, direction, pCondition, pRequest, ppRequestedData, ppTreeStructure) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaNavigate", "ptr", hnode, "int", direction, "ptr", pCondition, "ptr", pRequest, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
+        ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaNavigate", "ptr", hnode, "int", direction, "ptr", pCondition, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3650,7 +3664,9 @@ class Accessibility {
     static UiaGetUpdatedCache(hnode, pRequest, normalizeState, pNormalizeCondition, ppRequestedData, ppTreeStructure) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaGetUpdatedCache", "ptr", hnode, "ptr", pRequest, "int", normalizeState, "ptr", pNormalizeCondition, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
+        ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaGetUpdatedCache", "ptr", hnode, "ptr", pRequest, "int", normalizeState, "ptr", pNormalizeCondition, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3686,7 +3702,11 @@ class Accessibility {
     static UiaFind(hnode, pParams, pRequest, ppRequestedData, ppOffsets, ppTreeStructures) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaFind", "ptr", hnode, "ptr", pParams, "ptr", pRequest, "ptr*", ppRequestedData, "ptr*", ppOffsets, "ptr*", ppTreeStructures, "int")
+        ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
+        ppOffsetsMarshal := ppOffsets is VarRef ? "ptr*" : "ptr"
+        ppTreeStructuresMarshal := ppTreeStructures is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaFind", "ptr", hnode, "ptr", pParams, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, ppOffsetsMarshal, ppOffsets, ppTreeStructuresMarshal, ppTreeStructures, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3718,7 +3738,9 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaNodeFromPoint(x, y, pRequest, ppRequestedData, ppTreeStructure) {
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, "ptr", pRequest, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
+        ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3745,7 +3767,9 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaNodeFromFocus(pRequest, ppRequestedData, ppTreeStructure) {
-        result := DllCall("UIAutomationCore.dll\UiaNodeFromFocus", "ptr", pRequest, "ptr*", ppRequestedData, "ptr", ppTreeStructure, "int")
+        ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\UiaNodeFromFocus", "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3830,7 +3854,9 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaRegisterProviderCallback(pCallback) {
-        DllCall("UIAutomationCore.dll\UiaRegisterProviderCallback", "ptr*", pCallback)
+        pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
+
+        DllCall("UIAutomationCore.dll\UiaRegisterProviderCallback", pCallbackMarshal, pCallback)
     }
 
     /**
@@ -4142,9 +4168,10 @@ class Accessibility {
     static UiaAddEvent(hnode, eventId, pCallback, scope, pProperties, cProperties, pRequest, phEvent) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
+        pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
         pPropertiesMarshal := pProperties is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, "ptr*", pCallback, "int", scope, pPropertiesMarshal, pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
+        result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, pCallbackMarshal, pCallback, "int", scope, pPropertiesMarshal, pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4770,7 +4797,9 @@ class Accessibility {
     static TextPattern_GetSelection(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_GetSelection", "ptr", hobj, "ptr*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextPattern_GetSelection", "ptr", hobj, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4796,7 +4825,9 @@ class Accessibility {
     static TextPattern_GetVisibleRanges(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextPattern_GetVisibleRanges", "ptr", hobj, "ptr*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextPattern_GetVisibleRanges", "ptr", hobj, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5150,7 +5181,9 @@ class Accessibility {
     static TextRange_GetBoundingRectangles(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetBoundingRectangles", "ptr", hobj, "ptr*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextRange_GetBoundingRectangles", "ptr", hobj, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5423,7 +5456,9 @@ class Accessibility {
     static TextRange_GetChildren(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_GetChildren", "ptr", hobj, "ptr*", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextRange_GetChildren", "ptr", hobj, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 

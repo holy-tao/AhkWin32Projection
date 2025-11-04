@@ -60,7 +60,9 @@ class IEntity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-relationships
      */
     Relationships(riid, pRelationships) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", pRelationships, "HRESULT")
+        pRelationshipsMarshal := pRelationships is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", riid, pRelationshipsMarshal, pRelationships, "HRESULT")
         return result
     }
 
@@ -86,7 +88,9 @@ class IEntity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-metadata
      */
     MetaData(riid, pMetaData) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", pMetaData, "HRESULT")
+        pMetaDataMarshal := pMetaData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", riid, pMetaDataMarshal, pMetaData, "HRESULT")
         return result
     }
 
@@ -98,7 +102,9 @@ class IEntity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-namedentities
      */
     NamedEntities(riid, pNamedEntities) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", pNamedEntities, "HRESULT")
+        pNamedEntitiesMarshal := pNamedEntities is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", riid, pNamedEntitiesMarshal, pNamedEntities, "HRESULT")
         return result
     }
 

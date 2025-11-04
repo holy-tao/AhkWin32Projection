@@ -924,7 +924,9 @@ class Credentials {
      * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation(keyCredentialManagerInfo) {
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", keyCredentialManagerInfo, "int")
+        keyCredentialManagerInfoMarshal := keyCredentialManagerInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", keyCredentialManagerInfoMarshal, keyCredentialManagerInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1264,9 +1266,11 @@ class Credentials {
 
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1310,9 +1314,11 @@ class Credentials {
 
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadA", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1381,10 +1387,11 @@ class Credentials {
         Filter := Filter is String ? StrPtr(Filter) : Filter
 
         CountMarshal := Count is VarRef ? "uint*" : "ptr"
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, CountMarshal, Count, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1453,10 +1460,11 @@ class Credentials {
         Filter := Filter is String ? StrPtr(Filter) : Filter
 
         CountMarshal := Count is VarRef ? "uint*" : "ptr"
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, "uint", Flags, CountMarshal, Count, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1806,10 +1814,11 @@ class Credentials {
      */
     static CredReadDomainCredentialsW(TargetInfo, Flags, Count, Credential) {
         CountMarshal := Count is VarRef ? "uint*" : "ptr"
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsW", "ptr", TargetInfo, "uint", Flags, CountMarshal, Count, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsW", "ptr", TargetInfo, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1877,10 +1886,11 @@ class Credentials {
      */
     static CredReadDomainCredentialsA(TargetInfo, Flags, Count, Credential) {
         CountMarshal := Count is VarRef ? "uint*" : "ptr"
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsA", "ptr", TargetInfo, "uint", Flags, CountMarshal, Count, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsA", "ptr", TargetInfo, "uint", Flags, CountMarshal, Count, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2113,9 +2123,11 @@ class Credentials {
     static CredGetTargetInfoW(TargetName, Flags, TargetInfo) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
+        TargetInfoMarshal := TargetInfo is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, "ptr*", TargetInfo, "int")
+        result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, TargetInfoMarshal, TargetInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2152,9 +2164,11 @@ class Credentials {
     static CredGetTargetInfoA(TargetName, Flags, TargetInfo) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
+        TargetInfoMarshal := TargetInfo is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, "ptr*", TargetInfo, "int")
+        result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, TargetInfoMarshal, TargetInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2249,10 +2263,11 @@ class Credentials {
         MarshaledCredential := MarshaledCredential is String ? StrPtr(MarshaledCredential) : MarshaledCredential
 
         CredTypeMarshal := CredType is VarRef ? "int*" : "ptr"
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, CredTypeMarshal, CredType, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, CredTypeMarshal, CredType, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2281,10 +2296,11 @@ class Credentials {
         MarshaledCredential := MarshaledCredential is String ? StrPtr(MarshaledCredential) : MarshaledCredential
 
         CredTypeMarshal := CredType is VarRef ? "int*" : "ptr"
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, CredTypeMarshal, CredType, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, CredTypeMarshal, CredType, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2981,9 +2997,11 @@ class Credentials {
     static CredFindBestCredentialW(TargetName, Type, Flags, Credential) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3008,9 +3026,11 @@ class Credentials {
     static CredFindBestCredentialA(TargetName, Type, Flags, Credential) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
+        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, CredentialMarshal, Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3396,9 +3416,10 @@ class Credentials {
      */
     static CredUIPromptForWindowsCredentialsW(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
         pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : "ptr"
+        ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : "ptr"
         pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, "ptr*", ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3437,9 +3458,10 @@ class Credentials {
      */
     static CredUIPromptForWindowsCredentialsA(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
         pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : "ptr"
+        ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : "ptr"
         pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, "ptr*", ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", "ptr", pUiInfo, "uint", dwAuthError, pulAuthPackageMarshal, pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
     }
 

@@ -43,9 +43,10 @@ class IVdsLunMpio extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getpathinfo
      */
     GetPathInfo(ppPaths, plNumberOfPaths) {
+        ppPathsMarshal := ppPaths is VarRef ? "ptr*" : "ptr"
         plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
+        result := ComCall(3, this, ppPathsMarshal, ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
         return result
     }
 
@@ -59,9 +60,10 @@ class IVdsLunMpio extends IUnknown{
      */
     GetLoadBalancePolicy(pPolicy, ppPaths, plNumberOfPaths) {
         pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
+        ppPathsMarshal := ppPaths is VarRef ? "ptr*" : "ptr"
         plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, pPolicyMarshal, pPolicy, "ptr*", ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
+        result := ComCall(4, this, pPolicyMarshal, pPolicy, ppPathsMarshal, ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
         return result
     }
 

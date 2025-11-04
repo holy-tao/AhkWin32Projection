@@ -264,7 +264,9 @@ class IMarshal extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-unmarshalinterface
      */
     UnmarshalInterface(pStm, riid, ppv) {
-        result := ComCall(6, this, "ptr", pStm, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pStm, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

@@ -50,7 +50,9 @@ class IKsFormatSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksformatsupport-getdevicepreferredformat
      */
     GetDevicePreferredFormat(ppKsFormat) {
-        result := ComCall(4, this, "ptr*", ppKsFormat, "HRESULT")
+        ppKsFormatMarshal := ppKsFormat is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppKsFormatMarshal, ppKsFormat, "HRESULT")
         return result
     }
 }

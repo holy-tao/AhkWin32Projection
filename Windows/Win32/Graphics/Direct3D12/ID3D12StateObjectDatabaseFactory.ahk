@@ -39,7 +39,9 @@ class ID3D12StateObjectDatabaseFactory extends IUnknown{
     CreateStateObjectDatabaseFromFile(pDatabaseFile, flags, riid, ppvStateObjectDatabase) {
         pDatabaseFile := pDatabaseFile is String ? StrPtr(pDatabaseFile) : pDatabaseFile
 
-        result := ComCall(3, this, "ptr", pDatabaseFile, "int", flags, "ptr", riid, "ptr*", ppvStateObjectDatabase, "HRESULT")
+        ppvStateObjectDatabaseMarshal := ppvStateObjectDatabase is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pDatabaseFile, "int", flags, "ptr", riid, ppvStateObjectDatabaseMarshal, ppvStateObjectDatabase, "HRESULT")
         return result
     }
 }

@@ -135,8 +135,10 @@ class IPackageDebugSettings extends IUnknown{
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         taskCountMarshal := taskCount is VarRef ? "uint*" : "ptr"
+        taskIdsMarshal := taskIds is VarRef ? "ptr*" : "ptr"
+        taskNamesMarshal := taskNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", packageFullName, taskCountMarshal, taskCount, "ptr*", taskIds, "ptr*", taskNames, "HRESULT")
+        result := ComCall(9, this, "ptr", packageFullName, taskCountMarshal, taskCount, taskIdsMarshal, taskIds, taskNamesMarshal, taskNames, "HRESULT")
         return result
     }
 

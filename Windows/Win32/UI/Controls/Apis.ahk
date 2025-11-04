@@ -11879,7 +11879,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_ReadEx(dwFlags, pstm, riid, ppv) {
-        result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12091,7 +12093,9 @@ class Controls {
     static HIMAGELIST_QueryInterface(himl, riid, ppv) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14526,7 +14530,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_CoCreateInstance(rclsid, punkOuter, riid, ppv) {
-        result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16870,9 +16876,10 @@ class Controls {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
+        ppvStreamMarshal := ppvStream is VarRef ? "ptr*" : "ptr"
         pcbStreamMarshal := pcbStream is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr*", ppvStream, pcbStreamMarshal, pcbStream, "ptr", hInst, "int")
+        result := DllCall("UXTHEME.dll\GetThemeStream", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, ppvStreamMarshal, ppvStream, pcbStreamMarshal, pcbStream, "ptr", hInst, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17044,9 +17051,10 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetBufferedPaintBits(hBufferedPaint, ppbBuffer, pcxRow) {
+        ppbBufferMarshal := ppbBuffer is VarRef ? "ptr*" : "ptr"
         pcxRowMarshal := pcxRow is VarRef ? "int*" : "ptr"
 
-        result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, "ptr*", ppbBuffer, pcxRowMarshal, pcxRow, "int")
+        result := DllCall("UXTHEME.dll\GetBufferedPaintBits", "ptr", hBufferedPaint, ppbBufferMarshal, ppbBuffer, pcxRowMarshal, pcxRow, "int")
         if(result != 0)
             throw OSError(result)
 

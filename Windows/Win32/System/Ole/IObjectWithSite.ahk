@@ -49,7 +49,9 @@ class IObjectWithSite extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iobjectwithsite-getsite
      */
     GetSite(riid, ppvSite) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppvSite, "HRESULT")
+        ppvSiteMarshal := ppvSite is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, ppvSiteMarshal, ppvSite, "HRESULT")
         return result
     }
 }

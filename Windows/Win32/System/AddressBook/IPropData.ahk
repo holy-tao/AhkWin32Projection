@@ -58,7 +58,10 @@ class IPropData extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdata-hrgetpropaccess
      */
     HrGetPropAccess(lppPropTagArray, lprgulAccess) {
-        result := ComCall(16, this, "ptr*", lppPropTagArray, "ptr*", lprgulAccess, "HRESULT")
+        lppPropTagArrayMarshal := lppPropTagArray is VarRef ? "ptr*" : "ptr"
+        lprgulAccessMarshal := lprgulAccess is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, lppPropTagArrayMarshal, lppPropTagArray, lprgulAccessMarshal, lprgulAccess, "HRESULT")
         return result
     }
 
@@ -70,7 +73,9 @@ class IPropData extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdata-hraddobjprops
      */
     HrAddObjProps(lppPropTagArray, lprgulAccess) {
-        result := ComCall(17, this, "ptr", lppPropTagArray, "ptr*", lprgulAccess, "HRESULT")
+        lprgulAccessMarshal := lprgulAccess is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, "ptr", lppPropTagArray, lprgulAccessMarshal, lprgulAccess, "HRESULT")
         return result
     }
 }

@@ -51,7 +51,9 @@ class IMbnMultiCarrier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getpreferredproviders
      */
     GetPreferredProviders(preferredMulticarrierProviders) {
-        result := ComCall(4, this, "ptr*", preferredMulticarrierProviders, "HRESULT")
+        preferredMulticarrierProvidersMarshal := preferredMulticarrierProviders is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, preferredMulticarrierProvidersMarshal, preferredMulticarrierProviders, "HRESULT")
         return result
     }
 
@@ -64,8 +66,9 @@ class IMbnMultiCarrier extends IUnknown{
      */
     GetVisibleProviders(age, visibleProviders) {
         ageMarshal := age is VarRef ? "uint*" : "ptr"
+        visibleProvidersMarshal := visibleProviders is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, ageMarshal, age, "ptr*", visibleProviders, "HRESULT")
+        result := ComCall(5, this, ageMarshal, age, visibleProvidersMarshal, visibleProviders, "HRESULT")
         return result
     }
 
@@ -76,7 +79,9 @@ class IMbnMultiCarrier extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getsupportedcellularclasses
      */
     GetSupportedCellularClasses(cellularClasses) {
-        result := ComCall(6, this, "ptr*", cellularClasses, "HRESULT")
+        cellularClassesMarshal := cellularClasses is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, cellularClassesMarshal, cellularClasses, "HRESULT")
         return result
     }
 

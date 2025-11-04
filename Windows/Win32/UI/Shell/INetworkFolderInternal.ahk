@@ -46,7 +46,9 @@ class INetworkFolderInternal extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIDList(idList) {
-        result := ComCall(4, this, "ptr*", idList, "HRESULT")
+        idListMarshal := idList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, idListMarshal, idList, "HRESULT")
         return result
     }
 
@@ -61,7 +63,9 @@ class INetworkFolderInternal extends IUnknown{
     GetProvider(itemIdCount, itemIds, providerMaxLength, provider) {
         provider := provider is String ? StrPtr(provider) : provider
 
-        result := ComCall(5, this, "uint", itemIdCount, "ptr*", itemIds, "uint", providerMaxLength, "ptr", provider, "HRESULT")
+        itemIdsMarshal := itemIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", itemIdCount, itemIdsMarshal, itemIds, "uint", providerMaxLength, "ptr", provider, "HRESULT")
         return result
     }
 }

@@ -170,9 +170,10 @@ class IOpcSignatureReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
+        digestValueMarshal := digestValue is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr*", digestValue, countMarshal, count, "HRESULT")
+        result := ComCall(8, this, digestValueMarshal, digestValue, countMarshal, count, "HRESULT")
         return result
     }
 }

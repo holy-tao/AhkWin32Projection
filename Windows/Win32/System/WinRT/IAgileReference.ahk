@@ -43,7 +43,9 @@ class IAgileReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/WinRT/iagilereference-resolve
      */
     Resolve(riid, ppvObjectReference) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppvObjectReference, "HRESULT")
+        ppvObjectReferenceMarshal := ppvObjectReference is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvObjectReferenceMarshal, ppvObjectReference, "HRESULT")
         return result
     }
 }

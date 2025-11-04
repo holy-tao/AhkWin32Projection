@@ -584,9 +584,10 @@ class UI {
      * @since windows6.1
      */
     static CertSelectionGetSerializedBlob(pcsi, ppOutBuffer, pulOutBufferSize) {
+        ppOutBufferMarshal := ppOutBuffer is VarRef ? "ptr*" : "ptr"
         pulOutBufferSizeMarshal := pulOutBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, "ptr*", ppOutBuffer, pulOutBufferSizeMarshal, pulOutBufferSize, "int")
+        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, ppOutBufferMarshal, ppOutBuffer, pulOutBufferSizeMarshal, pulOutBufferSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -640,7 +641,9 @@ class UI {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
 
-        result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pDigitalSignInfo, "ptr*", ppSignContext, "int")
+        ppSignContextMarshal := ppSignContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pDigitalSignInfo, ppSignContextMarshal, ppSignContext, "int")
         return result
     }
 

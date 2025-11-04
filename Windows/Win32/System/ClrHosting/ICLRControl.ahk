@@ -35,7 +35,9 @@ class ICLRControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCLRManager(riid, ppObject) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppObject, "HRESULT")
+        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
         return result
     }
 

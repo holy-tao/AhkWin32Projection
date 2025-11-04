@@ -55,8 +55,10 @@ class IRowsetUpdate extends IRowsetChange{
      */
     GetPendingRows(hReserved, dwRowStatus, pcPendingRows, prgPendingRows, prgPendingStatus) {
         pcPendingRowsMarshal := pcPendingRows is VarRef ? "ptr*" : "ptr"
+        prgPendingRowsMarshal := prgPendingRows is VarRef ? "ptr*" : "ptr"
+        prgPendingStatusMarshal := prgPendingStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", hReserved, "uint", dwRowStatus, pcPendingRowsMarshal, pcPendingRows, "ptr*", prgPendingRows, "ptr*", prgPendingStatus, "HRESULT")
+        result := ComCall(7, this, "ptr", hReserved, "uint", dwRowStatus, pcPendingRowsMarshal, pcPendingRows, prgPendingRowsMarshal, prgPendingRows, prgPendingStatusMarshal, prgPendingStatus, "HRESULT")
         return result
     }
 
@@ -89,8 +91,10 @@ class IRowsetUpdate extends IRowsetChange{
     Undo(hReserved, cRows, rghRows, pcRowsUndone, prgRowsUndone, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
         pcRowsUndoneMarshal := pcRowsUndone is VarRef ? "ptr*" : "ptr"
+        prgRowsUndoneMarshal := prgRowsUndone is VarRef ? "ptr*" : "ptr"
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, "ptr*", prgRowsUndone, "ptr*", prgRowStatus, "HRESULT")
+        result := ComCall(9, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, prgRowsUndoneMarshal, prgRowsUndone, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 
@@ -107,8 +111,10 @@ class IRowsetUpdate extends IRowsetChange{
     Update(hReserved, cRows, rghRows, pcRows, prgRows, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+        prgRowsMarshal := prgRows is VarRef ? "ptr*" : "ptr"
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, "ptr*", prgRows, "ptr*", prgRowStatus, "HRESULT")
+        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, prgRowsMarshal, prgRows, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 }

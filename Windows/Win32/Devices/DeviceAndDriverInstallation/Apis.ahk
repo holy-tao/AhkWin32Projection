@@ -6707,11 +6707,12 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupQuerySourceListA(Flags, List, Count) {
+        ListMarshal := List is VarRef ? "ptr*" : "ptr"
         CountMarshal := Count is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupQuerySourceListA", "uint", Flags, "ptr*", List, CountMarshal, Count, "int")
+        result := DllCall("SETUPAPI.dll\SetupQuerySourceListA", "uint", Flags, ListMarshal, List, CountMarshal, Count, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6732,11 +6733,12 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupQuerySourceListW(Flags, List, Count) {
+        ListMarshal := List is VarRef ? "ptr*" : "ptr"
         CountMarshal := Count is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupQuerySourceListW", "uint", Flags, "ptr*", List, CountMarshal, Count, "int")
+        result := DllCall("SETUPAPI.dll\SetupQuerySourceListW", "uint", Flags, ListMarshal, List, CountMarshal, Count, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6756,9 +6758,11 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupFreeSourceListA(List, Count) {
+        ListMarshal := List is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupFreeSourceListA", "ptr*", List, "uint", Count, "int")
+        result := DllCall("SETUPAPI.dll\SetupFreeSourceListA", ListMarshal, List, "uint", Count, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6778,9 +6782,11 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupFreeSourceListW(List, Count) {
+        ListMarshal := List is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SETUPAPI.dll\SetupFreeSourceListW", "ptr*", List, "uint", Count, "int")
+        result := DllCall("SETUPAPI.dll\SetupFreeSourceListW", ListMarshal, List, "uint", Count, "int")
         if(A_LastError)
             throw OSError()
 

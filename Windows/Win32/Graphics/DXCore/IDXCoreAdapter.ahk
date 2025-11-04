@@ -154,7 +154,9 @@ class IDXCoreAdapter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getfactory
      */
     GetFactory(riid, ppvFactory) {
-        result := ComCall(12, this, "ptr", riid, "ptr*", ppvFactory, "HRESULT")
+        ppvFactoryMarshal := ppvFactory is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", riid, ppvFactoryMarshal, ppvFactory, "HRESULT")
         return result
     }
 }

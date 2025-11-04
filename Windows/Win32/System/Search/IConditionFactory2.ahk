@@ -45,7 +45,9 @@ class IConditionFactory2 extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createtruefalse
      */
     CreateTrueFalse(fVal, cco, riid, ppv) {
-        result := ComCall(7, this, "int", fVal, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "int", fVal, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IConditionFactory2 extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createnegation
      */
     CreateNegation(pcSub, cco, riid, ppv) {
-        result := ComCall(8, this, "ptr", pcSub, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pcSub, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IConditionFactory2 extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromobjectarray
      */
     CreateCompoundFromObjectArray(ct, poaSubs, cco, riid, ppv) {
-        result := ComCall(9, this, "int", ct, "ptr", poaSubs, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "int", ct, "ptr", poaSubs, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -90,7 +96,9 @@ class IConditionFactory2 extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromarray
      */
     CreateCompoundFromArray(ct, ppcondSubs, cSubs, cco, riid, ppv) {
-        result := ComCall(10, this, "int", ct, "ptr*", ppcondSubs, "uint", cSubs, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "int", ct, "ptr*", ppcondSubs, "uint", cSubs, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -110,7 +118,9 @@ class IConditionFactory2 extends IConditionFactory{
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(11, this, "ptr", propkey, "int", cop, "ptr", pszValue, "ptr", pszLocaleName, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", propkey, "int", cop, "ptr", pszValue, "ptr", pszLocaleName, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -126,7 +136,9 @@ class IConditionFactory2 extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createintegerleaf
      */
     CreateIntegerLeaf(propkey, cop, lValue, cco, riid, ppv) {
-        result := ComCall(12, this, "ptr", propkey, "int", cop, "int", lValue, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", propkey, "int", cop, "int", lValue, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -142,7 +154,9 @@ class IConditionFactory2 extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createbooleanleaf
      */
     CreateBooleanLeaf(propkey, cop, fValue, cco, riid, ppv) {
-        result := ComCall(13, this, "ptr", propkey, "int", cop, "int", fValue, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "ptr", propkey, "int", cop, "int", fValue, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -166,7 +180,9 @@ class IConditionFactory2 extends IConditionFactory{
         pszSemanticType := pszSemanticType is String ? StrPtr(pszSemanticType) : pszSemanticType
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(14, this, "ptr", propkey, "int", cop, "ptr", propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", cco, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", propkey, "int", cop, "ptr", propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", cco, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -181,7 +197,9 @@ class IConditionFactory2 extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-resolvecondition
      */
     ResolveCondition(pc, sqro, pstReferenceTime, riid, ppv) {
-        result := ComCall(15, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

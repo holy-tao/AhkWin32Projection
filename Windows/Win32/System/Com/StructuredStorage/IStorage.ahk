@@ -96,7 +96,9 @@ class IStorage extends IUnknown{
     OpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved, ppstg) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, "ptr*", snbExclude, "uint", reserved, "ptr*", ppstg, "HRESULT")
+        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", ppstg, "HRESULT")
         return result
     }
 
@@ -110,7 +112,9 @@ class IStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-copyto
      */
     CopyTo(ciidExclude, rgiidExclude, snbExclude, pstgDest) {
-        result := ComCall(7, this, "uint", ciidExclude, "ptr", rgiidExclude, "ptr*", snbExclude, "ptr", pstgDest, "HRESULT")
+        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "uint", ciidExclude, "ptr", rgiidExclude, snbExcludeMarshal, snbExclude, "ptr", pstgDest, "HRESULT")
         return result
     }
 

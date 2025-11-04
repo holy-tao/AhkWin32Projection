@@ -104,8 +104,9 @@ class IAssemblyName extends IUnknown{
         szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+        ppReservedMarshal := ppReserved is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, "int64", llReserved, pvReservedMarshal, pvReserved, "uint", cbReserved, "ptr*", ppReserved, "HRESULT")
+        result := ComCall(7, this, "ptr", refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, "int64", llReserved, pvReservedMarshal, pvReserved, "uint", cbReserved, ppReservedMarshal, ppReserved, "HRESULT")
         return result
     }
 

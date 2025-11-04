@@ -39,7 +39,9 @@ class IKsTopology extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateNodeInstance(NodeId, Flags, DesiredAccess, UnkOuter, InterfaceId, Interface) {
-        result := ComCall(3, this, "uint", NodeId, "uint", Flags, "uint", DesiredAccess, "ptr", UnkOuter, "ptr", InterfaceId, "ptr*", Interface, "HRESULT")
+        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "uint", NodeId, "uint", Flags, "uint", DesiredAccess, "ptr", UnkOuter, "ptr", InterfaceId, InterfaceMarshal, Interface, "HRESULT")
         return result
     }
 }

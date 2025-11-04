@@ -1075,7 +1075,9 @@ class IActiveIMMIME extends IUnknown{
     LockIMC(hIMC, ppIMC) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
-        result := ComCall(61, this, "ptr", hIMC, "ptr*", ppIMC, "HRESULT")
+        ppIMCMarshal := ppIMC is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(61, this, "ptr", hIMC, ppIMCMarshal, ppIMC, "HRESULT")
         return result
     }
 
@@ -1138,7 +1140,9 @@ class IActiveIMMIME extends IUnknown{
     LockIMCC(hIMCC, ppv) {
         hIMCC := hIMCC is Win32Handle ? NumGet(hIMCC, "ptr") : hIMCC
 
-        result := ComCall(66, this, "ptr", hIMCC, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(66, this, "ptr", hIMCC, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

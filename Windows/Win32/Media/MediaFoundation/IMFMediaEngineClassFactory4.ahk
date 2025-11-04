@@ -41,7 +41,9 @@ class IMFMediaEngineClassFactory4 extends IUnknown{
     CreateContentDecryptionModuleFactory(keySystem, riid, ppvObject) {
         keySystem := keySystem is String ? StrPtr(keySystem) : keySystem
 
-        result := ComCall(3, this, "ptr", keySystem, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", keySystem, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

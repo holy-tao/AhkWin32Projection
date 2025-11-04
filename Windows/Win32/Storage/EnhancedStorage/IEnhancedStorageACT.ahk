@@ -99,9 +99,10 @@ class IEnhancedStorageACT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getsilos
      */
     GetSilos(pppIEnhancedStorageSilos, pcEnhancedStorageSilos) {
+        pppIEnhancedStorageSilosMarshal := pppIEnhancedStorageSilos is VarRef ? "ptr*" : "ptr"
         pcEnhancedStorageSilosMarshal := pcEnhancedStorageSilos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr*", pppIEnhancedStorageSilos, pcEnhancedStorageSilosMarshal, pcEnhancedStorageSilos, "HRESULT")
+        result := ComCall(8, this, pppIEnhancedStorageSilosMarshal, pppIEnhancedStorageSilos, pcEnhancedStorageSilosMarshal, pcEnhancedStorageSilos, "HRESULT")
         return result
     }
 }

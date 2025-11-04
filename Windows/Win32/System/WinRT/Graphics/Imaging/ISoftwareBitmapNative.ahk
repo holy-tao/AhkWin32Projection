@@ -37,7 +37,9 @@ class ISoftwareBitmapNative extends IInspectable{
      * @returns {HRESULT} 
      */
     GetData(riid, ppv) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

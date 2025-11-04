@@ -53,7 +53,9 @@ class ITraceEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-getusercontext
      */
     GetUserContext(UserContext) {
-        result := ComCall(4, this, "ptr*", UserContext, "HRESULT")
+        UserContextMarshal := UserContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, UserContextMarshal, UserContext, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class ITraceEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-geteventrecord
      */
     GetEventRecord(EventRecord) {
-        result := ComCall(5, this, "ptr*", EventRecord, "HRESULT")
+        EventRecordMarshal := EventRecord is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, EventRecordMarshal, EventRecord, "HRESULT")
         return result
     }
 

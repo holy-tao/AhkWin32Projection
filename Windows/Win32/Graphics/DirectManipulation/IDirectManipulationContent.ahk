@@ -65,7 +65,9 @@ class IDirectManipulationContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getviewport
      */
     GetViewport(riid, object) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", object, "HRESULT")
+        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", riid, objectMarshal, object, "HRESULT")
         return result
     }
 
@@ -78,9 +80,10 @@ class IDirectManipulationContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag
      */
     GetTag(riid, object, id) {
+        objectMarshal := object is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, "ptr*", object, idMarshal, id, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, objectMarshal, object, idMarshal, id, "HRESULT")
         return result
     }
 

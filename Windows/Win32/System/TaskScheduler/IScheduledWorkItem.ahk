@@ -112,8 +112,9 @@ class IScheduledWorkItem extends IUnknown{
      */
     GetRunTimes(pstBegin, pstEnd, pCount, rgstTaskTimes) {
         pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
+        rgstTaskTimesMarshal := rgstTaskTimes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pstBegin, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", rgstTaskTimes, "HRESULT")
+        result := ComCall(8, this, "ptr", pstBegin, "ptr", pstEnd, pCountMarshal, pCount, rgstTaskTimesMarshal, rgstTaskTimes, "HRESULT")
         return result
     }
 
@@ -295,8 +296,9 @@ class IScheduledWorkItem extends IUnknown{
      */
     GetWorkItemData(pcbData, prgbData) {
         pcbDataMarshal := pcbData is VarRef ? "ushort*" : "ptr"
+        prgbDataMarshal := prgbData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(23, this, pcbDataMarshal, pcbData, "ptr*", prgbData, "HRESULT")
+        result := ComCall(23, this, pcbDataMarshal, pcbData, prgbDataMarshal, prgbData, "HRESULT")
         return result
     }
 

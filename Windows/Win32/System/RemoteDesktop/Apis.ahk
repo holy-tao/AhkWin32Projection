@@ -1426,11 +1426,12 @@ class RemoteDesktop {
     static WTSEnumerateServersW(pDomainName, Reserved, Version, ppServerInfo, pCount) {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
+        ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr*", ppServerInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1459,11 +1460,12 @@ class RemoteDesktop {
     static WTSEnumerateServersA(pDomainName, Reserved, Version, ppServerInfo, pCount) {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
+        ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr*", ppServerInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1588,11 +1590,12 @@ class RemoteDesktop {
     static WTSEnumerateSessionsW(hServer, Reserved, Version, ppSessionInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
+        ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1629,11 +1632,12 @@ class RemoteDesktop {
     static WTSEnumerateSessionsA(hServer, Reserved, Version, ppSessionInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
+        ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1661,11 +1665,12 @@ class RemoteDesktop {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
+        ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, pLevelMarshal, pLevel, "uint", Filter, "ptr*", ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, pLevelMarshal, pLevel, "uint", Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1693,11 +1698,12 @@ class RemoteDesktop {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
+        ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, pLevelMarshal, pLevel, "uint", Filter, "ptr*", ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, pLevelMarshal, pLevel, "uint", Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1728,11 +1734,12 @@ class RemoteDesktop {
     static WTSEnumerateProcessesW(hServer, Reserved, Version, ppProcessInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
+        ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppProcessInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1763,11 +1770,12 @@ class RemoteDesktop {
     static WTSEnumerateProcessesA(hServer, Reserved, Version, ppProcessInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
+        ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr*", ppProcessInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2501,11 +2509,12 @@ class RemoteDesktop {
     static WTSVirtualChannelQuery(hChannelHandle, param1, ppBuffer, pBytesReturned) {
         hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
 
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, "ptr*", ppBuffer, pBytesReturnedMarshal, pBytesReturned, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2810,11 +2819,12 @@ class RemoteDesktop {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+        pListenersMarshal := pListeners is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr*", pListeners, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, pListenersMarshal, pListeners, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2845,11 +2855,12 @@ class RemoteDesktop {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+        pListenersMarshal := pListeners is VarRef ? "ptr*" : "ptr"
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr*", pListeners, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, pListenersMarshal, pListeners, pCountMarshal, pCount, "int")
         if(A_LastError)
             throw OSError()
 

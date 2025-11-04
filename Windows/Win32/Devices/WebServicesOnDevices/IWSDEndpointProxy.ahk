@@ -152,7 +152,9 @@ class IWSDEndpointProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-getfaultinfo
      */
     GetFaultInfo(ppFault) {
-        result := ComCall(9, this, "ptr*", ppFault, "HRESULT")
+        ppFaultMarshal := ppFault is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, ppFaultMarshal, ppFault, "HRESULT")
         return result
     }
 }

@@ -59,7 +59,9 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcurrentannotationtypes
      */
     GetCurrentAnnotationTypes(retVal) {
-        result := ComCall(5, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcachedannotationtypes
      */
     GetCachedAnnotationTypes(retVal) {
-        result := ComCall(8, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

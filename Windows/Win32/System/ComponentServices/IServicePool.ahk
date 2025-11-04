@@ -69,7 +69,9 @@ class IServicePool extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
     GetObject(riid, ppv) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

@@ -8134,7 +8134,9 @@ class Rras {
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr*", ppRasEapUserIdentity, "uint")
+        ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -8261,7 +8263,9 @@ class Rras {
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr*", ppRasEapUserIdentity, "uint")
+        ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -8722,9 +8726,10 @@ class Rras {
     static MprAdminConnectionEnumEx(hRasServer, pObjectHeader, dwPreferedMaxLen, lpdwEntriesRead, lpdwTotalEntries, ppRasConn, lpdwResumeHandle) {
         lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
+        ppRasConnMarshal := ppRasConn is VarRef ? "ptr*" : "ptr"
         lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminConnectionEnumEx", "ptr", hRasServer, "ptr", pObjectHeader, "uint", dwPreferedMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, "ptr*", ppRasConn, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminConnectionEnumEx", "ptr", hRasServer, "ptr", pObjectHeader, "uint", dwPreferedMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, ppRasConnMarshal, ppRasConn, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9522,11 +9527,12 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
         lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
         lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", "ptr", hRasServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", "ptr", hRasServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9635,11 +9641,12 @@ class Rras {
     static MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
         hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
 
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
         lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
         lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminPortEnum", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "ptr*", lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminPortEnum", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, lplpbBufferMarshal, lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9752,7 +9759,9 @@ class Rras {
     static MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffer) {
         hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
 
-        result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "ptr*", lplpbBuffer, "uint")
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, lplpbBufferMarshal, lplpbBuffer, "uint")
         return result
     }
 
@@ -9870,7 +9879,9 @@ class Rras {
     static MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
         hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
 
-        result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hPort, "ptr*", lplpbBuffer, "uint")
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hPort, lplpbBufferMarshal, lplpbBuffer, "uint")
         return result
     }
 
@@ -10730,7 +10741,9 @@ class Rras {
      * @since windowsserver2003
      */
     static MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint")
         return result
     }
 
@@ -10967,7 +10980,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint")
         return result
     }
 
@@ -11590,10 +11605,12 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize) {
+        ppGlobalInfoMarshal := ppGlobalInfo is VarRef ? "ptr*" : "ptr"
         lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize is VarRef ? "uint*" : "ptr"
+        ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : "ptr"
         lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", "ptr", hMprServer, "uint", dwTransportId, "ptr*", ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, "ptr*", ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", "ptr", hMprServer, "uint", dwTransportId, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, "uint")
         return result
     }
 
@@ -11641,9 +11658,10 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, lpdwTotalEntriesMarshal, lpdwTotalEntries, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, lpdwTotalEntriesMarshal, lpdwTotalEntries, "uint")
         return result
     }
 
@@ -11966,7 +11984,9 @@ class Rras {
     static MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint")
         return result
     }
 
@@ -12257,7 +12277,9 @@ class Rras {
     static MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, lplpBuffer) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwIndex, "uint", dwLevel, "ptr*", lplpBuffer, "uint")
+        lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwIndex, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, "uint")
         return result
     }
 
@@ -12693,9 +12715,10 @@ class Rras {
     static MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, ppInterfaceInfo, lpdwInterfaceInfoSize) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
+        ppInterfaceInfoMarshal := ppInterfaceInfo is VarRef ? "ptr*" : "ptr"
         lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "ptr*", ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, ppInterfaceInfoMarshal, ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, "uint")
         return result
     }
 
@@ -12887,11 +12910,12 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceEnum(hMprServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
         lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
         lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", "ptr", hMprServer, "uint", dwLevel, "ptr*", lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
         return result
     }
 
@@ -13295,7 +13319,9 @@ class Rras {
     static MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbBuffer) {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint")
         return result
     }
 
@@ -14345,9 +14371,10 @@ class Rras {
      */
     static MprAdminMIBEntryGet(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
         lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : "ptr"
+        lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
         lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGet", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, "ptr*", lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGet", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, "uint")
         return result
     }
 
@@ -14425,9 +14452,10 @@ class Rras {
      */
     static MprAdminMIBEntryGetFirst(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
         lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : "ptr"
+        lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
         lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetFirst", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, "ptr*", lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetFirst", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, "uint")
         return result
     }
 
@@ -14505,9 +14533,10 @@ class Rras {
      */
     static MprAdminMIBEntryGetNext(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
         lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : "ptr"
+        lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
         lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetNext", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, "ptr*", lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetNext", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, "uint")
         return result
     }
 
@@ -14796,7 +14825,9 @@ class Rras {
     static MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
-        result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", "ptr", hMprConfig, "uint", dwLevel, "ptr*", lplpbBuffer, "uint")
+        lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", "ptr", hMprConfig, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint")
         return result
     }
 
@@ -15526,10 +15557,12 @@ class Rras {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterTransport := hRouterTransport is Win32Handle ? NumGet(hRouterTransport, "ptr") : hRouterTransport
 
+        ppGlobalInfoMarshal := ppGlobalInfo is VarRef ? "ptr*" : "ptr"
         lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize is VarRef ? "uint*" : "ptr"
+        ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : "ptr"
         lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "ptr*", ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, "ptr*", ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
         return result
     }
 
@@ -15634,11 +15667,12 @@ class Rras {
     static MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
+        lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
         lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
         lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprConfigTransportEnum", "ptr", hMprConfig, "uint", dwLevel, "ptr*", lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigTransportEnum", "ptr", hMprConfig, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
         return result
     }
 
@@ -15998,9 +16032,10 @@ class Rras {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
 
+        lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
         lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "ptr*", lplpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, "uint")
         return result
     }
 
@@ -16213,11 +16248,12 @@ class Rras {
     static MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
+        lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
         lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
         lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", "ptr", hMprConfig, "uint", dwLevel, "ptr*", lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", "ptr", hMprConfig, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
         return result
     }
 
@@ -16614,9 +16650,10 @@ class Rras {
         hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
         hRouterIfTransport := hRouterIfTransport is Win32Handle ? NumGet(hRouterIfTransport, "ptr") : hRouterIfTransport
 
+        ppInterfaceInfoMarshal := ppInterfaceInfo is VarRef ? "ptr*" : "ptr"
         lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, "ptr*", ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, ppInterfaceInfoMarshal, ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, "uint")
         return result
     }
 
@@ -16813,11 +16850,12 @@ class Rras {
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
 
+        lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
         lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
         lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
         lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "ptr*", lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, "uint")
         return result
     }
 
@@ -17142,7 +17180,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoCreate(dwVersion, lplpNewHeader) {
-        result := DllCall("MPRAPI.dll\MprInfoCreate", "uint", dwVersion, "ptr*", lplpNewHeader, "uint")
+        lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprInfoCreate", "uint", dwVersion, lplpNewHeaderMarshal, lplpNewHeader, "uint")
         return result
     }
 
@@ -17242,8 +17282,9 @@ class Rras {
      */
     static MprInfoRemoveAll(lpHeader, lplpNewHeader) {
         lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
+        lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprInfoRemoveAll", lpHeaderMarshal, lpHeader, "ptr*", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoRemoveAll", lpHeaderMarshal, lpHeader, lplpNewHeaderMarshal, lplpNewHeader, "uint")
         return result
     }
 
@@ -17304,8 +17345,9 @@ class Rras {
      */
     static MprInfoDuplicate(lpHeader, lplpNewHeader) {
         lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
+        lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprInfoDuplicate", lpHeaderMarshal, lpHeader, "ptr*", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoDuplicate", lpHeaderMarshal, lpHeader, lplpNewHeaderMarshal, lplpNewHeader, "uint")
         return result
     }
 
@@ -17359,8 +17401,9 @@ class Rras {
     static MprInfoBlockAdd(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
         lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
         lpItemDataMarshal := lpItemData is VarRef ? "char*" : "ptr"
+        lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprInfoBlockAdd", lpHeaderMarshal, lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, lpItemDataMarshal, lpItemData, "ptr*", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockAdd", lpHeaderMarshal, lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, "uint")
         return result
     }
 
@@ -17421,8 +17464,9 @@ class Rras {
      */
     static MprInfoBlockRemove(lpHeader, dwInfoType, lplpNewHeader) {
         lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
+        lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprInfoBlockRemove", lpHeaderMarshal, lpHeader, "uint", dwInfoType, "ptr*", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockRemove", lpHeaderMarshal, lpHeader, "uint", dwInfoType, lplpNewHeaderMarshal, lplpNewHeader, "uint")
         return result
     }
 
@@ -17475,8 +17519,9 @@ class Rras {
     static MprInfoBlockSet(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
         lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
         lpItemDataMarshal := lpItemData is VarRef ? "char*" : "ptr"
+        lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprInfoBlockSet", lpHeaderMarshal, lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, lpItemDataMarshal, lpItemData, "ptr*", lplpNewHeader, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockSet", lpHeaderMarshal, lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, "uint")
         return result
     }
 
@@ -17540,8 +17585,9 @@ class Rras {
         lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
         lpdwItemSizeMarshal := lpdwItemSize is VarRef ? "uint*" : "ptr"
         lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : "ptr"
+        lplpItemDataMarshal := lplpItemData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprInfoBlockFind", lpHeaderMarshal, lpHeader, "uint", dwInfoType, lpdwItemSizeMarshal, lpdwItemSize, lpdwItemCountMarshal, lpdwItemCount, "ptr*", lplpItemData, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockFind", lpHeaderMarshal, lpHeader, "uint", dwInfoType, lpdwItemSizeMarshal, lpdwItemSize, lpdwItemCountMarshal, lpdwItemCount, lplpItemDataMarshal, lplpItemData, "uint")
         return result
     }
 
@@ -19345,7 +19391,9 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetOpaqueInformationPointer(RtmRegHandle, DestHandle, OpaqueInfoPointer) {
-        result := DllCall("rtm.dll\RtmGetOpaqueInformationPointer", "ptr", RtmRegHandle, "ptr", DestHandle, "ptr*", OpaqueInfoPointer, "uint")
+        OpaqueInfoPointerMarshal := OpaqueInfoPointer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rtm.dll\RtmGetOpaqueInformationPointer", "ptr", RtmRegHandle, "ptr", DestHandle, OpaqueInfoPointerMarshal, OpaqueInfoPointer, "uint")
         return result
     }
 
@@ -19388,8 +19436,9 @@ class Rras {
      */
     static RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) {
         NumMethodsMarshal := NumMethods is VarRef ? "uint*" : "ptr"
+        ExptMethodsMarshal := ExptMethods is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmGetEntityMethods", "ptr", RtmRegHandle, "ptr", EntityHandle, NumMethodsMarshal, NumMethods, "ptr*", ExptMethods, "uint")
+        result := DllCall("rtm.dll\RtmGetEntityMethods", "ptr", RtmRegHandle, "ptr", EntityHandle, NumMethodsMarshal, NumMethods, ExptMethodsMarshal, ExptMethods, "uint")
         return result
     }
 
@@ -20204,7 +20253,9 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
-        result := DllCall("rtm.dll\RtmGetRoutePointer", "ptr", RtmRegHandle, "ptr", RouteHandle, "ptr*", RoutePointer, "uint")
+        RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rtm.dll\RtmGetRoutePointer", "ptr", RtmRegHandle, "ptr", RouteHandle, RoutePointerMarshal, RoutePointer, "uint")
         return result
     }
 
@@ -20261,7 +20312,9 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
-        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "int", Exclusive, "int", LockRoute, "ptr*", RoutePointer, "uint")
+        RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "int", Exclusive, "int", LockRoute, RoutePointerMarshal, RoutePointer, "uint")
         return result
     }
 
@@ -20787,8 +20840,9 @@ class Rras {
      */
     static RtmFindNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, NextHopPointer) {
         NextHopHandleMarshal := NextHopHandle is VarRef ? "ptr*" : "ptr"
+        NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmFindNextHop", "ptr", RtmRegHandle, "ptr", NextHopInfo, NextHopHandleMarshal, NextHopHandle, "ptr*", NextHopPointer, "uint")
+        result := DllCall("rtm.dll\RtmFindNextHop", "ptr", RtmRegHandle, "ptr", NextHopInfo, NextHopHandleMarshal, NextHopHandle, NextHopPointerMarshal, NextHopPointer, "uint")
         return result
     }
 
@@ -20899,7 +20953,9 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
-        result := DllCall("rtm.dll\RtmGetNextHopPointer", "ptr", RtmRegHandle, "ptr", NextHopHandle, "ptr*", NextHopPointer, "uint")
+        NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rtm.dll\RtmGetNextHopPointer", "ptr", RtmRegHandle, "ptr", NextHopHandle, NextHopPointerMarshal, NextHopPointer, "uint")
         return result
     }
 
@@ -20956,7 +21012,9 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
-        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "int", Exclusive, "int", LockNextHop, "ptr*", NextHopPointer, "uint")
+        NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "int", Exclusive, "int", LockNextHop, NextHopPointerMarshal, NextHopPointer, "uint")
         return result
     }
 

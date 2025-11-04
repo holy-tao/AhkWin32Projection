@@ -264,7 +264,9 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getenumtypelist
      */
     GetEnumTypeList(riid, ppv) {
-        result := ComCall(20, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(20, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

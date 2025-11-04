@@ -34,7 +34,9 @@ class IInterFilterCommunicator extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestReader(ppIReader) {
-        result := ComCall(3, this, "ptr*", ppIReader, "HRESULT")
+        ppIReaderMarshal := ppIReader is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppIReaderMarshal, ppIReader, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IInterFilterCommunicator extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestWriter(ppIWriter) {
-        result := ComCall(4, this, "ptr*", ppIWriter, "HRESULT")
+        ppIWriterMarshal := ppIWriter is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppIWriterMarshal, ppIWriter, "HRESULT")
         return result
     }
 }

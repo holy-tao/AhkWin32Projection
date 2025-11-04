@@ -53,7 +53,9 @@ class IQueryParserManager extends IUnknown{
     CreateLoadedParser(pszCatalog, langidForKeywords, riid, ppQueryParser) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, "ptr", riid, "ptr*", ppQueryParser, "HRESULT")
+        ppQueryParserMarshal := ppQueryParser is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, "ptr", riid, ppQueryParserMarshal, ppQueryParser, "HRESULT")
         return result
     }
 

@@ -204,9 +204,10 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getlanguagelist
      */
     GetLanguageList(ppLangId, pulCount) {
+        ppLangIdMarshal := ppLangId is VarRef ? "ptr*" : "ptr"
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr*", ppLangId, pulCountMarshal, pulCount, "HRESULT")
+        result := ComCall(15, this, ppLangIdMarshal, ppLangId, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 

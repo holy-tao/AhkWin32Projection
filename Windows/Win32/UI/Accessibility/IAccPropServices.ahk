@@ -164,9 +164,10 @@ class IAccPropServices extends IUnknown{
     ComposeHwndIdentityString(hwnd, idObject, idChild, ppIDString, pdwIDStringLen) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
+        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
         pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hwnd, "uint", idObject, "uint", idChild, "ptr*", ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
+        result := ComCall(10, this, "ptr", hwnd, "uint", idObject, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 
@@ -268,9 +269,10 @@ class IAccPropServices extends IUnknown{
     ComposeHmenuIdentityString(hmenu, idChild, ppIDString, pdwIDStringLen) {
         hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
 
+        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
         pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", hmenu, "uint", idChild, "ptr*", ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
+        result := ComCall(16, this, "ptr", hmenu, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 

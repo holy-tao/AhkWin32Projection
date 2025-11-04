@@ -44,7 +44,9 @@ class ICommandPersist extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentCommand(ppCommandID) {
-        result := ComCall(4, this, "ptr*", ppCommandID, "HRESULT")
+        ppCommandIDMarshal := ppCommandID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppCommandIDMarshal, ppCommandID, "HRESULT")
         return result
     }
 

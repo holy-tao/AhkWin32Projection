@@ -70,7 +70,9 @@ class IAccessibleWindowlessSite extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-queryobjectidranges
      */
     QueryObjectIdRanges(pRangesOwner, psaRanges) {
-        result := ComCall(5, this, "ptr", pRangesOwner, "ptr*", psaRanges, "HRESULT")
+        psaRangesMarshal := psaRanges is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pRangesOwner, psaRangesMarshal, psaRanges, "HRESULT")
         return result
     }
 

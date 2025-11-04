@@ -41,7 +41,9 @@ class ICoreFrameworkInputViewInterop extends IInspectable{
     GetForWindow(appWindow, riid, coreFrameworkInputView) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", coreFrameworkInputView, "HRESULT")
+        coreFrameworkInputViewMarshal := coreFrameworkInputView is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, coreFrameworkInputViewMarshal, coreFrameworkInputView, "HRESULT")
         return result
     }
 }

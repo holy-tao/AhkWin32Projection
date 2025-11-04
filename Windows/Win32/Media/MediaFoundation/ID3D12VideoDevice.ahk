@@ -55,7 +55,9 @@ class ID3D12VideoDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideodecoder
      */
     CreateVideoDecoder(pDesc, riid, ppVideoDecoder) {
-        result := ComCall(4, this, "ptr", pDesc, "ptr", riid, "ptr*", ppVideoDecoder, "HRESULT")
+        ppVideoDecoderMarshal := ppVideoDecoder is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pDesc, "ptr", riid, ppVideoDecoderMarshal, ppVideoDecoder, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class ID3D12VideoDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideodecoderheap
      */
     CreateVideoDecoderHeap(pVideoDecoderHeapDesc, riid, ppVideoDecoderHeap) {
-        result := ComCall(5, this, "ptr", pVideoDecoderHeapDesc, "ptr", riid, "ptr*", ppVideoDecoderHeap, "HRESULT")
+        ppVideoDecoderHeapMarshal := ppVideoDecoderHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pVideoDecoderHeapDesc, "ptr", riid, ppVideoDecoderHeapMarshal, ppVideoDecoderHeap, "HRESULT")
         return result
     }
 
@@ -84,7 +88,9 @@ class ID3D12VideoDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideoprocessor
      */
     CreateVideoProcessor(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, riid, ppVideoProcessor) {
-        result := ComCall(6, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", riid, "ptr*", ppVideoProcessor, "HRESULT")
+        ppVideoProcessorMarshal := ppVideoProcessor is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", riid, ppVideoProcessorMarshal, ppVideoProcessor, "HRESULT")
         return result
     }
 }

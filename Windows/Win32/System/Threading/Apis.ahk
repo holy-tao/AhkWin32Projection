@@ -1694,10 +1694,11 @@ class Threading {
      */
     static InitOnceExecuteOnce(InitOnce, InitFn, Parameter, Context) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, ParameterMarshal, Parameter, "ptr*", Context, "int")
+        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, ParameterMarshal, Parameter, ContextMarshal, Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1756,9 +1757,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static InitOnceBeginInitialize(lpInitOnce, dwFlags, fPending, lpContext) {
+        lpContextMarshal := lpContext is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, "ptr*", lpContext, "int")
+        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, lpContextMarshal, lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10014,9 +10017,11 @@ class Threading {
      * @since windows6.1
      */
     static CreateUmsCompletionList(UmsCompletionList) {
+        UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", "ptr*", UmsCompletionList, "int")
+        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", UmsCompletionListMarshal, UmsCompletionList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10058,10 +10063,11 @@ class Threading {
      */
     static DequeueUmsCompletionListItems(UmsCompletionList, WaitTimeOut, UmsThreadList) {
         UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr" : "ptr"
+        UmsThreadListMarshal := UmsThreadList is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", UmsCompletionListMarshal, UmsCompletionList, "uint", WaitTimeOut, "ptr*", UmsThreadList, "int")
+        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", UmsCompletionListMarshal, UmsCompletionList, "uint", WaitTimeOut, UmsThreadListMarshal, UmsThreadList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10372,9 +10378,11 @@ class Threading {
      * @since windows6.1
      */
     static CreateUmsThreadContext(lpUmsThread) {
+        lpUmsThreadMarshal := lpUmsThread is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", "ptr*", lpUmsThread, "int")
+        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", lpUmsThreadMarshal, lpUmsThread, "int")
         if(A_LastError)
             throw OSError()
 

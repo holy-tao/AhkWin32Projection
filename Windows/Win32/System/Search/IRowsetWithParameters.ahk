@@ -37,8 +37,10 @@ class IRowsetWithParameters extends IUnknown{
      */
     GetParameterInfo(pcParams, prgParamInfo, ppNamesBuffer) {
         pcParamsMarshal := pcParams is VarRef ? "ptr*" : "ptr"
+        prgParamInfoMarshal := prgParamInfo is VarRef ? "ptr*" : "ptr"
+        ppNamesBufferMarshal := ppNamesBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcParamsMarshal, pcParams, "ptr*", prgParamInfo, "ptr*", ppNamesBuffer, "HRESULT")
+        result := ComCall(3, this, pcParamsMarshal, pcParams, prgParamInfoMarshal, prgParamInfo, ppNamesBufferMarshal, ppNamesBuffer, "HRESULT")
         return result
     }
 

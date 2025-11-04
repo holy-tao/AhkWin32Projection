@@ -39,7 +39,9 @@ class IDxcCompiler3 extends IUnknown{
      * @returns {HRESULT} 
      */
     Compile(pSource, pArguments, argCount, pIncludeHandler, riid, ppResult) {
-        result := ComCall(3, this, "ptr", pSource, "ptr", pArguments, "uint", argCount, "ptr", pIncludeHandler, "ptr", riid, "ptr*", ppResult, "HRESULT")
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pSource, "ptr", pArguments, "uint", argCount, "ptr", pIncludeHandler, "ptr", riid, ppResultMarshal, ppResult, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IDxcCompiler3 extends IUnknown{
      * @returns {HRESULT} 
      */
     Disassemble(pObject, riid, ppResult) {
-        result := ComCall(4, this, "ptr", pObject, "ptr", riid, "ptr*", ppResult, "HRESULT")
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pObject, "ptr", riid, ppResultMarshal, ppResult, "HRESULT")
         return result
     }
 }

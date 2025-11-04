@@ -36,9 +36,10 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
      * @returns {HRESULT} 
      */
     get_KeyStatuses(pKeyStatusesArray, puSize) {
+        pKeyStatusesArrayMarshal := pKeyStatusesArray is VarRef ? "ptr*" : "ptr"
         puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr*", pKeyStatusesArray, puSizeMarshal, puSize, "HRESULT")
+        result := ComCall(8, this, pKeyStatusesArrayMarshal, pKeyStatusesArray, puSizeMarshal, puSize, "HRESULT")
         return result
     }
 

@@ -280,7 +280,9 @@ class IDataCollectorSet extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_keywords
      */
     get_Keywords(keywords) {
-        result := ComCall(16, this, "ptr*", keywords, "HRESULT")
+        keywordsMarshal := keywords is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, keywordsMarshal, keywords, "HRESULT")
         return result
     }
 

@@ -546,8 +546,9 @@ class IUIAutomation extends IUnknown{
      */
     IntNativeArrayToSafeArray(array, arrayCount, safeArray) {
         arrayMarshal := array is VarRef ? "int*" : "ptr"
+        safeArrayMarshal := safeArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, "ptr*", safeArray, "HRESULT")
+        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, safeArrayMarshal, safeArray, "HRESULT")
         return result
     }
 
@@ -560,9 +561,10 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intsafearraytonativearray
      */
     IntSafeArrayToNativeArray(intArray, array, arrayCount) {
+        arrayMarshal := array is VarRef ? "ptr*" : "ptr"
         arrayCountMarshal := arrayCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(43, this, "ptr", intArray, "ptr*", array, arrayCountMarshal, arrayCount, "HRESULT")
+        result := ComCall(43, this, "ptr", intArray, arrayMarshal, array, arrayCountMarshal, arrayCount, "HRESULT")
         return result
     }
 
@@ -599,9 +601,10 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-safearraytorectnativearray
      */
     SafeArrayToRectNativeArray(rects, rectArray, rectArrayCount) {
+        rectArrayMarshal := rectArray is VarRef ? "ptr*" : "ptr"
         rectArrayCountMarshal := rectArrayCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(46, this, "ptr", rects, "ptr*", rectArray, rectArrayCountMarshal, rectArrayCount, "HRESULT")
+        result := ComCall(46, this, "ptr", rects, rectArrayMarshal, rectArray, rectArrayCountMarshal, rectArrayCount, "HRESULT")
         return result
     }
 
@@ -661,7 +664,10 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedpatterns
      */
     PollForPotentialSupportedPatterns(pElement, patternIds, patternNames) {
-        result := ComCall(51, this, "ptr", pElement, "ptr*", patternIds, "ptr*", patternNames, "HRESULT")
+        patternIdsMarshal := patternIds is VarRef ? "ptr*" : "ptr"
+        patternNamesMarshal := patternNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(51, this, "ptr", pElement, patternIdsMarshal, patternIds, patternNamesMarshal, patternNames, "HRESULT")
         return result
     }
 
@@ -674,7 +680,10 @@ class IUIAutomation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedproperties
      */
     PollForPotentialSupportedProperties(pElement, propertyIds, propertyNames) {
-        result := ComCall(52, this, "ptr", pElement, "ptr*", propertyIds, "ptr*", propertyNames, "HRESULT")
+        propertyIdsMarshal := propertyIds is VarRef ? "ptr*" : "ptr"
+        propertyNamesMarshal := propertyNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(52, this, "ptr", pElement, propertyIdsMarshal, propertyIds, propertyNamesMarshal, propertyNames, "HRESULT")
         return result
     }
 

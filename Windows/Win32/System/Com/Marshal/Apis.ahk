@@ -562,8 +562,9 @@ class Marshal {
      */
     static SNB_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserSize", param0Marshal, param0, "uint", param1, "ptr*", param2, "uint")
+        result := DllCall("ole32.dll\SNB_UserSize", param0Marshal, param0, "uint", param1, param2Marshal, param2, "uint")
         return result
     }
 
@@ -577,8 +578,9 @@ class Marshal {
     static SNB_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -592,8 +594,9 @@ class Marshal {
     static SNB_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -605,8 +608,9 @@ class Marshal {
      */
     static SNB_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
 
-        DllCall("ole32.dll\SNB_UserFree", param0Marshal, param0, "ptr*", param1)
+        DllCall("ole32.dll\SNB_UserFree", param0Marshal, param0, param1Marshal, param1)
     }
 
     /**
@@ -918,8 +922,9 @@ class Marshal {
      */
     static SNB_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserSize64", param0Marshal, param0, "uint", param1, "ptr*", param2, "uint")
+        result := DllCall("ole32.dll\SNB_UserSize64", param0Marshal, param0, "uint", param1, param2Marshal, param2, "uint")
         return result
     }
 
@@ -933,8 +938,9 @@ class Marshal {
     static SNB_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -948,8 +954,9 @@ class Marshal {
     static SNB_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -961,8 +968,9 @@ class Marshal {
      */
     static SNB_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
 
-        DllCall("ole32.dll\SNB_UserFree64", param0Marshal, param0, "ptr*", param1)
+        DllCall("ole32.dll\SNB_UserFree64", param0Marshal, param0, param1Marshal, param1)
     }
 
     /**
@@ -1211,7 +1219,9 @@ class Marshal {
      * @since windows5.0
      */
     static CoUnmarshalInterface(pStm, riid, ppv) {
-        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1500,8 +1510,9 @@ class Marshal {
      */
     static LPSAFEARRAY_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize", param0Marshal, param0, "uint", param1, "ptr*", param2, "uint")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize", param0Marshal, param0, "uint", param1, param2Marshal, param2, "uint")
         return result
     }
 
@@ -1563,8 +1574,9 @@ class Marshal {
     static LPSAFEARRAY_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -1647,8 +1659,9 @@ class Marshal {
     static LPSAFEARRAY_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -1661,8 +1674,9 @@ class Marshal {
      */
     static LPSAFEARRAY_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
 
-        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree", param0Marshal, param0, "ptr*", param1)
+        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree", param0Marshal, param0, param1Marshal, param1)
     }
 
     /**
@@ -1676,8 +1690,9 @@ class Marshal {
      */
     static LPSAFEARRAY_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize64", param0Marshal, param0, "uint", param1, "ptr*", param2, "uint")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize64", param0Marshal, param0, "uint", param1, param2Marshal, param2, "uint")
         return result
     }
 
@@ -1740,8 +1755,9 @@ class Marshal {
     static LPSAFEARRAY_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -1825,8 +1841,9 @@ class Marshal {
     static LPSAFEARRAY_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr*", param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
         return result
     }
 
@@ -1840,8 +1857,9 @@ class Marshal {
      */
     static LPSAFEARRAY_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
 
-        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree64", param0Marshal, param0, "ptr*", param1)
+        DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree64", param0Marshal, param0, param1Marshal, param1)
     }
 
     /**

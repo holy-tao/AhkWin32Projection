@@ -99,8 +99,9 @@ class ICustomDestinationList extends IUnknown{
      */
     BeginList(pcMinSlots, riid, ppv) {
         pcMinSlotsMarshal := pcMinSlots is VarRef ? "uint*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcMinSlotsMarshal, pcMinSlots, "ptr", riid, "ptr*", ppv, "HRESULT")
+        result := ComCall(4, this, pcMinSlotsMarshal, pcMinSlots, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -158,7 +159,9 @@ class ICustomDestinationList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icustomdestinationlist-getremoveddestinations
      */
     GetRemovedDestinations(riid, ppv) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

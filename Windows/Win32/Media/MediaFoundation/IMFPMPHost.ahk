@@ -69,7 +69,9 @@ class IMFPMPHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphost-createobjectbyclsid
      */
     CreateObjectByCLSID(clsid, pStream, riid, ppv) {
-        result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

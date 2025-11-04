@@ -40,8 +40,10 @@ class IPackageDebugSettings2 extends IPackageDebugSettings{
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         appCountMarshal := appCount is VarRef ? "uint*" : "ptr"
+        appUserModelIdsMarshal := appUserModelIds is VarRef ? "ptr*" : "ptr"
+        appDisplayNamesMarshal := appDisplayNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "ptr", packageFullName, appCountMarshal, appCount, "ptr*", appUserModelIds, "ptr*", appDisplayNames, "HRESULT")
+        result := ComCall(18, this, "ptr", packageFullName, appCountMarshal, appCount, appUserModelIdsMarshal, appUserModelIds, appDisplayNamesMarshal, appDisplayNames, "HRESULT")
         return result
     }
 }

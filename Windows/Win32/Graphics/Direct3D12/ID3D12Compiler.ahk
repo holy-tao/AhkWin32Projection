@@ -50,7 +50,9 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     CompileStateObject(pGroupKey, GroupVersion, pDesc, riid, ppCompilerStateObject) {
-        result := ComCall(5, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "ptr", riid, "ptr*", ppCompilerStateObject, "HRESULT")
+        ppCompilerStateObjectMarshal := ppCompilerStateObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "ptr", riid, ppCompilerStateObjectMarshal, ppCompilerStateObject, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     CompileAddToStateObject(pGroupKey, GroupVersion, pAddition, pCompilerStateObjectToGrowFrom, riid, ppNewCompilerStateObject) {
-        result := ComCall(6, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pAddition, "ptr", pCompilerStateObjectToGrowFrom, "ptr", riid, "ptr*", ppNewCompilerStateObject, "HRESULT")
+        ppNewCompilerStateObjectMarshal := ppNewCompilerStateObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pAddition, "ptr", pCompilerStateObjectToGrowFrom, "ptr", riid, ppNewCompilerStateObjectMarshal, ppNewCompilerStateObject, "HRESULT")
         return result
     }
 
@@ -76,7 +80,9 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     GetCacheSession(riid, ppCompilerCacheSession) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", ppCompilerCacheSession, "HRESULT")
+        ppCompilerCacheSessionMarshal := ppCompilerCacheSession is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", riid, ppCompilerCacheSessionMarshal, ppCompilerCacheSession, "HRESULT")
         return result
     }
 }

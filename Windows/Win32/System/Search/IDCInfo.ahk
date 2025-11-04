@@ -37,8 +37,9 @@ class IDCInfo extends IUnknown{
      */
     GetInfo(cInfo, rgeInfoType, prgInfo) {
         rgeInfoTypeMarshal := rgeInfoType is VarRef ? "uint*" : "ptr"
+        prgInfoMarshal := prgInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cInfo, rgeInfoTypeMarshal, rgeInfoType, "ptr*", prgInfo, "HRESULT")
+        result := ComCall(3, this, "uint", cInfo, rgeInfoTypeMarshal, rgeInfoType, prgInfoMarshal, prgInfo, "HRESULT")
         return result
     }
 

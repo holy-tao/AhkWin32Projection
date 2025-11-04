@@ -116,7 +116,9 @@ class ICameraUIControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getselecteditems
      */
     GetSelectedItems(ppSelectedItemPaths) {
-        result := ComCall(9, this, "ptr*", ppSelectedItemPaths, "HRESULT")
+        ppSelectedItemPathsMarshal := ppSelectedItemPaths is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, ppSelectedItemPathsMarshal, ppSelectedItemPaths, "HRESULT")
         return result
     }
 

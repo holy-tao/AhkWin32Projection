@@ -125,7 +125,9 @@ class IShellItemResources extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-openresource
      */
     OpenResource(pcsir, riid, ppv) {
-        result := ComCall(10, this, "ptr", pcsir, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pcsir, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -138,7 +140,9 @@ class IShellItemResources extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-createresource
      */
     CreateResource(pcsir, riid, ppv) {
-        result := ComCall(11, this, "ptr", pcsir, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pcsir, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

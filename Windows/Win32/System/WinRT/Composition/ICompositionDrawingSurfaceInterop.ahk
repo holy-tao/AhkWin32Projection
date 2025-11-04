@@ -40,7 +40,9 @@ class ICompositionDrawingSurfaceInterop extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-begindraw
      */
     BeginDraw(updateRect, iid, updateObject, updateOffset) {
-        result := ComCall(3, this, "ptr", updateRect, "ptr", iid, "ptr*", updateObject, "ptr", updateOffset, "HRESULT")
+        updateObjectMarshal := updateObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", updateRect, "ptr", iid, updateObjectMarshal, updateObject, "ptr", updateOffset, "HRESULT")
         return result
     }
 

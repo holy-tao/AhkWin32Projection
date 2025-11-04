@@ -80,7 +80,9 @@ class IMixerOCX extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getstatus
      */
     GetStatus(pdwStatus) {
-        result := ComCall(6, this, "ptr*", pdwStatus, "HRESULT")
+        pdwStatusMarshal := pdwStatus is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 

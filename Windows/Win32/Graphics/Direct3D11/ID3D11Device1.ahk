@@ -107,7 +107,9 @@ class ID3D11Device1 extends ID3D11Device{
     OpenSharedResource1(hResource, returnedInterface, ppResource) {
         hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
 
-        result := ComCall(48, this, "ptr", hResource, "ptr", returnedInterface, "ptr*", ppResource, "HRESULT")
+        ppResourceMarshal := ppResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(48, this, "ptr", hResource, "ptr", returnedInterface, ppResourceMarshal, ppResource, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ class ID3D11Device1 extends ID3D11Device{
     OpenSharedResourceByName(lpName, dwDesiredAccess, returnedInterface, ppResource) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := ComCall(49, this, "ptr", lpName, "uint", dwDesiredAccess, "ptr", returnedInterface, "ptr*", ppResource, "HRESULT")
+        ppResourceMarshal := ppResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(49, this, "ptr", lpName, "uint", dwDesiredAccess, "ptr", returnedInterface, ppResourceMarshal, ppResource, "HRESULT")
         return result
     }
 }

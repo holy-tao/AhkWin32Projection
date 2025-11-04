@@ -70,9 +70,10 @@ class IAMDevMemoryAllocator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-alloc
      */
     Alloc(ppBuffer, pdwcbBuffer) {
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pdwcbBufferMarshal := pdwcbBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppBuffer, pdwcbBufferMarshal, pdwcbBuffer, "HRESULT")
+        result := ComCall(5, this, ppBufferMarshal, ppBuffer, pdwcbBufferMarshal, pdwcbBuffer, "HRESULT")
         return result
     }
 

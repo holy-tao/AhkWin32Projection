@@ -4575,8 +4575,9 @@ class Display {
      */
     static FONTOBJ_cGetGlyphs(pfo, iMode, cGlyph, phg, ppvGlyph) {
         phgMarshal := phg is VarRef ? "uint*" : "ptr"
+        ppvGlyphMarshal := ppvGlyph is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", "ptr", pfo, "uint", iMode, "uint", cGlyph, phgMarshal, phg, "ptr*", ppvGlyph, "uint")
+        result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", "ptr", pfo, "uint", iMode, "uint", cGlyph, phgMarshal, phg, ppvGlyphMarshal, ppvGlyph, "uint")
         return result
     }
 
@@ -4757,8 +4758,9 @@ class Display {
      */
     static STROBJ_bEnum(pstro, pc, ppgpos) {
         pcMarshal := pc is VarRef ? "uint*" : "ptr"
+        ppgposMarshal := ppgpos is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, pcMarshal, pc, "ptr*", ppgpos, "int")
+        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, pcMarshal, pc, ppgposMarshal, ppgpos, "int")
         return result
     }
 
@@ -4773,8 +4775,9 @@ class Display {
      */
     static STROBJ_bEnumPositionsOnly(pstro, pc, ppgpos) {
         pcMarshal := pc is VarRef ? "uint*" : "ptr"
+        ppgposMarshal := ppgpos is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, pcMarshal, pc, "ptr*", ppgpos, "int")
+        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, pcMarshal, pc, ppgposMarshal, ppgpos, "int")
         return result
     }
 

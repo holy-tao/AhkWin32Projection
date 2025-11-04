@@ -37,8 +37,9 @@ class IObjectAccessControl extends IUnknown{
      */
     GetObjectAccessRights(pObject, pcAccessEntries, prgAccessEntries) {
         pcAccessEntriesMarshal := pcAccessEntries is VarRef ? "uint*" : "ptr"
+        prgAccessEntriesMarshal := prgAccessEntries is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pObject, pcAccessEntriesMarshal, pcAccessEntries, "ptr*", prgAccessEntries, "HRESULT")
+        result := ComCall(3, this, "ptr", pObject, pcAccessEntriesMarshal, pcAccessEntries, prgAccessEntriesMarshal, prgAccessEntries, "HRESULT")
         return result
     }
 
@@ -49,7 +50,9 @@ class IObjectAccessControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetObjectOwner(pObject, ppOwner) {
-        result := ComCall(4, this, "ptr", pObject, "ptr*", ppOwner, "HRESULT")
+        ppOwnerMarshal := ppOwner is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pObject, ppOwnerMarshal, ppOwner, "HRESULT")
         return result
     }
 

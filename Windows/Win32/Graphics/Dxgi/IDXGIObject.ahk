@@ -113,7 +113,9 @@ class IDXGIObject extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
      */
     GetParent(riid, ppParent) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", ppParent, "HRESULT")
+        ppParentMarshal := ppParent is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, ppParentMarshal, ppParent, "HRESULT")
         return result
     }
 }

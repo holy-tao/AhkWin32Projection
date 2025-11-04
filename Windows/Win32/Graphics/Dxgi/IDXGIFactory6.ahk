@@ -40,7 +40,9 @@ class IDXGIFactory6 extends IDXGIFactory5{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory6-enumadapterbygpupreference
      */
     EnumAdapterByGpuPreference(Adapter, GpuPreference, riid, ppvAdapter) {
-        result := ComCall(29, this, "uint", Adapter, "int", GpuPreference, "ptr", riid, "ptr*", ppvAdapter, "HRESULT")
+        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(29, this, "uint", Adapter, "int", GpuPreference, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
         return result
     }
 }

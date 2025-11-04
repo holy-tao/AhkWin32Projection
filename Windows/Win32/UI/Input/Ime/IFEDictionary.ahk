@@ -98,9 +98,10 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getpostable
      */
     GetPosTable(prgPosTbl, pcPosTbl) {
+        prgPosTblMarshal := prgPosTbl is VarRef ? "ptr*" : "ptr"
         pcPosTblMarshal := pcPosTbl is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr*", prgPosTbl, pcPosTblMarshal, pcPosTbl, "HRESULT")
+        result := ComCall(7, this, prgPosTblMarshal, prgPosTbl, pcPosTblMarshal, pcPosTbl, "HRESULT")
         return result
     }
 

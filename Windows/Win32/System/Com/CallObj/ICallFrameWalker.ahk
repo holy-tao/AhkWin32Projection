@@ -40,7 +40,9 @@ class ICallFrameWalker extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframewalker-onwalkinterface
      */
     OnWalkInterface(iid, ppvInterface, fIn, fOut) {
-        result := ComCall(3, this, "ptr", iid, "ptr*", ppvInterface, "int", fIn, "int", fOut, "HRESULT")
+        ppvInterfaceMarshal := ppvInterface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", iid, ppvInterfaceMarshal, ppvInterface, "int", fIn, "int", fOut, "HRESULT")
         return result
     }
 }

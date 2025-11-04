@@ -48,7 +48,9 @@ class IImageBytes extends IUnknown{
      * @returns {HRESULT} 
      */
     LockBytes(cb, ulOffset, ppvBytes) {
-        result := ComCall(4, this, "uint", cb, "uint", ulOffset, "ptr*", ppvBytes, "HRESULT")
+        ppvBytesMarshal := ppvBytes is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", cb, "uint", ulOffset, ppvBytesMarshal, ppvBytes, "HRESULT")
         return result
     }
 

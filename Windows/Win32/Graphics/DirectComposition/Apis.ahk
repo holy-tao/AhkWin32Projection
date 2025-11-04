@@ -49,7 +49,9 @@ class DirectComposition {
      * @since windows8.0
      */
     static DCompositionCreateDevice(dxgiDevice, iid, dcompositionDevice) {
-        result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, "ptr", iid, "ptr*", dcompositionDevice, "int")
+        dcompositionDeviceMarshal := dcompositionDevice is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, "ptr", iid, dcompositionDeviceMarshal, dcompositionDevice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -66,7 +68,9 @@ class DirectComposition {
      * @since windows8.1
      */
     static DCompositionCreateDevice2(renderingDevice, iid, dcompositionDevice) {
-        result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, "ptr", iid, "ptr*", dcompositionDevice, "int")
+        dcompositionDeviceMarshal := dcompositionDevice is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, "ptr", iid, dcompositionDeviceMarshal, dcompositionDevice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -90,7 +94,9 @@ class DirectComposition {
      * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-dcompositioncreatedevice3
      */
     static DCompositionCreateDevice3(renderingDevice, iid, dcompositionDevice) {
-        result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, "ptr*", dcompositionDevice, "int")
+        dcompositionDeviceMarshal := dcompositionDevice is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, dcompositionDeviceMarshal, dcompositionDevice, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -44,8 +44,9 @@ class IBDA_IPSinkInfo extends IUnknown{
      */
     get_MulticastList(pulcbAddresses, ppbAddressList) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
+        ppbAddressListMarshal := ppbAddressList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, "ptr*", ppbAddressList, "HRESULT")
+        result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, ppbAddressListMarshal, ppbAddressList, "HRESULT")
         return result
     }
 

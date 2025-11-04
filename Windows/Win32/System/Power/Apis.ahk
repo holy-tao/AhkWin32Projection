@@ -1078,7 +1078,9 @@ class Power {
     static PowerRegisterSuspendResumeNotification(Flags, Recipient, RegistrationHandle) {
         Recipient := Recipient is Win32Handle ? NumGet(Recipient, "ptr") : Recipient
 
-        result := DllCall("POWRPROF.dll\PowerRegisterSuspendResumeNotification", "uint", Flags, "ptr", Recipient, "ptr*", RegistrationHandle, "uint")
+        RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("POWRPROF.dll\PowerRegisterSuspendResumeNotification", "uint", Flags, "ptr", Recipient, RegistrationHandleMarshal, RegistrationHandle, "uint")
         return result
     }
 
@@ -1219,7 +1221,9 @@ class Power {
     static PowerGetActiveScheme(UserRootPowerKey, ActivePolicyGuid) {
         UserRootPowerKey := UserRootPowerKey is Win32Handle ? NumGet(UserRootPowerKey, "ptr") : UserRootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerGetActiveScheme", "ptr", UserRootPowerKey, "ptr*", ActivePolicyGuid, "uint")
+        ActivePolicyGuidMarshal := ActivePolicyGuid is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("POWRPROF.dll\PowerGetActiveScheme", "ptr", UserRootPowerKey, ActivePolicyGuidMarshal, ActivePolicyGuid, "uint")
         return result
     }
 
@@ -1252,7 +1256,9 @@ class Power {
     static PowerSettingRegisterNotification(SettingGuid, Flags, Recipient, RegistrationHandle) {
         Recipient := Recipient is Win32Handle ? NumGet(Recipient, "ptr") : Recipient
 
-        result := DllCall("POWRPROF.dll\PowerSettingRegisterNotification", "ptr", SettingGuid, "uint", Flags, "ptr", Recipient, "ptr*", RegistrationHandle, "uint")
+        RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("POWRPROF.dll\PowerSettingRegisterNotification", "ptr", SettingGuid, "uint", Flags, "ptr", Recipient, RegistrationHandleMarshal, RegistrationHandle, "uint")
         return result
     }
 
@@ -1286,8 +1292,9 @@ class Power {
      */
     static PowerRegisterForEffectivePowerModeNotifications(Version, Callback, Context, RegistrationHandle) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, ContextMarshal, Context, "ptr*", RegistrationHandle, "int")
+        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, ContextMarshal, Context, RegistrationHandleMarshal, RegistrationHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2909,7 +2916,9 @@ class Power {
     static PowerDuplicateScheme(RootPowerKey, SourceSchemeGuid, DestinationSchemeGuid) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerDuplicateScheme", "ptr", RootPowerKey, "ptr", SourceSchemeGuid, "ptr*", DestinationSchemeGuid, "uint")
+        DestinationSchemeGuidMarshal := DestinationSchemeGuid is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("POWRPROF.dll\PowerDuplicateScheme", "ptr", RootPowerKey, "ptr", SourceSchemeGuid, DestinationSchemeGuidMarshal, DestinationSchemeGuid, "uint")
         return result
     }
 
@@ -2930,7 +2939,9 @@ class Power {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
         ImportFileNamePath := ImportFileNamePath is String ? StrPtr(ImportFileNamePath) : ImportFileNamePath
 
-        result := DllCall("POWRPROF.dll\PowerImportPowerScheme", "ptr", RootPowerKey, "ptr", ImportFileNamePath, "ptr*", DestinationSchemeGuid, "uint")
+        DestinationSchemeGuidMarshal := DestinationSchemeGuid is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("POWRPROF.dll\PowerImportPowerScheme", "ptr", RootPowerKey, "ptr", ImportFileNamePath, DestinationSchemeGuidMarshal, DestinationSchemeGuid, "uint")
         return result
     }
 

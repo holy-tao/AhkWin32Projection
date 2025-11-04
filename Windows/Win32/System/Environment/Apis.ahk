@@ -494,9 +494,11 @@ class Environment {
     static CreateEnvironmentBlock(lpEnvironment, hToken, bInherit) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
+        lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\CreateEnvironmentBlock", "ptr*", lpEnvironment, "ptr", hToken, "int", bInherit, "int")
+        result := DllCall("USERENV.dll\CreateEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, "ptr", hToken, "int", bInherit, "int")
         if(A_LastError)
             throw OSError()
 
@@ -981,10 +983,11 @@ class Environment {
      */
     static CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
         lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+        lpReturnValueMarshal := lpReturnValue is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, lpParameterMarshal, lpParameter, "int", fWaitForThread, "ptr*", lpReturnValue, "int")
+        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, lpParameterMarshal, lpParameter, "int", fWaitForThread, lpReturnValueMarshal, lpReturnValue, "int")
         if(A_LastError)
             throw OSError()
 

@@ -45,9 +45,10 @@ class IDWriteTextAnalysisSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-gettextatposition
      */
     GetTextAtPosition(textPosition, textString, textLength) {
+        textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", textPosition, "ptr*", textString, textLengthMarshal, textLength, "HRESULT")
+        result := ComCall(3, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
         return result
     }
 
@@ -60,9 +61,10 @@ class IDWriteTextAnalysisSource extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-gettextbeforeposition
      */
     GetTextBeforePosition(textPosition, textString, textLength) {
+        textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", textPosition, "ptr*", textString, textLengthMarshal, textLength, "HRESULT")
+        result := ComCall(4, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
         return result
     }
 
@@ -86,8 +88,9 @@ class IDWriteTextAnalysisSource extends IUnknown{
      */
     GetLocaleName(textPosition, textLength, localeName) {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+        localeNameMarshal := localeName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", textPosition, textLengthMarshal, textLength, "ptr*", localeName, "HRESULT")
+        result := ComCall(6, this, "uint", textPosition, textLengthMarshal, textLength, localeNameMarshal, localeName, "HRESULT")
         return result
     }
 

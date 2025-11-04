@@ -18121,8 +18121,9 @@ class ApplicationInstallationAndServicing {
         szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
         pcFilesMarshal := pcFiles is VarRef ? "uint*" : "ptr"
+        pphFileRecordsMarshal := pphFileRecords is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, pcFilesMarshal, pcFiles, "ptr*", pphFileRecords, "uint")
+        result := DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, pcFilesMarshal, pcFiles, pphFileRecordsMarshal, pphFileRecords, "uint")
         return result
     }
 
@@ -18181,8 +18182,9 @@ class ApplicationInstallationAndServicing {
         szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
         pcFilesMarshal := pcFiles is VarRef ? "uint*" : "ptr"
+        pphFileRecordsMarshal := pphFileRecords is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, pcFilesMarshal, pcFiles, "ptr*", pphFileRecords, "uint")
+        result := DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, pcFilesMarshal, pcFiles, pphFileRecordsMarshal, pphFileRecords, "uint")
         return result
     }
 
@@ -24436,9 +24438,10 @@ class ApplicationInstallationAndServicing {
     static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
+        ppcCertContextMarshal := ppcCertContext is VarRef ? "ptr*" : "ptr"
         pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, ppcCertContextMarshal, ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -24621,9 +24624,10 @@ class ApplicationInstallationAndServicing {
     static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
         szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
+        ppcCertContextMarshal := ppcCertContext is VarRef ? "ptr*" : "ptr"
         pcbHashDataMarshal := pcbHashData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr*", ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
+        result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, ppcCertContextMarshal, ppcCertContext, "ptr", pbHashData, pcbHashDataMarshal, pcbHashData, "int")
         if(result != 0)
             throw OSError(result)
 

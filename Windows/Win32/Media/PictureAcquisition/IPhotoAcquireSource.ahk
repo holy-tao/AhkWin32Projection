@@ -123,7 +123,9 @@ class IPhotoAcquireSource extends IUnknown{
      * @returns {HRESULT} 
      */
     BindToObject(riid, ppv) {
-        result := ComCall(10, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

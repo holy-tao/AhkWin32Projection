@@ -198,7 +198,9 @@ class ISpSREngineSite extends IUnknown{
     GetTransitionProperty(ID, ppCoMemProperty) {
         ID := ID is Win32Handle ? NumGet(ID, "ptr") : ID
 
-        result := ComCall(16, this, "ptr", ID, "ptr*", ppCoMemProperty, "HRESULT")
+        ppCoMemPropertyMarshal := ppCoMemProperty is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, "ptr", ID, ppCoMemPropertyMarshal, ppCoMemProperty, "HRESULT")
         return result
     }
 

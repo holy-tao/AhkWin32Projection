@@ -39,9 +39,10 @@ class IAccIdentity extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccidentity-getidentitystring
      */
     GetIdentityString(dwIDChild, ppIDString, pdwIDStringLen) {
+        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
         pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwIDChild, "ptr*", ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
+        result := ComCall(3, this, "uint", dwIDChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 }

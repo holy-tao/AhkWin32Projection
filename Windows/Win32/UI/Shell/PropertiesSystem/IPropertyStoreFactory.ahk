@@ -45,7 +45,9 @@ class IPropertyStoreFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorefactory-getpropertystore
      */
     GetPropertyStore(flags, pUnkFactory, riid, ppv) {
-        result := ComCall(3, this, "int", flags, "ptr", pUnkFactory, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "int", flags, "ptr", pUnkFactory, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IPropertyStoreFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorefactory-getpropertystoreforkeys
      */
     GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid, ppv) {
-        result := ComCall(4, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

@@ -69,7 +69,9 @@ class IWorkspaceResTypeRegistry extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/workspaceax/nf-workspaceax-iworkspacerestyperegistry-getregisteredfileextensions
      */
     GetRegisteredFileExtensions(fMachineWide, psaFileExtensions) {
-        result := ComCall(9, this, "short", fMachineWide, "ptr*", psaFileExtensions, "HRESULT")
+        psaFileExtensionsMarshal := psaFileExtensions is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "short", fMachineWide, psaFileExtensionsMarshal, psaFileExtensions, "HRESULT")
         return result
     }
 

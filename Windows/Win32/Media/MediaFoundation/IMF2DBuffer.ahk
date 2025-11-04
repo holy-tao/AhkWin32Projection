@@ -59,9 +59,10 @@ class IMF2DBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d
      */
     Lock2D(ppbScanline0, plPitch) {
+        ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : "ptr"
         plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", ppbScanline0, plPitchMarshal, plPitch, "HRESULT")
+        result := ComCall(3, this, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, "HRESULT")
         return result
     }
 
@@ -83,9 +84,10 @@ class IMF2DBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-getscanline0andpitch
      */
     GetScanline0AndPitch(pbScanline0, plPitch) {
+        pbScanline0Marshal := pbScanline0 is VarRef ? "ptr*" : "ptr"
         plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", pbScanline0, plPitchMarshal, plPitch, "HRESULT")
+        result := ComCall(5, this, pbScanline0Marshal, pbScanline0, plPitchMarshal, plPitch, "HRESULT")
         return result
     }
 

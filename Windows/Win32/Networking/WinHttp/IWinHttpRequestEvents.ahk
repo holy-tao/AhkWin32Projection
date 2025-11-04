@@ -51,7 +51,9 @@ class IWinHttpRequestEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequestevents-onresponsedataavailable
      */
     OnResponseDataAvailable(Data) {
-        ComCall(4, this, "ptr*", Data)
+        DataMarshal := Data is VarRef ? "ptr*" : "ptr"
+
+        ComCall(4, this, DataMarshal, Data)
     }
 
     /**

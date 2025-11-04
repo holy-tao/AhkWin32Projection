@@ -386,9 +386,10 @@ class IPortableDeviceValues extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getbuffervalue
      */
     GetBufferValue(key, ppValue, pcbValue) {
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "ptr", key, "ptr*", ppValue, pcbValueMarshal, pcbValue, "HRESULT")
+        result := ComCall(30, this, "ptr", key, ppValueMarshal, ppValue, pcbValueMarshal, pcbValue, "HRESULT")
         return result
     }
 

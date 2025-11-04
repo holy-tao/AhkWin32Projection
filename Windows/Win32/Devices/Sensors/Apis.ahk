@@ -878,9 +878,10 @@ class Sensors {
     static PropVariantGetInformation(PropVariantValue, PropVariantOffset, PropVariantSize, PropVariantPointer, RemappedType) {
         PropVariantOffsetMarshal := PropVariantOffset is VarRef ? "uint*" : "ptr"
         PropVariantSizeMarshal := PropVariantSize is VarRef ? "uint*" : "ptr"
+        PropVariantPointerMarshal := PropVariantPointer is VarRef ? "ptr*" : "ptr"
         RemappedTypeMarshal := RemappedType is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", "ptr", PropVariantValue, PropVariantOffsetMarshal, PropVariantOffset, PropVariantSizeMarshal, PropVariantSize, "ptr*", PropVariantPointer, RemappedTypeMarshal, RemappedType, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", "ptr", PropVariantValue, PropVariantOffsetMarshal, PropVariantOffset, PropVariantSizeMarshal, PropVariantSize, PropVariantPointerMarshal, PropVariantPointer, RemappedTypeMarshal, RemappedType, "int")
         return result
     }
 
@@ -963,7 +964,9 @@ class Sensors {
      * @returns {NTSTATUS} 
      */
     static SerializationBufferAllocate(SizeInBytes, pBuffer) {
-        result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, "ptr*", pBuffer, "int")
+        pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, pBufferMarshal, pBuffer, "int")
         return result
     }
 
@@ -1009,8 +1012,9 @@ class Sensors {
      */
     static CollectionsListAllocateBufferAndSerialize(SourceCollection, pTargetBufferSizeInBytes, pTargetBuffer) {
         pTargetBufferSizeInBytesMarshal := pTargetBufferSizeInBytes is VarRef ? "uint*" : "ptr"
+        pTargetBufferMarshal := pTargetBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", "ptr", SourceCollection, pTargetBufferSizeInBytesMarshal, pTargetBufferSizeInBytes, "ptr*", pTargetBuffer, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", "ptr", SourceCollection, pTargetBufferSizeInBytesMarshal, pTargetBufferSizeInBytes, pTargetBufferMarshal, pTargetBuffer, "int")
         return result
     }
 

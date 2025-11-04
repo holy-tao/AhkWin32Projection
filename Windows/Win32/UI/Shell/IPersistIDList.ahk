@@ -48,7 +48,9 @@ class IPersistIDList extends IPersist{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistidlist-getidlist
      */
     GetIDList(ppidl) {
-        result := ComCall(5, this, "ptr*", ppidl, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppidlMarshal, ppidl, "HRESULT")
         return result
     }
 }

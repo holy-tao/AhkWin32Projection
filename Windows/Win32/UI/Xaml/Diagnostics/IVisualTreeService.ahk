@@ -62,8 +62,9 @@ class IVisualTreeService extends IUnknown{
      */
     GetEnums(pCount, ppEnums) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        ppEnumsMarshal := ppEnums is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pCountMarshal, pCount, "ptr*", ppEnums, "HRESULT")
+        result := ComCall(5, this, pCountMarshal, pCount, ppEnumsMarshal, ppEnums, "HRESULT")
         return result
     }
 
@@ -97,9 +98,11 @@ class IVisualTreeService extends IUnknown{
      */
     GetPropertyValuesChain(instanceHandle, pSourceCount, ppPropertySources, pPropertyCount, ppPropertyValues) {
         pSourceCountMarshal := pSourceCount is VarRef ? "uint*" : "ptr"
+        ppPropertySourcesMarshal := ppPropertySources is VarRef ? "ptr*" : "ptr"
         pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : "ptr"
+        ppPropertyValuesMarshal := ppPropertyValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", instanceHandle, pSourceCountMarshal, pSourceCount, "ptr*", ppPropertySources, pPropertyCountMarshal, pPropertyCount, "ptr*", ppPropertyValues, "HRESULT")
+        result := ComCall(7, this, "uint", instanceHandle, pSourceCountMarshal, pSourceCount, ppPropertySourcesMarshal, ppPropertySources, pPropertyCountMarshal, pPropertyCount, ppPropertyValuesMarshal, ppPropertyValues, "HRESULT")
         return result
     }
 
@@ -153,8 +156,9 @@ class IVisualTreeService extends IUnknown{
      */
     GetCollectionElements(instanceHandle, startIndex, pElementCount, ppElementValues) {
         pElementCountMarshal := pElementCount is VarRef ? "uint*" : "ptr"
+        ppElementValuesMarshal := ppElementValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "uint", instanceHandle, "uint", startIndex, pElementCountMarshal, pElementCount, "ptr*", ppElementValues, "HRESULT")
+        result := ComCall(11, this, "uint", instanceHandle, "uint", startIndex, pElementCountMarshal, pElementCount, ppElementValuesMarshal, ppElementValues, "HRESULT")
         return result
     }
 

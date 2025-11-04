@@ -35,7 +35,9 @@ class IAddrExclusionControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentAddrExclusionList(riid, ppEnumerator) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppEnumerator, "HRESULT")
+        ppEnumeratorMarshal := ppEnumerator is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppEnumeratorMarshal, ppEnumerator, "HRESULT")
         return result
     }
 

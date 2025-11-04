@@ -573,7 +573,9 @@ class DxMediaObjects {
      * @see https://docs.microsoft.com/windows/win32/api//dmort/nf-dmort-mocreatemediatype
      */
     static MoCreateMediaType(ppmt, cbFormat) {
-        result := DllCall("msdmo.dll\MoCreateMediaType", "ptr*", ppmt, "uint", cbFormat, "int")
+        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("msdmo.dll\MoCreateMediaType", ppmtMarshal, ppmt, "uint", cbFormat, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -671,7 +673,9 @@ class DxMediaObjects {
      * @see https://docs.microsoft.com/windows/win32/api//dmort/nf-dmort-moduplicatemediatype
      */
     static MoDuplicateMediaType(ppmtDest, pmtSrc) {
-        result := DllCall("msdmo.dll\MoDuplicateMediaType", "ptr*", ppmtDest, "ptr", pmtSrc, "int")
+        ppmtDestMarshal := ppmtDest is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("msdmo.dll\MoDuplicateMediaType", ppmtDestMarshal, ppmtDest, "ptr", pmtSrc, "int")
         if(result != 0)
             throw OSError(result)
 

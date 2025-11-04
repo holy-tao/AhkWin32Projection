@@ -189,7 +189,9 @@ class IBrowserService2 extends IBrowserService{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-createbrowserpropsheetext
      */
     CreateBrowserPropSheetExt(riid, ppv) {
-        result := ComCall(46, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(46, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -211,7 +213,9 @@ class IBrowserService2 extends IBrowserService{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getbasebrowserdata
      */
     GetBaseBrowserData(pbbd) {
-        result := ComCall(48, this, "ptr*", pbbd, "HRESULT")
+        pbbdMarshal := pbbd is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(48, this, pbbdMarshal, pbbd, "HRESULT")
         return result
     }
 
@@ -671,7 +675,9 @@ class IBrowserService2 extends IBrowserService{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_maygetnexttoolbarfocus
      */
     v_MayGetNextToolbarFocus(lpMsg, itbNext, citb, pptbi, phwnd) {
-        result := ComCall(88, this, "ptr", lpMsg, "uint", itbNext, "int", citb, "ptr*", pptbi, "ptr", phwnd, "HRESULT")
+        pptbiMarshal := pptbi is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(88, this, "ptr", lpMsg, "uint", itbNext, "int", citb, pptbiMarshal, pptbi, "ptr", phwnd, "HRESULT")
         return result
     }
 

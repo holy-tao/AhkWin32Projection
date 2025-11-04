@@ -148,7 +148,9 @@ class IDvdInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getallsprms
      */
     GetAllSPRMs(pRegisterArray) {
-        result := ComCall(11, this, "ptr*", pRegisterArray, "HRESULT")
+        pRegisterArrayMarshal := pRegisterArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, pRegisterArrayMarshal, pRegisterArray, "HRESULT")
         return result
     }
 
@@ -159,7 +161,9 @@ class IDvdInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getallgprms
      */
     GetAllGPRMs(pRegisterArray) {
-        result := ComCall(12, this, "ptr*", pRegisterArray, "HRESULT")
+        pRegisterArrayMarshal := pRegisterArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, pRegisterArrayMarshal, pRegisterArray, "HRESULT")
         return result
     }
 
@@ -221,7 +225,9 @@ class IDvdInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentvideoattributes
      */
     GetCurrentVideoAttributes(pATR) {
-        result := ComCall(17, this, "ptr*", pATR, "HRESULT")
+        pATRMarshal := pATR is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, pATRMarshal, pATR, "HRESULT")
         return result
     }
 
@@ -232,7 +238,9 @@ class IDvdInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentaudioattributes
      */
     GetCurrentAudioAttributes(pATR) {
-        result := ComCall(18, this, "ptr*", pATR, "HRESULT")
+        pATRMarshal := pATR is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, pATRMarshal, pATR, "HRESULT")
         return result
     }
 
@@ -243,7 +251,9 @@ class IDvdInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentsubpictureattributes
      */
     GetCurrentSubpictureAttributes(pATR) {
-        result := ComCall(19, this, "ptr*", pATR, "HRESULT")
+        pATRMarshal := pATR is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, pATRMarshal, pATR, "HRESULT")
         return result
     }
 

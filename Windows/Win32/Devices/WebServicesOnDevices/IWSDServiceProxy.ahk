@@ -56,7 +56,9 @@ class IWSDServiceProxy extends IWSDMetadataExchange{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-endgetmetadata
      */
     EndGetMetadata(pResult, ppMetadata) {
-        result := ComCall(5, this, "ptr", pResult, "ptr*", ppMetadata, "HRESULT")
+        ppMetadataMarshal := ppMetadata is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pResult, ppMetadataMarshal, ppMetadata, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IWSDServiceProxy extends IWSDMetadataExchange{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-getservicemetadata
      */
     GetServiceMetadata(ppServiceMetadata) {
-        result := ComCall(6, this, "ptr*", ppServiceMetadata, "HRESULT")
+        ppServiceMetadataMarshal := ppServiceMetadata is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppServiceMetadataMarshal, ppServiceMetadata, "HRESULT")
         return result
     }
 
@@ -81,7 +85,9 @@ class IWSDServiceProxy extends IWSDMetadataExchange{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-subscribetooperation
      */
     SubscribeToOperation(pOperation, pUnknown, pAny, ppAny) {
-        result := ComCall(7, this, "ptr", pOperation, "ptr", pUnknown, "ptr", pAny, "ptr*", ppAny, "HRESULT")
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pOperation, "ptr", pUnknown, "ptr", pAny, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 

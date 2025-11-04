@@ -110,10 +110,11 @@ class ISCPSecureQuery extends IUnknown{
     GetRights(pData, dwSize, pbSPSessionKey, dwSessionKeyLen, pStgGlobals, ppRights, pnRightsCount, abMac) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
         pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, "ptr*", ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(6, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
     }
 }

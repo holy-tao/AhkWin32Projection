@@ -40,7 +40,9 @@ class IThumbnailHandlerFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ithumbnailhandlerfactory-getthumbnailhandler
      */
     GetThumbnailHandler(pidlChild, pbc, riid, ppv) {
-        result := ComCall(3, this, "ptr", pidlChild, "ptr", pbc, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pidlChild, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

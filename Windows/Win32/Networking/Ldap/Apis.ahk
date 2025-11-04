@@ -2180,9 +2180,11 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
+        ServerCtrlsMarshal := ServerCtrls is VarRef ? "ptr*" : "ptr"
+        ClientCtrlsMarshal := ClientCtrls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bindA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, MessageNumberMarshal, MessageNumber, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bindA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, ServerCtrlsMarshal, ServerCtrls, ClientCtrlsMarshal, ClientCtrls, MessageNumberMarshal, MessageNumber, "CDecl int")
         return result
     }
 
@@ -2206,9 +2208,11 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
+        ServerCtrlsMarshal := ServerCtrls is VarRef ? "ptr*" : "ptr"
+        ClientCtrlsMarshal := ClientCtrls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bindW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, MessageNumberMarshal, MessageNumber, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bindW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, ServerCtrlsMarshal, ServerCtrls, ClientCtrlsMarshal, ClientCtrls, MessageNumberMarshal, MessageNumber, "CDecl int")
         return result
     }
 
@@ -2232,7 +2236,11 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, "ptr*", ServerData, "CDecl int")
+        ServerCtrlsMarshal := ServerCtrls is VarRef ? "ptr*" : "ptr"
+        ClientCtrlsMarshal := ClientCtrls is VarRef ? "ptr*" : "ptr"
+        ServerDataMarshal := ServerData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, ServerCtrlsMarshal, ServerCtrls, ClientCtrlsMarshal, ClientCtrls, ServerDataMarshal, ServerData, "CDecl int")
         return result
     }
 
@@ -2256,7 +2264,11 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, "ptr*", ServerData, "CDecl int")
+        ServerCtrlsMarshal := ServerCtrls is VarRef ? "ptr*" : "ptr"
+        ClientCtrlsMarshal := ClientCtrls is VarRef ? "ptr*" : "ptr"
+        ServerDataMarshal := ServerData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, ServerCtrlsMarshal, ServerCtrls, ClientCtrlsMarshal, ClientCtrls, ServerDataMarshal, ServerData, "CDecl int")
         return result
     }
 
@@ -2360,7 +2372,9 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_searchW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_searchW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
 
@@ -2383,7 +2397,9 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_searchA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_searchA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
 
@@ -2408,7 +2424,10 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2433,7 +2452,10 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2459,7 +2481,10 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_stW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr", timeout, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_stW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, "ptr", timeout, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2485,7 +2510,10 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_stA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr", timeout, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_stA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, "ptr", timeout, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2514,9 +2542,12 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_search_extW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_extW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2545,9 +2576,12 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_search_extA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_extA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2576,7 +2610,12 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_ext_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "ptr", timeout, "uint", SizeLimit, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2605,7 +2644,12 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_ext_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "ptr", timeout, "uint", SizeLimit, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2628,7 +2672,9 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
 
@@ -2653,7 +2699,10 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2679,7 +2728,10 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_st", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr", timeout, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_st", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, "ptr", timeout, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2708,9 +2760,12 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_ext", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2739,7 +2794,12 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr*", res, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_search_ext_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "ptr", timeout, "uint", SizeLimit, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -2794,7 +2854,9 @@ class Ldap {
     static ldap_modifyW(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modifyW", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modifyW", "ptr", ld, "ptr", dn, modsMarshal, mods, "CDecl uint")
         return result
     }
 
@@ -2813,7 +2875,9 @@ class Ldap {
     static ldap_modifyA(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modifyA", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modifyA", "ptr", ld, "ptr", dn, modsMarshal, mods, "CDecl uint")
         return result
     }
 
@@ -2832,7 +2896,9 @@ class Ldap {
     static ldap_modify_sW(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_sW", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modify_sW", "ptr", ld, "ptr", dn, modsMarshal, mods, "CDecl uint")
         return result
     }
 
@@ -2851,7 +2917,9 @@ class Ldap {
     static ldap_modify_sA(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_sA", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modify_sA", "ptr", ld, "ptr", dn, modsMarshal, mods, "CDecl uint")
         return result
     }
 
@@ -2873,9 +2941,12 @@ class Ldap {
     static ldap_modify_extW(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_modify_extW", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_extW", "ptr", ld, "ptr", dn, modsMarshal, mods, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2897,9 +2968,12 @@ class Ldap {
     static ldap_modify_extA(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_modify_extA", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_extA", "ptr", ld, "ptr", dn, modsMarshal, mods, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2920,7 +2994,11 @@ class Ldap {
     static ldap_modify_ext_sW(ld, dn, mods, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext_sW", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modify_ext_sW", "ptr", ld, "ptr", dn, modsMarshal, mods, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -2941,7 +3019,11 @@ class Ldap {
     static ldap_modify_ext_sA(ld, dn, mods, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext_sA", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modify_ext_sA", "ptr", ld, "ptr", dn, modsMarshal, mods, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -2960,7 +3042,9 @@ class Ldap {
     static ldap_modify(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modify", "ptr", ld, "ptr", dn, modsMarshal, mods, "CDecl uint")
         return result
     }
 
@@ -2979,7 +3063,9 @@ class Ldap {
     static ldap_modify_s(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_s", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modify_s", "ptr", ld, "ptr", dn, modsMarshal, mods, "CDecl uint")
         return result
     }
 
@@ -3001,9 +3087,12 @@ class Ldap {
     static ldap_modify_ext(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_ext", "ptr", ld, "ptr", dn, modsMarshal, mods, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3024,7 +3113,11 @@ class Ldap {
     static ldap_modify_ext_s(ld, dn, mods, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext_s", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        modsMarshal := mods is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_modify_ext_s", "ptr", ld, "ptr", dn, modsMarshal, mods, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3291,9 +3384,11 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_rename_extW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_extW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3320,9 +3415,11 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_rename_extA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_extA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3347,7 +3444,10 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext_sW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_rename_ext_sW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3372,7 +3472,10 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext_sA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_rename_ext_sA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3399,9 +3502,11 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_ext", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3426,7 +3531,10 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext_s", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_rename_ext_s", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3446,7 +3554,9 @@ class Ldap {
     static ldap_addW(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_addW", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_addW", "ptr", ld, "ptr", dn, attrsMarshal, attrs, "CDecl uint")
         return result
     }
 
@@ -3466,7 +3576,9 @@ class Ldap {
     static ldap_addA(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_addA", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_addA", "ptr", ld, "ptr", dn, attrsMarshal, attrs, "CDecl uint")
         return result
     }
 
@@ -3486,7 +3598,9 @@ class Ldap {
     static ldap_add_sW(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_sW", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_add_sW", "ptr", ld, "ptr", dn, attrsMarshal, attrs, "CDecl uint")
         return result
     }
 
@@ -3506,7 +3620,9 @@ class Ldap {
     static ldap_add_sA(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_sA", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_add_sA", "ptr", ld, "ptr", dn, attrsMarshal, attrs, "CDecl uint")
         return result
     }
 
@@ -3528,9 +3644,12 @@ class Ldap {
     static ldap_add_extW(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_add_extW", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_extW", "ptr", ld, "ptr", dn, attrsMarshal, attrs, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3552,9 +3671,12 @@ class Ldap {
     static ldap_add_extA(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_add_extA", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_extA", "ptr", ld, "ptr", dn, attrsMarshal, attrs, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3575,7 +3697,11 @@ class Ldap {
     static ldap_add_ext_sW(ld, dn, attrs, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext_sW", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_add_ext_sW", "ptr", ld, "ptr", dn, attrsMarshal, attrs, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3596,7 +3722,11 @@ class Ldap {
     static ldap_add_ext_sA(ld, dn, attrs, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext_sA", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_add_ext_sA", "ptr", ld, "ptr", dn, attrsMarshal, attrs, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3616,7 +3746,9 @@ class Ldap {
     static ldap_add(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_add", "ptr", ld, "ptr", dn, attrsMarshal, attrs, "CDecl uint")
         return result
     }
 
@@ -3636,7 +3768,9 @@ class Ldap {
     static ldap_add_s(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_s", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_add_s", "ptr", ld, "ptr", dn, attrsMarshal, attrs, "CDecl uint")
         return result
     }
 
@@ -3658,9 +3792,12 @@ class Ldap {
     static ldap_add_ext(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_ext", "ptr", ld, "ptr", dn, attrsMarshal, attrs, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3681,7 +3818,11 @@ class Ldap {
     static ldap_add_ext_s(ld, dn, attrs, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext_s", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_add_ext_s", "ptr", ld, "ptr", dn, attrsMarshal, attrs, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3846,9 +3987,11 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_compare_extW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_extW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3875,9 +4018,11 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_compare_extA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_extA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3903,7 +4048,10 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext_sW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_compare_ext_sW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3929,7 +4077,10 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext_sA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_compare_ext_sA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -3956,9 +4107,11 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_ext", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3984,7 +4137,10 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext_s", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_compare_ext_s", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -4077,9 +4233,11 @@ class Ldap {
     static ldap_delete_extW(ld, dn, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_delete_extW", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_extW", "ptr", ld, "ptr", dn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -4100,9 +4258,11 @@ class Ldap {
     static ldap_delete_extA(ld, dn, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_delete_extA", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_extA", "ptr", ld, "ptr", dn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -4122,7 +4282,10 @@ class Ldap {
     static ldap_delete_ext_sW(ld, dn, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext_sW", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_delete_ext_sW", "ptr", ld, "ptr", dn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -4142,7 +4305,10 @@ class Ldap {
     static ldap_delete_ext_sA(ld, dn, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext_sA", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_delete_ext_sA", "ptr", ld, "ptr", dn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -4199,9 +4365,11 @@ class Ldap {
     static ldap_delete_ext(ld, dn, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_ext", "ptr", ld, "ptr", dn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -4221,7 +4389,10 @@ class Ldap {
     static ldap_delete_ext_s(ld, dn, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext_s", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_delete_ext_s", "ptr", ld, "ptr", dn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -4254,7 +4425,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_result(ld, msgid, all, timeout, res) {
-        result := DllCall("WLDAP32.dll\ldap_result", "ptr", ld, "uint", msgid, "uint", all, "ptr", timeout, "ptr*", res, "CDecl uint")
+        resMarshal := res is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_result", "ptr", ld, "uint", msgid, "uint", all, "ptr", timeout, resMarshal, res, "CDecl uint")
         return result
     }
 
@@ -4312,8 +4485,10 @@ class Ldap {
      */
     static ldap_parse_resultW(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
+        ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr*", Referrals, "ptr*", ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4338,8 +4513,10 @@ class Ldap {
      */
     static ldap_parse_resultA(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
+        ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr*", Referrals, "ptr*", ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4362,7 +4539,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultA(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr*", ResultData, "char", Freeit, "CDecl uint")
+        ResultDataMarshal := ResultData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4385,7 +4564,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultW(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr*", ResultData, "char", Freeit, "CDecl uint")
+        ResultDataMarshal := ResultData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4400,7 +4581,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_controls_freeA(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_controls_freeA", "ptr*", Controls, "CDecl uint")
+        ControlsMarshal := Controls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_controls_freeA", ControlsMarshal, Controls, "CDecl uint")
         return result
     }
 
@@ -4430,7 +4613,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_controls_freeW(Control) {
-        result := DllCall("WLDAP32.dll\ldap_controls_freeW", "ptr*", Control, "CDecl uint")
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_controls_freeW", ControlMarshal, Control, "CDecl uint")
         return result
     }
 
@@ -4460,7 +4645,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_free_controlsW(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_free_controlsW", "ptr*", Controls, "CDecl uint")
+        ControlsMarshal := Controls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_free_controlsW", ControlsMarshal, Controls, "CDecl uint")
         return result
     }
 
@@ -4475,7 +4662,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_free_controlsA(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_free_controlsA", "ptr*", Controls, "CDecl uint")
+        ControlsMarshal := Controls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_free_controlsA", ControlsMarshal, Controls, "CDecl uint")
         return result
     }
 
@@ -4500,8 +4689,10 @@ class Ldap {
      */
     static ldap_parse_result(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
+        ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr*", Referrals, "ptr*", ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4516,7 +4707,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_controls_free(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_controls_free", "ptr*", Controls, "CDecl uint")
+        ControlsMarshal := Controls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_controls_free", ControlsMarshal, Controls, "CDecl uint")
         return result
     }
 
@@ -4546,7 +4739,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_free_controls(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_free_controls", "ptr*", Controls, "CDecl uint")
+        ControlsMarshal := Controls is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_free_controls", ControlsMarshal, Controls, "CDecl uint")
         return result
     }
 
@@ -4664,7 +4859,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeW(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attributeW", "ptr", ld, "ptr", entry, "ptr*", ptr, "CDecl char*")
+        ptrMarshal := ptr is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_first_attributeW", "ptr", ld, "ptr", entry, ptrMarshal, ptr, "CDecl char*")
         return result
     }
 
@@ -4682,7 +4879,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeA(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attributeA", "ptr", ld, "ptr", entry, "ptr*", ptr, "CDecl char*")
+        ptrMarshal := ptr is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_first_attributeA", "ptr", ld, "ptr", entry, ptrMarshal, ptr, "CDecl char*")
         return result
     }
 
@@ -4700,7 +4899,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attribute(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attribute", "ptr", ld, "ptr", entry, "ptr*", ptr, "CDecl char*")
+        ptrMarshal := ptr is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_first_attribute", "ptr", ld, "ptr", entry, ptrMarshal, ptr, "CDecl char*")
         return result
     }
 
@@ -4928,7 +5129,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_count_values_len(vals) {
-        result := DllCall("WLDAP32.dll\ldap_count_values_len", "ptr*", vals, "CDecl uint")
+        valsMarshal := vals is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_count_values_len", valsMarshal, vals, "CDecl uint")
         return result
     }
 
@@ -4985,7 +5188,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_value_free_len(vals) {
-        result := DllCall("WLDAP32.dll\ldap_value_free_len", "ptr*", vals, "CDecl uint")
+        valsMarshal := vals is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_value_free_len", valsMarshal, vals, "CDecl uint")
         return result
     }
 
@@ -5408,7 +5613,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_sort_controlA(ExternalHandle, SortKeys, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_sort_controlA", "ptr", ExternalHandle, "ptr*", SortKeys, "char", IsCritical, "ptr*", Control, "CDecl uint")
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_sort_controlA", "ptr", ExternalHandle, SortKeysMarshal, SortKeys, "char", IsCritical, ControlMarshal, Control, "CDecl uint")
         return result
     }
 
@@ -5424,7 +5632,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_sort_controlW(ExternalHandle, SortKeys, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_sort_controlW", "ptr", ExternalHandle, "ptr*", SortKeys, "char", IsCritical, "ptr*", Control, "CDecl uint")
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_sort_controlW", "ptr", ExternalHandle, SortKeysMarshal, SortKeys, "char", IsCritical, ControlMarshal, Control, "CDecl uint")
         return result
     }
 
@@ -5443,9 +5654,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_controlA(ExternalHandle, Control, Result, Attribute) {
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         ResultMarshal := Result is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlA", "ptr", ExternalHandle, "ptr*", Control, ResultMarshal, Result, "ptr", Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlA", "ptr", ExternalHandle, ControlMarshal, Control, ResultMarshal, Result, "ptr", Attribute, "CDecl uint")
         return result
     }
 
@@ -5464,9 +5676,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_controlW(ExternalHandle, Control, Result, Attribute) {
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         ResultMarshal := Result is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlW", "ptr", ExternalHandle, "ptr*", Control, ResultMarshal, Result, "ptr", Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlW", "ptr", ExternalHandle, ControlMarshal, Control, ResultMarshal, Result, "ptr", Attribute, "CDecl uint")
         return result
     }
 
@@ -5482,7 +5695,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_sort_control(ExternalHandle, SortKeys, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_sort_control", "ptr", ExternalHandle, "ptr*", SortKeys, "char", IsCritical, "ptr*", Control, "CDecl uint")
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_sort_control", "ptr", ExternalHandle, SortKeysMarshal, SortKeys, "char", IsCritical, ControlMarshal, Control, "CDecl uint")
         return result
     }
 
@@ -5501,9 +5717,10 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_control(ExternalHandle, Control, Result, Attribute) {
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         ResultMarshal := Result is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_control", "ptr", ExternalHandle, "ptr*", Control, ResultMarshal, Result, "ptr", Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_control", "ptr", ExternalHandle, ControlMarshal, Control, ResultMarshal, Result, "ptr", Attribute, "CDecl uint")
         return result
     }
 
@@ -5519,7 +5736,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlW(ExternalHandle, SortKeys, Control, Criticality) {
-        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlW", "ptr", ExternalHandle, "ptr*", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlW", "ptr", ExternalHandle, SortKeysMarshal, SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
         return result
     }
 
@@ -5535,7 +5754,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlA(ExternalHandle, SortKeys, Control, Criticality) {
-        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlA", "ptr", ExternalHandle, "ptr*", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlA", "ptr", ExternalHandle, SortKeysMarshal, SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
         return result
     }
 
@@ -5552,7 +5773,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_page_controlW(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_page_controlW", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr*", Control, "CDecl uint")
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_page_controlW", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, ControlMarshal, Control, "CDecl uint")
         return result
     }
 
@@ -5569,7 +5792,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_page_controlA(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_page_controlA", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr*", Control, "CDecl uint")
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_page_controlA", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, ControlMarshal, Control, "CDecl uint")
         return result
     }
 
@@ -5587,9 +5812,11 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_page_controlW(ExternalHandle, ServerControls, TotalCount, Cookie) {
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
         TotalCountMarshal := TotalCount is VarRef ? "uint*" : "ptr"
+        CookieMarshal := Cookie is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_page_controlW", "ptr", ExternalHandle, "ptr*", ServerControls, TotalCountMarshal, TotalCount, "ptr*", Cookie, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_page_controlW", "ptr", ExternalHandle, ServerControlsMarshal, ServerControls, TotalCountMarshal, TotalCount, CookieMarshal, Cookie, "CDecl uint")
         return result
     }
 
@@ -5607,9 +5834,11 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_page_controlA(ExternalHandle, ServerControls, TotalCount, Cookie) {
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
         TotalCountMarshal := TotalCount is VarRef ? "uint*" : "ptr"
+        CookieMarshal := Cookie is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_page_controlA", "ptr", ExternalHandle, "ptr*", ServerControls, TotalCountMarshal, TotalCount, "ptr*", Cookie, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_page_controlA", "ptr", ExternalHandle, ServerControlsMarshal, ServerControls, TotalCountMarshal, TotalCount, CookieMarshal, Cookie, "CDecl uint")
         return result
     }
 
@@ -5626,7 +5855,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_page_control(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_page_control", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr*", Control, "CDecl uint")
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_page_control", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, ControlMarshal, Control, "CDecl uint")
         return result
     }
 
@@ -5644,9 +5875,11 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_page_control(ExternalHandle, ServerControls, TotalCount, Cookie) {
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
         TotalCountMarshal := TotalCount is VarRef ? "uint*" : "ptr"
+        CookieMarshal := Cookie is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_page_control", "ptr", ExternalHandle, "ptr*", ServerControls, TotalCountMarshal, TotalCount, "ptr*", Cookie, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_page_control", "ptr", ExternalHandle, ServerControlsMarshal, ServerControls, TotalCountMarshal, TotalCount, CookieMarshal, Cookie, "CDecl uint")
         return result
     }
 
@@ -5680,9 +5913,14 @@ class Ldap {
         DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
         SearchFilter := SearchFilter is String ? StrPtr(SearchFilter) : SearchFilter
 
+        AttributeListMarshal := AttributeList is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\ldap_search_init_pageW", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr*", AttributeList, "uint", AttributesOnly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr*", SortKeys, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_search_init_pageW", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5719,9 +5957,14 @@ class Ldap {
         DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
         SearchFilter := SearchFilter is String ? StrPtr(SearchFilter) : SearchFilter
 
+        AttributeListMarshal := AttributeList is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\ldap_search_init_pageA", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr*", AttributeList, "uint", AttributesOnly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr*", SortKeys, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_search_init_pageA", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5758,9 +6001,14 @@ class Ldap {
         DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
         SearchFilter := SearchFilter is String ? StrPtr(SearchFilter) : SearchFilter
 
+        AttributeListMarshal := AttributeList is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\ldap_search_init_page", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr*", AttributeList, "uint", AttributesOnly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr*", SortKeys, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_search_init_page", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5805,8 +6053,9 @@ class Ldap {
      */
     static ldap_get_next_page_s(ExternalHandle, SearchHandle, timeout, PageSize, TotalCount, Results) {
         TotalCountMarshal := TotalCount is VarRef ? "uint*" : "ptr"
+        ResultsMarshal := Results is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_get_next_page_s", "ptr", ExternalHandle, "ptr", SearchHandle, "ptr", timeout, "uint", PageSize, TotalCountMarshal, TotalCount, "ptr*", Results, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_get_next_page_s", "ptr", ExternalHandle, "ptr", SearchHandle, "ptr", timeout, "uint", PageSize, TotalCountMarshal, TotalCount, ResultsMarshal, Results, "CDecl uint")
         return result
     }
 
@@ -5860,7 +6109,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlW(ExternalHandle, VlvInfo, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr*", Control, "CDecl int")
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, ControlMarshal, Control, "CDecl int")
         return result
     }
 
@@ -5876,7 +6127,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlA(ExternalHandle, VlvInfo, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr*", Control, "CDecl int")
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, ControlMarshal, Control, "CDecl int")
         return result
     }
 
@@ -5913,11 +6166,13 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_vlv_controlW(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         TargetPosMarshal := TargetPos is VarRef ? "uint*" : "ptr"
         ListCountMarshal := ListCount is VarRef ? "uint*" : "ptr"
+        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
         ErrCodeMarshal := ErrCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, "ptr*", Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, "ptr*", Context, ErrCodeMarshal, ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, ContextMarshal, Context, ErrCodeMarshal, ErrCode, "CDecl int")
         return result
     }
 
@@ -5954,11 +6209,13 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_vlv_controlA(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
+        ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         TargetPosMarshal := TargetPos is VarRef ? "uint*" : "ptr"
         ListCountMarshal := ListCount is VarRef ? "uint*" : "ptr"
+        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
         ErrCodeMarshal := ErrCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, "ptr*", Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, "ptr*", Context, ErrCodeMarshal, ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, ContextMarshal, Context, ErrCodeMarshal, ErrCode, "CDecl int")
         return result
     }
 
@@ -5975,8 +6232,11 @@ class Ldap {
      */
     static ldap_start_tls_sW(ExternalHandle, ServerReturnValue, result, ServerControls, ClientControls) {
         ServerReturnValueMarshal := ServerReturnValue is VarRef ? "uint*" : "ptr"
+        resultMarshal := result is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_start_tls_sW", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, "ptr*", result, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_start_tls_sW", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, resultMarshal, result, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -5993,8 +6253,11 @@ class Ldap {
      */
     static ldap_start_tls_sA(ExternalHandle, ServerReturnValue, result, ServerControls, ClientControls) {
         ServerReturnValueMarshal := ServerReturnValue is VarRef ? "uint*" : "ptr"
+        resultMarshal := result is VarRef ? "ptr*" : "ptr"
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_start_tls_sA", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, "ptr*", result, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_start_tls_sA", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, resultMarshal, result, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -6068,7 +6331,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_referenceW(Connection, ResultMessage, Referrals) {
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection, "ptr", ResultMessage, "ptr*", Referrals, "CDecl uint")
+        ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -6088,7 +6353,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_referenceA(Connection, ResultMessage, Referrals) {
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection, "ptr", ResultMessage, "ptr*", Referrals, "CDecl uint")
+        ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -6106,7 +6373,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_reference(Connection, ResultMessage, Referrals) {
-        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection, "ptr", ResultMessage, "ptr*", Referrals, "CDecl uint")
+        ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -6128,9 +6397,11 @@ class Ldap {
     static ldap_extended_operationW(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operationW", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operationW", "ptr", ld, "ptr", Oid, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -6152,9 +6423,11 @@ class Ldap {
     static ldap_extended_operationA(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operationA", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operationA", "ptr", ld, "ptr", Oid, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -6177,7 +6450,11 @@ class Ldap {
     static ldap_extended_operation_sA(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operation_sA", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", ReturnedOid, "ptr*", ReturnedData, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        ReturnedDataMarshal := ReturnedData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_extended_operation_sA", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "ptr", ReturnedOid, ReturnedDataMarshal, ReturnedData, "CDecl uint")
         return result
     }
 
@@ -6200,7 +6477,11 @@ class Ldap {
     static ldap_extended_operation_sW(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operation_sW", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", ReturnedOid, "ptr*", ReturnedData, "CDecl uint")
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
+        ReturnedDataMarshal := ReturnedData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ldap_extended_operation_sW", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "ptr", ReturnedOid, ReturnedDataMarshal, ReturnedData, "CDecl uint")
         return result
     }
 
@@ -6222,9 +6503,11 @@ class Ldap {
     static ldap_extended_operation(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
+        ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
+        ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operation", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operation", "ptr", ld, "ptr", Oid, "ptr", Data, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, "CDecl uint")
         return result
     }
 
@@ -6317,7 +6600,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_bvecfree(pBerVal) {
-        DllCall("WLDAP32.dll\ber_bvecfree", "ptr*", pBerVal, "CDecl ")
+        pBerValMarshal := pBerVal is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WLDAP32.dll\ber_bvecfree", pBerValMarshal, pBerVal, "CDecl ")
     }
 
     /**
@@ -6392,8 +6677,9 @@ class Ldap {
      */
     static ber_first_element(pBerElement, pLen, ppOpaque) {
         pLenMarshal := pLen is VarRef ? "uint*" : "ptr"
+        ppOpaqueMarshal := ppOpaque is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ber_first_element", "ptr", pBerElement, pLenMarshal, pLen, "ptr*", ppOpaque, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ber_first_element", "ptr", pBerElement, pLenMarshal, pLen, ppOpaqueMarshal, ppOpaque, "CDecl uint")
         return result
     }
 
@@ -6426,7 +6712,9 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_flatten(pBerElement, pBerVal) {
-        result := DllCall("WLDAP32.dll\ber_flatten", "ptr", pBerElement, "ptr*", pBerVal, "CDecl int")
+        pBerValMarshal := pBerVal is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WLDAP32.dll\ber_flatten", "ptr", pBerElement, pBerValMarshal, pBerVal, "CDecl int")
         return result
     }
 

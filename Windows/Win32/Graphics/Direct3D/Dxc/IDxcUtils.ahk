@@ -149,9 +149,10 @@ class IDxcUtils extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDxilContainerPart(pShader, DxcPart, ppPartData, pPartSizeInBytes) {
+        ppPartDataMarshal := ppPartData is VarRef ? "ptr*" : "ptr"
         pPartSizeInBytesMarshal := pPartSizeInBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pShader, "uint", DxcPart, "ptr*", ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "HRESULT")
+        result := ComCall(12, this, "ptr", pShader, "uint", DxcPart, ppPartDataMarshal, ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "HRESULT")
         return result
     }
 
@@ -163,7 +164,9 @@ class IDxcUtils extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateReflection(pData, iid, ppvReflection) {
-        result := ComCall(13, this, "ptr", pData, "ptr", iid, "ptr*", ppvReflection, "HRESULT")
+        ppvReflectionMarshal := ppvReflection is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pData, "ptr", iid, ppvReflectionMarshal, ppvReflection, "HRESULT")
         return result
     }
 

@@ -111,7 +111,9 @@ class IDirect3DVolume9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getcontainer
      */
     GetContainer(riid, ppContainer) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", ppContainer, "HRESULT")
+        ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", riid, ppContainerMarshal, ppContainer, "HRESULT")
         return result
     }
 

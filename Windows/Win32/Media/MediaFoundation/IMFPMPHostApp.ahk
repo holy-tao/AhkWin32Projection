@@ -62,7 +62,9 @@ class IMFPMPHostApp extends IUnknown{
     ActivateClassById(id, pStream, riid, ppv) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(5, this, "ptr", id, "ptr", pStream, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", id, "ptr", pStream, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

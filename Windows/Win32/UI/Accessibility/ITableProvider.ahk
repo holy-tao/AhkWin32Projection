@@ -47,7 +47,9 @@ class ITableProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-getrowheaders
      */
     GetRowHeaders(pRetVal) {
-        result := ComCall(3, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class ITableProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-getcolumnheaders
      */
     GetColumnHeaders(pRetVal) {
-        result := ComCall(4, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 

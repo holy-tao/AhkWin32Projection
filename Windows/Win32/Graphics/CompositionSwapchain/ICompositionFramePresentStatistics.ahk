@@ -59,7 +59,8 @@ class ICompositionFramePresentStatistics extends IPresentStatistics{
      */
     GetDisplayInstanceArray(displayInstanceArrayCount, displayInstanceArray) {
         displayInstanceArrayCountMarshal := displayInstanceArrayCount is VarRef ? "uint*" : "ptr"
+        displayInstanceArrayMarshal := displayInstanceArray is VarRef ? "ptr*" : "ptr"
 
-        ComCall(7, this, displayInstanceArrayCountMarshal, displayInstanceArrayCount, "ptr*", displayInstanceArray)
+        ComCall(7, this, displayInstanceArrayCountMarshal, displayInstanceArrayCount, displayInstanceArrayMarshal, displayInstanceArray)
     }
 }

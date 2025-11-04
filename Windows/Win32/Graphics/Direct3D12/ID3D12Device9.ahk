@@ -39,7 +39,9 @@ class ID3D12Device9 extends ID3D12Device8{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device9-createshadercachesession
      */
     CreateShaderCacheSession(pDesc, riid, ppvSession) {
-        result := ComCall(73, this, "ptr", pDesc, "ptr", riid, "ptr*", ppvSession, "HRESULT")
+        ppvSessionMarshal := ppvSession is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(73, this, "ptr", pDesc, "ptr", riid, ppvSessionMarshal, ppvSession, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class ID3D12Device9 extends ID3D12Device8{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device9-createcommandqueue1
      */
     CreateCommandQueue1(pDesc, CreatorID, riid, ppCommandQueue) {
-        result := ComCall(75, this, "ptr", pDesc, "ptr", CreatorID, "ptr", riid, "ptr*", ppCommandQueue, "HRESULT")
+        ppCommandQueueMarshal := ppCommandQueue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(75, this, "ptr", pDesc, "ptr", CreatorID, "ptr", riid, ppCommandQueueMarshal, ppCommandQueue, "HRESULT")
         return result
     }
 }

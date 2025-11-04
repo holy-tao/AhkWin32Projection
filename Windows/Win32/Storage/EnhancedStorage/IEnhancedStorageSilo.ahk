@@ -55,9 +55,10 @@ class IEnhancedStorageSilo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getactions
      */
     GetActions(pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActions) {
+        pppIEnhancedStorageSiloActionsMarshal := pppIEnhancedStorageSiloActions is VarRef ? "ptr*" : "ptr"
         pcEnhancedStorageSiloActionsMarshal := pcEnhancedStorageSiloActions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActionsMarshal, pcEnhancedStorageSiloActions, "HRESULT")
+        result := ComCall(4, this, pppIEnhancedStorageSiloActionsMarshal, pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActionsMarshal, pcEnhancedStorageSiloActions, "HRESULT")
         return result
     }
 

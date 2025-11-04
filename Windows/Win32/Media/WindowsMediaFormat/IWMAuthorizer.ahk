@@ -51,7 +51,9 @@ class IWMAuthorizer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getcert
      */
     GetCert(dwIndex, ppbCertData) {
-        result := ComCall(4, this, "uint", dwIndex, "ptr*", ppbCertData, "HRESULT")
+        ppbCertDataMarshal := ppbCertData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwIndex, ppbCertDataMarshal, ppbCertData, "HRESULT")
         return result
     }
 
@@ -67,8 +69,9 @@ class IWMAuthorizer extends IUnknown{
     GetSharedData(dwCertIndex, pbSharedData, pbCert, ppbSharedData) {
         pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
         pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
+        ppbSharedDataMarshal := ppbSharedData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", ppbSharedData, "HRESULT")
+        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, ppbSharedDataMarshal, ppbSharedData, "HRESULT")
         return result
     }
 }

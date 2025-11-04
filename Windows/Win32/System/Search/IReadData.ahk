@@ -47,9 +47,11 @@ class IReadData extends IUnknown{
 
         pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+        ppFixedDataMarshal := ppFixedData is VarRef ? "ptr*" : "ptr"
         pcbVariableTotalMarshal := pcbVariableTotal is VarRef ? "ptr*" : "ptr"
+        ppVariableDataMarshal := ppVariableData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", hAccessor, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, "ptr*", ppVariableData, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", hAccessor, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "HRESULT")
         return result
     }
 

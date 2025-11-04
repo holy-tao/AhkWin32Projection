@@ -44,7 +44,9 @@ class IFileSystemImage2 extends IFileSystemImage{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage2-get_bootimageoptionsarray
      */
     get_BootImageOptionsArray(pVal) {
-        result := ComCall(57, this, "ptr*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(57, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

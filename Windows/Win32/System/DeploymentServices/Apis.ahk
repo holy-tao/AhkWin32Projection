@@ -1428,9 +1428,10 @@ class DeploymentServices {
     static WdsCliGetImageFiles(hIfh, pppwszFiles, pdwCount) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
+        pppwszFilesMarshal := pppwszFiles is VarRef ? "ptr*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr*", pppwszFiles, pdwCountMarshal, pdwCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, pppwszFilesMarshal, pppwszFiles, pdwCountMarshal, pdwCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1470,9 +1471,10 @@ class DeploymentServices {
     static WdsCliGetImageLanguages(hIfh, pppszValues, pdwNumValues) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
+        pppszValuesMarshal := pppszValues is VarRef ? "ptr*" : "ptr"
         pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "ptr*", pppszValues, pdwNumValuesMarshal, pdwNumValues, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, pppszValuesMarshal, pppszValues, pdwNumValuesMarshal, pdwNumValues, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1567,7 +1569,9 @@ class DeploymentServices {
     static WdsCliGetImageLastModifiedTime(hIfh, ppSysTimeValue) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLastModifiedTime", "ptr", hIfh, "ptr*", ppSysTimeValue, "int")
+        ppSysTimeValueMarshal := ppSysTimeValue is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLastModifiedTime", "ptr", hIfh, ppSysTimeValueMarshal, ppSysTimeValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1837,9 +1841,10 @@ class DeploymentServices {
     static WdsCliObtainDriverPackages(hImage, ppwszServerName, pppwszDriverPackages, pulCount) {
         hImage := hImage is Win32Handle ? NumGet(hImage, "ptr") : hImage
 
+        pppwszDriverPackagesMarshal := pppwszDriverPackages is VarRef ? "ptr*" : "ptr"
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, pulCountMarshal, pulCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, pppwszDriverPackagesMarshal, pppwszDriverPackages, pulCountMarshal, pulCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1861,9 +1866,10 @@ class DeploymentServices {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         pwszMachineInfo := pwszMachineInfo is String ? StrPtr(pwszMachineInfo) : pwszMachineInfo
 
+        pppwszDriverPackagesMarshal := pppwszDriverPackages is VarRef ? "ptr*" : "ptr"
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, pulCountMarshal, pulCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, pppwszDriverPackagesMarshal, pppwszDriverPackages, pulCountMarshal, pulCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2005,7 +2011,9 @@ class DeploymentServices {
     static PxeProviderEnumNext(hEnum, ppProvider) {
         hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
 
-        result := DllCall("WDSPXE.dll\PxeProviderEnumNext", "ptr", hEnum, "ptr*", ppProvider, "uint")
+        ppProviderMarshal := ppProvider is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WDSPXE.dll\PxeProviderEnumNext", "ptr", hEnum, ppProviderMarshal, ppProvider, "uint")
         return result
     }
 
@@ -2701,8 +2709,9 @@ class DeploymentServices {
      */
     static PxeDhcpGetOptionValue(pPacket, uPacketLen, uInstance, bOption, pbOptionLen, ppOptionValue) {
         pbOptionLenMarshal := pbOptionLen is VarRef ? "char*" : "ptr"
+        ppOptionValueMarshal := ppOptionValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, pbOptionLenMarshal, pbOptionLen, "ptr*", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, pbOptionLenMarshal, pbOptionLen, ppOptionValueMarshal, ppOptionValue, "uint")
         return result
     }
 
@@ -2769,8 +2778,9 @@ class DeploymentServices {
      */
     static PxeDhcpv6GetOptionValue(pPacket, uPacketLen, uInstance, wOption, pwOptionLen, ppOptionValue) {
         pwOptionLenMarshal := pwOptionLen is VarRef ? "ushort*" : "ptr"
+        ppOptionValueMarshal := ppOptionValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, pwOptionLenMarshal, pwOptionLen, "ptr*", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, pwOptionLenMarshal, pwOptionLen, ppOptionValueMarshal, ppOptionValue, "uint")
         return result
     }
 
@@ -2837,8 +2847,9 @@ class DeploymentServices {
      */
     static PxeDhcpGetVendorOptionValue(pPacket, uPacketLen, bOption, uInstance, pbOptionLen, ppOptionValue) {
         pbOptionLenMarshal := pbOptionLen is VarRef ? "char*" : "ptr"
+        ppOptionValueMarshal := ppOptionValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, pbOptionLenMarshal, pbOptionLen, "ptr*", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, pbOptionLenMarshal, pbOptionLen, ppOptionValueMarshal, ppOptionValue, "uint")
         return result
     }
 
@@ -2908,8 +2919,9 @@ class DeploymentServices {
      */
     static PxeDhcpv6GetVendorOptionValue(pPacket, uPacketLen, dwEnterpriseNumber, wOption, uInstance, pwOptionLen, ppOptionValue) {
         pwOptionLenMarshal := pwOptionLen is VarRef ? "ushort*" : "ptr"
+        ppOptionValueMarshal := ppOptionValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, pwOptionLenMarshal, pwOptionLen, "ptr*", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, pwOptionLenMarshal, pwOptionLen, ppOptionValueMarshal, ppOptionValue, "uint")
         return result
     }
 
@@ -2928,9 +2940,10 @@ class DeploymentServices {
      */
     static PxeDhcpv6ParseRelayForw(pRelayForwPacket, uRelayForwPacketLen, pRelayMessages, nRelayMessages, pnRelayMessages, ppInnerPacket, pcbInnerPacket) {
         pnRelayMessagesMarshal := pnRelayMessages is VarRef ? "uint*" : "ptr"
+        ppInnerPacketMarshal := ppInnerPacket is VarRef ? "ptr*" : "ptr"
         pcbInnerPacketMarshal := pcbInnerPacket is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, pnRelayMessagesMarshal, pnRelayMessages, "ptr*", ppInnerPacket, pcbInnerPacketMarshal, pcbInnerPacket, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, pnRelayMessagesMarshal, pnRelayMessages, ppInnerPacketMarshal, ppInnerPacket, pcbInnerPacketMarshal, pcbInnerPacket, "uint")
         return result
     }
 

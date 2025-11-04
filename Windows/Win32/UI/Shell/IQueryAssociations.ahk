@@ -133,7 +133,9 @@ class IQueryAssociations extends IUnknown{
     GetEnum(flags, assocenum, pszExtra, riid, ppvOut) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        result := ComCall(7, this, "uint", flags, "int", assocenum, "ptr", pszExtra, "ptr", riid, "ptr*", ppvOut, "HRESULT")
+        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "uint", flags, "int", assocenum, "ptr", pszExtra, "ptr", riid, ppvOutMarshal, ppvOut, "HRESULT")
         return result
     }
 }

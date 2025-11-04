@@ -81,7 +81,9 @@ class IMbnSmsReadMsgPdu extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_message
      */
     get_Message(Message) {
-        result := ComCall(6, this, "ptr*", Message, "HRESULT")
+        MessageMarshal := Message is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, MessageMarshal, Message, "HRESULT")
         return result
     }
 }

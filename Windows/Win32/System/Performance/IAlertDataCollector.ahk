@@ -64,7 +64,9 @@ class IAlertDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_alertthresholds
      */
     get_AlertThresholds(alerts) {
-        result := ComCall(32, this, "ptr*", alerts, "HRESULT")
+        alertsMarshal := alerts is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(32, this, alertsMarshal, alerts, "HRESULT")
         return result
     }
 

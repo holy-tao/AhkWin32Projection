@@ -42,8 +42,9 @@ class ItsPubPlugin2 extends ItsPubPlugin{
         userID := userID is String ? StrPtr(userID) : userID
 
         pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : "ptr"
+        resourceListMarshal := resourceList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, "ptr*", resourceList, "HRESULT")
+        result := ComCall(9, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, resourceListMarshal, resourceList, "HRESULT")
         return result
     }
 

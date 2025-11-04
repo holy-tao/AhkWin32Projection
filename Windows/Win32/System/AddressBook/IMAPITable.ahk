@@ -36,7 +36,9 @@ class IMAPITable extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError(hResult, ulFlags, lppMAPIError) {
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", lppMAPIError, "HRESULT")
+        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "int", hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-querycolumns
      */
     QueryColumns(ulFlags, lpPropTagArray) {
-        result := ComCall(8, this, "uint", ulFlags, "ptr*", lpPropTagArray, "HRESULT")
+        lpPropTagArrayMarshal := lpPropTagArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", ulFlags, lpPropTagArrayMarshal, lpPropTagArray, "HRESULT")
         return result
     }
 
@@ -231,7 +235,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-querysortorder
      */
     QuerySortOrder(lppSortCriteria) {
-        result := ComCall(18, this, "ptr*", lppSortCriteria, "HRESULT")
+        lppSortCriteriaMarshal := lppSortCriteria is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, lppSortCriteriaMarshal, lppSortCriteria, "HRESULT")
         return result
     }
 
@@ -244,7 +250,9 @@ class IMAPITable extends IUnknown{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-queryrows
      */
     QueryRows(lRowCount, ulFlags, lppRows) {
-        result := ComCall(19, this, "int", lRowCount, "uint", ulFlags, "ptr*", lppRows, "HRESULT")
+        lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, "int", lRowCount, "uint", ulFlags, lppRowsMarshal, lppRows, "HRESULT")
         return result
     }
 
@@ -271,9 +279,10 @@ class IMAPITable extends IUnknown{
      */
     ExpandRow(cbInstanceKey, pbInstanceKey, ulRowCount, ulFlags, lppRows, lpulMoreRows) {
         pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : "ptr"
+        lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
         lpulMoreRowsMarshal := lpulMoreRows is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, "uint", ulRowCount, "uint", ulFlags, "ptr*", lppRows, lpulMoreRowsMarshal, lpulMoreRows, "HRESULT")
+        result := ComCall(21, this, "uint", cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, "uint", ulRowCount, "uint", ulFlags, lppRowsMarshal, lppRows, lpulMoreRowsMarshal, lpulMoreRows, "HRESULT")
         return result
     }
 
@@ -322,8 +331,9 @@ class IMAPITable extends IUnknown{
     GetCollapseState(ulFlags, cbInstanceKey, lpbInstanceKey, lpcbCollapseState, lppbCollapseState) {
         lpbInstanceKeyMarshal := lpbInstanceKey is VarRef ? "char*" : "ptr"
         lpcbCollapseStateMarshal := lpcbCollapseState is VarRef ? "uint*" : "ptr"
+        lppbCollapseStateMarshal := lppbCollapseState is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, "uint", ulFlags, "uint", cbInstanceKey, lpbInstanceKeyMarshal, lpbInstanceKey, lpcbCollapseStateMarshal, lpcbCollapseState, "ptr*", lppbCollapseState, "HRESULT")
+        result := ComCall(24, this, "uint", ulFlags, "uint", cbInstanceKey, lpbInstanceKeyMarshal, lpbInstanceKey, lpcbCollapseStateMarshal, lpcbCollapseState, lppbCollapseStateMarshal, lppbCollapseState, "HRESULT")
         return result
     }
 

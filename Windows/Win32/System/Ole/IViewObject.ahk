@@ -70,8 +70,9 @@ class IViewObject extends IUnknown{
         hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
 
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        ppColorSetMarshal := ppColorSet is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hicTargetDev, "ptr*", ppColorSet, "HRESULT")
+        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hicTargetDev, ppColorSetMarshal, ppColorSet, "HRESULT")
         return result
     }
 

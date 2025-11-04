@@ -56,7 +56,9 @@ class IHardwareAudioEngineBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getengineformat
      */
     GetEngineFormat(pDevice, _bRequestDeviceFormat, _ppwfxFormat) {
-        result := ComCall(4, this, "ptr", pDevice, "int", _bRequestDeviceFormat, "ptr*", _ppwfxFormat, "HRESULT")
+        _ppwfxFormatMarshal := _ppwfxFormat is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pDevice, "int", _bRequestDeviceFormat, _ppwfxFormatMarshal, _ppwfxFormat, "HRESULT")
         return result
     }
 

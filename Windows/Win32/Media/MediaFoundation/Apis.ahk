@@ -10592,7 +10592,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static DXVA2CreateVideoService(pDD, riid, ppService) {
-        result := DllCall("dxva2.dll\DXVA2CreateVideoService", "ptr", pDD, "ptr", riid, "ptr*", ppService, "int")
+        ppServiceMarshal := ppService is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dxva2.dll\DXVA2CreateVideoService", "ptr", pDD, "ptr", riid, ppServiceMarshal, ppService, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10640,8 +10642,9 @@ class MediaFoundation {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
         pulNumVideoOutputsMarshal := pulNumVideoOutputs is VarRef ? "uint*" : "ptr"
+        pppOPMVideoOutputArrayMarshal := pppOPMVideoOutputArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", hMonitor, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, "ptr*", pppOPMVideoOutputArray, "int")
+        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromHMONITOR", "ptr", hMonitor, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, pppOPMVideoOutputArrayMarshal, pppOPMVideoOutputArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10732,8 +10735,9 @@ class MediaFoundation {
      */
     static OPMGetVideoOutputsFromIDirect3DDevice9Object(pDirect3DDevice9, vos, pulNumVideoOutputs, pppOPMVideoOutputArray) {
         pulNumVideoOutputsMarshal := pulNumVideoOutputs is VarRef ? "uint*" : "ptr"
+        pppOPMVideoOutputArrayMarshal := pppOPMVideoOutputArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromIDirect3DDevice9Object", "ptr", pDirect3DDevice9, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, "ptr*", pppOPMVideoOutputArray, "int")
+        result := DllCall("dxva2.dll\OPMGetVideoOutputsFromIDirect3DDevice9Object", "ptr", pDirect3DDevice9, "int", vos, pulNumVideoOutputsMarshal, pulNumVideoOutputs, pppOPMVideoOutputArrayMarshal, pppOPMVideoOutputArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11145,7 +11149,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFGetService(punkObject, guidService, riid, ppvObject) {
-        result := DllCall("MF.dll\MFGetService", "ptr", punkObject, "ptr", guidService, "ptr", riid, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MF.dll\MFGetService", "ptr", punkObject, "ptr", guidService, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11301,8 +11307,9 @@ class MediaFoundation {
      */
     static MFSerializePresentationDescriptor(pPD, pcbData, ppbData) {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MFPlat.dll\MFSerializePresentationDescriptor", "ptr", pPD, pcbDataMarshal, pcbData, "ptr*", ppbData, "int")
+        result := DllCall("MFPlat.dll\MFSerializePresentationDescriptor", "ptr", pPD, pcbDataMarshal, pcbData, ppbDataMarshal, ppbData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11995,7 +12002,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateNetSchemePlugin(riid, ppvHandler) {
-        result := DllCall("MF.dll\MFCreateNetSchemePlugin", "ptr", riid, "ptr*", ppvHandler, "int")
+        ppvHandlerMarshal := ppvHandler is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MF.dll\MFCreateNetSchemePlugin", "ptr", riid, ppvHandlerMarshal, ppvHandler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12432,7 +12441,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFCreateStreamOnMFByteStreamEx(pByteStream, riid, ppv) {
-        result := DllCall("MFPlat.dll\MFCreateStreamOnMFByteStreamEx", "ptr", pByteStream, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateStreamOnMFByteStreamEx", "ptr", pByteStream, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12465,7 +12476,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFCreatePropertiesFromMediaType(pMediaType, riid, ppv) {
-        result := DllCall("MFPlat.dll\MFCreatePropertiesFromMediaType", "ptr", pMediaType, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreatePropertiesFromMediaType", "ptr", pMediaType, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12519,9 +12532,10 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFEnumDeviceSources(pAttributes, pppSourceActivate, pcSourceActivate) {
+        pppSourceActivateMarshal := pppSourceActivate is VarRef ? "ptr*" : "ptr"
         pcSourceActivateMarshal := pcSourceActivate is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MF.dll\MFEnumDeviceSources", "ptr", pAttributes, "ptr*", pppSourceActivate, pcSourceActivateMarshal, pcSourceActivate, "int")
+        result := DllCall("MF.dll\MFEnumDeviceSources", "ptr", pAttributes, pppSourceActivateMarshal, pppSourceActivate, pcSourceActivateMarshal, pcSourceActivate, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13494,7 +13508,9 @@ class MediaFoundation {
      * @see https://learn.microsoft.com/windows/win32/api/mfd3d12/nf-mfd3d12-mfcreated3d12synchronizationobject
      */
     static MFCreateD3D12SynchronizationObject(pDevice, riid, ppvSyncObject) {
-        result := DllCall("MFPlat.dll\MFCreateD3D12SynchronizationObject", "ptr", pDevice, "ptr", riid, "ptr*", ppvSyncObject, "int")
+        ppvSyncObjectMarshal := ppvSyncObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateD3D12SynchronizationObject", "ptr", pDevice, "ptr", riid, ppvSyncObjectMarshal, ppvSyncObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15304,7 +15320,9 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFCreateVideoSampleAllocatorEx(riid, ppSampleAllocator) {
-        result := DllCall("MFPlat.dll\MFCreateVideoSampleAllocatorEx", "ptr", riid, "ptr*", ppSampleAllocator, "int")
+        ppSampleAllocatorMarshal := ppSampleAllocator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateVideoSampleAllocatorEx", "ptr", riid, ppSampleAllocatorMarshal, ppSampleAllocator, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16054,9 +16072,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFTEnum(guidCategory, Flags, pInputType, pOutputType, pAttributes, ppclsidMFT, pcMFTs) {
+        ppclsidMFTMarshal := ppclsidMFT is VarRef ? "ptr*" : "ptr"
         pcMFTsMarshal := pcMFTs is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MFPlat.dll\MFTEnum", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr*", ppclsidMFT, pcMFTsMarshal, pcMFTs, "int")
+        result := DllCall("MFPlat.dll\MFTEnum", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, ppclsidMFTMarshal, ppclsidMFT, pcMFTsMarshal, pcMFTs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16080,9 +16099,10 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFTEnumEx(guidCategory, Flags, pInputType, pOutputType, pppMFTActivate, pnumMFTActivate) {
+        pppMFTActivateMarshal := pppMFTActivate is VarRef ? "ptr*" : "ptr"
         pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MFPlat.dll\MFTEnumEx", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr*", pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
+        result := DllCall("MFPlat.dll\MFTEnumEx", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16125,9 +16145,10 @@ class MediaFoundation {
      * @since windows10.0.10240
      */
     static MFTEnum2(guidCategory, Flags, pInputType, pOutputType, pAttributes, pppMFTActivate, pnumMFTActivate) {
+        pppMFTActivateMarshal := pppMFTActivate is VarRef ? "ptr*" : "ptr"
         pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MFPlat.dll\MFTEnum2", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, "ptr*", pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
+        result := DllCall("MFPlat.dll\MFTEnum2", "ptr", guidCategory, "uint", Flags, "ptr", pInputType, "ptr", pOutputType, "ptr", pAttributes, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16150,10 +16171,12 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFTGetInfo(clsidMFT, pszName, ppInputTypes, pcInputTypes, ppOutputTypes, pcOutputTypes, ppAttributes) {
+        ppInputTypesMarshal := ppInputTypes is VarRef ? "ptr*" : "ptr"
         pcInputTypesMarshal := pcInputTypes is VarRef ? "uint*" : "ptr"
+        ppOutputTypesMarshal := ppOutputTypes is VarRef ? "ptr*" : "ptr"
         pcOutputTypesMarshal := pcOutputTypes is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MFPlat.dll\MFTGetInfo", "ptr", clsidMFT, "ptr", pszName, "ptr*", ppInputTypes, pcInputTypesMarshal, pcInputTypes, "ptr*", ppOutputTypes, pcOutputTypesMarshal, pcOutputTypes, "ptr*", ppAttributes, "int")
+        result := DllCall("MFPlat.dll\MFTGetInfo", "ptr", clsidMFT, "ptr", pszName, ppInputTypesMarshal, ppInputTypes, pcInputTypesMarshal, pcInputTypes, ppOutputTypesMarshal, ppOutputTypes, pcOutputTypesMarshal, pcOutputTypes, "ptr*", ppAttributes, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16284,7 +16307,9 @@ class MediaFoundation {
     static MFCreateMediaExtensionActivate(szActivatableClassId, pConfiguration, riid, ppvObject) {
         szActivatableClassId := szActivatableClassId is String ? StrPtr(szActivatableClassId) : szActivatableClassId
 
-        result := DllCall("MFPlat.dll\MFCreateMediaExtensionActivate", "ptr", szActivatableClassId, "ptr", pConfiguration, "ptr", riid, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateMediaExtensionActivate", "ptr", szActivatableClassId, "ptr", pConfiguration, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16511,9 +16536,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateMFVideoFormatFromMFMediaType(pMFType, ppMFVF, pcbSize) {
+        ppMFVFMarshal := ppMFVF is VarRef ? "ptr*" : "ptr"
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MFPlat.dll\MFCreateMFVideoFormatFromMFMediaType", "ptr", pMFType, "ptr*", ppMFVF, pcbSizeMarshal, pcbSize, "int")
+        result := DllCall("MFPlat.dll\MFCreateMFVideoFormatFromMFMediaType", "ptr", pMFType, ppMFVFMarshal, ppMFVF, pcbSizeMarshal, pcbSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16549,9 +16575,10 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateWaveFormatExFromMFMediaType(pMFType, ppWF, pcbSize, Flags) {
+        ppWFMarshal := ppWF is VarRef ? "ptr*" : "ptr"
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, "ptr*", ppWF, pcbSizeMarshal, pcbSize, "uint", Flags, "int")
+        result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, ppWFMarshal, ppWF, pcbSizeMarshal, pcbSize, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16990,7 +17017,9 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateAMMediaTypeFromMFMediaType(pMFType, guidFormatBlockType, ppAMType) {
-        result := DllCall("MFPlat.dll\MFCreateAMMediaTypeFromMFMediaType", "ptr", pMFType, "ptr", guidFormatBlockType, "ptr*", ppAMType, "int")
+        ppAMTypeMarshal := ppAMType is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MFPlat.dll\MFCreateAMMediaTypeFromMFMediaType", "ptr", pMFType, "ptr", guidFormatBlockType, ppAMTypeMarshal, ppAMType, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17837,7 +17866,9 @@ class MediaFoundation {
      * @see https://docs.microsoft.com/windows/win32/api//evr/nc-evr-mfcreatevideopresenter
      */
     static MFCreateVideoPresenter(pOwner, riidDevice, riid, ppVideoPresenter) {
-        result := DllCall("EVR.dll\MFCreateVideoPresenter", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, "ptr*", ppVideoPresenter, "int")
+        ppVideoPresenterMarshal := ppVideoPresenter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("EVR.dll\MFCreateVideoPresenter", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, ppVideoPresenterMarshal, ppVideoPresenter, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17872,7 +17903,9 @@ class MediaFoundation {
      * @see https://docs.microsoft.com/windows/win32/api//evr/nc-evr-mfcreatevideomixer
      */
     static MFCreateVideoMixer(pOwner, riidDevice, riid, ppv) {
-        result := DllCall("EVR.dll\MFCreateVideoMixer", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("EVR.dll\MFCreateVideoMixer", "ptr", pOwner, "ptr", riidDevice, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17910,7 +17943,10 @@ class MediaFoundation {
      * @see https://docs.microsoft.com/windows/win32/api//evr/nc-evr-mfcreatevideomixerandpresenter
      */
     static MFCreateVideoMixerAndPresenter(pMixerOwner, pPresenterOwner, riidMixer, ppvVideoMixer, riidPresenter, ppvVideoPresenter) {
-        result := DllCall("EVR.dll\MFCreateVideoMixerAndPresenter", "ptr", pMixerOwner, "ptr", pPresenterOwner, "ptr", riidMixer, "ptr*", ppvVideoMixer, "ptr", riidPresenter, "ptr*", ppvVideoPresenter, "int")
+        ppvVideoMixerMarshal := ppvVideoMixer is VarRef ? "ptr*" : "ptr"
+        ppvVideoPresenterMarshal := ppvVideoPresenter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("EVR.dll\MFCreateVideoMixerAndPresenter", "ptr", pMixerOwner, "ptr", pPresenterOwner, "ptr", riidMixer, ppvVideoMixerMarshal, ppvVideoMixer, "ptr", riidPresenter, ppvVideoPresenterMarshal, ppvVideoPresenter, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17943,7 +17979,9 @@ class MediaFoundation {
      * @see https://docs.microsoft.com/windows/win32/api//evr/nc-evr-mfcreatevideorenderer
      */
     static MFCreateVideoRenderer(riidRenderer, ppVideoRenderer) {
-        result := DllCall("MF.dll\MFCreateVideoRenderer", "ptr", riidRenderer, "ptr*", ppVideoRenderer, "int")
+        ppVideoRendererMarshal := ppVideoRenderer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MF.dll\MFCreateVideoRenderer", "ptr", riidRenderer, ppVideoRendererMarshal, ppVideoRenderer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17974,7 +18012,9 @@ class MediaFoundation {
      * @see https://docs.microsoft.com/windows/win32/api//evr/nc-evr-mfcreatevideosampleallocator
      */
     static MFCreateVideoSampleAllocator(riid, ppSampleAllocator) {
-        result := DllCall("EVR.dll\MFCreateVideoSampleAllocator", "ptr", riid, "ptr*", ppSampleAllocator, "int")
+        ppSampleAllocatorMarshal := ppSampleAllocator is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("EVR.dll\MFCreateVideoSampleAllocator", "ptr", riid, ppSampleAllocatorMarshal, ppSampleAllocator, "int")
         if(result != 0)
             throw OSError(result)
 

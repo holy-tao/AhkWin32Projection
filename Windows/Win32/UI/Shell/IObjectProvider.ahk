@@ -43,7 +43,9 @@ class IObjectProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectprovider-queryobject
      */
     QueryObject(guidObject, riid, ppvOut) {
-        result := ComCall(3, this, "ptr", guidObject, "ptr", riid, "ptr*", ppvOut, "HRESULT")
+        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", guidObject, "ptr", riid, ppvOutMarshal, ppvOut, "HRESULT")
         return result
     }
 }

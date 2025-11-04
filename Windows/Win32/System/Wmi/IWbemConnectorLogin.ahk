@@ -42,7 +42,9 @@ class IWbemConnectorLogin extends IUnknown{
         wszNetworkResource := wszNetworkResource is String ? StrPtr(wszNetworkResource) : wszNetworkResource
         wszPreferredLocale := wszPreferredLocale is String ? StrPtr(wszPreferredLocale) : wszPreferredLocale
 
-        result := ComCall(3, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, "ptr*", pInterface, "HRESULT")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, pInterfaceMarshal, pInterface, "HRESULT")
         return result
     }
 }

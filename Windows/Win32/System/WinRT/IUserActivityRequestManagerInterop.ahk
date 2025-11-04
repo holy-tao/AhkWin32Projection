@@ -44,7 +44,9 @@ class IUserActivityRequestManagerInterop extends IInspectable{
     GetForWindow(window, iid, value) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(6, this, "ptr", window, "ptr", iid, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", window, "ptr", iid, valueMarshal, value, "HRESULT")
         return result
     }
 }

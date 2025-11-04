@@ -74,9 +74,10 @@ class IPortableDeviceConnector extends IUnknown{
      */
     GetProperty(pPropertyKey, pPropertyType, ppData, pcbData) {
         pPropertyTypeMarshal := pPropertyType is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pPropertyKey, pPropertyTypeMarshal, pPropertyType, "ptr*", ppData, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(6, this, "ptr", pPropertyKey, pPropertyTypeMarshal, pPropertyType, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 

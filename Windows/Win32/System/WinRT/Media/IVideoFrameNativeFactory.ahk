@@ -44,7 +44,9 @@ class IVideoFrameNativeFactory extends IInspectable{
      * @returns {HRESULT} 
      */
     CreateFromMFSample(data, subtype, width, height, forceReadOnly, minDisplayAperture, device, riid, ppv) {
-        result := ComCall(6, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", device, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", device, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

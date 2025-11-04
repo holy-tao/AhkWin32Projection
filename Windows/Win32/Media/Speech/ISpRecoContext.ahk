@@ -102,8 +102,9 @@ class ISpRecoContext extends ISpEventSource{
      */
     GetAudioOptions(pOptions, pAudioFormatId, ppCoMemWFEX) {
         pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
+        ppCoMemWFEXMarshal := ppCoMemWFEX is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, pOptionsMarshal, pOptions, "ptr", pAudioFormatId, "ptr*", ppCoMemWFEX, "HRESULT")
+        result := ComCall(19, this, pOptionsMarshal, pOptions, "ptr", pAudioFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "HRESULT")
         return result
     }
 

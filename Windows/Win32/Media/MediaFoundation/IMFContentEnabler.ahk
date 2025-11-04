@@ -65,9 +65,10 @@ class IMFContentEnabler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenabledata
      */
     GetEnableData(ppbData, pcbData) {
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppbData, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(5, this, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 

@@ -44,7 +44,9 @@ class ID3D12Device2 extends ID3D12Device1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device2-createpipelinestate
      */
     CreatePipelineState(pDesc, riid, ppPipelineState) {
-        result := ComCall(47, this, "ptr", pDesc, "ptr", riid, "ptr*", ppPipelineState, "HRESULT")
+        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(47, this, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
         return result
     }
 }

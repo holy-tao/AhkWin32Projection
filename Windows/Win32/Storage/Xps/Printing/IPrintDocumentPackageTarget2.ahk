@@ -45,7 +45,9 @@ class IPrintDocumentPackageTarget2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTargetIppPrintDevice(riid, ppvTarget) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppvTarget, "HRESULT")
+        ppvTargetMarshal := ppvTarget is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, ppvTargetMarshal, ppvTarget, "HRESULT")
         return result
     }
 }

@@ -35,7 +35,9 @@ class IXFeedsManager extends IUnknown{
      * @returns {HRESULT} 
      */
     RootFolder(riid, ppv) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IXFeedsManager extends IUnknown{
     GetFeed(pszPath, riid, ppv) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(6, this, "ptr", pszPath, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszPath, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -89,7 +93,9 @@ class IXFeedsManager extends IUnknown{
     GetFeedByUrl(pszUrl, riid, ppv) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(7, this, "ptr", pszUrl, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszUrl, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -116,7 +122,9 @@ class IXFeedsManager extends IUnknown{
     GetFolder(pszPath, riid, ppv) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(9, this, "ptr", pszPath, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pszPath, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

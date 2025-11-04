@@ -53,8 +53,9 @@ class IImageDecodeEventSink extends IUnknown{
     OnBeginDecode(pdwEvents, pnFormats, ppFormats) {
         pdwEventsMarshal := pdwEvents is VarRef ? "uint*" : "ptr"
         pnFormatsMarshal := pnFormats is VarRef ? "uint*" : "ptr"
+        ppFormatsMarshal := ppFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pdwEventsMarshal, pdwEvents, pnFormatsMarshal, pnFormats, "ptr*", ppFormats, "HRESULT")
+        result := ComCall(4, this, pdwEventsMarshal, pdwEvents, pnFormatsMarshal, pnFormats, ppFormatsMarshal, ppFormats, "HRESULT")
         return result
     }
 

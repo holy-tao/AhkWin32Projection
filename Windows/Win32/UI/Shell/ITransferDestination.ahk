@@ -71,7 +71,10 @@ class ITransferDestination extends IUnknown{
     CreateItem(pszName, dwAttributes, ullSize, flags, riidItem, ppvItem, riidResources, ppvResources) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ptr", pszName, "uint", dwAttributes, "uint", ullSize, "uint", flags, "ptr", riidItem, "ptr*", ppvItem, "ptr", riidResources, "ptr*", ppvResources, "HRESULT")
+        ppvItemMarshal := ppvItem is VarRef ? "ptr*" : "ptr"
+        ppvResourcesMarshal := ppvResources is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszName, "uint", dwAttributes, "uint", ullSize, "uint", flags, "ptr", riidItem, ppvItemMarshal, ppvItem, "ptr", riidResources, ppvResourcesMarshal, ppvResources, "HRESULT")
         return result
     }
 }

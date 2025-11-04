@@ -53,7 +53,9 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(ppbChangeUnitIds, dwChangeUnitCount) {
-        result := ComCall(4, this, "ptr*", ppbChangeUnitIds, "uint", dwChangeUnitCount, "HRESULT")
+        ppbChangeUnitIdsMarshal := ppbChangeUnitIds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppbChangeUnitIdsMarshal, ppbChangeUnitIds, "uint", dwChangeUnitCount, "HRESULT")
         return result
     }
 

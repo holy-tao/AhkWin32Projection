@@ -109,7 +109,9 @@ class ITypeLib extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-getlibattr
      */
     GetLibAttr(ppTLibAttr) {
-        result := ComCall(7, this, "ptr*", ppTLibAttr, "HRESULT")
+        ppTLibAttrMarshal := ppTLibAttr is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, ppTLibAttrMarshal, ppTLibAttr, "HRESULT")
         return result
     }
 

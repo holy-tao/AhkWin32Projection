@@ -223,9 +223,10 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-queryservicegatewayinfo
      */
     QueryServiceGatewayInfo(ppDSMCCList, puiCount) {
+        ppDSMCCListMarshal := ppDSMCCList is VarRef ? "ptr*" : "ptr"
         puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr*", ppDSMCCList, puiCountMarshal, puiCount, "HRESULT")
+        result := ComCall(16, this, ppDSMCCListMarshal, ppDSMCCList, puiCountMarshal, puiCount, "HRESULT")
         return result
     }
 
@@ -237,9 +238,10 @@ class IPMT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-querympeinfo
      */
     QueryMPEInfo(ppMPEList, puiCount) {
+        ppMPEListMarshal := ppMPEList is VarRef ? "ptr*" : "ptr"
         puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr*", ppMPEList, puiCountMarshal, puiCount, "HRESULT")
+        result := ComCall(17, this, ppMPEListMarshal, ppMPEList, puiCountMarshal, puiCount, "HRESULT")
         return result
     }
 

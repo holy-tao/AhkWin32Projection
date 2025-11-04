@@ -168,7 +168,9 @@ class IMFSourceReader extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getserviceforstream
      */
     GetServiceForStream(dwStreamIndex, guidService, riid, ppvObject) {
-        result := ComCall(11, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

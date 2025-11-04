@@ -53,7 +53,9 @@ class IBindHost extends IUnknown{
      * @returns {HRESULT} 
      */
     MonikerBindToStorage(pMk, pBC, pBSC, riid, ppvObj) {
-        result := ComCall(4, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 
@@ -67,7 +69,9 @@ class IBindHost extends IUnknown{
      * @returns {HRESULT} 
      */
     MonikerBindToObject(pMk, pBC, pBSC, riid, ppvObj) {
-        result := ComCall(5, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 }

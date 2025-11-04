@@ -118,7 +118,9 @@ class IShellFolderView extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
     GetObject(ppidl, uItem) {
-        result := ComCall(9, this, "ptr*", ppidl, "uint", uItem, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, ppidlMarshal, ppidl, "uint", uItem, "HRESULT")
         return result
     }
 
@@ -222,9 +224,10 @@ class IShellFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getselectedobjects
      */
     GetSelectedObjects(pppidl, puItems) {
+        pppidlMarshal := pppidl is VarRef ? "ptr*" : "ptr"
         puItemsMarshal := puItems is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr*", pppidl, puItemsMarshal, puItems, "HRESULT")
+        result := ComCall(17, this, pppidlMarshal, pppidl, puItemsMarshal, puItems, "HRESULT")
         return result
     }
 

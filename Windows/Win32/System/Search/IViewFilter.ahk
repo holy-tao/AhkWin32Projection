@@ -40,9 +40,10 @@ class IViewFilter extends IUnknown{
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+        pCompareOpsMarshal := pCompareOps is VarRef ? "ptr*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", hAccessor, pcRowsMarshal, pcRows, "ptr*", pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(3, this, "ptr", hAccessor, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
     }
 
@@ -54,8 +55,9 @@ class IViewFilter extends IUnknown{
      */
     GetFilterBindings(pcBindings, prgBindings) {
         pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
+        prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcBindingsMarshal, pcBindings, "ptr*", prgBindings, "HRESULT")
+        result := ComCall(4, this, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
         return result
     }
 

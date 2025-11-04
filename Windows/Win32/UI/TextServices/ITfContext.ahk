@@ -183,7 +183,10 @@ class ITfContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-trackproperties
      */
     TrackProperties(prgProp, cProp, prgAppProp, cAppProp, ppProperty) {
-        result := ComCall(14, this, "ptr*", prgProp, "uint", cProp, "ptr*", prgAppProp, "uint", cAppProp, "ptr*", ppProperty, "HRESULT")
+        prgPropMarshal := prgProp is VarRef ? "ptr*" : "ptr"
+        prgAppPropMarshal := prgAppProp is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, prgPropMarshal, prgProp, "uint", cProp, prgAppPropMarshal, prgAppProp, "uint", cAppProp, "ptr*", ppProperty, "HRESULT")
         return result
     }
 

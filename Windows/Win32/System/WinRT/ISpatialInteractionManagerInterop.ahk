@@ -41,7 +41,9 @@ class ISpatialInteractionManagerInterop extends IInspectable{
     GetForWindow(window, riid, spatialInteractionManager) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", spatialInteractionManager, "HRESULT")
+        spatialInteractionManagerMarshal := spatialInteractionManager is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", window, "ptr", riid, spatialInteractionManagerMarshal, spatialInteractionManager, "HRESULT")
         return result
     }
 }

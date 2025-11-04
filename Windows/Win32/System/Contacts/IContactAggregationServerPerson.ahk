@@ -162,7 +162,9 @@ class IContactAggregationServerPerson extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Groups(pGroups) {
-        result := ComCall(15, this, "ptr*", pGroups, "HRESULT")
+        pGroupsMarshal := pGroups is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, pGroupsMarshal, pGroups, "HRESULT")
         return result
     }
 
@@ -182,7 +184,9 @@ class IContactAggregationServerPerson extends IUnknown{
      * @returns {HRESULT} 
      */
     get_GroupsBaseline(ppGroups) {
-        result := ComCall(17, this, "ptr*", ppGroups, "HRESULT")
+        ppGroupsMarshal := ppGroups is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, ppGroupsMarshal, ppGroups, "HRESULT")
         return result
     }
 

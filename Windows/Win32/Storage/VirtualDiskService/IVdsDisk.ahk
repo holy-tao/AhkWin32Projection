@@ -71,9 +71,10 @@ class IVdsDisk extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
+        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
         plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr*", ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
+        result := ComCall(6, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
         return result
     }
 

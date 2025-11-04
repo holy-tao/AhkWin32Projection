@@ -99,7 +99,9 @@ class IUIFramework extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-getview
      */
     GetView(viewId, riid, ppv) {
-        result := ComCall(6, this, "uint", viewId, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", viewId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

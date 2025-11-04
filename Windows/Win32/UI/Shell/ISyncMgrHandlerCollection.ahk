@@ -93,7 +93,9 @@ class ISyncMgrHandlerCollection extends IUnknown{
     BindToHandler(pszHandlerID, riid, ppv) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        result := ComCall(4, this, "ptr", pszHandlerID, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszHandlerID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

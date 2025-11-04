@@ -41,12 +41,13 @@ class IAudioCaptureClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getbuffer
      */
     GetBuffer(ppData, pNumFramesToRead, pdwFlags, pu64DevicePosition, pu64QPCPosition) {
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pNumFramesToReadMarshal := pNumFramesToRead is VarRef ? "uint*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         pu64DevicePositionMarshal := pu64DevicePosition is VarRef ? "uint*" : "ptr"
         pu64QPCPositionMarshal := pu64QPCPosition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", ppData, pNumFramesToReadMarshal, pNumFramesToRead, pdwFlagsMarshal, pdwFlags, pu64DevicePositionMarshal, pu64DevicePosition, pu64QPCPositionMarshal, pu64QPCPosition, "HRESULT")
+        result := ComCall(3, this, ppDataMarshal, ppData, pNumFramesToReadMarshal, pNumFramesToRead, pdwFlagsMarshal, pdwFlags, pu64DevicePositionMarshal, pu64DevicePosition, pu64QPCPositionMarshal, pu64QPCPosition, "HRESULT")
         return result
     }
 

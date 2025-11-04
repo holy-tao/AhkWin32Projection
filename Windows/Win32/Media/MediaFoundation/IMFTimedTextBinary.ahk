@@ -38,9 +38,10 @@ class IMFTimedTextBinary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextbinary-getdata
      */
     GetData(data, length) {
+        dataMarshal := data is VarRef ? "ptr*" : "ptr"
         lengthMarshal := length is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", data, lengthMarshal, length, "HRESULT")
+        result := ComCall(3, this, dataMarshal, data, lengthMarshal, length, "HRESULT")
         return result
     }
 }

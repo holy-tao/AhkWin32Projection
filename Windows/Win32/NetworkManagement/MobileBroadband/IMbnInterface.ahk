@@ -112,7 +112,9 @@ class IMbnInterface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getpreferredproviders
      */
     GetPreferredProviders(preferredProviders) {
-        result := ComCall(9, this, "ptr*", preferredProviders, "HRESULT")
+        preferredProvidersMarshal := preferredProviders is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, preferredProvidersMarshal, preferredProviders, "HRESULT")
         return result
     }
 
@@ -139,8 +141,9 @@ class IMbnInterface extends IUnknown{
      */
     GetVisibleProviders(age, visibleProviders) {
         ageMarshal := age is VarRef ? "uint*" : "ptr"
+        visibleProvidersMarshal := visibleProviders is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, ageMarshal, age, "ptr*", visibleProviders, "HRESULT")
+        result := ComCall(11, this, ageMarshal, age, visibleProvidersMarshal, visibleProviders, "HRESULT")
         return result
     }
 

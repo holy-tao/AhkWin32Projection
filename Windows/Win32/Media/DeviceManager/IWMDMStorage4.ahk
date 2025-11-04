@@ -51,8 +51,9 @@ class IWMDMStorage4 extends IWMDMStorage3{
      */
     GetReferences(pdwRefs, pppIWMDMStorage) {
         pdwRefsMarshal := pdwRefs is VarRef ? "uint*" : "ptr"
+        pppIWMDMStorageMarshal := pppIWMDMStorage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, pdwRefsMarshal, pdwRefs, "ptr*", pppIWMDMStorage, "HRESULT")
+        result := ComCall(20, this, pdwRefsMarshal, pdwRefs, pppIWMDMStorageMarshal, pppIWMDMStorage, "HRESULT")
         return result
     }
 
@@ -65,9 +66,10 @@ class IWMDMStorage4 extends IWMDMStorage3{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-getrightswithprogress
      */
     GetRightsWithProgress(pIProgressCallback, ppRights, pnRightsCount) {
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
         pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "ptr", pIProgressCallback, "ptr*", ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
+        result := ComCall(21, this, "ptr", pIProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
         return result
     }
 

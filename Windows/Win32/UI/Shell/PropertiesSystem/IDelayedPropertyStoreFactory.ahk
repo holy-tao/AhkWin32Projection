@@ -40,7 +40,9 @@ class IDelayedPropertyStoreFactory extends IPropertyStoreFactory{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-idelayedpropertystorefactory-getdelayedpropertystore
      */
     GetDelayedPropertyStore(flags, dwStoreId, riid, ppv) {
-        result := ComCall(5, this, "int", flags, "uint", dwStoreId, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "int", flags, "uint", dwStoreId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

@@ -55,7 +55,9 @@ class ISBE2MediaTypeProfile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-getstream
      */
     GetStream(Index, ppMediaType) {
-        result := ComCall(4, this, "uint", Index, "ptr*", ppMediaType, "HRESULT")
+        ppMediaTypeMarshal := ppMediaType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", Index, ppMediaTypeMarshal, ppMediaType, "HRESULT")
         return result
     }
 

@@ -47,7 +47,9 @@ class IDWriteFontFallbackBuilder extends IUnknown{
         localeName := localeName is String ? StrPtr(localeName) : localeName
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
-        result := ComCall(3, this, "ptr", ranges, "uint", rangesCount, "ptr*", targetFamilyNames, "uint", targetFamilyNamesCount, "ptr", fontCollection, "ptr", localeName, "ptr", baseFamilyName, "float", scale, "HRESULT")
+        targetFamilyNamesMarshal := targetFamilyNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", ranges, "uint", rangesCount, targetFamilyNamesMarshal, targetFamilyNames, "uint", targetFamilyNamesCount, "ptr", fontCollection, "ptr", localeName, "ptr", baseFamilyName, "float", scale, "HRESULT")
         return result
     }
 

@@ -78,6 +78,9 @@ class ISimilarityTraitsMappedView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmappedview-getview
      */
     GetView(mappedPageBegin, mappedPageEnd) {
-        ComCall(6, this, "ptr*", mappedPageBegin, "ptr*", mappedPageEnd)
+        mappedPageBeginMarshal := mappedPageBegin is VarRef ? "ptr*" : "ptr"
+        mappedPageEndMarshal := mappedPageEnd is VarRef ? "ptr*" : "ptr"
+
+        ComCall(6, this, mappedPageBeginMarshal, mappedPageBegin, mappedPageEndMarshal, mappedPageEnd)
     }
 }

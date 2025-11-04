@@ -347,8 +347,9 @@ class IRealTimeStylus extends IUnknown{
      */
     GetAllTabletContextIds(pcTcidCount, ppTcids) {
         pcTcidCountMarshal := pcTcidCount is VarRef ? "uint*" : "ptr"
+        ppTcidsMarshal := ppTcids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(28, this, pcTcidCountMarshal, pcTcidCount, "ptr*", ppTcids, "HRESULT")
+        result := ComCall(28, this, pcTcidCountMarshal, pcTcidCount, ppTcidsMarshal, ppTcids, "HRESULT")
         return result
     }
 
@@ -396,8 +397,9 @@ class IRealTimeStylus extends IUnknown{
      */
     GetDesiredPacketDescription(pcProperties, ppPropertyGuids) {
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+        ppPropertyGuidsMarshal := ppPropertyGuids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(32, this, pcPropertiesMarshal, pcProperties, "ptr*", ppPropertyGuids, "HRESULT")
+        result := ComCall(32, this, pcPropertiesMarshal, pcProperties, ppPropertyGuidsMarshal, ppPropertyGuids, "HRESULT")
         return result
     }
 
@@ -415,8 +417,9 @@ class IRealTimeStylus extends IUnknown{
         pfInkToDeviceScaleXMarshal := pfInkToDeviceScaleX is VarRef ? "float*" : "ptr"
         pfInkToDeviceScaleYMarshal := pfInkToDeviceScaleY is VarRef ? "float*" : "ptr"
         pcPacketPropertiesMarshal := pcPacketProperties is VarRef ? "uint*" : "ptr"
+        ppPacketPropertiesMarshal := ppPacketProperties is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(33, this, "uint", tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, "ptr*", ppPacketProperties, "HRESULT")
+        result := ComCall(33, this, "uint", tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, ppPacketPropertiesMarshal, ppPacketProperties, "HRESULT")
         return result
     }
 }

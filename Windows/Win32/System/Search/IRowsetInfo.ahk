@@ -38,8 +38,9 @@ class IRowsetInfo extends IUnknown{
      */
     GetProperties(cPropertyIDSets, rgPropertyIDSets, pcPropertySets, prgPropertySets) {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
+        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", prgPropertySets, "HRESULT")
+        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
         return result
     }
 

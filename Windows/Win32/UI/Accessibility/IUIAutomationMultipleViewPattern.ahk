@@ -73,7 +73,9 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcurrentsupportedviews
      */
     GetCurrentSupportedViews(retVal) {
-        result := ComCall(6, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcachedsupportedviews
      */
     GetCachedSupportedViews(retVal) {
-        result := ComCall(8, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

@@ -56,7 +56,9 @@ class IPropertyChangeArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychangearray-getat
      */
     GetAt(iIndex, riid, ppv) {
-        result := ComCall(4, this, "uint", iIndex, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", iIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

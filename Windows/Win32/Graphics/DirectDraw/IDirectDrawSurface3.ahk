@@ -424,7 +424,9 @@ class IDirectDrawSurface3 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDDInterface(param0) {
-        result := ComCall(36, this, "ptr*", param0, "HRESULT")
+        param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(36, this, param0Marshal, param0, "HRESULT")
         return result
     }
 

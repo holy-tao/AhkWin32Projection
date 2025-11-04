@@ -5785,9 +5785,10 @@ class WinHttp {
         hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
         pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
         pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
+        ppHeadersMarshal := ppHeaders is VarRef ? "ptr*" : "ptr"
         pdwHeadersCountMarshal := pdwHeadersCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WINHTTP.dll\WinHttpQueryHeadersEx", hRequestMarshal, hRequest, "uint", dwInfoLevel, "uint", ullFlags, "uint", uiCodePage, pdwIndexMarshal, pdwIndex, "ptr", pHeaderName, "ptr", pBuffer, pdwBufferLengthMarshal, pdwBufferLength, "ptr*", ppHeaders, pdwHeadersCountMarshal, pdwHeadersCount, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpQueryHeadersEx", hRequestMarshal, hRequest, "uint", dwInfoLevel, "uint", ullFlags, "uint", uiCodePage, pdwIndexMarshal, pdwIndex, "ptr", pHeaderName, "ptr", pBuffer, pdwBufferLengthMarshal, pdwBufferLength, ppHeadersMarshal, ppHeaders, pdwHeadersCountMarshal, pdwHeadersCount, "uint")
         return result
     }
 
@@ -5802,8 +5803,9 @@ class WinHttp {
      */
     static WinHttpQueryConnectionGroup(hInternet, pGuidConnection, ullFlags, ppResult) {
         hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WINHTTP.dll\WinHttpQueryConnectionGroup", hInternetMarshal, hInternet, "ptr", pGuidConnection, "uint", ullFlags, "ptr*", ppResult, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpQueryConnectionGroup", hInternetMarshal, hInternet, "ptr", pGuidConnection, "uint", ullFlags, ppResultMarshal, ppResult, "uint")
         return result
     }
 
@@ -6102,8 +6104,9 @@ class WinHttp {
      */
     static WinHttpCreateProxyResolver(hSession, phResolver) {
         hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
+        phResolverMarshal := phResolver is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WINHTTP.dll\WinHttpCreateProxyResolver", hSessionMarshal, hSession, "ptr*", phResolver, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpCreateProxyResolver", hSessionMarshal, hSession, phResolverMarshal, phResolver, "uint")
         return result
     }
 
@@ -7020,8 +7023,9 @@ class WinHttp {
      */
     static WinHttpRegisterProxyChangeNotification(ullFlags, pfnCallback, pvContext, hRegistration) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        hRegistrationMarshal := hRegistration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", pfnCallback, pvContextMarshal, pvContext, "ptr*", hRegistration, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, "uint")
         return result
     }
 

@@ -51,8 +51,9 @@ class IMDSPStorage4 extends IMDSPStorage3{
      */
     GetReferences(pdwRefs, pppISPStorage) {
         pdwRefsMarshal := pdwRefs is VarRef ? "uint*" : "ptr"
+        pppISPStorageMarshal := pppISPStorage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, pdwRefsMarshal, pdwRefs, "ptr*", pppISPStorage, "HRESULT")
+        result := ComCall(20, this, pdwRefsMarshal, pdwRefs, pppISPStorageMarshal, pppISPStorage, "HRESULT")
         return result
     }
 

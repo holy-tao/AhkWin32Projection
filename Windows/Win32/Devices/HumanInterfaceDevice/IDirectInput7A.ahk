@@ -38,7 +38,9 @@ class IDirectInput7A extends IDirectInput2A{
      * @returns {HRESULT} 
      */
     CreateDeviceEx(param0, param1, param2, param3) {
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "ptr*", param2, "ptr", param3, "HRESULT")
+        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 }

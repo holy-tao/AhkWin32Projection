@@ -413,7 +413,9 @@ class WebServicesOnDevices {
         pszNamespace := pszNamespace is String ? StrPtr(pszNamespace) : pszNamespace
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr*", ppName, "int")
+        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, ppNameMarshal, ppName, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1481,7 +1483,9 @@ class WebServicesOnDevices {
     static WSDXMLBuildAnyForSingleElement(pElementName, pszText, ppAny) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr*", ppAny, "int")
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, ppAnyMarshal, ppAny, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1761,7 +1765,9 @@ class WebServicesOnDevices {
         pszReason := pszReason is String ? StrPtr(pszReason) : pszReason
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-        result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr*", ppFault, "int")
+        ppFaultMarshal := ppFault is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, ppFaultMarshal, ppFault, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1833,7 +1839,9 @@ class WebServicesOnDevices {
     static WSDGenerateFaultEx(pCode, pSubCode, pReasons, pszDetail, ppFault) {
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-        result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr*", ppFault, "int")
+        ppFaultMarshal := ppFault is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, ppFaultMarshal, ppFault, "int")
         if(result != 0)
             throw OSError(result)
 

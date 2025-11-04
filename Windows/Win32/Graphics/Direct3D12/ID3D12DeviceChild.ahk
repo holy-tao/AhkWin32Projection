@@ -38,7 +38,9 @@ class ID3D12DeviceChild extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12devicechild-getdevice
      */
     GetDevice(riid, ppvDevice) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", ppvDevice, "HRESULT")
+        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
         return result
     }
 }

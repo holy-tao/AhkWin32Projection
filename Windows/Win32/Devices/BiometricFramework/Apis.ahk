@@ -691,9 +691,10 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumServiceProviders(Factor, BspSchemaArray, BspCount) {
+        BspSchemaArrayMarshal := BspSchemaArray is VarRef ? "ptr*" : "ptr"
         BspCountMarshal := BspCount is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, "ptr*", BspSchemaArray, BspCountMarshal, BspCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, BspSchemaArrayMarshal, BspSchemaArray, BspCountMarshal, BspCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -761,9 +762,10 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumBiometricUnits(Factor, UnitSchemaArray, UnitCount) {
+        UnitSchemaArrayMarshal := UnitSchemaArray is VarRef ? "ptr*" : "ptr"
         UnitCountMarshal := UnitCount is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, "ptr*", UnitSchemaArray, UnitCountMarshal, UnitCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, UnitSchemaArrayMarshal, UnitSchemaArray, UnitCountMarshal, UnitCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -820,9 +822,10 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
+        StorageSchemaArrayMarshal := StorageSchemaArray is VarRef ? "ptr*" : "ptr"
         StorageCountMarshal := StorageCount is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, "ptr*", StorageSchemaArray, StorageCountMarshal, StorageCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, StorageSchemaArrayMarshal, StorageSchemaArray, StorageCountMarshal, StorageCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2722,9 +2725,10 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, SubFactorCount) {
+        SubFactorArrayMarshal := SubFactorArray is VarRef ? "ptr*" : "ptr"
         SubFactorCountMarshal := SubFactorCount is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "ptr*", SubFactorArray, SubFactorCountMarshal, SubFactorCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, SubFactorArrayMarshal, SubFactorArray, SubFactorCountMarshal, SubFactorCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3068,10 +3072,11 @@ class BiometricFramework {
      */
     static WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, SampleSize, RejectDetail) {
         UnitIdMarshal := UnitId is VarRef ? "uint*" : "ptr"
+        SampleMarshal := Sample is VarRef ? "ptr*" : "ptr"
         SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : "ptr"
         RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, UnitIdMarshal, UnitId, "ptr*", Sample, SampleSizeMarshal, SampleSize, RejectDetailMarshal, RejectDetail, "int")
+        result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, UnitIdMarshal, UnitId, SampleMarshal, Sample, SampleSizeMarshal, SampleSize, RejectDetailMarshal, RejectDetail, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3757,9 +3762,10 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
+        PropertyBufferMarshal := PropertyBuffer is VarRef ? "ptr*" : "ptr"
         PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr*", PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "int")
+        result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "int")
         if(result != 0)
             throw OSError(result)
 

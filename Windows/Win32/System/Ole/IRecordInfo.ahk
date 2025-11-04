@@ -147,8 +147,9 @@ class IRecordInfo extends IUnknown{
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        ppvDataCArrayMarshal := ppvDataCArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, "ptr*", ppvDataCArray, "HRESULT")
+        result := ComCall(11, this, pvDataMarshal, pvData, "ptr", szFieldName, "ptr", pvarField, ppvDataCArrayMarshal, ppvDataCArray, "HRESULT")
         return result
     }
 
@@ -232,8 +233,9 @@ class IRecordInfo extends IUnknown{
      */
     RecordCreateCopy(pvSource, ppvDest) {
         pvSourceMarshal := pvSource is VarRef ? "ptr" : "ptr"
+        ppvDestMarshal := ppvDest is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, pvSourceMarshal, pvSource, "ptr*", ppvDest, "HRESULT")
+        result := ComCall(17, this, pvSourceMarshal, pvSource, ppvDestMarshal, ppvDest, "HRESULT")
         return result
     }
 

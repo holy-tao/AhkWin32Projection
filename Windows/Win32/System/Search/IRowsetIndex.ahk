@@ -38,9 +38,11 @@ class IRowsetIndex extends IUnknown{
      */
     GetIndexInfo(pcKeyColumns, prgIndexColumnDesc, pcIndexPropertySets, prgIndexPropertySets) {
         pcKeyColumnsMarshal := pcKeyColumns is VarRef ? "ptr*" : "ptr"
+        prgIndexColumnDescMarshal := prgIndexColumnDesc is VarRef ? "ptr*" : "ptr"
         pcIndexPropertySetsMarshal := pcIndexPropertySets is VarRef ? "uint*" : "ptr"
+        prgIndexPropertySetsMarshal := prgIndexPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcKeyColumnsMarshal, pcKeyColumns, "ptr*", prgIndexColumnDesc, pcIndexPropertySetsMarshal, pcIndexPropertySets, "ptr*", prgIndexPropertySets, "HRESULT")
+        result := ComCall(3, this, pcKeyColumnsMarshal, pcKeyColumns, prgIndexColumnDescMarshal, prgIndexColumnDesc, pcIndexPropertySetsMarshal, pcIndexPropertySets, prgIndexPropertySetsMarshal, prgIndexPropertySets, "HRESULT")
         return result
     }
 

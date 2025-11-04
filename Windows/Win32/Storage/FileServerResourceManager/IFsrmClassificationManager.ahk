@@ -84,7 +84,9 @@ class IFsrmClassificationManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportformats
      */
     get_ClassificationReportFormats(formats) {
-        result := ComCall(7, this, "ptr*", formats, "HRESULT")
+        formatsMarshal := formats is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, formatsMarshal, formats, "HRESULT")
         return result
     }
 

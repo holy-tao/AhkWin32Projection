@@ -35,7 +35,9 @@ class ID3D12CompilerStateObject extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCompiler(riid, ppCompiler) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppCompiler, "HRESULT")
+        ppCompilerMarshal := ppCompiler is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppCompilerMarshal, ppCompiler, "HRESULT")
         return result
     }
 }

@@ -38,9 +38,10 @@ class IPrintTicketProvider extends IUnknown{
     GetSupportedVersions(hPrinter, ppVersions, cVersions) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
+        ppVersionsMarshal := ppVersions is VarRef ? "ptr*" : "ptr"
         cVersionsMarshal := cVersions is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hPrinter, "ptr*", ppVersions, cVersionsMarshal, cVersions, "HRESULT")
+        result := ComCall(3, this, "ptr", hPrinter, ppVersionsMarshal, ppVersions, cVersionsMarshal, cVersions, "HRESULT")
         return result
     }
 
@@ -60,8 +61,9 @@ class IPrintTicketProvider extends IUnknown{
         pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
         pDevModeFlagsMarshal := pDevModeFlags is VarRef ? "uint*" : "ptr"
         cNamespacesMarshal := cNamespaces is VarRef ? "int*" : "ptr"
+        ppNamespacesMarshal := ppNamespaces is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hPrinter, "int", version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, "ptr*", ppNamespaces, "HRESULT")
+        result := ComCall(4, this, "ptr", hPrinter, "int", version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
         return result
     }
 
@@ -86,8 +88,9 @@ class IPrintTicketProvider extends IUnknown{
      */
     ConvertPrintTicketToDevMode(pPrintTicket, cbDevmodeIn, pDevmodeIn, pcbDevmodeOut, ppDevmodeOut) {
         pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : "ptr"
+        ppDevmodeOutMarshal := ppDevmodeOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, "ptr", pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, "ptr*", ppDevmodeOut, "HRESULT")
+        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, "ptr", pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "HRESULT")
         return result
     }
 

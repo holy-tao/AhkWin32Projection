@@ -39,8 +39,9 @@ class IMFSystemId extends IUnknown{
      */
     GetData(size, data) {
         sizeMarshal := size is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, sizeMarshal, size, "ptr*", data, "HRESULT")
+        result := ComCall(3, this, sizeMarshal, size, dataMarshal, data, "HRESULT")
         return result
     }
 
@@ -56,8 +57,9 @@ class IMFSystemId extends IUnknown{
      */
     Setup(stage, cbIn, pbIn, pcbOut, ppbOut) {
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
+        ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", stage, "uint", cbIn, "ptr", pbIn, pcbOutMarshal, pcbOut, "ptr*", ppbOut, "HRESULT")
+        result := ComCall(4, this, "uint", stage, "uint", cbIn, "ptr", pbIn, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
         return result
     }
 }

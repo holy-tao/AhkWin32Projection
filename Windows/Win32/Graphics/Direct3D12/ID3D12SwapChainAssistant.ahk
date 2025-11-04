@@ -44,7 +44,9 @@ class ID3D12SwapChainAssistant extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSwapChainObject(riid, ppv) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -57,7 +59,10 @@ class ID3D12SwapChainAssistant extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentResourceAndCommandQueue(riidResource, ppvResource, riidQueue, ppvQueue) {
-        result := ComCall(5, this, "ptr", riidResource, "ptr*", ppvResource, "ptr", riidQueue, "ptr*", ppvQueue, "HRESULT")
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
+        ppvQueueMarshal := ppvQueue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", riidResource, ppvResourceMarshal, ppvResource, "ptr", riidQueue, ppvQueueMarshal, ppvQueue, "HRESULT")
         return result
     }
 

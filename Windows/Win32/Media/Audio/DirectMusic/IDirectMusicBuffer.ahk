@@ -97,8 +97,9 @@ class IDirectMusicBuffer extends IUnknown{
         prtMarshal := prt is VarRef ? "int64*" : "ptr"
         pdwChannelGroupMarshal := pdwChannelGroup is VarRef ? "uint*" : "ptr"
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, prtMarshal, prt, pdwChannelGroupMarshal, pdwChannelGroup, pdwLengthMarshal, pdwLength, "ptr*", ppData, "HRESULT")
+        result := ComCall(8, this, prtMarshal, prt, pdwChannelGroupMarshal, pdwChannelGroup, pdwLengthMarshal, pdwLength, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
@@ -108,7 +109,9 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRawBufferPtr(ppData) {
-        result := ComCall(9, this, "ptr*", ppData, "HRESULT")
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 

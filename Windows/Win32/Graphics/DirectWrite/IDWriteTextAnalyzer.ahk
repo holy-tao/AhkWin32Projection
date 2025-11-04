@@ -112,12 +112,13 @@ class IDWriteTextAnalyzer extends IUnknown{
         textString := textString is String ? StrPtr(textString) : textString
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
+        featuresMarshal := features is VarRef ? "ptr*" : "ptr"
         featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
         actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", textString, "uint", textLength, "ptr", fontFace, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, "ptr", numberSubstitution, "ptr*", features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, "ptr", textProps, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, actualGlyphCountMarshal, actualGlyphCount, "HRESULT")
+        result := ComCall(7, this, "ptr", textString, "uint", textLength, "ptr", fontFace, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, "ptr", numberSubstitution, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, "ptr", textProps, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, actualGlyphCountMarshal, actualGlyphCount, "HRESULT")
         return result
     }
 
@@ -150,10 +151,11 @@ class IDWriteTextAnalyzer extends IUnknown{
 
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        featuresMarshal := features is VarRef ? "ptr*" : "ptr"
         featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, "ptr*", features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "HRESULT")
+        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "HRESULT")
         return result
     }
 
@@ -189,10 +191,11 @@ class IDWriteTextAnalyzer extends IUnknown{
 
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        featuresMarshal := features is VarRef ? "ptr*" : "ptr"
         featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, "ptr*", features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "HRESULT")
+        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "HRESULT")
         return result
     }
 }

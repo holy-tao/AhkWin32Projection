@@ -46,7 +46,9 @@ class IWSDXMLContext extends IUnknown{
         pszUri := pszUri is String ? StrPtr(pszUri) : pszUri
         pszSuggestedPrefix := pszSuggestedPrefix is String ? StrPtr(pszSuggestedPrefix) : pszSuggestedPrefix
 
-        result := ComCall(3, this, "ptr", pszUri, "ptr", pszSuggestedPrefix, "ptr*", ppNamespace, "HRESULT")
+        ppNamespaceMarshal := ppNamespace is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszUri, "ptr", pszSuggestedPrefix, ppNamespaceMarshal, ppNamespace, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IWSDXMLContext extends IUnknown{
         pszUri := pszUri is String ? StrPtr(pszUri) : pszUri
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(4, this, "ptr", pszUri, "ptr", pszName, "ptr*", ppName, "HRESULT")
+        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszUri, "ptr", pszName, ppNameMarshal, ppName, "HRESULT")
         return result
     }
 
@@ -75,7 +79,9 @@ class IWSDXMLContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-iwsdxmlcontext-setnamespaces
      */
     SetNamespaces(pNamespaces, wNamespacesCount, bLayerNumber) {
-        result := ComCall(5, this, "ptr*", pNamespaces, "ushort", wNamespacesCount, "char", bLayerNumber, "HRESULT")
+        pNamespacesMarshal := pNamespaces is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pNamespacesMarshal, pNamespaces, "ushort", wNamespacesCount, "char", bLayerNumber, "HRESULT")
         return result
     }
 
@@ -88,7 +94,9 @@ class IWSDXMLContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-iwsdxmlcontext-settypes
      */
     SetTypes(pTypes, dwTypesCount, bLayerNumber) {
-        result := ComCall(6, this, "ptr*", pTypes, "uint", dwTypesCount, "char", bLayerNumber, "HRESULT")
+        pTypesMarshal := pTypes is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pTypesMarshal, pTypes, "uint", dwTypesCount, "char", bLayerNumber, "HRESULT")
         return result
     }
 }

@@ -1727,7 +1727,10 @@ class Dns {
      * @since windows5.0
      */
     static DnsRecordSetCompare(pRR1, pRR2, ppDiff1, ppDiff2) {
-        result := DllCall("DNSAPI.dll\DnsRecordSetCompare", "ptr", pRR1, "ptr", pRR2, "ptr*", ppDiff1, "ptr*", ppDiff2, "int")
+        ppDiff1Marshal := ppDiff1 is VarRef ? "ptr*" : "ptr"
+        ppDiff2Marshal := ppDiff2 is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DNSAPI.dll\DnsRecordSetCompare", "ptr", pRR1, "ptr", pRR2, ppDiff1Marshal, ppDiff1, ppDiff2Marshal, ppDiff2, "int")
         return result
     }
 
@@ -1785,8 +1788,10 @@ class Dns {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pExtraMarshal := pExtra is VarRef ? "ptr" : "ptr"
+        ppQueryResultsMarshal := ppQueryResults is VarRef ? "ptr*" : "ptr"
+        pReservedMarshal := pReserved is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DNSAPI.dll\DnsQuery_A", "ptr", pszName, "ushort", wType, "uint", Options, pExtraMarshal, pExtra, "ptr*", ppQueryResults, "ptr*", pReserved, "uint")
+        result := DllCall("DNSAPI.dll\DnsQuery_A", "ptr", pszName, "ushort", wType, "uint", Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, "uint")
         return result
     }
 
@@ -1806,8 +1811,10 @@ class Dns {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pExtraMarshal := pExtra is VarRef ? "ptr" : "ptr"
+        ppQueryResultsMarshal := ppQueryResults is VarRef ? "ptr*" : "ptr"
+        pReservedMarshal := pReserved is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DNSAPI.dll\DnsQuery_UTF8", "ptr", pszName, "ushort", wType, "uint", Options, pExtraMarshal, pExtra, "ptr*", ppQueryResults, "ptr*", pReserved, "uint")
+        result := DllCall("DNSAPI.dll\DnsQuery_UTF8", "ptr", pszName, "ushort", wType, "uint", Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, "uint")
         return result
     }
 
@@ -1827,8 +1834,10 @@ class Dns {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pExtraMarshal := pExtra is VarRef ? "ptr" : "ptr"
+        ppQueryResultsMarshal := ppQueryResults is VarRef ? "ptr*" : "ptr"
+        pReservedMarshal := pReserved is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DNSAPI.dll\DnsQuery_W", "ptr", pszName, "ushort", wType, "uint", Options, pExtraMarshal, pExtra, "ptr*", ppQueryResults, "ptr*", pReserved, "uint")
+        result := DllCall("DNSAPI.dll\DnsQuery_W", "ptr", pszName, "ushort", wType, "uint", Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, "uint")
         return result
     }
 
@@ -1841,8 +1850,9 @@ class Dns {
      */
     static DnsFreeCustomServers(pcServers, ppServers) {
         pcServersMarshal := pcServers is VarRef ? "uint*" : "ptr"
+        ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
 
-        DllCall("DNSAPI.dll\DnsFreeCustomServers", pcServersMarshal, pcServers, "ptr*", ppServers)
+        DllCall("DNSAPI.dll\DnsFreeCustomServers", pcServersMarshal, pcServers, ppServersMarshal, ppServers)
     }
 
     /**
@@ -1855,8 +1865,9 @@ class Dns {
      */
     static DnsGetApplicationSettings(pcServers, ppDefaultServers, pSettings) {
         pcServersMarshal := pcServers is VarRef ? "uint*" : "ptr"
+        ppDefaultServersMarshal := ppDefaultServers is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DNSAPI.dll\DnsGetApplicationSettings", pcServersMarshal, pcServers, "ptr*", ppDefaultServers, "ptr", pSettings, "uint")
+        result := DllCall("DNSAPI.dll\DnsGetApplicationSettings", pcServersMarshal, pcServers, ppDefaultServersMarshal, ppDefaultServers, "ptr", pSettings, "uint")
         return result
     }
 
@@ -2323,7 +2334,9 @@ class Dns {
      * @since windows5.0
      */
     static DnsExtractRecordsFromMessage_W(pDnsBuffer, wMessageLength, ppRecord) {
-        result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_W", "ptr", pDnsBuffer, "ushort", wMessageLength, "ptr*", ppRecord, "int")
+        ppRecordMarshal := ppRecord is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_W", "ptr", pDnsBuffer, "ushort", wMessageLength, ppRecordMarshal, ppRecord, "int")
         return result
     }
 
@@ -2339,7 +2352,9 @@ class Dns {
      * @since windows5.0
      */
     static DnsExtractRecordsFromMessage_UTF8(pDnsBuffer, wMessageLength, ppRecord) {
-        result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_UTF8", "ptr", pDnsBuffer, "ushort", wMessageLength, "ptr*", ppRecord, "int")
+        ppRecordMarshal := ppRecord is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_UTF8", "ptr", pDnsBuffer, "ushort", wMessageLength, ppRecordMarshal, ppRecord, "int")
         return result
     }
 

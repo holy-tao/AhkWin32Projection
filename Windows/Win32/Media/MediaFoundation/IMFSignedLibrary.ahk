@@ -45,7 +45,9 @@ class IMFSignedLibrary extends IUnknown{
     GetProcedureAddress(name, address) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "ptr*", address, "HRESULT")
+        addressMarshal := address is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", name, addressMarshal, address, "HRESULT")
         return result
     }
 }

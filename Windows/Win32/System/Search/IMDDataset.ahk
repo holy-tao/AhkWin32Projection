@@ -47,8 +47,9 @@ class IMDDataset extends IUnknown{
      */
     GetAxisInfo(pcAxes, prgAxisInfo) {
         pcAxesMarshal := pcAxes is VarRef ? "ptr*" : "ptr"
+        prgAxisInfoMarshal := prgAxisInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcAxesMarshal, pcAxes, "ptr*", prgAxisInfo, "HRESULT")
+        result := ComCall(4, this, pcAxesMarshal, pcAxes, prgAxisInfoMarshal, prgAxisInfo, "HRESULT")
         return result
     }
 

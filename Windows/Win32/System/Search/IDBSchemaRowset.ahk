@@ -54,8 +54,10 @@ class IDBSchemaRowset extends IUnknown{
      */
     GetSchemas(pcSchemas, prgSchemas, prgRestrictionSupport) {
         pcSchemasMarshal := pcSchemas is VarRef ? "uint*" : "ptr"
+        prgSchemasMarshal := prgSchemas is VarRef ? "ptr*" : "ptr"
+        prgRestrictionSupportMarshal := prgRestrictionSupport is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, "ptr*", prgSchemas, "ptr*", prgRestrictionSupport, "HRESULT")
+        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, prgSchemasMarshal, prgSchemas, prgRestrictionSupportMarshal, prgRestrictionSupport, "HRESULT")
         return result
     }
 }

@@ -72,8 +72,9 @@ class IRowset extends IUnknown{
      */
     GetNextRows(hReserved, lRowsOffset, cRows, pcRowsObtained, prghRows) {
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+        prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hReserved, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", prghRows, "HRESULT")
+        result := ComCall(5, this, "ptr", hReserved, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
     }
 

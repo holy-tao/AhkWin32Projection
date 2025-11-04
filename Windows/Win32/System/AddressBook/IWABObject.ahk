@@ -36,7 +36,9 @@ class IWABObject extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError(hResult, ulFlags, lppMAPIError) {
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", lppMAPIError, "HRESULT")
+        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "int", hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-allocatebuffer
      */
     AllocateBuffer(cbSize, lppBuffer) {
-        result := ComCall(4, this, "uint", cbSize, "ptr*", lppBuffer, "HRESULT")
+        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", cbSize, lppBufferMarshal, lppBuffer, "HRESULT")
         return result
     }
 
@@ -62,8 +66,9 @@ class IWABObject extends IUnknown{
      */
     AllocateMore(cbSize, lpObject, lppBuffer) {
         lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
+        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", cbSize, lpObjectMarshal, lpObject, "ptr*", lppBuffer, "HRESULT")
+        result := ComCall(5, this, "uint", cbSize, lpObjectMarshal, lpObject, lppBufferMarshal, lppBuffer, "HRESULT")
         return result
     }
 

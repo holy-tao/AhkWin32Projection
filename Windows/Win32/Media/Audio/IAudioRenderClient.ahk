@@ -38,7 +38,9 @@ class IAudioRenderClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer
      */
     GetBuffer(NumFramesRequested, ppData) {
-        result := ComCall(3, this, "uint", NumFramesRequested, "ptr*", ppData, "HRESULT")
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "uint", NumFramesRequested, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 

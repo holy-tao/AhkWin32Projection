@@ -65,9 +65,10 @@ class IMFSampleProtection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getprotectioncertificate
      */
     GetProtectionCertificate(dwVersion, ppCert, pcbCert) {
+        ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
         pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwVersion, "ptr*", ppCert, pcbCertMarshal, pcbCert, "HRESULT")
+        result := ComCall(5, this, "uint", dwVersion, ppCertMarshal, ppCert, pcbCertMarshal, pcbCert, "HRESULT")
         return result
     }
 
@@ -84,9 +85,10 @@ class IMFSampleProtection extends IUnknown{
      */
     InitOutputProtection(dwVersion, dwOutputId, pbCert, cbCert, ppbSeed, pcbSeed) {
         pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
+        ppbSeedMarshal := ppbSeed is VarRef ? "ptr*" : "ptr"
         pcbSeedMarshal := pcbSeed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwVersion, "uint", dwOutputId, pbCertMarshal, pbCert, "uint", cbCert, "ptr*", ppbSeed, pcbSeedMarshal, pcbSeed, "HRESULT")
+        result := ComCall(6, this, "uint", dwVersion, "uint", dwOutputId, pbCertMarshal, pbCert, "uint", cbCert, ppbSeedMarshal, ppbSeed, pcbSeedMarshal, pcbSeed, "HRESULT")
         return result
     }
 

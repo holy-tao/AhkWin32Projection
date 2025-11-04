@@ -112,10 +112,12 @@ class IDirectSoundCaptureBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     Lock(dwOffset, dwBytes, ppvAudioPtr1, pdwAudioBytes1, ppvAudioPtr2, pdwAudioBytes2, dwFlags) {
+        ppvAudioPtr1Marshal := ppvAudioPtr1 is VarRef ? "ptr*" : "ptr"
         pdwAudioBytes1Marshal := pdwAudioBytes1 is VarRef ? "uint*" : "ptr"
+        ppvAudioPtr2Marshal := ppvAudioPtr2 is VarRef ? "ptr*" : "ptr"
         pdwAudioBytes2Marshal := pdwAudioBytes2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwOffset, "uint", dwBytes, "ptr*", ppvAudioPtr1, pdwAudioBytes1Marshal, pdwAudioBytes1, "ptr*", ppvAudioPtr2, pdwAudioBytes2Marshal, pdwAudioBytes2, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, "uint", dwOffset, "uint", dwBytes, ppvAudioPtr1Marshal, ppvAudioPtr1, pdwAudioBytes1Marshal, pdwAudioBytes1, ppvAudioPtr2Marshal, ppvAudioPtr2, pdwAudioBytes2Marshal, pdwAudioBytes2, "uint", dwFlags, "HRESULT")
         return result
     }
 

@@ -109,7 +109,9 @@ class INetCfg extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryNetCfgClass(pguidClass, riid, ppvObject) {
-        result := ComCall(9, this, "ptr", pguidClass, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pguidClass, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

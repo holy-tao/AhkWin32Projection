@@ -37,7 +37,9 @@ class IClassFactoryEx extends IClassFactory{
      * @returns {HRESULT} 
      */
     CreateInstanceWithContext(punkContext, punkOuter, riid, ppv) {
-        result := ComCall(5, this, "ptr", punkContext, "ptr", punkOuter, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", punkContext, "ptr", punkOuter, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

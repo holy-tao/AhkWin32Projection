@@ -49,7 +49,9 @@ class IInkDesktopHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkdesktophost-createinkpresenter
      */
     CreateInkPresenter(riid, ppv) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IInkDesktopHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkdesktophost-createandinitializeinkpresenter
      */
     CreateAndInitializeInkPresenter(rootVisual, width, height, riid, ppv) {
-        result := ComCall(5, this, "ptr", rootVisual, "float", width, "float", height, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", rootVisual, "float", width, "float", height, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

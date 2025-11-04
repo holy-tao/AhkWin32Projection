@@ -36,7 +36,9 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
      * @returns {HRESULT} 
      */
     CreateHandle(object, type, pHandle) {
-        result := ComCall(108, this, "ptr", object, "int", type, "ptr*", pHandle, "HRESULT")
+        pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(108, this, "ptr", object, "int", type, pHandleMarshal, pHandle, "HRESULT")
         return result
     }
 
@@ -46,7 +48,9 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
      * @returns {HRESULT} 
      */
     DestroyHandle(handle) {
-        result := ComCall(109, this, "ptr*", handle, "HRESULT")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(109, this, handleMarshal, handle, "HRESULT")
         return result
     }
 
@@ -57,9 +61,10 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
      * @returns {HRESULT} 
      */
     GetObjectIDFromHandle(handle, pObject) {
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
         pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(110, this, "ptr*", handle, pObjectMarshal, pObject, "HRESULT")
+        result := ComCall(110, this, handleMarshal, handle, pObjectMarshal, pObject, "HRESULT")
         return result
     }
 }

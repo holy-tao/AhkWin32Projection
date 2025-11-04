@@ -48,8 +48,9 @@ class IRpcHelper extends IUnknown{
      */
     GetIIDFromOBJREF(pObjRef, piid) {
         pObjRefMarshal := pObjRef is VarRef ? "ptr" : "ptr"
+        piidMarshal := piid is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pObjRefMarshal, pObjRef, "ptr*", piid, "HRESULT")
+        result := ComCall(4, this, pObjRefMarshal, pObjRef, piidMarshal, piid, "HRESULT")
         return result
     }
 }

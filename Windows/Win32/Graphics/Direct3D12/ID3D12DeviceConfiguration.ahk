@@ -69,7 +69,9 @@ class ID3D12DeviceConfiguration extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateVersionedRootSignatureDeserializer(pBlob, Size, riid, ppvDeserializer) {
-        result := ComCall(6, this, "ptr", pBlob, "ptr", Size, "ptr", riid, "ptr*", ppvDeserializer, "HRESULT")
+        ppvDeserializerMarshal := ppvDeserializer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pBlob, "ptr", Size, "ptr", riid, ppvDeserializerMarshal, ppvDeserializer, "HRESULT")
         return result
     }
 }

@@ -44,8 +44,9 @@ class IFrequencyMap extends IUnknown{
      */
     get_FrequencyMapping(ulCount, ppulList) {
         ulCountMarshal := ulCount is VarRef ? "uint*" : "ptr"
+        ppulListMarshal := ppulList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, ulCountMarshal, ulCount, "ptr*", ppulList, "HRESULT")
+        result := ComCall(3, this, ulCountMarshal, ulCount, ppulListMarshal, ppulList, "HRESULT")
         return result
     }
 
@@ -97,8 +98,9 @@ class IFrequencyMap extends IUnknown{
      */
     get_DefaultFrequencyMapping(ulCountryCode, pulCount, ppulList) {
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+        ppulListMarshal := ppulList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", ulCountryCode, pulCountMarshal, pulCount, "ptr*", ppulList, "HRESULT")
+        result := ComCall(7, this, "uint", ulCountryCode, pulCountMarshal, pulCount, ppulListMarshal, ppulList, "HRESULT")
         return result
     }
 
@@ -111,8 +113,9 @@ class IFrequencyMap extends IUnknown{
      */
     get_CountryCodeList(pulCount, ppulList) {
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+        ppulListMarshal := ppulList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, pulCountMarshal, pulCount, "ptr*", ppulList, "HRESULT")
+        result := ComCall(8, this, pulCountMarshal, pulCount, ppulListMarshal, ppulList, "HRESULT")
         return result
     }
 }

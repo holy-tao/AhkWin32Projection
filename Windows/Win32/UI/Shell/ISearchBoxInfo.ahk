@@ -52,7 +52,9 @@ class ISearchBoxInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-isearchboxinfo-getcondition
      */
     GetCondition(riid, ppv) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

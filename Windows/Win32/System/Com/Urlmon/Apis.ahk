@@ -1767,7 +1767,9 @@ class Urlmon {
         szCODE := szCODE is String ? StrPtr(szCODE) : szCODE
         szTYPE := szTYPE is String ? StrPtr(szTYPE) : szTYPE
 
-        result := DllCall("urlmon.dll\CoGetClassObjectFromURL", "ptr", rCLASSID, "ptr", szCODE, "uint", dwFileVersionMS, "uint", dwFileVersionLS, "ptr", szTYPE, "ptr", pBindCtx, "uint", dwClsContext, "ptr", pvReserved, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("urlmon.dll\CoGetClassObjectFromURL", "ptr", rCLASSID, "ptr", szCODE, "uint", dwFileVersionMS, "uint", dwFileVersionLS, "ptr", szTYPE, "ptr", pBindCtx, "uint", dwClsContext, "ptr", pvReserved, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 

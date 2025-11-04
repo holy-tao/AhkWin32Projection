@@ -53,7 +53,9 @@ class IProviderQueryConstraintCollection extends IUnknown{
     Get(pszConstraintName, ppszConstraintValue) {
         pszConstraintName := pszConstraintName is String ? StrPtr(pszConstraintName) : pszConstraintName
 
-        result := ComCall(4, this, "ptr", pszConstraintName, "ptr*", ppszConstraintValue, "HRESULT")
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 
@@ -66,7 +68,10 @@ class IProviderQueryConstraintCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-item
      */
     Item(dwIndex, ppszConstraintName, ppszConstraintValue) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr*", ppszConstraintName, "ptr*", ppszConstraintValue, "HRESULT")
+        ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : "ptr"
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwIndex, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 
@@ -78,7 +83,10 @@ class IProviderQueryConstraintCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-next
      */
     Next(ppszConstraintName, ppszConstraintValue) {
-        result := ComCall(6, this, "ptr*", ppszConstraintName, "ptr*", ppszConstraintValue, "HRESULT")
+        ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : "ptr"
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 

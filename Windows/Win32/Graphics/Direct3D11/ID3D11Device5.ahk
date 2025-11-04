@@ -41,7 +41,9 @@ class ID3D11Device5 extends ID3D11Device4{
     OpenSharedFence(hFence, ReturnedInterface, ppFence) {
         hFence := hFence is Win32Handle ? NumGet(hFence, "ptr") : hFence
 
-        result := ComCall(67, this, "ptr", hFence, "ptr", ReturnedInterface, "ptr*", ppFence, "HRESULT")
+        ppFenceMarshal := ppFence is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(67, this, "ptr", hFence, "ptr", ReturnedInterface, ppFenceMarshal, ppFence, "HRESULT")
         return result
     }
 
@@ -55,7 +57,9 @@ class ID3D11Device5 extends ID3D11Device4{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device5-createfence
      */
     CreateFence(InitialValue, Flags, ReturnedInterface, ppFence) {
-        result := ComCall(68, this, "uint", InitialValue, "int", Flags, "ptr", ReturnedInterface, "ptr*", ppFence, "HRESULT")
+        ppFenceMarshal := ppFence is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(68, this, "uint", InitialValue, "int", Flags, "ptr", ReturnedInterface, ppFenceMarshal, ppFence, "HRESULT")
         return result
     }
 }

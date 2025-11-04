@@ -78,7 +78,9 @@ class ISpObjectToken extends ISpDataKey{
      * @returns {HRESULT} 
      */
     CreateInstance(pUnkOuter, dwClsContext, riid, ppvObject) {
-        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

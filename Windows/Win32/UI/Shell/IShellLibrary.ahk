@@ -203,7 +203,9 @@ class IShellLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getfolders
      */
     GetFolders(lff, riid, ppv) {
-        result := ComCall(7, this, "int", lff, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "int", lff, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -217,7 +219,9 @@ class IShellLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-resolvefolder
      */
     ResolveFolder(psiFolderToResolve, dwTimeout, riid, ppv) {
-        result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -230,7 +234,9 @@ class IShellLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getdefaultsavefolder
      */
     GetDefaultSaveFolder(dsft, riid, ppv) {
-        result := ComCall(9, this, "int", dsft, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "int", dsft, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

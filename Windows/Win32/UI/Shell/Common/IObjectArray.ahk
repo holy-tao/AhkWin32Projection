@@ -60,7 +60,9 @@ class IObjectArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getat
      */
     GetAt(uiIndex, riid, ppv) {
-        result := ComCall(4, this, "uint", uiIndex, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", uiIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

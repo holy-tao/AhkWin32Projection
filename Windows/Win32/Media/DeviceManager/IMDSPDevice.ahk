@@ -162,10 +162,12 @@ class IMDSPDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getformatsupport
      */
     GetFormatSupport(pFormatEx, pnFormatCount, pppwszMimeType, pnMimeTypeCount) {
+        pFormatExMarshal := pFormatEx is VarRef ? "ptr*" : "ptr"
         pnFormatCountMarshal := pnFormatCount is VarRef ? "uint*" : "ptr"
+        pppwszMimeTypeMarshal := pppwszMimeType is VarRef ? "ptr*" : "ptr"
         pnMimeTypeCountMarshal := pnMimeTypeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr*", pFormatEx, pnFormatCountMarshal, pnFormatCount, "ptr*", pppwszMimeType, pnMimeTypeCountMarshal, pnMimeTypeCount, "HRESULT")
+        result := ComCall(12, this, pFormatExMarshal, pFormatEx, pnFormatCountMarshal, pnFormatCount, pppwszMimeTypeMarshal, pppwszMimeType, pnMimeTypeCountMarshal, pnMimeTypeCount, "HRESULT")
         return result
     }
 

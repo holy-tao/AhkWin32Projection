@@ -45,8 +45,9 @@ class ID3D12Device3 extends ID3D12Device2{
      */
     OpenExistingHeapFromAddress(pAddress, riid, ppvHeap) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(48, this, pAddressMarshal, pAddress, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
+        result := ComCall(48, this, pAddressMarshal, pAddress, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
         return result
     }
 
@@ -61,7 +62,9 @@ class ID3D12Device3 extends ID3D12Device2{
     OpenExistingHeapFromFileMapping(hFileMapping, riid, ppvHeap) {
         hFileMapping := hFileMapping is Win32Handle ? NumGet(hFileMapping, "ptr") : hFileMapping
 
-        result := ComCall(49, this, "ptr", hFileMapping, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
+        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(49, this, "ptr", hFileMapping, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
         return result
     }
 

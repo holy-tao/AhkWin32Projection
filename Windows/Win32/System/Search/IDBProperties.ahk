@@ -38,8 +38,9 @@ class IDBProperties extends IUnknown{
      */
     GetProperties(cPropertyIDSets, rgPropertyIDSets, pcPropertySets, prgPropertySets) {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
+        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", prgPropertySets, "HRESULT")
+        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
         return result
     }
 
@@ -54,8 +55,10 @@ class IDBProperties extends IUnknown{
      */
     GetPropertyInfo(cPropertyIDSets, rgPropertyIDSets, pcPropertyInfoSets, prgPropertyInfoSets, ppDescBuffer) {
         pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : "ptr"
+        prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : "ptr"
+        ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, "ptr*", prgPropertyInfoSets, "ptr*", ppDescBuffer, "HRESULT")
+        result := ComCall(4, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
         return result
     }
 

@@ -72,7 +72,9 @@ class IApplicationDocumentLists extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-getlist
      */
     GetList(listtype, cItemsDesired, riid, ppv) {
-        result := ComCall(4, this, "int", listtype, "uint", cItemsDesired, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "int", listtype, "uint", cItemsDesired, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

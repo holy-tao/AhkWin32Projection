@@ -102,8 +102,9 @@ class IISDB_EMM extends IUnknown{
      */
     GetSharedEmmMessage(pwLength, ppbMessage) {
         pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
+        ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pwLengthMarshal, pwLength, "ptr*", ppbMessage, "HRESULT")
+        result := ComCall(7, this, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "HRESULT")
         return result
     }
 
@@ -117,8 +118,9 @@ class IISDB_EMM extends IUnknown{
      */
     GetIndividualEmmMessage(pUnknown, pwLength, ppbMessage) {
         pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
+        ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pUnknown, pwLengthMarshal, pwLength, "ptr*", ppbMessage, "HRESULT")
+        result := ComCall(8, this, "ptr", pUnknown, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "HRESULT")
         return result
     }
 

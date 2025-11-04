@@ -81,7 +81,9 @@ class IBackgroundCopyJob1 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-addfiles
      */
     AddFiles(cFileCount, ppFileSet) {
-        result := ComCall(6, this, "uint", cFileCount, "ptr*", ppFileSet, "HRESULT")
+        ppFileSetMarshal := ppFileSet is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", cFileCount, ppFileSetMarshal, ppFileSet, "HRESULT")
         return result
     }
 

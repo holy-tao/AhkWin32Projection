@@ -59,8 +59,9 @@ class IRowsetScroll extends IRowsetLocate{
      */
     GetRowsAtRatio(hReserved1, hReserved2, ulNumerator, ulDenominator, cRows, pcRowsObtained, prghRows) {
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+        prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", ulNumerator, "ptr", ulDenominator, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", prghRows, "HRESULT")
+        result := ComCall(13, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", ulNumerator, "ptr", ulDenominator, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
     }
 }

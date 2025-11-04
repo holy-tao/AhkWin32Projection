@@ -83,7 +83,9 @@ class IFsrmQuotaBase extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_thresholds
      */
     get_Thresholds(thresholds) {
-        result := ComCall(16, this, "ptr*", thresholds, "HRESULT")
+        thresholdsMarshal := thresholds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, thresholdsMarshal, thresholds, "HRESULT")
         return result
     }
 

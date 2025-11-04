@@ -180,7 +180,9 @@ class ILegacyIAccessibleProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-getselection
      */
     GetSelection(pvarSelectedChildren) {
-        result := ComCall(15, this, "ptr*", pvarSelectedChildren, "HRESULT")
+        pvarSelectedChildrenMarshal := pvarSelectedChildren is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, pvarSelectedChildrenMarshal, pvarSelectedChildren, "HRESULT")
         return result
     }
 

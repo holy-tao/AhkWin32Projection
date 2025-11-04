@@ -148,7 +148,9 @@ class ID3D12DeviceFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     GetConfigurationInterface(clsid, iid, ppv) {
-        result := ComCall(7, this, "ptr", clsid, "ptr", iid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", clsid, "ptr", iid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -177,7 +179,9 @@ class ID3D12DeviceFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateDevice(adapter, FeatureLevel, riid, ppvDevice) {
-        result := ComCall(9, this, "ptr", adapter, "int", FeatureLevel, "ptr", riid, "ptr*", ppvDevice, "HRESULT")
+        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", adapter, "int", FeatureLevel, "ptr", riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
         return result
     }
 }

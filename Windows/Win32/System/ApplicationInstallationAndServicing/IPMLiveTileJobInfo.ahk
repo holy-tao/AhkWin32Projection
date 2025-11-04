@@ -203,9 +203,10 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TileXML(pTileXml, pcbTileXml) {
+        pTileXmlMarshal := pTileXml is VarRef ? "ptr*" : "ptr"
         pcbTileXmlMarshal := pcbTileXml is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr*", pTileXml, pcbTileXmlMarshal, pcbTileXml, "HRESULT")
+        result := ComCall(19, this, pTileXmlMarshal, pTileXml, pcbTileXmlMarshal, pcbTileXml, "HRESULT")
         return result
     }
 
@@ -229,9 +230,10 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_UrlXML(pUrlXML, pcbUrlXML) {
+        pUrlXMLMarshal := pUrlXML is VarRef ? "ptr*" : "ptr"
         pcbUrlXMLMarshal := pcbUrlXML is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "ptr*", pUrlXML, pcbUrlXMLMarshal, pcbUrlXML, "HRESULT")
+        result := ComCall(21, this, pUrlXMLMarshal, pUrlXML, pcbUrlXMLMarshal, pcbUrlXML, "HRESULT")
         return result
     }
 

@@ -45,7 +45,9 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     GetScriptSite(riid, ppvObject) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

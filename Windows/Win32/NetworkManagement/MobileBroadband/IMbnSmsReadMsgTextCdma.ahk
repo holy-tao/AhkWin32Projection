@@ -130,7 +130,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_message
      */
     get_Message(Message) {
-        result := ComCall(10, this, "ptr*", Message, "HRESULT")
+        MessageMarshal := Message is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, MessageMarshal, Message, "HRESULT")
         return result
     }
 }

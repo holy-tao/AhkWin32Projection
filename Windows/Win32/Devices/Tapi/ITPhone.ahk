@@ -313,8 +313,9 @@ class ITPhone extends IDispatch{
      */
     GetPhoneCapsBuffer(pcbCaps, pdwSize, ppPhoneCapsBuffer) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        ppPhoneCapsBufferMarshal := ppPhoneCapsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(29, this, "int", pcbCaps, pdwSizeMarshal, pdwSize, "ptr*", ppPhoneCapsBuffer, "HRESULT")
+        result := ComCall(29, this, "int", pcbCaps, pdwSizeMarshal, pdwSize, ppPhoneCapsBufferMarshal, ppPhoneCapsBuffer, "HRESULT")
         return result
     }
 

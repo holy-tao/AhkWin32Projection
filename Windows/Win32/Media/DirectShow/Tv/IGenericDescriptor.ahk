@@ -87,7 +87,9 @@ class IGenericDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-getbody
      */
     GetBody(ppbVal) {
-        result := ComCall(6, this, "ptr*", ppbVal, "HRESULT")
+        ppbValMarshal := ppbVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppbValMarshal, ppbVal, "HRESULT")
         return result
     }
 }

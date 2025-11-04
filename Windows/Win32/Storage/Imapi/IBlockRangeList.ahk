@@ -50,7 +50,9 @@ class IBlockRangeList extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrangelist-get_blockranges
      */
     get_BlockRanges(value) {
-        result := ComCall(7, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

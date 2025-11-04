@@ -76,7 +76,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentannotationtypes
      */
     get_CurrentAnnotationTypes(retVal) {
-        result := ComCall(97, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(97, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -137,7 +139,9 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedannotationtypes
      */
     get_CachedAnnotationTypes(retVal) {
-        result := ComCall(102, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(102, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

@@ -120,8 +120,9 @@ class IBitsPeerCacheRecord extends IUnknown{
      */
     GetFileRanges(pRangeCount, ppRanges) {
         pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"
+        ppRangesMarshal := ppRanges is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, pRangeCountMarshal, pRangeCount, "ptr*", ppRanges, "HRESULT")
+        result := ComCall(9, this, pRangeCountMarshal, pRangeCount, ppRangesMarshal, ppRanges, "HRESULT")
         return result
     }
 }

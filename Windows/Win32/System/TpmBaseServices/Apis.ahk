@@ -284,7 +284,9 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Context_Create(pContextParams, phContext) {
-        result := DllCall("tbs.dll\Tbsi_Context_Create", "ptr", pContextParams, "ptr*", phContext, "uint")
+        phContextMarshal := phContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("tbs.dll\Tbsi_Context_Create", "ptr", pContextParams, phContextMarshal, phContext, "uint")
         return result
     }
 

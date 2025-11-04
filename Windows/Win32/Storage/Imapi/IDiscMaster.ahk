@@ -70,7 +70,9 @@ class IDiscMaster extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-setactivediscmasterformat
      */
     SetActiveDiscMasterFormat(riid, ppUnk) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 

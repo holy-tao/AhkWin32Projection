@@ -156,7 +156,9 @@ class IPart extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-activate
      */
     Activate(dwClsContext, refiid, ppvObject) {
-        result := ComCall(13, this, "uint", dwClsContext, "ptr", refiid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwClsContext, "ptr", refiid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

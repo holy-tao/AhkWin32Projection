@@ -2775,7 +2775,9 @@ class InternetExplorer {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
         pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-        result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr*", ppRatingDetails, "int")
+        ppRatingDetailsMarshal := ppRatingDetails is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, ppRatingDetailsMarshal, ppRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2797,7 +2799,9 @@ class InternetExplorer {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
         pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-        result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr*", ppRatingDetails, "int")
+        ppRatingDetailsMarshal := ppRatingDetails is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, ppRatingDetailsMarshal, ppRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 

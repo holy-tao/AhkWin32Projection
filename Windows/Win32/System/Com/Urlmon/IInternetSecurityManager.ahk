@@ -118,10 +118,11 @@ class IInternetSecurityManager extends IUnknown{
     QueryCustomPolicy(pwszUrl, guidKey, ppPolicy, pcbPolicy, pContext, cbContext, dwReserved) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
+        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pwszUrl, "ptr", guidKey, "ptr*", ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszUrl, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
         return result
     }
 

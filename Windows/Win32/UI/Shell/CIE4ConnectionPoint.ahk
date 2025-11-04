@@ -32,7 +32,9 @@ class CIE4ConnectionPoint extends IConnectionPoint{
      * @returns {HRESULT} 
      */
     DoInvokeIE4(pf, ppv, dispid, pdispparams) {
-        result := ComCall(8, this, "ptr", pf, "ptr*", ppv, "int", dispid, "ptr", pdispparams, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pf, ppvMarshal, ppv, "int", dispid, "ptr", pdispparams, "HRESULT")
         return result
     }
 

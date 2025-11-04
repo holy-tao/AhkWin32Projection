@@ -63,7 +63,9 @@ class IMbnSubscriberInformation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsubscriberinformation-get_telephonenumbers
      */
     get_TelephoneNumbers(TelephoneNumbers) {
-        result := ComCall(5, this, "ptr*", TelephoneNumbers, "HRESULT")
+        TelephoneNumbersMarshal := TelephoneNumbers is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, TelephoneNumbersMarshal, TelephoneNumbers, "HRESULT")
         return result
     }
 }

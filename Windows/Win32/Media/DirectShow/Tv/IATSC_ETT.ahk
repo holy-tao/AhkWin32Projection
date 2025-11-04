@@ -100,8 +100,9 @@ class IATSC_ETT extends IUnknown{
      */
     GetExtendedMessageText(pdwLength, ppText) {
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pdwLengthMarshal, pdwLength, "ptr*", ppText, "HRESULT")
+        result := ComCall(7, this, pdwLengthMarshal, pdwLength, ppTextMarshal, ppText, "HRESULT")
         return result
     }
 }

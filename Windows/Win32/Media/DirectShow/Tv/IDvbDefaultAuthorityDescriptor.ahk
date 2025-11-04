@@ -65,8 +65,9 @@ class IDvbDefaultAuthorityDescriptor extends IUnknown{
      */
     GetDefaultAuthority(pbLength, ppbBytes) {
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
+        ppbBytesMarshal := ppbBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pbLengthMarshal, pbLength, "ptr*", ppbBytes, "HRESULT")
+        result := ComCall(5, this, pbLengthMarshal, pbLength, ppbBytesMarshal, ppbBytes, "HRESULT")
         return result
     }
 }

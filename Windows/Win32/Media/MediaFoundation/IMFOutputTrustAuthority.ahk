@@ -53,9 +53,10 @@ class IMFOutputTrustAuthority extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-setpolicy
      */
     SetPolicy(ppPolicy, nPolicy, ppbTicket, pcbTicket) {
+        ppbTicketMarshal := ppbTicket is VarRef ? "ptr*" : "ptr"
         pcbTicketMarshal := pcbTicket is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", ppPolicy, "uint", nPolicy, "ptr*", ppbTicket, pcbTicketMarshal, pcbTicket, "HRESULT")
+        result := ComCall(4, this, "ptr*", ppPolicy, "uint", nPolicy, ppbTicketMarshal, ppbTicket, pcbTicketMarshal, pcbTicket, "HRESULT")
         return result
     }
 }

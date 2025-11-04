@@ -36,7 +36,9 @@ class IXFeed2 extends IXFeed{
      * @returns {HRESULT} 
      */
     GetItemByEffectiveId(uiEffectiveId, riid, ppv) {
-        result := ComCall(47, this, "uint", uiEffectiveId, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(47, this, "uint", uiEffectiveId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

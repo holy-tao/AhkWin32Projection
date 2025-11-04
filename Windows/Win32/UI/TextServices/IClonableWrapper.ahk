@@ -35,7 +35,9 @@ class IClonableWrapper extends IUnknown{
      * @returns {HRESULT} 
      */
     CloneNewWrapper(riid, ppv) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

@@ -61,8 +61,9 @@ class ItsPubPlugin extends IUnknown{
         userID := userID is String ? StrPtr(userID) : userID
 
         pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : "ptr"
+        resourceListMarshal := resourceList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, "ptr*", resourceList, "HRESULT")
+        result := ComCall(3, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, resourceListMarshal, resourceList, "HRESULT")
         return result
     }
 

@@ -83,7 +83,9 @@ class IDiscFormat2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2-get_supportedmediatypes
      */
     get_SupportedMediaTypes(value) {
-        result := ComCall(11, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

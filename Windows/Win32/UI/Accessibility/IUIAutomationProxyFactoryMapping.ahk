@@ -50,7 +50,9 @@ class IUIAutomationProxyFactoryMapping extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-gettable
      */
     GetTable(table) {
-        result := ComCall(4, this, "ptr*", table, "HRESULT")
+        tableMarshal := table is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, tableMarshal, table, "HRESULT")
         return result
     }
 

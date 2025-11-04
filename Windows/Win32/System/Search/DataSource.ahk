@@ -55,7 +55,9 @@ class DataSource extends IUnknown{
      * @returns {HRESULT} 
      */
     getDataMemberName(lIndex, pbstrDM) {
-        result := ComCall(4, this, "int", lIndex, "ptr*", pbstrDM, "HRESULT")
+        pbstrDMMarshal := pbstrDM is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "int", lIndex, pbstrDMMarshal, pbstrDM, "HRESULT")
         return result
     }
 

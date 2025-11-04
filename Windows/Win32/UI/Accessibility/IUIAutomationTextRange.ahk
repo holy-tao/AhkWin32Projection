@@ -130,7 +130,9 @@ class IUIAutomationTextRange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getboundingrectangles
      */
     GetBoundingRectangles(boundingRects) {
-        result := ComCall(10, this, "ptr*", boundingRects, "HRESULT")
+        boundingRectsMarshal := boundingRects is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, boundingRectsMarshal, boundingRects, "HRESULT")
         return result
     }
 

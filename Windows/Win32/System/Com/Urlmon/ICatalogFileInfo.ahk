@@ -44,7 +44,9 @@ class ICatalogFileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetJavaTrust(ppJavaTrust) {
-        result := ComCall(4, this, "ptr*", ppJavaTrust, "HRESULT")
+        ppJavaTrustMarshal := ppJavaTrust is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppJavaTrustMarshal, ppJavaTrust, "HRESULT")
         return result
     }
 }

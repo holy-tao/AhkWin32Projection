@@ -52,7 +52,9 @@ class IVMRSurface9 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurface9-locksurface
      */
     LockSurface(lpSurface) {
-        result := ComCall(4, this, "ptr*", lpSurface, "HRESULT")
+        lpSurfaceMarshal := lpSurface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, lpSurfaceMarshal, lpSurface, "HRESULT")
         return result
     }
 

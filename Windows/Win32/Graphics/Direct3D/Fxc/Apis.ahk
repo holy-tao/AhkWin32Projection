@@ -539,7 +539,9 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dreflect
      */
     static D3DReflect(pSrcData, SrcDataSize, pInterface, ppReflector) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pInterface, "ptr*", ppReflector, "int")
+        ppReflectorMarshal := ppReflector is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pInterface, ppReflectorMarshal, ppReflector, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -566,7 +568,9 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dreflectlibrary
      */
     static D3DReflectLibrary(pSrcData, SrcDataSize, riid, ppReflector) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", riid, "ptr*", ppReflector, "int")
+        ppReflectorMarshal := ppReflector is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", riid, ppReflectorMarshal, ppReflector, "int")
         if(result != 0)
             throw OSError(result)
 

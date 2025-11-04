@@ -82,7 +82,9 @@ class IESEvent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevent-getdata
      */
     GetData(pbData) {
-        result := ComCall(6, this, "ptr*", pbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 

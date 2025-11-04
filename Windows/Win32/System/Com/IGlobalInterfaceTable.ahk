@@ -75,7 +75,9 @@ class IGlobalInterfaceTable extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-getinterfacefromglobal
      */
     GetInterfaceFromGlobal(dwCookie, riid, ppv) {
-        result := ComCall(5, this, "uint", dwCookie, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwCookie, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

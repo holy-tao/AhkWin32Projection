@@ -38,7 +38,9 @@ class ID3DShaderCacheExplorer extends IUnknown{
     GetApplicationFromExePath(pFullExePath, riid, ppvApp) {
         pFullExePath := pFullExePath is String ? StrPtr(pFullExePath) : pFullExePath
 
-        result := ComCall(3, this, "ptr", pFullExePath, "ptr", riid, "ptr*", ppvApp, "HRESULT")
+        ppvAppMarshal := ppvApp is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pFullExePath, "ptr", riid, ppvAppMarshal, ppvApp, "HRESULT")
         return result
     }
 }

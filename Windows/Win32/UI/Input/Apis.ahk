@@ -265,7 +265,9 @@ class Input {
      * @since windows5.1.2600
      */
     static DefRawInputProc(paRawInput, nInput, cbSizeHeader) {
-        result := DllCall("USER32.dll\DefRawInputProc", "ptr*", paRawInput, "int", nInput, "uint", cbSizeHeader, "ptr")
+        paRawInputMarshal := paRawInput is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("USER32.dll\DefRawInputProc", paRawInputMarshal, paRawInput, "int", nInput, "uint", cbSizeHeader, "ptr")
         return result
     }
 

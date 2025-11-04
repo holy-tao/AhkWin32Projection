@@ -102,7 +102,9 @@ class IWbemQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbemquery-getanalysis
      */
     GetAnalysis(uAnalysisType, uFlags, pAnalysis) {
-        result := ComCall(7, this, "uint", uAnalysisType, "uint", uFlags, "ptr*", pAnalysis, "HRESULT")
+        pAnalysisMarshal := pAnalysis is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "uint", uAnalysisType, "uint", uFlags, pAnalysisMarshal, pAnalysis, "HRESULT")
         return result
     }
 

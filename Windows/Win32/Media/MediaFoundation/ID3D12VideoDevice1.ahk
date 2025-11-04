@@ -43,7 +43,9 @@ class ID3D12VideoDevice1 extends ID3D12VideoDevice{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionestimator
      */
     CreateVideoMotionEstimator(pDesc, pProtectedResourceSession, riid, ppVideoMotionEstimator) {
-        result := ComCall(7, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", ppVideoMotionEstimator, "HRESULT")
+        ppVideoMotionEstimatorMarshal := ppVideoMotionEstimator is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoMotionEstimatorMarshal, ppVideoMotionEstimator, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class ID3D12VideoDevice1 extends ID3D12VideoDevice{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionvectorheap
      */
     CreateVideoMotionVectorHeap(pDesc, pProtectedResourceSession, riid, ppVideoMotionVectorHeap) {
-        result := ComCall(8, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", ppVideoMotionVectorHeap, "HRESULT")
+        ppVideoMotionVectorHeapMarshal := ppVideoMotionVectorHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoMotionVectorHeapMarshal, ppVideoMotionVectorHeap, "HRESULT")
         return result
     }
 }

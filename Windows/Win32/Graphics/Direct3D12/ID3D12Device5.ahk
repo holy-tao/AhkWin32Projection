@@ -39,7 +39,9 @@ class ID3D12Device5 extends ID3D12Device4{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createlifetimetracker
      */
     CreateLifetimeTracker(pOwner, riid, ppvTracker) {
-        result := ComCall(57, this, "ptr", pOwner, "ptr", riid, "ptr*", ppvTracker, "HRESULT")
+        ppvTrackerMarshal := ppvTracker is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(57, this, "ptr", pOwner, "ptr", riid, ppvTrackerMarshal, ppvTracker, "HRESULT")
         return result
     }
 
@@ -96,7 +98,9 @@ class ID3D12Device5 extends ID3D12Device4{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createmetacommand
      */
     CreateMetaCommand(CommandId, NodeMask, pCreationParametersData, CreationParametersDataSizeInBytes, riid, ppMetaCommand) {
-        result := ComCall(61, this, "ptr", CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, "ptr", riid, "ptr*", ppMetaCommand, "HRESULT")
+        ppMetaCommandMarshal := ppMetaCommand is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(61, this, "ptr", CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, "ptr", riid, ppMetaCommandMarshal, ppMetaCommand, "HRESULT")
         return result
     }
 
@@ -109,7 +113,9 @@ class ID3D12Device5 extends ID3D12Device4{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createstateobject
      */
     CreateStateObject(pDesc, riid, ppStateObject) {
-        result := ComCall(62, this, "ptr", pDesc, "ptr", riid, "ptr*", ppStateObject, "HRESULT")
+        ppStateObjectMarshal := ppStateObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(62, this, "ptr", pDesc, "ptr", riid, ppStateObjectMarshal, ppStateObject, "HRESULT")
         return result
     }
 

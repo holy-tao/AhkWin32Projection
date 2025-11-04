@@ -86,7 +86,9 @@ class IComponentUtil extends IDispatch{
         bstrDLLFile := bstrDLLFile is String ? BSTR.Alloc(bstrDLLFile).Value : bstrDLLFile
         bstrTypelibFile := bstrTypelibFile is String ? BSTR.Alloc(bstrTypelibFile).Value : bstrTypelibFile
 
-        result := ComCall(10, this, "ptr", bstrDLLFile, "ptr", bstrTypelibFile, "ptr*", aCLSIDs, "HRESULT")
+        aCLSIDsMarshal := aCLSIDs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", bstrDLLFile, "ptr", bstrTypelibFile, aCLSIDsMarshal, aCLSIDs, "HRESULT")
         return result
     }
 }

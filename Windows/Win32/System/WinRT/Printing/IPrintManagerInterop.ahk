@@ -41,7 +41,9 @@ class IPrintManagerInterop extends IInspectable{
     GetForWindow(appWindow, riid, printManager) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", printManager, "HRESULT")
+        printManagerMarshal := printManager is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, printManagerMarshal, printManager, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IPrintManagerInterop extends IInspectable{
     ShowPrintUIForWindowAsync(appWindow, riid, asyncOperation) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 }

@@ -233,8 +233,9 @@ class IPMEnumerationManager extends IUnknown{
      */
     get_StartTileEnumeratorBlob(Filter, pcTiles, ppTileBlobs) {
         pcTilesMarshal := pcTiles is VarRef ? "uint*" : "ptr"
+        ppTileBlobsMarshal := ppTileBlobs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "ptr", Filter, pcTilesMarshal, pcTiles, "ptr*", ppTileBlobs, "HRESULT")
+        result := ComCall(19, this, "ptr", Filter, pcTilesMarshal, pcTiles, ppTileBlobsMarshal, ppTileBlobs, "HRESULT")
         return result
     }
 
@@ -247,8 +248,9 @@ class IPMEnumerationManager extends IUnknown{
      */
     get_StartAppEnumeratorBlob(Filter, pcApps, ppAppBlobs) {
         pcAppsMarshal := pcApps is VarRef ? "uint*" : "ptr"
+        ppAppBlobsMarshal := ppAppBlobs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", Filter, pcAppsMarshal, pcApps, "ptr*", ppAppBlobs, "HRESULT")
+        result := ComCall(20, this, "ptr", Filter, pcAppsMarshal, pcApps, ppAppBlobsMarshal, ppAppBlobs, "HRESULT")
         return result
     }
 }

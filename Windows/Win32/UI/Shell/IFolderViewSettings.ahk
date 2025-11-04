@@ -38,7 +38,9 @@ class IFolderViewSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getcolumnpropertylist
      */
     GetColumnPropertyList(riid, ppv) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

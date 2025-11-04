@@ -1185,9 +1185,10 @@ class Catalog {
     static CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppMember, fContinueOnError, pvReserved) {
         pwszPrevCDFTag := pwszPrevCDFTag is String ? StrPtr(pwszPrevCDFTag) : pwszPrevCDFTag
 
+        ppMemberMarshal := ppMember is VarRef ? "ptr*" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", "ptr", pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, "ptr*", ppMember, "int", fContinueOnError, pvReservedMarshal, pvReserved, "char*")
+        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", "ptr", pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, ppMemberMarshal, ppMember, "int", fContinueOnError, pvReservedMarshal, pvReserved, "char*")
         return result
     }
 

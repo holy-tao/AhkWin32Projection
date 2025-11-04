@@ -43,9 +43,10 @@ class IEAPProviderConfig2 extends IEAPProviderConfig{
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : "ptr"
+        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, "ptr*", ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
+        result := ComCall(8, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
         return result
     }
 
@@ -57,9 +58,10 @@ class IEAPProviderConfig2 extends IEAPProviderConfig{
      * @returns {HRESULT} 
      */
     GetGlobalConfig(dwEapTypeId, ppConfigDataOut, pdwSizeOfConfigDataOut) {
+        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwEapTypeId, "ptr*", ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
+        result := ComCall(9, this, "uint", dwEapTypeId, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
         return result
     }
 }

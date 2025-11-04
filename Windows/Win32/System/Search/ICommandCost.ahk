@@ -39,8 +39,9 @@ class ICommandCost extends IUnknown{
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
         pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
+        prgCostLimitsMarshal := prgCostLimits is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr*", prgCostLimits, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, prgCostLimitsMarshal, prgCostLimits, "HRESULT")
         return result
     }
 

@@ -62,9 +62,10 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
     EventPipeCreateProvider2(providerName, pCallback, pProvider) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
+        pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
         pProviderMarshal := pProvider is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(113, this, "ptr", providerName, "ptr*", pCallback, pProviderMarshal, pProvider, "HRESULT")
+        result := ComCall(113, this, "ptr", providerName, pCallbackMarshal, pCallback, pProviderMarshal, pProvider, "HRESULT")
         return result
     }
 }

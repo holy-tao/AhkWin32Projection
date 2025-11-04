@@ -61,7 +61,9 @@ class ID3D12Device8 extends ID3D12Device7{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createcommittedresource2
      */
     CreateCommittedResource2(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource, ppvResource) {
-        result := ComCall(69, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riidResource, "ptr*", ppvResource, "HRESULT")
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(69, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riidResource, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 
@@ -78,7 +80,9 @@ class ID3D12Device8 extends ID3D12Device7{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createplacedresource1
      */
     CreatePlacedResource1(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid, ppvResource) {
-        result := ComCall(70, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", ppvResource, "HRESULT")
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(70, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 

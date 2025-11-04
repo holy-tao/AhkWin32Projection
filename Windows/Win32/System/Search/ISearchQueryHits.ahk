@@ -47,8 +47,9 @@ class ISearchQueryHits extends IUnknown{
      */
     NextHitMoniker(pcMnk, papMnk) {
         pcMnkMarshal := pcMnk is VarRef ? "uint*" : "ptr"
+        papMnkMarshal := papMnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcMnkMarshal, pcMnk, "ptr*", papMnk, "int")
+        result := ComCall(4, this, pcMnkMarshal, pcMnk, papMnkMarshal, papMnk, "int")
         return result
     }
 
@@ -60,8 +61,9 @@ class ISearchQueryHits extends IUnknown{
      */
     NextHitOffset(pcRegion, paRegion) {
         pcRegionMarshal := pcRegion is VarRef ? "uint*" : "ptr"
+        paRegionMarshal := paRegion is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pcRegionMarshal, pcRegion, "ptr*", paRegion, "int")
+        result := ComCall(5, this, pcRegionMarshal, pcRegion, paRegionMarshal, paRegion, "int")
         return result
     }
 }

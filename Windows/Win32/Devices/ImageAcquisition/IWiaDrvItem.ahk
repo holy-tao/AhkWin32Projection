@@ -47,7 +47,9 @@ class IWiaDrvItem extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceSpecContext(__MIDL__IWiaDrvItem0001) {
-        result := ComCall(4, this, "ptr*", __MIDL__IWiaDrvItem0001, "HRESULT")
+        __MIDL__IWiaDrvItem0001Marshal := __MIDL__IWiaDrvItem0001 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, __MIDL__IWiaDrvItem0001Marshal, __MIDL__IWiaDrvItem0001, "HRESULT")
         return result
     }
 

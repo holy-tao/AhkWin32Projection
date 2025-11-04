@@ -190,8 +190,9 @@ class DeviceQuery {
      */
     static DevGetObjects(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, pcObjectCount, ppObjects) {
         pcObjectCountMarshal := pcObjectCount is VarRef ? "uint*" : "ptr"
+        ppObjectsMarshal := ppObjects is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjects", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, pcObjectCountMarshal, pcObjectCount, "ptr*", ppObjects, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjects", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, pcObjectCountMarshal, pcObjectCount, ppObjectsMarshal, ppObjects, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -214,8 +215,9 @@ class DeviceQuery {
      */
     static DevGetObjectsEx(ObjectType, QueryFlags, cRequestedProperties, pRequestedProperties, cFilterExpressionCount, pFilter, cExtendedParameterCount, pExtendedParameters, pcObjectCount, ppObjects) {
         pcObjectCountMarshal := pcObjectCount is VarRef ? "uint*" : "ptr"
+        ppObjectsMarshal := ppObjects is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectsEx", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, pcObjectCountMarshal, pcObjectCount, "ptr*", ppObjects, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectsEx", "int", ObjectType, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cFilterExpressionCount, "ptr", pFilter, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, pcObjectCountMarshal, pcObjectCount, ppObjectsMarshal, ppObjects, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -247,8 +249,9 @@ class DeviceQuery {
         pszObjectId := pszObjectId is String ? StrPtr(pszObjectId) : pszObjectId
 
         pcPropertyCountMarshal := pcPropertyCount is VarRef ? "uint*" : "ptr"
+        ppPropertiesMarshal := ppProperties is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjectProperties", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, pcPropertyCountMarshal, pcPropertyCount, "ptr*", ppProperties, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-0.dll\DevGetObjectProperties", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, pcPropertyCountMarshal, pcPropertyCount, ppPropertiesMarshal, ppProperties, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -272,8 +275,9 @@ class DeviceQuery {
         pszObjectId := pszObjectId is String ? StrPtr(pszObjectId) : pszObjectId
 
         pcPropertyCountMarshal := pcPropertyCount is VarRef ? "uint*" : "ptr"
+        ppPropertiesMarshal := ppProperties is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectPropertiesEx", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, pcPropertyCountMarshal, pcPropertyCount, "ptr*", ppProperties, "int")
+        result := DllCall("api-ms-win-devices-query-l1-1-1.dll\DevGetObjectPropertiesEx", "int", ObjectType, "ptr", pszObjectId, "uint", QueryFlags, "uint", cRequestedProperties, "ptr", pRequestedProperties, "uint", cExtendedParameterCount, "ptr", pExtendedParameters, pcPropertyCountMarshal, pcPropertyCount, ppPropertiesMarshal, ppProperties, "int")
         if(result != 0)
             throw OSError(result)
 

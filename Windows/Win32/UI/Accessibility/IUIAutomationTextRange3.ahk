@@ -64,8 +64,9 @@ class IUIAutomationTextRange3 extends IUIAutomationTextRange2{
      */
     GetAttributeValues(attributeIds, attributeIdCount, attributeValues) {
         attributeIdsMarshal := attributeIds is VarRef ? "int*" : "ptr"
+        attributeValuesMarshal := attributeValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, attributeIdsMarshal, attributeIds, "int", attributeIdCount, "ptr*", attributeValues, "HRESULT")
+        result := ComCall(24, this, attributeIdsMarshal, attributeIds, "int", attributeIdCount, attributeValuesMarshal, attributeValues, "HRESULT")
         return result
     }
 }

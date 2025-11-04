@@ -85,7 +85,9 @@ class IFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/filter/nf-filter-ifilter-getvalue
      */
     GetValue(ppPropValue) {
-        result := ComCall(6, this, "ptr*", ppPropValue, "int")
+        ppPropValueMarshal := ppPropValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppPropValueMarshal, ppPropValue, "int")
         return result
     }
 
@@ -98,7 +100,9 @@ class IFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/filter/nf-filter-ifilter-bindregion
      */
     BindRegion(origPos, riid, ppunk) {
-        result := ComCall(7, this, "ptr", origPos, "ptr", riid, "ptr*", ppunk, "int")
+        ppunkMarshal := ppunk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", origPos, "ptr", riid, ppunkMarshal, ppunk, "int")
         return result
     }
 }

@@ -38,9 +38,10 @@ class IWMDRMReader3 extends IWMDRMReader2{
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader3-getinclusionlist
      */
     GetInclusionList(ppGuids, pcGuids) {
+        ppGuidsMarshal := ppGuids is VarRef ? "ptr*" : "ptr"
         pcGuidsMarshal := pcGuids is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr*", ppGuids, pcGuidsMarshal, pcGuids, "HRESULT")
+        result := ComCall(15, this, ppGuidsMarshal, ppGuids, pcGuidsMarshal, pcGuids, "HRESULT")
         return result
     }
 }

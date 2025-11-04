@@ -183,7 +183,9 @@ class IISDB_NBIT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecordkeys
      */
     GetRecordKeys(dwRecordIndex, pbKeys) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "ptr*", pbKeys, "HRESULT")
+        pbKeysMarshal := pbKeys is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "uint", dwRecordIndex, pbKeysMarshal, pbKeys, "HRESULT")
         return result
     }
 

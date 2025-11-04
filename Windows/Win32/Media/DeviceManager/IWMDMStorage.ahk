@@ -122,10 +122,11 @@ class IWMDMStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getrights
      */
     GetRights(ppRights, pnRightsCount, abMac) {
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
         pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "ptr*", ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(9, this, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
     }
 

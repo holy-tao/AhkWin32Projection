@@ -293,11 +293,12 @@ class JobObjects {
         hJob := hJob is Win32Handle ? NumGet(hJob, "ptr") : hJob
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
+        InfoBlocksMarshal := InfoBlocks is VarRef ? "ptr*" : "ptr"
         InfoBlockCountMarshal := InfoBlockCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", "ptr", hJob, "ptr", VolumeName, "ptr*", InfoBlocks, InfoBlockCountMarshal, InfoBlockCount, "uint")
+        result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", "ptr", hJob, "ptr", VolumeName, InfoBlocksMarshal, InfoBlocks, InfoBlockCountMarshal, InfoBlockCount, "uint")
         if(A_LastError)
             throw OSError()
 

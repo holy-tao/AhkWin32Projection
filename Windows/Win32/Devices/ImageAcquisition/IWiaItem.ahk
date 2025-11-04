@@ -237,8 +237,9 @@ class IWiaItem extends IUnknown{
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         plItemCountMarshal := plItemCount is VarRef ? "int*" : "ptr"
+        ppIWiaItemMarshal := ppIWiaItem is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hwndParent, "int", lFlags, "int", lIntent, plItemCountMarshal, plItemCount, "ptr*", ppIWiaItem, "HRESULT")
+        result := ComCall(10, this, "ptr", hwndParent, "int", lFlags, "int", lIntent, plItemCountMarshal, plItemCount, ppIWiaItemMarshal, ppIWiaItem, "HRESULT")
         return result
     }
 

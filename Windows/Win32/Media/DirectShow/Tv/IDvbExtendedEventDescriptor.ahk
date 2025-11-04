@@ -170,9 +170,10 @@ class IDvbExtendedEventDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getrecorditemrawbytes
      */
     GetRecordItemRawBytes(bRecordIndex, ppbRawItem, pbItemLength) {
+        ppbRawItemMarshal := ppbRawItem is VarRef ? "ptr*" : "ptr"
         pbItemLengthMarshal := pbItemLength is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "char", bRecordIndex, "ptr*", ppbRawItem, pbItemLengthMarshal, pbItemLength, "HRESULT")
+        result := ComCall(13, this, "char", bRecordIndex, ppbRawItemMarshal, ppbRawItem, pbItemLengthMarshal, pbItemLength, "HRESULT")
         return result
     }
 }

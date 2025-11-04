@@ -125,8 +125,9 @@ class IMetaDataTables extends IUnknown{
         pcRowsMarshal := pcRows is VarRef ? "uint*" : "ptr"
         pcColsMarshal := pcCols is VarRef ? "uint*" : "ptr"
         piKeyMarshal := piKey is VarRef ? "uint*" : "ptr"
+        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "uint", ixTbl, pcbRowMarshal, pcbRow, pcRowsMarshal, pcRows, pcColsMarshal, pcCols, piKeyMarshal, piKey, "ptr*", ppName, "HRESULT")
+        result := ComCall(9, this, "uint", ixTbl, pcbRowMarshal, pcbRow, pcRowsMarshal, pcRows, pcColsMarshal, pcCols, piKeyMarshal, piKey, ppNameMarshal, ppName, "HRESULT")
         return result
     }
 
@@ -145,8 +146,9 @@ class IMetaDataTables extends IUnknown{
         poColMarshal := poCol is VarRef ? "uint*" : "ptr"
         pcbColMarshal := pcbCol is VarRef ? "uint*" : "ptr"
         pTypeMarshal := pType is VarRef ? "uint*" : "ptr"
+        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "uint", ixTbl, "uint", ixCol, poColMarshal, poCol, pcbColMarshal, pcbCol, pTypeMarshal, pType, "ptr*", ppName, "HRESULT")
+        result := ComCall(10, this, "uint", ixTbl, "uint", ixCol, poColMarshal, poCol, pcbColMarshal, pcbCol, pTypeMarshal, pType, ppNameMarshal, ppName, "HRESULT")
         return result
     }
 
@@ -161,8 +163,10 @@ class IMetaDataTables extends IUnknown{
      */
     GetCodedTokenInfo(ixCdTkn, pcTokens, ppTokens, ppName) {
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+        ppTokensMarshal := ppTokens is VarRef ? "ptr*" : "ptr"
+        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "uint", ixCdTkn, pcTokensMarshal, pcTokens, "ptr*", ppTokens, "ptr*", ppName, "HRESULT")
+        result := ComCall(11, this, "uint", ixCdTkn, pcTokensMarshal, pcTokens, ppTokensMarshal, ppTokens, ppNameMarshal, ppName, "HRESULT")
         return result
     }
 
@@ -175,7 +179,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getrow
      */
     GetRow(ixTbl, rid, ppRow) {
-        result := ComCall(12, this, "uint", ixTbl, "uint", rid, "ptr*", ppRow, "HRESULT")
+        ppRowMarshal := ppRow is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "uint", ixTbl, "uint", rid, ppRowMarshal, ppRow, "HRESULT")
         return result
     }
 
@@ -203,7 +209,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getstring
      */
     GetString(ixString, ppString) {
-        result := ComCall(14, this, "uint", ixString, "ptr*", ppString, "HRESULT")
+        ppStringMarshal := ppString is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "uint", ixString, ppStringMarshal, ppString, "HRESULT")
         return result
     }
 
@@ -217,8 +225,9 @@ class IMetaDataTables extends IUnknown{
      */
     GetBlob(ixBlob, pcbData, ppData) {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(15, this, "uint", ixBlob, pcbDataMarshal, pcbData, "ptr*", ppData, "HRESULT")
+        result := ComCall(15, this, "uint", ixBlob, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
@@ -230,7 +239,9 @@ class IMetaDataTables extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getguid
      */
     GetGuid(ixGuid, ppGUID) {
-        result := ComCall(16, this, "uint", ixGuid, "ptr*", ppGUID, "HRESULT")
+        ppGUIDMarshal := ppGUID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, "uint", ixGuid, ppGUIDMarshal, ppGUID, "HRESULT")
         return result
     }
 
@@ -244,8 +255,9 @@ class IMetaDataTables extends IUnknown{
      */
     GetUserString(ixUserString, pcbData, ppData) {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "uint", ixUserString, pcbDataMarshal, pcbData, "ptr*", ppData, "HRESULT")
+        result := ComCall(17, this, "uint", ixUserString, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 

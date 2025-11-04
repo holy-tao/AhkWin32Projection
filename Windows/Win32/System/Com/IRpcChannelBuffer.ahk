@@ -76,8 +76,9 @@ class IRpcChannelBuffer extends IUnknown{
      */
     GetDestCtx(pdwDestContext, ppvDestContext) {
         pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
+        ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pdwDestContextMarshal, pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
+        result := ComCall(6, this, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "HRESULT")
         return result
     }
 

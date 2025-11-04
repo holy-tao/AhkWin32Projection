@@ -38,7 +38,9 @@ class IWeakReference extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/weakreference/nf-weakreference-iweakreference-resolve(t_)
      */
     Resolve(riid, objectReference) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", objectReference, "HRESULT")
+        objectReferenceMarshal := objectReference is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, objectReferenceMarshal, objectReference, "HRESULT")
         return result
     }
 }

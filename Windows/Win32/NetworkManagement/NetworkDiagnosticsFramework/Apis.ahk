@@ -236,7 +236,9 @@ class NetworkDiagnosticsFramework {
     static NdfCreateIncident(helperClassName, celt, attributes, handle) {
         helperClassName := helperClassName is String ? StrPtr(helperClassName) : helperClassName
 
-        result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -326,7 +328,9 @@ class NetworkDiagnosticsFramework {
         host := host is String ? StrPtr(host) : host
         appId := appId is String ? StrPtr(appId) : appId
 
-        result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -402,7 +406,9 @@ class NetworkDiagnosticsFramework {
     static NdfCreateWebIncident(url, handle) {
         url := url is String ? StrPtr(url) : url
 
-        result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -485,7 +491,9 @@ class NetworkDiagnosticsFramework {
         url := url is String ? StrPtr(url) : url
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -561,7 +569,9 @@ class NetworkDiagnosticsFramework {
     static NdfCreateSharingIncident(UNCPath, handle) {
         UNCPath := UNCPath is String ? StrPtr(UNCPath) : UNCPath
 
-        result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -642,7 +652,9 @@ class NetworkDiagnosticsFramework {
     static NdfCreateDNSIncident(hostname, queryType, handle) {
         hostname := hostname is String ? StrPtr(hostname) : hostname
 
-        result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -713,7 +725,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateConnectivityIncident(handle) {
-        result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -789,7 +803,9 @@ class NetworkDiagnosticsFramework {
      * @since windows8.0
      */
     static NdfCreateNetConnectionIncident(handle, id) {
-        result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", "ptr*", handle, "ptr", id, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", handleMarshal, handle, "ptr", id, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -855,7 +871,9 @@ class NetworkDiagnosticsFramework {
         peername := peername is String ? StrPtr(peername) : peername
         appId := appId is String ? StrPtr(appId) : appId
 
-        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -929,7 +947,9 @@ class NetworkDiagnosticsFramework {
         Invitation := Invitation is String ? StrPtr(Invitation) : Invitation
         appId := appId is String ? StrPtr(appId) : appId
 
-        result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, "ptr*", handle, "int")
+        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, handleMarshal, handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1132,8 +1152,9 @@ class NetworkDiagnosticsFramework {
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
         HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
         RootCauseCountMarshal := RootCauseCount is VarRef ? "uint*" : "ptr"
+        RootCausesMarshal := RootCauses is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", HandleMarshal, Handle, RootCauseCountMarshal, RootCauseCount, "ptr*", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
+        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", HandleMarshal, Handle, RootCauseCountMarshal, RootCauseCount, RootCausesMarshal, RootCauses, "uint", dwWait, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 

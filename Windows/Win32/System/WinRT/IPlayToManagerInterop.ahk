@@ -41,7 +41,9 @@ class IPlayToManagerInterop extends IInspectable{
     GetForWindow(appWindow, riid, playToManager) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", playToManager, "HRESULT")
+        playToManagerMarshal := playToManager is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, playToManagerMarshal, playToManager, "HRESULT")
         return result
     }
 

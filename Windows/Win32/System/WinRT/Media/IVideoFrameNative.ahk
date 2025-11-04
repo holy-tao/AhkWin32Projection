@@ -38,7 +38,9 @@ class IVideoFrameNative extends IInspectable{
      * @see https://learn.microsoft.com/windows/win32/WinRT/ivideoframenative-getdata
      */
     GetData(riid, ppv) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IVideoFrameNative extends IInspectable{
      * @see https://learn.microsoft.com/windows/win32/WinRT/ivideoframenative-getdevice
      */
     GetDevice(riid, ppv) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

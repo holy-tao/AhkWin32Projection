@@ -44,8 +44,9 @@ class IBDA_IPSinkControl extends IUnknown{
      */
     GetMulticastList(pulcbSize, pbBuffer) {
         pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pulcbSizeMarshal, pulcbSize, "ptr*", pbBuffer, "HRESULT")
+        result := ComCall(3, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -58,8 +59,9 @@ class IBDA_IPSinkControl extends IUnknown{
      */
     GetAdapterIPAddress(pulcbSize, pbBuffer) {
         pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pulcbSizeMarshal, pulcbSize, "ptr*", pbBuffer, "HRESULT")
+        result := ComCall(4, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 }

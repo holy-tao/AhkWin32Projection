@@ -67,7 +67,9 @@ class ITravelEntry extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-getpidl
      */
     GetPidl(ppidl) {
-        result := ComCall(5, this, "ptr*", ppidl, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppidlMarshal, ppidl, "HRESULT")
         return result
     }
 }

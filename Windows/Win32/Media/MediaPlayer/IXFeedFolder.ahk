@@ -60,7 +60,9 @@ class IXFeedFolder extends IUnknown{
         pszName := pszName is String ? StrPtr(pszName) : pszName
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(5, this, "ptr", pszName, "ptr", pszUrl, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszName, "ptr", pszUrl, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IXFeedFolder extends IUnknown{
     CreateSubfolder(pszName, riid, ppv) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "ptr", pszName, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ class IXFeedFolder extends IUnknown{
     GetFeed(pszName, riid, ppv) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(9, this, "ptr", pszName, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pszName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -128,7 +134,9 @@ class IXFeedFolder extends IUnknown{
     GetSubfolder(pszName, riid, ppv) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(10, this, "ptr", pszName, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pszName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -192,7 +200,9 @@ class IXFeedFolder extends IUnknown{
      * @returns {HRESULT} 
      */
     Parent(riid, ppv) {
-        result := ComCall(16, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -215,7 +225,9 @@ class IXFeedFolder extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWatcher(scope, mask, riid, ppv) {
-        result := ComCall(18, this, "int", scope, "int", mask, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, "int", scope, "int", mask, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

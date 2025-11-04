@@ -41,7 +41,9 @@ class IRadialControllerInterop extends IInspectable{
     CreateForWindow(hwnd, riid, ppv) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

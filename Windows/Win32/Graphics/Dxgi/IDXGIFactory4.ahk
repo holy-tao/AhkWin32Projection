@@ -39,7 +39,9 @@ class IDXGIFactory4 extends IDXGIFactory3{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgifactory4-enumadapterbyluid
      */
     EnumAdapterByLuid(AdapterLuid, riid, ppvAdapter) {
-        result := ComCall(26, this, "ptr", AdapterLuid, "ptr", riid, "ptr*", ppvAdapter, "HRESULT")
+        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(26, this, "ptr", AdapterLuid, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
         return result
     }
 
@@ -51,7 +53,9 @@ class IDXGIFactory4 extends IDXGIFactory3{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgifactory4-enumwarpadapter
      */
     EnumWarpAdapter(riid, ppvAdapter) {
-        result := ComCall(27, this, "ptr", riid, "ptr*", ppvAdapter, "HRESULT")
+        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(27, this, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
         return result
     }
 }

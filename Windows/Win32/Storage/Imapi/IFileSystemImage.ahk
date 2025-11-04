@@ -351,7 +351,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_udfrevisionssupported
      */
     get_UDFRevisionsSupported(pVal) {
-        result := ComCall(33, this, "ptr*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(33, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -408,7 +410,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_iso9660interchangelevelssupported
      */
     get_ISO9660InterchangeLevelsSupported(pVal) {
-        result := ComCall(38, this, "ptr*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(38, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -613,7 +617,9 @@ class IFileSystemImage extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_multisessioninterfaces
      */
     get_MultisessionInterfaces(pVal) {
-        result := ComCall(55, this, "ptr*", pVal, "HRESULT")
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(55, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 

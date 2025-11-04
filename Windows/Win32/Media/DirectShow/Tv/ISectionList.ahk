@@ -115,8 +115,9 @@ class ISectionList extends IUnknown{
      */
     GetSectionData(sectionNumber, pdwRawPacketLength, ppSection) {
         pdwRawPacketLengthMarshal := pdwRawPacketLength is VarRef ? "uint*" : "ptr"
+        ppSectionMarshal := ppSection is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ushort", sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, "ptr*", ppSection, "HRESULT")
+        result := ComCall(7, this, "ushort", sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, ppSectionMarshal, ppSection, "HRESULT")
         return result
     }
 

@@ -77,9 +77,10 @@ class IWpdSerializer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getbufferfromiportabledevicevalues
      */
     GetBufferFromIPortableDeviceValues(pSource, ppBuffer, pdwBufferSize) {
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pSource, "ptr*", ppBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
+        result := ComCall(5, this, "ptr", pSource, ppBufferMarshal, ppBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
     }
 

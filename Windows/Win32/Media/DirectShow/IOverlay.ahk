@@ -39,8 +39,9 @@ class IOverlay extends IUnknown{
      */
     GetPalette(pdwColors, ppPalette) {
         pdwColorsMarshal := pdwColors is VarRef ? "uint*" : "ptr"
+        ppPaletteMarshal := ppPalette is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pdwColorsMarshal, pdwColors, "ptr*", ppPalette, "HRESULT")
+        result := ComCall(3, this, pdwColorsMarshal, pdwColors, ppPaletteMarshal, ppPalette, "HRESULT")
         return result
     }
 
@@ -109,7 +110,9 @@ class IOverlay extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getcliplist
      */
     GetClipList(pSourceRect, pDestinationRect, ppRgnData) {
-        result := ComCall(9, this, "ptr", pSourceRect, "ptr", pDestinationRect, "ptr*", ppRgnData, "HRESULT")
+        ppRgnDataMarshal := ppRgnData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pSourceRect, "ptr", pDestinationRect, ppRgnDataMarshal, ppRgnData, "HRESULT")
         return result
     }
 

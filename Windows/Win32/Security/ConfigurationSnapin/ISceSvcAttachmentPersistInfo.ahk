@@ -41,8 +41,10 @@ class ISceSvcAttachmentPersistInfo extends IUnknown{
      */
     Save(lpTemplateName, scesvcHandle, ppvData, pbOverwriteAll) {
         lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
+        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr*" : "ptr"
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, lpTemplateNameMarshal, lpTemplateName, "ptr*", scesvcHandle, "ptr*", ppvData, "ptr", pbOverwriteAll, "HRESULT")
+        result := ComCall(3, this, lpTemplateNameMarshal, lpTemplateName, scesvcHandleMarshal, scesvcHandle, ppvDataMarshal, ppvData, "ptr", pbOverwriteAll, "HRESULT")
         return result
     }
 

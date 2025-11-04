@@ -46,10 +46,12 @@ class IMF2DBuffer2 extends IMF2DBuffer{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer2-lock2dsize
      */
     Lock2DSize(lockFlags, ppbScanline0, plPitch, ppbBufferStart, pcbBufferLength) {
+        ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : "ptr"
         plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
+        ppbBufferStartMarshal := ppbBufferStart is VarRef ? "ptr*" : "ptr"
         pcbBufferLengthMarshal := pcbBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "int", lockFlags, "ptr*", ppbScanline0, plPitchMarshal, plPitch, "ptr*", ppbBufferStart, pcbBufferLengthMarshal, pcbBufferLength, "HRESULT")
+        result := ComCall(10, this, "int", lockFlags, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, ppbBufferStartMarshal, ppbBufferStart, pcbBufferLengthMarshal, pcbBufferLength, "HRESULT")
         return result
     }
 

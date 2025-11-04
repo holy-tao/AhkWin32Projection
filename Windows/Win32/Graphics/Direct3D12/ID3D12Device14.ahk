@@ -42,8 +42,9 @@ class ID3D12Device14 extends ID3D12Device13{
         subobjectName := subobjectName is String ? StrPtr(subobjectName) : subobjectName
 
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
+        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(82, this, "uint", nodeMask, pLibraryBlobMarshal, pLibraryBlob, "ptr", blobLengthInBytes, "ptr", subobjectName, "ptr", riid, "ptr*", ppvRootSignature, "HRESULT")
+        result := ComCall(82, this, "uint", nodeMask, pLibraryBlobMarshal, pLibraryBlob, "ptr", blobLengthInBytes, "ptr", subobjectName, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
         return result
     }
 }

@@ -58,9 +58,10 @@ class IOpcSignatureCustomObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobject-getxml
      */
     GetXml(xmlMarkup, count) {
+        xmlMarkupMarshal := xmlMarkup is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", xmlMarkup, countMarshal, count, "HRESULT")
+        result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, countMarshal, count, "HRESULT")
         return result
     }
 }

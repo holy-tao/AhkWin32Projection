@@ -293,10 +293,11 @@ class IITResultSet extends IUnknown{
     GetColumn(lColumnIndex, PropID, dwType, lpvDefaultValue, cbSize, ColumnPriority) {
         PropIDMarshal := PropID is VarRef ? "uint*" : "ptr"
         dwTypeMarshal := dwType is VarRef ? "uint*" : "ptr"
+        lpvDefaultValueMarshal := lpvDefaultValue is VarRef ? "ptr*" : "ptr"
         cbSizeMarshal := cbSize is VarRef ? "uint*" : "ptr"
         ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "int", lColumnIndex, PropIDMarshal, PropID, dwTypeMarshal, dwType, "ptr*", lpvDefaultValue, cbSizeMarshal, cbSize, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
+        result := ComCall(22, this, "int", lColumnIndex, PropIDMarshal, PropID, dwTypeMarshal, dwType, lpvDefaultValueMarshal, lpvDefaultValue, cbSizeMarshal, cbSize, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
         return result
     }
 

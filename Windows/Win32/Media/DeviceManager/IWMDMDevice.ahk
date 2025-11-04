@@ -168,10 +168,12 @@ class IWMDMDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice-getformatsupport
      */
     GetFormatSupport(ppFormatEx, pnFormatCount, pppwszMimeType, pnMimeTypeCount) {
+        ppFormatExMarshal := ppFormatEx is VarRef ? "ptr*" : "ptr"
         pnFormatCountMarshal := pnFormatCount is VarRef ? "uint*" : "ptr"
+        pppwszMimeTypeMarshal := pppwszMimeType is VarRef ? "ptr*" : "ptr"
         pnMimeTypeCountMarshal := pnMimeTypeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr*", ppFormatEx, pnFormatCountMarshal, pnFormatCount, "ptr*", pppwszMimeType, pnMimeTypeCountMarshal, pnMimeTypeCount, "HRESULT")
+        result := ComCall(12, this, ppFormatExMarshal, ppFormatEx, pnFormatCountMarshal, pnFormatCount, pppwszMimeTypeMarshal, pppwszMimeType, pnMimeTypeCountMarshal, pnMimeTypeCount, "HRESULT")
         return result
     }
 

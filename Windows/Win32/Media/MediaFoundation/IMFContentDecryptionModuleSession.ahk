@@ -67,9 +67,10 @@ class IMFContentDecryptionModuleSession extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses
      */
     GetKeyStatuses(keyStatuses, numKeyStatuses) {
+        keyStatusesMarshal := keyStatuses is VarRef ? "ptr*" : "ptr"
         numKeyStatusesMarshal := numKeyStatuses is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", keyStatuses, numKeyStatusesMarshal, numKeyStatuses, "HRESULT")
+        result := ComCall(5, this, keyStatusesMarshal, keyStatuses, numKeyStatusesMarshal, numKeyStatuses, "HRESULT")
         return result
     }
 

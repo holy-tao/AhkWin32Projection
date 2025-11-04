@@ -57,9 +57,10 @@ class IDirectXVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-getcreationparameters
      */
     GetCreationParameters(pDeviceGuid, pVideoDesc, pConfig, pDecoderRenderTargets, pNumSurfaces) {
+        pDecoderRenderTargetsMarshal := pDecoderRenderTargets is VarRef ? "ptr*" : "ptr"
         pNumSurfacesMarshal := pNumSurfaces is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", pDecoderRenderTargets, pNumSurfacesMarshal, pNumSurfaces, "HRESULT")
+        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, "ptr", pConfig, pDecoderRenderTargetsMarshal, pDecoderRenderTargets, pNumSurfacesMarshal, pNumSurfaces, "HRESULT")
         return result
     }
 
@@ -72,9 +73,10 @@ class IDirectXVideoDecoder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-getbuffer
      */
     GetBuffer(BufferType, ppBuffer, pBufferSize) {
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", BufferType, "ptr*", ppBuffer, pBufferSizeMarshal, pBufferSize, "HRESULT")
+        result := ComCall(5, this, "uint", BufferType, ppBufferMarshal, ppBuffer, pBufferSizeMarshal, pBufferSize, "HRESULT")
         return result
     }
 

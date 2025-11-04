@@ -34,7 +34,9 @@ class ID3DShaderCacheComponent extends IUnknown{
      * @returns {HRESULT} 
      */
     GetComponentName(pName) {
-        result := ComCall(3, this, "ptr*", pName, "HRESULT")
+        pNameMarshal := pName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pNameMarshal, pName, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ID3DShaderCacheComponent extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStateObjectDatabasePath(pPath) {
-        result := ComCall(4, this, "ptr*", pPath, "HRESULT")
+        pPathMarshal := pPath is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pPathMarshal, pPath, "HRESULT")
         return result
     }
 
@@ -57,7 +61,9 @@ class ID3DShaderCacheComponent extends IUnknown{
     GetPrecompiledCachePath(pAdapterFamily, pPath) {
         pAdapterFamily := pAdapterFamily is String ? StrPtr(pAdapterFamily) : pAdapterFamily
 
-        result := ComCall(5, this, "ptr", pAdapterFamily, "ptr*", pPath, "HRESULT")
+        pPathMarshal := pPath is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pAdapterFamily, pPathMarshal, pPath, "HRESULT")
         return result
     }
 

@@ -173,8 +173,9 @@ class IWMPContentPartnerCallback extends IUnknown{
      */
     GetContentIDsInLibrary(pcContentIDs, pprgIDs) {
         pcContentIDsMarshal := pcContentIDs is VarRef ? "uint*" : "ptr"
+        pprgIDsMarshal := pprgIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, pcContentIDsMarshal, pcContentIDs, "ptr*", pprgIDs, "HRESULT")
+        result := ComCall(12, this, pcContentIDsMarshal, pcContentIDs, pprgIDsMarshal, pprgIDs, "HRESULT")
         return result
     }
 

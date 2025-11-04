@@ -133,9 +133,10 @@ class IVdsService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-queryfilesystemtypes
      */
     QueryFileSystemTypes(ppFileSystemTypeProps, plNumberOfFileSystems) {
+        ppFileSystemTypePropsMarshal := ppFileSystemTypeProps is VarRef ? "ptr*" : "ptr"
         plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr*", ppFileSystemTypeProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
+        result := ComCall(11, this, ppFileSystemTypePropsMarshal, ppFileSystemTypeProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
     }
 

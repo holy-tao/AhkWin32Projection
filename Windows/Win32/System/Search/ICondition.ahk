@@ -58,7 +58,9 @@ class ICondition extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getsubconditions
      */
     GetSubConditions(riid, ppv) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

@@ -42,7 +42,9 @@ class INetDiagHelperUtilFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelperutilfactory-createutilityinstance
      */
     CreateUtilityInstance(riid, ppvObject) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

@@ -52,9 +52,10 @@ class IMLangStringBufA extends IUnknown{
      * @returns {HRESULT} 
      */
     LockBuf(cchOffset, cchMaxLock, ppszBuf, pcchBuf) {
+        ppszBufMarshal := ppszBuf is VarRef ? "ptr*" : "ptr"
         pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", cchOffset, "int", cchMaxLock, "ptr*", ppszBuf, pcchBufMarshal, pcchBuf, "HRESULT")
+        result := ComCall(4, this, "int", cchOffset, "int", cchMaxLock, ppszBufMarshal, ppszBuf, pcchBufMarshal, pcchBuf, "HRESULT")
         return result
     }
 

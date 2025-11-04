@@ -35,7 +35,9 @@ class IGetDispenser extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDispenser(iid, ppvObject) {
-        result := ComCall(3, this, "ptr", iid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

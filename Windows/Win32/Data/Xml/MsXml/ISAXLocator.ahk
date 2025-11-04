@@ -58,7 +58,9 @@ class ISAXLocator extends IUnknown{
      * @returns {HRESULT} 
      */
     getPublicId(ppwchPublicId) {
-        result := ComCall(5, this, "ptr*", ppwchPublicId, "HRESULT")
+        ppwchPublicIdMarshal := ppwchPublicId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppwchPublicIdMarshal, ppwchPublicId, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class ISAXLocator extends IUnknown{
      * @returns {HRESULT} 
      */
     getSystemId(ppwchSystemId) {
-        result := ComCall(6, this, "ptr*", ppwchSystemId, "HRESULT")
+        ppwchSystemIdMarshal := ppwchSystemId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppwchSystemIdMarshal, ppwchSystemId, "HRESULT")
         return result
     }
 }

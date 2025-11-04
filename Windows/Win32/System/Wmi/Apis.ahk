@@ -360,8 +360,9 @@ class Wmi {
      */
     static MI_Application_InitializeV1(flags, applicationID, extendedError, application) {
         applicationIDMarshal := applicationID is VarRef ? "ushort*" : "ptr"
+        extendedErrorMarshal := extendedError is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, applicationIDMarshal, applicationID, "ptr*", extendedError, "ptr", application, "CDecl int")
+        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, applicationIDMarshal, applicationID, extendedErrorMarshal, extendedError, "ptr", application, "CDecl int")
         return result
     }
 

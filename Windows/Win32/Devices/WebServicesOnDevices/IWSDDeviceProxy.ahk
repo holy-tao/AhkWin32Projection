@@ -94,7 +94,9 @@ class IWSDDeviceProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-gethostmetadata
      */
     GetHostMetadata(ppHostMetadata) {
-        result := ComCall(6, this, "ptr*", ppHostMetadata, "HRESULT")
+        ppHostMetadataMarshal := ppHostMetadata is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppHostMetadataMarshal, ppHostMetadata, "HRESULT")
         return result
     }
 
@@ -105,7 +107,9 @@ class IWSDDeviceProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthismodelmetadata
      */
     GetThisModelMetadata(ppManufacturerMetadata) {
-        result := ComCall(7, this, "ptr*", ppManufacturerMetadata, "HRESULT")
+        ppManufacturerMetadataMarshal := ppManufacturerMetadata is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, ppManufacturerMetadataMarshal, ppManufacturerMetadata, "HRESULT")
         return result
     }
 
@@ -116,7 +120,9 @@ class IWSDDeviceProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthisdevicemetadata
      */
     GetThisDeviceMetadata(ppThisDeviceMetadata) {
-        result := ComCall(8, this, "ptr*", ppThisDeviceMetadata, "HRESULT")
+        ppThisDeviceMetadataMarshal := ppThisDeviceMetadata is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, ppThisDeviceMetadataMarshal, ppThisDeviceMetadata, "HRESULT")
         return result
     }
 
@@ -127,7 +133,9 @@ class IWSDDeviceProxy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getallmetadata
      */
     GetAllMetadata(ppMetadata) {
-        result := ComCall(9, this, "ptr*", ppMetadata, "HRESULT")
+        ppMetadataMarshal := ppMetadata is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, ppMetadataMarshal, ppMetadata, "HRESULT")
         return result
     }
 

@@ -49,7 +49,9 @@ class IRawElementProviderWindowlessSite extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getruntimeidprefix
      */
     GetRuntimeIdPrefix(pRetVal) {
-        result := ComCall(4, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

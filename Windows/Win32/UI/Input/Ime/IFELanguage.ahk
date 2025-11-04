@@ -70,8 +70,9 @@ class IFELanguage extends IUnknown{
         pwchInput := pwchInput is String ? StrPtr(pwchInput) : pwchInput
 
         pfCInfoMarshal := pfCInfo is VarRef ? "uint*" : "ptr"
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwRequest, "uint", dwCMode, "int", cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, "ptr*", ppResult, "HRESULT")
+        result := ComCall(5, this, "uint", dwRequest, "uint", dwCMode, "int", cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, ppResultMarshal, ppResult, "HRESULT")
         return result
     }
 

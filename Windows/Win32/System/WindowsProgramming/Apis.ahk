@@ -5716,7 +5716,9 @@ class WindowsProgramming {
     static DCICreatePrimary(hdc, lplpSurface) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, "ptr*", lplpSurface, "int")
+        lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
@@ -5737,7 +5739,9 @@ class WindowsProgramming {
     static DCICreateOffscreen(hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, "ptr*", lplpSurface, "int")
+        lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
@@ -5752,8 +5756,9 @@ class WindowsProgramming {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         lpOffscreenSurfMarshal := lpOffscreenSurf is VarRef ? "ptr" : "ptr"
+        lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, "ptr*", lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
@@ -6739,9 +6744,10 @@ class WindowsProgramming {
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
         pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
 
+        phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr*", phInf, pvReservedMarshal, pvReserved, "int")
+        result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6761,9 +6767,10 @@ class WindowsProgramming {
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
         pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
 
+        phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr*", phInf, pvReservedMarshal, pvReserved, "int")
+        result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 

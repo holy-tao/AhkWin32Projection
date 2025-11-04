@@ -38,9 +38,10 @@ class IAudioProcessingObjectNotifications extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudioprocessingobjectnotifications-getaponotificationregistrationinfo
      */
     GetApoNotificationRegistrationInfo(apoNotifications, count) {
+        apoNotificationsMarshal := apoNotifications is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", apoNotifications, countMarshal, count, "HRESULT")
+        result := ComCall(3, this, apoNotificationsMarshal, apoNotifications, countMarshal, count, "HRESULT")
         return result
     }
 

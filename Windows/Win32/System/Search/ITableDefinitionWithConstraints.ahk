@@ -55,7 +55,9 @@ class ITableDefinitionWithConstraints extends ITableCreation{
      * @returns {HRESULT} 
      */
     CreateTableWithConstraints(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, cConstraintDescs, rgConstraintDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
-        result := ComCall(9, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "uint", cConstraintDescs, "ptr", rgConstraintDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppTableID, "ptr*", ppRowset, "HRESULT")
+        ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "uint", cConstraintDescs, "ptr", rgConstraintDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "HRESULT")
         return result
     }
 

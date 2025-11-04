@@ -106,9 +106,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-readdvdstructure
      */
     ReadDvdStructure(format, address, layer, agid, data, count) {
+        dataMarshal := data is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", format, "uint", address, "uint", layer, "uint", agid, "ptr*", data, countMarshal, count, "HRESULT")
+        result := ComCall(6, this, "uint", format, "uint", address, "uint", layer, "uint", agid, dataMarshal, data, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -135,9 +136,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getadapterdescriptor
      */
     GetAdapterDescriptor(data, byteSize) {
+        dataMarshal := data is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr*", data, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(8, this, dataMarshal, data, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -149,9 +151,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getdevicedescriptor
      */
     GetDeviceDescriptor(data, byteSize) {
+        dataMarshal := data is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr*", data, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(9, this, dataMarshal, data, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -163,9 +166,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getdiscinformation
      */
     GetDiscInformation(discInformation, byteSize) {
+        discInformationMarshal := discInformation is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr*", discInformation, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(10, this, discInformationMarshal, discInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -179,9 +183,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-gettrackinformation
      */
     GetTrackInformation(address, addressType, trackInformation, byteSize) {
+        trackInformationMarshal := trackInformation is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", address, "int", addressType, "ptr*", trackInformation, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(11, this, "uint", address, "int", addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -195,9 +200,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getfeaturepage
      */
     GetFeaturePage(requestedFeature, currentFeatureOnly, featureData, byteSize) {
+        featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "int", requestedFeature, "char", currentFeatureOnly, "ptr*", featureData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(12, this, "int", requestedFeature, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -211,9 +217,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getmodepage
      */
     GetModePage(requestedModePage, requestType, modePageData, byteSize) {
+        modePageDataMarshal := modePageData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "int", requestedModePage, "int", requestType, "ptr*", modePageData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(13, this, "int", requestedModePage, "int", requestType, modePageDataMarshal, modePageData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -241,9 +248,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedfeaturepages
      */
     GetSupportedFeaturePages(currentFeatureOnly, featureData, byteSize) {
+        featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "char", currentFeatureOnly, "ptr*", featureData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(15, this, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -256,9 +264,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedprofiles
      */
     GetSupportedProfiles(currentOnly, profileTypes, validProfiles) {
+        profileTypesMarshal := profileTypes is VarRef ? "ptr*" : "ptr"
         validProfilesMarshal := validProfiles is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "char", currentOnly, "ptr*", profileTypes, validProfilesMarshal, validProfiles, "HRESULT")
+        result := ComCall(16, this, "char", currentOnly, profileTypesMarshal, profileTypes, validProfilesMarshal, validProfiles, "HRESULT")
         return result
     }
 
@@ -271,9 +280,10 @@ class IDiscRecorder2Ex extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedmodepages
      */
     GetSupportedModePages(requestType, modePageTypes, validPages) {
+        modePageTypesMarshal := modePageTypes is VarRef ? "ptr*" : "ptr"
         validPagesMarshal := validPages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "int", requestType, "ptr*", modePageTypes, validPagesMarshal, validPages, "HRESULT")
+        result := ComCall(17, this, "int", requestType, modePageTypesMarshal, modePageTypes, validPagesMarshal, validPages, "HRESULT")
         return result
     }
 

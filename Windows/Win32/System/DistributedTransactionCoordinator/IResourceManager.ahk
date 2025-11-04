@@ -78,7 +78,9 @@ class IResourceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDistributedTransactionManager(iid, ppvObject) {
-        result := ComCall(6, this, "ptr", iid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

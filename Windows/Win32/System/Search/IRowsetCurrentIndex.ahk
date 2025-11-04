@@ -34,7 +34,9 @@ class IRowsetCurrentIndex extends IRowsetIndex{
      * @returns {HRESULT} 
      */
     GetIndex(ppIndexID) {
-        result := ComCall(6, this, "ptr*", ppIndexID, "HRESULT")
+        ppIndexIDMarshal := ppIndexID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppIndexIDMarshal, ppIndexID, "HRESULT")
         return result
     }
 

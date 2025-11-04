@@ -38,7 +38,9 @@ class ID3D12ProtectedSession extends ID3D12DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12protectedsession-getstatusfence
      */
     GetStatusFence(riid, ppFence) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", ppFence, "HRESULT")
+        ppFenceMarshal := ppFence is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", riid, ppFenceMarshal, ppFence, "HRESULT")
         return result
     }
 

@@ -43,7 +43,9 @@ class IAudioEndpoint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getframeformat
      */
     GetFrameFormat(ppFormat) {
-        result := ComCall(3, this, "ptr*", ppFormat, "HRESULT")
+        ppFormatMarshal := ppFormat is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppFormatMarshal, ppFormat, "HRESULT")
         return result
     }
 

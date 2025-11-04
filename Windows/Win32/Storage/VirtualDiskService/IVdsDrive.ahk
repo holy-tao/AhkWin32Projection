@@ -60,9 +60,10 @@ class IVdsDrive extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
+        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
         plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
+        result := ComCall(5, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
         return result
     }
 

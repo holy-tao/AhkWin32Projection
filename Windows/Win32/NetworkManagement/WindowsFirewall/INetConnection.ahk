@@ -81,7 +81,9 @@ class INetConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnection-getproperties
      */
     GetProperties(ppProps) {
-        result := ComCall(7, this, "ptr*", ppProps, "HRESULT")
+        ppPropsMarshal := ppProps is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, ppPropsMarshal, ppProps, "HRESULT")
         return result
     }
 

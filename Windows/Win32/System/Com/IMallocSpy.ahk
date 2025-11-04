@@ -89,8 +89,9 @@ class IMallocSpy extends IUnknown{
      */
     PreRealloc(pRequest, cbRequest, ppNewRequest, fSpyed) {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+        ppNewRequestMarshal := ppNewRequest is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pRequestMarshal, pRequest, "ptr", cbRequest, "ptr*", ppNewRequest, "int", fSpyed, "ptr")
+        result := ComCall(7, this, pRequestMarshal, pRequest, "ptr", cbRequest, ppNewRequestMarshal, ppNewRequest, "int", fSpyed, "ptr")
         return result
     }
 

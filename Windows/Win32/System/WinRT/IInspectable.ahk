@@ -44,8 +44,9 @@ class IInspectable extends IUnknown{
      */
     GetIids(iidCount, iids) {
         iidCountMarshal := iidCount is VarRef ? "uint*" : "ptr"
+        iidsMarshal := iids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, iidCountMarshal, iidCount, "ptr*", iids, "HRESULT")
+        result := ComCall(3, this, iidCountMarshal, iidCount, iidsMarshal, iids, "HRESULT")
         return result
     }
 

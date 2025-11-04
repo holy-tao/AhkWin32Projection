@@ -35,7 +35,9 @@ class ISurfacePresenterFlipBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     BeginDraw(riid, ppBuffer) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppBuffer, "HRESULT")
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 

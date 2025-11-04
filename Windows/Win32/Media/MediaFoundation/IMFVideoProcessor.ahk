@@ -73,8 +73,9 @@ class IMFVideoProcessor extends IUnknown{
      */
     GetAvailableVideoProcessorModes(lpdwNumProcessingModes, ppVideoProcessingModes) {
         lpdwNumProcessingModesMarshal := lpdwNumProcessingModes is VarRef ? "uint*" : "ptr"
+        ppVideoProcessingModesMarshal := ppVideoProcessingModes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, lpdwNumProcessingModesMarshal, lpdwNumProcessingModes, "ptr*", ppVideoProcessingModes, "HRESULT")
+        result := ComCall(3, this, lpdwNumProcessingModesMarshal, lpdwNumProcessingModes, ppVideoProcessingModesMarshal, ppVideoProcessingModes, "HRESULT")
         return result
     }
 

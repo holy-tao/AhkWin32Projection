@@ -83,9 +83,10 @@ class WebSocket {
     static WebSocketBeginClientHandshake(hWebSocket, pszSubprotocols, ulSubprotocolCount, pszExtensions, ulExtensionCount, pInitialHeaders, ulInitialHeaderCount, pAdditionalHeaders, pulAdditionalHeaderCount) {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
+        pAdditionalHeadersMarshal := pAdditionalHeaders is VarRef ? "ptr*" : "ptr"
         pulAdditionalHeaderCountMarshal := pulAdditionalHeaderCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, "ptr", pszSubprotocols, "uint", ulSubprotocolCount, "ptr", pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, "ptr*", pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "int")
+        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, "ptr", pszSubprotocols, "uint", ulSubprotocolCount, "ptr", pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -257,9 +258,10 @@ class WebSocket {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
         pszSubprotocolSelected := pszSubprotocolSelected is String ? StrPtr(pszSubprotocolSelected) : pszSubprotocolSelected
 
+        pResponseHeadersMarshal := pResponseHeaders is VarRef ? "ptr*" : "ptr"
         pulResponseHeaderCountMarshal := pulResponseHeaderCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, "ptr", pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, "ptr*", pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "int")
+        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, "ptr", pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -468,8 +470,10 @@ class WebSocket {
         pulDataBufferCountMarshal := pulDataBufferCount is VarRef ? "uint*" : "ptr"
         pActionMarshal := pAction is VarRef ? "int*" : "ptr"
         pBufferTypeMarshal := pBufferType is VarRef ? "int*" : "ptr"
+        pvApplicationContextMarshal := pvApplicationContext is VarRef ? "ptr*" : "ptr"
+        pvActionContextMarshal := pvActionContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, pulDataBufferCountMarshal, pulDataBufferCount, pActionMarshal, pAction, pBufferTypeMarshal, pBufferType, "ptr*", pvApplicationContext, "ptr*", pvActionContext, "int")
+        result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, pulDataBufferCountMarshal, pulDataBufferCount, pActionMarshal, pAction, pBufferTypeMarshal, pBufferType, pvApplicationContextMarshal, pvApplicationContext, pvActionContextMarshal, pvActionContext, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -8983,7 +8983,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateItemFromIDList(pidl, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9020,7 +9022,9 @@ class Shell {
     static SHCreateItemFromParsingName(pszPath, pbc, riid, ppv) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9052,7 +9056,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateItemWithParent(pidlParent, psfParent, pidl, riid, ppvItem) {
-        result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, "ptr*", ppvItem, "int")
+        ppvItemMarshal := ppvItem is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, ppvItemMarshal, ppvItem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9086,7 +9092,9 @@ class Shell {
     static SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid, ppv) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9119,7 +9127,9 @@ class Shell {
     static SHCreateItemInKnownFolder(kfid, dwKFFlags, pszItem, riid, ppv) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9141,7 +9151,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHGetIDListFromObject(punk, ppidl) {
-        result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, "ptr*", ppidl, "int")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, ppidlMarshal, ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9166,7 +9178,9 @@ class Shell {
      * @since windows6.1
      */
     static SHGetItemFromObject(punk, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9219,7 +9233,9 @@ class Shell {
      * @since windows6.1
      */
     static SHGetItemFromDataObject(pdtobj, dwFlags, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9250,7 +9266,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArray(pidlParent, psf, cidl, ppidl, ppsiItemArray) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, "ptr*", ppidl, "ptr*", ppsiItemArray, "int")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, ppidlMarshal, ppidl, "ptr*", ppsiItemArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9275,7 +9293,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromDataObject(pdo, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9300,7 +9320,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromIDLists(cidl, rgpidl, ppsiItemArray) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, "ptr*", rgpidl, "ptr*", ppsiItemArray, "int")
+        rgpidlMarshal := rgpidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, rgpidlMarshal, rgpidl, "ptr*", ppsiItemArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9325,7 +9347,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromShellItem(psi, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9347,7 +9371,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateAssociationRegistration(riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9369,7 +9395,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateDefaultExtractIcon(riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9565,7 +9593,9 @@ class Shell {
     static SHAssocEnumHandlersForProtocolByApplication(protocol, riid, enumHandlers) {
         protocol := protocol is String ? StrPtr(protocol) : protocol
 
-        result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, "ptr*", enumHandlers, "int")
+        enumHandlersMarshal := enumHandlers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, enumHandlersMarshal, enumHandlers, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10067,7 +10097,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static ILLoadFromStreamEx(pstm, pidl) {
-        result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, "ptr*", pidl, "int")
+        pidlMarshal := pidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, pidlMarshal, pidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10130,9 +10162,10 @@ class Shell {
     static SHILCreateFromPath(pszPath, ppidl, rgfInOut) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
         rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr*", ppidl, rgfInOutMarshal, rgfInOut, "int")
+        result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, ppidlMarshal, ppidl, rgfInOutMarshal, rgfInOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10535,7 +10568,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHOpenFolderAndSelectItems(pidlFolder, cidl, apidl, dwFlags) {
-        result := DllCall("SHELL32.dll\SHOpenFolderAndSelectItems", "ptr", pidlFolder, "uint", cidl, "ptr*", apidl, "uint", dwFlags, "int")
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHOpenFolderAndSelectItems", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10589,7 +10624,9 @@ class Shell {
 
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr*", ppidl, "int")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, ppidlMarshal, ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10853,7 +10890,9 @@ class Shell {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", ppidl, "int")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, ppidlMarshal, ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11127,7 +11166,9 @@ class Shell {
     static SHGetKnownFolderIDList(rfid, dwFlags, hToken, ppidl) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr*", ppidl, "int")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, ppidlMarshal, ppidl, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11304,7 +11345,9 @@ class Shell {
     static SHGetKnownFolderItem(rfid, flags, hToken, riid, ppv) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11729,9 +11772,10 @@ class Shell {
     static SHChangeNotification_Lock(hChange, dwProcId, pppidl, plEvent) {
         hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
 
+        pppidlMarshal := pppidl is VarRef ? "ptr*" : "ptr"
         plEventMarshal := plEvent is VarRef ? "int*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, "ptr*", pppidl, plEventMarshal, plEvent, "ptr")
+        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -11771,7 +11815,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetRealIDL(psf, pidlSimple, ppidlReal) {
-        result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, "ptr*", ppidlReal, "int")
+        ppidlRealMarshal := ppidlReal is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, ppidlRealMarshal, ppidlReal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11942,7 +11988,9 @@ class Shell {
     static SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid, ppv) {
         pszCLSID := pszCLSID is String ? StrPtr(pszCLSID) : pszCLSID
 
-        result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11976,7 +12024,10 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, "ptr*", apidl, "ptr", pdtInner, "ptr", riid, "ptr*", ppv, "int")
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr", pdtInner, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12004,7 +12055,9 @@ class Shell {
      * @since windows5.0
      */
     static CIDLData_CreateFromIDArray(pidlFolder, cidl, apidl, ppdtobj) {
-        result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, "ptr*", apidl, "ptr*", ppdtobj, "int")
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr*", ppdtobj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12450,9 +12503,11 @@ class Shell {
     static PathResolve(pszPath, dirs, fFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
+        dirsMarshal := dirs is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, "ptr*", dirs, "uint", fFlags, "int")
+        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, dirsMarshal, dirs, "uint", fFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13618,7 +13673,9 @@ class Shell {
     static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys, ppcm) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, "ptr*", apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", ppcm, "int")
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", ppcm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13643,7 +13700,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateDefaultContextMenu(pdcm, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13759,7 +13818,10 @@ class Shell {
      * @since windows5.0
      */
     static SHBindToParent(pidl, riid, ppv, ppidlLast) {
-        result := DllCall("SHELL32.dll\SHBindToParent", "ptr", pidl, "ptr", riid, "ptr*", ppv, "ptr*", ppidlLast, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHBindToParent", "ptr", pidl, "ptr", riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13790,7 +13852,10 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHBindToFolderIDListParent(psfRoot, pidl, riid, ppv, ppidlLast) {
-        result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", "ptr", psfRoot, "ptr", pidl, "ptr", riid, "ptr*", ppv, "ptr*", ppidlLast, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", "ptr", psfRoot, "ptr", pidl, "ptr", riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13824,7 +13889,10 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHBindToFolderIDListParentEx(psfRoot, pidl, ppbc, riid, ppv, ppidlLast) {
-        result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", "ptr", psfRoot, "ptr", pidl, "ptr", ppbc, "ptr", riid, "ptr*", ppv, "ptr*", ppidlLast, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", "ptr", psfRoot, "ptr", pidl, "ptr", ppbc, "ptr", riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13856,7 +13924,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHBindToObject(psf, pidl, pbc, riid, ppv) {
-        result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13889,9 +13959,10 @@ class Shell {
     static SHParseDisplayName(pszName, pbc, ppidl, sfgaoIn, psfgaoOut) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
         psfgaoOutMarshal := psfgaoOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, "ptr*", ppidl, "uint", sfgaoIn, psfgaoOutMarshal, psfgaoOut, "int")
+        result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, ppidlMarshal, ppidl, "uint", sfgaoIn, psfgaoOutMarshal, psfgaoOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13979,7 +14050,9 @@ class Shell {
     static SHCreateFileExtractIconW(pszFile, dwFileAttributes, riid, ppv) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14171,7 +14244,9 @@ class Shell {
     static StgMakeUniqueName(pstgParent, pszFileSpec, grfMode, riid, ppv) {
         pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
-        result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16371,7 +16446,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static AssocCreateForClasses(rgClasses, cClasses, riid, ppv) {
-        result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17396,7 +17473,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetImageList(iImageList, riid, ppvObj) {
-        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -20245,7 +20324,9 @@ class Shell {
     static PathFindOnPathA(pszPath, ppszOtherDirs) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, "ptr*", ppszOtherDirs, "int")
+        ppszOtherDirsMarshal := ppszOtherDirs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, ppszOtherDirsMarshal, ppszOtherDirs, "int")
         return result
     }
 
@@ -20266,7 +20347,9 @@ class Shell {
     static PathFindOnPathW(pszPath, ppszOtherDirs) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, "ptr*", ppszOtherDirs, "int")
+        ppszOtherDirsMarshal := ppszOtherDirs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, ppszOtherDirsMarshal, ppszOtherDirs, "int")
         return result
     }
 
@@ -25051,7 +25134,9 @@ class Shell {
      * @since windows5.0
      */
     static AssocCreate(clsid, riid, ppv) {
-        result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25763,7 +25848,9 @@ class Shell {
      * @since windows5.0
      */
     static IUnknown_AtomicRelease(ppunk) {
-        DllCall("SHLWAPI.dll\IUnknown_AtomicRelease", "ptr*", ppunk)
+        ppunkMarshal := ppunk is VarRef ? "ptr*" : "ptr"
+
+        DllCall("SHLWAPI.dll\IUnknown_AtomicRelease", ppunkMarshal, ppunk)
     }
 
     /**
@@ -25828,7 +25915,9 @@ class Shell {
      * @since windows5.0
      */
     static IUnknown_GetSite(punk, riid, ppv) {
-        result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25856,7 +25945,9 @@ class Shell {
      * @since windows5.0
      */
     static IUnknown_QueryService(punk, guidService, riid, ppvOut) {
-        result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, "ptr*", ppvOut, "int")
+        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, ppvOutMarshal, ppvOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26007,7 +26098,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static IStream_ReadPidl(pstm, ppidlOut) {
-        result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, "ptr*", ppidlOut, "int")
+        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, ppidlOutMarshal, ppidlOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26136,7 +26229,9 @@ class Shell {
     static SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid, ppv) {
         pszBagName := pszBagName is String ? StrPtr(pszBagName) : pszBagName
 
-        result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26717,8 +26812,9 @@ class Shell {
      */
     static QISearch(that, pqit, riid, ppv) {
         thatMarshal := that is VarRef ? "ptr" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\QISearch", thatMarshal, that, "ptr", pqit, "ptr", riid, "ptr*", ppv, "int")
+        result := DllCall("SHLWAPI.dll\QISearch", thatMarshal, that, "ptr", pqit, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27112,7 +27208,9 @@ class Shell {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27136,7 +27234,9 @@ class Shell {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27154,7 +27254,9 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
-        result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27184,7 +27286,9 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData, ppvObj) {
-        result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27199,7 +27303,9 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkCreateBrowseContext(piunkOuter, riid, ppvObj) {
-        result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27387,7 +27493,9 @@ class Shell {
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27535,7 +27643,9 @@ class Shell {
     static HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
         pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-        result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 

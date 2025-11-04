@@ -37,7 +37,9 @@ class IDirectoryObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectinformation
      */
     GetObjectInformation(ppObjInfo) {
-        result := ComCall(3, this, "ptr*", ppObjInfo, "HRESULT")
+        ppObjInfoMarshal := ppObjInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppObjInfoMarshal, ppObjInfo, "HRESULT")
         return result
     }
 
@@ -51,9 +53,10 @@ class IDirectoryObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectattributes
      */
     GetObjectAttributes(pAttributeNames, dwNumberAttributes, ppAttributeEntries, pdwNumAttributesReturned) {
+        ppAttributeEntriesMarshal := ppAttributeEntries is VarRef ? "ptr*" : "ptr"
         pdwNumAttributesReturnedMarshal := pdwNumAttributesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pAttributeNames, "uint", dwNumberAttributes, "ptr*", ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
+        result := ComCall(4, this, "ptr", pAttributeNames, "uint", dwNumberAttributes, ppAttributeEntriesMarshal, ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
         return result
     }
 

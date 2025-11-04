@@ -66,7 +66,9 @@ class IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback{
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest3callback-onclientcertificaterequested
      */
     OnClientCertificateRequested(pXHR, cIssuerList, rgpwszIssuerList) {
-        result := ComCall(9, this, "ptr", pXHR, "uint", cIssuerList, "ptr*", rgpwszIssuerList, "HRESULT")
+        rgpwszIssuerListMarshal := rgpwszIssuerList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pXHR, "uint", cIssuerList, rgpwszIssuerListMarshal, rgpwszIssuerList, "HRESULT")
         return result
     }
 }

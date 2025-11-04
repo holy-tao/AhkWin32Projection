@@ -36,7 +36,9 @@ class IWindowsDevicesAllJoynBusObjectFactoryInterop extends IInspectable{
      * @returns {HRESULT} 
      */
     CreateFromWin32Handle(win32handle, riid, ppv) {
-        result := ComCall(6, this, "uint", win32handle, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", win32handle, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

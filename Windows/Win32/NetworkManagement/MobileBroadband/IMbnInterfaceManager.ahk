@@ -143,7 +143,9 @@ class IMbnInterfaceManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfacemanager-getinterfaces
      */
     GetInterfaces(mbnInterfaces) {
-        result := ComCall(4, this, "ptr*", mbnInterfaces, "HRESULT")
+        mbnInterfacesMarshal := mbnInterfaces is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, mbnInterfacesMarshal, mbnInterfaces, "HRESULT")
         return result
     }
 }

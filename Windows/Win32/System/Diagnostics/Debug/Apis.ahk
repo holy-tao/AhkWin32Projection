@@ -1795,7 +1795,9 @@ class Debug {
      * @since windows8.0
      */
     static RtlAddGrowableFunctionTable(DynamicTable, FunctionTable, EntryCount, MaximumEntryCount, RangeBase, RangeEnd) {
-        result := DllCall("ntdll.dll\RtlAddGrowableFunctionTable", "ptr*", DynamicTable, "ptr", FunctionTable, "uint", EntryCount, "uint", MaximumEntryCount, "ptr", RangeBase, "ptr", RangeEnd, "uint")
+        DynamicTableMarshal := DynamicTable is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlAddGrowableFunctionTable", DynamicTableMarshal, DynamicTable, "ptr", FunctionTable, "uint", EntryCount, "uint", MaximumEntryCount, "ptr", RangeBase, "ptr", RangeEnd, "uint")
         return result
     }
 
@@ -1842,9 +1844,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlvirtualunwind
      */
     static RtlVirtualUnwind(HandlerType, ImageBase, ControlPc, FunctionEntry, ContextRecord, HandlerData, EstablisherFrame, ContextPointers) {
+        HandlerDataMarshal := HandlerData is VarRef ? "ptr*" : "ptr"
         EstablisherFrameMarshal := EstablisherFrame is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\RtlVirtualUnwind", "uint", HandlerType, "ptr", ImageBase, "ptr", ControlPc, "ptr", FunctionEntry, "ptr", ContextRecord, "ptr*", HandlerData, EstablisherFrameMarshal, EstablisherFrame, "ptr", ContextPointers, "ptr")
+        result := DllCall("KERNEL32.dll\RtlVirtualUnwind", "uint", HandlerType, "ptr", ImageBase, "ptr", ControlPc, "ptr", FunctionEntry, "ptr", ContextRecord, HandlerDataMarshal, HandlerData, EstablisherFrameMarshal, EstablisherFrame, "ptr", ContextPointers, "ptr")
         return result
     }
 
@@ -2241,10 +2244,11 @@ class Debug {
      */
     static ImageRvaToVa(NtHeaders, Base, Rva, LastRvaSection) {
         BaseMarshal := Base is VarRef ? "ptr" : "ptr"
+        LastRvaSectionMarshal := LastRvaSection is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageRvaToVa", "ptr", NtHeaders, BaseMarshal, Base, "uint", Rva, "ptr*", LastRvaSection, "ptr")
+        result := DllCall("dbghelp.dll\ImageRvaToVa", "ptr", NtHeaders, BaseMarshal, Base, "uint", Rva, LastRvaSectionMarshal, LastRvaSection, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2264,9 +2268,10 @@ class Debug {
      * @since windows5.1.2600
      */
     static RtlCaptureStackBackTrace(FramesToSkip, FramesToCapture, BackTrace, BackTraceHash) {
+        BackTraceMarshal := BackTrace is VarRef ? "ptr*" : "ptr"
         BackTraceHashMarshal := BackTraceHash is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\RtlCaptureStackBackTrace", "uint", FramesToSkip, "uint", FramesToCapture, "ptr*", BackTrace, BackTraceHashMarshal, BackTraceHash, "ushort")
+        result := DllCall("KERNEL32.dll\RtlCaptureStackBackTrace", "uint", FramesToSkip, "uint", FramesToCapture, BackTraceMarshal, BackTrace, BackTraceHashMarshal, BackTraceHash, "ushort")
         return result
     }
 
@@ -2342,8 +2347,9 @@ class Debug {
      */
     static RtlPcToFileHeader(PcValue, BaseOfImage) {
         PcValueMarshal := PcValue is VarRef ? "ptr" : "ptr"
+        BaseOfImageMarshal := BaseOfImage is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\RtlPcToFileHeader", PcValueMarshal, PcValue, "ptr*", BaseOfImage, "ptr")
+        result := DllCall("KERNEL32.dll\RtlPcToFileHeader", PcValueMarshal, PcValue, BaseOfImageMarshal, BaseOfImage, "ptr")
         return result
     }
 
@@ -2676,8 +2682,9 @@ class Debug {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         PtrMarshal := Ptr is VarRef ? "ptr" : "ptr"
+        EncodedPtrMarshal := EncodedPtr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, "ptr*", EncodedPtr, "int")
+        result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, EncodedPtrMarshal, EncodedPtr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2695,8 +2702,9 @@ class Debug {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
 
         PtrMarshal := Ptr is VarRef ? "ptr" : "ptr"
+        DecodedPtrMarshal := DecodedPtr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, "ptr*", DecodedPtr, "int")
+        result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, PtrMarshal, Ptr, DecodedPtrMarshal, DecodedPtr, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3386,9 +3394,11 @@ class Debug {
      */
     static MiniDumpReadDumpStream(BaseOfDump, StreamNumber, Dir, StreamPointer, StreamSize) {
         BaseOfDumpMarshal := BaseOfDump is VarRef ? "ptr" : "ptr"
+        DirMarshal := Dir is VarRef ? "ptr*" : "ptr"
+        StreamPointerMarshal := StreamPointer is VarRef ? "ptr*" : "ptr"
         StreamSizeMarshal := StreamSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", BaseOfDumpMarshal, BaseOfDump, "uint", StreamNumber, "ptr*", Dir, "ptr*", StreamPointer, StreamSizeMarshal, StreamSize, "int")
+        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", BaseOfDumpMarshal, BaseOfDump, "uint", StreamNumber, DirMarshal, Dir, StreamPointerMarshal, StreamPointer, StreamSizeMarshal, StreamSize, "int")
         return result
     }
 
@@ -4472,10 +4482,11 @@ class Debug {
     static ImageDirectoryEntryToDataEx(Base, MappedAsImage, DirectoryEntry, Size, FoundHeader) {
         BaseMarshal := Base is VarRef ? "ptr" : "ptr"
         SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+        FoundHeaderMarshal := FoundHeader is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", BaseMarshal, Base, "char", MappedAsImage, "ushort", DirectoryEntry, SizeMarshal, Size, "ptr*", FoundHeader, "ptr")
+        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", BaseMarshal, Base, "char", MappedAsImage, "ushort", DirectoryEntry, SizeMarshal, Size, FoundHeaderMarshal, FoundHeader, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5653,12 +5664,14 @@ class Debug {
     static SymGetOmaps(hProcess, BaseOfDll, OmapTo, cOmapTo, OmapFrom, cOmapFrom) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        OmapToMarshal := OmapTo is VarRef ? "ptr*" : "ptr"
         cOmapToMarshal := cOmapTo is VarRef ? "uint*" : "ptr"
+        OmapFromMarshal := OmapFrom is VarRef ? "ptr*" : "ptr"
         cOmapFromMarshal := cOmapFrom is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, "ptr*", OmapTo, cOmapToMarshal, cOmapTo, "ptr*", OmapFrom, cOmapFromMarshal, cOmapFrom, "int")
+        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, OmapToMarshal, OmapTo, cOmapToMarshal, cOmapTo, OmapFromMarshal, OmapFrom, cOmapFromMarshal, cOmapFrom, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7517,11 +7530,12 @@ class Debug {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
 
+        TokenMarshal := Token is VarRef ? "ptr*" : "ptr"
         SizeMarshal := Size is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr*", Token, SizeMarshal, Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, TokenMarshal, Token, SizeMarshal, Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7545,9 +7559,10 @@ class Debug {
         TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
 
+        TokenMarshal := Token is VarRef ? "ptr*" : "ptr"
         SizeMarshal := Size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr*", Token, SizeMarshal, Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, TokenMarshal, Token, SizeMarshal, Size, "int")
         return result
     }
 
@@ -7639,11 +7654,12 @@ class Debug {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
 
+        TokenMarshal := Token is VarRef ? "ptr*" : "ptr"
         SizeMarshal := Size is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr*", Token, SizeMarshal, Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, TokenMarshal, Token, SizeMarshal, Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7667,9 +7683,10 @@ class Debug {
         TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
 
+        TokenMarshal := Token is VarRef ? "ptr*" : "ptr"
         SizeMarshal := Size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr*", Token, SizeMarshal, Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, TokenMarshal, Token, SizeMarshal, Size, "int")
         return result
     }
 
@@ -11446,10 +11463,11 @@ class Debug {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         lpSourceMarshal := lpSource is VarRef ? "ptr" : "ptr"
+        ArgumentsMarshal := Arguments is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FormatMessageA", "uint", dwFlags, lpSourceMarshal, lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "ptr*", Arguments, "uint")
+        result := DllCall("KERNEL32.dll\FormatMessageA", "uint", dwFlags, lpSourceMarshal, lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, ArgumentsMarshal, Arguments, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11564,10 +11582,11 @@ class Debug {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         lpSourceMarshal := lpSource is VarRef ? "ptr" : "ptr"
+        ArgumentsMarshal := Arguments is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FormatMessageW", "uint", dwFlags, lpSourceMarshal, lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "ptr*", Arguments, "uint")
+        result := DllCall("KERNEL32.dll\FormatMessageW", "uint", dwFlags, lpSourceMarshal, lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, ArgumentsMarshal, Arguments, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11641,11 +11660,12 @@ class Debug {
      * @since windows6.1
      */
     static InitializeContext(Buffer, ContextFlags, Context, ContextLength) {
+        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
         ContextLengthMarshal := ContextLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, "ptr*", Context, ContextLengthMarshal, ContextLength, "int")
+        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, ContextMarshal, Context, ContextLengthMarshal, ContextLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11690,11 +11710,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-initializecontext2
      */
     static InitializeContext2(Buffer, ContextFlags, Context, ContextLength, XStateCompactionMask) {
+        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
         ContextLengthMarshal := ContextLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, "ptr*", Context, ContextLengthMarshal, ContextLength, "uint", XStateCompactionMask, "int")
+        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, ContextMarshal, Context, ContextLengthMarshal, ContextLength, "uint", XStateCompactionMask, "int")
         if(A_LastError)
             throw OSError()
 

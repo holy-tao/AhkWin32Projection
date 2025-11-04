@@ -23378,7 +23378,9 @@ class HumanInterfaceDevice {
     static DirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
-        result := DllCall("DINPUT8.dll\DirectInput8Create", "ptr", hinst, "uint", dwVersion, "ptr", riidltf, "ptr*", ppvOut, "ptr", punkOuter, "int")
+        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DINPUT8.dll\DirectInput8Create", "ptr", hinst, "uint", dwVersion, "ptr", riidltf, ppvOutMarshal, ppvOut, "ptr", punkOuter, "int")
         if(result != 0)
             throw OSError(result)
 

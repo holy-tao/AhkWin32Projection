@@ -4086,9 +4086,11 @@ class Usb {
     static WinUsb_RegisterIsochBuffer(InterfaceHandle, PipeID, Buffer, BufferLength, IsochBufferHandle) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
+        IsochBufferHandleMarshal := IsochBufferHandle is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "ptr*", IsochBufferHandle, "int")
+        result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, IsochBufferHandleMarshal, IsochBufferHandle, "int")
         if(A_LastError)
             throw OSError()
 

@@ -60,7 +60,9 @@ class IOpenSearchSource extends IUnknown{
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

@@ -247,8 +247,9 @@ class ClrHosting {
         pwszHostConfigFile := pwszHostConfigFile is String ? StrPtr(pwszHostConfigFile) : pwszHostConfigFile
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr*", ppv, "int")
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -270,7 +271,9 @@ class ClrHosting {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
         pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -289,7 +292,9 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToRuntimeByCfg(pCfgStream, reserved, startupFlags, rclsid, riid, ppv) {
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, "uint", reserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, "uint", reserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -310,7 +315,9 @@ class ClrHosting {
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
         pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -329,7 +336,9 @@ class ClrHosting {
     static CorBindToCurrentRuntime(pwszFileName, rclsid, riid, ppv) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -347,7 +356,9 @@ class ClrHosting {
     static ClrCreateManagedInstance(pTypeName, riid, ppObject) {
         pTypeName := pTypeName is String ? StrPtr(pTypeName) : pTypeName
 
-        result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, "ptr*", ppObject, "int")
+        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, ppObjectMarshal, ppObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -444,7 +455,9 @@ class ClrHosting {
     static GetRealProcAddress(pwszProcName, ppv) {
         pwszProcName := pwszProcName is String ? StrPtr(pwszProcName) : pwszProcName
 
-        result := DllCall("MSCorEE.dll\GetRealProcAddress", "ptr", pwszProcName, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\GetRealProcAddress", "ptr", pwszProcName, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -512,7 +525,10 @@ class ClrHosting {
      * @deprecated
      */
     static LockClrVersion(hostCallback, pBeginHostSetup, pEndHostSetup) {
-        result := DllCall("MSCorEE.dll\LockClrVersion", "ptr", hostCallback, "ptr*", pBeginHostSetup, "ptr*", pEndHostSetup, "int")
+        pBeginHostSetupMarshal := pBeginHostSetup is VarRef ? "ptr*" : "ptr"
+        pEndHostSetupMarshal := pEndHostSetup is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\LockClrVersion", "ptr", hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -623,7 +639,9 @@ class ClrHosting {
      * @returns {HRESULT} 
      */
     static CLRCreateInstance(clsid, riid, ppInterface) {
-        result := DllCall("MSCorEE.dll\CLRCreateInstance", "ptr", clsid, "ptr", riid, "ptr*", ppInterface, "int")
+        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MSCorEE.dll\CLRCreateInstance", "ptr", clsid, "ptr", riid, ppInterfaceMarshal, ppInterface, "int")
         if(result != 0)
             throw OSError(result)
 

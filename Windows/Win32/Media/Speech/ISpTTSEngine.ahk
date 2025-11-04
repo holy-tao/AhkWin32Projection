@@ -51,7 +51,9 @@ class ISpTTSEngine extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputFormat(pTargetFmtId, pTargetWaveFormatEx, pOutputFormatId, ppCoMemOutputWaveFormatEx) {
-        result := ComCall(4, this, "ptr", pTargetFmtId, "ptr", pTargetWaveFormatEx, "ptr", pOutputFormatId, "ptr*", ppCoMemOutputWaveFormatEx, "HRESULT")
+        ppCoMemOutputWaveFormatExMarshal := ppCoMemOutputWaveFormatEx is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pTargetFmtId, "ptr", pTargetWaveFormatEx, "ptr", pOutputFormatId, ppCoMemOutputWaveFormatExMarshal, ppCoMemOutputWaveFormatEx, "HRESULT")
         return result
     }
 }

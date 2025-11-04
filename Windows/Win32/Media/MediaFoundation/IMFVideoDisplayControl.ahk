@@ -146,10 +146,11 @@ class IMFVideoDisplayControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getcurrentimage
      */
     GetCurrentImage(pBih, pDib, pcbDib, pTimeStamp) {
+        pDibMarshal := pDib is VarRef ? "ptr*" : "ptr"
         pcbDibMarshal := pcbDib is VarRef ? "uint*" : "ptr"
         pTimeStampMarshal := pTimeStamp is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pBih, "ptr*", pDib, pcbDibMarshal, pcbDib, pTimeStampMarshal, pTimeStamp, "HRESULT")
+        result := ComCall(12, this, "ptr", pBih, pDibMarshal, pDib, pcbDibMarshal, pcbDib, pTimeStampMarshal, pTimeStamp, "HRESULT")
         return result
     }
 

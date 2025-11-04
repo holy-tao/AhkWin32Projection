@@ -130,7 +130,9 @@ class IDirect3DDeviceManager9 extends IUnknown{
     GetVideoService(hDevice, riid, ppService) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := ComCall(9, this, "ptr", hDevice, "ptr", riid, "ptr*", ppService, "HRESULT")
+        ppServiceMarshal := ppService is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", hDevice, "ptr", riid, ppServiceMarshal, ppService, "HRESULT")
         return result
     }
 }

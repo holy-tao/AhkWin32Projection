@@ -179,7 +179,9 @@ class IDiscRecorder2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_volumepathnames
      */
     get_VolumePathNames(value) {
-        result := ComCall(19, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -214,7 +216,9 @@ class IDiscRecorder2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_supportedfeaturepages
      */
     get_SupportedFeaturePages(value) {
-        result := ComCall(22, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -225,7 +229,9 @@ class IDiscRecorder2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_currentfeaturepages
      */
     get_CurrentFeaturePages(value) {
-        result := ComCall(23, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(23, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -236,7 +242,9 @@ class IDiscRecorder2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_supportedprofiles
      */
     get_SupportedProfiles(value) {
-        result := ComCall(24, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(24, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -247,7 +255,9 @@ class IDiscRecorder2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_currentprofiles
      */
     get_CurrentProfiles(value) {
-        result := ComCall(25, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(25, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -258,7 +268,9 @@ class IDiscRecorder2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_supportedmodepages
      */
     get_SupportedModePages(value) {
-        result := ComCall(26, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(26, this, valueMarshal, value, "HRESULT")
         return result
     }
 

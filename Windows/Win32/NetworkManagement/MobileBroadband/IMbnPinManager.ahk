@@ -41,7 +41,9 @@ class IMbnPinManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanager-getpinlist
      */
     GetPinList(pinList) {
-        result := ComCall(3, this, "ptr*", pinList, "HRESULT")
+        pinListMarshal := pinList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pinListMarshal, pinList, "HRESULT")
         return result
     }
 

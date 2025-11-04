@@ -166,8 +166,9 @@ class IATSC_EIT extends IUnknown{
      */
     GetRecordTitleText(dwRecordIndex, pdwLength, ppText) {
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwRecordIndex, pdwLengthMarshal, pdwLength, "ptr*", ppText, "HRESULT")
+        result := ComCall(12, this, "uint", dwRecordIndex, pdwLengthMarshal, pdwLength, ppTextMarshal, ppText, "HRESULT")
         return result
     }
 

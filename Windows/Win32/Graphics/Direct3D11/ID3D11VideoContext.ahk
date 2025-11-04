@@ -74,8 +74,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      */
     GetDecoderBuffer(pDecoder, Type, pBufferSize, ppBuffer) {
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pDecoder, "int", Type, pBufferSizeMarshal, pBufferSize, "ptr*", ppBuffer, "HRESULT")
+        result := ComCall(7, this, "ptr", pDecoder, "int", Type, pBufferSizeMarshal, pBufferSize, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 

@@ -49,9 +49,11 @@ class IOpcDigitalSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getnamespaces
      */
     GetNamespaces(prefixes, namespaces, count) {
+        prefixesMarshal := prefixes is VarRef ? "ptr*" : "ptr"
+        namespacesMarshal := namespaces is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", prefixes, "ptr*", namespaces, countMarshal, count, "HRESULT")
+        result := ComCall(3, this, prefixesMarshal, prefixes, namespacesMarshal, namespaces, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -109,9 +111,10 @@ class IOpcDigitalSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturevalue
      */
     GetSignatureValue(signatureValue, count) {
+        signatureValueMarshal := signatureValue is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr*", signatureValue, countMarshal, count, "HRESULT")
+        result := ComCall(8, this, signatureValueMarshal, signatureValue, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -213,9 +216,10 @@ class IOpcDigitalSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturexml
      */
     GetSignatureXml(signatureXml, count) {
+        signatureXmlMarshal := signatureXml is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr*", signatureXml, countMarshal, count, "HRESULT")
+        result := ComCall(17, this, signatureXmlMarshal, signatureXml, countMarshal, count, "HRESULT")
         return result
     }
 }

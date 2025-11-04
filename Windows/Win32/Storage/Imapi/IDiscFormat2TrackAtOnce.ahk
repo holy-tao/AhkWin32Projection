@@ -216,7 +216,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_expectedtableofcontents
      */
     get_ExpectedTableOfContents(value) {
-        result := ComCall(27, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(27, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -312,7 +314,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeds
      */
     get_SupportedWriteSpeeds(supportedSpeeds) {
-        result := ComCall(35, this, "ptr*", supportedSpeeds, "HRESULT")
+        supportedSpeedsMarshal := supportedSpeeds is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(35, this, supportedSpeedsMarshal, supportedSpeeds, "HRESULT")
         return result
     }
 
@@ -323,7 +327,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeddescriptors
      */
     get_SupportedWriteSpeedDescriptors(supportedSpeedDescriptors) {
-        result := ComCall(36, this, "ptr*", supportedSpeedDescriptors, "HRESULT")
+        supportedSpeedDescriptorsMarshal := supportedSpeedDescriptors is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(36, this, supportedSpeedDescriptorsMarshal, supportedSpeedDescriptors, "HRESULT")
         return result
     }
 }

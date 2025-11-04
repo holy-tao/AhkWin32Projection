@@ -45,7 +45,9 @@ class IMFByteStreamProxyClassFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestreamproxyclassfactory-createbytestreamproxy
      */
     CreateByteStreamProxy(pByteStream, pAttributes, riid, ppvObject) {
-        result := ComCall(3, this, "ptr", pByteStream, "ptr", pAttributes, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pByteStream, "ptr", pAttributes, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

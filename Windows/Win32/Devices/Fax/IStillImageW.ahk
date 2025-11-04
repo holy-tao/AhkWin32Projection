@@ -62,8 +62,9 @@ class IStillImageW extends IUnknown{
      */
     GetDeviceList(dwType, dwFlags, pdwItemsReturned, ppBuffer) {
         pdwItemsReturnedMarshal := pdwItemsReturned is VarRef ? "uint*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwType, "uint", dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, "ptr*", ppBuffer, "HRESULT")
+        result := ComCall(4, this, "uint", dwType, "uint", dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 
@@ -76,7 +77,9 @@ class IStillImageW extends IUnknown{
     GetDeviceInfo(pwszDeviceName, ppBuffer) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(5, this, "ptr", pwszDeviceName, "ptr*", ppBuffer, "HRESULT")
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pwszDeviceName, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 

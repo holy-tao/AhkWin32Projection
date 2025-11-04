@@ -95,7 +95,9 @@ class IDockingWindowFrame extends IOleWindow{
     FindToolbar(pwszItem, riid, ppv) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem
 
-        result := ComCall(7, this, "ptr", pwszItem, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pwszItem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

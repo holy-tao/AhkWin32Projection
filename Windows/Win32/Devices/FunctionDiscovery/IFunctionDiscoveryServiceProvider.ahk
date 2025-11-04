@@ -49,7 +49,9 @@ class IFunctionDiscoveryServiceProvider extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
     Initialize(pIFunctionInstance, riid, ppv) {
-        result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

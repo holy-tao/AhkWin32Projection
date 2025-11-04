@@ -41,7 +41,9 @@ class IESValueUpdatedEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesvalueupdatedevent-getvaluenames
      */
     GetValueNames(pbstrNames) {
-        result := ComCall(8, this, "ptr*", pbstrNames, "HRESULT")
+        pbstrNamesMarshal := pbstrNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, pbstrNamesMarshal, pbstrNames, "HRESULT")
         return result
     }
 }

@@ -60,9 +60,10 @@ class IInternetZoneManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetZoneCustomPolicy(dwZone, guidKey, ppPolicy, pcbPolicy, urlZoneReg) {
+        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwZone, "ptr", guidKey, "ptr*", ppPolicy, pcbPolicyMarshal, pcbPolicy, "int", urlZoneReg, "HRESULT")
+        result := ComCall(5, this, "uint", dwZone, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, "int", urlZoneReg, "HRESULT")
         return result
     }
 

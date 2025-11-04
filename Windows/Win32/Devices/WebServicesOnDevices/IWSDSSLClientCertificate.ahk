@@ -43,7 +43,9 @@ class IWSDSSLClientCertificate extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsslclientcertificate-getclientcertificate
      */
     GetClientCertificate(ppCertContext) {
-        result := ComCall(3, this, "ptr*", ppCertContext, "HRESULT")
+        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
     }
 
